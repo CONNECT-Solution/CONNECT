@@ -42,7 +42,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 //import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -50,7 +51,7 @@ import org.apache.log4j.Logger;
  */
 public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRetrieveProxy {
 
-    private static final Logger LOG = Logger.getLogger(EntityDocRetrieveProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocRetrieveProxyWebServiceSecuredImpl.class);
 
     protected EntityDocRetrieveSecured getWebService() {
         return new EntityDocRetrieveSecured();

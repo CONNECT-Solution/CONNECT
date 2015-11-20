@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -41,7 +42,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 
 public class AdapterMpiImpl extends BaseService {
-    private static final Logger LOG = Logger.getLogger(AdapterMpiImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterMpiImpl.class);
 
     /**
      * Perform a look up on the MPI.

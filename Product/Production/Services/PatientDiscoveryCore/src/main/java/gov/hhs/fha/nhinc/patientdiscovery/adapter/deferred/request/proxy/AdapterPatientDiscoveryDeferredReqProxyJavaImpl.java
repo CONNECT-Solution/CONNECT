@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatien
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
@@ -41,7 +42,7 @@ import org.hl7.v3.PRPAIN201305UV02;
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoveryDeferredReqProxyJavaImpl implements AdapterPatientDiscoveryDeferredReqProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredReqProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryDeferredReqProxyJavaImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,

@@ -38,7 +38,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class AdhocQueryTransformHelper {
 
-    private static final Logger LOG = Logger.getLogger(AdhocQueryTransformHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdhocQueryTransformHelper.class);
     private static final String ACTIONVALUEIN = "DocumentQueryIn";
     private static final String ACTIONVALUEOUT = "DocumentQueryOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;

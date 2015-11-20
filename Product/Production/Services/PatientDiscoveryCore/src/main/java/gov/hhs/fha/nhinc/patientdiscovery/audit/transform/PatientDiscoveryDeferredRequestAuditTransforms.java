@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201305UV02Parser;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
@@ -43,7 +44,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 public class PatientDiscoveryDeferredRequestAuditTransforms extends AbstractPatientDiscoveryAuditTransforms<
     PRPAIN201305UV02, MCCIIN000002UV01> {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryDeferredRequestAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryDeferredRequestAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,

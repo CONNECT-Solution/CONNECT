@@ -43,7 +43,8 @@ import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -51,7 +52,7 @@ import org.apache.log4j.Logger;
  */
 public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, AdhocQueryResponse> {
 
-    private static final Logger LOG = Logger.getLogger(DocQueryAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocQueryAuditTransforms.class);
     private static final String JAXB_HL7_CONTEXT_NAME = "oasis.names.tc.ebxml_regrep.xsd.query._3";
 
     @Override

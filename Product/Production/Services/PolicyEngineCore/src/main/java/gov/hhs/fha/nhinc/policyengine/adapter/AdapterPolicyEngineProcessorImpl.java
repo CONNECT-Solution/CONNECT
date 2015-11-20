@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyObjectFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the implementation of the AdapterPolicyEngine. It is the entry point from the Gateway to the Adapter
@@ -42,7 +43,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineProcessorImpl implements AdapterPolicyEngineProcessor {
-    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineProcessorImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineProcessorImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the Adapter PEP to determine if

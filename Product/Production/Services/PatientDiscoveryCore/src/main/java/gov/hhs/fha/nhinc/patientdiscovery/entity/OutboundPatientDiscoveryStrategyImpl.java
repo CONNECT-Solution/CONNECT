@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
@@ -43,7 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscoveryStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryStrategyImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryStrategyImpl.class);
 
     /**
      * @param message contains request message to execute

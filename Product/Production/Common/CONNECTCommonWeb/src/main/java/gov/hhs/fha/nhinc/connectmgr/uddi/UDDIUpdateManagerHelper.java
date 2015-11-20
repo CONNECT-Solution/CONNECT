@@ -37,7 +37,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -47,7 +48,7 @@ import org.uddi.api_v3.BusinessDetail;
  */
 public class UDDIUpdateManagerHelper {
 
-    private static final Logger LOG = Logger.getLogger(UDDIUpdateManagerHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UDDIUpdateManagerHelper.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
     private static final String UDDI_MAX_NUM_BACKUPS_PROPERTY = "UDDIMaxNumBackups";

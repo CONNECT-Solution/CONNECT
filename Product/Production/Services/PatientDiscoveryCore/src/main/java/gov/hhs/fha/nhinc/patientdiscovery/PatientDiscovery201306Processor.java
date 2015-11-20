@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -43,7 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class PatientDiscovery201306Processor {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscovery201306Processor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscovery201306Processor.class);
 
     /**
      * createNewRequest

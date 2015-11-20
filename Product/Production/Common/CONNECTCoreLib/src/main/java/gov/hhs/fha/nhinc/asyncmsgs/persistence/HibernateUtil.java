@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -41,7 +42,7 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateUtil {
     private static final SessionFactory sessionFactory;
-    private static final Logger LOG = Logger.getLogger(HibernateUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml

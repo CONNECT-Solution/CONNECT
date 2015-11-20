@@ -33,7 +33,8 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
@@ -45,7 +46,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  * @author JHOPPESC
  */
 public class AdapterComponentDocSubmissionOrchImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionOrchImpl.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {

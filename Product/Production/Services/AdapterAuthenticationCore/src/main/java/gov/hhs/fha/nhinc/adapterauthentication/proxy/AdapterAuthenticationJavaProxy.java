@@ -30,14 +30,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationImpl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterAuthentication.
  */
 public class AdapterAuthenticationJavaProxy implements AdapterAuthenticationProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationJavaProxy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterAuthenticationJavaProxy.class);
 
     /**
      * Given a request to authenticate a user, this service will determine if this is an identifiable user within

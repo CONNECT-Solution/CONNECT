@@ -32,7 +32,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class CryptoRandomGenerator {
 
-    private static final Logger LOG = Logger.getLogger(CryptoRandomGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CryptoRandomGenerator.class);
 
     private SecureRandom random = null;
 

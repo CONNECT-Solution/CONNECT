@@ -49,7 +49,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -58,7 +59,7 @@ import org.apache.log4j.Logger;
 public class DocQueryResponseProcessor {
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
-    private static final Logger LOG = Logger.getLogger(DocQueryResponseProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocQueryResponseProcessor.class);
     private String patientId;
     private String assigningAuthorityId;
     private String homeCommunityId;

@@ -45,7 +45,8 @@ import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
 
 import javax.xml.ws.BindingType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType  {
 
-    private static final Logger LOG = Logger.getLogger(NhincComponentPropAccessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhincComponentPropAccessor.class);
 
     /**
      * This method returns the value of the given property that is located within the given property file. If the

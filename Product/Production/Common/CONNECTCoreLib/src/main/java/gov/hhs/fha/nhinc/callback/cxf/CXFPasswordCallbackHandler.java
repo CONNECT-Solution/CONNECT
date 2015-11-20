@@ -30,7 +30,8 @@ import java.io.IOException;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSPasswordCallback;
 
 /**
@@ -40,7 +41,7 @@ import org.apache.ws.security.WSPasswordCallback;
 public class CXFPasswordCallbackHandler implements CallbackHandler {
 
     /** Logger. */
-    private static final Logger LOG = Logger.getLogger(CXFPasswordCallbackHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CXFPasswordCallbackHandler.class);
     private static final String SYSTEM_PROPERTY_KEYSTORE_PASSWORD = "javax.net.ssl.keyStorePassword";
 
     /** Keystore Password property. **/

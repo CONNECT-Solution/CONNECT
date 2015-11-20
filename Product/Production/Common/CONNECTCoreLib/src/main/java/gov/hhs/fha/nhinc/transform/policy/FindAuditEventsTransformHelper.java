@@ -35,14 +35,15 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author svalluripalli
  */
 public class FindAuditEventsTransformHelper {
 
-    private static final Logger LOG = Logger.getLogger(FindAuditEventsTransformHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FindAuditEventsTransformHelper.class);
     private static final String ActionInValue = "AuditLogQueryIn";
     private static final String ActionOutValue = "AuditLogQueryOut";
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;

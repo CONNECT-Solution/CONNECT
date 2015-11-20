@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  * @author Neil Webb
  */
 public class AdapterPolicyEngineImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineImpl.class);
 
     protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
         // TODO: Extract message ID from the web service context for logging.

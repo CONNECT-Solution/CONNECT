@@ -57,7 +57,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -65,7 +66,7 @@ import org.apache.log4j.Logger;
  */
 public class PatientConsentDocumentBuilderHelper {
 
-    private static final Logger LOG = Logger.getLogger(PatientConsentDocumentBuilderHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientConsentDocumentBuilderHelper.class);
     private UTCDateUtil utcDateUtil = null;
     private static final String FILE_NAME = "XDSUniqueIds";
     private static String sPropertyFile = null;

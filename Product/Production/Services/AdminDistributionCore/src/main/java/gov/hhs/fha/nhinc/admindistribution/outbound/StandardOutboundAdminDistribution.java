@@ -48,7 +48,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -56,7 +57,7 @@ import org.apache.log4j.Logger;
  */
 public class StandardOutboundAdminDistribution implements OutboundAdminDistribution {
 
-    private static final Logger LOG = Logger.getLogger(StandardOutboundAdminDistribution.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundAdminDistribution.class);
     private final AdminDistributionAuditLogger auditLogger = null;
     private final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 

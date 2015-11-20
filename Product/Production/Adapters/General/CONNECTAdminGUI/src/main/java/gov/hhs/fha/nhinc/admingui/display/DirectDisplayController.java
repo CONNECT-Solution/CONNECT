@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigConstants;
 import gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -41,7 +42,7 @@ public class DirectDisplayController implements DisplayController {
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    private static final Logger LOG = Logger.getLogger(DirectDisplayController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectDisplayController.class);
 
     /**
      * Determines if direct is currently enabled and therefore direct pages can

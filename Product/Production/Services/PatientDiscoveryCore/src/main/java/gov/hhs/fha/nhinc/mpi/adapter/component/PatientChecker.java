@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
@@ -47,7 +48,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class PatientChecker implements AdapterComponentMpiChecker {
 
-    private static final Logger LOG = Logger.getLogger(PatientChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientChecker.class);
 
     /**
      * Find matching patients from mpi.

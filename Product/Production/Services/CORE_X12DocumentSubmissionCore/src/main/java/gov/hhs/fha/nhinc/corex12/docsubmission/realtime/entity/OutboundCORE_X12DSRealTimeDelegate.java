@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime.entity;
 
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.orchestration.OrchestrationContextFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -41,7 +42,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
  */
 public class OutboundCORE_X12DSRealTimeDelegate implements OutboundDelegate {
 
-    private static final Logger LOG = Logger.getLogger(OutboundCORE_X12DSRealTimeDelegate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundCORE_X12DSRealTimeDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {

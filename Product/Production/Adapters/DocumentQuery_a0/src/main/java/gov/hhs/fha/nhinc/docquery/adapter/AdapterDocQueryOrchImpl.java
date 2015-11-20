@@ -37,14 +37,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterDocQueryOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryOrchImpl.class);
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
     private static final String ERROR_SEVERITY = "Error";

@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.GenericBatchTransactionPort;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
@@ -47,7 +48,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implements NhinCORE_X12DSGenericBatchResponseProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     /**

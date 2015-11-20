@@ -34,7 +34,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
 public class DirectSenderServiceImpl extends DirectAdapterEntity implements DirectSenderPortType {
 
-    private static final Logger LOG = Logger.getLogger(DirectSenderServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectSenderServiceImpl.class);
 
     @Override
     public void sendOutboundDirect(SendoutMessage parameters) {

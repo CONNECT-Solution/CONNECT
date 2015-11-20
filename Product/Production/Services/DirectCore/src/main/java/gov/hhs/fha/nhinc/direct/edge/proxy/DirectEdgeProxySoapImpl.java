@@ -38,12 +38,10 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import javax.mail.internet.MimeMessage;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -55,7 +53,7 @@ import org.apache.log4j.Logger;
  */
 public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
 
-    private static final Logger LOG = Logger.getLogger(DirectEdgeProxySoapImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectEdgeProxySoapImpl.class);
     private final WebServiceProxyHelper oProxyHelper;
 
     /**
@@ -81,28 +79,25 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
             ProvideAndRegisterDocumentSetRequestType prdsrt = null;
 
             if (message instanceof MimeMessage) {
-                MimeMessageTransformer transformer = new MimeMessageTransformer();
-
-                prdsrt = transformer.transform(message);
+                prdsrt = new MimeMessageTransformer().transform(message);
             } else {
                 LOG.warn("MimeMessage was expected but not recieved.");
             }
 
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME);
+                .getAdapterEndPointFromConnectionManager(NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
-                ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor =
-                        new DirectEdgeSoapServicePortDescriptor();
+                ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor
+                    = new DirectEdgeSoapServicePortDescriptor();
 
                 CONNECTClient<DocumentRepositoryPortType> client = getClient(portDescriptor, url);
 
                 response = (RegistryResponseType) client.invokePort(DocumentRepositoryPortType.class,
-                        "documentRepositoryProvideAndRegisterDocumentSetB", prdsrt);
-
+                    "documentRepositoryProvideAndRegisterDocumentSetB", prdsrt);
             } else {
                 handleError("Failed to call the web service (" + NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME
-                        + ").  The URL is null.", message);
+                    + ").  The URL is null.", message);
             }
         } catch (Exception ex) {
             handleError("Error sending Adapter Doc Submission Unsecured message: ", ex, message);
@@ -119,11 +114,10 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
     private void handleError(String errorMessage, Throwable e, MimeMessage mimeMessage) {
         XDCommonResponseHelper helper = new XDCommonResponseHelper();
         if (e != null) {
-            String message = errorMessage + e.getMessage();
-            LOG.error(helper.createError(message));
+            LOG.error(helper.createError(errorMessage + e.getLocalizedMessage()).toString());
             throw new DirectException(errorMessage, e, mimeMessage);
         } else {
-            LOG.error(helper.createError(errorMessage));
+            LOG.error(helper.createError(errorMessage).toString());
             throw new DirectException(errorMessage, mimeMessage);
         }
     }
@@ -134,8 +128,8 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
      * @return a client for a DocumentRepositoryPortType WSDL port based on the descriptor and url.
      */
     protected CONNECTClient<DocumentRepositoryPortType> getClient(
-            ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url) {
+        ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url) {
+
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
     }
-
 }

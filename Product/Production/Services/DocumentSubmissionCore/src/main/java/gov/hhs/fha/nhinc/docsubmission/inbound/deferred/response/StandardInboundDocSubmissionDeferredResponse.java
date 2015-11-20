@@ -41,7 +41,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
-    private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredResponse.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardInboundDocSubmissionDeferredResponse.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private XDRPolicyChecker policyChecker;
     private PropertyAccessor propertyAccessor;

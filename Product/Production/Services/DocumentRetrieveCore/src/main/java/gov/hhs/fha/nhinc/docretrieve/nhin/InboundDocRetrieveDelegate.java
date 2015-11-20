@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class InboundDocRetrieveDelegate implements InboundDelegate {
 
-    private static final Logger LOG = Logger.getLogger(InboundDocRetrieveDelegate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InboundDocRetrieveDelegate.class);
 
     /**
      * process the message and return it so it can be chained.

@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
@@ -36,7 +37,7 @@ import org.apache.log4j.Logger;
  */
 public class DirectOutboundMsgHandler implements MessageHandler {
 
-    private static final Logger LOG = Logger.getLogger(DirectOutboundMsgHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectOutboundMsgHandler.class);
 
     /**
      * Property for the external direct client used to send the outbound message.

@@ -45,7 +45,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -56,7 +57,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class PatientDiscoveryDeferredResponseAuditTransforms extends
     AbstractPatientDiscoveryAuditTransforms<PRPAIN201306UV02, MCCIIN000002UV01> {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryDeferredResponseAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryDeferredResponseAuditTransforms.class);
 
     public PatientDiscoveryDeferredResponseAuditTransforms() {
 

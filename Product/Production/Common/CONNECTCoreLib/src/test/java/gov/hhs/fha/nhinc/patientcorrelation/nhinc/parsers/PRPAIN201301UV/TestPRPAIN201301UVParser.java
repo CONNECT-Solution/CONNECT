@@ -26,22 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.hamcrest.CoreMatchers.is;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.apache.log4j.Appender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
@@ -57,9 +44,9 @@ import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject1;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject2;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 /**
  * @author achidambaram
@@ -67,28 +54,20 @@ import org.mockito.ArgumentCaptor;
  */
 public class TestPRPAIN201301UVParser {
 
-    private Appender appenderMock;
-
-    @Before
-    public void setupAppender() {
-        appenderMock = mock(Appender.class);
-        Logger.getRootLogger().addAppender(appenderMock);
-    }
-
     @Test
     public void testParseSubjectFromMessage() {
         PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 returnedSubject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
-        returnedSubject = parser.parseSubjectFromMessage(createPRPAIN201301UV02());
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 returnedSubject
+            = parser.parseSubjectFromMessage(createPRPAIN201301UV02());
         assertEquals(returnedSubject.getRegistrationEvent().getCustodian().getAssignedEntity().getAssignedDevice()
-                .getValue().getDeterminerCode(), "INSTANCE");
+            .getValue().getDeterminerCode(), "INSTANCE");
     }
 
     @Test
     public void ParseSubjectFromMessageWhenMessageNull() {
         PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = null;
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1= parser.parseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = parser.parseSubjectFromMessage(message);
         assertNull(subject1);
     }
 
@@ -96,7 +75,7 @@ public class TestPRPAIN201301UVParser {
     public void ParseSubjectFromMessageWhenControlActProcessNull() {
         PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1= parser.parseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = parser.parseSubjectFromMessage(message);
         assertNull(subject1);
     }
 
@@ -107,7 +86,7 @@ public class TestPRPAIN201301UVParser {
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         message.setControlActProcess(controlActProcess);
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1= parser.parseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1 = parser.parseSubjectFromMessage(message);
         assertNull(subject1);
     }
 
@@ -256,7 +235,7 @@ public class TestPRPAIN201301UVParser {
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
-                PRPAMT201301UV02Person.class, patientPerson);
+            PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
 
@@ -300,7 +279,7 @@ public class TestPRPAIN201301UVParser {
         device.setTypeId(createTypeId());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
         JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<COCTMT090003UV01Device>(xmlqname,
-                COCTMT090003UV01Device.class, device);
+            COCTMT090003UV01Device.class, device);
         return assignedDevice;
     }
 

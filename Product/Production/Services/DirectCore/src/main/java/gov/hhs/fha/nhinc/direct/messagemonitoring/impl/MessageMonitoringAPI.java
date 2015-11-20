@@ -52,7 +52,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.model.TxMessageType;
 
@@ -64,7 +65,7 @@ import org.nhindirect.common.tx.model.TxMessageType;
  */
 public class MessageMonitoringAPI {
 
-    private static final Logger LOG = Logger.getLogger(MessageMonitoringAPI.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringAPI.class);
     //messageId is the key and Trackmessage object the value
     Map<String, MonitoredMessage> messageMonitoringCache = null;
     private static final String STATUS_PENDING = "Pending";

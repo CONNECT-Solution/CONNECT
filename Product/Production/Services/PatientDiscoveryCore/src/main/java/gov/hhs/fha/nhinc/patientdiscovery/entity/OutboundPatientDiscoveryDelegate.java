@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.orchestration.OrchestrationContextFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Patient Discovery implementation of OutboundDelegate Note that all exceptions should just throw out and will be
@@ -42,7 +43,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDelegate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {

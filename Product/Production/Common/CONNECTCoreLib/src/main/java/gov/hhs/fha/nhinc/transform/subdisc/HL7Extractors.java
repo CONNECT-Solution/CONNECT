@@ -33,7 +33,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.*;
 
 /**
@@ -42,7 +43,7 @@ import org.hl7.v3.*;
  */
 public class HL7Extractors {
 
-    private static final Logger LOG = Logger.getLogger(HL7Extractors.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7Extractors.class);
 
     public static PRPAIN201301UV02MFMIMT700701UV01Subject1 ExtractSubjectFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now

@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -42,7 +43,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
 	@Override
 	@NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,

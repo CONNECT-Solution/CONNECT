@@ -31,14 +31,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class PolicyEngineProxyJavaImpl implements PolicyEngineProxy {
-    private static final Logger LOG = Logger.getLogger(PolicyEngineProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyJavaImpl.class);
 
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineWebServiceProxyJavaImpl.checkPolicy");

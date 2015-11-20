@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.pro
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -38,7 +39,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl implements AdapterCORE_X12DGenericBatchRequestProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl.class);
 
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {

@@ -38,7 +38,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -48,7 +49,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl extends CORE_X12DSAdapterExceptionBuilder implements AdapterCORE_X12DGenericBatchResponseProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**

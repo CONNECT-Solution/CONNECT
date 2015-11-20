@@ -32,14 +32,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class AdapterPIPServiceImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterPIPServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPServiceImpl.class);
 
     protected AdapterPIPImpl getAdapterPIPImpl() {
         return new AdapterPIPImpl();

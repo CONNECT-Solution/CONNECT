@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.bind.JAXBException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -41,7 +42,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class PatientDiscoveryAuditTransforms extends AbstractPatientDiscoveryAuditTransforms<
     PRPAIN201305UV02, PRPAIN201306UV02> {
 
-    private static final Logger LOG = Logger.getLogger(PatientDiscoveryAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PRPAIN201305UV02 request,

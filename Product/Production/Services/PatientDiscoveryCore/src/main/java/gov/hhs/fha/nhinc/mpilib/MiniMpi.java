@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -36,7 +37,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class MiniMpi implements IMPI {
 
-    private static final Logger LOG = Logger.getLogger(MiniMpi.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MiniMpi.class);
 
     private static MiniMpi instance = null;
 

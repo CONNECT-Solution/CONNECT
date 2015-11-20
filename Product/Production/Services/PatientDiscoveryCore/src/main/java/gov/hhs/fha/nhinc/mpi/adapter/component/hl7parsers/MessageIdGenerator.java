@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -34,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class MessageIdGenerator {
 
-    private static final Logger LOG = Logger.getLogger(MessageIdGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessageIdGenerator.class);
 
     /**
      * Method to generate a MessageID.

@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -40,6 +39,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +51,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserLoginDAOImpl implements UserLoginDAO {
 
-    private static final Logger LOG = Logger.getLogger(UserLoginDAOImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserLoginDAOImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -64,7 +65,8 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     public UserLogin login(Login login) {
         Session session = null;
         UserLogin userLogin = null;
-        Query query = null;
+        Query query;
+
         try {
             session = this.sessionFactory.openSession();
             query = session.createQuery("from UserLogin where userName = :userName");
@@ -75,6 +77,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         } finally {
             closeSession(session, false);
         }
+
         return userLogin;
     }
 
@@ -85,17 +88,16 @@ public class UserLoginDAOImpl implements UserLoginDAO {
      */
     @Override
     public boolean createUser(UserLogin createUser) throws UserLoginException {
-
         Session session = null;
         Transaction tx = null;
         boolean result = true;
+
         try {
             session = this.sessionFactory.openSession();
             tx = session.beginTransaction();
             session.persist(createUser);
             LOG.info("create user record Inserted successfully from dao impl...");
             tx.commit();
-
         } catch (HibernateException e) {
             result = false;
             transactionRollback(tx);
@@ -104,6 +106,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         } finally {
             closeSession(session, false);
         }
+
         return result;
     }
 
@@ -120,9 +123,9 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         try {
             session = this.sessionFactory.openSession();
             result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role))
-                    .uniqueResult();
+                .uniqueResult();
         } catch (HibernateException e) {
-            LOG.error(e, e);
+            LOG.error("Could not get role: " + e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
@@ -145,7 +148,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             session = this.sessionFactory.openSession();
             roles = session.createCriteria(UserRole.class).list();
         } catch (HibernateException e) {
-            LOG.error(e, e);
+            LOG.error("Could not get roles: " + e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
@@ -172,7 +175,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             tx.commit();
             updated = true;
         } catch (HibernateException e) {
-            LOG.error(e, e);
+            LOG.error("Could not update preferences: " + e.getLocalizedMessage(), e);
             transactionRollback(tx);
             updated = false;
         } finally {
@@ -183,9 +186,10 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     }
 
     @Override
-    public void deleteUser(UserLogin user) throws UserLoginException{
+    public void deleteUser(UserLogin user) throws UserLoginException {
         Session session = null;
         Transaction tx = null;
+
         try {
             session = this.sessionFactory.openSession();
             tx = session.beginTransaction();
@@ -193,7 +197,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             tx.commit();
         } catch (HibernateException e) {
             transactionRollback(tx);
-            LOG.error(e.getMessage(), e);
+            LOG.error("Unable to delete user: " + e.getLocalizedMessage(), e);
             throw new UserLoginException("Unable to delete user: " + e.getLocalizedMessage());
         } finally {
             closeSession(session, true);
@@ -201,19 +205,16 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     }
 
     @Override
-    public List<UserLogin> getAllUsers(){
+    public List<UserLogin> getAllUsers() {
         Session session = null;
 
         List<UserLogin> users = null;
 
         try {
             session = this.sessionFactory.openSession();
-            users = session.createCriteria(UserLogin.class)
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                    .list();
-
+            users = session.createCriteria(UserLogin.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
         } catch (HibernateException e) {
-            LOG.error(e, e);
+            LOG.error("Could not retrieve users: " + e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
@@ -235,5 +236,4 @@ public class UserLoginDAOImpl implements UserLoginDAO {
             session.close();
         }
     }
-
 }

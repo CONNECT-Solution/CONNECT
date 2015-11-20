@@ -42,7 +42,8 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -50,7 +51,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl implements
         AdapterDocSubmissionDeferredResponseProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl() {

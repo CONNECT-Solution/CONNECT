@@ -40,7 +40,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to serialize/deserialize teh Patient Preferences documents.
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class PatientPreferencesSerializer {
-    private static final Logger LOG = Logger.getLogger(PatientPreferencesSerializer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientPreferencesSerializer.class);
 
     /**
      * This method takes in an object representation of the Patient Preferences and serializes it to a text string

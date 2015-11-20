@@ -35,14 +35,15 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author JHOPPESC
  */
 public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
-    private static final Logger LOG = Logger.getLogger(AdapterXDRSecuredRequestErrorImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterXDRSecuredRequestErrorImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType body, WebServiceContext context) {

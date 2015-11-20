@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyObjectFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the Java implementation of the AdapterPolicyEngineOrchestrator. It is orchestrates a call to the policy
@@ -42,7 +43,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterPolicyEngineOrchestratorImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchestratorImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineOrchestratorImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the Adapter PEP to determine if

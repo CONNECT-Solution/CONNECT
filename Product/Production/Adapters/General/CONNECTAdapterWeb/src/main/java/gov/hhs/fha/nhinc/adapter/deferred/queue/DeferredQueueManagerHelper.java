@@ -48,7 +48,8 @@ import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper class for the web service.
@@ -57,7 +58,7 @@ import org.apache.log4j.Logger;
  */
 public class DeferredQueueManagerHelper {
 
-    private static final Logger LOG = Logger.getLogger(DeferredQueueManagerHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueManagerHelper.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String DEFERRED_QUEUE_GLOBAL_THRESHOLD = "DeferredQueueGlobalThreshold";
     private static final int DEFERRED_QUEUE_GLOBAL_THRESHOLD_DEFAULT = 100;

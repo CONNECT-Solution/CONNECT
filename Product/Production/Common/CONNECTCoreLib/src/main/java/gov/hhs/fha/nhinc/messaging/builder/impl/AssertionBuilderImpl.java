@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class extends from AbstractAssertionBuilder and implements the AssertionBuilderinterface.
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class AssertionBuilderImpl extends AbstractAssertionBuilder implements AssertionBuilder {
 
-    private static final Logger LOG = Logger.getLogger(AssertionBuilderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssertionBuilderImpl.class);
 
     @Override
     public void build() {

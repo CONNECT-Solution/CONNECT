@@ -33,13 +33,14 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a "NoOp" implementation of the AdapterPEPProxy interface.
  */
 public class AdapterPEPProxyDenyNoOpImpl implements AdapterPEPProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPEPProxyDenyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPEPProxyDenyNoOpImpl.class);
 
     /**
      * NO-OP implementation of the checkPolicy operation returns "Deny"

@@ -40,7 +40,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -56,7 +57,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
 public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
-    private static final Logger LOG = Logger.getLogger(AdhocQueryResponseDescriptionBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdhocQueryResponseDescriptionBuilder.class);
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
     private static final PayloadSizeExtractor PAYLOAD_SIZE_EXTRACTOR = new PayloadSizeExtractor();

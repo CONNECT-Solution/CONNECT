@@ -32,10 +32,11 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AdapterComponentDocSubmissionProxyNoOpImpl implements AdapterComponentDocSubmissionProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionProxyNoOpImpl.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {

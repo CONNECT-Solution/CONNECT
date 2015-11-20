@@ -65,7 +65,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
@@ -74,7 +75,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 public class StandardOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
-    private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscovery.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundPatientDiscovery.class);
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
     private final TransactionLogger transactionLogger = new TransactionLogger();

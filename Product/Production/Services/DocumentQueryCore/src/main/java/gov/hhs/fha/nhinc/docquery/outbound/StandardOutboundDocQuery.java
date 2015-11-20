@@ -48,11 +48,12 @@ import java.util.ArrayList;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardOutboundDocQuery implements OutboundDocQuery {
 
-    private static final Logger LOG = Logger.getLogger(StandardOutboundDocQuery.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundDocQuery.class);
     private AggregationStrategy strategy;
     private AggregationService fanoutService;
     private DocQueryAuditLogger auditLogger = null;

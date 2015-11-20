@@ -40,7 +40,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the Java implementation for the AdapterComponentXDRRequest service. This is intended to be overridden by the
@@ -50,7 +51,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentDocSubmissionRequestOrchImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionRequestOrchImpl.class);
 
     /**
      * This method receives the document information

@@ -26,24 +26,6 @@
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.log4j.Appender;
-import org.apache.log4j.spi.LoggingEvent;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -55,9 +37,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceTy
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.hamcrest.CoreMatchers.is;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import org.junit.Test;
 
 /**
  * @author achidambaram
@@ -65,54 +53,51 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class SamlTokenCreatorTest {
 
-    private Appender appenderMock;
     private final String RESOURCE_URL = "http://CONNECT/Endpoint";
 
-    @Before
-    public void setupAppender() {
-      appenderMock = mock(Appender.class);
-      Logger.getRootLogger().addAppender(appenderMock);
-    }
     @Test
     public void CreateRequestContext() {
-    SamlTokenCreator token = new SamlTokenCreator();
-    String action = null;
-    Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-    expectedrequestContext = token.createRequestContext(createAssertionInfo(),RESOURCE_URL,action);
-    System.out.println(expectedrequestContext);
-    testUserName(expectedrequestContext);
-    testUserHomeCommunityId(expectedrequestContext);
-    testUserOrganizationName(expectedrequestContext);
-    testUserInfoCode(expectedrequestContext);
-    testUserInfoCodeSystem(expectedrequestContext);
-    testUserInfoCodeSystemName(expectedrequestContext);
-    testUserInfoCodedisplayName(expectedrequestContext);
-    testPersonNameTypeFirstName(expectedrequestContext);
-    testPersonNameTypeMiddleName(expectedrequestContext);
-    testPersonNameTypeLastName(expectedrequestContext);
-    testPurposeOfUseRoleCode(expectedrequestContext);
-    testPurposeOfUseCodeSystem(expectedrequestContext);
-    testPurposeOfUseCodeSystemName(expectedrequestContext);
-    testPurposeOfUseDisplayName(expectedrequestContext);
-    testHomeCommunity(expectedrequestContext);
-    testAuthnInstant(expectedrequestContext);
-    testAuthnSessionIndex(expectedrequestContext);
-    testAuthnContextClass(expectedrequestContext);
-    testSubjectLocalityAddress(expectedrequestContext);
-    testSubjectLocalityDNS(expectedrequestContext);
-    testauthzAction(expectedrequestContext);
-    testauthzResource(expectedrequestContext);
-    testauthzDecision(expectedrequestContext);
-    testEvidenceAssertionId(expectedrequestContext);
-    testEvidenceAssertionInstant(expectedrequestContext);
-    testEvidenceAssertionVersion(expectedrequestContext);
-    testEvidenceAssertionIssuer(expectedrequestContext);
-    testEvidenceAssertionIssuerFormat(expectedrequestContext);
-    testEvidenceSubject(expectedrequestContext);
-    testEvidenceConditionNotBefore(expectedrequestContext);
-    testEvidenceConditionNotAfter(expectedrequestContext);
-    testAssertionIssuer(expectedrequestContext);
-    testAssertionIssuerFormat(expectedrequestContext);
+        SamlTokenCreator token = new SamlTokenCreator();
+        String action = null;
+        Map<String, Object> expectedrequestContext = new HashMap<>();
+        expectedrequestContext = token.createRequestContext(createAssertionInfo(), RESOURCE_URL, action);
+
+        // TODO: Remove system.out
+        System.out.println(expectedrequestContext);
+
+        testUserName(expectedrequestContext);
+        testUserHomeCommunityId(expectedrequestContext);
+        testUserOrganizationName(expectedrequestContext);
+        testUserInfoCode(expectedrequestContext);
+        testUserInfoCodeSystem(expectedrequestContext);
+        testUserInfoCodeSystemName(expectedrequestContext);
+        testUserInfoCodedisplayName(expectedrequestContext);
+        testPersonNameTypeFirstName(expectedrequestContext);
+        testPersonNameTypeMiddleName(expectedrequestContext);
+        testPersonNameTypeLastName(expectedrequestContext);
+        testPurposeOfUseRoleCode(expectedrequestContext);
+        testPurposeOfUseCodeSystem(expectedrequestContext);
+        testPurposeOfUseCodeSystemName(expectedrequestContext);
+        testPurposeOfUseDisplayName(expectedrequestContext);
+        testHomeCommunity(expectedrequestContext);
+        testAuthnInstant(expectedrequestContext);
+        testAuthnSessionIndex(expectedrequestContext);
+        testAuthnContextClass(expectedrequestContext);
+        testSubjectLocalityAddress(expectedrequestContext);
+        testSubjectLocalityDNS(expectedrequestContext);
+        testauthzAction(expectedrequestContext);
+        testauthzResource(expectedrequestContext);
+        testauthzDecision(expectedrequestContext);
+        testEvidenceAssertionId(expectedrequestContext);
+        testEvidenceAssertionInstant(expectedrequestContext);
+        testEvidenceAssertionVersion(expectedrequestContext);
+        testEvidenceAssertionIssuer(expectedrequestContext);
+        testEvidenceAssertionIssuerFormat(expectedrequestContext);
+        testEvidenceSubject(expectedrequestContext);
+        testEvidenceConditionNotBefore(expectedrequestContext);
+        testEvidenceConditionNotAfter(expectedrequestContext);
+        testAssertionIssuer(expectedrequestContext);
+        testAssertionIssuerFormat(expectedrequestContext);
     }
 
     @Test
@@ -121,12 +106,13 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        token.createRequestContext(assertion, url, action);
-        ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
+        Map<String, Object> requestContext = token.createRequestContext(assertion, url, action);
+        /*ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
         verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
         LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
         assertThat(loggingEvent.getRenderedMessage().toString(),
-                is("Error: samlSendOperation input assertion is null"));
+            is("Error: samlSendOperation input assertion is null"));*/
+        assertEquals("requestContext created with null params should have exactly one entry", requestContext.size(), 1);
     }
 
     @Test
@@ -139,8 +125,8 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-        expectedrequestContext = token.createRequestContext(assertion,url,action);
+        Map<String, Object> expectedrequestContext = new HashMap<>();
+        expectedrequestContext = token.createRequestContext(assertion, url, action);
         assertFalse(expectedrequestContext.containsKey("userName"));
     }
 
@@ -155,7 +141,7 @@ public class SamlTokenCreatorTest {
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
         Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-        expectedrequestContext = token.createRequestContext(assertion,url,action);
+        expectedrequestContext = token.createRequestContext(assertion, url, action);
         assertFalse(expectedrequestContext.containsKey("userOrganization"));
     }
 
@@ -173,229 +159,218 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-        expectedrequestContext = token.createRequestContext(assertion,url,action);
+        Map<String, Object> expectedrequestContext = new HashMap<>();
+        expectedrequestContext = token.createRequestContext(assertion, url, action);
         assertFalse(expectedrequestContext.containsKey("userRoleCode"));
     }
 
-
-
-    private void testAssertionIssuerFormat(Map<String,Object>expectedrequestContext) {
+    private void testAssertionIssuerFormat(Map<String, Object> expectedrequestContext) {
         String assertionIssuerFormat = "assertionIssuerFormat";
         assertEquals(testHashmapValues(expectedrequestContext, assertionIssuerFormat), createAssertionInfo()
-                .getSamlIssuer().getIssuerFormat());
+            .getSamlIssuer().getIssuerFormat());
     }
 
-    private void testAssertionIssuer(Map<String,Object>expectedrequestContext) {
-        String assertionIssuer  = "assertionIssuer";
+    private void testAssertionIssuer(Map<String, Object> expectedrequestContext) {
+        String assertionIssuer = "assertionIssuer";
         assertEquals(testHashmapValues(expectedrequestContext, assertionIssuer), createAssertionInfo()
-               .getSamlIssuer().getIssuer());
+            .getSamlIssuer().getIssuer());
     }
 
-
-    private void testEvidenceConditionNotAfter(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceConditionNotAfter(Map<String, Object> expectedrequestContext) {
         String evidenceConditionNotAfter = "evidenceConditionNotAfter";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceConditionNotAfter), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter());
     }
 
-    private void testEvidenceConditionNotBefore(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceConditionNotBefore(Map<String, Object> expectedrequestContext) {
         String evidenceConditionNotBefore = "evidenceConditionNotBefore";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceConditionNotBefore), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore());
     }
 
-    private void testEvidenceSubject(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceSubject(Map<String, Object> expectedrequestContext) {
         String evidenceSubject = "evidenceSubject";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceSubject), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
     }
 
-
-    private void testEvidenceAssertionIssuerFormat(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceAssertionIssuerFormat(Map<String, Object> expectedrequestContext) {
         String evidenceAssertionIssuerFormat = "evidenceAssertionIssuerFormat";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceAssertionIssuerFormat), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
     }
 
-
-    private void testEvidenceAssertionIssuer(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceAssertionIssuer(Map<String, Object> expectedrequestContext) {
         String evidenceAssertionIssuer = "evidenceAssertionIssuer";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceAssertionIssuer), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
     }
 
-    private void testEvidenceAssertionVersion(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceAssertionVersion(Map<String, Object> expectedrequestContext) {
         String evidenceAssertionVersion = "evidenceAssertionVersion";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceAssertionVersion), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
     }
 
-    private void testEvidenceAssertionInstant(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceAssertionInstant(Map<String, Object> expectedrequestContext) {
         String evidenceAssertionInstant = "evidenceAssertionInstant";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceAssertionInstant), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
     }
 
-
-    private void testEvidenceAssertionId(Map<String,Object>expectedrequestContext) {
+    private void testEvidenceAssertionId(Map<String, Object> expectedrequestContext) {
         String evidenceAssertionId = "evidenceAssertionId";
         assertEquals(testHashmapValues(expectedrequestContext, evidenceAssertionId), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId());
+            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId());
     }
 
-    private void testauthzDecision(Map<String,Object>expectedrequestContext) {
-        String authzdecision ="authzDecision";
+    private void testauthzDecision(Map<String, Object> expectedrequestContext) {
+        String authzdecision = "authzDecision";
         assertEquals(testHashmapValues(expectedrequestContext, authzdecision), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getDecision());
+            .getSamlAuthzDecisionStatement().getDecision());
     }
 
-    private void testauthzResource(Map<String,Object>expectedrequestContext) {
+    private void testauthzResource(Map<String, Object> expectedrequestContext) {
         String resource = "resource";
         assertEquals(testHashmapValues(expectedrequestContext, resource), RESOURCE_URL);
     }
 
-    private void testauthzAction(Map<String,Object>expectedrequestContext) {
+    private void testauthzAction(Map<String, Object> expectedrequestContext) {
         String action = "action";
         assertEquals(testHashmapValues(expectedrequestContext, action), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getAction());
+            .getSamlAuthzDecisionStatement().getAction());
     }
 
-
-    private void testSubjectLocalityDNS(Map<String,Object>expectedrequestContext) {
+    private void testSubjectLocalityDNS(Map<String, Object> expectedrequestContext) {
         String subjectLocalityDNS = "subjectLocalityDNS";
         assertEquals(testHashmapValues(expectedrequestContext, subjectLocalityDNS), createAssertionInfo()
-                .getSamlAuthnStatement().getSubjectLocalityDNSName());
+            .getSamlAuthnStatement().getSubjectLocalityDNSName());
     }
 
-    private void testSubjectLocalityAddress(Map<String,Object>expectedrequestContext) {
+    private void testSubjectLocalityAddress(Map<String, Object> expectedrequestContext) {
         String subjectLocalityAddress = "subjectLocalityAddress";
         assertEquals(testHashmapValues(expectedrequestContext, subjectLocalityAddress), createAssertionInfo()
-                .getSamlAuthnStatement().getSubjectLocalityAddress());
+            .getSamlAuthnStatement().getSubjectLocalityAddress());
     }
 
-    private void testAuthnContextClass(Map<String,Object>expectedrequestContext) {
+    private void testAuthnContextClass(Map<String, Object> expectedrequestContext) {
         String authnContextClass = "authnContextClass";
         assertEquals(testHashmapValues(expectedrequestContext, authnContextClass), createAssertionInfo()
-                .getSamlAuthnStatement().getAuthContextClassRef());
+            .getSamlAuthnStatement().getAuthContextClassRef());
     }
 
-    private void testAuthnSessionIndex(Map<String,Object>expectedrequestContext) {
+    private void testAuthnSessionIndex(Map<String, Object> expectedrequestContext) {
         String authnSessionIndex = "authnSessionIndex";
         assertEquals(testHashmapValues(expectedrequestContext, authnSessionIndex), createAssertionInfo()
-                .getSamlAuthnStatement().getSessionIndex());
+            .getSamlAuthnStatement().getSessionIndex());
     }
 
-
-    private void testAuthnInstant(Map<String,Object>expectedrequestContext) {
+    private void testAuthnInstant(Map<String, Object> expectedrequestContext) {
         String authnInstant = "authnInstant";
         assertEquals(testHashmapValues(expectedrequestContext, authnInstant), createAssertionInfo()
-                .getSamlAuthnStatement().getAuthInstant());
+            .getSamlAuthnStatement().getAuthInstant());
     }
 
-    private void testHomeCommunity(Map<String,Object>expectedrequestContext) {
-        String homeCommunity= "homeCommunity";
+    private void testHomeCommunity(Map<String, Object> expectedrequestContext) {
+        String homeCommunity = "homeCommunity";
         assertEquals(testHashmapValues(expectedrequestContext, homeCommunity), createAssertionInfo().getHomeCommunity()
-                .getHomeCommunityId());
+            .getHomeCommunityId());
 
     }
 
-    private void testPurposeOfUseDisplayName(Map<String,Object>expectedrequestContext) {
+    private void testPurposeOfUseDisplayName(Map<String, Object> expectedrequestContext) {
         String purposeOfUseDisplayName = "purposeOfUseDisplayName";
-        assertEquals(testHashmapValues(expectedrequestContext,purposeOfUseDisplayName), createAssertionInfo()
-                     .getPurposeOfDisclosureCoded().getDisplayName());
+        assertEquals(testHashmapValues(expectedrequestContext, purposeOfUseDisplayName), createAssertionInfo()
+            .getPurposeOfDisclosureCoded().getDisplayName());
     }
 
-    private void testPurposeOfUseCodeSystemName(Map<String,Object>expectedrequestContext) {
-        String purposeOfUseCodeSystemName  = "purposeOfUseCodeSystemName";
+    private void testPurposeOfUseCodeSystemName(Map<String, Object> expectedrequestContext) {
+        String purposeOfUseCodeSystemName = "purposeOfUseCodeSystemName";
         assertEquals(testHashmapValues(expectedrequestContext, purposeOfUseCodeSystemName), createAssertionInfo()
-                .getPurposeOfDisclosureCoded().getCodeSystemName());
+            .getPurposeOfDisclosureCoded().getCodeSystemName());
     }
 
-    private void testPurposeOfUseCodeSystem(Map<String,Object>expectedrequestContext) {
+    private void testPurposeOfUseCodeSystem(Map<String, Object> expectedrequestContext) {
         String purposeOfUseCodeSystem = "purposeOfUseCodeSystem";
         assertEquals(testHashmapValues(expectedrequestContext, purposeOfUseCodeSystem), createAssertionInfo()
-                .getPurposeOfDisclosureCoded().getCodeSystem());
+            .getPurposeOfDisclosureCoded().getCodeSystem());
     }
 
-    private void testPurposeOfUseRoleCode(Map<String,Object>expectedrequestContext) {
+    private void testPurposeOfUseRoleCode(Map<String, Object> expectedrequestContext) {
         String purposeOfUseRoleCode = "purposeOfUseRoleCode";
         assertEquals(testHashmapValues(expectedrequestContext, purposeOfUseRoleCode), createAssertionInfo()
-                .getPurposeOfDisclosureCoded().getCode());
+            .getPurposeOfDisclosureCoded().getCode());
     }
 
-
-    private void testPersonNameTypeLastName(Map<String,Object>expectedrequestContext) {
+    private void testPersonNameTypeLastName(Map<String, Object> expectedrequestContext) {
         String userLastName = "userLastName";
         assertEquals(testHashmapValues(expectedrequestContext, userLastName), createAssertionInfo().getPersonName()
-                .getFamilyName());
+            .getFamilyName());
     }
 
-
-    private void testPersonNameTypeMiddleName(Map<String,Object>expectedrequestContext) {
+    private void testPersonNameTypeMiddleName(Map<String, Object> expectedrequestContext) {
         String userMiddleName = "userMiddleName";
         assertEquals(testHashmapValues(expectedrequestContext, userMiddleName), createAssertionInfo().getPersonName()
-                .getSecondNameOrInitials());
+            .getSecondNameOrInitials());
     }
 
-    private void testPersonNameTypeFirstName(Map<String,Object>expectedrequestContext) {
+    private void testPersonNameTypeFirstName(Map<String, Object> expectedrequestContext) {
         String userFirstName = "userFirstName";
         assertEquals(testHashmapValues(expectedrequestContext, userFirstName), createAssertionInfo()
-                .getPersonName().getGivenName());
+            .getPersonName().getGivenName());
     }
 
-    private void testUserInfoCodedisplayName (Map<String,Object>expectedrequestContext) {
+    private void testUserInfoCodedisplayName(Map<String, Object> expectedrequestContext) {
         String userRoleCodeDisplayName = "userRoleCodeDisplayName";
         assertEquals(testHashmapValues(expectedrequestContext, userRoleCodeDisplayName), createAssertionInfo()
-                .getUserInfo().getRoleCoded().getDisplayName());
+            .getUserInfo().getRoleCoded().getDisplayName());
     }
 
-    private void testUserInfoCodeSystemName(Map<String,Object>expectedrequestContext) {
-        String userRoleCodeSystemName= "userRoleCodeSystemName";
+    private void testUserInfoCodeSystemName(Map<String, Object> expectedrequestContext) {
+        String userRoleCodeSystemName = "userRoleCodeSystemName";
         assertEquals(testHashmapValues(expectedrequestContext, userRoleCodeSystemName), createAssertionInfo()
-                .getUserInfo().getRoleCoded().getCodeSystemName());
+            .getUserInfo().getRoleCoded().getCodeSystemName());
     }
 
-
-    private void testUserInfoCodeSystem(Map<String,Object>expectedrequestContext) {
+    private void testUserInfoCodeSystem(Map<String, Object> expectedrequestContext) {
         String userRoleCodeSystem = "userRoleCodeSystem";
         assertEquals(testHashmapValues(expectedrequestContext, userRoleCodeSystem), createAssertionInfo().getUserInfo()
-                .getRoleCoded().getCodeSystem());
+            .getRoleCoded().getCodeSystem());
     }
 
-    private void testUserInfoCode(Map<String,Object>expectedrequestContext) {
+    private void testUserInfoCode(Map<String, Object> expectedrequestContext) {
         String userRoleCode = "userRoleCode";
         assertEquals(testHashmapValues(expectedrequestContext, userRoleCode), createAssertionInfo().getUserInfo()
-                .getRoleCoded().getCode());
+            .getRoleCoded().getCode());
     }
 
-    private void testUserOrganizationName(Map<String,Object>expectedrequestContext) {
+    private void testUserOrganizationName(Map<String, Object> expectedrequestContext) {
         String userOrganizationName = "userOrganization";
         assertEquals(testHashmapValues(expectedrequestContext, userOrganizationName),
-                createAssertionInfo().getUserInfo().getOrg().getName());
+            createAssertionInfo().getUserInfo().getOrg().getName());
     }
 
-    private void testUserHomeCommunityId(Map<String,Object>expectedrequestContext) {
+    private void testUserHomeCommunityId(Map<String, Object> expectedrequestContext) {
         String userOrganizationId = "userOrganizationID";
-        assertEquals(testHashmapValues(expectedrequestContext,userOrganizationId),
-                createAssertionInfo().getUserInfo().getOrg().getHomeCommunityId());
+        assertEquals(testHashmapValues(expectedrequestContext, userOrganizationId),
+            createAssertionInfo().getUserInfo().getOrg().getHomeCommunityId());
     }
 
-    private void testUserName(Map<String,Object>expectedrequestContext) {
+    private void testUserName(Map<String, Object> expectedrequestContext) {
         String userName = "userName";
-        assertEquals(testHashmapValues(expectedrequestContext, userName ), createAssertionInfo().getUserInfo()
-                .getUserName());
+        assertEquals(testHashmapValues(expectedrequestContext, userName), createAssertionInfo().getUserInfo()
+            .getUserName());
     }
 
     private String testHashmapValues(Map<String, Object> map, String attribute) {
         Set<String> keys = map.keySet();
         Iterator<String> itr = keys.iterator();
-        String value= null;
+        String value = null;
         String key = null;
         while (itr.hasNext()) {
-            key = (String)itr.next();
-            if(key.equals(attribute)) {
-                value =(String) map.get(key);
+            key = (String) itr.next();
+            if (key.equals(attribute)) {
+                value = (String) map.get(key);
                 return value;
             }
         }
@@ -423,7 +398,7 @@ public class SamlTokenCreatorTest {
     }
 
     private SamlAuthzDecisionStatementType createSamlAuthzDecisionStatementType() {
-        SamlAuthzDecisionStatementType authz= new SamlAuthzDecisionStatementType();
+        SamlAuthzDecisionStatementType authz = new SamlAuthzDecisionStatementType();
         authz.setAction("TestSaml");
         authz.setDecision("Permit");
         authz.setEvidence(createSamlAuthzDecisionStatemnetEvidenceType());
@@ -438,8 +413,8 @@ public class SamlTokenCreatorTest {
     }
 
     private SamlAuthzDecisionStatementEvidenceAssertionType createAuthzDSEvidenceAssertionType() {
-        SamlAuthzDecisionStatementEvidenceAssertionType evidenceAssertion =
-                new SamlAuthzDecisionStatementEvidenceAssertionType();
+        SamlAuthzDecisionStatementEvidenceAssertionType evidenceAssertion
+            = new SamlAuthzDecisionStatementEvidenceAssertionType();
         evidenceAssertion.setId("40df7c0a-ff3e-4b26-baeb-f2910f6d05a9");
         evidenceAssertion.setIssueInstant("2009-04-16T13:10:39.093Z");
         evidenceAssertion.setIssuer("CONNECT");
@@ -451,18 +426,17 @@ public class SamlTokenCreatorTest {
     }
 
     private SamlAuthzDecisionStatementEvidenceConditionsType createAuthzDSEvidenceConditionType() {
-        SamlAuthzDecisionStatementEvidenceConditionsType condition =
-                new SamlAuthzDecisionStatementEvidenceConditionsType();
+        SamlAuthzDecisionStatementEvidenceConditionsType condition
+            = new SamlAuthzDecisionStatementEvidenceConditionsType();
         condition.setNotBefore("2009-04-16T13:10:39.093Z");
         condition.setNotOnOrAfter("2009-12-31T12:00:00.000Z");
         return condition;
     }
 
-
     private SamlAuthnStatementType createSamlAuthStatement() {
-        SamlAuthnStatementType auth= new SamlAuthnStatementType();
+        SamlAuthnStatementType auth = new SamlAuthnStatementType();
         auth.setAuthInstant("2013-02-14T18:45:10.738Z");
-        auth.setSubjectLocalityAddress("123 Fairfax Lane, Fairfax, VA" );
+        auth.setSubjectLocalityAddress("123 Fairfax Lane, Fairfax, VA");
         auth.setSubjectLocalityDNSName("CONNECT.org");
         auth.setSessionIndex("unitTestSession");
         auth.setAuthContextClassRef("http://www.example.com/");
@@ -470,10 +444,10 @@ public class SamlTokenCreatorTest {
     }
 
     private List<String> createUniquePatientId() {
-       List<String> patId = new ArrayList<String>();
-       patId.add("D123401^^^1.1&ISO");
-       patId.add("D456701^^^2.2&ISO");
-       return patId;
+        List<String> patId = new ArrayList<>();
+        patId.add("D123401^^^1.1&ISO");
+        patId.add("D456701^^^2.2&ISO");
+        return patId;
     }
 
     private UserType createUserType() {
@@ -510,5 +484,4 @@ public class SamlTokenCreatorTest {
         person.setSecondNameOrInitials("Simmons");
         return person;
     }
-
 }

@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
@@ -36,7 +37,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class NhinAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final Logger LOG = Logger.getLogger(NhinAdminDistributionProxyObjectFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinAdminDistributionProxyObjectFactory.class);
 	private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_NHIN_ADMIN_DIST = "nhinadmindist";
 

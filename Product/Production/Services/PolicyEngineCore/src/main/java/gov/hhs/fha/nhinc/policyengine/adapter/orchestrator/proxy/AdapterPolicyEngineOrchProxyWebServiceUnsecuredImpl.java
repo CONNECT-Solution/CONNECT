@@ -38,7 +38,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.service.AdapterPolicyEngineOrchServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the web service based call to the AdapterPolicyEngineOrchestrator.
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements AdapterPolicyEngineOrchProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl() {

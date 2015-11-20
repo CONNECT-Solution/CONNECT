@@ -50,7 +50,8 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.common.util.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.saml.ext.OpenSAMLUtil;
 import org.opensaml.saml2.core.Assertion;
@@ -76,7 +77,7 @@ import org.w3c.dom.NodeList;
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
-    private static final Logger LOG = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OpenSAMLAssertionExtractorImpl.class);
     private static final String EMPTY_STRING = "";
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
     private static final String ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "AccessConsentPolicy";

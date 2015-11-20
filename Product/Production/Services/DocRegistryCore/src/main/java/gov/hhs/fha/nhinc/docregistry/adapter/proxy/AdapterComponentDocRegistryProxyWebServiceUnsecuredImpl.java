@@ -42,14 +42,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author svalluripalli
  */
 public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl() {

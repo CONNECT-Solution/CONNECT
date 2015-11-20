@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,7 +45,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
  * @author richard.ettema
  */
 public class AddressDAO {
-    private static final Logger LOG = Logger.getLogger(AddressDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
 
     /**

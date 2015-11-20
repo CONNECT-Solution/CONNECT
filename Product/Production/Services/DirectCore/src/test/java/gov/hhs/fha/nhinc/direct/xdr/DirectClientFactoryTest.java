@@ -33,7 +33,8 @@ import java.net.URISyntaxException;
 import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -44,7 +45,7 @@ import org.junit.Test;
  */
 public class DirectClientFactoryTest {
 
-    private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectClientFactoryTest.class);
 
     /**
      * Set up keystore for test.

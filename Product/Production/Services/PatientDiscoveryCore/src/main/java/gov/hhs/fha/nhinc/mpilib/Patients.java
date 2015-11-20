@@ -28,14 +28,15 @@ package gov.hhs.fha.nhinc.mpilib;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author rayj
  */
 public class Patients extends ArrayList<Patient> implements java.io.Serializable {
-    private static final Logger LOG = Logger.getLogger(Patients.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Patients.class);
     static final long serialVersionUID = -8509797581456649328L;
 
     /**

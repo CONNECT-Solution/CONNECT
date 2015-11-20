@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
@@ -41,7 +42,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 class OutboundCORE_X12DSRealTimeStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundCORE_X12DSRealTimeStrategyImpl_g0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundCORE_X12DSRealTimeStrategyImpl_g0.class);
 
     protected NhinCORE_X12DSRealTimeProxy getNhinCORE_X12DSRealTimeProxy() {
         return new NhinCORE_X12DSRealTimeProxyObjectFactory().getNhinCORE_X12DocSubmissionProxy();

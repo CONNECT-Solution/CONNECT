@@ -30,7 +30,8 @@ import java.util.Hashtable;
 
 import javax.xml.bind.JAXBContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to manage JAXB contexts. Once loaded a JAXB context is kept in static memory so that it does not
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class JAXBContextHandler {
-    private static final Logger LOG = Logger.getLogger(JAXBContextHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JAXBContextHandler.class);
 
     // Contexts that are being managed. The name will be the context.
     // ----------------------------------------------------------------

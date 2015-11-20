@@ -52,7 +52,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
@@ -71,7 +72,7 @@ import javax.xml.stream.XMLStreamException;
  */
 public class AuditRepositoryOrchImpl {
 
-    private static final Logger LOG = Logger.getLogger(AuditRepositoryOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
     private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
 

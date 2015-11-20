@@ -39,7 +39,8 @@ import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author richard.ettema
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
 @Addressing(enabled = true, required = true)
 public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType {
 
-    private static final Logger LOG = Logger.getLogger(DeferredQueueManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueManager.class);
 
     @Resource
     private WebServiceContext context;

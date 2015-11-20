@@ -38,14 +38,15 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConversionException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong, msw
  */
 public class PropertyFileDAO {
 
-    private static final Logger LOG = Logger.getLogger(PropertyFileDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyFileDAO.class);
 
     private HashMap<String, PropertiesConfiguration> propertyFilesHashmap = new HashMap<String, PropertiesConfiguration>();
 

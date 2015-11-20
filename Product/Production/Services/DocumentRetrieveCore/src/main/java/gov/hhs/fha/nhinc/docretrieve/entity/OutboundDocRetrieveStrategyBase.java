@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationStrategy {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveStrategyBase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocRetrieveStrategyBase.class);
 
     @Override
     public void execute(Orchestratable message) {

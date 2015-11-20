@@ -30,7 +30,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;
@@ -50,7 +51,7 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
  * @author dunnek
  */
 public class XDRPolicyChecker {
-    private static final Logger LOG = Logger.getLogger(XDRPolicyChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XDRPolicyChecker.class);
 
     public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
             String senderHCID, String receiverHCID, String direction) {

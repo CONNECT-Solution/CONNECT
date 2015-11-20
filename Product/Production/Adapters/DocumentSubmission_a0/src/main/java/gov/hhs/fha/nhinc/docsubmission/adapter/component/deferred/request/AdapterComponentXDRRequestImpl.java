@@ -32,7 +32,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterComponentXDRRequestImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentXDRRequestImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentXDRRequestImpl.class);
 
     /**
      * Extract information from the context and place it into the assertion.

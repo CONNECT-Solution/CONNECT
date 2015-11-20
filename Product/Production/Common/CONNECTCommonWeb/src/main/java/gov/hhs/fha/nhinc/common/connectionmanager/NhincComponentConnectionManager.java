@@ -54,7 +54,8 @@ import java.util.Set;
 
 import javax.xml.ws.BindingType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
 
@@ -65,7 +66,7 @@ import org.uddi.api_v3.BusinessEntity;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
 
-    private static final Logger LOG = Logger.getLogger(NhincComponentConnectionManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhincComponentConnectionManager.class);
 
     /**
      * This method will return a list of all business entities that are known by the connection manager.

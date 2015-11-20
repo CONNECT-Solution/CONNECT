@@ -32,7 +32,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Web Application initialization for Direct.
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
 public class InitServlet extends HttpServlet {
 
     private static final long serialVersionUID = -2548417535183464693L;
-    private static final Logger LOG = Logger.getLogger(InitServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
     /**
      * {@inheritDoc}

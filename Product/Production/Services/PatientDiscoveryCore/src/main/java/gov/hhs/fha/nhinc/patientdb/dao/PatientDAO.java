@@ -37,7 +37,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
@@ -53,7 +54,7 @@ import org.hibernate.criterion.Expression;
  */
 public class PatientDAO {
 
-    private static final Logger LOG = Logger.getLogger(PatientDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
     private static final String ALLOW_SSN_QUERY = "mpi.db.allow.ssn.query";
 

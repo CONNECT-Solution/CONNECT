@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 
 /**
@@ -39,7 +40,7 @@ import org.hl7.v3.II;
  */
 public class HL7MessageIdGenerator {
 
-    private static final Logger LOG = Logger.getLogger(HL7MessageIdGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7MessageIdGenerator.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 

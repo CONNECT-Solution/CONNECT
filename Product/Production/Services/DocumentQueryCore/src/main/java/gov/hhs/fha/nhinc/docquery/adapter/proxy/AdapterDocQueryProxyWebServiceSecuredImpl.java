@@ -39,7 +39,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQueryProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     /**
      * @param apiLevel Adapter ApiLevel Param.

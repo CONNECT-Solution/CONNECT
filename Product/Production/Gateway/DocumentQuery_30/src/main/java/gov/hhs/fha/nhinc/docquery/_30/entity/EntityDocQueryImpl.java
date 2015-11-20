@@ -40,11 +40,12 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EntityDocQueryImpl extends BaseService {
 
-    private static final Logger LOG = Logger.getLogger(EntityDocQueryImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocQueryImpl.class);
     private OutboundDocQuery outboundDocQuery;
 
     /**

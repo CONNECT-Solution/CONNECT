@@ -38,7 +38,8 @@ import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class ConnectReference implements XDRRouting {
 
-    private static final Logger LOG = Logger.getLogger(ConnectReference.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectReference.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
         AssertionType assertion) {

@@ -32,7 +32,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Return the response object that was provided.
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  * @author Neil Webb
  */
 public class AdapterRedactionEngineProxyNoOpImpl implements AdapterRedactionEngineProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterRedactionEngineProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterRedactionEngineProxyNoOpImpl.class);
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {

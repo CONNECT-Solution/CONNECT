@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class AuditRepositoryUnsecuredImpl {
 
-    private static final Logger LOG = Logger.getLogger(AuditRepositoryUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryUnsecuredImpl.class);
 
     protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();

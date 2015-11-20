@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.docretrieve.audit.transform;
 
 import javax.xml.bind.JAXBException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import com.services.nhinc.schema.auditmessage.TypeValuePairType;
@@ -56,7 +57,7 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 public class DocRetrieveAuditTransforms
     extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
-    private static final Logger LOG = Logger.getLogger(DocRetrieveAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(RetrieveDocumentSetRequestType request,

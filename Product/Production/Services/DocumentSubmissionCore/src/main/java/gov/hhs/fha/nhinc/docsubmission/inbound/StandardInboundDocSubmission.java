@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -51,7 +52,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 
-    private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmission.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardInboundDocSubmission.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private PropertyAccessor propertyAccessor;
     private XDRPolicyChecker policyChecker;

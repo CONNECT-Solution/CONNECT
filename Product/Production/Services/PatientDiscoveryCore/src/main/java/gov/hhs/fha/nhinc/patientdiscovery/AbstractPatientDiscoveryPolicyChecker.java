@@ -36,12 +36,13 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPatientDiscoveryPolicyChecker<OUTGOING, INCOMMING> implements
         PolicyChecker<OUTGOING, INCOMMING> {
 
-    private static final Logger LOG = Logger.getLogger(AbstractPatientDiscoveryPolicyChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractPatientDiscoveryPolicyChecker.class);
 
     private GenericFactory<PolicyEngineProxy> policyEngFactory;
 

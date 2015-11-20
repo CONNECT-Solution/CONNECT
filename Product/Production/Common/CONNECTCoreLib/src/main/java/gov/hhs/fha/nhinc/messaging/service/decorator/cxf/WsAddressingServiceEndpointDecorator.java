@@ -41,7 +41,8 @@ import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.Names;
 import org.apache.cxf.ws.addressing.RelatesToType;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong and young weezy
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private static final Logger LOG = Logger.getLogger(WsAddressingServiceEndpointDecorator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WsAddressingServiceEndpointDecorator.class);
 
     private BindingProvider bindingProviderPort;
     private AddressingPropertiesImpl maps;

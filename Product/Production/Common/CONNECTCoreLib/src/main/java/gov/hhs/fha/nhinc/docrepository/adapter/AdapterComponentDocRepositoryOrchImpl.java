@@ -63,7 +63,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -72,7 +73,7 @@ import org.apache.log4j.Logger;
 public class AdapterComponentDocRepositoryOrchImpl {
 
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
     private static final String REPOSITORY_UNIQUE_ID = "1";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
     private UTCDateUtil utcDateUtil = null;

@@ -51,7 +51,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.KeyedReference;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -64,7 +65,7 @@ import org.primefaces.model.StreamedContent;
 @SessionScoped
 public class PatientSearchBean {
 
-    private static final Logger LOG = Logger.getLogger(PatientSearchBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientSearchBean.class);
 
     //Generic Variables, can be moved to a constant file
     private static final String PATIENT_FOUND = "Patient Record Found:";

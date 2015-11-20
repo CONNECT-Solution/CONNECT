@@ -49,7 +49,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Hibernate;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
@@ -64,7 +65,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
  */
 public class AsyncMessageProcessHelper {
 
-    private static final Logger LOG = Logger.getLogger(AsyncMessageProcessHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<String, String>();
 

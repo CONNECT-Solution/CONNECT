@@ -38,7 +38,8 @@ import javax.activation.DataHandler;
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterAdminDistributionOrchImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterAdminDistributionOrchImpl.class);
 
     /**
      * @param body Emergency Message Distribution Element transaction received.

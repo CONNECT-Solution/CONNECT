@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.bind.JAXBElement;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
 import org.hl7.v3.ENExplicit;
@@ -56,7 +57,7 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
 
     private PRPAIN201305UV02 request;
 
-    private static final Logger LOG = Logger.getLogger(PRPAIN201305UV02BuilderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201305UV02BuilderImpl.class);
 
     @Override
     public void build() {

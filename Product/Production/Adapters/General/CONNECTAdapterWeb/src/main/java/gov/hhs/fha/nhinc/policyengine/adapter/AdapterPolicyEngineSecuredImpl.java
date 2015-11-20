@@ -32,14 +32,15 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  *
  * @author Neil Webb
  */
 public class AdapterPolicyEngineSecuredImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineSecuredImpl.class);
 
     public CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body, WebServiceContext context) {

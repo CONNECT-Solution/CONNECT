@@ -40,11 +40,12 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class EntityDocSubmissionImpl_g1 extends BaseService {
 
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionImpl_g1.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionImpl_g1.class);
 
     private OutboundDocSubmission outboundDocSubmission;
 

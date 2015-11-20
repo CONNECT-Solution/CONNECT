@@ -46,7 +46,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -54,7 +55,7 @@ import org.apache.log4j.Logger;
  */
 public class DocRetrieveResponseProcessor {
 
-    private static final Logger LOG = Logger.getLogger(DocRetrieveResponseProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveResponseProcessor.class);
     private String documentId;
     private String homeCommunityId;
     private String repositoryId;

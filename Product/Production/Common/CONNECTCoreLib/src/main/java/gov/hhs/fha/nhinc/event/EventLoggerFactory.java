@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.event;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 
@@ -37,7 +38,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
  */
 public class EventLoggerFactory {
 
-    private static final Logger LOG = Logger.getLogger(EventLoggerFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventLoggerFactory.class);
 
     private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
     private static final String BEAN_NAME = "eventLoggerFactory";

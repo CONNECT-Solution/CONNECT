@@ -46,7 +46,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -55,7 +56,7 @@ import org.apache.log4j.Logger;
 public class DSDeferredResponseAuditTransforms extends
     AbstractDocSubmissionAuditTransforms<RegistryResponseType, XDRAcknowledgementType> {
 
-    private static final Logger LOG = Logger.getLogger(DSDeferredResponseAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DSDeferredResponseAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(RegistryResponseType request,

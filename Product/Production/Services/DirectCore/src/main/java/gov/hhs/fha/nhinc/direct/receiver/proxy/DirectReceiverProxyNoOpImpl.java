@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.direct.receiver.proxy;
 
 import gov.hhs.fha.nhinc.direct.DirectReceiver;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class DirectReceiverProxyNoOpImpl.
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
 public class DirectReceiverProxyNoOpImpl implements DirectReceiver {
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(DirectReceiverProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectReceiverProxyNoOpImpl.class);
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.direct.DirectReceiver#receiveInbound(javax.mail.internet.MimeMessage)

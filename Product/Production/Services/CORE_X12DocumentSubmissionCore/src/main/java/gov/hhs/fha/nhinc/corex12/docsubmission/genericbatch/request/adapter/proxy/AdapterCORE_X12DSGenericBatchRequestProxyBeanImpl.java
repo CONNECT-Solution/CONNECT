@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -42,7 +43,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class AdapterCORE_X12DSGenericBatchRequestProxyBeanImpl implements AdapterCORE_X12DGenericBatchRequestProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyBeanImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterCORE_X12DSGenericBatchRequestProxyBeanImpl.class);
     private String payload;
     private String payloadId;
     private String payloadType;

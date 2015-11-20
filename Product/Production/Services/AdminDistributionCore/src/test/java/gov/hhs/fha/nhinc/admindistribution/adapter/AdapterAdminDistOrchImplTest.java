@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.admindistribution.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;

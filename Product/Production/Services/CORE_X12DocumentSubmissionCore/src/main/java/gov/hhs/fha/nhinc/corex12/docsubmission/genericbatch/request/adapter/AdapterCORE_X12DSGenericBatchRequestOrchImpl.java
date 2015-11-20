@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import java.sql.Timestamp;
 import java.util.Date;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -40,7 +41,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class AdapterCORE_X12DSGenericBatchRequestOrchImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSGenericBatchRequestOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterCORE_X12DSGenericBatchRequestOrchImpl.class);
 
     /**
      *

@@ -32,14 +32,15 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import org.apache.log4j.Logger;
+import javax.net.ssl.SSLSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  */
 public class PingServiceImpl implements PingService {
 
-    private static final Logger LOG = Logger.getLogger(PingServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PingServiceImpl.class);
 
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";
@@ -57,6 +58,7 @@ public class PingServiceImpl implements PingService {
         InputStream is = null;
         InputStreamReader isReader = null;
         BufferedReader in = null;
+
         try {
             URL webserviceUrl = new URL(prepUrl(url));
             HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
@@ -77,12 +79,13 @@ public class PingServiceImpl implements PingService {
             con.disconnect();
             return true;
         } catch (Exception ex) {
-            LOG.warn(ex, ex);
+            LOG.warn("Problem pinging endpoint: " + ex.getLocalizedMessage(), ex);
         } finally {
             StreamUtils.closeStreamSilently(is);
             StreamUtils.closeFileSilently(isReader);
             StreamUtils.closeFileSilently(in);
         }
+
         return false;
     }
 
@@ -94,10 +97,9 @@ public class PingServiceImpl implements PingService {
     }
 
     private HostnameVerifier getHostNameVerifier() {
-        return new javax.net.ssl.HostnameVerifier() {
+        return new HostnameVerifier() {
             @Override
-            public boolean verify(String hostname,
-                    javax.net.ssl.SSLSession sslSession) {
+            public boolean verify(String hostname, SSLSession sslSession) {
                 return true;
             }
         };
@@ -107,7 +109,7 @@ public class PingServiceImpl implements PingService {
         try {
             PropertyAccessor propAccessor = PropertyAccessor.getInstance();
             String logOutputValue
-                    = propAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, LOG_WSDL_KEY);
+                = propAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, LOG_WSDL_KEY);
 
             if (logOutputValue.equalsIgnoreCase("true") || logOutputValue.equalsIgnoreCase("t")) {
                 LOG.info(output);

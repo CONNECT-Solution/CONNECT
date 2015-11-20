@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -38,7 +39,7 @@ public class PatientMatcher {
 
     private static final String TELEPHONE_PREFIX_STRING = "tel:";
 
-    private static final Logger LOG = Logger.getLogger(PatientMatcher.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientMatcher.class);
     private static PatientMatcher instance = null;
 
     /**

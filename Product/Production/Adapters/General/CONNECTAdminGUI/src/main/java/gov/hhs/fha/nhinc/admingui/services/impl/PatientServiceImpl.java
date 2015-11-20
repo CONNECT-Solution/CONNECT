@@ -30,7 +30,8 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
  *
  * @author tjafri
  */
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl.PRPAIN201305UV02BuilderImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
@@ -58,7 +59,7 @@ public class PatientServiceImpl implements PatientService {
 
     private PatientSearchResultsModelBuilder resultsBuilder;
     private PatientDiscoveryMessageDirector pdMessageDirector;
-    private static Logger LOG = Logger.getLogger(PatientServiceImpl.class);
+    private static Logger LOG = LoggerFactory.getLogger(PatientServiceImpl.class);
 
     /**
      * Returns PatientSearchResults object

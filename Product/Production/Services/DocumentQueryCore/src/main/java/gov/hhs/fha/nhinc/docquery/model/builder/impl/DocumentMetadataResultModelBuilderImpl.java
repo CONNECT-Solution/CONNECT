@@ -41,7 +41,8 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class parses the DQ query response.
@@ -50,7 +51,7 @@ import org.apache.log4j.Logger;
  */
 class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultModelBuilder {
 
-    private static final Logger LOG = Logger.getLogger(DocumentMetadataResultModelBuilderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentMetadataResultModelBuilderImpl.class);
 
     /**
      * The result.

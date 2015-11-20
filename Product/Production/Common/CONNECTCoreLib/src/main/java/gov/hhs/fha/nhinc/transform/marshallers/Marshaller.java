@@ -41,7 +41,8 @@ import javax.xml.namespace.QName;
 
 import org.w3c.dom.Element;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class Marshaller {
 
-    private static final Logger LOG = Logger.getLogger(Marshaller.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Marshaller.class);
 
     public Element marshal(Object object, String contextPath) {
         Element element = null;

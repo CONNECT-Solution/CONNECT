@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
@@ -36,7 +37,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author westberg
  */
 public class AdapterComponentMpiOrchImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentMpiOrchImpl.class);
 
     /**
      * Call the find candidates on the MPI.

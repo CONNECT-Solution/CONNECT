@@ -34,15 +34,13 @@ package gov.hhs.fha.nhinc.patientdiscovery.model.builder.impl;
  *
  * @author tjafri
  */
-import java.io.Serializable;
-import java.util.List;
-import javax.xml.bind.JAXBElement;
-
-import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.AbstractPatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
+import java.io.Serializable;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
@@ -55,6 +53,8 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PatientSearchResultsModelBuilderImpl extends
     AbstractPatientSearchResultsModelBuilder implements
@@ -62,8 +62,7 @@ public class PatientSearchResultsModelBuilderImpl extends
 
     private PatientSearchResults results;
     private PRPAIN201306UV02 message;
-    private static final Logger LOG = Logger
-        .getLogger(PatientSearchResultsModelBuilderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientSearchResultsModelBuilderImpl.class);
 
     @Override
     public void build() {
@@ -71,8 +70,7 @@ public class PatientSearchResultsModelBuilderImpl extends
         if (message != null) {
             LOG.debug("Retrieving Patient Results from Response: " + message);
             List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjects = getSubjects(message);
-            LOG.debug("Mpi Search Results Number Subject found: "
-                + subjects.size());
+            LOG.debug("Mpi Search Results Number Subject found: " + subjects.size());
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : subjects) {
                 PRPAMT201310UV02Patient patient = getSubject1Patient(subject);
                 if (patient != null) {
@@ -93,12 +91,10 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractAndAddPatient(PRPAMT201310UV02Patient msgPatient) {
-
         if (msgPatient != null && msgPatient.getPatientPerson() != null
             && msgPatient.getPatientPerson().getValue() != null) {
 
-            PRPAMT201310UV02Person person = msgPatient.getPatientPerson()
-                .getValue();
+            PRPAMT201310UV02Person person = msgPatient.getPatientPerson().getValue();
             Patient patient = new Patient();
 
             extractNames(person, patient);
@@ -113,27 +109,24 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractNames(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getName() != null && person.getName().size() > 0
-            && person.getName().get(0) != null
-            && person.getName().get(0).getContent() != null
-            && person.getName().get(0).getContent().size() > 0) {
+        if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
+            && person.getName().get(0).getContent() != null && person.getName().get(0).getContent().size() > 0) {
+
             boolean firstNameFound = false;
             boolean secondNameFound = false;
+
             for (Serializable object : person.getName().get(0).getContent()) {
                 if (object instanceof JAXBElement<?>) {
                     Object nameValue = ((JAXBElement<?>) object).getValue();
 
                     if (nameValue instanceof EnExplicitFamily) {
-                        patient.setLastName(((EnExplicitFamily) nameValue)
-                            .getContent());
+                        patient.setLastName(((EnExplicitFamily) nameValue).getContent());
                     } else if (nameValue instanceof EnExplicitGiven) {
                         if (!firstNameFound) {
-                            patient.setFirstName(((EnExplicitGiven) nameValue)
-                                .getContent());
+                            patient.setFirstName(((EnExplicitGiven) nameValue).getContent());
                             firstNameFound = true;
                         } else if (!secondNameFound) {
-                            patient.setMiddleName(((EnExplicitGiven) nameValue)
-                                .getContent());
+                            patient.setMiddleName(((EnExplicitGiven) nameValue).getContent());
                             secondNameFound = true;
                         }
                     }
@@ -155,17 +148,15 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractAddress(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getAddr() != null && person.getAddr().size() > 0
-            && person.getAddr().get(0) != null
-            && person.getAddr().get(0).getContent() != null
-            && person.getAddr().get(0).getContent().size() > 0) {
+        if (person.getAddr() != null && person.getAddr().size() > 0 && person.getAddr().get(0) != null
+            && person.getAddr().get(0).getContent() != null && person.getAddr().get(0).getContent().size() > 0) {
+
             for (Serializable object : person.getAddr().get(0).getContent()) {
                 if (object instanceof JAXBElement<?>) {
                     Object value = ((JAXBElement<?>) object).getValue();
 
                     if (value instanceof AdxpExplicitStreetAddressLine) {
-                        patient.setStreetAddr(((AdxpExplicitStreetAddressLine) value)
-                            .getContent());
+                        patient.setStreetAddr(((AdxpExplicitStreetAddressLine) value).getContent());
                     } else if (value instanceof AdxpExplicitPostalCode) {
                         patient.setZip(((AdxpExplicitPostalCode) value).getContent());
                     } else if (value instanceof AdxpExplicitState) {
@@ -194,18 +185,17 @@ public class PatientSearchResultsModelBuilderImpl extends
     }
 
     private void extractTelephone(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getTelecom() != null && person.getTelecom().size() > 0
-            && person.getTelecom().get(0) != null
-            && person.getTelecom().get(0).getValue() != null
-            && !person.getTelecom().get(0).getValue().isEmpty()) {
+        if (person.getTelecom() != null && person.getTelecom().size() > 0 && person.getTelecom().get(0) != null
+            && person.getTelecom().get(0).getValue() != null && !person.getTelecom().get(0).getValue().isEmpty()) {
+
             patient.setPhone(person.getTelecom().get(0).getValue());
         }
     }
 
     private void extractGender(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getAdministrativeGenderCode() != null
-            && person.getAdministrativeGenderCode().getCode() != null
+        if (person.getAdministrativeGenderCode() != null && person.getAdministrativeGenderCode().getCode() != null
             && !person.getAdministrativeGenderCode().getCode().isEmpty()) {
+
             patient.setGender(person.getAdministrativeGenderCode().getCode());
         }
     }
@@ -217,5 +207,4 @@ public class PatientSearchResultsModelBuilderImpl extends
             patient.setBirthDate(person.getBirthTime().getValue());
         }
     }
-
 }

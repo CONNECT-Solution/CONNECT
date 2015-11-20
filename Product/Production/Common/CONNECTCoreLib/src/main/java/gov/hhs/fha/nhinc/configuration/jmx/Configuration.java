@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.configuration.jmx;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class Configuration.
@@ -39,7 +40,7 @@ import org.apache.log4j.Logger;
 public class Configuration implements ConfigurationMXBean {
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(Configuration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Configuration.class);
 
     /** The Constant ERROR_ACCESSING_PROPERTY_FILE. */
     private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";

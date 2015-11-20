@@ -38,7 +38,8 @@ import javax.activation.DataHandler;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSDocInfo;
 import org.apache.ws.security.WSSecurityEngineResult;
 import org.apache.ws.security.WSSecurityException;
@@ -56,7 +57,7 @@ import com.google.common.base.Optional;
  */
 public class CONNECTSignatureProcessor extends SignatureProcessor {
 
-    private static final Logger LOG = Logger.getLogger(CONNECTSignatureProcessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTSignatureProcessor.class);
     private static final LargeFileUtils FILE_UTILS = LargeFileUtils.getInstance();
     private static final String CONTENT_ID_PREFIX = "cid:";
     private static final String HREF_ATTRIBUTE = "href";

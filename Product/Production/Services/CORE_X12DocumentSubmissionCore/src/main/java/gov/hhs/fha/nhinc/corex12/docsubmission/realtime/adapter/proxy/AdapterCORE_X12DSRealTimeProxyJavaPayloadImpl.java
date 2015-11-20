@@ -38,7 +38,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
@@ -49,7 +50,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  */
 public class AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl implements AdapterCORE_X12DSRealTimeProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl.class);
 
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest, AssertionType assertion) {

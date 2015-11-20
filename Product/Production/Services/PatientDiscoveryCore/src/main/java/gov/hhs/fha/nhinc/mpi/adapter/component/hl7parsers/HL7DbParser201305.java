@@ -38,7 +38,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -69,7 +70,7 @@ import org.hl7.v3.TELExplicit;
  */
 public class HL7DbParser201305 {
 
-    private static final Logger LOG = Logger.getLogger(HL7DbParser201305.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7DbParser201305.class);
     /**
      * Social Security Number Root Identifier.
      */

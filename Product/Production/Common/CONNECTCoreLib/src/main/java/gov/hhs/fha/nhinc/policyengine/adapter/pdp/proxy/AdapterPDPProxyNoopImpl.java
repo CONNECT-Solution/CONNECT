@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sun.identity.xacml.common.XACMLException;
 import com.sun.identity.xacml.context.Decision;
@@ -51,7 +52,7 @@ import com.sun.identity.xacml.policy.Obligations;
 public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 {
     private static final String DECISION_VALUE_PERMIT = "Permit";
-    private static final Logger LOG = Logger.getLogger(AdapterPDPProxyNoopImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPDPProxyNoopImpl.class);
 
     /*
      * (non-Javadoc)

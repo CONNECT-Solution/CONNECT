@@ -32,7 +32,8 @@ import java.io.File;
 import java.io.OutputStreamWriter;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to manage a property file programmtically.
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class PropertyFileManager {
 
-    private static final Logger LOG = Logger.getLogger(PropertyFileManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyFileManager.class);
 
     /**
      * This saves out the properties to the specified property file. If the file already exists, it is replaced by the

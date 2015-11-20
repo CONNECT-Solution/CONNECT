@@ -35,14 +35,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdReques
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class PatientConsentHelper {
-    private static final Logger LOG = Logger.getLogger(PatientConsentHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientConsentHelper.class);
 
     protected AdapterPIPImpl getAdapterPIP() {
         return new AdapterPIPImpl();

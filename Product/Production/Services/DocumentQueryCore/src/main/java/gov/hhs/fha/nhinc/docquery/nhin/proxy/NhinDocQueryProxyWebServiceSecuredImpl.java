@@ -51,7 +51,8 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the component proxy for calling the NHIN doc query web service.
@@ -60,7 +61,7 @@ import org.apache.log4j.Logger;
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
 
     /**
      * @return WebServiceProxyHelper.

@@ -38,13 +38,14 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.service.AdapterPEPServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the Web based call to the AdapterPEP.
  */
 public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPEPProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPEPProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPEPProxyWebServiceUnsecuredImpl() {

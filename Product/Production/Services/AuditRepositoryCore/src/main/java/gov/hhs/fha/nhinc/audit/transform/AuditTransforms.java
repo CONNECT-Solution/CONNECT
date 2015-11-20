@@ -58,7 +58,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.validator.routines.InetAddressValidator;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This abstract class follows the Template design pattern. EventIdentification, ActiveParticipant (HumanRequestor,
@@ -75,7 +76,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class AuditTransforms<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(AuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditTransforms.class);
 
     private T request;
     private NhinTargetSystemType target;

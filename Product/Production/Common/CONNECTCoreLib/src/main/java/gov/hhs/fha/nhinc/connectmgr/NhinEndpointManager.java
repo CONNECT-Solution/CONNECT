@@ -32,12 +32,13 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class NhinEndpointManager {
 
-	private static final Logger LOG = Logger.getLogger(NhinEndpointManager.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
 
     protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
         return new ConnectionManagerCacheHelper();

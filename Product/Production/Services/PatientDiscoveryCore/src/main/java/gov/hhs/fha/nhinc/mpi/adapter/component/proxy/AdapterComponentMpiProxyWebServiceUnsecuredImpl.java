@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -47,7 +48,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterComponentMpiProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentMpiProxyWebServiceUnsecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**

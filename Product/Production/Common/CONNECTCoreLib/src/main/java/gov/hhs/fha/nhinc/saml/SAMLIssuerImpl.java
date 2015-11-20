@@ -27,14 +27,13 @@
 package gov.hhs.fha.nhinc.saml;
 
 import java.util.Properties;
-
 import javax.security.auth.callback.CallbackHandler;
-
-import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.components.crypto.Crypto;
 import org.apache.ws.security.saml.SAMLIssuer;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class replaces the default apache SAML issuer. The differences with the default class are:
@@ -50,22 +49,21 @@ import org.apache.ws.security.saml.ext.AssertionWrapper;
  */
 public class SAMLIssuerImpl implements SAMLIssuer {
 
-    private static final Logger LOG = Logger.getLogger(SAMLIssuerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SAMLIssuerImpl.class);
     private static SAMLIssuer DEFAULT_DELEGATE;
     private SAMLIssuer delegate = DEFAULT_DELEGATE;
 
     static {
         try {
             DEFAULT_DELEGATE = new org.apache.ws.security.saml.SAMLIssuerImpl(SAMLConfigFactory.getInstance()
-                    .getConfiguration());
+                .getConfiguration());
         } catch (WSSecurityException e) {
-            LOG.fatal("Could not initialize SAMLIssuerImpl: " + e.getMessage(), e);
+            LOG.error("Could not initialize SAMLIssuerImpl: " + e.getLocalizedMessage(), e);
         }
     }
 
     /**
-     * @param prop
-     *            - this parameter is ignored
+     * @param prop - this parameter is ignored
      * @throws WSSecurityException
      */
     public SAMLIssuerImpl(Properties prop) throws WSSecurityException {
@@ -76,62 +74,77 @@ public class SAMLIssuerImpl implements SAMLIssuer {
         // do nothing
     }
 
+    @Override
     public AssertionWrapper newAssertion() throws WSSecurityException {
         return delegate.newAssertion();
     }
 
+    @Override
     public boolean isSendKeyValue() {
         return delegate.isSendKeyValue();
     }
 
+    @Override
     public boolean isSignAssertion() {
         return delegate.isSignAssertion();
     }
 
+    @Override
     public CallbackHandler getCallbackHandler() {
         return delegate.getCallbackHandler();
     }
 
+    @Override
     public Crypto getIssuerCrypto() {
         return delegate.getIssuerCrypto();
     }
 
+    @Override
     public String getIssuerName() {
         return delegate.getIssuerName();
     }
 
+    @Override
     public String getIssuerKeyName() {
         return delegate.getIssuerKeyName();
     }
 
+    @Override
     public String getIssuerKeyPassword() {
         return delegate.getIssuerKeyPassword();
     }
 
+    @Override
     public void setSendKeyValue(boolean sendKeyValue) {
         throw new RuntimeException("Setters not supported");
     }
 
+    @Override
     public void setSignAssertion(boolean signAssertion) {
         throw new RuntimeException("Setters not supported");
     }
 
+    @Override
     public void setCallbackHandler(CallbackHandler callbackHandler) {
         throw new RuntimeException("Setters not supported");
     }
 
+    @Override
     public void setIssuerCrypto(Crypto issuerCrypto) {
         throw new RuntimeException("Setters not supported");
     }
 
+    @Override
     public void setIssuerName(String issuer) {
         throw new RuntimeException("Setters not supported");
     }
 
+    @Override
     public void setIssuerKeyName(String issuerKeyName) {
         throw new RuntimeException("Setters not supported");
     }
 
+    @Override
     public void setIssuerKeyPassword(String issuerKeyPassword) {
         throw new RuntimeException("Setters not supported");
     }

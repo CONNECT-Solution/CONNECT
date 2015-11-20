@@ -31,7 +31,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.nhindirect.xd.transform.MimeXdsTransformer;
 import org.nhindirect.xd.transform.exception.TransformationException;
 import org.nhindirect.xd.transform.impl.DefaultMimeXdsTransformer;
@@ -42,7 +43,7 @@ import org.nhindirect.xd.transform.impl.DefaultMimeXdsTransformer;
  */
 public class MimeMessageTransformer {
 
-    private static final Logger LOG = Logger.getLogger(MimeMessageTransformer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MimeMessageTransformer.class);
     private static final String ERROR_MESSAGE = "Error transforming message to XDR";
     private final MimeXdsTransformer transformer;
 

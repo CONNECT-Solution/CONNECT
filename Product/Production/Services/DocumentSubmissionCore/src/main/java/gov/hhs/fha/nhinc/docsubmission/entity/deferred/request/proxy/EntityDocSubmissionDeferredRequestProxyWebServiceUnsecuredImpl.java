@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -50,7 +51,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl implements
         EntityDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl() {

@@ -50,7 +50,8 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -85,7 +86,7 @@ public abstract class AbstractDirectMailClientTest extends DirectBaseTest {
      * attachment name.
      */
     protected static final String ATTACHMENT_NAME = "mymockattachment";
-    private static final Logger LOG = Logger.getLogger(AbstractDirectMailClientTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractDirectMailClientTest.class);
     protected Properties recipMailServerProps;
     protected Properties senderMailServerProps;
     protected MailSender intMailSender;

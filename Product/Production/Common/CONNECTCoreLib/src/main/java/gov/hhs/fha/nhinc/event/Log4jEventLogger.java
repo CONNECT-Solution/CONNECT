@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -35,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class Log4jEventLogger extends EventLogger {
 
-    private static final Logger LOG = Logger.getLogger(Log4jEventLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Log4jEventLogger.class);
 
     public Log4jEventLogger() {
     }

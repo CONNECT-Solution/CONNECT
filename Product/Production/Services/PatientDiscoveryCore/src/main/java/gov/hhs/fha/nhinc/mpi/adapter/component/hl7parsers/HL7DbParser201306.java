@@ -35,7 +35,8 @@ import java.util.TimeZone;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -101,7 +102,7 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class HL7DbParser201306 {
 
-    private static final Logger LOG = Logger.getLogger(HL7Parser201306.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201306.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 

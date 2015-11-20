@@ -36,7 +36,8 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
@@ -55,7 +56,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
     private OutboundResponseProcessor processor;
     private OutboundOrchestratableMessage entityRequest = null;
     private MessageContext context = null;
-    private static final Logger LOG = Logger.getLogger(NhinCallableRequest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinCallableRequest.class);
 
     public NhinCallableRequest(OutboundOrchestratableMessage orch) {
         Preconditions.checkArgument(orch.getResponseProcessor().isPresent());

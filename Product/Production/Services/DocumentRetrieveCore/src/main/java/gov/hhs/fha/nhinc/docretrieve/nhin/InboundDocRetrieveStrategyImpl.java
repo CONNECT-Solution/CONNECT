@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
@@ -42,7 +43,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  */
 public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrategy {
 
-    private static final Logger LOG = Logger.getLogger(InboundDocRetrieveStrategyImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InboundDocRetrieveStrategyImpl.class);
     AdapterDocRetrieveProxy proxy;
     DocRetrieveAuditLogger docRetrieveLogger;
 

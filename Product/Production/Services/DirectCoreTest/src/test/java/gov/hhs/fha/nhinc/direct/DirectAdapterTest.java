@@ -26,18 +26,11 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import com.google.common.collect.ImmutableList;
+import com.icegreen.greenmail.user.UserException;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDirectDocuments;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getRecipients;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.event.Event;
@@ -46,29 +39,32 @@ import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.Log4jEventLogger;
 import gov.hhs.fha.nhinc.mail.MailClientException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.mail.Address;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.Message;
-
-import com.google.common.collect.ImmutableList;
-import com.icegreen.greenmail.user.UserException;
 
 /**
  * Test {@link DirectMailClient}.
@@ -109,7 +105,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         processAndSendMultipleMsgs(NUM_MSGS_ONE_BATCH);
 
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
-                any(NHINDAddressCollection.class), any(NHINDAddress.class));
+            any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
         intMailReceiver.handleMessages(mockMessageHandler);
 
@@ -131,7 +127,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         processAndSendMultipleMsgs(NUM_MSGS_MULTI_BATCH);
 
         verify(mockSmtpAgent, times(NUM_MSGS_MULTI_BATCH)).processMessage(any(MimeMessage.class),
-                any(NHINDAddressCollection.class), any(NHINDAddress.class));
+            any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
         int expectedBatchCount = NUM_MSGS_MULTI_BATCH / DirectUnitTestUtil.MAX_NUM_MSGS_IN_BATCH;
         if (NUM_MSGS_MULTI_BATCH % DirectUnitTestUtil.MAX_NUM_MSGS_IN_BATCH > 0) {
@@ -157,13 +153,13 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
     private void whenProcessingMessageReturnMockResult() throws MessagingException {
         MessageProcessResult messageProcessResult = getMockMessageProcessResult();
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                        any(NHINDAddress.class))).thenReturn(messageProcessResult);
+            any(NHINDAddress.class))).thenReturn(messageProcessResult);
     }
 
     private void processAndSendMultipleMsgs(int numberOfMsgs) {
         for (int i = 0; i < numberOfMsgs; i++) {
             testDirectSender.sendOutboundDirect(getSender(), getRecipients(), getMockDirectDocuments(),
-                    ATTACHMENT_NAME);
+                ATTACHMENT_NAME);
         }
         try {
             greenMail.waitForIncomingEmail(5000, numberOfMsgs);
@@ -205,8 +201,10 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         handleMessages(extMailReceiver, inboundMsgHandler, 2, senderUser);
         verifyInboundMdn(expectedNumberOfMessages);
     }
+
     /**
      * Run the end to end test and also verify that the events are logged in the correct order.
+     *
      * @throws UserException on failure.
      * @throws MessagingException on failure.
      * @throws MailClientException
@@ -219,8 +217,10 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         eventIndex = 0;
         canLogEventsDuringEndToEnd(0);
     }
+
     /**
      * Run the end to end test and also verify that the events are logged in the correct order.
+     *
      * @throws UserException on failure.
      * @throws MessagingException on failure.
      * @throws MailClientException
@@ -237,6 +237,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
 
     /**
      * Run the end to end test and also verify that the events are logged in the correct order.
+     *
      * @throws UserException on failure.
      * @throws MessagingException on failure.
      * @throws MailClientException
@@ -289,7 +290,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
     private void assertTriggered(DirectEventType eventType, List<Event> events) {
         Event event = events.get(eventIndex);
         assertEquals("Event at index: " + eventIndex + " --> " + event.getDescription(), eventType.toString(),
-                event.getEventName());
+            event.getEventName());
         eventIndex++;
     }
 
@@ -304,7 +305,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(getMockAddresses());
         when(mockMessage.getFrom()).thenReturn(getMockAddresses());
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class))).thenThrow(MessagingException.class);
+            any(NHINDAddress.class))).thenThrow(MessagingException.class);
         instance.process(mockMessage);
     }
 
@@ -319,7 +320,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(getMockAddresses());
         when(mockMessage.getFrom()).thenReturn(getMockAddresses());
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class))).thenThrow(Exception.class);
+            any(NHINDAddress.class))).thenThrow(Exception.class);
         instance.process(mockMessage);
     }
 

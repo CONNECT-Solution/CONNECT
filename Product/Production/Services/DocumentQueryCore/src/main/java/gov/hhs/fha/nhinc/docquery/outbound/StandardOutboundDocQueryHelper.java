@@ -37,7 +37,8 @@ import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public class StandardOutboundDocQueryHelper {
 
-    private static final Logger LOG = Logger.getLogger(StandardOutboundDocQueryHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundDocQueryHelper.class);
     private ConnectionManagerCommunityMapping connectionManagerCommunityMapping;
     private String sHomeCommunity;
 

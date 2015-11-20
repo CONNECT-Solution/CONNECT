@@ -66,14 +66,15 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class implements the policy engine PEP (Policy Enforcement Point).
  */
 public class AdapterPEPImpl {
 
-    private static final Logger LOG = Logger.getLogger(AdapterPEPImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPEPImpl.class);
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
     private static final String DEFAULT_PURPOSE_TEXT = "Purpose for Use code not provided";

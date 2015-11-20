@@ -51,11 +51,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.UploadedFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -98,7 +99,7 @@ public class DirectDomainBean {
     private String addressName;
     private String addressEmail;
 
-    private static final Logger LOG = Logger.getLogger(DirectDomainBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectDomainBean.class);
 
     /**
      *
@@ -122,7 +123,8 @@ public class DirectDomainBean {
             refreshDomains();
         } else {
             FacesContext.getCurrentInstance().addMessage("domainDeleteError",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.", ""));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.",
+                    ""));
         }
         selectedDomain = null;
     }
@@ -145,8 +147,9 @@ public class DirectDomainBean {
         } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("domainAddErrors",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add domain: " + domainException.getLocalizedMessage(), ""));
-            LOG.error("Error creating domain: " + domainException.getMessage());
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot add domain: "
+                    + domainException.getLocalizedMessage(), ""));
+            LOG.error("Error creating domain: " + domainException.getLocalizedMessage(), domainException);
         }
         this.domainName = null;
         this.domainPostmaster = null;
@@ -177,8 +180,9 @@ public class DirectDomainBean {
         } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("domainEditErrors",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not update domain: " + domainException.getLocalizedMessage(), ""));
-            LOG.error("Error updating domain: " + domainException.getMessage());
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot update domain: "
+                    + domainException.getLocalizedMessage(), ""));
+            LOG.error("Error updating domain: " + domainException.getLocalizedMessage(), domainException);
         }
     }
 
@@ -300,7 +304,7 @@ public class DirectDomainBean {
         getAnchorsForOwner.setOwner(getSelectedDomain().getDomainName());
         getAnchorsForOwner.setOptions(new CertificateGetOptions());
 
-        anchors = new ArrayList<DirectAnchor>();
+        anchors = new ArrayList<>();
         List<Anchor> anchorsResponse = directService.getAnchorsForOwner(getAnchorsForOwner);
 
         for (Anchor a : anchorsResponse) {
@@ -542,9 +546,8 @@ public class DirectDomainBean {
      */
     protected void refreshTrustBundles(long id) {
         try {
-            List<TrustBundleDomainReltn> bundleRelations = directService.getTrustBundlesByDomain(id,
-                false);
-            associatedTrustBundles = new ArrayList<DirectTrustBundle>();
+            List<TrustBundleDomainReltn> bundleRelations = directService.getTrustBundlesByDomain(id, false);
+            associatedTrustBundles = new ArrayList<>();
 
             if (bundleRelations != null) {
                 for (TrustBundleDomainReltn tbdr : bundleRelations) {
@@ -554,7 +557,7 @@ public class DirectDomainBean {
                 }
             }
 
-            unassociatedTrustBundleNames = new ArrayList<String>();
+            unassociatedTrustBundleNames = new ArrayList<>();
             for (TrustBundle tb : directService.getTrustBundles(false)) {
                 unassociatedTrustBundleNames.add(tb.getBundleName());
             }
@@ -563,7 +566,7 @@ public class DirectDomainBean {
                 unassociatedTrustBundleNames.remove(tb.getBundleName());
             }
         } catch (Exception ex) {
-            LOG.error(ex.getCause(), ex);
+            LOG.error("Unable to refresh trust bundles: " + ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -660,5 +663,4 @@ public class DirectDomainBean {
     public void setAddressEmail(String addressEmail) {
         this.addressEmail = addressEmail;
     }
-
 }

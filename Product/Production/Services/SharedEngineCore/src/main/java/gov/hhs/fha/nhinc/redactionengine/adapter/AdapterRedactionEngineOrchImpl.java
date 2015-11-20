@@ -31,14 +31,15 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author JHOPPESC
  */
 public class AdapterRedactionEngineOrchImpl implements AdapterRedactionEngineOrch {
-    private static final Logger LOG = Logger.getLogger(AdapterRedactionEngineOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterRedactionEngineOrchImpl.class);
 
     protected RedactionEngine getRedactionEngine() {
         return new RedactionEngine();

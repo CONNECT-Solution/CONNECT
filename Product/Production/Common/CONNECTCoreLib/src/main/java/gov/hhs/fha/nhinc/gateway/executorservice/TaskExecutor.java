@@ -34,7 +34,8 @@ import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Main unit of execution Executes a DQ or PD request currently, but could be used to execute any of the Nhin
@@ -55,7 +56,7 @@ import org.apache.log4j.Logger;
  */
 public class TaskExecutor<Target, Request, Response> {
 
-    private static final Logger LOG = Logger.getLogger(TaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskExecutor.class);
 
     private Executor executor = null;
     private ResponseProcessor processor = null;

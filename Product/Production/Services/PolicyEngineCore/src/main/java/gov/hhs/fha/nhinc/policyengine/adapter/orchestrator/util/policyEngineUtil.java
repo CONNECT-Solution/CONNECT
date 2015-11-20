@@ -33,7 +33,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author achidambaram
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class policyEngineUtil {
 
-    private static final Logger LOG = Logger.getLogger(policyEngineUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(policyEngineUtil.class);
 
     public CheckPolicyResponseType checkAssertionAttributeStatement(AssertionType assertion) {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();

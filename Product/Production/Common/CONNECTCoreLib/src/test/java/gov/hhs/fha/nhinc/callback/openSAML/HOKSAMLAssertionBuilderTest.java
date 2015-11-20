@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.callback.openSAML;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
@@ -54,12 +53,8 @@ import java.util.Set;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,7 +78,7 @@ import org.w3c.dom.Element;
  * @author bhumphrey
  *
  */
-public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest {
+public class HOKSAMLAssertionBuilderTest {
 
     private static RSAPublicKey publicKey;
     private static PrivateKey privateKey;
@@ -115,12 +110,10 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
             @Override
             public RSAPublicKey getDefaultPublicKey() {
                 return publicKey;
-
             }
 
             @Override
             public PrivateKey getDefaultPrivateKey() throws Exception {
-
                 return privateKey;
             }
 
@@ -139,25 +132,21 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
                 return new X509Certificate() {
                     @Override
                     public boolean hasUnsupportedCriticalExtension() {
-
                         return false;
                     }
 
                     @Override
                     public Set<String> getNonCriticalExtensionOIDs() {
-
                         return Collections.EMPTY_SET;
                     }
 
                     @Override
                     public byte[] getExtensionValue(String oid) {
-
                         return new byte[1];
                     }
 
                     @Override
                     public Set<String> getCriticalExtensionOIDs() {
-
                         return Collections.EMPTY_SET;
                     }
 
@@ -173,109 +162,91 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
 
                     @Override
                     public String toString() {
-
                         return null;
                     }
 
                     @Override
                     public PublicKey getPublicKey() {
-
                         return publicKey;
                     }
 
                     @Override
                     public byte[] getEncoded() throws CertificateEncodingException {
-
                         return new byte[1];
                     }
 
                     @Override
                     public int getVersion() {
-
                         return 0;
                     }
 
                     @Override
                     public byte[] getTBSCertificate() throws CertificateEncodingException {
-
                         return new byte[1];
                     }
 
                     @Override
                     public boolean[] getSubjectUniqueID() {
-
                         return new boolean[1];
                     }
 
                     @Override
                     public Principal getSubjectDN() {
-
                         return null;
                     }
 
                     @Override
                     public byte[] getSignature() {
-
                         return new byte[1];
                     }
 
                     @Override
                     public byte[] getSigAlgParams() {
-
                         return new byte[1];
                     }
 
                     @Override
                     public String getSigAlgOID() {
-
                         return null;
                     }
 
                     @Override
                     public String getSigAlgName() {
-
                         return null;
                     }
 
                     @Override
                     public BigInteger getSerialNumber() {
-
                         return null;
                     }
 
                     @Override
                     public Date getNotBefore() {
-
                         return null;
                     }
 
                     @Override
                     public Date getNotAfter() {
-
                         return null;
                     }
 
                     @Override
                     public boolean[] getKeyUsage() {
-
                         return new boolean[1];
                     }
 
                     @Override
                     public boolean[] getIssuerUniqueID() {
-
                         return new boolean[1];
                     }
 
                     @Override
                     public Principal getIssuerDN() {
-
                         return null;
                     }
 
                     @Override
                     public int getBasicConstraints() {
-
                         return 0;
                     }
 
@@ -297,7 +268,8 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
 
     @Test
     public void testCreateAuthenicationStatement() {
-        List<AuthnStatement> authnStatement = (new HOKSAMLAssertionBuilder()).createAuthenicationStatements(getProperties());
+        List<AuthnStatement> authnStatement
+            = new HOKSAMLAssertionBuilder().createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -314,7 +286,7 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         String issuer = null;
         Subject subject = mock(Subject.class);
         AttributeStatement e = mock(AttributeStatement.class);
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         statements.add(0, e);
         Evidence evidence1 = builder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime,
             issuer, statements, subject);
@@ -328,8 +300,8 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         DateTime beforeCreation = new DateTime();
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
 
-        List<AuthzDecisionStatement> statementList = (new HOKSAMLAssertionBuilder()).createAuthenicationDecsionStatements(
-            callbackProps, subject);
+        List<AuthzDecisionStatement> statementList
+            = new HOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         AuthzDecisionStatement statement = statementList.get(0);
@@ -370,14 +342,15 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         DateTime conditionNotBefore = new DateTime();
         DateTime conditionNotAfter = new DateTime();
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.TRUE.toString());
+        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(Boolean.TRUE.toString());
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
 
-        List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(
-            callbackProps, subject);
+        List<AuthzDecisionStatement> statementList
+            = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         AuthzDecisionStatement statement = statementList.get(0);
@@ -396,13 +369,14 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         Subject subject = mock(Subject.class);
         DateTime conditionNotAfter = new DateTime();
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.FALSE.toString());
+        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
 
-        List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(
-            callbackProps, subject);
+        List<AuthzDecisionStatement> statementList
+            = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         AuthzDecisionStatement statement = statementList.get(0);
@@ -421,13 +395,14 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
         Subject subject = mock(Subject.class);
         DateTime conditionNotBefore = new DateTime();
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
-        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(Boolean.FALSE.toString());
+        when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
 
-        List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(
-            callbackProps, subject);
+        List<AuthzDecisionStatement> statementList
+            = getHOKSAMLAssertionBuilder().createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         AuthzDecisionStatement statement = statementList.get(0);
@@ -642,7 +617,6 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
                 // TODO Auto-generated method stub
                 return "orgId";
             }
-
         };
     }
 }

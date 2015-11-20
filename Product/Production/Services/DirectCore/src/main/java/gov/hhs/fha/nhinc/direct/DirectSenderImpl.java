@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.mail.MailSender;
 
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.nhindirect.xd.common.DirectDocuments;
 
@@ -42,7 +43,7 @@ import org.nhindirect.xd.common.DirectDocuments;
  */
 public class DirectSenderImpl extends DirectAdapter implements DirectSender {
 
-    private static final Logger LOG = Logger.getLogger(DirectSenderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectSenderImpl.class);
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
 

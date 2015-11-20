@@ -23,6 +23,18 @@
         <module>Deploy</module>
     </modules>
 
+    <!-- Set the SLF4J binding (and any supporting dependencies) here -->
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

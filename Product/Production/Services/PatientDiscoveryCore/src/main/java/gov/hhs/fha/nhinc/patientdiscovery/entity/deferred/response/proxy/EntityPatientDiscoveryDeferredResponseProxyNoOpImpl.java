@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -39,7 +40,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class EntityPatientDiscoveryDeferredResponseProxyNoOpImpl implements EntityPatientDiscoveryDeferredResponseProxy {
 
-    private static final Logger LOG = Logger.getLogger(EntityPatientDiscoveryDeferredResponseProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryDeferredResponseProxyNoOpImpl.class);
 
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 body, AssertionType assertion,

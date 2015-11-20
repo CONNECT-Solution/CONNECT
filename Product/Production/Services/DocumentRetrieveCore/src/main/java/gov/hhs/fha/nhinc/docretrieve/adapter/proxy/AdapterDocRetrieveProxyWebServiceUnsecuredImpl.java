@@ -40,7 +40,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the unsecured web service implementation of the Adapter Doc Retrieve component proxy.
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterDocRetrieveProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocRetrieveProxyWebServiceUnsecuredImpl.class);
 
     /**
      * Retrieve the document(s)

@@ -35,7 +35,8 @@ import java.util.List;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class DocRetrieveTransformHelper {
 
-    private static final Logger LOG = Logger.getLogger(DocRetrieveTransformHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveTransformHelper.class);
     private static final String ActionInValue = "DocumentRetrieveIn";
     private static final String ActionOutValue = "DocumentRetrieveOut";
 

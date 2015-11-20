@@ -37,14 +37,15 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
     /*
      * (non-Javadoc)

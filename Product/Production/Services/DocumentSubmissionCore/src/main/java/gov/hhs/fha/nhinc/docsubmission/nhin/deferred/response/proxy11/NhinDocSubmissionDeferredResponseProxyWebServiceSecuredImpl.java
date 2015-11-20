@@ -44,7 +44,8 @@ import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -52,7 +53,7 @@ import org.apache.log4j.Logger;
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
         NhinDocSubmissionDeferredResponseProxy {
-    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 

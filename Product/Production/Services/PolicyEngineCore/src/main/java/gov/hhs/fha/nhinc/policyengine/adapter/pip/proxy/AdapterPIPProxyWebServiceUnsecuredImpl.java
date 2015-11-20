@@ -45,7 +45,8 @@ import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPRetrie
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPStoreConsentServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the Web Service based call to the AdapterPIP.
@@ -53,7 +54,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPIPProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPIPProxyWebServiceUnsecuredImpl() {

@@ -42,10 +42,11 @@ import java.util.List;
 
 import javax.activation.DataHandler;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DocSubmissionUtils {
-    private static final Logger LOG = Logger.getLogger(DocSubmissionUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocSubmissionUtils.class);
 
     private static DocSubmissionUtils instance = new DocSubmissionUtils();
 

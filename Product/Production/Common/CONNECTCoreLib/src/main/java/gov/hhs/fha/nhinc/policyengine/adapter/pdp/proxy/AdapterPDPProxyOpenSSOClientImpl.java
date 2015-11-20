@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.sun.identity.saml2.common.SAML2Exception;
 import com.sun.identity.xacml.client.XACMLRequestProcessor;
@@ -52,7 +53,7 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
     private static final String PROPERTY_FILE_KEY_PDP_ENTITY = "PdpEntityName";
     private static final String OPENSSO_PEP_NAME = "ConnectOpenSSOPepEntity";
     private static final String PDP_ENTITY_SUFFIX = "PdpEntity";
-    private static final Logger LOG = Logger.getLogger(AdapterPDPProxyOpenSSOClientImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPDPProxyOpenSSOClientImpl.class);
 
     /*
      * (non-Javadoc)

@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -37,7 +38,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundPatientDiscoveryDeferredResponseFactory {
 
-    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDeferredResponseFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryDeferredResponseFactory.class);
 
     private static OutboundPatientDiscoveryDeferredResponseFactory instance = new OutboundPatientDiscoveryDeferredResponseFactory();
 

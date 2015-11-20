@@ -37,14 +37,15 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the Web based call to the AdapterAuthentication.
  */
 public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticationProxy {
 
-    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationWebServiceProxy.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterAuthenticationWebServiceProxy.class);
     private static String ADAPTER_AUTH_SERVICE_NAME = "adapterauthentication";
     private WebServiceProxyHelper proxyHelper = null;
 

@@ -45,7 +45,8 @@ import gov.hhs.fha.nhinc.direct.config.TrustBundle;
 import gov.hhs.fha.nhinc.direct.config.TrustBundleDomainReltn;
 import gov.hhs.fha.nhinc.direct.config.UpdateDomain;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -55,7 +56,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DirectServiceImpl implements DirectService {
 
-    private static final Logger LOG = Logger.getLogger(DirectServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectServiceImpl.class);
 
     /**
      *

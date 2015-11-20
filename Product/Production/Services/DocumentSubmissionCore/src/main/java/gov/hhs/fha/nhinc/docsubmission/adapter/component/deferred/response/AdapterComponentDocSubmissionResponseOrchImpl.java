@@ -32,7 +32,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the Java implementation for the AdapterComponentXDRResponse service. This is intended to be overridden by the
@@ -41,7 +42,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class AdapterComponentDocSubmissionResponseOrchImpl {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseOrchImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionResponseOrchImpl.class);
 
     /**
      * This method receives an AdapterComponentXDRResponse and returns an ACK.

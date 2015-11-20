@@ -32,7 +32,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.mail.MailReceiver;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -53,7 +54,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("/direct.appcontext.xml")
 public class DirectAdapterSpringTest {
 
-    private static final Logger LOG = Logger.getLogger(DirectAdapterSpringTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectAdapterSpringTest.class);
 
     @Autowired
     private DirectSender directSender;

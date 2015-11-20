@@ -44,7 +44,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponse
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
@@ -58,7 +59,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     private final PatientDiscoveryDeferredResponseAuditLogger auditLogger;
     private final OutboundPatientDiscoveryDeferredResponseDelegate delegate;
     private final ConnectionManagerCache connectionManager;
-    private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscoveryDeferredResponse.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundPatientDiscoveryDeferredResponse.class);
 
     /**
      * Constructor.

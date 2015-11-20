@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class DocumentClassCodeParser {
 
-    private static final Logger LOG = Logger.getLogger(DocumentClassCodeParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentClassCodeParser.class);
 
     public static List<String> parseFormattedParameter(List<String> rawList) {
         List<String> normalizedList = new ArrayList<String>();

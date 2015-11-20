@@ -42,7 +42,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeT
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.util.Properties;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -55,7 +56,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     private final PatientDiscovery201306Processor msgProcessor;
     private final PDDeferredCorrelationDao pdCorrelationDao;
     private final PatientDiscoveryDeferredResponseAuditLogger auditLogger;
-    private static final Logger LOG = Logger.getLogger(StandardInboundPatientDiscoveryDeferredResponse.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StandardInboundPatientDiscoveryDeferredResponse.class);
 
     /**
      * Constructor.

@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Exceptions for {@link MimeMessageBuilder}.
@@ -39,7 +40,7 @@ import org.apache.log4j.Logger;
 public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
-    private static final Logger LOG = Logger.getLogger(DirectException.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectException.class);
     private static DirectEventLogger directEventLogger;
 
     /**

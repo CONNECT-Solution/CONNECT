@@ -34,7 +34,8 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
@@ -45,7 +46,7 @@ import org.xml.sax.InputSource;
  */
 public class XpathHelper {
 
-    private static final Logger LOG = Logger.getLogger(XpathHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XpathHelper.class);
 
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();

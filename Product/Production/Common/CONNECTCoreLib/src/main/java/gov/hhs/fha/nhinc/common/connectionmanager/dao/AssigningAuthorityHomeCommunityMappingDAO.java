@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,7 +45,7 @@ import org.hibernate.Transaction;
  */
 public class AssigningAuthorityHomeCommunityMappingDAO {
 
-    private static final Logger LOG = Logger.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...

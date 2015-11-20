@@ -45,7 +45,8 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.FacesException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -61,7 +62,7 @@ import org.apache.log4j.Logger;
  */
 public class ManageQueue extends AbstractPageBean {
 
-    private static final Logger LOG = Logger.getLogger(ManageQueue.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ManageQueue.class);
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
     private static final String QUERY_FOR_DOCUMENT = "QueryForDocument";
     private static final String RETRIEVE_DOCUMENT = "RetrieveDocument";

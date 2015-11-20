@@ -40,7 +40,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Buil
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
@@ -59,7 +60,7 @@ import org.hl7.v3.XActMoodIntentEvent;
 
 public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV02Builder {
 
-    private static final Logger LOG = Logger.getLogger(AbstractPRPAIN201305UV02Builder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractPRPAIN201305UV02Builder.class);
 
     private PRPAIN201305UV02 request = null;
     private static final String PROPERTY_FILE = "gateway";

@@ -37,7 +37,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An abstract class which implements methods common across CORE X12 RealTime and BatchRequest and Response services.
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class COREX12AuditTransforms<T, K> extends AuditTransforms<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(COREX12AuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(COREX12AuditTransforms.class);
 
     /**
      * Build auditMsg with ParticipantObjectIdentificationType

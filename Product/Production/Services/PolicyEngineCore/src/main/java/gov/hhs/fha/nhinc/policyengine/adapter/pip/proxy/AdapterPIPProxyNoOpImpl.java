@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a "NoOp" implementation of the AdapterPIPProxy interface. It will return empty response objects.
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterPIPProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPIPProxyNoOpImpl.class);
 
     /**
      * NO-OP implementation of the RetrievePtConsentByPtId operation. It will return a message with the same assigning

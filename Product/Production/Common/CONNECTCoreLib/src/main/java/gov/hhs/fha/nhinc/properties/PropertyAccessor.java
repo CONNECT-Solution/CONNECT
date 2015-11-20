@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
 import java.util.Properties;
 import java.util.Set;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is a POJO class that is used to access properties within a
@@ -44,7 +45,7 @@ public class PropertyAccessor implements IPropertyAcessor {
     private PropertyFileDAO propertyFileDAO;
     private PropertyAccessorFileUtilities fileUtilities;
 
-    private static final Logger LOG = Logger.getLogger(PropertyAccessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyAccessor.class);
 
     /**
      * Default constructor.

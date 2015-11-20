@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -51,7 +52,7 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
  */
 public abstract class DirectAdapter {
 
-    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DirectAdapter.class);
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 

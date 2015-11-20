@@ -40,14 +40,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterDocSubmissionProxyWebServiceUnsecuredImpl implements AdapterDocSubmissionProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionProxyWebServiceUnsecuredImpl() {

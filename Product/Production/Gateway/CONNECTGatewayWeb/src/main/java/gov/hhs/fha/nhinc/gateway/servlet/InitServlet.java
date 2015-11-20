@@ -33,7 +33,8 @@ import java.util.concurrent.Executors;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 
 /**
@@ -49,7 +50,7 @@ import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
  */
 public class InitServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(InitServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
     private static ExecutorService executor = null;
     private static ExecutorService largeJobExecutor = null;

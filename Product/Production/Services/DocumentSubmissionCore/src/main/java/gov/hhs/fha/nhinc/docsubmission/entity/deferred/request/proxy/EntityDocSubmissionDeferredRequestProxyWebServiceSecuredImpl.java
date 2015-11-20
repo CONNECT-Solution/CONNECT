@@ -41,7 +41,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class EntityDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
         EntityDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {

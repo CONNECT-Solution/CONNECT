@@ -32,7 +32,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 
@@ -42,7 +43,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
  */
 public class CORE_X12DSLargePayloadUtils {
 
-    private static final Logger LOG = Logger.getLogger(CORE_X12DSLargePayloadUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CORE_X12DSLargePayloadUtils.class);
     private static final LargeFileUtils fileUtils = LargeFileUtils.getInstance();
 
     /**

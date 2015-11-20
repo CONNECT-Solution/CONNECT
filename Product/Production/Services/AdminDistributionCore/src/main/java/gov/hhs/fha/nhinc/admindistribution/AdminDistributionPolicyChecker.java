@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.admindistribution;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -45,7 +46,7 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
  */
 public class AdminDistributionPolicyChecker {
 
-    private static final Logger LOG = Logger.getLogger(AdminDistributionPolicyChecker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdminDistributionPolicyChecker.class);
 
     /**
      * @param request SendAlertMessage Request received.

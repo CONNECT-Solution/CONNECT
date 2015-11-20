@@ -41,7 +41,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
 
-    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveAggregator_a0.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocRetrieveAggregator_a0.class);
 
     /**
      * Aggregates the message in the from Orchestrable to the to Orchestratable.

@@ -30,7 +30,8 @@ import java.util.List;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.hl7.v3.*;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class HL7AckTransforms {
 
-    private static final Logger LOG = Logger.getLogger(HL7AckTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7AckTransforms.class);
 
     public static final String ACK_DETAIL_TYPE_CODE_ERROR = "E";
     public static final String ACK_DETAIL_TYPE_CODE_INFO = "I";

@@ -26,24 +26,21 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
-
 import java.io.File;
 import java.net.URL;
-
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
  * @author akong
  *
  */
-public class PropertyAccessorFileUtilitiesTest extends AbstractSuppressRootLoggerTest {
+public class PropertyAccessorFileUtilitiesTest {
 
     private static String EXPECTED_PROPERTY_FILE_LOCATION;
 
@@ -90,8 +87,7 @@ public class PropertyAccessorFileUtilitiesTest extends AbstractSuppressRootLogge
     public void testNoSystemVariableSet() {
         System.clearProperty("nhinc.properties.dir");
 
-        PropertyAccessorFileUtilities fileUtilities =
-        		new PropertyAccessorFileUtilities();
+        PropertyAccessorFileUtilities fileUtilities = new PropertyAccessorFileUtilities();
         assertNull(fileUtilities.getPropertyFileLocation());
     }
 

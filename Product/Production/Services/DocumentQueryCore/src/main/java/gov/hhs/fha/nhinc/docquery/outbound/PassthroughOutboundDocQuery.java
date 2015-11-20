@@ -41,11 +41,12 @@ import java.util.Iterator;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
-    private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PassthroughOutboundDocQuery.class);
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
 
     public PassthroughOutboundDocQuery() {

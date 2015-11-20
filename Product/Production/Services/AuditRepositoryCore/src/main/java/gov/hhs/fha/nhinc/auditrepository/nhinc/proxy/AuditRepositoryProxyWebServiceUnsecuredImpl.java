@@ -37,7 +37,8 @@ import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPor
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
  */
 public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditRepositoryProxy {
 
-    private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryProxyWebServiceUnsecuredImpl.class);
 
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 

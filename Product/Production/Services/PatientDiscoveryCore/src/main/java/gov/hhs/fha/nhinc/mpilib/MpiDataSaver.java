@@ -33,7 +33,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -42,7 +43,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  *
  */
 public class MpiDataSaver {
-    private static final Logger LOG = Logger.getLogger(MpiDataSaver.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MpiDataSaver.class);
     private String defaultMpiFilename = null;
 
     /**

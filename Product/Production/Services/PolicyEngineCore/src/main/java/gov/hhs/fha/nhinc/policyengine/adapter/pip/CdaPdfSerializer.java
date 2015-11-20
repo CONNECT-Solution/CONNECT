@@ -39,7 +39,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to serialize/deserialize the Patient Preferences documents.
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public class CdaPdfSerializer {
 
-    private static final Logger LOG = Logger.getLogger(CdaPdfSerializer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CdaPdfSerializer.class);
 
     /**
      * This method takes in an object representation of the HL7 Clinical Document and serializes it to a text string

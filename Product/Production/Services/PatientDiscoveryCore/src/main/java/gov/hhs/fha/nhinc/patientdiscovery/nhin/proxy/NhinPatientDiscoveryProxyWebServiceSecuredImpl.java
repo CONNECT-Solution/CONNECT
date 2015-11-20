@@ -40,7 +40,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.service.RespondingGatewayServicePortDescriptor;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -50,7 +51,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatientDiscoveryProxy {
 
-    private static final Logger LOG = Logger.getLogger(NhinPatientDiscoveryProxyWebServiceSecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NhinPatientDiscoveryProxyWebServiceSecuredImpl.class);
 
     protected CONNECTClient<RespondingGatewayPortType> getCONNECTSecuredClient(NhinTargetSystemType target,
             ServicePortDescriptor<RespondingGatewayPortType> portDescriptor, String url, AssertionType assertion) {

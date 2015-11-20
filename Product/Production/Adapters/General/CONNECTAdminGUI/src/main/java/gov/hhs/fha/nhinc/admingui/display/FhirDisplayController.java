@@ -31,7 +31,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,7 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class FhirDisplayController implements DisplayController {
 
-    private static final Logger LOG = Logger.getLogger(FhirDisplayController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FhirDisplayController.class);
 
     @Override
     public void checkDisplay() {

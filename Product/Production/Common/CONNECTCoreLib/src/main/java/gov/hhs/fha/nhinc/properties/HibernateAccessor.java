@@ -31,14 +31,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
 import java.net.URLDecoder;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author akong
  */
 public class HibernateAccessor {
-    private static final Logger LOG = Logger.getLogger(HibernateAccessor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateAccessor.class);
 
     private String propertyFileDir = "";
     private boolean failedToLoadEnvVar = false;

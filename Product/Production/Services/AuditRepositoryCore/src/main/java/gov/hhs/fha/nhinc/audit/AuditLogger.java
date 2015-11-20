@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.Properties;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ATNA-compliant audit logger template class. Each individual service logger will implement this class, but provide its
@@ -48,7 +49,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class AuditLogger<T, K> {
 
-    private static final Logger LOG = Logger.getLogger(AuditLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditLogger.class);
 
     /**
      * ATNA-compliant logging for a request message of type T

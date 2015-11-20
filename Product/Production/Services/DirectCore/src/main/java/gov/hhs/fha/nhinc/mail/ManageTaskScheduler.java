@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.mail;
 
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
@@ -37,7 +38,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  */
 public class ManageTaskScheduler {
 
-    private static final Logger LOG = Logger.getLogger(ManageTaskScheduler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ManageTaskScheduler.class);
     private ThreadPoolTaskScheduler scheduler;
 
     /**

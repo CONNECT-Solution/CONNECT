@@ -34,14 +34,15 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionB
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredRequestProxyJavaImpl implements AdapterDocSubmissionDeferredRequestProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestProxyJavaImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionDeferredRequestProxyJavaImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,

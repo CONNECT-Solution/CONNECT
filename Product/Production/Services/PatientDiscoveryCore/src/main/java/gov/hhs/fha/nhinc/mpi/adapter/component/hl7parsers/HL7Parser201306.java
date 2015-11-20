@@ -43,7 +43,8 @@ import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -94,7 +95,7 @@ import org.hl7.v3.XActMoodIntentEvent;
  */
 public class HL7Parser201306 {
 
-    private static final Logger LOG = Logger.getLogger(HL7Parser201306.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201306.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 

@@ -33,7 +33,8 @@ import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ public class PatientCorrelationServiceUnsecuredImpl
         implements
         PatientCorrelationService<RetrievePatientCorrelationsRequestType, RetrievePatientCorrelationsResponseType, AddPatientCorrelationRequestType, AddPatientCorrelationResponseType> {
 
-    private static final Logger LOG = Logger.getLogger(PatientCorrelationServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationServiceUnsecuredImpl.class);
 
     private PatientCorrelationOrch orchestration;
 

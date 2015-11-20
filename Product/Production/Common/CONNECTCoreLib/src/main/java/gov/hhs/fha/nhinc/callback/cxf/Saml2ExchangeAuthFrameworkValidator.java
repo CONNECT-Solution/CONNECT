@@ -32,7 +32,8 @@ import javax.naming.Name;
 import javax.naming.ldap.LdapName;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
@@ -49,7 +50,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator {
 
     /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(Saml2ExchangeAuthFrameworkValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Saml2ExchangeAuthFrameworkValidator.class);
 
     /** The Constant invalidDomainNameChars. */
     private static final char[] invalidDomainNameChars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|' };

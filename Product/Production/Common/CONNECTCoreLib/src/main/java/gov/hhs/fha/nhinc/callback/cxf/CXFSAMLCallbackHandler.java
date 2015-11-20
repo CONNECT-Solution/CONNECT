@@ -40,7 +40,8 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.ws.security.saml.ext.SAMLCallback;
@@ -52,7 +53,7 @@ import org.opensaml.common.SAMLVersion;
  */
 public class CXFSAMLCallbackHandler implements CallbackHandler {
 
-    private static final Logger LOG = Logger.getLogger(CXFSAMLCallbackHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CXFSAMLCallbackHandler.class);
 
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();

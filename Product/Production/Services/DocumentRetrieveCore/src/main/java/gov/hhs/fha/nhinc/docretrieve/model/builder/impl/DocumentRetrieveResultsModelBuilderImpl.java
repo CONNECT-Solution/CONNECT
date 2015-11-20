@@ -35,7 +35,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.activation.DataHandler;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieveResultsModelBuilder {
 
-    private static final Logger LOG = Logger.getLogger(DocumentRetrieveResultsModelBuilderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DocumentRetrieveResultsModelBuilderImpl.class);
 
     private DocumentRetrieveResults results = null;
 

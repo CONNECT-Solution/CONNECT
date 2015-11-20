@@ -56,7 +56,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 
@@ -67,7 +68,7 @@ import org.hl7.v3.POCDMT000040ClinicalDocument;
  */
 public class PatientConsentManager {
 
-    private static final Logger LOG = Logger.getLogger(PatientConsentManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientConsentManager.class);
     private static final String XACML_MIME_TYPE = "text/xml";
     private static final String PDF_MIME_TYPE = "application/pdf";
 

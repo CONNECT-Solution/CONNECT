@@ -196,8 +196,8 @@
                     <artifactId>xalan</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>xerces</groupId> 
-                    <artifactId>xercesImpl</artifactId> 
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -214,8 +214,8 @@
                     <artifactId>log4j-over-slf4j</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>xerces</groupId> 
-                    <artifactId>xercesImpl</artifactId> 
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -275,8 +275,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <!-- Utility Libraries -->

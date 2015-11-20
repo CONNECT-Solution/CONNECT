@@ -35,7 +35,8 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ import org.apache.log4j.Logger;
  */
 public class AdapterDocQueryImpl extends BaseService {
 
-    private static final Logger LOG = Logger.getLogger(AdapterDocQueryImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryImpl.class);
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, WebServiceContext context) {
         LOG.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");

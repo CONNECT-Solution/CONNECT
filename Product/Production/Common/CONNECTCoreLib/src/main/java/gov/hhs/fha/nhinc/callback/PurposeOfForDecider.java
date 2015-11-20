@@ -34,7 +34,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author mweaver
@@ -42,7 +43,7 @@ import org.apache.log4j.Logger;
  */
 public class PurposeOfForDecider {
 
-	private static final Logger LOG = Logger.getLogger(PurposeOfForDecider.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PurposeOfForDecider.class);
 
     public PurposeOfForDecider() {
 

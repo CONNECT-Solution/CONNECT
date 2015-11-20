@@ -39,7 +39,8 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathExpressionException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -57,7 +58,7 @@ import org.w3c.dom.ls.LSSerializer;
  */
 public class XmlUtility {
 
-    private static final Logger LOG = Logger.getLogger(XmlUtility.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XmlUtility.class);
 
     public static String getNodeValue(Node node) {
         String value = null;

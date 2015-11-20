@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -38,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractAssertionBuilder implements AssertionBuilder {
 
-    private static final Logger LOG = Logger.getLogger(AbstractAssertionBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractAssertionBuilder.class);
 
     private static final String PROPERTY_FILE_NAME = "assertioninfo";
     private static final String PROPERTY_KEY_PURPOSE_CODE = "PurposeOfUseRoleCode";
