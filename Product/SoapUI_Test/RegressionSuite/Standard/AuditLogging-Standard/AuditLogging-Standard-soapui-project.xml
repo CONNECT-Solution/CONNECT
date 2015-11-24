@@ -615,8 +615,7 @@
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -637,7 +636,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId = "'+ context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -806,7 +805,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -1126,7 +1125,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-24T15:25:19Z</con:value>
+          <con:value>2015-11-24T17:20:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1230,11 +1229,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/24/2015 15:15:19</con:value>
+          <con:value>11/24/2015 17:10:00</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-24T15:15:19Z</con:value>
+          <con:value>2015-11-24T17:10:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1612,8 +1611,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -1634,7 +1632,7 @@ else
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -1728,7 +1726,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -2521,8 +2519,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -2543,7 +2540,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -2665,7 +2662,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -3410,8 +3407,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -3432,7 +3428,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -3591,7 +3587,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -4736,7 +4732,6 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -4757,7 +4752,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -4914,7 +4909,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -6031,8 +6026,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -6053,7 +6047,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -6209,7 +6203,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -7157,8 +7151,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -7179,7 +7172,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -7323,7 +7316,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -8129,8 +8122,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -8151,7 +8143,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -8293,7 +8285,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -9724,8 +9716,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -9746,7 +9737,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -9915,7 +9906,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -10723,8 +10714,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -10745,7 +10735,7 @@ else
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -10838,7 +10828,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -11634,8 +11624,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -11656,7 +11645,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -11778,7 +11767,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -12522,8 +12511,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -12544,7 +12532,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -12703,7 +12691,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -13847,8 +13835,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]	
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK")
 }
@@ -13869,7 +13856,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -14021,7 +14008,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -15140,8 +15127,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -15162,7 +15148,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -15319,7 +15305,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -16264,8 +16250,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -16286,7 +16271,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -16431,7 +16416,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -17225,8 +17210,7 @@ if (propertiesFile.exists()) {
 context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -17247,7 +17231,7 @@ else
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
@@ -17390,7 +17374,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
-def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
 parsedXmlMessage.EventIdentification.find{
