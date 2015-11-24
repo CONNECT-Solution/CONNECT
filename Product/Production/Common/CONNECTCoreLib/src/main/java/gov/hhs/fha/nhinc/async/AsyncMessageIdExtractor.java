@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,8 @@ import org.w3c.dom.Element;
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
+
+    private final WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
 
     protected Element getSoapHeaderElement(WebServiceContext context, String headerName) {
         if (context == null) {
@@ -95,7 +99,8 @@ public class AsyncMessageIdExtractor {
         List<String> relatesToId = new ArrayList<String>();
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_RELATESTO);
-        relatesToId.add(getFirstChildNodeValue(element));
+        String value = getFirstChildNodeValue(element);
+        relatesToId.add(NullChecker.isNotNullish(value) ? wsaHelper.fixMessageIDPrefix(value) : value);
 
         return relatesToId;
     }
