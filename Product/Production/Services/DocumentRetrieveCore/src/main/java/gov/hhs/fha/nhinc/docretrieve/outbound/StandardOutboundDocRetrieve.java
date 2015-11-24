@@ -82,7 +82,7 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
-
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RetrieveDocumentSetResponseType response = null;
         if (validateGuidance(targets, entityAPILevel)) {
 

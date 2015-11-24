@@ -44,6 +44,7 @@ import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -76,6 +77,7 @@ public class PassthroughOutboundCORE_X12DSRealTimeTest {
         COREEnvelopeRealTimeResponse actualResponse = realTime.realTimeTransaction(request, assertion,
             createNhinTargetCommunities(), urlInfo);
         assertEquals("Actual and Expected Response differ", expectedResponse, actualResponse);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME),
@@ -92,6 +94,7 @@ public class PassthroughOutboundCORE_X12DSRealTimeTest {
         COREEnvelopeRealTimeResponse actualResponse = realTime.realTimeTransaction(request, assertion,
             createNhinTargetCommunities(), urlInfo);
         assertEquals("Actual and Expected Response differ", expectedResponse, actualResponse);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME),

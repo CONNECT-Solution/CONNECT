@@ -565,6 +565,7 @@ public abstract class AuditTransforms<T, K> {
         result.setUserId(userId);
         result.setEventTimestamp(eventDate);
         result.setRelatesTo(getRelatesTo(assertion));
+        result.setRequestMessageId(assertion.getMessageId());
         return result;
     }
 

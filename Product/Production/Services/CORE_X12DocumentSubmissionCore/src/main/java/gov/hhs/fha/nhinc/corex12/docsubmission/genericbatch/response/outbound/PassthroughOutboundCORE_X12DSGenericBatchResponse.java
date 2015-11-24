@@ -63,6 +63,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponse implements Outbou
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().
             convertFirstToNhinTargetSystemType(targets);
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         this.auditRequestToNhin(msg, assertion, targetSystem);
         COREEnvelopeBatchSubmissionResponse oResponse;
         OutboundCORE_X12DSGenericBatchResponseDelegate localDelegate = getDelegate();

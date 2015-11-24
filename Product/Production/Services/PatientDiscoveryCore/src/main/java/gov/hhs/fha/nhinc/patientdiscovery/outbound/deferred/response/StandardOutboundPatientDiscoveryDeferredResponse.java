@@ -96,7 +96,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
-        MCCIIN000002UV01 response = process(request, assertion, target);
+        MCCIIN000002UV01 response = process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+            target);
 
         return response;
     }

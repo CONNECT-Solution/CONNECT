@@ -63,7 +63,6 @@ public class AuditRepositoryOrchImplTest {
         assertEquals("AuditRepositoryRecord.EventType mismatch", dbRec.getEventType(), EVENT_TYPE);
         assertEquals("AuditRepositoryRecord.EventId mismatch", dbRec.getEventId(), EVENT_ID_CODE_DISP_NAME);
         assertEquals("AuditRepositoryRecord.RelatesTo", dbRec.getRelatesTo(), RELATES_TO_1);
-        assertNotNull("AuditRepositoryRecord.MessageId", dbRec.getMessageId());
     }
 
     private LogEventSecureRequestType createLogEventSecureObj(AssertionType assertion) {

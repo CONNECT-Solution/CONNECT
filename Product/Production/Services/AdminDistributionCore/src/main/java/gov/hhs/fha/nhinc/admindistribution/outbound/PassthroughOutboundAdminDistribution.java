@@ -54,11 +54,11 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
         this.adDelegate = adDelegate;
     }
 
-
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
-        RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message, assertion, target);
+        NhinTargetCommunitiesType target) {
+        RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message,
+            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         sendAlertMessage(request, assertion, target);
     }
@@ -68,18 +68,18 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      *
      * @param request
      * @param assertion
-     * @param target
+     * @param targetCommunities
      */
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
-            NhinTargetCommunitiesType targetCommunities) {
+        NhinTargetCommunitiesType targetCommunities) {
 
-    	NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
-        sendToNhin(request, assertion, target);
+        NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
+        sendToNhin(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
     }
 
     private void sendToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
-            NhinTargetSystemType target) {
+        NhinTargetSystemType target) {
 
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
         orchestratable.setRequest(request);

@@ -41,6 +41,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.util.Properties;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -87,7 +88,7 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
             request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
 
         assertSame(expectedResponse, actualResponse);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME),
@@ -110,7 +111,7 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
             request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
 
         assertSame(expectedResponse, actualResponse);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME),

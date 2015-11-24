@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -52,7 +53,7 @@ public class PassthroughOutboundAdminDistributionTest {
         PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate);
 
         passthroughAdmin.sendAlertMessage(request, assertion, targetCommunities);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(adDelegate).process(any(OutboundAdminDistributionOrchestratable.class));
 
     }
@@ -69,7 +70,7 @@ public class PassthroughOutboundAdminDistributionTest {
         PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate);
 
         passthroughAdmin.sendAlertMessage(request, assertion, targetCommunities);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(adDelegate).process(any(OutboundAdminDistributionOrchestratable.class));
 
     }

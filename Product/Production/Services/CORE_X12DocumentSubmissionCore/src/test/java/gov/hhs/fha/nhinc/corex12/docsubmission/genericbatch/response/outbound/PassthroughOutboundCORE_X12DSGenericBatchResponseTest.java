@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -74,6 +75,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
         when(mockOrchestratable.getResponse()).thenReturn(successResponse);
         when(mockDelegate.process(any(OutboundOrchestratable.class))).thenReturn(mockOrchestratable);
         batchResp.batchSubmitTransaction(request, assertion, targets, urlInfo);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME),
@@ -86,6 +88,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchResponseTest {
         when(mockOrchestratable.getResponse()).thenReturn(successResponse);
         when(mockDelegate.process(any(OutboundOrchestratable.class))).thenReturn(mockOrchestratable);
         batchResp.batchSubmitTransaction(request, assertion, targets, urlInfo);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME),

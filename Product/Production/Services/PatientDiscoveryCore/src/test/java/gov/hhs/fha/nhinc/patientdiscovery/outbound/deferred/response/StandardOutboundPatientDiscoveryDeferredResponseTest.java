@@ -173,6 +173,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Verify request from adapter is audited
         requestArgument.getAllValues().clear();
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
@@ -206,6 +207,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Verify request from adapter is audited
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
             .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
@@ -248,6 +250,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Verify request from adapter is audited
         ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
             .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
@@ -312,6 +315,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Verify request from adapter is audited
         requestArgument.getAllValues().clear();
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),

@@ -71,7 +71,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
             targetCommunities, getAuditLogger(true));
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME),
@@ -99,7 +99,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse(request, assertion,
             targetCommunities, getAuditLogger(false));
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME),

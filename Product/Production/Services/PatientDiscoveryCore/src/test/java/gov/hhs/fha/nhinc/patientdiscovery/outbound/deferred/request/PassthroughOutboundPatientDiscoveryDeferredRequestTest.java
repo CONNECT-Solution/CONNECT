@@ -42,6 +42,7 @@ import java.util.Properties;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -83,7 +84,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequestTest {
             assertion, targets);
 
         assertSame(expectedResponse, actualResponse);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
@@ -115,7 +116,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequestTest {
             assertion, targets);
 
         assertSame(expectedResponse, actualResponse);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),

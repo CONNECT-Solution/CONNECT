@@ -73,6 +73,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
 
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, response.getMessage().getStatus());
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME),
@@ -100,6 +101,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
 
         assertNotNull(response);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, response.getMessage().getStatus());
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME),

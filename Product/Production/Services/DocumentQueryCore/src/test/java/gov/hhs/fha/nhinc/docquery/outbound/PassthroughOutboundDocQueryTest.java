@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -39,10 +41,13 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.log4j.Logger;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
@@ -51,8 +56,6 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import org.slf4j.Logger;
 
 /**
  * @author akong
@@ -86,6 +89,7 @@ public class PassthroughOutboundDocQueryTest {
             targets);
 
         assertSame(expectedResponse, actualResponse);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -98,7 +102,7 @@ public class PassthroughOutboundDocQueryTest {
         final String HCID2 = "2.2";
 
         final Logger mockLogger = mock(Logger.class);
-        ArgumentCaptor<String> logMessageCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Logger> loggerCaptor = ArgumentCaptor.forClass(Logger.class);
 
         final String compareOutput = "Multiple targets in request message in passthrough mode."
             + "  Only sending to target HCID: " + HCID1 + ".  Not sending request to: " + HCID2 + ".";
@@ -143,9 +147,10 @@ public class PassthroughOutboundDocQueryTest {
         AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
             targets);
 
-        verify(mockLogger).warn(logMessageCaptor.capture());
+        verify(mockLogger).warn(loggerCaptor.capture());
         assertSame(expectedResponse, actualResponse);
-        assertEquals(compareOutput, logMessageCaptor.getValue());
+        assertEquals(compareOutput, loggerCaptor.getValue());
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -176,6 +181,7 @@ public class PassthroughOutboundDocQueryTest {
             targets);
 
         assertSame(expectedResponse, actualResponse);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -195,4 +201,5 @@ public class PassthroughOutboundDocQueryTest {
             }
         };
     }
+
 }

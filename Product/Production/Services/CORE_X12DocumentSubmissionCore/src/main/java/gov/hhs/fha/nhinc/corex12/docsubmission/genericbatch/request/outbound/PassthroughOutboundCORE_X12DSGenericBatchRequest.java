@@ -80,6 +80,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequest implements Outboun
         COREEnvelopeBatchSubmissionResponse oResponse = null;
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         this.auditRequestToNhin(msg, assertion, targetSystem);
         OutboundCORE_X12DSGenericBatchRequestOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, msg,
             targetSystem, assertion);

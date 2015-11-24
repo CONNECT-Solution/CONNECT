@@ -191,7 +191,7 @@ public class AuditRepositoryOrchImpl {
         auditRec.setOutcome(mess.getEventOutcomeIndicator().intValue());
         auditRec.setEventType(mess.getEventType());
         auditRec.setEventId(mess.getEventID());
-        auditRec.setMessageId(MessageGeneratorUtils.getInstance().generateMessageId(assertion));
+        auditRec.setMessageId(mess.getRequestMessageId());
         auditRec.setRelatesTo(mess.getRelatesTo());
         auditRec.setUserId(mess.getUserId());
 

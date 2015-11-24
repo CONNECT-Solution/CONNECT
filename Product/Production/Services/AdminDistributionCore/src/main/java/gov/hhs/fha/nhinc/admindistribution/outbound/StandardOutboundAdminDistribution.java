@@ -64,40 +64,36 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     /**
      * This method sends AlertMessage to the target.
      *
-     * @param message
-     *            SendAlertMessage received.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTargetCommunity received.
+     * @param message SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+        afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
+        version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
-        RespondingGatewaySendAlertMessageType unsecured = msgUtils.convertToUnsecured(message, assertion, target);
+        NhinTargetCommunitiesType target) {
+        RespondingGatewaySendAlertMessageType unsecured = msgUtils.convertToUnsecured(message,
+            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         this.sendAlertMessage(unsecured, assertion, target);
 
     }
 
     /**
-     * @param message
-     *            SendAlerMessage Received.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTargetCommunity received.
+     * @param message SendAlerMessage Received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+        afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
+        version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
-        auditMessage(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        NhinTargetCommunitiesType target) {
+        auditMessage(message, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         List<UrlInfo> urlInfoList = getEndpoints(target);
 
@@ -123,12 +119,9 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     /**
      * This method audits the AdminDist Entity Message.
      *
-     * @param message
-     *            SendAlertMessage received.
-     * @param assertion
-     *            Assertion received.
-     * @param direction
-     *            The direction can be either outbound or inbound.
+     * @param message SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param direction The direction can be either outbound or inbound.
      */
     protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction) {
         AcknowledgementType ack = getAuditLogger().auditEntityAdminDist(message, assertion, direction);
@@ -159,8 +152,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     /**
      * This method returns the list of url's of targetCommunities.
      *
-     * @param targetCommunities
-     *            NhinTargetCommunities received.
+     * @param targetCommunities NhinTargetCommunities received.
      * @return list of urlInfo for target Communities.
      */
     protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
@@ -168,7 +160,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
         try {
             urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
-                    targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+                targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Failed to obtain target URLs", ex);
         }
@@ -179,12 +171,9 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     /**
      * This method returns boolean for the policyCheck for a specific HCID.
      *
-     * @param request
-     *            SendAlertMessage received.
-     * @param assertion
-     *            Assertion received.
-     * @param hcid
-     *            homeCommunityId to check policy.
+     * @param request SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param hcid homeCommunityId to check policy.
      * @return true if checkpolicy is permit; else false.
      */
     protected boolean checkPolicy(RespondingGatewaySendAlertMessageType request, AssertionType assertion, String hcid) {
@@ -197,15 +186,12 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     /**
      * This method send message to Nhin Proxy.
      *
-     * @param newRequest
-     *            SendAlertMessage received.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTargetSystem received.
+     * @param newRequest SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetSystem received.
      */
     protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,
-            NhinTargetSystemType target) {
+        NhinTargetSystemType target) {
         LOG.debug("begin sendToNhinProxy");
         OutboundAdminDistributionDelegate adDelegate = getNewOutboundAdminDistributionDelegate();
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);

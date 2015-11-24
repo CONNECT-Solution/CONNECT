@@ -83,6 +83,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
         ADAPTER_API_LEVEL entityAPILevel) {
 
         RetrieveDocumentSetResponseType response = null;
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         if (validateGuidance(targets, entityAPILevel)) {
 
             NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(

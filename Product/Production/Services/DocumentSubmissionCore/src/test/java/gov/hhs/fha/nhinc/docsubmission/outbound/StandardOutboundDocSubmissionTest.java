@@ -111,7 +111,7 @@ public class StandardOutboundDocSubmissionTest {
 
         RegistryResponseType actualResponse = outbound.provideAndRegisterDocumentSetB(request,
             assertion, targets, new UrlInfoType());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
@@ -139,7 +139,7 @@ public class StandardOutboundDocSubmissionTest {
 
         RegistryResponseType response = outbound.provideAndRegisterDocumentSetB(request,
             assertion, targets, new UrlInfoType());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
@@ -161,7 +161,7 @@ public class StandardOutboundDocSubmissionTest {
 
         RegistryResponseType response = outbound.provideAndRegisterDocumentSetB(request,
             assertion, null, new UrlInfoType());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),
@@ -246,7 +246,7 @@ public class StandardOutboundDocSubmissionTest {
 
         RegistryResponseType actualResponse = outbound.provideAndRegisterDocumentSetB(request,
             assertion, targets, new UrlInfoType());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_SERVICE_NAME),

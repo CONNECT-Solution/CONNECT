@@ -125,7 +125,8 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
-        auditRequest(message, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets));
+        auditRequest(message, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+            msgUtils.convertFirstToNhinTargetSystemType(targets));
 
         List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
         if (NullChecker.isNotNullish(urlInfoList)) {
