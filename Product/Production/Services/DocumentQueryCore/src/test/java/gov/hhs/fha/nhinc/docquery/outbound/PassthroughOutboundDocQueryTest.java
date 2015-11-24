@@ -43,7 +43,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.log4j.Logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -55,6 +54,7 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import org.slf4j.Logger;
 
 /**
  * @author akong
@@ -101,7 +101,7 @@ public class PassthroughOutboundDocQueryTest {
         final String HCID2 = "2.2";
 
         final Logger mockLogger = mock(Logger.class);
-        ArgumentCaptor<Logger> logMessageCaptor = ArgumentCaptor.forClass(Logger.class);
+        ArgumentCaptor<String> logMessageCaptor = ArgumentCaptor.forClass(String.class);
 
         final String compareOutput = "Multiple targets in request message in passthrough mode."
             + "  Only sending to target HCID: " + HCID1 + ".  Not sending request to: " + HCID2 + ".";
