@@ -180,9 +180,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                     NhinTargetSystemType target = createNhinTargetSystemType(urlInfo.getHcid());
 
                     // create a new request to send out to each target community
-                    MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-                    RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, assertion,
-                        urlInfo, urlInfoList.size());
+                    RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request,
+                        MessageGeneratorUtils.getInstance().generateMessageId(assertion), urlInfo, urlInfoList.size());
 
                     if (checkPolicy(newRequest)) {
                         setHomeCommunityIdInRequest(newRequest, urlInfo.getHcid());

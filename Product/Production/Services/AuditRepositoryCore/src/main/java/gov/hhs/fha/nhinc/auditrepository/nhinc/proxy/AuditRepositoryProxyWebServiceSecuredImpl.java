@@ -55,8 +55,6 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
     private AcknowledgementType result = new AcknowledgementType();
 
-    private final LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
-
     private final String invokeMethodName = "logEvent";
 
     @Override
@@ -68,18 +66,7 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
             synchronized (result) {
                 return result;
             }
-        } else {
-            secureRequest.setAuditMessage(request.getAuditMessage());
         }
-        secureRequest.setDirection(request.getDirection());
-        secureRequest.setRemoteHCID(request.getRemoteHCID());
-        secureRequest.setEventType(request.getEventType());
-        secureRequest.setEventID(request.getEventID());
-        secureRequest.setEventOutcomeIndicator(request.getEventOutcomeIndicator());
-        secureRequest.setEventTimestamp(request.getEventTimestamp());
-        secureRequest.setUserId(request.getUserId());
-        secureRequest.setRelatesTo(request.getRelatesTo());
-        secureRequest.setRequestMessageId(request.getRequestMessageId());
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
 
@@ -93,7 +80,7 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
                 synchronized (result) {
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
-                        invokeMethodName, secureRequest);
+                        invokeMethodName, createLogSecureEventRequestType(request));
                 }
             }
         } catch (Exception e) {
@@ -107,4 +94,18 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
         return result;
     }
 
+    private LogEventSecureRequestType createLogSecureEventRequestType(LogEventRequestType request) {
+        LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
+        secureRequest.setAuditMessage(request.getAuditMessage());
+        secureRequest.setDirection(request.getDirection());
+        secureRequest.setRemoteHCID(request.getRemoteHCID());
+        secureRequest.setEventType(request.getEventType());
+        secureRequest.setEventID(request.getEventID());
+        secureRequest.setEventOutcomeIndicator(request.getEventOutcomeIndicator());
+        secureRequest.setEventTimestamp(request.getEventTimestamp());
+        secureRequest.setUserId(request.getUserId());
+        secureRequest.setRelatesTo(request.getRelatesTo());
+        secureRequest.setRequestMessageId(request.getRequestMessageId());
+        return secureRequest;
+    }
 }
