@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -42,7 +44,8 @@ import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
@@ -51,7 +54,6 @@ import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.slf4j.Logger;
 
 /**
@@ -86,6 +88,7 @@ public class PassthroughOutboundDocQueryTest {
             targets);
 
         assertSame(expectedResponse, actualResponse);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -146,6 +149,7 @@ public class PassthroughOutboundDocQueryTest {
         verify(mockLogger).warn(logMessageCaptor.capture());
         assertSame(expectedResponse, actualResponse);
         assertEquals(compareOutput, logMessageCaptor.getValue());
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -176,6 +180,7 @@ public class PassthroughOutboundDocQueryTest {
             targets);
 
         assertSame(expectedResponse, actualResponse);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -195,4 +200,5 @@ public class PassthroughOutboundDocQueryTest {
             }
         };
     }
+
 }

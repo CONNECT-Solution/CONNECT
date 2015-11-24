@@ -103,7 +103,7 @@ public class StandardOutboundDocQueryTest {
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
             assertion, targets);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -239,7 +239,7 @@ public class StandardOutboundDocQueryTest {
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
             assertion, targets);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -283,7 +283,7 @@ public class StandardOutboundDocQueryTest {
         when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
 
         entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, atLeast(1)).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
@@ -323,7 +323,7 @@ public class StandardOutboundDocQueryTest {
         when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
 
         entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),

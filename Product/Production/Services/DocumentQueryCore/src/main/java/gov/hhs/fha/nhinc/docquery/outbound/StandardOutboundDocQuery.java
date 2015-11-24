@@ -71,7 +71,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @param strategy
      */
     StandardOutboundDocQuery(AggregationStrategy strategy, AggregationService fanoutService,
-            DocQueryPolicyChecker policyChecker) {
+        DocQueryPolicyChecker policyChecker) {
         super();
         this.strategy = strategy;
         this.fanoutService = fanoutService;
@@ -88,14 +88,14 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     @Override
     @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 
         List<OutboundOrchestratable> aggregateRequests = fanoutService.createChildRequests(adhocQueryRequest,
-                assertion, targets);
+            MessageGeneratorUtils.getInstance().generateMessageId(assertion), targets);
 
         if (aggregateRequests.isEmpty()) {
             LOG.info("no patient correlation found.");
@@ -103,8 +103,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             //auditRequest(adhocQueryRequest, assertion, getNhinTarget(targets));
         } else {
             OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(
-                    new OutboundDocQueryAggregator(), assertion, NhincConstants.DOC_QUERY_SERVICE_NAME,
-                    adhocQueryRequest);
+                new OutboundDocQueryAggregator(), assertion, NhincConstants.DOC_QUERY_SERVICE_NAME,
+                adhocQueryRequest);
 
             aggregate.setRequest(request);
 
@@ -157,13 +157,13 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      */
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
         return MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
-                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
     private void auditRequest(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target) {
         getAuditLogger().auditRequestMessage(request, assertion, target,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
     }
 

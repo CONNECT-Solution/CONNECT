@@ -43,6 +43,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
@@ -80,7 +81,7 @@ public class PassthroughOutboundPatientDiscoveryTest {
             .respondingGatewayPRPAIN201305UV02(request, assertion);
 
         assertSame(outOrchestratable.getResponse(), actualMessage.getCommunityResponse().get(0).getPRPAIN201306UV02());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request.getPRPAIN201305UV02()), any(AssertionType.class), any(
             NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),
@@ -105,7 +106,7 @@ public class PassthroughOutboundPatientDiscoveryTest {
             .respondingGatewayPRPAIN201305UV02(request, assertion);
 
         assertSame(outOrchestratable.getResponse(), actualMessage.getCommunityResponse().get(0).getPRPAIN201306UV02());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request.getPRPAIN201305UV02()), any(AssertionType.class),
             any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),

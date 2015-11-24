@@ -63,7 +63,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         XDRAcknowledgementType response = null;
-
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType internalRequest
             = createRequestForInternalProcessing(request, targets);
 

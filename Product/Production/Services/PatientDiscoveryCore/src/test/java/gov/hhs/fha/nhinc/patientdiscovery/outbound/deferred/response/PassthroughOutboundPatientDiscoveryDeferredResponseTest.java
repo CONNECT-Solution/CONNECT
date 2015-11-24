@@ -40,13 +40,13 @@ import java.util.Properties;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -89,7 +89,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
             .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         verify(delegate).process(orchestratableArgument.capture());
         assertEquals(request, orchestratableArgument.getValue().getRequest());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
@@ -121,7 +121,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
             .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         verify(delegate).process(orchestratableArgument.capture());
         assertEquals(request, orchestratableArgument.getValue().getRequest());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),

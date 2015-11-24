@@ -77,7 +77,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
         RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
-        RespondingGatewayPRPAIN201306UV02ResponseType response = sendToNhin(request.getPRPAIN201305UV02(), assertion,
+        RespondingGatewayPRPAIN201306UV02ResponseType response = sendToNhin(request.getPRPAIN201305UV02(),
+            MessageGeneratorUtils.getInstance().generateMessageId(assertion),
             msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
         auidtRequest(request, assertion,
             msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
@@ -139,9 +140,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
 
     private void auidtRequest(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion,
         NhinTargetSystemType target) {
-
         auditLogger.auditRequestMessage(request.getPRPAIN201305UV02(), assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
-            null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
+            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 }

@@ -51,7 +51,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         auditRequest(body, assertion, targetSystem);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(

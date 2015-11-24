@@ -93,6 +93,7 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
             createOutboundDocSubmissionDeferredResponseOrchestratable());
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest(getAuditLogger(true));
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME),
@@ -113,7 +114,7 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
             Mockito.any(AssertionType.class))).thenReturn("2.2");
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest(getAuditLogger(true));
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), isNotNull(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME),
@@ -130,6 +131,7 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
         AssertionType assertionLocal = new AssertionType();
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets(requestLocal,
             assertionLocal, getAuditLogger(true));
+        assertNotNull("Assertion MessageId is null", assertionLocal.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(requestLocal), eq(assertionLocal),
             isNotNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE), isNull(Properties.class),

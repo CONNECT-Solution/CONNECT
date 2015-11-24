@@ -59,7 +59,7 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
 
         NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
             targets);
-
+        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createAuditRequest(body, assertion,
             targetSystem);
 

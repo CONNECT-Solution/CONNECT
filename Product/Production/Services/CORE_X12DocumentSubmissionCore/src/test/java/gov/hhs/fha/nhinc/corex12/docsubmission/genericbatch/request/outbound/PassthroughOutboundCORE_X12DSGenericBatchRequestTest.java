@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.entity.Outbo
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.eq;
@@ -69,6 +70,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequestTest {
         PassthroughOutboundCORE_X12DSGenericBatchRequest x12BatchReq = createGenericBatchRequest(getAuditLogger(true));
         when(mockDelegate.process(any(OutboundCORE_X12DSGenericBatchRequestOrchestratable.class))).thenReturn(mockOrch);
         x12BatchReq.batchSubmitTransaction(msg, assertion, targets, urlInfo);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(msg), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
@@ -80,6 +82,7 @@ public class PassthroughOutboundCORE_X12DSGenericBatchRequestTest {
         PassthroughOutboundCORE_X12DSGenericBatchRequest x12BatchReq = createGenericBatchRequest(getAuditLogger(false));
         when(mockDelegate.process(any(OutboundCORE_X12DSGenericBatchRequestOrchestratable.class))).thenReturn(mockOrch);
         x12BatchReq.batchSubmitTransaction(msg, assertion, targets, urlInfo);
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(msg), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),

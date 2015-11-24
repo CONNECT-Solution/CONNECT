@@ -52,6 +52,7 @@ public class AuditRepositoryOrchImplTest {
     private final String USER_NAME = "testUser";
     private final String RELATES_TO_1 = "val1";
     private final String RELATES_TO_2 = "val2";
+    private final String MESSAGE_ID = "MessageId";
 
     @Test
     public void testCreateDBAuditObj() {
@@ -75,6 +76,7 @@ public class AuditRepositoryOrchImplTest {
         logObj.setEventID(audit.getEventIdentification().getEventID().getDisplayName());
         logObj.setEventOutcomeIndicator(audit.getEventIdentification().getEventOutcomeIndicator());
         logObj.setRelatesTo(assertion.getRelatesToList().get(0));
+        logObj.setRequestMessageId(MESSAGE_ID);
         return logObj;
     }
 

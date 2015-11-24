@@ -67,17 +67,7 @@ public class AuditRepositoryUnsecuredImpl {
                     AssertionType assertion = logEventRequest.getAssertion();
                     loadAssertion(assertion, context);
 
-                    LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
-                    secureRequest.setAuditMessage(logEventRequest.getAuditMessage());
-                    secureRequest.setDirection(logEventRequest.getDirection());
-                    secureRequest.setRemoteHCID(logEventRequest.getRemoteHCID());
-                    secureRequest.setEventType(logEventRequest.getEventType());
-                    secureRequest.setEventID(logEventRequest.getEventID());
-                    secureRequest.setEventOutcomeIndicator(logEventRequest.getEventOutcomeIndicator());
-                    secureRequest.setEventTimestamp(logEventRequest.getEventTimestamp());
-                    secureRequest.setUserId(logEventRequest.getUserId());
-                    secureRequest.setRelatesTo(logEventRequest.getRelatesTo());
-                    response = processor.logAudit(secureRequest, assertion);
+                    response = processor.logAudit(createLogSecureEventRequestType(logEventRequest), assertion);
                 } catch (Exception ex) {
                     String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " + ex.getMessage();
                     LOG.error(message, ex);
@@ -123,4 +113,18 @@ public class AuditRepositoryUnsecuredImpl {
 
     }
 
+    private LogEventSecureRequestType createLogSecureEventRequestType(LogEventRequestType request) {
+        LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
+        secureRequest.setAuditMessage(request.getAuditMessage());
+        secureRequest.setDirection(request.getDirection());
+        secureRequest.setRemoteHCID(request.getRemoteHCID());
+        secureRequest.setEventType(request.getEventType());
+        secureRequest.setEventID(request.getEventID());
+        secureRequest.setEventOutcomeIndicator(request.getEventOutcomeIndicator());
+        secureRequest.setEventTimestamp(request.getEventTimestamp());
+        secureRequest.setUserId(request.getUserId());
+        secureRequest.setRelatesTo(request.getRelatesTo());
+        secureRequest.setRequestMessageId(request.getRequestMessageId());
+        return secureRequest;
+    }
 }

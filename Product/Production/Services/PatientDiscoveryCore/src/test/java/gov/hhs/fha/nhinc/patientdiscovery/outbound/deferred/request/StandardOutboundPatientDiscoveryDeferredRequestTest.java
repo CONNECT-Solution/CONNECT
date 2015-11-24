@@ -185,14 +185,13 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
         verify(pd201305Processor).storeLocalMapping(requestArgument.capture());
         assertEquals(request, requestArgument.getValue().getPRPAIN201305UV02());
 
-        verify(correlationDao).saveOrUpdate("messageId", patientId);
-
+        verify(correlationDao).saveOrUpdate("urn:uuid:messageId", patientId);
         // Verify policy is checking the request containing the first target and then the second target
         requestArgument.getAllValues().clear();
         verify(policyChecker, times(2)).checkOutgoingPolicy(requestArgument.capture());
         assertEquals(firstTargetRequest, requestArgument.getAllValues().get(0).getPRPAIN201305UV02());
         assertEquals(secondTargetRequest, requestArgument.getAllValues().get(1).getPRPAIN201305UV02());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         // Verify audits
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
@@ -225,7 +224,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
             "No targets were found for the Patient Discovery Request",
             errorResponse.getAcknowledgement().get(0).getAcknowledgementDetail().get(0).getText().getContent()
             .get(0).toString());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         // Verify audits
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
@@ -272,13 +271,12 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
         verify(pd201305Processor).storeLocalMapping(requestArgument.capture());
         assertEquals(request, requestArgument.getValue().getPRPAIN201305UV02());
 
-        verify(correlationDao).saveOrUpdate("messageId", patientId);
-
+        verify(correlationDao).saveOrUpdate("urn:uuid:messageId", patientId);
         // Verify policy check
         requestArgument.getAllValues().clear();
         verify(policyChecker).checkOutgoingPolicy(requestArgument.capture());
         assertEquals(firstTargetRequest, requestArgument.getValue().getPRPAIN201305UV02());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.TRUE), isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
@@ -327,14 +325,13 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
         verify(pd201305Processor).storeLocalMapping(requestArgument.capture());
         assertEquals(request, requestArgument.getValue().getPRPAIN201305UV02());
 
-        verify(correlationDao).saveOrUpdate("messageId", patientId);
-
+        verify(correlationDao).saveOrUpdate("urn:uuid:messageId", patientId);
         // Verify policy is checking the request containing the first target and then the second target
         requestArgument.getAllValues().clear();
         verify(policyChecker, times(2)).checkOutgoingPolicy(requestArgument.capture());
         assertEquals(firstTargetRequest, requestArgument.getAllValues().get(0).getPRPAIN201305UV02());
         assertEquals(secondTargetRequest, requestArgument.getAllValues().get(1).getPRPAIN201305UV02());
-
+        assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         // Verify audits
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),

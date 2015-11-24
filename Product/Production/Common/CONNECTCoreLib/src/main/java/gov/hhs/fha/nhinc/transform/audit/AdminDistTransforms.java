@@ -109,6 +109,7 @@ public class AdminDistTransforms {
         result.setEventTimestamp(auditMsg.getEventIdentification().getEventDateTime());
         result.setAssertion(assertion);
         result.setRelatesTo(getRelatesTo(assertion));
+        result.setRequestMessageId(assertion.getMessageId());
         LOG.trace("Exiting ADTransform-getLogEventRequestType() method.");
 
         return result;
