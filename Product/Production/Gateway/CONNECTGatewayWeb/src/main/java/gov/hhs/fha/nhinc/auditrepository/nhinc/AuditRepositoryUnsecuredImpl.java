@@ -67,7 +67,7 @@ public class AuditRepositoryUnsecuredImpl {
                     AssertionType assertion = logEventRequest.getAssertion();
                     loadAssertion(assertion, context);
 
-                    response = processor.logAudit(createLogSecureEventRequestType(logEventRequest, assertion), assertion);
+                    response = processor.logAudit(createLogSecureEventRequestType(logEventRequest), assertion);
                 } catch (Exception ex) {
                     String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " + ex.getMessage();
                     LOG.error(message, ex);
@@ -113,7 +113,7 @@ public class AuditRepositoryUnsecuredImpl {
 
     }
 
-    private LogEventSecureRequestType createLogSecureEventRequestType(LogEventRequestType request, AssertionType assertion) {
+    private LogEventSecureRequestType createLogSecureEventRequestType(LogEventRequestType request) {
         LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
         secureRequest.setAuditMessage(request.getAuditMessage());
         secureRequest.setDirection(request.getDirection());

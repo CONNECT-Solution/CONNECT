@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.log4j.Logger;
@@ -102,7 +101,7 @@ public class PassthroughOutboundDocQueryTest {
         final String HCID2 = "2.2";
 
         final Logger mockLogger = mock(Logger.class);
-        ArgumentCaptor<Logger> loggerCaptor = ArgumentCaptor.forClass(Logger.class);
+        ArgumentCaptor<Logger> logMessageCaptor = ArgumentCaptor.forClass(Logger.class);
 
         final String compareOutput = "Multiple targets in request message in passthrough mode."
             + "  Only sending to target HCID: " + HCID1 + ".  Not sending request to: " + HCID2 + ".";
@@ -147,9 +146,9 @@ public class PassthroughOutboundDocQueryTest {
         AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
             targets);
 
-        verify(mockLogger).warn(loggerCaptor.capture());
+        verify(mockLogger).warn(logMessageCaptor.capture());
         assertSame(expectedResponse, actualResponse);
-        assertEquals(compareOutput, loggerCaptor.getValue());
+        assertEquals(compareOutput, logMessageCaptor.getValue());
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
