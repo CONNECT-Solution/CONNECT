@@ -20341,8 +20341,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
             <CheckSum>43B8485AB5</CheckSum>
             <Payload>${#TestCase#X12GenericBatchPayload}</Payload>
          </cor:COREEnvelopeBatchSubmission>
-        <urn:assertion>
-          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+        <urn:assertion>          
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -20554,7 +20553,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
             <!--Optional:-->
             <urn1:messageId>?</urn1:messageId>
             <!--Zero or more repetitions:-->
-            <urn1:relatesToList>?</urn1:relatesToList>
+            <urn1:relatesToList>#{Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
         <urn:NhinTargetCommunities>
