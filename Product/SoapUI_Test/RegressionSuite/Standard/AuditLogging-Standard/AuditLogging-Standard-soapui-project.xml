@@ -139,6 +139,7 @@
    <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -615,6 +616,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDocSubmissionDefReq') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -1124,7 +1127,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:57:34Z</con:value>
+          <con:value>2015-11-24T01:09:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1176,7 +1179,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -1228,11 +1231,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:47:34</con:value>
+          <con:value>11/24/2015 00:59:22</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:47:34Z</con:value>
+          <con:value>2015-11-24T00:59:22Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1269,7 +1272,7 @@ if (propertiesFile.exists()) {
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
-         <urn:assertion>
+         <urn:assertion>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1541,7 +1544,7 @@ if (propertiesFile.exists()) {
             <!--Optional:-->
             <urn1:messageId>?</urn1:messageId>
             <!--1 or more repetitions:-->
-            <urn1:relatesToList>uuid:088a26e8-6b03-4bf8-84f1-737dc94be2e0</urn1:relatesToList>
+            <urn1:relatesToList>#{Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -1611,6 +1614,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDocSubmissionDefRes') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -1945,7 +1950,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:58:00Z</con:value>
+          <con:value>2015-11-24T01:09:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1997,15 +2002,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:48:00</con:value>
+          <con:value>11/24/2015 00:59:37</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:48:00Z</con:value>
+          <con:value>2015-11-24T00:59:37Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2042,6 +2047,7 @@ if (propertiesFile.exists()) {
    <soap:Body testSuite="Entity_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+         <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2518,6 +2524,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDocSubmission') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -2936,7 +2944,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:58:19Z</con:value>
+          <con:value>2015-11-24T01:09:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -2988,7 +2996,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -3040,11 +3048,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:48:19</con:value>
+          <con:value>11/24/2015 00:59:50</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:48:19Z</con:value>
+          <con:value>2015-11-24T00:59:50Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3144,6 +3152,7 @@ if (propertiesFile.exists()) {
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+         <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -3405,6 +3414,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypePDDefReq') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -3973,7 +3984,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:58:35Z</con:value>
+          <con:value>2015-11-24T01:10:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -4053,7 +4064,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -4285,7 +4296,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:48:35</con:value>
+          <con:value>11/24/2015 01:00:06</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -4293,7 +4304,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:48:35Z</con:value>
+          <con:value>2015-11-24T01:00:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -4378,7 +4389,7 @@ if (propertiesFile.exists()) {
    <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
       <add:Action>urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
-      <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
+      <add:RelatesTo>${#Project#MessageID}</add:RelatesTo>
       <add:To>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</add:To>
    </soap:Header>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
@@ -4488,7 +4499,7 @@ if (propertiesFile.exists()) {
                </urn:queryByParameter>
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
-         <urn:assertion>
+         <urn:assertion>          
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -4667,6 +4678,7 @@ if (propertiesFile.exists()) {
                <!--Optional:-->
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
+            <urn1:relatesToList>#{#Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -4728,7 +4740,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	
+	assert context.findProperty('EventTypePDDefRes') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -5301,7 +5314,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:58:52Z</con:value>
+          <con:value>2015-11-24T01:10:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -5385,7 +5398,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -5617,7 +5630,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:48:52</con:value>
+          <con:value>11/24/2015 01:00:19</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -5625,7 +5638,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:48:52Z</con:value>
+          <con:value>2015-11-24T01:00:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -5781,6 +5794,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -6023,6 +6037,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypePD') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -6514,7 +6530,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:59:13Z</con:value>
+          <con:value>2015-11-24T01:10:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -6554,7 +6570,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -6774,11 +6790,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:49:13</con:value>
+          <con:value>11/24/2015 01:00:32</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:49:13Z</con:value>
+          <con:value>2015-11-24T01:00:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -6885,6 +6901,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
+          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -7147,6 +7164,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDQ') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -7619,7 +7638,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:59:29Z</con:value>
+          <con:value>2015-11-24T01:10:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -7663,7 +7682,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7779,11 +7798,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:49:29</con:value>
+          <con:value>11/24/2015 01:00:47</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:49:29Z</con:value>
+          <con:value>2015-11-24T01:00:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
@@ -7837,6 +7856,7 @@ if (propertiesFile.exists()) {
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
+          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -8117,6 +8137,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDR') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -8572,7 +8594,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T20:59:47Z</con:value>
+          <con:value>2015-11-24T01:10:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -8624,7 +8646,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -8740,11 +8762,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:49:47</con:value>
+          <con:value>11/24/2015 01:00:59</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:49:47Z</con:value>
+          <con:value>2015-11-24T01:00:59Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9137,19 +9159,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:50:02Z</con:value>
+          <con:value>2015-11-24T01:01:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:00:02Z</con:value>
+          <con:value>2015-11-24T01:11:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:50:02</con:value>
+          <con:value>11/24/2015 01:01:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9231,6 +9253,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
    <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+          <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -9710,6 +9733,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDocSubmissionDefReq') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -10221,7 +10246,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:02:48Z</con:value>
+          <con:value>2015-11-24T01:29:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10273,7 +10298,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -10325,11 +10350,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:52:48</con:value>
+          <con:value>11/24/2015 01:19:37</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:52:48Z</con:value>
+          <con:value>2015-11-24T01:19:37Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10638,7 +10663,7 @@ if (propertiesFile.exists()) {
             <!--Optional:-->
             <urn1:messageId>?</urn1:messageId>
             <!--1 or more repetitions:-->
-            <urn1:relatesToList>uuid:088a26e8-6b03-4bf8-84f1-737dc94be2e0</urn1:relatesToList>
+           <urn1:relatesToList>#{Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -10708,6 +10733,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDocSubmissionDefRes') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -11044,7 +11071,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:03:05Z</con:value>
+          <con:value>2015-11-24T01:29:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -11096,15 +11123,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:53:05</con:value>
+          <con:value>11/24/2015 01:19:55</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:53:05Z</con:value>
+          <con:value>2015-11-24T01:19:55Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -11141,6 +11168,7 @@ if (propertiesFile.exists()) {
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+          <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -11617,6 +11645,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDocSubmission') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -12034,7 +12064,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:03:22Z</con:value>
+          <con:value>2015-11-24T01:30:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -12086,7 +12116,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -12138,11 +12168,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:53:22</con:value>
+          <con:value>11/24/2015 01:20:11</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:53:22Z</con:value>
+          <con:value>2015-11-24T01:20:11Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12242,6 +12272,7 @@ if (propertiesFile.exists()) {
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+           <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -12503,6 +12534,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypePDDefReq') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -13071,7 +13104,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:03:39Z</con:value>
+          <con:value>2015-11-24T01:30:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -13151,7 +13184,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -13383,7 +13416,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:53:39</con:value>
+          <con:value>11/24/2015 01:20:27</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -13391,7 +13424,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:53:39Z</con:value>
+          <con:value>2015-11-24T01:20:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -13765,6 +13798,7 @@ if (propertiesFile.exists()) {
                <!--Optional:-->
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
+            <urn1:relatesToList>#{#Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -13826,7 +13860,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
-	
+	assert context.findProperty('EventTypePDDefRes') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]	
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK")
 }
@@ -14396,7 +14431,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:03:54Z</con:value>
+          <con:value>2015-11-24T01:30:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -14480,7 +14515,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -14712,7 +14747,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:53:54</con:value>
+          <con:value>11/24/2015 01:20:43</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -14720,7 +14755,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:53:54Z</con:value>
+          <con:value>2015-11-24T01:20:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -14876,6 +14911,7 @@ if (propertiesFile.exists()) {
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+         <urn1:messageId>#{Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -15118,6 +15154,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypePD') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -15607,7 +15645,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:04:11Z</con:value>
+          <con:value>2015-11-24T01:30:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -15647,7 +15685,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -15867,11 +15905,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:54:11</con:value>
+          <con:value>11/24/2015 01:20:58</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:54:11Z</con:value>
+          <con:value>2015-11-24T01:20:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -15978,6 +16016,7 @@ if (propertiesFile.exists()) {
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
+         <urn1:messageId>#{Project#MessageID}</urn1:messageId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -16240,6 +16279,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+	assert context.findProperty('EventTypeDQ') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -16713,7 +16754,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:04:30Z</con:value>
+          <con:value>2015-11-24T01:31:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -16757,7 +16798,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16869,11 +16910,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:54:30</con:value>
+          <con:value>11/24/2015 01:21:18</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:54:30Z</con:value>
+          <con:value>2015-11-24T01:21:18Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -16919,6 +16960,7 @@ if (propertiesFile.exists()) {
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
+          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -17199,6 +17241,8 @@ context.withSql(context.findProperty('AuditRepoDB')) {sql ->
 	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]
+     assert context.findProperty('EventTypeDR') == sql.firstRow('select eventType from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	//assert context.findProperty('MessageID') == sql.firstRow('select messageId from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
 }
 	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
 }
@@ -17658,7 +17702,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:04:45Z</con:value>
+          <con:value>2015-11-24T01:31:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -17710,7 +17754,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -17826,11 +17870,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:54:45</con:value>
+          <con:value>11/24/2015 01:21:35</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:54:45Z</con:value>
+          <con:value>2015-11-24T01:21:35Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18223,19 +18267,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-11-20T20:55:05Z</con:value>
+          <con:value>2015-11-24T01:21:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-11-20T21:05:05Z</con:value>
+          <con:value>2015-11-24T01:31:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2015 20:55:05</con:value>
+          <con:value>11/24/2015 01:21:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2015-12-20T00:00:00Z</con:value>
+          <con:value>2015-12-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18478,6 +18522,42 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     <con:property>
       <con:name>ZipCode</con:name>
       <con:value>12345</con:value>
+    </con:property>
+    <con:property>
+      <con:name>MessageID</con:name>
+      <con:value>uuid:6666666666.66666.666.66</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypeDocSubmissionDefReq</con:name>
+      <con:value>DocSubmissionDeferredReq</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypeDocSubmissionDefRes</con:name>
+      <con:value>DocSubmissionDeferredResp</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypeDocSubmission</con:name>
+      <con:value>DocSubmission</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypePDDefReq</con:name>
+      <con:value>PatientDiscoveryDeferredReq</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypePDDefRes</con:name>
+      <con:value>PatientDiscoveryDeferredResp</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypePD</con:name>
+      <con:value>PatientDiscovery</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypeDQ</con:name>
+      <con:value>QueryForDocuments</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypeDR</con:name>
+      <con:value>RetrieveDocuments</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
