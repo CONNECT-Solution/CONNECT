@@ -1542,7 +1542,7 @@ if (propertiesFile.exists()) {
             <!--Optional:-->
             <urn1:messageId>?</urn1:messageId>
             <!--1 or more repetitions:-->
-            <urn1:relatesToList>#{Project#MessageID}</urn1:relatesToList>
+            <urn1:relatesToList>${#Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -4670,7 +4670,7 @@ if (propertiesFile.exists()) {
                <!--Optional:-->
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
-            <urn1:relatesToList>#{#Project#MessageID}</urn1:relatesToList>
+            <urn1:relatesToList>${#Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -5784,7 +5784,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -6889,7 +6889,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -7842,7 +7842,7 @@ if (propertiesFile.exists()) {
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -10645,7 +10645,7 @@ if (propertiesFile.exists()) {
             <!--Optional:-->
             <urn1:messageId>?</urn1:messageId>
             <!--1 or more repetitions:-->
-           <urn1:relatesToList>#{Project#MessageID}</urn1:relatesToList>
+           <urn1:relatesToList>${#Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -13774,7 +13774,7 @@ if (propertiesFile.exists()) {
                <!--Optional:-->
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
-            <urn1:relatesToList>#{#Project#MessageID}</urn1:relatesToList>
+            <urn1:relatesToList>${#Project#MessageID}</urn1:relatesToList>
          </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -14885,7 +14885,7 @@ if (propertiesFile.exists()) {
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-         <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+         <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -15988,7 +15988,7 @@ if (propertiesFile.exists()) {
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-         <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+         <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -16930,7 +16930,7 @@ if (propertiesFile.exists()) {
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>#{Project#MessageID}</urn1:messageId>
+          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
