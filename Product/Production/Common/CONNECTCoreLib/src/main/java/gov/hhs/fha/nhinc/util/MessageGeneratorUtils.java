@@ -170,9 +170,7 @@ public class MessageGeneratorUtils {
     public AssertionType generateMessageId(AssertionType assertion) {
         WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
         if (assertion != null) {
-            if (NullChecker.isNotNullish(assertion.getMessageId())) {
-                assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
-            } else {
+            if (NullChecker.isNullish(assertion.getMessageId())) {
                 assertion.setMessageId(wsaHelper.generateMessageID());
                 return assertion;
             }

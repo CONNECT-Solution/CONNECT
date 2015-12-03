@@ -125,9 +125,6 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
-        auditRequest(message, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
-            msgUtils.convertFirstToNhinTargetSystemType(targets));
-
         List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
         if (NullChecker.isNotNullish(urlInfoList)) {
 
@@ -138,6 +135,8 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
             for (UrlInfo urlInfo : urlInfoList) {
                 RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRespondingGatewayRequestForOneTarget(
                     message, assertion, targets, urlInfo.getHcid());
+
+                auditRequest(message, assertion, msgUtils.convertFirstToNhinTargetSystemType(targets));
 
                 if (isPolicyValid(newRequest)) {
                     ack = sendToNhin(newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), urlInfo);
@@ -198,7 +197,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
         PRPAIN201305UV02 new201305 = createNewPRPAIN201305UV02ForOneTargetCommunity(message, hcid);
         AssertionType newAssertion = asyncProcessHelper.copyAssertionTypeObject(assertion);
-
+        msgUtils.generateMessageId(newAssertion);
         return msgUtils.createRespondingGatewayRequest(new201305, newAssertion, targets);
     }
 

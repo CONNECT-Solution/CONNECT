@@ -251,7 +251,8 @@ public class AggregationService {
     private AssertionType createNewAssertion(AssertionType assertion, int numTargets) {
         AssertionType newAssertion;
         if (numTargets == 1) {
-            newAssertion = MessageGeneratorUtils.getInstance().clone(assertion);
+            newAssertion = MessageGeneratorUtils.getInstance().clone(
+                MessageGeneratorUtils.getInstance().generateMessageId(assertion));
         } else {
             newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
         }
