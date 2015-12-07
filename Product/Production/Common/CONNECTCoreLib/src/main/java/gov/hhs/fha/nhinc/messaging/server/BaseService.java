@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import java.util.List;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +49,6 @@ import org.apache.cxf.ws.addressing.AddressingProperties;
 public abstract class BaseService {
 
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
-    private final WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
 
     protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
@@ -60,7 +58,7 @@ public abstract class BaseService {
             assertion = oAssertionIn;
         }
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
+        if (assertion != null && NullChecker.isNullish(assertion.getMessageId())) {
             assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
         }
 
@@ -69,7 +67,6 @@ public abstract class BaseService {
             List<String> relatesToList = extractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().add(extractor.getAsyncRelatesTo(context).get(0));
-                assertion = updatePrefixForRelatesToList(assertion);
             }
         }
 
@@ -147,17 +144,5 @@ public abstract class BaseService {
             webContextProperties.put(NhincConstants.INBOUND_REPLY_TO, getInboundReplyToHeader(context));
         }
         return webContextProperties;
-    }
-
-    private AssertionType updatePrefixForRelatesToList(AssertionType assertion) {
-        List<String> relatesToList = assertion.getRelatesToList();
-        if (NullChecker.isNotNullish(relatesToList)) {
-            for (int i = 0; i < relatesToList.size(); i++) {
-                if (NullChecker.isNotNullish(relatesToList.get(i))) {
-                    relatesToList.set(i, wsaHelper.fixMessageIDPrefix(relatesToList.get(i)));
-                }
-            }
-        }
-        return assertion;
     }
 }

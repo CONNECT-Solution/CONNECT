@@ -163,7 +163,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
         NhincConstants.GATEWAY_API_LEVEL gatewayLevel = getGatewayVersion();
-
         try {
             List<UrlInfo> urlInfoList = getEndpoints(request.getNhinTargetCommunities());
             if (NullChecker.isNullish(urlInfoList)) {
@@ -181,7 +180,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
                     // create a new request to send out to each target community
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request,
-                        MessageGeneratorUtils.getInstance().generateMessageId(assertion), urlInfo, urlInfoList.size());
+                        assertion, urlInfo, urlInfoList.size());
 
                     if (checkPolicy(newRequest)) {
                         setHomeCommunityIdInRequest(newRequest, urlInfo.getHcid());
@@ -321,7 +320,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
         AssertionType newAssertion;
         if (numTargets == 1) {
-            newAssertion = MessageGeneratorUtils.getInstance().clone(assertion);
+            newAssertion = MessageGeneratorUtils.getInstance().clone(
+                MessageGeneratorUtils.getInstance().generateMessageId(assertion));
         } else {
             newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
         }
