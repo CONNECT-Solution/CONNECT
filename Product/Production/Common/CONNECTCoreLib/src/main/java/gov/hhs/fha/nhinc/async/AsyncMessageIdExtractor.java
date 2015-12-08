@@ -99,8 +99,7 @@ public class AsyncMessageIdExtractor {
         List<String> relatesToId = new ArrayList<String>();
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_RELATESTO);
-        String value = getFirstChildNodeValue(element);
-        relatesToId.add(NullChecker.isNotNullish(value) ? wsaHelper.fixMessageIDPrefix(value) : value);
+        relatesToId.add(getFirstChildNodeValue(element));
 
         return relatesToId;
     }
