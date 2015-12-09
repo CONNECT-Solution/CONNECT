@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import java.util.ArrayList;
