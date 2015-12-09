@@ -639,6 +639,11 @@ public abstract class AuditTransforms<T, K> {
     }
 
     private String getRelatesTo(AssertionType assertion) {
-        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
+        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? getRelatesToValue(assertion.getRelatesToList())
+            : null;
+    }
+
+    private String getRelatesToValue(List<String> relatesTo) {
+        return NullChecker.isNotNullish(relatesTo.get(0)) ? relatesTo.get(0) : null;
     }
 }

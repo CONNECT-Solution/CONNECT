@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.util.List;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -178,7 +179,11 @@ public class AdminDistTransforms {
     }
 
     private String getRelatesTo(AssertionType assertion) {
-        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? assertion.getRelatesToList().get(0) : null;
+        return NullChecker.isNotNullish(assertion.getRelatesToList()) ? getRelatesToValue(assertion.getRelatesToList())
+            : null;
     }
 
+    private String getRelatesToValue(List<String> relatesTo) {
+        return NullChecker.isNotNullish(relatesTo.get(0)) ? relatesTo.get(0) : null;
+    }
 }
