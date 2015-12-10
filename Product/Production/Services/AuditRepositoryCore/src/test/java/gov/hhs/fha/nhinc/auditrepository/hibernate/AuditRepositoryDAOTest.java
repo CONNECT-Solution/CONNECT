@@ -36,6 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.Ignore;
 
 /**
@@ -46,6 +47,17 @@ import org.junit.Ignore;
 // TODO: Move to an integration test
 public class AuditRepositoryDAOTest {
 
+    private String messageId = null;
+    private Integer outcome = null;
+    private List<String> eventType = null;
+    private String userId = null;
+    private List<String> remoteHcid = null;
+    private String startDate = null;
+    private String endDate = null;
+    private String relatesTo = null;
+    private List<AuditRepositoryRecord> responseList = null;
+    private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+
     private AuditRepositoryDAO auditDao = null;
 
     public AuditRepositoryDAOTest() {
@@ -54,6 +66,7 @@ public class AuditRepositoryDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+
     }
 
     @AfterClass
@@ -62,6 +75,7 @@ public class AuditRepositoryDAOTest {
 
     @Before
     public void setUp() {
+
     }
 
     @After
@@ -104,6 +118,69 @@ public class AuditRepositoryDAOTest {
         List result = auditDao.queryAuditRepositoryOnCriteria(eUserId, ePatientId, startDate, endDate);
         assertNotNull(result);
 
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with messageId and Outcome to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryAuditViewerByMessageIdAndCheckPrecedence() {
+        messageId = "urn:uuid%";
+        outcome = 0;
+        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
+            startDate, endDate);
+        assertNotNull(responseList);
+
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with AuditId to test queryAuditViewerByAuditId method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryAuditViewerByAuditId() {
+        String auditId = "15";
+        responseList = auditLogDao.queryAuditViewerByAuditId(auditId);
+        assertNotNull(responseList);
+
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with list passed for EventType to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryAuditViewerByEventTypeList() {
+        eventType = new ArrayList<>(Arrays.asList("DocSubmissionDeferredReq", "DocSubmission", "QueryForDocuments"));
+        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
+            startDate, endDate);
+        assertNotNull(responseList);
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with date options to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryAuditViewerByDateSearch() {
+        startDate = "12/10/2015";
+        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
+            startDate, endDate);
+        assertNotNull(responseList);
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with date options to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryAuditViewerByStartEndDateSearch() {
+        startDate = "12/10/2015";
+        endDate = "12/11/2015";
+        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
+            startDate, endDate);
+        assertNotNull(responseList);
     }
 
 }

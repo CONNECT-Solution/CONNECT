@@ -27,6 +27,9 @@
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -39,6 +42,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * AuditRepositoryDAO Class provides methods to query and update Audit Data to/from MySQL Database using Hibernate
@@ -161,4 +166,150 @@ public class AuditRepositoryDAO {
         }
         return queryList;
     }
+
+    /**
+     * This method does a query to database to get the Audit Log Messages based different options
+     *
+     * @param messageId
+     * @param relatesTo
+     * @param outcome
+     * @param startDate
+     * @param userId
+     * @param eventTypeList
+     * @param remoteHcidList
+     * @param endDate
+     * @return List
+     */
+    public List queryAuditViewer(String messageId, String relatesTo, Integer outcome, List<String> eventTypeList,
+        String userId, List<String> remoteHcidList, String startDate, String endDate) {
+
+        Session session = null;
+        List<AuditRepositoryRecord> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            LOG.info("Getting Record for Audit Viewer ");
+
+            // Build the criteria
+            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+
+            if (NullChecker.isNotNullish(messageId) || NullChecker.isNotNullish(relatesTo)) {
+
+                if (NullChecker.isNotNullish(messageId) && (messageId.startsWith("urn:uuid:")
+                    || !messageId.startsWith("urn:uuid:"))) {
+                    if (messageId.endsWith("%")) {
+                        queryCriteria.add(Restrictions.like("messageId", messageId));
+                    } else {
+                        queryCriteria.add(Restrictions.like("messageId", messageId + "%"));
+                    }
+
+                }
+
+                if (NullChecker.isNotNullish(relatesTo)) {
+                    if (relatesTo.endsWith("%")) {
+                        queryCriteria.add(Restrictions.like("relatesTo", relatesTo));
+
+                    } else {
+                        queryCriteria.add(Restrictions.like("relatesTo", relatesTo + "%"));
+
+                    }
+                }
+
+            } else if ((outcome != null && outcome >= 0) || NullChecker.isNotNullish(eventTypeList)
+                || NullChecker.isNotNullish(userId) || NullChecker.isNotNullish(remoteHcidList)
+                || NullChecker.isNotNullish(startDate) || NullChecker.isNotNullish(endDate)) {
+
+                if (outcome != null && outcome >= 0) {
+                    queryCriteria.add(Restrictions.eq("outcome", outcome));
+                }
+
+                if (NullChecker.isNotNullish(eventTypeList)) {
+                    queryCriteria.add(Restrictions.in("eventType", eventTypeList));
+                }
+
+                if (NullChecker.isNotNullish(userId)) {
+                    queryCriteria.add(Restrictions.eq("userId", userId));
+                }
+
+                if (NullChecker.isNotNullish(remoteHcidList)) {
+                    queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
+                }
+
+                if (NullChecker.isNotNullish(startDate) && NullChecker.isNotNullish(endDate)) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+                    queryCriteria.add(Restrictions.between("eventTimeStamp", new Date(sdf.parse(startDate).getTime()),
+                        new Date(sdf.parse(endDate).getTime())));
+
+                } else if (NullChecker.isNotNullish(startDate) && NullChecker.isNullish(endDate)) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+                    queryCriteria.add(Restrictions.ge("eventTimeStamp", new Date(sdf.parse(startDate).getTime())));
+
+                }
+            }
+
+            queryCriteria.setProjection(Projections.projectionList()
+                .add(Projections.property("userId"))
+                .add(Projections.property("eventType"))
+                .add(Projections.property("eventId"))
+                .add(Projections.property("outcome"))
+                .add(Projections.property("eventTimeStamp"))
+                .add(Projections.property("remoteHcid"))
+                .add(Projections.property("relatesTo"))
+                .add(Projections.property("direction"))
+                .add(Projections.property("id"))
+                .add(Projections.property("messageId")));
+
+            // if no criteria is passed then it will search full database with above mentioned columns in the result
+            queryList = queryCriteria.list();
+
+        } catch (HibernateException | ParseException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        return queryList;
+    }
+
+    /**
+     * This method does a query to database to get the Audit Log Blob Messages based on the auditId
+     *
+     * @param auditId
+     * @return List
+     */
+    public List queryAuditViewerByAuditId(String auditId) {
+
+        Session session = null;
+        List<AuditRepositoryRecord> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            LOG.info("Getting Record for Audit Viewer using auditId");
+
+            // Build the criteria
+            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            if (NullChecker.isNotNullish(auditId)) {
+                queryCriteria.add(Restrictions.eq("id", Integer.parseInt(auditId)));
+                queryCriteria.setProjection(Projections.property("message"));
+
+            }
+
+            queryList = queryCriteria.list();
+
+        } catch (HibernateException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+        } finally {
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        return queryList;
+    }
+
 }
