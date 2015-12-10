@@ -476,6 +476,8 @@ public class NhincConstants {
 
     // audit logging properties file name
     public static final String AUDIT_LOGGING_PROPERTY_FILE = "audit";
+    public static final String LOG_TO_DATABASE = "LogToDatabase";
+    public static final String LOG_TO_FILE = "LogToFile";
 
     private NhincConstants() {
     }

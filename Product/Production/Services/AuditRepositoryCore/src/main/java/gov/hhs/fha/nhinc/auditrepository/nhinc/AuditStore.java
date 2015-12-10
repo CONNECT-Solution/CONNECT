@@ -27,37 +27,13 @@
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  *
  * @author tjafri
  */
-public class AuditRepositoryOrchImplTest {
+public interface AuditStore {
 
-    @Test
-    public void testLogAudit() {
-        AuditRepositoryOrchImpl auditRepo = new AuditRepositoryOrchImpl() {
-            @Override
-            protected boolean isLoggingToDatabaseOn() {
-                return false;
-            }
-
-            @Override
-            protected boolean isLoggingToAuditFileOn() {
-                return true;
-            }
-        };
-        AuditFileStoreImpl mockFileStore = mock(AuditFileStoreImpl.class);
-        when(mockFileStore.saveAuditRecord(any(LogEventSecureRequestType.class), any(AssertionType.class))).
-            thenReturn(Boolean.TRUE);
-        AcknowledgementType ack = auditRepo.logAudit(new LogEventSecureRequestType(), new AssertionType());
-        assertEquals("AcknowledgementType message mismatch", ack.getMessage(), "Created Log Message in Audit File...");
-    }
+    public boolean saveAuditRecord(LogEventSecureRequestType request, AssertionType assertion);
 }

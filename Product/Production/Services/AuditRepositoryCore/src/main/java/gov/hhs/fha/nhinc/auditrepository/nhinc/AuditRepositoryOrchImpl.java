@@ -36,11 +36,9 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -48,21 +46,18 @@ import java.util.Locale;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import com.services.nhinc.schema.auditmessage.ObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
-import java.io.IOException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 
@@ -75,12 +70,16 @@ public class AuditRepositoryOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
     private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
+    private AuditStore dbStore = null;
+    private AuditStore fileStore = null;
 
     /**
      * constructor.
      */
     public AuditRepositoryOrchImpl() {
         LOG.trace("AuditRepositoryOrchImpl Initialized");
+        dbStore = new AuditDBStoreImpl();
+        fileStore = new AuditFileStoreImpl();
     }
 
     /**
@@ -94,39 +93,15 @@ public class AuditRepositoryOrchImpl {
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
 
         AcknowledgementType response = new AcknowledgementType();
-        List<AuditRepositoryRecord> auditRecList = new ArrayList<>();
-        auditRecList.add(createDBAuditObj(mess, assertion));
-        LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
-        boolean result = auditLogDao.insertAuditRepository(auditRecList);
-        LOG.trace("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
-
-        if (result) {
-            response.setMessage("Created Log Message in Database...");
-        } else {
-            response.setMessage("Unable to create Log Message in Database...");
+        StringBuilder builder = new StringBuilder();
+        if (isLoggingToDatabaseOn()) {
+            builder.append(logToDatabase(mess, assertion));
         }
-
+        if (isLoggingToAuditFileOn()) {
+            builder.append(logToAuditFile(mess, assertion));
+        }
+        response.setMessage(builder.toString());
         return response;
-    }
-
-    private Blob getBlobFromAuditMessage(com.services.nhinc.schema.auditmessage.AuditMessageType mess) {
-        Blob eventMessage = null; // Not Implemented
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            ObjectFactory factory = new ObjectFactory();
-            JAXBElement<AuditMessageType> oJaxbElement = factory.createAuditMessage(mess);
-            baOutStrm.close();
-            marshaller.marshal(oJaxbElement, baOutStrm);
-            byte[] buffer = baOutStrm.toByteArray();
-            eventMessage = Hibernate.createBlob(buffer);
-        } catch (JAXBException | IOException e) {
-            LOG.error("Exception during Blob conversion :" + e.getLocalizedMessage(), e);
-        }
-        return eventMessage;
     }
 
     /**
@@ -169,33 +144,6 @@ public class AuditRepositoryOrchImpl {
         auditEvents = buildAuditReponseType(responseList);
 
         return auditEvents;
-    }
-
-    protected final AuditRepositoryRecord createDBAuditObj(LogEventSecureRequestType mess, AssertionType assertion) {
-        AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
-        String eventCommunityId = mess.getRemoteHCID();
-        LOG.info("auditSourceID : " + eventCommunityId);
-        if (NullChecker.isNotNullish(eventCommunityId)) {
-            auditRec.setRemoteHcid(eventCommunityId);
-        } else {
-            auditRec.setRemoteHcid("");
-        }
-
-        auditRec.setDirection(mess.getDirection());
-        auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
-
-        XMLGregorianCalendar xMLCalDate = mess.getEventTimestamp();
-        if (xMLCalDate != null) {
-            auditRec.setEventTimeStamp(convertXMLGregorianCalendarToDate(xMLCalDate));
-        }
-        auditRec.setOutcome(mess.getEventOutcomeIndicator().intValue());
-        auditRec.setEventType(mess.getEventType());
-        auditRec.setEventId(mess.getEventID());
-        auditRec.setMessageId(mess.getRequestMessageId());
-        auditRec.setRelatesTo(mess.getRelatesTo());
-        auditRec.setUserId(mess.getUserId());
-
-        return auditRec;
     }
 
     /**
@@ -288,5 +236,40 @@ public class AuditRepositoryOrchImpl {
         Date eventDate = cal.getTime();
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
+    }
+
+    private String logToDatabase(LogEventSecureRequestType request, AssertionType assertion) {
+
+        if (dbStore.saveAuditRecord(request, assertion)) {
+            return "Created Log Message in Database...";
+        }
+        return "Unable to create Log Message in Database...";
+    }
+
+    private String logToAuditFile(LogEventSecureRequestType request, AssertionType assertion) {
+        if (fileStore.saveAuditRecord(request, assertion)) {
+            return "Created Log Message in Audit File...";
+        }
+        return "Unable to create Log Message in Audit File...";
+    }
+
+    protected boolean isLoggingToDatabaseOn() {
+        try {
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
+                NhincConstants.LOG_TO_DATABASE);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to read the Audit logging property: " + ex.getLocalizedMessage(), ex);
+        }
+        return false;
+    }
+
+    protected boolean isLoggingToAuditFileOn() {
+        try {
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
+                NhincConstants.LOG_TO_FILE);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to read the Audit logging property: " + ex.getLocalizedMessage(), ex);
+        }
+        return false;
     }
 }
