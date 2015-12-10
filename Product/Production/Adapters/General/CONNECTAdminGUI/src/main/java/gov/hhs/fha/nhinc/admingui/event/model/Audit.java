@@ -24,35 +24,69 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.constant;
+package gov.hhs.fha.nhinc.admingui.event.model;
+
+import java.sql.Timestamp;
 
 /**
- * @author sadusumilli
  *
+ * @author achidamb
  */
-public class NavigationConstant {
+public class Audit {
 
-    public static final String STATUS_PAGE = "status";
-    public static final String LOGIN_PAGE = "login";
-    public static final String ACCT_MGMT_PAGE = "acctmanage";
-    public static final String DIRECT_PAGE = "direct";
-    public static final String DIRECT_XHTML = "direct.xhtml";
-    public static final String FHIR_PAGE = "fhir";
-    public static final String FHIR_XHTML = "fhir.xhtml";
-    public static final String CM_PAGE = "connectionManager";
-    public static final String PROPERTIES_PAGE = "properties";
-    public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
+    private String eventType;
+    private String eventOutcomeIndicator;
+    private Timestamp eventTimestamp;
+    private String userId;
+    private String messageId;
+    private String remoteHcid;
 
-    public static final int DIRECT_DOMAIN_TAB = 0;
-    public static final int DIRECT_SETTING_TAB = 1;
-    public static final int DIRECT_CERTIFICATE_TAB = 2;
-    public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
+    public Timestamp getEventTimestamp() {
+        return eventTimestamp;
+    }
 
-    public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
-    public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
+    public void setEventTimestamp(Timestamp eventTimestamp) {
+        this.eventTimestamp = eventTimestamp;
+    }
 
-    public static final int GATEWAY_DASHBOARD_TAB = 0;
-    public static final int GATEWAY_REMOTELIST_TAB = 1;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getRemoteHcid() {
+        return remoteHcid;
+    }
+
+    public void setRemoteHcid(String remoteHcid) {
+        this.remoteHcid = remoteHcid;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getEventOutcomeIndicator() {
+        return eventOutcomeIndicator;
+    }
+
+    public void setEventOutcomeIndicator(String eventOutcomeIndicator) {
+        this.eventOutcomeIndicator = eventOutcomeIndicator;
+    }
 
 }

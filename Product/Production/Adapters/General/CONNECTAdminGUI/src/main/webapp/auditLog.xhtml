@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /*
+   * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved.
+   *
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions are met:
+   *     * Redistributions of source code must retain the above
+   *       copyright notice, this list of conditions and the following disclaimer.
+   *     * Redistributions in binary form must reproduce the above copyright
+   *       notice, this list of conditions and the following disclaimer in the documentation
+   *       and/or other materials provided with the distribution.
+   *     * Neither the name of the United States Government nor the
+   *       names of its contributors may be used to endorse or promote products
+   *       derived from this software without specific prior written permission.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+
+    <h:body>
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+                <h1 class="section-header">AuditLog</h1>
+
+                <!-- BEGIN:  MAIN TAB SECTION -->
+                <p:tabView id="auditQueryTabView" activeIndex="#{auditSearchBean.activeIndex}" cache="false" effect="fade" effectDuration="normal" dynamic="true" styleClass="tabs-override tabs-ovr-teal">
+                    <div class="tab-content" id="tab-content">
+                        <!-- BEGIN:  AuditQuery SEARCH TAB -->
+                        <p:tab title="Audit Search" closable="false">
+                            <h:form class="form-horizontal" role="form" id="auditQueryForm">
+                                <div class="tab-pane active" id="auditlog">
+                                    <div class="content-block">
+                                        <h2 class="subsection-header">Search Wizard</h2>
+                                        <div class="content" >
+                                            <p>Enter Audit Search Criteria. Search can be done using following parameters.</p>
+                                            <div class="form-block center-block">
+                                                <p:messages id="AuditCriteria" autoUpdate="true" closable="true" severity="error" redisplay="false" />
+                                                <div class="form-button-row">
+                                                    <div class="form-group">
+
+                                                        <h:outputLabel for="eventbegindate" class="col-sm-3 control-label" id="labelEventBeginDate" value="EventBeginDate:" />
+                                                        <div class="col-sm-9">
+                                                            <p:calendar id="inputEventBeginDate" value="#{auditSearchBean.eventStartDate}" showOn="button" pattern="MM/dd/yyyy" required="false" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="eventenddate" class="col-sm-3 control-label" id="labelEventEndDate" value="EventEndDate:" />
+                                                        <div class="col-sm-9">
+                                                            <p:calendar id="inputEventEndDate" value="#{auditSearchBean.eventEndDate}"  showOn="button" pattern="MM/dd/yyyy" required="false" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="userid" class="col-sm-3 control-label" id="labelUserId" value="UserId:" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" value="#{auditSearchBean.userId}"  style="height:32px;width:200px" id="userId" maxlength="20" required="false" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-button-row">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="eventtype" class="col-sm-3 control-label" id="labelEventType" value="EventType:" />
+                                                        <div class="col-sm-9">
+                                                            <h:selectOneMenu class="form-control" id="eventType" value="#{auditSearchBean.eventType}" style="height:32px;width:200px" required="false" >
+                                                                <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                                                <f:selectItems value="#{auditSearchBean.eventTypeList}"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="remoteHcid" class="col-sm-3 control-label" id="labelRemoteHcid" value="RemoteHcid:" />
+                                                        <div class="col-sm-9">
+                                                            <h:selectOneMenu class="form-control" id="remoteHcid" value="#{auditSearchBean.remoteHcid}" style="height:32px;width:200px" required="false" >
+                                                                <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                                                <f:selectItems value="#{auditSearchBean.remoteHcidList}"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="eventoutcomeindicator" class="col-sm-3 control-label" id="labeleventOutcomeIndicator" value="EventOutcomeIndicator:" />
+                                                        <div class="col-sm-9">
+                                                            <h:selectOneMenu class="form-control" id="eventoutcomeindicator" value="#{auditSearchBean.outcomeIndicator}" style="height:32px;width:200px" required="false" >
+                                                                <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                                                <f:selectItems value="#{auditSearchBean.eventOutcomeIndicatorList}"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-button-row">
+                                                            <p:commandButton id="ResetAuditTab" value="Clear" styleClass="btn btn-default" action="#{auditSearchBean.clearAuditTab()}" immediate="true" update=":auditQueryTabView"/>
+                                                            <p:commandButton id="searchAudit"  update=":auditQueryTabView, auditResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{auditSearchBean.searchAudit()}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p>Enter Audit Search Criteria. Search can be done using MessageID and RelatesTo.</p>
+                                                <div class="form-button-row">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="messageid" class="col-sm-3 control-label" id="labelMessageId" value="MessageId:" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" value="#{auditSearchBean.messageId}" style="height:32px;width:200px" id="messageId" maxlength="30" required="false" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="relatesto" class="col-sm-3 control-label" id="labelRelatesTo" value="RelatesTo:" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" value="#{auditSearchBean.relatesTo}" style="height:32px;width:200px" id="relatesTo" maxlength="30" required="false" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-button-row">
+                                                            <p:commandButton id="ResetAuditTabMessageId" value="Clear" styleClass="btn btn-default" action="#{auditSearchBean.clearAuditTabMessageId()}" immediate="true" update=":auditQueryTabView"/>
+                                                            <p:commandButton id="searchAuditMessageId"  update=":auditQueryTabView, auditResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{auditSearchBean.searchAuditMessageId()}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- END:  Audit SEARCH RESULTS -->
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <p:outputLabel value="#{auditSearchBean.auditMessage}" styleClass="uc-search-result-title" />
+                                                    <div class="table-responsive table-props">
+                                                        <p:dataTable id="auditResult" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" styleClass="table table-striped table-domains" rendered="#{auditSearchBean.auditFound}">
+                                                            <p:column>
+                                                                <f:facet name="header">RemoteHcid</f:facet>
+                                                                    #{audit.remoteHcid}
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">UserId</f:facet>
+                                                                    #{audit.userId}
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">EventType</f:facet>
+                                                                    #{audit.eventType}
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">EventTimestamp</f:facet>
+                                                                    #{audit.eventTimestamp}
+                                                            </p:column>
+                                                            <p:column>
+                                                                <!-- column header -->
+                                                                <f:facet name="header">EventOutcomeIndicator</f:facet>
+                                                                <!-- row record -->
+                                                                #{audit.eventOutcomeIndicator}
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">MessageId</f:facet>
+                                                                    #{audit.messageId}
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- END:  Audit SEARCH FORM -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </p:tab>
+                        <!-- END:  Audit SEARCH TAB -->
+                    </div>
+                </p:tabView>
+                <!-- END:  MAIN TAB SECTION -->
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

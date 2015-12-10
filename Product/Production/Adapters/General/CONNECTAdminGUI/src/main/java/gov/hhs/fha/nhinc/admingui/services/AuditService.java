@@ -24,35 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.constant;
+package gov.hhs.fha.nhinc.admingui.services;
+
+import gov.hhs.fha.nhinc.admingui.event.model.Audit;
+import java.util.ArrayList;
 
 /**
- * @author sadusumilli
  *
+ * @author achidamb
  */
-public class NavigationConstant {
+public interface AuditService {
 
-    public static final String STATUS_PAGE = "status";
-    public static final String LOGIN_PAGE = "login";
-    public static final String ACCT_MGMT_PAGE = "acctmanage";
-    public static final String DIRECT_PAGE = "direct";
-    public static final String DIRECT_XHTML = "direct.xhtml";
-    public static final String FHIR_PAGE = "fhir";
-    public static final String FHIR_XHTML = "fhir.xhtml";
-    public static final String CM_PAGE = "connectionManager";
-    public static final String PROPERTIES_PAGE = "properties";
-    public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
-
-    public static final int DIRECT_DOMAIN_TAB = 0;
-    public static final int DIRECT_SETTING_TAB = 1;
-    public static final int DIRECT_CERTIFICATE_TAB = 2;
-    public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
-
-    public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
-    public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
-
-    public static final int GATEWAY_DASHBOARD_TAB = 0;
-    public static final int GATEWAY_REMOTELIST_TAB = 1;
+    public ArrayList<Audit> createMockAuditRecord();
 
 }

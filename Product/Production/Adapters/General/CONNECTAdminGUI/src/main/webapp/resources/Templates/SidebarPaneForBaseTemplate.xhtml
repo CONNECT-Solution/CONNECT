@@ -1,84 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  /* 
+  /*
    * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
-   * All rights reserved. 
+   * All rights reserved.
    *
-   * Redistribution and use in source and binary forms, with or without  
-   * modification, are permitted provided that the following conditions are met:  
-   *     * Redistributions of source code must retain the above  
-   *       copyright notice, this list of conditions and the following disclaimer. 
-   *     * Redistributions in binary form must reproduce the above copyright  
-   *       notice, this list of conditions and the following disclaimer in the documentation  
-   *       and/or other materials provided with the distribution.  
-   *     * Neither the name of the United States Government nor the  
-   *       names of its contributors may be used to endorse or promote products  
-   *       derived from this software without specific prior written permission.  
-   * 
-   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND  
-   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED  
-   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  
-   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY  
-   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES  
-   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  
-   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND  
-   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
-   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS  
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions are met:
+   *     * Redistributions of source code must retain the above
+   *       copyright notice, this list of conditions and the following disclaimer.
+   *     * Redistributions in binary form must reproduce the above copyright
+   *       notice, this list of conditions and the following disclaimer in the documentation
+   *       and/or other materials provided with the distribution.
+   *     * Neither the name of the United States Government nor the
+   *       names of its contributors may be used to endorse or promote products
+   *       derived from this software without specific prior written permission.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-   */ 
+   */
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <body>
-    <ui:composition>
-        <div class="col-xs-2 sidebar sidebar-scroll">
-            <h1 class="page-header">Gateway Administrative Console</h1>
-            
-            <h:form prependId="false">
-                <h:inputHidden id="csrfToken" value="#{csrfBean.token}"/>
-                <p:panelMenu style="width:100%">
-                    <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
-                        <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
-                        <ui:remove>
-                        <!-- Under development <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" /> -->
-                        </ui:remove>
-                        <p:menuitem value="Remote Gateway List" action="#{tabBean.navigateToGatewayRemoteListTab()}" styleClass="glyphicon glyphicon-list" />
-                    </p:submenu>
-                    <p:submenu rendered="#{applicationBean.isDirectEnabled()}" label="Direct Configuration" styleClass="sidebar-purple">
-                        <p:menuitem value="Domains" action="#{tabBean.navigateToDirectDomainTab()}" styleClass="glyphicon glyphicon-globe" />
-                        <p:menuitem value="Agent Settings" action="#{tabBean.navigateToDirectSettingTab()}" styleClass="glyphicon glyphicon-cog" />
-                        <p:menuitem value="Certificates" action="#{tabBean.navigateToDirectCertificateTab()}" styleClass="glyphicon glyphicon-list-alt" />
-                        <p:menuitem value="Trust Bundles" action="#{tabBean.navigateToDirectTrustbundleTab()}" styleClass="glyphicon glyphicon-briefcase" />			
-                    </p:submenu>
-                    <p:submenu label="Account Management" styleClass="sidebar-blue">
-                        <p:menuitem value="User Accounts" action="#{tabBean.navigateToAccountMgmtUserAccountTab()}" styleClass="glyphicon glyphicon-user" />
-                        <p:menuitem value="Manage Roles" action="#{tabBean.navigateToAccountMgmtManageRoleTab()}" styleClass="glyphicon glyphicon-lock" />
-                    </p:submenu>
-                    <p:submenu label="Connection Management" styleClass="sidebar-red" >
-                        <p:menuitem value="View External Connections" action="#{tabBean.navigateToConnectionManagement()}" styleClass="glyphicon glyphicon-eye-open" />
-                    </p:submenu>
-                    <p:submenu label="Properties" styleClass="sidebar-green" >
-                        <p:menuitem value="Gateway" action="#{tabBean.navigateToGatewayPropTab()}" styleClass="glyphicon glyphicon-list" />
-                        <p:menuitem value="Adapter" action="#{tabBean.navigateToAdapterPropTab()}" styleClass="glyphicon glyphicon-list-alt" />
-                    </p:submenu>
-                    <p:submenu rendered="#{applicationBean.fhirEnabled}" label="FHIR" styleClass="sidebar-orange">
-                        <p:menuitem value="Resources" action="#{tabBean.navigateToFhir()}" styleClass="glyphicon glyphicon-fire" />
-                    </p:submenu>
-                    <p:submenu label="Cross-Gateway Query Client" styleClass="sidebar-teal" >
-                        <p:menuitem value="Patient Search" action="#{tabBean.navigateToPatientDiscoveryTab()}" styleClass="glyphicon glyphicon-zoom-in" />
-                    </p:submenu>                              
-                </p:panelMenu>
-            </h:form>
-            
-            <div class="copyright">
-                <ui:insert name="footer">
-                    <ui:include src="/resources/Templates/FooterForBaseTemplate.xhtml" />
-                </ui:insert>
+        <ui:composition>
+            <div class="col-xs-2 sidebar sidebar-scroll">
+                <h1 class="page-header">Gateway Administrative Console</h1>
+
+                <h:form prependId="false">
+                    <h:inputHidden id="csrfToken" value="#{csrfBean.token}"/>
+                    <p:panelMenu style="width:100%">
+                        <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
+                            <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
+                            <ui:remove>
+                            <!-- Under development <p:menuitem value="Performance Statistics" action="#{tabBean.setDashboardTabIndexNavigate(1)}" styleClass="glyphicon glyphicon-stats" /> -->
+                            </ui:remove>
+                            <p:menuitem value="Remote Gateway List" action="#{tabBean.navigateToGatewayRemoteListTab()}" styleClass="glyphicon glyphicon-list" />
+                        </p:submenu>
+                        <p:submenu rendered="#{applicationBean.isDirectEnabled()}" label="Direct Configuration" styleClass="sidebar-purple">
+                            <p:menuitem value="Domains" action="#{tabBean.navigateToDirectDomainTab()}" styleClass="glyphicon glyphicon-globe" />
+                            <p:menuitem value="Agent Settings" action="#{tabBean.navigateToDirectSettingTab()}" styleClass="glyphicon glyphicon-cog" />
+                            <p:menuitem value="Certificates" action="#{tabBean.navigateToDirectCertificateTab()}" styleClass="glyphicon glyphicon-list-alt" />
+                            <p:menuitem value="Trust Bundles" action="#{tabBean.navigateToDirectTrustbundleTab()}" styleClass="glyphicon glyphicon-briefcase" />
+                        </p:submenu>
+                        <p:submenu label="Account Management" styleClass="sidebar-blue">
+                            <p:menuitem value="User Accounts" action="#{tabBean.navigateToAccountMgmtUserAccountTab()}" styleClass="glyphicon glyphicon-user" />
+                            <p:menuitem value="Manage Roles" action="#{tabBean.navigateToAccountMgmtManageRoleTab()}" styleClass="glyphicon glyphicon-lock" />
+                        </p:submenu>
+                        <p:submenu label="Connection Management" styleClass="sidebar-red" >
+                            <p:menuitem value="View External Connections" action="#{tabBean.navigateToConnectionManagement()}" styleClass="glyphicon glyphicon-eye-open" />
+                        </p:submenu>
+                        <p:submenu label="Properties" styleClass="sidebar-green" >
+                            <p:menuitem value="Gateway" action="#{tabBean.navigateToGatewayPropTab()}" styleClass="glyphicon glyphicon-list" />
+                            <p:menuitem value="Adapter" action="#{tabBean.navigateToAdapterPropTab()}" styleClass="glyphicon glyphicon-list-alt" />
+                        </p:submenu>
+                        <p:submenu rendered="#{applicationBean.fhirEnabled}" label="FHIR" styleClass="sidebar-orange">
+                            <p:menuitem value="Resources" action="#{tabBean.navigateToFhir()}" styleClass="glyphicon glyphicon-fire" />
+                        </p:submenu>
+                        <p:submenu label="Cross-Gateway Query Client" styleClass="sidebar-teal" >
+                            <p:menuitem value="Patient Search" action="#{tabBean.navigateToPatientDiscoveryTab()}" styleClass="glyphicon glyphicon-zoom-in" />
+                        </p:submenu>
+                        <p:submenu label="AuditSearch" styleClass="sidebar-dkblue" >
+                            <p:menuitem value="Audit Search" action="#{tabBean.navigateToAuditSearchTab()}" styleClass="glyphicon glyphicon-zoom-in" />
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+
+                <div class="copyright">
+                    <ui:insert name="footer">
+                        <ui:include src="/resources/Templates/FooterForBaseTemplate.xhtml" />
+                    </ui:insert>
+                </div>
             </div>
-        </div>
-    </ui:composition>
+        </ui:composition>
     </body>
 </html>
