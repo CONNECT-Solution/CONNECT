@@ -108,6 +108,7 @@ public class AuditSearchBean {
             this.auditRecordList.clear();
         }
         this.auditMessage = "";
+        this.auditFound = false;
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
@@ -118,12 +119,13 @@ public class AuditSearchBean {
             this.auditRecordList.clear();
         }
         this.auditMessage = "";
+        this.auditFound = false;
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
     private Map<String, String> populateRemoteOrgHcid() {
-        RemoteOrganizationIdentifier remoteOrgIdentifier = new RemoteOrganizationIdentifier();
-        return remoteOrgIdentifier.getRemoteHcidFromUUID();
+
+        return new RemoteOrganizationIdentifier().getRemoteHcidFromUUID();
 
     }
 
