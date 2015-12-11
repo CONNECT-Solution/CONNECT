@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.KeyedReference;
 
@@ -41,7 +42,8 @@ import org.uddi.api_v3.KeyedReference;
  */
 public class RemoteOrganizationIdentifier {
 
-    //private static final Logger LOG = LoggerFactory.getLogger(CryptoRandomGenerator.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(RemoteOrganizationIdentifier.class);
+
     public Map<String, String> getRemoteHcidFromUUID() {
 
         Map<String, String> localOrganizationList = new HashMap<>();
@@ -71,9 +73,9 @@ public class RemoteOrganizationIdentifier {
                 }
             }
         } catch (ConnectionManagerException ex) {
-            //LOG.error("Failed to retrieve Business Entities from UDDI file." + ex.getLocalizedMessage(), ex);
+            LOG.error("Failed to retrieve Business Entities from UDDI file." + ex.getLocalizedMessage(), ex);
         }
-        //LOG.info("Organization name to display in ui:" + homeCommunityName);
+        LOG.info("Organization name to display in ui:" + homeCommunityName);
         return localOrganizationList;
     }
 
