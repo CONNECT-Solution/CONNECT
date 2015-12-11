@@ -204,7 +204,7 @@ public class AuditSearchBean {
         return this.selectedRemoteHcidList;
     }
 
-    public void setRemoteHcid(ArrayList<String> remoteHcid) {
+    public void setSelectedRemoteHcidList(ArrayList<String> remoteHcid) {
         this.selectedRemoteHcidList = remoteHcid;
     }
 
