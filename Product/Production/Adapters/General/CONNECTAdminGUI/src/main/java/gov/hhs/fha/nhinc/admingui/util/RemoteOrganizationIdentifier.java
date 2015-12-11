@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.KeyedReference;
@@ -42,7 +43,7 @@ import org.uddi.api_v3.KeyedReference;
  */
 public class RemoteOrganizationIdentifier {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(RemoteOrganizationIdentifier.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RemoteOrganizationIdentifier.class);
 
     public Map<String, String> getRemoteHcidFromUUID() {
 

@@ -61,7 +61,7 @@ public class AuditSearchBean {
     private String auditMessage;
     private boolean auditFound;
     private String messageId;
-    private String RelatesTo;
+    private String relatesTo;
 
     public AuditSearchBean() {
         setEventTypeList(populateEventTypeList());
@@ -113,7 +113,7 @@ public class AuditSearchBean {
     }
 
     public String clearAuditTabMessageId() {
-        this.RelatesTo = null;
+        this.relatesTo = null;
         this.messageId = null;
         if (this.auditRecordList != null && !auditRecordList.isEmpty()) {
             this.auditRecordList.clear();
@@ -163,11 +163,11 @@ public class AuditSearchBean {
     }
 
     public String getRelatesTo() {
-        return RelatesTo;
+        return relatesTo;
     }
 
-    public void setRelatesTo(String RelatesTo) {
-        this.RelatesTo = RelatesTo;
+    public void setRelatesTo(String relatesTo) {
+        this.relatesTo = relatesTo;
     }
 
     public boolean isAuditFound() {
