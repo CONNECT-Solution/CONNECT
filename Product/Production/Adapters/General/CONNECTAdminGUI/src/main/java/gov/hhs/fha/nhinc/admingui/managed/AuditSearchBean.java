@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.event.model.Audit;
+import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.services.impl.AuditServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.RemoteOrganizationIdentifier;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -47,14 +48,14 @@ import javax.faces.bean.SessionScoped;
 public class AuditSearchBean {
 
     private String userId;
-    private ArrayList<String> remoteHcidList;
+    private Map<String, String> remoteHcidList;
     private Date eventStartDate;
     private Date eventEndDate;
     private ArrayList<String> eventTypeList;
     private int activeIndex = 0;
     private String outcomeIndicator;
-    private String remoteHcid;
-    private String eventType;
+    private ArrayList<String> selectedRemoteHcidList;
+    private ArrayList<String> selectedEventTypeList;
     private Map<String, String> eventOutcomeIndicatorList;
     private ArrayList<Audit> auditRecordList;
     private String auditMessage;
@@ -69,7 +70,7 @@ public class AuditSearchBean {
     }
 
     public void searchAudit() {
-        AuditServiceImpl impl = new AuditServiceImpl();
+        AuditService impl = new AuditServiceImpl();
         this.auditRecordList = impl.createMockAuditRecord();
         if (this.auditRecordList.isEmpty() && this.auditRecordList == null) {
             this.auditMessage = "Audit Records not found";
@@ -92,42 +93,42 @@ public class AuditSearchBean {
         }
     }
 
-    public void startOver() {
-        clearAuditTab();
-        this.setActiveIndex(0);
-
-    }
-
     public String clearAuditTab() {
         this.eventEndDate = null;
         this.eventStartDate = null;
-        this.eventType = null;
-        this.remoteHcid = null;
+        if (this.selectedEventTypeList != null && !this.selectedEventTypeList.isEmpty()) {
+            this.selectedEventTypeList.clear();
+        }
+        if (this.selectedRemoteHcidList != null && !this.selectedRemoteHcidList.isEmpty()) {
+            this.selectedRemoteHcidList.clear();
+        }
         this.outcomeIndicator = null;
         this.userId = null;
-        this.auditRecordList.clear();
-        this.auditMessage = "AuditRecords Not Found";
+        if (this.auditRecordList != null && !auditRecordList.isEmpty()) {
+            this.auditRecordList.clear();
+        }
+        this.auditMessage = "";
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
     public String clearAuditTabMessageId() {
         this.RelatesTo = null;
         this.messageId = null;
-        this.auditRecordList.clear();
+        if (this.auditRecordList != null && !auditRecordList.isEmpty()) {
+            this.auditRecordList.clear();
+        }
+        this.auditMessage = "";
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
-    private ArrayList<String> populateRemoteOrgHcid() {
-        ArrayList<String> remoteOrgList = new ArrayList<>();
+    private Map<String, String> populateRemoteOrgHcid() {
         RemoteOrganizationIdentifier remoteOrgIdentifier = new RemoteOrganizationIdentifier();
-        Map<String, String> remoteIdentifierMap = remoteOrgIdentifier.getRemoteHcidFromUUID();
-        for (Map.Entry<String, String> entry : remoteIdentifierMap.entrySet()) {
-            remoteOrgList.add(entry.getValue());
-        }
-        return remoteOrgList;
+        return remoteOrgIdentifier.getRemoteHcidFromUUID();
+
     }
 
     private ArrayList<String> populateEventTypeList() {
+        //TODO convert into Map. Define enum and and hold service Names.
         ArrayList<String> serviceNames = new ArrayList<>();
         serviceNames.add(NhincConstants.NHINC_XDR_SERVICE_NAME);
         serviceNames.add(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
@@ -191,20 +192,20 @@ public class AuditSearchBean {
         this.eventOutcomeIndicatorList = eventOutcomeIndicatorList;
     }
 
-    public String getEventType() {
-        return this.eventType;
+    public ArrayList<String> getSelectedEventTypeList() {
+        return this.selectedEventTypeList;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setSelectedEventTypeList(ArrayList<String> selectedEventTypeList) {
+        this.selectedEventTypeList = selectedEventTypeList;
     }
 
-    public String getRemoteHcid() {
-        return this.remoteHcid;
+    public ArrayList<String> getSelectedRemoteHcidList() {
+        return this.selectedRemoteHcidList;
     }
 
-    public void setRemoteHcid(String remoteHcid) {
-        this.remoteHcid = remoteHcid;
+    public void setRemoteHcid(ArrayList<String> remoteHcid) {
+        this.selectedRemoteHcidList = remoteHcid;
     }
 
     public String getOutcomeIndicator() {
@@ -223,11 +224,11 @@ public class AuditSearchBean {
         this.activeIndex = activeIndex;
     }
 
-    public ArrayList<String> getRemoteHcidList() {
+    public Map<String, String> getRemoteHcidList() {
         return this.remoteHcidList;
     }
 
-    private void setRemoteHcidList(ArrayList<String> remoteHcidList) {
+    private void setRemoteHcidList(Map<String, String> remoteHcidList) {
         this.remoteHcidList = remoteHcidList;
     }
 
