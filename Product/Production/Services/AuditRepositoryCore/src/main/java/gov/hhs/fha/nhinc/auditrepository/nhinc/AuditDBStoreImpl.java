@@ -71,11 +71,7 @@ public class AuditDBStoreImpl implements AuditStore {
     protected final AuditRepositoryRecord createDBAuditObj(LogEventSecureRequestType mess, AssertionType assertion) {
         AuditRepositoryRecord auditRec = new AuditRepositoryRecord();
         String eventCommunityId = mess.getRemoteHCID();
-        if (NullChecker.isNotNullish(eventCommunityId)) {
-            auditRec.setRemoteHcid(eventCommunityId);
-        } else {
-            auditRec.setRemoteHcid("");
-        }
+        auditRec.setRemoteHcid(eventCommunityId);
 
         auditRec.setDirection(mess.getDirection());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
