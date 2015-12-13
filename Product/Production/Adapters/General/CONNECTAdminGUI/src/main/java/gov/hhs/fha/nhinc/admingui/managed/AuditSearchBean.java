@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.event.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.services.impl.AuditServiceImpl;
-import gov.hhs.fha.nhinc.admingui.util.RemoteOrganizationIdentifier;
+import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.uddi.api_v3.BusinessEntity;
 
 /**
  *
@@ -50,7 +51,7 @@ import javax.faces.bean.SessionScoped;
 public class AuditSearchBean {
 
     private String userId;
-    private Map<String, String> remoteHcidList;
+    private HashMap<String, BusinessEntity> remoteHcidList;
     private Date eventStartDate;
     private Date eventEndDate;
     private List<String> eventTypeList;
@@ -125,27 +126,15 @@ public class AuditSearchBean {
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
-    private Map<String, String> populateRemoteOrgHcid() {
+    private HashMap<String, BusinessEntity> populateRemoteOrgHcid() {
 
-        return new RemoteOrganizationIdentifier().getRemoteHcidFromUUID();
+        return new ConnectionHelper().getRemoteHcidFromUUID();
 
     }
 
     private List<String> populateEventTypeList() {
-        //TODO convert into Map. Define enum and and hold service Names.
         List<String> serviceNames = new ArrayList<>();
-        serviceNames.add(NhincConstants.NHINC_XDR_SERVICE_NAME);
-        serviceNames.add(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-        serviceNames.add(NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-        serviceNames.add(NhincConstants.DOC_QUERY_SERVICE_NAME);
-        serviceNames.add(NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
-        serviceNames.add(NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
-        serviceNames.add(NhincConstants.CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME);
-        serviceNames.add(NhincConstants.CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
-        serviceNames.add(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
-        serviceNames.add(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
-        serviceNames.add(NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
-        serviceNames.add(NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+        serviceNames = NhincConstants.NHIN_SERVICE_NAMES.getServiceNamesList();
         return serviceNames;
     }
 
@@ -188,7 +177,7 @@ public class AuditSearchBean {
         this.auditRecordList = auditRecordList;
     }
 
-    public Map<String, String> getEventOutcomeIndicatorList() {
+    public Map<String, String> getEventOutcomeIndicatorMap() {
         return eventOutcomeIndicatorMap;
     }
 
@@ -228,11 +217,11 @@ public class AuditSearchBean {
         this.activeIndex = activeIndex;
     }
 
-    public Map<String, String> getRemoteHcidList() {
+    public HashMap<String, BusinessEntity> getRemoteHcidList() {
         return this.remoteHcidList;
     }
 
-    private void setRemoteHcidList(Map<String, String> remoteHcidList) {
+    private void setRemoteHcidList(HashMap<String, BusinessEntity> remoteHcidList) {
         this.remoteHcidList = remoteHcidList;
     }
 

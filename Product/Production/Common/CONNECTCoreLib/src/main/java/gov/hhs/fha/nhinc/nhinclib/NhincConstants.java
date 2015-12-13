@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.nhinclib;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -77,7 +79,7 @@ public class NhincConstants {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
             PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-            PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
         DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
         DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
         DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
@@ -105,6 +107,14 @@ public class NhincConstants {
                 }
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
+        }
+
+        public static List<String> getServiceNamesList() {
+            List<String> serviceNamesList = new ArrayList<>();
+            for (NHIN_SERVICE_NAMES m : values()) {
+                serviceNamesList.add(m.toString());
+            }
+            return serviceNamesList;
         }
     };
     // Authorization Framework
