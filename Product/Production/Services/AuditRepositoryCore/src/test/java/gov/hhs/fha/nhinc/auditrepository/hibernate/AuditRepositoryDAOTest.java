@@ -95,7 +95,7 @@ public class AuditRepositoryDAOTest {
         //All data elements for auditrepo should be added for junit Tests when work on auditrepo adapter data
         //persistence
         record.setDirection("Record 1 - Message Type");
-        record.setEventTimeStamp(now);
+        record.setEventTimestamp(now);
         record.setUserId("UnitTest1");
         eventLogList.add(record);
 
@@ -128,8 +128,7 @@ public class AuditRepositoryDAOTest {
     public void testQueryAuditViewerByMessageIdAndCheckPrecedence() {
         messageId = "urn:uuid%";
         outcome = 0;
-        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
-            startDate, endDate);
+        responseList = auditLogDao.queryAuditRecords(messageId, relatesTo);
         assertNotNull(responseList);
 
     }
@@ -153,8 +152,7 @@ public class AuditRepositoryDAOTest {
     @Test
     public void testQueryAuditViewerByEventTypeList() {
         eventType = new ArrayList<>(Arrays.asList("DocSubmissionDeferredReq", "DocSubmission", "QueryForDocuments"));
-        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
-            startDate, endDate);
+        responseList = auditLogDao.queryByAuditValues(outcome, eventType, userId, remoteHcid, startDate, endDate);
         assertNotNull(responseList);
     }
 
@@ -165,8 +163,7 @@ public class AuditRepositoryDAOTest {
     @Test
     public void testQueryAuditViewerByDateSearch() {
         startDate = "12/10/2015";
-        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
-            startDate, endDate);
+        responseList = auditLogDao.queryByAuditValues(outcome, eventType, userId, remoteHcid, startDate, endDate);
         assertNotNull(responseList);
     }
 
@@ -178,8 +175,7 @@ public class AuditRepositoryDAOTest {
     public void testQueryAuditViewerByStartEndDateSearch() {
         startDate = "12/10/2015";
         endDate = "12/11/2015";
-        responseList = auditLogDao.queryAuditViewer(messageId, relatesTo, outcome, eventType, userId, remoteHcid,
-            startDate, endDate);
+        responseList = auditLogDao.queryByAuditValues(outcome, eventType, userId, remoteHcid, startDate, endDate);
         assertNotNull(responseList);
     }
 

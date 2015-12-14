@@ -13,8 +13,8 @@
       <column name="id" sql-type="INTEGER"/>
       <generator class="native"/>
     </id>
-    <property name="eventTimeStamp">
-      <column name="eventTimeStamp"/>
+    <property name="eventTimestamp">
+      <column name="eventTimestamp"/>
     </property>
     <property name="eventId">
       <column name="eventId"/>

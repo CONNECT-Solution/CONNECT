@@ -172,16 +172,9 @@ public class AuditRepositoryDAO {
      *
      * @param messageId
      * @param relatesTo
-     * @param outcome
-     * @param startDate
-     * @param userId
-     * @param eventTypeList
-     * @param remoteHcidList
-     * @param endDate
      * @return List
      */
-    public List queryAuditViewer(String messageId, String relatesTo, Integer outcome, List<String> eventTypeList,
-        String userId, List<String> remoteHcidList, String startDate, String endDate) {
+    public List queryAuditRecords(String messageId, String relatesTo) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
@@ -194,60 +187,14 @@ public class AuditRepositoryDAO {
             // Build the criteria
             Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
-            if (NullChecker.isNotNullish(messageId) || NullChecker.isNotNullish(relatesTo)) {
+            if (NullChecker.isNotNullish(messageId)) {
+                queryCriteria.add(Restrictions.eq("messageId", messageId));
 
-                if (NullChecker.isNotNullish(messageId) && (messageId.startsWith("urn:uuid:")
-                    || !messageId.startsWith("urn:uuid:"))) {
-                    if (messageId.endsWith("%")) {
-                        queryCriteria.add(Restrictions.like("messageId", messageId));
-                    } else {
-                        queryCriteria.add(Restrictions.like("messageId", messageId + "%"));
-                    }
+            }
 
-                }
+            if (NullChecker.isNotNullish(relatesTo)) {
+                queryCriteria.add(Restrictions.eq("relatesTo", relatesTo));
 
-                if (NullChecker.isNotNullish(relatesTo)) {
-                    if (relatesTo.endsWith("%")) {
-                        queryCriteria.add(Restrictions.like("relatesTo", relatesTo));
-
-                    } else {
-                        queryCriteria.add(Restrictions.like("relatesTo", relatesTo + "%"));
-
-                    }
-                }
-
-            } else if ((outcome != null && outcome >= 0) || NullChecker.isNotNullish(eventTypeList)
-                || NullChecker.isNotNullish(userId) || NullChecker.isNotNullish(remoteHcidList)
-                || NullChecker.isNotNullish(startDate) || NullChecker.isNotNullish(endDate)) {
-
-                if (outcome != null && outcome >= 0) {
-                    queryCriteria.add(Restrictions.eq("outcome", outcome));
-                }
-
-                if (NullChecker.isNotNullish(eventTypeList)) {
-                    queryCriteria.add(Restrictions.in("eventType", eventTypeList));
-                }
-
-                if (NullChecker.isNotNullish(userId)) {
-                    queryCriteria.add(Restrictions.eq("userId", userId));
-                }
-
-                if (NullChecker.isNotNullish(remoteHcidList)) {
-                    queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
-                }
-
-                if (NullChecker.isNotNullish(startDate) && NullChecker.isNotNullish(endDate)) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
-                    queryCriteria.add(Restrictions.between("eventTimeStamp", new Date(sdf.parse(startDate).getTime()),
-                        new Date(sdf.parse(endDate).getTime())));
-
-                } else if (NullChecker.isNotNullish(startDate) && NullChecker.isNullish(endDate)) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
-                    queryCriteria.add(Restrictions.ge("eventTimeStamp", new Date(sdf.parse(startDate).getTime())));
-
-                }
             }
 
             queryCriteria.setProjection(Projections.projectionList()
@@ -255,7 +202,87 @@ public class AuditRepositoryDAO {
                 .add(Projections.property("eventType"))
                 .add(Projections.property("eventId"))
                 .add(Projections.property("outcome"))
-                .add(Projections.property("eventTimeStamp"))
+                .add(Projections.property("eventTimestamp"))
+                .add(Projections.property("remoteHcid"))
+                .add(Projections.property("relatesTo"))
+                .add(Projections.property("direction"))
+                .add(Projections.property("id"))
+                .add(Projections.property("messageId")));
+
+            // if no criteria is passed then it will search full database with above mentioned columns in the result
+            queryList = queryCriteria.list();
+
+        } catch (HibernateException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+        } finally {
+            // Actual contact insertion will happen at this step
+            if (session != null) {
+                session.flush();
+                session.close();
+            }
+        }
+        return queryList;
+    }
+
+    /**
+     * This method does a query to database to get the Audit Log Messages based different options
+     *
+     * @param outcome
+     * @param startDate
+     * @param userId
+     * @param eventTypeList
+     * @param remoteHcidList
+     * @param endDate
+     * @return List
+     */
+    public List queryByAuditValues(Integer outcome, List<String> eventTypeList, String userId, List<String> remoteHcidList, String startDate, String endDate) {
+
+        Session session = null;
+        List<AuditRepositoryRecord> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            LOG.info("Getting Record for Audit Viewer ");
+
+            // Build the criteria
+            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+
+            if (outcome != null && outcome >= 0) {
+                queryCriteria.add(Restrictions.eq("outcome", outcome));
+            }
+
+            if (NullChecker.isNotNullish(eventTypeList)) {
+                queryCriteria.add(Restrictions.in("eventType", eventTypeList));
+            }
+
+            if (NullChecker.isNotNullish(userId)) {
+                queryCriteria.add(Restrictions.eq("userId", userId));
+            }
+
+            if (NullChecker.isNotNullish(remoteHcidList)) {
+                queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
+            }
+
+            if (NullChecker.isNotNullish(startDate) && NullChecker.isNotNullish(endDate)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+                queryCriteria.add(Restrictions.between("eventTimestamp", new Date(sdf.parse(startDate).getTime()),
+                    new Date(sdf.parse(endDate).getTime())));
+
+            } else if (NullChecker.isNotNullish(startDate) && NullChecker.isNullish(endDate)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+                queryCriteria.add(Restrictions.ge("eventTimestamp", new Date(sdf.parse(startDate).getTime())));
+
+            }
+
+            queryCriteria.setProjection(Projections.projectionList()
+                .add(Projections.property("userId"))
+                .add(Projections.property("eventType"))
+                .add(Projections.property("eventId"))
+                .add(Projections.property("outcome"))
+                .add(Projections.property("eventTimestamp"))
                 .add(Projections.property("remoteHcid"))
                 .add(Projections.property("relatesTo"))
                 .add(Projections.property("direction"))
@@ -268,6 +295,7 @@ public class AuditRepositoryDAO {
         } catch (HibernateException | ParseException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
+            // Actual contact insertion will happen at this step
             if (session != null) {
                 session.flush();
                 session.close();
@@ -304,6 +332,7 @@ public class AuditRepositoryDAO {
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
+            // Actual contact insertion will happen at this step
             if (session != null) {
                 session.flush();
                 session.close();
