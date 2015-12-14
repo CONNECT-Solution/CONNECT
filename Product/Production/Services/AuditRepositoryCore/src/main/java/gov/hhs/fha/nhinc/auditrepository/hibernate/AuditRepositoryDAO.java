@@ -275,6 +275,11 @@ public class AuditRepositoryDAO {
 
                 queryCriteria.add(Restrictions.ge("eventTimestamp", new Date(sdf.parse(startDate).getTime())));
 
+            } else if (NullChecker.isNullish(startDate) && NullChecker.isNotNullish(endDate)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+                queryCriteria.add(Restrictions.le("eventTimestamp", new Date(sdf.parse(endDate).getTime())));
+
             }
 
             queryCriteria.setProjection(Projections.projectionList()
