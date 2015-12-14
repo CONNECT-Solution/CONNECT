@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -188,7 +189,12 @@ public class AuditRepositoryDAO {
             Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
             if (NullChecker.isNotNullish(messageId)) {
-                queryCriteria.add(Restrictions.eq("messageId", messageId));
+                if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
+                    queryCriteria.add(Restrictions.eq("messageId", messageId));
+                } else {
+                    queryCriteria.add(Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
+
+                }
 
             }
 
