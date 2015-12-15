@@ -27,6 +27,11 @@
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -39,6 +44,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * AuditRepositoryDAO Class provides methods to query and update Audit Data to/from MySQL Database using Hibernate
@@ -100,10 +107,7 @@ public class AuditRepositoryDAO {
                 }
                 LOG.error("Error during insertion caused by :" + e.getLocalizedMessage(), e);
             } finally {
-                // Actual event_log insertion will happen at this step
-                if (session != null) {
-                    session.close();
-                }
+                closeSession(session, false);
             }
         }
 
@@ -153,12 +157,178 @@ public class AuditRepositoryDAO {
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            // Actual contact insertion will happen at this step
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
+            closeSession(session, false);
         }
         return queryList;
     }
+
+    /**
+     * This method does a query to database to get the Audit Log Messages based different options
+     *
+     * @param messageId
+     * @param relatesTo
+     * @return List
+     */
+    public List queryAuditRecords(String messageId, String relatesTo) {
+
+        Session session = null;
+        List<AuditRepositoryRecord> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            LOG.info("Getting Record for Audit Viewer ");
+
+            // Build the criteria
+            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+
+            if (NullChecker.isNotNullish(messageId)) {
+                if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
+                    queryCriteria.add(Restrictions.eq("messageId", messageId));
+                } else {
+                    queryCriteria.add(Restrictions.eq("messageId",
+                        NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
+                }
+            }
+
+            if (NullChecker.isNotNullish(relatesTo)) {
+                queryCriteria.add(Restrictions.eq("relatesTo", relatesTo));
+            }
+            // if no criteria is passed then it will search full database with above mentioned columns in the result
+            queryList = setProjectionFields(queryCriteria).list();
+        } catch (HibernateException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return queryList;
+    }
+
+    /**
+     * This method does a query to database to get the Audit Log Messages based different options
+     *
+     * @param outcome
+     * @param startDate
+     * @param userId
+     * @param eventTypeList
+     * @param remoteHcidList
+     * @param endDate
+     * @return List
+     */
+    public List queryByAuditOptions(Integer outcome, List<String> eventTypeList, String userId,
+        List<String> remoteHcidList, Date startDate, Date endDate) {
+
+        Session session = null;
+        List<AuditRepositoryRecord> queryList = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+
+            LOG.info("Getting Record for Audit Query ");
+
+            // Build the criteria
+            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+
+            if (outcome != null && outcome >= 0) {
+                queryCriteria.add(Restrictions.eq("outcome", outcome));
+            }
+
+            if (NullChecker.isNotNullish(eventTypeList)) {
+                queryCriteria.add(Restrictions.in("eventType", eventTypeList));
+            }
+
+            if (NullChecker.isNotNullish(userId)) {
+                queryCriteria.add(Restrictions.eq("userId", userId));
+            }
+
+            if (NullChecker.isNotNullish(remoteHcidList)) {
+                queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
+            }
+
+            if (startDate != null && endDate != null) {
+                queryCriteria.add(Expression.between("eventTimestamp", startDate,
+                    endDate));
+            } else if (startDate != null && endDate == null) {
+                queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
+            } else if (startDate == null && endDate != null) {
+                queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
+            }
+            // if no criteria is passed then it will search full database with above mentioned columns in the result
+            queryList = setProjectionFields(queryCriteria).list();
+
+        } catch (HibernateException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return queryList;
+    }
+
+    /**
+     * This method does a query to database to get the Audit Log Blob Messages based on the auditId
+     *
+     * @param auditId
+     * @return List
+     */
+    public Blob queryByAuditId(String auditId) {
+
+        Session session = null;
+        Blob message = null;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            session = sessionFactory.openSession();
+            LOG.info("Getting Record for Audit Viewer using auditId");
+
+            // Build the criteria
+            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            if (NullChecker.isNotNullish(auditId)) {
+                queryCriteria.add(Restrictions.eq("id", Integer.parseInt(auditId)));
+                queryCriteria.setProjection(Projections.property("message"));
+            }
+            message = (Blob) queryCriteria.uniqueResult();
+        } catch (HibernateException e) {
+            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
+        return message;
+    }
+
+    /**
+     * Create a Projection field list with specific database columns required as a result set
+     *
+     * @param queryCriteria
+     * @return
+     */
+    private Criteria setProjectionFields(Criteria queryCriteria) {
+        queryCriteria.setProjection(Projections.projectionList()
+            .add(Projections.property("userId"))
+            .add(Projections.property("eventType"))
+            .add(Projections.property("eventId"))
+            .add(Projections.property("outcome"))
+            .add(Projections.property("eventTimestamp"))
+            .add(Projections.property("remoteHcid"))
+            .add(Projections.property("relatesTo"))
+            .add(Projections.property("direction"))
+            .add(Projections.property("id"))
+            .add(Projections.property("messageId")));
+
+        return queryCriteria;
+    }
+
+    /**
+     * Closes the Hibernate Session
+     *
+     * @param session Hibernate session instance
+     * @param flush
+     *
+     */
+    private void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
+    }
+
 }

@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
+import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.junit.After;
@@ -36,7 +39,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.Ignore;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,6 +51,18 @@ import org.junit.Ignore;
 // TODO: Move to an integration test
 public class AuditRepositoryDAOTest {
 
+    private String messageId = null;
+    private Integer outcome = null;
+    private List<String> eventType = null;
+    private String userId = null;
+    private List<String> remoteHcid = null;
+    private Date startDate = null;
+    private Date endDate = null;
+    private String relatesTo = null;
+    private List<AuditRepositoryRecord> responseList = null;
+    private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAOTest.class);
+
     private AuditRepositoryDAO auditDao = null;
 
     public AuditRepositoryDAOTest() {
@@ -54,6 +71,7 @@ public class AuditRepositoryDAOTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+
     }
 
     @AfterClass
@@ -62,6 +80,7 @@ public class AuditRepositoryDAOTest {
 
     @Before
     public void setUp() {
+
     }
 
     @After
@@ -81,7 +100,7 @@ public class AuditRepositoryDAOTest {
         //All data elements for auditrepo should be added for junit Tests when work on auditrepo adapter data
         //persistence
         record.setDirection("Record 1 - Message Type");
-        record.setEventTimeStamp(now);
+        record.setEventTimestamp(now);
         record.setUserId("UnitTest1");
         eventLogList.add(record);
 
@@ -104,6 +123,78 @@ public class AuditRepositoryDAOTest {
         List result = auditDao.queryAuditRepositoryOnCriteria(eUserId, ePatientId, startDate, endDate);
         assertNotNull(result);
 
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with messageId and Outcome to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryByMessageIdAndCheckPrecedence() {
+        messageId = "urn:uuid%";
+        outcome = 0;
+        responseList = auditLogDao.queryAuditRecords(messageId, relatesTo);
+        assertNotNull(responseList);
+
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with AuditId to test queryAuditViewerByAuditId method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryByAuditId() {
+        String auditId = "15";
+        Blob message = auditLogDao.queryByAuditId(auditId);
+        assertNotNull(message);
+
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with list passed for EventType to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryByEventTypeList() {
+        eventType = new ArrayList<>(Arrays.asList("DocSubmissionDeferredReq", "DocSubmission", "QueryForDocuments"));
+        responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+        assertNotNull(responseList);
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with date options to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryByDateSearch() {
+        try {
+            String dateStr = "12/13/2015 22:53:07";
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            startDate = formatter.parse(dateStr);
+            responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+            assertNotNull(responseList);
+        } catch (ParseException ex) {
+            LOG.error("Exception occurred due to :" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    /**
+     * Test of queryAuditRepository Viewer with date options to test queryAuditViewer method, of class
+     * AuditRepositoryDAO .
+     */
+    @Test
+    public void testQueryByStartEndDateSearch() {
+        try {
+            String dateStartStr = "12/10/2015 00:00:00";
+            String dateEndStr = "12/11/2015 00:00:00";
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            startDate = formatter.parse(dateStartStr);
+            endDate = formatter.parse(dateEndStr);
+            responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+            assertNotNull(responseList);
+        } catch (ParseException ex) {
+            LOG.error("Exception occurred due to :" + ex.getLocalizedMessage(), ex);
+        }
     }
 
 }

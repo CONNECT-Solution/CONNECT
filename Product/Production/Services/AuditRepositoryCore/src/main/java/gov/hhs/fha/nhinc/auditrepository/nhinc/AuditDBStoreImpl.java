@@ -78,7 +78,7 @@ public class AuditDBStoreImpl implements AuditStore {
 
         XMLGregorianCalendar xMLCalDate = mess.getEventTimestamp();
         if (xMLCalDate != null) {
-            auditRec.setEventTimeStamp(convertXMLGregorianCalendarToDate(xMLCalDate));
+            auditRec.setEventTimestamp(convertXMLGregorianCalendarToDate(xMLCalDate));
         }
         auditRec.setOutcome(mess.getEventOutcomeIndicator().intValue());
         auditRec.setEventType(mess.getEventType());

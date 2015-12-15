@@ -36,7 +36,7 @@ import java.sql.Blob;
 public class AuditRepositoryRecord {
 
     private int id = 0;
-    private Date eventTimeStamp;
+    private Date eventTimestamp;
     private String eventId;
     private String userId;
     private String direction;
@@ -107,12 +107,12 @@ public class AuditRepositoryRecord {
         this.remoteHcid = communityId;
     }
 
-    public Date getEventTimeStamp() {
-        return eventTimeStamp;
+    public Date getEventTimestamp() {
+        return eventTimestamp;
     }
 
-    public void setEventTimeStamp(Date timeStamp) {
-        this.eventTimeStamp = timeStamp;
+    public void setEventTimestamp(Date timeStamp) {
+        this.eventTimestamp = timeStamp;
     }
 
     public String getUserId() {
