@@ -24,35 +24,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.constant;
+package gov.hhs.fha.nhinc.admingui.services.impl;
+
+import gov.hhs.fha.nhinc.admingui.event.model.Audit;
+import gov.hhs.fha.nhinc.admingui.services.AuditService;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author sadusumilli
  *
+ * @author achidamb
  */
-public class NavigationConstant {
+public class AuditServiceImpl implements AuditService {
 
-    public static final String STATUS_PAGE = "status";
-    public static final String LOGIN_PAGE = "login";
-    public static final String ACCT_MGMT_PAGE = "acctmanage";
-    public static final String DIRECT_PAGE = "direct";
-    public static final String DIRECT_XHTML = "direct.xhtml";
-    public static final String FHIR_PAGE = "fhir";
-    public static final String FHIR_XHTML = "fhir.xhtml";
-    public static final String CM_PAGE = "connectionManager";
-    public static final String PROPERTIES_PAGE = "properties";
-    public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
+    private static final Logger LOG = LoggerFactory.getLogger(AuditServiceImpl.class);
 
-    public static final int DIRECT_DOMAIN_TAB = 0;
-    public static final int DIRECT_SETTING_TAB = 1;
-    public static final int DIRECT_CERTIFICATE_TAB = 2;
-    public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
+    @Override
+    public ArrayList<Audit> createMockAuditRecord() {
+        Audit audit1 = new Audit();
+        audit1.setEventOutcomeIndicator("Success");
+        audit1.setEventType("QueryForDocuments");
+        audit1.setMessageId("MessageId-1");
+        audit1.setRemoteHcid("2.2");
+        audit1.setUserId("Thomas");
 
-    public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
-    public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
+        Audit audit2 = new Audit();
+        audit2.setEventOutcomeIndicator("Success");
+        audit2.setEventType("RetrieveDocuments");
+        audit2.setMessageId("MessageId-2");
+        audit2.setRemoteHcid("3.3");
+        audit2.setUserId("Joe");
+        try {
+            audit1.setEventTimestamp(getTimeStamp());
+            audit2.setEventTimestamp(getTimeStamp());
+        } catch (ParseException ex) {
+            LOG.error("Timestamp  formatting Exception: " + ex.getLocalizedMessage(), ex);
+        }
+        ArrayList<Audit> auditRecord = new ArrayList<>();
+        auditRecord.add(audit1);
+        auditRecord.add(audit2);
+        return auditRecord;
+    }
 
-    public static final int GATEWAY_DASHBOARD_TAB = 0;
-    public static final int GATEWAY_REMOTELIST_TAB = 1;
+    private Timestamp getTimeStamp() throws ParseException {
+        Date date = new Date();
+        return new Timestamp(date.getTime());
+    }
 
 }

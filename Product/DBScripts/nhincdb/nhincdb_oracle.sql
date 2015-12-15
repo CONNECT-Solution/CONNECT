@@ -1144,7 +1144,7 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 VALUES (
 	22
 	,'patientDiscovery.xhtml'
-	,'Universal Client'
+	,'Cross-Query Gateway Client'
 	,0
 	,1
 	);
@@ -1159,7 +1159,7 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 VALUES (
 	23
 	,'patientDiscovery.xhtml'
-	,'Universal Client'
+	,'Cross-Query Gateway Client'
 	,0
 	,2
 	);
@@ -1174,7 +1174,52 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 VALUES (
 	24
 	,'patientDiscovery.xhtml'
-	,'Universal Client'
+	,'Cross-Query Gateway Client'
+	,0
+	,3
+	);
+
+INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
+	PREFID
+	,PAGENAME
+	,PAGEDESC
+	,ACCESSPAGE
+	,PREFROLEID
+	)
+VALUES (
+	22
+	,'auditLog.xhtml'
+	,'AuditSearch'
+	,0
+	,1
+	);
+
+INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
+	PREFID
+	,PAGENAME
+	,PAGEDESC
+	,ACCESSPAGE
+	,PREFROLEID
+	)
+VALUES (
+	23
+	,'auditLog.xhtml'
+	,'AuditSearch'
+	,0
+	,2
+	);
+
+INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
+	PREFID
+	,PAGENAME
+	,PAGEDESC
+	,ACCESSPAGE
+	,PREFROLEID
+	)
+VALUES (
+	24
+	,'auditLog.xhtml'
+	,'AuditSearch'
 	,0
 	,3
 	);

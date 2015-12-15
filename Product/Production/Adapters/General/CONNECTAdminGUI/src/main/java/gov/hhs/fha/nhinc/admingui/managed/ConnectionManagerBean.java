@@ -32,10 +32,6 @@ import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,6 +48,7 @@ import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.CategoryBag;
 import org.uddi.api_v3.Contact;
 import org.uddi.api_v3.KeyedReference;
+import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 
 /**
  *
@@ -62,9 +59,10 @@ import org.uddi.api_v3.KeyedReference;
 public class ConnectionManagerBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerBean.class);
+    private final ConnectionHelper connection = new ConnectionHelper();
 
-    private final HashMap<String, BusinessEntity> externalEntities = new HashMap<String, BusinessEntity>();
-    private final List<String> entityNames = new ArrayList<String>();
+    private HashMap<String, BusinessEntity> externalEntities = new HashMap<>();
+    private final List<String> entityNames = new ArrayList<>();
 
     //TODO Display local entity endpoints (internal and external).
     private BusinessEntity localEntity;
@@ -206,47 +204,12 @@ public class ConnectionManagerBean {
     }
 
     private void refresh() {
-        try {
-            List<BusinessEntity> externalEntityList = ConnectionManagerCache.getInstance().getAllBusinessEntities();
-            String localHcid = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-            for (int i = 0; i < externalEntityList.size(); i++) {
-                BusinessEntity entity = externalEntityList.get(i);
-                if (entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
-                    && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
-                    if (isLocalEntity(entity.getIdentifierBag().getKeyedReference(), localHcid)) {
-                        localEntity = entity;
-                    } else if (entity.getName() != null && !entity.getName().isEmpty()) {
-                        externalEntities.put(entity.getName().get(0).getValue(), entity);
-                    }
-                }
-            }
-        } catch (ConnectionManagerException | PropertyAccessException ex) {
-            LOG.error("Unable to refresh connection manager: " + ex.getLocalizedMessage(), ex);
-        }
-
+        externalEntities = connection.getExternalEntitiesMap();
         entityNames.addAll(externalEntities.keySet());
         if (!entityNames.isEmpty()) {
             selectedEntity = externalEntities.get(entityNames.get(0));
         }
-    }
-
-    private boolean isLocalEntity(List<KeyedReference> references, String localHcid) {
-        for (KeyedReference ref : references) {
-            if (ref.getTModelKey().equalsIgnoreCase(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)
-                && formatHcid(localHcid).equals(formatHcid(ref.getKeyValue()))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private String formatHcid(String hcid) {
-        String formattedHcid = hcid;
-        if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
-            formattedHcid = hcid.substring(NhincConstants.HCID_PREFIX.length(), hcid.length());
-        }
-        return formattedHcid;
     }
 
     public ConnectionEndpoint getSelectedEndpoint() {

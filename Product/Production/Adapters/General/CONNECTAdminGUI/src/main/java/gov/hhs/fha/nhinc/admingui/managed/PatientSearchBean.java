@@ -30,9 +30,7 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.event.model.Document;
 import gov.hhs.fha.nhinc.admingui.event.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -50,7 +48,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.KeyedReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.primefaces.model.DefaultStreamedContent;
@@ -78,7 +75,7 @@ public class PatientSearchBean {
 
     //For Lookup..should be moved to a different managed bean
     private List<SelectItem> documentTypeList;
-    private Map<String, String> organizationList;
+    private Map<String, BusinessEntity> organizationList;
     private Map<String, String> genderList;
 
     //Used in Patient Query Page
@@ -412,7 +409,7 @@ public class PatientSearchBean {
     /**
      * @return the organizationList
      */
-    public Map<String, String> getOrganizationList() {
+    public Map<String, BusinessEntity> getOrganizationList() {
         return organizationList;
     }
 
@@ -442,39 +439,8 @@ public class PatientSearchBean {
      * application bean.
      *
      */
-    private Map<String, String> populateOrganizationFromConnectManagerCache() {
-        Map<String, String> localOrganizationList = new HashMap<String, String>();
-        String homeCommunityId = null;
-        String homeCommunityName = null;
-        try {
-            //get the all the entries from our UDDI file
-            List<BusinessEntity> externalEntityList = ConnectionManagerCache.getInstance().getAllBusinessEntities();
-            for (BusinessEntity businessEntity : externalEntityList) {
-                //get the home community id and home community name
-                if (businessEntity != null && businessEntity.getIdentifierBag() != null
-                    && businessEntity.getIdentifierBag().getKeyedReference() != null
-                    && !businessEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
-                    for (KeyedReference ref : businessEntity.getIdentifierBag().getKeyedReference()) {
-                        if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)) {
-                            homeCommunityId = ref.getKeyValue();
-                            break;
-                        }
-                    }
-                    // get the homecommunity anme
-                    if (businessEntity.getName() != null && !businessEntity.getName().isEmpty()) {
-                        homeCommunityName = businessEntity.getName().get(0).getValue();
-                    }
-                    //add it to the organizationList
-                    localOrganizationList.put(homeCommunityName, homeCommunityId);
-                    //added to display orgnaization name in UI
-                    displayOrganizationName = homeCommunityName;
-                }
-            }
-        } catch (ConnectionManagerException ex) {
-            LOG.error("Failed to retrieve Business Entities from UDDI file.");
-        }
-        LOG.info("Organization name to display in ui:" + homeCommunityName);
-        return localOrganizationList;
+    private Map<String, BusinessEntity> populateOrganizationFromConnectManagerCache() {
+        return new ConnectionHelper().getRemoteHcidFromUUID();
     }
 
     /**
@@ -482,7 +448,7 @@ public class PatientSearchBean {
      *
      */
     private Map<String, String> populteGenderList() {
-        Map<String, String> localGenderList = new HashMap<String, String>();
+        Map<String, String> localGenderList = new HashMap<>();
         localGenderList.put("Male", "M");
         localGenderList.put("Female", "F");
         localGenderList.put("Undifferentiated", "UN");

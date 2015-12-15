@@ -562,7 +562,11 @@ VALUES
 ("fhir.xhtml", "FHIR Resources", 0, 3),
 ("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 1),
 ("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 2),
-("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 3);
+("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 3),
+("auditLog.xhtml", "AuditSearch", 0, 1),
+("auditLog.xhtml", "AuditSearch", 0, 2),
+("auditLog.xhtml", "AuditSearch", 0, 3);
+
 
 
 INSERT INTO adminguidb.UserLogin
