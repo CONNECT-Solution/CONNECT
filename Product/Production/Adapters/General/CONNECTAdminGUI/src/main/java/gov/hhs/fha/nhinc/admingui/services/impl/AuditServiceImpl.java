@@ -32,6 +32,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -40,7 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AuditServiceImpl implements AuditService {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AuditServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuditServiceImpl.class);
 
     @Override
     public ArrayList<Audit> createMockAuditRecord() {
