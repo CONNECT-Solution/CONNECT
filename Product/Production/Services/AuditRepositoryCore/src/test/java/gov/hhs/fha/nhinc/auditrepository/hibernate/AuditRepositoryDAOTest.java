@@ -40,9 +40,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Ignore;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -62,6 +61,7 @@ public class AuditRepositoryDAOTest {
     private String relatesTo = null;
     private List<AuditRepositoryRecord> responseList = null;
     private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAOTest.class);
 
     private AuditRepositoryDAO auditDao = null;
 
@@ -174,7 +174,7 @@ public class AuditRepositoryDAOTest {
             responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
             assertNotNull(responseList);
         } catch (ParseException ex) {
-            Logger.getLogger(AuditRepositoryDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Exception occurred due to :" + ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -193,7 +193,7 @@ public class AuditRepositoryDAOTest {
             responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
             assertNotNull(responseList);
         } catch (ParseException ex) {
-            Logger.getLogger(AuditRepositoryDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Exception occurred due to :" + ex.getLocalizedMessage(), ex);
         }
     }
 

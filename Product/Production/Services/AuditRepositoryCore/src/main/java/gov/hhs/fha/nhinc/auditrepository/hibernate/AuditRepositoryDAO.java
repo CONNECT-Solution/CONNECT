@@ -245,12 +245,12 @@ public class AuditRepositoryDAO {
             }
 
             if (startDate != null && endDate != null) {
-                queryCriteria.add(Expression.between("eventTimestamp", new Date(startDate.getTime()),
-                    new Date(endDate.getTime())));
+                queryCriteria.add(Expression.between("eventTimestamp", startDate,
+                    endDate));
             } else if (startDate != null && endDate == null) {
-                queryCriteria.add(Restrictions.ge("eventTimestamp", new Date(startDate.getTime())));
+                queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
             } else if (startDate == null && endDate != null) {
-                queryCriteria.add(Restrictions.le("eventTimestamp", new Date(endDate.getTime())));
+                queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
             }
             // if no criteria is passed then it will search full database with above mentioned columns in the result
             queryList = setProjectionFields(queryCriteria).list();
