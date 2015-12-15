@@ -127,7 +127,6 @@ public class AuditSearchBean {
     }
 
     private HashMap<String, BusinessEntity> populateRemoteOrgHcid() {
-
         return new ConnectionHelper().getRemoteHcidFromUUID();
 
     }
