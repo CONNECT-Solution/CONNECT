@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.auditrepository.hibernate;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.sql.Blob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -106,10 +107,7 @@ public class AuditRepositoryDAO {
                 }
                 LOG.error("Error during insertion caused by :" + e.getLocalizedMessage(), e);
             } finally {
-                // Actual event_log insertion will happen at this step
-                if (session != null) {
-                    session.close();
-                }
+                closeSession(session, false);
             }
         }
 
@@ -159,11 +157,7 @@ public class AuditRepositoryDAO {
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            // Actual contact insertion will happen at this step
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
+            closeSession(session, false);
         }
         return queryList;
     }
@@ -182,7 +176,6 @@ public class AuditRepositoryDAO {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-
             LOG.info("Getting Record for Audit Viewer ");
 
             // Build the criteria
@@ -192,40 +185,20 @@ public class AuditRepositoryDAO {
                 if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
                     queryCriteria.add(Restrictions.eq("messageId", messageId));
                 } else {
-                    queryCriteria.add(Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
-
+                    queryCriteria.add(Restrictions.eq("messageId",
+                        NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
                 }
-
             }
 
             if (NullChecker.isNotNullish(relatesTo)) {
                 queryCriteria.add(Restrictions.eq("relatesTo", relatesTo));
-
             }
-
-            queryCriteria.setProjection(Projections.projectionList()
-                .add(Projections.property("userId"))
-                .add(Projections.property("eventType"))
-                .add(Projections.property("eventId"))
-                .add(Projections.property("outcome"))
-                .add(Projections.property("eventTimestamp"))
-                .add(Projections.property("remoteHcid"))
-                .add(Projections.property("relatesTo"))
-                .add(Projections.property("direction"))
-                .add(Projections.property("id"))
-                .add(Projections.property("messageId")));
-
             // if no criteria is passed then it will search full database with above mentioned columns in the result
-            queryList = queryCriteria.list();
-
+            queryList = setProjectionFields(queryCriteria).list();
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            // Actual contact insertion will happen at this step
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
+            closeSession(session, false);
         }
         return queryList;
     }
@@ -241,7 +214,8 @@ public class AuditRepositoryDAO {
      * @param endDate
      * @return List
      */
-    public List queryByAuditValues(Integer outcome, List<String> eventTypeList, String userId, List<String> remoteHcidList, String startDate, String endDate) {
+    public List queryByAuditOptions(Integer outcome, List<String> eventTypeList, String userId,
+        List<String> remoteHcidList, Date startDate, Date endDate) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
@@ -249,7 +223,7 @@ public class AuditRepositoryDAO {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
 
-            LOG.info("Getting Record for Audit Viewer ");
+            LOG.info("Getting Record for Audit Query ");
 
             // Build the criteria
             Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
@@ -270,47 +244,21 @@ public class AuditRepositoryDAO {
                 queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
             }
 
-            if (NullChecker.isNotNullish(startDate) && NullChecker.isNotNullish(endDate)) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
-                queryCriteria.add(Restrictions.between("eventTimestamp", new Date(sdf.parse(startDate).getTime()),
-                    new Date(sdf.parse(endDate).getTime())));
-
-            } else if (NullChecker.isNotNullish(startDate) && NullChecker.isNullish(endDate)) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
-                queryCriteria.add(Restrictions.ge("eventTimestamp", new Date(sdf.parse(startDate).getTime())));
-
-            } else if (NullChecker.isNullish(startDate) && NullChecker.isNotNullish(endDate)) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-
-                queryCriteria.add(Restrictions.le("eventTimestamp", new Date(sdf.parse(endDate).getTime())));
-
+            if (startDate != null && endDate != null) {
+                queryCriteria.add(Expression.between("eventTimestamp", new Date(startDate.getTime()),
+                    new Date(endDate.getTime())));
+            } else if (startDate != null && endDate == null) {
+                queryCriteria.add(Restrictions.ge("eventTimestamp", new Date(startDate.getTime())));
+            } else if (startDate == null && endDate != null) {
+                queryCriteria.add(Restrictions.le("eventTimestamp", new Date(endDate.getTime())));
             }
-
-            queryCriteria.setProjection(Projections.projectionList()
-                .add(Projections.property("userId"))
-                .add(Projections.property("eventType"))
-                .add(Projections.property("eventId"))
-                .add(Projections.property("outcome"))
-                .add(Projections.property("eventTimestamp"))
-                .add(Projections.property("remoteHcid"))
-                .add(Projections.property("relatesTo"))
-                .add(Projections.property("direction"))
-                .add(Projections.property("id"))
-                .add(Projections.property("messageId")));
-
             // if no criteria is passed then it will search full database with above mentioned columns in the result
-            queryList = queryCriteria.list();
+            queryList = setProjectionFields(queryCriteria).list();
 
-        } catch (HibernateException | ParseException e) {
+        } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            // Actual contact insertion will happen at this step
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
+            closeSession(session, false);
         }
         return queryList;
     }
@@ -321,10 +269,10 @@ public class AuditRepositoryDAO {
      * @param auditId
      * @return List
      */
-    public List queryAuditViewerByAuditId(String auditId) {
+    public Blob queryByAuditId(String auditId) {
 
         Session session = null;
-        List<AuditRepositoryRecord> queryList = null;
+        Blob message = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
@@ -335,21 +283,52 @@ public class AuditRepositoryDAO {
             if (NullChecker.isNotNullish(auditId)) {
                 queryCriteria.add(Restrictions.eq("id", Integer.parseInt(auditId)));
                 queryCriteria.setProjection(Projections.property("message"));
-
             }
-
-            queryList = queryCriteria.list();
-
+            message = (Blob) queryCriteria.uniqueResult();
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            // Actual contact insertion will happen at this step
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
+            closeSession(session, false);
         }
-        return queryList;
+        return message;
+    }
+
+    /**
+     * Create a Projection field list with specific database columns required as a result set
+     *
+     * @param queryCriteria
+     * @return
+     */
+    private Criteria setProjectionFields(Criteria queryCriteria) {
+        queryCriteria.setProjection(Projections.projectionList()
+            .add(Projections.property("userId"))
+            .add(Projections.property("eventType"))
+            .add(Projections.property("eventId"))
+            .add(Projections.property("outcome"))
+            .add(Projections.property("eventTimestamp"))
+            .add(Projections.property("remoteHcid"))
+            .add(Projections.property("relatesTo"))
+            .add(Projections.property("direction"))
+            .add(Projections.property("id"))
+            .add(Projections.property("messageId")));
+
+        return queryCriteria;
+    }
+
+    /**
+     * Closes the Hibernate Session
+     *
+     * @param session Hibernate session instance
+     * @param flush
+     *
+     */
+    private void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
     }
 
 }

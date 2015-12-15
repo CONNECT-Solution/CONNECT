@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
+import java.sql.Blob;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.junit.After;
@@ -37,6 +40,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Ignore;
 
 /**
@@ -52,8 +57,8 @@ public class AuditRepositoryDAOTest {
     private List<String> eventType = null;
     private String userId = null;
     private List<String> remoteHcid = null;
-    private String startDate = null;
-    private String endDate = null;
+    private Date startDate = null;
+    private Date endDate = null;
     private String relatesTo = null;
     private List<AuditRepositoryRecord> responseList = null;
     private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
@@ -125,7 +130,7 @@ public class AuditRepositoryDAOTest {
      * AuditRepositoryDAO .
      */
     @Test
-    public void testQueryAuditViewerByMessageIdAndCheckPrecedence() {
+    public void testQueryByMessageIdAndCheckPrecedence() {
         messageId = "urn:uuid%";
         outcome = 0;
         responseList = auditLogDao.queryAuditRecords(messageId, relatesTo);
@@ -138,10 +143,10 @@ public class AuditRepositoryDAOTest {
      * AuditRepositoryDAO .
      */
     @Test
-    public void testQueryAuditViewerByAuditId() {
+    public void testQueryByAuditId() {
         String auditId = "15";
-        responseList = auditLogDao.queryAuditViewerByAuditId(auditId);
-        assertNotNull(responseList);
+        Blob message = auditLogDao.queryByAuditId(auditId);
+        assertNotNull(message);
 
     }
 
@@ -150,9 +155,9 @@ public class AuditRepositoryDAOTest {
      * AuditRepositoryDAO .
      */
     @Test
-    public void testQueryAuditViewerByEventTypeList() {
+    public void testQueryByEventTypeList() {
         eventType = new ArrayList<>(Arrays.asList("DocSubmissionDeferredReq", "DocSubmission", "QueryForDocuments"));
-        responseList = auditLogDao.queryByAuditValues(outcome, eventType, userId, remoteHcid, startDate, endDate);
+        responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
         assertNotNull(responseList);
     }
 
@@ -161,10 +166,16 @@ public class AuditRepositoryDAOTest {
      * AuditRepositoryDAO .
      */
     @Test
-    public void testQueryAuditViewerByDateSearch() {
-        startDate = "12/10/2015";
-        responseList = auditLogDao.queryByAuditValues(outcome, eventType, userId, remoteHcid, startDate, endDate);
-        assertNotNull(responseList);
+    public void testQueryByDateSearch() {
+        try {
+            String dateStr = "12/13/2015 22:53:07";
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            startDate = formatter.parse(dateStr);
+            responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+            assertNotNull(responseList);
+        } catch (ParseException ex) {
+            Logger.getLogger(AuditRepositoryDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -172,11 +183,18 @@ public class AuditRepositoryDAOTest {
      * AuditRepositoryDAO .
      */
     @Test
-    public void testQueryAuditViewerByStartEndDateSearch() {
-        startDate = "12/10/2015";
-        endDate = "12/11/2015";
-        responseList = auditLogDao.queryByAuditValues(outcome, eventType, userId, remoteHcid, startDate, endDate);
-        assertNotNull(responseList);
+    public void testQueryByStartEndDateSearch() {
+        try {
+            String dateStartStr = "12/10/2015 00:00:00";
+            String dateEndStr = "12/11/2015 00:00:00";
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            startDate = formatter.parse(dateStartStr);
+            endDate = formatter.parse(dateEndStr);
+            responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+            assertNotNull(responseList);
+        } catch (ParseException ex) {
+            Logger.getLogger(AuditRepositoryDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
