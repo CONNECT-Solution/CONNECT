@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -58,7 +57,7 @@ import org.slf4j.LoggerFactory;
 public class AuditDBStoreImpl implements AuditStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditDBStoreImpl.class);
-    private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+    private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
 
     @Override
     public boolean saveAuditRecord(LogEventSecureRequestType request, AssertionType assertion) {

@@ -41,6 +41,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Ignore;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -60,13 +61,13 @@ public class AuditRepositoryDAOTest {
     private Date endDate = null;
     private String relatesTo = null;
     private List<AuditRepositoryRecord> responseList = null;
-    private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAOTest.class);
+    private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
+    private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAOTest.class);
 
     private AuditRepositoryDAO auditDao = null;
 
     public AuditRepositoryDAOTest() {
-        auditDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+        auditDao = new AuditRepositoryDAO();
     }
 
     @BeforeClass
@@ -144,7 +145,7 @@ public class AuditRepositoryDAOTest {
      */
     @Test
     public void testQueryByAuditId() {
-        String auditId = "15";
+        int auditId = 15;
         Blob message = auditLogDao.queryByAuditId(auditId);
         assertNotNull(message);
 
