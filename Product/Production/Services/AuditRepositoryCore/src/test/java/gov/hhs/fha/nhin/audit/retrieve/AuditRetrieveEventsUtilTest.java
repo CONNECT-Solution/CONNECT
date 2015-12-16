@@ -131,8 +131,7 @@ public class AuditRetrieveEventsUtilTest {
         Blob blob = Hibernate.createBlob(AUDIT_MESSAGE.getBytes());
         QueryAuditEventsBlobResponse response = util.getQueryAuditEventBlobResponse(blob);
         AuditMessageType audit = response.getAuditMessage();
-        System.out.println(getAuditString(audit));
-        assertEquals("", getAuditString(audit), AUDIT_MESSAGE);
+        assertEquals("Audit Blob mismatch", getAuditString(audit), AUDIT_MESSAGE);
     }
 
     private List<AuditRepositoryRecord> createAuditRepositoryRecord() {

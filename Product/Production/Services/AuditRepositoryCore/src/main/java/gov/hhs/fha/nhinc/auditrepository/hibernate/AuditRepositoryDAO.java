@@ -290,7 +290,6 @@ public class AuditRepositoryDAO {
     }
 
     protected Session getSession() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        return sessionFactory.openSession();
+        return HibernateUtil.getSessionFactory().openSession();
     }
 }

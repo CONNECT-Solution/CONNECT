@@ -40,7 +40,8 @@ public interface AuditRetrieve {
 
     public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request);
 
-    public QueryAuditEventsResponseType retrieveAuditsByMsgAndRelatesToId(QueryAuditEventsRequestByRequestMessageId request);
+    public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
+        QueryAuditEventsRequestByRequestMessageId request);
 
     public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request);
 }

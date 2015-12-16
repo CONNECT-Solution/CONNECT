@@ -56,7 +56,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author tjafri
  */
-@Ignore
 public class AuditRetrieveDBTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRetrieveDBTest.class);
@@ -153,7 +152,7 @@ public class AuditRetrieveDBTest {
         AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
         QueryAuditEventsRequestByRequestMessageId request = new QueryAuditEventsRequestByRequestMessageId();
         request.setRequestMessageId(MESSAGE_ID);
-        auditImpl.retrieveAuditsByMsgAndRelatesToId(request);
+        auditImpl.retrieveAuditsByMsgIdAndRelatesToId(request);
     }
 
     private List<AuditRepositoryRecord> createAuditRepositoryRecord() {

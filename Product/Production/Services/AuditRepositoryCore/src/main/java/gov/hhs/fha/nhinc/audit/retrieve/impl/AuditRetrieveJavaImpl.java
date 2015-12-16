@@ -63,7 +63,7 @@ public class AuditRetrieveJavaImpl implements AuditRetrieve {
     }
 
     @Override
-    public QueryAuditEventsResponseType retrieveAuditsByMsgAndRelatesToId(
+    public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
         QueryAuditEventsRequestByRequestMessageId request) {
         return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryAuditRecords(
             request.getRequestMessageId(), request.getRelatesTo()));

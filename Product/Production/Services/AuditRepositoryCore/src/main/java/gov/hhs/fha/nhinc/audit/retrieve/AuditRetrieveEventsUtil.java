@@ -88,7 +88,7 @@ public class AuditRetrieveEventsUtil {
     public QueryAuditEventsBlobResponse getQueryAuditEventBlobResponse(Blob auditBlob) {
         QueryAuditEventsBlobResponse response = new QueryAuditEventsBlobResponse();
         if (auditBlob != null) {
-            response.setAuditMessage(unMarshallBlobToAuditMess(auditBlob));
+            response.setAuditMessage(unmarshallBlobToAuditMsg(auditBlob));
         }
         return response;
     }
@@ -107,7 +107,7 @@ public class AuditRetrieveEventsUtil {
         return null;
     }
 
-    private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
+    private AuditMessageType unmarshallBlobToAuditMsg(Blob auditBlob) {
 
         AuditMessageType auditMessageType = null;
         InputStream in = null;
