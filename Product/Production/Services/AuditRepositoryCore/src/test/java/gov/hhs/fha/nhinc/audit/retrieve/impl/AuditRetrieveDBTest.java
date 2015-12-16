@@ -56,6 +56,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tjafri
  */
+@Ignore
 public class AuditRetrieveDBTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRetrieveDBTest.class);
