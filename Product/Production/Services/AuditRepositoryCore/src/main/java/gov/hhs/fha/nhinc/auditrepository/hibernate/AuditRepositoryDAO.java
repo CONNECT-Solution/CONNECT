@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.sql.Blob;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -55,24 +53,13 @@ import org.hibernate.criterion.Restrictions;
 public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
-    private static AuditRepositoryDAO auditDAO = new AuditRepositoryDAO();
     public static String JAVA_IO_TMPDIR = "java.io.tmpdir";
 
     /**
      * Constructor
      */
-    private AuditRepositoryDAO() {
+    public AuditRepositoryDAO() {
         LOG.trace("AuditRepositoryDAO - Initialized");
-    }
-
-    /**
-     * Singleton instance returned...
-     *
-     * @return AuditRepositoryDAO
-     */
-    public static AuditRepositoryDAO getAuditRepositoryDAOInstance() {
-        LOG.trace("AuditRepositoryDAO instance initialized");
-        return auditDAO;
     }
 
     /**
@@ -90,8 +77,7 @@ public class AuditRepositoryDAO {
             AuditRepositoryRecord auditRecord = null;
 
             try {
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-                session = sessionFactory.openSession();
+                session = getSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
                 for (int i = 0; i < size; i++) {
@@ -134,8 +120,7 @@ public class AuditRepositoryDAO {
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
+            session = getSession();
             LOG.info("Getting Record");
 
             // Build the criteria
@@ -169,13 +154,12 @@ public class AuditRepositoryDAO {
      * @param relatesTo
      * @return List
      */
-    public List queryAuditRecords(String messageId, String relatesTo) {
+    public List<AuditRepositoryRecord> queryAuditRecords(String messageId, String relatesTo) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
+            session = getSession();
             LOG.info("Getting Record for Audit Viewer ");
 
             // Build the criteria
@@ -194,7 +178,7 @@ public class AuditRepositoryDAO {
                 queryCriteria.add(Restrictions.eq("relatesTo", relatesTo));
             }
             // if no criteria is passed then it will search full database with above mentioned columns in the result
-            queryList = setProjectionFields(queryCriteria).list();
+            queryList = queryCriteria.list();
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
@@ -214,15 +198,13 @@ public class AuditRepositoryDAO {
      * @param endDate
      * @return List
      */
-    public List queryByAuditOptions(Integer outcome, List<String> eventTypeList, String userId,
+    public List<AuditRepositoryRecord> queryByAuditOptions(Integer outcome, List<String> eventTypeList, String userId,
         List<String> remoteHcidList, Date startDate, Date endDate) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
-
+            session = getSession();
             LOG.info("Getting Record for Audit Query ");
 
             // Build the criteria
@@ -253,7 +235,7 @@ public class AuditRepositoryDAO {
                 queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
             }
             // if no criteria is passed then it will search full database with above mentioned columns in the result
-            queryList = setProjectionFields(queryCriteria).list();
+            queryList = queryCriteria.list();
 
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
@@ -269,21 +251,19 @@ public class AuditRepositoryDAO {
      * @param auditId
      * @return List
      */
-    public Blob queryByAuditId(String auditId) {
+    public Blob queryByAuditId(int auditId) {
 
         Session session = null;
         Blob message = null;
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
+            session = getSession();
             LOG.info("Getting Record for Audit Viewer using auditId");
 
             // Build the criteria
             Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
-            if (NullChecker.isNotNullish(auditId)) {
-                queryCriteria.add(Restrictions.eq("id", Integer.parseInt(auditId)));
-                queryCriteria.setProjection(Projections.property("message"));
-            }
+            queryCriteria.add(Restrictions.eq("id", auditId));
+            queryCriteria.setProjection(Projections.property("message"));
+
             message = (Blob) queryCriteria.uniqueResult();
         } catch (HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
@@ -291,28 +271,6 @@ public class AuditRepositoryDAO {
             closeSession(session, false);
         }
         return message;
-    }
-
-    /**
-     * Create a Projection field list with specific database columns required as a result set
-     *
-     * @param queryCriteria
-     * @return
-     */
-    private Criteria setProjectionFields(Criteria queryCriteria) {
-        queryCriteria.setProjection(Projections.projectionList()
-            .add(Projections.property("userId"))
-            .add(Projections.property("eventType"))
-            .add(Projections.property("eventId"))
-            .add(Projections.property("outcome"))
-            .add(Projections.property("eventTimestamp"))
-            .add(Projections.property("remoteHcid"))
-            .add(Projections.property("relatesTo"))
-            .add(Projections.property("direction"))
-            .add(Projections.property("id"))
-            .add(Projections.property("messageId")));
-
-        return queryCriteria;
     }
 
     /**
@@ -331,4 +289,7 @@ public class AuditRepositoryDAO {
         }
     }
 
+    protected Session getSession() {
+        return HibernateUtil.getSessionFactory().openSession();
+    }
 }

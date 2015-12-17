@@ -68,7 +68,7 @@ import javax.xml.stream.XMLStreamException;
 public class AuditRepositoryOrchImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
-    private static final AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
+    private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
     private static String logStatus = "";
     private AuditStore dbStore = null;
     private AuditStore fileStore = null;
