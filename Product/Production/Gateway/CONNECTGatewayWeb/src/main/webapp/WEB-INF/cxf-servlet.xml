@@ -25,7 +25,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         </cxf:features>
     </cxf:bus>
 
-    <!-- Audit Reposittory Services -->
+    <!-- Audit Repository Services -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" id="AuditRepositoryManagerUnsecured"
                     address="/GatewayService/AuditRepositoryManagerService" serviceName="tns:AuditRepositoryManagerService"
                     endpointName="tns:AuditRepositoryManagerPort" implementor="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured"
