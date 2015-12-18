@@ -48,24 +48,62 @@ public class AuditQueryLogUnsecured implements
     @Resource
     private WebServiceContext context;
 
+    /**
+     *
+     * @return WebServiceContext
+     */
     protected WebServiceContext getWebServiceContext() {
         return context;
     }
 
+    /**
+     * AuditQueryLogUnsecuredImpl makes call to AuditRepository Core modules and query Audit events from the provided
+     * Request parameters
+     *
+     * @return AuditQueryLogUnsecuredImpl
+     */
     protected AuditQueryLogUnsecuredImpl getAuditQueryImpl() {
         return new AuditQueryLogUnsecuredImpl();
     }
 
+    /**
+     *
+     * @param requestById - The AuditRepository table id will be provided as an input and corresponding Blob will be
+     * retrieved.
+     *
+     * @return QueryAuditEventsBlobResponse - Response will be having only Audit Blob message.
+     */
     @Override
     public QueryAuditEventsBlobResponse queryAuditEventsBlob(QueryAuditEventsBlobRequest requestById) {
         return getAuditQueryImpl().queryAuditEventsById(requestById, context);
     }
 
+    /**
+     *
+     * @param request - The AuditRepository table will be queried from the provided request parameters. The Request
+     * provides search query parameters userId, Event Status, Event StartDate, Event EndDate and Organization Id to
+     * query for. All these elements are optional. The query will return all records from audit tables if none of them
+     * are provided.
+     * @return QueryAuditEventsResponseType - The Response will be having EventType or ServiceName, EventStatus- Success
+     * or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound), MessageID
+     * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
+     * Audit Id.
+     */
     @Override
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType request) {
         return getAuditQueryImpl().queryAuditEvents(request, context);
     }
 
+    /**
+     *
+     * @param requestByMessageId - The AuditRepository table can be queried from the provided request. This Request will
+     * have messageID and RelatesTo elements. If search parameters are not provided then all the records will be
+     * returned.
+     * @return QueryAuditEventsResponseType - The Response will be having EventType or ServiceName, EventStatus- Success
+     * or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound), MessageID
+     * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
+     * Audit Id.
+     */
     @Override
     public QueryAuditEventsResponseType queryAuditEventsByMessageID(
         QueryAuditEventsRequestByRequestMessageId requestByMessageId) {

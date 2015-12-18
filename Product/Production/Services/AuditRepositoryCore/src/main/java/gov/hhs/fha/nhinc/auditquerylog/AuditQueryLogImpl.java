@@ -38,10 +38,33 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMe
  */
 public class AuditQueryLogImpl {
 
+    /**
+     *
+     * @param requestAuditEvents - Audit Search params will be provided by this requestAuditEvents. The Request may have
+     * Event startDate, Event EndDate, UserId, Remote Org Id and ServiceName/EventType.These are optional parameters. If
+     * none of them is provided all records will be retrieved.
+     * @return QueryAuditEventsResponseType - The Response will be having EventType or ServiceName, EventStatus- Success
+     * or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound), MessageID
+     * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
+     * Audit Id.
+     *
+     * The Adapter logic will be implemented in FHAC-690
+     */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType requestAuditEvents) {
         return new QueryAuditEventsResponseType();
     }
 
+    /**
+     *
+     * @param requestAuditEvents - Audit search params MessageId and RelatesTo will be provided by Request. These are
+     * optional fields in requestAuditEvents
+     * @return QueryAuditEventsResponseType - The Response will be having EventType or ServiceName, EventStatus- Success
+     * or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound), MessageID
+     * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
+     * Audit Id.
+     *
+     * The Adapter logic will be implemented in FHAC-690
+     */
     public QueryAuditEventsResponseType queryAuditEventsByMessageId(
         QueryAuditEventsRequestByRequestMessageId requestAuditEvents) {
         return new QueryAuditEventsResponseType();
@@ -49,8 +72,10 @@ public class AuditQueryLogImpl {
 
     /**
      *
-     * @param requestAuditEvents
-     * @return
+     * @param requestAuditEvents - Audit search params. Audit Id will be provided by requestAuditEvents.
+     * @return QueryAuditEventsBlobResponse - Response will be having only Audit Blob message.
+     *
+     * The Adapter logic will be implemented in FHAC-690
      */
     public QueryAuditEventsBlobResponse queryAuditEventsById(QueryAuditEventsBlobRequest requestAuditEvents) {
         return new QueryAuditEventsBlobResponse();

@@ -40,10 +40,23 @@ import javax.xml.ws.WebServiceContext;
  */
 public class AuditQueryLogUnsecuredImpl {
 
+    /**
+     *
+     * @return AuditQueryLogImpl - The AuditRepository jar will be called from the AuditQueryLog service to query the
+     * Audit events.
+     */
     protected AuditQueryLogImpl getAuditQueryLogImpl() {
         return new AuditQueryLogImpl();
     }
 
+    /**
+     *
+     * @param requestAuditEvents - The Request provides search query parameters userId, Event Status, Event StartDate,
+     * Event EndDate and Organization Id to query for. All these elements are optional. The query will return all
+     * records from audit tables if none of them are provided.
+     * @param context - WebserviceContext. Will be used if we load assertion.
+     * @return QueryAuditEventsResponseType
+     */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType requestAuditEvents,
         WebServiceContext context) {
 
@@ -55,6 +68,14 @@ public class AuditQueryLogUnsecuredImpl {
 
     }
 
+    /**
+     *
+     * @param requestAuditEvents-The AuditRepository table can be queried from the provided request. This Request will
+     * have messageID and RelatesTo elements. If search parameters are not provided then all the audit records will be
+     * returned.
+     * @param context-WebserviceContext. Will be used if we load assertion.
+     * @return QueryAuditEventsResponseType
+     */
     public QueryAuditEventsResponseType queryAuditEventsByMessageId(
         QueryAuditEventsRequestByRequestMessageId requestAuditEvents, WebServiceContext context) {
 
@@ -68,9 +89,10 @@ public class AuditQueryLogUnsecuredImpl {
 
     /**
      *
-     * @param requestAuditEvents
-     * @param context
-     * @return
+     * @param requestAuditEvents The AuditRepository table id will be provided as an input and corresponding Blob will
+     * be retrieved.
+     * @param context-WebserviceContext. Will be used if we load assertion.
+     * @return QueryAuditEventsBlobResponse
      */
     public QueryAuditEventsBlobResponse queryAuditEventsById(QueryAuditEventsBlobRequest requestAuditEvents,
         WebServiceContext context) {
