@@ -39,7 +39,6 @@ import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Projections;
@@ -53,7 +52,6 @@ import org.hibernate.criterion.Restrictions;
 public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
-    public static String JAVA_IO_TMPDIR = "java.io.tmpdir";
 
     /**
      * Constructor
@@ -148,7 +146,7 @@ public class AuditRepositoryDAO {
     }
 
     /**
-     * This method does a query to database to get the Audit Log Messages based different options
+     * This method does a query to database to get the Audit Log Messages based on params below
      *
      * @param messageId
      * @param relatesTo
@@ -190,12 +188,13 @@ public class AuditRepositoryDAO {
     /**
      * This method does a query to database to get the Audit Log Messages based different options
      *
-     * @param outcome
-     * @param startDate
-     * @param userId
-     * @param eventTypeList
-     * @param remoteHcidList
-     * @param endDate
+     * @param outcome - status success or failure
+     * @param startDate - Audit Event Start Date
+     * @param userId - Human initiator who initiated transaction. SAML Attribute statement SubjectID.
+     * @param eventTypeList - ServiceNames like PatientDiscovery (PD), DocumentQuery (DQ) and other CONNECT supported
+     * Nwhin services
+     * @param remoteHcidList - Remote Organization ID's
+     * @param endDate - Event End date
      * @return List
      */
     public List<AuditRepositoryRecord> queryByAuditOptions(Integer outcome, List<String> eventTypeList, String userId,
@@ -248,8 +247,8 @@ public class AuditRepositoryDAO {
     /**
      * This method does a query to database to get the Audit Log Blob Messages based on the auditId
      *
-     * @param auditId
-     * @return List
+     * @param auditId - AuidtRepository table Primary Key unique Id
+     * @return Blob - Audit Blob message corresponding to Audit Id supplied
      */
     public Blob queryByAuditId(int auditId) {
 
@@ -274,7 +273,7 @@ public class AuditRepositoryDAO {
     }
 
     /**
-     * Closes the Hibernate Session
+     * TODO will be moved into Util class in future. Closes the Hibernate Session
      *
      * @param session Hibernate session instance
      * @param flush
@@ -289,6 +288,10 @@ public class AuditRepositoryDAO {
         }
     }
 
+    /**
+     *
+     * @return Hibernate session
+     */
     protected Session getSession() {
         return HibernateUtil.getSessionFactory().openSession();
     }
