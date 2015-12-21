@@ -76,7 +76,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 QUERY_AUDIT_EVENTS, request);
 
         } catch (Exception ex) {
-            LOG.debug("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return response;
@@ -100,7 +100,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 QUERY_AUDIT_EVENTS_BY_MSG_RELATESTO_ID, request);
 
         } catch (Exception ex) {
-            LOG.debug("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return response;
@@ -121,7 +121,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 QUERY_AUDIT_EVENTS_BY_ID, request);
 
         } catch (Exception ex) {
-            LOG.debug("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return response;
@@ -136,7 +136,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 + ex.getLocalizedMessage(), ex);
             return url;
         } catch (Exception ex) {
-            LOG.debug("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return url;

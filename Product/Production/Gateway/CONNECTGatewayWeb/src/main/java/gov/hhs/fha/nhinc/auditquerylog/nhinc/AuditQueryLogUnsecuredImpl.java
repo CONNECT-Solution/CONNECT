@@ -81,7 +81,7 @@ public class AuditQueryLogUnsecuredImpl {
 
         QueryAuditEventsResponseType response = null;
         if (requestAuditEvents != null) {
-            response = getAuditQueryLogImpl().queryAuditEventsByMessageId(requestAuditEvents);
+            response = getAuditQueryLogImpl().queryAuditEventsByMessageIdAndRelatesTo(requestAuditEvents);
         }
         return response;
 

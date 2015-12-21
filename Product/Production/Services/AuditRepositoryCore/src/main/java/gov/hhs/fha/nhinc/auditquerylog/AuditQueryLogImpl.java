@@ -47,7 +47,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class AuditQueryLogImpl {
 
     private AuditRepositoryDAO dao;
-    private AuditRetrieveEventsUtil resultUtil = null;
+    private AuditRetrieveEventsUtil resultUtil;
 
     /**
      * constructor. initialize AuditRetrieveEventsUtil to build AuditQueryResponse
@@ -86,7 +86,7 @@ public class AuditQueryLogImpl {
      * Audit Id.
      *
      */
-    public QueryAuditEventsResponseType queryAuditEventsByMessageId(
+    public QueryAuditEventsResponseType queryAuditEventsByMessageIdAndRelatesTo(
         QueryAuditEventsRequestByRequestMessageId request) {
         return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryAuditRecords(
             request.getRequestMessageId(), request.getRelatesTo()));

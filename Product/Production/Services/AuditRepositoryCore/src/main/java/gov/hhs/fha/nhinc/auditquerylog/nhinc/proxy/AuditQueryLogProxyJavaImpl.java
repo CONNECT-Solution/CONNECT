@@ -54,7 +54,7 @@ public class AuditQueryLogProxyJavaImpl implements AuditRetrieve {
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
         QueryAuditEventsRequestByRequestMessageId request) {
-        return queryImpl.queryAuditEventsByMessageId(request);
+        return queryImpl.queryAuditEventsByMessageIdAndRelatesTo(request);
     }
 
     @Override
