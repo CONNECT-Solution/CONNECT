@@ -24,42 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit.retrieve;
+package gov.hhs.fha.nhinc.auditquerylog.nhinc.proxy.service;
 
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobRequest;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMessageId;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
+import gov.hhs.fha.nhinc.common.nhinccomponentauditquerylog.AuditQueryLogPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
- * AuditQueryLog client implementation
+ * AuditQueryLog PortDesriptor for Retrieve Audit events Blob
  *
- * @author tjafri
+ * @author achidamb
  */
-public interface AuditRetrieve {
+public class QueryByIdUnsecuredServicePortDescriptor extends SOAP12ServicePortDescriptor<AuditQueryLogPortType> {
 
     /**
      *
-     * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
-     * request. If optional elements are not provided will return all audit events
-     * @return QueryAuditEventsResponseType
+     * @return WSAddressingAction
      */
-    public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request);
+    @Override
+    public String getWSAddressingAction() {
+        return "urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylog:QueryAuditEventsBlobRequest";
+    }
 
     /**
-     *
-     * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
-     * elements are provided in request. If optional elements are not provided will return all audit events
-     * @return QueryAuditEventsResponseType
+     * @return PortType
      */
-    public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
-        QueryAuditEventsRequestByRequestMessageId request);
+    @Override
+    public Class<AuditQueryLogPortType> getPortClass() {
+        return AuditQueryLogPortType.class;
+    }
 
-    /**
-     *
-     * @param request - Request provides Id and corresponding Blob will be retrieved.
-     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
-     */
-    public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request);
 }

@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit.retrieve.impl;
+package gov.hhs.fha.nhinc.auditquerylog.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
@@ -102,7 +102,7 @@ public class AuditRetrieveDBTest {
 
     @Test
     public void testAuditRetrieveBasedOnUserId() {
-        AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
+        AuditQueryLogProxyJavaImpl auditImpl = new AuditQueryLogProxyJavaImpl();
         QueryAuditEventsRequestType request = new QueryAuditEventsRequestType();
         request.setUserId(USER_ID);
         QueryAuditEventsResponseType response = auditImpl.retrieveAudits(request);
@@ -111,7 +111,7 @@ public class AuditRetrieveDBTest {
 
     @Test
     public void testAuditRetrieveBasedOnEventOutcome() {
-        AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
+        AuditQueryLogProxyJavaImpl auditImpl = new AuditQueryLogProxyJavaImpl();
         QueryAuditEventsRequestType request = new QueryAuditEventsRequestType();
         request.setEventOutcomeIndicator(BigInteger.valueOf(0L));
         QueryAuditEventsResponseType response = auditImpl.retrieveAudits(request);
@@ -120,7 +120,7 @@ public class AuditRetrieveDBTest {
 
     @Test
     public void testAuditRetrieveBasedOnEventBeginDate() {
-        AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
+        AuditQueryLogProxyJavaImpl auditImpl = new AuditQueryLogProxyJavaImpl();
         QueryAuditEventsRequestType request = new QueryAuditEventsRequestType();
         request.setEventBeginDate(convertDateToXMLGregorianCalendar(EVENT_TIMESTAMP));
         QueryAuditEventsResponseType response = auditImpl.retrieveAudits(request);
@@ -130,7 +130,7 @@ public class AuditRetrieveDBTest {
     @Test
     public void testAuditRetrieveBasedOnEventTypes() {
         List<String> eventTypes = new ArrayList<>(Arrays.asList(EVENT_TYPE));
-        AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
+        AuditQueryLogProxyJavaImpl auditImpl = new AuditQueryLogProxyJavaImpl();
         QueryAuditEventsRequestType request = new QueryAuditEventsRequestType();
         EventTypeList events = new EventTypeList();
         events.getEventType().addAll(eventTypes);
@@ -141,7 +141,7 @@ public class AuditRetrieveDBTest {
 
     @Test
     public void testAuditRetrieveBasedOnAuditId() {
-        AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
+        AuditQueryLogProxyJavaImpl auditImpl = new AuditQueryLogProxyJavaImpl();
         QueryAuditEventsBlobRequest request = new QueryAuditEventsBlobRequest();
         request.setId(ID);
         QueryAuditEventsBlobResponse blobResponse = auditImpl.retrieveAuditBlob(request);
@@ -150,7 +150,7 @@ public class AuditRetrieveDBTest {
 
     @Test
     public void testAuditRetrieveBasedOnMessageId() {
-        AuditRetrieveJavaImpl auditImpl = new AuditRetrieveJavaImpl();
+        AuditQueryLogProxyJavaImpl auditImpl = new AuditQueryLogProxyJavaImpl();
         QueryAuditEventsRequestByRequestMessageId request = new QueryAuditEventsRequestByRequestMessageId();
         request.setRequestMessageId(MESSAGE_ID);
         auditImpl.retrieveAuditsByMsgIdAndRelatesToId(request);

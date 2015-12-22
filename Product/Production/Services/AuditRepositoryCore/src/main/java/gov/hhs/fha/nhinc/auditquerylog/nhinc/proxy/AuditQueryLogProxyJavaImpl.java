@@ -24,8 +24,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit.retrieve;
+package gov.hhs.fha.nhinc.auditquerylog.nhinc.proxy;
 
+import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieve;
+import gov.hhs.fha.nhinc.auditquerylog.AuditQueryLogImpl;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobRequest;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMessageId;
@@ -33,19 +35,28 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 
 /**
- * AuditQueryLog client implementation
+ * Pojo implementation to retrieve Audit events
  *
  * @author tjafri
  */
-public interface AuditRetrieve {
+public class AuditQueryLogProxyJavaImpl implements AuditRetrieve {
+
+    private AuditQueryLogImpl queryImpl = null;
+
+    public AuditQueryLogProxyJavaImpl() {
+        queryImpl = new AuditQueryLogImpl();
+    }
 
     /**
      *
-     * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
+     * @param req - Request provides search params to retrieve Audit Events. If none of the elements are provided in
      * request. If optional elements are not provided will return all audit events
      * @return QueryAuditEventsResponseType
      */
-    public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request);
+    @Override
+    public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType req) {
+        return queryImpl.queryAuditEvents(req);
+    }
 
     /**
      *
@@ -53,13 +64,20 @@ public interface AuditRetrieve {
      * elements are provided in request. If optional elements are not provided will return all audit events
      * @return QueryAuditEventsResponseType
      */
+    @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
-        QueryAuditEventsRequestByRequestMessageId request);
+        QueryAuditEventsRequestByRequestMessageId request) {
+        return queryImpl.queryAuditEventsByMessageIdAndRelatesTo(request);
+    }
 
     /**
      *
      * @param request - Request provides Id and corresponding Blob will be retrieved.
      * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
      */
-    public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request);
+    @Override
+    public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request) {
+        return queryImpl.queryAuditEventsById(request);
+    }
+
 }

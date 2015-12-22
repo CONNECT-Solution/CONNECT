@@ -311,6 +311,8 @@ public class NhincConstants {
     // Adapter Component MPI constants
     public static final String ADAPTER_COMPONENT_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
     public static final String ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
+    //Adapter Audit Query Service Name
+    public static final String ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME = "auditquerylog";
     // SOAP Headers
     public static final String HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE = "SoapMessage";
     public static final String WS_SOAP_ENV_URL = "http://www.w3.org/2003/05/soap-envelope";

@@ -1126,6 +1126,23 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="auditlog" keyValue="auditlog"/>
                 </categoryBag>
             </businessService>
+            
+            <!-- Audit Query Log-->
+            
+            <businessService serviceKey="uddi:nhincnode:auditquerylog">
+                <name xml:lang="en">auditquerylog</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:auditquerylog" serviceKey="uddi:nhincnode:auditquerylog">
+                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGateway/GatewayService/AuditQueryLogService</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="auditquerylog" keyValue="auditquerylog"/>
+                </categoryBag>
+            </businessService>
 
             <!--  Policy Engine  -->
 

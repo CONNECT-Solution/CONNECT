@@ -24,42 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit.retrieve;
+package gov.hhs.fha.nhinc.auditquerylog.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobRequest;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMessageId;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
+import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieve;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * AuditQueryLog client implementation
+ * Class returns the Audit QueryLog Client implementor from Spring Proxy configuration files
  *
- * @author tjafri
+ * @author achidamb
  */
-public interface AuditRetrieve {
+public class AuditQueryLogProxyObjectFactory extends ComponentProxyObjectFactory {
+
+    //AduitQueryLogProxyConfig File name
+    private static final String CONFIG_FILE_NAME = "AuditQueryLogProxyConfig.xml";
+    private static final String BEAN_NAME = "auditquerylog";
+
+    @Override
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
 
     /**
      *
-     * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
-     * request. If optional elements are not provided will return all audit events
-     * @return QueryAuditEventsResponseType
+     * @return AuditQueryLog Bean
      */
-    public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request);
+    public AuditRetrieve getAuditRetrieveProxy() {
+        return getBean(BEAN_NAME, AuditRetrieve.class);
+    }
 
-    /**
-     *
-     * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
-     * elements are provided in request. If optional elements are not provided will return all audit events
-     * @return QueryAuditEventsResponseType
-     */
-    public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
-        QueryAuditEventsRequestByRequestMessageId request);
-
-    /**
-     *
-     * @param request - Request provides Id and corresponding Blob will be retrieved.
-     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
-     */
-    public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request);
 }

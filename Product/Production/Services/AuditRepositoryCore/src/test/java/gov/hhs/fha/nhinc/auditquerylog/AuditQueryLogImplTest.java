@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit.retrieve.impl;
+package gov.hhs.fha.nhinc.auditquerylog;
 
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
@@ -47,7 +47,7 @@ import static org.mockito.Mockito.when;
  *
  * @author tjafri
  */
-public class AuditRetrieveJavaImplTest {
+public class AuditQueryLogImplTest {
 
     private final String DIRECTION = "Outbound";
     private final String REMOTE_HCID = "2.2";
@@ -62,7 +62,7 @@ public class AuditRetrieveJavaImplTest {
     private final Session mockSession = mock(Session.class);
     private final Criteria mockCriteria = mock(Criteria.class);
     private AuditRepositoryDAO dao = null;
-    private AuditRetrieveJavaImpl auditRetrieve = null;
+    private AuditQueryLogImpl auditRetrieve = null;
 
     @Before
     public void setup() {
@@ -72,7 +72,7 @@ public class AuditRetrieveJavaImplTest {
                 return mockSession;
             }
         };
-        auditRetrieve = new AuditRetrieveJavaImpl() {
+        auditRetrieve = new AuditQueryLogImpl() {
             @Override
             protected AuditRepositoryDAO getAuditRepositoryDao() {
                 return dao;
@@ -86,7 +86,7 @@ public class AuditRetrieveJavaImplTest {
         when(mockCriteria.list()).thenReturn(getAuditRepositoryRecordList());
         QueryAuditEventsRequestType request = new QueryAuditEventsRequestType();
         request.setUserId("testUserId");
-        QueryAuditEventsResponseType response = auditRetrieve.retrieveAudits(request);
+        QueryAuditEventsResponseType response = auditRetrieve.queryAuditEvents(request);
         assertEquals("Response Object size mismatch", response.getQueryAuditEventsResults().size(), 1);
         QueryAuditEventsResults obj = response.getQueryAuditEventsResults().get(0);
         assertEquals("QueryAuditEventsResults.Direction mismatch", obj.getDirection(), DIRECTION);

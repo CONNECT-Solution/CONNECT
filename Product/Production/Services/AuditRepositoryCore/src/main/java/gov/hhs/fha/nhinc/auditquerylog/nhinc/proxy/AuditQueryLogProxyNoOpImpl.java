@@ -24,89 +24,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.audit.retrieve.impl;
+package gov.hhs.fha.nhinc.auditquerylog.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieve;
-import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieveEventsUtil;
-import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
-import gov.hhs.fha.nhinc.common.auditquerylog.EventTypeList;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobRequest;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMessageId;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
-import gov.hhs.fha.nhinc.common.auditquerylog.RemoteHcidList;
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.List;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
+ * NoopImpl returns empty responses for Audit search. The Audit Query Log impl can be turned off by injecting NoopImpl.
  *
- * @author tjafri
+ * @author achidamb
  */
-public class AuditRetrieveJavaImpl implements AuditRetrieve {
+public class AuditQueryLogProxyNoOpImpl implements AuditRetrieve {
 
-    private AuditRepositoryDAO dao;
-    private AuditRetrieveEventsUtil resultUtil = null;
-
-    public AuditRetrieveJavaImpl() {
-        resultUtil = new AuditRetrieveEventsUtil();
-    }
-
+    /**
+     *
+     * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
+     * request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     @Override
-    public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType req) {
-        return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryByAuditOptions(
-            getEventOutcome(req.getEventOutcomeIndicator()), getEventTypes(req.getEventTypeList()),
-            req.getUserId(), getRemoteHcids(req.getRemoteHcidList()), getRequestDate(req.getEventBeginDate()),
-            getRequestDate(req.getEventEndDate())));
+    public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request) {
+        return new QueryAuditEventsResponseType();
     }
 
+    /**
+     *
+     * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
+     * elements are provided in request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
         QueryAuditEventsRequestByRequestMessageId request) {
-        return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryAuditRecords(
-            request.getRequestMessageId(), request.getRelatesTo()));
+        return new QueryAuditEventsResponseType();
     }
 
+    /**
+     *
+     * @param request - Request provides Id and corresponding Blob will be retrieved.
+     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
+     */
     @Override
     public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request) {
-        return resultUtil.getQueryAuditEventBlobResponse(getAuditRepositoryDao().queryByAuditId(
-            (new Long(request.getId())).intValue()));
+        return new QueryAuditEventsBlobResponse();
     }
 
-    protected AuditRepositoryDAO getAuditRepositoryDao() {
-        if (dao == null) {
-            dao = new AuditRepositoryDAO();
-        }
-        return dao;
-    }
-
-    private Date getRequestDate(XMLGregorianCalendar dateObj) {
-        if (dateObj != null) {
-            return dateObj.toGregorianCalendar().getTime();
-        }
-        return null;
-    }
-
-    private Integer getEventOutcome(BigInteger outcome) {
-        if (outcome != null) {
-            return outcome.intValue();
-        }
-        return null;
-    }
-
-    private List<String> getEventTypes(EventTypeList eventList) {
-        if (eventList != null) {
-            eventList.getEventType();
-        }
-        return null;
-    }
-
-    private List<String> getRemoteHcids(RemoteHcidList remoteHcidList) {
-        if (remoteHcidList != null) {
-            remoteHcidList.getRemoteHcid();
-        }
-        return null;
-    }
 }
