@@ -45,7 +45,7 @@ public class Audit {
     private String relatesTo;
     private String direction;
     private String eventId;
-    private String transactionId;
+  
 
     public String getUserId() {
         return userId;
@@ -157,20 +157,7 @@ public class Audit {
         this.eventId = eventId;
     }
 
-    /**
-     * @return the transactionId
-     */
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    /**
-     * @param transactionId the transactionId to set
-     */
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
+    
     /**
      * @return the id
      */
