@@ -34,22 +34,40 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 
 /**
+ * NoopImpl returns empty responses for Audit search. The Audit Query Log impl can be turned off by injecting NoopImpl.
  *
  * @author achidamb
  */
 public class AuditQueryLogProxyNoOpImpl implements AuditRetrieve {
 
+    /**
+     *
+     * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
+     * request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     @Override
     public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request) {
         return new QueryAuditEventsResponseType();
     }
 
+    /**
+     *
+     * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
+     * elements are provided in request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
         QueryAuditEventsRequestByRequestMessageId request) {
         return new QueryAuditEventsResponseType();
     }
 
+    /**
+     *
+     * @param request - Request provides Id and corresponding Blob will be retrieved.
+     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
+     */
     @Override
     public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request) {
         return new QueryAuditEventsBlobResponse();

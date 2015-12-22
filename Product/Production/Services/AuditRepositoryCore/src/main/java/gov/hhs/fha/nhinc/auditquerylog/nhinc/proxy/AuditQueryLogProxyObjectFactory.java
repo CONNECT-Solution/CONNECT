@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieve;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
+ * Class returns the Audit QueryLog Client implementor from Spring Proxy configuration files
  *
  * @author achidamb
  */

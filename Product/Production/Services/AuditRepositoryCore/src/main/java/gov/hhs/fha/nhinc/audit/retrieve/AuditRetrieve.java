@@ -38,10 +38,27 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
  */
 public interface AuditRetrieve {
 
+    /**
+     *
+     * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
+     * request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType request);
 
+    /**
+     *
+     * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
+     * elements are provided in request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
         QueryAuditEventsRequestByRequestMessageId request);
 
+    /**
+     *
+     * @param request - Request provides Id and corresponding Blob will be retrieved.
+     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
+     */
     public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request);
 }

@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 
 /**
+ * Pojo implementation to retrieve Audit events
  *
  * @author tjafri
  */
@@ -46,17 +47,34 @@ public class AuditQueryLogProxyJavaImpl implements AuditRetrieve {
         queryImpl = new AuditQueryLogImpl();
     }
 
+    /**
+     *
+     * @param req - Request provides search params to retrieve Audit Events. If none of the elements are provided in
+     * request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     @Override
     public QueryAuditEventsResponseType retrieveAudits(QueryAuditEventsRequestType req) {
         return queryImpl.queryAuditEvents(req);
     }
 
+    /**
+     *
+     * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
+     * elements are provided in request. If optional elements are not provided will return all audit events
+     * @return QueryAuditEventsResponseType
+     */
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
         QueryAuditEventsRequestByRequestMessageId request) {
         return queryImpl.queryAuditEventsByMessageIdAndRelatesTo(request);
     }
 
+    /**
+     *
+     * @param request - Request provides Id and corresponding Blob will be retrieved.
+     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
+     */
     @Override
     public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request) {
         return queryImpl.queryAuditEventsById(request);

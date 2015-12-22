@@ -41,6 +41,7 @@ import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
+ * The AuditQueryLog impl is called from Pojo/Service implementation and passes/retrieve params from/to DAO layer.
  *
  * @author tjafri
  */
@@ -66,7 +67,6 @@ public class AuditQueryLogImpl {
      * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
      * Audit Id.
      *
-     * The Adapter logic will be implemented in FHAC-690
      */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType request) {
         return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryByAuditOptions(
@@ -94,11 +94,9 @@ public class AuditQueryLogImpl {
 
     /**
      *
-     *
      * @param request - Audit search params. Audit Id will be provided by requestAuditEvents.
      * @return QueryAuditEventsBlobResponse - Response will be having only Audit Blob message.
      *
-     * The Adapter logic will be implemented in FHAC-690
      */
     public QueryAuditEventsBlobResponse queryAuditEventsById(QueryAuditEventsBlobRequest request) {
         return resultUtil.getQueryAuditEventBlobResponse(getAuditRepositoryDao().queryByAuditId(
@@ -132,14 +130,14 @@ public class AuditQueryLogImpl {
 
     private List<String> getEventTypes(EventTypeList eventList) {
         if (eventList != null) {
-            eventList.getEventType();
+            return eventList.getEventType();
         }
         return null;
     }
 
     private List<String> getRemoteHcids(RemoteHcidList remoteHcidList) {
         if (remoteHcidList != null) {
-            remoteHcidList.getRemoteHcid();
+            return remoteHcidList.getRemoteHcid();
         }
         return null;
     }

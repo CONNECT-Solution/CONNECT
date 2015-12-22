@@ -47,6 +47,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Webservices client implementation to search Audit events
  *
  * @author achidamb
  */
@@ -76,7 +77,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 QUERY_AUDIT_EVENTS, request);
 
         } catch (Exception ex) {
-            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service {} {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return response;
@@ -100,7 +101,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 QUERY_AUDIT_EVENTS_BY_MSG_RELATESTO_ID, request);
 
         } catch (Exception ex) {
-            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service {} {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return response;
@@ -109,7 +110,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
     /**
      *
      * @param request - Request provides Id and corresponding Blob will be retrieved.
-     * @return
+     * @return QueryAuditEventsBlobResponse - Response returns Audit Blob message.
      */
     @Override
     public QueryAuditEventsBlobResponse retrieveAuditBlob(QueryAuditEventsBlobRequest request) {
@@ -121,7 +122,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
                 QUERY_AUDIT_EVENTS_BY_ID, request);
 
         } catch (Exception ex) {
-            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service {} {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return response;
@@ -132,11 +133,11 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
         try {
             url = proxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            LOG.debug("Error while retrieving url for " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Error while retrieving url for {} {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
             return url;
         } catch (Exception ex) {
-            LOG.error("Failed to call the web service " + NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
+            LOG.error("Failed to call the web service {} {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME
                 + ex.getLocalizedMessage(), ex);
         }
         return url;
