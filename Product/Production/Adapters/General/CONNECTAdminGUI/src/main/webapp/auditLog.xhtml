@@ -55,74 +55,69 @@
                                             <div class="form-block center-block">
                                                 <p:messages id="AuditCriteria" autoUpdate="true" closable="true" severity="error" redisplay="false" />
                                                 <div class="form-group">
-                                                    <h:outputLabel for="eventenddate" class="col-sm-3 control-label" id="labelEventEndDate" value="EventEndDate:" />
-                                                    <div class="col-sm-9">
+                                                    <h:outputLabel for="eventbegindate" class="col-sm-1 control-label ui-inputfield-width" id="labelEventBeginDate" value="Start Date:" />
+                                                    <span class="col-sm-3" >
+                                                        <p:calendar  id="inputEventBeginDate" value="#{auditSearchBean.eventStartDate}" showOn="button" pattern="MM/dd/yyyy" required="false"  />
+                                                    </span>
+                                                    <h:outputLabel for="eventenddate" class="col-sm-1 control-label" id="labelEventEndDate" value="End Date:" />
+                                                    <span class="col-sm-3">
                                                         <p:calendar id="inputEventEndDate" value="#{auditSearchBean.eventEndDate}"  showOn="button" pattern="MM/dd/yyyy" required="false" />
-                                                    </div>
+                                                    </span>
+                                                    <h:outputLabel for="userid" class="col-sm-1 control-label" id="labelUserId" value="Requestor / User:" />
+                                                    <span class="col-sm-3">
+                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.userId}"  id="userId" maxlength="20" required="false" />
+                                                    </span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <h:outputLabel for="eventbegindate" class="col-sm-3 control-label" id="labelEventBeginDate" value="EventBeginDate:" />
-                                                    <div class="col-sm-9">
-                                                        <p:calendar id="inputEventBeginDate" value="#{auditSearchBean.eventStartDate}" showOn="button" pattern="MM/dd/yyyy" required="false" />
-                                                    </div>
+
                                                 </div>
                                                 <div class="form-group">
-                                                    <h:outputLabel for="userid" class="col-sm-3 control-label" id="labelUserId" value="UserId:" />
-                                                    <div class="col-sm-9">
-                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.userId}"  style="height:32px;width:200px" id="userId" maxlength="20" required="false" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h:outputLabel for="eventtype" class="col-sm-3 control-label" id="labelEventType" value="EventType:" />
-                                                    <div class="col-sm-9">
-                                                        <p:selectCheckboxMenu id="menuEventType" value="#{auditSearchBean.selectedEventTypeList}" label="Event Type"
+                                                    <h:outputLabel for="eventtype"  class="col-sm-1 control-label" id="labelEventType" value="Service:" />
+                                                    <span class="col-sm-2">
+                                                        <p:selectCheckboxMenu id="menuEventType" value="#{auditSearchBean.selectedEventTypeList}" label="Service:"
                                                                               filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                             <f:selectItems value="#{auditSearchBean.eventTypeList}" />
                                                         </p:selectCheckboxMenu>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h:outputLabel for="remoteHcid" class="col-sm-3 control-label" id="labelRemoteHcid" value="RemoteHcid:" />
-                                                    <div class="col-sm-9">
-                                                        <p:selectCheckboxMenu id="menuRemoteHcid" value="#{auditSearchBean.selectedRemoteHcidList}" label="Remote Org"
+                                                    </span>
+                                                    <h:outputLabel for="remoteHcid" class="col-sm-1 control-label" style="width: 200px !important; height: 32px !important;" id="labelRemoteHcid" value="Organization:" />
+                                                    <span class="col-sm-2">
+                                                        <p:selectCheckboxMenu id="menuRemoteHcid" value="#{auditSearchBean.selectedRemoteHcidList}" label="Organization"
                                                                               filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                                                             <f:selectItems value="#{auditSearchBean.remoteHcidList}" />
                                                         </p:selectCheckboxMenu>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h:outputLabel for="eventoutcomeindicator" class="col-sm-3 control-label" id="labeleventOutcomeIndicator" value="EventOutcomeIndicator:" />
-                                                    <div class="col-sm-9">
+                                                    </span>
+                                                    <h:outputLabel for="eventoutcomeindicator" class="col-sm-1 control-label" id="labeleventOutcomeIndicator" value="Status:" />
+                                                    <span class="col-sm-3">
                                                         <h:selectOneMenu class="form-control" id="eventoutcomeindicator" value="#{auditSearchBean.outcomeIndicator}" style="height:32px;width:200px" required="false" >
                                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
                                                             <f:selectItems value="#{auditSearchBean.eventOutcomeIndicatorMap}"/>
                                                         </h:selectOneMenu>
-                                                    </div>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <div class="form-button-row">
+                                                        <div class="form-button-row" style=" border-top: none !important; border-bottom: 1px solid #ccc !important; padding-bottom: 20px !important; padding-top: 20px !important;">
                                                             <p:commandButton id="ResetAuditTab" value="Clear" styleClass="btn btn-default" action="#{auditSearchBean.clearAuditTab()}" immediate="true" update=":auditQueryTabView"/>
                                                             <p:commandButton id="searchAudit" update=":auditQueryTabView, auditResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{auditSearchBean.searchAudit()}"/>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p>Enter Audit Search Criteria. Search can be done using MessageID and RelatesTo.</p>
+                                                <p style="padding: 10px;">Enter Audit Search Criteria. Search can be done using MessageID and RelatesTo.</p>
+
                                                 <div class="form-group">
                                                     <h:outputLabel for="messageid" class="col-sm-3 control-label" id="labelMessageId" value="MessageId:" />
-                                                    <div class="col-sm-9">
+                                                    <span class="col-sm-3" >
                                                         <p:inputText styleClass="form-control" value="#{auditSearchBean.messageId}" style="height:32px;width:200px" id="messageId" maxlength="30" required="false" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
+                                                    </span>
                                                     <h:outputLabel for="relatesto" class="col-sm-3 control-label" id="labelRelatesTo" value="RelatesTo:" />
-                                                    <div class="col-sm-9">
+                                                    <span class="col-sm-3">
                                                         <p:inputText styleClass="form-control" value="#{auditSearchBean.relatesTo}" style="height:32px;width:200px" id="relatesTo" maxlength="30" required="false" />
-                                                    </div>
+                                                    </span>
+
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <div class="form-button-row">
+                                                        <div class="form-button-row" style=" border-top: none !important; border-bottom: 1px solid #ccc !important; padding-bottom: 20px !important;">
                                                             <p:commandButton id="ResetAuditTabMessageId" value="Clear" styleClass="btn btn-default" action="#{auditSearchBean.clearAuditTabMessageId()}" immediate="true" update=":auditQueryTabView"/>
                                                             <p:commandButton id="searchAuditMessageId" update=":auditQueryTabView, auditResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{auditSearchBean.searchAuditMessageId()}"/>
                                                         </div>
@@ -134,33 +129,44 @@
                                                 <div class="col-sm-12">
                                                     <p:outputLabel value="#{auditSearchBean.auditMessage}" styleClass="uc-search-result-title" />
                                                     <div class="table-responsive table-props">
-                                                        <p:dataTable id="auditResult" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" styleClass="table table-striped table-domains" rendered="#{auditSearchBean.auditFound}">
-                                                            <p:column>
+                                                        <p:dataTable id="auditResult" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" styleClass="table table-striped table-domains" rendered="#{auditSearchBean.auditFound}"  paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="20,30,50">
+                                                            <p:column style="width: 200px;">
+                                                                <f:facet name="header">Date</f:facet>
+                                                                    #{audit.eventTimestamp}
+                                                            </p:column>
+                                                            <p:column style="width: 200px;">
                                                                 <!-- column header -->
-                                                                <f:facet name="header">EventType</f:facet>
+                                                                <f:facet name="header">Service</f:facet>
                                                                 <!-- row record -->
                                                                 #{audit.eventType}
                                                             </p:column>
                                                             <p:column>
-                                                                <f:facet name="header">EventTimestamp</f:facet>
-                                                                    #{audit.eventTimestamp}
-                                                            </p:column>
-                                                            <p:column>
-                                                                <f:facet name="header">EventOutcomeIndicator</f:facet>
+                                                                <f:facet name="header">Status</f:facet>
                                                                     #{audit.eventOutcomeIndicator}
                                                             </p:column>
-                                                            <p:column>
-                                                                <f:facet name="header">RemoteHcid</f:facet>
+                                                            <p:column style="width: 100px;">
+                                                                <f:facet name="header">Organization Name</f:facet>
                                                                     #{audit.remoteHcid}
                                                             </p:column>
                                                             <p:column>
-                                                                <f:facet name="header">UserId</f:facet>
+                                                                <f:facet name="header">Requestor/User</f:facet>
                                                                     #{audit.userId}
                                                             </p:column>
                                                             <p:column>
                                                                 <f:facet name="header">MessageId</f:facet>
-                                                                    #{audit.messageId}
+                                                                <h:outputText value="#{audit.messageId}" />
                                                             </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">View Audit XML </f:facet>
+                                                                <h:commandButton  type="button" onclick="PF('dlg1').show();" value="Audit XML" />
+                                                                <p:dialog  id="basicDialog" header="View Audit Message" style="width:600px !important;" widgetVar="dlg1" modal="true" draggable="false" resizable="true">
+                                                                    <p:scrollPanel style="width:500px;height:500px;">
+                                                                        <h:outputText value="#{auditSearchBean.getBlobMessage(audit.getId())}" />
+                                                                    </p:scrollPanel>
+
+                                                                </p:dialog>
+                                                            </p:column>
+
                                                         </p:dataTable>
                                                     </div>
                                                 </div>

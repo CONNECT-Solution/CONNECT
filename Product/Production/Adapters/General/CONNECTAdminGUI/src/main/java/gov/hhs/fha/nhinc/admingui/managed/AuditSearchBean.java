@@ -65,6 +65,7 @@ public class AuditSearchBean {
     private boolean auditFound;
     private String messageId;
     private String relatesTo;
+    private long id;
 
     public AuditSearchBean() {
         setEventTypeList(populateEventTypeList());
@@ -126,8 +127,13 @@ public class AuditSearchBean {
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
+    public String getBlobMessage(long id) {
+        AuditService impl = new AuditServiceImpl();
+        return impl.createMockAuditMessage(id);
+    }
+
     private HashMap<String, BusinessEntity> populateRemoteOrgHcid() {
-        return new ConnectionHelper().getRemoteHcidFromUUID();
+        return new ConnectionHelper().getExternalEntitiesMap();
 
     }
 
@@ -254,6 +260,20 @@ public class AuditSearchBean {
 
     private void setEventTypeList(List<String> eventTypeList) {
         this.eventTypeList = eventTypeList;
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
 
 }

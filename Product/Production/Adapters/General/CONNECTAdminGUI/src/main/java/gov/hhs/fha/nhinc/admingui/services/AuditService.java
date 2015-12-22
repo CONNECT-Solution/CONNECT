@@ -37,4 +37,6 @@ public interface AuditService {
 
     public ArrayList<Audit> createMockAuditRecord();
 
+    public String createMockAuditMessage(long id);
+
 }
