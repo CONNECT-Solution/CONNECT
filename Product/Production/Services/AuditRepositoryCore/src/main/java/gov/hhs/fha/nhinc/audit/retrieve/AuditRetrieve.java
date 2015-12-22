@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 
 /**
+ * AuditQueryLog client implementation
  *
  * @author tjafri
  */

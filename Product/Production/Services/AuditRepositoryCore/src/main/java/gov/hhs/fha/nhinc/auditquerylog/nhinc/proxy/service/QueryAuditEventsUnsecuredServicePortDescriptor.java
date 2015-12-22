@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccomponentauditquerylog.AuditQueryLogPortTyp
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
+ * AuditQueryLog PortDesriptor for QueryAuditEvents service based on various params.
  *
  * @author achidamb
  */
