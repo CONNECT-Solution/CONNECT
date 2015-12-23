@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project activeEnvironment="Default" name="ValidateAuditQueryLogService" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AuditQueryLogPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:common:nhinccomponentauditquerylog}AuditQueryLogPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="file:/C:/dev/CONNECT/Product/SoapUI_Test/target/wsdl/AdapterAuditQueryLog.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AuditQueryLogPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:common:nhinccomponentauditquerylog}AuditQueryLogPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAuditQueryLog.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-AuditQueryService}</con:endpoint>
