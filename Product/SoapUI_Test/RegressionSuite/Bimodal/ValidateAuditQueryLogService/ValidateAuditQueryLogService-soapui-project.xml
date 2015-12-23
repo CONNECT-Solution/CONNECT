@@ -85,6 +85,8 @@
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="QueryAuditEvents TestCase" searchProperties="true" id="42eeb630-2d6a-48d8-a6d9-905c3362f3fe">
+      <con:description>This testcase is to query auditrepository table based on the query parameters that are passed in audit query service request message. It is not mandatory to pass all the query parameters. User can  pass all of them, some of them are none of them. Based on query parameters
+if there are any matching rows, auditquery service return results in response. If there are no matching rows, then audit query service returns an empty response.</con:description>
       <con:settings/>
       <con:testStep type="groovy" name="Clear &amp; Populate Auditrepository Table">
         <con:settings/>
@@ -166,7 +168,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/UserId[1]</path>
+//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:UserId[1]</path>
                 <content>${#Project#UserId-1}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -178,7 +180,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/EventType[1]</path>
+//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:EventType[1]</path>
                 <content>${#Project#EventType-1}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -189,7 +191,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/EventId[1]</path>
+//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:EventId[1]</path>
                 <content>${#Project#EventId-1}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -200,7 +202,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/EventOutcomeIndicator[1]</path>
+//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:EventOutcomeIndicator[1]</path>
                 <content>${#Project#EventOutcome-1}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -211,7 +213,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/RemoteHcid[1]</path>
+//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:RemoteHcid[1]</path>
                 <content>${#Project#RemoteHcid-1}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -222,7 +224,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/Direction[1]</path>
+//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:Direction[1]</path>
                 <content>${#Project#Direction-1}</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -233,7 +235,7 @@
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-count(//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults)</path>
+count(//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults)</path>
                 <content>1</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -256,15 +258,15 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T18:42:20Z</con:value>
+          <con:value>2015-12-23T21:57:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T18:52:20Z</con:value>
+          <con:value>2015-12-23T22:07:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 18:42:20</con:value>
+          <con:value>12/23/2015 21:57:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -273,6 +275,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:properties>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="QueryAuditEventsBlob TestCase" searchProperties="true" id="a14c012d-9757-46c0-840c-15625e2a4f2d">
+      <con:description>This testcase is to query auditrepository table based on given audit id and populate blob message.</con:description>
       <con:settings/>
       <con:testStep type="groovy" name="Clear &amp; Populate Auditrepository Table">
         <con:settings/>
@@ -360,15 +363,120 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T18:43:25Z</con:value>
+          <con:value>2015-12-23T21:57:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T18:53:25Z</con:value>
+          <con:value>2015-12-23T22:07:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 18:43:25</con:value>
+          <con:value>12/23/2015 21:57:02</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2016-01-22T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="QueryAuditEventsEmptyBlob TestCase" searchProperties="true" id="217b4aee-9de4-4d72-b8ef-67e1cd82bdb8">
+      <con:description>This testcase is to query auditrepository table based on given audit id and populate blob message. If there is no matching id found, then auditquery service returns an empty response.</con:description>
+      <con:settings/>
+      <con:testStep type="groovy" name="Clear &amp; Populate Auditrepository Table">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('auditRepoDB') { sql -> 
+	def table = context.findProperty('AuditrepositoryTable')
+	sql.execute('delete from ' + table)
+	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
+	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
+	def MessageId1 = context.findProperty( "MessageId-1" )
+	def EventId1= context.findProperty( "EventId-1" )
+	def UserId1 = context.findProperty( "UserId-1" )
+	def EventType1 = context.findProperty( "EventType-1" )
+	def RemoteHcid1 = context.findProperty( "RemoteHcid-1" )
+	def Direction1 = context.findProperty( "Direction-1" )
+	def Blob1 = context.findProperty( "Blob-1" )
+
+	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
+	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
+	def MessageId2 = context.findProperty( "MessageId-2")
+	def EventId2 = context.findProperty( "EventId-2" )
+	def UserId2 = context.findProperty( "UserId-2" )
+	def EventType2 = context.findProperty( "EventType-2" )
+	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
+	def Direction2 = context.findProperty( "Direction-2" )
+	def Blob2 = context.findProperty( "Blob-2" )
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" name="QueryAuditEventsBlob">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AuditQueryLogPortTypeBinding</con:interface>
+          <con:operation>QueryAuditEventsBlob</con:operation>
+          <con:request name="QueryAuditEventsBlob">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#TestSuite#Endpoint-AuditQueryService}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
+   <soap:Header/>
+   <soap:Body>
+      <urn:QueryAuditEventsBlobRequest>
+         <Id>${#Project#AuditId-For-EmptyBlobTest}</Id>
+      </urn:QueryAuditEventsBlobRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="Schema Compliance" name="Schema Compliance">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/>
+            <con:assertion type="SOAP Response" name="SOAP Response"/>
+            <con:assertion type="XPath Match" name="CountOfResults">
+              <con:configuration>
+                <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
+
+count(//ns3:QueryAuditEventsBlobResponse)</path>
+                <content>1</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylog:QueryAuditEventsBlobRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2015-12-23T19:49:31Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2015-12-23T19:59:31Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>12/23/2015 19:49:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -377,6 +485,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </con:properties>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="QueryAuditEventsByMessageID TestCase" searchProperties="true" id="8f4a460a-da89-400a-b39d-8bb230e21fdb">
+      <con:description>This testcase is to query auditrepository table based on given messageId and populate matching results in response. If there is no matching messageId, then auditquery service returns an empty response.</con:description>
       <con:settings/>
       <con:testStep type="groovy" name="Clear &amp; Populate Auditrepository Table">
         <con:settings/>
@@ -386,7 +495,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	sql.execute('delete from ' + table)	
 	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
 	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
-	def MessageId1 = context.findProperty( "MessageId-1" )
+	def MessageId1 = context.findProperty( "MessageId-2" )
 	def EventId1= context.findProperty( "EventId-1" )
 	def UserId1 = context.findProperty( "UserId-1" )
 	def EventType1 = context.findProperty( "EventType-1" )
@@ -444,8 +553,8 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-((//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[1]/RequestMessageId[1]/text() = '${#Project#MessageId-2}') and
-(//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults[2]/RequestMessageId[1]/text() = '${#Project#MessageId-2}'))</path>
+((//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:RequestMessageId[1]/text() = '${#Project#MessageId-2}') and
+(//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[2]/ns3:RequestMessageId[1]/text() = '${#Project#MessageId-2}'))</path>
                 <content>true</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -456,7 +565,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
-count(//ns3:QueryAuditEventsResponseType/QueryAuditEventsResults)</path>
+count(//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults)</path>
                 <content>2</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -479,15 +588,149 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T16:04:30Z</con:value>
+          <con:value>2015-12-23T21:57:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T16:14:30Z</con:value>
+          <con:value>2015-12-23T22:07:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 16:04:30</con:value>
+          <con:value>12/23/2015 21:57:04</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2016-01-22T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="QueryAuditEventsByMessageID&amp;RelatesTo TestCase" searchProperties="true" id="594927ae-b18e-408f-a159-de7311777912">
+      <con:description>This testcase is to query auditrepository table based on given messageId &amp; relatesTo and populate matching results in response. If there is no matching messageId &amp; relatesTo, then auditquery service returns an empty response.</con:description>
+      <con:settings/>
+      <con:testStep type="groovy" name="Clear &amp; Populate Auditrepository Table">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('auditRepoDB') { sql -> 
+	def table = context.findProperty('AuditrepositoryTable')
+	sql.execute('delete from ' + table)	
+	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
+	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
+	def MessageId1 = context.findProperty( "MessageId-3" )
+	def RelatesTo1 = context.findProperty( "RelatesTo-1" )
+	def EventId1= context.findProperty( "EventId-1" )
+	def UserId1 = context.findProperty( "UserId-1" )
+	def EventType1 = context.findProperty( "EventType-1" )
+	def RemoteHcid1 = context.findProperty( "RemoteHcid-1" )
+	def Direction1 = context.findProperty( "Direction-1" )
+	def Blob1 = context.findProperty( "Blob-1" )
+
+	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
+	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
+	def MessageId2 = context.findProperty( "MessageId-3")
+	def RelatesTo2 = context.findProperty( "RelatesTo-1" )
+	def EventId2 = context.findProperty( "EventId-2" )
+	def UserId2 = context.findProperty( "UserId-2" )
+	def EventType2 = context.findProperty( "EventType-2" )
+	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
+	def Direction2 = context.findProperty( "Direction-2" )
+	def Blob2 = context.findProperty( "Blob-2" )
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, relatesTo, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, RelatesTo1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, relatesTo, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, RelatesTo2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" name="QueryAuditEventsByMessageID">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AuditQueryLogPortTypeBinding</con:interface>
+          <con:operation>QueryAuditEventsByMessageID</con:operation>
+          <con:request name="QueryAuditEventsByMessageID">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#TestSuite#Endpoint-AuditQueryService}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
+   <soap:Header/>
+   <soap:Body>
+      <urn:QueryAuditEventsRequestByRequestMessageId>
+         <!--Optional:-->
+         <RequestMessageId>${#Project#MesageId-3}</RequestMessageId>
+         <!--Optional:-->
+         <RelatesTo>${#Project#RelatesTo-1}</RelatesTo>
+      </urn:QueryAuditEventsRequestByRequestMessageId>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="Schema Compliance" name="Schema Compliance">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault"/>
+            <con:assertion type="SOAP Response" name="SOAP Response"/>
+            <con:assertion type="XPath Match" name="MessageId XPath Match">
+              <con:configuration>
+                <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
+
+((//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:RequestMessageId[1]/text() = '${#Project#MessageId-3}') and
+(//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[2]/ns3:RequestMessageId[1]/text() = '${#Project#MessageId-3}'))</path>
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="CountOfResults">
+              <con:configuration>
+                <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
+
+count(//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults)</path>
+                <content>2</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="RelatesTo Xpath Match">
+              <con:configuration>
+                <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
+
+((//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[1]/ns3:RelatesTo[1]/text() = '${#Project#RelatesTo-1}') and
+(//ns3:QueryAuditEventsResponseType/ns3:QueryAuditEventsResults[2]/ns3:RelatesTo[1]/text() = '${#Project#RelatesTo-1}'))</path>
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylog:QueryAuditEventsRequestByMessageID" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2015-12-23T20:18:46Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2015-12-23T20:28:46Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>12/23/2015 20:18:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -606,6 +849,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
     <con:property>
       <con:name>AuditId</con:name>
       <con:value>1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditId-For-EmptyBlobTest</con:name>
+      <con:value>-1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>MessageId-3</con:name>
+      <con:value>urn:uuid:999999999999999.99999.999</con:value>
+    </con:property>
+    <con:property>
+      <con:name>RelatesTo-1</con:name>
+      <con:value>uuid:999999999999999.999</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
