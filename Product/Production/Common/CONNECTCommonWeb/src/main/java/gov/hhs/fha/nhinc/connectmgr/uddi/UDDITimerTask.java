@@ -59,14 +59,13 @@ public class UDDITimerTask {
             UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
             helper.forceRefreshUDDIFile();
         } catch (UDDIAccessorException ex) {
-            LOG.debug("****** UDDITimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.debug("****** UDDITimerTask THROWABLE: {}", ex.getMessage(), ex);
 
-            StringWriter stackTrace = new StringWriter();
-            ex.printStackTrace(new PrintWriter(stackTrace));
-            String sValue = stackTrace.toString();
-            if (sValue.indexOf("EJBClassLoader") >= 0) {
-                UDDITimer timer = UDDITimer.getInstance();
-                timer.stopTimer();
+            for (StackTraceElement ste : ex.getStackTrace()) {
+                if (ste.toString().contains("EJBClassLoader")) {
+                    UDDITimer.getInstance().stopTimer();
+                    break;
+                }
             }
         }
     }
@@ -77,25 +76,21 @@ public class UDDITimerTask {
     public void run() {
         boolean bUDDIActive;
         try {
-            bUDDIActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
+            bUDDIActive = PropertyAccessor.getInstance()
+                .getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
 
             if (bUDDIActive) {
-                if (isLogEnabled()) {
-                    LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
-                }
+                LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
 
                 forceRefreshUDDIFile();
 
-                if (isLogEnabled()) {
-                    LOG.debug("Done: UDDITimerTask.run method - loading from UDDI server.");
-                }
+                LOG.debug("Done: UDDITimerTask.run method - loading from UDDI server.");
             } else {
-                if (isLogEnabled()) {
-                    LOG.debug("UDDITimerTask is disabled by the UDDIRefreshActive property.");
-                }
+                LOG.debug("UDDITimerTask is disabled by the UDDIRefreshActive property.");
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
+            LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: {}",
+                ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -106,17 +101,16 @@ public class UDDITimerTask {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("Starting test.");
+        LOG.info("Starting test.");
 
         try {
             UDDITimerTask oTimerTask = new UDDITimerTask();
             oTimerTask.run();
         } catch (Exception e) {
-            LOG.error("An unexpected exception occurred: " + e.getLocalizedMessage(), e);
+            LOG.error("An unexpected exception occurred: {}", e.getLocalizedMessage(), e);
             throw new RuntimeException(e);
         }
 
-        System.out.println("End of test.");
-
+        LOG.info("End of test.");
     }
 }

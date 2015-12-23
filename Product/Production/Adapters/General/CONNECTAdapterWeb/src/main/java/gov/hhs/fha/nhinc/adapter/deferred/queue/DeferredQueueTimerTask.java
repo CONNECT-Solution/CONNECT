@@ -50,14 +50,13 @@ public class DeferredQueueTimerTask {
             DeferredQueueManagerHelper helper = new DeferredQueueManagerHelper();
             helper.forceProcess();
         } catch (DeferredQueueException ex) {
-            LOG.error("DeferredQueueTimerTask DeferredQueueException thrown.", ex);
+            LOG.error("DeferredQueueTimerTask DeferredQueueException thrown: {}", ex.getLocalizedMessage(), ex);
 
-            StringWriter stackTrace = new StringWriter();
-            ex.printStackTrace(new PrintWriter(stackTrace));
-            String sValue = stackTrace.toString();
-            if (sValue.indexOf("EJBClassLoader") >= 0) {
-                DeferredQueueTimer timer = DeferredQueueTimer.getInstance();
-                timer.stopTimer();
+            for (StackTraceElement ste : ex.getStackTrace()) {
+                if (ste.toString().contains("EJBClassLoader")) {
+                    DeferredQueueTimer.getInstance().stopTimer();
+                    break;
+                }
             }
         }
     }
@@ -68,7 +67,8 @@ public class DeferredQueueTimerTask {
     public void run() {
         boolean bQueueActive;
         try {
-            bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
+            bQueueActive = PropertyAccessor.getInstance()
+                .getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
 
             if (bQueueActive) {
                 LOG.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");
@@ -91,7 +91,7 @@ public class DeferredQueueTimerTask {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("Starting test.");
+        LOG.info("Starting test.");
 
         try {
             DeferredQueueTimerTask oTimerTask = new DeferredQueueTimerTask();
@@ -101,6 +101,6 @@ public class DeferredQueueTimerTask {
             throw new RuntimeException(e);
         }
 
-        System.out.println("End of test.");
+        LOG.info("End of test.");
     }
 }
