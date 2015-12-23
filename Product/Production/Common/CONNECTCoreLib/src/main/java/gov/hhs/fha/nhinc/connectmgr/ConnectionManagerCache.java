@@ -63,7 +63,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCache.class);
     private PropertyAccessor accessor;
-    public static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
+    public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
     // --------------------------------------------------------------------------------------------

@@ -48,6 +48,7 @@ public class OutboundCORE_X12DSRealTimeFactory {
 
     // Singleton nested class
     private static class OutboundCORE_X12DSRealTimeFactoryHolder {
-        public static OutboundCORE_X12DSRealTimeFactory INSTANCE = new OutboundCORE_X12DSRealTimeFactory();
+
+        public static final OutboundCORE_X12DSRealTimeFactory INSTANCE = new OutboundCORE_X12DSRealTimeFactory();
     }
 }

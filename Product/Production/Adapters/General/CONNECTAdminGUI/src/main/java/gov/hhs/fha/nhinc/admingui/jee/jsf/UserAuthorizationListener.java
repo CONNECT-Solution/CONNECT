@@ -46,9 +46,8 @@ import org.springframework.stereotype.Component;
 /**
  * The listener interface for receiving userAuthorization events. The class that is interested in processing a
  * userAuthorization event implements this interface, and the object created with that class is registered with a
- * component using the component's <code>addUserAuthorizationListener<code> method. When
- * the userAuthorization event occurs, that object's appropriate
- * method is invoked.
+ * component using the component's <code>addUserAuthorizationListener</code> method. When the userAuthorization event
+ * occurs, that object's appropriate method is invoked.
  *
  * @author msw
  */
@@ -60,14 +59,14 @@ public class UserAuthorizationListener implements PhaseListener {
     /**
      * The Constant LOGIN_REQUIRED_DIR.
      */
-    public static List<String> noLoginRequiredPages = null;
+    public static final List<String> noLoginRequiredPages = new ArrayList<>();
 
     /**
      * The Constant USER_INFO_SESSION_ATTRIBUTE.
      */
     public static final String USER_INFO_SESSION_ATTRIBUTE = "userInfo";
 
-    private RoleService roleService = new RoleServiceImpl();
+    private final RoleService roleService = new RoleServiceImpl();
 
     /**
      * Serial version required for Serializable interface.
@@ -79,7 +78,6 @@ public class UserAuthorizationListener implements PhaseListener {
      *
      */
     public UserAuthorizationListener() {
-        noLoginRequiredPages = new ArrayList<String>();
         noLoginRequiredPages.add("/login.xhtml");
     }
 
@@ -156,12 +154,13 @@ public class UserAuthorizationListener implements PhaseListener {
     }
 
     /**
-     * @param event 
-     * 
-     *when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml 
-     *and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The validation is 
-     *now performed by checking if token is null and ignore the transitioned page. Below "if" method can be re-written in 
-     *a way so that if token is null and the phase of transition can be checked it will be safer to ignore that validation.
+     * @param event
+     *
+     * when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml
+     * and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The
+     * validation is now performed by checking if token is null and ignore the transitioned page. Below "if" method can
+     * be re-written in a way so that if token is null and the phase of transition can be checked it will be safer to
+     * ignore that validation.
      */
     public void validateCsrfToken(PhaseEvent event) {
         String csrfToken = event.getFacesContext().getExternalContext().getRequestParameterMap().get("csrfToken");

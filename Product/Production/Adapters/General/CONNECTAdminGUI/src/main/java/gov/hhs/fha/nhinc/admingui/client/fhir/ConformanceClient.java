@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ConformanceClient {
 
-    public static String DEFAULT_CHARSET = "utf-8";
+    public static final String DEFAULT_CHARSET = "utf-8";
 
     private static final Logger LOG = LoggerFactory.getLogger(ConformanceClient.class);
 

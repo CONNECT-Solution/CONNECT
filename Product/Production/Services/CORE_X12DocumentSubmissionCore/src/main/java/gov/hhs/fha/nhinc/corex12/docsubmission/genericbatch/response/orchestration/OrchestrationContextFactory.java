@@ -71,6 +71,6 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
     // Singleton nested class
     private static class OrchestrationContextFactoryHolder {
 
-        public static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+        public static final OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
     }
 }
