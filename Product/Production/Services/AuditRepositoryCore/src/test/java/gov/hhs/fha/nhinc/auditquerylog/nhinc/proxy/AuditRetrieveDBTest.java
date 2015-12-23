@@ -69,7 +69,7 @@ public class AuditRetrieveDBTest {
     private final String USER_ID = "wanderson";
     private final int OUTCOME = 0;
     private final Date EVENT_TIMESTAMP = Calendar.getInstance().getTime();
-    private int ID = 0;
+    private long ID;
     private final String AUDIT_MESSAGE = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
         + "<AuditMessage xmlns=\"http://nhinc.services.com/schema/auditmessage\">"
         + "<EventIdentification EventActionCode=\"E\" EventDateTime=\"2015-12-15T15:41:29.678Z\" EventOutcomeIndicator=\"0\">"
