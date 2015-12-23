@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -34,20 +34,18 @@ import java.sql.Timestamp;
  */
 public class Audit {
 
+    private long id;
     private String eventType;
     private String eventOutcomeIndicator;
-    private Timestamp eventTimestamp;
+    private Date eventTimestamp;
     private String userId;
     private String messageId;
     private String remoteHcid;
-
-    public Timestamp getEventTimestamp() {
-        return eventTimestamp;
-    }
-
-    public void setEventTimestamp(Timestamp eventTimestamp) {
-        this.eventTimestamp = eventTimestamp;
-    }
+    private String message;
+    private String relatesTo;
+    private String direction;
+    private String eventId;
+  
 
     public String getUserId() {
         return userId;
@@ -89,4 +87,88 @@ public class Audit {
         this.eventOutcomeIndicator = eventOutcomeIndicator;
     }
 
+    /**
+     * @return the eventTimestamp
+     */
+    public Date getEventTimestamp() {
+        return eventTimestamp;
+    }
+
+    /**
+     * @param eventTimestamp the eventTimestamp to set
+     */
+    public void setEventTimestamp(Date eventTimestamp) {
+        this.eventTimestamp = eventTimestamp;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @return the relatesTo
+     */
+    public String getRelatesTo() {
+        return relatesTo;
+    }
+
+    /**
+     * @param relatesTo the relatesTo to set
+     */
+    public void setRelatesTo(String relatesTo) {
+        this.relatesTo = relatesTo;
+    }
+
+    /**
+     * @return the direction
+     */
+    public String getDirection() {
+        return direction;
+    }
+
+    /**
+     * @param direction the direction to set
+     */
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    /**
+     * @return the eventId
+     */
+    public String getEventId() {
+        return eventId;
+    }
+
+    /**
+     * @param eventId the eventId to set
+     */
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 }

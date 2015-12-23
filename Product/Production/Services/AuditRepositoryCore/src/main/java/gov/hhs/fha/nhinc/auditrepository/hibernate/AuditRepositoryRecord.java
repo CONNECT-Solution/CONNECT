@@ -35,7 +35,7 @@ import java.sql.Blob;
  */
 public class AuditRepositoryRecord {
 
-    private int id = 0;
+    private long id;
     private Date eventTimestamp;
     private String eventId;
     private String userId;
@@ -43,7 +43,7 @@ public class AuditRepositoryRecord {
     private String remoteHcid;
     private String relatesTo;
     private String messageId;
-    private String transactionId;
+	private String transactionId;
     private String eventType;
     private int outcome;
     private Blob message;
@@ -81,14 +81,6 @@ public class AuditRepositoryRecord {
 
     public void setEventId(String eventId) {
         this.eventId = eventId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Blob getMessage() {
@@ -139,12 +131,29 @@ public class AuditRepositoryRecord {
         this.messageId = messageId;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
+	
+	public String getTransactionId() {
+       return transactionId;
+	 }
+	 
+	 
+	public void setTransactionId(String transactionId) {
+      this.transactionId = transactionId;	 
+	} 
 
 }
