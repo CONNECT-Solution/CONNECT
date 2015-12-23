@@ -128,8 +128,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             synchronized (m_hUDDIConnectInfo) {
                 m_hUDDIConnectInfo.clear();
 
-                if ((businessDetail.getBusinessEntity() != null) && (businessDetail.getBusinessEntity() != null)
-                    && (businessDetail.getBusinessEntity().size() > 0)) {
+                if (businessDetail.getBusinessEntity() != null && !businessDetail.getBusinessEntity().isEmpty()) {
                     for (BusinessEntity oEntity : businessDetail.getBusinessEntity()) {
                         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
                         String sHomeCommunityId = helper.getCommunityId(oEntity);
@@ -193,7 +192,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             synchronized (m_hInternalConnectInfo) {
                 m_hInternalConnectInfo.clear();
 
-                if ((businessDetail.getBusinessEntity() != null) && (businessDetail.getBusinessEntity().size() > 0)) {
+                if (businessDetail.getBusinessEntity() != null && !businessDetail.getBusinessEntity().isEmpty()) {
                     for (BusinessEntity businessEntity : businessDetail.getBusinessEntity()) {
                         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
                         String sHomeCommunityId = helper.getCommunityId(businessEntity);

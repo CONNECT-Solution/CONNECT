@@ -522,7 +522,6 @@ public class AsyncMessageProcessHelper {
                 if (communityId == null || communityId.equals("")) {
                     if (requestMessage.getPRPAIN201305UV02().getSender() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null

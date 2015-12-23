@@ -81,9 +81,8 @@ public class PRPAIN201306UV02Parser {
 
     public static String getSenderHcid(PRPAIN201306UV02 response) {
         String id = null;
-        if (response != null && response.getSender() != null && response.getSender() != null
-            && response.getSender().getDevice() != null && response.getSender().getDevice().
-            getAsAgent() != null
+        if (response != null && response.getSender() != null
+            && response.getSender().getDevice() != null && response.getSender().getDevice().getAsAgent() != null
             && response.getSender().getDevice().getAsAgent().getValue() != null
             && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().
@@ -101,7 +100,7 @@ public class PRPAIN201306UV02Parser {
         }
         //If representedOrganization Id root is null get id from device
         if (NullChecker.isNullish(id)) {
-            if (response != null && response.getSender() != null && response.getSender() != null
+            if (response != null && response.getSender() != null
                 && response.getSender().getDevice() != null && response.getSender().getDevice().getId() != null
                 && response.getSender().getDevice().getId().get(0) != null
                 && response.getSender().getDevice().getId().get(0).getRoot() != null
