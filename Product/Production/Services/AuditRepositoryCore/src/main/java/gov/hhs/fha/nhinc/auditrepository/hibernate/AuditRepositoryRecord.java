@@ -43,6 +43,7 @@ public class AuditRepositoryRecord {
     private String remoteHcid;
     private String relatesTo;
     private String messageId;
+	private String transactionId;
     private String eventType;
     private int outcome;
     private Blob message;
@@ -145,5 +146,14 @@ public class AuditRepositoryRecord {
     public void setId(long id) {
         this.id = id;
     }
+	
+	public String getTransactionId() {
+       return transactionId;
+	 }
+	 
+	 
+	public void setTransactionId(String transactionId) {
+      this.transactionId = transactionId;	 
+	} 
 
 }

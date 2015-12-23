@@ -33,6 +33,9 @@
         <property name="relatesTo">
             <column name="relatesTo"/>
         </property>
+        <property name="transactionId">
+            <column name="transactionId"/>
+        </property>
         <property name="remoteHcid">
             <column name="remoteHcid"/>
         </property>
