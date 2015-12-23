@@ -67,7 +67,7 @@ public class HL7Parser201301 {
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201301.class);
 
     public static void PrintMessageIdFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
-        if (!(message == null)) {
+        if (message != null) {
             HL7Parser.PrintId(message.getId(), "message");
         }
     }
@@ -350,7 +350,6 @@ public class HL7Parser201301 {
         //
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
-
 
         PersonName mpiPatientName = null;
         if (mpiPatient.getNames().size() > 0) {

@@ -36,6 +36,7 @@ import org.hl7.v3.PRPAIN201301UV02;
  * @author rayj
  */
 public class HL7Parser {
+
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser.class);
     public static final String SSN_OID = "2.16.840.1.113883.4.1";
 
@@ -54,7 +55,7 @@ public class HL7Parser {
         if (idname == null) {
             idname = "";
         }
-        if (!(id == null)) {
+        if (id != null) {
             LOG.info(idname + ".id.root=" + id.getRoot() + ";");
             LOG.info(idname + ".id.extension=" + id.getExtension() + ";");
         } else {
