@@ -40,16 +40,20 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionManagerDAOFileImplTest {
 
     private static final String TEST_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-            + "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">"
-            + "<businessEntity businessKey=\"key\">" + "<name xml:lang=\"EN\">BusinessEntity 1</name>"
-            + "</businessEntity>" + "<businessEntity businessKey=\"key\">"
-            + "<name xml:lang=\"EN\">BusinessEntity 2</name>" + "</businessEntity>" + "</businessDetail>";
+        + "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">"
+        + "<businessEntity businessKey=\"key\">" + "<name xml:lang=\"EN\">BusinessEntity 1</name>"
+        + "</businessEntity>" + "<businessEntity businessKey=\"key\">"
+        + "<name xml:lang=\"EN\">BusinessEntity 2</name>" + "</businessEntity>" + "</businessDetail>";
     private static boolean ignoreWhitespaceSavedValue;
     private File tempFile = null;
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOFileImplTest.class);
 
     private String readFile(String file) {
         BufferedReader reader = null;
@@ -64,7 +68,9 @@ public class ConnectionManagerDAOFileImplTest {
             throw new RuntimeException(ex);
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -72,16 +78,11 @@ public class ConnectionManagerDAOFileImplTest {
         return stringBuilder.toString();
     }
 
-    private void writeFileWithDelay(String fileName, long delay) throws IOException {
-        File f = new File(fileName);
-        FileOutputStream fos = new FileOutputStream(f);
+    private void writeFile(String fileName) throws IOException {
+        File file = new File(fileName);
+        FileOutputStream fos = new FileOutputStream(file);
         OutputStreamWriter w = new OutputStreamWriter(fos);
         w.write(TEST_CONTENT);
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
         w.close();
     }
 
@@ -89,9 +90,9 @@ public class ConnectionManagerDAOFileImplTest {
     public void createTempFile() {
         try {
             tempFile = File.createTempFile(this.getClass().getSimpleName(), ".xml");
-            System.out.println("Temp file was created. " + tempFile.getPath());
+            LOG.info("Temp file was created. " + tempFile.getPath());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getLocalizedMessage(), e);
         }
     }
 
@@ -108,7 +109,7 @@ public class ConnectionManagerDAOFileImplTest {
 
     @Test
     public void readWriteTest() throws IOException, Exception {
-        writeFileWithDelay(tempFile.getPath(), 0);
+        writeFile(tempFile.getPath());
         InternalConnectionInfoDAOFileImpl dao = InternalConnectionInfoDAOFileImpl.getInstance();
         dao.setFileName(tempFile.getPath());
         dao.saveBusinessDetail(dao.loadBusinessDetail());
@@ -126,6 +127,6 @@ public class ConnectionManagerDAOFileImplTest {
     @After
     public void cleanup() {
         tempFile.delete();
-        System.out.println("Temp file was deleted. " + tempFile.getPath());
+        LOG.info("Temp file was deleted. " + tempFile.getPath());
     }
 }
