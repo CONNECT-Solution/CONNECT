@@ -100,7 +100,7 @@ public final class Format {
         formatter.setLenient(false);
 
         try {
-            if (date != null && !date.trim().equals("") && formatter.parse(date) != null) {
+            if (date != null && !date.trim().isEmpty() && formatter.parse(date) != null) {
                 ParsePosition pos = new ParsePosition(0);
                 Date parseDate = formatter.parse(date, pos);
 
@@ -144,7 +144,7 @@ public final class Format {
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         formatter.setLenient(false);
         try {
-            if (date != null && !date.trim().equals("") && formatter.parse(date) != null) {
+            if (date != null && !date.trim().isEmpty() && formatter.parse(date) != null) {
                 ParsePosition pos = new ParsePosition(0);
                 Date parseDate = formatter.parse(date, pos);
 
@@ -279,7 +279,7 @@ public final class Format {
 
     public static boolean isNumericString(String str) {
         boolean answer = true;
-        if (str.equals("")) {
+        if (str.isEmpty()) {
             answer = false;
         } else {
             for (int i = 0; i < str.length(); i++) {

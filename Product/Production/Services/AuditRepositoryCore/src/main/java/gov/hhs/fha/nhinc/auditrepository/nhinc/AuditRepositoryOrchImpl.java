@@ -110,7 +110,7 @@ public class AuditRepositoryOrchImpl {
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
 
-        if (logStatus.equals("")) {
+        if (logStatus.isEmpty()) {
             logStatus = "on";
         }
 

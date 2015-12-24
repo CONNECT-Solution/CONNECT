@@ -74,7 +74,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         LOG.trace("-- Begin AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
         Session sess = null;
         List<String> listOfAAs = new ArrayList<>();
-        if (homeCommunityId != null && !homeCommunityId.equals("")) {
+        if (homeCommunityId != null && !homeCommunityId.isEmpty()) {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();
@@ -116,7 +116,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
     public String getHomeCommunityId(String assigningAuthority) {
         LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
         String homeCommunity = "";
-        if (assigningAuthority != null && !assigningAuthority.equals("")) {
+        if (assigningAuthority != null && !assigningAuthority.isEmpty()) {
             Session sess = null;
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
@@ -162,8 +162,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         AssigningAuthorityToHomeCommunityMapping mappingInfo = null;
         Transaction trans = null;
         Session sess = null;
-        if (homeCommunityId != null && !homeCommunityId.equals("") && assigningAuthority != null
-            && !assigningAuthority.equals("")) {
+        if (homeCommunityId != null && !homeCommunityId.isEmpty() && assigningAuthority != null
+            && !assigningAuthority.isEmpty()) {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();

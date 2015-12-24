@@ -200,7 +200,7 @@ public class DocRetrieveResponseProcessor {
         LOG.debug("Begin createAdhocQueryRequest");
         AdhocQueryRequest request = null;
         try {
-            if (null != sPatId && null != sAA && !sPatId.equals("") && !sAA.equals("")) {
+            if (null != sPatId && null != sAA && !sPatId.isEmpty() && !sAA.isEmpty()) {
                 QueryUtil util = new QueryUtil();
                 request = util.createAdhocQueryRequest(sPatId, sAA);
             }

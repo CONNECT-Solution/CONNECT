@@ -271,7 +271,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
         samlAuthnStatement.setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef()
-            .getAuthnContextClassRef().toString());
+            .getAuthnContextClassRef());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());

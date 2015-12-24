@@ -199,7 +199,7 @@ public class PatientConsentDocumentBuilderHelper {
         oAssociation.getSlot().add(oSlot);
         JAXBElement<? extends IdentifiableType> oJAXBAss = oRimObjectFactory.createAssociation(oAssociation);
         oRegistryObjList.add(oJAXBAss);
-        if (sTargetObject != null && !sTargetObject.equals("")) {
+        if (sTargetObject != null && !sTargetObject.isEmpty()) {
             LOG.info("Found Doc Id - Begin Association RPLC Created");
             AssociationType1 oAssociationRPLC = new AssociationType1();
             oAssociationRPLC.setAssociationType(CDAConstants.XDS_REGISTRY_ASSOCIATION_TYPE_RPLC);
@@ -441,7 +441,7 @@ public class PatientConsentDocumentBuilderHelper {
                             .getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
                         if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId())) {
                             if (eachBinaryDocumentPolicyCriteria.getIntendedRecipient() != null
-                                    && !eachBinaryDocumentPolicyCriteria.getIntendedRecipient().equals("")) {
+                                    && !eachBinaryDocumentPolicyCriteria.getIntendedRecipient().isEmpty()) {
                                 oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_INTENDED_RECIPIENT,
                                         eachBinaryDocumentPolicyCriteria.getIntendedRecipient()));
                                 break;
@@ -983,7 +983,7 @@ public class PatientConsentDocumentBuilderHelper {
         cType.setClassificationScheme(scheme);
         cType.setClassifiedObject(clObject);
         cType.setNodeRepresentation(nodeRep);
-        if (id != null && !id.equals("")) {
+        if (id != null && !id.isEmpty()) {
             cType.setId(id);
         } else {
             cType.setId(UUID.randomUUID().toString());

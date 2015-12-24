@@ -334,7 +334,7 @@ public class HL7Parser201301 {
         subjects.add(subject);
         if (!(mpiPatient.getDateOfBirth() == null)) {
             TSExplicit birthtime = new TSExplicit();
-            birthtime.setValue(mpiPatient.getDateOfBirth().toString());
+            birthtime.setValue(mpiPatient.getDateOfBirth());
             patientPerson.setBirthTime(birthtime);
         }
 

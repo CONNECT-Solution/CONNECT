@@ -251,7 +251,7 @@ public class PatientConsentManager {
             RegistryResponseType oRegistryResponse = invokeDocRepositoryProvideAndRegisterDocumentSetB(oRequest);
 
             if (oRegistryResponse != null) {
-                if (oRegistryResponse.getStatus() != null && !oRegistryResponse.getStatus().equals("")) {
+                if (oRegistryResponse.getStatus() != null && !oRegistryResponse.getStatus().isEmpty()) {
                     LOG.info("Patient Consent Document saved to repository Successfully");
                 } else {
                     throw new AdapterPIPException("Unable to save Patient Consent Document"

@@ -124,7 +124,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                         LOG.info("More than one document found for the given criteria:");
                     }
 
-                    if (policyStrRawData.trim().equals("")) {
+                    if (policyStrRawData.trim().isEmpty()) {
                         LOG.info("No Policy info found for the given criteria:");
                     } else {
                         policyType = getPolicyObject(policyStrRawData);
@@ -512,9 +512,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
     private boolean evaluateMatchWithStringEqualFunction(String policyAttrValue, String requestAttrValue) {
         boolean isMatch = false;
-        if ((policyAttrValue == null) || (policyAttrValue.equals(""))) {
+        if ((policyAttrValue == null) || (policyAttrValue.isEmpty())) {
             LOG.debug("Policy Attribute Value is null or empty");
-        } else if ((requestAttrValue == null) || (requestAttrValue.equals(""))) {
+        } else if ((requestAttrValue == null) || (requestAttrValue.isEmpty())) {
             LOG.debug("Request Attribute Value is null or empty");
         } else {
             if (policyAttrValue.trim().equalsIgnoreCase(requestAttrValue)) {
@@ -557,7 +557,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             StatusMessage statusMessage = ContextFactory.getInstance().createStatusMessage();
             result = ContextFactory.getInstance().createResult();
 
-            if (statusCodeValue.equals("")) {
+            if (statusCodeValue.isEmpty()) {
                 statusCodeValue = AdapterPDPConstants.POLICY_RESULT_STATUS_CODE_OK;
                 statusMessageValue = AdapterPDPConstants.POLICY_RESULT_STATUS_MESSAGE_OK;
             }

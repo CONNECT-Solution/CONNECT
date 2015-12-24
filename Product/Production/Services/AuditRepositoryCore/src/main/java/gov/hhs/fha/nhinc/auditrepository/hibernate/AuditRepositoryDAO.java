@@ -121,10 +121,10 @@ public class AuditRepositoryDAO {
 
             // Build the criteria
             Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
-            if (eUserId != null && !eUserId.equals("")) {
+            if (eUserId != null && !eUserId.isEmpty()) {
                 aCriteria.add(Expression.eq("userId", eUserId));
             }
-            if (ePatientId != null && !ePatientId.equals("")) {
+            if (ePatientId != null && !ePatientId.isEmpty()) {
                 aCriteria.add(Expression.eq("receiverPatientId", ePatientId));
             }
 

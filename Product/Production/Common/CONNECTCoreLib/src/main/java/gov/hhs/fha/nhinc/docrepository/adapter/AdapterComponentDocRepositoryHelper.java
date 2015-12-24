@@ -179,7 +179,7 @@ public class AdapterComponentDocRepositoryHelper {
                 break; // found desired classification, have values, exit loop
             } // if (classificationSchemeUUID.equals(classificationSchemeName))
         }
-        if (classificationValue != null && !classificationValue.equals("")) {
+        if (classificationValue != null && !classificationValue.isEmpty()) {
             classificationValue = StringUtil.extractStringFromTokens(classificationValue, "'()");
         }
         LOG.debug(classificationValueName + ": " + classificationValue);

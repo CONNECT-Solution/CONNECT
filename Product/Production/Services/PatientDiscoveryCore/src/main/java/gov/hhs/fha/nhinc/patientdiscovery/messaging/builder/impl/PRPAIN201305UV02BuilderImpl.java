@@ -130,14 +130,14 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
         ENExplicit namesWrapper = new ENExplicit();
         namesWrapper.getContent().add(factory.createENExplicitFamily(familyName));
 
-        if (patient.getFirstName() != null && !patient.getFirstName().equals("")) {
+        if (patient.getFirstName() != null && !patient.getFirstName().isEmpty()) {
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setContent(patient.getFirstName());
             givenName.setPartType("GIV");
 
             namesWrapper.getContent().add(factory.createENExplicitGiven(givenName));
 
-            if (patient.getMiddleName() != null && !patient.getMiddleName().equals("")) {
+            if (patient.getMiddleName() != null && !patient.getMiddleName().isEmpty()) {
                 EnExplicitGiven middleName = new EnExplicitGiven();
                 middleName.setContent(patient.getMiddleName());
                 middleName.setPartType("GIV");

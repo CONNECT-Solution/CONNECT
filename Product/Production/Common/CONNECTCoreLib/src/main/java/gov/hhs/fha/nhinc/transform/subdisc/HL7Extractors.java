@@ -252,7 +252,7 @@ public class HL7Extractors {
 
                 if (contentItem instanceof String) {
                     String strValue = (String) contentItem;
-                    if (!nameString.equals("")) {
+                    if (!nameString.isEmpty()) {
                         nameString += strValue;
                     } else {
                         nameString = strValue;
@@ -323,7 +323,7 @@ public class HL7Extractors {
 
                 if (contentItem instanceof String) {
                     String strValue = (String) contentItem;
-                    if (!nameString.equals("")) {
+                    if (!nameString.isEmpty()) {
                         nameString += strValue;
                     } else {
                         nameString = strValue;
@@ -343,7 +343,7 @@ public class HL7Extractors {
             }
             // If text string in HomeCommunity.representativeOrg, then set in familyName
             // else set in element.
-            if (!nameString.equals("")) {
+            if (!nameString.isEmpty()) {
                 LOG.debug("set org name text ");
                 personName.setFamilyName(nameString);
             } else {

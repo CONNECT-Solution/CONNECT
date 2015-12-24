@@ -129,25 +129,25 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             return null;
         }
         patientId = ids.get(0).getExtension();
-        if (patientId != null && !patientId.equals("")) {
+        if (patientId != null && !patientId.isEmpty()) {
         } else {
             LOG.warn("patient id was not supplied");
             return null;
         }
         patientAssigningAuthId = ids.get(0).getRoot();
-        if (patientAssigningAuthId != null && !patientAssigningAuthId.equals("")) {
+        if (patientAssigningAuthId != null && !patientAssigningAuthId.isEmpty()) {
             LOG.warn("patientAssigningAuthId: " + patientAssigningAuthId);
         } else {
             LOG.warn("patient assigning authority was not supplied");
             return null;
         }
         correlatedPatientId = ids.get(1).getExtension();
-        if ((correlatedPatientId == null) || (correlatedPatientId.equals(""))) {
+        if ((correlatedPatientId == null) || (correlatedPatientId.isEmpty())) {
             LOG.warn("correlatedPatientId was not supplied");
             return null;
         }
         correlatedPatientAssigningAuthId = ids.get(1).getRoot();
-        if (correlatedPatientAssigningAuthId != null && !correlatedPatientAssigningAuthId.equals("")) {
+        if (correlatedPatientAssigningAuthId != null && !correlatedPatientAssigningAuthId.isEmpty()) {
             LOG.warn("correlatedPatientAssigningAuthId: " + correlatedPatientAssigningAuthId);
         } else {
             LOG.warn("correlatedPatientId assigning authority was not supplied");

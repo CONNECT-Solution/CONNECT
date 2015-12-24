@@ -477,7 +477,7 @@ public class XDRHelper {
     private int getErrorRanking(String severity) {
         int result;
 
-        if (severity.equalsIgnoreCase("")) {
+        if (severity.isEmpty()) {
             result = 0;
         } else if (severity.equalsIgnoreCase(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_WARNING)) {
             result = 1;

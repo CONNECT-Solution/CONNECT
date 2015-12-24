@@ -115,7 +115,7 @@ public class PatientConsentHelper {
         // Default to false in case something goes wrong.
         boolean allowDocumentSharing = false;
         FineGrainedPolicyCriteriaType findGrainedPolicy;
-        if (documentType == null || documentType.equals("")) {
+        if (documentType == null || documentType.isEmpty()) {
             LOG.error("Invalid documentType");
             return allowDocumentSharing;
         }
@@ -142,7 +142,7 @@ public class PatientConsentHelper {
                     if (eachFineGrainedPolicyCriterion.getDocumentTypeCode() != null) {
                         criterionDocumentTypeCode = eachFineGrainedPolicyCriterion.getDocumentTypeCode().getCode();
                         LOG.debug("Looking at criterion for document type: " + criterionDocumentTypeCode);
-                        if (criterionDocumentTypeCode != null && !criterionDocumentTypeCode.equals("")
+                        if (criterionDocumentTypeCode != null && !criterionDocumentTypeCode.isEmpty()
                             && criterionDocumentTypeCode.equals(documentType)) {
                             allowDocumentSharing = eachFineGrainedPolicyCriterion.isPermit();
                             // The algorithm is to use the first found - leave after the first match.

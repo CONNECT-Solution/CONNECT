@@ -296,7 +296,7 @@ public class QueryUtil {
         if (sPatientId != null && !sPatientId.contains("&ISO")) {
             sHL7PatId = PatientIdFormatUtil.hl7EncodePatientId(sPatientId, sAssigningAuthority);
         } else {
-            if (sPatientId != null && !sPatientId.equals("") && !sPatientId.startsWith("'")) {
+            if (sPatientId != null && !sPatientId.isEmpty() && !sPatientId.startsWith("'")) {
                 sPatientId = "'" + sPatientId + "'";
             }
             sHL7PatId = sPatientId;

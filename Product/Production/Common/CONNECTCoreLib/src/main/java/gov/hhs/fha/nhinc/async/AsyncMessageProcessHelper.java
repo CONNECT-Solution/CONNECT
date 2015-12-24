@@ -486,7 +486,7 @@ public class AsyncMessageProcessHelper {
                             .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
+                if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getReceiver() != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
@@ -519,7 +519,7 @@ public class AsyncMessageProcessHelper {
                             .getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
+                if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getSender() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
