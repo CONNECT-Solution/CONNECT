@@ -28,12 +28,10 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.adaptercomponentmpi.FindCandidatesSecuredFault;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
-
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-
 import org.hl7.v3.PRPAIN201305UV02;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

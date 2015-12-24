@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.aspect.RegistryResponseTypeHolderBuilder;
-
 import java.lang.reflect.Method;
-
 import javax.xml.ws.Holder;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class NhinXDRResponse20Test {

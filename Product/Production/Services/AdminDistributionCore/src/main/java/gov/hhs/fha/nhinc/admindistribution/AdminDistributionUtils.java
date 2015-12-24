@@ -29,16 +29,13 @@ package gov.hhs.fha.nhinc.admindistribution;
 
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;

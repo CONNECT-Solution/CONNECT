@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.gateway.policyenginetransformation;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
-
 import javax.xml.ws.BindingType;
 
 /**

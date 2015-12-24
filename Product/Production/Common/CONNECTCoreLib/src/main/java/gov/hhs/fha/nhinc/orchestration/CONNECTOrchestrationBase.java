@@ -26,23 +26,16 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

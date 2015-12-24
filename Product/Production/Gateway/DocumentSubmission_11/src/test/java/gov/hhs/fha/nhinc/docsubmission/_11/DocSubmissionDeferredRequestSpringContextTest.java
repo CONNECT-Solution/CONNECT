@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11;
 
-import static org.junit.Assert.assertNotNull;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured;
@@ -38,7 +36,8 @@ import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.StandardInboundD
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.PassthroughOutboundDocSubmissionDeferredRequest;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboundDocSubmissionDeferredRequest;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

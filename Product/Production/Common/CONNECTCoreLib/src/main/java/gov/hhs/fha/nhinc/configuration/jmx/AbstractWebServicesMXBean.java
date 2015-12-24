@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.configuration.jmx;
 
 import javax.servlet.ServletContext;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;

@@ -26,15 +26,15 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.hl7.v3.*;
-import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
+import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
+import org.hl7.v3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

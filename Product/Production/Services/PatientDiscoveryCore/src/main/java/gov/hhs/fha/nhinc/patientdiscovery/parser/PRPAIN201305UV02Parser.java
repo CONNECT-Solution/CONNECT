@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.patientdiscovery.parser;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a utility class that parses the PRPAIN201305UV02 message and extract patientId and participantObjectId from

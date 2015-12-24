@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.xdsb.helper;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.RegistryStoredQueryParameter;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

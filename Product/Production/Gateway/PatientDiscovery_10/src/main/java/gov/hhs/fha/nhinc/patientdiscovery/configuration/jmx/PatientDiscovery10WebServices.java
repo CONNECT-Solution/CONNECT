@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryU
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
-
 import javax.servlet.ServletContext;
 
 /**

@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.GetBusinessDetail;

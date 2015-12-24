@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-
 import javax.xml.namespace.QName;
-
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;

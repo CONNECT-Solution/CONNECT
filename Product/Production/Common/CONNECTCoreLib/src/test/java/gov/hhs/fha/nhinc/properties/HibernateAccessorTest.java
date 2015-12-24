@@ -29,13 +29,12 @@ package gov.hhs.fha.nhinc.properties;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author akong

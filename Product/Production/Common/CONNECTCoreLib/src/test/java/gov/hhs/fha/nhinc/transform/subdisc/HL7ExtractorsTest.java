@@ -26,16 +26,10 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
@@ -75,6 +69,8 @@ import org.hl7.v3.PRPAMT201302UV02PatientPatientPerson;
 import org.hl7.v3.PRPAMT201302UV02Person;
 import org.hl7.v3.PRPAMT201304UV02Patient;
 import org.hl7.v3.PRPAMT201304UV02Person;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**

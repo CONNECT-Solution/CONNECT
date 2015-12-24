@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.event;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;

@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertNull;
-
 import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.MCCIMT000200UV01Sender;
 import org.hl7.v3.MCCIMT000300UV01Sender;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**

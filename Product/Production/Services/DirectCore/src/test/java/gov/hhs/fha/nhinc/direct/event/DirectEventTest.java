@@ -27,19 +27,17 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.direct.DirectBaseTest;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
-
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test {@link DirectEvent}.

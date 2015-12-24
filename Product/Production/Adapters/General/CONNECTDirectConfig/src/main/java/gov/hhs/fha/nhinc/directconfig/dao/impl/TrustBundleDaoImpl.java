@@ -57,15 +57,12 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import java.security.cert.CertificateEncodingException;
-
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
-
 import javax.persistence.NoResultException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;

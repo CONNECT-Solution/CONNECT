@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryD
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredRequest;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.InboundPatientDiscoveryDeferredRequest;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.OutboundPatientDiscoveryDeferredRequest;
-
 import javax.servlet.ServletContext;
 
 /**

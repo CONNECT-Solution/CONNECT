@@ -44,11 +44,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponse
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOutboundPatientDiscoveryDeferredResponse {
 

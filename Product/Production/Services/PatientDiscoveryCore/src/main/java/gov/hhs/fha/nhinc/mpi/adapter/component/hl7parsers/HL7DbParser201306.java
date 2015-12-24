@@ -26,13 +26,20 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.math.BigInteger;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -75,21 +82,11 @@ import org.hl7.v3.ParticipationTargetSubject;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
-
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientdb.model.Address;
-import gov.hhs.fha.nhinc.patientdb.model.Patient;
-import gov.hhs.fha.nhinc.patientdb.model.Personname;
-import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

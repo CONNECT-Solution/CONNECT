@@ -27,14 +27,12 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**

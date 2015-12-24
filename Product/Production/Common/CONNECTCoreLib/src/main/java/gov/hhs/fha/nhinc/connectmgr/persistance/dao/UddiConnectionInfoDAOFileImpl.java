@@ -28,9 +28,7 @@ package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.io.File;
-
 import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

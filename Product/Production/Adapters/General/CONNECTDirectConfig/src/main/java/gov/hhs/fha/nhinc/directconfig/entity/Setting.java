@@ -48,7 +48,6 @@
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
-
 import java.util.Calendar;
 
 /**

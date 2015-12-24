@@ -27,17 +27,14 @@
 package gov.hhs.fha.nhinc.webserviceproxy;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import java.lang.reflect.Method;
+import java.net.SocketTimeoutException;
+import javax.xml.ws.WebServiceException;
+import org.jmock.Expectations;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
-import java.lang.reflect.Method;
-import java.net.SocketTimeoutException;
-
-import javax.xml.ws.WebServiceException;
-
-import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -27,19 +27,17 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.proxy;
 
-import static org.junit.Assert.*;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.docsubmission.outbound.StandardOutboundDocSubmission;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**

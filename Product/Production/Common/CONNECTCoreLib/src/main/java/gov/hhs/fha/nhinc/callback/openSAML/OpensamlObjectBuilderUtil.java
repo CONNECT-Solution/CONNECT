@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import javax.xml.namespace.QName;
-
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.xml.ConfigurationException;

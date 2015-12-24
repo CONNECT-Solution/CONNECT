@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.configuration.jmx;
 
 import java.util.Set;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -35,8 +36,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
-import com.google.common.base.Optional;
 
 /**
  * Doc Query implementation of OutboundOrchestratableMessage.

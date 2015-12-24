@@ -52,10 +52,10 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.model.TxMessageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * All the Message Monitoring API services are exposed through this class. This class will maintain a cache to store all

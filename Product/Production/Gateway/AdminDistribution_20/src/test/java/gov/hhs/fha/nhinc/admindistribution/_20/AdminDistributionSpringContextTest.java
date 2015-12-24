@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20;
 
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistributionSecured_g1;
 import gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistribution_g1;
 import gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1;
@@ -37,7 +36,7 @@ import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistrib
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -29,9 +29,6 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.hl7.v3.CS;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
@@ -39,6 +36,8 @@ import org.hl7.v3.PRPAMT201307UV02DataSource;
 import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

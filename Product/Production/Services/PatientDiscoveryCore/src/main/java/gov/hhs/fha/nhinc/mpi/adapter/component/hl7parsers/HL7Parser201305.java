@@ -26,14 +26,16 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
+import gov.hhs.fha.nhinc.mpilib.Address;
+import gov.hhs.fha.nhinc.mpilib.Identifier;
+import gov.hhs.fha.nhinc.mpilib.Identifiers;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.PersonName;
+import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -55,13 +57,8 @@ import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.TELExplicit;
-
-import gov.hhs.fha.nhinc.mpilib.Address;
-import gov.hhs.fha.nhinc.mpilib.Identifier;
-import gov.hhs.fha.nhinc.mpilib.Identifiers;
-import gov.hhs.fha.nhinc.mpilib.Patient;
-import gov.hhs.fha.nhinc.mpilib.PersonName;
-import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

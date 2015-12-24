@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-
 import org.hl7.v3.PRPAIN201309UV02;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

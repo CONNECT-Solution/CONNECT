@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import static org.junit.Assert.assertNotNull;
-
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.PassthroughInboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.StandardInboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.PassthroughOutboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.StandardOutboundPatientDiscoveryDeferredResponse;
-
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

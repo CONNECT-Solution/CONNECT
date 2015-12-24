@@ -39,15 +39,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyScannerAuthorInfoType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -92,6 +86,8 @@ import org.hl7.v3.POCDMT000040ServiceEvent;
 import org.hl7.v3.SCExplicit;
 import org.hl7.v3.STExplicit;
 import org.hl7.v3.TSExplicit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class creates CDA documents from BinaryDocumentPolicyCriteria objects.

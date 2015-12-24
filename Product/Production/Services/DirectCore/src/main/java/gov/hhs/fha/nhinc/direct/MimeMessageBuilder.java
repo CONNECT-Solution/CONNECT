@@ -29,10 +29,8 @@ package gov.hhs.fha.nhinc.direct;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
@@ -45,7 +43,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
-
 import org.apache.commons.lang.StringUtils;
 import org.nhindirect.xd.common.DirectDocuments;
 

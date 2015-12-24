@@ -26,20 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.Base64Coder;
-
 import java.io.Serializable;
 import java.util.List;
-
 import org.hl7.v3.BinaryDataEncoding;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.EDExplicit;
@@ -51,8 +45,12 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 import org.springframework.util.CollectionUtils;
 
 public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescriptionBuilderTest {

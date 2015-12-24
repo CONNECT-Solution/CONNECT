@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 public class SAMLAssertionBuilderFactoryImplTest {

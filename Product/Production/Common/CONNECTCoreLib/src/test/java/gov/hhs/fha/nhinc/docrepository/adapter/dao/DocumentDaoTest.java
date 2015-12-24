@@ -26,23 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class DocumentDaoTest {
 	private final Session session = mock(Session.class);

@@ -26,16 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import java.util.ArrayList;
-
+import java.util.List;
 import org.hl7.v3.PRPAIN201309UV02;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

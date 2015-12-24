@@ -27,11 +27,10 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**

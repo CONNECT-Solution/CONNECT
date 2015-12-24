@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubm
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

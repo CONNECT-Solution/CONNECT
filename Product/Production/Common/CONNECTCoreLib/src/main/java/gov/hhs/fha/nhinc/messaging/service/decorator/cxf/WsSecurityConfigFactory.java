@@ -28,11 +28,9 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.apache.ws.security.handler.WSHandlerConstants;
 
 /**

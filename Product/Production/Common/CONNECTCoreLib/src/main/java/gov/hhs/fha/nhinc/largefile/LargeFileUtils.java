@@ -41,9 +41,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import javax.activation.DataHandler;
+import org.apache.cxf.attachment.ByteDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.cxf.attachment.ByteDataSource;
 
 public class LargeFileUtils {
 

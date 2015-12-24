@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docquery.model.builder;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**

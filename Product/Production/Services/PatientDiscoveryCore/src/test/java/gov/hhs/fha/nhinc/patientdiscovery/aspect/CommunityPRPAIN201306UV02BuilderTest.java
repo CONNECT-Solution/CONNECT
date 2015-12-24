@@ -26,24 +26,22 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableSet;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
-
+import java.util.Set;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableSet;
-import java.util.Set;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilderTest {
 

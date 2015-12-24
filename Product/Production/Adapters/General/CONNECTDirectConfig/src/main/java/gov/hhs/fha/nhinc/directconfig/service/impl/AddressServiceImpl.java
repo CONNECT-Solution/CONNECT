@@ -52,14 +52,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.AddressService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

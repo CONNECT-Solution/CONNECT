@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue.gui;
 
+import com.sun.rave.web.ui.appbase.AbstractSessionBean;
 import com.sun.webui.jsf.model.Option;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.FacesException;

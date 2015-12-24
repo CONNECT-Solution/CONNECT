@@ -26,16 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import gov.hhs.fha.nhinc.event.builder.PayloadSizeExtractor;
 import gov.hhs.fha.nhinc.event.builder.PayloadTypeExtractor;
 import gov.hhs.fha.nhinc.util.NhincCollections;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 
 /**
  * @author akong

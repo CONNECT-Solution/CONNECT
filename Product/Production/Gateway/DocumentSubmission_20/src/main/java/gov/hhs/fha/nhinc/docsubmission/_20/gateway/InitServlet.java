@@ -31,10 +31,8 @@ import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmission20WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefRequest20WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefResponse20WebServices;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.servlet.ServletContext;
 
 /**

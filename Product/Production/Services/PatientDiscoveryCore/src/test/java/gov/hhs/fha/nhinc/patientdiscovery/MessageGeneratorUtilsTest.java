@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
 import org.hl7.v3.PRPAMT201310UV02Patient;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 

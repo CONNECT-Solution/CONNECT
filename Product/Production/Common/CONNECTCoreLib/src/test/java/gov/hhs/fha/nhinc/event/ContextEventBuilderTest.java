@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import org.junit.Test;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-import org.mockito.Mockito;
 
 public class ContextEventBuilderTest {
 

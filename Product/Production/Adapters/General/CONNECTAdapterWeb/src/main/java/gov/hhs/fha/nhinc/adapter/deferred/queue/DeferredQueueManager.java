@@ -34,18 +34,12 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestTy
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
-
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-/**
- *
- * @author richard.ettema
- */
 
 @Addressing(enabled = true, required = true)
 public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType {

@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
 import gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
-
 import javax.servlet.ServletContext;
 
 /**

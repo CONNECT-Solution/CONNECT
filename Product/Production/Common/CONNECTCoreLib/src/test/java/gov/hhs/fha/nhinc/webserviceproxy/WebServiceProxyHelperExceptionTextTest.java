@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

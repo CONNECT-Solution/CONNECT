@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.direct.edge.proxy;
 
 
 import javax.mail.internet.MimeMessage;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**

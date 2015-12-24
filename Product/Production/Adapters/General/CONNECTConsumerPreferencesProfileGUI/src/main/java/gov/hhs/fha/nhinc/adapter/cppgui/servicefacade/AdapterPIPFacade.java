@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

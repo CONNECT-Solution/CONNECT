@@ -37,9 +37,9 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
+import org.hl7.fhir.instance.model.Conformance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.fhir.instance.model.Conformance;
 import org.springframework.stereotype.Service;
 
 /**

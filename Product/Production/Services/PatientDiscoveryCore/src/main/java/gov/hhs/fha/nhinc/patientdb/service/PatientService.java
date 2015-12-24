@@ -28,10 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.service;
 
 import gov.hhs.fha.nhinc.patientdb.dao.PatientDAO;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.springutils;
 
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  *

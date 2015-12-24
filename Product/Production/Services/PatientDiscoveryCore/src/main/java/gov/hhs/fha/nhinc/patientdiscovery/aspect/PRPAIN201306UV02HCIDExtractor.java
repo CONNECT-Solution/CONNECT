@@ -26,20 +26,17 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import com.google.common.base.Function;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
-
-import com.google.common.base.Function;
-import java.util.HashSet;
-import java.util.Set;
 
 class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<String>> {
 

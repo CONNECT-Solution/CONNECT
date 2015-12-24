@@ -26,20 +26,18 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
+import java.util.Map;
+import java.util.Properties;
+import org.apache.ws.security.handler.WSHandlerConstants;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
-import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
-
-import java.util.Map;
-import java.util.Properties;
-
-import org.apache.ws.security.handler.WSHandlerConstants;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong

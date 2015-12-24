@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import javax.xml.ws.WebServiceContext;
 
 /**

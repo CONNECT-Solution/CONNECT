@@ -26,17 +26,13 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import static org.junit.Assert.assertEquals;
-
+import com.google.common.base.Optional;
 import java.util.ArrayList;
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
-import com.google.common.base.Optional;
 
 public class JaxbDocumentUtilsTest {
 

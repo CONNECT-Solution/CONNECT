@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 

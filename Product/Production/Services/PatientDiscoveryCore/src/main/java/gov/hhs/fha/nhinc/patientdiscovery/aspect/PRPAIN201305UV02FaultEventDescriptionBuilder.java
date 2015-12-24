@@ -27,9 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import com.google.common.collect.ImmutableList;
-
-import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
 public class PRPAIN201305UV02FaultEventDescriptionBuilder extends BaseEventDescriptionBuilder {
 

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.util;
 
 import java.io.InputStream;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;

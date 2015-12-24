@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.IOException;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

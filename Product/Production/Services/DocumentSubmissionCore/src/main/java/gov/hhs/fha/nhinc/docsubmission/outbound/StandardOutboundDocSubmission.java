@@ -35,16 +35,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
-import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
+import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -27,11 +27,13 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
@@ -41,11 +43,6 @@ import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 

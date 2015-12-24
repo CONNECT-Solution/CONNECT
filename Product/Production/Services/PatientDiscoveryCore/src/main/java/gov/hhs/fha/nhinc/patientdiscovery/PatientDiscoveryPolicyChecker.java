@@ -32,11 +32,10 @@ import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

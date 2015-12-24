@@ -36,8 +36,8 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.InteractionIdH
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.SenderReceiverHelperMCCIMT000300UV01;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.UniqueIdHelper;
 import java.util.List;
-import org.hl7.v3.*;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.*;
 
 /**
  *

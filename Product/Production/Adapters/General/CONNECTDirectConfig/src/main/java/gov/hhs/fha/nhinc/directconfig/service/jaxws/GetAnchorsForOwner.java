@@ -48,7 +48,6 @@
 package gov.hhs.fha.nhinc.directconfig.service.jaxws;
 
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;

@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

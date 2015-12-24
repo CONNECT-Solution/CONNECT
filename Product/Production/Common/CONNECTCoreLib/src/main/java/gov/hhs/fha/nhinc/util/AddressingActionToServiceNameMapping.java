@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.util;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.HashMap;
 import java.util.Map;
 

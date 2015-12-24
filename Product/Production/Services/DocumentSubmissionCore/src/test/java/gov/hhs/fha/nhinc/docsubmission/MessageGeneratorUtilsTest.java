@@ -27,13 +27,12 @@
 
 package gov.hhs.fha.nhinc.docsubmission;
 
-import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**

@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import org.springframework.beans.factory.FactoryBean;
-
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+import org.springframework.beans.factory.FactoryBean;
 
 public class EventFactoryFactoryBean implements FactoryBean<EventFactory> {
 

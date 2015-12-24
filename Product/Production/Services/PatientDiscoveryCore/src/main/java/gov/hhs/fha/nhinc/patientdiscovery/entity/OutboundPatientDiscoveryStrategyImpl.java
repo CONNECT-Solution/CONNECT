@@ -32,9 +32,9 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * Implements the PatientDiscovery strategy for spec g0 endpoint

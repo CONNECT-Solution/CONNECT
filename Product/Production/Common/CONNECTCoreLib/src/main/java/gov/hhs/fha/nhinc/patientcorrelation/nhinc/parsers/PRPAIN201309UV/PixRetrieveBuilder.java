@@ -41,12 +41,9 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SenderReceiverHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.UniqueIdHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.COCTMT090100UV01AssignedPerson;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;

@@ -29,12 +29,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * THIS CLASS IS NOT USED ANYMORE WITH NEW DQ FANOUT EXECUTOR SERVICE IMPL DO NOT USE THIS

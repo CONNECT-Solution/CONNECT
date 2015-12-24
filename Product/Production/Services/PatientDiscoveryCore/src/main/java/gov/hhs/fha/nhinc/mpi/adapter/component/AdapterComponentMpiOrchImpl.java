@@ -27,10 +27,9 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
+import org.hl7.v3.PRPAIN201306UV02;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *

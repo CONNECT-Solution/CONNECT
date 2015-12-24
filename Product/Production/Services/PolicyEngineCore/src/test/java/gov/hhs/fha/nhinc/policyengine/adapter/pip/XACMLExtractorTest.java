@@ -31,21 +31,17 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionTyp
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
-
 import org.jmock.Mockery;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
-
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
-
+import org.junit.After;
+import org.junit.AfterClass;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * Unit tests for XACMLExtractor

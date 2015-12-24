@@ -26,48 +26,40 @@
  */
 package com.sun.identity.xacml.plugins;
 
-import com.sun.identity.saml2.protocol.RequestAbstract;
-import com.sun.identity.saml2.soapbinding.RequestHandler;
-import com.sun.identity.xacml.common.XACMLConstants;
-import com.sun.identity.xacml.saml2.XACMLAuthzDecisionQuery;
-import com.sun.identity.xacml.saml2.XACMLAuthzDecisionStatement;
-
-import javax.xml.soap.SOAPMessage;
-
-import com.sun.identity.saml2.assertion.AssertionFactory;
 import com.sun.identity.saml2.assertion.Assertion;
+import com.sun.identity.saml2.assertion.AssertionFactory;
 import com.sun.identity.saml2.assertion.Issuer;
 import com.sun.identity.saml2.common.SAML2Exception;
 import com.sun.identity.saml2.protocol.ProtocolFactory;
-
+import com.sun.identity.saml2.protocol.RequestAbstract;
+import com.sun.identity.saml2.soapbinding.RequestHandler;
 import com.sun.identity.shared.xml.XMLUtils;
-
+import com.sun.identity.xacml.common.XACMLConstants;
 import com.sun.identity.xacml.common.XACMLException;
+import com.sun.identity.xacml.context.Action;
 import com.sun.identity.xacml.context.Attribute;
 import com.sun.identity.xacml.context.ContextFactory;
 import com.sun.identity.xacml.context.Decision;
+import com.sun.identity.xacml.context.Environment;
 import com.sun.identity.xacml.context.Request;
+import com.sun.identity.xacml.context.Resource;
 import com.sun.identity.xacml.context.Response;
 import com.sun.identity.xacml.context.Result;
 import com.sun.identity.xacml.context.Status;
 import com.sun.identity.xacml.context.StatusCode;
-import com.sun.identity.xacml.context.StatusMessage;
 import com.sun.identity.xacml.context.StatusDetail;
+import com.sun.identity.xacml.context.StatusMessage;
 import com.sun.identity.xacml.context.Subject;
-import com.sun.identity.xacml.context.Resource;
-import com.sun.identity.xacml.context.Action;
-import com.sun.identity.xacml.context.Environment;
-
-import com.sun.identity.xacml.policy.PolicyFactory;
 import com.sun.identity.xacml.policy.Obligation;
 import com.sun.identity.xacml.policy.Obligations;
-
+import com.sun.identity.xacml.policy.PolicyFactory;
+import com.sun.identity.xacml.saml2.XACMLAuthzDecisionQuery;
+import com.sun.identity.xacml.saml2.XACMLAuthzDecisionStatement;
 import com.sun.identity.xacml.spi.ActionMapper;
 import com.sun.identity.xacml.spi.EnvironmentMapper;
 import com.sun.identity.xacml.spi.ResourceMapper;
 import com.sun.identity.xacml.spi.ResultMapper;
 import com.sun.identity.xacml.spi.SubjectMapper;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -76,9 +68,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.xml.soap.SOAPMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;

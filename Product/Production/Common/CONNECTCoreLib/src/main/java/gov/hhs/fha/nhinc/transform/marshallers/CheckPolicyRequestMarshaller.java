@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.marshallers;
 
-import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import org.w3c.dom.Element;
 
 /**
  *

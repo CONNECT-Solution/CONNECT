@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestT
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
-
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;

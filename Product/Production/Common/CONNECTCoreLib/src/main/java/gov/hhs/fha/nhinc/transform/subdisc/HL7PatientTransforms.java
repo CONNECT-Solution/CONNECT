@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.ENExplicit;
@@ -60,6 +58,8 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Person;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

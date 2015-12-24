@@ -26,10 +26,7 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.List;
-
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -46,6 +43,7 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.TELExplicit;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

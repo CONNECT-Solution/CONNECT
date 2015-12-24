@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.CategoryBag;
 import org.uddi.api_v3.Contact;
 import org.uddi.api_v3.KeyedReference;
-import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 
 /**
  *

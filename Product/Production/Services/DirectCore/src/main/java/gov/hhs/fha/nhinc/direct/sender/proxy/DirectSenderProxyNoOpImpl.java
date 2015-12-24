@@ -28,9 +28,9 @@ package gov.hhs.fha.nhinc.direct.sender.proxy;
 
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
+import org.nhindirect.xd.common.DirectDocuments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  * The Class DirectSenderProxyNoOpImpl.

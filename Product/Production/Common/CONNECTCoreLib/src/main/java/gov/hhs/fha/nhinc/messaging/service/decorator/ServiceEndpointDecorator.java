@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-
 import javax.xml.ws.soap.SOAPBinding;
-
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**

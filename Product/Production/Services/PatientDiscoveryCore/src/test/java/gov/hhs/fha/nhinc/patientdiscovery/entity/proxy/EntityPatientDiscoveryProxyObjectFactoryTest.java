@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
-import static org.junit.Assert.*;
-
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;

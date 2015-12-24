@@ -47,19 +47,17 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service;
 
-import java.util.Collection;
-
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.AddDomainResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomain;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.UpdateDomainResponse;
+import java.util.Collection;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
+import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 /**

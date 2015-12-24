@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

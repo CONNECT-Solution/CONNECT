@@ -44,7 +44,6 @@ import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPRetrie
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPRetrieveByPatientIdServicePortDescriptor;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPStoreConsentServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -27,14 +27,13 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**

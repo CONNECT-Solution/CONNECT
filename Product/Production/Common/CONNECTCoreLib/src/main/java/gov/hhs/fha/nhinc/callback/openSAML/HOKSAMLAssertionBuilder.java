@@ -43,8 +43,6 @@ import java.util.List;
 import java.util.UUID;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.Assertion;
@@ -62,6 +60,8 @@ import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**

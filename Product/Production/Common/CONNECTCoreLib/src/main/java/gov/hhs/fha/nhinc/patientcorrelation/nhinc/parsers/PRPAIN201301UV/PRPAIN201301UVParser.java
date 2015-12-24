@@ -27,13 +27,13 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject1;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject2;
 import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

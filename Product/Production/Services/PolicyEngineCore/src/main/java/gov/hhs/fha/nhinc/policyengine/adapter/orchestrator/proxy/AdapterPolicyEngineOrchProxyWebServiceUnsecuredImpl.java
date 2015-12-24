@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.service.AdapterPolicyEngineOrchServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

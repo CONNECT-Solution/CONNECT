@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UddiSpecVersionRegistry {
 

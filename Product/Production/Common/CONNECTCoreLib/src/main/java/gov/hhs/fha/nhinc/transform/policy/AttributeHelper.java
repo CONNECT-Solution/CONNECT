@@ -26,24 +26,24 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
-import java.net.URI;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
-import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
+import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import org.hl7.v3.II;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *

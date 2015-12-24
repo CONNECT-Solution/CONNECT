@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.docretrieve.messaging.director;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.Builder;
-import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 
 /**

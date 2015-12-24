@@ -48,11 +48,9 @@
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

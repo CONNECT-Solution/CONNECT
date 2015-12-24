@@ -29,9 +29,7 @@ package gov.hhs.fha.nhinc.messaging.service.port;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
-
 import java.util.Map;
-
 import javax.xml.ws.BindingProvider;
 
 /**

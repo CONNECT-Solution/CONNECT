@@ -48,7 +48,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 package gov.hhs.fha.nhinc.directconfig.dao;
 
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
-
 import java.util.Collection;
 
 

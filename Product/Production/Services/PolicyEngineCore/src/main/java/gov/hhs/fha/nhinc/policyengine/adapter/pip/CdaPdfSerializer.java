@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.ByteArrayInputStream;
-import org.hl7.v3.POCDMT000040ClinicalDocument;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -38,7 +37,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
-
+import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

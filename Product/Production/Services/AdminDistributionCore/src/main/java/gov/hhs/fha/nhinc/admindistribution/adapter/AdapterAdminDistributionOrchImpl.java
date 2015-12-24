@@ -29,15 +29,11 @@ package gov.hhs.fha.nhinc.admindistribution.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.net.URI;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

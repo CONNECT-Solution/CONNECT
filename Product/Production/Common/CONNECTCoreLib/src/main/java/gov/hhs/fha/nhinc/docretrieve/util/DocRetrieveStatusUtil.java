@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.util;
 
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  * @author achidamb

@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
-import static org.junit.Assert.*;
-
-import java.util.HashMap;
-
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
+import java.util.HashMap;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**

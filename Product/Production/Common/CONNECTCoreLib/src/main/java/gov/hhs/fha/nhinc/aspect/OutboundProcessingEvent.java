@@ -28,7 +28,6 @@
 package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;

@@ -33,9 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdReques
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

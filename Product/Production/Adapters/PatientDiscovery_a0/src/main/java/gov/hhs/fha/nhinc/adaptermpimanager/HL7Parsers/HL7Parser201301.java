@@ -31,15 +31,10 @@ import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CE;
 import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.EnExplicitFamily;
@@ -57,6 +52,8 @@ import org.hl7.v3.PRPAMT201301UV02OtherIDs;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.TSExplicit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

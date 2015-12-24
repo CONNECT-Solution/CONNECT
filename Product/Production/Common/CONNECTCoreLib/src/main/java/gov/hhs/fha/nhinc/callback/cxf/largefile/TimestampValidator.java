@@ -29,17 +29,15 @@ package gov.hhs.fha.nhinc.callback.cxf.largefile;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.cxf.message.Message;
 import org.apache.ws.security.WSSConfig;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.validate.Credential;
 import org.apache.ws.security.validate.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class replaces the default WSS4J TimestampValidator (org.apache.ws.security.validate.TimestampValidator). The

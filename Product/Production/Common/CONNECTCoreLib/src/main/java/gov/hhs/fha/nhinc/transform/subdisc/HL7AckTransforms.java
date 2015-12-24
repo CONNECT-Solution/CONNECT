@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import java.util.List;
-
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.List;
 import org.hl7.v3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

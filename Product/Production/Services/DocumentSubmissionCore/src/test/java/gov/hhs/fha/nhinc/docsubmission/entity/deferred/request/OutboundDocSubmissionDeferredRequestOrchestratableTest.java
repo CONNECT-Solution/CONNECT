@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**

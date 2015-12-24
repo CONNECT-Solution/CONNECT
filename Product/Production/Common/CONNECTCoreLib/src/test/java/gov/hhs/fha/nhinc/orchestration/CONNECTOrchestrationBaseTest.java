@@ -26,14 +26,13 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

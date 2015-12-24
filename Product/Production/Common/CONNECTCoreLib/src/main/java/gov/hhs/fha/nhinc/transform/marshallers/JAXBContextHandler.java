@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.transform.marshallers;
 
 import java.util.Hashtable;
-
 import javax.xml.bind.JAXBContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

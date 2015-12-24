@@ -26,12 +26,6 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.sun.identity.xacml.common.XACMLException;
 import com.sun.identity.xacml.context.Decision;
 import com.sun.identity.xacml.context.Request;
@@ -39,6 +33,10 @@ import com.sun.identity.xacml.context.Response;
 import com.sun.identity.xacml.context.Result;
 import com.sun.identity.xacml.context.Status;
 import com.sun.identity.xacml.policy.Obligations;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

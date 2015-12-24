@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.admindistribution.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;

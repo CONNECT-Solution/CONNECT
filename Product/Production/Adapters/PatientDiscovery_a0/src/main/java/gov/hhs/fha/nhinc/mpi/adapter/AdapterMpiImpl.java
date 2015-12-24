@@ -28,13 +28,11 @@ package gov.hhs.fha.nhinc.mpi.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
 import javax.xml.ws.WebServiceContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

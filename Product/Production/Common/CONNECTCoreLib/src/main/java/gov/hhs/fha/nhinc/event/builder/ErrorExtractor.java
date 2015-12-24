@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
+import com.google.common.base.Function;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-
-import com.google.common.base.Function;
 
 /**
  * Extracts the error code from the RegistryError.

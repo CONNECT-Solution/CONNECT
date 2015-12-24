@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.configuration.jmx.PassthruMXBeanRegistry;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author achidambaram

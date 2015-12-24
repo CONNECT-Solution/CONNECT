@@ -47,14 +47,11 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service;
 
+import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import java.util.Collection;
-
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-
-
-import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 
 /**
  * Service class for methods related to a setting object.

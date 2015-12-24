@@ -26,18 +26,13 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
 import javax.xml.bind.JAXBElement;
-
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
-
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Agent;
 import org.hl7.v3.MCCIMT000100UV01Device;
@@ -49,6 +44,8 @@ import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

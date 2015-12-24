@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.model.builder;
 
-import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
+import gov.hhs.fha.nhinc.messaging.builder.ModelBuilder;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**

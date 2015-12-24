@@ -27,11 +27,9 @@
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
 import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
-
 import org.nhindirect.common.audit.AuditContext;
 import org.nhindirect.common.audit.AuditEvent;
 import org.nhindirect.common.audit.Auditor;

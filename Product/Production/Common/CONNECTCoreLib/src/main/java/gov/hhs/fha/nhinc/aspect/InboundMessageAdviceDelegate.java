@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author bhumphrey

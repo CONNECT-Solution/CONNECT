@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
-
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.UnsupportedCallbackException;
-
 import org.apache.ws.security.WSPasswordCallback;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class CXFPasswordCallbackHandlerTest {

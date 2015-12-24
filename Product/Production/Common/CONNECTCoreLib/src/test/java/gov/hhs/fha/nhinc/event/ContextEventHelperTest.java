@@ -26,23 +26,19 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import com.google.common.collect.ImmutableList;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
+import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
+import javax.xml.ws.WebServiceContext;
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.event.ContextEventHelper;
-import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
-import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
-
-import javax.xml.ws.WebServiceContext;
-
-import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.junit.Test;
-
-import com.google.common.collect.ImmutableList;
 
 public class ContextEventHelperTest {
 

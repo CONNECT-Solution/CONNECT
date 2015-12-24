@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.logging.transaction.factory;
 
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
-
 import org.springframework.beans.factory.FactoryBean;
 
 /**

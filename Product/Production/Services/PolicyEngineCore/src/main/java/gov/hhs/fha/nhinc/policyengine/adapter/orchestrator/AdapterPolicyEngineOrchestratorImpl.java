@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyObjectFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

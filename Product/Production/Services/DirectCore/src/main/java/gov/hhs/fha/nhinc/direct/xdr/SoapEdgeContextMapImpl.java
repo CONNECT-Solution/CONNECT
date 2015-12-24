@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
+import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-
-import com.google.common.collect.ImmutableMap;
 
 /**
  * The Class SoapEdgeHeadersPropertiesImpl implements {@link SoapEdgeContext} and {@link SoapEdgeContext} to provide an

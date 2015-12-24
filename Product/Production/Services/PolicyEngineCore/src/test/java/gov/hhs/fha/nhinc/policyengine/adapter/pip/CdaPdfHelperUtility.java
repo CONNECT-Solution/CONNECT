@@ -33,11 +33,11 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * This is a helper utility. It is not really meant to be a test. But rather some helper code during development time to

@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
-
 import javax.servlet.ServletContext;
 
 /**

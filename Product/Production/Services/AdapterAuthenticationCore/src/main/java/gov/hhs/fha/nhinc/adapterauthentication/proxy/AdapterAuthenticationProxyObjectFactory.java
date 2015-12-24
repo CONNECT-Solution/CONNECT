@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication.proxy;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  * An object factory that uses the Spring Framework to create service implementation objects. The configuration file is

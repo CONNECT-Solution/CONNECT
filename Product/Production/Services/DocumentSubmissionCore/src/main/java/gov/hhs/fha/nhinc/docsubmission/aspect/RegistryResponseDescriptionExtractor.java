@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.builder.ErrorExtractor;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import gov.hhs.fha.nhinc.event.builder.ErrorExtractor;
+import java.util.ArrayList;
+import java.util.List;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * @author akong

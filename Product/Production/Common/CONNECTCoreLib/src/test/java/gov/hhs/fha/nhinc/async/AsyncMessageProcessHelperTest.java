@@ -30,11 +30,9 @@ import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.hl7.v3.CS;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
@@ -45,10 +43,10 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * This class is used to test the AsyncMessageProcessorHelperTest class

@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;

@@ -44,7 +44,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.FacesException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

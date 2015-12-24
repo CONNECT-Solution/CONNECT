@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.HashMap;
 import java.util.Map;
-
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * @author mweaver

@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-
 import java.io.InputStream;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
-
 import javax.security.auth.callback.CallbackHandler;
-
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.components.crypto.CryptoType;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 public class CryptoManagerTest {
 

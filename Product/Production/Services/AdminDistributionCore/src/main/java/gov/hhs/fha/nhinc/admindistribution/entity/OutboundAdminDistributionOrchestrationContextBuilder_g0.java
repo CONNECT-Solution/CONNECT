@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 
 /**
  *

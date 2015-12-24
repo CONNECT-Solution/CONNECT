@@ -28,11 +28,11 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * This is a JUNIT test that is used to test the AdapterPIPProxyObjectFactory class.

@@ -36,13 +36,9 @@ import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor;
 import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditorFactory;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.Set;
-
 import javax.mail.Address;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;

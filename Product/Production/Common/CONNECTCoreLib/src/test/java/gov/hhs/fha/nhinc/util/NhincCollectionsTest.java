@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import static org.junit.Assert.assertEquals;
-
+import com.google.common.base.Optional;
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
-import com.google.common.base.Optional;
 
 public class NhincCollectionsTest {
 

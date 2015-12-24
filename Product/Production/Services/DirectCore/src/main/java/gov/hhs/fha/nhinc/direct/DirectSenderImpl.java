@@ -30,13 +30,11 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.impl.MessageMonitoringAPI;
 import gov.hhs.fha.nhinc.mail.MailSender;
-
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
+import org.nhindirect.xd.common.DirectDocuments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  * Used to send outbound direct messages.

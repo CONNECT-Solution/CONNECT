@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201310UV02;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

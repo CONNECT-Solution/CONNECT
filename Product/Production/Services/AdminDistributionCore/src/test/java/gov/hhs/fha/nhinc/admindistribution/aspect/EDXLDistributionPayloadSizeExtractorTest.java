@@ -26,23 +26,19 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-
 import java.math.BigInteger;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import oasis.names.tc.emergency.edxl.de._1.AnyXMLType;
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
 import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 /**
  * @author zmelnick

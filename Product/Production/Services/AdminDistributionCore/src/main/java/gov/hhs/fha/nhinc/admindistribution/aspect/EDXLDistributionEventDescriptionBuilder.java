@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
 import com.google.common.collect.ImmutableList;
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  * @author zmelnick

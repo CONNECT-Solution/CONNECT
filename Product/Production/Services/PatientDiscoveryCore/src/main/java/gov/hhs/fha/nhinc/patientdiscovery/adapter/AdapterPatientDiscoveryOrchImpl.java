@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the orchestration code for the patient discovery.

@@ -49,7 +49,6 @@ package gov.hhs.fha.nhinc.directconfig.entity;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.Thumbprint;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -64,7 +63,6 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -26,20 +26,19 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
-
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
-import org.junit.Before;
-import org.junit.Test;
 
 public class RespondingGatewayPRPAIN201306UV02BuilderTest {
     private RespondingGatewayPRPAIN201306UV02Builder builder;

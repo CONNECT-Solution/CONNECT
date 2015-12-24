@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.event;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;

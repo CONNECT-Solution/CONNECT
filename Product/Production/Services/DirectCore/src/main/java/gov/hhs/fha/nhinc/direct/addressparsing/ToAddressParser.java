@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
 import java.util.Set;
-
 import javax.mail.Address;
-
 import org.nhindirect.xd.common.DirectDocuments;
 
 public interface ToAddressParser {

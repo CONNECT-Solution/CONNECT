@@ -27,18 +27,12 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 import org.jmock.Mockery;
-
 import org.jmock.integration.junit4.JUnit4Mockery;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *

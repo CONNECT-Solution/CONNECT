@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.endpoint.Client;

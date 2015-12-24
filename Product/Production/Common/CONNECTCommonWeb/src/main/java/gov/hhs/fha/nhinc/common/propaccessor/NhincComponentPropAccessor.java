@@ -42,10 +42,8 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
-
 import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

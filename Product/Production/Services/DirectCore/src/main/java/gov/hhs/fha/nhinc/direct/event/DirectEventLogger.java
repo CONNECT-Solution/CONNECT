@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.EventRecorder;
-
 import javax.mail.internet.MimeMessage;
 
 /**

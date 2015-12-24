@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
@@ -34,9 +36,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
 /**
  * @author bhumphrey/paul

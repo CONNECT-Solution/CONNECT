@@ -38,7 +38,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

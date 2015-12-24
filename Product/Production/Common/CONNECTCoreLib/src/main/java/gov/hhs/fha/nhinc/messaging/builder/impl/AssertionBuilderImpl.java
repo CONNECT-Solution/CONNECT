@@ -26,14 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.builder.impl;
 
-import gov.hhs.fha.nhinc.messaging.builder.impl.AbstractAssertionBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

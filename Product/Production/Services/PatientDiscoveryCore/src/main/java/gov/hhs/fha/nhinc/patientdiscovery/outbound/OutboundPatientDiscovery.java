@@ -26,10 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
-import java.util.concurrent.ExecutorService;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
+import java.util.concurrent.ExecutorService;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 

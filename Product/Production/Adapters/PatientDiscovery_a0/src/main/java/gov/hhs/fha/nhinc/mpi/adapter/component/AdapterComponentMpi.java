@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
-
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 

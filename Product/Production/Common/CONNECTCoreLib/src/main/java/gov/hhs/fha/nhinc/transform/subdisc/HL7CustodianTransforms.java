@@ -29,11 +29,11 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.MFMIMT700701UV01Custodian;
 import org.hl7.v3.MFMIMT700711UV01Custodian;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

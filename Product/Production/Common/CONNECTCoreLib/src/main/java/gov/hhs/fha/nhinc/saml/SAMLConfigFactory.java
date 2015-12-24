@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.saml;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
-
 import java.util.Properties;
 
 /**

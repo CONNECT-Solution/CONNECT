@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction.impl;
 
+import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
+import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 /**
  * In memory implementation of the TransactionStore interface.

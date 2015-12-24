@@ -26,13 +26,11 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
 import javax.xml.ws.soap.SOAPBinding;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
 
 public class SOAP12ServicePortDescriptorTest {
 

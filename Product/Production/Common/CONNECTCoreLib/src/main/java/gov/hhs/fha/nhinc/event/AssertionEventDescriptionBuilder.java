@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
-
 import com.google.common.base.Optional;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.slf4j.Logger;

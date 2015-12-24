@@ -53,9 +53,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-
 import java.util.Collection;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.nhindirect.policy.PolicyLexicon;
 import org.springframework.stereotype.Repository;

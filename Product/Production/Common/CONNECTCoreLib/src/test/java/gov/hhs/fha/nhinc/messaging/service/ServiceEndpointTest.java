@@ -26,22 +26,19 @@
  */
 package gov.hhs.fha.nhinc.messaging.service;
 
-import static junit.framework.Assert.assertSame;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.ws.BindingProvider;
-
+import static junit.framework.Assert.assertSame;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author bhumphrey

@@ -42,8 +42,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
@@ -54,6 +52,8 @@ import org.hl7.v3.PRPAMT201307UV02DataSource;
 import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

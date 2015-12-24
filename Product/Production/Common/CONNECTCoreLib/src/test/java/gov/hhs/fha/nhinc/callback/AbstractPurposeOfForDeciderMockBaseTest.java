@@ -26,20 +26,18 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-
 import java.util.Map;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**

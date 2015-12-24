@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-
 import org.junit.Test;
 
 /**

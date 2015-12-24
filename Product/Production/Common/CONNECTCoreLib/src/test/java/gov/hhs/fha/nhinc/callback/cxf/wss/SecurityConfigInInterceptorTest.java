@@ -26,13 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import javax.xml.namespace.QName;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-
+import javax.xml.namespace.QName;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.message.MessageImpl;
 import org.apache.cxf.phase.Phase;
@@ -40,6 +35,8 @@ import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.apache.ws.security.WSSConfig;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.processor.Processor;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**

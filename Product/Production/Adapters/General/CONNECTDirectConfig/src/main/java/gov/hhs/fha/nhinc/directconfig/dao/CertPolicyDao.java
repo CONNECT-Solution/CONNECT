@@ -46,13 +46,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.directconfig.dao;
 
-import java.util.Collection;
-
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
+import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
+import java.util.Collection;
 import org.nhindirect.policy.PolicyLexicon;
 
 public interface CertPolicyDao

@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetBusinessDetail;
-
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 
 /**
  *

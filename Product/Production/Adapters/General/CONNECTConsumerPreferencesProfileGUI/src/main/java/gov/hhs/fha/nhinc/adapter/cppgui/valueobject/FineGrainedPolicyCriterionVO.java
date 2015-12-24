@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

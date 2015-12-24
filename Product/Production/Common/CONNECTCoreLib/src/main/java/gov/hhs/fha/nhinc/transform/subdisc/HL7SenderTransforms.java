@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
@@ -44,6 +42,8 @@ import org.hl7.v3.MCCIMT000300UV01Agent;
 import org.hl7.v3.MCCIMT000300UV01Device;
 import org.hl7.v3.MCCIMT000300UV01Organization;
 import org.hl7.v3.MCCIMT000300UV01Sender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

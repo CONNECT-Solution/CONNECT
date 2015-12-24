@@ -26,13 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.BusinessList;
-import org.uddi.api_v3.GetBusinessDetail;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.UDDIBaseClient;
@@ -42,6 +35,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.uddi.api_v3.BusinessDetail;
+import org.uddi.api_v3.BusinessList;
+import org.uddi.api_v3.GetBusinessDetail;
 
 /**
  *

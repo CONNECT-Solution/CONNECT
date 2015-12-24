@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-import org.hl7.v3.PRPAIN201306UV02;
-
 import com.google.common.base.Optional;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 import java.util.ArrayList;
+import org.hl7.v3.PRPAIN201306UV02;
 
 public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 

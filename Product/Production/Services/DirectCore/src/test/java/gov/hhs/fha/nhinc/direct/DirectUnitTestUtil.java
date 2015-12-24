@@ -26,14 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.mail.MailUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +38,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
 import javax.activation.DataHandler;
 import javax.mail.Address;
 import javax.mail.MessagingException;
@@ -53,11 +46,13 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.mail.Message;
@@ -72,6 +67,8 @@ import org.nhindirect.xd.common.type.LoincEnum;
 import org.nhindirect.xd.common.type.PracticeSettingCodeEnum;
 import org.nhindirect.xd.transform.pojo.SimplePerson;
 import org.nhindirect.xd.transform.util.type.MimeType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**

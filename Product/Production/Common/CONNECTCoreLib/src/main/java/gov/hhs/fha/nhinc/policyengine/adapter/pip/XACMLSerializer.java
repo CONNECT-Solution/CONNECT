@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -38,7 +37,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

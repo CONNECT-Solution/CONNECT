@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 /**

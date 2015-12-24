@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.nhinendpointmanager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mweaver

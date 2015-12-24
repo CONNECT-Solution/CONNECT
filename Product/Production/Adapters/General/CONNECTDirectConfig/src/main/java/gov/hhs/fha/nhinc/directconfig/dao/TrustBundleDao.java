@@ -47,15 +47,14 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.dao;
 
-import java.security.cert.X509Certificate;
-import java.util.Calendar;
-import java.util.Collection;
-
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
+import java.security.cert.X509Certificate;
+import java.util.Calendar;
+import java.util.Collection;
 
 /**
  * DAO interface for trust bundle

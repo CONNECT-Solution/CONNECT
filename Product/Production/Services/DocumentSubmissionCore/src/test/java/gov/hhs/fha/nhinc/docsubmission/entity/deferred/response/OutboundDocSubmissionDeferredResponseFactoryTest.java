@@ -27,10 +27,9 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**

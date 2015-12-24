@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

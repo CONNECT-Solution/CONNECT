@@ -26,21 +26,18 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import static org.junit.Assert.assertSame;
 import org.junit.Test;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.w3c.dom.Element;
 
 public class AsyncMessageIdExtractorTest {

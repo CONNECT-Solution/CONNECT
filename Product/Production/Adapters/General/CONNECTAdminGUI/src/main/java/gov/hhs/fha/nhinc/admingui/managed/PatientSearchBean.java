@@ -47,11 +47,11 @@ import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-import org.uddi.api_v3.BusinessEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.uddi.api_v3.BusinessEntity;
 
 /**
  * Managed bean to capture/render the data from/to the UI.

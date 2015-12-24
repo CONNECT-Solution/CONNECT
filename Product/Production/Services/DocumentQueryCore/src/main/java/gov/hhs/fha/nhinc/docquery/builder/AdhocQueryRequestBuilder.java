@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docquery.builder;
 
-import gov.hhs.fha.nhinc.messaging.builder.Builder;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ReturnType;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSbStoredQuery;
+import gov.hhs.fha.nhinc.messaging.builder.Builder;
 import java.util.Date;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;

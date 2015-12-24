@@ -47,17 +47,15 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service;
 
-import java.util.Calendar;
-import java.util.Collection;
-
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import java.util.Calendar;
+import java.util.Collection;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
 
 /**
  * Web service interface for trust bundle operations.

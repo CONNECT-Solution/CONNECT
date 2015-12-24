@@ -26,16 +26,12 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import static org.junit.Assert.assertEquals;
-
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 /**
  * @author akong

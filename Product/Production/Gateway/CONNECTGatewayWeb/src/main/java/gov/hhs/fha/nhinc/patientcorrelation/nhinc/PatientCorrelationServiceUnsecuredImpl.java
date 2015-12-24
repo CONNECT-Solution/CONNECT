@@ -27,12 +27,10 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

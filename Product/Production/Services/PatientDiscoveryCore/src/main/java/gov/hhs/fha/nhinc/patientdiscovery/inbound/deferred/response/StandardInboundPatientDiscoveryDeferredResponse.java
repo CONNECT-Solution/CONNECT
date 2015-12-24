@@ -42,12 +42,12 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeT
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.util.Properties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInboundPatientDiscoveryDeferredResponse {
 

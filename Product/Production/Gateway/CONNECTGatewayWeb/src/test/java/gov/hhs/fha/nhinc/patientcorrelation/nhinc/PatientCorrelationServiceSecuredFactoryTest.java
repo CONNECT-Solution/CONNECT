@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 public class PatientCorrelationServiceSecuredFactoryTest {

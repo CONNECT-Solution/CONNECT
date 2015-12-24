@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  *

@@ -52,7 +52,6 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.CertificateService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.Key;
@@ -69,11 +68,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import javax.security.auth.x500.X500Principal;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

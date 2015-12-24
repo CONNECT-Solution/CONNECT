@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
@@ -45,6 +42,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong

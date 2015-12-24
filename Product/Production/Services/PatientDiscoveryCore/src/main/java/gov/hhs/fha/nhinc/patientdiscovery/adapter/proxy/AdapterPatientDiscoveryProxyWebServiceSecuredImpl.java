@@ -39,12 +39,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.service.AdapterPatientDi
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.PRPAIN201305UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the Secured Web Service implementation of the AdapterPatientDiscovery component proxy.

@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.apache.cxf.phase.PhaseInterceptorChain;
 
 /**

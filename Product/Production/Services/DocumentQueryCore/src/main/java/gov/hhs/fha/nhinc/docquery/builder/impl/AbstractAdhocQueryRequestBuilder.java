@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.builder.impl;
 
-import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ReturnType;
 import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
+import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ReturnType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.ResponseOptionType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;

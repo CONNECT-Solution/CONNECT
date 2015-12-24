@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 
 /**
  * This is a "NoOp" implementation of the AdapterAuthenticationProxy interface.

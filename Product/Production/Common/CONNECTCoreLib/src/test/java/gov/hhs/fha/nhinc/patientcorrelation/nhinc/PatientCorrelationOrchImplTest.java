@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDao;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
@@ -60,11 +57,10 @@ import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
 /**

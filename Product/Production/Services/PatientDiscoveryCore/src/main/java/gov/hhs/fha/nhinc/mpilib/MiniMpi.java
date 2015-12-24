@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  * Singleton class.

@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
 
 /**
  * The Interface PatientService.

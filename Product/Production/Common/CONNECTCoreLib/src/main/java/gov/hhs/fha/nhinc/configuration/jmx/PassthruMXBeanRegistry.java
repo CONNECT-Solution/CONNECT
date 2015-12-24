@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.configuration.jmx;
 
 import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
-
 import java.util.HashSet;
 import java.util.Set;
 

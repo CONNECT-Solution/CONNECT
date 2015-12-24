@@ -26,26 +26,22 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

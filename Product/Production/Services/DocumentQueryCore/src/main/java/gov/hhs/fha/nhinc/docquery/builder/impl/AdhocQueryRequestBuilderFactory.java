@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.builder.impl;
 
-import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSbStoredQuery;
 import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
+import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.XDSbStoredQuery;
 
 /**
  * A factory for creating AdhocQueryRequestBuilder objects.

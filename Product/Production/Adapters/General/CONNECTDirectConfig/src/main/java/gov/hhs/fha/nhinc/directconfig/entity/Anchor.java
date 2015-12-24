@@ -49,7 +49,6 @@ package gov.hhs.fha.nhinc.directconfig.entity;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.Thumbprint;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
-
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;

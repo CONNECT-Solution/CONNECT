@@ -26,17 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 import gov.hhs.fha.nhinc.event.BeanTransformerTest;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DocSubmissionArgTransformerBuilderTest extends BeanTransformerTest<DocSubmissionArgTransformerBuilder> {
 

@@ -43,8 +43,6 @@ import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -88,6 +86,8 @@ import org.hl7.v3.ParticipationTargetSubject;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

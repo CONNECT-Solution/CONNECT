@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
 import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
-
 import org.springframework.stereotype.Component;
 
 /**

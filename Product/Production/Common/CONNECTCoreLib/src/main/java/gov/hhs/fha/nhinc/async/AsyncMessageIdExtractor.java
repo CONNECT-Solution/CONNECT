@@ -28,15 +28,11 @@ package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.springframework.util.CollectionUtils;
 import org.w3c.dom.Element;

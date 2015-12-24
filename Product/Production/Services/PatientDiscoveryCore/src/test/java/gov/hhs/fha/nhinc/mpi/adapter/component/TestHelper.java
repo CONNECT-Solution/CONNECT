@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import gov.hhs.fha.nhinc.mpilib.Identifier;
+import gov.hhs.fha.nhinc.mpilib.Identifiers;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.PersonName;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -64,11 +63,8 @@ import org.hl7.v3.PRPAMT201310UV02Person;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
-
-import gov.hhs.fha.nhinc.mpilib.Identifier;
-import gov.hhs.fha.nhinc.mpilib.Identifiers;
-import gov.hhs.fha.nhinc.mpilib.Patient;
-import gov.hhs.fha.nhinc.mpilib.PersonName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *

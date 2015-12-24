@@ -26,14 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
 import gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker;
-
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  *

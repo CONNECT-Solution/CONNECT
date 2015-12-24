@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
-
 import java.util.Map;
-
 import javax.xml.ws.soap.SOAPBinding;
-
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**

@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
@@ -36,6 +33,8 @@ import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObject
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

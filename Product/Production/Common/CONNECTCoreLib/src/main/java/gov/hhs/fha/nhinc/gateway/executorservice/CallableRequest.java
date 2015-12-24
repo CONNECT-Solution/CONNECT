@@ -27,10 +27,8 @@
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import java.util.concurrent.Callable;
-
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

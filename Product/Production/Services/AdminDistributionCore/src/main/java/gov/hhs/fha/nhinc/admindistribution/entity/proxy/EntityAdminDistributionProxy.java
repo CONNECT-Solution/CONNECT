@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  *

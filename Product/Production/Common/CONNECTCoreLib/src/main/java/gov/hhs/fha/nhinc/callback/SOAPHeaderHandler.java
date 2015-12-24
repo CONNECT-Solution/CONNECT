@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
+import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
@@ -39,13 +41,8 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  * Handles various soap header values including adding mustUnderstand to action if missing and adding messageId if

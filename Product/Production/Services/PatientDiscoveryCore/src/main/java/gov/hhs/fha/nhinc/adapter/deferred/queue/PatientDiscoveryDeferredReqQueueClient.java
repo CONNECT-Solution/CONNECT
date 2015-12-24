@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.adapter.deferred.queue.service.AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor;
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -41,6 +38,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

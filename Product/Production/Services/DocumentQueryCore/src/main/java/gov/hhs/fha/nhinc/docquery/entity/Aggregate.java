@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-
 import java.util.Collection;
 
 /**

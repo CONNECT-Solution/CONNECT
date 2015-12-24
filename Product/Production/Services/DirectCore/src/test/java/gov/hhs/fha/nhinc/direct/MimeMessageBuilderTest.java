@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMimeMessageBuilder;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.ByteArrayInputStream;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -42,15 +41,14 @@ import javax.activation.DataHandler;
 import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
-
 import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.io.IOUtils;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.junit.Test;
 import org.nhindirect.xd.common.DirectDocuments;
 
 /**

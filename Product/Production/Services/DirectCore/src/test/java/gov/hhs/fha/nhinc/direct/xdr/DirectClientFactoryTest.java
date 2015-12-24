@@ -26,19 +26,16 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.net.URISyntaxException;
-
 import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.net.URISyntaxException;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test {@link DirectAdapterFactory}.

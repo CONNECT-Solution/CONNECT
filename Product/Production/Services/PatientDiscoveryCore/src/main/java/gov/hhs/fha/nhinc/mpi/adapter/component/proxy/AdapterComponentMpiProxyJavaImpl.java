@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiOrchImpl;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is used as a java implementation for calling the Adapter MPI. Obviously in order to use the java

@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication;
 
-import javax.jws.WebMethod;
-import javax.xml.ws.BindingType;
-
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-
+import javax.jws.WebMethod;
+import javax.xml.ws.BindingType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

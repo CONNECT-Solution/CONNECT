@@ -29,24 +29,21 @@ package gov.hhs.fha.nhinc.direct;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
-import static org.mockito.Mockito.mock;
 import gov.hhs.fha.nhinc.mail.ImapMailReceiver;
 import gov.hhs.fha.nhinc.mail.MailReceiver;
 import gov.hhs.fha.nhinc.mail.MailUtils;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
-
 import java.util.Properties;
-
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 /**
  * This is basically a sanity check to make sure the smtp and imap settings we use can talk to a real mail server. If

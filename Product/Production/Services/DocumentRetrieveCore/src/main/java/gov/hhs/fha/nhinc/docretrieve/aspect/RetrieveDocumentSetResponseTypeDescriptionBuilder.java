@@ -26,21 +26,18 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
-
-import java.util.List;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends AssertionEventDescriptionBuilder {
 

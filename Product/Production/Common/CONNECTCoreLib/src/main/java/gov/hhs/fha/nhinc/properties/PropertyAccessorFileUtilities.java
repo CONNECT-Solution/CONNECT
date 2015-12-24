@@ -27,11 +27,9 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.util.StreamUtils;
-
 import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.io.File;
 import java.util.Properties;
 import java.util.Set;

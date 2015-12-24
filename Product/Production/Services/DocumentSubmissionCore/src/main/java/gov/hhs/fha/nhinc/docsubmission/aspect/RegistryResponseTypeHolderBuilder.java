@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
 import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
-
 import javax.xml.ws.Holder;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class RegistryResponseTypeHolderBuilder extends ArgTransformerEventDescriptionBuilder {

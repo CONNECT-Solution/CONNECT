@@ -29,11 +29,9 @@ package gov.hhs.fha.nhinc.xmlCommon;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
-
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;

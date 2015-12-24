@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui;
 
-import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import java.util.List;
 import javax.faces.FacesException;
 

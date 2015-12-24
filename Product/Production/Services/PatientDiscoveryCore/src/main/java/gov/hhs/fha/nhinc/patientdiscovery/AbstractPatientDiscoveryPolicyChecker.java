@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

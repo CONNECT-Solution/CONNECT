@@ -26,24 +26,21 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.outbound;
 
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
+import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
+import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
-import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
-import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
-import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 
 /**
  * @author zmelnick

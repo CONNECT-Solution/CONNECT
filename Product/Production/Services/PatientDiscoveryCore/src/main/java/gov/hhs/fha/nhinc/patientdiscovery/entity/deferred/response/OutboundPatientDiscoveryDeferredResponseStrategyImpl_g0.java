@@ -30,10 +30,9 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
-
+import org.hl7.v3.MCCIIN000002UV01;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.MCCIIN000002UV01;
 
 /**
  * @author akong

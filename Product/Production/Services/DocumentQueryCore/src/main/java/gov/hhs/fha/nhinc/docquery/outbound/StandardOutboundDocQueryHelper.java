@@ -32,11 +32,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

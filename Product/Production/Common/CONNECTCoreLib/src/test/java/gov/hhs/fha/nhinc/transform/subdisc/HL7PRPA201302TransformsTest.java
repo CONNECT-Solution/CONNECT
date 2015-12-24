@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.CE;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.PRPAIN201302UV02;
@@ -39,6 +35,7 @@ import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Person;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

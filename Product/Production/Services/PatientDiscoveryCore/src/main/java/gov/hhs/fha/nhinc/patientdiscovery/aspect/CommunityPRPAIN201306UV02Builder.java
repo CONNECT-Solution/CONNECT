@@ -26,21 +26,17 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
-
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionBuilder {
 

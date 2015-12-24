@@ -29,10 +29,8 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;

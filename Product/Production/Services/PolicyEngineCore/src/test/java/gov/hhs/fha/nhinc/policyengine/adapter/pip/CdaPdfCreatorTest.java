@@ -27,24 +27,13 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.Serializable;
-import org.hl7.v3.POCDMT000040ClinicalDocument;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -64,14 +53,20 @@ import org.hl7.v3.IVXBTSExplicit;
 import org.hl7.v3.ONExplicit;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040Author;
+import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.hl7.v3.POCDMT000040Patient;
 import org.hl7.v3.POCDMT000040PatientRole;
 import org.hl7.v3.SCExplicit;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
-
+import org.junit.After;
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**

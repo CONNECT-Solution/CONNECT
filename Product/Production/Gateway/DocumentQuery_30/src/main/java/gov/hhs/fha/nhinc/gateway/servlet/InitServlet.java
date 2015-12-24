@@ -30,16 +30,13 @@ import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServle
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.docquery.configuration.jmx.DocumentQuery30WebServices;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

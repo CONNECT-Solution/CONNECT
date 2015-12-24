@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  *

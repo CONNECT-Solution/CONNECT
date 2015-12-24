@@ -26,14 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.gateway;
 
-import java.util.Collections;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-
 import gov.hhs.fha.nhinc.admindistribution.configuration.jmx.AdminDistribution20WebServices;
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
+import java.util.Collections;
+import java.util.Set;
+import javax.servlet.ServletContext;
 
 /**
  * The Class InitServlet.

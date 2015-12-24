@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.event.ContextEventHelper;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventBuilder;
 import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;

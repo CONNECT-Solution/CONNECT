@@ -27,10 +27,8 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.io.File;
 import java.net.URLDecoder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

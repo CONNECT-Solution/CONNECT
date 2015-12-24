@@ -27,15 +27,13 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import javax.xml.ws.WebServiceContext;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import javax.xml.ws.WebServiceContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
