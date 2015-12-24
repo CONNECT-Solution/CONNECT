@@ -39,6 +39,8 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The AuditQueryLog impl is called from Pojo/Service implementation and passes/retrieve params from/to DAO layer.
@@ -49,6 +51,7 @@ public class AuditQueryLogImpl {
 
     private AuditRepositoryDAO dao;
     private AuditRetrieveEventsUtil resultUtil;
+    private static final Logger LOG = LoggerFactory.getLogger(AuditQueryLogImpl.class);
 
     /**
      * constructor. initialize AuditRetrieveEventsUtil to build AuditQueryResponse
@@ -99,8 +102,7 @@ public class AuditQueryLogImpl {
      *
      */
     public QueryAuditEventsBlobResponse queryAuditEventsById(QueryAuditEventsBlobRequest request) {
-        return resultUtil.getQueryAuditEventBlobResponse(getAuditRepositoryDao().queryByAuditId(
-            (new Long(request.getId())).intValue()));
+        return resultUtil.getQueryAuditEventBlobResponse(getAuditRepositoryDao().queryByAuditId(request.getId()));
     }
 
     /**
@@ -116,7 +118,10 @@ public class AuditQueryLogImpl {
 
     private Date getRequestDate(XMLGregorianCalendar dateObj) {
         if (dateObj != null) {
-            return dateObj.toGregorianCalendar().getTime();
+            LOG.info("Converting XMLGregorianCalendar to a date object");
+            LOG.info("{}-{}-{} {}:{}:{} {}", dateObj.getMonth(), dateObj.getDay(), dateObj.getYear(), dateObj.getHour(),
+                dateObj.getMinute(), dateObj.getSecond(), dateObj.getTimezone());
+            return new Date(dateObj.toGregorianCalendar().getTimeInMillis());
         }
         return null;
     }

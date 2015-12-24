@@ -250,7 +250,7 @@ public class AuditRepositoryDAO {
      * @param auditId - AuidtRepository table Primary Key unique Id
      * @return Blob - Audit Blob message corresponding to Audit Id supplied
      */
-    public Blob queryByAuditId(int auditId) {
+    public Blob queryByAuditId(long auditId) {
 
         Session session = null;
         Blob message = null;

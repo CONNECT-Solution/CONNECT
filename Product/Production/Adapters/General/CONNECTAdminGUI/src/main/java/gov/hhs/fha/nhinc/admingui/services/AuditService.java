@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.event.model.Audit;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -35,8 +37,13 @@ import java.util.ArrayList;
  */
 public interface AuditService {
 
-    public ArrayList<Audit> createMockAuditRecord();
-
     public String createMockAuditMessage(long id);
 
+    public List<Audit> searchAuditRecord(Integer outcome, List<String> eventTypeList, String userId,
+        List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap);
+
+    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesToId(String msgId, String relatesTo,
+        Map<String, String> remoteHcidOrgNameMap);
+
+    public String fetchAuditBlob(long auditId);
 }

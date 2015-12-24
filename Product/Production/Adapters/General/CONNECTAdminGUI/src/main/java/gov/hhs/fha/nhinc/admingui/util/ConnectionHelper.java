@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -143,4 +144,33 @@ public class ConnectionHelper {
         return PropertyAccessor.getInstance();
     }
 
+    public Map<String, String> getOrgNameRemoteHcidExternalEntities() {
+        HashMap<String, String> organizationMap = new HashMap<>();
+        List<BusinessEntity> externalEntityList = new ArrayList<>(getExternalEntitiesMap().values());
+        if (NullChecker.isNotNullish(externalEntityList)) {
+            for (BusinessEntity businessEntity : externalEntityList) {
+                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
+                if (NullChecker.isNotNullish(keyedReference)) {
+                    organizationMap.put(getEntityName(businessEntity), keyedReference.get(0).getKeyValue());
+                }
+            }
+        }
+        return organizationMap;
+    }
+
+    public Map<String, String> getRemoteHcidOrgNameMap() {
+        HashMap<String, String> organizationMap = new HashMap<>();
+        List<BusinessEntity> entities = getAllBusinessEntities();
+        if (NullChecker.isNotNullish(entities)) {
+            for (BusinessEntity businessEntity : entities) {
+                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
+                if (NullChecker.isNotNullish(keyedReference)
+                    && NullChecker.isNotNullishIgnoreSpace(keyedReference.get(0).getKeyValue())) {
+                    organizationMap.put(HomeCommunityMap.getHomeCommunityWithoutPrefix(
+                        keyedReference.get(0).getKeyValue()), getEntityName(businessEntity));
+                }
+            }
+        }
+        return organizationMap;
+    }
 }
