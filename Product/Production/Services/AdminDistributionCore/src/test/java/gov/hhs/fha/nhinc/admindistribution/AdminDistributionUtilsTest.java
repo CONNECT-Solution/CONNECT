@@ -148,6 +148,7 @@ public class AdminDistributionUtilsTest {
 
 	private AdminDistributionUtils createAdminDistributionUtils() {
 		return new AdminDistributionUtils() {
+            @Override
 			protected LargeFileUtils getLargeFileUtils() {
 				return mockFileUtils;
 			}

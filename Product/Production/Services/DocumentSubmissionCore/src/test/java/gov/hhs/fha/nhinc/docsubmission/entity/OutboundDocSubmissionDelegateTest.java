@@ -176,6 +176,7 @@ public class OutboundDocSubmissionDelegateTest {
         });
 
         return new OutboundDocSubmissionOrchestrationContextBuilder_g0() {
+            @Override
             public OrchestrationContext build() {
                 return mockOrchestrationContext;
             }
@@ -200,6 +201,7 @@ public class OutboundDocSubmissionDelegateTest {
         });
 
         return new OutboundDocSubmissionOrchestrationContextBuilder_g1() {
+            @Override
             public OrchestrationContext build() {
                 return mockOrchestrationContext;
             }
@@ -227,6 +229,7 @@ public class OutboundDocSubmissionDelegateTest {
 
     private OutboundDocSubmissionDelegate createOutboundDocSubmissionDelegate() {
         return new OutboundDocSubmissionDelegate() {
+            @Override
             protected OrchestrationContextFactory getOrchestrationContextFactory() {
                 return mockContextFactory;
             }

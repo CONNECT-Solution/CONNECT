@@ -70,6 +70,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
+    @Override
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
         LOG.debug("Begin filterAdhocQueryResults");
@@ -108,6 +109,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         return response;
     }
 
+    @Override
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {

@@ -69,6 +69,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return The value for the property.
      */
     @WebMethod
+    @Override
     public GetPropertyResponseType getProperty(GetPropertyRequestType getPropertyRequest) {
         GetPropertyResponseType oOutput = null;
 
@@ -90,6 +91,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return TRUE if the property is true and false if it is not.
      */
     @WebMethod
+    @Override
     public GetPropertyBooleanResponseType getPropertyBoolean(GetPropertyBooleanRequestType getPropertyBooleanRequest) {
         GetPropertyBooleanResponseType oOutput = null;
 
@@ -110,6 +112,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return The list of property names in the property file.
      */
     @WebMethod
+    @Override
     public GetPropertyNamesResponseType getPropertyNames(GetPropertyNamesRequestType getPropertyNamesRequest) {
         GetPropertyNamesResponseType oOutput = null;
 
@@ -138,6 +141,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return Returns all of the properties and values in the property file.
      */
     @WebMethod
+    @Override
     public GetPropertiesResponseType getProperties(GetPropertiesRequestType getPropertiesRequest) {
         GetPropertiesResponseType oOutput = null;
 
@@ -159,6 +163,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return The path and location of the property files.
      */
     @WebMethod
+    @Override
     public GetPropertyFileLocationResponseType getPropertyFileLocation(
             GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
         GetPropertyFileLocationResponseType oOutput = null;
@@ -180,6 +185,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return Nothing - it simply always returns true.
      */
     @WebMethod
+    @Override
     public DumpPropsToLogResponseType dumpPropsToLog(DumpPropsToLogRequestType dumpPropsToLogRequest) {
         DumpPropsToLogResponseType oOutput = null;
 
@@ -203,6 +209,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return True if this succeeds.
      */
     @WebMethod
+    @Override
     public WritePropertyFileResponseType writePropertyFile(WritePropertyFileRequestType writePropertyFileRequest) {
         WritePropertyFileResponseType oOutput = null;
 
@@ -225,6 +232,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @return True if this succeeds.
      */
     @WebMethod
+    @Override
     public DeletePropertyFileResponseType deletePropertyFile(DeletePropertyFileRequestType deletePropertyFileRequest) {
         DeletePropertyFileResponseType oOutput = null;
 

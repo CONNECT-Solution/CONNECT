@@ -71,6 +71,7 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
         LOG.debug("Begin authenticateUser");

@@ -42,6 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public class EntityDocRetrieveUnSecuredProxy extends BaseService implements EntityDocRetrievePortType {
 
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "2.0")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RespondingGatewayCrossGatewayRetrieveRequestType request) {
 

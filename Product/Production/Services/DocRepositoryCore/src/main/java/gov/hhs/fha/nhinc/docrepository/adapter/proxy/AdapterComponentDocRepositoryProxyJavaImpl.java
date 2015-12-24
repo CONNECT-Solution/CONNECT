@@ -43,12 +43,14 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocRepositoryProxyJavaImpl implements AdapterComponentDocRepositoryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryProxyJavaImpl.class);
 
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         LOG.debug("Using Java Implementation for Adapter Component Doc Repository Service");
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(request);
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         LOG.debug("Using Java Implementation for Adapter Component Doc Repository Service");
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryProvideAndRegisterDocumentSet(body);

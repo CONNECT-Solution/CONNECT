@@ -89,23 +89,28 @@ public class CONNECTInboundOrchestratorTest {
 
         }
 
+        @Override
         public InboundDelegate getAdapterDelegate() {
             AdapterDelegateTest test = new AdapterDelegateTest();
             return test.new AdapterDelegateImpl();
         }
 
+        @Override
         public boolean isPassthru() {
             return true;
         }
 
+        @Override
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }
 
+        @Override
         public AssertionType getAssertion() {
             return null;
         }
 
+        @Override
         public String getServiceName() {
             return "";
         }

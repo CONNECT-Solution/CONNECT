@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
 public class EntityDocSubmissionDeferredRequestProxyNoOpImpl implements EntityDocSubmissionDeferredRequestProxy {
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {

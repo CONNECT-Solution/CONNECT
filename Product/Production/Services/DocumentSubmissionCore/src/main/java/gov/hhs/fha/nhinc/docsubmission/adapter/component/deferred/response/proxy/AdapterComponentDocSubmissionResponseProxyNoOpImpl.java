@@ -49,6 +49,7 @@ public class AdapterComponentDocSubmissionResponseProxyNoOpImpl implements Adapt
      * @param assertion The assertion information.
      * @return The ACK
      */
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
 

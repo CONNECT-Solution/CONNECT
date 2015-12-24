@@ -37,6 +37,7 @@ import org.junit.Test;
 public class AdhocQueryRequestTransformingBuilderTest extends
         BeanTransformerTest<AdhocQueryRequestTransformingBuilder> {
 
+    @Override
     public AdhocQueryRequestTransformingBuilder getBuilder() {
         return new AdhocQueryRequestTransformingBuilder();
     }

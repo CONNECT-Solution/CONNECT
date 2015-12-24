@@ -51,12 +51,14 @@ public class AuditRepositoryUnsecured implements gov.hhs.fha.nhinc.nhinccomponen
     }
 
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
         return getAuditRepositoryUnsecuredImpl().queryAuditEvents(queryAuditEventsRequest, getWebServiceContext());
     }
 
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(
             gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType logEventRequest) {
         return getAuditRepositoryUnsecuredImpl().logEvent(logEventRequest, getWebServiceContext());

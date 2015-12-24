@@ -74,6 +74,7 @@ public class OutboundDocSubmissionDeferredRequestOrchestratable implements Outbo
         throw new UnsupportedOperationException("Document Submission Deferred Request does not support aggregation.");
     }
 
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -106,14 +107,17 @@ public class OutboundDocSubmissionDeferredRequestOrchestratable implements Outbo
         this.target = target;
     }
 
+    @Override
     public String getServiceName() {
         return NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME;
     }
 
+    @Override
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

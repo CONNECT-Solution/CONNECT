@@ -36,6 +36,7 @@ public class EntityDocSubmissionDeferredResponseProxyObjectFactory extends Compo
     private static final String CONFIG_FILE_NAME = "DocumentSubmissionDeferredResponseProxyConfig.xml";
     private static final String BEAN_NAME = "entityxdrasyncresp";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

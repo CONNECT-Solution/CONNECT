@@ -49,6 +49,7 @@ public class ConnectReference implements XDRRouting {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectReference.class);
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
         AssertionType assertion) {
         LOG.info("Inside Connect Reference provideAndRegisterDocumentSetB()");

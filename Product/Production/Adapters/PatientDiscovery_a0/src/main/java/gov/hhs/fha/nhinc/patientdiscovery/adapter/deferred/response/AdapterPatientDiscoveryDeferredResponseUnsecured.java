@@ -41,6 +41,7 @@ public class AdapterPatientDiscoveryDeferredResponseUnsecured implements gov.hhs
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
             org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType processPatientDiscoveryAsyncRespAsyncRequest) {
         return new AdapterPatientDiscoverySecuredDeferredResponseImpl().processPatientDiscoveryAsyncResp(

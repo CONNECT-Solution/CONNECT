@@ -61,6 +61,7 @@ public class EntityPatientDiscoveryDeferredResponseProxyWebServiceUnsecuredImpl 
         return new WebServiceProxyHelper();
     }
 
+    @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         LOG.debug("Begin EntityPatientDiscoveryDeferredResponseProxyWebServiceUnsecuredImpl.processPatientDiscoveryAsyncResp(...)");

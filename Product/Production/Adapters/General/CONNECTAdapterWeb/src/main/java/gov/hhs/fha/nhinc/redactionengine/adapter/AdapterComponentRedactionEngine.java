@@ -47,6 +47,7 @@ gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortT
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public FilterDocQueryResultsResponseType filterDocQueryResults(
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
         FilterDocQueryResultsResponseType response = null;
@@ -60,6 +61,7 @@ gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortT
     }
 
     @WebMethod
+    @Override
     public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
         FilterDocRetrieveResultsResponseType response = null;

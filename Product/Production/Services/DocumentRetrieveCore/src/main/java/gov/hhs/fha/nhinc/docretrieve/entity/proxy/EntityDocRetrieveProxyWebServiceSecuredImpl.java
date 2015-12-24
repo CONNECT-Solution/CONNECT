@@ -57,6 +57,7 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
         return new EntityDocRetrieveSecured();
     }
 
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
 

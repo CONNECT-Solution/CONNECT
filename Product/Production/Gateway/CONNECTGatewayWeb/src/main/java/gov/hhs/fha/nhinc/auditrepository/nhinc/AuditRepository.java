@@ -52,6 +52,7 @@ public class AuditRepository implements gov.hhs.fha.nhinc.nhinccomponentauditrep
     }
 
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
         return getAuditRepositorySecuredImpl().findAudit(queryAuditEventsRequest.getFindAuditEvents(),
@@ -59,6 +60,7 @@ public class AuditRepository implements gov.hhs.fha.nhinc.nhinccomponentauditrep
     }
 
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(
             gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType logEventRequest) {
         return getAuditRepositorySecuredImpl().logAudit(logEventRequest, getWebServiceContext());

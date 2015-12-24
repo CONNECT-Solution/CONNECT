@@ -106,6 +106,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
      * @return The AdhocQUery response from the web service.
      */
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
         NhinTargetSystemType target) throws Exception {
         AdhocQueryResponse response;

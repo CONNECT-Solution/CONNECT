@@ -131,6 +131,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
 
     private OutboundDocSubmissionDeferredRequestStrategyImpl_g0 createOutboundDocSubmissionDeferredRequestStrategyImpl_g0() {
         return new OutboundDocSubmissionDeferredRequestStrategyImpl_g0() {
+            @Override
             protected gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
                 return mockProxy11;
             }
@@ -139,6 +140,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
 
     private OutboundDocSubmissionDeferredRequestStrategyImpl_g1 createOutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
         return new OutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
+            @Override
             protected gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
                 return mockProxy20;
             }

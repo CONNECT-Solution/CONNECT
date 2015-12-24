@@ -47,6 +47,7 @@ public class AdapterPatientDiscoveryDeferredRespProxyNoOpImpl implements Adapter
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
+    @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
         LOG.debug("Using NoOp Implementation for Adapter Patient Discovery Deferred Response Service");
         return new MCCIIN000002UV01();

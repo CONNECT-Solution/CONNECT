@@ -42,16 +42,19 @@ public class NamespaceContextMapperFromNode implements NamespaceContext {
         this.node = node;
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         return node.lookupNamespaceURI(prefix);
     }
 
     // This method isn't necessary for XPath processing.
+    @Override
     public String getPrefix(String namespaceURI) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // This method isn't necessary for XPath processing.
+    @Override
     public Iterator getPrefixes(String namespaceURI) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

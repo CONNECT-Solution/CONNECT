@@ -48,6 +48,7 @@ public class AdapterPEPProxyDenyNoOpImpl implements AdapterPEPProxy {
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access denied
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPEPProxyDenyNoOpImpl.checkPolicy");
         CheckPolicyResponseType denyPolicyResponse = new CheckPolicyResponseType();

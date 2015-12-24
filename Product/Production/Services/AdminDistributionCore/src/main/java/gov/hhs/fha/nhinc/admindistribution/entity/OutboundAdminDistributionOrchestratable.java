@@ -117,6 +117,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     /**
      * @return assertion Assertion assertion received.
      */
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -124,6 +125,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     /**
      * @return serviceName Administrative_Distribution.
      */
+    @Override
     public String getServiceName() {
         return NhincConstants.ADMIN_DIST_SERVICE_NAME;
     }
@@ -136,6 +138,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     /**
      * @return boolean true if AdminDist in Passthru mode.
      */
+    @Override
     public boolean isPassthru() {
         return isPassthru;
     }
@@ -147,6 +150,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     /**
      * @return throws RunTimeException when called.
      */
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -154,6 +158,7 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     /**
      * @return throws RunTimeException when called.
      */
+    @Override
     public NhinAggregator getAggregator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

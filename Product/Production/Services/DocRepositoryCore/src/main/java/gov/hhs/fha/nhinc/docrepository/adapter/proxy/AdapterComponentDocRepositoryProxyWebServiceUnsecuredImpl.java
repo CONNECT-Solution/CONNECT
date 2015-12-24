@@ -67,6 +67,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType msg, AssertionType assertion) {
         LOG.debug("Begin retrieveDocument");
         RetrieveDocumentSetResponseType response = null;
@@ -107,6 +108,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
         return response;
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType msg,
         AssertionType assertion) {
         RegistryResponseType response = null;

@@ -50,6 +50,7 @@ public class AdapterDocRetrieveProxyNoOpImpl implements AdapterDocRetrieveProxy 
     @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "")
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         return new RetrieveDocumentSetResponseType();

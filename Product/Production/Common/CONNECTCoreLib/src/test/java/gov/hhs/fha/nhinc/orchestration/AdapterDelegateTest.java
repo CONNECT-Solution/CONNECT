@@ -76,10 +76,12 @@ public class AdapterDelegateTest {
 
     public class AdapterDelegateImpl implements InboundDelegate {
 
+        @Override
         public InboundOrchestratable process(InboundOrchestratable message) {
             return null;
         }
 
+        @Override
         public void createErrorResponse(InboundOrchestratable message, String error) {
         }
 

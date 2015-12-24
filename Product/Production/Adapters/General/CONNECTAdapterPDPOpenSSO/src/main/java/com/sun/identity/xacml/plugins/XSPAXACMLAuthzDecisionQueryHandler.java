@@ -131,6 +131,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
      * @return SAML2 Response with an XAMLAuthzDecisionStatement
      * @exception SAML2Exception if the query can not be handled
      */
+    @Override
     public com.sun.identity.saml2.protocol.Response handleQuery(String pdpEntityId, String pepEntityId,
         RequestAbstract samlpRequest, SOAPMessage soapMessage) throws SAML2Exception {
 

@@ -44,6 +44,7 @@ public class NhinPatientDiscoveryDeferredRespProxyNoOpImpl implements NhinPatien
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
+    @Override
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion,
             NhinTargetSystemType target) {
         return new MCCIIN000002UV01();

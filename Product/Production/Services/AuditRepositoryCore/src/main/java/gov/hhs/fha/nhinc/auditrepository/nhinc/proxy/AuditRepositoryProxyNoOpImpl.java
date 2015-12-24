@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  */
 public class AuditRepositoryProxyNoOpImpl implements AuditRepositoryProxy {
 
+    @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
         return new AcknowledgementType();
     }

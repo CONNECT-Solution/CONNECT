@@ -55,6 +55,7 @@ public class EntityDocRetrieve extends BaseService implements EntityDocRetrieveP
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "2.0")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RespondingGatewayCrossGatewayRetrieveRequestType request) {
         AssertionType assertion = getAssertion(context, request.getAssertion());

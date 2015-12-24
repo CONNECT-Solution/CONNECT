@@ -227,6 +227,7 @@ public class DocumentSubmissionDefResponse11WebServices extends AbstractDSDeferr
         entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
     }
 
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
     }

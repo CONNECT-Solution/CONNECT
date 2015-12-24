@@ -56,6 +56,7 @@ public class AdapterPolicyEngineOrchestrator implements gov.hhs.fha.nhinc.adapte
      * @return The response which contains the access decision
      */
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return getAdapterComponentPolicyEngineImpl().checkPolicy(checkPolicyRequest, getWebServiceContext());

@@ -50,6 +50,7 @@ public class EntityDocQueryProxyNoOpImpl implements EntityDocQueryProxy {
      *            TargetCommunities to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
         AdhocQueryResponse response = new AdhocQueryResponse();

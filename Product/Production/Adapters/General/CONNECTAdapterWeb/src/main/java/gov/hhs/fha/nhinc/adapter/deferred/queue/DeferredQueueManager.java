@@ -76,6 +76,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @return deferredQueueManagerForceProcessResponse
      */
     @WebMethod
+    @Override
     public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredQueue(
             DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
         return new DeferredQueueManagerHelper().forceProcessOnDeferredQueue(deferredQueueManagerForceProcessRequest,
@@ -89,6 +90,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @return deferredQueueManagerForceProcessResponse
      */
     @WebMethod
+    @Override
     public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(
             DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
         return new DeferredQueueManagerHelper().forceProcessOnDeferredQueue(deferredQueueManagerForceProcessRequest,
@@ -102,6 +104,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @return queryDeferredQueueResponse
      */
     @WebMethod
+    @Override
     public QueryDeferredQueueResponseType queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest) {
         return new DeferredQueueManagerHelper().queryDeferredQueue(queryDeferredQueueRequest, context);
     }
@@ -113,6 +116,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @return retrieveDeferredQueueResponse
      */
     @WebMethod
+    @Override
     public RetrieveDeferredQueueResponseType retrieveDeferredQueue(
             RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) {
         return new DeferredQueueManagerHelper().retrieveDeferredQueue(retrieveDeferredQueueRequest, context);
@@ -125,6 +129,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @return deferredQueueStatisticsResponse
      */
     @WebMethod
+    @Override
     public DeferredQueueStatisticsResponseType deferredQueueStatistics(
             DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) {
         return new DeferredQueueManagerHelper().deferredQueueStatistics(deferredQueueStatisticsRequest, context);

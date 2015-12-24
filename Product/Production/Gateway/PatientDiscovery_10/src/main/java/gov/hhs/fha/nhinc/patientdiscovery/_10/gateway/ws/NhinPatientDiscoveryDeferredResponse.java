@@ -66,6 +66,7 @@ public class NhinPatientDiscoveryDeferredResponse extends BaseService implements
     @InboundMessageEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
         afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
         serviceType = "Patient Discovery Deferred Response", version = "1.0")
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body) {
         AssertionType assertion = getAssertion(context, null);
 

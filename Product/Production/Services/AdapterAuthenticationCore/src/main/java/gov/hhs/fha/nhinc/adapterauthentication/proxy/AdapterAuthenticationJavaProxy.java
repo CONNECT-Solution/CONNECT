@@ -48,6 +48,7 @@ public class AdapterAuthenticationJavaProxy implements AdapterAuthenticationProx
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();

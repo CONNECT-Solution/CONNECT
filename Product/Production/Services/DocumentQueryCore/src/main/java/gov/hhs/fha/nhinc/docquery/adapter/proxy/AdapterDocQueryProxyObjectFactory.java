@@ -38,6 +38,7 @@ public class AdapterDocQueryProxyObjectFactory extends ComponentProxyObjectFacto
    /**
     * @return The Spring Proxy config file to be used"
     */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

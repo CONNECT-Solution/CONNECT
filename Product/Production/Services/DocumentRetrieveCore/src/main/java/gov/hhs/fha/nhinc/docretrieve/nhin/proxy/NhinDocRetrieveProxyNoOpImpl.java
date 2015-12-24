@@ -52,6 +52,7 @@ public class NhinDocRetrieveProxyNoOpImpl implements NhinDocRetrieveProxy {
     @NwhinInvocationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
             GATEWAY_API_LEVEL level) {

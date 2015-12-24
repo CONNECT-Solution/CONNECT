@@ -41,6 +41,7 @@ public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
     /**
      * @return
      */
+    @Override
     protected GATEWAY_API_LEVEL getAPILevel() {
         return GATEWAY_API_LEVEL.LEVEL_g0;
     }
@@ -48,6 +49,7 @@ public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
     /**
      * @return
      */
+    @Override
     protected String getServiceName() {
         return NhincConstants.DOC_QUERY_SERVICE_NAME;
     }

@@ -107,6 +107,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
      */
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg,
             AssertionType assertion) {
         LOG.debug("Begin retrievePatientCorrelations");
@@ -151,6 +152,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      * @param assertion Assertion received.
      * @return PatientCorrelationResponse.
      */
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
         LOG.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();

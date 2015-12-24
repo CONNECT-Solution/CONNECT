@@ -43,10 +43,12 @@ public class TimestampInterceptor extends AbstractPhaseInterceptor<Message> {
         super(Phase.RECEIVE);
     }
 
+    @Override
     public void handleMessage(Message message) {
         message.put(INVOCATION_TIME_KEY, new Date());
     }
 
+    @Override
     public void handleFault(Message messageParam) {
     }
 }

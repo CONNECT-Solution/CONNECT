@@ -78,6 +78,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
      * .ProvideAndRegisterDocumentSetRequestType)
      */
     @WebMethod
+    @Override
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body) {
         RegistryResponseType resp;
@@ -105,6 +106,7 @@ public class SoapEdgeService implements ihe.iti.xds_b._2007.DocumentRepositoryPo
      * RetrieveDocumentSetRequestType)
      */
     @WebMethod
+    @Override
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented for XDR");
     }

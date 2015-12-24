@@ -64,6 +64,7 @@ public class TrustMode implements ResponseMode {
      * @param params
      * @return response
      */
+    @Override
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         LOG.debug("Begin TrustMode.processResponse()...");
         PRPAIN201306UV02 response = null;
@@ -125,6 +126,7 @@ public class TrustMode implements ResponseMode {
      * @param localPatId
      * @return response
      */
+    @Override
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatId) {
         LOG.debug("begin processResponse");
         if (response != null) {

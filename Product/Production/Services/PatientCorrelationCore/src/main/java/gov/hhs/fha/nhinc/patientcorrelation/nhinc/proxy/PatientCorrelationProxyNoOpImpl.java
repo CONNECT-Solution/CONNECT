@@ -45,6 +45,7 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
      */
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
             AssertionType assertion) {
         RetrievePatientCorrelationsResponseType resp = new RetrievePatientCorrelationsResponseType();
@@ -59,6 +60,7 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return PatientCorrelationResponse.
      */
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion) {
         AddPatientCorrelationResponseType resp = new AddPatientCorrelationResponseType();
 

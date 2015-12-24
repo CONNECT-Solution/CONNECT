@@ -60,6 +60,7 @@ public class EntityPatientDiscoveryUnsecured extends BaseService implements Enti
     @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
             afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
             version = "1.0")
+    @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType request) {
 

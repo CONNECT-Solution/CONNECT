@@ -86,6 +86,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
      * @return The service class for this web service.
      */
 
+    @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
             AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         LOG.debug("Begin respondingGatewayPRPAIN201305UV02");

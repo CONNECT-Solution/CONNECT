@@ -86,6 +86,7 @@ public class EntityDocQueryProxyWebServiceSecuredImpl implements EntityDocQueryP
      * @param target TargetCommunities to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");

@@ -37,6 +37,7 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory extends C
     private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterpatientdiscoveryasyncreqerror";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

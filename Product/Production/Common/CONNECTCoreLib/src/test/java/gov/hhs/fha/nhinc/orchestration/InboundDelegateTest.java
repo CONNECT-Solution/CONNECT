@@ -69,6 +69,7 @@ public class InboundDelegateTest {
 
     public class NhinDelegateImpl implements OutboundDelegate {
 
+        @Override
         public OutboundOrchestratable process(OutboundOrchestratable message) {
             return null;
         }

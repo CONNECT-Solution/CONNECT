@@ -46,6 +46,7 @@ public class AdapterXDRSecuredRequestError implements gov.hhs.fha.nhinc.adapterx
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType body) {
         return new AdapterXDRSecuredRequestErrorImpl().provideAndRegisterDocumentSetBRequestError(body, context);

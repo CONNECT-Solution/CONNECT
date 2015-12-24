@@ -46,10 +46,12 @@ public abstract class AbstractOrchestrable implements Orchestratable {
         policyTransformer = pt;
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         return policyTransformer;
     }
 
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }

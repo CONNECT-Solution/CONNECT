@@ -69,6 +69,7 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
      * @param request The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request, AssertionType assertion) {
         LOG.trace("Begin AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();

@@ -53,6 +53,7 @@ public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterau
      *         identifier
      */
     @WebMethod
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
 

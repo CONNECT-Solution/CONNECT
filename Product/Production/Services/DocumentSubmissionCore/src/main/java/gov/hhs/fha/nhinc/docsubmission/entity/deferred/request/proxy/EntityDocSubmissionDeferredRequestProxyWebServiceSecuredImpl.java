@@ -69,6 +69,7 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implem
                 url, assertion);
     }
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {

@@ -362,6 +362,7 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(NhincConstants.ACTION_PROP);
     }
 
+    @Override
     public String getServiceName() {
         return getNullSafeString(NhincConstants.SERVICE_NAME);
     }

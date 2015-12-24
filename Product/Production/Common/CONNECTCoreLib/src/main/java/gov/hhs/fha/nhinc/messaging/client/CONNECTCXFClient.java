@@ -57,15 +57,18 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
     }
 
 
+    @Override
     public T getPort() {
         return serviceEndpoint.getPort();
     }
 
+    @Override
     public void enableMtom() {
         serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint.configure();
     }
 
+    @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
         serviceEndpoint.configure();

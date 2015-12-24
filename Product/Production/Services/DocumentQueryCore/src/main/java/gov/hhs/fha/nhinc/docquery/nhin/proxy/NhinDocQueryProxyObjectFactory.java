@@ -39,6 +39,7 @@ public class NhinDocQueryProxyObjectFactory extends ComponentProxyObjectFactory 
     /**
      * @return CONFIG_FILE_NAME This is the filename where the Bean needs to be read to send DocQuery Requests.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

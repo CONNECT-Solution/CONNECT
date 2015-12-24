@@ -54,6 +54,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcess implements gov.hhs.f
      * @return response
      */
     @WebMethod
+    @Override
     public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(
             PatientDiscoveryDeferredReqQueueProcessRequestType request) {
         return getAdapterPatientDiscoveryDeferredReqQueueProcessImpl().processPatientDiscoveryDeferredReqQueue(request,

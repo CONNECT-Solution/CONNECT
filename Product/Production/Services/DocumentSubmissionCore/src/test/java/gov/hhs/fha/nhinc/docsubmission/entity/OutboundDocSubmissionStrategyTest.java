@@ -117,6 +117,7 @@ public class OutboundDocSubmissionStrategyTest {
 
     private OutboundDocSubmissionStrategyImpl_g0 createOutboundDocSubmissionStrategyImpl_g0() {
         return new OutboundDocSubmissionStrategyImpl_g0() {
+            @Override
             protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
                 return mockProxy;
             }
@@ -125,6 +126,7 @@ public class OutboundDocSubmissionStrategyTest {
 
     private OutboundDocSubmissionStrategyImpl_g1 createOutboundDocSubmissionStrategyImpl_g1() {
         return new OutboundDocSubmissionStrategyImpl_g1() {
+            @Override
             protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
                 return mockProxy;
             }

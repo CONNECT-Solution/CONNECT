@@ -58,6 +58,7 @@ public class AdapterPatientDiscoveryProxyObjectFactory extends ComponentProxyObj
      *
      * @return The name of the config file.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
@@ -71,6 +72,7 @@ public class AdapterPatientDiscoveryProxyObjectFactory extends ComponentProxyObj
         return getBean(BEAN_NAME_MPI, AdapterPatientDiscoveryProxy.class);
     }
 
+    @Override
     public AdapterPatientDiscoveryProxy create() {
         return getBean(BEAN_NAME_MPI, AdapterPatientDiscoveryProxy.class);
     }

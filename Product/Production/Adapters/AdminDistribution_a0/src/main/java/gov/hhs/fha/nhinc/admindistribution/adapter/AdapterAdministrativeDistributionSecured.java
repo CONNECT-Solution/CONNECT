@@ -52,6 +52,7 @@ public class AdapterAdministrativeDistributionSecured implements gov.hhs.fha.nhi
     }
 
     @WebMethod
+    @Override
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType body) {
 

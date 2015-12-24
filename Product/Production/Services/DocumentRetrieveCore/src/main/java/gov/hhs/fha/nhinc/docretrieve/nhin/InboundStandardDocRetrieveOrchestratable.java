@@ -108,6 +108,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @return the assertion
      */
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -115,6 +116,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @param assertion the assertion to set
      */
+    @Override
     public void setAssertion(AssertionType assertion) {
         this.assertion = assertion;
     }
@@ -122,6 +124,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @param request the request to set
      */
+    @Override
     public void setRequest(RetrieveDocumentSetRequestType request) {
         this.request = request;
     }
@@ -129,14 +132,17 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @param response the response to set
      */
+    @Override
     public void setResponse(RetrieveDocumentSetResponseType response) {
         this.response = response;
     }
 
+    @Override
     public Properties getWebContextProperties() {
         return webContextProperties;
     }
 
+    @Override
     public void setWebContextProperties(Properties webContextProperties) {
         this.webContextProperties = webContextProperties;
     }

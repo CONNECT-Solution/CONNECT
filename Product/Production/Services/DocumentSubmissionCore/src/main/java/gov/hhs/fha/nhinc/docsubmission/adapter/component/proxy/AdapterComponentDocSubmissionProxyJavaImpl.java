@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocSubmissionProxyJavaImpl implements AdapterComponentDocSubmissionProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionProxyJavaImpl.class);
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Doc Submission Service");

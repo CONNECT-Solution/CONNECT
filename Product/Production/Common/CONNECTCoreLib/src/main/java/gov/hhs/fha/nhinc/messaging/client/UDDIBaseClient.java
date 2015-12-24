@@ -60,6 +60,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     }
 
+    @Override
     public T getPort() {
         return serviceEndpoint.getPort();
     }

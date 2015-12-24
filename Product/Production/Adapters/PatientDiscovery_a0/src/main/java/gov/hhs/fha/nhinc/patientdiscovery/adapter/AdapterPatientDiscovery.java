@@ -42,6 +42,7 @@ public class AdapterPatientDiscovery implements gov.hhs.fha.nhinc.adapterpatient
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
             org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
         return new AdapterPatientDiscoveryImpl().respondingGatewayPRPAIN201305UV02(false,

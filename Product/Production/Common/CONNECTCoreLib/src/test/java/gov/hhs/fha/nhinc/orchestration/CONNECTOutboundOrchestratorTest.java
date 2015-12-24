@@ -94,22 +94,27 @@ public class CONNECTOutboundOrchestratorTest {
             return test.new NhinDelegateImpl();
         }
 
+        @Override
         public boolean isPassthru() {
             return true;
         }
 
+        @Override
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }
 
+        @Override
         public NhinAggregator getAggregator() {
             return null;
         }
 
+        @Override
         public AssertionType getAssertion() {
             return null;
         }
 
+        @Override
         public String getServiceName() {
             return "";
         }

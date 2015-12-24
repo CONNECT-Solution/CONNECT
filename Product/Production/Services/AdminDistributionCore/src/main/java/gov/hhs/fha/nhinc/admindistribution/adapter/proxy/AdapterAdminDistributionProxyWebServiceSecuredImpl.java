@@ -103,6 +103,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
             version = "")
+    @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
         String url = getUrl();

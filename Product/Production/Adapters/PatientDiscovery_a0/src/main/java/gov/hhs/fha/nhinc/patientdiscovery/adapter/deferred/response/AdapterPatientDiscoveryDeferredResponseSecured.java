@@ -42,6 +42,7 @@ public class AdapterPatientDiscoveryDeferredResponseSecured implements
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
             org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType processPatientDiscoveryAsyncRespAsyncRequest) {
         return new AdapterPatientDiscoverySecuredDeferredResponseImpl().processPatientDiscoveryAsyncResp(

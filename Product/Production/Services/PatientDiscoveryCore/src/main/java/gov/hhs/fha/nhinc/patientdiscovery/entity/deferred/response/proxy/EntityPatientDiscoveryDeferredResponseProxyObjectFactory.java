@@ -42,6 +42,7 @@ public class EntityPatientDiscoveryDeferredResponseProxyObjectFactory extends Co
      *
      * @return The name of the config file.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

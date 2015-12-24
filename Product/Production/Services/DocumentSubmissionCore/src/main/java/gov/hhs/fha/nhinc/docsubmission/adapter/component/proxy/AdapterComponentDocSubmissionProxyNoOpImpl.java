@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocSubmissionProxyNoOpImpl implements AdapterComponentDocSubmissionProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionProxyNoOpImpl.class);
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");

@@ -112,6 +112,7 @@ public class HibernateAccessorTest {
     private HibernateAccessor createHibernateAccessor() throws PropertyAccessException {
         setMockPropertyAccessorExpectations();
         return new HibernateAccessor() {
+            @Override
             protected PropertyAccessor getPropertyAccessor() {
                 return mockPropertyAccessor;
             }
@@ -121,6 +122,7 @@ public class HibernateAccessorTest {
     private HibernateAccessor createBadHibernateAccessor() throws PropertyAccessException {
         setMockPropertyAccessorExpectationsWithWrongFileLocation();
         return new HibernateAccessor() {
+            @Override
             protected PropertyAccessor getPropertyAccessor() {
                 return mockPropertyAccessor;
             }

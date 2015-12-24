@@ -36,6 +36,7 @@ public class AdapterComponentDocRepositoryProxyObjectFactory extends ComponentPr
     private static final String CONFIG_FILE_NAME = "DocumentRetrieveProxyConfig.xml";
     private static final String BEAN_NAME = "adapterdocumentrepository";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

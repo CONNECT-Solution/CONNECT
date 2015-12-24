@@ -115,12 +115,14 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @param value the property value
      * @throws PropertyAccessException the property access exception
      */
+    @Override
     public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
         loadPropertyFile(propertyFileName);
 
         propertyFileDAO.setProperty(propertyFileName, key, value);
     }
 
+    @Override
     public String getPropertyComment(String propertyFileName, String key) throws PropertyAccessException {
         loadPropertyFile(propertyFileName);
 
@@ -138,6 +140,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @throws PropertyAccessException This is thrown if an error occurs
      * accessing the property.
      */
+    @Override
     public synchronized boolean getPropertyBoolean(String propertyFile, String propertyName) throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
         loadPropertyFile(propertyFile);

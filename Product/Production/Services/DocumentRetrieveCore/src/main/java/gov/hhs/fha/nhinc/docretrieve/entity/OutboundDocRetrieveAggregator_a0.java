@@ -58,6 +58,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
      * @param to The orchestratable which contains the aggregated message
      * @param from The orchestratable which contains the message to be aggregated
      */
+    @Override
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
         if (to instanceof OutboundDocRetrieveOrchestratable) {
 

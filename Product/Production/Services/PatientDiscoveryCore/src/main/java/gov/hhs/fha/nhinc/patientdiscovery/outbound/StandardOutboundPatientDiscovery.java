@@ -108,6 +108,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param regularExecutor
      * @param largeJobExecutor
      */
+    @Override
     public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
         this.regularExecutor = regularExecutor;
         this.largejobExecutor = largeJobExecutor;

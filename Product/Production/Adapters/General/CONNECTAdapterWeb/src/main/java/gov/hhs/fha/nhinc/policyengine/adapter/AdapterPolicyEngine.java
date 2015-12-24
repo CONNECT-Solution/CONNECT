@@ -41,6 +41,7 @@ public class AdapterPolicyEngine implements gov.hhs.fha.nhinc.adapterpolicyengin
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return new AdapterPolicyEngineImpl().checkPolicy(checkPolicyRequest, context);

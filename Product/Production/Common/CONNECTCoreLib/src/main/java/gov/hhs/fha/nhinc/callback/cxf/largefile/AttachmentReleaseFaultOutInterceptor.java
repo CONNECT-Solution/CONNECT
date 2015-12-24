@@ -60,6 +60,7 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
      *
      * @param message The message object of the session
      */
+    @Override
     public void handleMessage(Message message) {
         Collection<Attachment> attachments = message.getExchange().getInMessage().getAttachments();
         if (attachments != null) {

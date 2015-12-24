@@ -140,6 +140,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return delegate.
      */
+    @Override
     public OutboundDelegate getDelegate() {
         return delegate;
     }
@@ -149,6 +150,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
      *
      * @return Null.
      */
+    @Override
     public NhinAggregator getAggregator() {
         return aggregator;
     }
@@ -156,6 +158,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return absent processor. Does not exists for DQ.
      */
+    @Override
     public Optional<OutboundResponseProcessor> getResponseProcessor() {
         return Optional.absent();
     }
@@ -163,6 +166,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return policyTransformer to check policy.
      */
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         return policyTransformer;
     }
@@ -170,6 +174,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return assertion.
      */
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -177,6 +182,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return ServiceName (DocumentQuery).
      */
+    @Override
     public String getServiceName() {
         return serviceName;
     }
@@ -198,6 +204,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return false if not in passthru mode.
      */
+    @Override
     public boolean isPassthru() {
         return false;
     }

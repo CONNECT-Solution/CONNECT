@@ -146,6 +146,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
      *
      * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
      */
+    @Override
     public boolean isInboundStandard() {
         boolean isStandard = false;
         NhinAdministrativeDistribution nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());

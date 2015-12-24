@@ -46,6 +46,7 @@ public class AdapterDocSubmissionUnsecured implements gov.hhs.fha.nhinc.adapterx
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);

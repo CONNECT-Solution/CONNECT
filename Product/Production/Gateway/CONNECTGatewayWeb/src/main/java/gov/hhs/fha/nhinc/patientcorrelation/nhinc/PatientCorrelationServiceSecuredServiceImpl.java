@@ -55,6 +55,7 @@ public class PatientCorrelationServiceSecuredServiceImpl
         this.orchestration = orchestration;
     }
 
+    @Override
     public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsSecuredRequestType request, AssertionType assertion) {
         RetrievePatientCorrelationsSecuredResponseType response = new RetrievePatientCorrelationsSecuredResponseType();
@@ -69,6 +70,7 @@ public class PatientCorrelationServiceSecuredServiceImpl
         return response;
     }
 
+    @Override
     public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
             AddPatientCorrelationSecuredRequestType request, AssertionType assertion) {
         AddPatientCorrelationSecuredResponseType response = new AddPatientCorrelationSecuredResponseType();

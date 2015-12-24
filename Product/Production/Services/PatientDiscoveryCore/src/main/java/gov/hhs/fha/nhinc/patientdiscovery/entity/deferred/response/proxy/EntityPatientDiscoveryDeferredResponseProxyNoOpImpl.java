@@ -43,6 +43,7 @@ public class EntityPatientDiscoveryDeferredResponseProxyNoOpImpl implements Enti
     private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryDeferredResponseProxyNoOpImpl.class);
 
 
+    @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 body, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         LOG.debug("Begin EntityPatientDiscoveryDeferredResponseProxyNoOpImpl.processPatientDiscoveryAsyncResp(...)");

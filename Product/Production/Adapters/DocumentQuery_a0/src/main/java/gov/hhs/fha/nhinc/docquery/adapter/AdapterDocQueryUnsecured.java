@@ -42,6 +42,7 @@ public class AdapterDocQueryUnsecured implements gov.hhs.fha.nhinc.adapterdocque
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
         return new AdapterDocQueryImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest,

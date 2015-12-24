@@ -61,6 +61,7 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
         return new EntityDocSubmissiona0ServicePortDescriptor();
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         LOG.debug("Begin EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");

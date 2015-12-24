@@ -32,6 +32,7 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory extends 
     private static final String CONFIG_FILE_NAME = "DocumentSubmissionDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterxdrrequesterror";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

@@ -74,26 +74,32 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
         this.request = r;
     }
 
+    @Override
     public OutboundDelegate getDelegate() {
         return delegate;
     }
 
+    @Override
     public NhinAggregator getAggregator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public Optional<OutboundResponseProcessor> getResponseProcessor() {
         return processor;
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         return policyTransformer;
     }
 
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
 
+    @Override
     public String getServiceName() {
         return serviceName;
     }
@@ -106,6 +112,7 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
         return request;
     }
 
+    @Override
     public boolean isPassthru() {
         return false;
     }

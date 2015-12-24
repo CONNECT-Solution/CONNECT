@@ -47,6 +47,7 @@ import javax.xml.ws.soap.Addressing;
 public class EntityDocRetrieveUnSecuredProxy extends BaseService implements EntityDocRetrievePortType {
 
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "3.0")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RespondingGatewayCrossGatewayRetrieveRequestType request) {
 

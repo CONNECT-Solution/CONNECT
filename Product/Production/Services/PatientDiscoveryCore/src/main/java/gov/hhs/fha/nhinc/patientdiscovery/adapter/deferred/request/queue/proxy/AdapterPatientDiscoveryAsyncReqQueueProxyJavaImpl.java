@@ -51,6 +51,7 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements Adapte
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
+    @Override
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
         LOG.trace("Entering AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");

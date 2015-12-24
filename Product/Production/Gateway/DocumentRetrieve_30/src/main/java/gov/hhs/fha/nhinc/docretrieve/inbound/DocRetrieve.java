@@ -60,6 +60,7 @@ public class DocRetrieve extends BaseService implements RespondingGatewayRetriev
      * @return the document set of the retrieve
      */
     @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "3.0")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
         AssertionType assertion = getAssertion(context, null);
         if (assertion != null) {

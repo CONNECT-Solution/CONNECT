@@ -81,6 +81,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             serviceType = "Document Submission Deferred Request",
             version = "")
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         LOG.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");

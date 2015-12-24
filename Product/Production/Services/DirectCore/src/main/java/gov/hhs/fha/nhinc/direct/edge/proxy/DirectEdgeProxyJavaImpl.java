@@ -44,6 +44,7 @@ public class DirectEdgeProxyJavaImpl implements DirectEdgeProxy {
     /**
      * {@inheritDoc}
      */
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
         LOG.debug("Using Java Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();

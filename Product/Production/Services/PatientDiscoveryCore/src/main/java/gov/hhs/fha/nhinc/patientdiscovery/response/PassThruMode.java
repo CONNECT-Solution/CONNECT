@@ -44,6 +44,7 @@ public class PassThruMode implements ResponseMode {
         super();
     }
 
+    @Override
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         // In pass through mode, no additional processing is done by the Entity.
         // 201306 is returned directly to the agency.
@@ -51,6 +52,7 @@ public class PassThruMode implements ResponseMode {
         return params.response;
     }
 
+    @Override
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId) {
         return response;
     }

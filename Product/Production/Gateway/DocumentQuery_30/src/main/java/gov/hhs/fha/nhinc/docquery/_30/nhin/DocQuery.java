@@ -61,6 +61,7 @@ public class DocQuery implements RespondingGatewayQueryPortType {
     @InboundMessageEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "3.0")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
         return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
     }

@@ -43,6 +43,7 @@ public class AdapterDocRetrieveSecured implements gov.hhs.fha.nhinc.adapterdocre
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return new AdapterDocRetrieveImpl().respondingGatewayCrossGatewayRetrieveSecured(body, context);

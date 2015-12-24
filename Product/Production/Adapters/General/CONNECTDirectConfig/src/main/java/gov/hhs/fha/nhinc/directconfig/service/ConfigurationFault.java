@@ -96,6 +96,7 @@ public class ConfigurationFault extends Exception {
      *
      * @return the value of message.
      */
+    @Override
     public String getMessage() {
         return message;
     }

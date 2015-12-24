@@ -33,6 +33,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity.proxy.description;
  */
 public class EntityDocSubmissiona0ServicePortDescriptor extends EntityDocSubmissionAbstractServicePortDescriptor {
 
+    @Override
     public String getWSAddressingAction() {
         return "urn:gov:hhs:fha:nhinc:nhincentityxdr:ProvideAndRegisterDocumentSet-b";
     }

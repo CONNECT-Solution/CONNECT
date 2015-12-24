@@ -64,6 +64,7 @@ public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinc
     }
 
     @WebMethod
+    @Override
     public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsSecuredRequestType request) {
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
@@ -71,6 +72,7 @@ public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinc
     }
 
     @WebMethod
+    @Override
     public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
             AddPatientCorrelationSecuredRequestType request) {
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);

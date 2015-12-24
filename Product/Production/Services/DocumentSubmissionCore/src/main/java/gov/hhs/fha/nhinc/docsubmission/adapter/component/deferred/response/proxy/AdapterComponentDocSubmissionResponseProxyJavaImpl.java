@@ -51,6 +51,7 @@ public class AdapterComponentDocSubmissionResponseProxyJavaImpl implements Adapt
      * @param assertion The assertion information.
      * @return The ACK
      */
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
         LOG.trace("Entering AdapterComponentDocSubmissionResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");

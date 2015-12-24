@@ -52,6 +52,7 @@ public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements Adapte
      * @param url The URL
      * @return The ACK
      */
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         LOG.trace("Entering AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");

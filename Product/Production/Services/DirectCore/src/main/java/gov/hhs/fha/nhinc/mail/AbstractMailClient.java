@@ -50,6 +50,7 @@ public abstract class AbstractMailClient implements MailClient {
     /**
      * @return the mailSession
      */
+    @Override
     public Session getMailSession() {
         return mailSession;
     }

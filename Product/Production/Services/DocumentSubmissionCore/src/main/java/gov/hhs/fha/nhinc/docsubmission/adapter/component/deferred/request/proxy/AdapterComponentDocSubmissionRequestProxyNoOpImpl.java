@@ -50,6 +50,7 @@ public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements Adapte
      * @param url The URL
      * @return The ACK
      */
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
 

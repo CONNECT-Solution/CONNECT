@@ -46,6 +46,7 @@ public class AdapterXDRResponseSecured implements gov.hhs.fha.nhinc.adapterxdrre
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
             oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         return new AdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);

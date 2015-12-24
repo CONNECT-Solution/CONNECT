@@ -43,6 +43,7 @@ public class EntityDocQueryProxyJavaImpl implements EntityDocQueryProxy {
      * @param targets TargetCommunities to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
 

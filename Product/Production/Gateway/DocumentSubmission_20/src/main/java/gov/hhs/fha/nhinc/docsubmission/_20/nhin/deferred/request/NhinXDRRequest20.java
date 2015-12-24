@@ -56,6 +56,7 @@ public class NhinXDRRequest20 implements XDRDeferredRequest20PortType {
     @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "2.0",
             beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl20(inboundDocSubmissionRequest)

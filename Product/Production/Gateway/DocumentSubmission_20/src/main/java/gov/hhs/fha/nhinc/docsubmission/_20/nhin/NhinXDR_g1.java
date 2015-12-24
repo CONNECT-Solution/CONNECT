@@ -57,12 +57,14 @@ public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
     @InboundMessageEvent(serviceType = "Document Submission", version = "2.0",
             beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
+    @Override
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl_g1(inboundDocSubmission).documentRepositoryProvideAndRegisterDocumentSetB(
                 body, context);
     }
 
+    @Override
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }

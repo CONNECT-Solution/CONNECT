@@ -35,6 +35,7 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service;
 public class NhinDocSubmissionServicePortDescriptor extends AbstractServicePortDescriptor {
 
 
+    @Override
     public String getWSAddressingAction() {
         return "urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b";
     }

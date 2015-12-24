@@ -52,6 +52,7 @@ public class PatientCorrelationServiceUnsecuredImpl
         this.orchestration = orchestration;
     }
 
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest, AssertionType assertionType) {
 
@@ -62,6 +63,7 @@ public class PatientCorrelationServiceUnsecuredImpl
                 retrievePatientCorrelationsRequest.getAssertion());
     }
 
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(
             AddPatientCorrelationRequestType addPatientCorrelationRequest, AssertionType assertionType) {
 

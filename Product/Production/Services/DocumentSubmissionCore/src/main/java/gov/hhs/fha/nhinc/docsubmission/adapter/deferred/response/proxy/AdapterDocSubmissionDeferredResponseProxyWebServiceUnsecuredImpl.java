@@ -71,6 +71,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
     @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
         LOG.debug("Begin AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");

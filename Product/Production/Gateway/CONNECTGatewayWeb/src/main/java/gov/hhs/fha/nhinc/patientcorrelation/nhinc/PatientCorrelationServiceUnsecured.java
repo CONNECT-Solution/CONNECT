@@ -68,6 +68,7 @@ public class PatientCorrelationServiceUnsecured implements
     }
 
     @WebMethod
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         AssertionType assertionType = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
@@ -79,6 +80,7 @@ public class PatientCorrelationServiceUnsecured implements
     }
 
     @WebMethod
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(
             AddPatientCorrelationRequestType addPatientCorrelationRequest) {
         AssertionType assertionType = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);

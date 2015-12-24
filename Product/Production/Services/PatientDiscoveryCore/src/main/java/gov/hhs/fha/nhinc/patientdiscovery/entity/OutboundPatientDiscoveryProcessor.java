@@ -253,6 +253,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      * @param error is String with error message
      * @return
      */
+    @Override
     public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error) {
         LOG.debug("EntityPatientDiscoveryProcessor::processErrorResponse error=" + error);
         return processError((OutboundPatientDiscoveryOrchestratable) request, error);

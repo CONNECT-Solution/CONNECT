@@ -52,12 +52,14 @@ public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterCompon
     private String mimeType;
     private String document;
 
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
         return createRetrieveDocumentSetResponseType();
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");

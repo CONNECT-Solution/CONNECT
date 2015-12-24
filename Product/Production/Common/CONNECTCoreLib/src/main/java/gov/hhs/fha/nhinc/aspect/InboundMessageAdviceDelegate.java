@@ -48,11 +48,13 @@ public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate  {
         this.eventFactory = eventFactory;
     }
 
+    @Override
     protected Event createBeginEvent() {
         return eventFactory.createBeginInboundMessage();
     }
 
 
+    @Override
     protected Event createEndEvent() {
         return eventFactory.createEndInboundMessage();
     }

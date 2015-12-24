@@ -47,6 +47,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
         proxyHelper = new WebServiceProxyHelper();
     }
 
+    @Override
     public abstract T getPort();
 
     @Override

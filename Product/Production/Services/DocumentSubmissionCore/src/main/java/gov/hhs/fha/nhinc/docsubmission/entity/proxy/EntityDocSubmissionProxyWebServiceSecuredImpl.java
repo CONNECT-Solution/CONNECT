@@ -60,6 +60,7 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
         return new EntityDocSubmissionSecureda0ServicePortDescriptor();
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         LOG.debug("Begin EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");

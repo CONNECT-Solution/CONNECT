@@ -76,6 +76,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
      * @param request
      * @return AdhocQueryResponse
      */
+    @Override
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin registryStoredQuery");
         AdhocQueryResponse response = null;

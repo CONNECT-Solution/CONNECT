@@ -84,22 +84,27 @@ public class OutboundOrchestratableTest {
             return null;
         }
 
+        @Override
         public boolean isPassthru() {
             return false;
         }
 
+        @Override
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }
 
+        @Override
         public AssertionType getAssertion() {
             return null;
         }
 
+        @Override
         public String getServiceName() {
             return "";
         }
 
+        @Override
         public NhinAggregator getAggregator() {
             return null;
         }

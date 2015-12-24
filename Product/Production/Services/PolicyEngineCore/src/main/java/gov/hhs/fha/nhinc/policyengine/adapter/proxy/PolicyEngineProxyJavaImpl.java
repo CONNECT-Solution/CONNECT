@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 public class PolicyEngineProxyJavaImpl implements PolicyEngineProxy {
     private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyJavaImpl.class);
 
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineWebServiceProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType response;

@@ -91,6 +91,7 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      * Returns a new port or one from the cache. The port will be configured for thread safety and reuse.
      */
     @SuppressWarnings("unchecked")
+    @Override
     public synchronized T createPort() {
         T port = (T) getCache().get(serviceEndpointClass);
         if (port == null) {

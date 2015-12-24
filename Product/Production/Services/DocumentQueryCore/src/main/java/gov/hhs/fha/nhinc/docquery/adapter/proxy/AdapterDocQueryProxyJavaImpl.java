@@ -52,6 +52,7 @@ public class AdapterDocQueryProxyJavaImpl implements AdapterDocQueryProxy {
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Using Java Implementation for Adapter Doc Query Service");
         return new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion);

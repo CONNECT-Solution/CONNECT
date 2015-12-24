@@ -60,6 +60,7 @@ public class EntityPatientDiscoveryDeferredResponseUnsecured extends BaseService
             afterReturningBuilder =  MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
+    @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType request) {
         AssertionType assertion = getAssertion(context, request.getAssertion());
 

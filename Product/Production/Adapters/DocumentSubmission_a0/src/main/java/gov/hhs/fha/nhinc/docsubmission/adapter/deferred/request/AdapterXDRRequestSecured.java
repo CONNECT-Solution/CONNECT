@@ -46,6 +46,7 @@ public class AdapterXDRRequestSecured implements gov.hhs.fha.nhinc.adapterxdrreq
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body) {
         return new AdapterXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);

@@ -83,6 +83,7 @@ public class EventCodeDaoTest {
                 return sessionFactory;
             }
 
+            @Override
             protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
                 List<Long> DocumentIds = new ArrayList<Long>();
                 return DocumentIds;

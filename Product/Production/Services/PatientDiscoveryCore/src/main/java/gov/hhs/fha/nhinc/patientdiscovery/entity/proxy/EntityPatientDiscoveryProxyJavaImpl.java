@@ -48,6 +48,7 @@ public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscove
         return new StandardOutboundPatientDiscovery();
     }
 
+    @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
             AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         LOG.debug("Begin respondingGatewayPRPAIN201305UV02");

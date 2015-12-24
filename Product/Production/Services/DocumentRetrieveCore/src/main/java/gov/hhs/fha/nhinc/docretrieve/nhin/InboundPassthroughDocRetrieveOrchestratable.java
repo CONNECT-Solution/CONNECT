@@ -107,6 +107,7 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
     /**
      * @return the assertion
      */
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -114,6 +115,7 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
     /**
      * @param assertion the assertion to set
      */
+    @Override
     public void setAssertion(AssertionType assertion) {
         this.assertion = assertion;
     }
@@ -134,10 +136,12 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
         this.response = response;
     }
 
+    @Override
     public Properties getWebContextProperties() {
         return webContextProperties;
     }
 
+    @Override
     public void setWebContextProperties(Properties webContextProperties) {
         this.webContextProperties = webContextProperties;
     }

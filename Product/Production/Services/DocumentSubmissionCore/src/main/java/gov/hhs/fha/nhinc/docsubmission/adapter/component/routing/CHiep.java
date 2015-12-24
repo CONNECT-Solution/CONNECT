@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  * @author dunnek
  */
 public class CHiep implements XDRRouting {
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion) {
         return null;

@@ -40,6 +40,7 @@ public class EntityAdminDistributionProxyNoOpImpl implements EntityAdminDistribu
      * @param assertion Assertion received.
      * @param target NhinTargetCommunity receievd.
      */
+    @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target) {
 
     }

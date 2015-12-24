@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 public class PolicyEngineProxyNoOpImpl implements PolicyEngineProxy {
     private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyNoOpImpl.class);
 
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineNoOpImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();

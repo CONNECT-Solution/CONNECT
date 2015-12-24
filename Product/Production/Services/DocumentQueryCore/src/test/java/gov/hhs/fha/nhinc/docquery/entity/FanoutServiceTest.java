@@ -107,7 +107,8 @@ public class FanoutServiceTest {
                 .thenReturn(retrievePatientCorrelationsResponseType);
 
         when(standardDocQueryHelper.lookupHomeCommunityId(any(String.class), any(String.class))).thenReturn(
-                new HomeCommunityType() {public String getHomeCommunityId() { return "1.1";}});
+                new HomeCommunityType() {@Override
+                public String getHomeCommunityId() { return "1.1";}});
 
         List<OutboundOrchestratable> results = service.createChildRequests(adhocQueryRequest, assertion, targets);
         assertEquals(1, results.size());

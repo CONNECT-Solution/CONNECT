@@ -54,6 +54,7 @@ public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistri
     @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
             version = "")
+    @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
         getAdapterImplementation().sendAlertMessage(body, assertion);

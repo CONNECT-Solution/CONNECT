@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocRegistryProxyJavaImpl implements AdapterComponentDocRegistryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyJavaImpl.class);
 
+    @Override
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Component Doc Registry Service");
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(request);

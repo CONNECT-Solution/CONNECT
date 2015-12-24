@@ -64,6 +64,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
      * @param the message
      * @return the inbound orchestrable
      */
+    @Override
     public InboundOrchestratable process(InboundOrchestratable message) {
 
         OrchestrationContext context = new OrchestrationContext(new InboundDocRetrieveStrategyImpl(), message);
@@ -71,6 +72,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
         return (InboundOrchestratable) context.execute();
     }
 
+    @Override
     public void createErrorResponse(InboundOrchestratable message, String error) {
         if (message == null) {
             LOG.debug("NhinOrchestratable was null");

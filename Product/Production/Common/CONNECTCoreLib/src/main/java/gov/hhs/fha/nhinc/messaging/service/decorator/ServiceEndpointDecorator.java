@@ -47,18 +47,22 @@ public abstract class ServiceEndpointDecorator<T> implements ServiceEndpoint<T> 
      * This method will configure the service endpoint according to the decorator. Any implementation of this method
      * must take into account that the endpoint may be a static resource.
      */
+    @Override
     public void configure() {
         decoratedEndpoint.configure();
     }
 
+    @Override
     public T getPort() {
         return decoratedEndpoint.getPort();
     }
 
+    @Override
     public HTTPClientPolicy getHTTPClientPolicy() {
         return decoratedEndpoint.getHTTPClientPolicy();
     }
 
+    @Override
     public SOAPBinding getSOAPBinding() {
         return decoratedEndpoint.getSOAPBinding();
     }

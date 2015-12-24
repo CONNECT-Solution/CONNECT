@@ -41,6 +41,7 @@ public class AdapterPatientDiscoveryDeferredRequestErrorSecured implements gov.h
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(
             org.hl7.v3.AsyncAdapterPatientDiscoveryErrorSecuredRequestType processPatientDiscoveryAsyncReqErrorRequest) {
         return new AdapterPatientDiscoverySecuredDeferredRequestErrorImpl().processPatientDiscoveryAsyncReqError(

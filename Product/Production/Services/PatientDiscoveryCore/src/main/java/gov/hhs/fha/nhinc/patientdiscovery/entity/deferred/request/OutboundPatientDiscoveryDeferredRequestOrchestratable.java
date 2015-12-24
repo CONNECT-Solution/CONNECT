@@ -75,6 +75,7 @@ public class OutboundPatientDiscoveryDeferredRequestOrchestratable implements Ou
         throw new UnsupportedOperationException("Patient Discovery Deferred Req does not support aggregation.");
     }
 
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -107,14 +108,17 @@ public class OutboundPatientDiscoveryDeferredRequestOrchestratable implements Ou
         this.target = target;
     }
 
+    @Override
     public String getServiceName() {
         return NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME;
     }
 
+    @Override
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

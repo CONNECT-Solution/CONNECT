@@ -41,11 +41,13 @@ public class UDDIFindBusinessProxyNoOpImpl extends UDDIFindBusinessProxyBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(UDDIFindBusinessProxyNoOpImpl.class);
 
+    @Override
     public BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException {
         LOG.debug("Using NoOp Implementation for UDDI Business Info Service");
         return new BusinessList();
     }
 
+    @Override
     public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException {
         return new BusinessDetail();
     }

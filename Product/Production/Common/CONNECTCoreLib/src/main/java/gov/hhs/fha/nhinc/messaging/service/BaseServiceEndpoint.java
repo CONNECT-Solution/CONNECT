@@ -48,18 +48,22 @@ public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
         this.port = port;
     }
 
+    @Override
     public void configure() {
         // DO NOTHING
     }
 
+    @Override
     public T getPort() {
         return this.port;
     }
 
+    @Override
     final public HTTPClientPolicy getHTTPClientPolicy() {
         return getHTTPClientPolicy((BindingProvider) getPort());
     }
 
+    @Override
     final public SOAPBinding getSOAPBinding() {
         return (SOAPBinding) ((BindingProvider) getPort()).getBinding();
     }

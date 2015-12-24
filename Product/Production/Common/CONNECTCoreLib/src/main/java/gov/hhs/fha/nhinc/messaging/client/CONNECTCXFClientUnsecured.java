@@ -42,6 +42,7 @@ public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
         serviceEndpoint.configure();
     }
 
+    @Override
     public T getPort() {
         return serviceEndpoint.getPort();
     }

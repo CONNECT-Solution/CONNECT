@@ -50,6 +50,7 @@ public class AdapterPolicyEngineOrchProxyPermitNoOpImpl implements AdapterPolicy
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPolicyEngineOrchProxyPermitNoOpImpl.checkPolicy");
         CheckPolicyResponseType oPolicyResponse = new CheckPolicyResponseType();

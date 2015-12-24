@@ -44,6 +44,7 @@ public class OutboundPatientDiscoveryDeferredResponseDelegate implements Outboun
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryDeferredResponseDelegate.class);
 
+    @Override
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
             return process((OutboundOrchestratable) message);

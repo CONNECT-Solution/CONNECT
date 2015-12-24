@@ -61,6 +61,7 @@ public class MockDirectRIAuditorTest extends DirectRIAuditorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    @Override
     public void testWithAllNulls() {
         DirectRIAuditor auditor = getDirectRIAuditor();
         auditor.audit(null, null, null, null);

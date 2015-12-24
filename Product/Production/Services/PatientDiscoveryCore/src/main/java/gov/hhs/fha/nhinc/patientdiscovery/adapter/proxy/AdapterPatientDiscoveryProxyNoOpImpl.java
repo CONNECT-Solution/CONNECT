@@ -54,6 +54,7 @@ public class AdapterPatientDiscoveryProxyNoOpImpl implements AdapterPatientDisco
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
             afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
             version = "1.0")
+    @Override
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion) {
 
         LOG.debug("Entering AdapterPatientDiscoveryProxyNoOpImpl.respondingGatewayPRPAIN201305UV02");

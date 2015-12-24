@@ -42,6 +42,7 @@ import org.slf4j.LoggerFactory;
 public class EntityDocSubmissionDeferredResponseProxyNoOpImpl implements EntityDocSubmissionDeferredResponseProxy {
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("Using NoOp Implementation for Entity Doc Submission Deferred Response Service");

@@ -46,6 +46,7 @@ public class AdapterDocSubmissionProxyJavaImpl implements AdapterDocSubmissionPr
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
             version = "")
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Doc Submission Service");

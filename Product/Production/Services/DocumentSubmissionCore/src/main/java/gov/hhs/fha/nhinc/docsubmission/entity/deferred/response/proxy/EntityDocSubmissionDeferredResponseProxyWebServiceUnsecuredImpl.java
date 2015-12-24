@@ -59,6 +59,7 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl imp
         return new WebServiceProxyHelper();
     }
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.debug("Begin provideAndRegisterDocumentSetBAsyncResponse");

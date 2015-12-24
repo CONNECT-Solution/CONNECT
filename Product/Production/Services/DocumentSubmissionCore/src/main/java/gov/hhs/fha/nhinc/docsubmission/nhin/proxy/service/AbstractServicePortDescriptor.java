@@ -53,6 +53,7 @@ public abstract class AbstractServicePortDescriptor extends SOAP12ServicePortDes
         return PORT_LOCAL_PART;
     }
 
+    @Override
     public Class<DocumentRepositoryXDRPortType> getPortClass() {
         return DocumentRepositoryXDRPortType.class;
     }

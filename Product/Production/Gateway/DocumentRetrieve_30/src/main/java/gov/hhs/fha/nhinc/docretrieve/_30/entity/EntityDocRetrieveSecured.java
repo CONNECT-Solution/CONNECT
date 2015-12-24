@@ -55,6 +55,7 @@ public class EntityDocRetrieveSecured extends BaseService implements EntityDocRe
     private WebServiceContext context;
 
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "3.0")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
         AssertionType assertion = getAssertion(context, null);
 

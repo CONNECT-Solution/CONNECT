@@ -38,26 +38,32 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
  */
 public class TestOrchestratable implements OutboundOrchestratable {
 
+    @Override
     public boolean isPassthru() {
         return false;
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         return null;
     }
 
+    @Override
     public AssertionType getAssertion() {
         return null;
     }
 
+    @Override
     public String getServiceName() {
         return null;
     }
 
+    @Override
     public OutboundDelegate getDelegate() {
         return null;
     }
 
+    @Override
     public NhinAggregator getAggregator() {
         return null;
     }

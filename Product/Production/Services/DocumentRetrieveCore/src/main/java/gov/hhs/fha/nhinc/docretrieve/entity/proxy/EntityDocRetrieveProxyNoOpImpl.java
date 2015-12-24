@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 public class EntityDocRetrieveProxyNoOpImpl implements EntityDocRetrieveProxy {
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocRetrieveProxyNoOpImpl.class);
 
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("begin respondingGatewayCrossGatewayRetrieve()");

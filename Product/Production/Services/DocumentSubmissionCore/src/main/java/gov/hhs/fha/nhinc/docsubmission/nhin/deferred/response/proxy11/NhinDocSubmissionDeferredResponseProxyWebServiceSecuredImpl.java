@@ -80,6 +80,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DeferredResponseDescriptionBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
         LOG.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");

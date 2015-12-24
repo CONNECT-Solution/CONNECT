@@ -39,6 +39,7 @@ public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObj
     /**
     * @return CONFIG_FILE_NAME FileName to read AdapterAuditQueryProxy Bean info.
     */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

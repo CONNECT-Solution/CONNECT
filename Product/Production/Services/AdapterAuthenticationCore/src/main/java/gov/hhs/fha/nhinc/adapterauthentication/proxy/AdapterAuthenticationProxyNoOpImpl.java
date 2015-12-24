@@ -40,6 +40,7 @@ public class AdapterAuthenticationProxyNoOpImpl implements AdapterAuthentication
      *
      * @return a response indicating no authentication service is set-up.
      */
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
         authResp.setIsAuthenticationAvailable(false);

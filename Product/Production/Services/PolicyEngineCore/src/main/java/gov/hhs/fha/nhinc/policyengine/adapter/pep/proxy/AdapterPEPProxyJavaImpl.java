@@ -47,6 +47,7 @@ public class AdapterPEPProxyJavaImpl implements AdapterPEPProxy {
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPEPProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();

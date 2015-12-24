@@ -46,6 +46,7 @@ public class AdapterXDRRequest implements gov.hhs.fha.nhinc.adapterxdrrequest.Ad
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);

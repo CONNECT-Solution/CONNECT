@@ -49,6 +49,7 @@ public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy {
     public EntityDocRetrieveProxyJavaImpl() {
     }
 
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();

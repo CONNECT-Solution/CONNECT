@@ -61,6 +61,7 @@ public class VerifyMode implements ResponseMode {
         super();
     }
 
+    @Override
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         PRPAIN201306UV02 response = params.response;
         AssertionType assertion = params.assertion;
@@ -69,6 +70,7 @@ public class VerifyMode implements ResponseMode {
         return processResponse(requestMsg, response, assertion);
     }
 
+    @Override
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId) {
         LOG.debug("begin processResponse");
 

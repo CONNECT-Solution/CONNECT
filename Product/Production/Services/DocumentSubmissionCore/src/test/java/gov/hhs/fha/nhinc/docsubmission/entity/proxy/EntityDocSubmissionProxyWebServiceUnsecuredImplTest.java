@@ -123,10 +123,12 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
 
     private EntityDocSubmissionProxyWebServiceUnsecuredImpl createProxyImpl() {
         return new EntityDocSubmissionProxyWebServiceUnsecuredImpl() {
+            @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return mockProxyHelper;
             }
 
+            @Override
             protected CONNECTClient<EntityXDRPortType> getCONNECTClient(
                     ServicePortDescriptor<EntityXDRPortType> portDescriptor, String url, AssertionType assertion) {
                 return mockCONNECTClient;

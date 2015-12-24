@@ -49,6 +49,7 @@ public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.E
     @OutboundMessageEvent(beforeBuilder = AdhocQueryRequestTransformingBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "2.0")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
             RespondingGatewayCrossGatewayQuerySecuredRequestType body) {
         return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQuerySecured(body, context);

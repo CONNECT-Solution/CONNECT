@@ -43,12 +43,14 @@ import org.slf4j.LoggerFactory;
 public class AdapterRedactionEngineProxyNoOpImpl implements AdapterRedactionEngineProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterRedactionEngineProxyNoOpImpl.class);
 
+    @Override
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Redaction Engine Service");
         return adhocQueryResponse;
     }
 
+    @Override
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {

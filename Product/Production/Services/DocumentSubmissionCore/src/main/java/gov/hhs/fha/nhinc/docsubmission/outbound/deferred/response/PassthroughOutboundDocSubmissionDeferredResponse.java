@@ -48,6 +48,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         auditLogger = getAuditLogger();
     }
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType body,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 

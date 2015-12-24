@@ -161,12 +161,15 @@ public class PropertyAccessorTest {
 
     private PropertyAccessor createPropertyAccessor() {
         PropertyAccessor propAccessor = new PropertyAccessor() {
+            @Override
             protected PropertyFileDAO createPropertyFileDAO() {
                 return mockFileDAO;
             }
 
+            @Override
             protected PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {
                 return new PropertyAccessorFileUtilities() {
+                    @Override
                     public String getPropertyFileLocation(String propertyFileName) {
                         return PROPERTY_FILE_LOCATION_WITH_FILE;
                     }

@@ -56,6 +56,7 @@ public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPI
      * @throws AdapterPIPException This exception is thrown if the data cannot be retrieved.
      */
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType retrievePtConsentByPtIdRequest) {
         return getAdapterPIPServiceImpl().retrievePtConsentByPtId(retrievePtConsentByPtIdRequest,
@@ -69,6 +70,7 @@ public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPI
      * @return The patient consent settings for the patient associated with the given document identifiers.
      */
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType retrievePtConsentByPtDocIdRequest) {
         return getAdapterPIPServiceImpl().retrievePtConsentByPtDocId(retrievePtConsentByPtDocIdRequest,
@@ -83,6 +85,7 @@ public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPI
      *         followed by the error information.
      */
     @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType storePtConsent(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType storePtConsentRequest) {
         return getAdapterPIPServiceImpl().storePtConsent(storePtConsentRequest, getWebServiceContext());

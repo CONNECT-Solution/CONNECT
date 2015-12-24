@@ -71,6 +71,7 @@ public class PolicyTransformerTest {
     }
 
     public class PolicyTransformerImpl implements PolicyTransformer {
+        @Override
         public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transform(Orchestratable message,
                 Direction direction) {
             return null;

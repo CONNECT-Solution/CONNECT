@@ -187,6 +187,7 @@ public class DocumentSubmission20WebServices extends AbstractDSWebServicesMXBean
         entityDSUnsecured.setOutboundDocSubmission(outboundDS);
     }
 
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
     }

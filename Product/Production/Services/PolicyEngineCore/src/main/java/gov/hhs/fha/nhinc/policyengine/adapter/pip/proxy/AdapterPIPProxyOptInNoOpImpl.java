@@ -53,6 +53,7 @@ public class AdapterPIPProxyOptInNoOpImpl implements AdapterPIPProxy {
      * @param request The assigning authority and patient ID of the patient.
      * @return A response containing the given assigning authority and patient ID along with OptIn set to false.
      */
+    @Override
     public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request,
             AssertionType assertion) {
         LOG.trace("Begin AdapterPIPProxyOptInNoOpImpl.retrievePtConsentByPtId");
@@ -85,6 +86,7 @@ public class AdapterPIPProxyOptInNoOpImpl implements AdapterPIPProxy {
      * @param request The patient doc ID information for the patient.
      * @return An empty message with the OptIn set to false.
      */
+    @Override
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
             RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion) {
         LOG.trace("Begin AdapterPIPProxyOptInNoOpImpl.retrievePtConsentByPtDocId");
@@ -104,6 +106,7 @@ public class AdapterPIPProxyOptInNoOpImpl implements AdapterPIPProxy {
      * @param request Patient consent preferenes to be stored.
      * @return Always returns "SUCCESS".
      */
+    @Override
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion) {
         LOG.trace("Begin AdapterPIPProxyOptInNoOpImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();

@@ -56,6 +56,7 @@ public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) {
         AdhocQueryResponse response = new AdhocQueryResponse();

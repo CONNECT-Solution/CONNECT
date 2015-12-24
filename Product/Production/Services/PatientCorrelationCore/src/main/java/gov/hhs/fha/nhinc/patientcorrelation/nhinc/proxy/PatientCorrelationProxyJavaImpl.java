@@ -51,6 +51,7 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
      */
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
             AssertionType assertion) {
         return orchestration.retrievePatientCorrelations(request, assertion);
@@ -62,6 +63,7 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return PatientCorrelationResponse.
      */
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion) {
         return orchestration.addPatientCorrelation(request, assertion);
     }

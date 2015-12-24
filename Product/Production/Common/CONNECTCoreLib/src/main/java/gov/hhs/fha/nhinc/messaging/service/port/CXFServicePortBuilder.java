@@ -56,6 +56,7 @@ public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public T createPort() {
         JaxWsProxyFactoryBean clientFactory = new JaxWsProxyFactoryBean();
         configureJaxWsProxyFactory(clientFactory);

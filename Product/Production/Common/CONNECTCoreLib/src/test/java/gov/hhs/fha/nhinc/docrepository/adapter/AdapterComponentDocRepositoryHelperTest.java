@@ -89,6 +89,7 @@ public class AdapterComponentDocRepositoryHelperTest {
 		final String CLASS_VALUE = "Classfication value";
 		final String CLASS_SCHEME_NAME = "classificationSchemeName";
 		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper(){
+            @Override
 			String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
 		            String slotName, int valueIndex) {
 				return CLASS_VALUE;

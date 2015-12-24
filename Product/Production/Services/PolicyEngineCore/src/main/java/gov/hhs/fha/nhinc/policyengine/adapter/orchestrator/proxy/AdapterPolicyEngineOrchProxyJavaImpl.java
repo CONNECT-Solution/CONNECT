@@ -49,6 +49,7 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();

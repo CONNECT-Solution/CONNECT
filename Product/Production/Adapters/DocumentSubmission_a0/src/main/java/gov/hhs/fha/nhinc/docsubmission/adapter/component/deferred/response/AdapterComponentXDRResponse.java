@@ -46,6 +46,7 @@ public class AdapterComponentXDRResponse implements gov.hhs.fha.nhinc.adaptercom
     private WebServiceContext context;
 
     @WebMethod
+    @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
         return new AdapterComponentXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);

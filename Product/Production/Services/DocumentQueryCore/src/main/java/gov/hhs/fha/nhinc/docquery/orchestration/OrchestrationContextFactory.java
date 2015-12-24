@@ -60,6 +60,7 @@ public final class OrchestrationContextFactory extends AbstractOrchestrationCont
      * @param serviceName The serviceName is DocQuery.
      * @return OrchestrationContextFactory for DocQuery.
      */
+    @Override
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();

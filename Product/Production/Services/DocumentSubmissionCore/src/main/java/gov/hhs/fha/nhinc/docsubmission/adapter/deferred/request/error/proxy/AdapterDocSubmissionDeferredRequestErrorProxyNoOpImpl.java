@@ -50,6 +50,7 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl implements
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
             serviceType = "Document Submission Deferred Request",
             version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");

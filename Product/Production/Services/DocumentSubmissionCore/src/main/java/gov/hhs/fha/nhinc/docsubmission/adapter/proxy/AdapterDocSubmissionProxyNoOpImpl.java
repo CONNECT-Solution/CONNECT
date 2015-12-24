@@ -41,6 +41,7 @@ public class AdapterDocSubmissionProxyNoOpImpl implements AdapterDocSubmissionPr
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
             version = "")
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");

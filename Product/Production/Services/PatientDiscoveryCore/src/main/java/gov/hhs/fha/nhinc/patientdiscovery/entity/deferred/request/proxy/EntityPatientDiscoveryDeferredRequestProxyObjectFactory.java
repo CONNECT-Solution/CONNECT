@@ -32,6 +32,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyObjectFactory extends Com
     private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "entitypatientdiscoveryasyncreq";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

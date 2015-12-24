@@ -194,6 +194,7 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
     }
 
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
     }

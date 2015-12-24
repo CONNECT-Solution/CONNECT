@@ -47,6 +47,7 @@ public class EntityDocQueryUnsecuredProxy implements gov.hhs.fha.nhinc.entitydoc
     @OutboundMessageEvent(beforeBuilder = AdhocQueryRequestTransformingBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "2.0")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
         EntityDocQueryProxyObjectFactory factory = new EntityDocQueryProxyObjectFactory();
         EntityDocQueryProxy proxy = factory.getEntityDocQueryProxy();

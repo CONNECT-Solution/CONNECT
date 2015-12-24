@@ -48,6 +48,7 @@ public class AdapterComponentDocSubmissionUnsecured implements gov.hhs.fha.nhinc
 
     @WebMethod
     @Action(input = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b", output = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-bResponse")
+    @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterComponentDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);
