@@ -153,8 +153,16 @@
                                                                     #{audit.userId}
                                                             </p:column>
                                                             <p:column>
+                                                                <f:facet name="header">Direction</f:facet>
+                                                                    #{audit.direction}
+                                                            </p:column>
+                                                            <p:column>
                                                                 <f:facet name="header">MessageId</f:facet>
                                                                 <h:outputText value="#{audit.messageId}" />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">RelatesTo</f:facet>
+                                                                <h:outputText value="#{audit.relatesTo}" />
                                                             </p:column>
                                                             <p:column>
                                                                 <f:facet name="header">View Audit XML </f:facet>

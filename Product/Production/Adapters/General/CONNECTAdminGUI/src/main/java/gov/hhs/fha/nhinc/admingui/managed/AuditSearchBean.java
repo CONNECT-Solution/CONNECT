@@ -88,7 +88,7 @@ public class AuditSearchBean {
     public void searchAudit() {
         AuditService impl = new AuditServiceImpl();
         this.auditRecordList = impl.searchAuditRecord(getSelectedEventOutcomeIndicator(), getSelectedServiceTypes(),
-            NullChecker.isNotNullishIgnoreSpace(userId) ? userId : null, getRemoteHCIDFromSelectedOrgs(), eventStartDate,
+            NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null, getRemoteHCIDFromSelectedOrgs(), eventStartDate,
             createEventEndDateToTimestamp(eventEndDate), getRemoteHcidOrgNameMap());
         if (NullChecker.isNullish(this.auditRecordList)) {
             this.auditMessage = AUDIT_RECORDS_NOT_FOUND;
@@ -105,8 +105,8 @@ public class AuditSearchBean {
     public void searchAuditMessageId() {
         AuditServiceImpl impl = new AuditServiceImpl();
         this.auditRecordList = impl.searchAuditRecordBasedOnMsgIdAndRelatesToId(
-            NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId : null,
-            NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo : null, getRemoteHcidOrgNameMap());
+            NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId.trim() : null,
+            NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
         if (NullChecker.isNullish(this.auditRecordList)) {
             this.auditMessage = AUDIT_RECORDS_NOT_FOUND;
             auditFound = false;

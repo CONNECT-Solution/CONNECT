@@ -184,6 +184,8 @@ public class AuditServiceImpl implements AuditService {
                 obj.setMessageId(auditEvent.getRequestMessageId());
                 obj.setRemoteHcid(getRemoteHcidDisplayName(auditEvent.getRemoteHcid(), remoteOrgMap));
                 obj.setUserId(auditEvent.getUserId());
+                obj.setDirection(auditEvent.getDirection());
+                obj.setRelatesTo(auditEvent.getRelatesTo());
                 auditList.add(obj);
             }
             return auditList;
