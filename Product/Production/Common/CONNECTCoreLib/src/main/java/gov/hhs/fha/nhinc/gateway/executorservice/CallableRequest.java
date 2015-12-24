@@ -32,6 +32,8 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * CallableRequest is basically what is executed (i.e. the Runnable) Uses generics for Target (which represents the
@@ -42,6 +44,9 @@ import org.apache.cxf.jaxws.context.WebServiceContextImpl;
  * (interface for web service client to be used)
  *
  * @author paul.eftis
+ * @param <Target>
+ * @param <Request>
+ * @param <Response>
  */
 public class CallableRequest<Target, Request, Response> implements Callable<Response> {
 
@@ -50,6 +55,8 @@ public class CallableRequest<Target, Request, Response> implements Callable<Resp
     private ResponseProcessor processor = null;
     private WebServiceClient client = null;
     private MessageContext context = null;
+
+    private static final Logger LOG = LoggerFactory.getLogger(CallableRequest.class);
 
     public CallableRequest(Target t, Request r, ResponseProcessor p, WebServiceClient c) {
         this.target = t;
@@ -89,8 +96,9 @@ public class CallableRequest<Target, Request, Response> implements Callable<Resp
                 throw new Exception("Request is null!!!");
             }
         } catch (Exception e) {
-            response = (Response) new ResponseWrapper(target, request, processor.processError(e.getMessage(), request,
-                    target));
+            LOG.trace("Exception making service call: {}", e.getLocalizedMessage(), e);
+            response = (Response) new ResponseWrapper(target, request, processor.processError(e.getLocalizedMessage(),
+                request, target));
         }
         return response;
     }

@@ -52,15 +52,15 @@ public class COREX12BatchSubmissionAuditTransforms extends
                 Object element = null;
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 request.setPayload(null);
-                element = new JAXBElement<COREEnvelopeBatchSubmission>(getQname(
+                element = new JAXBElement<>(getQname(
                     CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     CORE_X12AuditDataTransformConstants.CORE_X12_BATCH_REQUEST_LOCALPART),
                     COREEnvelopeBatchSubmission.class, request);
                 getMarshaller().marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             } catch (JAXBException ex) {
-                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Request:  "
-                    + ex.getLocalizedMessage(), ex);
+                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Request: {}",
+                    ex.getLocalizedMessage(), ex);
             }
         }
         return bObject;
@@ -74,15 +74,15 @@ public class COREX12BatchSubmissionAuditTransforms extends
                 Object element = null;
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 response.setPayload(null);
-                element = new JAXBElement<COREEnvelopeBatchSubmissionResponse>(getQname(
+                element = new JAXBElement<>(getQname(
                     CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     CORE_X12AuditDataTransformConstants.CORE_X12_BATCH_RESPONSE_LOCALPART),
                     COREEnvelopeBatchSubmissionResponse.class, response);
                 getMarshaller().marshal(element, baOutStrm);
                 bObject = baOutStrm.toByteArray();
             } catch (JAXBException ex) {
-                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Response:  "
-                    + ex.getLocalizedMessage(), ex);
+                LOG.error("Error while Marshalling COREEnvelopeBatchSubmission Response: {}",
+                    ex.getLocalizedMessage(), ex);
             }
         }
         return bObject;

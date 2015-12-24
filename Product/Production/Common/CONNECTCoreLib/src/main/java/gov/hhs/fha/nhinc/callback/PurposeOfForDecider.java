@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PurposeOfForDecider {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PurposeOfForDecider.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PurposeOfForDecider.class);
 
     public PurposeOfForDecider() {
 
@@ -66,7 +66,8 @@ public class PurposeOfForDecider {
         String action = properties.getAction();
         try {
             serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
-        } catch (IllegalArgumentException exc) {
+        } catch (IllegalArgumentException ex) {
+            LOG.error("Could not read purpose of / for action: {}", ex.getLocalizedMessage(), ex);
             return purposeFor;
         }
 
@@ -74,7 +75,7 @@ public class PurposeOfForDecider {
         GATEWAY_API_LEVEL apiLevel = properties.getTargetApiLevel();
         String hcid = properties.getTargetHomeCommunityId();
 
-        if(hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+        if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
             hcid = hcid.replace(NhincConstants.HCID_PREFIX, "");
         }
 
@@ -88,25 +89,25 @@ public class PurposeOfForDecider {
             purposeFor = purposeUse.isPurposeForUseEnabled(properties);
         }
 
-        if(LOG.isDebugEnabled()){
-        	logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
+        if (LOG.isDebugEnabled()) {
+            logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
         }
 
         return purposeFor;
     }
 
     private void logPurposeDecision(Boolean purposeFor, String hcid,
-    		String serviceName){
-    	String purposeName;
-    	if(purposeFor){
-    		purposeName = "PURPOSE FOR";
-    	}else{
-    		purposeName = "PURPOSE OF";
-    	}
+        String serviceName) {
+        String purposeName;
+        if (purposeFor) {
+            purposeName = "PURPOSE FOR";
+        } else {
+            purposeName = "PURPOSE OF";
+        }
 
-    	LOG.debug("PurposeOfForDecider decision for HCID: " + hcid +
-    			" and Service Name: " + serviceName + " is = " +
-    			purposeName + ".");
+        LOG.debug("PurposeOfForDecider decision for HCID: " + hcid
+            + " and Service Name: " + serviceName + " is = "
+            + purposeName + ".");
     }
 
 }

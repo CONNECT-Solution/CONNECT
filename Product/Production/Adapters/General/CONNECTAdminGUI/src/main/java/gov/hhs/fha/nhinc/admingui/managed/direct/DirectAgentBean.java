@@ -35,6 +35,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +57,8 @@ public class DirectAgentBean {
 
     private Setting selectSetting;
     private List<Setting> settings;
+
+    private static final Logger LOG = LoggerFactory.getLogger(DirectAgentBean.class);
 
     /**
      *
@@ -80,7 +84,9 @@ public class DirectAgentBean {
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("agentErrorMessages",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key", ex.getLocalizedMessage()));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key",
+                    ex.getLocalizedMessage()));
+            LOG.error("Not able to load the document types from the property file: {}" + ex.getLocalizedMessage(), ex);
         }
     }
 

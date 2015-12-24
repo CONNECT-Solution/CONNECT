@@ -44,7 +44,6 @@
  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
@@ -52,6 +51,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.Thumbprint;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Key;
 import java.security.KeyStore;
@@ -70,6 +72,7 @@ import org.apache.commons.logging.LogFactory;
  * The JPA Certificate class
  */
 public class Certificate {
+
     private static final String DEFAULT_JCE_PROVIDER_STRING = "BC";
     private static final String JCE_PROVIDER_STRING_SYS_PARAM = "org.nhindirect.config.JCEProviderName";
 
@@ -108,9 +111,9 @@ public class Certificate {
         }
     }
 
-    private static final Log log = LogFactory.getLog(Certificate.class);
+    private static final Log LOG = LogFactory.getLog(Certificate.class);
 
-    public static final byte[] NULL_CERT = new byte[] {};
+    public static final byte[] NULL_CERT = new byte[]{};
 
     private String owner;
     private String thumbprint;
@@ -316,7 +319,7 @@ public class Certificate {
         try {
             setData(NULL_CERT);
         } catch (CertificateException e) {
-            log.warn("Could not clear certificate data: " + e.getMessage(), e);
+            LOG.warn("Could not clear certificate data: " + e.getLocalizedMessage(), e);
         }
     }
 
@@ -331,7 +334,7 @@ public class Certificate {
                 container = toCredential();
                 cert = container.getCert();
             } catch (CertificateException e) {
-                log.debug("Cert Container conversion failed: ", e);
+                LOG.warn("Cert Container conversion failed: " + e.getLocalizedMessage(), e);
             }
 
             if (cert == null) {
@@ -339,9 +342,10 @@ public class Certificate {
                 try {
                     @SuppressWarnings("unused")
                     final URL url = new URL(new String(data, "ASCII"));
-                } catch (Exception e) {
+                } catch (UnsupportedEncodingException | MalformedURLException e) {
                     // may not be a URL.. may be an encrypted stream that can't be accessed
                     // set the thumbprint to empty because the cert must be decrtyped
+                    LOG.warn("Not an IPKIX URL: " + e.getLocalizedMessage(), e);
                 }
 
                 setThumbprint("");
@@ -382,6 +386,7 @@ public class Certificate {
                 }
             } catch (Exception e) {
                 // must not be a PKCS12 stream, go on to next step
+                LOG.warn("Not a PKCS12 stream: " + e.getLocalizedMessage(), e);
             }
 
             if (certContainer == null) {
@@ -390,11 +395,11 @@ public class Certificate {
                 bais = new ByteArrayInputStream(data);
 
                 X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-                        bais);
+                    bais);
                 certContainer = new CertContainer(cert, null);
             }
             bais.close();
-        } catch (Exception e) {
+        } catch (CertificateException | java.security.cert.CertificateException | IOException e) {
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
 
@@ -402,6 +407,7 @@ public class Certificate {
     }
 
     public static class CertContainer {
+
         private final X509Certificate cert;
         private final Key key;
 

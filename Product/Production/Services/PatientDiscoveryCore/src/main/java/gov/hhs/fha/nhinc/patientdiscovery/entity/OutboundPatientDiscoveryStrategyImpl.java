@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -68,10 +67,8 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
                 message.getTarget(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
                 GATEWAY_API_LEVEL.LEVEL_g0);
             message.getTarget().setUrl(url);
-            LOG.debug(
-                "executeStrategy sending nhin patient discovery request to "
-                + " target hcid=" + message.getTarget().getHomeCommunity().getHomeCommunityId()
-                + " at url=" + url);
+            LOG.debug("executeStrategy sending nhin patient discovery request to target hcid={} at url={}",
+                message.getTarget().getHomeCommunity().getHomeCommunityId(), url);
             message.setResponse(proxy.respondingGatewayPRPAIN201305UV02(message.getRequest(), message.getAssertion(),
                 message.getTarget()));
             LOG.debug("executeStrategy returning response");
@@ -80,6 +77,7 @@ public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscove
                 NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE, ex.getMessage());
             message.setResponse(response);
             LOG.debug("executeStrategy returning error response");
+            LOG.trace("executeStrategy exception: {}", ex.getLocalizedMessage(), ex);
         }
 
     }

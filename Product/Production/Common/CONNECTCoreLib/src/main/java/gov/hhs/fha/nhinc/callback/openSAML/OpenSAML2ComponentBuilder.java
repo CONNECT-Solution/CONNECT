@@ -229,7 +229,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             try {
                 INSTANCE = new OpenSAML2ComponentBuilder();
             } catch (ConfigurationException e) {
-                LOG.error(e.getMessage(), e);
+                LOG.error("Unable to get instance: {}", e.getLocalizedMessage(), e);
                 INSTANCE = null;
             }
 
@@ -732,11 +732,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         return hasPrefix ? new QName(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX) : new QName(name);
     }
 
-    boolean getHl7PrefixProperty(){
+    boolean getHl7PrefixProperty() {
         try {
-            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.warn(ex.getLocalizedMessage());
+            LOG.trace("Get HL7 Prefix Property exception: {}", ex.getLocalizedMessage(), ex);
         }
         return false;
     }

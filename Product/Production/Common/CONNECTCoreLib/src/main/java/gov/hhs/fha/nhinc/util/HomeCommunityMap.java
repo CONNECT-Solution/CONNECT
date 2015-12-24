@@ -75,7 +75,7 @@ public class HomeCommunityMap {
                 sHomeCommunityName = oEntity.getName().get(0).getValue();
             }
         } catch (Exception e) {
-            LOG.warn("Failed to retrieve textual name for home community ID ", e);
+            LOG.warn("Failed to retrieve textual name for home community ID: {}", e.getLocalizedMessage(), e);
         }
 
         return sHomeCommunityName;
@@ -239,9 +239,7 @@ public class HomeCommunityMap {
      * @return
      */
     public static String getLocalHomeCommunityId() {
-        String sHomeCommunity = null;
-        sHomeCommunity = getHomeCommunityFromPropFile();
-        return sHomeCommunity;
+        return getHomeCommunityFromPropFile();
     }
 
     /**
@@ -253,7 +251,7 @@ public class HomeCommunityMap {
             sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error("Could not get HCID from prop file: {}", ex.getLocalizedMessage(), ex);
         }
         return sHomeCommunity;
     }

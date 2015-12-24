@@ -37,11 +37,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.hl7.v3.II;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.DOMException;
 
 /**
  *
@@ -57,7 +59,7 @@ public class AttributeHelper {
 
     public AttributeType attributeFactory(String attributeId, String dataType, Object value) {
         LOG.debug("creating XACML attribute [id='" + attributeId + "'; value='" + value + "'; datatype='" + dataType
-                + "']");
+            + "']");
 
         // There is a problem if the value is null. If that occurs then we get a XACML Attribute outer tag
         // and no inner "<AttributeValue> tag. This causes the receiving PEP to error out because it should not occur.
@@ -66,7 +68,7 @@ public class AttributeHelper {
         // -----------------------------------------------------------------------------------------------------------------
         if (value == null) {
             LOG.debug("XACML attribute [id='" + attributeId
-                    + "' was null - returning null - no atribute will be added.");
+                + "' was null - returning null - no atribute will be added.");
             return null;
         }
 
@@ -85,7 +87,7 @@ public class AttributeHelper {
                 String sEncodedValue = Base64Coder.encodeString(sValue);
                 atttibuteValue.getContent().add(sEncodedValue);
             } catch (UnsupportedEncodingException ex) {
-                LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+                LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
             }
         } else if (value instanceof II) {
             II iiValue = (II) value;
@@ -95,8 +97,8 @@ public class AttributeHelper {
                 iiElement.setAttribute("root", iiValue.getRoot());
                 iiElement.setAttribute("extension", iiValue.getExtension());
                 atttibuteValue.getContent().add(iiElement);
-            } catch (Exception e) {
-                LOG.error("Unable to add II attribute " + e.getMessage());
+            } catch (ParserConfigurationException | DOMException e) {
+                LOG.error("Unable to add II attribute: {}" + e.getLocalizedMessage(), e);
             }
         } else {
             // Note sure what to do with the rest - just put them in...
@@ -109,12 +111,12 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(SubjectType subject, String attributeId, String dataType,
-            String attributeValue, boolean appendIfValueNull) {
+        String attributeValue, boolean appendIfValueNull) {
         return appendAttributeToParent(subject, attributeId, dataType, (Object) attributeValue, appendIfValueNull);
     }
 
     public AttributeType appendAttributeToParent(SubjectType subject, String attributeId, String dataType,
-            URI attributeValue, boolean appendIfValueNull) {
+        URI attributeValue, boolean appendIfValueNull) {
         String strAttributeVal = null;
         if (attributeValue != null) {
             strAttributeVal = attributeValue.toString();
@@ -123,7 +125,7 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(SubjectType subject, String attributeId, String dataType,
-            Object attributeValue, boolean appendIfValueNull) {
+        Object attributeValue, boolean appendIfValueNull) {
         AttributeType attribute = null;
         if (attributeValue != null) {
             attribute = attributeFactory(attributeId, dataType, attributeValue);
@@ -133,12 +135,12 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-            String attributeValue, boolean appendIfValueNull) {
+        String attributeValue, boolean appendIfValueNull) {
         return appendAttributeToParent(resource, attributeId, dataType, (Object) attributeValue, appendIfValueNull);
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-            XMLGregorianCalendar attributeValue, boolean appendIfValueNull) {
+        XMLGregorianCalendar attributeValue, boolean appendIfValueNull) {
         String strAttributeVal = null;
         if (attributeValue != null) {
             strAttributeVal = attributeValue.toXMLFormat();
@@ -147,7 +149,7 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-            URI attributeValue, boolean appendIfValueNull) {
+        URI attributeValue, boolean appendIfValueNull) {
         String strAttributeVal = null;
         if (attributeValue != null) {
             strAttributeVal = attributeValue.toString();
@@ -156,7 +158,7 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-            Object attributeValue, boolean appendIfValueNull) {
+        Object attributeValue, boolean appendIfValueNull) {
         AttributeType attribute = null;
         if (attributeValue != null) {
             attribute = attributeFactory(attributeId, dataType, attributeValue);
@@ -173,8 +175,8 @@ public class AttributeHelper {
                     matchingAttribute = attribute;
                 } else {
                     throw new IllegalArgumentException(
-                            "getSingleAttribute() assumes that there is a single matching attribute in list.  List contained multiple items with attributeId='"
-                                    + attributeID + "'.");
+                        "getSingleAttribute() assumes that there is a single matching attribute in list.  List contained multiple items with attributeId='"
+                        + attributeID + "'.");
                 }
             }
         }
@@ -189,13 +191,13 @@ public class AttributeHelper {
         if (attribute != null) {
             if (attribute.getAttributeValue().size() > 1) {
                 throw new IllegalArgumentException(
-                        "getSingleContentValue assumes that attribute contains a single attribute value.");
+                    "getSingleContentValue assumes that attribute contains a single attribute value.");
             }
             if (attribute.getAttributeValue().size() == 1) {
                 AttributeValueType attributeValue = attribute.getAttributeValue().get(0);
                 if (attributeValue.getContent().size() > 1) {
                     throw new IllegalArgumentException(
-                            "getSingleContentValue assumes that attribute value contains a single content item.");
+                        "getSingleContentValue assumes that attribute value contains a single content item.");
                 }
                 if (attributeValue.getContent().size() == 1) {
                     contentValue = attributeValue.getContent().get(0);

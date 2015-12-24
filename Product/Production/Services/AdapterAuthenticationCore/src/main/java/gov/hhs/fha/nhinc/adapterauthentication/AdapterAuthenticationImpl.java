@@ -52,7 +52,7 @@ public class AdapterAuthenticationImpl {
      *
      * @param authenticateUserRequest The request to authenticate the user
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
-     *         identifier
+     * identifier
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
@@ -82,15 +82,9 @@ public class AdapterAuthenticationImpl {
                     authResp = createInvalidUserResponse();
                     LOG.debug("Authentication Context failed in AdapterAuthenticationImpl");
                 }
-            } catch (AuthLoginException alex) {
-                authResp = createInvalidUserResponse();
-                LOG.error("AuthLoginException thrown from AdapterAuthenticationImpl: " + alex.getMessage());
-            } catch (SSOException ssoex) {
-                authResp = createInvalidUserResponse();
-                LOG.error("SSOException thrown from AdapterAuthenticationImpl: " + ssoex.getMessage());
             } catch (Exception ex) {
                 authResp = createInvalidUserResponse();
-                LOG.error("Exception thrown from AdapterAuthenticationImpl: " + ex.getMessage());
+                LOG.error("Exception thrown from AdapterAuthenticationImpl: {}", ex.getLocalizedMessage(), ex);
             }
         } else {
             authResp = createInvalidUserResponse();

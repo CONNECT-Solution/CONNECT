@@ -83,7 +83,7 @@ public class HL7PRPA201306Transforms {
     private static HL7MessageIdGenerator idGenerator = new HL7MessageIdGenerator();
 
     public static PRPAIN201306UV02 createPRPA201306(PRPAMT201301UV02Patient patient, String senderOID,
-            String receiverAAID, String receiverOID, String localDeviceId, PRPAIN201305UV02 query) {
+        String receiverAAID, String receiverOID, String localDeviceId, PRPAIN201305UV02 query) {
         PRPAIN201306UV02 result = new PRPAIN201306UV02();
 
         LOG.trace("Create the 201306 message header fields");
@@ -107,21 +107,18 @@ public class HL7PRPA201306Transforms {
 
         LOG.trace("Create the ControlActProcess");
         result.setControlActProcess(createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query,
-                receiverAAID, receiverOID));
+            receiverAAID, receiverOID));
 
         return result;
 
     }
 
     /**
-     * This method creates/transforms a patient discovery request
-     * (PRPAIN201305UV02) into a patient discovery response (PRPAIN201306UV02)
-     * when a patient is not found.
+     * This method creates/transforms a patient discovery request (PRPAIN201305UV02) into a patient discovery response
+     * (PRPAIN201306UV02) when a patient is not found.
      *
-     * @param oRequest The patient discovery request to which no patients were
-     * found
-     * @return Returns a patient discovery response for a no patient found
-     * scenario
+     * @param oRequest The patient discovery request to which no patients were found
+     * @return Returns a patient discovery response for a no patient found scenario
      */
     public PRPAIN201306UV02 createPRPA201306ForPatientNotFound(PRPAIN201305UV02 oRequest) {
 
@@ -134,7 +131,7 @@ public class HL7PRPA201306Transforms {
         boolean bRequiredFieldsAreNull = areIncommingRequiredPRPAIN201305FieldsNull(oRequest);
         if (bRequiredFieldsAreNull) {
             LOG.error("One or more required fields from the patient discovery request "
-                    + "for the patient not found scenario are null.");
+                + "for the patient not found scenario are null.");
             return null;
         }
 
@@ -174,14 +171,11 @@ public class HL7PRPA201306Transforms {
     }
 
     /**
-     * This method creates/transforms a patient discovery request
-     * (PRPAIN201305UV02) into a patient discovery response (PRPAIN201306UV02)
-     * when a patient is not found.
+     * This method creates/transforms a patient discovery request (PRPAIN201305UV02) into a patient discovery response
+     * (PRPAIN201306UV02) when a patient is not found.
      *
-     * @param oRequest The patient discovery request to which no patients were
-     * found
-     * @return Returns a patient discovery response for a no patient found
-     * scenario
+     * @param oRequest The patient discovery request to which no patients were found
+     * @return Returns a patient discovery response for a no patient found scenario
      */
     public PRPAIN201306UV02 createPRPA201306ForErrors(PRPAIN201305UV02 oRequest, String sErrorCode) {
 
@@ -214,9 +208,9 @@ public class HL7PRPA201306Transforms {
         // If message fails to leave local community then senderid and receiverid will match
         try {
             LOG.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
-                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             if (sHomeCommunityId != null) {
                 LOG.info("Retrieving local home community id");
                 // If the property is set, then use this instead of from sending request
@@ -225,9 +219,9 @@ public class HL7PRPA201306Transforms {
                 }
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
-                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve {} from property file {}: {}",
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY, NhincConstants.GATEWAY_PROPERTY_FILE,
+                ex.getLocalizedMessage(), ex);
         }
 
         // extract the senderOID from the request - it will become the receiver
@@ -268,18 +262,13 @@ public class HL7PRPA201306Transforms {
     }
 
     /**
-     * This method creates/transforms a patient discovery request
-     * (PRPAIN201305UV02) into a patient discovery response (PRPAIN201306UV02)
-     * when a patient is not found.
+     * This method creates/transforms a patient discovery request (PRPAIN201305UV02) into a patient discovery response
+     * (PRPAIN201306UV02) when a patient is not found.
      *
-     * @param oRequest The patient discovery request to which no patients were
-     * found
-     * @param sErrorCode The Error code as defined by the
-     * IHE_ITI_TF_Supplement_XCPD_PC
-     * @param sErrorText Human readable contextual string for more information
-     * to the error
-     * @return Returns a patient discovery response for a no patient found
-     * scenario
+     * @param oRequest The patient discovery request to which no patients were found
+     * @param sErrorCode The Error code as defined by the IHE_ITI_TF_Supplement_XCPD_PC
+     * @param sErrorText Human readable contextual string for more information to the error
+     * @return Returns a patient discovery response for a no patient found scenario
      */
     public PRPAIN201306UV02 createPRPA201306ForErrors(PRPAIN201305UV02 oRequest, String sErrorCode, String sErrorText) {
 
@@ -303,21 +292,21 @@ public class HL7PRPA201306Transforms {
     }
 
     public static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createQUQIMT021001UV01ControlActProcess(
-            PRPAMT201301UV02Patient patient, String localDeviceId, PRPAIN201305UV02 query, String aaId, String orgId) {
+        PRPAMT201301UV02Patient patient, String localDeviceId, PRPAIN201305UV02 query, String aaId, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setClassCode(ActClassControlAct.CACT);
         controlActProcess
-                .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV02", HL7Constants.INTERACTION_ID_ROOT));
+            .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV02", HL7Constants.INTERACTION_ID_ROOT));
 
         if (patient != null && NullChecker.isNotNullish(patient.getId()) && patient.getId().get(0) != null
-                && NullChecker.isNotNullish(patient.getId().get(0).getExtension())
-                && NullChecker.isNotNullish(patient.getId().get(0).getRoot())) {
+            && NullChecker.isNotNullish(patient.getId().get(0).getExtension())
+            && NullChecker.isNotNullish(patient.getId().get(0).getRoot())) {
             LOG.trace("Add the Subject");
             controlActProcess.getSubject().add(
-                    createSubject(patient, query, patient.getId().get(0).getExtension(), patient.getId().get(0)
-                            .getRoot(), orgId));
+                createSubject(patient, query, patient.getId().get(0).getExtension(), patient.getId().get(0)
+                    .getRoot(), orgId));
         }
 
         LOG.trace("Add the Query Ack");
@@ -325,7 +314,7 @@ public class HL7PRPA201306Transforms {
 
         // Add in query parameters
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
-                && query.getControlActProcess().getQueryByParameter().getValue() != null) {
+            && query.getControlActProcess().getQueryByParameter().getValue() != null) {
             LOG.trace("Add Query By Parameter");
             controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
         }
@@ -334,20 +323,20 @@ public class HL7PRPA201306Transforms {
     }
 
     public static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createQUQIMT021001UV01ControlActProcessWithNoRegistrationEvent(
-            PRPAIN201305UV02 query) {
+        PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
         controlActProcess
-                .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV02", HL7Constants.INTERACTION_ID_ROOT));
+            .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV02", HL7Constants.INTERACTION_ID_ROOT));
         LOG.trace("Add the Subject");
         controlActProcess.getSubject().add(createSubjectWithNoRegistrationEvent());
         LOG.trace("Add the Query Ack");
         controlActProcess.setQueryAck(createQueryAck(query));
         // Add in query parameters
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
-                && query.getControlActProcess().getQueryByParameter().getValue() != null) {
+            && query.getControlActProcess().getQueryByParameter().getValue() != null) {
             LOG.trace("Add Query By Parameter");
             controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
         }
@@ -360,8 +349,8 @@ public class HL7PRPA201306Transforms {
         LOG.trace("Begin CreateQueryAck");
 
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
-                && query.getControlActProcess().getQueryByParameter().getValue() != null
-                && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
+            && query.getControlActProcess().getQueryByParameter().getValue() != null
+            && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
             result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
         } else {
             LOG.trace("No QueryByParameters");
@@ -388,7 +377,7 @@ public class HL7PRPA201306Transforms {
     }
 
     private static PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(PRPAMT201301UV02Patient patient,
-            PRPAIN201305UV02 query, String patientId, String aaId, String orgId) {
+        PRPAIN201305UV02 query, String patientId, String aaId, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
 
         subject.getTypeCode().add("SUBJ");
@@ -408,7 +397,7 @@ public class HL7PRPA201306Transforms {
     }
 
     private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(PRPAMT201301UV02Patient patient,
-            PRPAIN201305UV02 query, String patientId, String aaID, String orgId) {
+        PRPAIN201305UV02 query, String patientId, String aaID, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
         regEvent.getMoodCode().add(HL7Constants.DETECTED_ISSUE_MOODCODE_EVN);
         regEvent.getClassCode().add("REG");
@@ -430,7 +419,7 @@ public class HL7PRPA201306Transforms {
     }
 
     public static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject2(PRPAMT201301UV02Patient patient,
-            PRPAIN201305UV02 query, String patId, String orgId) {
+        PRPAIN201305UV02 query, String patId, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
         subject.setTypeCode(ParticipationTargetSubject.SBJ);
         LOG.debug("patientID = " + patId);
@@ -467,7 +456,7 @@ public class HL7PRPA201306Transforms {
         II id = new II();
 
         if (patient.getId() != null && patient.getId().size() > 0 && patient.getId().get(0).getRoot() != null
-                && patient.getId().get(0).getRoot().length() > 0) {
+            && patient.getId().get(0).getRoot().length() > 0) {
             id.setRoot(patient.getId().get(0).getRoot());
         }
         org.getId().add(id);
@@ -477,7 +466,7 @@ public class HL7PRPA201306Transforms {
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
 
         return new JAXBElement<COCTMT150003UV03Organization>(xmlqname,
-                COCTMT150003UV03Organization.class, org);
+            COCTMT150003UV03Organization.class, org);
 
     }
 
@@ -694,7 +683,7 @@ public class HL7PRPA201306Transforms {
 
         if (NullChecker.isNullish(oRequest.getSender().getDevice().getId().get(0).getRoot())) {
             LOG.error("The device id value (i.e. II.getRoot() or "
-                    + "oRequest.getSender().getDevice().getId().get(0).getRoot()) is null.");
+                + "oRequest.getSender().getDevice().getId().get(0).getRoot()) is null.");
             return true;
         }
         // all fields are ok return false for null value check

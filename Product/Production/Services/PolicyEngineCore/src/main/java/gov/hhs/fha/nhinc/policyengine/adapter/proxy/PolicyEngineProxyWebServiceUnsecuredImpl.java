@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
  * @author Jon Hoppesch
  */
 public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEngineProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -57,6 +58,7 @@ public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEnginePro
         return new WebServiceProxyHelper();
     }
 
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineWebServiceProxy.checkPolicy");
         CheckPolicyResponseType response = null;
@@ -70,18 +72,17 @@ public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEnginePro
                 ServicePortDescriptor<AdapterPolicyEnginePortType> portDescriptor = new PolicyEngineUnsecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterPolicyEnginePortType> client = CONNECTCXFClientFactory.getInstance()
-                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 response = (CheckPolicyResponseType) client.invokePort(AdapterPolicyEnginePortType.class,
-                        "checkPolicy", checkPolicyRequest);
+                    "checkPolicy", checkPolicyRequest);
 
             } else {
                 LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            LOG.error("Error: Failed to retrieve url for service: " + NhincConstants.POLICYENGINE_SERVICE_NAME
-                    + " for local home community");
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve url for service {} for local home community: {}",
+                NhincConstants.POLICYENGINE_SERVICE_NAME, ex.getLocalizedMessage(), ex);
         }
 
         LOG.trace("End PolicyEngineWebServiceProxy.checkPolicy");

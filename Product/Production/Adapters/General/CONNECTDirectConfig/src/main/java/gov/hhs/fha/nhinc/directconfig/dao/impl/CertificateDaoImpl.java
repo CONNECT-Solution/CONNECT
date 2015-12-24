@@ -44,7 +44,6 @@
  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.CertificateDao;
@@ -61,6 +60,7 @@ import java.util.List;
 import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -74,13 +74,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CertificateDaoImpl implements CertificateDao {
 
-    private static final Log log = LogFactory.getLog(CertificateDaoImpl.class);
+    private static final Log LOG = LogFactory.getLog(CertificateDaoImpl.class);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public Certificate load(String owner, String thumbprint) {
         Session session = null;
         Query query;
@@ -106,7 +106,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
                 if (results != null && results.size() > 0) {
                     cert = results.iterator().next();
-                    log.debug("Certificate found");
+                    LOG.debug("Certificate found");
                 }
             }
         } finally {
@@ -120,7 +120,7 @@ public class CertificateDaoImpl implements CertificateDao {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public List<Certificate> list(List<Long> idList) {
         List<Certificate> results = Collections.emptyList();
 
@@ -141,7 +141,7 @@ public class CertificateDaoImpl implements CertificateDao {
                         results = Collections.emptyList();
                     }
 
-                    log.debug("Certificates found: " + results.size());
+                    LOG.debug("Certificates found: " + results.size());
                 }
             } finally {
                 DaoUtils.closeSession(session);
@@ -155,7 +155,7 @@ public class CertificateDaoImpl implements CertificateDao {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     public List<Certificate> list(String owner) {
         List<Certificate> results = null;
 
@@ -175,7 +175,7 @@ public class CertificateDaoImpl implements CertificateDao {
                     results = Collections.emptyList();
                 }
 
-                log.debug("Certificates found: " + results.size());
+                LOG.debug("Certificates found: " + results.size());
             }
         } finally {
             DaoUtils.closeSession(session);
@@ -204,7 +204,8 @@ public class CertificateDaoImpl implements CertificateDao {
                     container = cert.toCredential();
                     xcert = container.getCert();
                 } catch (CertificateException e) {
-                    log.warn("Unable to get certificate data, possibly an IPKIX URL?");
+                    LOG.warn("Unable to get certificate data, possibly an IPKIX URL?: " + e.getLocalizedMessage());
+                    LOG.trace("Certificate conversion error: " + e.getLocalizedMessage(), e);
                 }
 
                 if (cert.getValidStartDate() == null && xcert != null) {
@@ -228,17 +229,14 @@ public class CertificateDaoImpl implements CertificateDao {
                 session = DaoUtils.getSession();
 
                 if (session != null) {
-                    log.debug("Saving anchor");
+                    LOG.debug("Saving anchor");
 
                     tx = session.beginTransaction();
                     session.persist(cert);
                     tx.commit();
                 }
-            } catch (CertificateException e) {
-                log.error("Could not convert certificate data to X509Certificate");
-                DaoUtils.rollbackTransaction(tx);
-                throw new ConfigurationStoreException(e);
-            } catch (Exception e) {
+            } catch (CertificateException | HibernateException e) {
+                LOG.error("Could not convert certificate data to X509Certificate: " + e.getLocalizedMessage(), e);
                 DaoUtils.rollbackTransaction(tx);
                 throw new ConfigurationStoreException(e);
             } finally {
@@ -270,7 +268,7 @@ public class CertificateDaoImpl implements CertificateDao {
             Session session = null;
             Transaction tx = null;
 
-            log.debug("Setting status on " + certs.size() + " certs");
+            LOG.debug("Setting status on " + certs.size() + " certs");
 
             try {
                 session = DaoUtils.getSession();
@@ -286,6 +284,7 @@ public class CertificateDaoImpl implements CertificateDao {
                     tx.commit();
                 }
             } catch (Exception e) {
+                LOG.error("Could not set status: " + e.getLocalizedMessage(), e);
                 DaoUtils.rollbackTransaction(tx);
                 throw new ConfigurationStoreException(e);
             } finally {
@@ -305,7 +304,7 @@ public class CertificateDaoImpl implements CertificateDao {
             Session session = null;
             Transaction tx = null;
 
-            log.debug("Setting status on " + certs.size() + " certs");
+            LOG.debug("Setting status on " + certs.size() + " certs");
 
             try {
                 session = DaoUtils.getSession();
@@ -321,6 +320,7 @@ public class CertificateDaoImpl implements CertificateDao {
                     tx.commit();
                 }
             } catch (Exception e) {
+                LOG.error("Could not set status: " + e.getLocalizedMessage(), e);
                 DaoUtils.rollbackTransaction(tx);
                 throw new ConfigurationStoreException(e);
             } finally {
@@ -353,9 +353,10 @@ public class CertificateDaoImpl implements CertificateDao {
                     count = query.executeUpdate();
                     tx.commit();
 
-                    log.debug("Deleted " + count + " Certificates");
+                    LOG.debug("Deleted " + count + " Certificates");
                 }
             } catch (Exception e) {
+                LOG.error("Could not delete certificate: " + e.getLocalizedMessage(), e);
                 DaoUtils.rollbackTransaction(tx);
                 throw new ConfigurationStoreException(e);
             } finally {
@@ -388,9 +389,10 @@ public class CertificateDaoImpl implements CertificateDao {
                     count = query.executeUpdate();
                     tx.commit();
 
-                    log.debug("Deleted " + count + " Certificates");
+                    LOG.debug("Deleted " + count + " Certificates");
                 }
             } catch (Exception e) {
+                LOG.error("Could not delete certificate: " + e.getLocalizedMessage(), e);
                 DaoUtils.rollbackTransaction(tx);
                 throw new ConfigurationStoreException(e);
             } finally {

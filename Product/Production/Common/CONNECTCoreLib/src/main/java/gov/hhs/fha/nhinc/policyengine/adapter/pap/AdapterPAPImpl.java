@@ -70,8 +70,7 @@ public class AdapterPAPImpl {
                 document = docs.get(0);
             }
         } catch (Exception ex) {
-            LOG.error("Exception occured while retrieving documents");
-            LOG.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.info("End AdapterPAPImpl.getPolicyDocument(...)");
         return document;
@@ -90,8 +89,7 @@ public class AdapterPAPImpl {
             DocumentService service = new DocumentService();
             document = service.getDocument(documentId);
         } catch (Exception ex) {
-            LOG.error("Exception occured while retrieving documents");
-            LOG.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.info("End AdapterPAPImpl.getPolicyDocumentByDocId(...)");
         return document;
@@ -117,8 +115,7 @@ public class AdapterPAPImpl {
             }
 
         } catch (Exception ex) {
-            LOG.error("Exception occured while saving document");
-            LOG.error(ex.getMessage());
+            LOG.error("Exception occured while saving document: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.info("End AdapterPAPImpl.savePolicyDocument(...)");
         return isDocSaved;
@@ -139,12 +136,9 @@ public class AdapterPAPImpl {
             service.deleteDocument(document);
             isDocSaved = true;
         } catch (Exception ex) {
-            LOG.error("Exception occured while deleting document");
-            LOG.error(ex.getMessage());
+            LOG.error("Exception occured while deleting document: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.info("End AdapterPAPImpl.deletePolicyDocument(...)");
         return isDocSaved;
-
     }
-
 }

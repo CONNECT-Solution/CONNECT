@@ -60,9 +60,8 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
  * @param <Response>
  * @param <CumulativeResponse>
  */
-public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType,
-    Response extends PRPAIN201306UV02, CumulativeResponse extends RespondingGatewayPRPAIN201306UV02ResponseType>
-        extends ResponseProcessor<Target, Request, Response, CumulativeResponse> {
+public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends PRPAIN201306UV02, CumulativeResponse extends RespondingGatewayPRPAIN201306UV02ResponseType>
+    extends ResponseProcessor<Target, Request, Response, CumulativeResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDProcessor.class);
 
@@ -72,6 +71,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
 
     /**
      * Public constructor for PDProcessor.
+     *
      * @param assertion the Assertion
      */
     public PDProcessor(AssertionType assertion) {
@@ -102,6 +102,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
         try {
             processPDResponse(request, individual, t);
         } catch (Exception e) {
+            LOG.error("Error processing PD response: {}", e.getLocalizedMessage(), e);
             // add error response for exception to cumulativeResponse
             CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
             communityResponse.setPRPAIN201306UV02(processError(e.getMessage(), request, null));
@@ -123,7 +124,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
         LOG.debug("PDProcessor::processError has error=" + error);
 
         return (Response) new HL7PRPA201306Transforms().createPRPA201306ForErrors(request.getPRPAIN201305UV02(),
-                NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
     }
 
     /**
@@ -135,12 +136,12 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
      *
      * @param current is the PRPAIN201306UV02 returned from the CallableRequest
      * @param request is the RespondingGatewayPRPAIN201305UV02RequestType sent by the web service client (needed for
-     *            response processing)
+     * response processing)
      * @param t is the UrlInfo target to send the web service request (needed for response processing) WebServiceClient
      */
     @SuppressWarnings("static-access")
     private void processPDResponse(RespondingGatewayPRPAIN201305UV02RequestType request, PRPAIN201306UV02 current,
-            Target t) throws Exception {
+        Target t) throws Exception {
 
         // for debug
         count++;
@@ -148,8 +149,8 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
 
         try {
             // store the correlation result and handle Trust/Verify Mode
-            ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType =
-                    new ProxyPRPAIN201305UVProxySecuredRequestType();
+            ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType
+                = new ProxyPRPAIN201305UVProxySecuredRequestType();
             oProxyPRPAIN201305UVProxySecuredRequestType.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
 
             NhinTargetSystemType target = new NhinTargetSystemType();

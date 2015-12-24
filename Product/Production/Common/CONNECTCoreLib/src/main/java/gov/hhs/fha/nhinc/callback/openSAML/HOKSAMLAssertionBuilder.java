@@ -131,7 +131,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             // sign the message
             signedAssertion = sign(assertion, certificate, privateKey, publicKey);
         } catch (Exception ex) {
-            LOG.error("Unable to create HOK Assertion: " + ex.getMessage());
+            LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
             throw ex;
         }
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
@@ -159,7 +159,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         try {
             Signer.signObject(signature);
         } catch (SignatureException e) {
-            LOG.error(e.getLocalizedMessage(), e);
+            LOG.error("Unable to sign: {}", e.getLocalizedMessage(), e);
             throw new Exception(e);
         }
         return assertionElement;
@@ -216,15 +216,16 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         try {
             Name name = new LdapName(userName);
         } catch (Exception e) {
-            LOG.warn("Not a Valid Distinguished Name, setting the value from Certificate..");
+            LOG.warn("Not a Valid Distinguished Name, setting the value from Certificate: {}", e.getLocalizedMessage());
+            LOG.trace("Exception checking DN: {}", e.getLocalizedMessage(), e);
             isValid = false;
         }
         return isValid;
     }
 
     protected Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate,
-        PublicKey publicKey)
-        throws Exception {
+        PublicKey publicKey) throws Exception {
+
         String evidenceSubject = properties.getEvidenceSubject();
         String x509Name;
         if (NullChecker.isNullish(evidenceSubject)) {
@@ -244,9 +245,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     protected Subject createSubject(String x509Name, X509Certificate certificate,
         PublicKey publicKey) throws Exception {
-        Subject subject;
-        subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, certificate, publicKey);
-        return subject;
+
+        return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, certificate, publicKey);
     }
 
     /**
@@ -257,7 +257,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         List<Statement> statements = new ArrayList<Statement>();
 
         statements.addAll(createAuthenicationStatements(properties));
-
         statements.addAll(createUserNameAttributeStatements(properties));
         statements.addAll(createOrganizationAttributeStatements(properties));
         statements.addAll(createOrganizationIdAttributeStatements(properties));
@@ -266,7 +265,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.addAll(createUserRoleStatements(properties));
         statements.addAll(createPurposeOfUseStatements(properties));
         statements.addAll(createNPIAttributeStatements(properties));
-
         statements.addAll(createAuthenicationDecsionStatements(properties, subject));
 
         return statements;
@@ -323,6 +321,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
+     * @param properties
+     * @param subject
      * @return
      */
     public List<AuthzDecisionStatement> createAuthenicationDecsionStatements(CallbackProperties properties,
@@ -708,7 +708,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 return !authDEvidenceConditionsDefaultValueEnabled.equals(Boolean.FALSE.toString());
             }
         } catch (PropertyAccessException pae) {
-            LOG.info("Proeprty Not found :" + NhincConstants.ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE);
+            LOG.warn("Property {} not found: {}", NhincConstants.ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE,
+                pae.getLocalizedMessage());
+            LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
     }

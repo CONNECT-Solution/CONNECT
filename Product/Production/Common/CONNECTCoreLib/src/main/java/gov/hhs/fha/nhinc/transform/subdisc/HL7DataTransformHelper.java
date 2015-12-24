@@ -150,8 +150,7 @@ public class HL7DataTransformHelper {
                 + String.valueOf(today.get(GregorianCalendar.MINUTE))
                 + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
-            LOG.error("Exception when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+            LOG.error("Exception when creating XMLGregorian Date: {}", e.getLocalizedMessage(), e);
         }
 
         if (NullChecker.isNotNullish(timestamp)) {

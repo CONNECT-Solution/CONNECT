@@ -160,8 +160,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
                 targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
         } catch (ConnectionManagerException ex) {
-            LOG.error("Failed to obtain target URLs for service "
-                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+            LOG.error("Failed to obtain target URLs for service {}: {}",
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, ex.getLocalizedMessage(), ex);
             return null;
         }
 

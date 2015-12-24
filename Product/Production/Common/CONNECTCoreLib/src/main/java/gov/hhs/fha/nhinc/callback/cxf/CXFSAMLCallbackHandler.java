@@ -61,8 +61,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     public CXFSAMLCallbackHandler() {
     }
 
-    public CXFSAMLCallbackHandler(HOKSAMLAssertionBuilder builder){
-    	this.builder = builder;
+    public CXFSAMLCallbackHandler(HOKSAMLAssertionBuilder builder) {
+        this.builder = builder;
     }
 
     /*
@@ -94,11 +94,11 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SamlTokenCreator creator = new SamlTokenCreator();
 
                     CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
-                            creator.createRequestContext(custAssertion, getResource(message), null), message));
+                        creator.createRequestContext(custAssertion, getResource(message), null), message));
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
-                    LOG.error("failed to create saml", e);
+                    LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                 }
             }
         }
@@ -125,21 +125,21 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         propertiesMap.put(key, message.get(key));
     }
 
-    protected Message getCurrentMessage(){
-    	return PhaseInterceptorChain.getCurrentMessage();
+    protected Message getCurrentMessage() {
+        return PhaseInterceptorChain.getCurrentMessage();
     }
 
-    protected String getResource(Message message){
+    protected String getResource(Message message) {
         String resource = null;
         try {
             boolean isInbound = (Boolean) message.get(Message.INBOUND_MESSAGE);
-            if(!isInbound){
+            if (!isInbound) {
                 resource = (String) message.get(Message.ENDPOINT_ADDRESS);
             }
-        } catch(Exception e){
-            LOG.warn(e.getMessage());
+        } catch (Exception e) {
+            LOG.warn("Unable to get resource: {}", e.getLocalizedMessage());
+            LOG.trace("Get resource exception: {}", e.getLocalizedMessage(), e);
         }
         return resource;
     }
 }
-

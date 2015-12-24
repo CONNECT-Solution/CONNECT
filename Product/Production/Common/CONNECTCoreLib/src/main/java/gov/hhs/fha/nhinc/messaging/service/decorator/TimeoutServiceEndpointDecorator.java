@@ -50,7 +50,8 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
     private final int transactionTimeout;
 
     /**
-     * @param decorated
+     * @param decoratedEndpoint
+     * @param timeout
      */
     public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint, Integer timeout) {
         super(decoratedEndpoint);
@@ -80,16 +81,17 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
     int getTimeoutFromConfig() {
         int timeout = 0;
         try {
-            String sValue = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_TIMEOUT);
+            String sValue = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                CONFIG_KEY_TIMEOUT);
             if (NullChecker.isNotNullish(sValue)) {
                 timeout = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
-            LOG.warn("Error occurred reading property value from config file (" + CONFIG_KEY_TIMEOUT
-                + ").  Exception: " + ex.toString());
+            LOG.warn("Error occurred reading property value from config file ({}): {}", CONFIG_KEY_TIMEOUT,
+                ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
-            LOG.warn("Error occurred converting property value: " + CONFIG_KEY_TIMEOUT + ".  Exception: "
-                + nfe.toString());
+            LOG.warn("Error occurred converting property value from config file ({}): {}", CONFIG_KEY_TIMEOUT,
+                nfe.getLocalizedMessage(), nfe);
         }
         return timeout;
     }

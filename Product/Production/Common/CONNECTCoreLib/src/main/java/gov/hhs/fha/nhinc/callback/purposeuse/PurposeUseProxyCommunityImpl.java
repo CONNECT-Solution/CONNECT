@@ -48,6 +48,7 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
 
     /**
      * Constructor allows injection of the property accessor.
+     *
      * @param propertyAccessor used to pull properties.
      */
     public PurposeUseProxyCommunityImpl(IPropertyAcessor propertyAccessor) {
@@ -73,7 +74,7 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
         String targetHomeCommunityId = callbackProperties.getTargetHomeCommunityId();
 
         if (targetHomeCommunityId != null) {
-        	if(targetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
+            if (targetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
                 targetHomeCommunityId = targetHomeCommunityId.replace(NhincConstants.HCID_PREFIX, "");
             }
             return isPurposeForUseEnabled(targetHomeCommunityId);
@@ -96,9 +97,8 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve (homeCommunityId) " + homeCommunityId + " from property file: "
-                    + PURPOSE_FOR_USE_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve (homeCommunityId) {} from property file {}: {}", homeCommunityId,
+                PURPOSE_FOR_USE_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return match;
     }

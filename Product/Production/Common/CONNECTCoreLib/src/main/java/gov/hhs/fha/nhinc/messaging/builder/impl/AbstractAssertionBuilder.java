@@ -184,7 +184,7 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
             setSamlAuthInstant(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_INSTANT));
             setSamlAuthClass(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_CLASS));
         } catch (PropertyAccessException ex) {
-            LOG.error("AdminGUI can not access assertioninfo property file: " + ex.getMessage());
+            LOG.error("AdminGUI can not access assertioninfo property file: {}", ex.getLocalizedMessage(), ex);
         }
     }
 }

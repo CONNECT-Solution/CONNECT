@@ -44,6 +44,8 @@ import javax.xml.ws.soap.Addressing;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -52,6 +54,8 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
     private InboundPatientDiscovery inboundPatientDiscovery;
 
     private WebServiceContext context;
+
+    private static final Logger LOG = LoggerFactory.getLogger(NhinPatientDiscovery.class);
 
     /**
      * Constructor.
@@ -70,11 +74,13 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
     @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
         afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
         serviceType = "Patient Discovery", version = "1.0")
+    @Override
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
         try {
             AssertionType assertion = getAssertion(context, null);
             return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion, getWebContextProperties(context));
         } catch (PatientDiscoveryException e) {
+            LOG.trace("Nhin PD exception: {}", e.getLocalizedMessage(), e);
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
             type.setMessage(e.getLocalizedMessage());

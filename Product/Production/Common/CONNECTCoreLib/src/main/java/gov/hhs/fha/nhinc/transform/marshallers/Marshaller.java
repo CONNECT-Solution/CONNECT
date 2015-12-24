@@ -76,7 +76,7 @@ public class Marshaller {
                 }
             } catch (Exception e) {
                 // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
-                LOG.error("Failed to marshall: " + e.getMessage(), e);
+                LOG.error("Failed to marshall: {}", e.getLocalizedMessage(), e);
                 element = null;
             }
         }
@@ -91,7 +91,7 @@ public class Marshaller {
      * @param qname - the qualified name of the XML (i.e. "urn:org:hl7:v3")
      * @return the XML Element
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Element marshal(Object object, String contextPath, QName qname) {
         Element element = null;
         StringWriter stringWriter = new StringWriter();
@@ -106,13 +106,14 @@ public class Marshaller {
 
             element = XmlUtility.convertXmlToElement(stringWriter.toString());
         } catch (Exception e) {
-            LOG.error("Failed to marshall: " + e.getMessage(), e);
+            LOG.error("Failed to marshall: {}", e.getLocalizedMessage(), e);
             element = null;
         } finally {
             try {
                 stringWriter.close();
             } catch (IOException ioe) {
-                // close quietly
+                // close quietly(ish)
+                LOG.warn("Could not close writer: {}", ioe.getLocalizedMessage(), ioe);
             }
         }
 
@@ -155,7 +156,7 @@ public class Marshaller {
             } catch (Exception e) {
                 // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
                 // use jaxb element
-                LOG.error("Failed to unmarshall: " + e.getMessage(), e);
+                LOG.error("Failed to unmarshall: {}", e.getLocalizedMessage(), e);
                 unmarshalledObject = null;
             } finally {
                 StreamUtils.closeStreamSilently(is);
@@ -170,7 +171,7 @@ public class Marshaller {
         try {
             element = XmlUtility.convertXmlToElement(xml);
         } catch (Exception ex) {
-            LOG.warn("failed to parse xml", ex);
+            LOG.warn("failed to parse xml: {}", ex.getLocalizedMessage(), ex);
         }
         return unmarshal(element, contextPath);
     }

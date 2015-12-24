@@ -74,7 +74,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             buildControlActProcess();
         } catch (PropertyAccessException ex) {
-            LOG.error("Error getting the Local HCID:" + ex.getMessage());
+            LOG.error("Error getting the Local HCID: {}", ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -92,7 +92,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             localHCID = getLocalHcid();
         } catch (PropertyAccessException ex) {
-            LOG.error("Error getting the Local HCID:" + ex.getMessage());
+            LOG.error("Error getting the Local HCID: {}", ex.getLocalizedMessage(), ex);
         }
         sender.setDevice(getDevice(localHCID));
         receiver.setDevice(getDevice(getRemoteHcid()));

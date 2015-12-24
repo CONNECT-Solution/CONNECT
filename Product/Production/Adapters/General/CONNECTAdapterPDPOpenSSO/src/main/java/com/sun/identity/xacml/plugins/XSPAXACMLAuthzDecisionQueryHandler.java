@@ -69,12 +69,15 @@ import com.sun.identity.xacml.spi.ResultMapper;
 import com.sun.identity.xacml.spi.SubjectMapper;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -85,6 +88,8 @@ import org.w3c.dom.Text;
  *
  */
 public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
+
+    Logger LOG = LoggerFactory.getLogger(XSPAXACMLAuthzDecisionQueryHandler.class);
 
     // effect
     public static final String PERMIT = "Permit";
@@ -129,7 +134,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
     public com.sun.identity.saml2.protocol.Response handleQuery(String pdpEntityId, String pepEntityId,
         RequestAbstract samlpRequest, SOAPMessage soapMessage) throws SAML2Exception {
 
-        System.out.println("Entering XSPAXACMLAuthzDecisionQueryHandler.handleQuery() with " + ":pdpEntityId="
+        LOG.info("Entering XSPAXACMLAuthzDecisionQueryHandler.handleQuery() with " + ":pdpEntityId="
             + pdpEntityId + ":pepEntityId=" + pepEntityId + ":samlpRequest=\n"
             + samlpRequest.toXMLString(true, true) + ":soapMessage=\n" + soapMessage);
 
@@ -195,9 +200,9 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             // environment attributes
             environmentLocality = getEnvironmentLocality(xacmlRequest);
 
-            System.out.println("xspa.handleQuery():\n" + "userId = " + userId + "\n" + "Roles = " + userRoles + "\n"
+            LOG.info("xspa.handleQuery():\n" + "userId = " + userId + "\n" + "Roles = " + userRoles + "\n"
                 + "resourceId = " + resourceId + "\n" + "purpose = " + pou + "\n" + "communityId = " + communityId
-                + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + new Boolean(optIn).toString() + "\n"
+                + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + Boolean.toString(optIn) + "\n"
                 + "userLocality = " + userLocality + "\n" + "environmentLocality = " + environmentLocality + "\n"
                 + "actionId = " + actionId + "\n");
 
@@ -205,18 +210,18 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             if (optIn) {
                 effect = PERMIT;
                 detailText = detailText + "PERMIT based upon OPT-IN";
-                System.out.println("xspa.handleQuery():" + "Permit based upon OPT-IN");
+                LOG.info("xspa.handleQuery():" + "Permit based upon OPT-IN");
             } else {
                 effect = DENY;
                 detailText = detailText + "DENY: based upon OPT-OUT";
-                System.out.println("xspa.handleQuery():" + "DENY: based upon OPT-OUT");
+                LOG.warn("xspa.handleQuery():" + "DENY: based upon OPT-OUT");
             }
 
         } catch (Exception e) {
             statusCodeValue = XACMLConstants.STATUS_CODE_MISSING_ATTRIBUTE;
             evaluationFailed = true;
-            System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception "
-                + e.getMessage());
+            LOG.error("XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), caught exception: {}",
+                e.getLocalizedMessage(), e);
         }
 
         // decision: Indeterminate, Deny, Permit, NotApplicable
@@ -227,16 +232,15 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         StatusMessage message = ContextFactory.getInstance().createStatusMessage();
         StatusDetail detail = ContextFactory.getInstance().createStatusDetail();
         // Try this
-        // detail.getElement().insertBefore(detail.getElement().cloneNode(true),
-        // null);
+        // detail.getElement().insertBefore(detail.getElement().cloneNode(true), null);
         // Instead of this
         try {
             Document doc = detail.getElement().getOwnerDocument();
-            Text textNode = textNode = doc.createTextNode(detailText);
+            Text textNode = doc.createTextNode(detailText);
             detail.getElement().insertBefore(textNode, null);
         } catch (Exception e) {
-            System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery()," + "caught exception "
-                + e.getMessage());
+            LOG.error("XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), caught exception: {}",
+                e.getLocalizedMessage(), e);
         }
 
         if (PERMIT.equals(effect)) {
@@ -286,7 +290,7 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         com.sun.identity.saml2.protocol.Response samlpResponse = createSamlpResponse(statement, status.getStatusCode()
             .getValue());
 
-        System.out.println("XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), returning " + ":samlResponse=\n"
+        LOG.info("XSPAXACMLAuthzDecisionQueryHandler.handleQuery(), returning " + ":samlResponse=\n"
             + samlpResponse.toXMLString(true, true));
 
         return samlpResponse;
@@ -333,7 +337,8 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             obligation.setFulfillOn(permitAccess ? PERMIT : DENY);
             obligations = PolicyFactory.getInstance().createObligations();
             obligations.addObligation(obligation);
-        } catch (Exception e) {
+        } catch (URISyntaxException | XACMLException e) {
+            LOG.error("Error: failed to create obligations: {}", e.getLocalizedMessage(), e);
             throw new XACMLException("Error: failed to create obligations");
         }
         return obligations;

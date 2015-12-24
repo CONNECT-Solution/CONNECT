@@ -35,7 +35,8 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,16 +44,21 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentMpiSecured implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType {
+
     @Resource
     private WebServiceContext context;
 
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentMpiSecured.class);
+
     @WebMethod
+    @Override
     public org.hl7.v3.PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest)
-            throws FindCandidatesSecuredFault {
+        throws FindCandidatesSecuredFault {
         AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
         try {
             return oImpl.query(true, findCandidatesRequest, context);
         } catch (Exception e) {
+            LOG.trace("Adapter Component MPI Secured exception: {}", e.getLocalizedMessage(), e);
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
             type.setMessage(e.getLocalizedMessage());

@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  *
  * @author rhalfert
@@ -49,6 +48,7 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
 
     /**
      * Constructor allows injection of the property accessor.
+     *
      * @param propertyAccessor used to pull properties.
      */
     public PurposeUseProxyDefaultImpl(IPropertyAcessor propertyAccessor) {
@@ -64,9 +64,9 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
         this.propertyAccessor = PropertyAccessor.getInstance();
     }
 
-
     /**
      * Returns boolean condition on whether PurposeForUse is enabled.
+     *
      * @return The PurposeForUse enabled setting
      */
     public boolean isPurposeForUseEnabled() {
@@ -75,14 +75,13 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
         try {
             // Use CONNECT utility class to access gateway.properties
             String purposeForUseEnabled = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+                PURPOSE_FOR_USE_DEPRECATED_ENABLED);
             if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve {} from property file {}: {}", PURPOSE_FOR_USE_DEPRECATED_ENABLED,
+                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return match;
     }

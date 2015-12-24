@@ -86,7 +86,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     /**
      * This method is used to extract the SAML assertion information.
      *
-     * @param Element element
+     * @param element
      * @return AssertionType
      */
     @Override
@@ -121,9 +121,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @return The first encountered Assertion object in the element
      */
     private Assertion extractSaml2Assertion(final Element element) {
-
         if (element.getNamespaceURI().equals(SamlConstants.SAML2_ASSERTION_NS)
-                && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
+            && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
+
             return convertToAssertion(element);
         }
 
@@ -132,7 +132,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     private Assertion extractSaml2AssertionFromDescendants(final Element element) {
         NodeList assertionNodes = element.getElementsByTagNameNS(SamlConstants.SAML2_ASSERTION_NS,
-                SamlConstants.SAML2_ASSERTION_TAG);
+            SamlConstants.SAML2_ASSERTION_TAG);
 
         if (assertionNodes.getLength() > 0) {
             Node assertionNode = assertionNodes.item(0);
@@ -206,16 +206,16 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                 } else if (attribute.getName().equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
                     List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
                     target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                            .addAll(accessConsentId);
+                        .addAll(accessConsentId);
                     LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
-                            + accessConsentId);
+                        + accessConsentId);
 
                 } else if (attribute.getName().equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
                     List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
                     target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                            .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
+                        .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
                     LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
-                            + instAccessConsentId);
+                        + instAccessConsentId);
 
                 } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID)) {
                     if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
@@ -271,7 +271,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
         samlAuthnStatement.setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef()
-                .getAuthnContextClassRef().toString());
+            .getAuthnContextClassRef().toString());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());
@@ -347,7 +347,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private void translateEvidenceAssertions(SamlAuthzDecisionStatementEvidenceType targetEvidence,
-            List<Assertion> saml2EvidenceAssertions) {
+        List<Assertion> saml2EvidenceAssertions) {
 
         if (CollectionUtils.isEmpty(saml2EvidenceAssertions)) {
             LOG.trace("Empty/null assertion list");
@@ -370,13 +370,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
             for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
                 if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                        && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                     XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                     String accessConsent = xmlObject.getDOM().getTextContent();
 
                     targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
                 } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                        && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                     XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                     String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
@@ -385,8 +385,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             }
         }
         //Only create the Conditions if NotBefore and/or NotOnOrAfter is present
-        if (saml2EvidenceAssertion.getConditions() != null &&
-            (saml2EvidenceAssertion.getConditions().getNotBefore() != null || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
+        if (saml2EvidenceAssertion.getConditions() != null
+            && (saml2EvidenceAssertion.getConditions().getNotBefore() != null || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
             // Translate Evidence Conditions
             Conditions saml2EvidenceCondition = saml2EvidenceAssertion.getConditions();
             SamlAuthzDecisionStatementEvidenceConditionsType targetConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
@@ -511,7 +511,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         try {
             formRaw = EMPTY_STRING.getBytes(StringUtil.UTF8_CHARSET);
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
         }
         assertOut.setSamlSignature(samlSignature);
         samlSignature.setSignatureValue(formRaw);

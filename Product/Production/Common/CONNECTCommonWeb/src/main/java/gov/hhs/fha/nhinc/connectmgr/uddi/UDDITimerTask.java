@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,20 +44,12 @@ public class UDDITimerTask {
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_SWITCH_PROPERTY = "UDDIRefreshActive";
 
-    protected boolean isLogEnabled() {
-        boolean isEnabled = false;
-        if (LOG.isDebugEnabled()) {
-            isEnabled = true;
-        }
-        return isEnabled;
-    }
-
     protected void forceRefreshUDDIFile() {
         try {
             UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
             helper.forceRefreshUDDIFile();
         } catch (UDDIAccessorException ex) {
-            LOG.debug("****** UDDITimerTask THROWABLE: {}", ex.getMessage(), ex);
+            LOG.warn("****** UDDITimerTask THROWABLE: {}", ex.getLocalizedMessage(), ex);
 
             for (StackTraceElement ste : ex.getStackTrace()) {
                 if (ste.toString().contains("EJBClassLoader")) {

@@ -83,12 +83,8 @@ public class AuditDataTransformHelper {
                 today.get(java.util.GregorianCalendar.SECOND), today.get(java.util.GregorianCalendar.MILLISECOND),
                 0);
             eventIdentification.setEventDateTime(calendar);
-        } catch (DatatypeConfigurationException e) {
-            LOG.error("DatatypeConfigurationException when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            LOG.error("ArrayIndexOutOfBoundsException when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+        } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
+            LOG.error("Exception when creating XMLGregorian Date message: {}", e.getLocalizedMessage(), e);
         }
         // Set the Event Outcome Indicator
         BigInteger eventOutcomeBig = BigInteger.ZERO;
@@ -181,7 +177,7 @@ public class AuditDataTransformHelper {
             try {
                 ipAddr = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException ex) {
-                LOG.error("UnknownHostException thrown getting local host address.", ex);
+                LOG.error("UnknownHostException thrown getting local host address: {}", ex.getLocalizedMessage(), ex);
                 throw new RuntimeException();
             }
         }
@@ -245,7 +241,7 @@ public class AuditDataTransformHelper {
             try {
                 ipAddr = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException ex) {
-                LOG.error("UnknownHostException thrown getting local host address.", ex);
+                LOG.error("UnknownHostException thrown getting local host address: {}", ex.getLocalizedMessage(), ex);
                 throw new RuntimeException();
             }
         }

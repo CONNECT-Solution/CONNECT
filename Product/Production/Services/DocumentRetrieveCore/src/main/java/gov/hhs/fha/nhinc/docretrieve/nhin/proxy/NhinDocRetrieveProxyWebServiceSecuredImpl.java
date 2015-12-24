@@ -68,13 +68,17 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * Retrieve the document(s) specified in the request.
      *
      * @param request The identifier(s) of the document(s) to be retrieved.
+     * @param assertion
      * @param targetSystem The target system where the message is being sent to.
+     * @param level
      * @return The document(s) that were retrieved.
      */
     @NwhinInvocationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
-            GATEWAY_API_LEVEL level) {
+        RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
+        GATEWAY_API_LEVEL level) {
+
         String url;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         String sServiceName = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
@@ -89,11 +93,11 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
                     CONNECTClient<RespondingGatewayRetrievePortType> client = getCONNECTClientSecured(portDescriptor,
-                            assertion, url, targetSystem);
+                        assertion, url, targetSystem);
                     client.enableMtom();
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
-                            RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+                        RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {
                     LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
@@ -101,18 +105,19 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (ConnectionManagerException e) {
+            LOG.error("Connection manager exception: {}", e.getLocalizedMessage(), e);
             XDCommonResponseHelper helper = new XDCommonResponseHelper();
-            RegistryResponseType error = helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
+            RegistryResponseType error = helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError,
+                NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
 
             response = new RetrieveDocumentSetResponseType();
             response.setRegistryResponse(error);
-
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+            LOG.error("Failed to call the web service ({}).  An unexpected exception occurred: {}", sServiceName,
+                e.getLocalizedMessage(), e);
 
             response = MessageGenerator.getInstance().createRegistryResponseError(
-                    "Adapter Document Retrieve Processing");
+                "Adapter Document Retrieve Processing");
         }
 
         return response;
@@ -122,20 +127,19 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param targetSystem
      * @param sServiceName
      * @param level
-     * @param level
      * @return
      * @throws Exception
      * @throws ConnectionManagerException
      * @throws IllegalArgumentException
      */
     protected String getUrl(NhinTargetSystemType targetSystem, String sServiceName, GATEWAY_API_LEVEL level)
-            throws IllegalArgumentException, ConnectionManagerException, Exception {
+        throws IllegalArgumentException, ConnectionManagerException, Exception {
         if (StringUtils.isBlank(targetSystem.getUseSpecVersion())) {
             throw new IllegalArgumentException("Required specification version guidance was null.");
         }
         UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(targetSystem.getUseSpecVersion());
         return getCMInstance().getEndpointURLByServiceNameSpecVersion(
-                targetSystem.getHomeCommunity().getHomeCommunityId(), sServiceName, version);
+            targetSystem.getHomeCommunity().getHomeCommunityId(), sServiceName, version);
     }
 
     protected ConnectionManager getCMInstance() {
@@ -143,12 +147,13 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
     }
 
     public ServicePortDescriptor<RespondingGatewayRetrievePortType> getServicePortDescriptor(
-            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+
         switch (apiLevel) {
-        case LEVEL_g0:
-            return new NhinDocRetrieveServicePortDescriptor();
-        default:
-            return new NhinDocRetrieveServicePortDescriptor();
+            case LEVEL_g0:
+                return new NhinDocRetrieveServicePortDescriptor();
+            default:
+                return new NhinDocRetrieveServicePortDescriptor();
         }
     }
 
@@ -160,9 +165,9 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @return
      */
     protected CONNECTClient<RespondingGatewayRetrievePortType> getCONNECTClientSecured(
-            ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor, AssertionType assertion,
-            String url, NhinTargetSystemType target) {
+        ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor, AssertionType assertion,
+        String url, NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 }

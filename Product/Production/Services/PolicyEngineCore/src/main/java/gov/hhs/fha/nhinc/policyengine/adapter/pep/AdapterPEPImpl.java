@@ -164,7 +164,8 @@ public class AdapterPEPImpl {
 
             } catch (PropertyAccessException pex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
-                LOG.error("PropertyAccessException thrown from XACMLRequestProcessor: " + pex.getMessage());
+                LOG.error("PropertyAccessException thrown from XACMLRequestProcessor: {}", pex.getLocalizedMessage(),
+                    pex);
             } catch (XACMLException xex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
                 try {
@@ -172,12 +173,12 @@ public class AdapterPEPImpl {
                         LOG.error("Unable to process PDP request: " + pdpRequest.toXMLString());
                     }
                 } catch (XACMLException ex) {
-                    // already in handling
+                    LOG.error("Failed to conver PDP request to XML string: {}", ex.getLocalizedMessage(), ex);
                 }
-                LOG.error("XACMLException thrown from XACMLRequestProcessor: " + xex.getMessage());
+                LOG.error("XACMLException thrown from XACMLRequestProcessor: {}", xex.getLocalizedMessage(), xex);
             } catch (SAML2Exception samlex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
-                LOG.error("SAML2Exception thrown from XACMLRequestProcessor: " + samlex.getMessage());
+                LOG.error("SAML2Exception thrown by XACMLRequestProcessor: {}" + samlex.getLocalizedMessage(), samlex);
             }
         } else {
             checkPolicyResp = createResponse(DecisionType.DENY);
@@ -366,11 +367,9 @@ public class AdapterPEPImpl {
                         docResAttr.setDataType(new URI(XACML_DATATYPE));
                         docResAttr.setAttributeStringValues(extractedDocIds);
                         resourcePatientOptInList.add(docResAttr);
-                    } catch (URISyntaxException uriex) {
-                        LOG.error("Error in setting  attriute value for documentid resource-id: " + uriex.getMessage());
-                    } catch (XACMLException xacmlex) {
-                        LOG.error("Error in setting  attriute value for documentid resource-id: "
-                            + xacmlex.getMessage());
+                    } catch (URISyntaxException | XACMLException ex) {
+                        LOG.error("Error in setting attribute value for documentid resource-id: {}",
+                            ex.getLocalizedMessage(), ex);
                     }
 
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
@@ -472,7 +471,7 @@ public class AdapterPEPImpl {
 
             LOG.debug("AdapterPEPImpl.createPdpRequest with PDP request: \n" + request.toXMLString());
         } catch (XACMLException ex) {
-            LOG.error("Error in AdapterPEPImpl.createPdpRequest " + ex.getMessage());
+            LOG.error("Error in AdapterPEPImpl.createPdpRequest: {}", ex.getLocalizedMessage(), ex);
         }
         return request;
     }
@@ -659,12 +658,9 @@ public class AdapterPEPImpl {
 
                     }
                     xspaAttrs.add(xspaAttr);
-                } catch (URISyntaxException uriex) {
-                    LOG.error("Error in extracting " + xacmlId + " values: " + uriex.getMessage());
-                } catch (XACMLException xacmlex) {
-                    LOG.error("Error in extracting " + xacmlId + " values: " + xacmlex.getMessage());
+                } catch (URISyntaxException | XACMLException ex) {
+                    LOG.error("Error in extracting {} values: ", xacmlId, ex.getLocalizedMessage(), ex);
                 }
-
             }
         }
         LOG.debug("End extractAttrs()..");
@@ -694,12 +690,8 @@ public class AdapterPEPImpl {
 
             xspaAttr.setAttributeStringValues(homeCommunityVals);
             xspaAttrs.add(xspaAttr);
-        } catch (PropertyAccessException pex) {
-            LOG.error("Error in extracting Home Community values: " + pex.getMessage());
-        } catch (URISyntaxException uriex) {
-            LOG.error("Error in extracting Home Community values: " + uriex.getMessage());
-        } catch (XACMLException xacmlex) {
-            LOG.error("Error in extracting Home Community  values: " + xacmlex.getMessage());
+        } catch (PropertyAccessException | URISyntaxException | XACMLException ex) {
+            LOG.error("Error in extracting Home Community values: {}", ex.getLocalizedMessage(), ex);
         }
 
         LOG.debug("End createEnvLocAttrs()..");
@@ -732,12 +724,8 @@ public class AdapterPEPImpl {
 
             xspaAttr.setAttributeStringValues(optStatusVals);
             xspaAttrs.add(xspaAttr);
-        } catch (URISyntaxException uriex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + uriex.getMessage());
-        } catch (XACMLException xacmlex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + xacmlex.getMessage());
-        } catch (RuntimeException rex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + rex.getMessage());
+        } catch (URISyntaxException | XACMLException | RuntimeException ex) {
+            LOG.error("Error in extracting PatientOptStatus values: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.debug("End createDocumentOptStatusAttrs()..");
         return xspaAttrs;
@@ -818,10 +806,8 @@ public class AdapterPEPImpl {
 
             xspaAttr.setAttributeStringValues(optStatusVals);
             xspaAttrs.add(xspaAttr);
-        } catch (URISyntaxException uriex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + uriex.getMessage());
-        } catch (XACMLException xacmlex) {
-            LOG.error("Error in extracting PatientOptStatus values: " + xacmlex.getMessage());
+        } catch (URISyntaxException | XACMLException ex) {
+            LOG.error("Error in extracting PatientOptStatus values: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.debug("End createPatientOptStatusAttrs()..");
         return xspaAttrs;
@@ -910,10 +896,8 @@ public class AdapterPEPImpl {
             xspaAttr.setAttributeStringValues(valList);
             xspaAttrs.add(xspaAttr);
 
-        } catch (URISyntaxException uriex) {
-            LOG.error("Error in creating default values: " + uriex.getMessage());
-        } catch (XACMLException xacmlex) {
-            LOG.error("Error in creating default values: " + xacmlex.getMessage());
+        } catch (URISyntaxException | XACMLException ex) {
+            LOG.error("Error in creating default values: {}", ex.getLocalizedMessage(), ex);
         }
 
         return xspaAttrs;

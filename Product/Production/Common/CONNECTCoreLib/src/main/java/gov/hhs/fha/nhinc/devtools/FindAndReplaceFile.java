@@ -59,7 +59,7 @@ public class FindAndReplaceFile {
         }
         if (fDst.exists()) {
             // Delete the file first....
-            boolean deleteSuccess = fDst.delete();
+            fDst.delete();
         }
 
         InputStream oIn = null;
@@ -75,9 +75,9 @@ public class FindAndReplaceFile {
                 oOut.write(buf, 0, iLen);
             }
         } catch (FileNotFoundException ex) {
-            LOG.error("Failed to find file : " + ex.getMessage());
+            LOG.error("Failed to find file: {}", ex.getMessage(), ex);
         } catch (IOException ex) {
-            LOG.error("Failed to read contents of the file : " + fSrc.getName() + ". " + ex.getMessage());
+            LOG.error("Failed to read contents of the file {}: {}", fSrc.getName(), ex.getLocalizedMessage(), ex);
         } finally {
             closeStreamsQuietly(fSrc, oIn);
             closeStreamsQuietly(fDst, oOut);
@@ -91,7 +91,7 @@ public class FindAndReplaceFile {
                 stream.close();
             }
         } catch (IOException ex) {
-            LOG.error("Failed to close stream on file " + file.getName() + "." + ex.getMessage());
+            LOG.error("Failed to close stream on file {}: {}", file.getName(), ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -121,9 +121,9 @@ public class FindAndReplaceFile {
 
             return iCopies;
         } else if (fDirToLook.isFile()) {
-            // System.out.println("Debug: fDirToLook.getCanonicalPath()" + fDirToLook.getCanonicalPath());
             if (fDirToLook.getCanonicalPath().equalsIgnoreCase(fFileName.getCanonicalPath())) {
-                return 0; // Do not change the file itself...
+                // Do not change the file itself...
+                return 0;
             } else if (fDirToLook.getName().equalsIgnoreCase(fFileName.getName())) {
                 try {
                     boolean bCopied = copy(fFileName, fDirToLook);
@@ -134,8 +134,8 @@ public class FindAndReplaceFile {
                         return 0;
                     }
                 } catch (Exception e) {
-                    System.out.println("Failed to replace file: " + fDirToLook.getCanonicalPath() + " Error: "
-                        + e.getMessage());
+                    LOG.error("Failed to replace file {}: {}", fDirToLook.getCanonicalPath(), e.getLocalizedMessage(),
+                        e);
                 }
             }
         }
@@ -147,41 +147,11 @@ public class FindAndReplaceFile {
      * Print the usage information for this project.
      */
     public static void printUsage() {
-        System.out.println("Usage: gov.hhs.fha.nhinc.devtools.FindAndReplaceFile <dir-to-look> <file>");
-        System.out.println("Where:");
-        System.out.println("<dir-to-look> is the directory where the tool should start looking for the file.");
-        System.out.println("              it will search all sub-directories of this one.");
-        System.out.println("<file> the path and location of the file that is to be used for the replacement.");
-        System.out.println("       the name of this file is also the name of the file that will be replaced.");
+        LOG.info("Usage: gov.hhs.fha.nhinc.devtools.FindAndReplaceFile <dir-to-look> <file>");
+        LOG.info("Where:");
+        LOG.info("<dir-to-look> is the directory where the tool should start looking for the file.");
+        LOG.info("              it will search all sub-directories of this one.");
+        LOG.info("<file> the path and location of the file that is to be used for the replacement.");
+        LOG.info("       the name of this file is also the name of the file that will be replaced.");
     }
-
-    /**
-     * Main method.
-     *
-     * @param args
-     */
-/*    public static void main(String[] args) {
-        if (args.length != 2) {
-            printUsage();
-            System.exit(-1);
-        }
-
-        String sDirToLook = "";
-        String sFileName = "";
-        sDirToLook = args[0];
-        sFileName = args[1];
-
-        File fDirToLook = new File(sDirToLook);
-        File fFileName = new File(sFileName);
-
-        try {
-            int iCount = searchAndReplace(fDirToLook, fFileName);
-            System.out.println("Replaced " + iCount + " copies of this file.");
-            System.exit(0);
-        } catch (Throwable t) {
-            System.out.println("An unexpected exception occurred.  Error: " + t.getMessage());
-            t.printStackTrace();
-            System.exit(-1);
-        }
-    }*/
 }

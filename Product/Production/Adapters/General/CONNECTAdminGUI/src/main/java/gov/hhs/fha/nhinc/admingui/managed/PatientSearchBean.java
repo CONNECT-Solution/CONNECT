@@ -465,14 +465,15 @@ public class PatientSearchBean {
 
         try {
             //Load the documentType.properties file
-            Properties localDocumentTypeProperties = PropertyAccessor.getInstance().getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
+            Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
+                .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
                 localDocumentTypeList.add(new SelectItem(property.getKey(), (String) property.getValue()));
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Not able to load the document types from the property file:" + ex.getMessage());
+            LOG.error("Not able to load the document types from the property file: {}" + ex.getLocalizedMessage(), ex);
         }
         return localDocumentTypeList;
     }

@@ -45,6 +45,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.XACMLSerializer;
 import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,10 +147,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             }
         } catch (RuntimeException e) {
             throw e;
-        } catch (Exception ex) {
+        } catch (UnsupportedEncodingException | JAXBException ex) {
             effect = EffectType.DENY;
-            LOG.error("Exception occured while retrieving documents");
-            LOG.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents: {}", ex.getLocalizedMessage(), ex);
         }
 
         LOG.info("processPDPRequest - Policy effect: " + effect.value());
@@ -166,7 +166,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         try {
             policyType = xACMLSerializer.deserializeConsentXACMLDoc(policyStrRawData);
         } catch (AdapterPIPException ex) {
-            LOG.error("getPolicyObject - Error occured while deserializing policy document");
+            LOG.error("getPolicyObject - Error occured while deserializing policy document: {}",
+                ex.getLocalizedMessage(), ex);
         }
         if (policyType != null) {
             LOG.debug("getPolicyObject - Policy description:" + policyType.getDescription());
@@ -409,8 +410,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         } catch (Exception ex) {
             statusCodeValue = AdapterPDPConstants.POLICY_RESULT_STATUS_CODE_PROCESSING_ERROR;
             statusMessageValue = AdapterPDPConstants.POLICY_RESULT_STATUS_MESSAGE_PROCESSING_ERROR;
-            LOG.error("Exception occured while retrieving documents");
-            LOG.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents: {}", ex.getLocalizedMessage(), ex);
         }
         LOG.debug("End AdapterPDPProxyJavaImpl.evaluatePolicy()");
         LOG.debug("Rule Effect value: " + effect);
@@ -540,10 +540,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             response = ContextFactory.getInstance().createResponse();
             response.addResult(createResult(effect));
             LOG.debug("response-xml:" + response.toXMLString());
-        } catch (XACMLException e) {
-            LOG.error("Error adding a result: " + e.getMessage(), e);
-        } catch (URISyntaxException u) {
-            LOG.error("Error adding a result: " + u.getMessage(), u);
+        } catch (XACMLException | URISyntaxException e) {
+            LOG.error("Error adding a result: {}", e.getLocalizedMessage(), e);
         }
 
         return response;
@@ -573,9 +571,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             status.setStatusMessage(statusMessage);
             result.setStatus(status);
             result.setDecision(decision);
-
         } catch (XACMLException e) {
-            LOG.error("Error in setting decision and status: " + e.getMessage(), e);
+            LOG.error("Error in setting decision and status: {}", e.getLocalizedMessage(), e);
         }
         LOG.info("End AdapterPDPProxyJavaImpl.createResult(...)");
         return result;

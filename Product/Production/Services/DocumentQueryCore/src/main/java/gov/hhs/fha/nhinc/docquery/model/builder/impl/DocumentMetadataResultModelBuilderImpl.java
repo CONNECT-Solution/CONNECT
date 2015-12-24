@@ -86,7 +86,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
             int size = Integer.parseInt(documentSize);
             result.setSize(size);
         } catch (Exception e) {
-            LOG.error("Failed to convert the String to int:" + e.getMessage());
+            LOG.error("Failed to convert the String to int: {}", e.getLocalizedMessage(), e);
         }
         result.setSourcePatientId(helper.getSingleSlotValue(ResponseSlotName.sourcePatientId, extrinsicObject));
         result.setUri(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
@@ -112,7 +112,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
             result.setServiceStartTime(getDateTime(serviceStartTime));
             result.setServiceStopTime(getDateTime(serviceStopTime));
         } catch (ParseException e) {
-            LOG.error("Failed to convert the String to Date:" + e.getMessage());
+            LOG.error("Failed to convert the String to Date: {}", e.getLocalizedMessage(), e);
         }
 
         String repositoryId = helper.getSingleSlotValue(ResponseSlotName.repositoryUniqueId, extrinsicObject);

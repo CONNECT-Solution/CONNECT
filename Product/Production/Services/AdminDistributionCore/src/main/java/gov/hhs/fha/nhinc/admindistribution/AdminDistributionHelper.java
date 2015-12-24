@@ -124,14 +124,14 @@ public class AdminDistributionHelper {
         if (target != null) {
             try {
                 url = webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, apiLevel);
-
             } catch (Exception ex) {
-                LOG.error("Error: Failed to retrieve url for service: " + targetSystem);
-                LOG.error(ex.getMessage());
+                LOG.error("Error: Failed to retrieve url for service {}: {}", targetSystem,
+                    ex.getLocalizedMessage(), ex);
             }
         } else {
             LOG.error("Target system passed into the proxy is null");
         }
+
         LOG.debug("end getUrl target/targetSystem url= " + url);
 
         return url;
@@ -148,9 +148,8 @@ public class AdminDistributionHelper {
         try {
             return ConnectionManagerCache.getInstance().getAdapterEndpointURL(adapterServcice, adapterApiLevel);
         } catch (ConnectionManagerException ex) {
-            LOG.error("Error: Failed to retrieve url for service: "
-                + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME);
-            LOG.error(ex.getLocalizedMessage());
+            LOG.error("Error: Failed to retrieve url for service {}: {}",
+                NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ex.getLocalizedMessage(), ex);
         }
 
         return null;
@@ -165,12 +164,11 @@ public class AdminDistributionHelper {
     public boolean readBooleanGatewayProperty(String propertyName) {
         boolean result = false;
         try {
-            result = PropertyAccessor.getInstance().
-                getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+            result = PropertyAccessor.getInstance()
+                .getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve " + propertyName + " from property file: "
-                + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(ex.getLocalizedMessage());
+            LOG.error("Error: Failed to retrieve {} from property file {}: ", propertyName,
+                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return result;
     }
@@ -186,8 +184,8 @@ public class AdminDistributionHelper {
         try {
             result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (Exception ex) {
-            LOG.error("Unable to retrieve property: " + propertyName + " from " + NhincConstants.GATEWAY_PROPERTY_FILE
-                + ".properties: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to retrieve property {} from {}.properties: {}", propertyName,
+                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return result;
     }

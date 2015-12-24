@@ -33,8 +33,12 @@ import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ErrorEventBuilder implements EventBuilder {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ErrorEventBuilder.class);
 
     private MessageProcessingFailedEvent event = new MessageProcessingFailedEvent();
     private ContextEventHelper helper = new ContextEventHelper();
@@ -53,6 +57,7 @@ public class ErrorEventBuilder implements EventBuilder {
                 jsonObject.put("message", throwable.getMessage());
                 jsonObject.put("class", throwable.getClass());
             } catch (JSONException e) {
+                LOG.error("Could not build description: {}", e.getLocalizedMessage(), e);
             }
         }
         event.setDescription(jsonObject.toString());

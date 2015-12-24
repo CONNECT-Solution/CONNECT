@@ -56,7 +56,7 @@ public class XpathHelper {
         try {
             inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes(StringUtil.UTF8_CHARSET)));
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
         }
 
         LOG.debug("perform xpath query (query='" + xpathQuery + "'");
@@ -67,7 +67,7 @@ public class XpathHelper {
             } catch (Exception ex) {
                 // Exception may be due to the encoding of the message being incorrect.
                 // retry using UTF-8
-                LOG.warn("failed to perform xpath query - retrying with UTF-8");
+                LOG.warn("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
                 sourceXml = XmlUtfHelper.convertToUtf8(sourceXml);
                 result = performXpathQuery(sourceXml, xpathQuery);
             }
@@ -83,7 +83,7 @@ public class XpathHelper {
     }
 
     public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
+        throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
 

@@ -68,7 +68,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     public void hasNwhinInvocationEventEvent() throws Exception {
         Class<NhinDocRetrieveProxyWebServiceSecuredImpl> clazz = NhinDocRetrieveProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class, NhinTargetSystemType.class, GATEWAY_API_LEVEL.class);
+            AssertionType.class, NhinTargetSystemType.class, GATEWAY_API_LEVEL.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -82,7 +82,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "2.0");
         when(cache.getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
-                .thenReturn("endpoint");
+            .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g0);
         verify(client).enableMtom();
     }
@@ -92,7 +92,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "2.0");
         when(cache.getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
-                .thenReturn("endpoint");
+            .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g1);
         verify(client).enableMtom();
     }
@@ -143,8 +143,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
              */
             @Override
             public CONNECTClient<RespondingGatewayRetrievePortType> getCONNECTClientSecured(
-                    ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor, AssertionType assertion,
-                    String url, NhinTargetSystemType target) {
+                ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor, AssertionType assertion,
+                String url, NhinTargetSystemType target) {
                 return client;
             }
 

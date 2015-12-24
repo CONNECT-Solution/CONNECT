@@ -73,7 +73,8 @@ public class LargeFileUtils {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
         } catch (PropertyAccessException pae) {
-            LOG.error("Failed to determine if payload should be parsed as a file location.  Will assume false.", pae);
+            LOG.error("Failed to determine if payload should be parsed as a file location.  Will assume false: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return false;
@@ -89,7 +90,8 @@ public class LargeFileUtils {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
         } catch (PropertyAccessException pae) {
-            LOG.error("Failed to determine if payload should be saved to a file location.  Will assume false.", pae);
+            LOG.error("Failed to determine if payload should be saved to a file location.  Will assume false: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return false;
@@ -171,6 +173,7 @@ public class LargeFileUtils {
             }
         } catch (Exception e) {
             LOG.warn("Failed to close input stream");
+            LOG.trace("Exception closing stream: {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -186,6 +189,7 @@ public class LargeFileUtils {
             }
         } catch (Exception e) {
             LOG.warn("Failed to close output stream");
+            LOG.trace("Exception closing stream: {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -223,13 +227,12 @@ public class LargeFileUtils {
      *
      * @param data - the data to convert
      * @return the data handler representing the string
-     * @throws IOException
      */
     public DataHandler convertToDataHandler(String data) {
         try {
             return convertToDataHandler(data.getBytes(StringUtil.UTF8_CHARSET));
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
             return null;
         }
     }
@@ -268,7 +271,8 @@ public class LargeFileUtils {
                 try {
                     is.close();
                 } catch (Exception e) {
-                    LOG.error("Could not close input stream : " + e.getMessage());
+                    LOG.error("Could not close input stream : " + e.getLocalizedMessage());
+                    LOG.trace("Exception closing stream: {}", e.getLocalizedMessage(), e);
                 }
             }
         }
@@ -314,11 +318,10 @@ public class LargeFileUtils {
             return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.PAYLOAD_SAVE_DIRECTORY);
         } catch (PropertyAccessException pae) {
-            LOG.error("Failed to determine payload save directory.  Is " + NhincConstants.PAYLOAD_SAVE_DIRECTORY
-                + " set in gateway.properties?", pae);
+            LOG.error("Failed to determine payload save directory.  Is {} set in gateway.properties?",
+                NhincConstants.PAYLOAD_SAVE_DIRECTORY, pae.getLocalizedMessage(), pae);
         }
 
         return null;
     }
-
 }

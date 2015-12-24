@@ -149,11 +149,11 @@ public class DirectDomainBean {
             FacesContext.getCurrentInstance().addMessage("domainAddErrors",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot add domain: "
                     + domainException.getLocalizedMessage(), ""));
-            LOG.error("Error creating domain: " + domainException.getLocalizedMessage(), domainException);
+            LOG.error("Error creating domain: {}", domainException.getLocalizedMessage(), domainException);
         }
+
         this.domainName = null;
         this.domainPostmaster = null;
-
     }
 
     /**
@@ -182,7 +182,7 @@ public class DirectDomainBean {
             FacesContext.getCurrentInstance().addMessage("domainEditErrors",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot update domain: "
                     + domainException.getLocalizedMessage(), ""));
-            LOG.error("Error updating domain: " + domainException.getLocalizedMessage(), domainException);
+            LOG.error("Error updating domain: {}", domainException.getLocalizedMessage(), domainException);
         }
     }
 
@@ -216,7 +216,7 @@ public class DirectDomainBean {
             try {
                 directService.updateDomain(updateDomain);
             } catch (DomainException domainException) {
-                LOG.error("Error updating to domain: " + domainException.getMessage());
+                LOG.error("Error updating domain: {}", domainException.getLocalizedMessage(), domainException);
             }
         }
         addressName = null;
@@ -566,7 +566,7 @@ public class DirectDomainBean {
                 unassociatedTrustBundleNames.remove(tb.getBundleName());
             }
         } catch (Exception ex) {
-            LOG.error("Unable to refresh trust bundles: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to refresh trust bundles: {}", ex.getLocalizedMessage(), ex);
         }
     }
 

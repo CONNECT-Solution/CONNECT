@@ -139,7 +139,7 @@ public class GatewayService {
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
             return true;
         } catch (Exception ex) {
-            LOG.error("Failed to Retrieve Patient Data" + ex.getMessage());
+            LOG.error("Failed to Retrieve Patient Data: {}", ex.getLocalizedMessage(), ex);
             //TODO: notify the UI or somehow inform the user
             return false;
         }
@@ -182,7 +182,7 @@ public class GatewayService {
             return true;
 
         } catch (DocumentMetadataException ex) {
-            System.out.println("discoverPatient() failed:" + ex.getMessage());
+            LOG.error("discoverPatient() failed: {}", ex.getLocalizedMessage(), ex);
             return false;
         }
     }
@@ -238,7 +238,7 @@ public class GatewayService {
             transformer.transform(new StreamSource(xml), new StreamResult(output));
 
         } catch (TransformerException e) {
-            LOG.error("Exception in transforming from xml to html", e);
+            LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
         }
 
         return output.toByteArray();

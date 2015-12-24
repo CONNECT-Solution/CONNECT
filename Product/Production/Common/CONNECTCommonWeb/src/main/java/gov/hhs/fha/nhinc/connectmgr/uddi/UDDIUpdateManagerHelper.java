@@ -83,8 +83,8 @@ public class UDDIUpdateManagerHelper {
             }
 
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve data from UDDI.  Error: " + e.getMessage();
-            LOG.error(sErrorMessage, e);
+            String sErrorMessage = "Failed to retrieve data from UDDI.  Error: " + e.getLocalizedMessage();
+            LOG.error("Error refreshing UDDI: {}", sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 
@@ -103,9 +103,8 @@ public class UDDIUpdateManagerHelper {
             createBackups = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
                 UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY + " from "
-                + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. ";
-            LOG.warn(sErrorMessage, e);
+            LOG.warn("Failed to retrieve property {} from {}.properties. Defaulting to creating backups: {}",
+                UDDI_REFRESH_KEEP_BACKUPS_PROPERTY, GATEWAY_PROPERTY_FILE, e.getLocalizedMessage(), e);
         }
 
         if (createBackups) {
@@ -122,9 +121,8 @@ public class UDDIUpdateManagerHelper {
                     addToBackupList(backupUddiFileLocation);
                 }
             } catch (Exception e) {
-                String errorMessage = "Failed to rename the current file: " + uddiFileLocation + " to: "
-                    + backupUddiFileLocation;
-                LOG.error(errorMessage, e);
+                LOG.error("Failed to rename the current file {} to {}: {}", uddiFileLocation, backupUddiFileLocation,
+                    e.getLocalizedMessage(), e);
             }
         }
     }
@@ -145,9 +143,8 @@ public class UDDIUpdateManagerHelper {
         try {
             maxNumBackup = (int) PropertyAccessor.getInstance().getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve property: " + UDDI_MAX_NUM_BACKUPS_PROPERTY + " from "
-                + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to " + MAX_NUM_BACKUP;
-            LOG.warn(sErrorMessage, e);
+            LOG.warn("Failed to retrieve property {} from {}.properties. Defaulting to {}: {}",
+                UDDI_MAX_NUM_BACKUPS_PROPERTY, GATEWAY_PROPERTY_FILE, MAX_NUM_BACKUP, e.getLocalizedMessage(), e);
         }
 
         String filenameToDelete = null;
@@ -163,7 +160,8 @@ public class UDDIUpdateManagerHelper {
                     fileToDelete.delete();
                 }
             } catch (Exception e) {
-                LOG.warn("Failed to delete backup file: " + filenameToDelete);
+                LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage());
+                LOG.trace("Deletion exception: {}", e.getLocalizedMessage(), e);
             }
         }
     }
@@ -183,10 +181,10 @@ public class UDDIUpdateManagerHelper {
 
         try {
             forceRefreshUDDIFile();
-            oResponse.getSuccessOrFail().setSuccess(true); // If we got here - we succeeded.
+            // If we got here - we succeeded.
+            oResponse.getSuccessOrFail().setSuccess(true);
         } catch (Exception e) {
-            String sErrorMessage = "Failed to refresh the file from the UDDI server.  Error: " + e.getMessage();
-            LOG.error(sErrorMessage, e);
+            LOG.error("Failed to refresh the file from the UDDI server: {}", e.getLocalizedMessage(), e);
         }
 
         return oResponse;
@@ -200,19 +198,18 @@ public class UDDIUpdateManagerHelper {
      * @param args
      */
     public static void main(String args[]) {
-        System.out.println("Starting test.");
+        LOG.info("Starting test.");
 
         try {
             UDDIUpdateManagerForceRefreshRequestType part1 = new UDDIUpdateManagerForceRefreshRequestType();
             UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
             UDDIUpdateManagerForceRefreshResponseType oResponse = helper.forceRefreshFileFromUDDIServer(part1);
-            System.out.println("Response = " + oResponse.getSuccessOrFail().isSuccess());
+            LOG.info("Response = " + oResponse.getSuccessOrFail().isSuccess());
         } catch (Exception e) {
-            LOG.error("An unexpected error occurred: " + e.getLocalizedMessage(), e);
+            LOG.error("An unexpected error occurred: {}", e.getLocalizedMessage(), e);
             throw new RuntimeException(e);
         }
 
-        System.out.println("Ending test.");
-
+        LOG.info("Ending test.");
     }
 }

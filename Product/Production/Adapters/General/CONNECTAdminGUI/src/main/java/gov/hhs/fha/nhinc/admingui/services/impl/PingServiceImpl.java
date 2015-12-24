@@ -79,7 +79,7 @@ public class PingServiceImpl implements PingService {
             con.disconnect();
             return true;
         } catch (Exception ex) {
-            LOG.warn("Problem pinging endpoint: " + ex.getLocalizedMessage(), ex);
+            LOG.warn("Problem pinging endpoint: {}", ex.getLocalizedMessage(), ex);
         } finally {
             StreamUtils.closeStreamSilently(is);
             StreamUtils.closeFileSilently(isReader);
@@ -115,7 +115,7 @@ public class PingServiceImpl implements PingService {
                 LOG.info(output);
             }
         } catch (PropertyAccessException ex) {
-            LOG.warn(ex.getLocalizedMessage());
+            LOG.warn("Could not access properties: {}", ex.getLocalizedMessage(), ex);
         }
     }
 }

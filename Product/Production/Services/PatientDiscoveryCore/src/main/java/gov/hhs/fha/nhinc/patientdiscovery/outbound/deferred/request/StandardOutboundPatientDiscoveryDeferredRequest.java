@@ -164,8 +164,8 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            LOG.error("Failed to obtain target URLs for service "
-                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+            LOG.error("Failed to obtain target URLs for service {}: {}",
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, ex.getLocalizedMessage(), ex);
             return null;
         }
 

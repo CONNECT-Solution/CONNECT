@@ -227,7 +227,7 @@ public class XDRHelper {
 
             }
         } catch (Exception ex) {
-            LOG.error("Unable to pull intended recipients" + ex.getMessage());
+            LOG.error("Unable to pull intended recipients: {}", ex.getLocalizedMessage(), ex);
         }
 
         LOG.debug("Found " + result.size() + " recipients");
@@ -268,7 +268,7 @@ public class XDRHelper {
         try {
             checkIds = PropertyAccessor.getInstance().getPropertyBoolean("adapter", "XDR.CheckPatientIdsMatch");
         } catch (Exception ex) {
-            LOG.error("Unable to load XDR.CheckPatientIdsMatch");
+            LOG.error("Unable to load XDR.CheckPatientIdsMatch: {}", ex.getLocalizedMessage(), ex);
         }
 
         return checkIds;
@@ -296,7 +296,7 @@ public class XDRHelper {
             mimeArray = list.split(";");
 
         } catch (Exception ex) {
-
+            LOG.trace("Error getting supported mime types: {}", ex.getLocalizedMessage(), ex);
         }
 
         return mimeArray;

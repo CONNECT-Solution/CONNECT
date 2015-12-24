@@ -95,12 +95,10 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
             }
 
         } catch (IOException ex) {
-            LOG.error("Error while reading the document " + ex.getMessage());
+            LOG.error("Error while reading the document: {}", ex.getLocalizedMessage(), ex);
         } finally {
             StreamUtils.closeStreamSilently(in);
         }
         return bos.toByteArray();
-
     }
-
 }

@@ -84,7 +84,7 @@ public class AssertionCreator {
             userPerson.setGivenName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_FIRST));
             userPerson.setFamilyName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_LAST));
             userPerson.setSecondNameOrInitials(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
-                    PROPERTY_KEY_USER_MIDDLE));
+                PROPERTY_KEY_USER_MIDDLE));
             userHc.setName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_ORG));
             user.setUserName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_NAME));
             userRole.setCode(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_CODE));
@@ -95,18 +95,19 @@ public class AssertionCreator {
             purposeCoded.setCode(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_CODE));
             purposeCoded.setCodeSystem(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM));
             purposeCoded.setCodeSystemName(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
-                    PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
+                PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
 
-            // assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
-            // PROPERTY_KEY_SIGN));
-            // assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
-            // PROPERTY_KEY_EXPIRE));
-            // assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,
-            // PROPERTY_KEY_ACCESS_CONSENT));
-
+            /*
+             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+             .setNotBefore(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,PROPERTY_KEY_SIGN));
+             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+             .setNotOnOrAfter(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,PROPERTY_KEY_EXPIRE));
+             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+             .setAccessConsentPolicy(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,PROPERTY_KEY_ACCESS_CONSENT));
+             */
         } catch (PropertyAccessException ex) {
-            LOG.error("Universal Client can not access property: " + ex.getMessage());
+            LOG.error("Universal Client can not access property: {}", ex.getLocalizedMessage(), ex);
         }
         return assertOut;
     }
