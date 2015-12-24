@@ -358,9 +358,9 @@ public class DocumentDao {
 
                 if (params.getOnDemand() != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - onDemand: " + params.getOnDemand().booleanValue());
+                        LOG.debug("Document query - onDemand: " + params.getOnDemand());
                     }
-                    criteria.add(Expression.eq("onDemand", params.getOnDemand().booleanValue()));
+                    criteria.add(Expression.eq("onDemand", params.getOnDemand()));
                 }
 
                 documents = criteria.list();

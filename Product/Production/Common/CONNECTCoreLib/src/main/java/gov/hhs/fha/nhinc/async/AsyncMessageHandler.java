@@ -64,7 +64,7 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPMessage oMessage = messageContext.getMessage();
             SOAPHeader oHeader = oMessage.getSOAPHeader();
 
-            if (outboundProperty.booleanValue()) {
+            if (outboundProperty) {
                 if (messageContext.containsKey(NhincConstants.ASYNC_MSG_TYPE_PROP) == true) {
                     String msgType = (String) messageContext.get(NhincConstants.ASYNC_MSG_TYPE_PROP);
 

@@ -810,7 +810,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 // Size
                 // -----
-                if ((doc.getSize() != null) && (doc.getSize().intValue() > 0)) {
+                if ((doc.getSize() != null) && (doc.getSize() > 0)) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME, doc.getSize().toString());
                     olSlot.add(oSlot);
                     bHaveData = true;

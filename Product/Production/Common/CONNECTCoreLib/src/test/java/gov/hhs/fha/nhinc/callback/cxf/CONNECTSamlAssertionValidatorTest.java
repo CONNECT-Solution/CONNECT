@@ -332,7 +332,7 @@ public class CONNECTSamlAssertionValidatorTest {
         Credential resultCredential = validator.validate(credential, data);
 
         assertFalse(checkedSignedAssertion.isEmpty());
-        assertTrue(checkedSignedAssertion.get(0).booleanValue());
+        assertTrue(checkedSignedAssertion.get(0));
         String resultSecretKey = new String(resultCredential.getSecretKey());
         assertEquals(resultSecretKey, SECRET_KEY);
 
