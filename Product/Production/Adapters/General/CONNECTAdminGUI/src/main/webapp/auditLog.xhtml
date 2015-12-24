@@ -83,14 +83,14 @@
                                                     <span class="col-sm-2">
                                                         <p:selectCheckboxMenu id="menuRemoteHcid" value="#{auditSearchBean.selectedRemoteHcidList}" label="Organization"
                                                                               filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                                            <f:selectItems value="#{auditSearchBean.remoteHcidList}" />
+                                                            <f:selectItems value="#{auditSearchBean.remoteHcidMap}" />
                                                         </p:selectCheckboxMenu>
                                                     </span>
                                                     <h:outputLabel for="eventoutcomeindicator" class="col-sm-1 control-label" id="labeleventOutcomeIndicator" value="Status:" />
                                                     <span class="col-sm-3">
                                                         <h:selectOneMenu class="form-control" id="eventoutcomeindicator" value="#{auditSearchBean.outcomeIndicator}" style="height:32px;width:200px" required="false" >
                                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
-                                                            <f:selectItems value="#{auditSearchBean.eventOutcomeIndicatorMap}"/>
+                                                            <f:selectItems value="#{auditSearchBean.eventOutcomeIndicatorList}"/>
                                                         </h:selectOneMenu>
                                                     </span>
                                                 </div>
@@ -107,11 +107,11 @@
                                                 <div class="form-group">
                                                     <h:outputLabel for="messageid" class="col-sm-3 control-label" id="labelMessageId" value="MessageId:" />
                                                     <span class="col-sm-3" >
-                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.messageId}" style="height:32px;width:200px" id="messageId" maxlength="30" required="false" />
+                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.messageId}" style="height:32px;width:200px" id="messageId" maxlength="50" required="false" />
                                                     </span>
                                                     <h:outputLabel for="relatesto" class="col-sm-3 control-label" id="labelRelatesTo" value="RelatesTo:" />
                                                     <span class="col-sm-3">
-                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.relatesTo}" style="height:32px;width:200px" id="relatesTo" maxlength="30" required="false" />
+                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.relatesTo}" style="height:32px;width:200px" id="relatesTo" maxlength="50" required="false" />
                                                     </span>
 
                                                 </div>
@@ -153,8 +153,16 @@
                                                                     #{audit.userId}
                                                             </p:column>
                                                             <p:column>
+                                                                <f:facet name="header">Direction</f:facet>
+                                                                    #{audit.direction}
+                                                            </p:column>
+                                                            <p:column>
                                                                 <f:facet name="header">MessageId</f:facet>
                                                                 <h:outputText value="#{audit.messageId}" />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <f:facet name="header">RelatesTo</f:facet>
+                                                                <h:outputText value="#{audit.relatesTo}" />
                                                             </p:column>
                                                             <p:column>
                                                                 <f:facet name="header">View Audit XML </f:facet>

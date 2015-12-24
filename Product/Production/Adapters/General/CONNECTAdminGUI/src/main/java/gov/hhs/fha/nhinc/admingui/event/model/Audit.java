@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.util.Date;
-
 /**
  *
  * @author achidamb
@@ -37,7 +35,7 @@ public class Audit {
     private long id;
     private String eventType;
     private String eventOutcomeIndicator;
-    private Date eventTimestamp;
+    private String eventTimestamp;
     private String userId;
     private String messageId;
     private String remoteHcid;
@@ -45,7 +43,6 @@ public class Audit {
     private String relatesTo;
     private String direction;
     private String eventId;
-  
 
     public String getUserId() {
         return userId;
@@ -90,14 +87,14 @@ public class Audit {
     /**
      * @return the eventTimestamp
      */
-    public Date getEventTimestamp() {
+    public String getEventTimestamp() {
         return eventTimestamp;
     }
 
     /**
      * @param eventTimestamp the eventTimestamp to set
      */
-    public void setEventTimestamp(Date eventTimestamp) {
+    public void setEventTimestamp(String eventTimestamp) {
         this.eventTimestamp = eventTimestamp;
     }
 
@@ -157,7 +154,6 @@ public class Audit {
         this.eventId = eventId;
     }
 
-    
     /**
      * @return the id
      */

@@ -8,8 +8,7 @@
 -->
 <hibernate-mapping>
     <class name="gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord" table="auditrepository">
-        <id name="id" type="int">
-            <column name="id" sql-type="INTEGER"/>
+        <id name="id" type="long">
             <generator class="native"/>
         </id>
         <property name="eventTimestamp">
@@ -32,9 +31,6 @@
         </property>
         <property name="relatesTo">
             <column name="relatesTo"/>
-        </property>
-        <property name="transactionId">
-            <column name="transactionId"/>
         </property>
         <property name="remoteHcid">
             <column name="remoteHcid"/>

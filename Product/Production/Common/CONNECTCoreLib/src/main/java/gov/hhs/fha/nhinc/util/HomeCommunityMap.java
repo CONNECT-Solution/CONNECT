@@ -282,4 +282,12 @@ public class HomeCommunityMap {
         connection = connectionManager;
     }
 
+    public static String getHomeCommunityWithoutPrefix(String hcid) {
+        if (NullChecker.isNotNullish(hcid)) {
+            if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+                return hcid.substring(NhincConstants.HCID_PREFIX.length());
+            }
+        }
+        return hcid;
+    }
 }

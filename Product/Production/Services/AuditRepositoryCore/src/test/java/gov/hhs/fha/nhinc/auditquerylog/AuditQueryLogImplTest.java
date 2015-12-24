@@ -56,7 +56,7 @@ public class AuditQueryLogImplTest {
     private final String MESSAGE_ID = "urn:uuid:4abc7cc8-1edc-409d-b061-bf65b21f7b1e";
     private final String RELATES_TO = "urn:uuid:4abc7cc8-1edc-409d-b061-bf65b21f7b1e";
     private final String USER_ID = "wanderson";
-    private final int ID = 1;
+    private final Long ID = 1L;
     private final int OUTCOME = 0;
     private final Date EVENT_TIMESTAMP = Calendar.getInstance().getTime();
     private final Session mockSession = mock(Session.class);
@@ -96,7 +96,7 @@ public class AuditQueryLogImplTest {
         assertEquals("QueryAuditEventsResults.RequestMessageId mismatch", obj.getRequestMessageId(), MESSAGE_ID);
         assertEquals("QueryAuditEventsResults.RelatesTo(mismatch", obj.getRelatesTo(), RELATES_TO);
         assertEquals("QueryAuditEventsResults.UserId mismatch", obj.getUserId(), USER_ID);
-        assertEquals("QueryAuditEventsResults.id mismatch", obj.getId(), ID);
+        assertEquals("QueryAuditEventsResults.id mismatch", obj.getId(), ID.longValue());
         assertEquals("QueryAuditEventsResults.outcome mismatch", obj.getEventOutcomeIndicator().intValue(), OUTCOME);
         assertEquals("QueryAuditEventsResults.EventTimestamp mismatch",
             obj.getEventTimestamp().toGregorianCalendar().getTime(), EVENT_TIMESTAMP);

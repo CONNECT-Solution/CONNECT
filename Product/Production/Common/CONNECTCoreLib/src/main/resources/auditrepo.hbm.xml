@@ -8,43 +8,39 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping>
-  <class name="gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord" table="auditrepository">
-    <id name="id" type="int">
-      <column name="id" sql-type="INTEGER"/>
-      <generator class="native"/>
-    </id>
-    <property name="eventTimestamp">
-      <column name="eventTimestamp"/>
-    </property>
-    <property name="eventId">
-      <column name="eventId"/>
-    </property>
-    <property name="userId">
-      <column name="userId"/>
-    </property>
-    <property name="eventType">
-      <column name="eventType"/>
-    </property>
-    <property name="outcome">
-      <column name="outcome"/>
-    </property>
-    <property name="messageId">
-      <column name="messageId"/>
-    </property>
-    <property name="relatesTo">
-      <column name="relatesTo"/>
-    </property>
-    <property name="transactionId">
-      <column name="transactionId"/>
-    </property>
-    <property name="remoteHcid">
-      <column name="remoteHcid"/>
-    </property>
-    <property name="direction">
-      <column name="direction"/>
-    </property>
-    <property name="message">
-      <column name="message"/>
-    </property>
-  </class>
+    <class name="gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord" table="auditrepository">
+        <id name="id" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="eventTimestamp">
+            <column name="eventTimestamp"/>
+        </property>
+        <property name="eventId">
+            <column name="eventId"/>
+        </property>
+        <property name="userId">
+            <column name="userId"/>
+        </property>
+        <property name="eventType">
+            <column name="eventType"/>
+        </property>
+        <property name="outcome">
+            <column name="outcome"/>
+        </property>
+        <property name="messageId">
+            <column name="messageId"/>
+        </property>
+        <property name="relatesTo">
+            <column name="relatesTo"/>
+        </property>
+        <property name="remoteHcid">
+            <column name="remoteHcid"/>
+        </property>
+        <property name="direction">
+            <column name="direction"/>
+        </property>
+        <property name="message">
+            <column name="message"/>
+        </property>
+    </class>
 </hibernate-mapping>
