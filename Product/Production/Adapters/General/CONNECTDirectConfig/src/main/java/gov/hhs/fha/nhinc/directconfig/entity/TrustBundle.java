@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/*
+ /*
  Copyright (c) 2010, NHIN Direct Project
  All rights reserved.
 
@@ -44,7 +44,6 @@
  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
@@ -67,6 +66,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @since 1.2
  */
 public class TrustBundle {
+
     private Long id;
     private String bundleName;
     private String bundleURL;
@@ -349,6 +349,6 @@ public class TrustBundle {
     }
 
     private boolean hasData() {
-        return ((signingCertificateData != null) && (!Arrays.equals(signingCertificateData, Certificate.NULL_CERT)));
+        return signingCertificateData != null && !Arrays.equals(signingCertificateData, Certificate.getNullCert());
     }
 }

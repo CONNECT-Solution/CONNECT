@@ -57,9 +57,9 @@ public class UserAuthorizationListener implements PhaseListener {
     private static final Logger LOG = LoggerFactory.getLogger(UserAuthorizationListener.class);
 
     /**
-     * The Constant LOGIN_REQUIRED_DIR.
+     * The Constant NO_LOGIN_REQUIRED_PAGES
      */
-    public static final List<String> noLoginRequiredPages = new ArrayList<>();
+    protected static final List<String> NO_LOGIN_REQUIRED_PAGES = new ArrayList<>();
 
     /**
      * The Constant USER_INFO_SESSION_ATTRIBUTE.
@@ -70,7 +70,6 @@ public class UserAuthorizationListener implements PhaseListener {
 
     /**
      * Serial version required for Serializable interface.
-     *
      */
     private static final long serialVersionUID = 4891265644965340362L;
 
@@ -78,7 +77,7 @@ public class UserAuthorizationListener implements PhaseListener {
      *
      */
     public UserAuthorizationListener() {
-        noLoginRequiredPages.add("/login.xhtml");
+        NO_LOGIN_REQUIRED_PAGES.add("/login.xhtml");
     }
 
     /*
@@ -98,17 +97,15 @@ public class UserAuthorizationListener implements PhaseListener {
             currentUser = (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
         }
         validateCsrfToken(event);
-        if (!noLoginRequiredPages.contains(currentPage) && currentUser == null) {
+        if (!NO_LOGIN_REQUIRED_PAGES.contains(currentPage) && currentUser == null) {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
         } else {
-
             boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
             boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
 
             if (currentUser != null && (hasRolePermission == false || isConfigured == false)) {
-
                 LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
                 NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
                 nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
@@ -176,5 +173,4 @@ public class UserAuthorizationListener implements PhaseListener {
             }
         }
     }
-
 }

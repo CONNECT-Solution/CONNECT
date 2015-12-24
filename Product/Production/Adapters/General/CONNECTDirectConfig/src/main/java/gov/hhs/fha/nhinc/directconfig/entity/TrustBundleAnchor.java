@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/*
+ /*
  Copyright (c) 2010, NHIN Direct Project
  All rights reserved.
 
@@ -44,7 +44,6 @@
  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.Thumbprint;
@@ -66,6 +65,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @since 1.2
  */
 public class TrustBundleAnchor {
+
     private Long id;
     private TrustBundle trustBundle;
     private byte[] anchorData;
@@ -152,7 +152,7 @@ public class TrustBundleAnchor {
      */
     public void setData(byte[] data) throws CertificateException {
         anchorData = data;
-        if (data == Certificate.NULL_CERT) {
+        if (data == Certificate.getNullCert()) {
             setThumbprint("");
         } else {
             loadCertFromData();
@@ -212,7 +212,7 @@ public class TrustBundleAnchor {
             this.setValidStartDate(calStartTime);
             bais.close();
         } catch (Exception e) {
-            setData(Certificate.NULL_CERT);
+            setData(Certificate.getNullCert());
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
 
@@ -240,7 +240,7 @@ public class TrustBundleAnchor {
     }
 
     private boolean hasData() {
-        return ((anchorData != null) && (!Arrays.equals(anchorData, Certificate.NULL_CERT)));
+        return anchorData != null && !Arrays.equals(anchorData, Certificate.getNullCert());
     }
 
     /**

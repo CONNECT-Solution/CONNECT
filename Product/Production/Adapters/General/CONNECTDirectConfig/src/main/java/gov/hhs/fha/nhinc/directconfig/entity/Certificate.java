@@ -113,7 +113,16 @@ public class Certificate {
 
     private static final Log LOG = LogFactory.getLog(Certificate.class);
 
-    public static final byte[] NULL_CERT = new byte[]{};
+    private static final byte[] NULL_CERT = new byte[]{};
+
+    /**
+     * Getter to encapsulate NULL_CERT constant array
+     *
+     * @return null cert (empty byte array)
+     */
+    public static byte[] getNullCert() {
+        return NULL_CERT;
+    }
 
     private String owner;
     private String thumbprint;
