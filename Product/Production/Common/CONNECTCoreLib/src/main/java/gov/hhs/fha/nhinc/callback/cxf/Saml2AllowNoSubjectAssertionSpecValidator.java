@@ -52,10 +52,10 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      */
     @Override
     protected void validateSubject(Assertion assertion) throws ValidationException {
-        if ((assertion.getStatements() == null || assertion.getStatements().size() == 0)
-                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().size() == 0)
-                && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().size() == 0)
-                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().size() == 0)
+        if ((assertion.getStatements() == null || assertion.getStatements().isEmpty())
+                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())
+                && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
+                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
                 && assertion.getSubject() == null) {
             throw new ValidationException("Subject is required when Statements are absent");
         }

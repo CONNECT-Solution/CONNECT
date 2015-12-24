@@ -281,7 +281,7 @@ public class ManageQueue extends AbstractPageBean {
 
         List<AsyncMsgRecord> processQueueResults = deferredQueueManagerFacade.queryForDeferredQueueProcessing();
 
-        if (processQueueResults == null || processQueueResults.size() == 0) {
+        if (processQueueResults == null || processQueueResults.isEmpty()) {
             this.errorMessages.setText("No records found to process.");
         }
 
@@ -355,7 +355,7 @@ public class ManageQueue extends AbstractPageBean {
             unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate, statusValue);
         }
 
-        if (unProcessQueueResults == null || unProcessQueueResults.size() == 0) {
+        if (unProcessQueueResults == null || unProcessQueueResults.isEmpty()) {
             this.errorMessages.setText("No records found to process.");
         }
 

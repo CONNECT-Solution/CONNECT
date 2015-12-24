@@ -59,7 +59,7 @@ public class HL7Extractors {
         }
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.size() == 0)) {
+        if ((subjects == null) || (subjects.isEmpty())) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
@@ -85,7 +85,7 @@ public class HL7Extractors {
         // HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.size() == 0)) {
+        if ((subjects == null) || (subjects.isEmpty())) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
@@ -112,7 +112,7 @@ public class HL7Extractors {
         // HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.size() == 0)) {
+        if ((subjects == null) || (subjects.isEmpty())) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }

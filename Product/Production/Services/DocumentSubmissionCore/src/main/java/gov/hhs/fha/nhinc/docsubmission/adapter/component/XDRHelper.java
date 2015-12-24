@@ -147,7 +147,7 @@ public class XDRHelper {
             RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                 "ProvideAndRegisterDocumentSetRequestType did not contain a DocumentList");
             result.getRegistryError().add(error);
-        } else if (body.getDocument().size() == 0) {
+        } else if (body.getDocument().isEmpty()) {
             RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                 "DocumentList did not contain any documents");
             result.getRegistryError().add(error);

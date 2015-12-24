@@ -109,7 +109,7 @@ public class PRPAIN201301UVParser {
         // HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.size() == 0)) {
+        if ((subjects == null) || (subjects.isEmpty())) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }

@@ -61,7 +61,7 @@ class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, Set<
         @Override
         public Optional<String> apply(MCCIMT000300UV01AcknowledgementDetail detail) {
             EDExplicit edExplicit = detail.getText();
-            if (edExplicit == null || edExplicit.getContent().size() == 0) {
+            if (edExplicit == null || edExplicit.getContent().isEmpty()) {
                 return Optional.absent();
             }
             return Optional.of(convertContent(edExplicit));

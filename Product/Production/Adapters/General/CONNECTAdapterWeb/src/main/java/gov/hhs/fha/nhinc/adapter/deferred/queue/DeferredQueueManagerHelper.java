@@ -207,7 +207,7 @@ public class DeferredQueueManagerHelper {
         LOG.debug("***** Retrieve queue message records that were previously selected *****");
         List<AsyncMsgRecord> queueRecords = queueDao.queryForDeferredQueueSelected();
 
-        if (queueRecords == null || queueRecords.size() == 0) {
+        if (queueRecords == null || queueRecords.isEmpty()) {
             LOG.debug("***** Retrieve queue message records that are received and not processed *****");
             queueRecords = queueDao.queryForDeferredQueueProcessing();
         }

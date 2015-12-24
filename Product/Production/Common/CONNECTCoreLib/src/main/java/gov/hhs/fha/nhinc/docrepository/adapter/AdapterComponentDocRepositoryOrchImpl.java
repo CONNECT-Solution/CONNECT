@@ -353,7 +353,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         // return the correct response based on the results of the query.
         String responseStatus;
-        if ((errorList.getRegistryError().isEmpty()) && (errorList.getRegistryError().size() == 0)) {
+        if ((errorList.getRegistryError().isEmpty()) && (errorList.getRegistryError().isEmpty())) {
             responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS;
         } else {
             responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;

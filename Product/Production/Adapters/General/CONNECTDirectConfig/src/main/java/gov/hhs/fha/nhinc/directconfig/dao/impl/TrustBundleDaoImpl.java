@@ -659,7 +659,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
                 results = select.list();
 
-                if (results.size() == 0) {
+                if (results.isEmpty()) {
                     results = Collections.emptyList();
                 } else {
                     for (TrustBundleDomainReltn reltn : results) {

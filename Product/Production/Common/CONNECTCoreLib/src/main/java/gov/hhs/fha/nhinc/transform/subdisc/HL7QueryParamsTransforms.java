@@ -138,7 +138,7 @@ public class HL7QueryParamsTransforms {
     }
 
     public static PRPAMT201306UV02LivingSubjectName createName(List<PNExplicit> patientNames) {
-        if (patientNames == null || patientNames.size() == 0) {
+        if (patientNames == null || patientNames.isEmpty()) {
             return null;
         }
 

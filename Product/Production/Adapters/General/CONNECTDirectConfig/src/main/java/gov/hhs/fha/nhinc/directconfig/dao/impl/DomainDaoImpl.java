@@ -347,7 +347,7 @@ public class DomainDaoImpl implements DomainDao {
 
                 results = query.list();
 
-                if (results.size() == 0) {
+                if (results.isEmpty()) {
                     results = null;
                 }
             }

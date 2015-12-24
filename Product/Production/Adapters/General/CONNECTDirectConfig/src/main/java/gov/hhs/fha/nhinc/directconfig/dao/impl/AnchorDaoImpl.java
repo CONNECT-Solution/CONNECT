@@ -133,7 +133,7 @@ public class AnchorDaoImpl implements AnchorDao {
     public List<Anchor> list(List<String> owners) {
         List<Anchor> results = null;
 
-        if (owners == null || owners.size() == 0) {
+        if (owners == null || owners.isEmpty()) {
             results = listAll();
         } else {
             Session session = null;
@@ -241,7 +241,7 @@ public class AnchorDaoImpl implements AnchorDao {
     public List<Anchor> listByIds(List<Long> anchorIds) {
         List<Anchor> results = null;
 
-        if (anchorIds == null || anchorIds.size() == 0) {
+        if (anchorIds == null || anchorIds.isEmpty()) {
             results = Collections.emptyList();
         } else {
             Session session = null;

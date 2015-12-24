@@ -119,7 +119,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {
 
-        if (addressNames == null || addressNames.size() == 0) {
+        if (addressNames == null || addressNames.isEmpty()) {
             log.debug("No address names were provided.");
             return Collections.emptyList();
         }

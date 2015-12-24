@@ -264,7 +264,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         LOG.debug("Executing Saml2AssertionExtractor.populateAuthenticationStatement()...");
         SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
-        if (null == saml2Assertion.getAuthnStatements() || saml2Assertion.getAuthnStatements().size() == 0) {
+        if (null == saml2Assertion.getAuthnStatements() || saml2Assertion.getAuthnStatements().isEmpty()) {
             return;
         }
         AuthnStatement source = saml2Assertion.getAuthnStatements().get(0);

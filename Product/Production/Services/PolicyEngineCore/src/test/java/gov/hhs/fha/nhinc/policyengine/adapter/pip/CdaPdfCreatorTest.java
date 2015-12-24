@@ -338,7 +338,7 @@ public class CdaPdfCreatorTest {
         // Check for the null or empty case...
         // ------------------------------------
         if ((sStreet == null) && (sCity == null) && (sState == null) && (sZipcode == null) && (sCountry == null)
-                && ((oAddr == null) || (oAddr.getContent() == null) || (oAddr.getContent().size() == 0))) {
+                && ((oAddr == null) || (oAddr.getContent() == null) || (oAddr.getContent().isEmpty()))) {
             return; // We expected null and we got null.
         }
 
@@ -462,7 +462,7 @@ public class CdaPdfCreatorTest {
         // Check for the null or empty case...
         // ------------------------------------
         if ((sPrefix == null) && (sGiven == null) && (sFamily == null) && (sSuffix == null)
-                && ((oName == null) || (oName.getContent() == null) || (oName.getContent().size() == 0))) {
+                && ((oName == null) || (oName.getContent() == null) || (oName.getContent().isEmpty()))) {
             return; // We expected null and we got null.
         }
 

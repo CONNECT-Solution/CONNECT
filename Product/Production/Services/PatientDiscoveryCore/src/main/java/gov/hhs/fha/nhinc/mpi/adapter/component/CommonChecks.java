@@ -58,7 +58,7 @@ public class CommonChecks {
      * @return true if null or has no size. False otherwise
      */
     public static boolean isZeroSearchResult(Patients patients) {
-        return ((patients == null) || (patients.size() == 0));
+        return ((patients == null) || (patients.isEmpty()));
     }
 
 }

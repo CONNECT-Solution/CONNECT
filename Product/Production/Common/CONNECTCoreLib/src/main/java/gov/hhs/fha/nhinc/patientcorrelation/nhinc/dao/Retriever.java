@@ -198,7 +198,7 @@ public class Retriever {
         /*
          * AEGIS.net, Inc. (c) 2010 - Interop Test Platform If empty resultSet, attempt retrieve again with reversed ids
          */
-        if (resultSet != null && resultSet.size() == 0) {
+        if (resultSet != null && resultSet.isEmpty()) {
             CorrelatedIdentifiers criteria = new CorrelatedIdentifiers();
             criteria.setPatientId(correlatedIdentifers.getCorrelatedPatientId());
             criteria.setPatientAssigningAuthorityId(correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
