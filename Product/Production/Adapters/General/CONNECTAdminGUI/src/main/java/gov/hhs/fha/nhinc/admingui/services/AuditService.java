@@ -42,7 +42,7 @@ public interface AuditService {
     public List<Audit> searchAuditRecord(Integer outcome, List<String> eventTypeList, String userId,
         List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap);
 
-    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesToId(String msgId, String relatesTo,
+    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesTo(String msgId, String relatesTo,
         Map<String, String> remoteHcidOrgNameMap);
 
     public String fetchAuditBlob(long auditId);

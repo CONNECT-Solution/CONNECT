@@ -104,7 +104,7 @@ public class AuditSearchBean {
      */
     public void searchAuditMessageId() {
         AuditServiceImpl impl = new AuditServiceImpl();
-        this.auditRecordList = impl.searchAuditRecordBasedOnMsgIdAndRelatesToId(
+        this.auditRecordList = impl.searchAuditRecordBasedOnMsgIdAndRelatesTo(
             NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId.trim() : null,
             NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
         if (NullChecker.isNullish(this.auditRecordList)) {

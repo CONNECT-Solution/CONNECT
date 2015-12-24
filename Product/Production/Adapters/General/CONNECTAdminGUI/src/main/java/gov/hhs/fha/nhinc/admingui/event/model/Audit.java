@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.util.Date;
-
 /**
  *
  * @author achidamb

@@ -57,7 +57,6 @@ public class HomeCommunityMap {
     private static final Logger LOG = LoggerFactory.getLogger(HomeCommunityMap.class);
     private static ConnectionManagerCache connection = ConnectionManagerCache.getInstance();
     private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-    private static final String URN_OID_PREFIX = "urn:oid:";
 
     /**
      * This method retrieves the name of the home community baased on the home community Id.
@@ -285,8 +284,8 @@ public class HomeCommunityMap {
 
     public static String getHomeCommunityWithoutPrefix(String hcid) {
         if (NullChecker.isNotNullish(hcid)) {
-            if (hcid.startsWith(URN_OID_PREFIX)) {
-                return hcid.substring(URN_OID_PREFIX.length());
+            if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+                return hcid.substring(NhincConstants.HCID_PREFIX.length());
             }
         }
         return hcid;

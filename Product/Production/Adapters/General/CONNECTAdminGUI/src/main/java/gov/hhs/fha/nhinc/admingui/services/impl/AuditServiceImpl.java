@@ -123,7 +123,7 @@ public class AuditServiceImpl implements AuditService {
      * @return
      */
     @Override
-    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesToId(String msgId, String relatesTo,
+    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesTo(String msgId, String relatesTo,
         Map<String, String> remoteHcidOrgNameMap) {
         QueryAuditEventsRequestByRequestMessageId auditRequest = new QueryAuditEventsRequestByRequestMessageId();
         auditRequest.setRequestMessageId(msgId);
