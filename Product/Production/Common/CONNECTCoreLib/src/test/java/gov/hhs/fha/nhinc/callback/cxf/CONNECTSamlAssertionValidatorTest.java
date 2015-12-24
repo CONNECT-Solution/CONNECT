@@ -88,7 +88,7 @@ public class CONNECTSamlAssertionValidatorTest {
         DateTime dateTime = new DateTime();
         when(saml1Assertion.getIssueInstant()).thenReturn(dateTime);
         Statement statement = mock(Statement.class);
-        List<Statement> statementList = new ArrayList<Statement>();
+        List<Statement> statementList = new ArrayList<>();
         statementList.add(statement);
         when(saml1Assertion.getStatements()).thenReturn(statementList);
 
@@ -293,7 +293,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
     @Test
     public void testValidate() throws WSSecurityException {
-        final List<Boolean> checkedSignedAssertion = new ArrayList<Boolean>();
+        final List<Boolean> checkedSignedAssertion = new ArrayList<>();
         Credential credential = new Credential();
         final String SECRET_KEY = "secret";
         credential.setSecretKey(SECRET_KEY.getBytes());
@@ -301,7 +301,7 @@ public class CONNECTSamlAssertionValidatorTest {
         AssertionWrapper assertion = mock(AssertionWrapper.class);
         credential.setAssertion(assertion);
 
-        List<String> methods = new ArrayList<String>();
+        List<String> methods = new ArrayList<>();
         final String METHOD_NAME = "urn:oasis:names:tc:SAML:" + "TESTING" + ":cm:holder-of-key";
         methods.add(METHOD_NAME);
 

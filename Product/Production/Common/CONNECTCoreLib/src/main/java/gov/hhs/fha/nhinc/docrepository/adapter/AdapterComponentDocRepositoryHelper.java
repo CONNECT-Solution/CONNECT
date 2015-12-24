@@ -74,7 +74,7 @@ public class AdapterComponentDocRepositoryHelper {
         // loop through binaryDocs list and put them into a hashmap for later use
         // when looping through the metadata - we need to associate the metadata
         // with the document (this is done by looking at the XDS Document id attribute).
-        HashMap<String, DataHandler> docMap = new HashMap<String, DataHandler>();
+        HashMap<String, DataHandler> docMap = new HashMap<>();
 
         for (ProvideAndRegisterDocumentSetRequestType.Document tempDoc : binaryDocs) {
             docMap.put(tempDoc.getId(), tempDoc.getValue());
@@ -90,10 +90,10 @@ public class AdapterComponentDocRepositoryHelper {
         // query for the doc unique id
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(sPatId);
-        List<String> lClassCodeList = new ArrayList<String>();
+        List<String> lClassCodeList = new ArrayList<>();
         lClassCodeList.add(sClassCode);
         params.setClassCodes(lClassCodeList);
-        List<String> lStatus = new ArrayList<String>();
+        List<String> lStatus = new ArrayList<>();
         lStatus.add(sStatus);
         params.setStatuses(lStatus);
 

@@ -106,7 +106,7 @@ public class ConfigurationManager {
     }
 
     private List<RoutingConfig> loadRoutingInfo(NodeList list) {
-        ArrayList<RoutingConfig> result = new ArrayList<RoutingConfig>();
+        ArrayList<RoutingConfig> result = new ArrayList<>();
         Node channels = list.item(0);
 
         LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");

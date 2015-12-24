@@ -56,7 +56,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
         PRPAIN201306UV02 result;
 
         PRPAMT201306UV02ParameterList queryParams = HL7DbParser201305.extractHL7QueryParamsFromMessage(query);
-        List<Patient> filteredPatients = new ArrayList<Patient>();
+        List<Patient> filteredPatients = new ArrayList<>();
 
         if (queryParams == null) {
             LOG.error("no query parameters were supplied");
@@ -69,7 +69,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
 
             if (patientList != null && patientList.size() > 0) {
 
-                List<String> dupOrgIds = new ArrayList<String>();
+                List<String> dupOrgIds = new ArrayList<>();
                 for (Patient patient : patientList) {
                     if ((patient.getIdentifiers() != null) && (patient.getIdentifiers().size() > 0)
                             && (patient.getIdentifiers().get(0).getOrganizationId() != null)) {
@@ -85,8 +85,8 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                 }
 
                 if ((dupOrgIds != null) && (dupOrgIds.size() > 0)) {
-                    HashSet<String> hashSet = new HashSet<String>(dupOrgIds);
-                    dupOrgIds = new ArrayList<String>(hashSet);
+                    HashSet<String> hashSet = new HashSet<>(dupOrgIds);
+                    dupOrgIds = new ArrayList<>(hashSet);
                     LOG.debug("More than one matching patient found in some organizations. dupOrgIds.size(): "
                             + dupOrgIds.size());
                 }

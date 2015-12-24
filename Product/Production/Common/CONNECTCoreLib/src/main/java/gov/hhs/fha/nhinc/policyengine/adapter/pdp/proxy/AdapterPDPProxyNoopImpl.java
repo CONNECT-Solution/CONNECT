@@ -88,7 +88,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 
                 {
 
-                    results = new ArrayList<Result>();
+                    results = new ArrayList<>();
 
                 }
 

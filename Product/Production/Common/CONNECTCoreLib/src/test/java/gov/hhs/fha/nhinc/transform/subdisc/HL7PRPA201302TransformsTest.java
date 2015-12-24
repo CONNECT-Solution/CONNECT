@@ -79,7 +79,7 @@ public class HL7PRPA201302TransformsTest {
         org.hl7.v3.PRPAMT201310UV02Patient patient = new PRPAMT201310UV02Patient();
         PRPAMT201310UV02Person patientPerson = new PRPAMT201310UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201310UV02Person> patientPersonElement = new JAXBElement<PRPAMT201310UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201310UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201310UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());
@@ -100,7 +100,7 @@ public class HL7PRPA201302TransformsTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());

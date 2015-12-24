@@ -200,7 +200,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
     public List<MonitoredMessage> getAllPendingMessages() {
         Session session = null;
         Transaction tx = null;
-        List<MonitoredMessage> pendingList = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> pendingList = new ArrayList<>();
 
         try {
             LOG.debug("Inside addOutgoingMessage()");

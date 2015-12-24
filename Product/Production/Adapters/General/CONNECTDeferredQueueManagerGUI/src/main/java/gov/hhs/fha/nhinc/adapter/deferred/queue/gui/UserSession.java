@@ -153,7 +153,7 @@ public class UserSession extends AbstractSessionBean {
 
     public List<AsyncMsgRecord> getProcessQueueResults() {
         if (processQueueResults == null) {
-            processQueueResults = new ArrayList<AsyncMsgRecord>();
+            processQueueResults = new ArrayList<>();
         }
         return processQueueResults;
     }
@@ -164,7 +164,7 @@ public class UserSession extends AbstractSessionBean {
 
     public List<AsyncMsgRecord> getUnProcessQueueResults() {
         if (unProcessQueueResults == null) {
-            unProcessQueueResults = new ArrayList<AsyncMsgRecord>();
+            unProcessQueueResults = new ArrayList<>();
         }
         return unProcessQueueResults;
     }
@@ -175,7 +175,7 @@ public class UserSession extends AbstractSessionBean {
 
     public List<Option> getStatusItems() {
         if (statusItems == null) {
-            statusItems = new ArrayList<Option>();
+            statusItems = new ArrayList<>();
         }
         return statusItems;
     }

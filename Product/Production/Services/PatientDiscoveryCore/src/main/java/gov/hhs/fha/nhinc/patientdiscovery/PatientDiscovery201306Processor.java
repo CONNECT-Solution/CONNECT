@@ -177,7 +177,7 @@ public class PatientDiscovery201306Processor {
 
     protected List<String> extractAAListFrom201306(PRPAIN201306UV02 msg) {
         LOG.debug("Begin extractAAFrom201306");
-        List<String> assigningAuthorityIds = new ArrayList<String>();
+        List<String> assigningAuthorityIds = new ArrayList<>();
         String assigningAuthority;
         int subjCount = 0;
 

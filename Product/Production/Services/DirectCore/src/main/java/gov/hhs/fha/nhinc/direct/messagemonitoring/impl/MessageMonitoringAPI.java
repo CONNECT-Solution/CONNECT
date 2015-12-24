@@ -76,7 +76,7 @@ public class MessageMonitoringAPI {
 
     public MessageMonitoringAPI() {
         //set the default value
-        messageMonitoringCache = new HashMap<String, MonitoredMessage>();
+        messageMonitoringCache = new HashMap<>();
         //Load the cahce from the database
         buildCache();
     }
@@ -267,7 +267,7 @@ public class MessageMonitoringAPI {
      * @return List
      */
     public List<MonitoredMessage> getAllCompletedMessages() {
-        List<MonitoredMessage> completedMessages = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> completedMessages = new ArrayList<>();
         //loop through the cache
         for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_COMPLETED)) {
@@ -283,7 +283,7 @@ public class MessageMonitoringAPI {
      * @return List
      */
     public List<MonitoredMessage> getAllPendingMessages() {
-        List<MonitoredMessage> pendingMessages = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> pendingMessages = new ArrayList<>();
         //loop through the cache
         for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_PENDING)) {
@@ -311,7 +311,7 @@ public class MessageMonitoringAPI {
      */
     public List<MonitoredMessage> getAllFailedMessages() {
         //loop through the list and find all the pending messages
-        List<MonitoredMessage> failedMessages = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> failedMessages = new ArrayList<>();
         //loop through the cache
         for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_ERROR)) {

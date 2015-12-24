@@ -70,7 +70,7 @@ public class MultiJarVersionFinder {
                 return pathname.isDirectory();
             }
         });
-        List<String> subDirList = new ArrayList<String>();
+        List<String> subDirList = new ArrayList<>();
         for (File subDir : subDirs) {
             subDirList.add(subDir.getAbsolutePath());
         }
@@ -96,7 +96,7 @@ public class MultiJarVersionFinder {
     }
 
     private static Map<String, Set<String>> findDups(String[] dirList) {
-        Map<String, Set<String>> map = new HashMap<String, Set<String>>();
+        Map<String, Set<String>> map = new HashMap<>();
         Pattern p = Pattern.compile("(.*)-([0-9][0-9.]*.*)\\.jar");
         for (String entry : dirList) {
             Matcher m = p.matcher(entry);

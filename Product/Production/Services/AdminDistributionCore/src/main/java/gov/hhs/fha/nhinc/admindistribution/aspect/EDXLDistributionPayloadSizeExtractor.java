@@ -49,7 +49,7 @@ public class EDXLDistributionPayloadSizeExtractor {
      * @return list of sizes
      */
     public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
-        List<String> payloadSize = new ArrayList<String>();
+        List<String> payloadSize = new ArrayList<>();
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
             for (ContentObjectType message : contents) {

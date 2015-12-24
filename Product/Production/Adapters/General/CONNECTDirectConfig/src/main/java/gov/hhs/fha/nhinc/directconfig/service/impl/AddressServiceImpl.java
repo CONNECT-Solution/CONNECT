@@ -124,7 +124,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
             return Collections.emptyList();
         }
 
-        return dao.listAddresses(new ArrayList<String>(addressNames), status);
+        return dao.listAddresses(new ArrayList<>(addressNames), status);
     }
 
     /**

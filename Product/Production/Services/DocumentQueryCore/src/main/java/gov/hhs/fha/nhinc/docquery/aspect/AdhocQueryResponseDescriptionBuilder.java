@@ -91,7 +91,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     @Override
     public void buildRespondingHCIDs() {
         if (hasObjectList()) {
-            setRespondingHCIDs(new ArrayList<String>(extractHcids(response.getRegistryObjectList())));
+            setRespondingHCIDs(new ArrayList<>(extractHcids(response.getRegistryObjectList())));
         } else {
             setLocalResponder();
         }
@@ -153,7 +153,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     }
 
     private Set<String> extractHcids(RegistryObjectListType registryObjectList) {
-        Set<String> hcids = new HashSet<String>();
+        Set<String> hcids = new HashSet<>();
         if(registryObjectList.getIdentifiable() != null){
             for(JAXBElement<? extends IdentifiableType> identifiable : registryObjectList.getIdentifiable()){
                 if(identifiable.getValue() != null

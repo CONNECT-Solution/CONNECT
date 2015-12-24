@@ -159,8 +159,8 @@ public class XDRHelper {
 
         RegistryObjectListType regList = body.getSubmitObjectsRequest().getRegistryObjectList();
 
-        ArrayList<String> metaDocIds = new ArrayList<String>();
-        ArrayList<String> metaPatIds = new ArrayList<String>();
+        ArrayList<String> metaDocIds = new ArrayList<>();
+        ArrayList<String> metaPatIds = new ArrayList<>();
 
         for (int x = 0; x < regList.getIdentifiable().size(); x++) {
             if (regList.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class)) {
@@ -205,7 +205,7 @@ public class XDRHelper {
 
     public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body) {
 
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         LOG.debug("begin getIntendedRecepients()");
         if (body == null || body.getSubmitObjectsRequest() == null) {
@@ -235,7 +235,7 @@ public class XDRHelper {
     }
 
     public List<String> getRoutingBeans(List<String> intendedRecipients) {
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
 
         ConfigurationManager configMgr = new ConfigurationManager();
 

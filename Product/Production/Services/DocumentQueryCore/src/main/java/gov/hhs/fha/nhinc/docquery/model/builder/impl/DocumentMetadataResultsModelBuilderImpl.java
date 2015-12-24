@@ -62,7 +62,7 @@ public class DocumentMetadataResultsModelBuilderImpl implements DocumentMetadata
      * Instantiates a new document metadata results model builder impl.
      */
     public DocumentMetadataResultsModelBuilderImpl() {
-        resultsHolder = new ArrayList<DocumentMetadataResult>();
+        resultsHolder = new ArrayList<>();
     }
 
     @Override

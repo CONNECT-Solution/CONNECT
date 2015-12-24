@@ -50,11 +50,11 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
         proxyHelper = new WebServiceProxyHelper();
 
-        CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
+        CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<>(portDescriptor);
 
-        serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint, -1);
+        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort());
+        serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
 
         serviceEndpoint.configure();
 
@@ -83,7 +83,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
      */
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
     }
 
 

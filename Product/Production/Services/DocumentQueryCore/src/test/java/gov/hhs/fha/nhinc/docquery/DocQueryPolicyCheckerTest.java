@@ -112,7 +112,7 @@ public class DocQueryPolicyCheckerTest {
         final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
         final ResponseType mockResponse = mockery.mock(ResponseType.class);
         final ResultType mockResult = mockery.mock(ResultType.class);
-        final List<ResultType> results = new ArrayList<ResultType>();
+        final List<ResultType> results = new ArrayList<>();
         results.add(mockResult);
 
         DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
@@ -141,7 +141,7 @@ public class DocQueryPolicyCheckerTest {
         final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
         final ResponseType mockResponse = mockery.mock(ResponseType.class);
         final ResultType mockResult = mockery.mock(ResultType.class);
-        final List<ResultType> results = new ArrayList<ResultType>();
+        final List<ResultType> results = new ArrayList<>();
         results.add(mockResult);
 
         DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();

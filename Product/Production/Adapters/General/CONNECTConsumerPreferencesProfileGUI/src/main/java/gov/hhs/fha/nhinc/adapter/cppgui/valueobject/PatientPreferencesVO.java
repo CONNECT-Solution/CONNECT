@@ -56,7 +56,7 @@ public class PatientPreferencesVO {
 
     public void addFineGrainedPolicyCriterion(FineGrainedPolicyCriterionVO criterion) {
         if (fineGrainedPolicyCriteria == null) {
-            fineGrainedPolicyCriteria = new ArrayList<FineGrainedPolicyCriterionVO>();
+            fineGrainedPolicyCriteria = new ArrayList<>();
             if (criterion.getPolicyOID() != null && !criterion.getPolicyOID().isEmpty()) {
                 fineGrainedPolicyCriteria.add(criterion);
             } else {

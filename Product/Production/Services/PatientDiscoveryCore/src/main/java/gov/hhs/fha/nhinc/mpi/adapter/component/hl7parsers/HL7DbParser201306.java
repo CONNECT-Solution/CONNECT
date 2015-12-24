@@ -345,7 +345,7 @@ public class HL7DbParser201306 {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
 
-        return new JAXBElement<COCTMT150003UV03Organization>(xmlqname, COCTMT150003UV03Organization.class, org);
+        return new JAXBElement<>(xmlqname, COCTMT150003UV03Organization.class, org);
     }
 
     private static II createSubjectId(Patient patient) {
@@ -421,7 +421,7 @@ public class HL7DbParser201306 {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
+        return new JAXBElement<>(xmlqname, PRPAMT201310UV02Person.class, person);
     }
 
     private static PRPAMT201310UV02OtherIDs createOtherIds(Patient patient) {
@@ -548,13 +548,13 @@ public class HL7DbParser201306 {
         javax.xml.namespace.QName xmlqnameorg =
             new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem =
-            new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+            new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem =
-            new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+            new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         receiverDevice.setAsAgent(agentElem);
 
@@ -608,13 +608,13 @@ public class HL7DbParser201306 {
         javax.xml.namespace.QName xmlqnameorg =
             new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem =
-            new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+            new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem =
-            new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+            new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 

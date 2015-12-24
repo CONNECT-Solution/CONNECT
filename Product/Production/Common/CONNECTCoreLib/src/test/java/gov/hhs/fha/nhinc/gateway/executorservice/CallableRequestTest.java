@@ -47,7 +47,7 @@ public class CallableRequestTest {
     @Test
     public void testGetRequest() {
         System.out.println("getRequest");
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(null, null, null, null);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, null, null, null);
         Object expResult = null;
         Object result = instance.getRequest();
         assertEquals(expResult, result);
@@ -59,7 +59,7 @@ public class CallableRequestTest {
     @Test
     public void testGetTarget() {
         System.out.println("getTarget");
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(null, null, null, null);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, null, null, null);
         Object expResult = null;
         Object result = instance.getTarget();
         assertEquals(expResult, result);
@@ -73,7 +73,7 @@ public class CallableRequestTest {
         System.out.println("call");
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         TestClient testClient = new TestClient();
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(null, request, null, testClient);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, request, null, testClient);
         ResponseWrapper rw = new ResponseWrapper();
         Object result = instance.call();
         assertNotNull(result);
@@ -85,7 +85,7 @@ public class CallableRequestTest {
     @Test(expected = Exception.class)
     public void testCallWithRequestNull() throws Exception {
         System.out.println("testCallWithRequestNull");
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(null, null, null, null);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, null, null, null);
         Object result = instance.call();
     }
 
@@ -98,7 +98,7 @@ public class CallableRequestTest {
         TestClient testClient = new TestClient();
         testClient.setReturnResponseNull(true);
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper>(null, request, null, testClient);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, request, null, testClient);
         Object result = instance.call();
     }
     //create WebService client class

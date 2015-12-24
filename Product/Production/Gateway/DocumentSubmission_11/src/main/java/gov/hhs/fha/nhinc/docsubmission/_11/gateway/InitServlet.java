@@ -57,7 +57,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
      */
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        Set<WebServicesMXBean> beans = new HashSet<WebServicesMXBean>();
+        Set<WebServicesMXBean> beans = new HashSet<>();
         beans.add(new DocumentSubmission11WebServices(sc));
         beans.add(new DocumentSubmissionDefRequest11WebServices(sc));
         beans.add(new DocumentSubmissionDefResponse11WebServices(sc));

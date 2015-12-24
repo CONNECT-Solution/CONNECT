@@ -254,7 +254,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     @SuppressWarnings("unchecked")
     public List<Statement> createAttributeStatements(CallbackProperties properties, Subject subject) {
-        List<Statement> statements = new ArrayList<Statement>();
+        List<Statement> statements = new ArrayList<>();
 
         statements.addAll(createAuthenicationStatements(properties));
         statements.addAll(createUserNameAttributeStatements(properties));
@@ -292,7 +292,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     public List<AuthnStatement> createAuthenicationStatements(CallbackProperties properties) {
 
-        List<AuthnStatement> authnStatements = new ArrayList<AuthnStatement>();
+        List<AuthnStatement> authnStatements = new ArrayList<>();
 
         String cntxCls = properties.getAuthenticationContextClass();
         if (cntxCls == null) {
@@ -327,7 +327,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     public List<AuthzDecisionStatement> createAuthenicationDecsionStatements(CallbackProperties properties,
         Subject subject) {
-        List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<AuthzDecisionStatement>();
+        List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
 
         Boolean hasAuthzStmt = properties.getAuthenicationStatementExists();
         // The authorization Decision Statement is optional
@@ -398,7 +398,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         DateTime beginValidTime, DateTime endValidTime, String issuer, List<AttributeStatement> statements,
         Subject subject) {
 
-        List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
+        List<Assertion> evidenceAssertions = new ArrayList<>();
         if (evAssertionID == null) {
             evAssertionID = createAssertionId();
         } else {
@@ -511,11 +511,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     protected List<AttributeStatement> createUserNameAttributeStatements(CallbackProperties properties) {
 
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-        List<Attribute> attributes = new ArrayList<Attribute>();
+        List<AttributeStatement> statements = new ArrayList<>();
+        List<Attribute> attributes = new ArrayList<>();
 
         // Set the User Name Attribute
-        List<String> userNameValues = new ArrayList<String>();
+        List<String> userNameValues = new ArrayList<>();
         String nameConstruct = properties.getUserFullName();
 
         if (nameConstruct.length() > 0) {
@@ -542,8 +542,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createUserRoleStatements(CallbackProperties properties) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-        List<Attribute> attributes = new ArrayList<Attribute>();
+        List<AttributeStatement> statements = new ArrayList<>();
+        List<Attribute> attributes = new ArrayList<>();
 
         // Set the User Role Attribute
         String userCode = properties.getUserCode();
@@ -602,8 +602,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected List<AttributeStatement> createOrganizationAttributeStatements(CallbackProperties properties) {
 
         LOG.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
-        List<Attribute> attributes = new ArrayList<Attribute>();
+        List<AttributeStatement> statements = new ArrayList<>();
+        List<Attribute> attributes = new ArrayList<>();
 
         // Set the User Organization ID Attribute
         final String organizationId = properties.getUserOrganization();
@@ -653,7 +653,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     protected List<AttributeStatement> createPatientIdAttributeStatements(CallbackProperties properties) {
 
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute;
 
         // Set the Patient ID Attribute
@@ -678,7 +678,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     protected List<AttributeStatement> createNPIAttributeStatements(CallbackProperties properties) {
 
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute;
 
         // Set the NPI Attribute

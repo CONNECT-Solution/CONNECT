@@ -116,7 +116,7 @@ public class AdapterPEPImpl {
     private static final String[] xspaActionDef = {"create", "create", "read", "read", "read", "read", "read", "read",
         "create", "create", "delete", "delete", "update", "update", "read", "read", "create", "create"};
     // Mapping of the NHIN actions to the cooresponding XSPA action
-    private static Map<String, String> actionMap = new HashMap<String, String>();
+    private static Map<String, String> actionMap = new HashMap<>();
 
     static {
         int numActions = xacmlActionDef.length;
@@ -219,7 +219,7 @@ public class AdapterPEPImpl {
              * optional user role, and a purpose of use
              */
             Subject subject = ContextFactory.getInstance().createSubject();
-            List<Attribute> subjAttrList = new ArrayList<Attribute>();
+            List<Attribute> subjAttrList = new ArrayList<>();
 
             // Subject id must be present it is extracted from the Subject of the request
             List<Attribute> subjIdList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ID, XSPA_SUBJECT_ID, null);
@@ -261,7 +261,7 @@ public class AdapterPEPImpl {
             // }
             // subjAttrList.addAll(subjHomeCommunityList);
             // User role is optional
-            List<String> extractedUserRoles = new ArrayList<String>();
+            List<String> extractedUserRoles = new ArrayList<>();
             List<Attribute> subjUserRoleList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ROLE,
                 XSPA_SUBJECT_ROLE, extractedUserRoles);
             removeEmptyItems(subjUserRoleList);
@@ -271,7 +271,7 @@ public class AdapterPEPImpl {
             subjAttrList.addAll(subjUserRoleList);
 
             // Purpose of use must be present
-            List<String> extractedPurpose = new ArrayList<String>();
+            List<String> extractedPurpose = new ArrayList<>();
             List<Attribute> subjPurposeList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_PURPOSE,
                 XSPA_SUBJECT_PURPOSE, extractedPurpose);
             removeEmptyItems(subjPurposeList);
@@ -284,7 +284,7 @@ public class AdapterPEPImpl {
             // Add the Subject into the PDP request
             subject.setAttributes(subjAttrList);
 
-            List<Subject> subjectList = new ArrayList<Subject>();
+            List<Subject> subjectList = new ArrayList<>();
             subjectList.add(subject);
             request.setSubjects(subjectList);
 
@@ -292,12 +292,12 @@ public class AdapterPEPImpl {
              * Create Resource has a patient id, patient home community, service type, and patient opt-in/opt-out
              */
             Resource resource = ContextFactory.getInstance().createResource();
-            List<Attribute> resourceAttrList = new ArrayList<Attribute>();
-            List<Attribute> resourcePatientOptInList = new ArrayList<Attribute>();
+            List<Attribute> resourceAttrList = new ArrayList<>();
+            List<Attribute> resourcePatientOptInList = new ArrayList<>();
 
             // Service type must be present - identifies the NHIN service inbound or outbound
             // It is extracted from the Action attribute of the request
-            List<String> extractedServices = new ArrayList<String>();
+            List<String> extractedServices = new ArrayList<>();
             List<Attribute> resourceServiceList = createActionAttrs(checkPolicyRequest, XACML_ACTION,
                 XSPA_SERVICE_TYPE, extractedServices);
             removeEmptyItems(resourceServiceList);
@@ -307,7 +307,7 @@ public class AdapterPEPImpl {
             resourceAttrList.addAll(resourceServiceList);
 
             // Resource id is only present if the request is patient specific
-            List<String> extractedResourceIds = new ArrayList<String>();
+            List<String> extractedResourceIds = new ArrayList<>();
             List<Attribute> resourceIdList = createResourceAttrs(checkPolicyRequest, XACML_RESOURCE_ID,
                 XSPA_RESOURCE_ID, extractedResourceIds);
             removeEmptyItems(resourceIdList);
@@ -318,7 +318,7 @@ public class AdapterPEPImpl {
             if (!extractedResourceIds.isEmpty()) {
                 LOG.debug("createPdpRequest - extractedResourceIds not empty");
                 // If request is patient specific then get the home community
-                List<String> extractedCommunityIds = new ArrayList<String>();
+                List<String> extractedCommunityIds = new ArrayList<>();
                 List<Attribute> resourceHomeCommunityList = createResourceAttrs(checkPolicyRequest,
                     XACML_ASSIGING_AUTH, XSPA_ASSIGNING_AUTH, extractedCommunityIds);
                 if (resourceHomeCommunityList.isEmpty()) {
@@ -344,9 +344,9 @@ public class AdapterPEPImpl {
                 // If message is not patient-centric it may be document-centric or subscription based
                 // If document-centric then the patient opt-in status is checked by document-id
                 LOG.debug("createPdpRequest - extractedResourceIds is empty");
-                List<String> extractedDocIds = new ArrayList<String>();
-                List<String> extractedCommunityIds = new ArrayList<String>();
-                List<String> extractedRepositoryIds = new ArrayList<String>();
+                List<String> extractedDocIds = new ArrayList<>();
+                List<String> extractedCommunityIds = new ArrayList<>();
+                List<String> extractedRepositoryIds = new ArrayList<>();
                 // Note that these are not used in the construction of the request
 
                 createResourceAttrs(checkPolicyRequest, XACML_DOCUMENT_ID, XSPA_RESOURCE_ID, extractedDocIds);
@@ -384,7 +384,7 @@ public class AdapterPEPImpl {
                 } else {
                     LOG.debug("createPdpRequest - extractedDocIds is empty");
                     // If it is not patient specific nor document specific then look for subscription
-                    List<String> extractedSubscription = new ArrayList<String>();
+                    List<String> extractedSubscription = new ArrayList<>();
                     createResourceAttrs(checkPolicyRequest, XACML_SUBSCRIPTION_ID, XSPA_RESOURCE_ID,
                         extractedSubscription);
                     if (!extractedSubscription.isEmpty()) {
@@ -425,7 +425,7 @@ public class AdapterPEPImpl {
             // Add the Resource into the PDP request
             resource.setAttributes(resourceAttrList);
 
-            List<Resource> resourceList = new ArrayList<Resource>();
+            List<Resource> resourceList = new ArrayList<>();
             resourceList.add(resource);
             request.setResources(resourceList);
 
@@ -433,7 +433,7 @@ public class AdapterPEPImpl {
              * Create Action recognized values are: create, read, update, delete, execute, suspend.
              */
             Action action = ContextFactory.getInstance().createAction();
-            List<Attribute> actionAttrList = new ArrayList<Attribute>();
+            List<Attribute> actionAttrList = new ArrayList<>();
 
             // Action must be present, depends on the action in the request.
             List<Attribute> actionIdList = createActionAttrs(checkPolicyRequest, XACML_ACTION, XSPA_ACTION, null);
@@ -450,7 +450,7 @@ public class AdapterPEPImpl {
 
             // Environnment, required but not used
             Environment environment = ContextFactory.getInstance().createEnvironment();
-            List<Attribute> envAttrList = new ArrayList<Attribute>();
+            List<Attribute> envAttrList = new ArrayList<>();
 
             // Home community id must be present
             // In inbound messages it is extracted from the Subject of the request
@@ -505,7 +505,7 @@ public class AdapterPEPImpl {
     private List<Attribute> createSubjAttrs(CheckPolicyRequestType checkPolicyRequest, String xacmlId, String xspaId,
         List<String> extractedVals) {
 
-        List<Attribute> retSubjList = new ArrayList<Attribute>();
+        List<Attribute> retSubjList = new ArrayList<>();
 
         if (checkPolicyRequest != null && checkPolicyRequest.getRequest() != null
             && checkPolicyRequest.getRequest().getSubject() != null
@@ -544,7 +544,7 @@ public class AdapterPEPImpl {
     private List<Attribute> createResourceAttrs(CheckPolicyRequestType checkPolicyRequest, String xacmlId,
         String xspaId, List<String> extractedVals) {
         LOG.debug("Begin createResourceAttrs()..");
-        List<Attribute> retResourceList = new ArrayList<Attribute>();
+        List<Attribute> retResourceList = new ArrayList<>();
 
         if (checkPolicyRequest != null && checkPolicyRequest.getRequest() != null
             && checkPolicyRequest.getRequest().getResource() != null
@@ -583,7 +583,7 @@ public class AdapterPEPImpl {
     private List<Attribute> createActionAttrs(CheckPolicyRequestType checkPolicyRequest, String xacmlId, String xspaId,
         List<String> extractedVals) {
 
-        List<Attribute> retActionList = new ArrayList<Attribute>();
+        List<Attribute> retActionList = new ArrayList<>();
 
         if (checkPolicyRequest != null && checkPolicyRequest.getRequest() != null
             && checkPolicyRequest.getRequest().getAction() != null) {
@@ -620,7 +620,7 @@ public class AdapterPEPImpl {
     private List<Attribute> extractAttrs(List<AttributeType> xacmlAttrs, String xacmlId, String xspaId,
         List<String> extractedVals) {
         LOG.debug("Begin extractAttrs()..");
-        List<Attribute> xspaAttrs = new ArrayList<Attribute>();
+        List<Attribute> xspaAttrs = new ArrayList<>();
 
         for (AttributeType xacmlAttr : xacmlAttrs) {
             if (xacmlAttr.getAttributeId().equals(xacmlId)) {
@@ -628,7 +628,7 @@ public class AdapterPEPImpl {
                     Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
                     xspaAttr.setAttributeId(new URI(xspaId));
                     xspaAttr.setDataType(new URI(XACML_DATATYPE));
-                    List<String> extractedContent = new ArrayList<String>();
+                    List<String> extractedContent = new ArrayList<>();
                     for (AttributeValueType attrVal : xacmlAttr.getAttributeValue()) {
                         for (Object values : attrVal.getContent()) {
                             extractedContent.add(values.toString().trim());
@@ -675,14 +675,14 @@ public class AdapterPEPImpl {
      */
     private List<Attribute> createEnvLocAttrs() {
         LOG.debug("Begin createEnvLocAttrs()..");
-        List<Attribute> xspaAttrs = new ArrayList<Attribute>();
+        List<Attribute> xspaAttrs = new ArrayList<>();
 
         try {
             Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
             xspaAttr.setAttributeId(new URI(XSPA_ENVIRONMENT_LOCALITY));
             xspaAttr.setDataType(new URI(XACML_DATATYPE));
 
-            List<String> homeCommunityVals = new ArrayList<String>();
+            List<String> homeCommunityVals = new ArrayList<>();
             String homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
                 PROPERTY_FILE_KEY_HOME_COMMUNITY);
             LOG.debug("Adding hcid attribute value for " + XSPA_ENVIRONMENT_LOCALITY);
@@ -709,7 +709,7 @@ public class AdapterPEPImpl {
     private List<Attribute> createDocumentOptStatusAttrs(List<String> documentIdList, List<String> communityIds,
         List<String> repositoryIds, AssertionType assertion) {
         LOG.debug("Begin createDocumentOptStatusAttrs()..");
-        List<Attribute> xspaAttrs = new ArrayList<Attribute>();
+        List<Attribute> xspaAttrs = new ArrayList<>();
 
         try {
             Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
@@ -742,7 +742,7 @@ public class AdapterPEPImpl {
     protected List<String> determineDocumentOptStatus(List<String> documentIds, List<String> communityIds,
         List<String> repositoryIds, AssertionType assertion) {
         LOG.debug("Begin determineDocumentOptStatus()..");
-        List<String> optStatus = new ArrayList<String>();
+        List<String> optStatus = new ArrayList<>();
         int numDocIdAttr = documentIds.size();
         int numCommunityIdAttr = communityIds.size();
         int numRepoIdAttr = repositoryIds.size();
@@ -792,7 +792,7 @@ public class AdapterPEPImpl {
     private List<Attribute> createPatientOptStatusAttrs(List<String> resourceIdList, List<String> assigningAuthList,
         AssertionType assertion) {
         LOG.debug("Begin createPatientOptStatusAttrs()..");
-        List<Attribute> xspaAttrs = new ArrayList<Attribute>();
+        List<Attribute> xspaAttrs = new ArrayList<>();
 
         try {
             Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
@@ -824,7 +824,7 @@ public class AdapterPEPImpl {
     protected List<String> determinePatientOptStatus(List<String> resourceIds, List<String> assigningAuths,
         AssertionType assertion) {
         LOG.debug("Begin determinePatientOptStatus()..");
-        List<String> optStatus = new ArrayList<String>();
+        List<String> optStatus = new ArrayList<>();
         int numIdAttr = resourceIds.size();
         int numAuthAttr = assigningAuths.size();
         if (numIdAttr != numAuthAttr) {
@@ -864,7 +864,7 @@ public class AdapterPEPImpl {
      * @return The listing of the matching XSPA actions
      */
     private List<String> determineXSPAAction(List<String> extractedVals) {
-        List<String> translatedActions = new ArrayList<String>();
+        List<String> translatedActions = new ArrayList<>();
         // Action values in the request message reflect the NHIN service and
         // the direction being inbound or outbound
         for (String actionValue : extractedVals) {
@@ -884,13 +884,13 @@ public class AdapterPEPImpl {
      */
     private List<Attribute> createDefaultAttrs(String xspaId, String value) {
         LOG.debug("Begin createDefaultAttrs()..");
-        List<Attribute> xspaAttrs = new ArrayList<Attribute>();
+        List<Attribute> xspaAttrs = new ArrayList<>();
 
         try {
             Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
             xspaAttr.setAttributeId(new URI(xspaId));
             xspaAttr.setDataType(new URI(XACML_DATATYPE));
-            List<String> valList = new ArrayList<String>();
+            List<String> valList = new ArrayList<>();
             valList.add(value);
 
             xspaAttr.setAttributeStringValues(valList);

@@ -245,7 +245,7 @@ public class PatientDAO {
         LOG.debug("PatientDAO.findAllPatients() - Begin");
 
         Session session = null;
-        List<Patient> patientsList = new ArrayList<Patient>();
+        List<Patient> patientsList = new ArrayList<>();
 
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

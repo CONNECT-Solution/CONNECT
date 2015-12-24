@@ -74,7 +74,7 @@ public class NhinCallableRequestTest {
     public void testCall() {
         System.out.println("call");
         TestOutboundOrchestratableMessage test = new TestOutboundOrchestratableMessage();
-        NhinCallableRequest<OutboundOrchestratableMessage> instance = new NhinCallableRequest<OutboundOrchestratableMessage>(test);
+        NhinCallableRequest<OutboundOrchestratableMessage> instance = new NhinCallableRequest<>(test);
         Object result = instance.call();
         assertNotNull(result);
     }
@@ -87,7 +87,7 @@ public class NhinCallableRequestTest {
         System.out.println("call");
         TestOutboundOrchestratableMessage test = new TestOutboundOrchestratableMessage();
         test.setReturnNullObject(true);
-        NhinCallableRequest<OutboundOrchestratableMessage> instance = new NhinCallableRequest<OutboundOrchestratableMessage>(test);
+        NhinCallableRequest<OutboundOrchestratableMessage> instance = new NhinCallableRequest<>(test);
         Object result = instance.call();
     }
 
@@ -99,7 +99,7 @@ public class NhinCallableRequestTest {
         System.out.println("call");
         TestOutboundOrchestratableMessage test = new TestOutboundOrchestratableMessage();
         test.setReturnNullOutboundDelegate(true);
-        NhinCallableRequest<OutboundOrchestratableMessage> instance = new NhinCallableRequest<OutboundOrchestratableMessage>(test);
+        NhinCallableRequest<OutboundOrchestratableMessage> instance = new NhinCallableRequest<>(test);
         Object result = instance.call();
     }
 

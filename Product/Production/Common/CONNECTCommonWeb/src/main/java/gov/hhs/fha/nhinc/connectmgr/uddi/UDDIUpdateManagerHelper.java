@@ -51,7 +51,7 @@ public class UDDIUpdateManagerHelper {
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
     private static final String UDDI_MAX_NUM_BACKUPS_PROPERTY = "UDDIMaxNumBackups";
     private static final int MAX_NUM_BACKUP = 10;
-    private static final ArrayList<String> backupFileList = new ArrayList<String>();
+    private static final ArrayList<String> backupFileList = new ArrayList<>();
 
     /**
      * This method retrieves the BusinessDetail data from the UDDI server. The BusinessDetail contains the list of

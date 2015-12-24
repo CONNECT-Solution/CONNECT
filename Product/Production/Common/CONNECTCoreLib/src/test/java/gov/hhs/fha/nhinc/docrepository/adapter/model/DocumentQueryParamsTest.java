@@ -61,7 +61,7 @@ public class DocumentQueryParamsTest {
 		String patientId = "Patient_1";
 		docQueryParams.setPatientId(patientId);
 
-		List<String> classCodeList = new ArrayList<String>();
+		List<String> classCodeList = new ArrayList<>();
 		String classCode = "classCode";
 		classCodeList.add(classCode);
 		docQueryParams.setClassCodes(classCodeList);
@@ -77,12 +77,12 @@ public class DocumentQueryParamsTest {
 		createTimeTo.setTime(11111L);
 		docQueryParams.setCreationTimeTo(createTimeTo);
 
-		List<String> docUniqueIdList = new ArrayList<String>();
+		List<String> docUniqueIdList = new ArrayList<>();
 		String docUniqueId = "Doc_Unique_Id 1";
 		docUniqueIdList.add(docUniqueId);
 		docQueryParams.setDocumentUniqueId(docUniqueIdList);
 
-		List<String> statusList = new ArrayList<String>();
+		List<String> statusList = new ArrayList<>();
 		String status = "status";
 		statusList.add(status);
 		docQueryParams.setStatuses(statusList);
@@ -103,7 +103,7 @@ public class DocumentQueryParamsTest {
 		serviceStopTimeTo.setTime(11111L);
 		docQueryParams.setServiceStopTimeTo(serviceStopTimeTo);
 
-		List<EventCodeParam> eventCodeParamList = new ArrayList<EventCodeParam>();
+		List<EventCodeParam> eventCodeParamList = new ArrayList<>();
 		EventCodeParam eventCodeParam = new EventCodeParam();
 		eventCodeParam.setEventCode("event code");
 		eventCodeParam.setEventCodeScheme("event code scheme");

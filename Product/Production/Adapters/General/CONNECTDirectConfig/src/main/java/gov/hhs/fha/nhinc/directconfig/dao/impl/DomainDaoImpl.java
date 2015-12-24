@@ -306,7 +306,7 @@ public class DomainDaoImpl implements DomainDao {
         }
 
         if (results == null) {
-            results = new ArrayList<Domain>();
+            results = new ArrayList<>();
         }
 
         return results;
@@ -387,7 +387,7 @@ public class DomainDaoImpl implements DomainDao {
                 result = query.list();
 
                 if (result == null) {
-                    result = new ArrayList<Domain>();
+                    result = new ArrayList<>();
                 }
             }
         } finally {

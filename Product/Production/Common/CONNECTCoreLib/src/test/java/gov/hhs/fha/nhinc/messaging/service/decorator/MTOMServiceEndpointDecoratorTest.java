@@ -68,11 +68,11 @@ public class MTOMServiceEndpointDecoratorTest {
     }
 
     private CONNECTClient<TestServicePortType> createClient() {
-        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new MTOMServiceEndpointDecorator<TestServicePortType>(serviceEndpoint);
+        serviceEndpoint = new MTOMServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
 
         return testClient;

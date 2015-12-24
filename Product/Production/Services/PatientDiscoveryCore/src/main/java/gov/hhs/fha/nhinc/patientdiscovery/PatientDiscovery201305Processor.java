@@ -128,7 +128,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         // ************************************************************************************************
-        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
@@ -137,7 +137,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             LOG.debug("checkPolicy - Before policy Check-response/subjects is null");
         }
 
-        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<>();
         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
             int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
             LOG.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
@@ -614,7 +614,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         assignedDevice.getId().add(id);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
-        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<>(
                 xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
 
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);

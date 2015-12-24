@@ -260,7 +260,7 @@ public class TrustBundle {
      */
     public Collection<TrustBundleAnchor> getTrustBundleAnchors() {
         if (trustBundleAnchors == null) {
-            trustBundleAnchors = new ArrayList<TrustBundleAnchor>();
+            trustBundleAnchors = new ArrayList<>();
         }
 
         return trustBundleAnchors;
@@ -283,7 +283,7 @@ public class TrustBundle {
     @XmlTransient
     public Collection<TrustBundleDomainReltn> getRelations() {
         if (relations == null) {
-            relations = new ArrayList<TrustBundleDomainReltn>();
+            relations = new ArrayList<>();
         }
 
         return relations;

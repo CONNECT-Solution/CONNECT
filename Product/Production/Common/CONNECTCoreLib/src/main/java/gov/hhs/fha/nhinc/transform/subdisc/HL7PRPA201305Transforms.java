@@ -82,7 +82,7 @@ public class HL7PRPA201305Transforms {
         assignedDevice.getId().add(id);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
-        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<>(
                 xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
 
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);

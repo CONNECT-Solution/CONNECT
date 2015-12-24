@@ -274,7 +274,7 @@ public class Domain {
     @XmlElement(name = "address")
     public Collection<Address> getAddresses() {
         if (addresses == null) {
-            addresses = new ArrayList<Address>();
+            addresses = new ArrayList<>();
         }
 
         return addresses;
@@ -306,7 +306,7 @@ public class Domain {
     @XmlTransient
     public Collection<TrustBundleDomainReltn> getRelations() {
         if (relations == null) {
-            relations = new ArrayList<TrustBundleDomainReltn>();
+            relations = new ArrayList<>();
         }
 
         return relations;

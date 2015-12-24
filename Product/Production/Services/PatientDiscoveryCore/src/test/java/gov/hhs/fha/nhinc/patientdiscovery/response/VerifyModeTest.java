@@ -274,7 +274,7 @@ public class VerifyModeTest {
     public void testPatientExistsLocally() {
         // List<II> localPatientIds, AssertionType assertion, PRPAIN201306UV02 response
 
-        List<II> localPatientIds = new ArrayList<II>();
+        List<II> localPatientIds = new ArrayList<>();
         II patientId = new II();
         patientId.setExtension("1234");
         patientId.setRoot("1.1.1");
@@ -335,7 +335,7 @@ public class VerifyModeTest {
 
     @Test
     public void testCompareId_List() {
-        List<PRPAMT201306UV02LivingSubjectId> localSubjectIds = new ArrayList<PRPAMT201306UV02LivingSubjectId>();
+        List<PRPAMT201306UV02LivingSubjectId> localSubjectIds = new ArrayList<>();
         PRPAMT201306UV02LivingSubjectId localSubjectId = new PRPAMT201306UV02LivingSubjectId();
         II localId = new II();
         localId.setExtension("extension");
@@ -343,7 +343,7 @@ public class VerifyModeTest {
         localSubjectId.getValue().add(localId);
         localSubjectIds.add(localSubjectId);
 
-        List<PRPAMT201306UV02LivingSubjectId> remoteSubjectIds = new ArrayList<PRPAMT201306UV02LivingSubjectId>();
+        List<PRPAMT201306UV02LivingSubjectId> remoteSubjectIds = new ArrayList<>();
         PRPAMT201306UV02LivingSubjectId remoteSubjectId = new PRPAMT201306UV02LivingSubjectId();
         II remoteId = new II();
         remoteId.setExtension("extension");

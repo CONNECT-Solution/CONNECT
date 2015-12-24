@@ -95,7 +95,7 @@ public class DirectAgentBean {
      */
     public void deleteSetting() {
         if (selectSetting != null) {
-            List<String> deleteNames = new ArrayList<String>();
+            List<String> deleteNames = new ArrayList<>();
             deleteNames.add(selectSetting.getName());
             directService.deleteSetting(deleteNames);
             selectSetting = null;

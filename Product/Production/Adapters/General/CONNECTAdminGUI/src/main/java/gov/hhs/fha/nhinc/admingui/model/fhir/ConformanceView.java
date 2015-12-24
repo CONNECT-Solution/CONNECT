@@ -37,7 +37,7 @@ public class ConformanceView {
 
     private String conformanceDesc;
     private String conformanceUrl;
-    private List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
+    private List<ConformanceResource> confResources = new ArrayList<>();
 
     public String getConformanceDesc() {
         return conformanceDesc;

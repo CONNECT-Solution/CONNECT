@@ -39,7 +39,7 @@ public class NhincCollectionsTest {
 
     @Test
     public void fillAbsents() {
-        List<Optional<String>> input = new ArrayList<Optional<String>>();
+        List<Optional<String>> input = new ArrayList<>();
         input.add(Optional.<String> absent());
         input.add(Optional.of("test"));
         List<String> output = NhincCollections.fillAbsents(input, "testFillValue");

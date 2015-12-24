@@ -74,7 +74,7 @@ public class TrustMode implements ResponseMode {
             AssertionType assertion = params.assertion;
             PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
-            List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+            List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
             if (response != null && response.getControlActProcess() != null
                     && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                 pRPAINSubjects = response.getControlActProcess().getSubject();
@@ -131,7 +131,7 @@ public class TrustMode implements ResponseMode {
         LOG.debug("begin processResponse");
         if (response != null) {
             if (localPatId != null) {
-                List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+                List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
                 if (response.getControlActProcess() != null
                         && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                     pRPAINSubjects = response.getControlActProcess().getSubject();

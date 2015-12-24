@@ -244,7 +244,7 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
             Address mockFromAddress = mock(Address.class);
             Document mockDoc = mock(Document.class);
             Address mockAddress1 = mock(Address.class);
-            Set<Address> toAddresses = new HashSet<Address>();
+            Set<Address> toAddresses = new HashSet<>();
             toAddresses.add(mockAddress1);
             Address[] mockReciepients = toAddresses.toArray(new Address[0]);
             MimeMessageBuilder instance = new MimeMessageBuilder(session, mockFromAddress, mockReciepients);

@@ -81,7 +81,7 @@ public class CreateuserBeanTest {
 
             @Override
             public List<UserLogin> getAllUsers() {
-                return new ArrayList<UserLogin>();
+                return new ArrayList<>();
             }
 
             @Override

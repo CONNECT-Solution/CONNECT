@@ -133,7 +133,7 @@ public class XDSbAdhocQueryRequestHelperImpl implements XDSbAdhocQueryRequestHel
 
     @Override
     public List<String> createCodeSchemeValue(List<String> documentTypeCode, String schema) {
-        List<String> docType = new ArrayList<String>();
+        List<String> docType = new ArrayList<>();
         for (String docTypeCode : documentTypeCode) {
             StringBuilder builder = new StringBuilder();
             builder.append("('");

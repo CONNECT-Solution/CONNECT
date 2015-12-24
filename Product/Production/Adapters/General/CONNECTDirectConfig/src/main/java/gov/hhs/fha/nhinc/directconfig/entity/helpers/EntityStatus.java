@@ -64,7 +64,7 @@ public enum EntityStatus {
      * @return a list of enumeration values.
      */
     public static List<String> getEntityStatusList() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         for (EntityStatus status : EntityStatus.values()) {
             result.add(status.toString());

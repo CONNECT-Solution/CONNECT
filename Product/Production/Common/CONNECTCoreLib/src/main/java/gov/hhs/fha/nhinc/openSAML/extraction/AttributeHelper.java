@@ -207,7 +207,7 @@ public class AttributeHelper {
             }
 
             String[] nameTokens = completeName.split("\\s");
-            ArrayList<String> nameParts = new ArrayList<String>();
+            ArrayList<String> nameParts = new ArrayList<>();
 
             // remove blank tokens
             for (String tok : nameTokens) {

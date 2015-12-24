@@ -82,8 +82,8 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      * @param port The port to be configured
      */
     protected void configurePort(T port) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new SoapResponseServiceEndpointDecorator<T>(serviceEndpoint);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
+        serviceEndpoint = new SoapResponseServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
     }
 

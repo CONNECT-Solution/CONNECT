@@ -178,7 +178,7 @@ public class OutboundDocQueryAggregatorTest {
      * @return
      */
     public JAXBElement<RegistryObjectType> createIdentifiable(RegistryObjectType registryObjectType) {
-        return new JAXBElement<RegistryObjectType>(new QName(
+        return new JAXBElement<>(new QName(
                 "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable"), RegistryObjectType.class,
                 registryObjectType);
     }

@@ -129,7 +129,7 @@ public class PixRetrieveBuilder {
 
         JAXBElement<COCTMT090100UV01AssignedPerson> assignedPersonElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedPerson");
-        assignedPersonElement = new JAXBElement<COCTMT090100UV01AssignedPerson>(xmlqname,
+        assignedPersonElement = new JAXBElement<>(xmlqname,
             COCTMT090100UV01AssignedPerson.class, assignedPerson);
 
         return assignedPersonElement;
@@ -206,7 +206,7 @@ public class PixRetrieveBuilder {
         PRPAMT201307UV02QueryByParameter queryByParameter) {
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameterElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        queryByParameterElement = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        queryByParameterElement = new JAXBElement<>(xmlqname,
             PRPAMT201307UV02QueryByParameter.class, new PRPAMT201307UV02QueryByParameter());
         queryByParameterElement.setValue(queryByParameter);
         return queryByParameterElement;
@@ -223,7 +223,7 @@ public class PixRetrieveBuilder {
 
     protected List<String> stripCommunityIdsPrefix(List<String> targetCommunities) {
         if (NullChecker.isNotNullish(targetCommunities)) {
-            List<String> targetCommunityIds = new ArrayList<String>();
+            List<String> targetCommunityIds = new ArrayList<>();
             for (String homeCommunityId : targetCommunities) {
                 targetCommunityIds.add(HomeCommunityMap.formatHomeCommunityId(homeCommunityId));
             }

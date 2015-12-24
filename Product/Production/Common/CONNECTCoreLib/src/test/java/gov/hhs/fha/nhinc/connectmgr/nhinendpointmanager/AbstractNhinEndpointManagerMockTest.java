@@ -123,7 +123,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 1.0 specs
      */
     protected void expectConnectionManagerCache10() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_0);
 
         expectConnectionManagerCache(list);
@@ -133,7 +133,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 1.1 specs
      */
     protected void expectConnectionManagerCache11() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_1);
 
         expectConnectionManagerCache(list);
@@ -143,7 +143,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 2.0 specs
      */
     protected void expectConnectionManagerCache20() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_2_0);
 
         expectConnectionManagerCache(list);
@@ -153,7 +153,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 3.0 specs
      */
     protected void expectConnectionManagerCache30() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_3_0);
 
         expectConnectionManagerCache(list);

@@ -134,7 +134,7 @@ public class DocumentService {
         if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
             // Query by unique id and delete if only one exists.
             DocumentQueryParams params = new DocumentQueryParams();
-            List<String> uniqueIds = new ArrayList<String>();
+            List<String> uniqueIds = new ArrayList<>();
             uniqueIds.add(document.getDocumentUniqueId());
 
             List<Document> docs = documentQuery(params);
@@ -206,8 +206,8 @@ public class DocumentService {
 
     protected List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams, List<SlotType1> slots) {
         List<EventCode> eventCodes;
-        List<Document> documents = new ArrayList<Document>();
-        Set<Document> documentSet = new HashSet<Document>();
+        List<Document> documents = new ArrayList<>();
+        Set<Document> documentSet = new HashSet<>();
         if (NullChecker.isNotNullish(eventCodeParams)) {
             EventCodeDao eventCodeDao = getEventCodeDao();
             eventCodes = eventCodeDao.eventCodeQuery(slots);
@@ -227,7 +227,7 @@ public class DocumentService {
     }
 
     private List<Document> createUnion(List<Document> listA, List<Document> listB) {
-        List<Document> docUnion = new ArrayList<Document>();
+        List<Document> docUnion = new ArrayList<>();
 
         if (NullChecker.isNotNullish(listA) && NullChecker.isNotNullish(listB)) {
             for (Document docA : listA) {

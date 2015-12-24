@@ -178,7 +178,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesHappy() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             patientIdSlot.setName("$XDSDocumentEntryPatientId");
@@ -213,7 +213,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesNoSlotMatch() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             patientIdSlot.setName("$XDSDocumentEntryPatientId");
@@ -273,7 +273,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesEmptySlotList() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
@@ -300,7 +300,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesNullSlotName() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             ValueListType valueList = new ValueListType();
@@ -332,7 +332,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesEmptySlotName() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             patientIdSlot.setName("");
@@ -365,7 +365,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesNullValueList() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             patientIdSlot.setName("$XDSDocumentEntryPatientId");
@@ -395,7 +395,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesEmptyValueList() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             patientIdSlot.setName("$XDSDocumentEntryPatientId");
@@ -427,7 +427,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testExtractSlotValuesMultipleValues() {
         try {
-            List<SlotType1> slots = new ArrayList<SlotType1>();
+            List<SlotType1> slots = new ArrayList<>();
             SlotType1 patientIdSlot = new SlotType1();
             slots.add(patientIdSlot);
             patientIdSlot.setName("$XDSDocumentEntryPatientId");

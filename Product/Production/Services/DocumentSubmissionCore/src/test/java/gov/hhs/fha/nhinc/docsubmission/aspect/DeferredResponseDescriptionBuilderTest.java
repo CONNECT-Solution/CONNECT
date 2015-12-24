@@ -68,7 +68,7 @@ public class DeferredResponseDescriptionBuilderTest extends BaseDescriptionBuild
     public void delegatesToExtractor() {
         RegistryResponseType response = new RegistryResponseType();
         RegistryResponseDescriptionExtractor responseExtractor = mock(RegistryResponseDescriptionExtractor.class);
-        List<String> errorCodes = new ArrayList<String>();
+        List<String> errorCodes = new ArrayList<>();
         errorCodes.add("errorCode");
         when(responseExtractor.getErrorCodes(response)).thenReturn(errorCodes);
 

@@ -53,7 +53,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractor {
      * @return a list of string containing the payload types
      */
     public List<String> getPayloadTypes(ProvideAndRegisterDocumentSetRequestType request) {
-        List<String> payloadTypes = new ArrayList<String>();
+        List<String> payloadTypes = new ArrayList<>();
         if (hasObjectList(request)) {
             List<Optional<String>> listWithDups = Lists.transform(request.getSubmitObjectsRequest()
                     .getRegistryObjectList().getIdentifiable(), PAYLOAD_TYPE_EXTRACTOR);
@@ -71,7 +71,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractor {
      * @return a list of string containing the payload sizes
      */
     public List<String> getPayloadSize(ProvideAndRegisterDocumentSetRequestType request) {
-        List<String> payloadSizes = new ArrayList<String>();
+        List<String> payloadSizes = new ArrayList<>();
 
         if (hasObjectList(request)) {
             List<Optional<String>> listWithDups = Lists.transform(request.getSubmitObjectsRequest()

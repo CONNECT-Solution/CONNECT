@@ -271,7 +271,7 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            List<String> hcidList = new ArrayList<String>();
+            List<String> hcidList = new ArrayList<>();
             hcidList.add(HCID_1);
             hcidList.add(HCID_2);
             Set<BusinessEntity> entitySet = connectionManager.getBusinessEntitySet(hcidList);
@@ -280,7 +280,7 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             entitySet = connectionManager.getBusinessEntitySet(null);
             assertNull(entitySet);
 
-            hcidList = new ArrayList<String>();
+            hcidList = new ArrayList<>();
             hcidList.add("hcidValue1123");
             hcidList.add("hcidValue2123");
             entitySet = connectionManager.getBusinessEntitySet(hcidList);

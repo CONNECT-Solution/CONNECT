@@ -85,7 +85,7 @@ public class EventCodeDaoTest {
 
             @Override
             protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
-                List<Long> DocumentIds = new ArrayList<Long>();
+                List<Long> DocumentIds = new ArrayList<>();
                 return DocumentIds;
             }
 
@@ -111,7 +111,7 @@ public class EventCodeDaoTest {
      */
     @Test
     public void testEventCodeQuery() {
-        List<EventCode> eventCodeList = new ArrayList<EventCode>();
+        List<EventCode> eventCodeList = new ArrayList<>();
         EventCode eventCode = new EventCode();
         final long EVENT_CODE_ID = 12345;
         eventCode.setEventCodeId(EVENT_CODE_ID);

@@ -117,8 +117,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         if ((body != null) && (body.getDocumentRequest() != null) && (!body.getDocumentRequest().isEmpty())) {
             String homeCommunityId = null;
-            List<String> documentUniqueIds = new ArrayList<String>();
-            List<String> repositoryUniqueIds = new ArrayList<String>();
+            List<String> documentUniqueIds = new ArrayList<>();
+            List<String> repositoryUniqueIds = new ArrayList<>();
             List<DocumentRequest> olDocRequest = body.getDocumentRequest();
             Iterator<DocumentRequest> iterDocRequest = olDocRequest.iterator();
 
@@ -844,7 +844,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     protected void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
         gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
         LOG.trace("Begin extractEventCodes");
-        Set<EventCode> eventCodes = new HashSet<EventCode>();
+        Set<EventCode> eventCodes = new HashSet<>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
             if (DocRepoConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION.equals(classificationSchemeName)) {

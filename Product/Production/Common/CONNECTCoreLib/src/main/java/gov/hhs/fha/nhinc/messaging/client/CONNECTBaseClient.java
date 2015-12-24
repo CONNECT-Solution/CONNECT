@@ -67,9 +67,9 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
      * @return
      */
     protected ServiceEndpoint<T> configureBasePort(T port, String url, Integer timeout) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint, timeout);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
+        serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, timeout);
 
         return serviceEndpoint;
     }

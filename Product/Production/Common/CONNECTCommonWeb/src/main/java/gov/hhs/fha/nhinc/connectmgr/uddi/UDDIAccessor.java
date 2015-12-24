@@ -57,7 +57,7 @@ public class UDDIAccessor {
     // These are configured in the gateway.properties file and will be used to eliminate
     // some of the entries we get back from the UDDI server.
     // ------------------------------------------------------------------------------------
-    private HashSet<String> m_hBusinessToIgnore = new HashSet<String>();
+    private HashSet<String> m_hBusinessToIgnore = new HashSet<>();
     private boolean m_bPropsLoaded = false; // True if the props have been loaded.
 
     /**
@@ -106,7 +106,7 @@ public class UDDIAccessor {
     }
 
     private void removeIgnoredBusinesses(BusinessList businessList) {
-        ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<BusinessInfo>();
+        ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<>();
         if ((businessList != null) && (businessList.getBusinessInfos() != null)
                 && (businessList.getBusinessInfos().getBusinessInfo() != null)
                 && (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {

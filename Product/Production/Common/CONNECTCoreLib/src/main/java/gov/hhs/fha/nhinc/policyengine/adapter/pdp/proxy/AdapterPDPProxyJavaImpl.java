@@ -99,7 +99,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     DocumentQueryParams params = new DocumentQueryParams();
                     String patientId = getUniquePatientIdFromPdpRequest(pdpRequest, serviceType);
                     params.setPatientId(patientId);
-                    List<String> classCodeValues = new ArrayList<String>();
+                    List<String> classCodeValues = new ArrayList<>();
                     classCodeValues.add(AdapterPDPConstants.DOCUMENT_CLASS_CODE);
                     params.setClassCodes(classCodeValues);
                     DocumentService service = new DocumentService();
@@ -252,7 +252,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
         String patientId = "";
         DocumentQueryParams params = new DocumentQueryParams();
-        List<String> docIds = new ArrayList<String>();
+        List<String> docIds = new ArrayList<>();
         docIds.add(documentUniqueId);
         params.setDocumentUniqueId(docIds);
         List<Document> docs = new DocumentService().documentQuery(params);
@@ -280,7 +280,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     LOG.info("Policy Target is null. Return Effect value Deny");
                     return EffectType.DENY;
                 }
-                List<RuleType> rules = new ArrayList<RuleType>();
+                List<RuleType> rules = new ArrayList<>();
                 // rules = policy.getRule();
                 if ((policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)) {
                     LOG.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: "

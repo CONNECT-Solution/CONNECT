@@ -64,7 +64,7 @@ public class AdapterComponentDocRepositoryHelperTest {
     	ProvideAndRegisterDocumentSetRequestType body =
     			mock(ProvideAndRegisterDocumentSetRequestType.class);
     	List<ProvideAndRegisterDocumentSetRequestType.Document> docList=
-    			new ArrayList<ProvideAndRegisterDocumentSetRequestType.Document>();
+    			new ArrayList<>();
     	ProvideAndRegisterDocumentSetRequestType.Document doc = new ProvideAndRegisterDocumentSetRequestType.Document();
     	final String ID = "MOCK_ID";
     	final String VALUE = "MOCK_VALUE";
@@ -95,7 +95,7 @@ public class AdapterComponentDocRepositoryHelperTest {
 				return CLASS_VALUE;
 			}
 		};
-		List<ClassificationType> classifications = new ArrayList<ClassificationType>();
+		List<ClassificationType> classifications = new ArrayList<>();
 		ClassificationType classType = mock(ClassificationType.class);
 
 		classifications.add(classType);
@@ -111,11 +111,11 @@ public class AdapterComponentDocRepositoryHelperTest {
 		final String PATIENT_NAME = "John Doe";
 		final String SLOT_PATIENT_NAME = "John Doe <Patient Information>";
 		final String EXPECTED_RESULT = "<Patient Information>";
-		List<SlotType1> documentSlots = new ArrayList<SlotType1>();
+		List<SlotType1> documentSlots = new ArrayList<>();
 		SlotType1 slot = mock(SlotType1.class);
 		documentSlots.add(slot);
 		ValueListType valueListType = mock(ValueListType.class);
-		List<String> valueList = new ArrayList<String>();
+		List<String> valueList = new ArrayList<>();
 		valueList.add(SLOT_PATIENT_NAME);
 
 		when(slot.getName()).thenReturn(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT);
@@ -176,7 +176,7 @@ public class AdapterComponentDocRepositoryHelperTest {
 		final String DOC_UNIQUE_ID = "Doc ID 1";
 		final long DOC_ID = 12345;
 		DocumentService docService = mock(DocumentService.class);
-		List<Document> documents = new ArrayList<Document>();
+		List<Document> documents = new ArrayList<>();
 		Document doc = mock(Document.class);
 		documents.add(doc);
 

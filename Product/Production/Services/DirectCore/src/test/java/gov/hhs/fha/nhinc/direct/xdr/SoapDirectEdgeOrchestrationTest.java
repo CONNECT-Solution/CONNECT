@@ -101,7 +101,7 @@ public class SoapDirectEdgeOrchestrationTest {
         when(mockContext.getMessageId()).thenReturn(MESSAGE_ID);
 
         Address toAddress = mock(Address.class);
-        Set<Address> toAddresses = new HashSet<Address>();
+        Set<Address> toAddresses = new HashSet<>();
         toAddresses.add(toAddress);
         Address[] addressArray = toAddresses.toArray(new Address[0]);
 

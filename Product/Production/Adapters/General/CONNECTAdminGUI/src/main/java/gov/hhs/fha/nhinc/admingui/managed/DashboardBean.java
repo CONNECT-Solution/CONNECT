@@ -179,7 +179,7 @@ public class DashboardBean {
      * @return
      */
     public Map<String, String> getClosedPanels() {
-        Map<String, String> closedPanels = new HashMap<String, String>();
+        Map<String, String> closedPanels = new HashMap<>();
 
         for (DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()) {
             closedPanels.put(panel.getType(), panel.getType());

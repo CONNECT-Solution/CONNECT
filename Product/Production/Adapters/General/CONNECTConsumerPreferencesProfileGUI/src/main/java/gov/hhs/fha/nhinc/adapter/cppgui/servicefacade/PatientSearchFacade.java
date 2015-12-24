@@ -184,7 +184,7 @@ public class PatientSearchFacade {
      * @return
      */
     private List<PatientVO> convertMPIPatientToPatientVO(Patients mpiPatients) throws Exception {
-        List<PatientVO> patientVOs = new ArrayList<PatientVO>();
+        List<PatientVO> patientVOs = new ArrayList<>();
 
         if (mpiPatients == null || mpiPatients.size() < 1) {
             return patientVOs;

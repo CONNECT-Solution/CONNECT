@@ -142,8 +142,8 @@ public class EventCodeDao {
     @SuppressWarnings("unchecked")
     public List<EventCode> eventCodeQuery(List<SlotType1> slots) {
         List<EventCode> eventCodes = null;
-        List<String> eventCodesList = new ArrayList<String>();
-        List<String> eventCodeSchemeList = new ArrayList<String>();
+        List<String> eventCodesList = new ArrayList<>();
+        List<String> eventCodeSchemeList = new ArrayList<>();
         Session sess = null;
         try {
             SessionFactory fact = getSessionFactory();
@@ -161,7 +161,7 @@ public class EventCodeDao {
                     List<String> classCodes;
                     List<String> orValues;
                     int eventCodeSlotSize = 0;
-                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                    HashMap<String, String> hashMap = new HashMap<>();
                     if (slots != null) {
                         for (SlotType1 slot : slots) {
                             if ((slot.getName() != null) && (slot.getName().length() > 0)
@@ -171,7 +171,7 @@ public class EventCodeDao {
                                     eventCodeSlotSize++;
                                     ValueListType valueListType = slot.getValueList();
                                     List<String> slotValues = valueListType.getValue();
-                                    classCodes = new ArrayList<String>();
+                                    classCodes = new ArrayList<>();
                                     for (int j = 0; j < slotValues.size(); j++) {
                                         parseParamFormattedString(slotValues.get(j), classCodes);
                                         if (slotValues.get(j).contains(",")) {
@@ -218,7 +218,7 @@ public class EventCodeDao {
                     List<Long> uniqueDocumentIds;
                     uniqueDocumentIds = getUniqueDocumentIds(DocumentIds);
                     boolean present;
-                    List<Long> documentNotPresent = new ArrayList<Long>();
+                    List<Long> documentNotPresent = new ArrayList<>();
                     for (int i = 0; i < uniqueDocumentIds.size(); i++) {
                         present = documentInAllSlots(eventCodes, eventCodeSlotSize, hashMap, uniqueDocumentIds.get(i));
                         if (!present) {
@@ -227,7 +227,7 @@ public class EventCodeDao {
                     }
                     eventCodes = resultEventCodesList(documentNotPresent, eventCodes);
                     if (eventCodes == null) {
-                        eventCodes = new ArrayList<EventCode>();
+                        eventCodes = new ArrayList<>();
                     }
                 } else {
                     LOG.error("Failed to obtain a session from the sessionFactory");
@@ -254,7 +254,7 @@ public class EventCodeDao {
      * @return the document ids
      */
     protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
-        List<Long> DocumentIds = new ArrayList<Long>();
+        List<Long> DocumentIds = new ArrayList<>();
         for (int i = 0; i < eventCodes.size(); i++) {
             DocumentIds.add(eventCodes.get(i).getDocument().getDocumentid());
         }
@@ -268,7 +268,7 @@ public class EventCodeDao {
      * @return the unique document ids
      */
     private List<Long> getUniqueDocumentIds(List<Long> DocumentIds) {
-        Set<Long> uniqueDocumentRef = new HashSet<Long>(DocumentIds);
+        Set<Long> uniqueDocumentRef = new HashSet<>(DocumentIds);
         DocumentIds.clear();
         DocumentIds.addAll(uniqueDocumentRef);
         return DocumentIds;

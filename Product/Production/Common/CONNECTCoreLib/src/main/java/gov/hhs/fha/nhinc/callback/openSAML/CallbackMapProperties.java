@@ -45,7 +45,7 @@ import org.joda.time.format.ISODateTimeFormat;
  */
 public class CallbackMapProperties implements CallbackProperties {
 
-    private final Map<Object, Object> map = new HashMap<Object, Object>();
+    private final Map<Object, Object> map = new HashMap<>();
     private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeParser();
 
     /**
@@ -415,7 +415,7 @@ public class CallbackMapProperties implements CallbackProperties {
             if (value instanceof List<?>) {
                 list = (List<Object>) value;
             } else {
-                list = new ArrayList<Object>();
+                list = new ArrayList<>();
                 list.add(value);
             }
         }

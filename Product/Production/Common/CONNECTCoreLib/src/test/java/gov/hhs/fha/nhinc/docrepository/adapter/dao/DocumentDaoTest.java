@@ -103,7 +103,7 @@ public class DocumentDaoTest {
 		final long ID_2 = 12345;
 		doc2.setDocumentid(ID_2);
 
-		List<Document> documents = new ArrayList<Document>();
+		List<Document> documents = new ArrayList<>();
 		documents.add(doc1);
 		documents.add(doc2);
 
@@ -124,7 +124,7 @@ public class DocumentDaoTest {
 		DocumentQueryParams params = new DocumentQueryParams();
 
 		params.setPatientId("patientID");
-		List<String> classCodes = new ArrayList<String>();
+		List<String> classCodes = new ArrayList<>();
 		classCodes.add("class^^Code");
 		params.setClassCodes(classCodes);
 		params.setClassCodeScheme("class code scheme");
@@ -146,10 +146,10 @@ public class DocumentDaoTest {
 		Date serviceStopTimeTo = new Date();
 		serviceStopTimeTo.setTime(01012222);
 		params.setServiceStopTimeTo(serviceStopTimeTo);
-		List<String> statuses = new ArrayList<String>();
+		List<String> statuses = new ArrayList<>();
 		statuses.add("status");
 		params.setStatuses(statuses);
-		List<String> documentUniqueIds = new ArrayList<String>();
+		List<String> documentUniqueIds = new ArrayList<>();
 		documentUniqueIds.add("doc unique id");
 		params.setDocumentUniqueId(documentUniqueIds);
 		params.setOnDemandParams(false);
@@ -162,7 +162,7 @@ public class DocumentDaoTest {
 		final long ID_2 = 12345;
 		doc2.setDocumentid(ID_2);
 
-		List<Document> documents = new ArrayList<Document>();
+		List<Document> documents = new ArrayList<>();
 		documents.add(doc1);
 		documents.add(doc2);
 

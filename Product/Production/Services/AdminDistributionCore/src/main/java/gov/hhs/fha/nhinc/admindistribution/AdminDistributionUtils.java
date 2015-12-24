@@ -100,7 +100,7 @@ public class AdminDistributionUtils {
      */
     public void convertDataToFileLocationIfEnabled(EDXLDistribution request) throws LargePayloadException {
         if (fileUtils.isSavePayloadToFileEnabled()) {
-            List<File> savedAttachmentList = new ArrayList<File>();
+            List<File> savedAttachmentList = new ArrayList<>();
             try {
                 if (request.getContentObject() != null) {
                     for (ContentObjectType co : request.getContentObject()) {

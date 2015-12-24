@@ -52,7 +52,7 @@ public class COREX12RealTimeAuditTransforms extends
                 Object element = null;
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 msg.setPayload("");
-                element = new JAXBElement<COREEnvelopeRealTimeRequest>(getQname(
+                element = new JAXBElement<>(getQname(
                     CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     CORE_X12AuditDataTransformConstants.CORE_X12_REQUEST_LOCALPART),
                     COREEnvelopeRealTimeRequest.class, msg);
@@ -74,7 +74,7 @@ public class COREX12RealTimeAuditTransforms extends
                 Object element = null;
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 msg.setPayload("");
-                element = new JAXBElement<COREEnvelopeRealTimeResponse>(getQname(
+                element = new JAXBElement<>(getQname(
                     CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     CORE_X12AuditDataTransformConstants.CORE_X12_RESPONSE_LOCALPART),
                     COREEnvelopeRealTimeResponse.class, msg);

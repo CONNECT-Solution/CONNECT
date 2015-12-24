@@ -98,7 +98,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         if (NullChecker.isNullish(query.getOrganization())) {
             throw new DocumentMetadataException("Organization is a required field");
         }
-        List<String> targets = new ArrayList<String>();
+        List<String> targets = new ArrayList<>();
         targets.add(HomeCommunityMap.formatHomeCommunityId(query.getOrganization()));
         targetCommunity.setTargets(targets);
         targetCommunity.build();

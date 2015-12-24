@@ -57,7 +57,7 @@ public class ConnectionManagerCacheHelper {
      * @param uddiEntity UDDI Business Entity
      */
     public BusinessEntity mergeBusinessEntityServices(BusinessEntity internalEntity, BusinessEntity uddiEntity) {
-        Map<String, BusinessService> internalServiceNames = new HashMap<String, BusinessService>();
+        Map<String, BusinessService> internalServiceNames = new HashMap<>();
         for (BusinessService internalService : internalEntity.getBusinessServices().getBusinessService()) {
             internalServiceNames.put(internalService.getServiceKey(), internalService);
         }
@@ -92,7 +92,7 @@ public class ConnectionManagerCacheHelper {
     }
 
     public List<String> getStates(BusinessEntity businessEntity) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (KeyedReference reference : businessEntity.getCategoryBag()
             .getKeyedReference()) {
             String key = reference.getTModelKey();
@@ -143,7 +143,7 @@ public class ConnectionManagerCacheHelper {
     public void replaceBusinessEntity(List<BusinessEntity> oEntities, BusinessEntity oEntity) {
         if (oEntity != null) {
             if (oEntities == null) {
-                oEntities = new ArrayList<BusinessEntity>();
+                oEntities = new ArrayList<>();
             }
 
             int iCnt = oEntities.size();
@@ -169,7 +169,7 @@ public class ConnectionManagerCacheHelper {
     public List<UDDI_SPEC_VERSION> getSpecVersionsFromBusinessEntity(
         BusinessEntity businessEntity,
         NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-        List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
         if (businessEntity == null) {
             return specVersionList;
         }
@@ -198,7 +198,7 @@ public class ConnectionManagerCacheHelper {
     }
 
     public List<String> getServiceNames(BusinessService service) {
-        List<String> serviceNameList = new ArrayList<String>();
+        List<String> serviceNameList = new ArrayList<>();
 
         if (service.getCategoryBag() != null
             && service.getCategoryBag().getKeyedReference() != null) {
@@ -215,7 +215,7 @@ public class ConnectionManagerCacheHelper {
     }
 
     public List<UDDI_SPEC_VERSION> getSpecVersions(BusinessService businessService) {
-        List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
         if (businessService == null
             || businessService.getBindingTemplates() == null
             || businessService.getBindingTemplates().getBindingTemplate() == null) {

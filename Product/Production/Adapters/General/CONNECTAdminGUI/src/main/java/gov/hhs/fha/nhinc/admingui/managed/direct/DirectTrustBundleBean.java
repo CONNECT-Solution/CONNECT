@@ -79,7 +79,7 @@ public class DirectTrustBundleBean {
      *
      */
     public void deleteTrustBundle() {
-        List<Long> ids = new ArrayList<Long>();
+        List<Long> ids = new ArrayList<>();
         ids.add(selectedTb.getId());
 
         directService.disassociateTrustBundleFromDomains(selectedTb.getId());

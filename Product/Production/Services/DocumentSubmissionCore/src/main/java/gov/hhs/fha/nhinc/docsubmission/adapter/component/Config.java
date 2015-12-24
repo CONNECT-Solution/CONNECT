@@ -38,7 +38,7 @@ public class Config {
     private List<RoutingConfig> routingInfo = null;
 
     public Config() {
-        routingInfo = new ArrayList<RoutingConfig>();
+        routingInfo = new ArrayList<>();
     }
 
     public List<RoutingConfig> getRoutingInfo() {

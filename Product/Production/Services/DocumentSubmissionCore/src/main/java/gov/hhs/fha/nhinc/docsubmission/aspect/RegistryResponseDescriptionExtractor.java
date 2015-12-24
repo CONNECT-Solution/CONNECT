@@ -66,7 +66,7 @@ public class RegistryResponseDescriptionExtractor {
      * @return a list of string containing the error codes
      */
     public List<String> getErrorCodes(RegistryResponseType response) {
-        List<String> errorCodes = new ArrayList<String>();
+        List<String> errorCodes = new ArrayList<>();
         if (hasErrorList(response)) {
             errorCodes = Lists.transform(response.getRegistryErrorList().getRegistryError(), ERROR_EXTRACTOR);
         }

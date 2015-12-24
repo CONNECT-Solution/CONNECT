@@ -67,7 +67,7 @@ public class AsyncMessageProcessHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
-    private static HashMap<String, String> statusToDirectionMap = new HashMap<String, String>();
+    private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -130,7 +130,7 @@ public class AsyncMessageProcessHelper {
         boolean result = false;
 
         try {
-            List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
+            List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<>();
             AsyncMsgRecord rec = new AsyncMsgRecord();
             AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 

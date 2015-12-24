@@ -109,7 +109,7 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
     protected CONNECTClient<UDDIInquiryPortType> getCONNECTClientUnsecured(
         ServicePortDescriptor<UDDIInquiryPortType> portDescriptor, String url, AssertionType assertion) {
 
-        return new UDDIBaseClient<UDDIInquiryPortType>(portDescriptor, url);
+        return new UDDIBaseClient<>(portDescriptor, url);
     }
 
     protected int getMaxResults(){

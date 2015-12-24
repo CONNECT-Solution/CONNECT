@@ -60,18 +60,18 @@ public class DocSubmissionBaseEventDescriptionBuilderTest extends BaseDescriptio
         AssertionType assertion = new AssertionType();
         RegistryResponseType response = new RegistryResponseType();
 
-        List<String> payloadSizes = new ArrayList<String>();
+        List<String> payloadSizes = new ArrayList<>();
         payloadSizes.add("payloadSize");
         when(requestExtractor.getPayloadSize(request)).thenReturn(payloadSizes);
 
-        List<String> payloadTypes = new ArrayList<String>();
+        List<String> payloadTypes = new ArrayList<>();
         payloadTypes.add("payloadType");
         when(requestExtractor.getPayloadTypes(request)).thenReturn(payloadTypes);
 
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
 
-        List<String> errorCodes = new ArrayList<String>();
+        List<String> errorCodes = new ArrayList<>();
         errorCodes.add("errorCode");
         when(responseExtractor.getErrorCodes(response)).thenReturn(errorCodes);
 

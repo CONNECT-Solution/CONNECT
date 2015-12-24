@@ -164,7 +164,7 @@ public class StandardOutboundAdminDistributionTest {
 
             @Override
             protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-                List<UrlInfo> endpoints = new ArrayList<UrlInfo>();
+                List<UrlInfo> endpoints = new ArrayList<>();
                 endpoints.add(new UrlInfo());
                 return endpoints;
             }

@@ -465,7 +465,7 @@ public class HL7PRPA201306Transforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
 
-        return new JAXBElement<COCTMT150003UV03Organization>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             COCTMT150003UV03Organization.class, org);
 
     }

@@ -62,7 +62,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends Assertion
     public void buildRespondingHCIDs() {
         if (response.isPresent() && response.get() != null
                 && response.get().getDocumentResponse() != null) {
-            setRespondingHCIDs(new ArrayList<String>(extractHcids(response.get().getDocumentResponse())));
+            setRespondingHCIDs(new ArrayList<>(extractHcids(response.get().getDocumentResponse())));
         }else {
             setLocalResponder();
         }
@@ -90,7 +90,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends Assertion
     }
 
     private Set<String> extractHcids(List<DocumentResponse> docResponses){
-        Set<String> hcids = new HashSet<String>();
+        Set<String> hcids = new HashSet<>();
         for(DocumentResponse docResponse : docResponses){
             hcids.add(docResponse.getHomeCommunityId());
         }

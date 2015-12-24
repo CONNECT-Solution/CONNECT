@@ -161,7 +161,7 @@ public class DocQueryResponseProcessor {
                     if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
                         List<String> slotValues = valueListType.getValue();
-                        returnValues = new ArrayList<String>();
+                        returnValues = new ArrayList<>();
                         for (String slotValue : slotValues) {
                             returnValues.add(slotValue);
                         }

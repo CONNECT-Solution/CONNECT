@@ -55,10 +55,10 @@ public class UserRole implements Serializable {
     private String roleName;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
-    private Set<RolePreference> preferences = new HashSet<RolePreference>();
+    private Set<RolePreference> preferences = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
-    private Set<UserLogin> userLogins = new HashSet<UserLogin>();
+    private Set<UserLogin> userLogins = new HashSet<>();
 
     /**
      *

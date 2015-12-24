@@ -280,7 +280,7 @@ public class AddressDaoImpl implements AddressDao {
                 results = query.list();
 
                 if (results == null) {
-                    results = new ArrayList<Address>();
+                    results = new ArrayList<>();
                 }
 
                 log.debug("Addresses found: " + results.size());
@@ -321,7 +321,7 @@ public class AddressDaoImpl implements AddressDao {
                 results = query.list();
 
                 if (results == null) {
-                    results = new ArrayList<Address>();
+                    results = new ArrayList<>();
                 }
 
                 log.debug("Addresses found: " + results.size());

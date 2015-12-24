@@ -110,7 +110,7 @@ public class PixRetrieveBuilderTest {
     }
 
     private List<String> getHomeCommunitiesIdsWithPrefix() {
-        List<String> homeCommunityIds = new ArrayList<String>();
+        List<String> homeCommunityIds = new ArrayList<>();
         homeCommunityIds.add("urn:oid:1.1");
         homeCommunityIds.add("2.2");
         return homeCommunityIds;

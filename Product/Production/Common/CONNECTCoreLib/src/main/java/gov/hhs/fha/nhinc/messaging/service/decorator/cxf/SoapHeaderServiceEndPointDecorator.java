@@ -65,7 +65,7 @@ public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecora
         super.configure();
 
         if (subscriptionId != null) {
-            List<Header> headers = new ArrayList<Header>();
+            List<Header> headers = new ArrayList<>();
             Header SoapHeader;
             try {
                 SoapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"),

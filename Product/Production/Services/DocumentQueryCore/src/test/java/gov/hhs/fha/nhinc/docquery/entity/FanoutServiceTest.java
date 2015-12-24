@@ -88,7 +88,7 @@ public class FanoutServiceTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AssertionType assertion = new AssertionType();
 
-        List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
+        List<UrlInfo> urlInfoList = new ArrayList<>();
         urlInfoList.add(createUrlInfo("4.4", ""));
 
         when(patientCorrelationProxyFactory.getPatientCorrelationProxy()).thenReturn(patientCorrelationProxy);
@@ -210,7 +210,7 @@ public class FanoutServiceTest {
     }
 
     private List<SlotType1> createSlotList() {
-        List<SlotType1> slotList = new ArrayList<SlotType1>();
+        List<SlotType1> slotList = new ArrayList<>();
         SlotType1 t = new SlotType1();
         t.setName(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME);
         ValueListType value = new ValueListType();

@@ -457,7 +457,7 @@ public class HL7PRPA201301TransformsTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201306UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<>(
                 xmlqname, PRPAMT201306UV02QueryByParameter.class, parameter);
         return queryByParameter;
     }
@@ -506,7 +506,7 @@ public class HL7PRPA201301TransformsTest {
         assignedDevice.setAssignedDevice(createPRPAIN201305UV02Device());
         assignedDevice.getId().add(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
-        JAXBElement<COCTMT090300UV01AssignedDevice> device = new JAXBElement<COCTMT090300UV01AssignedDevice>(xmlqname,
+        JAXBElement<COCTMT090300UV01AssignedDevice> device = new JAXBElement<>(xmlqname,
                 COCTMT090300UV01AssignedDevice.class, assignedDevice);
         return device;
     }
@@ -515,7 +515,7 @@ public class HL7PRPA201301TransformsTest {
         COCTMT090300UV01Device device = new COCTMT090300UV01Device();
         device.setTypeId(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
-        JAXBElement<COCTMT090300UV01Device> dev = new JAXBElement<COCTMT090300UV01Device>(xmlqname,
+        JAXBElement<COCTMT090300UV01Device> dev = new JAXBElement<>(xmlqname,
                 COCTMT090300UV01Device.class, device);
         return dev;
     }
@@ -525,7 +525,7 @@ public class HL7PRPA201301TransformsTest {
         assignedPerson.setAssignedPerson(createPRPAIN201305UV02Person());
         assignedPerson.setTypeId(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedPerson");
-        JAXBElement<COCTMT090100UV01AssignedPerson> person = new JAXBElement<COCTMT090100UV01AssignedPerson>(xmlqname,
+        JAXBElement<COCTMT090100UV01AssignedPerson> person = new JAXBElement<>(xmlqname,
                 COCTMT090100UV01AssignedPerson.class, assignedPerson);
         return person;
     }
@@ -542,7 +542,7 @@ public class HL7PRPA201301TransformsTest {
         person.setDeterminerCode("INSTANCE");
         person.setTypeId(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "person");
-        JAXBElement<COCTMT090100UV01Person> assignedPerson = new JAXBElement<COCTMT090100UV01Person>(xmlqname,
+        JAXBElement<COCTMT090100UV01Person> assignedPerson = new JAXBElement<>(xmlqname,
                 COCTMT090100UV01Person.class, person);
         return assignedPerson;
     }
@@ -551,7 +551,7 @@ public class HL7PRPA201301TransformsTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());

@@ -142,7 +142,7 @@ public class HL7PatientTransforms {
         person = HL7ArrayTransforms.copyNullFlavors(paramList, person);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> jaxbPerson = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> jaxbPerson = new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, person);
 
         jaxbPerson.setValue(person);
@@ -434,7 +434,7 @@ public class HL7PatientTransforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, person);
     }
 
@@ -489,7 +489,7 @@ public class HL7PatientTransforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<PRPAMT201310UV02Person>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             PRPAMT201310UV02Person.class, person);
     }
 
@@ -576,7 +576,7 @@ public class HL7PatientTransforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(
+        return new JAXBElement<>(
             xmlqname, PRPAMT201302UV02PatientPatientPerson.class, person);
     }
 
@@ -653,7 +653,7 @@ public class HL7PatientTransforms {
         }
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
 
-        return new JAXBElement<PRPAMT201301UV02BirthPlace>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02BirthPlace.class, result);
     }
 
@@ -712,7 +712,7 @@ public class HL7PatientTransforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, result);
 
     }
@@ -764,7 +764,7 @@ public class HL7PatientTransforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
 
-        return new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, result);
 
     }
@@ -790,7 +790,7 @@ public class HL7PatientTransforms {
         }
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
 
-        return new JAXBElement<PRPAMT201301UV02BirthPlace>(xmlqname,
+        return new JAXBElement<>(xmlqname,
             PRPAMT201301UV02BirthPlace.class, result);
     }
 

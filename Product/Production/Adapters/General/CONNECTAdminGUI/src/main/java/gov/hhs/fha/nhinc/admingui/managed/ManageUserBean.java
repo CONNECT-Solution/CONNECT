@@ -62,7 +62,7 @@ public class ManageUserBean {
 
     private UserLogin selectedUser;
 
-    private List<UserLogin> users = new ArrayList<UserLogin>();
+    private List<UserLogin> users = new ArrayList<>();
 
     /**
      * The login service.

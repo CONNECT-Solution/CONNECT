@@ -109,7 +109,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             aggregate.setRequest(request);
 
             // Policy check
-            List<OutboundOrchestratable> permittedPerPolicy = new ArrayList<OutboundOrchestratable>();
+            List<OutboundOrchestratable> permittedPerPolicy = new ArrayList<>();
             for (OutboundOrchestratable o : aggregateRequests) {
                 if (o instanceof OutboundDocQueryOrchestratable) {
                     AdhocQueryRequest docQueryRequest = ((OutboundDocQueryOrchestratable) o).getRequest();

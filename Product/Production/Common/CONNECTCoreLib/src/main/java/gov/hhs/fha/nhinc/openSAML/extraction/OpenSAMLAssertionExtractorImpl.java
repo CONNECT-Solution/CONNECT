@@ -243,7 +243,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @return The same list, with XMLObjects converted to a String representation
      */
     private List<String> transformXMLtoString(List<XMLObject> attributeValues) {
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
         for (XMLObject item : attributeValues) {
             stringList.add(item.toString());
         }

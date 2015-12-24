@@ -57,7 +57,7 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
         if (arguments == null) {
             return new Object[] {};
         }
-        List<Object> resultList = new ArrayList<Object>();
+        List<Object> resultList = new ArrayList<>();
         for (int curArg = 0; curArg < arguments.length; ++curArg) {
             resultList.addAll(transformSingleArgument(arguments[curArg]));
         }
@@ -68,7 +68,7 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
         if (argument == null) {
             return Collections.emptyList();
         }
-        List<Object> result = new ArrayList<Object>();
+        List<Object> result = new ArrayList<>();
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(argument.getClass());
         for (int i = 0; i < propertyDescriptors.length; ++i) {
             Method readMethod = propertyDescriptors[i].getReadMethod();

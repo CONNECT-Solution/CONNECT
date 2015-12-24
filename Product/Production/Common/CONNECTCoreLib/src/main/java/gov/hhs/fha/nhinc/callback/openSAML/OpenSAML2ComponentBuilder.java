@@ -616,7 +616,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     List<AttributeStatement> createAttributeStatement(List<Attribute> attributes) {
-        List<AttributeStatement> attributeStatements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> attributeStatements = new ArrayList<>();
         if (attributes != null && attributes.size() > 0) {
 
             AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
@@ -653,9 +653,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
         List evidenceInstanceAccessConsentValues, final String namespace) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
 
-        List<Attribute> attributes = new ArrayList<Attribute>();
+        List<Attribute> attributes = new ArrayList<>();
 
         if (accessConstentValues != null) {
             attributes.add(createAttribute(null, "AccessConsentPolicy", namespace, accessConstentValues));
@@ -701,7 +701,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public XSAny createHL7Attribute(String name, String code, String codeSystem, String codeSystemName,
         String displayName) {
-        Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
+        Map<QName, String> userRoleAttributes = new HashMap<>();
 
         boolean hasHl7prefix = getHl7PrefixProperty();
 
@@ -770,7 +770,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public List<AttributeStatement> createHomeCommunitAttributeStatement(String communityId) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createHomeCommunityAttribute(communityId);
 
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
@@ -823,7 +823,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public List<AttributeStatement> createPurposeOfUseAttributeStatements(String purposeCode, String purposeSystem,
         String purposeSystemName, String purposeDisplay) {
 
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createPurposeOfUseAttribute(purposeCode, purposeSystem, purposeSystemName, purposeDisplay);
         statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
         return statements;
@@ -840,7 +840,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public List<AttributeStatement> createPurposeForUseAttributeStatements(String purposeCode, String purposeSystem,
         String purposeSystemName, String purposeDisplay) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createPurposeForUseAttribute(purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
         statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
@@ -889,7 +889,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public List<AttributeStatement> createOrganizationIdAttributeStatement(String organizationId) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null, Arrays.asList(organizationId));
 
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));

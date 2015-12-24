@@ -1210,7 +1210,7 @@ public class CdaPdfCreator {
      * @throws AdapterPIPException This is thrown if any exception occurs in the process.
      */
     public List<POCDMT000040ClinicalDocument> createCDA(PatientPreferencesType oPtPref) throws AdapterPIPException {
-        ArrayList<POCDMT000040ClinicalDocument> olCda = new ArrayList<POCDMT000040ClinicalDocument>();
+        ArrayList<POCDMT000040ClinicalDocument> olCda = new ArrayList<>();
 
         if ((oPtPref != null) && (oPtPref.getBinaryDocumentPolicyCriteria() != null)
             && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null)

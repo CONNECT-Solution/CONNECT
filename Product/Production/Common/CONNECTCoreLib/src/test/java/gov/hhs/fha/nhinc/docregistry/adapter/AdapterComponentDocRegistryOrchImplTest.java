@@ -92,7 +92,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
             @Override
             public List<Document> documentQuery(DocumentQueryParams params) {
 
-                ArrayList<Document> docs = new ArrayList<Document>();
+                ArrayList<Document> docs = new ArrayList<>();
                 if (params.getOnDemand() == null || (params.getOnDemand() != null && params.getOnDemand())) {
                     Document onDemandDoc = new Document();
                     onDemandDoc.setDocumentUniqueId("12345.11111");

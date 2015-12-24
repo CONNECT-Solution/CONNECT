@@ -117,7 +117,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                 throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
             }
         } else if (assertion.getSaml2() != null) {
-            List<ValidatorSuite> validators = new LinkedList<ValidatorSuite>();
+            List<ValidatorSuite> validators = new LinkedList<>();
             validators.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-schema-validator"));
             validators.addAll(getSaml2SpecValidators());
 
@@ -238,7 +238,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @return the saml2 assertion spec validator
      */
     protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
-        Collection<ValidatorSuite> suites = new HashSet<ValidatorSuite>();
+        Collection<ValidatorSuite> suites = new HashSet<>();
         suites.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-spec-validator"));
         suites.add(getExchangeAuthFrameworkValidatorSuite());
         return suites;

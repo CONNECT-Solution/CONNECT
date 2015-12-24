@@ -68,7 +68,7 @@ public class JaxbDocumentUtilsTest {
     }
 
     private List<SlotType1> createList() {
-        List<SlotType1> list = new ArrayList<SlotType1>();
+        List<SlotType1> list = new ArrayList<>();
         SlotType1 slot = new SlotType1();
         slot.setName("expected");
         list.add(slot);

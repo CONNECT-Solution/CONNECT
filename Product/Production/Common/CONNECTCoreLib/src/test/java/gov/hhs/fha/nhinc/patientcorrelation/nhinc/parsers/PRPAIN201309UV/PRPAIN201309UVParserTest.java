@@ -87,7 +87,7 @@ public class PRPAIN201309UVParserTest {
         parameter.setParameterList(parameterList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         message.setControlActProcess(controlActProcess);
@@ -102,7 +102,7 @@ public class PRPAIN201309UVParserTest {
         PRPAMT201307UV02QueryByParameter parameter = null;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         controlActProcess.setTypeId(createII());
@@ -134,7 +134,7 @@ public class PRPAIN201309UVParserTest {
         parameter.setParameterList(parameterList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         controlActProcess.setTypeId(createII());
@@ -162,7 +162,7 @@ public class PRPAIN201309UVParserTest {
         parameter.setParameterList(parameterList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         message.setControlActProcess(controlActProcess);
@@ -210,7 +210,7 @@ public class PRPAIN201309UVParserTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        return new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        return new JAXBElement<>(xmlqname,
         PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 

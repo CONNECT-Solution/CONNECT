@@ -273,7 +273,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      */
     @Override
     public List<BusinessEntity> getAllBusinessEntities() throws ConnectionManagerException {
-        List<BusinessEntity> allEntities = new ArrayList<BusinessEntity>();
+        List<BusinessEntity> allEntities = new ArrayList<>();
         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         checkLoaded();
 
@@ -371,7 +371,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      */
     @Override
     public Set<BusinessEntity> getBusinessEntitySet(List<String> saHomeCommunityId) throws ConnectionManagerException {
-        Set<BusinessEntity> oEntities = new HashSet<BusinessEntity>();
+        Set<BusinessEntity> oEntities = new HashSet<>();
 
         checkLoaded();
 

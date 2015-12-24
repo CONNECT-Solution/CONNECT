@@ -56,7 +56,7 @@ public class PageAccessMapping {
      */
     public PageAccessMapping(RolePreference preference, final ManageRoleBean pageAccessMapping) {
         this.preference = preference;
-        availableAccessLevels = new ArrayList<String>();
+        availableAccessLevels = new ArrayList<>();
         availableAccessLevels.add(NO_ACCESS);
         availableAccessLevels.add(READ_ONLY);
         availableAccessLevels.add(READ_WRITE);

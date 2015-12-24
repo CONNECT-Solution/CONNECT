@@ -46,7 +46,7 @@ public class PassthruMXBeanRegistry {
      * Package level constructor instantiates a new passthru mx bean registry.
      */
     PassthruMXBeanRegistry() {
-        registeredBeans = new HashSet<WebServicesMXBean>();
+        registeredBeans = new HashSet<>();
     }
 
     /** The registered beans. */

@@ -169,7 +169,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     }
 
     private static List<String> extractDataSourceList(PRPAIN201309UV02 IN201309) {
-        List<String> dataSourceStringList = new ArrayList<String>();
+        List<String> dataSourceStringList = new ArrayList<>();
         PRPAMT201307UV02ParameterList parameterList = PRPAIN201309UVParser
             .parseHL7ParameterListFrom201309Message(IN201309);
 
@@ -188,7 +188,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         if (qualifiedPatientIdentifiers == null) {
             return null;
         }
-        List<II> iiList = new ArrayList<II>();
+        List<II> iiList = new ArrayList<>();
         for (QualifiedPatientIdentifier qualifiedPatientIdentifier : qualifiedPatientIdentifiers) {
             iiList.add(iiFactory(qualifiedPatientIdentifier));
         }

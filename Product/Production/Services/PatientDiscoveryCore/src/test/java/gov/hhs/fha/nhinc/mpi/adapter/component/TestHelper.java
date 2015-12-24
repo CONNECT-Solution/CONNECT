@@ -319,7 +319,7 @@ public class TestHelper {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
         JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams =
-                new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class,
+                new JAXBElement<>(xmlqname, PRPAMT201306UV02QueryByParameter.class,
                         params);
 
         return queryParams;

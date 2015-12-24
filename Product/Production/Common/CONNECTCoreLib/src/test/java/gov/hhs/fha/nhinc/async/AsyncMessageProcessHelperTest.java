@@ -97,7 +97,7 @@ public class AsyncMessageProcessHelperTest {
     }
 
     private List<AsyncMsgRecord> returnMockRecords() {
-        ArrayList<AsyncMsgRecord> mockRecords = new ArrayList<AsyncMsgRecord>();
+        ArrayList<AsyncMsgRecord> mockRecords = new ArrayList<>();
         AsyncMsgRecord record = new AsyncMsgRecord();
         record.setResponseTime(new Date());
         record.setCreationTime(new Date());

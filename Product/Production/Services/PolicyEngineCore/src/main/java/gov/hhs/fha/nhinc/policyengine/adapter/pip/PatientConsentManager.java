@@ -120,7 +120,7 @@ public class PatientConsentManager {
                 && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null
                 && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
 
-                List<String> olDocIds2Store = new ArrayList<String>();
+                List<String> olDocIds2Store = new ArrayList<>();
                 List<BinaryDocumentPolicyCriterionType> olBinPolicyCriteria = oPtPref.getBinaryDocumentPolicyCriteria()
                     .getBinaryDocumentPolicyCriterion();
                 for (BinaryDocumentPolicyCriterionType oBinPolicyCriterion : olBinPolicyCriteria) {
@@ -538,7 +538,7 @@ public class PatientConsentManager {
     private List<CPPDocumentInfo> retrieveCPPFromRepositoryUsingXDSb(String sPatientId, String sAssigningAuthority)
         throws AdapterPIPException {
 
-        List<CPPDocumentInfo> olCPPDocInfo = new ArrayList<CPPDocumentInfo>();
+        List<CPPDocumentInfo> olCPPDocInfo = new ArrayList<>();
 
         List<DocumentRequest> olDocReq = retrieveCPPDocIdentifiers(sPatientId, sAssigningAuthority);
         for (DocumentRequest oDocRequest : olDocReq) {
@@ -667,7 +667,7 @@ public class PatientConsentManager {
     private List<String> extractBinPrefDoc(DocumentRequest oDocRequest, RetrieveDocumentSetResponseType oResponse) {
 
         LOG.info("--------------- Begin extractBinPrefDoc ---------------");
-        List<String> olBinPrefDoc = new ArrayList<String>();
+        List<String> olBinPrefDoc = new ArrayList<>();
 
         if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
             && (oResponse.getDocumentResponse().size() > 0)) {
@@ -784,6 +784,6 @@ public class PatientConsentManager {
         String sRepositoryId = "";
         String sDocumentUniqueId = "";
         String sConsentXACML = "";
-        List<String> olConsentPdf = new ArrayList<String>();
+        List<String> olConsentPdf = new ArrayList<>();
     }
 }

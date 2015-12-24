@@ -56,7 +56,7 @@ public class AdapterPAPImpl {
             DocumentQueryParams params = new DocumentQueryParams();
             LOG.debug("patientid:" + patientId);
             params.setPatientId(patientId);
-            List<String> classCodeValues = new ArrayList<String>();
+            List<String> classCodeValues = new ArrayList<>();
             classCodeValues.add(AdapterPAPConstants.DOCUMENT_CLASS_CODE);
             params.setClassCodes(classCodeValues);
             DocumentService service = new DocumentService();

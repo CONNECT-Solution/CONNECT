@@ -42,9 +42,9 @@ public class DirectDomain {
     private String domainCreated;
     private String domainUpdated;
 
-    private List<DirectAddress> addresses = new ArrayList<DirectAddress>();
-    private List<DirectAnchor> anchors = new ArrayList<DirectAnchor>();
-    private List<DirectTrustBundle> trustBundles = new ArrayList<DirectTrustBundle>();
+    private List<DirectAddress> addresses = new ArrayList<>();
+    private List<DirectAnchor> anchors = new ArrayList<>();
+    private List<DirectTrustBundle> trustBundles = new ArrayList<>();
 
     /**
      *

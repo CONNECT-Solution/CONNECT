@@ -189,7 +189,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 				doc1.setDocumentUniqueId("2.531.777");
 				Document doc2 = new Document();
 				doc2.setDocumentUniqueId("");
-				ArrayList<Document> docs = new ArrayList<Document>();
+				ArrayList<Document> docs = new ArrayList<>();
 				docs.add(doc1);
 				docs.add(doc2);
 				loadDocumentResponses(response, docs, homeCommunityId,
@@ -356,7 +356,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 		List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(ArrayList.class);
 		final ExtrinsicObjectType extrinsicObject = mock(ExtrinsicObjectType.class);
 
-		List<ExternalIdentifierType> externalIdentifierList = new ArrayList<ExternalIdentifierType>();
+		List<ExternalIdentifierType> externalIdentifierList = new ArrayList<>();
 		ExternalIdentifierType externalIdentifier = mock(ExternalIdentifierType.class);
 		externalIdentifierList.add(externalIdentifier);
 
@@ -364,7 +364,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 		List<LocalizedStringType> nameValueList = mock(ArrayList.class);
 		LocalizedStringType nameValue = mock(LocalizedStringType.class);
 
-		List<SlotType1> documentSlots = new ArrayList<SlotType1>();
+		List<SlotType1> documentSlots = new ArrayList<>();
 		SlotType1 slot = mock(SlotType1.class);
 		documentSlots.add(slot);
 
@@ -701,7 +701,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 		InternationalStringType internationalString = mock(InternationalStringType.class);
 		LocalizedStringType localizedString = new LocalizedStringType();
 		localizedString.setValue(EVENT_CODE_DISPLAY_NAME);
-		List<LocalizedStringType> eventCodeDisplayNameList = new ArrayList<LocalizedStringType>();
+		List<LocalizedStringType> eventCodeDisplayNameList = new ArrayList<>();
 		eventCodeDisplayNameList.add(localizedString);
 		Document doc = new Document();
 

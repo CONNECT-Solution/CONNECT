@@ -62,7 +62,7 @@ public class RegistryResponeTypeHolderBuilderTest {
     @Test
     public void unwrapsArgument() {
         RegistryResponseType mock = mock(RegistryResponseType.class);
-        Holder<RegistryResponseType> holder = new Holder<RegistryResponseType>(mock);
+        Holder<RegistryResponseType> holder = new Holder<>(mock);
         Object[] transformArguments = builder.transformArguments(new Object[] { holder });
         assertEquals(mock, transformArguments[0]);
     }

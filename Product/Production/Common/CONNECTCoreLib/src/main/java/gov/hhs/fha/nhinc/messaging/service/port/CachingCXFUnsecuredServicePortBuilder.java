@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class CachingCXFUnsecuredServicePortBuilder<T> extends CachingCXFServicePortBuilder<T> {
 
-    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<Class<?>, Object>();
+    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<>();
 
     /**
      * Constructor.

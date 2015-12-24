@@ -53,7 +53,7 @@ public class AttachmentReleaseFaultOutInterceptorTest {
 		final LargeFileUtils largeFileUtils = mock(LargeFileUtils.class);
 		Message message = mock(Message.class);
 		Exchange exchange = mock(Exchange.class);
-		Collection<Attachment> attachments = new ArrayList<Attachment>();
+		Collection<Attachment> attachments = new ArrayList<>();
 		Attachment attachment = mock(Attachment.class);
 		attachments.add(attachment);
 		DataHandler dataHandler = mock(DataHandler.class);

@@ -143,7 +143,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      */
     public synchronized static void initJVMParams() {
 
-        final Map<String, String> JVM_PARAMS = new HashMap<String, String>();
+        final Map<String, String> JVM_PARAMS = new HashMap<>();
         JVM_PARAMS.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED,
             "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");
 
@@ -247,10 +247,10 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
         LOG.debug("Preparing to update bundle");
 
-        final HashSet<X509Certificate> downloadedSet = new HashSet<X509Certificate>(bundleCerts);
+        final HashSet<X509Certificate> downloadedSet = new HashSet<>(bundleCerts);
 
         try {
-            final Collection<TrustBundleAnchor> newAnchors = new ArrayList<TrustBundleAnchor>();
+            final Collection<TrustBundleAnchor> newAnchors = new ArrayList<>();
 
             for (X509Certificate downloadedAnchor : downloadedSet) {
                 try {

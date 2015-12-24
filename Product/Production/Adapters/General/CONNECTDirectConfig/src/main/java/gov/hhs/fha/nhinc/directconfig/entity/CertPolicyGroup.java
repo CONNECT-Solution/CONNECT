@@ -102,7 +102,7 @@ public class CertPolicyGroup {
     public Collection<CertPolicyGroupReltn> getCertPolicyGroupReltn() {
 
         if (policies == null) {
-            policies = new ArrayList<CertPolicyGroupReltn>();
+            policies = new ArrayList<>();
         }
         return policies;
     }

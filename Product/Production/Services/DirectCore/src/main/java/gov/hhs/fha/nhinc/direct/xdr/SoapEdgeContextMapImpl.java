@@ -46,7 +46,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      * Instantiates a new soap edge headers properties impl.
      */
     public SoapEdgeContextMapImpl() {
-        properties = new HashMap<String, String>();
+        properties = new HashMap<>();
     }
 
     /*
@@ -56,7 +56,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      */
     @Override
     public ImmutableMap<String, String> getAuditableValues() {
-        ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<String, String>();
+        ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
 
         for (String s : SoapEdgeContext.PropertyKeys) {
             String value = properties.get(s);

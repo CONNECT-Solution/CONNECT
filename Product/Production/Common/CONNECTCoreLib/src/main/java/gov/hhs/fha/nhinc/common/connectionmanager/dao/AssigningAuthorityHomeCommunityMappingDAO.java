@@ -73,7 +73,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
     public List<String> getAssigningAuthoritiesByHomeCommunity(String homeCommunityId) {
         LOG.trace("-- Begin AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
         Session sess = null;
-        List<String> listOfAAs = new ArrayList<String>();
+        List<String> listOfAAs = new ArrayList<>();
         if (homeCommunityId != null && !homeCommunityId.equals("")) {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {

@@ -53,7 +53,7 @@ public class AggregationStrategyTest {
         OutboundDelegate delegate = mock(OutboundDelegate.class);
 
 
-        ArrayList<OutboundOrchestratable> values = new ArrayList<OutboundOrchestratable>();
+        ArrayList<OutboundOrchestratable> values = new ArrayList<>();
         values.add(message);
 
         when(aggregate.getAggregateRequests()).thenReturn(values);

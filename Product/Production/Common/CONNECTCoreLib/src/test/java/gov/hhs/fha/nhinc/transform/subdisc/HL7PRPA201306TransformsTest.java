@@ -217,7 +217,7 @@ public class HL7PRPA201306TransformsTest {
         PRPAMT201306UV02QueryByParameter parameter = new PRPAMT201306UV02QueryByParameter();
         parameter.setParameterList(createPRPAMT201306UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<>(
                 xmlqname, PRPAMT201306UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         oRequest.setControlActProcess(controlActProcess);
@@ -273,7 +273,7 @@ public class HL7PRPA201306TransformsTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201306UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryByParameter = new JAXBElement<>(
                 xmlqname, PRPAMT201306UV02QueryByParameter.class, parameter);
         queryByParameter.getValue().setQueryId(createII());
         return queryByParameter;
@@ -339,7 +339,7 @@ public class HL7PRPA201306TransformsTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());

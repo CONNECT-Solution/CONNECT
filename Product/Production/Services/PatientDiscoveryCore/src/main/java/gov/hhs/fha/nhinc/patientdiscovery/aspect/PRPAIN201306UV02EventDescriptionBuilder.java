@@ -54,7 +54,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
     @Override
     public void buildRespondingHCIDs() {
         if (body.isPresent()) {
-            setRespondingHCIDs(new ArrayList<String>(HCID_EXTRACTOR.apply(body.get())));
+            setRespondingHCIDs(new ArrayList<>(HCID_EXTRACTOR.apply(body.get())));
         } else {
             setLocalResponder();
         }
@@ -66,7 +66,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
             return;
         }
 
-        setStatuses(new ArrayList<String>(STATUS_EXTRACTOR.apply(body.get())));
+        setStatuses(new ArrayList<>(STATUS_EXTRACTOR.apply(body.get())));
     }
 
     @Override

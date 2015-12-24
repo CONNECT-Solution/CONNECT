@@ -84,7 +84,7 @@ public class WsSecurityConfigFactory {
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
 
-        HashMap<String, Object> outProps = new HashMap<String, Object>();
+        HashMap<String, Object> outProps = new HashMap<>();
 
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
         outProps.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
@@ -111,7 +111,7 @@ public class WsSecurityConfigFactory {
     }
 
     private Map<String, Object> deepCopy(HashMap<String, Object> configMap) {
-        HashMap<String, Object> clonedMap = new HashMap<String, Object>(configMap);
+        HashMap<String, Object> clonedMap = new HashMap<>(configMap);
 
         Properties cryptoProperties = (Properties) clonedMap.get("cryptoProperties");
         clonedMap.put("cryptoProperties", cryptoProperties.clone());

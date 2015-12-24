@@ -57,7 +57,7 @@ public class TransactionStoreInmemory implements TransactionStore {
      * @return the map
      */
     protected Map<String,List<String>> getMap() {
-        return new HashMap<String,List<String>>();
+        return new HashMap<>();
     }
 
     /* (non-Javadoc)
@@ -74,7 +74,7 @@ public class TransactionStoreInmemory implements TransactionStore {
         	if (map.containsKey(messageId)) {
         		transactionIds = map.get(messageId);
         	} else {
-        		transactionIds = new LinkedList<String>();
+        		transactionIds = new LinkedList<>();
         	}
 
         	if (!transactionIds.contains(transactionId)) {

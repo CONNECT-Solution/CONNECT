@@ -36,7 +36,7 @@ import java.util.HashMap;
  */
 public class EndpointManagerCache implements EndpointManager {
 
-    private static final HashMap<String, EndpointCacheInfo> endpointCache = new HashMap<String, EndpointCacheInfo>();
+    private static final HashMap<String, EndpointCacheInfo> endpointCache = new HashMap<>();
 
     private EndpointManagerCache() {
     }

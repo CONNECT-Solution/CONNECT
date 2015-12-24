@@ -98,7 +98,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
                 List<String> responseMsgIdList = (List<String>) currentMessage.getExchange().get(
                     NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
                 if (responseMsgIdList == null) {
-                    responseMsgIdList = new ArrayList<String>();
+                    responseMsgIdList = new ArrayList<>();
                 }
                 responseMsgIdList.add(responseMsgId);
 

@@ -47,7 +47,7 @@ class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, Set<
 
     @Override
     public Set<String> apply(PRPAIN201306UV02 input) {
-        Set<String> statuses = new HashSet<String>();
+        Set<String> statuses = new HashSet<>();
 
         for (MCCIMT000300UV01Acknowledgement acknowledgement : input.getAcknowledgement()) {
             List<Optional<String>> tmp = Lists.transform(acknowledgement.getAcknowledgementDetail(), STATUS_FUNCTION);

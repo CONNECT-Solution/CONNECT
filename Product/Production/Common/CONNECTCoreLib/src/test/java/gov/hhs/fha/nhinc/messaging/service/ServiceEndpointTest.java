@@ -59,7 +59,7 @@ public class ServiceEndpointTest {
         BindingProvider bindingProvider = mock(BindingProvider.class);
         serviceEndpoint.port = bindingProvider;
 
-        requestContext = new HashMap<String, Object>();
+        requestContext = new HashMap<>();
         when(serviceEndpoint.port.getRequestContext()).thenReturn(requestContext);
 
     }

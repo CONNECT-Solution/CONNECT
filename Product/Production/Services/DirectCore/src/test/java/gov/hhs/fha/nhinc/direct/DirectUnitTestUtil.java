@@ -412,7 +412,7 @@ public class DirectUnitTestUtil {
         MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);
         Message mockMessage = mock(Message.class);
 
-        Collection<NotificationMessage> notificationCollection = new ArrayList<NotificationMessage>();
+        Collection<NotificationMessage> notificationCollection = new ArrayList<>();
         NotificationMessage mockNotificationMessage = mock(NotificationMessage.class);
         Address senderAddress = new InternetAddress(SENDER_AT_INITIATING_GW);
         Address recipAddress = new InternetAddress(RECIP_AT_RESPONDING_GW);

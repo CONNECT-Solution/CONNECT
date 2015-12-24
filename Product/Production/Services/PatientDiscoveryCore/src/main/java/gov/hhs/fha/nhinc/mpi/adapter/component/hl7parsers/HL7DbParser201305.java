@@ -167,7 +167,7 @@ public class HL7DbParser201305 {
     public static List<Personname> extractPersonnames(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractPersonnames method...");
 
-        List<Personname> personnames = new ArrayList<Personname>();
+        List<Personname> personnames = new ArrayList<>();
 
         // Extract the person names from the query parameters
         if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
@@ -302,7 +302,7 @@ public class HL7DbParser201305 {
     public static List<Identifier> extractPersonIdentifiers(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractPersonIdentifiers method...");
 
-        List<Identifier> ids = new ArrayList<Identifier>();
+        List<Identifier> ids = new ArrayList<>();
 
         if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
             && params.getLivingSubjectId().get(0) != null) {
@@ -392,7 +392,7 @@ public class HL7DbParser201305 {
     public static List<Address> extractPersonAddresses(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractPersonAddress method...");
 
-        List<Address> addresses = new ArrayList<Address>();
+        List<Address> addresses = new ArrayList<>();
 
         if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
             && params.getPatientAddress().get(0) != null) {
@@ -498,7 +498,7 @@ public class HL7DbParser201305 {
     public static List<Phonenumber> extractTelecoms(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractTelecoms method...");
 
-        List<Phonenumber> phonenumbers = new ArrayList<Phonenumber>();
+        List<Phonenumber> phonenumbers = new ArrayList<>();
 
         Phonenumber phonenumber;
 

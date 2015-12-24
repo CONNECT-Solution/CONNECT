@@ -55,12 +55,12 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
 
     @Override
     public void buildStatuses() {
-        setStatuses(new ArrayList<String>(applyExtractor(statusExtractor)));
+        setStatuses(new ArrayList<>(applyExtractor(statusExtractor)));
     }
 
     @Override
     public void buildRespondingHCIDs() {
-        setRespondingHCIDs(new ArrayList<String>(applyExtractor(hcidExtractor)));
+        setRespondingHCIDs(new ArrayList<>(applyExtractor(hcidExtractor)));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
         if (!response.isPresent()) {
             return Collections.EMPTY_SET;
         }
-        Set<String> result = new HashSet<String>();
+        Set<String> result = new HashSet<>();
         for (PRPAIN201306UV02 item : unwrap(response.get())) {
             result.addAll(function.apply(item));
         }
@@ -112,7 +112,7 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
     }
 
     private Iterable<PRPAIN201306UV02> unwrap(RespondingGatewayPRPAIN201306UV02ResponseType input) {
-        List<PRPAIN201306UV02> result = new ArrayList<PRPAIN201306UV02>();
+        List<PRPAIN201306UV02> result = new ArrayList<>();
         for (CommunityPRPAIN201306UV02ResponseType community : input.getCommunityResponse()) {
             if (community.getPRPAIN201306UV02() != null) {
                 result.add(community.getPRPAIN201306UV02());

@@ -193,7 +193,7 @@ public class HL7ExtractorsTest {
         HL7Extractors extractor = new HL7Extractors();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.getSubject().addAll(subjects);
         message.setControlActProcess(controlActProcess);
@@ -206,7 +206,7 @@ public class HL7ExtractorsTest {
         HL7Extractors extractor = new HL7Extractors();
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
         PRPAIN201302UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201302UV02MFMIMT700701UV01ControlActProcess();
-        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201302UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.getSubject().addAll(subjects);
         message.setControlActProcess(controlActProcess);
@@ -412,14 +412,14 @@ public class HL7ExtractorsTest {
     }
 
     private List<ENExplicit> createENExplicitNamesListWhenNameTypeandNameListNull() {
-        List<ENExplicit> pnList = new ArrayList<ENExplicit>();
+        List<ENExplicit> pnList = new ArrayList<>();
         ENExplicit name = new ENExplicit();
         pnList.add(name);
         return pnList;
     }
 
     private List<ENExplicit> createENExplicitList() {
-        List<ENExplicit> pnList = new ArrayList<ENExplicit>();
+        List<ENExplicit> pnList = new ArrayList<>();
         ENExplicit name = createENExplicit();
         pnList.add(name);
         return pnList;
@@ -441,14 +441,14 @@ public class HL7ExtractorsTest {
     }
 
     private List<PNExplicit> createPNExplicitNamesListWhenNameTypeandNameListNull() {
-        List<PNExplicit> pnList = new ArrayList<PNExplicit>();
+        List<PNExplicit> pnList = new ArrayList<>();
         PNExplicit name = new PNExplicit();
         pnList.add(name);
         return pnList;
     }
 
     private static List<PNExplicit> createPNExplicitNamesList() {
-        List<PNExplicit> pnList = new ArrayList<PNExplicit>();
+        List<PNExplicit> pnList = new ArrayList<>();
         PNExplicit name = createPNExplicitName();
         pnList.add(name);
         return pnList;
@@ -536,7 +536,7 @@ public class HL7ExtractorsTest {
         PRPAIN201310UV02MFMIMT700711UV01Subject2 subject1 = new PRPAIN201310UV02MFMIMT700711UV01Subject2();
         subject1.setTypeId(createTypeId());
         registrationevent.setSubject1(subject1);
-        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<PRPAIN201310UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
 
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -557,7 +557,7 @@ public class HL7ExtractorsTest {
         PRPAIN201302UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201302UV02MFMIMT700701UV01Subject2();
         subject1.setTypeId(createTypeId());
         registrationevent.setSubject1(subject1);
-        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201302UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
 
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -578,7 +578,7 @@ public class HL7ExtractorsTest {
         PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
         subject1.setTypeId(createTypeId());
         registrationevent.setSubject1(subject1);
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
 
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -595,7 +595,7 @@ public class HL7ExtractorsTest {
     private PRPAIN201310UV02 createPRPAIN201310UV02MessageWhereSubject1Null() {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
         PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent registrationevent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
-        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<PRPAIN201310UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -612,7 +612,7 @@ public class HL7ExtractorsTest {
     private PRPAIN201302UV02 createPRPAIN201302UV02MessageWhereSubject1Null() {
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
         PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201302UV02MFMIMT700701UV01RegistrationEvent();
-        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201302UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -629,7 +629,7 @@ public class HL7ExtractorsTest {
     private PRPAIN201301UV02 createMessageWhereSubject1Null() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
         PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -645,7 +645,7 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201302UV02 createPRPAIN201302UV02MessageWhereregistrationEventNull() {
         PRPAIN201302UV02 message = new PRPAIN201302UV02();
-        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201302UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
@@ -659,7 +659,7 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201310UV02 createPRPAIN201310UV02MessageWhereregistrationEventNull() {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
-        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<PRPAIN201310UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
@@ -673,7 +673,7 @@ public class HL7ExtractorsTest {
 
     private PRPAIN201301UV02 createMessageWhereregistrationEventNull() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
@@ -747,7 +747,7 @@ public class HL7ExtractorsTest {
     }
 
     private List<PRPAIN201301UV02MFMIMT700701UV01Subject1> createPRPAIN201301UV02MFMIMT700701UV01Subject1() {
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(createPRPAIN201301UV02MFMIMT700701UV01RegistrationEvent());
@@ -756,7 +756,7 @@ public class HL7ExtractorsTest {
     }
 
     private List<PRPAIN201302UV02MFMIMT700701UV01Subject1> createPRPAIN201302UV02MFMIMT700701UV01Subject1() {
-        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201302UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201302UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201302UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201302UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(createPRPAIN201302UV02MFMIMT700701UV01RegistrationEvent());
@@ -765,7 +765,7 @@ public class HL7ExtractorsTest {
     }
 
     private List<PRPAIN201310UV02MFMIMT700711UV01Subject1> createPRPAIN201310UV02MFMIMT700711UV01Subject1() {
-        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<PRPAIN201310UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201310UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(createPRPAIN201310UV02MFMIMT700711UV01RegistrationEvent());
@@ -798,7 +798,7 @@ public class HL7ExtractorsTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createTypeId());
@@ -815,7 +815,7 @@ public class HL7ExtractorsTest {
         org.hl7.v3.PRPAMT201302UV02Patient patient = new PRPAMT201302UV02Patient();
         PRPAMT201302UV02PatientPatientPerson patientPerson = new PRPAMT201302UV02PatientPatientPerson();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201302UV02PatientPatientPerson> patientPersonElement = new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(
+        JAXBElement<PRPAMT201302UV02PatientPatientPerson> patientPersonElement = new JAXBElement<>(
                 xmlqname, PRPAMT201302UV02PatientPatientPerson.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
@@ -830,7 +830,7 @@ public class HL7ExtractorsTest {
         org.hl7.v3.PRPAMT201304UV02Patient patient = new PRPAMT201304UV02Patient();
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
@@ -890,7 +890,7 @@ public class HL7ExtractorsTest {
         device.setDeterminerCode("INSTANCE");
         device.setTypeId(createTypeId());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
-        JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<COCTMT090003UV01Device>(xmlqname,
+        JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<>(xmlqname,
                 COCTMT090003UV01Device.class, device);
         return assignedDevice;
     }

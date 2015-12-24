@@ -66,7 +66,7 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
 
     private Executor executor = null;
     private String transactionId = null;
-    private List<NhinCallableRequest<IndividualResponse>> callableList = new ArrayList<NhinCallableRequest<IndividualResponse>>();
+    private List<NhinCallableRequest<IndividualResponse>> callableList = new ArrayList<>();
 
     /**
      *
@@ -93,7 +93,7 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
         LOG.debug("NhinTaskExecutor::executeTask begin");
 
         try {
-            CompletionService<IndividualResponse> executorCompletionService = new ExecutorCompletionService<IndividualResponse>(
+            CompletionService<IndividualResponse> executorCompletionService = new ExecutorCompletionService<>(
                     executor);
             // loop through the callableList and submit the callable requests for execution
             for (NhinCallableRequest<IndividualResponse> c : callableList) {

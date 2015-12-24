@@ -61,7 +61,7 @@ public class DocumentServiceTest {
         DocumentService documentService = getDocumentServiceWithMockDaos();
 
         Document mockDoc = mock(Document.class);
-        Set<EventCode> eventCodes = new HashSet<EventCode>();
+        Set<EventCode> eventCodes = new HashSet<>();
         EventCode eventCode = mock(EventCode.class);
         eventCodes.add(eventCode);
 
@@ -84,7 +84,7 @@ public class DocumentServiceTest {
 
     @Test
     public void testDeleteDocument_Success() throws DocumentServiceException {
-        final List<Document> DOC_LIST = new ArrayList<Document>();
+        final List<Document> DOC_LIST = new ArrayList<>();
         Document doc = new Document();
         String unique_id = "Doc_ID_1";
         doc.setDocumentUniqueId(unique_id);
@@ -108,7 +108,7 @@ public class DocumentServiceTest {
     @Test(expected = DocumentServiceException.class)
     public void testDeleteDocument_NoDocumentsReturned() throws DocumentServiceException {
         final DocumentDao DOCUMENT_DAO = mock(DocumentDao.class);
-        final List<Document> DOC_LIST = new ArrayList<Document>();
+        final List<Document> DOC_LIST = new ArrayList<>();
         Document doc = new Document();
         String unique_id = "Doc_ID_1";
         doc.setDocumentUniqueId(unique_id);
@@ -150,7 +150,7 @@ public class DocumentServiceTest {
         Document doc = new Document();
         doc.setDocumentid(DOC_ID);
         doc.setDocumentUniqueId(DOC_UNIQUE_ID);
-        List<Document> documents = new ArrayList<Document>();
+        List<Document> documents = new ArrayList<>();
         documents.add(doc);
 
         DocumentQueryParams dqParams = mock(DocumentQueryParams.class);
@@ -158,10 +158,10 @@ public class DocumentServiceTest {
         EventCodeParam ecParam = new EventCodeParam();
         ecParam.setEventCode("T-32000");
         ecParam.setEventCodeScheme("SNM3");
-        List<EventCodeParam> ecParamList = new ArrayList<EventCodeParam>();
+        List<EventCodeParam> ecParamList = new ArrayList<>();
         ecParamList.add(ecParam);
 
-        List<EventCode> eventCodeList = new ArrayList<EventCode>();
+        List<EventCode> eventCodeList = new ArrayList<>();
         EventCode eventcode = mock(EventCode.class);
         eventCodeList.add(eventcode);
 
@@ -182,7 +182,7 @@ public class DocumentServiceTest {
     public void testGetAllDocuments() {
         DocumentService documentService = getDocumentServiceWithMockDaos();
 
-        List<Document> documents = new ArrayList<Document>();
+        List<Document> documents = new ArrayList<>();
 
         when(DOCUMENT_DAO.findAll()).thenReturn(documents);
 

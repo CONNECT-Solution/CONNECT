@@ -253,7 +253,7 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
 
     private void addQueryResult(AdhocQueryResponse response, ExtrinsicObjectType extrinsicObject) {
         QName qName = mock(QName.class);
-        JAXBElement<ExtrinsicObjectType> jaxbWrapper = new JAXBElement<ExtrinsicObjectType>(qName,
+        JAXBElement<ExtrinsicObjectType> jaxbWrapper = new JAXBElement<>(qName,
                 ExtrinsicObjectType.class, extrinsicObject);
 
         RegistryObjectListType registryObjectList = response.getRegistryObjectList();

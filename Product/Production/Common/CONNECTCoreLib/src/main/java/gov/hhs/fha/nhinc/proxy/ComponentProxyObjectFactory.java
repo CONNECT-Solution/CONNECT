@@ -58,7 +58,7 @@ public abstract class ComponentProxyObjectFactory {
     // We have synchronized the method that sets and retrieves this to make it thread safe.
     // ------------------------------------------------------------------------------------------------
     private static final HashMap<String, LocalApplicationContextInfo> contextMap
-        = new HashMap<String, LocalApplicationContextInfo>();
+        = new HashMap<>();
 
     /**
      * Get the URL to properties files.

@@ -109,7 +109,7 @@ public class HL7QueryParamsTransformsTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());
@@ -160,7 +160,7 @@ public class HL7QueryParamsTransformsTest {
     }
 
     private List<ADExplicit> patientAddressList() {
-        List<ADExplicit> patientAddressList = new ArrayList<ADExplicit>();
+        List<ADExplicit> patientAddressList = new ArrayList<>();
         patientAddressList.add(createADExplicit());
         return patientAddressList;
     }
@@ -172,7 +172,7 @@ public class HL7QueryParamsTransformsTest {
     }
 
     private List<TELExplicit> createTELList() {
-        List<TELExplicit> telList = new ArrayList<TELExplicit>();
+        List<TELExplicit> telList = new ArrayList<>();
         telList.add(createTELExplicit());
         return telList;
     }

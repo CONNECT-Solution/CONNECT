@@ -57,7 +57,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
         if (StringUtils.isBlank(wsAddressingToValue)) {
             wsAddressingToValue = url;
         }
-        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingToValue, subscriptionId);
+        return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion, wsAddressingToValue, subscriptionId);
     }
 
     /**
@@ -67,7 +67,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
         AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
-        return new CONNECTCXFClientSecured<T>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
+        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
     }
 
     /**
@@ -76,6 +76,6 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion) {
-        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
+        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
     }
 }

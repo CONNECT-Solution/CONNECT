@@ -79,7 +79,7 @@ public class PatientChecker implements AdapterComponentMpiChecker {
                 LOG.debug("No matching patient found");
             }
 
-            List<String> dupOrgIds = new ArrayList<String>();
+            List<String> dupOrgIds = new ArrayList<>();
             for (Patient patient : searchResults) {
                 if ((patient.getIdentifiers() != null) && (patient.getIdentifiers().size() > 0)
                         && (patient.getIdentifiers().get(0).getOrganizationId() != null)) {

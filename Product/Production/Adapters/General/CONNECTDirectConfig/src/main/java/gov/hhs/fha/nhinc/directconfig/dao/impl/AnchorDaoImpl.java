@@ -113,7 +113,7 @@ public class AnchorDaoImpl implements AnchorDao {
                 results = session.getNamedQuery("getAllAnchors").list();
 
                 if (results == null) {
-                    results = new ArrayList<Anchor>();
+                    results = new ArrayList<>();
                 }
 
                 log.debug("Anchors found: " + results.size());
@@ -149,7 +149,7 @@ public class AnchorDaoImpl implements AnchorDao {
                     results = query.list();
 
                     if (results == null) {
-                        results = new ArrayList<Anchor>();
+                        results = new ArrayList<>();
                     }
 
                     log.debug("Anchors found: " + results.size());
@@ -257,7 +257,7 @@ public class AnchorDaoImpl implements AnchorDao {
                     results = query.list();
 
                     if (results == null) {
-                        results = new ArrayList<Anchor>();
+                        results = new ArrayList<>();
                     }
 
                     log.debug("Anchors found: " + results.size());
@@ -312,7 +312,7 @@ public class AnchorDaoImpl implements AnchorDao {
             Session session = null;
             Transaction tx = null;
 
-            List<String> owners = new ArrayList<String>();
+            List<String> owners = new ArrayList<>();
             owners.add(owner);
 
             List<Anchor> anchors = list(owners);

@@ -361,7 +361,7 @@ public class DeferredQueueManagerHelper {
             throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.queryDeferredQueue method - query deferred messages.");
 
-        List<DeferredQueueRecordType> response = new ArrayList<DeferredQueueRecordType>();
+        List<DeferredQueueRecordType> response = new ArrayList<>();
 
         try {
             AsyncMsgRecordDao queueDao = new AsyncMsgRecordDao();
@@ -462,7 +462,7 @@ public class DeferredQueueManagerHelper {
             DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.queryDeferredQueueStatistics method - query deferred statistics.");
 
-        List<DeferredQueueStatisticsDataType> response = new ArrayList<DeferredQueueStatisticsDataType>();
+        List<DeferredQueueStatisticsDataType> response = new ArrayList<>();
 
         // TODO: Logic goes here
 

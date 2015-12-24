@@ -354,7 +354,7 @@ public class DocRetrieveResponseProcessorTest {
     public void testGetUniqueIdIdentifier() {
         DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor();
         assertNull("Unique Id returned for null EnternalIdentifier is also null", processor.getUniqueIdIdentifier(null));
-        List<ExternalIdentifierType> externalIdentifierList = new ArrayList<ExternalIdentifierType>();
+        List<ExternalIdentifierType> externalIdentifierList = new ArrayList<>();
         assertNull("Unique Id returned for null EnternalIdentifierList is also null",
                 processor.getUniqueIdIdentifier(externalIdentifierList));
         externalIdentifierList.add(null);

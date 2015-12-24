@@ -95,7 +95,7 @@ public class AsyncMessageIdExtractor {
     }
 
     public List<String> getAsyncRelatesTo(WebServiceContext context) {
-        List<String> relatesToId = new ArrayList<String>();
+        List<String> relatesToId = new ArrayList<>();
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_RELATESTO);
         relatesToId.add(getFirstChildNodeValue(element));

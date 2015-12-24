@@ -103,10 +103,10 @@ public class PatientSearchBean {
      * Instantiate all the variables and load the lookup Data
      */
     public PatientSearchBean() {
-        this.documentList = new ArrayList<Document>();
-        this.querySelectedDocuments = new ArrayList<String>();
-        this.patientList = new ArrayList<Patient>();
-        this.documentTypeList = new ArrayList<SelectItem>();
+        this.documentList = new ArrayList<>();
+        this.querySelectedDocuments = new ArrayList<>();
+        this.patientList = new ArrayList<>();
+        this.documentTypeList = new ArrayList<>();
 
         //Populate Organization List from UDDI
         this.organizationList = populateOrganizationFromConnectManagerCache();
@@ -461,7 +461,7 @@ public class PatientSearchBean {
      *
      */
     private List<SelectItem> populateDocumentTypes() {
-        List<SelectItem> localDocumentTypeList = new ArrayList<SelectItem>();
+        List<SelectItem> localDocumentTypeList = new ArrayList<>();
 
         try {
             //Load the documentType.properties file

@@ -45,7 +45,7 @@ class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<St
 
     @Override
     public Set<String> apply(PRPAIN201306UV02 input) {
-        Set<String> hcids = new HashSet<String>();
+        Set<String> hcids = new HashSet<>();
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = input.getControlActProcess();
         if (controlActProcess != null) {
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : controlActProcess.getSubject()) {
@@ -56,7 +56,7 @@ class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<St
     }
 
     private Set<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
-        Set<String> result = new HashSet<String>();
+        Set<String> result = new HashSet<>();
         if (hasAssignedEntity(subject)) {
             result.addAll(getIis(subject.getRegistrationEvent().getCustodian().getAssignedEntity()));
         }
@@ -70,7 +70,7 @@ class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<St
     }
 
     private List<String> getIis(COCTMT090003UV01AssignedEntity assignedEntity) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (II ii : assignedEntity.getId()) {
             String fromResponse = ii.getRoot();
             result.add(NhincConstants.HCID_PREFIX + fromResponse);

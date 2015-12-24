@@ -105,7 +105,7 @@ public abstract class AbstractWSAddressingTest {
         actionEvaluator.setContextItem(source);
         operationEvaluator.setContextItem(source);
         Iterator<XdmItem> operationEvaluatorIterator = operationEvaluator.iterator();
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
         for (XdmItem item : actionEvaluator) {
             String actionValue = item.getStringValue();
             String operationValue = operationEvaluatorIterator.next().getStringValue();

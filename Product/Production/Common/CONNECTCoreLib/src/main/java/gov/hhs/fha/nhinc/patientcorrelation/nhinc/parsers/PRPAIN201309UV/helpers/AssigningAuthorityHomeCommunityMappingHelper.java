@@ -65,7 +65,7 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
         List<String> fullListOfAssigningAuthorities = null;
         if (NullChecker.isNotNullish(homeCommunityIds)) {
             LOG.info("converting homeCommunityIds [count=" + homeCommunityIds.size() + "] to assigning authorities");
-            fullListOfAssigningAuthorities = new ArrayList<String>();
+            fullListOfAssigningAuthorities = new ArrayList<>();
 
             List<String> partialListOfAssigningAuthorities;
 

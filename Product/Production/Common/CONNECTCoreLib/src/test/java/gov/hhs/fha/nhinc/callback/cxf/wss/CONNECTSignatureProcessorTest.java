@@ -69,7 +69,7 @@ public class CONNECTSignatureProcessorTest {
     public void inlineIncludes() throws ParserConfigurationException, WSSecurityException {
         SoapMessage msg = mock(SoapMessage.class);
 
-        Collection<Attachment> attachmentList = new ArrayList<Attachment>();
+        Collection<Attachment> attachmentList = new ArrayList<>();
         attachmentList.add(createMockAttachment(DIG_REF_ID, DIG_BINARY_DATA));
         attachmentList.add(createMockAttachment(SIG_REF_ID, SIG_BINARY_DATA));
 
@@ -88,7 +88,7 @@ public class CONNECTSignatureProcessorTest {
     public void inlineIncludesWithPrefixRefId() throws ParserConfigurationException, WSSecurityException {
         SoapMessage msg = mock(SoapMessage.class);
 
-        Collection<Attachment> attachmentList = new ArrayList<Attachment>();
+        Collection<Attachment> attachmentList = new ArrayList<>();
         attachmentList.add(createMockAttachment(DIG_REF_ID, DIG_BINARY_DATA));
         attachmentList.add(createMockAttachment(SIG_REF_ID, SIG_BINARY_DATA));
 

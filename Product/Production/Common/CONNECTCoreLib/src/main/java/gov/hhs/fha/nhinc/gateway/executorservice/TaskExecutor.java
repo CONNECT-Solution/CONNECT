@@ -65,7 +65,7 @@ public class TaskExecutor<Target, Request, Response> {
     private Request request = null;
     private String transactionId = null;
 
-    private List<CallableRequest<Target, Request, Response>> requestList = new ArrayList<CallableRequest<Target, Request, Response>>();
+    private List<CallableRequest<Target, Request, Response>> requestList = new ArrayList<>();
 
     /**
      * Determines the taskexecutor service to use based on size of targetList. If targetList size is of the order of the
@@ -101,12 +101,12 @@ public class TaskExecutor<Target, Request, Response> {
 
         try {
             for (Target target : targetList) {
-                CallableRequest<Target, Request, Response> callable = new CallableRequest<Target, Request, Response>(
+                CallableRequest<Target, Request, Response> callable = new CallableRequest<>(
                         target, request, processor, client);
                 requestList.add(callable);
             }
 
-            CompletionService<Response> executorCompletionService = new ExecutorCompletionService<Response>(executor);
+            CompletionService<Response> executorCompletionService = new ExecutorCompletionService<>(executor);
             // loop through the request list and submit the callable requests for execution
             for (CallableRequest<Target, Request, Response> c : requestList) {
                 executorCompletionService.submit(c);

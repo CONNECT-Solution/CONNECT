@@ -171,7 +171,7 @@ public class QueryUtil {
      * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException Any error in the process of conversion.
      */
     public List<DocumentRequest> createDocumentRequest(AdhocQueryResponse oResponse) throws AdapterPIPException {
-        List<DocumentRequest> olDocReq = new ArrayList<DocumentRequest>();
+        List<DocumentRequest> olDocReq = new ArrayList<>();
 
         if ((oResponse != null) && (oResponse.getRegistryObjectList() != null)
                 && (oResponse.getRegistryObjectList().getIdentifiable() != null)

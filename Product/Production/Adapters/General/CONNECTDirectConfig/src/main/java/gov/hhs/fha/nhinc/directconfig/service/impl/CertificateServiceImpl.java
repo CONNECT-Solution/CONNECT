@@ -152,7 +152,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
     public Collection<Certificate> getCertificates(Collection<Long> certIds, CertificateGetOptions options)
         throws ConfigurationServiceException {
 
-        return dao.list(new ArrayList<Long>(certIds));
+        return dao.list(new ArrayList<>(certIds));
     }
 
     /**
@@ -172,7 +172,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
     public void setCertificateStatus(Collection<Long> certificateIDs, EntityStatus status)
         throws ConfigurationServiceException {
 
-        dao.setStatus(new ArrayList<Long>(certificateIDs), status);
+        dao.setStatus(new ArrayList<>(certificateIDs), status);
     }
 
     /**
@@ -188,7 +188,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public void removeCertificates(Collection<Long> certificateIds) throws ConfigurationServiceException {
-        dao.delete(new ArrayList<Long>(certificateIds));
+        dao.delete(new ArrayList<>(certificateIds));
     }
 
     /**
@@ -325,7 +325,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
         X500Principal issuerPrin = certificate.getSubjectX500Principal();
 
         // get the domain name
-        Map<String, String> oidMap = new HashMap<String, String>();
+        Map<String, String> oidMap = new HashMap<>();
         oidMap.put("1.2.840.113549.1.9.1", "EMAILADDRESS"); // OID for email address
         String prinName = issuerPrin.getName(X500Principal.RFC1779, oidMap);
 

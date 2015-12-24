@@ -78,7 +78,7 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 	 * @return A Collection of @{link AuditContext} objects.
 	 */
     private Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
-		Collection<AuditContext> contexts = new LinkedList<AuditContext>();
+		Collection<AuditContext> contexts = new LinkedList<>();
 
 		if (auditable.getAuditableValues() != null) {
 			for (Map.Entry<String, String> entry : auditable

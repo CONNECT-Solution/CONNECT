@@ -143,7 +143,7 @@ public class CertContainer {
 
         // check the CN attribute first
         // get the domain name
-        Map<String, String> oidMap = new HashMap<String, String>();
+        Map<String, String> oidMap = new HashMap<>();
         oidMap.put("1.2.840.113549.1.9.1", "EMAILADDRESS"); // OID for email address
         String prinName = prin.getName(X500Principal.RFC1779, oidMap);
 

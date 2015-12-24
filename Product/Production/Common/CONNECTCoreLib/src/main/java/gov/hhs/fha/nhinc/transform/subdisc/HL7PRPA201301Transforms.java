@@ -526,13 +526,13 @@ public class HL7PRPA201301Transforms {
 
                 javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
                     "representedOrganization");
-                JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(
+                JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<>(
                     xmlqnameorg, MCCIMT000100UV01Organization.class, newOrg);
                 newAgent.setRepresentedOrganization(orgElem);
                 newAgent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
                 javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-                JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent,
+                JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                     MCCIMT000100UV01Agent.class, newAgent);
 
                 newDevice.setAsAgent(agentElem);

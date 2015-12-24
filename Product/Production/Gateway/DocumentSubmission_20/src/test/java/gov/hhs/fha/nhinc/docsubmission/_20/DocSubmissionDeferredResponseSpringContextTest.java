@@ -79,7 +79,7 @@ public class DocSubmissionDeferredResponseSpringContextTest {
     public void inbound() {
         assertNotNull(inboundDocSubmissionResponseEndpoint);
 
-        javax.xml.ws.Holder<RegistryResponseType> body = new javax.xml.ws.Holder<RegistryResponseType>(new RegistryResponseType());
+        javax.xml.ws.Holder<RegistryResponseType> body = new javax.xml.ws.Holder<>(new RegistryResponseType());
         inboundDocSubmissionResponseEndpoint.provideAndRegisterDocumentSetBDeferredResponse(body);
         RegistryResponseType response = body.value;
 

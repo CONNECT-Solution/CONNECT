@@ -71,7 +71,7 @@ public class PayloadSizeExtractorTest {
 
     private JAXBElement<ExtrinsicObjectType> wrapExtrinsicObject(ExtrinsicObjectType extrinsicObject) {
         QName qName = mock(QName.class);
-        return new JAXBElement<ExtrinsicObjectType>(qName, ExtrinsicObjectType.class, extrinsicObject);
+        return new JAXBElement<>(qName, ExtrinsicObjectType.class, extrinsicObject);
     }
 
     private ExtrinsicObjectType createExtrinsicObject(String slotName, String slotValue) {

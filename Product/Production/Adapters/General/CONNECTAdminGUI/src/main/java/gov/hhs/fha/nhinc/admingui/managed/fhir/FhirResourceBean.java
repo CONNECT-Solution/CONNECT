@@ -125,7 +125,7 @@ public class FhirResourceBean {
         if (confView != null) {
             return confView.getConfResources();
         }
-        return new ArrayList<ConformanceResource>();
+        return new ArrayList<>();
     }
 
     public void setConfResources(List<ConformanceResource> confResources) {

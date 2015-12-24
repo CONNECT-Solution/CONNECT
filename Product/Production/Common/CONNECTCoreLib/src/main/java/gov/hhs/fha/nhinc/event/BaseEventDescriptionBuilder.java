@@ -156,7 +156,7 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
                 = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
             if (NullChecker.isNotNullish(hcid)) {
-                List<String> responders = new ArrayList<String>();
+                List<String> responders = new ArrayList<>();
                 responders.add(hcid);
                 setRespondingHCIDs(responders);
             }

@@ -48,7 +48,7 @@ public class PropertyFileDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PropertyFileDAO.class);
 
-    private HashMap<String, PropertiesConfiguration> propertyFilesHashmap = new HashMap<String, PropertiesConfiguration>();
+    private HashMap<String, PropertiesConfiguration> propertyFilesHashmap = new HashMap<>();
 
     PropertyFileDAO() {
 
@@ -149,7 +149,7 @@ public class PropertyFileDAO {
 
         PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
         if (properties != null && properties.getKeys() != null) {
-            setPropNames = new HashSet<String>();
+            setPropNames = new HashSet<>();
             Iterator<String> keys = properties.getKeys();
             while (keys.hasNext()) {
                 setPropNames.add(keys.next());

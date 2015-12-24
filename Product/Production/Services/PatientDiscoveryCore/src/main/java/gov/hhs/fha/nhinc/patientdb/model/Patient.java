@@ -193,7 +193,7 @@ public class Patient implements Serializable {
 
         if (this.addresses == null) {
 
-            this.addresses = new ArrayList<Address>();
+            this.addresses = new ArrayList<>();
 
         }
 
@@ -221,7 +221,7 @@ public class Patient implements Serializable {
 
         if (this.identifiers == null) {
 
-            this.identifiers = new ArrayList<Identifier>();
+            this.identifiers = new ArrayList<>();
 
         }
 
@@ -249,7 +249,7 @@ public class Patient implements Serializable {
 
         if (this.personnames == null) {
 
-            this.personnames = new ArrayList<Personname>();
+            this.personnames = new ArrayList<>();
 
         }
 
@@ -277,7 +277,7 @@ public class Patient implements Serializable {
 
         if (this.phonenumbers == null) {
 
-            this.phonenumbers = new ArrayList<Phonenumber>();
+            this.phonenumbers = new ArrayList<>();
 
         }
 

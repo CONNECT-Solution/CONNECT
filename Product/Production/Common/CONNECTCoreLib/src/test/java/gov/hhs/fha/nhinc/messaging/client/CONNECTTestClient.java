@@ -50,7 +50,7 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
      * @param portDescriptor
      */
     public CONNECTTestClient(ServicePortDescriptor<T> portDescriptor) {
-        serviceEndpoint = new BaseServiceEndpoint<T>(new CachingCXFSecuredServicePortBuilder<T>(portDescriptor).createPort());
+        serviceEndpoint = new BaseServiceEndpoint<>(new CachingCXFSecuredServicePortBuilder<>(portDescriptor).createPort());
     }
 
     public ServiceEndpoint<T> getServiceEndpoint() {
@@ -78,7 +78,7 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
      */
     @Override
     public void enableMtom() {
-        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new MTOMServiceEndpointDecorator<>(serviceEndpoint);
     }
 
     /* (non-Javadoc)
@@ -86,6 +86,6 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
      */
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
     }
 }

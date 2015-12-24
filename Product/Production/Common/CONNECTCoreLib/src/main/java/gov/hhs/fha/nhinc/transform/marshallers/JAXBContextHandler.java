@@ -45,7 +45,7 @@ public class JAXBContextHandler {
 
     // Contexts that are being managed. The name will be the context.
     // ----------------------------------------------------------------
-    private static Hashtable<String, JAXBContext> hContexts = new Hashtable<String, JAXBContext>();
+    private static Hashtable<String, JAXBContext> hContexts = new Hashtable<>();
 
     /**
      * This method returns the JAXB context

@@ -63,7 +63,7 @@ public class PixRetrieveResponseBuilderTest {
     }
 
     private List<II> createIIList() {
-        List<II> IIList = new ArrayList<II>();
+        List<II> IIList = new ArrayList<>();
         II ii1 = new II();
         ii1.setAssigningAuthorityName("1.1");
         ii1.setExtension("1.16.17.18.19");
@@ -84,7 +84,7 @@ public class PixRetrieveResponseBuilderTest {
         PRPAMT201307UV02QueryByParameter parameter = new  PRPAMT201307UV02QueryByParameter();
         parameter.setQueryId(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        return new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        return new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 

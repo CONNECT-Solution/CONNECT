@@ -41,13 +41,13 @@ public class ExpirationConfiguration {
     public ExpirationConfiguration() {
         defUnits = "";
         defExpiration = -1;
-        expirationList = new ArrayList<Expiration>();
+        expirationList = new ArrayList<>();
     }
 
     public ExpirationConfiguration(int defaultExpiration, String defaultUnits) {
         defExpiration = defaultExpiration;
         defUnits = defaultUnits;
-        expirationList = new ArrayList<Expiration>();
+        expirationList = new ArrayList<>();
     }
 
     public List<Expiration> getExpirations() {

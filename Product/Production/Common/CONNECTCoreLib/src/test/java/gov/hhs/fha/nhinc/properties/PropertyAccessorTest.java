@@ -182,7 +182,7 @@ public class PropertyAccessorTest {
     }
 
     private Set<String> returnPropertyNamesSet() {
-        Set<String> propertyNamesSet = new HashSet<String>();
+        Set<String> propertyNamesSet = new HashSet<>();
         propertyNamesSet.add(PROPERTY_NAME);
 
         return propertyNamesSet;

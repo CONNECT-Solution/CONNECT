@@ -109,7 +109,7 @@ public class DocSubmissionUtils {
         throws LargePayloadException {
 
         if (fileUtils.isSavePayloadToFileEnabled()) {
-            List<File> savedAttachmentList = new ArrayList<File>();
+            List<File> savedAttachmentList = new ArrayList<>();
             try {
                 for (Document doc : request.getDocument()) {
                     File attachmentFile = fileUtils.saveDataToFile(doc.getValue());

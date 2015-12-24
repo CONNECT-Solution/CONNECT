@@ -46,8 +46,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventServiceImpl implements EventService {
 
-    private static final HashMap<String, EventNwhinOrganization> inboundOrganizations = new HashMap<String, EventNwhinOrganization>();
-    private static final HashMap<String, EventNwhinOrganization> outboundOrganizations = new HashMap<String, EventNwhinOrganization>();
+    private static final HashMap<String, EventNwhinOrganization> inboundOrganizations = new HashMap<>();
+    private static final HashMap<String, EventNwhinOrganization> outboundOrganizations = new HashMap<>();
 
     public static final String INBOUND_EVENT_TYPE = "END_INBOUND_MESSAGE";
     public static final String OUTBOUND_EVENT_TYPE = "END_INVOCATION_TO_NWHIN";
@@ -108,7 +108,7 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public List<EventNwhinOrganization> getTotalOrganizations() {
-        HashMap<String, EventNwhinOrganization> totalEvents = new HashMap<String, EventNwhinOrganization>();
+        HashMap<String, EventNwhinOrganization> totalEvents = new HashMap<>();
         for (String hcid : inboundOrganizations.keySet()) {
             totalEvents.put(hcid, inboundOrganizations.get(hcid));
         }

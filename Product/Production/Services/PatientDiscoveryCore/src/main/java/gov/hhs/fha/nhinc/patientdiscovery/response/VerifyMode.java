@@ -76,7 +76,7 @@ public class VerifyMode implements ResponseMode {
 
         PRPAIN201306UV02 result = response;
 
-        List<II> requestPatientIds = new ArrayList<II>();
+        List<II> requestPatientIds = new ArrayList<>();
         if (localPatientId != null) {
             requestPatientIds.add(localPatientId);
         }
@@ -182,7 +182,7 @@ public class VerifyMode implements ResponseMode {
     }
 
     protected List<II> getPatientIds(PRPAIN201305UV02 requestMsg) {
-        List<II> requestPatientIds = new ArrayList<II>();
+        List<II> requestPatientIds = new ArrayList<>();
         List<PRPAMT201306UV02LivingSubjectId> requestSubjectIds;
 
         if (requestMsg != null
@@ -210,7 +210,7 @@ public class VerifyMode implements ResponseMode {
         II patId = null;
 
         PRPAIN201305UV02 mpiQuery;
-        List<II> mpiIds = new ArrayList<II>();
+        List<II> mpiIds = new ArrayList<>();
 
         // Check to see if a patient id was specified in the original request
         mpiQuery = convert201306to201305(response);

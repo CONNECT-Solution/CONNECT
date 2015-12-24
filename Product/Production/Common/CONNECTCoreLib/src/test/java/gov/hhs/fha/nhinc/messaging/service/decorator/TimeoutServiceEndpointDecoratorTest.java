@@ -69,7 +69,7 @@ public class TimeoutServiceEndpointDecoratorTest {
     }
 
     private CONNECTClient<TestServicePortType> createClient(final int timeout) {
-        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();

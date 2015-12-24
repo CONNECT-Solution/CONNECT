@@ -53,7 +53,7 @@ public class ErrorExtractorTest {
         registryError2.setErrorCode("errorCode2");
 
 
-        List<RegistryError> registryErrorList = new ArrayList<RegistryError>();
+        List<RegistryError> registryErrorList = new ArrayList<>();
         registryErrorList.add(registryError1);
         registryErrorList.add(registryError2);
 

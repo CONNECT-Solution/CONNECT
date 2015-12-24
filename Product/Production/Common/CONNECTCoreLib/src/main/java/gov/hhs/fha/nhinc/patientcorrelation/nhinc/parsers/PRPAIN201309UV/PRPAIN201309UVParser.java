@@ -88,7 +88,7 @@ public class PRPAIN201309UVParser {
     }
 
     public static List<II> buildAssigningAuthorityInclusionFilterList(PRPAIN201309UV02 message) {
-        List<II> list = new ArrayList<II>();
+        List<II> list = new ArrayList<>();
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
         List<PRPAMT201307UV02DataSource> dataSourceList;
         if (parameterList != null) {

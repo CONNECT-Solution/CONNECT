@@ -119,7 +119,7 @@ public class HL7PRPA201310TransformsTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = new JAXBElement<PRPAMT201307UV02QueryByParameter>(
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = new JAXBElement<>(
                 xmlqname, PRPAMT201307UV02QueryByParameter.class, parameter);
         return queryByParameter;
     }

@@ -71,7 +71,7 @@ public class PDNhinEndpointManagerMockTest extends AbstractNhinEndpointManagerMo
      */
     @Override
     protected void expectConnectionManagerCacheBoth() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_0);
         list.add(UDDI_SPEC_VERSION.SPEC_2_0);
 
@@ -79,7 +79,7 @@ public class PDNhinEndpointManagerMockTest extends AbstractNhinEndpointManagerMo
     }
 
     protected void expectConnectionManagerCacheMisconfiguration() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_3_0);
 
         expectConnectionManagerCache(list);

@@ -92,7 +92,7 @@ public class AdapterEndpointManager {
     }
 
     private Set<ADAPTER_API_LEVEL> getAPILevelsFromBusinessService(BusinessService businessService) {
-        Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<ADAPTER_API_LEVEL>();
+        Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<>();
 
         if (businessService.getBindingTemplates() != null) {
             for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {

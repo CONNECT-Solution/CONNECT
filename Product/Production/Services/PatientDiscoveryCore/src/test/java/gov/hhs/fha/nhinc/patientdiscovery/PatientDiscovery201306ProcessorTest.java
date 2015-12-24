@@ -118,7 +118,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
@@ -150,7 +150,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
@@ -182,7 +182,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add(null);
                     return assigningAuthorityIds;
 
@@ -214,7 +214,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
@@ -251,7 +251,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
