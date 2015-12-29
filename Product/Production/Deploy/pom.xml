@@ -813,7 +813,6 @@
                     <groupId>org.connectopensource</groupId>
                     <artifactId>PerformanceTestTools</artifactId>
                     <version>${project.parent.version}</version>
-                    <type>jar</type>
                 </dependency>
             </dependencies>
         </profile>
