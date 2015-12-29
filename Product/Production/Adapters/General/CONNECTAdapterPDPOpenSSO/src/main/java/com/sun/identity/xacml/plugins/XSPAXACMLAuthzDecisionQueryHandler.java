@@ -81,7 +81,7 @@ import org.w3c.dom.Text;
  */
 public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
 
-    Logger LOG = LoggerFactory.getLogger(XSPAXACMLAuthzDecisionQueryHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XSPAXACMLAuthzDecisionQueryHandler.class);
 
     // effect
     public static final String PERMIT = "Permit";

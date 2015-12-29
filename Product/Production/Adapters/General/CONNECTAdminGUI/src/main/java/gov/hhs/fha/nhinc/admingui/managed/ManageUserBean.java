@@ -55,7 +55,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ManageUserBean {
 
-    private static Logger LOG = LoggerFactory.getLogger(ManageUserBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ManageUserBean.class);
     private String userName = null;
     private String password = null;
     private String role;
