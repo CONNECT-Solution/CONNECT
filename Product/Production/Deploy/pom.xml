@@ -802,6 +802,21 @@
             </build>
         </profile>
 
+        <!-- Performance Test -->
+        <profile>
+            <id>PerfTest</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>PerformanceTestTools</artifactId>
+                    <version>${project.parent.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
         <!-- WebSphere 8.5 -->
         <profile>
             <id>was</id>

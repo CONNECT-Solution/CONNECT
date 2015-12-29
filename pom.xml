@@ -312,7 +312,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-pmd-plugin</artifactId>
-                            <version>$[pmd.version}</version>
+                            <version>${pmd.version}</version>
                             <configuration>
                                 <targetJdk>${compiler.target}</targetJdk>
                             </configuration>
