@@ -55,13 +55,13 @@
                                             <div class="form-block center-block">
                                                 <p:messages id="AuditCriteria" autoUpdate="true" closable="true" severity="error" redisplay="false" />
                                                 <div class="form-group">
-                                                    <h:outputLabel for="eventbegindate" class="col-sm-1 control-label ui-inputfield-width" id="labelEventBeginDate" value="Start Date:" />
+                                                    <h:outputLabel for="eventbegindate" class="col-sm-1 control-label ui-inputfield-width" id="labelEventBeginDate" value="Start Time:" />
                                                     <span class="col-sm-3" >
-                                                        <p:calendar  id="inputEventBeginDate" value="#{auditSearchBean.eventStartDate}" showOn="button" pattern="MM/dd/yyyy" required="false"  />
+                                                        <p:calendar  id="inputEventBeginDate" value="#{auditSearchBean.eventStartDate}" showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="false"  />
                                                     </span>
-                                                    <h:outputLabel for="eventenddate" class="col-sm-1 control-label" id="labelEventEndDate" value="End Date:" />
+                                                    <h:outputLabel for="eventenddate" class="col-sm-1 control-label" id="labelEventEndDate" value="End Time:" />
                                                     <span class="col-sm-3">
-                                                        <p:calendar id="inputEventEndDate" value="#{auditSearchBean.eventEndDate}"  showOn="button" pattern="MM/dd/yyyy" required="false" />
+                                                        <p:calendar id="inputEventEndDate" value="#{auditSearchBean.eventEndDate}"  showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="false" />
                                                     </span>
                                                     <h:outputLabel for="userid" class="col-sm-1 control-label" id="labelUserId" value="Requestor / User:" />
                                                     <span class="col-sm-3">
@@ -166,15 +166,10 @@
                                                             </p:column>
                                                             <p:column>
                                                                 <f:facet name="header">View Audit XML </f:facet>
-                                                                <h:commandButton  type="button" onclick="PF('dlg1').show();" value="Audit XML" />
-                                                                <p:dialog  id="basicDialog" header="View Audit Message" style="width:600px !important;" widgetVar="dlg1" modal="true" draggable="false" resizable="true">
-                                                                    <p:scrollPanel style="width:500px;height:500px;">
-                                                                        <h:outputText value="#{auditSearchBean.getBlobMessage(audit.getId())}" />
-                                                                    </p:scrollPanel>
-
-                                                                </p:dialog>
+                                                                <p:commandButton  oncomplete="PF('dlg1').show();" value="Audit XML #{audit.id}" action="#{auditSearchBean.fetchAuditBlob()}">
+                                                                    <f:setPropertyActionListener target="#{auditSearchBean.auditId}" value="#{audit.id}"/>
+                                                                </p:commandButton>
                                                             </p:column>
-
                                                         </p:dataTable>
                                                     </div>
                                                 </div>
@@ -184,6 +179,11 @@
                                     </div>
                                 </div>
                             </h:form>
+                            <p:dialog  header="View Audit Message" style="width:600px !important;" widgetVar="dlg1" modal="true" draggable="false" resizable="true">
+                                <p:scrollPanel  id="auditBlobDlg" style="width:500px;height:500px;">
+                                    <h:outputText value="#{auditSearchBean.auditBlobMsg}" />
+                                </p:scrollPanel>
+                            </p:dialog>
                         </p:tab>
                         <!-- END:  Audit SEARCH TAB -->
                     </div>

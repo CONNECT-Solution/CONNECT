@@ -187,6 +187,7 @@ public class AuditServiceImpl implements AuditService {
                 obj.setUserId(auditEvent.getUserId());
                 obj.setDirection(auditEvent.getDirection());
                 obj.setRelatesTo(auditEvent.getRelatesTo());
+                obj.setId(auditEvent.getId());
                 auditList.add(obj);
             }
             return auditList;
