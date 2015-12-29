@@ -59,13 +59,6 @@ public class AssertionHelper {
     public void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending assertion data to xacml request");
 
-        // if (log.isDebugEnabled()) {
-        // CheckPolicyRequestMarshaller marshaller = new CheckPolicyRequestMarshaller();
-        // String message =
-        // XmlUtility.serializeElementIgnoreFaults(marshaller.marshalCheckPolicyRequest(policyRequest));
-        // log.debug("begin transformAdhocQueryToCheckPolicy [" + message + "]");
-        // }
-        // PurposeOfUseHelper.appendPurposeOfUse(policyRequest, assertion);
         if (assertion != null) {
             appendAuthnStatementAuthnInstant(policyRequest, assertion);
             appendAuthnStatementSessionIndex(policyRequest, assertion);

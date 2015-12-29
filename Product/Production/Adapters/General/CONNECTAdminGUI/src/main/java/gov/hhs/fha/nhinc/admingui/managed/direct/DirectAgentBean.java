@@ -86,7 +86,7 @@ public class DirectAgentBean {
             FacesContext.getCurrentInstance().addMessage("agentErrorMessages",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key",
                     ex.getLocalizedMessage()));
-            LOG.error("Not able to load the document types from the property file: {}" + ex.getLocalizedMessage(), ex);
+            LOG.error("Not able to load the document types from the property file: {}", ex.getLocalizedMessage(), ex);
         }
     }
 

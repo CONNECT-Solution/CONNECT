@@ -178,7 +178,7 @@ public class AdapterPEPImpl {
                 LOG.error("XACMLException thrown from XACMLRequestProcessor: {}", xex.getLocalizedMessage(), xex);
             } catch (SAML2Exception samlex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
-                LOG.error("SAML2Exception thrown by XACMLRequestProcessor: {}" + samlex.getLocalizedMessage(), samlex);
+                LOG.error("SAML2Exception thrown by XACMLRequestProcessor: {}", samlex.getLocalizedMessage(), samlex);
             }
         } else {
             checkPolicyResp = createResponse(DecisionType.DENY);
@@ -247,19 +247,6 @@ public class AdapterPEPImpl {
             }
             subjAttrList.addAll(subjOrgIdList);
 
-            // // Home community id must be present
-            // // In inbound messages it is extracted from the Subject of the request
-            // // In outbound messages it is looked up in our gateway properties
-            // List<Attribute> subjHomeCommunityList = createSubjAttrs(checkPolicyRequest, XACML_HOME_COMMUNITY,
-            // XSPA_ENVIRONMENT_LOCALITY, null);
-            // if (subjHomeCommunityList.isEmpty()) {
-            // log.debug("Sender community is assumed to be this gateway");
-            // subjHomeCommunityList.addAll(createSubjLocAttrs());
-            // }
-            // if (subjHomeCommunityList.isEmpty()) {
-            // log.debug(XSPA_ENVIRONMENT_LOCALITY + " Attribute is empty");
-            // }
-            // subjAttrList.addAll(subjHomeCommunityList);
             // User role is optional
             List<String> extractedUserRoles = new ArrayList<>();
             List<Attribute> subjUserRoleList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ROLE,

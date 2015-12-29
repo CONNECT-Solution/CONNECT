@@ -96,19 +96,9 @@ public class AssertionCreator {
             purposeCoded.setCodeSystemName(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
                 PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
-
-            /*
-             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-             .setNotBefore(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,PROPERTY_KEY_SIGN));
-             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-             .setNotOnOrAfter(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,PROPERTY_KEY_EXPIRE));
-             assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-             .setAccessConsentPolicy(PropertyAccessor.getProperty(PROPERTY_FILE_NAME,PROPERTY_KEY_ACCESS_CONSENT));
-             */
         } catch (PropertyAccessException ex) {
             LOG.error("Universal Client can not access property: {}", ex.getLocalizedMessage(), ex);
         }
         return assertOut;
     }
-
 }

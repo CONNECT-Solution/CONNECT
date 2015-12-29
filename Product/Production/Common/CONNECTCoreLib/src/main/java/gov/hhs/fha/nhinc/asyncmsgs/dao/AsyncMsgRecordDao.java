@@ -240,7 +240,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}" + he.getLocalizedMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -277,7 +277,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}" + he.getLocalizedMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -315,7 +315,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}" + he.getLocalizedMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }

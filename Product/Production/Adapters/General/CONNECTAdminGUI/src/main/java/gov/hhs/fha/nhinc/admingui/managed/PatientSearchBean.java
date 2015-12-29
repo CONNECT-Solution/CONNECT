@@ -473,7 +473,7 @@ public class PatientSearchBean {
                 localDocumentTypeList.add(new SelectItem(property.getKey(), (String) property.getValue()));
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Not able to load the document types from the property file: {}" + ex.getLocalizedMessage(), ex);
+            LOG.error("Not able to load the document types from the property file: {}", ex.getLocalizedMessage(), ex);
         }
         return localDocumentTypeList;
     }

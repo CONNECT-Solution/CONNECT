@@ -112,7 +112,7 @@ public class ManageUserBean {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("userAddErrors",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
-            LOG.error("Error creating user: {}" + e.getLocalizedMessage(), e);
+            LOG.error("Error creating user: {}", e.getLocalizedMessage(), e);
         }
         userName = null;
         password = null;
@@ -189,7 +189,7 @@ public class ManageUserBean {
             } catch (UserLoginException ex) {
                 FacesContext.getCurrentInstance().addMessage("userDeleteMessages", new FacesMessage(FacesMessage.SEVERITY_WARN,
                     ex.getLocalizedMessage(), ""));
-                LOG.error("Error deleting user: {}" + ex.getLocalizedMessage(), ex);
+                LOG.error("Error deleting user: {}", ex.getLocalizedMessage(), ex);
             }
         }
     }

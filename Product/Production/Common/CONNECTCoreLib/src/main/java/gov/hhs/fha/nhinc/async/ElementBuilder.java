@@ -47,7 +47,7 @@ public final class ElementBuilder {
         try {
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         } catch (ParserConfigurationException e) {
-            LOG.error("Unable to create document: {}" + e.getLocalizedMessage(), e);
+            LOG.error("Unable to create document: {}", e.getLocalizedMessage(), e);
         }
     }
 

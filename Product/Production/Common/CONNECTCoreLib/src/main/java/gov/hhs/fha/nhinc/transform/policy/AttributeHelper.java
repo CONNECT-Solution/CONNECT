@@ -98,7 +98,7 @@ public class AttributeHelper {
                 iiElement.setAttribute("extension", iiValue.getExtension());
                 atttibuteValue.getContent().add(iiElement);
             } catch (ParserConfigurationException | DOMException e) {
-                LOG.error("Unable to add II attribute: {}" + e.getLocalizedMessage(), e);
+                LOG.error("Unable to add II attribute: {}", e.getLocalizedMessage(), e);
             }
         } else {
             // Note sure what to do with the rest - just put them in...
