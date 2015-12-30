@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -45,14 +44,12 @@ public class DocumentRepositoryService implements ihe.iti.xds_b._2007.DocumentRe
 
     }
 
-    @WebMethod
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new DocumentRepositoryServiceImpl().documentRepositoryProvideAndRegisterDocumentSet(body, context);
     }
 
-    @WebMethod
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {

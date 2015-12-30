@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -41,7 +40,6 @@ public class AdapterPatientDiscovery implements gov.hhs.fha.nhinc.adapterpatient
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
             org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {

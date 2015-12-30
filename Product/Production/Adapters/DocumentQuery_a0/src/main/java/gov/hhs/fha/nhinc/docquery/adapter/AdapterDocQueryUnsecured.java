@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -41,7 +40,6 @@ public class AdapterDocQueryUnsecured implements gov.hhs.fha.nhinc.adapterdocque
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {

@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseT
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 import org.slf4j.Logger;
@@ -69,7 +68,6 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @param deferredQueueManagerForceProcessRequest
      * @return deferredQueueManagerForceProcessResponse
      */
-    @WebMethod
     @Override
     public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredQueue(
             DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
@@ -83,7 +81,6 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @param deferredQueueManagerForceProcessRequest
      * @return deferredQueueManagerForceProcessResponse
      */
-    @WebMethod
     @Override
     public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(
             DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
@@ -97,7 +94,6 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @param queryDeferredQueueRequest
      * @return queryDeferredQueueResponse
      */
-    @WebMethod
     @Override
     public QueryDeferredQueueResponseType queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest) {
         return new DeferredQueueManagerHelper().queryDeferredQueue(queryDeferredQueueRequest, context);
@@ -109,7 +105,6 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @param retrieveDeferredQueueRequest
      * @return retrieveDeferredQueueResponse
      */
-    @WebMethod
     @Override
     public RetrieveDeferredQueueResponseType retrieveDeferredQueue(
             RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) {
@@ -122,7 +117,6 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      * @param deferredQueueStatisticsRequest
      * @return deferredQueueStatisticsResponse
      */
-    @WebMethod
     @Override
     public DeferredQueueStatisticsResponseType deferredQueueStatistics(
             DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) {

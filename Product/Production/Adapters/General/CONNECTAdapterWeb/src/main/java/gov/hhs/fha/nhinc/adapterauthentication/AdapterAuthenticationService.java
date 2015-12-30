@@ -50,7 +50,6 @@ public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterau
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
-    @WebMethod
     @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();

@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.mpi.adapter;
 import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -58,7 +57,6 @@ public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMp
      * @return The results from the MPI query.
      * @throws gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault
      */
-    @WebMethod
     @Override
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) throws FindCandidatesSecuredFault {
         PRPAIN201306UV02 oResponse;

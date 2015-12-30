@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.FindCandidatesSecuredFault;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -48,7 +47,6 @@ public class AdapterComponentMpiSecured implements gov.hhs.fha.nhinc.adaptercomp
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentMpiSecured.class);
 
-    @WebMethod
     @Override
     public org.hl7.v3.PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest)
         throws FindCandidatesSecuredFault {
