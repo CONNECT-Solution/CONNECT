@@ -71,18 +71,11 @@ public class AuditServiceImpl implements AuditService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditServiceImpl.class);
     private static final String EVENT_DATE_FORMAT = "MM/dd/yyyy HH:mm:ss";
+    private static final String AUDIT_MESSAGE_NAMESPACE = "com.services.nhinc.schema.auditmessage";
     private AuditRetrieve auditRetrieve = null;
 
     public AuditServiceImpl() {
         auditRetrieve = new AuditQueryLogProxyObjectFactory().getAuditRetrieveProxy();
-    }
-
-    @Override
-    public String createMockAuditMessage(long id) {
-        Audit audit = new Audit();
-        audit.setMessage("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><AuditMessage xmlns=\"http://nhinc.services.com/schema/auditmessage\"><EventIdentification EventActionCode=\"C\" EventDateTime=\"2015-12-17T00:01:34.113Z\" EventOutcomeIndicator=\"0\"><EventID code=\"110107\" displayName=\"Import\" codeSystemName=\"DCM\"/><EventTypeCode code=\"ITI-41\" displayName=\"Provide and Register Document Set-b\" codeSystemName=\"IHE Transactions\"/></EventIdentification><ActiveParticipant UserID=\"http://www.w3.org/2005/08/addressing/anonymous\" UserName=\"Karl Skagerberg\" UserIsRequestor=\"true\" NetworkAccessPointID=\"127.0.0.1\" NetworkAccessPointTypeCode=\"2\"><RoleIDCode code=\"110153\" displayName=\"Source\" codeSystemName=\"DCM\"/></ActiveParticipant><ActiveParticipant UserID=\"https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service\" AlternativeUserID=\"6636@VIMEHTA-F05773\" UserIsRequestor=\"false\" NetworkAccessPointID=\"localhost\" NetworkAccessPointTypeCode=\"1\"><RoleIDCode code=\"110152\" displayName=\"Destination\" codeSystemName=\"DCM\"/></ActiveParticipant><AuditSourceIdentification AuditEnterpriseSiteID=\"DoD\" AuditSourceID=\"urn:oid:1.1\"/><ParticipantObjectIdentification ParticipantObjectID=\"SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO\" ParticipantObjectTypeCode=\"1\" ParticipantObjectTypeCodeRole=\"1\"><ParticipantObjectIDTypeCode code=\"2\" displayName=\"Patient Number\" codeSystemName=\"RFC-3881\"/></ParticipantObjectIdentification><ParticipantObjectIdentification ParticipantObjectID=\"1.3.6.1.4.1.21367.2005.3.9999.33\" ParticipantObjectTypeCode=\"2\" ParticipantObjectTypeCodeRole=\"20\"><ParticipantObjectIDTypeCode code=\"urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd\" displayName=\"submission set classificationNode\" codeSystemName=\"IHE XDS Metadata\"/></ParticipantObjectIdentification></AuditMessage>");
-
-        return audit.getMessage();
     }
 
     /**
@@ -214,8 +207,9 @@ public class AuditServiceImpl implements AuditService {
         if (mess != null) {
             try {
                 JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
+                JAXBContext jc = oHandler.getJAXBContext(AUDIT_MESSAGE_NAMESPACE);
                 Marshaller marshaller = jc.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 baOutStrm.reset();
                 ObjectFactory factory = new ObjectFactory();
