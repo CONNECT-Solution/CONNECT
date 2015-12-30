@@ -129,7 +129,7 @@
                                                 <div class="table-responsive table-props">
                                                     <p:outputLabel style="padding: 10px;" value="#{auditSearchBean.auditMessage}" styleClass="uc-search-result-title" />
                                                     <p:dataTable id="auditResult" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" styleClass="table table-striped table-domains" rendered="#{auditSearchBean.auditFound}"  paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="20,30,50">
-                                                        <p:column style="width: 180px;">
+                                                        <p:column style="width: 200px;">
                                                             <f:facet name="header">Date</f:facet>
                                                                 #{audit.eventTimestamp}
                                                         </p:column>
