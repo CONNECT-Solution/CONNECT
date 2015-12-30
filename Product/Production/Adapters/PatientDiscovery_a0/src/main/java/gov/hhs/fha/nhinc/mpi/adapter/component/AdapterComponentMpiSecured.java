@@ -31,6 +31,7 @@ import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentMpiSecured implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType {
 
     @Resource

@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -34,7 +35,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentMpi implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType {
 
     @Override

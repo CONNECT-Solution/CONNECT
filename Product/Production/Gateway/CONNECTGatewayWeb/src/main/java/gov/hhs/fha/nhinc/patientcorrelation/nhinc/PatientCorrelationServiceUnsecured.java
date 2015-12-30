@@ -42,9 +42,10 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  *
  * @author jhoppesc
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class PatientCorrelationServiceUnsecured implements
-        gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
+    gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
+
     @Resource
     private WebServiceContext context;
 
@@ -58,13 +59,13 @@ public class PatientCorrelationServiceUnsecured implements
     }
 
     public PatientCorrelationServiceUnsecured(
-            PatientCorrelationServiceFactory<RetrievePatientCorrelationsRequestType, RetrievePatientCorrelationsResponseType, AddPatientCorrelationRequestType, AddPatientCorrelationResponseType> factory) {
+        PatientCorrelationServiceFactory<RetrievePatientCorrelationsRequestType, RetrievePatientCorrelationsResponseType, AddPatientCorrelationRequestType, AddPatientCorrelationResponseType> factory) {
         service = factory.createPatientCorrelationService();
     }
 
     @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
-            RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
+        RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         AssertionType assertionType = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         if (retrievePatientCorrelationsRequest != null && retrievePatientCorrelationsRequest.getAssertion() != null) {
@@ -75,7 +76,7 @@ public class PatientCorrelationServiceUnsecured implements
 
     @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(
-            AddPatientCorrelationRequestType addPatientCorrelationRequest) {
+        AddPatientCorrelationRequestType addPatientCorrelationRequest) {
         AssertionType assertionType = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         if (addPatientCorrelationRequest != null && addPatientCorrelationRequest.getAssertion() != null) {

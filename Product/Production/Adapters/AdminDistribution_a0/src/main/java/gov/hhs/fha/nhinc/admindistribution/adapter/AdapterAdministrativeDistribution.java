@@ -27,15 +27,17 @@
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author dunnek
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterAdministrativeDistribution implements
     gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType {
 
+    @Override
     public void sendAlertMessage(
         gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType body) {
         getImpl().sendAlertMessage(body.getEDXLDistribution(), body.getAssertion());

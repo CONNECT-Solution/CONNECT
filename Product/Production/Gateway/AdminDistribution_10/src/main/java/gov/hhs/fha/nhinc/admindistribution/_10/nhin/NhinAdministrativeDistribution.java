@@ -36,20 +36,21 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinAdministrativeDistribution extends BaseService implements
-        RespondingGatewayAdministrativeDistributionPortType {
+    RespondingGatewayAdministrativeDistributionPortType {
 
     private WebServiceContext context;
     private InboundAdminDistribution inboundAdminDist;
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
+        afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class,
+        beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body) {
         AssertionType assertion = getAssertion(context, null);
         inboundAdminDist.sendAlertMessage(body, assertion);

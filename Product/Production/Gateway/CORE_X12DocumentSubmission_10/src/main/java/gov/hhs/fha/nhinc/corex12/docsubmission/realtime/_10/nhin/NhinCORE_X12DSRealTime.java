@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin;
 
 import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.InboundCORE_X12DSRealTime;
@@ -32,6 +31,7 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import org.caqh.soap.wsdl.CORETransactions;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
@@ -40,7 +40,7 @@ import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
  *
  * @author svalluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinCORE_X12DSRealTime implements CORETransactions {
 

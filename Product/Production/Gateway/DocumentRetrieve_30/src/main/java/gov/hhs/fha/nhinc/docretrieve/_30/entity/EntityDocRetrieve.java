@@ -40,9 +40,9 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocRetrieve extends BaseService implements EntityDocRetrievePortType {
 
@@ -51,15 +51,15 @@ public class EntityDocRetrieve extends BaseService implements EntityDocRetrieveP
     private WebServiceContext context;
 
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
-            serviceType = "Retrieve Document", version = "3.0")
+        afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
+        serviceType = "Retrieve Document", version = "3.0")
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            RespondingGatewayCrossGatewayRetrieveRequestType request) {
+        RespondingGatewayCrossGatewayRetrieveRequestType request) {
         AssertionType assertion = getAssertion(context, request.getAssertion());
 
         return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(request.getRetrieveDocumentSetRequest(),
-                assertion, request.getNhinTargetCommunities(), ADAPTER_API_LEVEL.LEVEL_a1);
+            assertion, request.getNhinTargetCommunities(), ADAPTER_API_LEVEL.LEVEL_a1);
     }
 
     @Resource

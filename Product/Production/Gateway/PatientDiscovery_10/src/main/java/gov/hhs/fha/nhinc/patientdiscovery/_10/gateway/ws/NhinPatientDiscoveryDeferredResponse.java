@@ -37,10 +37,11 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import org.hl7.v3.PRPAIN201306UV02;
 
 @Addressing(enabled = true)
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class NhinPatientDiscoveryDeferredResponse extends BaseService implements
     RespondingGatewayDeferredResponsePortType {
 

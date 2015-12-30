@@ -30,20 +30,22 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author JHOPPESC
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterXDRResponse implements gov.hhs.fha.nhinc.adapterxdrresponse.AdapterXDRResponsePortType {
+
     @Resource
     private WebServiceContext context;
 
     @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
         return new AdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
     }
 }

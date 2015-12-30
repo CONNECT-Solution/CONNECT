@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
@@ -39,12 +38,12 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
-
 @Addressing(enabled = true)
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoverySecured extends BaseService implements EntityPatientDiscoverySecuredPortType {
 
     private OutboundPatientDiscovery outboundPatientDiscovery;
@@ -56,16 +55,16 @@ public class EntityPatientDiscoverySecured extends BaseService implements Entity
     }
 
     @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
-            afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
-            version = "1.0")
+        afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
+        version = "1.0")
     @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType request) {
+        RespondingGatewayPRPAIN201305UV02RequestType request) {
 
         AssertionType assertion = getAssertion(context, null);
 
         return new EntityPatientDiscoveryImpl(outboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(request,
-                assertion);
+            assertion);
     }
 
     public void setOutboundPatientDiscovery(OutboundPatientDiscovery outboundPatientDiscovery) {

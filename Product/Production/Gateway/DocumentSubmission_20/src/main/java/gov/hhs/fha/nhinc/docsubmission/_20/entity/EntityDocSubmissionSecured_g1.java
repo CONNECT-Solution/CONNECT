@@ -35,9 +35,10 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
 
@@ -47,10 +48,10 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
 
     @Override
     @OutboundMessageEvent(serviceType = "Document Submission", version = "2.0",
-            beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
+        beforeBuilder = DocSubmissionArgTransformerBuilder.class,
+        afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetB(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
         return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
     }
 

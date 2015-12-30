@@ -31,12 +31,13 @@ import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientD
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author richard.ettema
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPatientDiscoveryDeferredReqQueueProcess implements gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType {
 
     @Resource
@@ -54,9 +55,9 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcess implements gov.hhs.f
      */
     @Override
     public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(
-            PatientDiscoveryDeferredReqQueueProcessRequestType request) {
+        PatientDiscoveryDeferredReqQueueProcessRequestType request) {
         return getAdapterPatientDiscoveryDeferredReqQueueProcessImpl().processPatientDiscoveryDeferredReqQueue(request,
-                context);
+            context);
     }
 
 }

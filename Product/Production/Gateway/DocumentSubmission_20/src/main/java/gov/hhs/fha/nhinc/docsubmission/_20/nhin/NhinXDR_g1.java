@@ -37,27 +37,29 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
  * @author dunnek
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
+
     private WebServiceContext context;
 
     private InboundDocSubmission inboundDocSubmission;
 
     @InboundMessageEvent(serviceType = "Document Submission", version = "2.0",
-            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
+        beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+        afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
     @Override
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ProvideAndRegisterDocumentSetRequestType body) {
+        ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl_g1(inboundDocSubmission).documentRepositoryProvideAndRegisterDocumentSetB(
-                body, context);
+            body, context);
     }
 
     @Override

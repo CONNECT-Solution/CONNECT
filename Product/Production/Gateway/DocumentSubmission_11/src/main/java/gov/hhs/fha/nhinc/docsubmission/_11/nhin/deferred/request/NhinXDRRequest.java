@@ -36,9 +36,9 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortType {
 
@@ -53,12 +53,12 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
      */
     @Override
     @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1",
-            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class)
+        beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+        afterReturningBuilder = DocSubmissionArgTransformerBuilder.class)
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
-            ProvideAndRegisterDocumentSetRequestType body) {
+        ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl(inboundDocSubmissionRequest)
-                .provideAndRegisterDocumentSetBRequest(body, context);
+            .provideAndRegisterDocumentSetBRequest(body, context);
     }
 
     public void setInboundDocSubmissionRequest(InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest) {

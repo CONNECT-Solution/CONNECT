@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import javax.jws.WebMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

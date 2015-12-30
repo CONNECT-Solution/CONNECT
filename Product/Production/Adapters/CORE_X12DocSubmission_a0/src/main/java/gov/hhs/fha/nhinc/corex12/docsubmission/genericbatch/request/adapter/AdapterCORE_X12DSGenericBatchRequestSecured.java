@@ -33,15 +33,16 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author svalluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class AdapterCORE_X12DSGenericBatchRequestSecured implements AdapterCOREGenericBatchTransactionSecuredPortType
-{
+public class AdapterCORE_X12DSGenericBatchRequestSecured implements AdapterCOREGenericBatchTransactionSecuredPortType {
+
     @Resource
     private WebServiceContext context;
 
@@ -49,6 +50,5 @@ public class AdapterCORE_X12DSGenericBatchRequestSecured implements AdapterCOREG
     public AdapterBatchSubmissionResponseSecuredType batchSubmitTransaction(AdapterBatchSubmissionSecuredRequestType body) {
         return new AdapterCORE_X12DSGenericBatchRequestImpl().batchSubmitTransaction(body, context);
     }
-
 
 }

@@ -29,21 +29,23 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  * This is the code that is for the unsecured PatientDiscovery service that is used when running in pass through mode.
  *
  * @author Les Westberg
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPatientDiscovery implements gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType {
+
     @Resource
     private WebServiceContext context;
 
     @Override
     public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-            org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
+        org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
         return new AdapterPatientDiscoveryImpl().respondingGatewayPRPAIN201305UV02(false,
-                respondingGatewayPRPAIN201305UV02Request, context);
+            respondingGatewayPRPAIN201305UV02Request, context);
     }
 }

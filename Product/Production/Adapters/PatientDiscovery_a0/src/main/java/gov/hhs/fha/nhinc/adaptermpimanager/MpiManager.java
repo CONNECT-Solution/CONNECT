@@ -27,12 +27,13 @@
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class MpiManager implements gov.hhs.fha.nhinc.adaptermpimanager.AdapterMpiManagerPortType {
 
     @Override

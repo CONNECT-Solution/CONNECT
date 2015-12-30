@@ -51,6 +51,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import java.util.Set;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -60,7 +61,7 @@ import org.uddi.api_v3.BusinessEntity;
  *
  * @author akong
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhincComponentConnectionManager.class);
@@ -68,8 +69,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method will return a list of all business entities that are known by the connection manager.
      *
-     * @param request The only purpose for this parameter is so that the web service has a unique document that identifies
-     *            this operation. The values themselves are not used.
+     * @param emptyRequest The only purpose for this parameter is so that the web service has a unique document that
+     * identifies this operation. The values themselves are not used.
      * @return The BusinessDetail which contains a list of all business entities known by the connection manager.
      */
     @Override
@@ -90,12 +91,12 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This class returns the business entity information associated with the specified home community ID.
      *
-     * @param sHomeCommunityId The home community ID that is being searched for.
+     * @param homeCommunity The home community ID that is being searched for.
      * @return the business entity information for the specified home community.
      */
     @Override
     public BusinessEntity getBusinessEntity(HomeCommunityIdType homeCommunity) {
-        BusinessEntity bEntity = new BusinessEntity();;
+        BusinessEntity bEntity = new BusinessEntity();
         try {
             bEntity = ConnectionManagerCache.getInstance().getBusinessEntity(homeCommunity.getValue());
         } catch (ConnectionManagerException cme) {
@@ -108,7 +109,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method returns a list of business entity information for the set of home communities.
      *
-     * @param saHomeCommunityId The set of home communities to be retrieved.
+     * @param homeCommunityIdList The set of home communities to be retrieved.
      * @return The BusinessDetail containing the list of business entities found.
      */
     @Override
@@ -116,7 +117,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         BusinessDetail bDetail = new BusinessDetail();
         try {
             Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySet(
-                    homeCommunityIdList.getHomeCommunityId());
+                homeCommunityIdList.getHomeCommunityId());
             if (businessEntitySet != null) {
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
@@ -132,14 +133,14 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *
      * @param request The request containing the home community ID and the service name
      * @return The Business Entity information along with only the requested service. if the service is not found, then
-     *         null is returned.
+     * null is returned.
      */
     @Override
     public BusinessEntity getBusinessEntityByServiceName(GetBusinessEntityByServiceNameRequestType request) {
         BusinessEntity bEntity = new BusinessEntity();
         try {
             bEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(request.getHomeCommunityId(),
-                    request.getServiceName());
+                request.getServiceName());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getBusinessEntityByServiceName", cme);
         }
@@ -150,16 +151,16 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method returns the url for a specified service and home community id .
      *
-      *@param request The request containing the home community ID and the service name
+     * @param request The request containing the home community ID and the service name
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
-     *         null is returned.
+     * null is returned.
      */
     @Override
     public EndpointURLType getDefaultEndpointURLByServiceName(GetDefaultEndpointURLByServiceNameRequestType request) {
         String endpointUrl = null;
         try {
             endpointUrl = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
-                    request.getHomeCommunityId(), request.getServiceName());
+                request.getHomeCommunityId(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getEndpointURLByServiceName", cme);
         }
@@ -173,9 +174,9 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method returns a local url for a specified service.
      *
-     * @param sUniformServiceName The name of the service to locate.
+     * @param serviceName The name of the service to locate.
      * @return The URL for only the requested service at the local home community. If the service is not found, then
-     *         null is returned.
+     * null is returned.
      */
     @Override
     public EndpointURLType getInternalEndpointURLByServiceName(ServiceNameType serviceName) {
@@ -199,7 +200,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * the caller. If neither an EPR or URL are provided this method will use the home community id and service name
      * provided to lookup the URL for that service at that particular home community.
      *
-     * @param request The request containing the target system information for the community being looked up and the service name
+     * @param request The request containing the target system information for the community being looked up and the
+     * service name
      * @return The URL to the requested service.
      */
     @Override
@@ -207,7 +209,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         String endpointUrl = null;
         try {
             endpointUrl = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(
-                    request.getNhinTargetSystem(), request.getServiceName());
+                request.getNhinTargetSystem(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getEndpointURLFromNhinTarget", cme);
         }
@@ -226,17 +228,18 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * Next it will check if a list is specified (this feature is not implemented). If there are no
      * NhinTargetCommunities specified it will return the list of URLs for the entire NHIN for that service.
      *
-     * @param request The request containing the target system information for the community being looked up and the service name
+     * @param request The request containing the target system information for the community being looked up and the
+     * service name
      * @return A response containing the set of URLs for the requested service and targets.
      */
     @Override
     public GetEndpointURLFromNhinTargetCommunitiesResponseType getEndpointURLFromNhinTargetCommunities(
-            GetEndpointURLFromNhinTargetCommunitiesRequestType request) {
+        GetEndpointURLFromNhinTargetCommunitiesRequestType request) {
 
         GetEndpointURLFromNhinTargetCommunitiesResponseType response = new GetEndpointURLFromNhinTargetCommunitiesResponseType();
         try {
             List<UrlInfo> urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
-                    request.getNhinTargetCommunities(), request.getServiceName());
+                request.getNhinTargetCommunities(), request.getServiceName());
 
             String hcid, url;
             UrlInfoType urlInfoType;
@@ -268,7 +271,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     public BusinessDetail getBusinessEntitySetByServiceName(GetBusinessEntitySetByServiceNameRequestType request) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
-            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySetByServiceName(request.getHomeCommunityId(), request.getServiceName());
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance()
+                .getBusinessEntitySetByServiceName(request.getHomeCommunityId(), request.getServiceName());
             if (businessEntitySet != null) {
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
@@ -282,7 +286,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method retrieves all the business entities that contains the given service name
      *
-     * @param sUniformServiceName The service name to lookup
+     * @param serviceName The service name to lookup
      * @return A BusinessDetail containing the list of business entities
      */
     @Override
@@ -325,8 +329,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method causes the UDDI service information to be refreshed.
      *
-     * @param request The only purpose for this parameter is so that the web service has a unique document that identifies
-     *            this operation. The values themselves are not used.
+     * @param emptyRequest The only purpose for this parameter is so that the web service has a unique document that
+     * identifies this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
     @Override
@@ -346,8 +350,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     /**
      * This method causes the Internal Connection service information to be refreshed.
      *
-     * @param request The only purpose for this parameter is so that the web service has a unique document that identifies
-     *            this operation. The values themselves are not used.
+     * @param emptyRequest The only purpose for this parameter is so that the web service has a unique document that
+     * identifies this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
     @Override
@@ -371,9 +375,12 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @return A response containing a list of assigning authorities associated with the hcid
      */
     @Override
-    public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(HomeCommunityIdType homeCommunityId) {
+    public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(
+        HomeCommunityIdType homeCommunityId) {
 
-        GetAssigningAuthoritiesByHomeCommunityResponseType response = new GetAssigningAuthoritiesByHomeCommunityResponseType();
+        GetAssigningAuthoritiesByHomeCommunityResponseType response
+            = new GetAssigningAuthoritiesByHomeCommunityResponseType();
+
         if (NullChecker.isNullish(homeCommunityId.getValue())) {
             return null;
         }

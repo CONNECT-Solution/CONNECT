@@ -30,59 +30,60 @@ import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Neil Webb
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class PolicyEngineTransformationService implements gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType {
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
+        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest
-        ) {
+        gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest
+    ) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
+        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
+        gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
         return new PolicyEngineTransformer()
-                .transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
+            .transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
     }
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
+        gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
+        gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         return new PolicyEngineTransformer()
-                .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+            .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformNotifyToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType transformNotifyToCheckPolicyRequest) {
+        gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType transformNotifyToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformSubjectAddedToCheckPolicy(
-            SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
+        SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 

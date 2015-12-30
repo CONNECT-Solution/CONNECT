@@ -31,21 +31,23 @@ import javax.xml.ws.Action;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author JHOPPESC
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterComponentDocSubmissionUnsecured implements gov.hhs.fha.nhinc.adaptercomponentxdr.AdapterComponentXDRPortType {
+
     @Resource
     private WebServiceContext context;
 
     @Action(input = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b", output = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-bResponse")
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterComponentDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);
     }
 

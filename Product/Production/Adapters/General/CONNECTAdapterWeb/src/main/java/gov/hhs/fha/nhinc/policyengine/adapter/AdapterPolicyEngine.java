@@ -29,19 +29,21 @@ package gov.hhs.fha.nhinc.policyengine.adapter;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPolicyEngine implements gov.hhs.fha.nhinc.adapterpolicyengine.AdapterPolicyEnginePortType {
+
     @Resource
     private WebServiceContext context;
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return new AdapterPolicyEngineImpl().checkPolicy(checkPolicyRequest, context);
     }
 

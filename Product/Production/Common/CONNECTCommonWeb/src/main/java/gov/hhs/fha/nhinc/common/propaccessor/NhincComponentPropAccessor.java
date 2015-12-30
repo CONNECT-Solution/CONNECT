@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +51,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType  {
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
+public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhincComponentPropAccessor.class);
 
@@ -157,7 +158,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      */
     @Override
     public GetPropertyFileLocationResponseType getPropertyFileLocation(
-            GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
+        GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
         GetPropertyFileLocationResponseType oOutput = null;
 
         try {

@@ -37,13 +37,14 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 
 @Addressing(enabled = true)
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoveryDeferredResponseSecured extends BaseService implements
-        EntityPatientDiscoverySecuredAsyncRespPortType {
+    EntityPatientDiscoverySecuredAsyncRespPortType {
 
     private OutboundPatientDiscoveryDeferredResponse outboundPatientDiscoveryResponse;
 
@@ -54,14 +55,14 @@ public class EntityPatientDiscoveryDeferredResponseSecured extends BaseService i
     }
 
     @OutboundMessageEvent(beforeBuilder = RespondingGatewayPRPAIN201306UV02Builder.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery Deferred Response", version = "1.0")
+        afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
+        serviceType = "Patient Discovery Deferred Response", version = "1.0")
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02SecuredRequestType request) {
         AssertionType assertion = getAssertion(context, null);
 
         return outboundPatientDiscoveryResponse.processPatientDiscoveryAsyncResp(request.getPRPAIN201306UV02(),
-                assertion, request.getNhinTargetCommunities());
+            assertion, request.getNhinTargetCommunities());
     }
 
     @Resource
@@ -70,7 +71,7 @@ public class EntityPatientDiscoveryDeferredResponseSecured extends BaseService i
     }
 
     public void setOutboundPatientDiscoveryResponse(
-            OutboundPatientDiscoveryDeferredResponse outboundPatientDiscoveryResponse) {
+        OutboundPatientDiscoveryDeferredResponse outboundPatientDiscoveryResponse) {
         this.outboundPatientDiscoveryResponse = outboundPatientDiscoveryResponse;
     }
 

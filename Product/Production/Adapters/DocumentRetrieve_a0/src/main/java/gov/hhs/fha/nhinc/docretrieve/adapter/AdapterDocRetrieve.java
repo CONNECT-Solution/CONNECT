@@ -29,21 +29,22 @@ package gov.hhs.fha.nhinc.docretrieve.adapter;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author westberg
  */
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterDocRetrieve implements gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType {
+
     @Resource
     private WebServiceContext context;
 
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
         return new AdapterDocRetrieveImpl().respondingGatewayCrossGatewayRetrieveUnsecured(
-                respondingGatewayCrossGatewayRetrieveRequest, context);
+            respondingGatewayCrossGatewayRetrieveRequest, context);
     }
 }

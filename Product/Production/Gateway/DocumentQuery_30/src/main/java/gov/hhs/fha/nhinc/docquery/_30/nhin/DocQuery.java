@@ -35,6 +35,7 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -42,7 +43,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  *
  * @author Neil Webb, msw
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class DocQuery implements RespondingGatewayQueryPortType {
 
@@ -52,13 +53,12 @@ public class DocQuery implements RespondingGatewayQueryPortType {
     /**
      * The web service implementation for Document Query.
      *
-     * @param body
-     *            the body of the request
+     * @param body the body of the request
      * @return the query response for the document query
      */
     @InboundMessageEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "3.0")
+        afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+        version = "3.0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
         return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
