@@ -26,24 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.same;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery._20.nhin.DocQueryImpl;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
-
 import javax.xml.ws.WebServiceContext;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
 import org.apache.commons.lang.StringUtils;
+import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  *

@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 

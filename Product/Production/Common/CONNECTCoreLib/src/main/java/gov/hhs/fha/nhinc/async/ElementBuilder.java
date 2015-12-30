@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.async;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -40,68 +39,66 @@ import org.w3c.dom.Element;
  */
 public final class ElementBuilder {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ElementBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ElementBuilder.class);
 
-	private Document document;
+    private Document document;
 
+    private ElementBuilder() {
+        try {
+            document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        } catch (ParserConfigurationException e) {
+            LOG.error("Unable to create document: {}", e.getLocalizedMessage(), e);
+        }
+    }
 
-	private ElementBuilder() {
-		try {
-			document = DocumentBuilderFactory.newInstance()
-					.newDocumentBuilder().newDocument();
-		} catch (ParserConfigurationException e) {
-			LOG.error("unable to create document " + e.getMessage());
-		}
-	}
+    /**
+     * @param ns - The Namespace
+     * @param name - The Name
+     * @return built element
+     */
+    public Element buildElement(final String ns, final String name) {
 
-	/**
-	 * @param ns - The Namespace
-	 * @param name - The Name
-	 * @return built element
-	 */
-	public Element buildElement(final String ns, final String name) {
+        return buildElement(ns, name, null, null);
+    }
 
-		return buildElement(ns, name, null, null);
-	}
+    /**
+     * @param ns Namespace
+     * @param name Name
+     * @param content Content
+     * @return built element
+     */
+    public Element buildElement(final String ns, final String name, final String content) {
 
-	/**
-	 * @param ns Namespace
-	 * @param name Name
-	 * @param content Content
-	 * @return built element
-	 */
-	public Element buildElement(final String ns, final String name, final String content) {
+        return buildElement(ns, name, content, null);
+    }
 
-		return buildElement(ns, name, content,  null);
-	}
+    /**
+     * @param ns Namespace
+     * @param name Name
+     * @param content Content
+     * @param mustUnderstand mustUnderstand, true or false
+     * @return built element
+     */
+    public Element buildElement(final String ns, final String name, final String content, Boolean mustUnderstand) {
 
-	/**
-	 * @param ns Namespace
-	 * @param name Name
-	 * @param content Content
-	 * @param mustUnderstand mustUnderstand, true or false
-	 * @return built element
-	 */
-	public Element buildElement(final String ns, final String name, final String content, Boolean mustUnderstand) {
+        Element theElement = null;
+        theElement = document.createElementNS(ns, name);
 
-		Element theElement = null;
-		theElement = document.createElementNS(ns, name);
+        if (content != null) {
+            theElement.setTextContent(content);
+        }
 
-		if (content != null) {
-			theElement.setTextContent(content);
-		}
+        if (mustUnderstand != null) {
+            theElement.setAttribute("mustUnderstand", mustUnderstand.toString());
+        }
+        return theElement;
+    }
 
-		if (mustUnderstand != null) {
-			theElement.setAttribute("mustUnderstand", mustUnderstand.toString());
-		}
-		return theElement;
-	}
-
-	/**
-	 * @return A new instance of ElementBuilder.
-	 */
-	public static ElementBuilder newInstance() {
-		return new ElementBuilder();
-	}
+    /**
+     * @return A new instance of ElementBuilder.
+     */
+    public static ElementBuilder newInstance() {
+        return new ElementBuilder();
+    }
 
 }

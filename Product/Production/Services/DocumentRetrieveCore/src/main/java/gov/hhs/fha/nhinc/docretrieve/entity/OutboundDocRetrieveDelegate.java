@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +54,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
         return null;
     }
 
+    @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
         OutboundOrchestratable resp = null;
         if (message instanceof OutboundDocRetrieveOrchestratable) {
@@ -67,15 +67,15 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
         OutboundOrchestratable resp = null;
         try {
             OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
-                    .getInstance().getBuilder(message.getTarget().getHomeCommunity(),
-                            NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
+                .getInstance().getBuilder(message.getTarget().getHomeCommunity(),
+                    NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
 
             contextBuilder.setContextMessage(message);
             OrchestrationContext context = ((OrchestrationContextBuilder) contextBuilder).build();
 
             resp = (OutboundOrchestratable) context.execute();
-        } catch (Throwable t) {
-            LOG.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
+        } catch (Exception e) {
+            LOG.error("Error occured sending doc query to NHIN target: " + e.getMessage(), e);
             createErrorResponse(message, "Processing NHIN Proxy document retrieve");
         }
         return resp;
@@ -88,7 +88,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
         }
 
         RetrieveDocumentSetResponseType response = MessageGenerator.getInstance()
-                .createRegistryResponseError(errorCode);
+            .createRegistryResponseError(errorCode);
 
         message.setResponse(response);
     }

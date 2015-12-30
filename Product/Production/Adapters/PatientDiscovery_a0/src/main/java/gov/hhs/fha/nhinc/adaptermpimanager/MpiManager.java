@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 
 /**
@@ -35,6 +36,8 @@ import javax.xml.ws.BindingType;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class MpiManager implements gov.hhs.fha.nhinc.adaptermpimanager.AdapterMpiManagerPortType {
 
+    @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 addPatient(org.hl7.v3.PRPAIN201301UV02 addPatientRequest) {
         org.hl7.v3.MCCIIN000002UV01 result;
         // Add Patient to MPI

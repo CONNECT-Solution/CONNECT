@@ -26,19 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
-
 import java.util.Set;
-
 import org.hl7.v3.II;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author akong
@@ -71,7 +68,7 @@ public class AggregationServiceTest {
 
         assertEquals(1, idSet.size());
 
-        II[] noDupesArray = (II[]) idSet.toArray(new II[0]);
+        II[] noDupesArray = idSet.toArray(new II[0]);
         assertEquals(id1.getAssigningAuthorityName(), noDupesArray[0].getAssigningAuthorityName());
         assertEquals(id1.getExtension(), noDupesArray[0].getExtension());
         assertEquals(id1.getRoot(), noDupesArray[0].getRoot());

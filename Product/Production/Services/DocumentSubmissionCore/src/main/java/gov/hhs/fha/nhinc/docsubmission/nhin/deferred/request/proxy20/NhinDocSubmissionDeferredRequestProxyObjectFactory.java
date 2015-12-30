@@ -36,6 +36,7 @@ public class NhinDocSubmissionDeferredRequestProxyObjectFactory extends Componen
     private static final String CONFIG_FILE_NAME = "DocumentSubmissionDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "nhinxdrrequest20";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

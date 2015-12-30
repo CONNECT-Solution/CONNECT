@@ -6,29 +6,28 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
-   
+
     <resource-ref>
         <res-ref-name>jdbc/docrepository_datasource</res-ref-name>
         <jndi-name>java:/jdbc/docrepository_datasource</jndi-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
-    
-     <resource-ref>
+
+    <resource-ref>
         <res-ref-name>jdbc/patientcorrelationdb_datasource</res-ref-name>
         <jndi-name>java:/jdbc/patientcorrelationdb_datasource</jndi-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
-    
-    
-       <resource-ref>
+
+    <resource-ref>
         <res-ref-name>jdbc/transrepo_datasource</res-ref-name>
         <jndi-name>java:/jdbc/transrepo_datasource</jndi-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
-    
+
     <resource-ref>
         <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
         <jndi-name>java:/jdbc/eventdb_datasource</jndi-name>

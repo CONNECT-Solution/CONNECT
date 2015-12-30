@@ -27,11 +27,8 @@
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-
 import java.util.Collection;
-
 import javax.activation.DataSource;
-
 import org.apache.cxf.attachment.AttachmentDataSource;
 import org.apache.cxf.message.Attachment;
 import org.apache.cxf.message.Message;
@@ -60,6 +57,7 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
      *
      * @param message The message object of the session
      */
+    @Override
     public void handleMessage(Message message) {
         Collection<Attachment> attachments = message.getExchange().getInMessage().getAttachments();
         if (attachments != null) {

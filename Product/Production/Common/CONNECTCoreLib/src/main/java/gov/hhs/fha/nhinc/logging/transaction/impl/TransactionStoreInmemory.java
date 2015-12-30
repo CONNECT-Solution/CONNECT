@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction.impl;
 
+import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
+import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 /**
  * In memory implementation of the TransactionStore interface.
@@ -57,7 +56,7 @@ public class TransactionStoreInmemory implements TransactionStore {
      * @return the map
      */
     protected Map<String,List<String>> getMap() {
-        return new HashMap<String,List<String>>();
+        return new HashMap<>();
     }
 
     /* (non-Javadoc)
@@ -69,12 +68,12 @@ public class TransactionStoreInmemory implements TransactionStore {
         if (transactionRepo != null && map != null) {
         	String messageId = transactionRepo.getMessageId();
         	String transactionId = transactionRepo.getTransactionId();
-        	List<String> transactionIds = null;
+        	List<String> transactionIds;
 
         	if (map.containsKey(messageId)) {
         		transactionIds = map.get(messageId);
         	} else {
-        		transactionIds = new LinkedList<String>();
+        		transactionIds = new LinkedList<>();
         	}
 
         	if (!transactionIds.contains(transactionId)) {

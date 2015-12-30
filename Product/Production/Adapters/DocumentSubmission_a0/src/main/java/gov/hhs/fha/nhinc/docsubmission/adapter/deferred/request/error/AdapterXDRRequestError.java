@@ -27,20 +27,26 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Neil Webb
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@WebService
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterXDRRequestError implements gov.hhs.fha.nhinc.adapterxdrrequesterror.AdapterXDRRequestErrorPortType {
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
+    @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType body) {
         return new AdapterXDRSecuredRequestErrorImpl().provideAndRegisterDocumentSetBRequestError(body, context);

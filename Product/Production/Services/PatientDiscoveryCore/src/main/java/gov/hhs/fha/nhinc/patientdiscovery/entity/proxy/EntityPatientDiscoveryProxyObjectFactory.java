@@ -38,6 +38,7 @@ public class EntityPatientDiscoveryProxyObjectFactory extends ComponentProxyObje
     private static final String CONFIG_FILE_NAME = "PatientDiscoveryProxyConfig.xml";
     private static final String BEAN_NAME_ENTITY_PATIENT_DISCOVERY = "entitypatientdiscovery";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

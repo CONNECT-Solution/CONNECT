@@ -32,12 +32,10 @@ import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 
 /**
  *

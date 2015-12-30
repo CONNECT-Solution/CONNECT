@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -75,6 +74,7 @@ public class OutboundPatientDiscoveryDeferredResponseOrchestratable implements O
         throw new UnsupportedOperationException("Patient Discovery Deferred Req does not support aggregation.");
     }
 
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -107,14 +107,17 @@ public class OutboundPatientDiscoveryDeferredResponseOrchestratable implements O
         this.target = target;
     }
 
+    @Override
     public String getServiceName() {
         return NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME;
     }
 
+    @Override
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

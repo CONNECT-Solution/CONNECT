@@ -48,6 +48,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         auditLogger = getAuditLogger();
     }
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType body,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 
@@ -60,7 +61,8 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
             .process(dsOrchestratable)).getResponse();
 
-        return response;
+        return ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
+            .process(dsOrchestratable)).getResponse();
     }
 
     private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(

@@ -78,7 +78,7 @@ public class AdminDistTransforms {
         // Extract UserInfo from request assertion
         UserType userInfo = assertion.getUserInfo();
         // Create EventIdentification
-        CodedValueType eventID = null;
+        CodedValueType eventID;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63,
             AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_ADMIN_DIST,
             AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_T63,

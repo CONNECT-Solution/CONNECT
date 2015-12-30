@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

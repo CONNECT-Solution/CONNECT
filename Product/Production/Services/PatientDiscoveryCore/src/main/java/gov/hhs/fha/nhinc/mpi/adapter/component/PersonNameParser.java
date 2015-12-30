@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
+import gov.hhs.fha.nhinc.mpilib.PersonName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.mpilib.PersonName;
 
 /**
  *
@@ -112,7 +111,7 @@ public class PersonNameParser {
      */
     public static String serializeName(PersonName personName) {
         LOG.trace("Begin PersonNameParser.SerializeName(PersonName)");
-        String serializedName = null;
+        String serializedName;
         if (personName == null) {
             serializedName = "";
         } else if (personName.getFirstName().contentEquals("")) {

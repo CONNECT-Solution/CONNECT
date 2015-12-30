@@ -47,13 +47,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.entity.helpers;
 
+import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAKey;
-
-import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 import org.xbill.DNS.ARecord;
 import org.xbill.DNS.CERTRecord;
 import org.xbill.DNS.DClass;
@@ -113,7 +112,7 @@ public class DNSRecordUtils
             name = name + ".";
 
         if (!target.endsWith("."))
-            target = target + ".";;
+            target = target + ".";
 
         try
         {

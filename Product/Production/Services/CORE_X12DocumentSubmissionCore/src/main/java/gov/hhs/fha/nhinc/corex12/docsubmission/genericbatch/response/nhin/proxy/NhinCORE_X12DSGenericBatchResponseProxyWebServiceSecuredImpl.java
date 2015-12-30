@@ -36,11 +36,11 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.GenericBatchTransactionPort;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -77,7 +77,7 @@ public class NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl implem
     @Override
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.info("Begin NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl.batchSubmitTransaction()");
-        COREEnvelopeBatchSubmissionResponse response = null;
+        COREEnvelopeBatchSubmissionResponse response;
 
         String targetHCID = null;
         if (targetSystem != null && targetSystem.getHomeCommunity() != null && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {

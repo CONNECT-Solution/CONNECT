@@ -27,25 +27,21 @@
 
 package gov.hhs.fha.nhinc.admindistribution;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-
 import javax.activation.DataHandler;
-
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
-
 import org.apache.cxf.attachment.ByteDataSource;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -148,6 +144,7 @@ public class AdminDistributionUtilsTest {
 
 	private AdminDistributionUtils createAdminDistributionUtils() {
 		return new AdminDistributionUtils() {
+            @Override
 			protected LargeFileUtils getLargeFileUtils() {
 				return mockFileUtils;
 			}

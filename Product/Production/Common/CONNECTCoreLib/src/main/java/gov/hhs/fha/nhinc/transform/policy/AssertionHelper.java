@@ -43,9 +43,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.II;
 
 /**
  *
@@ -59,13 +59,6 @@ public class AssertionHelper {
     public void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {
         LOG.debug("begin appending assertion data to xacml request");
 
-        // if (log.isDebugEnabled()) {
-        // CheckPolicyRequestMarshaller marshaller = new CheckPolicyRequestMarshaller();
-        // String message =
-        // XmlUtility.serializeElementIgnoreFaults(marshaller.marshalCheckPolicyRequest(policyRequest));
-        // log.debug("begin transformAdhocQueryToCheckPolicy [" + message + "]");
-        // }
-        // PurposeOfUseHelper.appendPurposeOfUse(policyRequest, assertion);
         if (assertion != null) {
             appendAuthnStatementAuthnInstant(policyRequest, assertion);
             appendAuthnStatementSessionIndex(policyRequest, assertion);
@@ -109,7 +102,7 @@ public class AssertionHelper {
             throw new NullPointerException("policy request request is null");
         }
 
-        SubjectType subject = null;
+        SubjectType subject;
         if (policyXacmlRequest.getSubject() != null && !policyXacmlRequest.getSubject().isEmpty()) {
             subject = policyXacmlRequest.getSubject().get(0);
         } else {
@@ -125,7 +118,7 @@ public class AssertionHelper {
             throw new NullPointerException("policy request is null");
         }
 
-        ResourceType resource = null;
+        ResourceType resource;
         if (policyRequest.getResource() != null && !policyRequest.getResource().isEmpty()) {
             resource = policyRequest.getResource().get(0);
         } else {
@@ -350,10 +343,11 @@ public class AssertionHelper {
             try {
                 orgIdURI = new URI(attributeValue);
             } catch (URISyntaxException ex) {
-                LOG.warn("User Organization in SAML is not a valid URI, it will not be included in message to policy engine");
+                LOG.warn("User org in SAML is not a valid URI, it will not be included in message to policy engine: {}",
+                    ex.getLocalizedMessage(), ex);
             }
         } else {
-            LOG.warn("User Organization in SAML is not a valid URI, it will not be included in message to policy engine");
+            LOG.warn("User org in SAML is not a valid URI, it will not be included in message to policy engine");
         }
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, appendAttributesIfNull);
@@ -384,7 +378,7 @@ public class AssertionHelper {
                 orgIdURI = new URI(attributeValue);
             } catch (URISyntaxException ex) {
                 LOG.warn("Home Community in SAML is not a valid URI, it will not be included in message to policy"
-                    + " engine");
+                    + " engine: {}", ex.getLocalizedMessage(), ex);
             }
         } else {
             LOG.warn("User Organization in SAML is not a valid URI, it will not be included in message to policy"
@@ -397,7 +391,7 @@ public class AssertionHelper {
 
     private String extractHomeCommunityName(AssertionType assertion) {
         String value = null;
-        if ((assertion.getHomeCommunity() != null)) {
+        if (assertion.getHomeCommunity() != null) {
             LOG.debug("Extracting HomeCommunityName");
             value = assertion.getHomeCommunity().getHomeCommunityId();
             LOG.debug("Extracted HomeCommunityName value=" + value);
@@ -878,6 +872,7 @@ public class AssertionHelper {
                 DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
                 xmlDate = xmlDateFactory.newXMLGregorianCalendar(time.trim());
             } catch (IllegalArgumentException iaex) {
+                LOG.warn("Exception with UTC format calendar creation: {}", iaex.getLocalizedMessage(), iaex);
                 try {
                     // try simple date format - backward compatibility
                     SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -886,13 +881,12 @@ public class AssertionHelper {
                     cal.setTime(dateForm.parse(time));
                     DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
                     xmlDate = xmlDateFactory.newXMLGregorianCalendar(cal);
-                } catch (DatatypeConfigurationException ex) {
-                    LOG.error("Date form is expected to be in dateTime format");
-                } catch (ParseException ex) {
-                    LOG.error("Date form is expected to be in dateTime format");
+                } catch (DatatypeConfigurationException | ParseException ex) {
+                    LOG.error("Date form is expected to be in dateTime format: {}", ex.getLocalizedMessage(), ex);
                 }
             } catch (DatatypeConfigurationException dtex) {
-                LOG.error("Problem in creating XML Date Factory. Setting default date");
+                LOG.error("Problem creating XML Date Factory, setting default date: {}", dtex.getLocalizedMessage(),
+                    dtex);
             }
         }
         return xmlDate;

@@ -27,35 +27,35 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.MFMIMT700701UV01DataEnterer;
-import org.hl7.v3.MFMIMT700711UV01DataEnterer;
-import org.hl7.v3.QUQIMT021001UV01DataEnterer;
-import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
-import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
-import org.hl7.v3.MFMIMT700701UV01AuthorOrPerformer;
-import org.hl7.v3.MFMIMT700711UV01AuthorOrPerformer;
-import org.hl7.v3.MFMIMT700711UV01InformationRecipient;
-import org.hl7.v3.MFMIMT700701UV01InformationRecipient;
-import org.hl7.v3.PRPAIN201301UV02;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.PRPAMT201301UV02Person;
-import org.hl7.v3.PRPAMT201306UV02ParameterList;
-import org.hl7.v3.MCCIMT000100UV01AttentionLine;
-import org.hl7.v3.MCCIMT000300UV01AttentionLine;
-import org.hl7.v3.MCCIMT000100UV01Receiver;
-import org.hl7.v3.MCCIMT000300UV01Receiver;
-import org.hl7.v3.ENExplicit;
-import org.hl7.v3.PNExplicit;
-import org.hl7.v3.II;
 import org.hl7.v3.CS;
+import org.hl7.v3.ENExplicit;
+import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Agent;
+import org.hl7.v3.MCCIMT000100UV01AttentionLine;
 import org.hl7.v3.MCCIMT000100UV01Device;
 import org.hl7.v3.MCCIMT000100UV01Organization;
+import org.hl7.v3.MCCIMT000100UV01Receiver;
+import org.hl7.v3.MCCIMT000300UV01AttentionLine;
+import org.hl7.v3.MCCIMT000300UV01Receiver;
+import org.hl7.v3.MFMIMT700701UV01AuthorOrPerformer;
+import org.hl7.v3.MFMIMT700701UV01DataEnterer;
+import org.hl7.v3.MFMIMT700701UV01InformationRecipient;
+import org.hl7.v3.MFMIMT700711UV01AuthorOrPerformer;
+import org.hl7.v3.MFMIMT700711UV01DataEnterer;
+import org.hl7.v3.MFMIMT700711UV01InformationRecipient;
+import org.hl7.v3.PNExplicit;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
+import org.hl7.v3.QUQIMT021001UV01DataEnterer;
 
 /**
  *
@@ -304,13 +304,13 @@ public class HL7ArrayTransforms {
 
             javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
                     "representedOrganization");
-            JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(
+            JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<>(
                     xmlqnameorg, MCCIMT000100UV01Organization.class, org);
             agent.setRepresentedOrganization(orgElem);
             agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
             javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-            JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent,
+            JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                     MCCIMT000100UV01Agent.class, agent);
             newDevice.setAsAgent(agentElem);
 

@@ -50,12 +50,9 @@ import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.processor.BundleCacheUpdateProcessor;
 import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
-
 import java.util.Calendar;
 import java.util.Collection;
-
 import javax.annotation.PostConstruct;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

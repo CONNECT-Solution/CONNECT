@@ -96,6 +96,7 @@ public class ConfigurationFault extends Exception {
      *
      * @return the value of message.
      */
+    @Override
     public String getMessage() {
         return message;
     }
@@ -138,8 +139,7 @@ public class ConfigurationFault extends Exception {
      * @return
      */
     public static ConfigurationFault errorToFault(Exception e) {
-        ConfigurationFault result = new ConfigurationFault(e.getMessage(), ConfigurationError.Unknown);
 
-        return result;
+        return new ConfigurationFault(e.getMessage(), ConfigurationError.Unknown);
     }
 }

@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
-
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -38,11 +38,10 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentMpi implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType {
 
-    public org.hl7.v3.PRPAIN201306UV02 findCandidates(
-        RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
-        AdapterComponentMpiImpl oImpl = new AdapterComponentMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(),
+    @WebMethod
+    @Override
+    public PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
+        return new AdapterComponentMpiImpl().query(findCandidatesRequest.getPRPAIN201305UV02(),
             findCandidatesRequest.getAssertion());
-        return oResponse;
     }
 }

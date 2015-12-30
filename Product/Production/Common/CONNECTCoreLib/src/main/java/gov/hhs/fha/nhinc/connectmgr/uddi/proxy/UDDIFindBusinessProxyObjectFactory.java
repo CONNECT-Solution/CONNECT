@@ -37,6 +37,7 @@ public class UDDIFindBusinessProxyObjectFactory extends ComponentProxyObjectFact
     private static final String CONFIG_FILE_NAME = "UDDIFindBusinessProxyConfig.xml";
     private static final String BEAN_NAME = "uddifindbusiness";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

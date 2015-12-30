@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**

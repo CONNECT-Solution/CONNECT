@@ -41,14 +41,14 @@ import com.sun.webui.jsf.component.TextField;
 import com.sun.webui.jsf.model.Option;
 import com.sun.webui.jsf.model.SingleSelectOptionsList;
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
-import gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.AdapterPIPFacade;
 import gov.hhs.fha.nhinc.adapter.cppgui.ConsumerPreferencesSearchCriteria;
-import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
 import gov.hhs.fha.nhinc.adapter.cppgui.PatientSearchCriteria;
-import gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade;
-import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import gov.hhs.fha.nhinc.adapter.cppgui.UserSession;
+import gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.AdapterPIPFacade;
+import gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO;
+import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
+import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.IOException;
 import java.util.List;
@@ -58,7 +58,6 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -947,7 +946,7 @@ public class SearchPatient extends AbstractPageBean {
         defaultOption.setValue("");
         int index = 0;
 
-        Option[] options = null;
+        Option[] options;
 
         if (properties != null && properties.size() > 0) {
             int size = properties.size() + 1;

@@ -26,12 +26,9 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction.impl;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
-
 import java.util.UUID;
-
-import org.apache.commons.lang.StringUtils;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

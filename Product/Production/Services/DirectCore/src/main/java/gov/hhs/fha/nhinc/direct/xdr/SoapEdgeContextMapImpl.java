@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
+import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-
-import com.google.common.collect.ImmutableMap;
 
 /**
  * The Class SoapEdgeHeadersPropertiesImpl implements {@link SoapEdgeContext} and {@link SoapEdgeContext} to provide an
@@ -46,7 +44,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      * Instantiates a new soap edge headers properties impl.
      */
     public SoapEdgeContextMapImpl() {
-        properties = new HashMap<String, String>();
+        properties = new HashMap<>();
     }
 
     /*
@@ -56,7 +54,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      */
     @Override
     public ImmutableMap<String, String> getAuditableValues() {
-        ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<String, String>();
+        ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
 
         for (String s : SoapEdgeContext.PropertyKeys) {
             String value = properties.get(s);

@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201310UV02;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -63,7 +60,7 @@ public class PixRetrieveResponseBuilderTest {
     }
 
     private List<II> createIIList() {
-        List<II> IIList = new ArrayList<II>();
+        List<II> IIList = new ArrayList<>();
         II ii1 = new II();
         ii1.setAssigningAuthorityName("1.1");
         ii1.setExtension("1.16.17.18.19");
@@ -84,9 +81,8 @@ public class PixRetrieveResponseBuilderTest {
         PRPAMT201307UV02QueryByParameter parameter = new  PRPAMT201307UV02QueryByParameter();
         parameter.setQueryId(createII());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        return new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
-        return queryByParameter;
     }
 
     private II createII() {

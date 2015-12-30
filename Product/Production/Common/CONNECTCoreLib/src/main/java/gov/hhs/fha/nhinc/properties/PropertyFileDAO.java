@@ -48,7 +48,7 @@ public class PropertyFileDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PropertyFileDAO.class);
 
-    private HashMap<String, PropertiesConfiguration> propertyFilesHashmap = new HashMap<String, PropertiesConfiguration>();
+    private HashMap<String, PropertiesConfiguration> propertyFilesHashmap = new HashMap<>();
 
     PropertyFileDAO() {
 
@@ -107,9 +107,9 @@ public class PropertyFileDAO {
 
     public String getPropertyComment(String propertyFileName, String key) {
         PropertiesConfiguration props = propertyFilesHashmap.get(propertyFileName);
-        if(props != null && props.getLayout() != null) {
+        if (props != null && props.getLayout() != null) {
             String comment = props.getLayout().getComment(key);
-            if(NullChecker.isNotNullish(comment) && !comment.startsWith("!")) {
+            if (NullChecker.isNotNullish(comment) && !comment.startsWith("!")) {
                 return comment.replaceAll("#", "");
             }
         }
@@ -122,6 +122,7 @@ public class PropertyFileDAO {
             try {
                 return properties.getBoolean(propertyName);
             } catch (ConversionException ex) {
+                LOG.warn("Could not read property {}: {}", propertyName, ex.getLocalizedMessage(), ex);
                 String sProp = properties.getString(propertyName);
                 if (NullChecker.isNotNullish(sProp)) {
                     return sProp.equalsIgnoreCase("t");
@@ -148,7 +149,7 @@ public class PropertyFileDAO {
 
         PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
         if (properties != null && properties.getKeys() != null) {
-            setPropNames = new HashSet<String>();
+            setPropNames = new HashSet<>();
             Iterator<String> keys = properties.getKeys();
             while (keys.hasNext()) {
                 setPropNames.add(keys.next());
@@ -191,8 +192,7 @@ public class PropertyFileDAO {
     }
 
     /**
-     * This creates a new properties class with a full copy of all of the
-     * properties.
+     * This creates a new properties class with a full copy of all of the properties.
      *
      * @param properties The property file that is to be copied.
      * @return The copy that is returned.

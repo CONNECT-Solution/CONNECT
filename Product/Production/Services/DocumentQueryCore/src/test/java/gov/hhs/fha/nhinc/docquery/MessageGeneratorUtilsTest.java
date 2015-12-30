@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.junit.Test;
 
 public class MessageGeneratorUtilsTest {

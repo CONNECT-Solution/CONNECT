@@ -26,33 +26,30 @@
  */
 package gov.hhs.fha.nhinc.common.propaccessor;
 
-import java.util.Set;
-import java.util.Iterator;
-import java.util.Properties;
-
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.PropertiesType;
-import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
-
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.PropertiesType;
+import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyFileManager;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * This class is used by the PropertyAccessService to do the actual work of this web service. It keeps the web service

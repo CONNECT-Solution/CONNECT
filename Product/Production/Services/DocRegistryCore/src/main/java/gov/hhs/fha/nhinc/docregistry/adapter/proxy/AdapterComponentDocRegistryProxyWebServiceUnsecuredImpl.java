@@ -41,7 +41,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +75,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
      * @param request
      * @return AdhocQueryResponse
      */
+    @Override
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin registryStoredQuery");
         AdhocQueryResponse response = null;

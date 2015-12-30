@@ -39,14 +39,9 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
@@ -60,6 +55,8 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.XParticipationAuthorPerformer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -124,11 +121,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
         boolean isPermit = false;
-        II patId = null;
+        II patId;
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         // ************************************************************************************************
-        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
@@ -137,7 +134,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             LOG.debug("checkPolicy - Before policy Check-response/subjects is null");
         }
 
-        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<>();
         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
             int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
             LOG.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
@@ -416,7 +413,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     private II providedPatientId(PRPAIN201305UV02 request) {
         II patId = null;
-        String aaId = null;
+        String aaId;
 
         try {
             if (request != null && request.getControlActProcess() != null) {
@@ -479,7 +476,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     public II extractPatientIdFrom201305(PRPAIN201305UV02 request) {
         II patId = null;
-        String aaId = null;
+        String aaId;
 
         if (request != null && request.getControlActProcess() != null) {
 
@@ -614,7 +611,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         assignedDevice.getId().add(id);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
-        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<>(
                 xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
 
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-
 import java.util.List;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ActionMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ActionType;
@@ -43,12 +42,11 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
-
 import org.junit.Test;
 import org.w3c.dom.Element;
-import static org.junit.Assert.*;
 
 /**
  * This tests the XACMLCreator class.

@@ -28,12 +28,12 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-
+import javax.xml.ws.soap.SOAPBinding;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
@@ -43,7 +43,8 @@ import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@WebService
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType {
 
     @Resource
@@ -60,12 +61,16 @@ public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinc
         service = factory.createPatientCorrelationService();
     }
 
+    @WebMethod
+    @Override
     public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsSecuredRequestType request) {
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         return service.retrievePatientCorrelations(request, assertion);
     }
 
+    @WebMethod
+    @Override
     public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
             AddPatientCorrelationSecuredRequestType request) {
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);

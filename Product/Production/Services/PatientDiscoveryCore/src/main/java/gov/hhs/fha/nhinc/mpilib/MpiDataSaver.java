@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  *

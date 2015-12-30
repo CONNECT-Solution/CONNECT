@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -50,7 +49,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
     MessageGeneratorUtils() {
-    };
+    }
 
     /**
      * Returns the singleton instance of this class.

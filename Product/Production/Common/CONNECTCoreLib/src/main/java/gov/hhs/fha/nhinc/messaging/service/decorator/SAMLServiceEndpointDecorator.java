@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.Map;
 
 /**

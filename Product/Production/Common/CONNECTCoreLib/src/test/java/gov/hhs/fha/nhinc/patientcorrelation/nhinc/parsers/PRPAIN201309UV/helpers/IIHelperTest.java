@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-
 import org.hl7.v3.II;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

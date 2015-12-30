@@ -29,12 +29,8 @@ package gov.hhs.fha.nhinc.messaging.service.port;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
-
 import java.util.Map;
-
 import javax.xml.ws.BindingProvider;
-
-import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**
  * @author bhumphrey
@@ -84,8 +80,8 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      * @param port The port to be configured
      */
     protected void configurePort(T port) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new SoapResponseServiceEndpointDecorator<T>(serviceEndpoint);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
+        serviceEndpoint = new SoapResponseServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
     }
 
@@ -93,6 +89,7 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      * Returns a new port or one from the cache. The port will be configured for thread safety and reuse.
      */
     @SuppressWarnings("unchecked")
+    @Override
     public synchronized T createPort() {
         T port = (T) getCache().get(serviceEndpointClass);
         if (port == null) {

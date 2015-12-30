@@ -38,7 +38,7 @@ public class DocumentMetadataResults {
     /**
      * The results.
      */
-    private List<DocumentMetadataResult> results = new ArrayList<DocumentMetadataResult>();
+    private List<DocumentMetadataResult> results = new ArrayList<>();
 
     /**
      * Gets the results.

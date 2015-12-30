@@ -26,24 +26,20 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
 import javax.xml.ws.WebServiceContext;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SOAPMessageRoutingAccessorTest {
 

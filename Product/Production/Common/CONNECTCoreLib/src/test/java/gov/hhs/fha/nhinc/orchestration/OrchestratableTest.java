@@ -26,15 +26,13 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-import static org.junit.Assert.assertEquals;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
  *

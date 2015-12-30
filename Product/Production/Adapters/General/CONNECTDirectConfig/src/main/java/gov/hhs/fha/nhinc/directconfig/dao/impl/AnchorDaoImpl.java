@@ -113,7 +113,7 @@ public class AnchorDaoImpl implements AnchorDao {
                 results = session.getNamedQuery("getAllAnchors").list();
 
                 if (results == null) {
-                    results = new ArrayList<Anchor>();
+                    results = new ArrayList<>();
                 }
 
                 log.debug("Anchors found: " + results.size());
@@ -133,11 +133,11 @@ public class AnchorDaoImpl implements AnchorDao {
     public List<Anchor> list(List<String> owners) {
         List<Anchor> results = null;
 
-        if (owners == null || owners.size() == 0) {
+        if (owners == null || owners.isEmpty()) {
             results = listAll();
         } else {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();
@@ -149,7 +149,7 @@ public class AnchorDaoImpl implements AnchorDao {
                     results = query.list();
 
                     if (results == null) {
-                        results = new ArrayList<Anchor>();
+                        results = new ArrayList<>();
                     }
 
                     log.debug("Anchors found: " + results.size());
@@ -241,11 +241,11 @@ public class AnchorDaoImpl implements AnchorDao {
     public List<Anchor> listByIds(List<Long> anchorIds) {
         List<Anchor> results = null;
 
-        if (anchorIds == null || anchorIds.size() == 0) {
+        if (anchorIds == null || anchorIds.isEmpty()) {
             results = Collections.emptyList();
         } else {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();
@@ -257,7 +257,7 @@ public class AnchorDaoImpl implements AnchorDao {
                     results = query.list();
 
                     if (results == null) {
-                        results = new ArrayList<Anchor>();
+                        results = new ArrayList<>();
                     }
 
                     log.debug("Anchors found: " + results.size());
@@ -312,7 +312,7 @@ public class AnchorDaoImpl implements AnchorDao {
             Session session = null;
             Transaction tx = null;
 
-            List<String> owners = new ArrayList<String>();
+            List<String> owners = new ArrayList<>();
             owners.add(owner);
 
             List<Anchor> anchors = list(owners);
@@ -349,9 +349,9 @@ public class AnchorDaoImpl implements AnchorDao {
         if (ids != null && ids.size() > 0) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();
@@ -384,9 +384,9 @@ public class AnchorDaoImpl implements AnchorDao {
         if (owner != null) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();

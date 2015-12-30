@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +40,10 @@ import org.slf4j.LoggerFactory;
 public class PolicyEngineProxyJavaImpl implements PolicyEngineProxy {
     private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyJavaImpl.class);
 
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineWebServiceProxyJavaImpl.checkPolicy");
-        CheckPolicyResponseType response = null;
+        CheckPolicyResponseType response;
         AdapterPolicyEngineProcessorImpl policyEngine = new AdapterPolicyEngineProcessorImpl();
         try {
             response = policyEngine.checkPolicy(checkPolicyRequest, assertion);

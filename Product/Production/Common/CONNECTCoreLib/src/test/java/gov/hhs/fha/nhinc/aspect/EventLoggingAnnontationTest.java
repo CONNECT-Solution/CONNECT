@@ -26,11 +26,7 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -39,7 +35,9 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
-
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -100,7 +98,7 @@ public class EventLoggingAnnontationTest {
 
     @Test
     public void verifyRetentionAnnotation() {
-        Retention r = (Retention) annotationClass.getAnnotation(Retention.class);
+        Retention r = annotationClass.getAnnotation(Retention.class);
 
         assertNotNull(className + " has retention annotation", r);
 
@@ -109,14 +107,14 @@ public class EventLoggingAnnontationTest {
 
     @Test
     public void verifyTargetAnnotation() {
-        Target t = (Target) annotationClass.getAnnotation(Target.class);
+        Target t = annotationClass.getAnnotation(Target.class);
         assertNotNull(className + " has target annotation", t);
         assertEquals(ElementType.METHOD, t.value()[0]);
     }
 
     @Test
     public void verifyInhertitedAnnotation() {
-        Inherited i = (Inherited) annotationClass.getAnnotation(Inherited.class);
+        Inherited i = annotationClass.getAnnotation(Inherited.class);
         assertNotNull(className + " has inhertied annotation", i);
 
     }

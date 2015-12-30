@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
-import java.util.Date;
 import java.sql.Blob;
+import java.util.Date;
 
 /**
  *

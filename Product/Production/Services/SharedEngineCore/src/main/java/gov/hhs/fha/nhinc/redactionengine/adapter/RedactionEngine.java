@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
-import gov.hhs.fha.nhinc.redactionengine.adapter.DocQueryResponseProcessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

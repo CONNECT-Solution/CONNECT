@@ -26,16 +26,14 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
-
 import java.util.Map;
-
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -69,7 +67,7 @@ public class TimeoutServiceEndpointDecoratorTest {
     }
 
     private CONNECTClient<TestServicePortType> createClient(final int timeout) {
-        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();

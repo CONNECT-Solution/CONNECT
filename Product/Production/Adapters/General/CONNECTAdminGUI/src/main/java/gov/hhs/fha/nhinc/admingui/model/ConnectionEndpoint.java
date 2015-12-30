@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.model;
 
-import java.util.Date;
-
 /**
  *
  * @author jassmit

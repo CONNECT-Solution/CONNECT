@@ -30,11 +30,9 @@ import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  *

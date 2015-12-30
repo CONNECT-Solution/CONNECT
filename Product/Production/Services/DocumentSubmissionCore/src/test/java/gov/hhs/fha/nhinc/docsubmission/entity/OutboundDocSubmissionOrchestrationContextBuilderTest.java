@@ -27,12 +27,11 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
-import static org.junit.Assert.*;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
-
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 

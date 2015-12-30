@@ -49,7 +49,7 @@ public class OutboundDocRetrievePolicyTransformer_a0 implements PolicyTransforme
     }
 
     public CheckPolicyRequestType tranform(OutboundDocRetrieveOrchestratable EntityDROrchMessage, Direction direction) {
-        CheckPolicyRequestType policyReq = null;
+        CheckPolicyRequestType policyReq;
         DocRetrieveEventType policyCheckReq = new DocRetrieveEventType();
         if (Direction.INBOUND == direction)
             policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);

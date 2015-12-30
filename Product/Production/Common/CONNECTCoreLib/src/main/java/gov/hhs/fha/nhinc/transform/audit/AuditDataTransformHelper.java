@@ -26,26 +26,22 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -83,12 +79,8 @@ public class AuditDataTransformHelper {
                 today.get(java.util.GregorianCalendar.SECOND), today.get(java.util.GregorianCalendar.MILLISECOND),
                 0);
             eventIdentification.setEventDateTime(calendar);
-        } catch (DatatypeConfigurationException e) {
-            LOG.error("DatatypeConfigurationException when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            LOG.error("ArrayIndexOutOfBoundsException when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+        } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
+            LOG.error("Exception when creating XMLGregorian Date message: {}", e.getLocalizedMessage(), e);
         }
         // Set the Event Outcome Indicator
         BigInteger eventOutcomeBig = BigInteger.ZERO;
@@ -181,7 +173,7 @@ public class AuditDataTransformHelper {
             try {
                 ipAddr = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException ex) {
-                LOG.error("UnknownHostException thrown getting local host address.", ex);
+                LOG.error("UnknownHostException thrown getting local host address: {}", ex.getLocalizedMessage(), ex);
                 throw new RuntimeException();
             }
         }
@@ -245,7 +237,7 @@ public class AuditDataTransformHelper {
             try {
                 ipAddr = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException ex) {
-                LOG.error("UnknownHostException thrown getting local host address.", ex);
+                LOG.error("UnknownHostException thrown getting local host address: {}", ex.getLocalizedMessage(), ex);
                 throw new RuntimeException();
             }
         }
@@ -488,7 +480,7 @@ public class AuditDataTransformHelper {
      * @return the properly formatted patientId.
      */
     public static String createCompositePatientId(String assigningAuthId, String patientId) {
-        String sValue = null;
+        String sValue;
         sValue = patientId + "^^^&" + assigningAuthId + "&ISO";
         return sValue;
     }
@@ -502,7 +494,7 @@ public class AuditDataTransformHelper {
      */
     public static String createCompositePatientIdFromAssertion(UserType userInfo, String patientId) {
         String communityId = null;
-        String compPatientId = null;
+        String compPatientId;
 
         if (userInfo != null && userInfo.getOrg() != null && userInfo.getOrg().getHomeCommunityId() != null) {
             communityId = userInfo.getOrg().getHomeCommunityId();

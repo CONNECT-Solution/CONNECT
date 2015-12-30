@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ConformanceClient {
 
-    public static String DEFAULT_CHARSET = "utf-8";
+    public static final String DEFAULT_CHARSET = "utf-8";
 
     private static final Logger LOG = LoggerFactory.getLogger(ConformanceClient.class);
 
@@ -104,7 +104,7 @@ public class ConformanceClient {
     }
 
     protected static HttpResponse sendRequest(HttpUriRequest request) {
-        HttpResponse response = null;
+        HttpResponse response;
         LOG.info("Conformance request method: " + request.getURI().getQuery());
         try {
             response = new DefaultHttpClient().execute(request);

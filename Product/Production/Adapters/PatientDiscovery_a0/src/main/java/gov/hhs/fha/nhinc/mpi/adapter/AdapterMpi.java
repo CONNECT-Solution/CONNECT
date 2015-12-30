@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
-
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -40,17 +40,17 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 public class AdapterMpi implements gov.hhs.fha.nhinc.adaptermpi.AdapterMpiPortType {
 
     /**
-     * This method takes the input and peforms a query against the MPI via the AdapterComponentMpi services and returns
+     * This method takes the input and performs a query against the MPI via the AdapterComponentMpi services and returns
      * the response.
      *
      * @param findCandidatesRequest The query data.
      * @return The results from the MPI query.
      */
+    @WebMethod
+    @Override
     public PRPAIN201306UV02 findCandidates(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
-        AdapterMpiImpl oImpl = new AdapterMpiImpl();
-        PRPAIN201306UV02 oResponse = oImpl.query(findCandidatesRequest.getPRPAIN201305UV02(),
+        return new AdapterMpiImpl().query(findCandidatesRequest.getPRPAIN201305UV02(),
             findCandidatesRequest.getAssertion());
-        return oResponse;
     }
 
 }

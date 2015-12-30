@@ -38,8 +38,6 @@ import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import ihe.iti.xcpd._2009.RespondingGatewayService;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CS;
 import org.hl7.v3.EDExplicit;
 import org.hl7.v3.II;
@@ -49,6 +47,8 @@ import org.hl7.v3.MCCIMT000100UV01RespondTo;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implements the Nhin PatientDiscovery web service client that calls this web service Defines the specific generics to
@@ -117,7 +117,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
     @SuppressWarnings("static-access")
     @Override
     public Response callWebService(Target target, Request request) throws Exception {
-        ResponseWrapper resp = null;
+        ResponseWrapper resp;
         PRPAIN201306UV02 discoveryResponse = null;
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = null;
         try {

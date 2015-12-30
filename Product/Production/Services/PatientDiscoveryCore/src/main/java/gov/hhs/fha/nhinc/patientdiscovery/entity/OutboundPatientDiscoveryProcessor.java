@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
@@ -38,14 +39,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
-
-import com.google.common.base.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -69,14 +67,16 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      *
      * @param individual
      * @param cumulativeResponse
+     * @return
      */
+    @Override
     public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individual,
         OutboundOrchestratableMessage cumulativeResponse) {
 
         count++;
         LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse count=" + count);
 
-        OutboundOrchestratableMessage response = null;
+        OutboundOrchestratableMessage response;
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
                 case LEVEL_g0: {
@@ -116,6 +116,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      * error/exception and hcid for response
      *
      * @param individualResponse
+     * @return
      */
     @SuppressWarnings("static-access")
     public OutboundOrchestratableMessage processResponse(OutboundOrchestratableMessage individualResponse) {
@@ -147,10 +148,10 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         } catch (Exception ex) {
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
             if (individualResponse instanceof OutboundPatientDiscoveryOrchestratable) {
-                OutboundPatientDiscoveryOrchestratable individual = (OutboundPatientDiscoveryOrchestratable) individualResponse;
-                OutboundOrchestratableMessage response = processErrorResponse(individual,
+                OutboundPatientDiscoveryOrchestratable individual
+                    = (OutboundPatientDiscoveryOrchestratable) individualResponse;
+                return processErrorResponse(individual,
                     "Exception processing response.  Exception message=" + ex.getMessage());
-                return response;
             } else {
                 // can do nothing if we ever get here other than return what was passed in
                 return individualResponse;
@@ -160,6 +161,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
 
     protected PRPAIN201306UV02 processResponse(OutboundPatientDiscoveryOrchestratable orch,
         ProxyPRPAIN201305UVProxySecuredRequestType request) {
+
         ResponseParams params = new ResponseParams();
         params.assertion = orch.getAssertion();
         params.origRequest = request;
@@ -172,6 +174,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
 
     protected ProxyPRPAIN201305UVProxySecuredRequestType createRequestFromOrchestratable(
         OutboundPatientDiscoveryOrchestratable orch) {
+
         ProxyPRPAIN201305UVProxySecuredRequestType request = new ProxyPRPAIN201305UVProxySecuredRequestType();
         request.setPRPAIN201305UV02(orch.getRequest());
 
@@ -201,7 +204,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
             if (cumulative instanceof OutboundPatientDiscoveryOrchestratable) {
 
                 OutboundPatientDiscoveryOrchestratable cumulativeResponse = (OutboundPatientDiscoveryOrchestratable) cumulative;
-                OutboundPatientDiscoveryOrchestratable individualResponse = (OutboundPatientDiscoveryOrchestratable) individual;
+                OutboundPatientDiscoveryOrchestratable individualResponse = individual;
                 addResponseToCumulativeResponse(individualResponse, cumulativeResponse);
 
                 OutboundPatientDiscoveryOrchestratable response = new OutboundPatientDiscoveryOrchestratable(null,
@@ -248,6 +251,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      * @param error is String with error message
      * @return
      */
+    @Override
     public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error) {
         LOG.debug("EntityPatientDiscoveryProcessor::processErrorResponse error=" + error);
         return processError((OutboundPatientDiscoveryOrchestratable) request, error);
@@ -300,6 +304,8 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
     /**
      * NOT USED
      */
+    @Override
     public void aggregate(OutboundOrchestratable individualResponse, OutboundOrchestratable cumulativeResponse) {
+        // TODO: Should this throw a not implemented exception?
     }
 }

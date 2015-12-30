@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +47,7 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
 
     /**
      * Constructor allows injection of the property accessor.
+     *
      * @param propertyAccessor used to pull properties.
      */
     public PurposeUseProxyCommunityImpl(IPropertyAcessor propertyAccessor) {
@@ -73,7 +73,7 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
         String targetHomeCommunityId = callbackProperties.getTargetHomeCommunityId();
 
         if (targetHomeCommunityId != null) {
-        	if(targetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
+            if (targetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
                 targetHomeCommunityId = targetHomeCommunityId.replace(NhincConstants.HCID_PREFIX, "");
             }
             return isPurposeForUseEnabled(targetHomeCommunityId);
@@ -96,9 +96,8 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve (homeCommunityId) " + homeCommunityId + " from property file: "
-                    + PURPOSE_FOR_USE_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve (homeCommunityId) {} from property file {}: {}", homeCommunityId,
+                PURPOSE_FOR_USE_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return match;
     }

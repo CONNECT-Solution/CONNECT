@@ -28,12 +28,12 @@ package gov.hhs.fha.nhinc.docsubmission.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -74,6 +74,7 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
         throw new UnsupportedOperationException("Document Submission does not support aggregation.");
     }
 
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -106,14 +107,17 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
         this.target = target;
     }
 
+    @Override
     public String getServiceName() {
         return NhincConstants.NHINC_XDR_SERVICE_NAME;
     }
 
+    @Override
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -26,16 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import java.util.ArrayList;
-
+import java.util.List;
 import org.hl7.v3.PRPAIN201309UV02;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -70,7 +67,7 @@ public class PixRetrieveBuilderTest {
     @Test
     public void testcreatePixRetrieveWithTargetCommunityPrefix() {
         PixRetrieveBuilder builder = new PixRetrieveBuilder();
-        List<String> homeCommIds = null;
+        List<String> homeCommIds;
 
         homeCommIds = builder.stripCommunityIdsPrefix(null);
         assertEquals(homeCommIds, null);
@@ -106,12 +103,11 @@ public class PixRetrieveBuilderTest {
     }
 
     private AssertionType createAssertion() {
-        AssertionType assertion = new AssertionType();
-        return assertion;
+        return new AssertionType();
     }
 
     private List<String> getHomeCommunitiesIdsWithPrefix() {
-        List<String> homeCommunityIds = new ArrayList<String>();
+        List<String> homeCommunityIds = new ArrayList<>();
         homeCommunityIds.add("urn:oid:1.1");
         homeCommunityIds.add("2.2");
         return homeCommunityIds;

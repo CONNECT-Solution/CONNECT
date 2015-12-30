@@ -26,17 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import static org.mockito.Matchers.eq;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import java.util.ArrayList;
+import org.junit.Test;
 import static org.mockito.AdditionalMatchers.not;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-
-import java.util.ArrayList;
-
-import org.junit.Test;
 
 /**
  * @author bhumphrey
@@ -53,7 +51,7 @@ public class AggregationStrategyTest {
         OutboundDelegate delegate = mock(OutboundDelegate.class);
 
 
-        ArrayList<OutboundOrchestratable> values = new ArrayList<OutboundOrchestratable>();
+        ArrayList<OutboundOrchestratable> values = new ArrayList<>();
         values.add(message);
 
         when(aggregate.getAggregateRequests()).thenReturn(values);

@@ -68,10 +68,9 @@ public class HL7QueryParamsTransforms {
         params.setParameterList(createParamList(patient));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(
-                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
 
-        return queryParams;
+        return new JAXBElement<>(
+                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
     }
 
     public static PRPAMT201306UV02ParameterList createParamList(PRPAMT201301UV02Patient patient) {
@@ -139,7 +138,7 @@ public class HL7QueryParamsTransforms {
     }
 
     public static PRPAMT201306UV02LivingSubjectName createName(List<PNExplicit> patientNames) {
-        if (patientNames == null || patientNames.size() == 0) {
+        if (patientNames == null || patientNames.isEmpty()) {
             return null;
         }
 
@@ -185,7 +184,7 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress) {
         PRPAMT201306UV02PatientAddress subjectAddress = null;
-        STExplicit text = null;
+        STExplicit text;
 
         if (patientAddress != null) {
             subjectAddress = new PRPAMT201306UV02PatientAddress();
@@ -201,7 +200,7 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom) {
         PRPAMT201306UV02PatientTelecom subjectTele = null;
-        STExplicit text = null;
+        STExplicit text;
 
         if (patientTelecom != null) {
             subjectTele = new PRPAMT201306UV02PatientTelecom();

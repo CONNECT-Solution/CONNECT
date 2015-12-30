@@ -42,7 +42,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
     MessageGeneratorUtils() {
-    };
+    }
 
     /**
      * Returns the singleton instance of this class.

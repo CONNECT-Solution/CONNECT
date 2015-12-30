@@ -70,7 +70,7 @@ public class MultiJarVersionFinder {
                 return pathname.isDirectory();
             }
         });
-        List<String> subDirList = new ArrayList<String>();
+        List<String> subDirList = new ArrayList<>();
         for (File subDir : subDirs) {
             subDirList.add(subDir.getAbsolutePath());
         }
@@ -85,7 +85,7 @@ public class MultiJarVersionFinder {
 
     private static String[] listSingleDir(String dirString) {
         File dir = new File(dirString);
-        String[] dirList = dir.list(new FilenameFilter() {
+        return dir.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 String lowerName = name.toLowerCase();
@@ -93,11 +93,10 @@ public class MultiJarVersionFinder {
                         && !lowerName.endsWith("-tests.jar");
             }
         });
-        return dirList;
     }
 
     private static Map<String, Set<String>> findDups(String[] dirList) {
-        Map<String, Set<String>> map = new HashMap<String, Set<String>>();
+        Map<String, Set<String>> map = new HashMap<>();
         Pattern p = Pattern.compile("(.*)-([0-9][0-9.]*.*)\\.jar");
         for (String entry : dirList) {
             Matcher m = p.matcher(entry);

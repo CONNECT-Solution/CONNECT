@@ -28,11 +28,9 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.apache.ws.security.handler.WSHandlerConstants;
 
 /**
@@ -84,7 +82,7 @@ public class WsSecurityConfigFactory {
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
 
-        HashMap<String, Object> outProps = new HashMap<String, Object>();
+        HashMap<String, Object> outProps = new HashMap<>();
 
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
         outProps.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
@@ -111,7 +109,7 @@ public class WsSecurityConfigFactory {
     }
 
     private Map<String, Object> deepCopy(HashMap<String, Object> configMap) {
-        HashMap<String, Object> clonedMap = new HashMap<String, Object>(configMap);
+        HashMap<String, Object> clonedMap = new HashMap<>(configMap);
 
         Properties cryptoProperties = (Properties) clonedMap.get("cryptoProperties");
         clonedMap.put("cryptoProperties", cryptoProperties.clone());

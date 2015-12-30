@@ -29,10 +29,10 @@ package gov.hhs.fha.nhinc.direct;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.SessionFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Direct Client Factory responsible for {@link DirectAdapter}.
@@ -49,7 +49,6 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
     public void registerHandlers() {
         //initialize the HibernateUtil when the Direct Servlet is initialized.. DO NOT Remove this.
         SessionFactory session = gov.hhs.fha.nhinc.event.persistence.HibernateUtil.getSessionFactory();
-        session = gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil.getSessionFactory();
         LOG.trace("Registering event Loggers");
         EventLoggerFactory.getInstance().registerLoggers();
         LOG.trace("Registering handlers...");

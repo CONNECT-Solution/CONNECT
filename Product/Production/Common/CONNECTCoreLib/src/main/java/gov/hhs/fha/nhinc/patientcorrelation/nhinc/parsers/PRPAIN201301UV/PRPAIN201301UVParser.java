@@ -27,13 +27,13 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject1;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject2;
 import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -51,9 +51,8 @@ public class PRPAIN201301UVParser {
      */
     public static PRPAMT201301UV02Patient parseHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
-        PRPAMT201301UV02Patient patient = parseHL7PatientFromMessage(message);
         // PRPAMT201301UVPerson patientPerson = ParseHL7PatientPersonFromHL7Patient(patient);
-        return patient;
+        return parseHL7PatientFromMessage(message);
     }
 
     /**
@@ -63,7 +62,7 @@ public class PRPAIN201301UVParser {
      * @return PRPAMT201301UVPatient
      */
     public static PRPAMT201301UV02Patient parseHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
-        PRPAMT201301UV02Patient patient = null;
+        PRPAMT201301UV02Patient patient;
         LOG.info("in ExtractPatient");
 
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = parseSubjectFromMessage(message);
@@ -110,15 +109,14 @@ public class PRPAIN201301UVParser {
         // HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.size() == 0)) {
+        if ((subjects == null) || (subjects.isEmpty())) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
 
         // for now, assume we only need one subject, this will need to be modified later
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = subjects.get(0);
         // HL7Parser.PrintId(subject.getTypeId(), "subject");
 
-        return subject;
+        return subjects.get(0);
     }
 }

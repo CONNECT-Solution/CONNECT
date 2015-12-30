@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/*
+ /*
  Copyright (c) 2010, NHIN Direct Project
  All rights reserved.
 
@@ -44,13 +44,11 @@
  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.Thumbprint;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
-
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -61,6 +59,7 @@ import java.util.Calendar;
  * The JPA Domain class
  */
 public class Anchor {
+
     private String owner;
     private String thumbprint;
     private long certificateId;
@@ -133,7 +132,7 @@ public class Anchor {
     public void setData(byte[] data) throws CertificateException {
         this.data = data;
 
-        if (this.data == Certificate.NULL_CERT) {
+        if (this.data == Certificate.getNullCert()) {
             setThumbprint("");
         } else {
             loadCertFromData();
@@ -285,7 +284,7 @@ public class Anchor {
     }
 
     private X509Certificate loadCertFromData() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
@@ -293,7 +292,7 @@ public class Anchor {
             setThumbprint(Thumbprint.toThumbprint(cert).toString());
             bais.close();
         } catch (Exception e) {
-            setData(Certificate.NULL_CERT);
+            setData(Certificate.getNullCert());
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
 
@@ -301,7 +300,7 @@ public class Anchor {
     }
 
     public X509Certificate toCertificate() throws CertificateException {
-        X509Certificate cert = null;
+        X509Certificate cert;
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(data);
@@ -315,7 +314,7 @@ public class Anchor {
     }
 
     private boolean hasData() {
-        return (data != null && !Arrays.equals(data, Certificate.NULL_CERT));
+        return (data != null && !Arrays.equals(data, Certificate.getNullCert()));
     }
 
     /**

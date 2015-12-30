@@ -27,14 +27,11 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.io.File;
 import java.io.IOException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
@@ -48,11 +45,12 @@ import org.xml.sax.SAXException;
  * @author dunnek
  */
 public class ConfigurationManager {
+
     public static final String FTA_CONFIG_FILE = "PCConfiguration.xml";
     private static final Logger LOG = LoggerFactory.getLogger(ConfigurationManager.class);
 
     public ExpirationConfiguration loadExpirationConfiguration() {
-        ExpirationConfiguration result = null;
+        ExpirationConfiguration result;
         LOG.debug("begin loadExpirationConfiguration()");
         String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
@@ -70,8 +68,7 @@ public class ConfigurationManager {
             File file = new File(dir, fileName);
             result = loadExpirationConfiguration(file);
         } catch (Exception e) {
-            LOG.error("unable to load PCConfiguration file", e);
-            e.printStackTrace();
+            LOG.error("unable to load PCConfiguration file: " + e.getLocalizedMessage(), e);
         }
         return result;
     }
@@ -84,8 +81,7 @@ public class ConfigurationManager {
             File file = new File(fileName);
             result = loadExpirationConfiguration(file);
         } catch (Exception e) {
-            LOG.error("unable to load PCConfiguration file", e);
-            e.printStackTrace();
+            LOG.error("unable to load PCConfiguration file: " + e.getLocalizedMessage(), e);
         }
         return result;
     }
@@ -114,9 +110,9 @@ public class ConfigurationManager {
 
             String defaultUnits = "";
             Node defaultDurationNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
-                    .getNamedItem("defaultDuration");
+                .getNamedItem("defaultDuration");
             Node defaultUnitNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
-                    .getNamedItem("defaultUnits");
+                .getNamedItem("defaultUnits");
 
             if (defaultDurationNode != null) {
                 defaultConfiguration = Integer.parseInt(defaultDurationNode.getTextContent());

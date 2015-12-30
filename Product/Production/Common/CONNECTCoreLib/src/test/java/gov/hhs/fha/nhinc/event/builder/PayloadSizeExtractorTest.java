@@ -26,20 +26,16 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.mock;
-
+import com.google.common.base.Optional;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
-
-import com.google.common.base.Optional;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author akong
@@ -71,7 +67,7 @@ public class PayloadSizeExtractorTest {
 
     private JAXBElement<ExtrinsicObjectType> wrapExtrinsicObject(ExtrinsicObjectType extrinsicObject) {
         QName qName = mock(QName.class);
-        return new JAXBElement<ExtrinsicObjectType>(qName, ExtrinsicObjectType.class, extrinsicObject);
+        return new JAXBElement<>(qName, ExtrinsicObjectType.class, extrinsicObject);
     }
 
     private ExtrinsicObjectType createExtrinsicObject(String slotName, String slotValue) {

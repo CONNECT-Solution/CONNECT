@@ -34,9 +34,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.*;
 
 /**
  *
@@ -150,8 +150,7 @@ public class HL7DataTransformHelper {
                 + String.valueOf(today.get(GregorianCalendar.MINUTE))
                 + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
-            LOG.error("Exception when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+            LOG.error("Exception when creating XMLGregorian Date: {}", e.getLocalizedMessage(), e);
         }
 
         if (NullChecker.isNotNullish(timestamp)) {
@@ -164,10 +163,10 @@ public class HL7DataTransformHelper {
 
     public static ENExplicit convertPNToEN(PNExplicit pnName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
-        EnExplicitFamily familyName = null;
-        EnExplicitGiven givenName = null;
+        EnExplicitFamily familyName;
+        EnExplicitGiven givenName;
 
         List<Serializable> choice = pnName.getContent();
         Iterator<Serializable> iterSerialObjects = choice.iterator();
@@ -199,13 +198,13 @@ public class HL7DataTransformHelper {
 
     public static PNExplicit convertENtoPN(ENExplicit value) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit result = (PNExplicit) (factory.createPNExplicit());
+        PNExplicit result = factory.createPNExplicit();
         List namelist = result.getContent();
-        String lastName = "";
-        String firstName = "";
+        String lastName;
+        String firstName;
 
-        EnExplicitFamily explicitFamilyName = null;
-        EnExplicitGiven explicitGivenName = null;
+        EnExplicitFamily explicitFamilyName;
+        EnExplicitGiven explicitGivenName;
 
         for (Object item : value.getContent()) {
             if (item instanceof EnFamily) {
@@ -261,7 +260,7 @@ public class HL7DataTransformHelper {
     public static ENExplicit createEnExplicit(String firstName, String middleName, String lastName, String title,
         String suffix) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
 
         if (NullChecker.isNotNullish(lastName)) {
@@ -291,7 +290,7 @@ public class HL7DataTransformHelper {
     public static PNExplicit createPNExplicit(String firstName, String lastName) {
         LOG.debug("begin CreatePNExplicit");
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit name = (PNExplicit) (factory.createPNExplicit());
+        PNExplicit name = factory.createPNExplicit();
         List namelist = name.getContent();
 
         if (NullChecker.isNotNullish(lastName)) {

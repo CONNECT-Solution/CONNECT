@@ -26,30 +26,25 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
+import com.google.common.collect.ImmutableList;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import java.util.List;
+import javax.xml.datatype.XMLGregorianCalendar;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import oasis.names.tc.emergency.edxl.de._1.StatusValues;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-
-import java.util.List;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import oasis.names.tc.emergency.edxl.de._1.StatusValues;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import com.google.common.collect.ImmutableList;
 
 /**
  * @author akong

@@ -26,15 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.util;
 
+import gov.hhs.fha.nhinc.document.DocumentConstants;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import gov.hhs.fha.nhinc.document.DocumentConstants;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  * @author achidambaram
@@ -46,7 +44,7 @@ public class DocRetrieveStatusUtilTest {
    public void setResponseStatusSuccessCase() {
        DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = "Success";
-       String returnedStatus = null;
+       String returnedStatus;
        returnedStatus = util.setResponseStatus(createFromRequestSuccessCase(), createToRequestSucessCase());
        assertEquals(returnedStatus, status);
    }
@@ -55,7 +53,7 @@ public class DocRetrieveStatusUtilTest {
    public void setResponseStatusFailureCase() {
        DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = "Failure";
-       String returnedStatus = null;
+       String returnedStatus;
        returnedStatus = util.setResponseStatus(createFromRequestFailureCase(), createToRequestFailureCase());
        assertEquals(returnedStatus, status);
    }
@@ -64,7 +62,7 @@ public class DocRetrieveStatusUtilTest {
    public void setResponseStatusPartialSuccessCase() {
        DocRetrieveStatusUtil util = new DocRetrieveStatusUtil();
        String status = DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS;
-       String returnedStatus = null;
+       String returnedStatus;
        returnedStatus = util.setResponseStatus(createFromRequestSuccessCase(), createToRequestFailureCase());
        assertEquals(returnedStatus, status);
    }

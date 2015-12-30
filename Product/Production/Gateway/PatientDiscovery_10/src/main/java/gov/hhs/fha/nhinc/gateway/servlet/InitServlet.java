@@ -32,16 +32,13 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscovery10WebServices;
 import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredReq10WebServices;
 import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredResp10WebServices;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,7 +137,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
      */
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        Set<WebServicesMXBean> beans = new HashSet<WebServicesMXBean>();
+        Set<WebServicesMXBean> beans = new HashSet<>();
         beans.add(new PatientDiscovery10WebServices(sc));
         beans.add(new PatientDiscoveryDeferredReq10WebServices(sc));
         beans.add(new PatientDiscoveryDeferredResp10WebServices(sc));

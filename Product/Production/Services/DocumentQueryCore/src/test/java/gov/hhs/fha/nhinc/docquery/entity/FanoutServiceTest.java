@@ -26,13 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -48,15 +41,14 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyFactory;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201310UV02;
@@ -66,7 +58,12 @@ import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject2;
 import org.hl7.v3.PRPAMT201304UV02Patient;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author bhumphrey
@@ -88,7 +85,7 @@ public class FanoutServiceTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AssertionType assertion = new AssertionType();
 
-        List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
+        List<UrlInfo> urlInfoList = new ArrayList<>();
         urlInfoList.add(createUrlInfo("4.4", ""));
 
         when(patientCorrelationProxyFactory.getPatientCorrelationProxy()).thenReturn(patientCorrelationProxy);
@@ -107,7 +104,8 @@ public class FanoutServiceTest {
                 .thenReturn(retrievePatientCorrelationsResponseType);
 
         when(standardDocQueryHelper.lookupHomeCommunityId(any(String.class), any(String.class))).thenReturn(
-                new HomeCommunityType() {public String getHomeCommunityId() { return "1.1";}});
+                new HomeCommunityType() {@Override
+                public String getHomeCommunityId() { return "1.1";}});
 
         List<OutboundOrchestratable> results = service.createChildRequests(adhocQueryRequest, assertion, targets);
         assertEquals(1, results.size());
@@ -209,7 +207,7 @@ public class FanoutServiceTest {
     }
 
     private List<SlotType1> createSlotList() {
-        List<SlotType1> slotList = new ArrayList<SlotType1>();
+        List<SlotType1> slotList = new ArrayList<>();
         SlotType1 t = new SlotType1();
         t.setName(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME);
         ValueListType value = new ValueListType();

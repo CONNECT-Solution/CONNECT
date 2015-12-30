@@ -27,12 +27,10 @@
 package gov.hhs.fha.nhinc.admindistribution.configuration.jmx;
 
 import gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistribution;
-import gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistributionSecured;
 import gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistribution;
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -147,6 +145,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
      *
      * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
      */
+    @Override
     public boolean isInboundStandard() {
         boolean isStandard = false;
         NhinAdministrativeDistribution nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
@@ -172,8 +171,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureInboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        NhinAdministrativeDistribution nhinAD = null;
-        InboundAdminDistribution inboundAD = null;
+        NhinAdministrativeDistribution nhinAD;
+        InboundAdminDistribution inboundAD;
 
         nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
         inboundAD = retrieveBean(InboundAdminDistribution.class, getStandardInboundBeanName());
@@ -185,8 +184,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureInboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	NhinAdministrativeDistribution nhinAD = null;
-        InboundAdminDistribution inboundAD = null;
+    	NhinAdministrativeDistribution nhinAD;
+        InboundAdminDistribution inboundAD;
 
         nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
         inboundAD = retrieveBean(InboundAdminDistribution.class, getPassthroughInboundBeanName());
@@ -198,8 +197,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureOutboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        EntityAdministrativeDistribution entityAD = null;
-        OutboundAdminDistribution outboundAD = null;
+        EntityAdministrativeDistribution entityAD;
+        OutboundAdminDistribution outboundAD;
 
         entityAD = retrieveBean(EntityAdministrativeDistribution.class, getEntityUnsecuredBeanName());
         outboundAD = retrieveBean(OutboundAdminDistribution.class, getStandardOutboundBeanName());
@@ -210,8 +209,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     @Override
     public void configureOutboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-    	EntityAdministrativeDistribution entityAD = null;
-        OutboundAdminDistribution outboundAD = null;
+    	EntityAdministrativeDistribution entityAD;
+        OutboundAdminDistribution outboundAD;
 
         entityAD = retrieveBean(EntityAdministrativeDistribution.class, getEntityUnsecuredBeanName());
         outboundAD = retrieveBean(OutboundAdminDistribution.class, getPassthroughOutboundBeanName());

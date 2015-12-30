@@ -33,19 +33,18 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DocSubmissionUtils {
+
     private static final Logger LOG = LoggerFactory.getLogger(DocSubmissionUtils.class);
 
     private static DocSubmissionUtils instance = new DocSubmissionUtils();
@@ -68,23 +67,22 @@ public class DocSubmissionUtils {
      *
      * @param passThruProperty the passthough property
      * @return Returns true if the pass through property for a specified Patient Discovery Service in the
-     *         gateway.properties file is true.
+     * gateway.properties file is true.
      */
     public boolean isInPassThroughMode(String passThruProperty) {
         boolean passThroughModeEnabled = false;
         try {
             passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(
-                    NhincConstants.GATEWAY_PROPERTY_FILE, passThruProperty);
+                NhincConstants.GATEWAY_PROPERTY_FILE, passThruProperty);
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve " + passThruProperty + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve {} from property file {}: {}", passThruProperty,
+                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return passThroughModeEnabled;
     }
 
     public void convertFileLocationToDataIfEnabled(ProvideAndRegisterDocumentSetRequestType request)
-            throws LargePayloadException {
+        throws LargePayloadException {
 
         if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
             try {
@@ -98,17 +96,17 @@ public class DocSubmissionUtils {
                     }
                 }
 
-            } catch (Exception e) {
+            } catch (IOException | URISyntaxException e) {
                 throw new LargePayloadException("Failed to attach payload to message.", e);
             }
         }
     }
 
     public void convertDataToFileLocationIfEnabled(ProvideAndRegisterDocumentSetRequestType request)
-            throws LargePayloadException {
+        throws LargePayloadException {
 
         if (fileUtils.isSavePayloadToFileEnabled()) {
-            List<File> savedAttachmentList = new ArrayList<File>();
+            List<File> savedAttachmentList = new ArrayList<>();
             try {
                 for (Document doc : request.getDocument()) {
                     File attachmentFile = fileUtils.saveDataToFile(doc.getValue());

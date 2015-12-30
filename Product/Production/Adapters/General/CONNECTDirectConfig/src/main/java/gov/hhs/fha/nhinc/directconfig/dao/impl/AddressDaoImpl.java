@@ -137,7 +137,7 @@ public class AddressDaoImpl implements AddressDao {
         Session session = null;
         Transaction tx = null;
 
-        Address entity = null;
+        Address entity;
 
         if (address != null) {
             try {
@@ -187,7 +187,7 @@ public class AddressDaoImpl implements AddressDao {
         if (name != null) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
             int count = 0;
 
@@ -231,7 +231,7 @@ public class AddressDaoImpl implements AddressDao {
         Address result = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         if (name != null) {
             try {
@@ -261,7 +261,7 @@ public class AddressDaoImpl implements AddressDao {
         List<Address> results = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         try {
             session = DaoUtils.getSession();
@@ -280,7 +280,7 @@ public class AddressDaoImpl implements AddressDao {
                 results = query.list();
 
                 if (results == null) {
-                    results = new ArrayList<Address>();
+                    results = new ArrayList<>();
                 }
 
                 log.debug("Addresses found: " + results.size());
@@ -301,7 +301,7 @@ public class AddressDaoImpl implements AddressDao {
         List<Address> results = null;
 
         Session session = null;
-        Query query = null;
+        Query query;
 
         Long domainId = null;
 
@@ -321,7 +321,7 @@ public class AddressDaoImpl implements AddressDao {
                 results = query.list();
 
                 if (results == null) {
-                    results = new ArrayList<Address>();
+                    results = new ArrayList<>();
                 }
 
                 log.debug("Addresses found: " + results.size());

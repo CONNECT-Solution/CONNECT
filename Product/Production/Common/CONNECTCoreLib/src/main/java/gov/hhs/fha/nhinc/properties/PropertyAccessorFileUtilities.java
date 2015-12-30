@@ -27,11 +27,9 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.util.StreamUtils;
-
 import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,97 +38,92 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class PropertyAccessorFileUtilities {
-	private static final Logger LOG = LoggerFactory.getLogger(PropertyAccessorFileUtilities.class);
-	private String propertyFileDirAbsolutePath = "";
 
-	/**
-	 * Constructor.
-	 * @throws PropertyAccessException
-	 */
-	public PropertyAccessorFileUtilities() {
-		checkPropertyFileDir();
-	}
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyAccessorFileUtilities.class);
+    private String propertyFileDirAbsolutePath = "";
 
-	protected void checkPropertyFileDir() {
-		propertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
+    /**
+     * Constructor.
+     */
+    public PropertyAccessorFileUtilities() {
+        checkPropertyFileDir();
+    }
 
-		if (propertyFileDirAbsolutePath == null) {
-			LOG.error("Unable to determine the path to the configuration files.  "
-					+ "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
-					+ "of your CONNECT configuration files.");
-		} else {
-			propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
-		}
-	}
+    protected void checkPropertyFileDir() {
+        propertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
 
-	/**
-	 * This method will return the path to the property files for the currently
-	 * running servlet.
-	 */
-	public String getPropertyFileLocation() {
-		return propertyFileDirAbsolutePath;
-	}
+        if (propertyFileDirAbsolutePath == null) {
+            LOG.error("Unable to determine the path to the configuration files.  "
+                + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
+                + "of your CONNECT configuration files.");
+        } else {
+            propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
+        }
+    }
 
-	public String getPropertyFileLocation(String propertyFile) {
-		return propertyFileDirAbsolutePath + propertyFile + ".properties";
-	}
+    /**
+     * This method will return the path to the property files for the currently running servlet.
+     */
+    public String getPropertyFileLocation() {
+        return propertyFileDirAbsolutePath;
+    }
 
-	public void setPropertyFileLocation(String propertyFileDirAbsolutePath) {
-		this.propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
-	}
+    public String getPropertyFileLocation(String propertyFile) {
+        return propertyFileDirAbsolutePath + propertyFile + ".properties";
+    }
 
-	/**
-	 * This method will return the path to the property files for the currently
-	 * running servlet.
-	 */
-	public String getPropertyFileURL() {
-		return "file:///" + propertyFileDirAbsolutePath;
-	}
+    public void setPropertyFileLocation(String propertyFileDirAbsolutePath) {
+        this.propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
+    }
 
-	/**
-	 * Loads the property file name into an object. Note that the property file
-	 * name is assumed to be a properties file and such the extension
-	 * (.properties) should not be passed in.
-	 *
-	 * @param propertyFilename
-	 *            - String containing the filename only (no extension)
-	 * @return A Properties object containing the contents of the file. If the
-	 *         file does not exists, an empty Properties is returned.
-	 */
-	public Properties loadPropertyFile(String propertyFilename) {
-		return loadPropertyFile(new File(getPropertyFileLocation(propertyFilename)));
-	}
+    /**
+     * This method will return the path to the property files for the currently running servlet.
+     */
+    public String getPropertyFileURL() {
+        return "file:///" + propertyFileDirAbsolutePath;
+    }
 
-	/**
-	 * Loads the property file name into an object.
-	 *
-	 * @param propertyFile
-	 *            - The properties file to load
-	 * @return A Properties object containing the contents of the file. If the
-	 *         file does not exists, an empty Properties is returned.
-	 */
-	public Properties loadPropertyFile(File propertyFile) {
-		Properties properties = new Properties();
-		InputStreamReader propFile = null;
+    /**
+     * Loads the property file name into an object. Note that the property file name is assumed to be a properties file
+     * and such the extension (.properties) should not be passed in.
+     *
+     * @param propertyFilename - String containing the filename only (no extension)
+     * @return A Properties object containing the contents of the file. If the file does not exists, an empty Properties
+     * is returned.
+     */
+    public Properties loadPropertyFile(String propertyFilename) {
+        return loadPropertyFile(new File(getPropertyFileLocation(propertyFilename)));
+    }
 
-		try {
+    /**
+     * Loads the property file name into an object.
+     *
+     * @param propertyFile - The properties file to load
+     * @return A Properties object containing the contents of the file. If the file does not exists, an empty Properties
+     * is returned.
+     */
+    public Properties loadPropertyFile(File propertyFile) {
+        Properties properties = new Properties();
+        InputStreamReader propFile = null;
+
+        try {
             propFile = StreamUtils.openInputStream(propertyFile);
 
-			properties.load(propFile);
-		} catch (Exception e) {
-			LOG.error("Failed to load property file " + propertyFile);
-		} finally {
-			StreamUtils.closeFileSilently(propFile);
-		}
+            properties.load(propFile);
+        } catch (Exception e) {
+            LOG.error("Failed to load property file {}: {}", propertyFile, e.getLocalizedMessage(), e);
+        } finally {
+            StreamUtils.closeFileSilently(propFile);
+        }
 
-		return properties;
-	}
+        return properties;
+    }
 
-	private String addFileSeparatorSuffix(String dirPath) {
-		if (dirPath != null && !dirPath.endsWith(File.separator)) {
-			dirPath = dirPath + File.separator;
-		}
+    private String addFileSeparatorSuffix(String dirPath) {
+        if (dirPath != null && !dirPath.endsWith(File.separator)) {
+            dirPath = dirPath + File.separator;
+        }
 
-		return dirPath;
-	}
+        return dirPath;
+    }
 }

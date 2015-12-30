@@ -53,13 +53,13 @@ public class CallbackMapPropertiesTest {
     private final String SERVICE = "Patient Discovery";
     private final String TEST_DATE = "2013-01-01T01:01:01.000";
     private final String TEST_NPI = "npi";
-    private List<String> testList = new ArrayList<String>();
+    private List<String> testList = new ArrayList<>();
     private CallbackMapProperties callbackProperties;
 
     @Before
     public void setUp() {
         testList.add(TEST_VALUE);
-        properties = new HashMap<String, Object>();
+        properties = new HashMap<>();
 
         properties.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, TEST_VALUE);
         properties.put(SamlConstants.ASSERTION_ISSUER_PROP, TEST_VALUE);
@@ -148,11 +148,11 @@ public class CallbackMapPropertiesTest {
 
         List<Object> evidenceAccess = callbackProperties
             .getEvidenceAccessConstent();
-        assertEquals((String) evidenceAccess.get(0), TEST_VALUE);
+        assertEquals(evidenceAccess.get(0), TEST_VALUE);
 
         List<Object> evidenceInstAccess = callbackProperties
             .getEvidenceInstantAccessConsent();
-        assertEquals((String) evidenceInstAccess.get(0), TEST_VALUE);
+        assertEquals(evidenceInstAccess.get(0), TEST_VALUE);
 
         DateTime authnInstant = callbackProperties.getAuthenticationInstant();
         assertTrue(StringUtils.lowerCase(authnInstant.toString()).contains(

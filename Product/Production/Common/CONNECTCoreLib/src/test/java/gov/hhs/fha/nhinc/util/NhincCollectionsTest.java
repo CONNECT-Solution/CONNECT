@@ -26,20 +26,17 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import static org.junit.Assert.assertEquals;
-
+import com.google.common.base.Optional;
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
-import com.google.common.base.Optional;
 
 public class NhincCollectionsTest {
 
     @Test
     public void fillAbsents() {
-        List<Optional<String>> input = new ArrayList<Optional<String>>();
+        List<Optional<String>> input = new ArrayList<>();
         input.add(Optional.<String> absent());
         input.add(Optional.of("test"));
         List<String> output = NhincCollections.fillAbsents(input, "testFillValue");

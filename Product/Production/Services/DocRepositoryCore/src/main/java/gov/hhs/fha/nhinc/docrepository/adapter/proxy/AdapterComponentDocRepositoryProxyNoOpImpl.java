@@ -31,7 +31,6 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +42,14 @@ public class AdapterComponentDocRepositoryProxyNoOpImpl implements AdapterCompon
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryProxyNoOpImpl.class);
 
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         LOG.debug("Using NoOp Implementation for Adapter Component Doc Repository Service");
         return new RetrieveDocumentSetResponseType();
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         LOG.debug("Using NoOp Implementation for Adapter Component Doc Repository Service");

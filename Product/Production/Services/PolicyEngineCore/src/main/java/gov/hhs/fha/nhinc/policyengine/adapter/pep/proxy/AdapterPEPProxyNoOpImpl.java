@@ -27,12 +27,11 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +47,7 @@ public class AdapterPEPProxyNoOpImpl implements AdapterPEPProxy {
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access denied
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPEPProxyNoOpImpl.checkPolicy");
         CheckPolicyResponseType policyResponse = new CheckPolicyResponseType();

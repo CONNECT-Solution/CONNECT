@@ -49,14 +49,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Hibernate;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
@@ -67,7 +67,7 @@ public class AsyncMessageProcessHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
-    private static HashMap<String, String> statusToDirectionMap = new HashMap<String, String>();
+    private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -130,7 +130,7 @@ public class AsyncMessageProcessHelper {
         boolean result = false;
 
         try {
-            List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<AsyncMsgRecord>();
+            List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<>();
             AsyncMsgRecord rec = new AsyncMsgRecord();
             AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
@@ -486,7 +486,7 @@ public class AsyncMessageProcessHelper {
                             .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
+                if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getReceiver() != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
@@ -519,9 +519,8 @@ public class AsyncMessageProcessHelper {
                             .getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
                 // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
+                if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getSender() != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0

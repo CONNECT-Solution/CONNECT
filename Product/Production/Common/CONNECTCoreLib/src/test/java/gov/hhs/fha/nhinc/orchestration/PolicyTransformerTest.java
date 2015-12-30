@@ -32,7 +32,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -72,6 +71,7 @@ public class PolicyTransformerTest {
     }
 
     public class PolicyTransformerImpl implements PolicyTransformer {
+        @Override
         public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transform(Orchestratable message,
                 Direction direction) {
             return null;

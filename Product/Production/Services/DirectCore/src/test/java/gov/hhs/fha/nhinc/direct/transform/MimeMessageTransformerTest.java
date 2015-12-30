@@ -26,19 +26,16 @@
  */
 package gov.hhs.fha.nhinc.direct.transform;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 import gov.hhs.fha.nhinc.direct.MimeMessageBuilder;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.io.IOException;
-
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.xml.namespace.QName;
-
 import org.apache.commons.io.IOUtils;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.nhindirect.xd.transform.util.XmlUtils;
 

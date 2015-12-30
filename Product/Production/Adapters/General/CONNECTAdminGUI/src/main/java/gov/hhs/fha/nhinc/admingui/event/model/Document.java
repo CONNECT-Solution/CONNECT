@@ -446,8 +446,7 @@ public class Document {
      * @return the document
      */
     public String getDocument() {
-        String decodedValue = new String(documentContent);
-        return decodedValue;
+        return new String(documentContent);
     }
 
     /**

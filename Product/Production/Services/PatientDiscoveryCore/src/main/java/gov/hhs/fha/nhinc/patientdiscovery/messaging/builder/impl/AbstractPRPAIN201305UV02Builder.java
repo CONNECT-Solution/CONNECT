@@ -30,19 +30,14 @@ package gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl;
  *
  * @author tjafri
  */
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.bind.JAXBElement;
-
 import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.xml.bind.JAXBElement;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.CommunicationFunctionType;
@@ -57,6 +52,8 @@ import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV02Builder {
 
@@ -74,7 +71,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             buildControlActProcess();
         } catch (PropertyAccessException ex) {
-            LOG.error("Error getting the Local HCID:" + ex.getMessage());
+            LOG.error("Error getting the Local HCID: {}", ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -92,7 +89,7 @@ public abstract class AbstractPRPAIN201305UV02Builder implements PRPAIN201305UV0
         try {
             localHCID = getLocalHcid();
         } catch (PropertyAccessException ex) {
-            LOG.error("Error getting the Local HCID:" + ex.getMessage());
+            LOG.error("Error getting the Local HCID: {}", ex.getLocalizedMessage(), ex);
         }
         sender.setDevice(getDevice(localHCID));
         receiver.setDevice(getDevice(getRemoteHcid()));

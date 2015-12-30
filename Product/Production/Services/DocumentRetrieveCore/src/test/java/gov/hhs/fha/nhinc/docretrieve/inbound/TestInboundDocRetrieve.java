@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
-import java.util.Properties;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.Properties;
 
 /**
  * @author akong

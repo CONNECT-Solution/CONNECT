@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-
-import org.slf4j.Logger;;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -42,6 +41,7 @@ import org.slf4j.LoggerFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyPermitNoOpImpl implements AdapterPolicyEngineOrchProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineOrchProxyPermitNoOpImpl.class);
 
     /**
@@ -50,6 +50,7 @@ public class AdapterPolicyEngineOrchProxyPermitNoOpImpl implements AdapterPolicy
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPolicyEngineOrchProxyPermitNoOpImpl.checkPolicy");
         CheckPolicyResponseType oPolicyResponse = new CheckPolicyResponseType();

@@ -26,14 +26,12 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -46,7 +44,7 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
 
     @Override
     protected Map<String,Object> createTokenValues() {
-        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
+        HashMap<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
         tokenVals.put(NhincConstants.SERVICE_NAME, "auditrepositorysecured");
         return tokenVals;

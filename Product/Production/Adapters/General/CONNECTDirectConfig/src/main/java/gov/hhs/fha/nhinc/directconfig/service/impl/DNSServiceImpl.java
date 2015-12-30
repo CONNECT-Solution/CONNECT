@@ -51,12 +51,9 @@ import gov.hhs.fha.nhinc.directconfig.dao.DNSDao;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.DNSService;
-
 import java.util.Collection;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -30,27 +30,22 @@ import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 import gov.hhs.fha.nhinc.direct.DirectSender;
 import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParser;
 import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParserFactory;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.addressparsing.ToAddressParser;
 import gov.hhs.fha.nhinc.direct.addressparsing.ToAddressParserFactory;
 import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor;
 import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditorFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.mail.Address;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;
 
@@ -103,7 +98,7 @@ public class SoapDirectEdgeOrchestrationTest {
         when(mockContext.getMessageId()).thenReturn(MESSAGE_ID);
 
         Address toAddress = mock(Address.class);
-        Set<Address> toAddresses = new HashSet<Address>();
+        Set<Address> toAddresses = new HashSet<>();
         toAddresses.add(toAddress);
         Address[] addressArray = toAddresses.toArray(new Address[0]);
 

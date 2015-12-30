@@ -26,19 +26,18 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.ContextEventHelper;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
-
 import org.json.JSONException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class ErrorEventBuilderTest {

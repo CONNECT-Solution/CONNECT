@@ -34,17 +34,15 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyO
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -64,6 +62,7 @@ public class TrustMode implements ResponseMode {
      * @param params
      * @return response
      */
+    @Override
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         LOG.debug("Begin TrustMode.processResponse()...");
         PRPAIN201306UV02 response = null;
@@ -73,7 +72,7 @@ public class TrustMode implements ResponseMode {
             AssertionType assertion = params.assertion;
             PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
-            List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+            List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
             if (response != null && response.getControlActProcess() != null
                     && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                 pRPAINSubjects = response.getControlActProcess().getSubject();
@@ -82,7 +81,7 @@ public class TrustMode implements ResponseMode {
                 LOG.debug("processResponse - response/subjects is null");
             }
 
-            II remotePatId = null;
+            II remotePatId;
             II localPatId = getPatientId(requestMsg);
 
             if (requestHasLivingSubjectId(requestMsg) && localPatId != null) {
@@ -125,11 +124,12 @@ public class TrustMode implements ResponseMode {
      * @param localPatId
      * @return response
      */
+    @Override
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatId) {
         LOG.debug("begin processResponse");
         if (response != null) {
             if (localPatId != null) {
-                List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+                List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
                 if (response.getControlActProcess() != null
                         && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                     pRPAINSubjects = response.getControlActProcess().getSubject();
@@ -138,7 +138,7 @@ public class TrustMode implements ResponseMode {
                     LOG.debug("processResponse - response/subjects is null");
                 }
 
-                II remotePatId = null;
+                II remotePatId;
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
                     LOG.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
@@ -203,7 +203,7 @@ public class TrustMode implements ResponseMode {
     }
 
     protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request) {
-        boolean result = false;
+        boolean result;
 
         result = (getPatientId(request) != null);
 
@@ -250,7 +250,7 @@ public class TrustMode implements ResponseMode {
     }
 
     protected PRPAIN201301UV02 createPRPA201301(PRPAIN201306UV02 input) {
-        PRPAIN201301UV02 result = null;
+        PRPAIN201301UV02 result;
 
         result = HL7PRPA201301Transforms.createPRPA201301(input, getLocalHomeCommunityId());
 

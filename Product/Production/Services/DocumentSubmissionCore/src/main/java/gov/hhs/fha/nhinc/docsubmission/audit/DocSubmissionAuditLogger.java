@@ -38,6 +38,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class DocSubmissionAuditLogger extends AuditLogger<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> {
 
+    @Override
     protected AuditTransforms<ProvideAndRegisterDocumentSetRequestType, RegistryResponseType> getAuditTransforms() {
         return new DocSubmissionAuditTransforms();
     }

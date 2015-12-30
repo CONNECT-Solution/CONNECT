@@ -44,7 +44,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.FacesException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -281,7 +280,7 @@ public class ManageQueue extends AbstractPageBean {
 
         List<AsyncMsgRecord> processQueueResults = deferredQueueManagerFacade.queryForDeferredQueueProcessing();
 
-        if (processQueueResults == null || processQueueResults.size() == 0) {
+        if (processQueueResults == null || processQueueResults.isEmpty()) {
             this.errorMessages.setText("No records found to process.");
         }
 
@@ -306,9 +305,9 @@ public class ManageQueue extends AbstractPageBean {
 
         Date startDate = new Date();
         Date stopDate = new Date();
-        String startCreationTime = "";
-        String stopCreationTime = "";
-        String statusValue = "";
+        String startCreationTime;
+        String stopCreationTime;
+        String statusValue;
         try {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
@@ -348,14 +347,14 @@ public class ManageQueue extends AbstractPageBean {
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
-        List<AsyncMsgRecord> unProcessQueueResults = null;
-        if ((startCreationTime.equals("") && stopCreationTime.equals("") && statusValue.equals(""))) {
+        List<AsyncMsgRecord> unProcessQueueResults;
+        if ((startCreationTime.isEmpty() && stopCreationTime.isEmpty() && statusValue.isEmpty())) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
             unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate, statusValue);
         }
 
-        if (unProcessQueueResults == null || unProcessQueueResults.size() == 0) {
+        if (unProcessQueueResults == null || unProcessQueueResults.isEmpty()) {
             this.errorMessages.setText("No records found to process.");
         }
 
@@ -389,7 +388,7 @@ public class ManageQueue extends AbstractPageBean {
     public String process_action(javax.faces.event.ActionEvent event) throws Exception {
         String asyncMsgId = (String) this.messageId.getText();
         String serviceName = (String) this.serviceName.getText();
-        PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse = null;
+        PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse;
 
         if (serviceName.trim().equals(PATIENT_DISCOVERY)) {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();

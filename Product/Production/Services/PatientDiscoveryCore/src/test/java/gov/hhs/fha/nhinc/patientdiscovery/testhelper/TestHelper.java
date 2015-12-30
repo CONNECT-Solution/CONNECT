@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.testhelper;
 
-import static org.junit.Assert.*;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
@@ -35,6 +34,7 @@ import org.hl7.v3.MCCIMT000200UV01TargetMessage;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import static org.junit.Assert.*;
 
 /**
  *

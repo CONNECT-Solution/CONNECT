@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.util;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +39,7 @@ public class AddressingActionToServiceNameMapping {
     private static Map<String, NhincConstants.NHIN_SERVICE_NAMES> map;
 
     static {
-        map = new HashMap<String, NhincConstants.NHIN_SERVICE_NAMES>();
+        map = new HashMap<>();
         map.put("urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage",
                 NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION);
         map.put("urn:ihe:iti:2007:CrossGatewayQuery", NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);

@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery;
 
-import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -42,6 +39,7 @@ import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -88,10 +86,9 @@ public class PatientDiscovery201305ProcessorTest {
                 JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe",
                         "Smith", "M", null, null);
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "5678", "2.2.2");
-                PRPAIN201306UV02 resp = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
-                        "2.2.2", query);
 
-                return resp;
+                return HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
+                        "2.2.2", query);
             }
 
             @Override
@@ -142,9 +139,8 @@ public class PatientDiscovery201305ProcessorTest {
 
             @Override
             protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
-                PRPAIN201306UV02 resp = HL7PRPA201306Transforms.createPRPA201306(null, "2.2", null, "1.1", null, query);
 
-                return resp;
+                return HL7PRPA201306Transforms.createPRPA201306(null, "2.2", null, "1.1", null, query);
             }
 
             @Override

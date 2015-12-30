@@ -76,7 +76,7 @@ public class Base64Coder {
         try {
             encodedString = new String(encode(s.getBytes(StringUtil.UTF8_CHARSET)));
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
         }
         return encodedString;
     }
@@ -134,7 +134,7 @@ public class Base64Coder {
         try {
             decodedData = StringUtil.convertToStringUTF8(decode(s));
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
         }
         return decodedData;
     }

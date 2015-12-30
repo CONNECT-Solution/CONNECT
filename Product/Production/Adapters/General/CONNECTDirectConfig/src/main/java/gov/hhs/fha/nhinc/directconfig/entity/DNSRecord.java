@@ -48,10 +48,8 @@
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.DNSRecordUtils;
-
 import java.io.IOException;
 import java.util.Calendar;
-
 import org.bouncycastle.util.Arrays;
 
 /**
@@ -233,6 +231,7 @@ public class DNSRecord {
     /**
      * {@inheritDoc}
      *
+     * @param ob
      * @return
      */
     @Override
@@ -245,5 +244,15 @@ public class DNSRecord {
 
         return (rec.dclass == dclass && rec.type == type && rec.name.equals(name) && Arrays.areEqual(rec.getData(),
                 data));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 61 * hash + this.type;
+        hash = 61 * hash + this.dclass;
+        hash = 61 * hash + java.util.Arrays.hashCode(this.data);
+        return hash;
     }
 }

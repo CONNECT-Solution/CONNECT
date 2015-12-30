@@ -36,9 +36,6 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorre
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description
                             .PatientCorrelationSecuredRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
@@ -47,6 +44,8 @@ import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -107,6 +106,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
      */
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg,
             AssertionType assertion) {
         LOG.debug("Begin retrievePatientCorrelations");
@@ -151,6 +151,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      * @param assertion Assertion received.
      * @return PatientCorrelationResponse.
      */
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
         LOG.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();

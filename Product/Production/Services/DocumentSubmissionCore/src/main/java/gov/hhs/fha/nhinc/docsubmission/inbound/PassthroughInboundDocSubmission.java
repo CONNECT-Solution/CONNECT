@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +65,7 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
      */
     public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
         DocSubmissionAuditLogger auditLogger, DocSubmissionUtils dsUtils) {
+
         super(adapterFactory, auditLogger);
         this.dsUtils = dsUtils;
     }
@@ -73,7 +73,8 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
     @Override
     RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
         Properties webContextProperties) {
-        RegistryResponseType response = null;
+
+        RegistryResponseType response;
 
         try {
             dsUtils.convertDataToFileLocationIfEnabled(body);

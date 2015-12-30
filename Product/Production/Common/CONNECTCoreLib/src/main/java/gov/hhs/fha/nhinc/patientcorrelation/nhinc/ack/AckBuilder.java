@@ -43,7 +43,7 @@ public class AckBuilder {
 
     public static MCCIIN000002UV01 buildAck(PRPAIN201301UV02 originalMessage) {
         II receiverId = null;
-        II senderId = null;
+        II senderId;
         String acknowledgementTypeCode = "CA";
         II originalMessageId = null;
 
@@ -58,8 +58,7 @@ public class AckBuilder {
 
         senderId = IIHelper.IIFactory(Configuration.getMyCommunityId(), null);
 
-        MCCIIN000002UV01 ack = buildAck(receiverId, senderId, acknowledgementTypeCode, originalMessageId);
-        return ack;
+        return buildAck(receiverId, senderId, acknowledgementTypeCode, originalMessageId);
 
     }
 

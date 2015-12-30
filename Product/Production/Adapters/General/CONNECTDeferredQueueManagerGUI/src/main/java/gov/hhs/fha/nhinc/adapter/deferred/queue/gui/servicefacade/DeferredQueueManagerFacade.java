@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade;
 
+import com.sun.webui.jsf.model.Option;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
@@ -34,10 +35,8 @@ import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.sun.webui.jsf.model.Option;
 
 /**
  *

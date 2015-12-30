@@ -61,29 +61,31 @@ public class PatientIdFormatUtil {
     }
 
     /**
-     * stripQuotesFromPatientId
+     * stripQuotesFromPatientId - in some cases, we see pid wrapped in quotes; this function strips them to keep things
+     * uniform during processing.
      *
      * @param patientId
      * @return patientId
      */
     public static String stripQuotesFromPatientId(String patientId) {
-        LOG.debug("stripQuotesFromPatientId - Parsing patient id: " + patientId);
+        LOG.debug("stripQuotesFromPatientId - Parsing patient id: {}", patientId);
 
-        if ((patientId != null) && (patientId.length() > 0)) {
-            // In some cases we see a quote - in others we do not. So lets strip them off if we see them.
-            // ---------------------------------------------------------------------------------------------
-            if ((patientId.startsWith("'")) && (patientId.length() > 1)) {
-                StringBuffer sbPatientId = new StringBuffer(patientId);
+        String sbPatientId = patientId;
+
+        if (patientId != null && patientId.length() > 0) {
+            if (patientId.startsWith("'") && patientId.length() > 1) {
                 if (patientId.endsWith("'")) {
-                    sbPatientId.deleteCharAt(sbPatientId.length() - 1); // strip off the ending quote
+                    // strip off the ending quote
+                    sbPatientId = sbPatientId.substring(0, sbPatientId.length() - 1);
                 }
-                sbPatientId.deleteCharAt(0); // strip off hte first char quote
 
-                patientId = sbPatientId.toString();
+                // strip off the first char quote
+                sbPatientId = sbPatientId.substring(1);
             }
         }
-        LOG.debug("stripQuotesFromPatientId - Parsed patient id: " + patientId);
-        return patientId;
+
+        LOG.debug("stripQuotesFromPatientId - Parsed patient id: {}", sbPatientId);
+        return sbPatientId;
     }
 
     /**
@@ -138,7 +140,7 @@ public class PatientIdFormatUtil {
         }
         String encodedPatientId = null;
         LOG.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: "
-                + sLocalHomeCommunityId);
+            + sLocalHomeCommunityId);
         if (patientId != null) {
             encodedPatientId = "'" + patientId + "^^^&" + sLocalHomeCommunityId + "&ISO" + "'";
             LOG.debug("HL7 encoded patient id: " + encodedPatientId);

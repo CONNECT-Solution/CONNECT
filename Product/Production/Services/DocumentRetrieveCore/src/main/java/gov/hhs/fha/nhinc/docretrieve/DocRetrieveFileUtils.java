@@ -29,13 +29,11 @@ package gov.hhs.fha.nhinc.docretrieve;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-
 import javax.activation.DataHandler;
 
 /**

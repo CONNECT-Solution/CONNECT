@@ -29,15 +29,14 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 import gov.hhs.fha.nhinc.admingui.services.DocumentQueryService;
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
-import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
+import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 import gov.hhs.fha.nhinc.docquery.model.builder.DocumentMetadataResultsModelBuilder;
-
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
+import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
@@ -98,7 +97,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         if (NullChecker.isNullish(query.getOrganization())) {
             throw new DocumentMetadataException("Organization is a required field");
         }
-        List<String> targets = new ArrayList<String>();
+        List<String> targets = new ArrayList<>();
         targets.add(HomeCommunityMap.formatHomeCommunityId(query.getOrganization()));
         targetCommunity.setTargets(targets);
         targetCommunity.build();

@@ -27,10 +27,9 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
-import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class OutboundDocSubmissionFactoryTest {

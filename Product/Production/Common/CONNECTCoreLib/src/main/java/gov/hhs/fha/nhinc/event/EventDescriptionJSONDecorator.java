@@ -27,12 +27,11 @@
 package gov.hhs.fha.nhinc.event;
 
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EventDescriptionJSONDecorator implements JSONString, EventDescription {
 

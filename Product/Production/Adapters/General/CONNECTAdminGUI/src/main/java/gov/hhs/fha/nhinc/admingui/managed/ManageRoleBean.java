@@ -67,7 +67,7 @@ public class ManageRoleBean {
 
     private String selectedRole;
 
-    private final HashMap<String, UserRole> roles = new HashMap<String, UserRole>();
+    private final HashMap<String, UserRole> roles = new HashMap<>();
 
     /**
      * Access level changed.
@@ -160,7 +160,7 @@ public class ManageRoleBean {
     }
 
     private void setPreferences(UserRole role) {
-        List<PageAccessMapping> mappings = new ArrayList<PageAccessMapping>();
+        List<PageAccessMapping> mappings = new ArrayList<>();
         for (RolePreference preference : role.getPreferences()) {
             if (!DisplayHolder.getInstance().isDirectEnabled()
                     && preference.getPageName().toLowerCase().contains("direct")) {
@@ -174,7 +174,7 @@ public class ManageRoleBean {
             
             mappings.add(new PageAccessMapping(preference, this));
         }
-        pagesModel = new ListDataModel<PageAccessMapping>(mappings);
+        pagesModel = new ListDataModel<>(mappings);
     }
 
     private UserLogin getCurrentUser() {

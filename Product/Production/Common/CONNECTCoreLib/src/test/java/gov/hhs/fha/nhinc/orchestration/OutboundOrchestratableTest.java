@@ -29,10 +29,10 @@ package gov.hhs.fha.nhinc.orchestration;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -84,22 +84,27 @@ public class OutboundOrchestratableTest {
             return null;
         }
 
+        @Override
         public boolean isPassthru() {
             return false;
         }
 
+        @Override
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }
 
+        @Override
         public AssertionType getAssertion() {
             return null;
         }
 
+        @Override
         public String getServiceName() {
             return "";
         }
 
+        @Override
         public NhinAggregator getAggregator() {
             return null;
         }

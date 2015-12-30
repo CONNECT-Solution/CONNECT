@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.configuration.jmx;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,7 +154,7 @@ public class Configuration implements ConfigurationMXBean {
 
     @Override
     public boolean isPassthru(serviceEnum serviceName, directionEnum direction) {
-        boolean passthruMode = false;
+        boolean passthruMode;
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         passthruMode = registry.isPassthru(serviceName,direction);
         return passthruMode;
@@ -163,7 +162,7 @@ public class Configuration implements ConfigurationMXBean {
 
     @Override
     public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
-        boolean standardMode = false;
+        boolean standardMode;
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         standardMode = registry.isStandard(serviceName,direction);
         return standardMode;

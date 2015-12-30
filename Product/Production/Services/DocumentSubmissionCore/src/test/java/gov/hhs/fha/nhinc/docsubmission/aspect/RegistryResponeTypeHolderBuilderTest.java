@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
+import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import javax.xml.ws.Holder;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
-
-import javax.xml.ws.Holder;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 public class RegistryResponeTypeHolderBuilderTest {
 
@@ -62,7 +59,7 @@ public class RegistryResponeTypeHolderBuilderTest {
     @Test
     public void unwrapsArgument() {
         RegistryResponseType mock = mock(RegistryResponseType.class);
-        Holder<RegistryResponseType> holder = new Holder<RegistryResponseType>(mock);
+        Holder<RegistryResponseType> holder = new Holder<>(mock);
         Object[] transformArguments = builder.transformArguments(new Object[] { holder });
         assertEquals(mock, transformArguments[0]);
     }

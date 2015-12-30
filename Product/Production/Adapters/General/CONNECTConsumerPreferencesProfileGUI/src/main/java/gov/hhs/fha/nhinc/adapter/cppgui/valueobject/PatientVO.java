@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
-import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
-
 /**
  *
  * @author patlollav

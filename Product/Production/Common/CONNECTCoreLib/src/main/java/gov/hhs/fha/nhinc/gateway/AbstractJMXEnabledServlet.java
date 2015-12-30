@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.gateway;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.lang.management.ManagementFactory;
-
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
@@ -41,7 +39,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +89,7 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = null;
+            ObjectName name;
             try {
                 name = new ObjectName(getMBeanName());
                 Object mbean = getMBeanInstance(config.getServletContext());
@@ -126,7 +123,7 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = null;
+            ObjectName name;
             try {
                 name = new ObjectName(getMBeanName());
                 mbs.unregisterMBean(name);

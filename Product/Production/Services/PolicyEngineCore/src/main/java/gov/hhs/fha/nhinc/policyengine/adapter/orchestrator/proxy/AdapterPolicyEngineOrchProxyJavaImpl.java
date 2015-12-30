@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.AdapterPolicyEngineOrchestratorImpl;
-
-import org.slf4j.Logger;;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -40,6 +39,7 @@ import org.slf4j.LoggerFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngineOrchProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPolicyEngineOrchProxyJavaImpl.class);
 
     /**
@@ -49,6 +49,7 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
@@ -59,7 +60,7 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
             oResponse = oOrchestratorImpl.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy.  Error: "
-                    + e.getMessage();
+                + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }

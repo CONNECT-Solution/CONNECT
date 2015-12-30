@@ -28,13 +28,14 @@ package gov.hhs.fha.nhinc.mpi.adapter;
 
 import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
-
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the implementation of the Secured AdapterMPI service.
@@ -43,8 +44,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType {
+
     @Resource
     private WebServiceContext context;
+
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterMpiSecured.class);
 
     /**
      * This method takes the input and peforms a query against the MPI via the AdapterComponentMpi services and returns
@@ -52,22 +56,25 @@ public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMp
      *
      * @param findCandidatesRequest The query data.
      * @return The results from the MPI query.
+     * @throws gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault
      */
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) throws FindCandidatesSecuredFault{
-    	PRPAIN201306UV02 oResponse = null;
+    @WebMethod
+    @Override
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) throws FindCandidatesSecuredFault {
+        PRPAIN201306UV02 oResponse;
 
-    	try {
-    		AdapterMpiImpl oImpl = new AdapterMpiImpl();
+        try {
+            AdapterMpiImpl oImpl = new AdapterMpiImpl();
             oResponse = oImpl.query(true, findCandidatesRequest, context);
-    	}
-    	catch (Exception e)
-    	{
-    		PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
-        	type.setErrorCode("920");
-        	type.setMessage(e.getLocalizedMessage());
-        	FindCandidatesSecuredFault fault = new FindCandidatesSecuredFault(e.getMessage(), type);
-        	throw fault;
-    	}
+        } catch (Exception e) {
+            LOG.trace("Adapter MPI Secured exception: {}", e.getLocalizedMessage(), e);
+
+            PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
+            type.setErrorCode("920");
+            type.setMessage(e.getLocalizedMessage());
+            throw new FindCandidatesSecuredFault(e.getMessage(), type);
+        }
+
         return oResponse;
     }
 }

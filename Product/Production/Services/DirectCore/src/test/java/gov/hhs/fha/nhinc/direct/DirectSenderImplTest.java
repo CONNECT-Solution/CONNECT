@@ -36,9 +36,9 @@ import javax.mail.internet.MimeMessage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.xd.common.DirectDocuments;
@@ -85,7 +85,7 @@ public class DirectSenderImplTest extends DirectBaseTest {
     //@Test(expected = DirectException.class)
     public void testSendOutboundDirect_MimeMessage() throws MailClientException {
         Address mockAddress = mock(Address.class);
-        Set<Address> sAddress = new HashSet<Address>();
+        Set<Address> sAddress = new HashSet<>();
         sAddress.add(mockAddress);
         Address[] recipients = sAddress.toArray(new Address[0]);
         oDirectSenderImpl.sendOutboundDirect(mockMessage);
@@ -99,7 +99,7 @@ public class DirectSenderImplTest extends DirectBaseTest {
         System.out.println("sendOutboundDirect");
         Address sender = mock(Address.class);
         Address mockAddress1 = mock(Address.class);
-        Set<Address> toAddresses = new HashSet<Address>();
+        Set<Address> toAddresses = new HashSet<>();
         toAddresses.add(mockAddress1);
         Address[] recipients = toAddresses.toArray(new Address[0]);
         DirectDocuments documents = mock(DirectDocuments.class);

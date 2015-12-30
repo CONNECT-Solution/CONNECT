@@ -44,6 +44,7 @@ public class CorrelatedIdentifiersDaoTest {
     @Test
     public void testAddPatientCorrelation() {
         CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl() {
+            @Override
             public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
 
             }

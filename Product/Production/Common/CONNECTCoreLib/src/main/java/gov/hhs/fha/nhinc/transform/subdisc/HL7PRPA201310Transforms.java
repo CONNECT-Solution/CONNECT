@@ -122,7 +122,7 @@ public class HL7PRPA201310Transforms {
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         // create patient person element
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add(PATIENT_PERSON_CLASSCODE);
@@ -210,10 +210,9 @@ public class HL7PRPA201310Transforms {
         queryParams.setParameterList(paramList);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> params = new JAXBElement<PRPAMT201307UV02QueryByParameter>(
-                xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
 
-        return params;
+        return new JAXBElement<>(
+                xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
     }
 
     private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(PRPAMT201307UV02QueryByParameter queryParam) {

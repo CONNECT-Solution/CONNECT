@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import javax.xml.ws.WebServiceContext;
 
 
@@ -49,11 +48,9 @@ public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        XDRAcknowledgementType response = outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
+        return outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
                 provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion,
                 provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
-
-        return response;
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
@@ -61,10 +58,8 @@ public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
 
-        XDRAcknowledgementType response = outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
+        return outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
                 provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion,
                 provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
-
-        return response;
     }
 }

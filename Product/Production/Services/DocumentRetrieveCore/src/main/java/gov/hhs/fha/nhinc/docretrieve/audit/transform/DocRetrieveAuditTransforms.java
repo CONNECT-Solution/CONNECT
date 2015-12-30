@@ -26,28 +26,28 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.audit.transform;
 
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+import com.services.nhinc.schema.auditmessage.TypeValuePairType;
+import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditTransformsConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.lang.management.ManagementFactory;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Properties;
 import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import com.services.nhinc.schema.auditmessage.TypeValuePairType;
-import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditTransformsConstants;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import java.net.URL;
-import java.lang.management.ManagementFactory;
-import java.util.Properties;
-import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
-import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import java.net.MalformedURLException;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  * This class is designed for supporting Audit Logging for Retrieve Document.

@@ -26,28 +26,15 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.io.InputStream;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-
 import javax.xml.namespace.QName;
-
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.components.crypto.Crypto;
 import org.apache.ws.security.handler.RequestData;
@@ -55,18 +42,22 @@ import org.apache.ws.security.saml.SAMLKeyInfo;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.validate.Credential;
 import org.joda.time.DateTime;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Statement;
-import org.opensaml.saml2.core.Action;
-import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.DecisionTypeEnumeration;
-import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
@@ -94,7 +85,7 @@ public class CONNECTSamlAssertionValidatorTest {
         DateTime dateTime = new DateTime();
         when(saml1Assertion.getIssueInstant()).thenReturn(dateTime);
         Statement statement = mock(Statement.class);
-        List<Statement> statementList = new ArrayList<Statement>();
+        List<Statement> statementList = new ArrayList<>();
         statementList.add(statement);
         when(saml1Assertion.getStatements()).thenReturn(statementList);
 
@@ -299,7 +290,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
     @Test
     public void testValidate() throws WSSecurityException {
-        final List<Boolean> checkedSignedAssertion = new ArrayList<Boolean>();
+        final List<Boolean> checkedSignedAssertion = new ArrayList<>();
         Credential credential = new Credential();
         final String SECRET_KEY = "secret";
         credential.setSecretKey(SECRET_KEY.getBytes());
@@ -307,7 +298,7 @@ public class CONNECTSamlAssertionValidatorTest {
         AssertionWrapper assertion = mock(AssertionWrapper.class);
         credential.setAssertion(assertion);
 
-        List<String> methods = new ArrayList<String>();
+        List<String> methods = new ArrayList<>();
         final String METHOD_NAME = "urn:oasis:names:tc:SAML:" + "TESTING" + ":cm:holder-of-key";
         methods.add(METHOD_NAME);
 
@@ -338,7 +329,7 @@ public class CONNECTSamlAssertionValidatorTest {
         Credential resultCredential = validator.validate(credential, data);
 
         assertFalse(checkedSignedAssertion.isEmpty());
-        assertTrue(checkedSignedAssertion.get(0).booleanValue());
+        assertTrue(checkedSignedAssertion.get(0));
         String resultSecretKey = new String(resultCredential.getSecretKey());
         assertEquals(resultSecretKey, SECRET_KEY);
 

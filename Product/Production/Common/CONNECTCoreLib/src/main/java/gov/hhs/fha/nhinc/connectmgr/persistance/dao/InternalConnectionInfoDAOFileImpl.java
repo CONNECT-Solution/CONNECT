@@ -28,9 +28,7 @@ package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.io.File;
-
 import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,7 +89,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
             throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
         }
 
-        BusinessDetail resp = null;
+        BusinessDetail resp;
         try {
             resp = super.loadBusinessDetail(file);
         } catch (JAXBException ex) {

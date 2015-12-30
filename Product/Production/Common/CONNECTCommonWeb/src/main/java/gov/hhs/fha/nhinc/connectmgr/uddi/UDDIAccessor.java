@@ -29,10 +29,8 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -57,7 +55,7 @@ public class UDDIAccessor {
     // These are configured in the gateway.properties file and will be used to eliminate
     // some of the entries we get back from the UDDI server.
     // ------------------------------------------------------------------------------------
-    private HashSet<String> m_hBusinessToIgnore = new HashSet<String>();
+    private HashSet<String> m_hBusinessToIgnore = new HashSet<>();
     private boolean m_bPropsLoaded = false; // True if the props have been loaded.
 
     /**
@@ -106,7 +104,7 @@ public class UDDIAccessor {
     }
 
     private void removeIgnoredBusinesses(BusinessList businessList) {
-        ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<BusinessInfo>();
+        ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<>();
         if ((businessList != null) && (businessList.getBusinessInfos() != null)
                 && (businessList.getBusinessInfos().getBusinessInfo() != null)
                 && (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
@@ -150,7 +148,7 @@ public class UDDIAccessor {
             LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
         }
 
-        BusinessList businessList = null;
+        BusinessList businessList;
         try {
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
             UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
@@ -173,7 +171,7 @@ public class UDDIAccessor {
             return null;
         }
 
-        BusinessDetail businessDetail = null;
+        BusinessDetail businessDetail;
         BusinessInfos businessInfos = businessList.getBusinessInfos();
         try {
             GetBusinessDetail searchParams = createSearchParamsFromBusinessKeys(businessInfos);

@@ -8,7 +8,6 @@
         Creates a jaxws handeler chain. The referred class handles inbound and outbound requests
 -->
 
-
 <javaee:handler-chains xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <javaee:handler-chain>
         <javaee:handler>

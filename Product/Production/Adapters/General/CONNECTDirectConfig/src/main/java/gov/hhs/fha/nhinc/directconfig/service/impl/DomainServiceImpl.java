@@ -127,7 +127,7 @@ public class DomainServiceImpl extends SpringBeanAutowiringSupport implements Do
     public Collection<Domain> getDomains(Collection<String> domainNames, EntityStatus status)
             throws ConfigurationServiceException {
 
-        return dao.getDomains(new ArrayList<String>(domainNames), status);
+        return dao.getDomains(new ArrayList<>(domainNames), status);
     }
 
     /**

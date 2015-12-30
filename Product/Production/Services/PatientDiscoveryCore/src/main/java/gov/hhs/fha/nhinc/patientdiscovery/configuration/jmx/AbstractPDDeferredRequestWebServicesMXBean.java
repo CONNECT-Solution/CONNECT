@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
-import javax.servlet.ServletContext;
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
+import javax.servlet.ServletContext;
 
 /**
  * @author achidambaram

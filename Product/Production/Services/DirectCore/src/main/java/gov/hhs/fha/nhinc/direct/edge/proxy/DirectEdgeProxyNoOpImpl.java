@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 import javax.mail.internet.MimeMessage;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +40,7 @@ public class DirectEdgeProxyNoOpImpl implements DirectEdgeProxy {
     /**
      * {@inheritDoc}
      */
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
         LOG.debug("Using NoOp Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();

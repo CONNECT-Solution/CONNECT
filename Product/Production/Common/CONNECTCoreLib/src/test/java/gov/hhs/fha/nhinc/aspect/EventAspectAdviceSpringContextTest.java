@@ -26,12 +26,6 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventLogger;
 import gov.hhs.fha.nhinc.event.EventManager;
@@ -45,15 +39,20 @@ import gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
-
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.MessageImpl;
 import org.aspectj.lang.JoinPoint;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;

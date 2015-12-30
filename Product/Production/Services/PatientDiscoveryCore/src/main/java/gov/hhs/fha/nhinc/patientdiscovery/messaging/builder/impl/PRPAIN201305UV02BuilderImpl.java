@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import javax.xml.bind.JAXBElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
 import org.hl7.v3.ENExplicit;
@@ -45,6 +43,8 @@ import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class builds a PRPAIN201305UV02 request.
@@ -130,14 +130,14 @@ public class PRPAIN201305UV02BuilderImpl extends AbstractPRPAIN201305UV02Builder
         ENExplicit namesWrapper = new ENExplicit();
         namesWrapper.getContent().add(factory.createENExplicitFamily(familyName));
 
-        if (patient.getFirstName() != null && !patient.getFirstName().equals("")) {
+        if (patient.getFirstName() != null && !patient.getFirstName().isEmpty()) {
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setContent(patient.getFirstName());
             givenName.setPartType("GIV");
 
             namesWrapper.getContent().add(factory.createENExplicitGiven(givenName));
 
-            if (patient.getMiddleName() != null && !patient.getMiddleName().equals("")) {
+            if (patient.getMiddleName() != null && !patient.getMiddleName().isEmpty()) {
                 EnExplicitGiven middleName = new EnExplicitGiven();
                 middleName.setContent(patient.getMiddleName());
                 middleName.setPartType("GIV");

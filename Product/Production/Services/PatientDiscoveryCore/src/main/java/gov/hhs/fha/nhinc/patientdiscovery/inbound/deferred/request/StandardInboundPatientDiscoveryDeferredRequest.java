@@ -36,12 +36,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -96,8 +95,9 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
 
     @Override
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
-        MCCIIN000002UV01 response = null;
-        String errMsg = null;
+        MCCIIN000002UV01 response;
+        String errMsg;
+
         if (isPolicyValid(request, assertion)) {
             LOG.debug("Adapter patient discovery deferred policy check successful");
             response = sendToAdapter(request, assertion);
@@ -121,9 +121,7 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
     private MCCIIN000002UV01 sendErrorToAdapter(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
         PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
-        MCCIIN000002UV01 adapterResp = proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request,
+        return proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request,
             response, assertion, errMsg);
-
-        return adapterResp;
     }
 }

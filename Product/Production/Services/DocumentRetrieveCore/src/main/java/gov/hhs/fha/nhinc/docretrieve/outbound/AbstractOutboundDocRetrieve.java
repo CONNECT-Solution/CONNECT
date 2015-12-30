@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.apache.commons.lang.StringUtils;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
@@ -37,6 +36,7 @@ import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author msw

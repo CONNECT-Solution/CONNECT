@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +70,7 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
         LOG.debug("Begin authenticateUser");

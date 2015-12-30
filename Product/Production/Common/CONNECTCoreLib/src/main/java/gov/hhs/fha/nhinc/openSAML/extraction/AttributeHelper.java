@@ -32,12 +32,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.impl.XSAnyImpl;
 import org.opensaml.xml.schema.impl.XSStringImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -165,7 +165,7 @@ public class AttributeHelper {
                     // we break here because per the nhin specification, there should only be one attribute value.
                     break;
                 } else if (o instanceof String) {
-                    strBuf.append((String) o + " ");
+                    strBuf.append(o + " ");
 
                     // we DO NOT break here despite the nhin specification because the previous algorithm for handling
                     // these Strings handled multiple values. Until I understand
@@ -207,7 +207,7 @@ public class AttributeHelper {
             }
 
             String[] nameTokens = completeName.split("\\s");
-            ArrayList<String> nameParts = new ArrayList<String>();
+            ArrayList<String> nameParts = new ArrayList<>();
 
             // remove blank tokens
             for (String tok : nameTokens) {

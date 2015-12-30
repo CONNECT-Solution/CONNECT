@@ -28,12 +28,10 @@ package gov.hhs.fha.nhinc.connectmgr;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
@@ -43,20 +41,21 @@ import org.uddi.api_v3.KeyedReference;
 
 public class ConnectionManagerCacheHelper {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCacheHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCacheHelper.class);
 
-	public static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
-	public static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
-	public static String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
-	public static String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
+    public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
+    public static final String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
+    public static final String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
+    public static final String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
 
     /**
      * This method merge the businessServices from the uddiEntity to the internalEntity.
+     *
      * @param internalEntity Internal Business Entity
      * @param uddiEntity UDDI Business Entity
      */
     public BusinessEntity mergeBusinessEntityServices(BusinessEntity internalEntity, BusinessEntity uddiEntity) {
-        Map <String, BusinessService> internalServiceNames = new HashMap<String, BusinessService>();
+        Map<String, BusinessService> internalServiceNames = new HashMap<>();
         for (BusinessService internalService : internalEntity.getBusinessServices().getBusinessService()) {
             internalServiceNames.put(internalService.getServiceKey(), internalService);
         }
@@ -68,187 +67,184 @@ public class ConnectionManagerCacheHelper {
         return internalEntity;
     }
 
-	public String getCommunityId(BusinessEntity businessEntity) {
-		KeyedReference ref = getCommunityIdKeyReference(businessEntity);
-		if (ref != null) {
-			return ref.getKeyValue().trim();
-		}
-		return null;
-	}
+    public String getCommunityId(BusinessEntity businessEntity) {
+        KeyedReference ref = getCommunityIdKeyReference(businessEntity);
+        if (ref != null) {
+            return ref.getKeyValue().trim();
+        }
+        return null;
+    }
 
-	public KeyedReference getCommunityIdKeyReference(
-			BusinessEntity businessEntity) {
-		if (businessEntity.getIdentifierBag() == null) {
-			return null;
-		}
-		for (KeyedReference reference : businessEntity.getIdentifierBag()
-				.getKeyedReference()) {
-			if (reference.getTModelKey().equals(UDDI_HOME_COMMUNITY_ID_KEY)) {
-				return reference;
-			}
-		}
-		return null;
-	}
+    public KeyedReference getCommunityIdKeyReference(
+        BusinessEntity businessEntity) {
+        if (businessEntity.getIdentifierBag() == null) {
+            return null;
+        }
+        for (KeyedReference reference : businessEntity.getIdentifierBag()
+            .getKeyedReference()) {
+            if (reference.getTModelKey().equals(UDDI_HOME_COMMUNITY_ID_KEY)) {
+                return reference;
+            }
+        }
+        return null;
+    }
 
-	public List<String> getStates(BusinessEntity businessEntity) {
-		List<String> result = new ArrayList<String>();
-		for (KeyedReference reference : businessEntity.getCategoryBag()
-				.getKeyedReference()) {
-			String key = reference.getTModelKey();
-			String value = reference.getKeyValue();
-			if (UDDI_STATE_KEY.equals(key)) {
-				result.add(value);
-			}
-		}
-		if (result.size() <= 0) {
-			result = null;
-		}
-		return result;
-	}
+    public List<String> getStates(BusinessEntity businessEntity) {
+        List<String> result = new ArrayList<>();
+        for (KeyedReference reference : businessEntity.getCategoryBag()
+            .getKeyedReference()) {
+            String key = reference.getTModelKey();
+            String value = reference.getKeyValue();
+            if (UDDI_STATE_KEY.equals(key)) {
+                result.add(value);
+            }
+        }
+        if (result.size() <= 0) {
+            result = null;
+        }
+        return result;
+    }
 
-	/**
-	 * This method looks for the entity with the given home community ID and
-	 * returns it.
-	 *
-	 * @param oEntities
-	 *            The entities to be searched.
-	 * @param sHomeCommunityId
-	 *            The home community ID to search for.
-	 * @return The business entity for that home community.
-	 */
-	public BusinessEntity extractBusinessEntity(List<BusinessEntity> oEntities,
-			String sHomeCommunityId) {
-		if ((oEntities == null)
-				|| (oEntities.size() <= 0) || (sHomeCommunityId == null)
-				|| (sHomeCommunityId.length() <= 0)) {
-			return null;
-		}
+    /**
+     * This method looks for the entity with the given home community ID and returns it.
+     *
+     * @param oEntities The entities to be searched.
+     * @param sHomeCommunityId The home community ID to search for.
+     * @return The business entity for that home community.
+     */
+    public BusinessEntity extractBusinessEntity(List<BusinessEntity> oEntities,
+        String sHomeCommunityId) {
+        if ((oEntities == null)
+            || (oEntities.size() <= 0) || (sHomeCommunityId == null)
+            || (sHomeCommunityId.length() <= 0)) {
+            return null;
+        }
 
-		for (BusinessEntity oEntity : oEntities) {
-			String homeCommunityId = getCommunityId(oEntity);
-			if ((homeCommunityId != null)
-					&& (homeCommunityId.equals(sHomeCommunityId))) {
-				return oEntity;
-			}
-		}
+        for (BusinessEntity oEntity : oEntities) {
+            String homeCommunityId = getCommunityId(oEntity);
+            if ((homeCommunityId != null)
+                && (homeCommunityId.equals(sHomeCommunityId))) {
+                return oEntity;
+            }
+        }
 
-		return null; // If we got here - we never found it.
-	}
+        return null; // If we got here - we never found it.
+    }
 
-	/*
-    * This method searches for the business entity in the list that has the same home community Id. If it finds it, it
-    * replaces it with this one. If it does not find it, then it adds this one to the list.
-    *
-    * @param oEntities The entities to search.
-    * @param oEntity The entity to replace...
-    */
-   public void replaceBusinessEntity(List<BusinessEntity> oEntities, BusinessEntity oEntity) {
-       if (oEntity != null) {
-           if (oEntities == null) {
-               oEntities = new ArrayList<BusinessEntity>();
-           }
+    /*
+     * This method searches for the business entity in the list that has the same home community Id. If it finds it, it
+     * replaces it with this one. If it does not find it, then it adds this one to the list.
+     *
+     * @param oEntities The entities to search.
+     * @param oEntity The entity to replace...
+     */
+    public void replaceBusinessEntity(List<BusinessEntity> oEntities, BusinessEntity oEntity) {
+        if (oEntity != null) {
+            if (oEntities == null) {
+                oEntities = new ArrayList<>();
+            }
 
-           int iCnt = oEntities.size();
-           if (iCnt == 0) {
-               oEntities.add(oEntity);
-               return;
-           }
-           String homeCommunityId = getCommunityId(oEntity);
-           for (int i = 0; i < iCnt; i++) {
-               BusinessEntity oLocalEntity = oEntities.get(i);
-               String localHomeCommunityId = getCommunityId(oLocalEntity);
-               if ((localHomeCommunityId != null) && (homeCommunityId != null)
-                       && (localHomeCommunityId.equals(homeCommunityId))) {
-                   oEntities.set(i, oEntity);
-                   return; // We are done
-               }
-           } // for (int i = 0; i < iCnt; i++)
+            int iCnt = oEntities.size();
+            if (iCnt == 0) {
+                oEntities.add(oEntity);
+                return;
+            }
+            String homeCommunityId = getCommunityId(oEntity);
+            for (int i = 0; i < iCnt; i++) {
+                BusinessEntity oLocalEntity = oEntities.get(i);
+                String localHomeCommunityId = getCommunityId(oLocalEntity);
+                if ((localHomeCommunityId != null) && (homeCommunityId != null)
+                    && (localHomeCommunityId.equals(homeCommunityId))) {
+                    oEntities.set(i, oEntity);
+                    return; // We are done
+                }
+            } // for (int i = 0; i < iCnt; i++)
 
-           oEntities.add(oEntity);
-       }
-   }
+            oEntities.add(oEntity);
+        }
+    }
 
-	public List<UDDI_SPEC_VERSION> getSpecVersionsFromBusinessEntity(
-			BusinessEntity businessEntity,
-			NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-		List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<UDDI_SPEC_VERSION>();
-		if (businessEntity == null) {
-			return specVersionList;
-		}
+    public List<UDDI_SPEC_VERSION> getSpecVersionsFromBusinessEntity(
+        BusinessEntity businessEntity,
+        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
+        if (businessEntity == null) {
+            return specVersionList;
+        }
 
-		for (BusinessService service : businessEntity.getBusinessServices()
-				.getBusinessService()) {
-			if (!isServiceNameEquals(service, serviceName.getUDDIServiceName())) {
-				continue;
-			}
+        for (BusinessService service : businessEntity.getBusinessServices()
+            .getBusinessService()) {
+            if (!isServiceNameEquals(service, serviceName.getUDDIServiceName())) {
+                continue;
+            }
 
-			specVersionList = getSpecVersions(service);
-		}
+            specVersionList = getSpecVersions(service);
+        }
 
-		return specVersionList;
-	}
+        return specVersionList;
+    }
 
-	public boolean isServiceNameEquals(BusinessService service,
-			String serviceName) {
-		List<String> snameList = getServiceNames(service);
-		for (String sname : snameList) {
-			if (sname.equalsIgnoreCase(serviceName)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    public boolean isServiceNameEquals(BusinessService service,
+        String serviceName) {
+        List<String> snameList = getServiceNames(service);
+        for (String sname : snameList) {
+            if (sname.equalsIgnoreCase(serviceName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public List<String> getServiceNames(BusinessService service) {
-		List<String> serviceNameList = new ArrayList<String>();
+    public List<String> getServiceNames(BusinessService service) {
+        List<String> serviceNameList = new ArrayList<>();
 
-		if (service.getCategoryBag() != null
-				&& service.getCategoryBag().getKeyedReference() != null) {
-			for (KeyedReference reference : service.getCategoryBag()
-					.getKeyedReference()) {
-				String keyName = reference.getTModelKey();
-				String keyValue = reference.getKeyValue();
-				if (keyName.equals(UDD_SERVICE_NAMES_KEY)) {
-					serviceNameList.add(keyValue);
-				}
-			}
-		}
-		return serviceNameList;
-	}
+        if (service.getCategoryBag() != null
+            && service.getCategoryBag().getKeyedReference() != null) {
+            for (KeyedReference reference : service.getCategoryBag()
+                .getKeyedReference()) {
+                String keyName = reference.getTModelKey();
+                String keyValue = reference.getKeyValue();
+                if (keyName.equals(UDD_SERVICE_NAMES_KEY)) {
+                    serviceNameList.add(keyValue);
+                }
+            }
+        }
+        return serviceNameList;
+    }
 
-	public List<UDDI_SPEC_VERSION> getSpecVersions(BusinessService businessService) {
-		List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<UDDI_SPEC_VERSION>();
-		if (businessService == null
-				|| businessService.getBindingTemplates() == null
-				|| businessService.getBindingTemplates().getBindingTemplate() == null) {
-			return specVersionList;
-		}
+    public List<UDDI_SPEC_VERSION> getSpecVersions(BusinessService businessService) {
+        List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
+        if (businessService == null
+            || businessService.getBindingTemplates() == null
+            || businessService.getBindingTemplates().getBindingTemplate() == null) {
+            return specVersionList;
+        }
 
-		for (BindingTemplate bindingTemplate : businessService
-				.getBindingTemplates().getBindingTemplate()) {
-			if (bindingTemplate.getCategoryBag() != null
-					&& bindingTemplate.getCategoryBag().getKeyedReference() != null) {
-				for (KeyedReference reference : bindingTemplate
-						.getCategoryBag().getKeyedReference()) {
-					String keyName = reference.getTModelKey();
-					String specVersionValue = reference.getKeyValue();
-					if (keyName.equals(UDDI_SPEC_VERSION_KEY)) {
-						specVersionList.add(UDDI_SPEC_VERSION.fromString(specVersionValue));
-					}
-				}
-			}
-		}
+        for (BindingTemplate bindingTemplate : businessService
+            .getBindingTemplates().getBindingTemplate()) {
+            if (bindingTemplate.getCategoryBag() != null
+                && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
+                for (KeyedReference reference : bindingTemplate
+                    .getCategoryBag().getKeyedReference()) {
+                    String keyName = reference.getTModelKey();
+                    String specVersionValue = reference.getKeyValue();
+                    if (keyName.equals(UDDI_SPEC_VERSION_KEY)) {
+                        specVersionList.add(UDDI_SPEC_VERSION.fromString(specVersionValue));
+                    }
+                }
+            }
+        }
 
-		return specVersionList;
-	}
+        return specVersionList;
+    }
 
-	public UDDI_SPEC_VERSION getHighestUDDISpecVersion(List<UDDI_SPEC_VERSION> specVersions) {
-		UDDI_SPEC_VERSION highestSpecVersion = null;
+    public UDDI_SPEC_VERSION getHighestUDDISpecVersion(List<UDDI_SPEC_VERSION> specVersions) {
+        UDDI_SPEC_VERSION highestSpecVersion = null;
 
         try {
             for (UDDI_SPEC_VERSION specVersion : specVersions) {
                 if (highestSpecVersion == null || specVersion.ordinal() > highestSpecVersion.ordinal()) {
-                	highestSpecVersion = specVersion;
+                    highestSpecVersion = specVersion;
                 }
             }
         } catch (Exception ex) {
@@ -258,70 +254,70 @@ public class ConnectionManagerCacheHelper {
         return highestSpecVersion;
     }
 
-	public BindingTemplate findBindingTemplateByCategoryBagNameValue(
-			BusinessEntity businessEntity, String serviceName, String key,
-			String value) {
-		BindingTemplate bindingTemplate = null;
-		if (businessEntity != null
-				&& businessEntity.getBusinessServices() != null
-				&& businessEntity.getBusinessKey() != null) {
-			for (BusinessService service : businessEntity.getBusinessServices()
-					.getBusinessService()) {
-				if (!isServiceNameEquals(service, serviceName)) {
-					continue;
-				}
-				bindingTemplate = findBindingTemplateByKey(service, key, value);
-				if (bindingTemplate != null) {
-					return bindingTemplate;
-				}
-			}
-		}
-		return null;
-	}
+    public BindingTemplate findBindingTemplateByCategoryBagNameValue(
+        BusinessEntity businessEntity, String serviceName, String key,
+        String value) {
+        BindingTemplate bindingTemplate;
+        if (businessEntity != null
+            && businessEntity.getBusinessServices() != null
+            && businessEntity.getBusinessKey() != null) {
+            for (BusinessService service : businessEntity.getBusinessServices()
+                .getBusinessService()) {
+                if (!isServiceNameEquals(service, serviceName)) {
+                    continue;
+                }
+                bindingTemplate = findBindingTemplateByKey(service, key, value);
+                if (bindingTemplate != null) {
+                    return bindingTemplate;
+                }
+            }
+        }
+        return null;
+    }
 
-	public BindingTemplate findBindingTemplateByKey(BusinessService service,
-			String keyRefName, String keyRefValue) {
-		BindingTemplate bindingTemplate = null;
-		if (service.getBindingTemplates() != null
-				&& service.getBindingTemplates().getBindingTemplate() != null) {
-			for (BindingTemplate template : service.getBindingTemplates()
-					.getBindingTemplate()) {
-				if (template.getCategoryBag() != null
-						&& template.getCategoryBag().getKeyedReference() != null) {
-					for (KeyedReference reference : template.getCategoryBag()
-							.getKeyedReference()) {
-						String keyName = reference.getTModelKey();
-						String keyValue = reference.getKeyValue();
-						if (keyRefName.equals(keyName)
-								&& keyRefValue.equals(keyValue)) {
-							return template;
-						}
-					}
-				}
-			}
-		}
+    public BindingTemplate findBindingTemplateByKey(BusinessService service,
+        String keyRefName, String keyRefValue) {
+        BindingTemplate bindingTemplate = null;
+        if (service.getBindingTemplates() != null
+            && service.getBindingTemplates().getBindingTemplate() != null) {
+            for (BindingTemplate template : service.getBindingTemplates()
+                .getBindingTemplate()) {
+                if (template.getCategoryBag() != null
+                    && template.getCategoryBag().getKeyedReference() != null) {
+                    for (KeyedReference reference : template.getCategoryBag()
+                        .getKeyedReference()) {
+                        String keyName = reference.getTModelKey();
+                        String keyValue = reference.getKeyValue();
+                        if (keyRefName.equals(keyName)
+                            && keyRefValue.equals(keyValue)) {
+                            return template;
+                        }
+                    }
+                }
+            }
+        }
 
-		return bindingTemplate;
-	}
+        return bindingTemplate;
+    }
 
-	public BusinessService getBusinessServiceByServiceName(
-			BusinessEntity entity, String sUniformServiceName)
-			throws ConnectionManagerException {
+    public BusinessService getBusinessServiceByServiceName(
+        BusinessEntity entity, String sUniformServiceName)
+        throws ConnectionManagerException {
 
-		// Validation
-		if ((entity == null) || entity.getBusinessServices() == null
-				|| (sUniformServiceName == null)
-				|| (sUniformServiceName.length() <= 0)) {
-			return null;
-		}
+        // Validation
+        if ((entity == null) || entity.getBusinessServices() == null
+            || (sUniformServiceName == null)
+            || (sUniformServiceName.length() <= 0)) {
+            return null;
+        }
 
-		for (BusinessService service : entity.getBusinessServices()
-				.getBusinessService()) {
-			if (!isServiceNameEquals(service, sUniformServiceName)) {
-				continue;
-			}
-			return service;
-		}
-		return null;
-	}
+        for (BusinessService service : entity.getBusinessServices()
+            .getBusinessService()) {
+            if (!isServiceNameEquals(service, sUniformServiceName)) {
+                continue;
+            }
+            return service;
+        }
+        return null;
+    }
 }

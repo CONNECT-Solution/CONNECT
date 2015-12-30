@@ -26,17 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
-
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.springframework.util.CollectionUtils;
 

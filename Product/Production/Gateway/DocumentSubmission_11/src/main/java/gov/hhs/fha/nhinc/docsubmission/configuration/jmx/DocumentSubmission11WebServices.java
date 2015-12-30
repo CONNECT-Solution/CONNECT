@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured;
 import gov.hhs.fha.nhinc.docsubmission._11.nhin.NhinXDR;
 import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
-
 import javax.servlet.ServletContext;
 
 /**

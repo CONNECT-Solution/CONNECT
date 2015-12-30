@@ -26,26 +26,21 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.event.DocumentDescriptionBuilderTest;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 import org.springframework.util.CollectionUtils;
-
-import com.google.common.base.Optional;
 
 /**
  * @author akong
@@ -141,7 +136,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractorTest extends Docum
 
     private void addExtrinsicObjectToRequest(SubmitObjectsRequest request, ExtrinsicObjectType extrinsicObject) {
         QName qName = mock(QName.class);
-        JAXBElement<ExtrinsicObjectType> jaxbWrapper = new JAXBElement<ExtrinsicObjectType>(qName,
+        JAXBElement<ExtrinsicObjectType> jaxbWrapper = new JAXBElement<>(qName,
                 ExtrinsicObjectType.class, extrinsicObject);
 
         RegistryObjectListType registryObjectList = request.getRegistryObjectList();

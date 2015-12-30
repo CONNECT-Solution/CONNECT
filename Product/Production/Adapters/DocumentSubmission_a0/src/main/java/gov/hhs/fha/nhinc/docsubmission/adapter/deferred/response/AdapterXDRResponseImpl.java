@@ -32,13 +32,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import java.util.List;
-
 import javax.xml.ws.WebServiceContext;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +49,7 @@ public class AdapterXDRResponseImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body,
             WebServiceContext context) {
         LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         RegistryResponseType regResponse = null;
         AssertionType assertion = null;
@@ -71,7 +67,7 @@ public class AdapterXDRResponseImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             WebServiceContext context) {
         LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
 
         AssertionType assertion = null;
         assertion = getAssertion(context, assertion);
@@ -82,7 +78,7 @@ public class AdapterXDRResponseImpl {
     }
 
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (oAssertionIn == null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {

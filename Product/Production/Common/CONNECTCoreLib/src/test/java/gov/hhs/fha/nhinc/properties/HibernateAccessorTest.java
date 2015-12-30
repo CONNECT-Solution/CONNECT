@@ -29,13 +29,12 @@ package gov.hhs.fha.nhinc.properties;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author akong
@@ -112,6 +111,7 @@ public class HibernateAccessorTest {
     private HibernateAccessor createHibernateAccessor() throws PropertyAccessException {
         setMockPropertyAccessorExpectations();
         return new HibernateAccessor() {
+            @Override
             protected PropertyAccessor getPropertyAccessor() {
                 return mockPropertyAccessor;
             }
@@ -121,6 +121,7 @@ public class HibernateAccessorTest {
     private HibernateAccessor createBadHibernateAccessor() throws PropertyAccessException {
         setMockPropertyAccessorExpectationsWithWrongFileLocation();
         return new HibernateAccessor() {
+            @Override
             protected PropertyAccessor getPropertyAccessor() {
                 return mockPropertyAccessor;
             }

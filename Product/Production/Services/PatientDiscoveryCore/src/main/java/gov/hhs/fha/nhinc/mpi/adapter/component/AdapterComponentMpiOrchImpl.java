@@ -27,10 +27,9 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
+import org.hl7.v3.PRPAIN201306UV02;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
@@ -50,10 +49,9 @@ public class AdapterComponentMpiOrchImpl {
         // return PatientChecker.FindPatient(findCandidatesRequest);
         LOG.trace("Entering AdapterComponentMpiOrchImpl.findCandidates method...");
 
-        AdapterComponentMpiChecker oMpiChecker = null;
+        AdapterComponentMpiChecker oMpiChecker;
         AdapterComponentMpiCheckerObjectFactory oFactory = new AdapterComponentMpiCheckerObjectFactory();
         oMpiChecker = oFactory.getAdapterComponentMpiChecker();
-        PRPAIN201306UV02 oResponse = oMpiChecker.findPatient(findCandidatesRequest);
-        return oResponse;
+        return oMpiChecker.findPatient(findCandidatesRequest);
     }
 }

@@ -142,7 +142,7 @@ public class TestPRPAIN201301UVParser {
         PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
         subject1.setTypeId(createTypeId());
         registrationevent.setSubject1(subject1);
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
 
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -159,7 +159,7 @@ public class TestPRPAIN201301UVParser {
     private PRPAIN201301UV02 createMessageWhereSubject1Null() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
         PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         registrationevent.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
@@ -175,7 +175,7 @@ public class TestPRPAIN201301UVParser {
 
     private PRPAIN201301UV02 createHL7MessageWhereregistrationEventNull() {
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subjects.add(subject);
@@ -215,7 +215,7 @@ public class TestPRPAIN201301UVParser {
     }
 
     private List<PRPAIN201301UV02MFMIMT700701UV01Subject1> createPRPAIN201301UV02MFMIMT700701UV01Subject1() {
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(createPRPAIN201301UV02MFMIMT700701UV01RegistrationEvent());
@@ -234,7 +234,7 @@ public class TestPRPAIN201301UVParser {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
             PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
@@ -278,9 +278,7 @@ public class TestPRPAIN201301UVParser {
         device.setDeterminerCode("INSTANCE");
         device.setTypeId(createTypeId());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
-        JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<COCTMT090003UV01Device>(xmlqname,
-            COCTMT090003UV01Device.class, device);
-        return assignedDevice;
+        return new JAXBElement<>(xmlqname, COCTMT090003UV01Device.class, device);
     }
 
     private CE createCE() {

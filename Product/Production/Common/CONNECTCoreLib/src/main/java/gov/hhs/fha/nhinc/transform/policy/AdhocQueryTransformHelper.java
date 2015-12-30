@@ -98,7 +98,7 @@ public class AdhocQueryTransformHelper {
 
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
-        String sPatientId = null;
+        String sPatientId;
         String sStrippedPatientId = null;
         String aaId = null;
         if (event != null && event.getMessage() != null && event.getMessage().getAssertion() != null

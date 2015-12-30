@@ -27,13 +27,9 @@
 package gov.hhs.fha.nhinc.messaging.service;
 
 import java.util.Map;
-
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.SOAPBinding;
-
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 
 
 /**
@@ -48,18 +44,22 @@ public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
         this.port = port;
     }
 
+    @Override
     public void configure() {
         // DO NOTHING
     }
 
+    @Override
     public T getPort() {
         return this.port;
     }
 
+    @Override
     final public HTTPClientPolicy getHTTPClientPolicy() {
         return getHTTPClientPolicy((BindingProvider) getPort());
     }
 
+    @Override
     final public SOAPBinding getSOAPBinding() {
         return (SOAPBinding) ((BindingProvider) getPort()).getBinding();
     }

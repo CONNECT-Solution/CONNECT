@@ -105,18 +105,22 @@ public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrche
         return _nhinDelegate;
     }
 
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         return _policyTransformer;
     }
 
+    @Override
     public AssertionType getAssertion() {
         return _assertion;
     }
 
+    @Override
     public String getServiceName() {
         return serviceName;
     }
 
+    @Override
     public NhinAggregator getAggregator() {
         return _nhinAggregator;
     }

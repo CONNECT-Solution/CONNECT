@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.configuration.jmx;
 
 import javax.servlet.ServletContext;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -113,8 +112,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
     protected <T> T retrieveBean(final Class<T> beanType, String beanName) {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
 
-        T bean = beanType.cast(webApplicationContext.getBean(beanName));
-        return bean;
+        return beanType.cast(webApplicationContext.getBean(beanName));
     }
 
     /**
@@ -126,6 +124,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
+    @Override
     public abstract void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException;
 
@@ -138,6 +137,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
+    @Override
     public abstract void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException;
 
@@ -150,6 +150,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
+    @Override
     public abstract void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException;
 
@@ -162,6 +163,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
+    @Override
     public abstract void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException;
 

@@ -151,6 +151,7 @@ public class MailUtils {
             /**
              * {@inheritDoc}
              */
+            @Override
             public PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, pass);
             }

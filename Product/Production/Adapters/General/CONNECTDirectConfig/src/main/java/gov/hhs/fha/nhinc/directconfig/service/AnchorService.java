@@ -67,7 +67,6 @@ import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsForOwnerRespons
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.RemoveAnchorsResponse;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwner;
 import gov.hhs.fha.nhinc.directconfig.service.jaxws.SetAnchorStatusForOwnerResponse;
-
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;

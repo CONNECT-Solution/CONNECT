@@ -28,13 +28,11 @@ package gov.hhs.fha.nhinc.mpi.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
 import javax.xml.ws.WebServiceContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -56,7 +54,7 @@ public class AdapterMpiImpl extends BaseService {
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody) {
         LOG.debug("Entering AdapterMpiImpl.query");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if (assertionFromBody != null) {
             assertion = assertionFromBody;
         } else {
@@ -74,7 +72,7 @@ public class AdapterMpiImpl extends BaseService {
     public PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context) {
         LOG.debug("Entering AdapterMpiImpl.findCandidates");
 
-        AssertionType assertion = null;
+        AssertionType assertion;
         if ((bIsSecure) && (context != null)) {
             assertion = extractAssertion(context);
         } else {

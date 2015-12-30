@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRes
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import javax.xml.ws.WebServiceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

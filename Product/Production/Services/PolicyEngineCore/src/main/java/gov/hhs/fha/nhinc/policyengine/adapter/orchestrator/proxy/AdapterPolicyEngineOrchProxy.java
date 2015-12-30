@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 
 /**
  * This is the proxy interface for the AdapterPolicyEngineOrchestrator. It is used to abstract the concrete

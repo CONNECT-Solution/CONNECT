@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
@@ -41,10 +39,11 @@ import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
 import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
-
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

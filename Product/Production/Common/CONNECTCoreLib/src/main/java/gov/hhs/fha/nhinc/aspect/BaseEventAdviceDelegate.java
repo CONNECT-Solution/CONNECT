@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -46,8 +47,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  */
 public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
+
     private EventRecorder eventRecorder;
     private MessageRoutingAccessor messageRoutingAccessor;
+
+    private static final Logger LOG = LoggerFactory.getLogger(BaseEventAdviceDelegate.class);
 
     /**
      * overridden in sub class to return the correct Begin event object.
@@ -91,10 +95,10 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void begin(Object[] args, String serviceType, String version,
-            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                    createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
+                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
 
             createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
         }
@@ -119,10 +123,10 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void end(Object[] args, String serviceType, String version,
-            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
+        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                    createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
+                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
             createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
         }
     }
@@ -150,8 +154,8 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      * @return
      */
     protected EventDescriptionBuilder createAndInitializeEventDecriptionBuilder(Object[] args,
-            EventContextAccessor eventContextAccessor,
-            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
+        EventContextAccessor eventContextAccessor,
+        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
         EventDescriptionBuilder eventDescriptionBuilder = createEventDescriptionBuilder(eventDescriptionbuilderClass);
 
         eventDescriptionBuilder.setArguments(args);
@@ -169,14 +173,15 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      * @return
      */
     private EventDescriptionBuilder createEventDescriptionBuilder(
-            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
         EventDescriptionBuilder eventDescriptionBuilder;
         try {
             eventDescriptionBuilder = eventDescriptionbuilderClass.newInstance();
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             eventDescriptionBuilder = new DefaultEventDescriptionBuilder();
-        } catch (IllegalAccessException e) {
-            eventDescriptionBuilder = new DefaultEventDescriptionBuilder();
+            LOG.warn("Could not get event description builder instance, using default instead: {}",
+                e.getLocalizedMessage());
+            LOG.trace("Event Description Builder exception: {}", e.getLocalizedMessage(), e);
         }
         return eventDescriptionBuilder;
     }

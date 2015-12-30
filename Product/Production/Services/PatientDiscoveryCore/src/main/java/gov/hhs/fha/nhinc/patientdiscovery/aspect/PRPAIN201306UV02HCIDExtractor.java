@@ -26,26 +26,23 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import com.google.common.base.Function;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
-import com.google.common.base.Function;
-import java.util.HashSet;
-import java.util.Set;
-
 class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<String>> {
 
     @Override
     public Set<String> apply(PRPAIN201306UV02 input) {
-        Set<String> hcids = new HashSet<String>();
+        Set<String> hcids = new HashSet<>();
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = input.getControlActProcess();
         if (controlActProcess != null) {
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : controlActProcess.getSubject()) {
@@ -56,7 +53,7 @@ class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<St
     }
 
     private Set<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
-        Set<String> result = new HashSet<String>();
+        Set<String> result = new HashSet<>();
         if (hasAssignedEntity(subject)) {
             result.addAll(getIis(subject.getRegistrationEvent().getCustodian().getAssignedEntity()));
         }
@@ -70,7 +67,7 @@ class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, Set<St
     }
 
     private List<String> getIis(COCTMT090003UV01AssignedEntity assignedEntity) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (II ii : assignedEntity.getId()) {
             String fromResponse = ii.getRoot();
             result.add(NhincConstants.HCID_PREFIX + fromResponse);

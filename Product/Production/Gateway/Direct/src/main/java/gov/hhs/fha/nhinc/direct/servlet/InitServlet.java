@@ -27,11 +27,9 @@
 package gov.hhs.fha.nhinc.direct.servlet;
 
 import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

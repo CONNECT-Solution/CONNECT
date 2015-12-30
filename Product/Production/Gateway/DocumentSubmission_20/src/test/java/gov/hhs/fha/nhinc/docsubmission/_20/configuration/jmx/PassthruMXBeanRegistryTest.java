@@ -26,17 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.configuration.jmx;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.configuration.jmx.PassthruMXBeanRegistry;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmission20WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefRequest20WebServices;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author achidambaram

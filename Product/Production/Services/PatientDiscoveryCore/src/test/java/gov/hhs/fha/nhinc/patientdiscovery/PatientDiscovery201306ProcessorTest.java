@@ -26,21 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000300UV01Agent;
@@ -56,6 +48,11 @@ import org.hl7.v3.PRPAMT201301UV02Person;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
@@ -103,13 +100,12 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
-                    AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO() {
+                    return new AssigningAuthorityHomeCommunityMappingDAO() {
                         @Override
                         public boolean storeMapping(String hcid, String assigningAuthorityId) {
                             return true;
                         }
                     };
-                    return mappingDao;
                 }
 
                 @Override
@@ -119,7 +115,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
@@ -151,7 +147,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
@@ -183,7 +179,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add(null);
                     return assigningAuthorityIds;
 
@@ -215,7 +211,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 
@@ -237,13 +233,12 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
-                    AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO() {
+                    return new AssigningAuthorityHomeCommunityMappingDAO() {
                         @Override
                         public boolean storeMapping(String hcid, String assigningAuthorityId) {
                             return false;
                         }
                     };
-                    return mappingDao;
                 }
 
                 @Override
@@ -253,7 +248,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 @Override
                 protected List<String> extractAAListFrom201306(PRPAIN201306UV02 request) {
-                    List<String> assigningAuthorityIds = new ArrayList<String>();
+                    List<String> assigningAuthorityIds = new ArrayList<>();
                     assigningAuthorityIds.add("aa");
                     return assigningAuthorityIds;
 

@@ -26,23 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
+import javax.xml.parsers.ParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.IOException;
-import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 /**
@@ -50,6 +47,7 @@ import org.xml.sax.SAXException;
  * @author dunnek
  */
 public class ConfigurationManager {
+
     public static final String XDR_CONFIG_FILE = "XDRConfiguration.xml";
     private static final Logger LOG = LoggerFactory.getLogger(ConfigurationManager.class);
 
@@ -70,7 +68,7 @@ public class ConfigurationManager {
             File file = new File(path, fileName);
             result = loadConfiguration(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getLocalizedMessage(), e);
         }
 
         return result;
@@ -108,7 +106,7 @@ public class ConfigurationManager {
     }
 
     private List<RoutingConfig> loadRoutingInfo(NodeList list) {
-        ArrayList<RoutingConfig> result = new ArrayList<RoutingConfig>();
+        ArrayList<RoutingConfig> result = new ArrayList<>();
         Node channels = list.item(0);
 
         LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");

@@ -30,12 +30,8 @@ import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.ws.addressing.WSAddressingFeature;
 
 /**
  * @author akong
@@ -43,7 +39,7 @@ import org.apache.cxf.ws.addressing.WSAddressingFeature;
  */
 public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAServicePortBuilder<T> {
 
-    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<Class<?>, Object>();
+    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<>();
 
     /**
      * Constructor.
@@ -69,9 +65,9 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
     protected void configurePort(T port) {
         super.configurePort(port);
 
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<T>(serviceEndpoint);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint);
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
     }
 }

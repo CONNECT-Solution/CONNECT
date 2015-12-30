@@ -26,10 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
@@ -37,6 +34,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class PatientCorrelationServiceUnsecuredTest {

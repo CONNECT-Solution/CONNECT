@@ -27,12 +27,9 @@
 package gov.hhs.fha.nhinc.cxf.extraction;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import java.util.List;
-
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.slf4j.Logger;
@@ -82,7 +79,7 @@ public class SAML2AssertionExtractor {
             return null;
         }
 
-        MessageContext mContext = (MessageContext) context.getMessageContext();
+        MessageContext mContext = context.getMessageContext();
         SoapHeader header = getSecuritySoapHeader(mContext);
 
         if (header != null) {

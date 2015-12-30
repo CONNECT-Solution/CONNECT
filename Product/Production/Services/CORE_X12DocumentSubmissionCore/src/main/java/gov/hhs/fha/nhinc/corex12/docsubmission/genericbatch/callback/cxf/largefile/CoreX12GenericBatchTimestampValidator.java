@@ -34,9 +34,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class overrides the default CONNECT Core TimestampValidator to get the
- * the TimeStampTimeToLive, TimeStampStrict and FutureTimeToLive properties
- * specific to the CORE X12 Batch Services(Request and Response).
+ * This class overrides the default CONNECT Core TimestampValidator to get the the TimeStampTimeToLive, TimeStampStrict
+ * and FutureTimeToLive properties specific to the CORE X12 Batch Services(Request and Response).
  *
  * @author Naresh Subramanyan
  */
@@ -48,9 +47,10 @@ public class CoreX12GenericBatchTimestampValidator extends TimestampValidator {
     protected long getTimeStampTTL() {
         try {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.X12_GENERIC_BATCH_TIMESTAMP_TIME_TO_LIVE);
+                NhincConstants.X12_GENERIC_BATCH_TIMESTAMP_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
-            LOG.info("Failed to determine timestamp time to live in gateway.properties.  Will use default values.");
+            LOG.warn("Failed to determine timestamp TTL in gateway.properties, will use default values: {}",
+                pae.getLocalizedMessage(), pae);
         }
         return INVALID_LONG_VALUE;
     }
@@ -59,9 +59,10 @@ public class CoreX12GenericBatchTimestampValidator extends TimestampValidator {
     protected long getTimeStampFutureTTL() {
         try {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.X12_GENERIC_BATCH_TIMESTAMP_FUTURE_TIME_TO_LIVE);
+                NhincConstants.X12_GENERIC_BATCH_TIMESTAMP_FUTURE_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
-            LOG.info("Failed to determine timestamp future time to live in gateway.properties.  Will use default values.");
+            LOG.warn("Failed to determine timestamp future TTL in gateway.properties, will use default values: {}",
+                pae.getLocalizedMessage(), pae);
         }
         return INVALID_LONG_VALUE;
     }
@@ -70,9 +71,10 @@ public class CoreX12GenericBatchTimestampValidator extends TimestampValidator {
     protected boolean getTimeStampStrict() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.X12_GENERIC_BATCH_TIMESTAMP_STRICT);
+                NhincConstants.X12_GENERIC_BATCH_TIMESTAMP_STRICT);
         } catch (PropertyAccessException pae) {
-            LOG.info("Failed to determine timestamp strict in gateway.properties.  Will use default values.");
+            LOG.warn("Failed to determine timestamp strict in gateway.properties, will use default values: {}",
+                pae.getLocalizedMessage(), pae);
         }
         return true;
     }

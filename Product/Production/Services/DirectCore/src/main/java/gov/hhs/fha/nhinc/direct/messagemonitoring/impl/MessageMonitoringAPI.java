@@ -52,10 +52,10 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.nhindirect.common.tx.TxUtil;
 import org.nhindirect.common.tx.model.TxMessageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * All the Message Monitoring API services are exposed through this class. This class will maintain a cache to store all
@@ -76,7 +76,7 @@ public class MessageMonitoringAPI {
 
     public MessageMonitoringAPI() {
         //set the default value
-        messageMonitoringCache = new HashMap<String, MonitoredMessage>();
+        messageMonitoringCache = new HashMap<>();
         //Load the cahce from the database
         buildCache();
     }
@@ -267,7 +267,7 @@ public class MessageMonitoringAPI {
      * @return List
      */
     public List<MonitoredMessage> getAllCompletedMessages() {
-        List<MonitoredMessage> completedMessages = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> completedMessages = new ArrayList<>();
         //loop through the cache
         for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_COMPLETED)) {
@@ -283,7 +283,7 @@ public class MessageMonitoringAPI {
      * @return List
      */
     public List<MonitoredMessage> getAllPendingMessages() {
-        List<MonitoredMessage> pendingMessages = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> pendingMessages = new ArrayList<>();
         //loop through the cache
         for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_PENDING)) {
@@ -311,7 +311,7 @@ public class MessageMonitoringAPI {
      */
     public List<MonitoredMessage> getAllFailedMessages() {
         //loop through the list and find all the pending messages
-        List<MonitoredMessage> failedMessages = new ArrayList<MonitoredMessage>();
+        List<MonitoredMessage> failedMessages = new ArrayList<>();
         //loop through the cache
         for (MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_ERROR)) {
@@ -689,7 +689,7 @@ public class MessageMonitoringAPI {
     }
 
     private String getSenderEmailId(MimeMessage message) throws MessagingException {
-        InternetAddress sender = null;
+        InternetAddress sender;
         sender = (InternetAddress) message.getSender();
         if (sender == null) {
             InternetAddress[] fromAddresses = (InternetAddress[]) message.getFrom();

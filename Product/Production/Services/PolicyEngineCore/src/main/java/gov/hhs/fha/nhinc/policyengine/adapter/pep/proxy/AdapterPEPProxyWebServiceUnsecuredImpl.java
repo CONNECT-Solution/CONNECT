@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.service.AdapterPEPServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +68,7 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
      * @param request The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request, AssertionType assertion) {
         LOG.trace("Begin AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();

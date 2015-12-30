@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.util.format;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

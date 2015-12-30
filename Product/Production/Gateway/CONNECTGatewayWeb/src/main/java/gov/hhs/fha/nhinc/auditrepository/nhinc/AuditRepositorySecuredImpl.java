@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-
 import javax.xml.ws.WebServiceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 
 public class AuditRepositorySecuredImpl {
 

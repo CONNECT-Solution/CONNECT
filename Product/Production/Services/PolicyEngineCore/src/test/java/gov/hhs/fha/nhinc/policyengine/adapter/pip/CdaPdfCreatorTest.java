@@ -27,24 +27,13 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.Serializable;
-import org.hl7.v3.POCDMT000040ClinicalDocument;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -64,14 +53,20 @@ import org.hl7.v3.IVXBTSExplicit;
 import org.hl7.v3.ONExplicit;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040Author;
+import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.hl7.v3.POCDMT000040Patient;
 import org.hl7.v3.POCDMT000040PatientRole;
 import org.hl7.v3.SCExplicit;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
-
+import org.junit.After;
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -338,7 +333,7 @@ public class CdaPdfCreatorTest {
         // Check for the null or empty case...
         // ------------------------------------
         if ((sStreet == null) && (sCity == null) && (sState == null) && (sZipcode == null) && (sCountry == null)
-                && ((oAddr == null) || (oAddr.getContent() == null) || (oAddr.getContent().size() == 0))) {
+                && ((oAddr == null) || (oAddr.getContent() == null) || (oAddr.getContent().isEmpty()))) {
             return; // We expected null and we got null.
         }
 
@@ -462,7 +457,7 @@ public class CdaPdfCreatorTest {
         // Check for the null or empty case...
         // ------------------------------------
         if ((sPrefix == null) && (sGiven == null) && (sFamily == null) && (sSuffix == null)
-                && ((oName == null) || (oName.getContent() == null) || (oName.getContent().size() == 0))) {
+                && ((oName == null) || (oName.getContent() == null) || (oName.getContent().isEmpty()))) {
             return; // We expected null and we got null.
         }
 
@@ -816,7 +811,7 @@ public class CdaPdfCreatorTest {
                     && (oJaxbElement.getName().getLocalPart().equals("low")) && (oJaxbElement.getValue() != null)
                     && (oJaxbElement.getValue() instanceof IVXBTSExplicit)) {
                 IVXBTSExplicit oHL7LowTime = (IVXBTSExplicit) oJaxbElement.getValue();
-                assertHL7DateOnly(sFieldName + ".content[].low", sExpectedLowValue, ((String) oHL7LowTime.getValue()));
+                assertHL7DateOnly(sFieldName + ".content[].low", sExpectedLowValue, oHL7LowTime.getValue());
             } // if ((oJaxbElement.getName() != null) &&
               // End Time
               // ------------
@@ -825,7 +820,7 @@ public class CdaPdfCreatorTest {
                     && (oJaxbElement.getValue() instanceof IVXBTSExplicit)) {
                 IVXBTSExplicit oHL7HighTime = (IVXBTSExplicit) oJaxbElement.getValue();
                 assertHL7DateOnly(sFieldName + ".content[].high", sExpectedHighValue,
-                        ((String) oHL7HighTime.getValue()));
+                        oHL7HighTime.getValue());
             } // else if ((oJaxbElement.getName() != null) &&
             else {
                 fail(sFieldName + ".content[] contained an unknown object type.");
@@ -917,7 +912,7 @@ public class CdaPdfCreatorTest {
         assertNotNull("cda.title should not have been null. ", oCda.getTitle());
         assertNotNull("cda.title.content should not have been null.  ", oCda.getTitle().getContent());
         assertEquals("cda.title.content,size incorrect: ", 1, oCda.getTitle().getContent().size());
-        assertEquals("cda.title incorrect: ", "Good Health Clinic Care Record Summary", (String) oCda.getTitle()
+        assertEquals("cda.title incorrect: ", "Good Health Clinic Care Record Summary", oCda.getTitle()
                 .getContent().get(0));
     }
 

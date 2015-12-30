@@ -35,10 +35,12 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class AdapterComponentMpiCheckerNoOpImpl implements AdapterComponentMpiChecker {
 
+    @Override
     public PRPAIN201306UV02 findPatient(PRPAIN201305UV02 query) {
         return new PRPAIN201306UV02();
     }
 
+    @Override
     public boolean isNhinRequiredParamsFound(PRPAIN201305UV02 query) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.callback.purposeuse;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
 import org.jmock.Expectations;
 import org.junit.Assert;
 import org.junit.Test;

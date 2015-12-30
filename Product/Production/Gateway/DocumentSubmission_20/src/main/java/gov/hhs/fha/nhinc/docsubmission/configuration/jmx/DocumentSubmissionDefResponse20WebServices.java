@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSub
 import gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -194,6 +193,7 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
     }
 
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
     }

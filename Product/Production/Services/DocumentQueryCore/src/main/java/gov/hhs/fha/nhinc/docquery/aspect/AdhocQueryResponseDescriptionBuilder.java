@@ -26,34 +26,29 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.document.DocumentConstants;
-import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
-import gov.hhs.fha.nhinc.util.NhincCollections;
-
-import java.util.List;
-
-import javax.xml.bind.JAXBElement;
-
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
+import gov.hhs.fha.nhinc.util.NhincCollections;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.xml.bind.JAXBElement;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
@@ -91,7 +86,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     @Override
     public void buildRespondingHCIDs() {
         if (hasObjectList()) {
-            setRespondingHCIDs(new ArrayList<String>(extractHcids(response.getRegistryObjectList())));
+            setRespondingHCIDs(new ArrayList<>(extractHcids(response.getRegistryObjectList())));
         } else {
             setLocalResponder();
         }
@@ -153,12 +148,12 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     }
 
     private Set<String> extractHcids(RegistryObjectListType registryObjectList) {
-        Set<String> hcids = new HashSet<String>();
+        Set<String> hcids = new HashSet<>();
         if(registryObjectList.getIdentifiable() != null){
             for(JAXBElement<? extends IdentifiableType> identifiable : registryObjectList.getIdentifiable()){
                 if(identifiable.getValue() != null
                         && identifiable.getValue() instanceof ExtrinsicObjectType){
-                    hcids.add(((ExtrinsicObjectType)identifiable.getValue()).getHome());
+                    hcids.add(identifiable.getValue().getHome());
                 }
             }
         }

@@ -326,7 +326,7 @@ public class XACMLExtractor {
      * @return The date or date-time in HL7 default format.
      */
     private String createHL7Date(String sXMLDateTime) throws AdapterPIPException {
-        String sHL7Date = null;
+        String sHL7Date;
 
         // Do we have a "date only"?
         // --------------------------

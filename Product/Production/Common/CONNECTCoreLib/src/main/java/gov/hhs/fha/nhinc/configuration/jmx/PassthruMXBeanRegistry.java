@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.configuration.jmx;
 
 import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +45,7 @@ public class PassthruMXBeanRegistry {
      * Package level constructor instantiates a new passthru mx bean registry.
      */
     PassthruMXBeanRegistry() {
-        registeredBeans = new HashSet<WebServicesMXBean>();
+        registeredBeans = new HashSet<>();
     }
 
     /** The registered beans. */

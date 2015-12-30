@@ -44,11 +44,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponse
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOutboundPatientDiscoveryDeferredResponse {
 
@@ -96,10 +96,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
-        MCCIIN000002UV01 response = process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
-            target);
 
-        return response;
+        return process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+            target);
     }
 
     /*
@@ -149,7 +148,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     }
 
     private List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        List<UrlInfo> urlInfoList = null;
+        List<UrlInfo> urlInfoList;
 
         try {
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,

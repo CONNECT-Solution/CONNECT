@@ -36,6 +36,7 @@ public class AdapterPEPProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "PolicyEngineProxyConfig.xml";
     private static final String BEAN_NAME_ADAPTER_PEP = "adapterpep";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

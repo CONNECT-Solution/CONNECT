@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.CE;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.PRPAIN201302UV02;
@@ -39,6 +35,7 @@ import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Person;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -55,7 +52,7 @@ public class HL7PRPA201302TransformsTest {
         String senderOID = "1.1";
         String receiverOID = "2.2";
         HL7PRPA201302Transforms transforms = new HL7PRPA201302Transforms();
-        PRPAIN201302UV02 result = null;
+        PRPAIN201302UV02 result;
         result = transforms.createPRPA201302(patient, remotePatId, remoteDeviceId, senderOID, receiverOID);
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().get(0).getExtension(), "1.16.17.19");
@@ -69,7 +66,7 @@ public class HL7PRPA201302TransformsTest {
         String senderOID = "1.1";
         String receiverOID = "2.2";
         HL7PRPA201302Transforms transforms = new HL7PRPA201302Transforms();
-        PRPAIN201302UV02 result = null;
+        PRPAIN201302UV02 result;
         result = transforms.createPRPA201302(patient, remotePatId, remoteDeviceId, senderOID, receiverOID);
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().get(0).getExtension(), "1.16.17.19");
@@ -79,7 +76,7 @@ public class HL7PRPA201302TransformsTest {
         org.hl7.v3.PRPAMT201310UV02Patient patient = new PRPAMT201310UV02Patient();
         PRPAMT201310UV02Person patientPerson = new PRPAMT201310UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201310UV02Person> patientPersonElement = new JAXBElement<PRPAMT201310UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201310UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201310UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());
@@ -100,7 +97,7 @@ public class HL7PRPA201302TransformsTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patient.getId().add(createII());

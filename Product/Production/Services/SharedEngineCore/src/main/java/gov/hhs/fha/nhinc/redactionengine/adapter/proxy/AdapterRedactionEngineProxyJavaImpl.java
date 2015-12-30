@@ -32,7 +32,6 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,12 +43,14 @@ import org.slf4j.LoggerFactory;
 public class AdapterRedactionEngineProxyJavaImpl implements AdapterRedactionEngineProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterRedactionEngineProxyJavaImpl.class);
 
+    @Override
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Redaction Engine Service");
         return new AdapterRedactionEngineOrchImpl().filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
     }
 
+    @Override
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {

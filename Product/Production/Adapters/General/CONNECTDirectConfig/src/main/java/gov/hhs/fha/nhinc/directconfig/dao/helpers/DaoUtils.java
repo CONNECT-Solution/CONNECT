@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.directconfig.dao.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;

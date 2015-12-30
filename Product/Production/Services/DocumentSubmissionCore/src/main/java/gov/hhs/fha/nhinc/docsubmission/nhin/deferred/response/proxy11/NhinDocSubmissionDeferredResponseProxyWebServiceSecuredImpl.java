@@ -41,9 +41,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,14 +71,14 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
             ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion,
               String target, String serviceName) {
 
-        CONNECTClient<XDRDeferredResponsePortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
-        return client;
     }
 
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DeferredResponseDescriptionBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
         LOG.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");

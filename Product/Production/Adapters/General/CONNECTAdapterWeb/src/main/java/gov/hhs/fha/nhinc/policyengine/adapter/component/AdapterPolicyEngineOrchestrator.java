@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.component;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -54,6 +55,8 @@ public class AdapterPolicyEngineOrchestrator implements gov.hhs.fha.nhinc.adapte
      * @param checkPolicyRequest The request to check defined policy
      * @return The response which contains the access decision
      */
+    @WebMethod
+    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return getAdapterComponentPolicyEngineImpl().checkPolicy(checkPolicyRequest, getWebServiceContext());

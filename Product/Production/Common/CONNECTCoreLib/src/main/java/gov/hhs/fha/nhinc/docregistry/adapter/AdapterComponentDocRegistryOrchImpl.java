@@ -26,31 +26,27 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory;
-
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import javax.xml.bind.JAXBElement;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import javax.xml.bind.JAXBElement;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
@@ -63,6 +59,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -205,7 +204,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 } else {
 
                     if (request.getAdhocQuery().getId().equals(FINDDOCUMENTSQUERYID)) {
-                        List<String> slotValues = new ArrayList<String>();
+                        List<String> slotValues;
                         for (SlotType1 slot : slots) {
                             if (slot.getName().equals(EBXML_DOCENTRY_PATIENT_ID)) {
                                 patientIdSlotPresent = true;
@@ -229,7 +228,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
             DocumentService service = getDocumentService();
 
-            List<Document> docs = new ArrayList<Document>();
+            List<Document> docs = new ArrayList<>();
             Boolean isOnDemand = params.getOnDemand();
             if (isOnDemand == null || !isOnDemand) {
                 params.setOnDemandParams(Boolean.FALSE);
@@ -342,7 +341,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return a list of strings with the types.
      */
     private List<String> extractDocumentEntryTypes(List<SlotType1> slots) {
-        List<String> types = new ArrayList<String>();
+        List<String> types = new ArrayList<>();
         for (SlotType1 slot : slots) {
             if (EBXML_DOCENTRY_ENTRY_TYPE.equals(slot.getName()) && slot.getValueList() != null) {
                 types.addAll(slot.getValueList().getValue());
@@ -362,7 +361,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> eventCodeSchemeValues) {
         List<EventCodeParam> eventCodeParams = null;
         if (NullChecker.isNotNullish(eventCodeValues)) {
-            eventCodeParams = new ArrayList<EventCodeParam>();
+            eventCodeParams = new ArrayList<>();
             boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues)
                 && (eventCodeValues.size() == eventCodeSchemeValues.size()));
             for (int i = 0; i < eventCodeValues.size(); i++) {
@@ -396,7 +395,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> classCodes = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
-            classCodes = new ArrayList<String>();
+            classCodes = new ArrayList<>();
             for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, classCodes);
             }
@@ -471,7 +470,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> statuses = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_STATUS);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
-            statuses = new ArrayList<String>();
+            statuses = new ArrayList<>();
             for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, statuses);
             }
@@ -487,12 +486,12 @@ public class AdapterComponentDocRegistryOrchImpl {
      */
     private List<String> extractDocumentId(List<SlotType1> slots) {
         List<String> documentIds = null;
-        String docId = "";
+        String docId;
         List<String> slotValues = extractSlotValues(slots, NHINC_CUSTOM_DOCUMENT_ID);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
             // We should only have one - so use the first one.
             // -------------------------------------------------
-            documentIds = new ArrayList<String>();
+            documentIds = new ArrayList<>();
             docId = StringUtil.extractStringFromTokens(slotValues.get(0).trim(), "'()");
             documentIds.add(docId);
         }
@@ -503,7 +502,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> classCodes = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_EVENT_CODE_LIST);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
-            classCodes = new ArrayList<String>();
+            classCodes = new ArrayList<>();
             for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, classCodes);
             }
@@ -515,7 +514,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> classCodes = null;
         List<String> slotValues = extractSlotValues(slots, EBXML_EVENT_CODE_LIST_SCHEME);
         if ((slotValues != null) && (!slotValues.isEmpty())) {
-            classCodes = new ArrayList<String>();
+            classCodes = new ArrayList<>();
             for (String slotValue : slotValues) {
                 parseParamFormattedString(slotValue, classCodes);
             }
@@ -549,10 +548,8 @@ public class AdapterComponentDocRegistryOrchImpl {
 
             // Save these so that theyu can be added in later after all of the other items..
             // ------------------------------------------------------------------------------
-            ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef
-                = new ArrayList<JAXBElement<? extends IdentifiableType>>();
-            ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc
-                = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+            ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef = new ArrayList<>();
+            ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = new ArrayList<>();
 
             for (Document doc : docs) {
                 ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
@@ -571,7 +568,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 // Document Unique ID
                 // ------------------
-                String sDocumentId = ""; // need to keep a handle to this to be used later...
+                String sDocumentId; // need to keep a handle to this to be used later...
                 if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                     sDocumentId = doc.getDocumentUniqueId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
@@ -723,7 +720,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 // Intended Recipients
                 // --------------------
-                List<String> intendedRecipients = new ArrayList<String>();
+                List<String> intendedRecipients = new ArrayList<>();
                 if (NullChecker.isNotNullish(doc.getIntendedRecipientPerson())) {
                     intendedRecipients.add(doc.getIntendedRecipientPerson());
                 } else if (NullChecker.isNotNullish(doc.getIntendedRecipientOrganization())) {
@@ -812,7 +809,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 // Size
                 // -----
-                if ((doc.getSize() != null) && (doc.getSize().intValue() > 0)) {
+                if ((doc.getSize() != null) && (doc.getSize() > 0)) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME, doc.getSize().toString());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -829,7 +826,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 // Source Patient Info
                 // --------------------
-                List<String> sourcePatientInfoValues = new ArrayList<String>();
+                List<String> sourcePatientInfoValues = new ArrayList<>();
                 if (NullChecker.isNotNullish(doc.getPid3())) {
                     sourcePatientInfoValues.add("PID-3|" + doc.getPid3());
                 }
@@ -876,16 +873,15 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // URI
                 // ----
                 if (NullChecker.isNotNullish(doc.getDocumentUri())) {
-                    SlotType1 oSlot = null;
+                    SlotType1 oSlot;
                     String documentUri = doc.getDocumentUri();
                     if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH) {
                         oSlot = createSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
                     } else {
                         int iStart = 0;
-                        String sURI = documentUri;
-                        int iTotalLen = sURI.length();
+                        int iTotalLen = documentUri.length();
                         int iIndex = 1;
-                        String[] saURIPart = null;
+                        String[] saURIPart;
 
                         if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0) {
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH];
@@ -894,11 +890,11 @@ public class AdapterComponentDocRegistryOrchImpl {
                         }
                         while (iStart < iTotalLen) {
                             if ((iStart + EBXML_RESPONSE_URI_LINE_LENGTH) > iTotalLen) {
-                                saURIPart[iIndex - 1] = iIndex + "|" + sURI.substring(iStart, iTotalLen);
+                                saURIPart[iIndex - 1] = iIndex + "|" + documentUri.substring(iStart, iTotalLen);
                                 iStart = iTotalLen;
                             } else {
                                 saURIPart[iIndex - 1] = iIndex + "|"
-                                    + sURI.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
+                                    + documentUri.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
                                 iStart += EBXML_RESPONSE_URI_LINE_LENGTH;
                             }
                             iIndex++;
@@ -1012,8 +1008,8 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     private List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
-        List<String> returnValues = null;
-        returnValues = new ArrayList<String>();
+        List<String> returnValues;
+        returnValues = new ArrayList<>();
         if (slots != null) {
             for (SlotType1 slot : slots) {
                 if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
@@ -1148,7 +1144,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return registryQueryId - List of valid QueryId's defined in spec.
      */
     protected List<String> getRegistryQueryId() {
-        List<String> registryQueryId = new ArrayList<String>();
+        List<String> registryQueryId = new ArrayList<>();
         registryQueryId.add("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
         registryQueryId.add("urn:uuid:f26abbcb-ac74-4422-8a30-edb644bbc1a9");
         registryQueryId.add("urn:uuid:958f3006-baad-4929-a4de-ff1114824431");

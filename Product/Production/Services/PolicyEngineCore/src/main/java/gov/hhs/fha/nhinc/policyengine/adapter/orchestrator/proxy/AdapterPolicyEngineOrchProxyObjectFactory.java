@@ -38,6 +38,7 @@ public class AdapterPolicyEngineOrchProxyObjectFactory extends ComponentProxyObj
     private static final String CONFIG_FILE_NAME = "PolicyEngineProxyConfig.xml";
     private static final String BEAN_NAME_ADAPTER_POLICY_ENGINE_ORCHESTRATOR = "adapterpolicyengineorchestrator";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

@@ -36,6 +36,7 @@ public class AdapterRedactionEngineProxyObjectFactory extends ComponentProxyObje
     private static final String CONFIG_FILE_NAME = "AdapterRedactionEngineProxyConfig.xml";
     private static final String BEAN_NAME = "adapterredactionengine";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

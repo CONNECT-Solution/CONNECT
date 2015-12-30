@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +53,7 @@ public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistri
     @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
             version = "")
+    @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
         getAdapterImplementation().sendAlertMessage(body, assertion);

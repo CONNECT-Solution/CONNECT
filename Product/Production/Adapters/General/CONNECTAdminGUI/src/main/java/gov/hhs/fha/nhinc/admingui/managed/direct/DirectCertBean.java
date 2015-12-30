@@ -144,7 +144,7 @@ public class DirectCertBean {
         cert.setMaxResutls(0);
         cert.setOptions(new CertificateGetOptions());
 
-        directCertificate = new ArrayList<DirectCertificate>();
+        directCertificate = new ArrayList<>();
         List<Certificate> certsResponse = directService.listCertificate(cert);
 
         for (Certificate c : certsResponse) {

@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import java.io.File;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
@@ -49,7 +47,7 @@ public class StringUtil {
      */
     public static String extractStringFromTokens(String tokenString, String tokens) {
         String resultString = "";
-        if (tokens != null && !tokens.equals("")) {
+        if (tokens != null && !tokens.isEmpty()) {
             StringTokenizer tk = new StringTokenizer(tokenString, tokens);
             StringBuffer outString = new StringBuffer();
             while (tk.hasMoreTokens()) {

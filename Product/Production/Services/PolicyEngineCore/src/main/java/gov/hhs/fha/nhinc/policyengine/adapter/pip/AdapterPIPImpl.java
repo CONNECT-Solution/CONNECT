@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdReques
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,6 +87,7 @@ public class AdapterPIPImpl {
      *
      * @param request The doucment identifiers of a document in the repository.
      * @return The patient consent settings for the patient associated with the given document identifiers.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException
      */
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
         RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
@@ -128,6 +128,7 @@ public class AdapterPIPImpl {
      * @param request The patient consent settings to be stored.
      * @return Status of the storage. Currently this is either "SUCCESS" or or the word "FAILED" followed by a ':'
      * followed by the error information.
+     * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException
      */
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request) throws AdapterPIPException {
         LOG.trace("Begin AdapterPIPImpl.storePtConsent()..");

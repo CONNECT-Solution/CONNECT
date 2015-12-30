@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.endpoint.Client;
@@ -70,7 +68,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
         if (headers != null) {
             for (Header header : headers) {
                 if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_MESSAGEID)) {
-                    Element element = (Element) ((SoapHeader) header).getObject();
+                    Element element = (Element) header.getObject();
                     responseMessageId = element.getFirstChild().getNodeValue();
                 }
             }
@@ -88,7 +86,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
     @SuppressWarnings("unchecked")
     public static void addResponseMessageIdToContext(Object port, Message currentMessage) {
         try {
-            Client clientProxy = ClientProxy.getClient((BindingProvider) port);
+            Client clientProxy = ClientProxy.getClient(port);
 
             Map<String, Object> responseContext = clientProxy.getResponseContext();
             String responseMsgId = (String) responseContext.get(NhincConstants.RESPONSE_MESSAGE_ID_KEY);
@@ -98,7 +96,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
                 List<String> responseMsgIdList = (List<String>) currentMessage.getExchange().get(
                     NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
                 if (responseMsgIdList == null) {
-                    responseMsgIdList = new ArrayList<String>();
+                    responseMsgIdList = new ArrayList<>();
                 }
                 responseMsgIdList.add(responseMsgId);
 

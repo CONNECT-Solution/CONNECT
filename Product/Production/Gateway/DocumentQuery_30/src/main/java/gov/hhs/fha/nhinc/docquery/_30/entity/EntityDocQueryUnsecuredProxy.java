@@ -30,15 +30,13 @@ import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestTransformingBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyObjectFactory;
-
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
@@ -53,6 +51,7 @@ public class EntityDocQueryUnsecuredProxy implements gov.hhs.fha.nhinc.entitydoc
     @OutboundMessageEvent(beforeBuilder = AdhocQueryRequestTransformingBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "3.0")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
         EntityDocQueryProxyObjectFactory factory = new EntityDocQueryProxyObjectFactory();
         EntityDocQueryProxy proxy = factory.getEntityDocQueryProxy();

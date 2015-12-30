@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.OutboundDocSubmissionDeferredRequest;
 import gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;

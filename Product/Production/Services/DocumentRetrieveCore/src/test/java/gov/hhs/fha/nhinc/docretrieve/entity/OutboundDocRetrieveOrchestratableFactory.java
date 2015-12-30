@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import javax.activation.DataHandler;
-
-import org.apache.cxf.attachment.ByteDataSource;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -38,9 +34,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+import javax.activation.DataHandler;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.cxf.attachment.ByteDataSource;
 
 /**
  *
@@ -86,8 +84,7 @@ public class OutboundDocRetrieveOrchestratableFactory {
     }
 
     public AssertionType getAssertion() {
-        AssertionType assertion = new AssertionType();
-        return assertion;
+        return new AssertionType();
     }
 
     public RetrieveDocumentSetResponseType getRetrieveDocumentSetResponseTypePartialSuccess() {

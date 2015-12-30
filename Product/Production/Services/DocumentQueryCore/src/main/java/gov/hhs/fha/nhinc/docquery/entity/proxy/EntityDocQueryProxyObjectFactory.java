@@ -40,6 +40,7 @@ public class EntityDocQueryProxyObjectFactory extends ComponentProxyObjectFactor
      * This method returns Spring Proxy Config filename.
      * @return Spring Proxy Config Filename.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

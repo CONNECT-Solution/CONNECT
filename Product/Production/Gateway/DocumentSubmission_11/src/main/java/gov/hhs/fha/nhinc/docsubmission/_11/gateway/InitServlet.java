@@ -31,10 +31,8 @@ import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmission11WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefRequest11WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefResponse11WebServices;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -57,7 +55,7 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
      */
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        Set<WebServicesMXBean> beans = new HashSet<WebServicesMXBean>();
+        Set<WebServicesMXBean> beans = new HashSet<>();
         beans.add(new DocumentSubmission11WebServices(sc));
         beans.add(new DocumentSubmissionDefRequest11WebServices(sc));
         beans.add(new DocumentSubmissionDefResponse11WebServices(sc));

@@ -26,29 +26,25 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import gov.hhs.fha.nhinc.util.Base64Coder;
-
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import org.hl7.v3.BinaryDataEncoding;
 import org.hl7.v3.EDExplicit;
 import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
 import org.hl7.v3.MCCIMT000300UV01AcknowledgementDetail;
 import org.hl7.v3.PRPAIN201306UV02;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
-import java.util.HashSet;
-import java.util.Set;
-
 class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, Set<String>> {
     private static final PRPAIN201306UV02StatusExtractor.StatusFunction STATUS_FUNCTION = new StatusFunction();
 
     @Override
     public Set<String> apply(PRPAIN201306UV02 input) {
-        Set<String> statuses = new HashSet<String>();
+        Set<String> statuses = new HashSet<>();
 
         for (MCCIMT000300UV01Acknowledgement acknowledgement : input.getAcknowledgement()) {
             List<Optional<String>> tmp = Lists.transform(acknowledgement.getAcknowledgementDetail(), STATUS_FUNCTION);
@@ -62,7 +58,7 @@ class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, Set<
         @Override
         public Optional<String> apply(MCCIMT000300UV01AcknowledgementDetail detail) {
             EDExplicit edExplicit = detail.getText();
-            if (edExplicit == null || edExplicit.getContent().size() == 0) {
+            if (edExplicit == null || edExplicit.getContent().isEmpty()) {
                 return Optional.absent();
             }
             return Optional.of(convertContent(edExplicit));

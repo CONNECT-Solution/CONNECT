@@ -132,7 +132,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
     }
 
     private Message[] getMessages(Store store, Folder inbox) throws MailClientException {
-        Message[] messages = null;
+        Message[] messages;
         try {
             messages = inbox.getMessages(IMAP_MSG_INDEX_START, getNumberOfMsgsToHandle(inbox));
         } catch (MessagingException e) {
@@ -148,7 +148,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
     }
 
     protected Folder getInbox(Store store) throws MailClientException {
-        Folder inbox = null;
+        Folder inbox;
         try {
             store.connect();
             inbox = store.getFolder(MailUtils.FOLDER_NAME_INBOX);

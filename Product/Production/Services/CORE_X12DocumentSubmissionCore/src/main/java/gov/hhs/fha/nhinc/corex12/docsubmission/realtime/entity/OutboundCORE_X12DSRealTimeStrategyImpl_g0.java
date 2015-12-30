@@ -31,10 +31,9 @@ import gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.NhinCORE_X12D
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-
+import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 
 /**
  * @author cmay

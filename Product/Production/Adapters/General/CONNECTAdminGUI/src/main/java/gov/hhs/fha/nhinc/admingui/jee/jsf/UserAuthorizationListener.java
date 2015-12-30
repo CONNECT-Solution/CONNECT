@@ -46,9 +46,8 @@ import org.springframework.stereotype.Component;
 /**
  * The listener interface for receiving userAuthorization events. The class that is interested in processing a
  * userAuthorization event implements this interface, and the object created with that class is registered with a
- * component using the component's <code>addUserAuthorizationListener<code> method. When
- * the userAuthorization event occurs, that object's appropriate
- * method is invoked.
+ * component using the component's <code>addUserAuthorizationListener</code> method. When the userAuthorization event
+ * occurs, that object's appropriate method is invoked.
  *
  * @author msw
  */
@@ -58,20 +57,19 @@ public class UserAuthorizationListener implements PhaseListener {
     private static final Logger LOG = LoggerFactory.getLogger(UserAuthorizationListener.class);
 
     /**
-     * The Constant LOGIN_REQUIRED_DIR.
+     * The Constant NO_LOGIN_REQUIRED_PAGES
      */
-    public static List<String> noLoginRequiredPages = null;
+    protected static final List<String> NO_LOGIN_REQUIRED_PAGES = new ArrayList<>();
 
     /**
      * The Constant USER_INFO_SESSION_ATTRIBUTE.
      */
     public static final String USER_INFO_SESSION_ATTRIBUTE = "userInfo";
 
-    private RoleService roleService = new RoleServiceImpl();
+    private final RoleService roleService = new RoleServiceImpl();
 
     /**
      * Serial version required for Serializable interface.
-     *
      */
     private static final long serialVersionUID = 4891265644965340362L;
 
@@ -79,8 +77,7 @@ public class UserAuthorizationListener implements PhaseListener {
      *
      */
     public UserAuthorizationListener() {
-        noLoginRequiredPages = new ArrayList<String>();
-        noLoginRequiredPages.add("/login.xhtml");
+        NO_LOGIN_REQUIRED_PAGES.add("/login.xhtml");
     }
 
     /*
@@ -100,17 +97,15 @@ public class UserAuthorizationListener implements PhaseListener {
             currentUser = (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
         }
         validateCsrfToken(event);
-        if (!noLoginRequiredPages.contains(currentPage) && currentUser == null) {
+        if (!NO_LOGIN_REQUIRED_PAGES.contains(currentPage) && currentUser == null) {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
         } else {
-
             boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
             boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
 
             if (currentUser != null && (hasRolePermission == false || isConfigured == false)) {
-
                 LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
                 NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
                 nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
@@ -156,12 +151,13 @@ public class UserAuthorizationListener implements PhaseListener {
     }
 
     /**
-     * @param event 
-     * 
-     *when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml 
-     *and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The validation is 
-     *now performed by checking if token is null and ignore the transitioned page. Below "if" method can be re-written in 
-     *a way so that if token is null and the phase of transition can be checked it will be safer to ignore that validation.
+     * @param event
+     *
+     * when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml
+     * and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The
+     * validation is now performed by checking if token is null and ignore the transitioned page. Below "if" method can
+     * be re-written in a way so that if token is null and the phase of transition can be checked it will be safer to
+     * ignore that validation.
      */
     public void validateCsrfToken(PhaseEvent event) {
         String csrfToken = event.getFacesContext().getExternalContext().getRequestParameterMap().get("csrfToken");
@@ -177,5 +173,4 @@ public class UserAuthorizationListener implements PhaseListener {
             }
         }
     }
-
 }

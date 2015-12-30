@@ -59,10 +59,11 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     @OutboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
         afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
         serviceType = "Document Submission Deferred Response", version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType internalRequest
             = createRequestForInternalProcessing(request, targets);

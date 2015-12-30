@@ -32,12 +32,9 @@ import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.net.URI;
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +46,7 @@ public class ConnectReference implements XDRRouting {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectReference.class);
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
         AssertionType assertion) {
         LOG.info("Inside Connect Reference provideAndRegisterDocumentSetB()");

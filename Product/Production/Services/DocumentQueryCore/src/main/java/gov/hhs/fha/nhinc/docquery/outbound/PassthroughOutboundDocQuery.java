@@ -35,12 +35,9 @@ import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.Iterator;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +59,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      *
      * @param request the AdhocQueryRequest message to be sent
      * @param assertion the AssertionType instance received from the adapter
-     * @param targets
+     * @param targets NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
@@ -76,10 +73,8 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             warnTooManyTargets(targetHCID, targets);
         }
 
-        AdhocQueryResponse response = sendRequestToNwhin(request, MessageGeneratorUtils.getInstance().generateMessageId(
+        return sendRequestToNwhin(request, MessageGeneratorUtils.getInstance().generateMessageId(
             assertion), target, targetHCID);
-
-        return response;
     }
 
     private String getTargetHCID(NhinTargetSystemType target) {
@@ -93,7 +88,8 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request, AssertionType assertion,
         NhinTargetSystemType target, String targetCommunityID) {
-        AdhocQueryResponse response = null;
+
+        AdhocQueryResponse response;
 
         try {
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,
@@ -111,10 +107,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Multiple targets in request message in passthrough mode.");
-        stringBuilder.append("  Only sending to target HCID: ");
-        stringBuilder.append(targetHCID).append(".");
-        stringBuilder.append("  Not sending request to: ");
+        stringBuilder.append("Multiple targets in request message in passthrough mode.  Only sending to target HCID: ")
+            .append(targetHCID).append(".  Not sending request to: ");
+
         Iterator<NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
         Boolean first = true;
         while (communityIterator.hasNext()) {

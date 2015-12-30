@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import java.util.List;
-
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.List;
 import org.hl7.v3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,10 +108,9 @@ public class HL7AckTransforms {
             String senderOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getSender());
 
             // Set the receiver OID to the sender OID from the original message
-            String receiverOID = senderOID;
             // Create the ack message
             ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
-                    receiverOID);
+                    senderOID);
         }
 
         return ack;

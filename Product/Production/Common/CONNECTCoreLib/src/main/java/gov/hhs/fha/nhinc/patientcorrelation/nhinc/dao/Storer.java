@@ -28,13 +28,13 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -77,15 +77,15 @@ public class Storer {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -110,15 +110,15 @@ public class Storer {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -170,21 +170,21 @@ public class Storer {
             } else {
                 LOG.error("Unable to create Factory...");
             }
-        } catch (HibernateException exp) {
-            exp.printStackTrace();
+        } catch (HibernateException he) {
+            LOG.error(he.getLocalizedMessage(), he);
         } finally {
             if (trans != null && trans.isActive()) {
                 try {
                     trans.rollback();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }

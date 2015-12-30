@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.orchestration.OrchestrationContextFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +43,7 @@ public class OutboundPatientDiscoveryDeferredRequestDelegate implements Outbound
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryDeferredRequestDelegate.class);
 
+    @Override
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
             return process((OutboundOrchestratable) message);

@@ -42,9 +42,8 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
-
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,6 +66,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param getPropertyRequest The input parameters - Property File and Property Name.
      * @return The value for the property.
      */
+    @WebMethod
+    @Override
     public GetPropertyResponseType getProperty(GetPropertyRequestType getPropertyRequest) {
         GetPropertyResponseType oOutput = null;
 
@@ -87,6 +88,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param getPropertyBooleanRequest The property file and property name.
      * @return TRUE if the property is true and false if it is not.
      */
+    @WebMethod
+    @Override
     public GetPropertyBooleanResponseType getPropertyBoolean(GetPropertyBooleanRequestType getPropertyBooleanRequest) {
         GetPropertyBooleanResponseType oOutput = null;
 
@@ -106,6 +109,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param getPropertyNamesRequest The name of the property file.
      * @return The list of property names in the property file.
      */
+    @WebMethod
+    @Override
     public GetPropertyNamesResponseType getPropertyNames(GetPropertyNamesRequestType getPropertyNamesRequest) {
         GetPropertyNamesResponseType oOutput = null;
 
@@ -133,6 +138,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param getPropertiesRequest Name of the property file.
      * @return Returns all of the properties and values in the property file.
      */
+    @WebMethod
+    @Override
     public GetPropertiesResponseType getProperties(GetPropertiesRequestType getPropertiesRequest) {
         GetPropertiesResponseType oOutput = null;
 
@@ -153,6 +160,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param getPropertyFileLocationRequest Nothing important - just need this unique for document literal binding.
      * @return The path and location of the property files.
      */
+    @WebMethod
+    @Override
     public GetPropertyFileLocationResponseType getPropertyFileLocation(
             GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
         GetPropertyFileLocationResponseType oOutput = null;
@@ -173,6 +182,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param dumpPropsToLogRequest the name of the property file.
      * @return Nothing - it simply always returns true.
      */
+    @WebMethod
+    @Override
     public DumpPropsToLogResponseType dumpPropsToLog(DumpPropsToLogRequestType dumpPropsToLogRequest) {
         DumpPropsToLogResponseType oOutput = null;
 
@@ -195,6 +206,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param writePropertyFileRequest The name of the property file and the properties to write.
      * @return True if this succeeds.
      */
+    @WebMethod
+    @Override
     public WritePropertyFileResponseType writePropertyFile(WritePropertyFileRequestType writePropertyFileRequest) {
         WritePropertyFileResponseType oOutput = null;
 
@@ -216,6 +229,8 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      * @param deletePropertyFileRequest The name of the property file to be deleted without the ".properties" extension.
      * @return True if this succeeds.
      */
+    @WebMethod
+    @Override
     public DeletePropertyFileResponseType deletePropertyFile(DeletePropertyFileRequestType deletePropertyFileRequest) {
         DeletePropertyFileResponseType oOutput = null;
 

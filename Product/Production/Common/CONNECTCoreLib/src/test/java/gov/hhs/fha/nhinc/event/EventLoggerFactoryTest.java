@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.event;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -59,7 +58,7 @@ public class EventLoggerFactoryTest {
         final EventLoggerFactory eventLoggerFactory = new EventLoggerFactory(mockEventManager);
 
         // add some mock loggers to be registered.
-        List<EventLogger> loggers = new ArrayList<EventLogger>(TOTAL_MOCK_LOGGERS);
+        List<EventLogger> loggers = new ArrayList<>(TOTAL_MOCK_LOGGERS);
         for (int i = 0; i < TOTAL_MOCK_LOGGERS; i++) {
             loggers.add(context.mock(EventLogger.class, "EventLogger" + i));
         }

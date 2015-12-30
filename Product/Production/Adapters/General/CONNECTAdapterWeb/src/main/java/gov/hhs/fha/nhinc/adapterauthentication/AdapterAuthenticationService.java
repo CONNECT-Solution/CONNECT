@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication;
 
-import javax.xml.ws.BindingType;
-
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-
+import javax.jws.WebMethod;
+import javax.xml.ws.BindingType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +50,8 @@ public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterau
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
+    @WebMethod
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
 

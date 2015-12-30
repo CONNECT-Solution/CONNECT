@@ -52,14 +52,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.AddressService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -119,12 +116,12 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {
 
-        if (addressNames == null || addressNames.size() == 0) {
+        if (addressNames == null || addressNames.isEmpty()) {
             log.debug("No address names were provided.");
             return Collections.emptyList();
         }
 
-        return dao.listAddresses(new ArrayList<String>(addressNames), status);
+        return dao.listAddresses(new ArrayList<>(addressNames), status);
     }
 
     /**

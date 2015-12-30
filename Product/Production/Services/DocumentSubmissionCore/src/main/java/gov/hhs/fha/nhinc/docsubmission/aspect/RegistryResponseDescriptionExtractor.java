@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.builder.ErrorExtractor;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import gov.hhs.fha.nhinc.event.builder.ErrorExtractor;
+import java.util.ArrayList;
+import java.util.List;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * @author akong
@@ -66,7 +63,7 @@ public class RegistryResponseDescriptionExtractor {
      * @return a list of string containing the error codes
      */
     public List<String> getErrorCodes(RegistryResponseType response) {
-        List<String> errorCodes = new ArrayList<String>();
+        List<String> errorCodes = new ArrayList<>();
         if (hasErrorList(response)) {
             errorCodes = Lists.transform(response.getRegistryErrorList().getRegistryError(), ERROR_EXTRACTOR);
         }

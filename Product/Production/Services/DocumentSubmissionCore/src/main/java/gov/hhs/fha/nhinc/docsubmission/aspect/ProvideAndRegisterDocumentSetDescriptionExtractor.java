@@ -26,16 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import gov.hhs.fha.nhinc.event.builder.PayloadSizeExtractor;
 import gov.hhs.fha.nhinc.event.builder.PayloadTypeExtractor;
 import gov.hhs.fha.nhinc.util.NhincCollections;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 
 /**
  * @author akong
@@ -53,7 +51,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractor {
      * @return a list of string containing the payload types
      */
     public List<String> getPayloadTypes(ProvideAndRegisterDocumentSetRequestType request) {
-        List<String> payloadTypes = new ArrayList<String>();
+        List<String> payloadTypes = new ArrayList<>();
         if (hasObjectList(request)) {
             List<Optional<String>> listWithDups = Lists.transform(request.getSubmitObjectsRequest()
                     .getRegistryObjectList().getIdentifiable(), PAYLOAD_TYPE_EXTRACTOR);
@@ -71,7 +69,7 @@ public class ProvideAndRegisterDocumentSetDescriptionExtractor {
      * @return a list of string containing the payload sizes
      */
     public List<String> getPayloadSize(ProvideAndRegisterDocumentSetRequestType request) {
-        List<String> payloadSizes = new ArrayList<String>();
+        List<String> payloadSizes = new ArrayList<>();
 
         if (hasObjectList(request)) {
             List<Optional<String>> listWithDups = Lists.transform(request.getSubmitObjectsRequest()

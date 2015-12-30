@@ -3,7 +3,7 @@
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">DoD</name>
         <businessServices>
-			<businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
@@ -18,19 +18,19 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-		</businessServices>
+        </businessServices>
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
         </identifierBag>
         <categoryBag>
-			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Arizona" keyValue="US-AZ"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Arizona" keyValue="US-AZ"/>
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
-	<businessEntity businessKey="uddi:testnhincnode:2.2">
+    <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
-			<businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
@@ -55,7 +55,7 @@
     <businessEntity businessKey="uddi:testnhincnode:8.8">
         <name xml:lang="en">DoD</name>
         <businessServices>
-			<businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:8.8">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:8.8">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
@@ -75,14 +75,14 @@
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="8.8"/>
         </identifierBag>
         <categoryBag>
-			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Arizona" keyValue="US-AZ"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Arizona" keyValue="US-AZ"/>
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
     <businessEntity businessKey="uddi:testnhincnode:4.4">
         <name xml:lang="en">DoD</name>
         <businessServices>
-			<businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:4.4">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:4.4">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
@@ -97,14 +97,14 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-		</businessServices>
+        </businessServices>
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="4.4"/>
         </identifierBag>
         <categoryBag>
-			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Arizona" keyValue="US-AZ"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Arizona" keyValue="US-AZ"/>
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Maryland" keyValue="US-MD"/>
-			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
 </businessDetail>

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -35,8 +36,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
-import com.google.common.base.Optional;
 
 /**
  * Doc Query implementation of OutboundOrchestratableMessage.
@@ -140,6 +139,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return delegate.
      */
+    @Override
     public OutboundDelegate getDelegate() {
         return delegate;
     }
@@ -149,6 +149,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
      *
      * @return Null.
      */
+    @Override
     public NhinAggregator getAggregator() {
         return aggregator;
     }
@@ -156,6 +157,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return absent processor. Does not exists for DQ.
      */
+    @Override
     public Optional<OutboundResponseProcessor> getResponseProcessor() {
         return Optional.absent();
     }
@@ -163,6 +165,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return policyTransformer to check policy.
      */
+    @Override
     public PolicyTransformer getPolicyTransformer() {
         return policyTransformer;
     }
@@ -170,6 +173,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return assertion.
      */
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -177,6 +181,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return ServiceName (DocumentQuery).
      */
+    @Override
     public String getServiceName() {
         return serviceName;
     }
@@ -198,6 +203,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     /**
      * @return false if not in passthru mode.
      */
+    @Override
     public boolean isPassthru() {
         return false;
     }

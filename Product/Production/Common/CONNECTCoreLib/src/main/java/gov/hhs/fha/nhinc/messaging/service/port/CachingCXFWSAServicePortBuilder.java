@@ -28,10 +28,8 @@ package gov.hhs.fha.nhinc.messaging.service.port;
 
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.addressing.WSAddressingFeature;
 
@@ -41,7 +39,7 @@ import org.apache.cxf.ws.addressing.WSAddressingFeature;
  */
 public class CachingCXFWSAServicePortBuilder<T> extends CachingCXFServicePortBuilder<T> {
 
-    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<Class<?>, Object>();
+    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<>();
 
     /**
      * Constructor.
@@ -71,7 +69,7 @@ public class CachingCXFWSAServicePortBuilder<T> extends CachingCXFServicePortBui
     protected void configurePort(T port) {
         super.configurePort(port);
 
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
         serviceEndpoint.configure();
     }
 

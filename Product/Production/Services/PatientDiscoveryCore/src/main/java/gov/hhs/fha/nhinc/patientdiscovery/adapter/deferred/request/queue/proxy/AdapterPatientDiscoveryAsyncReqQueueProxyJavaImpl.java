@@ -29,11 +29,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueOrchImpl;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the java implementation of the AdapterPatientDiscoveryAsyncReqQueue component proxy.
@@ -51,6 +50,7 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements Adapte
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
+    @Override
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
         LOG.trace("Entering AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");

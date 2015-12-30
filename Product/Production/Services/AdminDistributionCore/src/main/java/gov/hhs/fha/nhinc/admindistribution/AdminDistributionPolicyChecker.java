@@ -26,12 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admindistribution;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
@@ -39,6 +33,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -87,7 +85,7 @@ public class AdminDistributionPolicyChecker {
      * @return boolean true if Permit;else denied.
      */
     protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
-        boolean policyIsValid = false;
+        boolean policyIsValid;
 
         LOG.debug("start invokePolicyEngine");
         /* invoke check policy */

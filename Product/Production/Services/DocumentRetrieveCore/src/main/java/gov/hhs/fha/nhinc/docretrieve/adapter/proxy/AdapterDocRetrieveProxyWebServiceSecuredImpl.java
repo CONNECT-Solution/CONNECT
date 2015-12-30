@@ -64,7 +64,7 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
     serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
         AssertionType assertion) {
-        String url = null;
+        String url;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
 
         try {

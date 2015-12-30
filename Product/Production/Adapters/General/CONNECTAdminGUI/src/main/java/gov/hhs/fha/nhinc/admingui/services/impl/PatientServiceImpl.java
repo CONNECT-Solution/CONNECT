@@ -30,24 +30,24 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
  *
  * @author tjafri
  */
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import gov.hhs.fha.nhinc.admingui.services.PatientService;
+import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
+import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.impl.PRPAIN201305UV02BuilderImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.PatientDiscoveryMessageDirector;
+import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.impl.PatientDiscoveryMessageDirectorImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
-import gov.hhs.fha.nhinc.admingui.services.PatientService;
-import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
-import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.PatientDiscoveryMessageDirector;
-import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.impl.PatientDiscoveryMessageDirectorImpl;
-import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
-import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.impl.PatientSearchResultsModelBuilderImpl;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * PatientServiceImpl is responsible for building a PRPAIN201305UV02 and making a PatientDiscovery call by employing

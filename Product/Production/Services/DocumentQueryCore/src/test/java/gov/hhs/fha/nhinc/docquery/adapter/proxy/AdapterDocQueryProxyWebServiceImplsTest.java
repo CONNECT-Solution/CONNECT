@@ -30,14 +30,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AdapterDocQueryProxyWebServiceImplsTest {
@@ -75,7 +74,7 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
     public void checkEndpointURLBasedOnImplementsSpecVersion() throws Exception {
         final String a0_URL = "a0 URL";
         final String a1_URL = "a1 URL";
-        String url = null;
+        String url;
 
         WebServiceProxyHelper proxyMock = mock(WebServiceProxyHelper.class);
         when(proxyMock.getAdapterEndPointFromConnectionManager(anyString())).thenReturn(a1_URL);

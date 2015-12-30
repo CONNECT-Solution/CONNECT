@@ -47,12 +47,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.jaxws;
 
+import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 
 @XmlRootElement(name = "getPolicyByIdResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)

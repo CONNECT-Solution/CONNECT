@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
-
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -72,9 +71,8 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends
      */
     @Override
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
-        MCCIIN000002UV01 response = sendToAdapter(request, assertion);
 
-        return response;
+        return sendToAdapter(request, assertion);
     }
 
     /*

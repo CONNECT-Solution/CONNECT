@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -40,6 +40,8 @@ public class AdapterPatientDiscoveryDeferredRequestErrorUnsecured implements gov
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(
             org.hl7.v3.AsyncAdapterPatientDiscoveryErrorRequestType processPatientDiscoveryAsyncReqErrorRequest) {
         return new AdapterPatientDiscoverySecuredDeferredRequestErrorImpl().processPatientDiscoveryAsyncReqError(

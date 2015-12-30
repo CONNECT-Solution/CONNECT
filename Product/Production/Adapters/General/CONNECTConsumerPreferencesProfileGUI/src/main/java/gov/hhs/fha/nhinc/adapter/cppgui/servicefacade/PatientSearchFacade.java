@@ -41,18 +41,16 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -70,7 +68,7 @@ public class PatientSearchFacade {
      */
     public List<PatientVO> searchPatient(PatientSearchCriteria patientSearchCriteria) throws Exception {
 
-        List<PatientVO> patientVOs = null;
+        List<PatientVO> patientVOs;
 
         PRPAIN201305UV02 searchRequest = createPRPAMT201301UVPatient(patientSearchCriteria);
 
@@ -123,10 +121,10 @@ public class PatientSearchFacade {
      */
     private Patients convertPRPAIN201306UVToPatients(PRPAIN201306UV02 patients) {
         Patients mpiPatients = new Patients();
-        Patient searchPatient = null;
-        PRPAMT201310UV02Patient mpiPatResult = null;
-        PersonNameType name = null;
-        PersonName personName = null;
+        Patient searchPatient;
+        PRPAMT201310UV02Patient mpiPatResult;
+        PersonNameType name;
+        PersonName personName;
         if ((patients != null) && (patients.getControlActProcess() != null)
                 && NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
             LOG.debug("convertPRPAIN201306UVToPatients - patients size: "
@@ -184,7 +182,7 @@ public class PatientSearchFacade {
      * @return
      */
     private List<PatientVO> convertMPIPatientToPatientVO(Patients mpiPatients) throws Exception {
-        List<PatientVO> patientVOs = new ArrayList<PatientVO>();
+        List<PatientVO> patientVOs = new ArrayList<>();
 
         if (mpiPatients == null || mpiPatients.size() < 1) {
             return patientVOs;

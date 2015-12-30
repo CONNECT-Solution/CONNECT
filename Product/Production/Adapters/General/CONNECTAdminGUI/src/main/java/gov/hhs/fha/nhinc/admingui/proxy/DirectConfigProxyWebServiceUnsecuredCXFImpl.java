@@ -353,10 +353,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
 
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
-        CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
                 portDescriptor, url, new AssertionType());
-
-        return client;
     }
 
     @Override

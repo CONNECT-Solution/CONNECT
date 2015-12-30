@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.apache.cxf.phase.PhaseInterceptorChain;
 
 /**
@@ -47,6 +46,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
         proxyHelper = new WebServiceProxyHelper();
     }
 
+    @Override
     public abstract T getPort();
 
     @Override
@@ -66,9 +66,9 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
      * @return
      */
     protected ServiceEndpoint<T> configureBasePort(T port, String url, Integer timeout) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint, timeout);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
+        serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, timeout);
 
         return serviceEndpoint;
     }

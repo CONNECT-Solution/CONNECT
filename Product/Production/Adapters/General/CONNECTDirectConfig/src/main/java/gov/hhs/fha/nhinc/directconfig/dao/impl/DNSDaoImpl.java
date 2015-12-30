@@ -45,9 +45,7 @@ package gov.hhs.fha.nhinc.directconfig.dao.impl;
 import gov.hhs.fha.nhinc.directconfig.dao.DNSDao;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
-
 import java.util.Collection;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.stereotype.Repository;
 

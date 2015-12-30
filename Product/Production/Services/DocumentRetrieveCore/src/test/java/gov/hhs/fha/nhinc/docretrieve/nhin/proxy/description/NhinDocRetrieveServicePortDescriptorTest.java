@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description;
 
-import static org.junit.Assert.assertEquals;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

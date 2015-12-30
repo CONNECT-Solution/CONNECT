@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
 import java.util.List;
-import org.primefaces.component.behavior.ajax.AjaxBehavior;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
 

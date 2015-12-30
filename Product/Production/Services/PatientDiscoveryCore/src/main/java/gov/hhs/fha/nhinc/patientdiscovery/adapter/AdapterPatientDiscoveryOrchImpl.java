@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is the orchestration code for the patient discovery.
@@ -52,8 +51,7 @@ public class AdapterPatientDiscoveryOrchImpl {
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request,
             AssertionType assertion) {
         LOG.debug("Entering AdapterPatientDiscoveryOrchImpl.respondingGatewayPRPAIN201305UV02");
-        PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        return response;
+        return new PRPAIN201306UV02();
     }
 
 }

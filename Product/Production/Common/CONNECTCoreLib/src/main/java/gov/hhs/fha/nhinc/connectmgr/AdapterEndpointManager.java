@@ -26,20 +26,17 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.HashSet;
 import java.util.Set;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.KeyedReference;
-
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AdapterEndpointManager {
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
@@ -92,7 +89,7 @@ public class AdapterEndpointManager {
     }
 
     private Set<ADAPTER_API_LEVEL> getAPILevelsFromBusinessService(BusinessService businessService) {
-        Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<ADAPTER_API_LEVEL>();
+        Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<>();
 
         if (businessService.getBindingTemplates() != null) {
             for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {

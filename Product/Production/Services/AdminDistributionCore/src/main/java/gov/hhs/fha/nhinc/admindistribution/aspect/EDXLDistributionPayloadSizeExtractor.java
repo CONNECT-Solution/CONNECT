@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.admindistribution.aspect;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
@@ -49,7 +48,7 @@ public class EDXLDistributionPayloadSizeExtractor {
      * @return list of sizes
      */
     public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
-        List<String> payloadSize = new ArrayList<String>();
+        List<String> payloadSize = new ArrayList<>();
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
             for (ContentObjectType message : contents) {

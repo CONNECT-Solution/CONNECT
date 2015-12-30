@@ -8,14 +8,14 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.patientcorrelation.nhinc.model">
-  <class name="CorrelatedIdentifiers" table="correlatedidentifiers">
-    <id column="correlationid" name="correlationId" type="long">
-      <generator class="increment"/>
-    </id>
-    <property column="PatientAssigningAuthorityId" length="64" name="patientAssigningAuthorityId" not-null="true" type="string"/>
-    <property column="PatientId" length="128" name="patientId" not-null="true" type="string"/>
-    <property column="CorrelatedPatientAssignAuthId" length="64" name="correlatedPatientAssigningAuthorityId" not-null="true" type="string"/>
-    <property column="CorrelatedPatientId" length="128" name="correlatedPatientId" not-null="true" type="string"/>
-    <property column="CorrelationExpirationDate" length="45" name="correlationExpirationDate" not-null="false" type="timestamp"/>
-  </class>
+    <class name="CorrelatedIdentifiers" table="correlatedidentifiers">
+        <id column="correlationid" name="correlationId" type="long">
+            <generator class="increment"/>
+        </id>
+        <property column="PatientAssigningAuthorityId" length="64" name="patientAssigningAuthorityId" not-null="true" type="string"/>
+        <property column="PatientId" length="128" name="patientId" not-null="true" type="string"/>
+        <property column="CorrelatedPatientAssignAuthId" length="64" name="correlatedPatientAssigningAuthorityId" not-null="true" type="string"/>
+        <property column="CorrelatedPatientId" length="128" name="correlatedPatientId" not-null="true" type="string"/>
+        <property column="CorrelationExpirationDate" length="45" name="correlationExpirationDate" not-null="false" type="timestamp"/>
+    </class>
 </hibernate-mapping>

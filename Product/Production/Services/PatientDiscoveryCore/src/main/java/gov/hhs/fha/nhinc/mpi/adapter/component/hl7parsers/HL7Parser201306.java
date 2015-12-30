@@ -43,8 +43,6 @@ import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -88,6 +86,8 @@ import org.hl7.v3.ParticipationTargetSubject;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -141,8 +141,7 @@ public class HL7Parser201306 {
                 + String.valueOf(today.get(GregorianCalendar.MINUTE))
                 + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
-            LOG.error("Exception when creating XMLGregorian Date");
-            LOG.error(" message: " + e.getMessage());
+            LOG.error("Exception when creating XMLGregorian Date message: {}", e.getLocalizedMessage(), e);
         }
 
         TSExplicit creationTime = new TSExplicit();
@@ -354,10 +353,8 @@ public class HL7Parser201306 {
         org.getContactParty().add(null);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
-        JAXBElement<COCTMT150003UV03Organization> result
-            = new JAXBElement<COCTMT150003UV03Organization>(xmlqname, COCTMT150003UV03Organization.class, org);
 
-        return result;
+        return new JAXBElement<>(xmlqname, COCTMT150003UV03Organization.class, org);
     }
 
     private static II createSubjectId(Patient patient) {
@@ -432,10 +429,8 @@ public class HL7Parser201306 {
         }
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201310UV02Person> result
-            = new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
 
-        return result;
+        return new JAXBElement<>(xmlqname, PRPAMT201310UV02Person.class, person);
     }
 
     private static PRPAMT201310UV02OtherIDs createOtherIds(Patient patient) {
@@ -483,18 +478,13 @@ public class HL7Parser201306 {
     }
 
     private static PNExplicit createSubjectName(PersonName personName) {
-        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit name = (factory.createPNExplicit());
-
         String lastName = personName.getLastName();
         String firstName = personName.getFirstName();
         String middleName = personName.getMiddleName();
         String prefix = personName.getTitle();
         String suffix = personName.getSuffix();
 
-        name = HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
-
-        return name;
+        return HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
     }
 
     private static CE createGender(Patient patient) {
@@ -564,13 +554,13 @@ public class HL7Parser201306 {
         javax.xml.namespace.QName xmlqnameorg
             = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem
-            = new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+            = new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem
-            = new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+            = new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         receiverDevice.setAsAgent(agentElem);
 
@@ -624,13 +614,13 @@ public class HL7Parser201306 {
         javax.xml.namespace.QName xmlqnameorg
             = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem
-            = new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+            = new JAXBElement<>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem
-            = new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+            = new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 

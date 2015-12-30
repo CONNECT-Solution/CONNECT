@@ -26,14 +26,17 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
-import static org.junit.Assert.assertEquals;
-
+import gov.hhs.fha.nhinc.mpi.adapter.component.TestHelper;
+import gov.hhs.fha.nhinc.mpilib.Address;
+import gov.hhs.fha.nhinc.mpilib.Identifier;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.Patients;
+import gov.hhs.fha.nhinc.mpilib.PersonName;
+import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.EnExplicitPrefix;
@@ -45,17 +48,10 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201310UV02Person;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.mpi.adapter.component.TestHelper;
-import gov.hhs.fha.nhinc.mpilib.Address;
-import gov.hhs.fha.nhinc.mpilib.Identifier;
-import gov.hhs.fha.nhinc.mpilib.Patient;
-import gov.hhs.fha.nhinc.mpilib.Patients;
-import gov.hhs.fha.nhinc.mpilib.PersonName;
-import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
 
 /**
  *
@@ -392,7 +388,7 @@ public class HL7Parser201306Test {
     }
 
     private static PatientName extractName(PNExplicit name) {
-        String nameString = "";
+        String nameString;
         Boolean hasName = false;
         PatientName result = new PatientName();
         List<Serializable> choice = name.getContent();

@@ -48,11 +48,9 @@
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -274,7 +272,7 @@ public class Domain {
     @XmlElement(name = "address")
     public Collection<Address> getAddresses() {
         if (addresses == null) {
-            addresses = new ArrayList<Address>();
+            addresses = new ArrayList<>();
         }
 
         return addresses;
@@ -306,7 +304,7 @@ public class Domain {
     @XmlTransient
     public Collection<TrustBundleDomainReltn> getRelations() {
         if (relations == null) {
-            relations = new ArrayList<TrustBundleDomainReltn>();
+            relations = new ArrayList<>();
         }
 
         return relations;

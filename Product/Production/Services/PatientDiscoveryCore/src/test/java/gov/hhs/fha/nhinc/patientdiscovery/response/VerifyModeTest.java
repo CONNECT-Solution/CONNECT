@@ -26,17 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.response;
 
-import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -50,6 +46,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -274,7 +271,7 @@ public class VerifyModeTest {
     public void testPatientExistsLocally() {
         // List<II> localPatientIds, AssertionType assertion, PRPAIN201306UV02 response
 
-        List<II> localPatientIds = new ArrayList<II>();
+        List<II> localPatientIds = new ArrayList<>();
         II patientId = new II();
         patientId.setExtension("1234");
         patientId.setRoot("1.1.1");
@@ -297,9 +294,8 @@ public class VerifyModeTest {
                         "Smith", "M", null, null);
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, "1234", "1.1.1");
                 PRPAIN201305UV02 request = HL7PRPA201305Transforms.createPRPA201305(patient, "1.1", "2.2", "1.1.1");
-                PRPAIN201306UV02 response = HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
+                return HL7PRPA201306Transforms.createPRPA201306(patient, "2.2", "1.1.1", "1.1",
                         "2.2.2", request);
-                return response;
             }
         };
 
@@ -336,7 +332,7 @@ public class VerifyModeTest {
 
     @Test
     public void testCompareId_List() {
-        List<PRPAMT201306UV02LivingSubjectId> localSubjectIds = new ArrayList<PRPAMT201306UV02LivingSubjectId>();
+        List<PRPAMT201306UV02LivingSubjectId> localSubjectIds = new ArrayList<>();
         PRPAMT201306UV02LivingSubjectId localSubjectId = new PRPAMT201306UV02LivingSubjectId();
         II localId = new II();
         localId.setExtension("extension");
@@ -344,7 +340,7 @@ public class VerifyModeTest {
         localSubjectId.getValue().add(localId);
         localSubjectIds.add(localSubjectId);
 
-        List<PRPAMT201306UV02LivingSubjectId> remoteSubjectIds = new ArrayList<PRPAMT201306UV02LivingSubjectId>();
+        List<PRPAMT201306UV02LivingSubjectId> remoteSubjectIds = new ArrayList<>();
         PRPAMT201306UV02LivingSubjectId remoteSubjectId = new PRPAMT201306UV02LivingSubjectId();
         II remoteId = new II();
         remoteId.setExtension("extension");

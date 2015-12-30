@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Map;
-
-import org.junit.Test;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
+import java.util.Map;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  * @author akong
@@ -60,11 +57,11 @@ public class SAMLServiceEndpointDecoratorTest {
     }
 
     private CONNECTClient<TestServicePortType> createClient(AssertionType assertion) {
-        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new SAMLServiceEndpointDecorator<TestServicePortType>(serviceEndpoint, assertion);
+        serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion);
         serviceEndpoint.configure();
 
         return testClient;

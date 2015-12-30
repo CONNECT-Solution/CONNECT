@@ -37,6 +37,7 @@ public class AdapterDocSubmissionDeferredRequestProxyObjectFactory extends Compo
     private static final String CONFIG_FILE_NAME = "DocumentSubmissionDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterxdrrequest";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

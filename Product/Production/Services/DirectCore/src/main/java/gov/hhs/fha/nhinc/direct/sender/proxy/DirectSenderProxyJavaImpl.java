@@ -27,13 +27,11 @@
 package gov.hhs.fha.nhinc.direct.sender.proxy;
 
 import gov.hhs.fha.nhinc.direct.DirectSender;
-
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
-
+import org.nhindirect.xd.common.DirectDocuments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.nhindirect.xd.common.DirectDocuments;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

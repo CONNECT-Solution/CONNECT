@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +58,7 @@ public class SamlTokenCreatorTest {
     public void CreateRequestContext() {
         SamlTokenCreator token = new SamlTokenCreator();
         String action = null;
-        Map<String, Object> expectedrequestContext = new HashMap<>();
+        Map<String, Object> expectedrequestContext;
         expectedrequestContext = token.createRequestContext(createAssertionInfo(), RESOURCE_URL, action);
 
         // TODO: Remove system.out
@@ -106,12 +105,13 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
+
         Map<String, Object> requestContext = token.createRequestContext(assertion, url, action);
         /*ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
-        verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
-        LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
-        assertThat(loggingEvent.getRenderedMessage().toString(),
-            is("Error: samlSendOperation input assertion is null"));*/
+         verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
+         LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
+         assertThat(loggingEvent.getRenderedMessage().toString(),
+         is("Error: samlSendOperation input assertion is null"));*/
         assertEquals("requestContext created with null params should have exactly one entry", requestContext.size(), 1);
     }
 
@@ -125,8 +125,7 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        Map<String, Object> expectedrequestContext = new HashMap<>();
-        expectedrequestContext = token.createRequestContext(assertion, url, action);
+        Map<String, Object> expectedrequestContext = token.createRequestContext(assertion, url, action);
         assertFalse(expectedrequestContext.containsKey("userName"));
     }
 
@@ -140,8 +139,7 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-        expectedrequestContext = token.createRequestContext(assertion, url, action);
+        Map<String, Object> expectedrequestContext = token.createRequestContext(assertion, url, action);
         assertFalse(expectedrequestContext.containsKey("userOrganization"));
     }
 
@@ -159,8 +157,7 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        Map<String, Object> expectedrequestContext = new HashMap<>();
-        expectedrequestContext = token.createRequestContext(assertion, url, action);
+        Map<String, Object> expectedrequestContext = token.createRequestContext(assertion, url, action);
         assertFalse(expectedrequestContext.containsKey("userRoleCode"));
     }
 
@@ -365,13 +362,12 @@ public class SamlTokenCreatorTest {
     private String testHashmapValues(Map<String, Object> map, String attribute) {
         Set<String> keys = map.keySet();
         Iterator<String> itr = keys.iterator();
-        String value = null;
-        String key = null;
+        String key;
+
         while (itr.hasNext()) {
-            key = (String) itr.next();
+            key = itr.next();
             if (key.equals(attribute)) {
-                value = (String) map.get(key);
-                return value;
+                return (String) map.get(key);
             }
         }
         return null;

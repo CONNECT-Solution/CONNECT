@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

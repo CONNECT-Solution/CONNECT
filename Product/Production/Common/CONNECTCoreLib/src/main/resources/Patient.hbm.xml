@@ -8,28 +8,28 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
-  <class name="Patient" table="patient">
-    <id name="patientId">
-      <generator class="native"/>
-    </id>
-    <property column="dateOfBirth" name="dateOfBirth"/>
-    <property column="gender" name="gender"/>
-    <property column="ssn" name="ssn"/>
-    <bag inverse="true" name="addresses">
-      <key column="patientId"/>
-      <one-to-many class="Address"/>
-    </bag>
-    <bag inverse="true" name="identifiers">
-      <key column="patientId"/>
-      <one-to-many class="Identifier"/>
-    </bag>
-    <bag inverse="true" name="personnames">
-      <key column="patientId"/>
-      <one-to-many class="Personname"/>
-    </bag>
-    <bag inverse="true" name="phonenumbers">
-      <key column="patientId"/>
-      <one-to-many class="Phonenumber"/>
-    </bag>
-  </class>
+    <class name="Patient" table="patient">
+        <id name="patientId">
+            <generator class="native"/>
+        </id>
+        <property column="dateOfBirth" name="dateOfBirth"/>
+        <property column="gender" name="gender"/>
+        <property column="ssn" name="ssn"/>
+        <bag inverse="true" name="addresses">
+            <key column="patientId"/>
+            <one-to-many class="Address"/>
+        </bag>
+        <bag inverse="true" name="identifiers">
+            <key column="patientId"/>
+            <one-to-many class="Identifier"/>
+        </bag>
+        <bag inverse="true" name="personnames">
+            <key column="patientId"/>
+            <one-to-many class="Personname"/>
+        </bag>
+        <bag inverse="true" name="phonenumbers">
+            <key column="patientId"/>
+            <one-to-many class="Phonenumber"/>
+        </bag>
+    </class>
 </hibernate-mapping>

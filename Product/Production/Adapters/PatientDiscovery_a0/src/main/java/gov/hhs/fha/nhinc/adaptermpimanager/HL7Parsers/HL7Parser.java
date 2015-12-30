@@ -26,16 +26,17 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author rayj
  */
 public class HL7Parser {
+
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser.class);
     public static final String SSN_OID = "2.16.840.1.113883.4.1";
 
@@ -54,7 +55,7 @@ public class HL7Parser {
         if (idname == null) {
             idname = "";
         }
-        if (!(id == null)) {
+        if (id != null) {
             LOG.info(idname + ".id.root=" + id.getRoot() + ";");
             LOG.info(idname + ".id.extension=" + id.getExtension() + ";");
         } else {

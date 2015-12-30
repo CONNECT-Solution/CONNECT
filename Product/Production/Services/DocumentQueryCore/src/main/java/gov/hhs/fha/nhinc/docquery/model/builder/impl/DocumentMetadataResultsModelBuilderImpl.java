@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.docquery.model.builder.impl;
 
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
+import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 import gov.hhs.fha.nhinc.docquery.model.builder.DocumentMetadataResultModelBuilder;
 import gov.hhs.fha.nhinc.docquery.model.builder.DocumentMetadataResultsModelBuilder;
-import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
@@ -62,7 +62,7 @@ public class DocumentMetadataResultsModelBuilderImpl implements DocumentMetadata
      * Instantiates a new document metadata results model builder impl.
      */
     public DocumentMetadataResultsModelBuilderImpl() {
-        resultsHolder = new ArrayList<DocumentMetadataResult>();
+        resultsHolder = new ArrayList<>();
     }
 
     @Override

@@ -28,18 +28,17 @@ package gov.hhs.fha.nhinc.docquery;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker;
-
 import java.util.ArrayList;
 import java.util.List;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-import org.jmock.Mockery;
 import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -112,7 +111,7 @@ public class DocQueryPolicyCheckerTest {
         final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
         final ResponseType mockResponse = mockery.mock(ResponseType.class);
         final ResultType mockResult = mockery.mock(ResultType.class);
-        final List<ResultType> results = new ArrayList<ResultType>();
+        final List<ResultType> results = new ArrayList<>();
         results.add(mockResult);
 
         DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();
@@ -141,7 +140,7 @@ public class DocQueryPolicyCheckerTest {
         final CheckPolicyResponseType mockPolicyResponse = mockery.mock(CheckPolicyResponseType.class);
         final ResponseType mockResponse = mockery.mock(ResponseType.class);
         final ResultType mockResult = mockery.mock(ResultType.class);
-        final List<ResultType> results = new ArrayList<ResultType>();
+        final List<ResultType> results = new ArrayList<>();
         results.add(mockResult);
 
         DocQueryPolicyChecker testSubject = new DocQueryPolicyChecker();

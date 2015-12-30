@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +40,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocRegistryProxyJavaImpl implements AdapterComponentDocRegistryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyJavaImpl.class);
 
+    @Override
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Component Doc Registry Service");
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(request);

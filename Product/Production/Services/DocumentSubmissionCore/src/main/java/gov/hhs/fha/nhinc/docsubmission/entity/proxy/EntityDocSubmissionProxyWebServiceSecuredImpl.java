@@ -31,15 +31,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.proxy.description.EntityDocSubmissionSecureda0ServicePortDescriptor;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,12 +56,13 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
     }
 
     protected ServicePortDescriptor<EntityXDRSecuredPortType> getServicePortDescriptor(
-            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        NhincConstants.ADAPTER_API_LEVEL apiLevel) {
         return new EntityDocSubmissionSecureda0ServicePortDescriptor();
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         LOG.debug("Begin EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
@@ -79,11 +79,10 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
             securedRequest.setUrl(urlInfo);
 
             response = (RegistryResponseType) client.invokePort(EntityXDRSecuredPortType.class,
-                    "provideAndRegisterDocumentSetB", securedRequest);
+                "provideAndRegisterDocumentSetB", securedRequest);
 
-        } catch (Exception ex) {
-            LOG.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
-            ex.printStackTrace();
+        } catch (Exception e) {
+            LOG.error("Error calling provideAndRegisterDocumentSetB: " + e.getMessage(), e);
         }
 
         LOG.debug("End EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");
@@ -97,7 +96,7 @@ public class EntityDocSubmissionProxyWebServiceSecuredImpl implements EntityDocS
      * @return
      */
     protected CONNECTClient<EntityXDRSecuredPortType> getCONNECTClient(
-            ServicePortDescriptor<EntityXDRSecuredPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<EntityXDRSecuredPortType> portDescriptor, String url, AssertionType assertion) {
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 }

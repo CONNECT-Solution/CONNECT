@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy;
 
-import static org.junit.Assert.*;
-
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

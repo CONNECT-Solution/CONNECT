@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.saml;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
+import java.util.Properties;
 import static org.junit.Assert.assertNull;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import java.util.Properties;
-
-import org.junit.Test;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
 
 /**
  * @author akong
@@ -52,7 +49,7 @@ public class SAMLConfigFactoryTest {
         SAMLConfigFactory configFactory = new SAMLConfigFactory(propFileUtil);
 
         Properties samlProp1 = configFactory.getConfiguration();
-        ((Properties) samlProp1).put("keyTest", "valueTest");
+        samlProp1.put("keyTest", "valueTest");
 
         Properties samlProp2 = configFactory.getConfiguration();
         assertNull(samlProp2.get("keyTest"));

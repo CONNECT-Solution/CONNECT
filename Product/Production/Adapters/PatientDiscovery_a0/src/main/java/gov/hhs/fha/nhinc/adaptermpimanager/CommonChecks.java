@@ -42,7 +42,7 @@ public class CommonChecks {
     }
 
     public static boolean isZeroSearchResult(Patients patients) {
-        return ((patients == null) || (patients.size() == 0));
+        return ((patients == null) || (patients.isEmpty()));
     }
 
 }

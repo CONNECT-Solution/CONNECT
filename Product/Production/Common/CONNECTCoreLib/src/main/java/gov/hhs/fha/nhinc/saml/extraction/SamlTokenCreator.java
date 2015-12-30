@@ -58,7 +58,7 @@ public class SamlTokenCreator {
     public Map<String, Object> createRequestContext(AssertionType assertion, String url, String action) {
         LOG.debug("Entering SamlTokenCreator.CreateRequestContext...");
 
-        Map<String, Object> requestContext = new HashMap<String, Object>();
+        Map<String, Object> requestContext = new HashMap<>();
 
         if (assertion != null) {
             String NPI = assertion.getNationalProviderId();

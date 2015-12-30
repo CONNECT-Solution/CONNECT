@@ -30,15 +30,13 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author akong
@@ -161,12 +159,15 @@ public class PropertyAccessorTest {
 
     private PropertyAccessor createPropertyAccessor() {
         PropertyAccessor propAccessor = new PropertyAccessor() {
+            @Override
             protected PropertyFileDAO createPropertyFileDAO() {
                 return mockFileDAO;
             }
 
+            @Override
             protected PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {
                 return new PropertyAccessorFileUtilities() {
+                    @Override
                     public String getPropertyFileLocation(String propertyFileName) {
                         return PROPERTY_FILE_LOCATION_WITH_FILE;
                     }
@@ -179,7 +180,7 @@ public class PropertyAccessorTest {
     }
 
     private Set<String> returnPropertyNamesSet() {
-        Set<String> propertyNamesSet = new HashSet<String>();
+        Set<String> propertyNamesSet = new HashSet<>();
         propertyNamesSet.add(PROPERTY_NAME);
 
         return propertyNamesSet;

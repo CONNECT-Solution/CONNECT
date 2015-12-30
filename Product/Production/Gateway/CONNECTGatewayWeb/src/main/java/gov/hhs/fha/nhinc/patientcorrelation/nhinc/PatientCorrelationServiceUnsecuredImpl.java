@@ -27,12 +27,10 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,25 +50,25 @@ public class PatientCorrelationServiceUnsecuredImpl
         this.orchestration = orchestration;
     }
 
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest, AssertionType assertionType) {
 
         LOG.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
-        RetrievePatientCorrelationsResponseType response = orchestration.retrievePatientCorrelations(
+
+        return orchestration.retrievePatientCorrelations(
                 retrievePatientCorrelationsRequest.getPRPAIN201309UV02(),
                 retrievePatientCorrelationsRequest.getAssertion());
-
-        return response;
     }
 
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(
             AddPatientCorrelationRequestType addPatientCorrelationRequest, AssertionType assertionType) {
 
         LOG.info("Calling the Patient Correlation Add Correlations Orch Impl");
-        AddPatientCorrelationResponseType response = orchestration.addPatientCorrelation(
-                addPatientCorrelationRequest.getPRPAIN201301UV02(), addPatientCorrelationRequest.getAssertion());
 
-        return response;
+        return orchestration.addPatientCorrelation(
+                addPatientCorrelationRequest.getPRPAIN201301UV02(), addPatientCorrelationRequest.getAssertion());
     }
 
 }

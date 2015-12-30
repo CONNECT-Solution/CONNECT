@@ -26,23 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class DocumentDaoTest {
 	private final Session session = mock(Session.class);
@@ -103,7 +100,7 @@ public class DocumentDaoTest {
 		final long ID_2 = 12345;
 		doc2.setDocumentid(ID_2);
 
-		List<Document> documents = new ArrayList<Document>();
+		List<Document> documents = new ArrayList<>();
 		documents.add(doc1);
 		documents.add(doc2);
 
@@ -124,7 +121,7 @@ public class DocumentDaoTest {
 		DocumentQueryParams params = new DocumentQueryParams();
 
 		params.setPatientId("patientID");
-		List<String> classCodes = new ArrayList<String>();
+		List<String> classCodes = new ArrayList<>();
 		classCodes.add("class^^Code");
 		params.setClassCodes(classCodes);
 		params.setClassCodeScheme("class code scheme");
@@ -146,10 +143,10 @@ public class DocumentDaoTest {
 		Date serviceStopTimeTo = new Date();
 		serviceStopTimeTo.setTime(01012222);
 		params.setServiceStopTimeTo(serviceStopTimeTo);
-		List<String> statuses = new ArrayList<String>();
+		List<String> statuses = new ArrayList<>();
 		statuses.add("status");
 		params.setStatuses(statuses);
-		List<String> documentUniqueIds = new ArrayList<String>();
+		List<String> documentUniqueIds = new ArrayList<>();
 		documentUniqueIds.add("doc unique id");
 		params.setDocumentUniqueId(documentUniqueIds);
 		params.setOnDemandParams(false);
@@ -162,7 +159,7 @@ public class DocumentDaoTest {
 		final long ID_2 = 12345;
 		doc2.setDocumentid(ID_2);
 
-		List<Document> documents = new ArrayList<Document>();
+		List<Document> documents = new ArrayList<>();
 		documents.add(doc1);
 		documents.add(doc2);
 

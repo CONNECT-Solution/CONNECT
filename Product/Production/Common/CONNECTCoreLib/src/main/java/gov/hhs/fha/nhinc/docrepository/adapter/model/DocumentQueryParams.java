@@ -27,10 +27,8 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.Date;
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
 /**

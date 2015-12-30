@@ -43,7 +43,7 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
     protected ServiceEndpoint<T> serviceEndpoint = null;
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        this(portDescriptor, url, assertion, new CXFServicePortBuilder<T>(portDescriptor));
+        this(portDescriptor, url, assertion, new CXFServicePortBuilder<>(portDescriptor));
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
@@ -57,17 +57,20 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
     }
 
 
+    @Override
     public T getPort() {
         return serviceEndpoint.getPort();
     }
 
+    @Override
     public void enableMtom() {
-        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new MTOMServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
     }
 
+    @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
         serviceEndpoint.configure();
     }
 }

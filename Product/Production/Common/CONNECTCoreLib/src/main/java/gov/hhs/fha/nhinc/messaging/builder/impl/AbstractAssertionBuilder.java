@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.builder.impl;
 
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.slf4j.Logger;
@@ -184,7 +184,7 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
             setSamlAuthInstant(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_INSTANT));
             setSamlAuthClass(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_CLASS));
         } catch (PropertyAccessException ex) {
-            LOG.error("AdminGUI can not access assertioninfo property file: " + ex.getMessage());
+            LOG.error("AdminGUI can not access assertioninfo property file: {}", ex.getLocalizedMessage(), ex);
         }
     }
 }

@@ -27,14 +27,13 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +52,7 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
      * @param request The assigning authority and patient ID of the patient.
      * @return A response containing the given assigning authority and patient ID along with OptIn set to false.
      */
+    @Override
     public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request,
             AssertionType assertion) {
         LOG.trace("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
@@ -85,6 +85,7 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
      * @param request The patient doc ID information for the patient.
      * @return An empty message with the OptIn set to false.
      */
+    @Override
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
             RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion) {
         LOG.trace("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
@@ -104,6 +105,7 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
      * @param request Patient consent preferenes to be stored.
      * @return Always returns "SUCCESS".
      */
+    @Override
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion) {
         LOG.trace("Begin AdapterPIPProxyNoOpImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();

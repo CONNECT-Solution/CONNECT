@@ -26,20 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import java.util.List;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.XDRRouting;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.util.List;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

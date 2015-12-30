@@ -207,7 +207,7 @@ public class DeferredQueueManagerHelper {
         LOG.debug("***** Retrieve queue message records that were previously selected *****");
         List<AsyncMsgRecord> queueRecords = queueDao.queryForDeferredQueueSelected();
 
-        if (queueRecords == null || queueRecords.size() == 0) {
+        if (queueRecords == null || queueRecords.isEmpty()) {
             LOG.debug("***** Retrieve queue message records that are received and not processed *****");
             queueRecords = queueDao.queryForDeferredQueueProcessing();
         }
@@ -361,7 +361,7 @@ public class DeferredQueueManagerHelper {
             throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.queryDeferredQueue method - query deferred messages.");
 
-        List<DeferredQueueRecordType> response = new ArrayList<DeferredQueueRecordType>();
+        List<DeferredQueueRecordType> response = new ArrayList<>();
 
         try {
             AsyncMsgRecordDao queueDao = new AsyncMsgRecordDao();
@@ -462,7 +462,7 @@ public class DeferredQueueManagerHelper {
             DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.queryDeferredQueueStatistics method - query deferred statistics.");
 
-        List<DeferredQueueStatisticsDataType> response = new ArrayList<DeferredQueueStatisticsDataType>();
+        List<DeferredQueueStatisticsDataType> response = new ArrayList<>();
 
         // TODO: Logic goes here
 

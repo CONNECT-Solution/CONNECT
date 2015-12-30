@@ -101,9 +101,9 @@ public class SettingDaoImpl implements SettingDao {
         if (names != null && names.size() > 0) {
             Session session = null;
             Transaction tx = null;
-            Query query = null;
+            Query query;
 
-            int count = 0;
+            int count;
 
             try {
                 session = DaoUtils.getSession();
@@ -165,11 +165,11 @@ public class SettingDaoImpl implements SettingDao {
     public Collection<Setting> getByNames(Collection<String> names) {
         Collection<Setting> results = null;
 
-        if (names == null || names.size() == 0) {
+        if (names == null || names.isEmpty()) {
             results = getAll();
         } else {
             Session session = null;
-            Query query = null;
+            Query query;
 
             try {
                 session = DaoUtils.getSession();

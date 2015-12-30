@@ -28,12 +28,10 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-
 import org.junit.Test;
 
 /**

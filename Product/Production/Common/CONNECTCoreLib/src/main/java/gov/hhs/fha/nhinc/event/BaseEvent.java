@@ -95,6 +95,7 @@ public abstract class BaseEvent implements Event {
         this.transactionID = transactionID;
     }
 
+    @Override
     abstract public String getEventName();
 
     @Override

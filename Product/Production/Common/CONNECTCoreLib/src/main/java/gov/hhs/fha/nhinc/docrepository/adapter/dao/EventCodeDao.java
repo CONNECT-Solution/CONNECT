@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,14 +35,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -55,6 +51,8 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.hibernate.type.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Data access object class for EventCode data.
@@ -63,10 +61,14 @@ import org.hibernate.type.Type;
  */
 public class EventCodeDao {
 
-    /** The Constant LOG. */
+    /**
+     * The Constant LOG.
+     */
     private static final Logger LOG = LoggerFactory.getLogger(EventCodeDao.class);
 
-    /** The Constant EBXML_EVENT_CODE_LIST. */
+    /**
+     * The Constant EBXML_EVENT_CODE_LIST.
+     */
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
 
     /**
@@ -117,15 +119,15 @@ public class EventCodeDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -140,8 +142,8 @@ public class EventCodeDao {
     @SuppressWarnings("unchecked")
     public List<EventCode> eventCodeQuery(List<SlotType1> slots) {
         List<EventCode> eventCodes = null;
-        List<String> eventCodesList = new ArrayList<String>();
-        List<String> eventCodeSchemeList = new ArrayList<String>();
+        List<String> eventCodesList = new ArrayList<>();
+        List<String> eventCodeSchemeList = new ArrayList<>();
         Session sess = null;
         try {
             SessionFactory fact = getSessionFactory();
@@ -156,20 +158,20 @@ public class EventCodeDao {
                     alias[0] = "documentid";
                     Type[] types = new Type[1];
                     types[0] = Hibernate.INTEGER;
-                    List<String> classCodes = null;
-                    List<String> orValues = new ArrayList<String>();
+                    List<String> classCodes;
+                    List<String> orValues;
                     int eventCodeSlotSize = 0;
-                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                    HashMap<String, String> hashMap = new HashMap<>();
                     if (slots != null) {
                         for (SlotType1 slot : slots) {
                             if ((slot.getName() != null) && (slot.getName().length() > 0)
-                                    && (slot.getValueList() != null) && (slot.getValueList().getValue() != null)
-                                    && (slot.getValueList().getValue().size() > 0)) {
+                                && (slot.getValueList() != null) && (slot.getValueList().getValue() != null)
+                                && (slot.getValueList().getValue().size() > 0)) {
                                 if (slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
                                     eventCodeSlotSize++;
                                     ValueListType valueListType = slot.getValueList();
                                     List<String> slotValues = valueListType.getValue();
-                                    classCodes = new ArrayList<String>();
+                                    classCodes = new ArrayList<>();
                                     for (int j = 0; j < slotValues.size(); j++) {
                                         parseParamFormattedString(slotValues.get(j), classCodes);
                                         if (slotValues.get(j).contains(",")) {
@@ -177,25 +179,25 @@ public class EventCodeDao {
                                             for (int l = 0; l < orValues.size(); l++) {
                                                 String innereventCode = getEventCode(classCodes.get(l), "eventCode");
                                                 String innereventCodeScheme = getEventCode(classCodes.get(l),
-                                                        "eventCodeScheme");
+                                                    "eventCodeScheme");
                                                 andCondition = Restrictions.and(
-                                                        Restrictions.eq("eventCode", innereventCode),
-                                                        Restrictions.eq("eventCodeScheme", innereventCodeScheme));
+                                                    Restrictions.eq("eventCode", innereventCode),
+                                                    Restrictions.eq("eventCodeScheme", innereventCodeScheme));
                                                 orCondition.add(andCondition);
                                                 eventCodesList.add(innereventCode);
                                                 eventCodeSchemeList.add(innereventCodeScheme);
                                                 hashMap.put((innereventCode + "^^" + innereventCodeScheme),
-                                                        Integer.toString(eventCodeSlotSize));
+                                                    Integer.toString(eventCodeSlotSize));
                                             }
                                         } else {
                                             String eventCode = getEventCode(classCodes.get(j), "eventCode");
                                             String eventCodeScheme = getEventCode(classCodes.get(j), "eventCodeScheme");
                                             orCondition.add(Restrictions.and(Restrictions.eq("eventCode", eventCode),
-                                                    Restrictions.eq("eventCodeScheme", eventCodeScheme)));
+                                                Restrictions.eq("eventCodeScheme", eventCodeScheme)));
                                             eventCodesList.add(eventCode);
                                             eventCodeSchemeList.add(eventCodeScheme);
                                             hashMap.put((eventCode + "^^" + eventCodeScheme),
-                                                    Integer.toString(eventCodeSlotSize));
+                                                Integer.toString(eventCodeSlotSize));
                                         }
                                     }
                                 }
@@ -206,17 +208,17 @@ public class EventCodeDao {
                     subCriteria.add(orCondition);
 
                     subCriteria.setProjection(Projections.projectionList().add(
-                            Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
+                        Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
 
                     criteria.add(Subqueries.propertyIn("document", subCriteria));
                     criteria.addOrder(Order.asc("document"));
                     eventCodes = criteria.list();
-                    List<Long> DocumentIds = new ArrayList<Long>();
+                    List<Long> DocumentIds;
                     DocumentIds = getDocumentIds(eventCodes);
-                    List<Long> uniqueDocumentIds = new ArrayList<Long>();
+                    List<Long> uniqueDocumentIds;
                     uniqueDocumentIds = getUniqueDocumentIds(DocumentIds);
-                    boolean present = false;
-                    List<Long> documentNotPresent = new ArrayList<Long>();
+                    boolean present;
+                    List<Long> documentNotPresent = new ArrayList<>();
                     for (int i = 0; i < uniqueDocumentIds.size(); i++) {
                         present = documentInAllSlots(eventCodes, eventCodeSlotSize, hashMap, uniqueDocumentIds.get(i));
                         if (!present) {
@@ -225,7 +227,7 @@ public class EventCodeDao {
                     }
                     eventCodes = resultEventCodesList(documentNotPresent, eventCodes);
                     if (eventCodes == null) {
-                        eventCodes = new ArrayList<EventCode>();
+                        eventCodes = new ArrayList<>();
                     }
                 } else {
                     LOG.error("Failed to obtain a session from the sessionFactory");
@@ -233,14 +235,12 @@ public class EventCodeDao {
             } else {
                 LOG.error("Session factory was null");
             }
-        } finally
-
-        {
+        } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -254,7 +254,7 @@ public class EventCodeDao {
      * @return the document ids
      */
     protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
-        List<Long> DocumentIds = new ArrayList<Long>();
+        List<Long> DocumentIds = new ArrayList<>();
         for (int i = 0; i < eventCodes.size(); i++) {
             DocumentIds.add(eventCodes.get(i).getDocument().getDocumentid());
         }
@@ -268,7 +268,7 @@ public class EventCodeDao {
      * @return the unique document ids
      */
     private List<Long> getUniqueDocumentIds(List<Long> DocumentIds) {
-        Set<Long> uniqueDocumentRef = new HashSet<Long>(DocumentIds);
+        Set<Long> uniqueDocumentRef = new HashSet<>(DocumentIds);
         DocumentIds.clear();
         DocumentIds.addAll(uniqueDocumentRef);
         return DocumentIds;
@@ -305,7 +305,7 @@ public class EventCodeDao {
      * @return true, if successful
      */
     private boolean documentInAllSlots(List<EventCode> eventCodes, int eventCodeSlotSize,
-            HashMap<String, String> hashMap, Long documentId) {
+        HashMap<String, String> hashMap, Long documentId) {
         boolean slotsPresent = false;
         for (int i = 1; i <= eventCodeSlotSize; i++) {
             slotsPresent = findDocumentId(hashMap, documentId, eventCodes, i);
@@ -329,17 +329,17 @@ public class EventCodeDao {
      * @return true, if successful
      */
     protected boolean findDocumentId(HashMap<String, String> hashMap, Long documentId, List<EventCode> eventCodes,
-            int slotIndex) {
+        int slotIndex) {
         java.util.Iterator<Entry<String, String>> entries = hashMap.entrySet().iterator();
         boolean doucmentPresent = false;
         while (entries.hasNext()) {
             Entry<String, String> entry = entries.next();
-            String key = (String) entry.getKey();
-            String value = (String) entry.getValue();
+            String key = entry.getKey();
+            String value = entry.getValue();
             for (int j = 0; j < eventCodes.size(); j++) {
                 if ((slotIndex == Integer.parseInt(value))
-                        && ((eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())
-                                .equals(key))) {
+                    && ((eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())
+                    .equals(key))) {
                     Long extractedDocumentid = eventCodes.get(j).getDocument().getDocumentid();
                     if (extractedDocumentid.equals(documentId)) {
                         doucmentPresent = true;
@@ -378,7 +378,7 @@ public class EventCodeDao {
      * @return the event code
      */
     private String getEventCode(String eventCodeParam, String paramName) {
-        String[] eventCodeList = null;
+        String[] eventCodeList;
         String separate = "\\^\\^";
         eventCodeList = (eventCodeParam.split(separate));
         if (paramName.equalsIgnoreCase("eventCode")) {

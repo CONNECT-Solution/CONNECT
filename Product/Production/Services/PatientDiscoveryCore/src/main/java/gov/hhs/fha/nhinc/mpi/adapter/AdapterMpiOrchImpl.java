@@ -26,14 +26,13 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -42,7 +41,6 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObj
  *
  * @author Les Westberg
  */
-
 public class AdapterMpiOrchImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterMpiOrchImpl.class);
@@ -56,10 +54,8 @@ public class AdapterMpiOrchImpl {
      */
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
         LOG.trace("Entering AdapterMpiOrchImpl.query method...");
-        AdapterComponentMpiProxy oMpiProxy = null;
         AdapterComponentMpiProxyObjectFactory oFactory = new AdapterComponentMpiProxyObjectFactory();
-        oMpiProxy = oFactory.getAdapterComponentMpiProxy();
-        PRPAIN201306UV02 oResponse = oMpiProxy.findCandidates(findCandidatesRequest, assertion);
-        return oResponse;
+        AdapterComponentMpiProxy oMpiProxy = oFactory.getAdapterComponentMpiProxy();
+        return oMpiProxy.findCandidates(findCandidatesRequest, assertion);
     }
 }

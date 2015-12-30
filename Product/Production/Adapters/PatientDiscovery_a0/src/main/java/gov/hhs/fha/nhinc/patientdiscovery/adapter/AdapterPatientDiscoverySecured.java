@@ -27,44 +27,49 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredFault;
+import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
-
 import javax.annotation.Resource;
-import javax.jws.WebService;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Sai Valluripalli
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientDiscoverySecured implements gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType {
+public class AdapterPatientDiscoverySecured implements AdapterPatientDiscoverySecuredPortType {
+
     @Resource
     private WebServiceContext context;
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) throws AdapterPatientDiscoverySecuredFault {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoverySecured.class);
 
-        PRPAIN201306UV02 response = null;
+    @WebMethod
+    @Override
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(
+        RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request)
+        throws AdapterPatientDiscoverySecuredFault {
+
+        PRPAIN201306UV02 response;
 
         try {
             AdapterPatientDiscoveryImpl impl = new AdapterPatientDiscoveryImpl();
             response = impl.respondingGatewayPRPAIN201305UV02(true,
-                    respondingGatewayPRPAIN201305UV02Request, context);
-        }
-        catch (Exception e)
-        {
+                respondingGatewayPRPAIN201305UV02Request, context);
+        } catch (Exception e) {
+            LOG.trace("Adapter PD Secured exception: {}", e.getLocalizedMessage(), e);
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
             type.setMessage(e.getLocalizedMessage());
-            AdapterPatientDiscoverySecuredFault fault = new AdapterPatientDiscoverySecuredFault(e.getMessage(), type);
-            throw fault;
+            throw new AdapterPatientDiscoverySecuredFault(e.getLocalizedMessage(), type);
         }
-        return response;
 
+        return response;
     }
 }

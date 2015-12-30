@@ -38,6 +38,7 @@ public class AdapterPatientDiscoveryDeferredReqProxyObjectFactory extends Compon
     private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterpatientdiscoveryasyncreq";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

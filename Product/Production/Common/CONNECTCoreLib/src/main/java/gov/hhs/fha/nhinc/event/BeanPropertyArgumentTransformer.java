@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import com.google.common.base.Optional;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-
-import com.google.common.base.Optional;
 
 /**
  * Argument Transformer that transforms based upon bean properties of the argument list passed in.
@@ -57,7 +55,7 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
         if (arguments == null) {
             return new Object[] {};
         }
-        List<Object> resultList = new ArrayList<Object>();
+        List<Object> resultList = new ArrayList<>();
         for (int curArg = 0; curArg < arguments.length; ++curArg) {
             resultList.addAll(transformSingleArgument(arguments[curArg]));
         }
@@ -68,7 +66,7 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
         if (argument == null) {
             return Collections.emptyList();
         }
-        List<Object> result = new ArrayList<Object>();
+        List<Object> result = new ArrayList<>();
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(argument.getClass());
         for (int i = 0; i < propertyDescriptors.length; ++i) {
             Method readMethod = propertyDescriptors[i].getReadMethod();

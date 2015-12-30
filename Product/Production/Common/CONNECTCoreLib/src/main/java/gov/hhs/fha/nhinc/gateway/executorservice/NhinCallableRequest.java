@@ -26,20 +26,16 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
+import com.google.common.base.Preconditions;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-
 import java.util.concurrent.Callable;
-
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Preconditions;
 
 /**
  * CallableRequest is basically what is executed (i.e. the Runnable) Uses generics for Response (which represents object
@@ -76,7 +72,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
     public Response call() {
         WebServiceContextImpl.setMessageContext(context);
 
-        Response response = null;
+        Response response;
         try {
             if (client != null) {
                 // make web service call using nhindelegate::process

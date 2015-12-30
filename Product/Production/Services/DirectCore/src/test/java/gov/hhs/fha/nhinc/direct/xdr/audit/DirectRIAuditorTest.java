@@ -28,9 +28,7 @@ package gov.hhs.fha.nhinc.direct.xdr.audit;
 
 import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
 import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContextMapImpl;
-
 import java.util.UUID;
-
 import org.junit.Test;
 
 /**

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,8 +36,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,16 +46,17 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class StreamUtils {
+
     private static final Logger LOG = LoggerFactory.getLogger(StreamUtils.class);
 
-    public static OutputStreamWriter openOutputStream (String sPropFile) throws Exception {
+    public static OutputStreamWriter openOutputStream(String sPropFile) throws Exception {
         OutputStreamWriter propWriter = null;
         FileOutputStream propFOS = null;
 
         try {
             propFOS = new FileOutputStream(sPropFile);
             propWriter = new OutputStreamWriter(propFOS, StringUtil.UTF8_CHARSET);
-        } catch (Exception e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             closeReaderSilently(propFOS);
             closeWriterSilently(propWriter);
 
@@ -64,14 +66,14 @@ public class StreamUtils {
         return propWriter;
     }
 
-    public static InputStreamReader openInputStream (File propFile) throws Exception {
+    public static InputStreamReader openInputStream(File propFile) throws Exception {
         InputStreamReader propReader = null;
         FileInputStream propFIS = null;
 
         try {
             propFIS = new FileInputStream(propFile);
             propReader = new InputStreamReader(propFIS, StringUtil.UTF8_CHARSET);
-        } catch (Exception e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             closeStreamSilently(propFIS);
             closeFileSilently(propReader);
 
@@ -87,7 +89,7 @@ public class StreamUtils {
                 is.close();
             }
         } catch (IOException ioe) {
-            LOG.warn("Failed to close file.");
+            LOG.warn("Failed to close file: {}", ioe.getLocalizedMessage(), ioe);
         }
     }
 
@@ -97,7 +99,7 @@ public class StreamUtils {
                 os.close();
             }
         } catch (IOException ioe) {
-            LOG.warn("Failed to close file.");
+            LOG.warn("Failed to close file: {}", ioe.getLocalizedMessage(), ioe);
         }
     }
 
@@ -107,7 +109,7 @@ public class StreamUtils {
                 writer.close();
             }
         } catch (IOException ioe) {
-            LOG.warn("Failed to close file.");
+            LOG.warn("Failed to close file: {}", ioe.getLocalizedMessage(), ioe);
         }
     }
 
@@ -117,7 +119,7 @@ public class StreamUtils {
                 reader.close();
             }
         } catch (IOException ioe) {
-            LOG.warn("Failed to close file.");
+            LOG.warn("Failed to close file: {}", ioe.getLocalizedMessage(), ioe);
         }
     }
 }

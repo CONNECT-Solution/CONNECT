@@ -44,7 +44,6 @@
  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.CertificateDao;
@@ -53,12 +52,13 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.service.CertificateService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
-
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.security.Key;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.Security;
+import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
@@ -68,11 +68,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import javax.security.auth.x500.X500Principal;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +87,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
     private static final int RFC822Name_TYPE = 1; // name type constant for Subject Alternative name email address
     private static final int DNSName_TYPE = 2; // name type constant for Subject Alternative name domain name
 
-    private static final Log log = LogFactory.getLog(CertificateServiceImpl.class);
+    private static final Log LOG = LogFactory.getLog(CertificateServiceImpl.class);
 
     @Autowired
     private CertificateDao dao;
@@ -104,7 +102,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
     @PostConstruct
     public void init() {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-        log.info("CertificateService initialized");
+        LOG.info("CertificateService initialized");
     }
 
     /**
@@ -139,7 +137,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public Certificate getCertificate(String owner, String thumbprint, CertificateGetOptions options)
-            throws ConfigurationServiceException {
+        throws ConfigurationServiceException {
 
         return dao.load(owner, thumbprint);
     }
@@ -149,9 +147,9 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public Collection<Certificate> getCertificates(Collection<Long> certIds, CertificateGetOptions options)
-            throws ConfigurationServiceException {
+        throws ConfigurationServiceException {
 
-        return dao.list(new ArrayList<Long>(certIds));
+        return dao.list(new ArrayList<>(certIds));
     }
 
     /**
@@ -159,7 +157,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public Collection<Certificate> getCertificatesForOwner(String owner, CertificateGetOptions options)
-            throws ConfigurationServiceException {
+        throws ConfigurationServiceException {
 
         return dao.list(owner);
     }
@@ -169,9 +167,9 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public void setCertificateStatus(Collection<Long> certificateIDs, EntityStatus status)
-            throws ConfigurationServiceException {
+        throws ConfigurationServiceException {
 
-        dao.setStatus(new ArrayList<Long>(certificateIDs), status);
+        dao.setStatus(new ArrayList<>(certificateIDs), status);
     }
 
     /**
@@ -187,7 +185,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public void removeCertificates(Collection<Long> certificateIds) throws ConfigurationServiceException {
-        dao.delete(new ArrayList<Long>(certificateIds));
+        dao.delete(new ArrayList<>(certificateIds));
     }
 
     /**
@@ -203,7 +201,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public Collection<Certificate> listCertificates(long lastCertificateID, int maxResults,
-            CertificateGetOptions options) throws ConfigurationServiceException {
+        CertificateGetOptions options) throws ConfigurationServiceException {
 
         // Direct RI comment: just return all for now
         return dao.list((String) null);
@@ -243,6 +241,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
                 }
             } catch (Exception e) {
                 // must not be a PKCS12 stream, go on to next step
+                LOG.warn("Not a PKCS12 stream: " + e.getLocalizedMessage(), e);
             }
 
             if (certContainer == null) {
@@ -251,11 +250,11 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
                 bais = new ByteArrayInputStream(data);
 
                 X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-                        bais);
+                    bais);
                 certContainer = new CertContainer(cert, null);
             }
             bais.close();
-        } catch (Exception e) {
+        } catch (CertificateException | IOException e) {
             throw new ConfigurationServiceException("Data cannot be converted to a valid X.509 Certificate", e);
         }
 
@@ -263,6 +262,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
     }
 
     public static class CertContainer {
+
         private final X509Certificate cert;
         private final Key key;
 
@@ -295,6 +295,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
             altNames = certificate.getSubjectAlternativeNames();
         } catch (CertificateParsingException ex) {
             /* no -op */
+            LOG.warn("Could not get Subject Alternative Names: " + ex.getLocalizedMessage(), ex);
         }
 
         if (altNames != null) {
@@ -321,7 +322,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
         X500Principal issuerPrin = certificate.getSubjectX500Principal();
 
         // get the domain name
-        Map<String, String> oidMap = new HashMap<String, String>();
+        Map<String, String> oidMap = new HashMap<>();
         oidMap.put("1.2.840.113549.1.9.1", "EMAILADDRESS"); // OID for email address
         String prinName = issuerPrin.getName(X500Principal.RFC1779, oidMap);
 

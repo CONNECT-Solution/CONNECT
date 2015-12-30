@@ -65,13 +65,13 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
@@ -108,6 +108,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param regularExecutor
      * @param largeJobExecutor
      */
+    @Override
     public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
         this.regularExecutor = regularExecutor;
         this.largejobExecutor = largeJobExecutor;

@@ -8,12 +8,12 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
-  <class name="Identifier" table="identifier">
-    <id name="identifierId">
-      <generator class="native"/>
-    </id>
-    <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
-    <property column="id" name="id"/>
-    <property column="organizationId" name="organizationId"/>
-  </class>
+    <class name="Identifier" table="identifier">
+        <id name="identifierId">
+            <generator class="native"/>
+        </id>
+        <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
+        <property column="id" name="id"/>
+        <property column="organizationId" name="organizationId"/>
+    </class>
 </hibernate-mapping>

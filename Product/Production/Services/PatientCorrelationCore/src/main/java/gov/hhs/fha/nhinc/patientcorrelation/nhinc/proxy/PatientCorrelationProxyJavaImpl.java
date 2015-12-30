@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationOrch;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationOrchImpl;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDaoImpl;
-
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -51,6 +50,7 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
      */
+    @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
             AssertionType assertion) {
         return orchestration.retrievePatientCorrelations(request, assertion);
@@ -62,6 +62,7 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return PatientCorrelationResponse.
      */
+    @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion) {
         return orchestration.addPatientCorrelation(request, assertion);
     }

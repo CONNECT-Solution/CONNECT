@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class PatientSearchResults {
 
-    private List<Patient> patients = new ArrayList<Patient>();
+    private List<Patient> patients = new ArrayList<>();
 
     public void setPatientList(List<Patient> patients) {
         this.patients = patients;

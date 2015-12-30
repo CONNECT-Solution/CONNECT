@@ -26,15 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
-
 import java.util.Map;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -64,11 +62,11 @@ public class URLServiceEndpointDecoratorTest {
     }
 
     private CONNECTClient<TestServicePortType> createClient(String url) {
-        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new URLServiceEndpointDecorator<TestServicePortType>(serviceEndpoint, url);
+        serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint.configure();
 
         return testClient;

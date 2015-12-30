@@ -30,13 +30,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.CDAConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
@@ -48,7 +45,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,7 +130,7 @@ public class DocQueryResponseProcessor {
             if (adhocQuery != null) {
                 homeCommunityId = HomeCommunityMap.getCommunityId(adhocQuery);
 
-                List<SlotType1> slots = null;
+                List<SlotType1> slots;
                 if (adhocQuery != null) {
                     slots = adhocQuery.getSlot();
                     List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
@@ -161,7 +157,7 @@ public class DocQueryResponseProcessor {
                     if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
                         List<String> slotValues = valueListType.getValue();
-                        returnValues = new ArrayList<String>();
+                        returnValues = new ArrayList<>();
                         for (String slotValue : slotValues) {
                             returnValues.add(slotValue);
                         }
@@ -204,7 +200,7 @@ public class DocQueryResponseProcessor {
                                     .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
                             && (oJAXBObj.getValue() != null)) {
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
-                        PatientPreferencesType workingPatientPreferences = null;
+                        PatientPreferencesType workingPatientPreferences;
                         if (patientPreferences == null) {
                             workingPatientPreferences = retrievePatientPreferencesForDocument(oExtObj);
                         } else {
@@ -299,7 +295,7 @@ public class DocQueryResponseProcessor {
 
     protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences) {
         LOG.debug("Begin documentAllowed");
-        boolean allowed = false;
+        boolean allowed;
         String documentTypeCode = extractDocumentType(extObject);
         allowed = getPatientConsentHelper().documentSharingAllowed(documentTypeCode, patientPreferences);
         LOG.debug("End documentAllowed - response: " + allowed);

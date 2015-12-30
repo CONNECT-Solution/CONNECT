@@ -37,10 +37,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -94,14 +94,14 @@ public class PropertyBean {
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to update property: " + selectedProp.getKey());
+            LOG.warn("Unable to update property {}: {}", selectedProp.getKey(), ex.getLocalizedMessage(), ex);
             FacesContext.getCurrentInstance().addMessage(gatewayPropMsg,
-                new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
-                    + " from " + oldValue + " to " + newValue + "."));
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: "
+                    + selectedProp.getKey() + " from " + oldValue + " to " + newValue + "."));
         }
     }
 
-     public void onAdapterValueEdit(CellEditEvent event) {
+    public void onAdapterValueEdit(CellEditEvent event) {
         DataTable dataTable = (DataTable) event.getSource();
         PropValue selectedProp = (PropValue) dataTable.getRowData();
         String oldValue = (String) event.getOldValue();
@@ -113,33 +113,37 @@ public class PropertyBean {
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Property value changed for " + selectedProp.getKey()
                     + " from " + oldValue + " to " + newValue + "."));
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to update property: " + selectedProp.getKey());
+            LOG.warn("Unable to update property {}: {}", selectedProp.getKey(), ex.getLocalizedMessage(), ex);
             FacesContext.getCurrentInstance().addMessage(adapterPropMsg,
-                new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: " + selectedProp.getKey()
-                    + " from " + oldValue + " to " + newValue + "."));
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", "Unable to set property value: "
+                    + selectedProp.getKey() + " from " + oldValue + " to " + newValue + "."));
         }
     }
 
     private void setProperties() {
-        gatewayProperties = new ArrayList<PropValue>();
-        adapterProperties = new ArrayList<PropValue>();
+        gatewayProperties = new ArrayList<>();
+        adapterProperties = new ArrayList<>();
 
         try {
             Properties gatewayProps = PropertyAccessor.getInstance().getProperties(NhincConstants.GATEWAY_PROPERTY_FILE);
             addProperties(gatewayProps, gatewayProperties, NhincConstants.GATEWAY_PROPERTY_FILE);
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to set " + NhincConstants.GATEWAY_PROPERTY_FILE + " properties file.", ex);
+            LOG.warn("Unable to set {} properties file: {}", NhincConstants.GATEWAY_PROPERTY_FILE,
+                ex.getLocalizedMessage(), ex);
         }
 
         try {
             Properties adapterProps = PropertyAccessor.getInstance().getProperties(NhincConstants.ADAPTER_PROPERTY_FILE_NAME);
             addProperties(adapterProps, adapterProperties, NhincConstants.ADAPTER_PROPERTY_FILE_NAME);
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to set " + NhincConstants.ADAPTER_PROPERTY_FILE_NAME + " properties file.", ex);
+            LOG.warn("Unable to set {} properties file: {}", NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+                ex.getLocalizedMessage(), ex);
         }
     }
 
-    private void addProperties(Properties props, List<PropValue> viewProps, String propFileName) throws PropertyAccessException {
+    private void addProperties(Properties props, List<PropValue> viewProps, String propFileName)
+        throws PropertyAccessException {
+
         if (props != null) {
             for (Object key : props.keySet()) {
                 String strKey = (String) key;

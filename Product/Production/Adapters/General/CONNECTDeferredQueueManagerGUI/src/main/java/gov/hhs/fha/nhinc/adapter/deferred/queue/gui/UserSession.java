@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue.gui;
 
+import com.sun.rave.web.ui.appbase.AbstractSessionBean;
 import com.sun.webui.jsf.model.Option;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.FacesException;
@@ -153,7 +153,7 @@ public class UserSession extends AbstractSessionBean {
 
     public List<AsyncMsgRecord> getProcessQueueResults() {
         if (processQueueResults == null) {
-            processQueueResults = new ArrayList<AsyncMsgRecord>();
+            processQueueResults = new ArrayList<>();
         }
         return processQueueResults;
     }
@@ -164,7 +164,7 @@ public class UserSession extends AbstractSessionBean {
 
     public List<AsyncMsgRecord> getUnProcessQueueResults() {
         if (unProcessQueueResults == null) {
-            unProcessQueueResults = new ArrayList<AsyncMsgRecord>();
+            unProcessQueueResults = new ArrayList<>();
         }
         return unProcessQueueResults;
     }
@@ -175,7 +175,7 @@ public class UserSession extends AbstractSessionBean {
 
     public List<Option> getStatusItems() {
         if (statusItems == null) {
-            statusItems = new ArrayList<Option>();
+            statusItems = new ArrayList<>();
         }
         return statusItems;
     }

@@ -60,7 +60,7 @@ public class NhinTaskExecutorTest {
     @Test
     public void testGetFinalResponse() {
         System.out.println("getFinalResponse");
-        NhinTaskExecutor<OutboundOrchestratableMessage, OutboundOrchestratableMessage> instance = new NhinTaskExecutor<OutboundOrchestratableMessage, OutboundOrchestratableMessage>(null, null, null);
+        NhinTaskExecutor<OutboundOrchestratableMessage, OutboundOrchestratableMessage> instance = new NhinTaskExecutor<>(null, null, null);
         Object expResult = null;
         Object result = instance.getFinalResponse();
         assertEquals(expResult, result);
@@ -73,13 +73,13 @@ public class NhinTaskExecutorTest {
     public void testExecuteTask() throws Exception {
         System.out.println("executeTask");
         String transactionId = (UUID.randomUUID()).toString();
-        List<NhinCallableRequest<TestOutboundOrchestratableMessage>> callableList = new ArrayList<NhinCallableRequest<TestOutboundOrchestratableMessage>>();
+        List<NhinCallableRequest<TestOutboundOrchestratableMessage>> callableList = new ArrayList<>();
         // loop through the communities and send request if results were not null
         for (UrlInfo urlInfo : getUrlList()) {
             TestOutboundOrchestratableMessage message = new TestOutboundOrchestratableMessage();
             callableList.add(new NhinCallableRequest<TestOutboundOrchestratableMessage>(message));
         }
-        NhinTaskExecutor<TestOutboundOrchestratableMessage, TestOutboundOrchestratableMessage> instance = new NhinTaskExecutor<TestOutboundOrchestratableMessage, TestOutboundOrchestratableMessage>(Executors.newFixedThreadPool(1), callableList, transactionId);
+        NhinTaskExecutor<TestOutboundOrchestratableMessage, TestOutboundOrchestratableMessage> instance = new NhinTaskExecutor<>(Executors.newFixedThreadPool(1), callableList, transactionId);
         instance.executeTask();
         Object result = instance.getFinalResponse();
         assertNotNull(result);
@@ -89,14 +89,14 @@ public class NhinTaskExecutorTest {
     public void testExecuteTaskWithException() throws Exception {
         System.out.println("executeTask");
         String transactionId = (UUID.randomUUID()).toString();
-        List<NhinCallableRequest<TestOutboundOrchestratableMessage>> callableList = new ArrayList<NhinCallableRequest<TestOutboundOrchestratableMessage>>();
+        List<NhinCallableRequest<TestOutboundOrchestratableMessage>> callableList = new ArrayList<>();
         // loop through the communities and send request if results were not null
         for (UrlInfo urlInfo : getUrlList()) {
             TestOutboundOrchestratableMessage message = new TestOutboundOrchestratableMessage();
             message.setReturnNullOutboundResponse(true);
             callableList.add(new NhinCallableRequest<TestOutboundOrchestratableMessage>(message));
         }
-        NhinTaskExecutor<TestOutboundOrchestratableMessage, TestOutboundOrchestratableMessage> instance = new NhinTaskExecutor<TestOutboundOrchestratableMessage, TestOutboundOrchestratableMessage>(Executors.newFixedThreadPool(1), callableList, transactionId);
+        NhinTaskExecutor<TestOutboundOrchestratableMessage, TestOutboundOrchestratableMessage> instance = new NhinTaskExecutor<>(Executors.newFixedThreadPool(1), callableList, transactionId);
         instance.executeTask();
         Object result = instance.getFinalResponse();
         assertNotNull(result);
@@ -216,7 +216,7 @@ public class NhinTaskExecutorTest {
     }
 
     private List<UrlInfo> getUrlList() {
-        Set<UrlInfo> endpointUrlSet = new HashSet<UrlInfo>();
+        Set<UrlInfo> endpointUrlSet = new HashSet<>();
         UrlInfo entry = new UrlInfo();
         entry.setHcid("1.1");
         entry.setUrl("TestURL2");
@@ -225,8 +225,7 @@ public class NhinTaskExecutorTest {
         entry.setHcid("2.2");
         entry.setUrl("TestURL2");
         endpointUrlSet.add(entry);
-        List<UrlInfo> endpointUrlList = new ArrayList<UrlInfo>(endpointUrlSet);
-        return endpointUrlList;
+        return new ArrayList<>(endpointUrlSet);
 
     }
 }

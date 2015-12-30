@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import org.springframework.beans.factory.FactoryBean;
-
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import org.springframework.beans.factory.FactoryBean;
 
 /**
  * An object factory that uses the Spring Framework to create service implementation objects. The configuration file is
@@ -57,6 +56,7 @@ public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFacto
      *
      * @return The name of the config file.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

@@ -26,13 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
-
-import com.google.common.base.Optional;
 
 /**
  * Helper methods for PD Processing to create a new cumulativeResponse object for a particular spec level and to

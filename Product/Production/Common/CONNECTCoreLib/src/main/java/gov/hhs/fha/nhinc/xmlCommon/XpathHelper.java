@@ -29,11 +29,9 @@ package gov.hhs.fha.nhinc.xmlCommon;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
-
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -56,18 +54,18 @@ public class XpathHelper {
         try {
             inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes(StringUtil.UTF8_CHARSET)));
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
         }
 
         LOG.debug("perform xpath query (query='" + xpathQuery + "'");
-        Node result = null;
+        Node result;
         if (XmlUtfHelper.isUtf16(sourceXml)) {
             try {
                 result = (Node) xpath.evaluate(xpathQuery, inputSource, XPathConstants.NODE);
             } catch (Exception ex) {
                 // Exception may be due to the encoding of the message being incorrect.
                 // retry using UTF-8
-                LOG.warn("failed to perform xpath query - retrying with UTF-8");
+                LOG.warn("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
                 sourceXml = XmlUtfHelper.convertToUtf8(sourceXml);
                 result = performXpathQuery(sourceXml, xpathQuery);
             }
@@ -83,7 +81,7 @@ public class XpathHelper {
     }
 
     public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
+        throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
 
@@ -92,7 +90,6 @@ public class XpathHelper {
         }
 
         LOG.debug("About to perform xpath query (query='" + xpathQuery + "'");
-        Node result = (Node) xpath.evaluate(xpathQuery, sourceElement, XPathConstants.NODE);
-        return result;
+        return (Node) xpath.evaluate(xpathQuery, sourceElement, XPathConstants.NODE);
     }
 }

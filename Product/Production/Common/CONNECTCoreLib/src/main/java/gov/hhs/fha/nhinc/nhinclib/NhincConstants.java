@@ -73,7 +73,7 @@ public class NhincConstants {
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
-    };
+    }
 
     public static enum NHIN_SERVICE_NAMES {
 
@@ -116,7 +116,7 @@ public class NhincConstants {
             }
             return serviceNamesList;
         }
-    };
+    }
 
     public static enum EVENT_IDENTIFICATION_STATUS {
         Success("0"), Failure("12");
@@ -148,7 +148,7 @@ public class NhincConstants {
             }
             return displayStatusList;
         }
-    };
+    }
 
     // Authorization Framework
     public static final String AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";

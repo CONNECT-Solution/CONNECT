@@ -32,7 +32,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.model.builder;
  */
 import java.util.ArrayList;
 import java.util.List;
-
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201310UV02Patient;
@@ -40,7 +39,7 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
 public abstract class AbstractPatientSearchResultsModelBuilder {
 
     protected List<PRPAIN201306UV02MFMIMT700711UV01Subject1> getSubjects(PRPAIN201306UV02 response) {
-        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjects = new ArrayList<>();
         if (response != null && response.getControlActProcess() != null) {
             subjects = response.getControlActProcess().getSubject();
         }

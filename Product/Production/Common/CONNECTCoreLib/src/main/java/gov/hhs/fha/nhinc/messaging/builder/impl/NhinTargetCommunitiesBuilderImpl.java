@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.messaging.builder.impl;
 
-import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 import java.util.Collections;
 import java.util.List;
 

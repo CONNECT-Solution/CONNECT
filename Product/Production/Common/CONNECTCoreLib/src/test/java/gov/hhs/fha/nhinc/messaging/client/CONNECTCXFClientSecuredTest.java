@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecoratorTest;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecoratorTest;
@@ -43,9 +42,9 @@ import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

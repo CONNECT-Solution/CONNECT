@@ -26,29 +26,25 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.util.Base64Coder;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.ws.security.WSDocInfo;
 import org.apache.ws.security.WSSecurityEngineResult;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.processor.SignatureProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
-import com.google.common.base.Optional;
 
 /**
  * This class will process the signature element of the Security header. It inherits from the default SignatureProcessor

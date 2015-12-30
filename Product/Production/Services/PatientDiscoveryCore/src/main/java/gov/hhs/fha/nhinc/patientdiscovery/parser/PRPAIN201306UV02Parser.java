@@ -29,11 +29,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.parser;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a utility class that parses the PRPAIN201306UV02 message and extract patientId and participantObjectId from
@@ -81,9 +81,8 @@ public class PRPAIN201306UV02Parser {
 
     public static String getSenderHcid(PRPAIN201306UV02 response) {
         String id = null;
-        if (response != null && response.getSender() != null && response.getSender() != null
-            && response.getSender().getDevice() != null && response.getSender().getDevice().
-            getAsAgent() != null
+        if (response != null && response.getSender() != null
+            && response.getSender().getDevice() != null && response.getSender().getDevice().getAsAgent() != null
             && response.getSender().getDevice().getAsAgent().getValue() != null
             && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().
@@ -101,7 +100,7 @@ public class PRPAIN201306UV02Parser {
         }
         //If representedOrganization Id root is null get id from device
         if (NullChecker.isNullish(id)) {
-            if (response != null && response.getSender() != null && response.getSender() != null
+            if (response != null && response.getSender() != null
                 && response.getSender().getDevice() != null && response.getSender().getDevice().getId() != null
                 && response.getSender().getDevice().getId().get(0) != null
                 && response.getSender().getDevice().getId().get(0).getRoot() != null

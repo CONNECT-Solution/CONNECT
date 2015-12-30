@@ -26,31 +26,26 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.any;
-
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.activation.DataHandler;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author jsmith
@@ -64,7 +59,7 @@ public class AdapterComponentDocRepositoryHelperTest {
     	ProvideAndRegisterDocumentSetRequestType body =
     			mock(ProvideAndRegisterDocumentSetRequestType.class);
     	List<ProvideAndRegisterDocumentSetRequestType.Document> docList=
-    			new ArrayList<ProvideAndRegisterDocumentSetRequestType.Document>();
+    			new ArrayList<>();
     	ProvideAndRegisterDocumentSetRequestType.Document doc = new ProvideAndRegisterDocumentSetRequestType.Document();
     	final String ID = "MOCK_ID";
     	final String VALUE = "MOCK_VALUE";
@@ -89,12 +84,13 @@ public class AdapterComponentDocRepositoryHelperTest {
 		final String CLASS_VALUE = "Classfication value";
 		final String CLASS_SCHEME_NAME = "classificationSchemeName";
 		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper(){
+            @Override
 			String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
 		            String slotName, int valueIndex) {
 				return CLASS_VALUE;
 			}
 		};
-		List<ClassificationType> classifications = new ArrayList<ClassificationType>();
+		List<ClassificationType> classifications = new ArrayList<>();
 		ClassificationType classType = mock(ClassificationType.class);
 
 		classifications.add(classType);
@@ -110,11 +106,11 @@ public class AdapterComponentDocRepositoryHelperTest {
 		final String PATIENT_NAME = "John Doe";
 		final String SLOT_PATIENT_NAME = "John Doe <Patient Information>";
 		final String EXPECTED_RESULT = "<Patient Information>";
-		List<SlotType1> documentSlots = new ArrayList<SlotType1>();
+		List<SlotType1> documentSlots = new ArrayList<>();
 		SlotType1 slot = mock(SlotType1.class);
 		documentSlots.add(slot);
 		ValueListType valueListType = mock(ValueListType.class);
-		List<String> valueList = new ArrayList<String>();
+		List<String> valueList = new ArrayList<>();
 		valueList.add(SLOT_PATIENT_NAME);
 
 		when(slot.getName()).thenReturn(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT);
@@ -134,7 +130,7 @@ public class AdapterComponentDocRepositoryHelperTest {
 	@Test
 	public void testExtractClassificationMetadata2(){
 		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-		String result = null;
+		String result;
 		List<ClassificationType> classifications = new ArrayList();
 		ClassificationType classificationType = mock(ClassificationType.class);
 		classifications.add(classificationType);
@@ -175,7 +171,7 @@ public class AdapterComponentDocRepositoryHelperTest {
 		final String DOC_UNIQUE_ID = "Doc ID 1";
 		final long DOC_ID = 12345;
 		DocumentService docService = mock(DocumentService.class);
-		List<Document> documents = new ArrayList<Document>();
+		List<Document> documents = new ArrayList<>();
 		Document doc = mock(Document.class);
 		documents.add(doc);
 

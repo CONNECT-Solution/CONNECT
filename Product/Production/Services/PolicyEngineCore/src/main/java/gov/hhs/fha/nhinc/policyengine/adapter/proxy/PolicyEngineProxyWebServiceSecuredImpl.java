@@ -31,14 +31,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.service.PolicyEngineSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +46,7 @@ import org.slf4j.LoggerFactory;
  * @author Neil Webb
  */
 public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -58,6 +58,7 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
         return new WebServiceProxyHelper();
     }
 
+    @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         LOG.trace("Begin PolicyEngineWebServiceProxySecuredImpl.checkPolicy");
         CheckPolicyResponseType response = null;
@@ -75,17 +76,16 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
                 ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> portDescriptor = new PolicyEngineSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterPolicyEngineSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (CheckPolicyResponseType) client.invokePort(AdapterPolicyEngineSecuredPortType.class,
-                        "checkPolicy", securedRequest);
+                    "checkPolicy", securedRequest);
             } else {
-                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service ({}).  The URL is null.", serviceName);
             }
         } catch (Exception ex) {
-            LOG.error("Error: Failed to retrieve url for service: " + NhincConstants.POLICYENGINE_SERVICE_NAME
-                    + " for local home community");
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve url for service {} for local home community: {}",
+                NhincConstants.POLICYENGINE_SERVICE_NAME, ex.getLocalizedMessage(), ex);
         }
 
         LOG.trace("End PolicyEngineWebServiceProxySecuredImpl.checkPolicy");

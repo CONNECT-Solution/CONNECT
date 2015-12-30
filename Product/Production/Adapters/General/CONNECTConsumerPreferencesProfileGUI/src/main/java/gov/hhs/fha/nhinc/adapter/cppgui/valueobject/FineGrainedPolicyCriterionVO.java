@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,9 +118,9 @@ public class FineGrainedPolicyCriterionVO {
         String description = null;
 
         try {
-            if ((propertyFile == null) || ((propertyFile.trim()).equals(""))) {
+            if ((propertyFile == null) || ((propertyFile.trim()).isEmpty())) {
                 LOG.error("propertyFile value is null");
-            } else if ((propertyName == null) || ((propertyName.trim()).equals(""))) {
+            } else if ((propertyName == null) || ((propertyName.trim()).isEmpty())) {
                 LOG.error("propertyName value is null");
             } else {
                 description = PropertyAccessor.getInstance().getProperty(propertyFile, propertyName);

@@ -26,17 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.event.BeanTransformerTest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class AdhocQueryRequestTransformingBuilderTest extends
         BeanTransformerTest<AdhocQueryRequestTransformingBuilder> {
 
+    @Override
     public AdhocQueryRequestTransformingBuilder getBuilder() {
         return new AdhocQueryRequestTransformingBuilder();
     }

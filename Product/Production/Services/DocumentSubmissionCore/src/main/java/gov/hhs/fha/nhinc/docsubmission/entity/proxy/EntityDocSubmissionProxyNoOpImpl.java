@@ -34,9 +34,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class EntityDocSubmissionProxyNoOpImpl implements EntityDocSubmissionProxy {
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = new RegistryResponseType();
-        return response;
+        return new RegistryResponseType();
     }
 }

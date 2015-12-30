@@ -28,25 +28,28 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-
 import java.util.List;
 
 public class CorrelatedIdentifiersDaoImpl implements CorrelatedIdentifiersDao {
 
+    @Override
     public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         Storer.addPatientCorrelation(correlatedIdentifers);
     }
 
+    @Override
     public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
         return Retriever.retrievePatientCorrelation(qualifiedPatientIdentifier, includeOnlyAssigningAuthorities);
     }
 
+    @Override
     public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier) {
         return Retriever.retrievePatientCorrelation(qualifiedPatientIdentifier);
     }
 
+    @Override
     public void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         Storer.removePatientCorrelation(correlatedIdentifers);
     }

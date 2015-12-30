@@ -26,16 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 import gov.hhs.fha.nhinc.event.BeanTransformerTest;
-
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PRPAIN201305UV02ArgTransformerTest extends BeanTransformerTest<PRPAIN201305UV02ArgTransformer> {

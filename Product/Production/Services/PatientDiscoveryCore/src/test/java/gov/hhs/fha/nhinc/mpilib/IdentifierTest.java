@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.mpilib;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 

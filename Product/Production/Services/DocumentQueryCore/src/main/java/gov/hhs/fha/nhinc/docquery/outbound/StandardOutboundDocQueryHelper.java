@@ -32,11 +32,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,13 +54,14 @@ public class StandardOutboundDocQueryHelper {
         connectionManagerCommunityMapping = new ConnectionManagerCommunityMapping();
         try {
             this.sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
-            LOG.error(ex.getMessage());
+            LOG.error("Error getting HCID: {}", ex.getLocalizedMessage(), ex);
         }
     }
 
     /**
+     * @param hcid
      * @param connectionManagerCommunityMapping
      */
     public StandardOutboundDocQueryHelper(String hcid, ConnectionManagerCommunityMapping connectionManagerCommunityMapping) {
@@ -76,11 +74,10 @@ public class StandardOutboundDocQueryHelper {
      *
      * @param sAssigningAuthorityId Target AssigningAuthorityId.
      * @param sLocalAssigningAuthorityId AA Id of requesting Gateway.
-     * @param sLocalHomeCommunity communityId of requesting Gateway.
      * @return targetCommunity where request needs to be targeted.
      */
     public HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId, String sLocalAssigningAuthorityId) {
-        HomeCommunityType targetCommunity = null;
+        HomeCommunityType targetCommunity;
         if ((sAssigningAuthorityId != null) && (sAssigningAuthorityId.equals(sLocalAssigningAuthorityId))) {
             /*
              * If the target is the local home community, the local assigning authority may not be mapped to the local
@@ -89,10 +86,10 @@ public class StandardOutboundDocQueryHelper {
             targetCommunity = new HomeCommunityType();
             targetCommunity.setHomeCommunityId(sHomeCommunity);
             LOG.debug("Assigning authority was for the local home community. "
-                    + "Set target to manual local home community id");
+                + "Set target to manual local home community id");
         } else {
             targetCommunity = connectionManagerCommunityMapping
-                    .getHomeCommunityByAssigningAuthority(sAssigningAuthorityId);
+                .getHomeCommunityByAssigningAuthority(sAssigningAuthorityId);
         }
         return targetCommunity;
     }
@@ -110,9 +107,9 @@ public class StandardOutboundDocQueryHelper {
         for (SlotType1 slot : slotList) {
             if (slot.getName().equalsIgnoreCase(NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME)) {
                 if (slot.getValueList() != null && NullChecker.isNotNullish(slot.getValueList().getValue())
-                        && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+                    && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
                     localAssigningAuthorityId = PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue()
-                            .get(0));
+                        .get(0));
                 }
                 break;
             }
@@ -134,9 +131,9 @@ public class StandardOutboundDocQueryHelper {
         for (SlotType1 slot : slotList) {
             if (NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME.equalsIgnoreCase(slot.getName())) {
                 if (slot.getValueList() != null && NullChecker.isNotNullish(slot.getValueList().getValue())
-                        && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
-                    uniquePatientId = PatientIdFormatUtil.parsePatientId(slot.getValueList().getValue()
-                            .get(0));
+                    && NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
+
+                    uniquePatientId = PatientIdFormatUtil.parsePatientId(slot.getValueList().getValue().get(0));
                 }
                 break;
             }

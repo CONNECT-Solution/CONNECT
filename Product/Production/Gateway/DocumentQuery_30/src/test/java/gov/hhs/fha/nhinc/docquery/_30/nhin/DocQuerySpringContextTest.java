@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery._30.nhin;
 
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQuerySecured;
@@ -35,10 +34,9 @@ import gov.hhs.fha.nhinc.docquery.inbound.PassthroughInboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

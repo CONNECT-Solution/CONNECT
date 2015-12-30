@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g
 import gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1;
 import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -187,6 +186,7 @@ public class DocumentSubmission20WebServices extends AbstractDSWebServicesMXBean
         entityDSUnsecured.setOutboundDocSubmission(outboundDS);
     }
 
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
     }

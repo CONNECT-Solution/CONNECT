@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -89,23 +88,28 @@ public class CONNECTInboundOrchestratorTest {
 
         }
 
+        @Override
         public InboundDelegate getAdapterDelegate() {
             AdapterDelegateTest test = new AdapterDelegateTest();
             return test.new AdapterDelegateImpl();
         }
 
+        @Override
         public boolean isPassthru() {
             return true;
         }
 
+        @Override
         public PolicyTransformer getPolicyTransformer() {
             return null;
         }
 
+        @Override
         public AssertionType getAssertion() {
             return null;
         }
 
+        @Override
         public String getServiceName() {
             return "";
         }

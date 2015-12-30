@@ -29,10 +29,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.bind.JAXBException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Patient Discovery audit transforms to support PD audit logging.

@@ -46,7 +46,6 @@ import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +66,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
-        XDRAcknowledgementType response = null;
+        XDRAcknowledgementType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType internalRequest
             = createRequestForInternalProcessing(request, assertion, targets, urlInfo);

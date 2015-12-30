@@ -28,9 +28,9 @@ package gov.hhs.fha.nhinc.util.format;
 
 import java.util.*;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -51,7 +51,7 @@ public class DocumentClassCodeBuilderTest {
 
     @Test
     public void BuildListWith3Items() {
-        List<String> documentClassCodeList = new ArrayList<String>();
+        List<String> documentClassCodeList = new ArrayList<>();
         documentClassCodeList.add("classcode1");
         documentClassCodeList.add("classcode2");
         documentClassCodeList.add("classcode3");
@@ -61,7 +61,7 @@ public class DocumentClassCodeBuilderTest {
 
     @Test
     public void BuildListWith1Item() {
-        List<String> documentClassCodeList = new ArrayList<String>();
+        List<String> documentClassCodeList = new ArrayList<>();
         documentClassCodeList.add("classcode1");
         String classCodes = DocumentClassCodeParser.buildDocumentClassCodeItem(documentClassCodeList);
         assertEquals("('classcode1')", classCodes);
@@ -69,7 +69,7 @@ public class DocumentClassCodeBuilderTest {
 
     @Test
     public void BuildListWith0Items() {
-        List<String> documentClassCodeList = new ArrayList<String>();
+        List<String> documentClassCodeList = new ArrayList<>();
         String classCodes = DocumentClassCodeParser.buildDocumentClassCodeItem(documentClassCodeList);
         assertEquals("", classCodes);
     }

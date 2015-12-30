@@ -27,11 +27,13 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
@@ -42,11 +44,6 @@ import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
 	@Test
@@ -55,16 +52,16 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
 		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<Statement>();
+		List<Statement> statementList = new ArrayList<>();
 		statementList.add(statement);
 		AuthnStatement authnStatement = mock(AuthnStatement.class);
-		List<AuthnStatement> authnStatementList = new ArrayList<AuthnStatement>();
+		List<AuthnStatement> authnStatementList = new ArrayList<>();
 		authnStatementList.add(authnStatement);
 		AttributeStatement attrStatement = mock(AttributeStatement.class);
-		List<AttributeStatement> attrStatementList = new ArrayList<AttributeStatement>();
+		List<AttributeStatement> attrStatementList = new ArrayList<>();
 		attrStatementList.add(attrStatement);
 		AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
-		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<AuthzDecisionStatement>();
+		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
 		authzDecisionStatementList.add(authzDecisionStatement);
 		Subject subject = mock(Subject.class);
 		Issuer issuer = mock(Issuer.class);
@@ -96,7 +93,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		Assertion assertion = mock(Assertion.class);
 		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-		List<Statement> statementList = new ArrayList<Statement>();
+		List<Statement> statementList = new ArrayList<>();
 
 		when(assertion.getStatements()).thenReturn(statementList);
 
@@ -116,10 +113,10 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
 		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<Statement>();
+		List<Statement> statementList = new ArrayList<>();
 		statementList.add(statement);
 		AuthnStatement authnStatement = mock(AuthnStatement.class);
-		List<AuthnStatement> authnStatementList = new ArrayList<AuthnStatement>();
+		List<AuthnStatement> authnStatementList = new ArrayList<>();
 		authnStatementList.add(authnStatement);
 
 		when(assertion.getStatements()).thenReturn(statementList);
@@ -141,15 +138,15 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
 		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<Statement>();
+		List<Statement> statementList = new ArrayList<>();
 		statementList.add(statement);
-		List<AuthnStatement> authnStatementList = new ArrayList<AuthnStatement>();
+		List<AuthnStatement> authnStatementList = new ArrayList<>();
 		AttributeStatement attrStatement = mock(AttributeStatement.class);
-		List<AttributeStatement> attrStatementList = new ArrayList<AttributeStatement>();
+		List<AttributeStatement> attrStatementList = new ArrayList<>();
 		attrStatementList.add(attrStatement);
 
 		AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
-		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<AuthzDecisionStatement>();
+		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
 		authzDecisionStatementList.add(authzDecisionStatement);
 
 		when(assertion.getStatements()).thenReturn(statementList);

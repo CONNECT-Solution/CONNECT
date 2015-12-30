@@ -38,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -63,6 +61,8 @@ import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.TELExplicit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -167,7 +167,7 @@ public class HL7DbParser201305 {
     public static List<Personname> extractPersonnames(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractPersonnames method...");
 
-        List<Personname> personnames = new ArrayList<Personname>();
+        List<Personname> personnames = new ArrayList<>();
 
         // Extract the person names from the query parameters
         if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
@@ -302,7 +302,7 @@ public class HL7DbParser201305 {
     public static List<Identifier> extractPersonIdentifiers(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractPersonIdentifiers method...");
 
-        List<Identifier> ids = new ArrayList<Identifier>();
+        List<Identifier> ids = new ArrayList<>();
 
         if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
             && params.getLivingSubjectId().get(0) != null) {
@@ -392,7 +392,7 @@ public class HL7DbParser201305 {
     public static List<Address> extractPersonAddresses(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractPersonAddress method...");
 
-        List<Address> addresses = new ArrayList<Address>();
+        List<Address> addresses = new ArrayList<>();
 
         if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
             && params.getPatientAddress().get(0) != null) {
@@ -409,11 +409,11 @@ public class HL7DbParser201305 {
                     Iterator<Serializable> iterSerialObjects = choice.iterator();
 
                     int addressLineCounter = 0;
-                    AdxpExplicitStreetAddressLine addressLine1 = null;
-                    AdxpExplicitStreetAddressLine addressLine2 = null;
-                    AdxpExplicitCity city = null;
-                    AdxpExplicitState state = null;
-                    AdxpExplicitPostalCode postalCode = null;
+                    AdxpExplicitStreetAddressLine addressLine1;
+                    AdxpExplicitStreetAddressLine addressLine2;
+                    AdxpExplicitCity city;
+                    AdxpExplicitState state;
+                    AdxpExplicitPostalCode postalCode;
 
                     Address address = null;
 
@@ -498,9 +498,9 @@ public class HL7DbParser201305 {
     public static List<Phonenumber> extractTelecoms(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractTelecoms method...");
 
-        List<Phonenumber> phonenumbers = new ArrayList<Phonenumber>();
+        List<Phonenumber> phonenumbers = new ArrayList<>();
 
-        Phonenumber phonenumber = null;
+        Phonenumber phonenumber;
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
         if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
@@ -518,7 +518,6 @@ public class HL7DbParser201305 {
                             // telecom is not valid without tel: prefix
                             LOG.info("Found patientTelecom [" + telecom
                                 + "] in query parameters is not in the correct uri format");
-                            telecom = null;
                         } else {
                             phonenumber = new Phonenumber();
                             phonenumber.setValue(telecom);

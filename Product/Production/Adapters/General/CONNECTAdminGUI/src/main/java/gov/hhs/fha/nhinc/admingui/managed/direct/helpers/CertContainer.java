@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
  * @author cmay
  */
 public class CertContainer {
+
     private X509Certificate cert;
     private Key key;
     private static final Logger LOG = LoggerFactory.getLogger(CertContainer.class);
@@ -87,6 +88,7 @@ public class CertContainer {
                 }
             }
         } catch (Exception e) {
+            LOG.trace("Error during cert conversion: {}", e.getLocalizedMessage(), e);
             LOG.warn("Cert data is not a PKCS12 stream, trying next option...");
         }
 
@@ -96,12 +98,11 @@ public class CertContainer {
             bais = new ByteArrayInputStream(data);
 
             try {
-                X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-                        bais);
-
-                this.cert = cert;
+                this.cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
+                    bais);
                 this.key = null;
             } catch (Exception e) {
+                LOG.trace("Error during cert conversion: {}", e.getLocalizedMessage(), e);
                 LOG.warn("Cert data cannot be converted to X.509, trying next option...");
             }
         }
@@ -113,7 +114,7 @@ public class CertContainer {
         try {
             bais.close();
         } catch (Exception e) {
-            LOG.error("Could not close input stream.");
+            LOG.error("Could not close input stream: {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -142,7 +143,7 @@ public class CertContainer {
 
         // check the CN attribute first
         // get the domain name
-        Map<String, String> oidMap = new HashMap<String, String>();
+        Map<String, String> oidMap = new HashMap<>();
         oidMap.put("1.2.840.113549.1.9.1", "EMAILADDRESS"); // OID for email address
         String prinName = prin.getName(X500Principal.RFC1779, oidMap);
 
@@ -179,6 +180,7 @@ public class CertContainer {
         try {
             thumbprint = DigestUtils.sha1Hex(cert.getEncoded());
         } catch (CertificateEncodingException e) {
+            LOG.error("Could not encode certificate: ", e.getLocalizedMessage(), e);
             thumbprint = null;
         }
 

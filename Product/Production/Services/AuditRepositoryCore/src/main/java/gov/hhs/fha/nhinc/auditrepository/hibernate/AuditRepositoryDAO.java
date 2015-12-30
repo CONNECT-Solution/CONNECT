@@ -30,12 +30,8 @@ import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.sql.Blob;
-
 import java.util.Date;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -43,6 +39,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * AuditRepositoryDAO Class provides methods to query and update Audit Data to/from MySQL Database using Hibernate
@@ -123,10 +121,10 @@ public class AuditRepositoryDAO {
 
             // Build the criteria
             Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
-            if (eUserId != null && !eUserId.equals("")) {
+            if (eUserId != null && !eUserId.isEmpty()) {
                 aCriteria.add(Expression.eq("userId", eUserId));
             }
-            if (ePatientId != null && !ePatientId.equals("")) {
+            if (ePatientId != null && !ePatientId.isEmpty()) {
                 aCriteria.add(Expression.eq("receiverPatientId", ePatientId));
             }
 

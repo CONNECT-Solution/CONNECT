@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.mpilib;
 
 import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +62,7 @@ public class Identifiers extends ArrayList<Identifier> implements java.io.Serial
     @Override
     public boolean add(Identifier identifier) {
         // check to see if this id already exists
-        Identifier myIdentifier = null;
+        Identifier myIdentifier;
 
         if (!doesIdentifierExist(identifier)) {
             myIdentifier = new Identifier(identifier.getId(), identifier.getOrganizationId());

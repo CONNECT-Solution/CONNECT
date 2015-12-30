@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.nhinendpointmanager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author mweaver
@@ -66,7 +65,7 @@ public class DSDRespNhinEndpointManagerMockTest extends AbstractNhinEndpointMana
      */
     @Override
     protected void expectConnectionManagerCacheBoth() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_1);
         list.add(UDDI_SPEC_VERSION.SPEC_2_0);
 

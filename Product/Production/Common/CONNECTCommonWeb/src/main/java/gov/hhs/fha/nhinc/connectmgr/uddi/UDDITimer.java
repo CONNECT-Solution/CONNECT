@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

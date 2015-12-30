@@ -33,11 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponse
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
 import javax.xml.ws.WebServiceContext;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

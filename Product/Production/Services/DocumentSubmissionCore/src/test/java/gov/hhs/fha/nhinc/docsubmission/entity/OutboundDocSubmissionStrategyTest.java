@@ -26,21 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
-import static org.junit.Assert.*;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 
@@ -117,6 +115,7 @@ public class OutboundDocSubmissionStrategyTest {
 
     private OutboundDocSubmissionStrategyImpl_g0 createOutboundDocSubmissionStrategyImpl_g0() {
         return new OutboundDocSubmissionStrategyImpl_g0() {
+            @Override
             protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
                 return mockProxy;
             }
@@ -125,6 +124,7 @@ public class OutboundDocSubmissionStrategyTest {
 
     private OutboundDocSubmissionStrategyImpl_g1 createOutboundDocSubmissionStrategyImpl_g1() {
         return new OutboundDocSubmissionStrategyImpl_g1() {
+            @Override
             protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
                 return mockProxy;
             }

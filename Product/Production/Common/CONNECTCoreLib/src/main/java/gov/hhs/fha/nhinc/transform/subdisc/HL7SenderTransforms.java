@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
@@ -44,6 +42,8 @@ import org.hl7.v3.MCCIMT000300UV01Agent;
 import org.hl7.v3.MCCIMT000300UV01Device;
 import org.hl7.v3.MCCIMT000300UV01Organization;
 import org.hl7.v3.MCCIMT000300UV01Sender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -85,13 +85,13 @@ public class HL7SenderTransforms {
 
         javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
                 "representedOrganization");
-        JAXBElement<MCCIMT000200UV01Organization> orgElem = new JAXBElement<MCCIMT000200UV01Organization>(xmlqnameorg,
+        JAXBElement<MCCIMT000200UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
                 MCCIMT000200UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<MCCIMT000200UV01Agent>(xmlqnameagent,
+        JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                 MCCIMT000200UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
@@ -132,13 +132,13 @@ public class HL7SenderTransforms {
 
         javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
                 "representedOrganization");
-        JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<MCCIMT000100UV01Organization>(xmlqnameorg,
+        JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
                 MCCIMT000100UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<MCCIMT000100UV01Agent>(xmlqnameagent,
+        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                 MCCIMT000100UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
@@ -179,13 +179,13 @@ public class HL7SenderTransforms {
 
         javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
                 "representedOrganization");
-        JAXBElement<MCCIMT000300UV01Organization> orgElem = new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg,
+        JAXBElement<MCCIMT000300UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
                 MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent,
+        JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
                 MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);

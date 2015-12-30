@@ -26,24 +26,21 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.activation.DataHandler;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
 import org.apache.ws.security.WSSecurityException;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -69,7 +66,7 @@ public class CONNECTSignatureProcessorTest {
     public void inlineIncludes() throws ParserConfigurationException, WSSecurityException {
         SoapMessage msg = mock(SoapMessage.class);
 
-        Collection<Attachment> attachmentList = new ArrayList<Attachment>();
+        Collection<Attachment> attachmentList = new ArrayList<>();
         attachmentList.add(createMockAttachment(DIG_REF_ID, DIG_BINARY_DATA));
         attachmentList.add(createMockAttachment(SIG_REF_ID, SIG_BINARY_DATA));
 
@@ -88,7 +85,7 @@ public class CONNECTSignatureProcessorTest {
     public void inlineIncludesWithPrefixRefId() throws ParserConfigurationException, WSSecurityException {
         SoapMessage msg = mock(SoapMessage.class);
 
-        Collection<Attachment> attachmentList = new ArrayList<Attachment>();
+        Collection<Attachment> attachmentList = new ArrayList<>();
         attachmentList.add(createMockAttachment(DIG_REF_ID, DIG_BINARY_DATA));
         attachmentList.add(createMockAttachment(SIG_REF_ID, SIG_BINARY_DATA));
 

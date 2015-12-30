@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -40,24 +41,34 @@ public class DocumentRegistryService implements ihe.iti.xds_b._2007.DocumentRegi
     @Resource
     private WebServiceContext context;
 
+    @WebMethod
+    @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRegistryRegisterDocumentSetB(
             oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest body) {
         throw new UnsupportedOperationException("Not supported.");
     }
 
+    @WebMethod
+    @Override
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(
             oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
         return new DocumentRegistryImpl().documentRegistryRegistryStoredQuery(body, context);
     }
 
+    @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 documentRegistryPRPAIN201301UV02(org.hl7.v3.PRPAIN201301UV02 body) {
         throw new UnsupportedOperationException("Not supported.");
     }
 
+    @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 documentRegistryPRPAIN201302UV02(org.hl7.v3.PRPAIN201302UV02 body) {
         throw new UnsupportedOperationException("Not supported.");
     }
 
+    @WebMethod
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 documentRegistryPRPAIN201304UV02(org.hl7.v3.PRPAIN201304UV02 body) {
         throw new UnsupportedOperationException("Not supported.");
     }

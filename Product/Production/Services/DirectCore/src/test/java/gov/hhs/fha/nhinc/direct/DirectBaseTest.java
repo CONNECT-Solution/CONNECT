@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
-
 import org.junit.BeforeClass;
 
 /**

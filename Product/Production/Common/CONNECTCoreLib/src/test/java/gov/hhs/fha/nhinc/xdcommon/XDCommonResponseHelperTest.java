@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.xdcommon;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class XDCommonResponseHelperTest {

@@ -47,10 +47,9 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.dao;
 
-import java.util.List;
-
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import java.util.List;
 
 /**
  * Anchor data access methods.

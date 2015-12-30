@@ -28,16 +28,14 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +43,6 @@ import org.hibernate.criterion.Expression;
  *
  * @author richard.ettema
  */
-
 public class IdentifierDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(IdentifierDAO.class);
@@ -56,7 +53,6 @@ public class IdentifierDAO {
      *
      * Constructor
      */
-
     private IdentifierDAO() {
 
         LOG.info("IdentifierDAO - Initialized");
@@ -69,7 +65,6 @@ public class IdentifierDAO {
      *
      * @return IdentifierDAO
      */
-
     public static IdentifierDAO getIdentifierDAOInstance() {
 
         LOG.debug("getIdentifierDAOInstance()..");
@@ -79,11 +74,8 @@ public class IdentifierDAO {
     }
 
     // =========================
-
     // Standard CRUD DML Methods
-
     // =========================
-
     /**
      *
      * Create a single <code>Identifier</code> record. The generated id
@@ -94,7 +86,6 @@ public class IdentifierDAO {
      *
      * @return boolean
      */
-
     public boolean create(Identifier identifierRecord) {
 
         LOG.debug("IdentifierDAO.create() - Begin");
@@ -138,7 +129,6 @@ public class IdentifierDAO {
             } finally {
 
                 // Actual Identifier insertion will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -165,7 +155,6 @@ public class IdentifierDAO {
      *
      * @return Identifier
      */
-
     public Identifier read(Long id) {
 
         LOG.debug("IdentifierDAO.read() - Begin");
@@ -182,7 +171,7 @@ public class IdentifierDAO {
 
         Session session = null;
 
-        List<Identifier> queryList = null;
+        List<Identifier> queryList;
 
         Identifier foundRecord = null;
 
@@ -195,7 +184,6 @@ public class IdentifierDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Identifier.class);
 
             aCriteria.add(Expression.eq("id", id));
@@ -215,7 +203,6 @@ public class IdentifierDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -240,7 +227,6 @@ public class IdentifierDAO {
      *
      * @return boolean
      */
-
     public boolean update(Identifier identifierRecord) {
 
         LOG.debug("IdentifierDAO.update() - Begin");
@@ -284,7 +270,6 @@ public class IdentifierDAO {
             } finally {
 
                 // Actual Identifier update will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -307,7 +292,6 @@ public class IdentifierDAO {
      *
      * @param identifierRecord
      */
-
     public void delete(Identifier identifierRecord) {
 
         LOG.debug("IdentifierDAO.delete() - Begin");
@@ -323,7 +307,6 @@ public class IdentifierDAO {
             LOG.info("Deleting Record...");
 
             // Delete the Identifier record
-
             session.delete(identifierRecord);
 
         } catch (Exception e) {
@@ -333,7 +316,6 @@ public class IdentifierDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();

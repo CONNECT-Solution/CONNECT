@@ -55,14 +55,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ManageUserBean {
 
-    private static Logger log = LoggerFactory.getLogger(ManageUserBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ManageUserBean.class);
     private String userName = null;
     private String password = null;
     private String role;
 
     private UserLogin selectedUser;
 
-    private List<UserLogin> users = new ArrayList<UserLogin>();
+    private List<UserLogin> users = new ArrayList<>();
 
     /**
      * The login service.
@@ -111,8 +111,8 @@ public class ManageUserBean {
         } catch (UserLoginException e) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("userAddErrors",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
-            log.error("Error creating user: " + e.getMessage());
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
+            LOG.error("Error creating user: {}", e.getLocalizedMessage(), e);
         }
         userName = null;
         password = null;
@@ -125,8 +125,7 @@ public class ManageUserBean {
      * @return
      */
     protected HttpSession getHttpSession() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        return session;
+        return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }
 
     /**
@@ -183,19 +182,21 @@ public class ManageUserBean {
         return loginService.getAllUsers();
     }
 
-    public void deleteUser(ActionEvent event){
-        if(selectedUser != null){
+    public void deleteUser(ActionEvent event) {
+        if (selectedUser != null) {
             try {
                 loginService.deleteUser(selectedUser);
             } catch (UserLoginException ex) {
-               FacesContext.getCurrentInstance().addMessage("userDeleteMessages", new FacesMessage(FacesMessage.SEVERITY_WARN,
-                ex.getLocalizedMessage(), ""));
+                FacesContext.getCurrentInstance().addMessage("userDeleteMessages", new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    ex.getLocalizedMessage(), ""));
+                LOG.error("Error deleting user: {}", ex.getLocalizedMessage(), ex);
             }
         }
     }
 
     /**
      * Returns the user name in the current session.
+     *
      * @return
      */
     public String getCurrentUser() {

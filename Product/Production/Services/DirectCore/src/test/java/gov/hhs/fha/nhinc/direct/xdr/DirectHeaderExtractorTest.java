@@ -213,7 +213,7 @@ public class DirectHeaderExtractorTest extends DirectBaseTest {
 
     class NodeListImpl implements NodeList {
 
-        private List<Node> nodes = new ArrayList<Node>();
+        private List<Node> nodes = new ArrayList<>();
 
         public void add(Node node){
             nodes.add(node);

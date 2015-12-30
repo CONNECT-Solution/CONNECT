@@ -48,9 +48,7 @@
 package gov.hhs.fha.nhinc.directconfig.entity;
 
 import java.util.Calendar;
-
 import javax.xml.bind.annotation.XmlAttribute;
-
 import org.nhindirect.policy.PolicyLexicon;
 
 public class CertPolicy {

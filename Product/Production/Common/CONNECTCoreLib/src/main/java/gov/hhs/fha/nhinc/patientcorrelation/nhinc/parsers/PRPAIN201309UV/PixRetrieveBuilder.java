@@ -41,12 +41,9 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SenderReceiverHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.UniqueIdHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.COCTMT090100UV01AssignedPerson;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -129,7 +126,7 @@ public class PixRetrieveBuilder {
 
         JAXBElement<COCTMT090100UV01AssignedPerson> assignedPersonElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedPerson");
-        assignedPersonElement = new JAXBElement<COCTMT090100UV01AssignedPerson>(xmlqname,
+        assignedPersonElement = new JAXBElement<>(xmlqname,
             COCTMT090100UV01AssignedPerson.class, assignedPerson);
 
         return assignedPersonElement;
@@ -206,7 +203,7 @@ public class PixRetrieveBuilder {
         PRPAMT201307UV02QueryByParameter queryByParameter) {
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameterElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        queryByParameterElement = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+        queryByParameterElement = new JAXBElement<>(xmlqname,
             PRPAMT201307UV02QueryByParameter.class, new PRPAMT201307UV02QueryByParameter());
         queryByParameterElement.setValue(queryByParameter);
         return queryByParameterElement;
@@ -223,7 +220,7 @@ public class PixRetrieveBuilder {
 
     protected List<String> stripCommunityIdsPrefix(List<String> targetCommunities) {
         if (NullChecker.isNotNullish(targetCommunities)) {
-            List<String> targetCommunityIds = new ArrayList<String>();
+            List<String> targetCommunityIds = new ArrayList<>();
             for (String homeCommunityId : targetCommunities) {
                 targetCommunityIds.add(HomeCommunityMap.formatHomeCommunityId(homeCommunityId));
             }

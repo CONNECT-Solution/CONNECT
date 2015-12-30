@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +84,7 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
      * @param targets TargetCommunities to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");

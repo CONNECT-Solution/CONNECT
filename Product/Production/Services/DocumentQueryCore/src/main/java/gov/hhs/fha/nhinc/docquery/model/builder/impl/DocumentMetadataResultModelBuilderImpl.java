@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery.model.builder.impl;
 
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
-import org.apache.commons.lang.StringUtils;
 import gov.hhs.fha.nhinc.docquery.model.builder.DocumentMetadataResultModelBuilder;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbAdhocQueryResponseHelper;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbAdhocQueryResponseHelperImpl;
@@ -35,12 +34,12 @@ import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ClassificationScheme
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.IdentificationScheme;
 import gov.hhs.fha.nhinc.docquery.xdsb.helper.XDSbConstants.ResponseSlotName;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
 import java.text.ParseException;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +85,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
             int size = Integer.parseInt(documentSize);
             result.setSize(size);
         } catch (Exception e) {
-            LOG.error("Failed to convert the String to int:" + e.getMessage());
+            LOG.error("Failed to convert the String to int: {}", e.getLocalizedMessage(), e);
         }
         result.setSourcePatientId(helper.getSingleSlotValue(ResponseSlotName.sourcePatientId, extrinsicObject));
         result.setUri(helper.getSingleSlotValue(ResponseSlotName.URI, extrinsicObject));
@@ -112,7 +111,7 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
             result.setServiceStartTime(getDateTime(serviceStartTime));
             result.setServiceStopTime(getDateTime(serviceStopTime));
         } catch (ParseException e) {
-            LOG.error("Failed to convert the String to Date:" + e.getMessage());
+            LOG.error("Failed to convert the String to Date: {}", e.getLocalizedMessage(), e);
         }
 
         String repositoryId = helper.getSingleSlotValue(ResponseSlotName.repositoryUniqueId, extrinsicObject);

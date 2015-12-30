@@ -42,9 +42,7 @@ public class AdapterDocSubmissionOrchImpl {
         AdapterComponentDocSubmissionProxyObjectFactory factory = new AdapterComponentDocSubmissionProxyObjectFactory();
         AdapterComponentDocSubmissionProxy proxy = factory.getAdapterComponentDocSubmissionProxy();
 
-        RegistryResponseType response = proxy.provideAndRegisterDocumentSetB(msg, assertion);
-
-        return response;
+        return proxy.provideAndRegisterDocumentSetB(msg, assertion);
     }
 
 }

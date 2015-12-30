@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.MCCIMT000300UV01Sender;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**

@@ -26,25 +26,21 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Matchers.any;
-
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.activation.DataHandler;
-
 import org.apache.cxf.attachment.AttachmentDataSource;
 import org.apache.cxf.message.Attachment;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.message.Message;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class AttachmentReleaseFaultOutInterceptorTest {
 
@@ -53,7 +49,7 @@ public class AttachmentReleaseFaultOutInterceptorTest {
 		final LargeFileUtils largeFileUtils = mock(LargeFileUtils.class);
 		Message message = mock(Message.class);
 		Exchange exchange = mock(Exchange.class);
-		Collection<Attachment> attachments = new ArrayList<Attachment>();
+		Collection<Attachment> attachments = new ArrayList<>();
 		Attachment attachment = mock(Attachment.class);
 		attachments.add(attachment);
 		DataHandler dataHandler = mock(DataHandler.class);

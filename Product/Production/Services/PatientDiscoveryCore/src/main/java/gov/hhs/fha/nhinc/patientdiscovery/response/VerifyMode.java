@@ -35,12 +35,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -48,6 +44,8 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201310UV02Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -61,6 +59,7 @@ public class VerifyMode implements ResponseMode {
         super();
     }
 
+    @Override
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         PRPAIN201306UV02 response = params.response;
         AssertionType assertion = params.assertion;
@@ -69,12 +68,13 @@ public class VerifyMode implements ResponseMode {
         return processResponse(requestMsg, response, assertion);
     }
 
+    @Override
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId) {
         LOG.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;
 
-        List<II> requestPatientIds = new ArrayList<II>();
+        List<II> requestPatientIds = new ArrayList<>();
         if (localPatientId != null) {
             requestPatientIds.add(localPatientId);
         }
@@ -180,7 +180,7 @@ public class VerifyMode implements ResponseMode {
     }
 
     protected List<II> getPatientIds(PRPAIN201305UV02 requestMsg) {
-        List<II> requestPatientIds = new ArrayList<II>();
+        List<II> requestPatientIds = new ArrayList<>();
         List<PRPAMT201306UV02LivingSubjectId> requestSubjectIds;
 
         if (requestMsg != null
@@ -208,7 +208,7 @@ public class VerifyMode implements ResponseMode {
         II patId = null;
 
         PRPAIN201305UV02 mpiQuery;
-        List<II> mpiIds = new ArrayList<II>();
+        List<II> mpiIds = new ArrayList<>();
 
         // Check to see if a patient id was specified in the original request
         mpiQuery = convert201306to201305(response);

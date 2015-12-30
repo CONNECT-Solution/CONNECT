@@ -47,16 +47,14 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatien
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
-
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOutboundPatientDiscoveryDeferredRequest {
 
@@ -158,14 +156,14 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     }
 
     private List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
-        List<UrlInfo> urlInfoList = null;
+        List<UrlInfo> urlInfoList;
 
         try {
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            LOG.error("Failed to obtain target URLs for service "
-                + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+            LOG.error("Failed to obtain target URLs for service {}: {}",
+                NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, ex.getLocalizedMessage(), ex);
             return null;
         }
 
@@ -233,9 +231,8 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(targetSystemType);
-        MCCIIN000002UV01 resp = ((OutboundPatientDiscoveryDeferredRequestOrchestratable) delegate
-            .process(orchestratable)).getResponse();
 
-        return resp;
+        return ((OutboundPatientDiscoveryDeferredRequestOrchestratable) delegate
+            .process(orchestratable)).getResponse();
     }
 }

@@ -31,12 +31,9 @@ import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.List;
-
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
 public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {

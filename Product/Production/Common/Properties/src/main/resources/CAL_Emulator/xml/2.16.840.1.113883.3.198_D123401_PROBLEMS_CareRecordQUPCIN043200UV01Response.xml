@@ -109,7 +109,7 @@
                                     </assignedPerson>
                                 </assignedEntity1>
                             </performer>
-						</observation>
+                        </observation>
                     </pertinentInformation3>
                     <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
                         <sequenceNumber value="8"/>
@@ -313,7 +313,7 @@
                             <text>Cancer</text>
                             <effectiveTime value="20080402"/>
                             <value code="V16.8" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Cancer" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
-						</observation>
+                        </observation>
                     </pertinentInformation3>
                     <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
                         <sequenceNumber value="27"/>
@@ -410,7 +410,7 @@
                                         <name>
                                             <family>ANOTHER</family>
                                             <given>MIDTIER TW</given>
-										</name>
+                                        </name>
                                     </assignedPerson>
                                 </assignedEntity1>
                             </performer>
@@ -523,7 +523,7 @@
                                     </assignedPerson>
                                 </assignedEntity1>
                             </performer>
-						</observation>
+                        </observation>
                     </pertinentInformation3>
                     <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
                         <sequenceNumber value="43"/>

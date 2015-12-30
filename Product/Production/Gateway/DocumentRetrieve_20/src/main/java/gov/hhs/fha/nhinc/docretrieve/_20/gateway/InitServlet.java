@@ -26,14 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._20.gateway;
 
-import java.util.Collections;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.docretrieve.configuration.jmx.DocumentRetrieve20WebServices;
+import java.util.Collections;
+import java.util.Set;
+import javax.servlet.ServletContext;
 
 /**
  * The Class InitServlet.

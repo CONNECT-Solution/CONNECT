@@ -93,7 +93,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     }
 
     private List<UrlInfo> createUrlInfoList(String... hcids) {
-        List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
+        List<UrlInfo> urlInfoList = new ArrayList<>();
 
         for (int i = 0; i < hcids.length; i++) {
             urlInfoList.add(new UrlInfo());

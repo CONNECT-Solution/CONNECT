@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.mail;
 
 import java.util.Properties;
-
 import javax.mail.Session;
 
 /**
@@ -50,6 +49,7 @@ public abstract class AbstractMailClient implements MailClient {
     /**
      * @return the mailSession
      */
+    @Override
     public Session getMailSession() {
         return mailSession;
     }

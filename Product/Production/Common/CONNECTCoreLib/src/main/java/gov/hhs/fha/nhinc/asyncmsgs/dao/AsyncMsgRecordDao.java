@@ -38,14 +38,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -55,7 +56,7 @@ public class AsyncMsgRecordDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMsgRecordDao.class);
 
-    private PropertyAccessor accessor;
+    private final PropertyAccessor accessor;
 
     public static final String QUEUE_DIRECTION_INBOUND = "INBOUND";
     public static final String QUEUE_DIRECTION_OUTBOUND = "OUTBOUND";
@@ -90,6 +91,7 @@ public class AsyncMsgRecordDao {
      * Query by Message Id. This should return only one record.
      *
      * @param messageId
+     * @param direction
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndDirection(String messageId, String direction) {
@@ -111,14 +113,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by message id. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -135,7 +137,7 @@ public class AsyncMsgRecordDao {
      */
     public List<AsyncMsgRecord> queryByMessageIdAndServiceName(String messageId, String serviceName) {
         LOG.debug("Performing database record retrieve using message id: " + messageId + "and service name: "
-                + serviceName);
+            + serviceName);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -153,14 +155,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by message id and service name. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -192,14 +194,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by timestamp. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -208,8 +210,7 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Query for Creation Time less than passed timestamp and status equal to Request Receieved Acknowledged
-     * [REQRCVDACK]
+     * Query for Creation Time less than passed timestamp and status equal to Request Received Acknowledged [REQRCVDACK]
      *
      * @param timestamp A timestamp
      * @return matching records
@@ -232,14 +233,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by timestamp. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -269,14 +270,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve for deferred queue manager processing. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -307,14 +308,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve for deferred queue manager selected. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -325,8 +326,7 @@ public class AsyncMsgRecordDao {
     /**
      * Query by Message Id and Service Name. This should return only one record.
      *
-     * @param messageId
-     * @param serviceName
+     * @param queryCriteria
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByCriteria(QueryDeferredQueueRequestType queryCriteria) {
@@ -395,14 +395,14 @@ public class AsyncMsgRecordDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by criteria. Results found: "
-                        + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
+                    + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -425,7 +425,7 @@ public class AsyncMsgRecordDao {
 
         if (NullChecker.isNotNullish(asyncMsgRecs)) {
             int size = asyncMsgRecs.size();
-            AsyncMsgRecord dbRecord = null;
+            AsyncMsgRecord dbRecord;
 
             try {
                 session = getSession();
@@ -438,14 +438,14 @@ public class AsyncMsgRecordDao {
                     session.persist(dbRecord);
                 }
 
-                LOG.info("AsyncMsgRecord List Inserted successfully...");
                 tx.commit();
-            } catch (Exception e) {
+                LOG.info("AsyncMsgRecord List Inserted successfully...");
+            } catch (HibernateException he) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                LOG.error("Error during insertion caused by :" + e.getMessage());
+                LOG.error("Error during insertion caused by: {}", he.getLocalizedMessage(), he);
             } finally {
                 // Actual insertion will happen at this step
                 if (session != null) {
@@ -480,15 +480,15 @@ public class AsyncMsgRecordDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: {}", he.getLocalizedMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -512,7 +512,7 @@ public class AsyncMsgRecordDao {
                 trans = sess.beginTransaction();
 
                 int size = asyncMsgRecs.size();
-                AsyncMsgRecord dbRecord = null;
+                AsyncMsgRecord dbRecord;
 
                 LOG.info("Saving Records...");
 
@@ -529,15 +529,15 @@ public class AsyncMsgRecordDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: {}", he.getLocalizedMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -567,15 +567,15 @@ public class AsyncMsgRecordDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: {}", he.getLocalizedMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
         }
@@ -590,8 +590,8 @@ public class AsyncMsgRecordDao {
         LOG.debug("AsyncMsgRecordDao.checkExpiration() - Begin");
 
         // Read the delta properties from the gateway.properties file
-        long value = 0;
-        String units = null;
+        long value;
+        String units;
 
         value = getValueFromPropFile();
         units = getUnitsFromPropFile();
@@ -619,11 +619,11 @@ public class AsyncMsgRecordDao {
         String units = null;
         try {
             units = accessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
+                NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP
-                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve {} from property file {}: {}",
+                NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP, NhincConstants.GATEWAY_PROPERTY_FILE,
+                ex.getLocalizedMessage(), ex);
         }
         return units;
     }
@@ -635,11 +635,11 @@ public class AsyncMsgRecordDao {
         long value = 0;
         try {
             value = accessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
+                NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
         } catch (PropertyAccessException ex) {
-            LOG.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            LOG.error(ex.getMessage());
+            LOG.error("Error: Failed to retrieve {} from property file {}: {}",
+                NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP, NhincConstants.GATEWAY_PROPERTY_FILE,
+                ex.getLocalizedMessage(), ex);
         }
         return value;
     }
@@ -648,7 +648,7 @@ public class AsyncMsgRecordDao {
         Calendar currentTime = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 
         // Convert the long to a Long Object and change the sign to negative so our query value ends up in the past.
-        Long longObj = Long.valueOf(0 - value);
+        Long longObj = -value;
 
         if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC)) {
             currentTime.add(Calendar.SECOND, longObj.intValue());
@@ -661,9 +661,7 @@ public class AsyncMsgRecordDao {
             currentTime.add(Calendar.DAY_OF_YEAR, longObj.intValue());
         }
 
-        Date expirationValue = currentTime.getTime();
-
-        return expirationValue;
+        return currentTime.getTime();
     }
 
     protected Session getSession() {

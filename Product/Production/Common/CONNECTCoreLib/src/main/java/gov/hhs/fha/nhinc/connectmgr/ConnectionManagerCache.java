@@ -63,7 +63,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCache.class);
     private PropertyAccessor accessor;
-    public static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
+    public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
     // --------------------------------------------------------------------------------------------
@@ -128,8 +128,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             synchronized (m_hUDDIConnectInfo) {
                 m_hUDDIConnectInfo.clear();
 
-                if ((businessDetail.getBusinessEntity() != null) && (businessDetail.getBusinessEntity() != null)
-                    && (businessDetail.getBusinessEntity().size() > 0)) {
+                if (businessDetail.getBusinessEntity() != null && !businessDetail.getBusinessEntity().isEmpty()) {
                     for (BusinessEntity oEntity : businessDetail.getBusinessEntity()) {
                         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
                         String sHomeCommunityId = helper.getCommunityId(oEntity);
@@ -193,7 +192,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             synchronized (m_hInternalConnectInfo) {
                 m_hInternalConnectInfo.clear();
 
-                if ((businessDetail.getBusinessEntity() != null) && (businessDetail.getBusinessEntity().size() > 0)) {
+                if (businessDetail.getBusinessEntity() != null && !businessDetail.getBusinessEntity().isEmpty()) {
                     for (BusinessEntity businessEntity : businessDetail.getBusinessEntity()) {
                         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
                         String sHomeCommunityId = helper.getCommunityId(businessEntity);
@@ -274,7 +273,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      */
     @Override
     public List<BusinessEntity> getAllBusinessEntities() throws ConnectionManagerException {
-        List<BusinessEntity> allEntities = new ArrayList<BusinessEntity>();
+        List<BusinessEntity> allEntities = new ArrayList<>();
         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
         checkLoaded();
 
@@ -372,7 +371,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      */
     @Override
     public Set<BusinessEntity> getBusinessEntitySet(List<String> saHomeCommunityId) throws ConnectionManagerException {
-        Set<BusinessEntity> oEntities = new HashSet<BusinessEntity>();
+        Set<BusinessEntity> oEntities = new HashSet<>();
 
         checkLoaded();
 
@@ -419,7 +418,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
         BusinessEntity internalBusinessEntity = null;
         BusinessEntity uddiEntity = null;
-        BusinessService bService = null;
+        BusinessService bService;
 
         // check the internal connections for the service
         // TODO: *******The below logic needs to be revisited********
@@ -464,7 +463,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         // Merge local and remote
-        BusinessEntity oCombinedEntity = null;
+        BusinessEntity oCombinedEntity;
         if ((internalBusinessEntity != null) && (uddiEntity != null)) {
             helper.mergeBusinessEntityServices(internalBusinessEntity, uddiEntity);
             oCombinedEntity = internalBusinessEntity;
@@ -505,13 +504,11 @@ public class ConnectionManagerCache implements ConnectionManager {
         // load internal connections, check first with the urn:oid prefix, if not found check without the prefix
         // TODO: *******The below logic needs to be revisited********
         if (m_hInternalConnectInfo.containsKey(sHomeCommunityIDWithPrefix)) {
-            BusinessEntity businessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDWithPrefix);
-            internalBusinessEntity = businessEntity;
+            internalBusinessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDWithPrefix);
         }
         // TODO: *******The below logic needs to be revisited********
         if (m_hInternalConnectInfo.containsKey(sHomeCommunityIDwithoutPrefix)) {
-            BusinessEntity businessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDwithoutPrefix);
-            internalBusinessEntity = businessEntity;
+            internalBusinessEntity = m_hInternalConnectInfo.get(sHomeCommunityIDwithoutPrefix);
         }
 
         // get UDDI from cache, check first with the urn:oid prefix, if not found check without the prefix
@@ -523,7 +520,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         // Merge local and remote
-        BusinessEntity oCombinedEntity = null;
+        BusinessEntity oCombinedEntity;
         if ((internalBusinessEntity != null) && (oUDDIEntity != null)) {
             oCombinedEntity = helper.mergeBusinessEntityServices(internalBusinessEntity, oUDDIEntity);
         } else if (internalBusinessEntity != null) {
@@ -831,7 +828,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      */
     @Override
     public String getInternalEndpointURLByServiceName(String sUniformServiceName) throws ConnectionManagerException {
-        String sHomeCommunityId = null;
+        String sHomeCommunityId;
         String sEndpointURL = null;
         sHomeCommunityId = getHomeCommunityFromPropFile();
 

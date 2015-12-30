@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.response;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,12 +41,12 @@ public class ResponseFactory {
 
     public static enum ResponseModeType {
         VERIFY, TRUST, PASSTHROUGH
-    };
+    }
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseFactory.class);
 
     public ResponseMode getResponseMode() {
-        ResponseMode result = null;
+        ResponseMode result;
 
         ResponseModeType mode = getResponseModeType();
 

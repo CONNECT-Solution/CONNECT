@@ -29,14 +29,12 @@ package gov.hhs.fha.nhinc.patientdiscovery;
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -81,7 +79,7 @@ public class PatientDiscovery201306Processor {
         LOG.debug("Begin storeMapping");
         String hcid = getHcid(request);
         LOG.debug("Begin storeMapping: hcid" + hcid);
-        List<String> assigningAuthorityIds = new ArrayList<String>();
+        List<String> assigningAuthorityIds;
         assigningAuthorityIds = extractAAListFrom201306(request);
         // String assigningAuthority = extractAAFrom201306(request);
         for (String assigningAuthority : assigningAuthorityIds) {
@@ -177,8 +175,8 @@ public class PatientDiscovery201306Processor {
 
     protected List<String> extractAAListFrom201306(PRPAIN201306UV02 msg) {
         LOG.debug("Begin extractAAFrom201306");
-        List<String> assigningAuthorityIds = new ArrayList<String>();
-        String assigningAuthority = null;
+        List<String> assigningAuthorityIds = new ArrayList<>();
+        String assigningAuthority;
         int subjCount = 0;
 
         if (msg != null && msg.getControlActProcess() != null
@@ -188,7 +186,6 @@ public class PatientDiscovery201306Processor {
         LOG.debug("storeMapping - Subject Count: " + subjCount);
 
         for (int i = 0; i < subjCount; i++) {
-            assigningAuthority = null;
             if (msg != null
                     && msg.getControlActProcess() != null
                     && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())

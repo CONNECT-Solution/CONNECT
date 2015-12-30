@@ -26,11 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -40,21 +35,21 @@ import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImp
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.uddi.api_v3.BusinessEntity;
 import org.w3._2005._08.addressing.AttributedURIType;
 import org.w3._2005._08.addressing.EndpointReferenceType;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  *
@@ -273,7 +268,7 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            List<String> hcidList = new ArrayList<String>();
+            List<String> hcidList = new ArrayList<>();
             hcidList.add(HCID_1);
             hcidList.add(HCID_2);
             Set<BusinessEntity> entitySet = connectionManager.getBusinessEntitySet(hcidList);
@@ -282,7 +277,7 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             entitySet = connectionManager.getBusinessEntitySet(null);
             assertNull(entitySet);
 
-            hcidList = new ArrayList<String>();
+            hcidList = new ArrayList<>();
             hcidList.add("hcidValue1123");
             hcidList.add("hcidValue2123");
             entitySet = connectionManager.getBusinessEntitySet(hcidList);

@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author msw

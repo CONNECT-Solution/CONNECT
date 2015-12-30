@@ -33,7 +33,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -48,7 +47,7 @@ public class ConnectionManagerDAOBase {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
-        BusinessDetail resp = null;
+        BusinessDetail resp;
         synchronized (file) {
             JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();

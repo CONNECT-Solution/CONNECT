@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryU
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -99,8 +98,8 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
     @Override
     public void configureInboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        NhinPatientDiscovery nhinPD = null;
-        InboundPatientDiscovery inboundPD = null;
+        NhinPatientDiscovery nhinPD;
+        InboundPatientDiscovery inboundPD;
 
         nhinPD = retrieveBean(NhinPatientDiscovery.class, getNhinBeanName());
         inboundPD = retrieveBean(InboundPatientDiscovery.class, getStandardInboundBeanName());
@@ -112,8 +111,8 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
     @Override
     public void configureInboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        NhinPatientDiscovery nhinPD = null;
-        InboundPatientDiscovery inboundPD = null;
+        NhinPatientDiscovery nhinPD;
+        InboundPatientDiscovery inboundPD;
 
         nhinPD = retrieveBean(NhinPatientDiscovery.class, getNhinBeanName());
         inboundPD = retrieveBean(InboundPatientDiscovery.class, getPassthroughInboundBeanName());
@@ -136,8 +135,8 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
     @Override
     public void configureOutboundStdImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        EntityPatientDiscoveryUnsecured entityPD = null;
-        OutboundPatientDiscovery outboundPD = null;
+        EntityPatientDiscoveryUnsecured entityPD;
+        OutboundPatientDiscovery outboundPD;
 
         entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class, getEntityUnsecuredBeanName());
         outboundPD = retrieveBean(OutboundPatientDiscovery.class, getStandardOutboundBeanName());
@@ -148,8 +147,8 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
     @Override
     public void configureOutboundPtImpl() throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        EntityPatientDiscoveryUnsecured entityPD = null;
-        OutboundPatientDiscovery outboundPD = null;
+        EntityPatientDiscoveryUnsecured entityPD;
+        OutboundPatientDiscovery outboundPD;
 
         entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class, getEntityUnsecuredBeanName());
         outboundPD = retrieveBean(OutboundPatientDiscovery.class, getPassthroughOutboundBeanName());

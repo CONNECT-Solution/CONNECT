@@ -44,6 +44,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.component.dashboard.Dashboard;
 import org.primefaces.event.CloseEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -63,6 +65,8 @@ public class DashboardBean {
     private DashboardViewResolver dashboardView;
 
     private List<String> selectedClosedPanels;
+
+    private static final Logger LOG = LoggerFactory.getLogger(DashboardBean.class);
 
     /**
      *
@@ -85,7 +89,7 @@ public class DashboardBean {
      * @return
      */
     public String addPanels() {
-        List<DashboardPanel> openPanels = new ArrayList<DashboardPanel>();
+        List<DashboardPanel> openPanels = new ArrayList<>();
 
         try {
             for (DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()) {
@@ -101,11 +105,11 @@ public class DashboardBean {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOG.error("Could not add panels: {}", e.getLocalizedMessage(), e);
         }
 
         TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
-                getExternalContext().getSessionMap().get("tabBean");
+            getExternalContext().getSessionMap().get("tabBean");
 
         if (tabs != null) {
             tabs.setDashboardTabIndex(0);
@@ -164,7 +168,7 @@ public class DashboardBean {
 
         for (Object key : keys) {
             builder.append((String) key).append(" : ")
-                    .append((String) System.getProperty((String) key)).append("\n");
+                .append(System.getProperty((String) key)).append("\n");
         }
 
         return builder.toString();
@@ -175,7 +179,7 @@ public class DashboardBean {
      * @return
      */
     public Map<String, String> getClosedPanels() {
-        Map<String, String> closedPanels = new HashMap<String, String>();
+        Map<String, String> closedPanels = new HashMap<>();
 
         for (DashboardPanel panel : dashboardObserver.getClosedDashboardPanels()) {
             closedPanels.put(panel.getType(), panel.getType());

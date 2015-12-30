@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType;
 public abstract class EntityDocSubmissionSecuredAbstractServicePortDescriptor extends SOAP12ServicePortDescriptor<EntityXDRSecuredPortType> {
 
 
+    @Override
     public Class<EntityXDRSecuredPortType> getPortClass() {
         return EntityXDRSecuredPortType.class;
     }

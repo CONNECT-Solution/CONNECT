@@ -39,11 +39,10 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Proxy to call the secured AdapterMPI interface.
@@ -87,7 +86,7 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
             serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion)
             throws PatientDiscoveryException {
-        String url = null;
+        String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME;
 

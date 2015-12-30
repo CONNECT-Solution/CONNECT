@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +40,7 @@ import org.slf4j.LoggerFactory;
 public class EntityDocRetrieveProxyNoOpImpl implements EntityDocRetrieveProxy {
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocRetrieveProxyNoOpImpl.class);
 
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("begin respondingGatewayCrossGatewayRetrieve()");

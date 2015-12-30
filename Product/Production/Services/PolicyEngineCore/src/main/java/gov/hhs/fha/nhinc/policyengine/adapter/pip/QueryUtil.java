@@ -171,7 +171,7 @@ public class QueryUtil {
      * @throws gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException Any error in the process of conversion.
      */
     public List<DocumentRequest> createDocumentRequest(AdhocQueryResponse oResponse) throws AdapterPIPException {
-        List<DocumentRequest> olDocReq = new ArrayList<DocumentRequest>();
+        List<DocumentRequest> olDocReq = new ArrayList<>();
 
         if ((oResponse != null) && (oResponse.getRegistryObjectList() != null)
                 && (oResponse.getRegistryObjectList().getIdentifiable() != null)
@@ -191,7 +191,7 @@ public class QueryUtil {
                     String sHomeCommunityId = "";
                     String sRepositoryId = "";
                     String sDocumentId = "";
-                    String sHL7PatientId = "";
+                    String sHL7PatientId;
 
                     if (oExtObj != null) {
                         // Home Community ID
@@ -272,7 +272,7 @@ public class QueryUtil {
         LOG.debug("In createAdhocQueryRequest");
 
         AdhocQueryRequest oRequest = new AdhocQueryRequest();
-        String sHL7PatId = "";
+        String sHL7PatId;
         // ResponseOption
         // ----------------
         ResponseOptionType oResponseOption = new ResponseOptionType();
@@ -296,7 +296,7 @@ public class QueryUtil {
         if (sPatientId != null && !sPatientId.contains("&ISO")) {
             sHL7PatId = PatientIdFormatUtil.hl7EncodePatientId(sPatientId, sAssigningAuthority);
         } else {
-            if (sPatientId != null && !sPatientId.equals("") && !sPatientId.startsWith("'")) {
+            if (sPatientId != null && !sPatientId.isEmpty() && !sPatientId.startsWith("'")) {
                 sPatientId = "'" + sPatientId + "'";
             }
             sHL7PatId = sPatientId;

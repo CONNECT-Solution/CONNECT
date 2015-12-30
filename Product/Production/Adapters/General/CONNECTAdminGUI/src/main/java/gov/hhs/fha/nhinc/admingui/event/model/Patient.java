@@ -64,7 +64,7 @@ public class Patient {
     private List<Document> documentList;
 
     public Patient() {
-        this.documentList = new ArrayList<Document>();
+        this.documentList = new ArrayList<>();
     }
 
 

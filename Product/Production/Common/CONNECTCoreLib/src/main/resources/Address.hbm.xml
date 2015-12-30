@@ -8,15 +8,15 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping package="gov.hhs.fha.nhinc.patientdb.model">
-  <class name="Address" table="address">
-    <id name="addressId">
-      <generator class="native"/>
-    </id>
-    <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
-    <property column="street1" name="street1"/>
-    <property column="street2" name="street2"/>
-    <property column="city" name="city"/>
-    <property column="state" name="state"/>
-    <property column="postal" name="postal"/>
-  </class>
+    <class name="Address" table="address">
+        <id name="addressId">
+            <generator class="native"/>
+        </id>
+        <many-to-one column="patientId" lazy="false" name="patient" not-null="true"/>
+        <property column="street1" name="street1"/>
+        <property column="street2" name="street2"/>
+        <property column="city" name="city"/>
+        <property column="state" name="state"/>
+        <property column="postal" name="postal"/>
+    </class>
 </hibernate-mapping>

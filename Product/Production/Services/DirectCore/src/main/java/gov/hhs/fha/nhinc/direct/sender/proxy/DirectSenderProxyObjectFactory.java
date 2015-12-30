@@ -45,6 +45,7 @@ public class DirectSenderProxyObjectFactory extends ComponentProxyObjectFactory 
     /**
      * {@inheritDoc}
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

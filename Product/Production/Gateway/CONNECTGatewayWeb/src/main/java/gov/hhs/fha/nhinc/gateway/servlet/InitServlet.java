@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import java.util.concurrent.ExecutorService;
@@ -35,7 +36,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 
 /**
  * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.

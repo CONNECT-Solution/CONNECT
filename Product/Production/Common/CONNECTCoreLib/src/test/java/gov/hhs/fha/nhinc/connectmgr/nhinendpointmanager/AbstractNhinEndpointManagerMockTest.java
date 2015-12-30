@@ -26,20 +26,18 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.nhinendpointmanager;
 
-import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -123,7 +121,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 1.0 specs
      */
     protected void expectConnectionManagerCache10() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_0);
 
         expectConnectionManagerCache(list);
@@ -133,7 +131,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 1.1 specs
      */
     protected void expectConnectionManagerCache11() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_1);
 
         expectConnectionManagerCache(list);
@@ -143,7 +141,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 2.0 specs
      */
     protected void expectConnectionManagerCache20() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_2_0);
 
         expectConnectionManagerCache(list);
@@ -153,7 +151,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
      * Setup for 3.0 specs
      */
     protected void expectConnectionManagerCache30() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_3_0);
 
         expectConnectionManagerCache(list);

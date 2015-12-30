@@ -49,15 +49,15 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
+import javax.ws.rs.core.MediaType;
+import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.ws.rs.core.MediaType;
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamResult;
 
 /**
  * Singleton Interface class between UI and the backend services. provides high level APIs for calling PD, DQ, RD etc.
@@ -139,7 +139,7 @@ public class GatewayService {
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
             return true;
         } catch (Exception ex) {
-            LOG.error("Failed to Retrieve Patient Data" + ex.getMessage());
+            LOG.error("Failed to Retrieve Patient Data: {}", ex.getLocalizedMessage(), ex);
             //TODO: notify the UI or somehow inform the user
             return false;
         }
@@ -182,7 +182,7 @@ public class GatewayService {
             return true;
 
         } catch (DocumentMetadataException ex) {
-            System.out.println("discoverPatient() failed:" + ex.getMessage());
+            LOG.error("discoverPatient() failed: {}", ex.getLocalizedMessage(), ex);
             return false;
         }
     }
@@ -238,7 +238,7 @@ public class GatewayService {
             transformer.transform(new StreamSource(xml), new StreamResult(output));
 
         } catch (TransformerException e) {
-            LOG.error("Exception in transforming from xml to html", e);
+            LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
         }
 
         return output.toByteArray();

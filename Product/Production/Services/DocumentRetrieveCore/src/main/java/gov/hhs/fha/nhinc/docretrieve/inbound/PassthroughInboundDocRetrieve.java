@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
-import java.util.Properties;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
@@ -38,6 +36,7 @@ import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import java.util.Properties;
 
 public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
 

@@ -30,10 +30,10 @@ import gov.hhs.fha.nhinc.corex12.docsubmission.audit.CORE_X12AuditDataTransformC
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -52,7 +52,7 @@ public class COREX12RealTimeAuditTransforms extends
                 Object element = null;
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 msg.setPayload("");
-                element = new JAXBElement<COREEnvelopeRealTimeRequest>(getQname(
+                element = new JAXBElement<>(getQname(
                     CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     CORE_X12AuditDataTransformConstants.CORE_X12_REQUEST_LOCALPART),
                     COREEnvelopeRealTimeRequest.class, msg);
@@ -74,7 +74,7 @@ public class COREX12RealTimeAuditTransforms extends
                 Object element = null;
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 msg.setPayload("");
-                element = new JAXBElement<COREEnvelopeRealTimeResponse>(getQname(
+                element = new JAXBElement<>(getQname(
                     CORE_X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     CORE_X12AuditDataTransformConstants.CORE_X12_RESPONSE_LOCALPART),
                     COREEnvelopeRealTimeResponse.class, msg);

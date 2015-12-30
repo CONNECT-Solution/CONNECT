@@ -40,8 +40,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,9 +144,9 @@ public class FindAuditEventsTransforms {
                 LOG.debug("Done marshalling the message.");
 
                 partObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException();
+            } catch (JAXBException | IOException e) {
+                LOG.error("Marshalling error: {}", e.getLocalizedMessage(), e);
+                throw new RuntimeException(e);
             }
 
             auditMsg.getParticipantObjectIdentification().add(partObject);

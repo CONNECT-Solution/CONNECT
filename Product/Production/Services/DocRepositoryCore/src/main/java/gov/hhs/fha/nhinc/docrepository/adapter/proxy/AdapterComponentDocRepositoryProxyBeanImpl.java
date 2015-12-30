@@ -34,7 +34,6 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,12 +51,14 @@ public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterCompon
     private String mimeType;
     private String document;
 
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
         return createRetrieveDocumentSetResponseType();
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");

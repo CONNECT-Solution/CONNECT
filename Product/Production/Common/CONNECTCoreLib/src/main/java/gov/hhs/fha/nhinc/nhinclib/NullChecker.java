@@ -44,7 +44,7 @@ public class NullChecker {
     }
 
     public static boolean isNullish(List<?> value) {
-        return ((value == null) || (value.size() == 0));
+        return ((value == null) || (value.isEmpty()));
     }
 
     public static boolean isNotNullish(List<?> value) {

@@ -36,11 +36,10 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import org.hl7.fhir.instance.model.Conformance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.hl7.fhir.instance.model.Conformance;
 import org.springframework.stereotype.Service;
 
 /**
@@ -66,7 +65,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
      */
     @Override
     public List<ResourceInfo> loadResources() {
-        List<ResourceInfo> resources = new ArrayList<ResourceInfo>();
+        List<ResourceInfo> resources = new ArrayList<>();
 
         String patientUrl = getUrl(PATIENT_RESOURCE_NAME);
         if (NullChecker.isNotNullish(patientUrl)) {
@@ -125,7 +124,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     }
 
     private List<ConformanceResource> populateFromRest(List<Conformance.ConformanceRestComponent> rest) {
-        List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
+        List<ConformanceResource> confResources = new ArrayList<>();
         for (Conformance.ConformanceRestComponent component : rest) {
             if (NullChecker.isNotNullish(component.getResource())) {
                 confResources.addAll(populateConfResources(component.getResource()));
@@ -135,7 +134,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     }
 
     private List<ConformanceResource> populateConfResources(List<Conformance.ConformanceRestResourceComponent> resources) {
-        List<ConformanceResource> confResources = new ArrayList<ConformanceResource>();
+        List<ConformanceResource> confResources = new ArrayList<>();
         for (Conformance.ConformanceRestResourceComponent resource : resources) {
             ConformanceResource builtResource = new ConformanceResource();
             builtResource.setName(resource.getTypeSimple());

@@ -26,13 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
@@ -45,6 +38,11 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *

@@ -30,10 +30,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,15 +40,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import javax.activation.DataHandler;
-
+import org.apache.cxf.attachment.ByteDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.cxf.aegis.type.mtom.StreamDataSource;
-import org.apache.cxf.attachment.ByteDataSource;
 
 public class LargeFileUtils {
+
     private static final Logger LOG = LoggerFactory.getLogger(LargeFileUtils.class);
 
     private static LargeFileUtils INSTANCE = new LargeFileUtils();
@@ -75,9 +71,10 @@ public class LargeFileUtils {
     public boolean isParsePayloadAsFileLocationEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
+                NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
         } catch (PropertyAccessException pae) {
-            LOG.error("Failed to determine if payload should be parsed as a file location.  Will assume false.", pae);
+            LOG.error("Failed to determine if payload should be parsed as a file location.  Will assume false: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return false;
@@ -91,9 +88,10 @@ public class LargeFileUtils {
     public boolean isSavePayloadToFileEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
+                NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
         } catch (PropertyAccessException pae) {
-            LOG.error("Failed to determine if payload should be saved to a file location.  Will assume false.", pae);
+            LOG.error("Failed to determine if payload should be saved to a file location.  Will assume false: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return false;
@@ -175,6 +173,7 @@ public class LargeFileUtils {
             }
         } catch (Exception e) {
             LOG.warn("Failed to close input stream");
+            LOG.trace("Exception closing stream: {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -190,6 +189,7 @@ public class LargeFileUtils {
             }
         } catch (Exception e) {
             LOG.warn("Failed to close output stream");
+            LOG.trace("Exception closing stream: {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -203,8 +203,8 @@ public class LargeFileUtils {
     public DataHandler convertToDataHandler(File file) throws IOException {
         if (!file.exists()) {
             throw new IOException(
-                    "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
-                            + file.getAbsolutePath());
+                "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
+                + file.getAbsolutePath());
         }
 
         URI fileURI = file.toURI();
@@ -216,7 +216,7 @@ public class LargeFileUtils {
 
         // Not nested to cover the cases where a) URI is null b) URI is not null, but URL is null
         if (fileURL == null) {
-            throw new IOException ("Could not get URL for : " + file.getAbsolutePath());
+            throw new IOException("Could not get URL for : " + file.getAbsolutePath());
         }
 
         return new DataHandler(fileURL);
@@ -227,13 +227,12 @@ public class LargeFileUtils {
      *
      * @param data - the data to convert
      * @return the data handler representing the string
-     * @throws IOException
      */
     public DataHandler convertToDataHandler(String data) {
         try {
             return convertToDataHandler(data.getBytes(StringUtil.UTF8_CHARSET));
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: {}", ex.getLocalizedMessage(), ex);
             return null;
         }
     }
@@ -262,7 +261,7 @@ public class LargeFileUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            int read = 0;
+            int read;
             byte[] bytes = new byte[1024];
             while ((read = is.read(bytes)) != -1) {
                 baos.write(bytes, 0, read);
@@ -272,7 +271,8 @@ public class LargeFileUtils {
                 try {
                     is.close();
                 } catch (Exception e) {
-                    LOG.error("Could not close input stream : " + e.getMessage());
+                    LOG.error("Could not close input stream : " + e.getLocalizedMessage());
+                    LOG.trace("Exception closing stream: {}", e.getLocalizedMessage(), e);
                 }
             }
         }
@@ -316,13 +316,12 @@ public class LargeFileUtils {
     protected String getPayloadSaveDirectory() {
         try {
             return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.PAYLOAD_SAVE_DIRECTORY);
+                NhincConstants.PAYLOAD_SAVE_DIRECTORY);
         } catch (PropertyAccessException pae) {
-            LOG.error("Failed to determine payload save directory.  Is " + NhincConstants.PAYLOAD_SAVE_DIRECTORY
-                    + " set in gateway.properties?", pae);
+            LOG.error("Failed to determine payload save directory.  Is {} set in gateway.properties?",
+                NhincConstants.PAYLOAD_SAVE_DIRECTORY, pae.getLocalizedMessage(), pae);
         }
 
         return null;
     }
-
 }

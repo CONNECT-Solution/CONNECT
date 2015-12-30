@@ -50,24 +50,24 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
         proxyHelper = new WebServiceProxyHelper();
 
-        CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
+        CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<>(portDescriptor);
 
-        serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint, -1);
+        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort());
+        serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
 
         serviceEndpoint.configure();
 
     }
 
+    @Override
     public T getPort() {
         return serviceEndpoint.getPort();
     }
 
     @Override
     public Object invokePort(Class<T> portClass, String methodName, Object ... operationInput) throws Exception {
-        Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
-        return response;
+        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
     }
 
     /* (non-Javadoc)
@@ -83,7 +83,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
      */
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
     }
 
 

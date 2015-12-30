@@ -54,12 +54,9 @@ import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-
 import java.util.Collection;
-
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.policy.PolicyLexicon;

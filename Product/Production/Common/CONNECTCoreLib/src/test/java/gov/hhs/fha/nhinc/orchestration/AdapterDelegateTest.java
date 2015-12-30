@@ -31,7 +31,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -77,10 +76,12 @@ public class AdapterDelegateTest {
 
     public class AdapterDelegateImpl implements InboundDelegate {
 
+        @Override
         public InboundOrchestratable process(InboundOrchestratable message) {
             return null;
         }
 
+        @Override
         public void createErrorResponse(InboundOrchestratable message, String error) {
         }
 

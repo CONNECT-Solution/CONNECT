@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,27 +44,18 @@ public class UDDITimerTask {
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_SWITCH_PROPERTY = "UDDIRefreshActive";
 
-    protected boolean isLogEnabled() {
-        boolean isEnabled = false;
-        if (LOG.isDebugEnabled()) {
-            isEnabled = true;
-        }
-        return isEnabled;
-    }
-
     protected void forceRefreshUDDIFile() {
         try {
             UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
             helper.forceRefreshUDDIFile();
         } catch (UDDIAccessorException ex) {
-            LOG.debug("****** UDDITimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.warn("****** UDDITimerTask THROWABLE: {}", ex.getLocalizedMessage(), ex);
 
-            StringWriter stackTrace = new StringWriter();
-            ex.printStackTrace(new PrintWriter(stackTrace));
-            String sValue = stackTrace.toString();
-            if (sValue.indexOf("EJBClassLoader") >= 0) {
-                UDDITimer timer = UDDITimer.getInstance();
-                timer.stopTimer();
+            for (StackTraceElement ste : ex.getStackTrace()) {
+                if (ste.toString().contains("EJBClassLoader")) {
+                    UDDITimer.getInstance().stopTimer();
+                    break;
+                }
             }
         }
     }
@@ -75,27 +64,23 @@ public class UDDITimerTask {
      * This method is called each time the timer thread wakes up.
      */
     public void run() {
-        boolean bUDDIActive = true;
+        boolean bUDDIActive;
         try {
-            bUDDIActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
+            bUDDIActive = PropertyAccessor.getInstance()
+                .getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
 
             if (bUDDIActive) {
-                if (isLogEnabled()) {
-                    LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
-                }
+                LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
 
                 forceRefreshUDDIFile();
 
-                if (isLogEnabled()) {
-                    LOG.debug("Done: UDDITimerTask.run method - loading from UDDI server.");
-                }
+                LOG.debug("Done: UDDITimerTask.run method - loading from UDDI server.");
             } else {
-                if (isLogEnabled()) {
-                    LOG.debug("UDDITimerTask is disabled by the UDDIRefreshActive property.");
-                }
+                LOG.debug("UDDITimerTask is disabled by the UDDIRefreshActive property.");
             }
         } catch (PropertyAccessException ex) {
-        	LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
+            LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: {}",
+                ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -106,18 +91,16 @@ public class UDDITimerTask {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("Starting test.");
+        LOG.info("Starting test.");
 
         try {
             UDDITimerTask oTimerTask = new UDDITimerTask();
             oTimerTask.run();
         } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
+            LOG.error("An unexpected exception occurred: {}", e.getLocalizedMessage(), e);
+            throw new RuntimeException(e);
         }
 
-        System.out.println("End of test.");
-
+        LOG.info("End of test.");
     }
 }

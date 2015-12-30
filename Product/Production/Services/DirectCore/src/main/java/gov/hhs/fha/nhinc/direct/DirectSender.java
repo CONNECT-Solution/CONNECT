@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.direct;
 
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
-
 import org.nhindirect.xd.common.DirectDocuments;
 
 /**

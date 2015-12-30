@@ -33,12 +33,13 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -62,7 +63,7 @@ public class Retriever {
         List<QualifiedPatientIdentifier> filteredQualifiedPatientIdentifiers;
 
         if (NullChecker.isNotNullish(includeOnlyAssigningAuthorities)) {
-            filteredQualifiedPatientIdentifiers = new ArrayList<QualifiedPatientIdentifier>();
+            filteredQualifiedPatientIdentifiers = new ArrayList<>();
             for (QualifiedPatientIdentifier qualifiedPatientIdentifier : qualifiedPatientIdentifiers) {
                 if (isAssigningAuthorityInList(qualifiedPatientIdentifier, includeOnlyAssigningAuthorities)) {
                     filteredQualifiedPatientIdentifiers.add(qualifiedPatientIdentifier);
@@ -114,7 +115,7 @@ public class Retriever {
 
         List<CorrelatedIdentifiers> existingCorrelatedIdentifiers = unionList(result1, result2);
 
-        List<QualifiedPatientIdentifier> resultQualifiedPatientIdentifiers = new ArrayList<QualifiedPatientIdentifier>();
+        List<QualifiedPatientIdentifier> resultQualifiedPatientIdentifiers = new ArrayList<>();
         for (CorrelatedIdentifiers correlatedIdentifiers : existingCorrelatedIdentifiers) {
             QualifiedPatientIdentifier resultQualifiedPatientIdentifier;
 
@@ -153,7 +154,7 @@ public class Retriever {
     private static List<CorrelatedIdentifiers> unionList(List<CorrelatedIdentifiers> list1,
         List<CorrelatedIdentifiers> list2) {
         if (list1 == null) {
-            list1 = new ArrayList<CorrelatedIdentifiers>();
+            list1 = new ArrayList<>();
         }
 
         for (CorrelatedIdentifiers correlatedIdentifiers : list2) {
@@ -164,7 +165,7 @@ public class Retriever {
     }
 
     public static boolean doesCorrelationExist(CorrelatedIdentifiers correlatedIdentifers) {
-        boolean exists = false;
+        boolean exists;
 
         CorrelatedIdentifiers criteria;
 
@@ -197,7 +198,7 @@ public class Retriever {
         /*
          * AEGIS.net, Inc. (c) 2010 - Interop Test Platform If empty resultSet, attempt retrieve again with reversed ids
          */
-        if (resultSet != null && resultSet.size() == 0) {
+        if (resultSet != null && resultSet.isEmpty()) {
             CorrelatedIdentifiers criteria = new CorrelatedIdentifiers();
             criteria.setPatientId(correlatedIdentifers.getCorrelatedPatientId());
             criteria.setPatientAssigningAuthorityId(correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
@@ -220,7 +221,7 @@ public class Retriever {
     }
 
     private static List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        SessionFactory fact = null;
+        SessionFactory fact;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
         // List<CorrelatedIdentifiers> modifiedResult = null;
@@ -260,8 +261,8 @@ public class Retriever {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
 
             }
@@ -283,7 +284,7 @@ public class Retriever {
      * @return Returns a list of correlationIdentifiers that have not expired
      */
     private static List<CorrelatedIdentifiers> removeExpiredCorrelations(List<CorrelatedIdentifiers> result) {
-        List<CorrelatedIdentifiers> modifiedResult = new ArrayList<CorrelatedIdentifiers>();
+        List<CorrelatedIdentifiers> modifiedResult = new ArrayList<>();
         Date now = new Date();
 
         if (result != null) {

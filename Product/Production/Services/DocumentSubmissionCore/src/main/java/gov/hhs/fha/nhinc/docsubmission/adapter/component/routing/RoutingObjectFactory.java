@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.routing;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  *

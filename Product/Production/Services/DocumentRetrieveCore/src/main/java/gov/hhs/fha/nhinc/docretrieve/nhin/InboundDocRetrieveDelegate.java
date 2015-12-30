@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +63,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
      * @param the message
      * @return the inbound orchestrable
      */
+    @Override
     public InboundOrchestratable process(InboundOrchestratable message) {
 
         OrchestrationContext context = new OrchestrationContext(new InboundDocRetrieveStrategyImpl(), message);
@@ -71,6 +71,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
         return (InboundOrchestratable) context.execute();
     }
 
+    @Override
     public void createErrorResponse(InboundOrchestratable message, String error) {
         if (message == null) {
             LOG.debug("NhinOrchestratable was null");

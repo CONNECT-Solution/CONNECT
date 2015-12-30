@@ -36,6 +36,5 @@ public class CONNECTInboundOrchestrator extends CONNECTOrchestrationBase impleme
     @Override
     protected Orchestratable processIfPolicyIsOk(Orchestratable message) {
         return processInboundIfPolicyIsOk(message);
-
     }
 }

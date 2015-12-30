@@ -26,11 +26,9 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import java.beans.PropertyDescriptor;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.beans.PropertyDescriptor;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;

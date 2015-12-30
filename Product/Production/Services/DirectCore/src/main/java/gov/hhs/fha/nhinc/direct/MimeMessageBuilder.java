@@ -29,10 +29,8 @@ package gov.hhs.fha.nhinc.direct;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
@@ -45,7 +43,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
-
 import org.apache.commons.lang.StringUtils;
 import org.nhindirect.xd.common.DirectDocuments;
 
@@ -166,7 +163,7 @@ public class MimeMessageBuilder {
             throw new DirectException("Exception setting mime message part text: " + text, e);
         }
 
-        MimeBodyPart attachmentPart = null;
+        MimeBodyPart attachmentPart;
         try {
             if (documents != null && !StringUtils.isBlank(messageId)) {
                 attachmentPart = getMimeBodyPart();
@@ -212,8 +209,8 @@ public class MimeMessageBuilder {
         IOException {
 
         InputStream is = null;
-        DataSource source = null;
-        DataHandler dhnew = null;
+        DataSource source;
+        DataHandler dhnew;
         MimeBodyPart bodypart = null;
 
         try {

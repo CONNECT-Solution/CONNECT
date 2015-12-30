@@ -90,7 +90,7 @@ public class XmlUtility {
     }
 
     public static String serializeNode(Node node) throws LSException, IllegalAccessException, DOMException,
-            InstantiationException, ClassNotFoundException, ClassCastException {
+        InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (node != null) {
             DOMImplementationLS impl = getDOMImplementationLS(node);
@@ -131,7 +131,7 @@ public class XmlUtility {
      * @throws javax.xml.xpath.XPathExpressionException
      */
     public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
+        throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceElement, xpathQuery, namespaceContext);
     }
 
@@ -145,7 +145,7 @@ public class XmlUtility {
                 } catch (Exception ex) {
                     // Exception may be due to the encoding of the message being incorrect.
                     // retry using UTF-8
-                    LOG.warn("failed to perform xml to element - retrying with UTF-8");
+                    LOG.warn("Failed to convert xml to element, retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
                     xml = XmlUtfHelper.convertToUtf8(xml);
                     element = convertXmlToElementWorker(xml);
                 }
@@ -158,8 +158,8 @@ public class XmlUtility {
 
     private static Element initializeElement() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
-        Document document = null;
+        DocumentBuilder builder;
+        Document document;
         Element docElement = null;
 
         try {

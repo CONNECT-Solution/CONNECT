@@ -4,11 +4,10 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-<session-factory>
-      <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-      
-      <!-- Mapping files -->
-      <mapping resource="Test.hbm.xml"/>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
-</session-factory>
+        <!-- Mapping files -->
+        <mapping resource="Test.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>

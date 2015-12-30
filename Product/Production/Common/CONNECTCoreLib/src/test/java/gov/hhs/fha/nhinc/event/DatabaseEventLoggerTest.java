@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.event;
 
 import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;

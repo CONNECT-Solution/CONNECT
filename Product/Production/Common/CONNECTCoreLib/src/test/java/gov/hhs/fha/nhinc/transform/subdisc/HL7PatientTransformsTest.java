@@ -26,10 +26,7 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.List;
-
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -46,6 +43,7 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.TELExplicit;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -56,7 +54,7 @@ public class HL7PatientTransformsTest {
     @Test
     public void create201301Patient() {
         String aaId = "1.1";
-        org.hl7.v3.PRPAMT201301UV02Patient patient = null;
+        org.hl7.v3.PRPAMT201301UV02Patient patient;
         HL7PatientTransforms transforms = new HL7PatientTransforms();
         patient = transforms.create201301Patient(createPRPAMT201306UV02ParameterList(), aaId);
         assertEquals(patient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode(), "CONNECT");
@@ -132,7 +130,7 @@ public class HL7PatientTransformsTest {
 
     private ENExplicit createENExplicit() {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ENExplicit enName = (ENExplicit) (factory.createENExplicit());
+        ENExplicit enName = factory.createENExplicit();
         List enNamelist = enName.getContent();
         EnExplicitFamily familyName = new EnExplicitFamily();
         familyName.setPartType("FAM");

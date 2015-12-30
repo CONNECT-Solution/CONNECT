@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +57,7 @@ public class AdapterPEPServiceImpl {
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest,
             WebServiceContext context) {
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         AdapterPEPImpl adapterPEPImpl = getAdapterPEPImpl();
 

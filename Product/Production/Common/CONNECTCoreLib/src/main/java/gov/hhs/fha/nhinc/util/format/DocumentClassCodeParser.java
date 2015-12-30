@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.util.format;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +41,7 @@ public class DocumentClassCodeParser {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentClassCodeParser.class);
 
     public static List<String> parseFormattedParameter(List<String> rawList) {
-        List<String> normalizedList = new ArrayList<String>();
+        List<String> normalizedList = new ArrayList<>();
         for (String item : rawList) {
             normalizedList = parseFormattedParameter(item, normalizedList);
         }
@@ -55,7 +54,7 @@ public class DocumentClassCodeParser {
 
     public static List<String> parseFormattedParameter(String paramFormattedString, List<String> resultCollection) {
         if (resultCollection == null) {
-            resultCollection = new ArrayList<String>();
+            resultCollection = new ArrayList<>();
         }
 
         if ((NullChecker.isNotNullish(paramFormattedString)) && (resultCollection != null)) {

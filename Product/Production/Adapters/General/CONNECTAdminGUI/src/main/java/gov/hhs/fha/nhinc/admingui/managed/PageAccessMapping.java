@@ -34,15 +34,20 @@ import java.util.Collection;
  * The Class PageAccessMapping.
  */
 public class PageAccessMapping {
+
     private RolePreference preference;
-    /** The available access levels. */
+    /**
+     * The available access levels.
+     */
     private Collection<String> availableAccessLevels;
-    /** The selected access level. */
+    /**
+     * The selected access level.
+     */
     private String selectedAccessLevel;
 
-    public static String NO_ACCESS = "No Access";
-    public static String READ_ONLY = "Read Only";
-    public static String READ_WRITE = "Read Write";
+    public static final String NO_ACCESS = "No Access";
+    public static final String READ_ONLY = "Read Only";
+    public static final String READ_WRITE = "Read Write";
 
     /**
      *
@@ -51,7 +56,7 @@ public class PageAccessMapping {
      */
     public PageAccessMapping(RolePreference preference, final ManageRoleBean pageAccessMapping) {
         this.preference = preference;
-        availableAccessLevels = new ArrayList<String>();
+        availableAccessLevels = new ArrayList<>();
         availableAccessLevels.add(NO_ACCESS);
         availableAccessLevels.add(READ_ONLY);
         availableAccessLevels.add(READ_WRITE);

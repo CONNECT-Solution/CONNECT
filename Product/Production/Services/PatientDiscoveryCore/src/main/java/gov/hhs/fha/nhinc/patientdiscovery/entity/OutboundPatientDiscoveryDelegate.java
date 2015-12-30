@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.orchestration.OrchestrationContextFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,10 +82,7 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
         contextBuilder.setPolicyTransformer(message.getPolicyTransformer());
         contextBuilder.setProcessor(message.getResponseProcessor());
 
-        OutboundPatientDiscoveryOrchestratable response = (OutboundPatientDiscoveryOrchestratable) contextBuilder
-            .build().execute();
-
-        return response;
+        return (OutboundPatientDiscoveryOrchestratable) contextBuilder.build().execute();
     }
 
     /* (non-Javadoc)

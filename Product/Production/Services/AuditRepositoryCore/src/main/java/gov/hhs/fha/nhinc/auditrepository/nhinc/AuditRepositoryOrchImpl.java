@@ -26,16 +26,21 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
+import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
-import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
-
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -43,23 +48,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
-
+import javax.xml.stream.XMLStreamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
-import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import javax.xml.bind.JAXBException;
-import javax.xml.stream.XMLStreamException;
 
 /**
  *
@@ -69,6 +65,7 @@ public class AuditRepositoryOrchImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
+
     private static String logStatus = "";
     private AuditStore dbStore = null;
     private AuditStore fileStore = null;
@@ -113,7 +110,7 @@ public class AuditRepositoryOrchImpl {
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
 
-        if (logStatus.equals("")) {
+        if (logStatus.isEmpty()) {
             logStatus = "on";
         }
 
@@ -122,7 +119,7 @@ public class AuditRepositoryOrchImpl {
                 + "value in 'auditlogchoice' properties file");
             return null;
         }
-        FindCommunitiesAndAuditEventsResponseType auditEvents = new FindCommunitiesAndAuditEventsResponseType();
+        FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();
         String userId = query.getUserId();
         Date beginDate = null;
@@ -163,7 +160,6 @@ public class AuditRepositoryOrchImpl {
         AuditRepositoryRecord eachRecord;
         for (int i = 0; i < size; i++) {
             eachRecord = auditRecList.get(i);
-            auditMessageType = new AuditMessageType();
             blobMessage = eachRecord.getMessage();
             if (blobMessage != null) {
                 try {
@@ -184,7 +180,7 @@ public class AuditRepositoryOrchImpl {
                     try {
                         blobMessage.free();
                     } catch (SQLException e) {
-                        LOG.error("Could not free Blob: " + e.getMessage());
+                        LOG.error("Could not free Blob: {}", e.getLocalizedMessage(), e);
                     }
                 }
             }
@@ -215,7 +211,7 @@ public class AuditRepositoryOrchImpl {
                 auditMessageType = (AuditMessageType) jaxEle.getValue();
             }
         } catch (SQLException | JAXBException | XMLStreamException e) {
-            LOG.error("Blob to Audit Message Conversion Error : " + e.getLocalizedMessage(), e);
+            LOG.error("Blob to Audit Message Conversion Error: {}", e.getLocalizedMessage(), e);
         } finally {
             StreamUtils.closeStreamSilently(in);
         }
@@ -258,7 +254,7 @@ public class AuditRepositoryOrchImpl {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
                 NhincConstants.LOG_TO_DATABASE);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to read the Audit logging property: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to read the Audit logging property: {}", ex.getLocalizedMessage(), ex);
         }
         return false;
     }
@@ -268,7 +264,7 @@ public class AuditRepositoryOrchImpl {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
                 NhincConstants.LOG_TO_FILE);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to read the Audit logging property: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to read the Audit logging property: {}", ex.getLocalizedMessage(), ex);
         }
         return false;
     }

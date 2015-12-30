@@ -47,11 +47,11 @@ import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-import org.uddi.api_v3.BusinessEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.uddi.api_v3.BusinessEntity;
 
 /**
  * Managed bean to capture/render the data from/to the UI.
@@ -103,10 +103,10 @@ public class PatientSearchBean {
      * Instantiate all the variables and load the lookup Data
      */
     public PatientSearchBean() {
-        this.documentList = new ArrayList<Document>();
-        this.querySelectedDocuments = new ArrayList<String>();
-        this.patientList = new ArrayList<Patient>();
-        this.documentTypeList = new ArrayList<SelectItem>();
+        this.documentList = new ArrayList<>();
+        this.querySelectedDocuments = new ArrayList<>();
+        this.patientList = new ArrayList<>();
+        this.documentTypeList = new ArrayList<>();
 
         //Populate Organization List from UDDI
         this.organizationList = populateOrganizationFromConnectManagerCache();
@@ -461,18 +461,19 @@ public class PatientSearchBean {
      *
      */
     private List<SelectItem> populateDocumentTypes() {
-        List<SelectItem> localDocumentTypeList = new ArrayList<SelectItem>();
+        List<SelectItem> localDocumentTypeList = new ArrayList<>();
 
         try {
             //Load the documentType.properties file
-            Properties localDocumentTypeProperties = PropertyAccessor.getInstance().getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
+            Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
+                .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
-                localDocumentTypeList.add(new SelectItem((String) property.getKey(), (String) property.getValue()));
+                localDocumentTypeList.add(new SelectItem(property.getKey(), (String) property.getValue()));
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Not able to load the document types from the property file:" + ex.getMessage());
+            LOG.error("Not able to load the document types from the property file: {}", ex.getLocalizedMessage(), ex);
         }
         return localDocumentTypeList;
     }

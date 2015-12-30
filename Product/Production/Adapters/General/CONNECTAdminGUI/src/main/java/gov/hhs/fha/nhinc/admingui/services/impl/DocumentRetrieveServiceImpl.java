@@ -28,17 +28,17 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.DocumentRetrieveService;
 import gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceUnsecuredImpl;
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
-import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.impl.DocumentRetrieveRequestBuilderImpl;
 import gov.hhs.fha.nhinc.docretrieve.messaging.director.impl.DocumentRetrieveMessageDirectorImpl;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.DocumentRetrieveResultsModelBuilder;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.impl.DocumentRetrieveResultsModelBuilderImpl;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
+import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
@@ -57,7 +57,7 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
 
     @Override
     public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel) {
-        RetrieveDocumentSetResponseType response = null;
+        RetrieveDocumentSetResponseType response;
         EntityDocRetrieveProxyWebServiceUnsecuredImpl retrieveResults = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
         messageDirector = setMessageDirector(documentModel);
         response = retrieveResults.respondingGatewayCrossGatewayRetrieve(messageDirector.getMessage().getRetrieveDocumentSetRequest(), messageDirector.getMessage().getAssertion(), messageDirector.getMessage().getNhinTargetCommunities());

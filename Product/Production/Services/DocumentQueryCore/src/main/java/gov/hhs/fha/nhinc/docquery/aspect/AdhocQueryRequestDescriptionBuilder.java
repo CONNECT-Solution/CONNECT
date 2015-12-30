@@ -27,11 +27,10 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 public class AdhocQueryRequestDescriptionBuilder extends TargetEventDescriptionBuilder {
 

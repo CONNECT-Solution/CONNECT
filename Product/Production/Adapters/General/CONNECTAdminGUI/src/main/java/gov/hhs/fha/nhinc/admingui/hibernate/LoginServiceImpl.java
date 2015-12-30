@@ -55,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
 
     public static final String CONNECT_ADMIN_USER = "CONNECTAdmin";
 
-    private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private UserLoginDAO userLoginDAO;
@@ -92,12 +92,11 @@ public class LoginServiceImpl implements LoginService {
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword()
-                        .getBytes(), user.getSalt().getBytes());
+                    .getBytes(), user.getSalt().getBytes());
                 if (!loggedIn) {
                     user = null;
                 }
             } catch (PasswordServiceException e) {
-                user = null;
                 throw new UserLoginException("Error while trying to login.", e);
             }
         }
@@ -111,18 +110,16 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public UserLogin addUser(Login user, long role) throws UserLoginException {
-        boolean isCreateUser = false;
-        String passwordHash = null;
-        byte[] saltValue = null;
+        boolean isCreateUser;
+        String passwordHash;
+        byte[] saltValue;
         try {
             saltValue = passwordService.generateRandomSalt();
             passwordHash = new String(
-                    passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
+                passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
 
-        } catch (PasswordServiceException e) {
+        } catch (PasswordServiceException | IOException e) {
             throw new UserLoginException("Error while calculating hash.", e);
-        } catch (IOException ex) {
-            throw new UserLoginException("Error while calculating hash." + ex.getMessage());
         }
 
         UserLogin userLoginEntity = new UserLogin();
@@ -147,7 +144,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<UserLogin> getAllUsers(){
+    public List<UserLogin> getAllUsers() {
         return userLoginDAO.getAllUsers();
     }
 

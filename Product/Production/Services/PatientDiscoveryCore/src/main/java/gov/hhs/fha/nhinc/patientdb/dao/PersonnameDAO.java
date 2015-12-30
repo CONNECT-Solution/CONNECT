@@ -28,16 +28,14 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +43,6 @@ import org.hibernate.criterion.Expression;
  *
  * @author richard.ettema
  */
-
 public class PersonnameDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonnameDAO.class);
@@ -56,7 +53,6 @@ public class PersonnameDAO {
      *
      * Constructor
      */
-
     private PersonnameDAO() {
 
         LOG.info("PersonnameDAO - Initialized");
@@ -69,7 +65,6 @@ public class PersonnameDAO {
      *
      * @return PersonnameDAO
      */
-
     public static PersonnameDAO getPersonnameDAOInstance() {
 
         LOG.debug("getPersonnameDAOInstance()..");
@@ -79,11 +74,8 @@ public class PersonnameDAO {
     }
 
     // =========================
-
     // Standard CRUD DML Methods
-
     // =========================
-
     /**
      *
      * Create a single <code>Personname</code> record. The generated id
@@ -94,7 +86,6 @@ public class PersonnameDAO {
      *
      * @return boolean
      */
-
     public boolean create(Personname personnameRecord) {
 
         LOG.debug("PersonnameDAO.create() - Begin");
@@ -138,7 +129,6 @@ public class PersonnameDAO {
             } finally {
 
                 // Actual Personname insertion will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -165,7 +155,6 @@ public class PersonnameDAO {
      *
      * @return Personname
      */
-
     public Personname read(Long id) {
 
         LOG.debug("PersonnameDAO.read() - Begin");
@@ -182,7 +171,7 @@ public class PersonnameDAO {
 
         Session session = null;
 
-        List<Personname> queryList = null;
+        List<Personname> queryList;
 
         Personname foundRecord = null;
 
@@ -195,7 +184,6 @@ public class PersonnameDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Personname.class);
 
             aCriteria.add(Expression.eq("id", id));
@@ -215,7 +203,6 @@ public class PersonnameDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -240,7 +227,6 @@ public class PersonnameDAO {
      *
      * @return boolean
      */
-
     public boolean update(Personname personnameRecord) {
 
         LOG.debug("PersonnameDAO.update() - Begin");
@@ -284,7 +270,6 @@ public class PersonnameDAO {
             } finally {
 
                 // Actual Personname update will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -307,7 +292,6 @@ public class PersonnameDAO {
      *
      * @param personnameRecord
      */
-
     public void delete(Personname personnameRecord) {
 
         LOG.debug("PersonnameDAO.delete() - Begin");
@@ -323,7 +307,6 @@ public class PersonnameDAO {
             LOG.info("Deleting Record...");
 
             // Delete the Personname record
-
             session.delete(personnameRecord);
 
         } catch (Exception e) {
@@ -333,7 +316,6 @@ public class PersonnameDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -349,11 +331,8 @@ public class PersonnameDAO {
     }
 
     // =========================
-
     // Find DML Methods
-
     // =========================
-
     /**
      *
      * Read (Query) the database to get all <code>Personname</code> records based
@@ -364,7 +343,6 @@ public class PersonnameDAO {
      *
      * @return List<Personname>
      */
-
     public List<Personname> findPatientPersonnames(Long patientId) {
 
         LOG.debug("PersonnameDAO.findPatientPersonnames() - Begin");
@@ -392,7 +370,6 @@ public class PersonnameDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Personname.class);
 
             aCriteria.add(Expression.eq("patient.patientId", patientId));
@@ -406,7 +383,6 @@ public class PersonnameDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();

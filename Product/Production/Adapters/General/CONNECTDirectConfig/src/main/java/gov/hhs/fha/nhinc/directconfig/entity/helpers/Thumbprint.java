@@ -49,7 +49,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 package gov.hhs.fha.nhinc.directconfig.entity.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateEncodingException;
@@ -85,8 +84,10 @@ public class Thumbprint {
         try {
             final Thumbprint retVal = new Thumbprint(cert);
             return retVal;
-        } catch (Throwable e) {
-            throw new CertificateException(e);
+        } catch (NoSuchAlgorithmException nsae) {
+            throw new CertificateException(nsae);
+        } catch (CertificateEncodingException cee) {
+            throw new CertificateException(cee);
         }
     }
 
@@ -125,6 +126,7 @@ public class Thumbprint {
 
     /**
      * {@inheritDoc}
+     * @return
      */
     @Override
     public String toString() {
@@ -133,6 +135,7 @@ public class Thumbprint {
 
     /**
      * {@inheritDoc}
+     * @return
      */
     @Override
     public boolean equals(Object obj) {
@@ -144,5 +147,12 @@ public class Thumbprint {
 
         // deep compare
         return Arrays.equals(compareTo.digest, digest);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Arrays.hashCode(this.digest);
+        return hash;
     }
 }

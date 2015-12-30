@@ -26,18 +26,15 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import java.util.List;
+import java.util.UUID;
+import javax.xml.namespace.QName;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-
-import org.opensaml.saml2.core.Attribute;
-import java.util.List;
-import java.util.UUID;
-
-import javax.xml.namespace.QName;
-
 import org.junit.Test;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.util.AttributeMap;
@@ -51,14 +48,14 @@ public class OpenSAML2ComponentBuilderTest {
     @Test
     public void generateEvAssertionWithoutUnderScore() {
         String uuid = "2345";
-        Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
 
     @Test
     public void generateEvAssertionWithUnderScore() {
         String uuid = "_".concat(String.valueOf(UUID.randomUUID()));
-        Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
 

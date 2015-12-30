@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDao;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
@@ -60,11 +57,10 @@ import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -82,7 +78,7 @@ public class PatientCorrelationOrchImplTest {
             @Override
             protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
                     List<String> dataSourceList) {
-                List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = new ArrayList<QualifiedPatientIdentifier>();
+                List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = new ArrayList<>();
                 QualifiedPatientIdentifier patIdentifier = new QualifiedPatientIdentifier();
                 patIdentifier.setAssigningAuthority("2.2");
                 patIdentifier.setPatientId("D123401");
@@ -122,7 +118,7 @@ public class PatientCorrelationOrchImplTest {
             @Override
             protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
                     List<String> dataSourceList) {
-                List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = new ArrayList<QualifiedPatientIdentifier>();
+                List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = new ArrayList<>();
                 QualifiedPatientIdentifier patIdentifier = new QualifiedPatientIdentifier();
                 patIdentifier.setAssigningAuthority("2.2");
                 patIdentifier.setPatientId("D123401");
@@ -173,7 +169,7 @@ public class PatientCorrelationOrchImplTest {
         PRPAMT201307UV02QueryByParameter parameter = new  PRPAMT201307UV02QueryByParameter();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         parameter.setParameterList(parameterList);
         PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess =
@@ -184,13 +180,11 @@ public class PatientCorrelationOrchImplTest {
     }
 
     private PRPAIN201309UV02 createMessagePatIdentifierNull() {
-        PRPAIN201309UV02 message = createMessageForRetrieveNullConditions() ;
-        return message;
+        return createMessageForRetrieveNullConditions();
     }
 
     private AssertionType createAssertion() {
-        AssertionType assertion = new AssertionType();
-        return assertion;
+        return new AssertionType();
     }
 
     private PRPAIN201309UV02 createMessage() {
@@ -212,10 +206,8 @@ public class PatientCorrelationOrchImplTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
-                PRPAMT201307UV02QueryByParameter.class, parameter);
-        return queryByParameter;
+        return new JAXBElement<>(xmlqname,
+        PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 
 
@@ -334,7 +326,7 @@ public class PatientCorrelationOrchImplTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
@@ -352,7 +344,7 @@ public class PatientCorrelationOrchImplTest {
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         controlActProcess.setCode(createCD());
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent regEvent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
@@ -414,7 +406,7 @@ public class PatientCorrelationOrchImplTest {
     }
 
     private List<PRPAIN201301UV02MFMIMT700701UV01Subject1> createPRPAIN201301UV02MFMIMT700701UV01Subject1() {
-        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<PRPAIN201301UV02MFMIMT700701UV01Subject1>();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = new ArrayList<>();
         PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.setTypeId(createTypeId());
         subject.setRegistrationEvent(createPRPAIN201301UV02MFMIMT700701UV01RegistrationEvent());
@@ -433,7 +425,7 @@ public class PatientCorrelationOrchImplTest {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add("ClassCode");
@@ -478,9 +470,8 @@ public class PatientCorrelationOrchImplTest {
         device.setDeterminerCode("INSTANCE");
         device.setTypeId(createTypeId());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "device");
-        JAXBElement<COCTMT090003UV01Device> assignedDevice = new JAXBElement<COCTMT090003UV01Device>(xmlqname,
+        return new JAXBElement<>(xmlqname,
                 COCTMT090003UV01Device.class, device);
-        return assignedDevice;
     }
 
     private CE createCE() {
@@ -504,7 +495,7 @@ public class PatientCorrelationOrchImplTest {
     }
 
     private List<II> createTypeIdList() {
-        List<II> ii = new ArrayList<II>();
+        List<II> ii = new ArrayList<>();
         II typeId1= new II();
         typeId1.setAssigningAuthorityName("CONNECT");
         typeId1.setExtension("D123401");

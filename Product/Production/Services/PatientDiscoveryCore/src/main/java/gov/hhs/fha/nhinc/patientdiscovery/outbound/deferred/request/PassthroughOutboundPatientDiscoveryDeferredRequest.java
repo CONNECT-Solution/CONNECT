@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
-
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
@@ -78,8 +77,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
 
         auditRequest(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
             msgUtils.convertFirstToNhinTargetSystemType(targets));
-        MCCIIN000002UV01 response = sendToNhin(request, assertion, targets);
-        return response;
+        return sendToNhin(request, assertion, targets);
     }
 
     @Override

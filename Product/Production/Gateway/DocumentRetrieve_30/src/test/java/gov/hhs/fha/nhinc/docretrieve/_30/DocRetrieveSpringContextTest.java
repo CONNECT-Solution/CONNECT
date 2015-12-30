@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30;
 
-import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured;
@@ -38,7 +37,7 @@ import gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

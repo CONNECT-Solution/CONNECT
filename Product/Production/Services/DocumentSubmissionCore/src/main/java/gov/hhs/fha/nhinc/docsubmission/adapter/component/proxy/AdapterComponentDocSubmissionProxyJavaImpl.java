@@ -28,11 +28,8 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionOrchImpl;
-
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +40,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocSubmissionProxyJavaImpl implements AdapterComponentDocSubmissionProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionProxyJavaImpl.class);
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Doc Submission Service");

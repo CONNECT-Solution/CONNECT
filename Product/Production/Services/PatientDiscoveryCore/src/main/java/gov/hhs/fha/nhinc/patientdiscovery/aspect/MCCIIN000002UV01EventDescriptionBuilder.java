@@ -26,16 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import java.util.List;
-
-import org.hl7.v3.CS;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
+import java.util.List;
+import org.hl7.v3.CS;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
 
 public class MCCIIN000002UV01EventDescriptionBuilder extends TargetEventDescriptionBuilder {
 

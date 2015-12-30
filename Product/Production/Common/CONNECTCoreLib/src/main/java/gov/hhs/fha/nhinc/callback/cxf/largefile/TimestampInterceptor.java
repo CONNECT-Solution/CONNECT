@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
 import java.util.Date;
-
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
@@ -43,10 +42,12 @@ public class TimestampInterceptor extends AbstractPhaseInterceptor<Message> {
         super(Phase.RECEIVE);
     }
 
+    @Override
     public void handleMessage(Message message) {
         message.put(INVOCATION_TIME_KEY, new Date());
     }
 
+    @Override
     public void handleFault(Message messageParam) {
     }
 }

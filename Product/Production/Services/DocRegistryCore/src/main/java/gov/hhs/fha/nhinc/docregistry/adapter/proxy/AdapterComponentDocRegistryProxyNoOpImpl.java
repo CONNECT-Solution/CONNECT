@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.document.DocumentConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +42,7 @@ public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponen
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
 
+    @Override
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");
         AdhocQueryResponse response = new AdhocQueryResponse();

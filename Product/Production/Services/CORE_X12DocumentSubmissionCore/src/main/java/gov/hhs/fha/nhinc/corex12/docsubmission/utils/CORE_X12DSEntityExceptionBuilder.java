@@ -29,12 +29,12 @@ package gov.hhs.fha.nhinc.corex12.docsubmission.utils;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import java.sql.Timestamp;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -176,7 +176,6 @@ public class CORE_X12DSEntityExceptionBuilder extends BaseService {
 
     private static Timestamp getTimeStamp() {
         Date currentDate = new Date();
-        Timestamp timeStamp = new Timestamp(currentDate.getTime());
-        return timeStamp;
+        return new Timestamp(currentDate.getTime());
     }
 }

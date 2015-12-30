@@ -8,16 +8,16 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping>
-  <class name="gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo" table="transactionrepository">
-    <id name="id">
-      <generator class="native"/>
-    </id>
-    <property column="transactionTime" name="time"/>
-    <property column="messageId" name="messageId"/>
-    <property column="transactionId" name="transactionId"/>
-  </class>
-  
-  <query name="findTransactionByMessageId">
-    <![CDATA[FROM TransactionRepo tr WHERE tr.messageId = :messageId]]>
-  </query>
- </hibernate-mapping>
+    <class name="gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo" table="transactionrepository">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property column="transactionTime" name="time"/>
+        <property column="messageId" name="messageId"/>
+        <property column="transactionId" name="transactionId"/>
+    </class>
+
+    <query name="findTransactionByMessageId">
+        <![CDATA[FROM TransactionRepo tr WHERE tr.messageId = :messageId]]>
+    </query>
+</hibernate-mapping>

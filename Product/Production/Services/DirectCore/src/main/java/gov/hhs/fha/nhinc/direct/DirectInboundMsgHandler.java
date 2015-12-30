@@ -27,9 +27,7 @@
 package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.mail.MessageHandler;
-
 import javax.mail.internet.MimeMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

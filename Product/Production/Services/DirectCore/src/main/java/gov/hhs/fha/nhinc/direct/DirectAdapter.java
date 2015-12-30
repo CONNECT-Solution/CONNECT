@@ -36,8 +36,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.mail.internet.MimeMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -46,6 +44,8 @@ import org.nhindirect.gateway.smtp.config.SmptAgentConfigFactory;
 import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class adapts the Direct code responsible for processing messages.

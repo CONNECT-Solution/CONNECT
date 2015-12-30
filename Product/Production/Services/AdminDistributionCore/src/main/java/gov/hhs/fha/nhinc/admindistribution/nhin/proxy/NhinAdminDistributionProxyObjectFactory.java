@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  *
@@ -45,6 +44,7 @@ public class NhinAdminDistributionProxyObjectFactory extends ComponentProxyObjec
      * This method returns the spring proxy config filename to read the identifier for adapter admin dist.
      * @return CONFIG_FILE_NAME spring proxy config file for adapter AdminDist.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

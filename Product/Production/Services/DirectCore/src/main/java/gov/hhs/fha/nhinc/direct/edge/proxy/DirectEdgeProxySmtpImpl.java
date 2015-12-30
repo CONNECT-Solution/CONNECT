@@ -28,11 +28,8 @@ package gov.hhs.fha.nhinc.direct.edge.proxy;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
-import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailSender;
-
 import javax.mail.internet.MimeMessage;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**

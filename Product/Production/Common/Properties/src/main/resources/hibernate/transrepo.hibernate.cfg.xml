@@ -12,7 +12,7 @@
 
         <!-- Enable Hibernate's automatic session context management -->
         <!-- <property name="current_session_context_class">thread</property> -->
-        
+
         <!-- We currently have the antlr classpath conflict described here:
              http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/
              Switching to the classing translator so that our named query works.
@@ -23,7 +23,7 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
         <property name="connection.datasource">java:comp/env/jdbc/transrepo_datasource</property>
-      
+
         <!-- Drop and re-create the database schema on startup -->
         <!-- <property name="hbm2ddl.auto">create</property> -->
 

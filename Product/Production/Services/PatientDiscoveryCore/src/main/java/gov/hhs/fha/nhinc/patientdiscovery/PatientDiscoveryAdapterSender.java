@@ -34,7 +34,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.Adapte
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
-
 import org.hl7.v3.AsyncAdapterPatientDiscoveryErrorRequestType;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;

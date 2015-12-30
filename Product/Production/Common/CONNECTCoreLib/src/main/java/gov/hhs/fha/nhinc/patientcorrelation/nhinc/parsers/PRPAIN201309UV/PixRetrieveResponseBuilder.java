@@ -36,8 +36,8 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.InteractionIdH
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.SenderReceiverHelperMCCIMT000300UV01;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.UniqueIdHelper;
 import java.util.List;
-import org.hl7.v3.*;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.*;
 
 /**
  *
@@ -163,7 +163,7 @@ public class PixRetrieveResponseBuilder {
         PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         // create patient person element
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname,
+        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<>(xmlqname,
                 PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPerson.getClassCode().add(PATIENTPERSON_CLASSCODE);

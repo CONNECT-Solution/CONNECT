@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import java.util.Properties;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.orchestration.AbstractStandardOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Delegate;
@@ -35,6 +33,7 @@ import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.Properties;
 
 /**
  *
@@ -108,6 +107,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @return the assertion
      */
+    @Override
     public AssertionType getAssertion() {
         return assertion;
     }
@@ -115,6 +115,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @param assertion the assertion to set
      */
+    @Override
     public void setAssertion(AssertionType assertion) {
         this.assertion = assertion;
     }
@@ -122,6 +123,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @param request the request to set
      */
+    @Override
     public void setRequest(RetrieveDocumentSetRequestType request) {
         this.request = request;
     }
@@ -129,14 +131,17 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     /**
      * @param response the response to set
      */
+    @Override
     public void setResponse(RetrieveDocumentSetResponseType response) {
         this.response = response;
     }
 
+    @Override
     public Properties getWebContextProperties() {
         return webContextProperties;
     }
 
+    @Override
     public void setWebContextProperties(Properties webContextProperties) {
         this.webContextProperties = webContextProperties;
     }

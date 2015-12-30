@@ -26,21 +26,17 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.NameCallback;
-import javax.security.auth.callback.PasswordCallback;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.iplanet.sso.SSOException;
 import com.iplanet.sso.SSOToken;
 import com.iplanet.sso.SSOTokenID;
 import com.sun.identity.authentication.AuthContext;
 import com.sun.identity.authentication.spi.AuthLoginException;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AdapterAuthenticationImpl {
 
@@ -52,7 +48,7 @@ public class AdapterAuthenticationImpl {
      *
      * @param authenticateUserRequest The request to authenticate the user
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
-     *         identifier
+     * identifier
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
@@ -82,15 +78,9 @@ public class AdapterAuthenticationImpl {
                     authResp = createInvalidUserResponse();
                     LOG.debug("Authentication Context failed in AdapterAuthenticationImpl");
                 }
-            } catch (AuthLoginException alex) {
-                authResp = createInvalidUserResponse();
-                LOG.error("AuthLoginException thrown from AdapterAuthenticationImpl: " + alex.getMessage());
-            } catch (SSOException ssoex) {
-                authResp = createInvalidUserResponse();
-                LOG.error("SSOException thrown from AdapterAuthenticationImpl: " + ssoex.getMessage());
             } catch (Exception ex) {
                 authResp = createInvalidUserResponse();
-                LOG.error("Exception thrown from AdapterAuthenticationImpl: " + ex.getMessage());
+                LOG.error("Exception thrown from AdapterAuthenticationImpl: {}", ex.getLocalizedMessage(), ex);
             }
         } else {
             authResp = createInvalidUserResponse();

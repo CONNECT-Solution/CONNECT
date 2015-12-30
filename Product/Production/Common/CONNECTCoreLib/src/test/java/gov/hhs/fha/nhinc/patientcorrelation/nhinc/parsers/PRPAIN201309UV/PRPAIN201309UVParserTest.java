@@ -26,23 +26,19 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAMT201307UV02DataSource;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.JAXBElement;
-
-import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201309UV02;
-import org.hl7.v3.PRPAMT201307UV02DataSource;
-import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAMT201307UV02ParameterList;
-import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
-import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 import org.junit.Test;
 
 /**
@@ -88,7 +84,7 @@ public class PRPAIN201309UVParserTest {
         parameter.setParameterList(parameterList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         message.setControlActProcess(controlActProcess);
@@ -103,7 +99,7 @@ public class PRPAIN201309UVParserTest {
         PRPAMT201307UV02QueryByParameter parameter = null;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         controlActProcess.setTypeId(createII());
@@ -135,7 +131,7 @@ public class PRPAIN201309UVParserTest {
         parameter.setParameterList(parameterList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         controlActProcess.setTypeId(createII());
@@ -147,7 +143,7 @@ public class PRPAIN201309UVParserTest {
     @Test
     public void testBuildAAInclusionFilterList() {
         PRPAIN201309UVParser parser = new PRPAIN201309UVParser();
-        List<II> list = new ArrayList<II>();
+        List<II> list;
         list = parser.buildAssigningAuthorityInclusionFilterList(createMessage());
         assertEquals(list.get(0).getAssigningAuthorityName(), "CONNECT");
         assertEquals(list.get(0).getExtension(), "1.16.17.19");
@@ -163,12 +159,12 @@ public class PRPAIN201309UVParserTest {
         parameter.setParameterList(parameterList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
+                new JAXBElement<>(xmlqname,
                 PRPAMT201307UV02QueryByParameter.class, parameter);
         controlActProcess.setQueryByParameter(queryByParameter);
         message.setControlActProcess(controlActProcess);
         PRPAIN201309UVParser parser = new PRPAIN201309UVParser();
-        List<II> list = new ArrayList<II>();
+        List<II> list;
         list = parser.buildAssigningAuthorityInclusionFilterList(message);
         assertTrue(list.isEmpty());
     }
@@ -211,10 +207,8 @@ public class PRPAIN201309UVParserTest {
         parameter.setQueryId(createII());
         parameter.setParameterList(createPRPAMT201307UV02ParameterList());
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "parameter");
-        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter =
-                new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,
-                PRPAMT201307UV02QueryByParameter.class, parameter);
-        return queryByParameter;
+        return new JAXBElement<>(xmlqname,
+        PRPAMT201307UV02QueryByParameter.class, parameter);
     }
 
 

@@ -39,15 +39,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyScannerAuthorInfoType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -92,6 +86,8 @@ import org.hl7.v3.POCDMT000040ServiceEvent;
 import org.hl7.v3.SCExplicit;
 import org.hl7.v3.STExplicit;
 import org.hl7.v3.TSExplicit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class creates CDA documents from BinaryDocumentPolicyCriteria objects.
@@ -101,10 +97,6 @@ import org.hl7.v3.TSExplicit;
 public class CdaPdfCreator {
 
     private static final Logger LOG = LoggerFactory.getLogger(CdaPdfCreator.class);
-    private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
-    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
-    private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
-    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
 
     /**
      * This class creates an instance of an II with the given root and extension.
@@ -151,13 +143,13 @@ public class CdaPdfCreator {
      * @throws AdapterPIPException This exception is thrown if there is an error.
      */
     private String getHomeCommunityId() throws AdapterPIPException {
-        String sHomeCommunityId = null;
+        String sHomeCommunityId;
         try {
             sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve home community ID from gateway properties file.  Error: "
-                    + e.getMessage();
+                + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
@@ -357,7 +349,7 @@ public class CdaPdfCreator {
                 AdxpExplicitStreetAddressLine oHL7StreetAddressLine = new AdxpExplicitStreetAddressLine();
                 oHL7StreetAddressLine.setContent(oAddress.getStreetAddress());
                 JAXBElement<AdxpExplicitStreetAddressLine> oElement = oObjectFactory
-                        .createADExplicitStreetAddressLine(oHL7StreetAddressLine);
+                    .createADExplicitStreetAddressLine(oHL7StreetAddressLine);
                 oHL7Ad.getContent().add(oElement);
                 bHaveData = true;
             }
@@ -483,7 +475,7 @@ public class CdaPdfCreator {
      * @return The RecordTarget object.
      */
     private POCDMT000040RecordTarget createRecordTarget(String sAssigningAuthority, String sPatientId,
-            PolicyPatientInfoType oPatientInfo) throws AdapterPIPException {
+        PolicyPatientInfoType oPatientInfo) throws AdapterPIPException {
         POCDMT000040RecordTarget oRecordTarget = new POCDMT000040RecordTarget();
         boolean bHaveData = false;
 
@@ -502,7 +494,7 @@ public class CdaPdfCreator {
             // Patient Address
             // ----------------
             if ((oPatientInfo.getAddr() != null) && (oPatientInfo.getAddr().getAddress() != null)
-                    && (oPatientInfo.getAddr().getAddress().size() > 0)) {
+                && (oPatientInfo.getAddr().getAddress().size() > 0)) {
                 for (AddressType oAddress : oPatientInfo.getAddr().getAddress()) {
                     ADExplicit oHL7Address = createAD(oAddress);
                     if (oHL7Address != null) {
@@ -593,7 +585,7 @@ public class CdaPdfCreator {
      * @return
      */
     private POCDMT000040Organization createOrganization(String sIdRoot, String sIdExtension, String sOrgName,
-            AddressType oAddress) {
+        AddressType oAddress) {
         POCDMT000040Organization oHL7Org = new POCDMT000040Organization();
         boolean bHaveData = false;
 
@@ -675,8 +667,8 @@ public class CdaPdfCreator {
             // Represented Organization...
             // -----------------------------
             POCDMT000040Organization oRepOrg = createOrganization(
-                    oAuthor.getRepresentedOrganizationIdAssigningAuthority(), oAuthor.getRepresentedOrganizationId(),
-                    oAuthor.getRepresentedOrganizationName(), null);
+                oAuthor.getRepresentedOrganizationIdAssigningAuthority(), oAuthor.getRepresentedOrganizationId(),
+                oAuthor.getRepresentedOrganizationName(), null);
             if (oRepOrg != null) {
                 oAssignedAuthor.setRepresentedOrganization(oRepOrg);
                 bHaveAssignedAuthorData = true;
@@ -726,7 +718,7 @@ public class CdaPdfCreator {
      * @return
      */
     private POCDMT000040AuthoringDevice createAuthoringDevice(CeType oAuthoringDeviceCode,
-            String sDeviceManufactureModelName, String sDeviceSoftwareName) {
+        String sDeviceManufactureModelName, String sDeviceSoftwareName) {
         POCDMT000040AuthoringDevice oHL7AuthoringDevice = new POCDMT000040AuthoringDevice();
         boolean bHaveData = false;
 
@@ -805,7 +797,7 @@ public class CdaPdfCreator {
             // Assigned Authoring Device
             // ---------------------------
             POCDMT000040AuthoringDevice oAuthoringDevice = createAuthoringDevice(oAuthor.getAuthoringDevice(),
-                    oAuthor.getDeviceManufactureModelName(), oAuthor.getDeviceSoftwareName());
+                oAuthor.getDeviceManufactureModelName(), oAuthor.getDeviceSoftwareName());
             if (oAuthoringDevice != null) {
                 oAssignedAuthor.setAssignedAuthoringDevice(oAuthoringDevice);
                 bHaveAssignedAuthorData = true;
@@ -814,8 +806,8 @@ public class CdaPdfCreator {
             // Represented Organization...
             // -----------------------------
             POCDMT000040Organization oRepOrg = createOrganization(
-                    oAuthor.getRepresentedOrganizationIdAssigningAuthority(), null,
-                    oAuthor.getRepresentedOrganizationName(), oAuthor.getRepresentedOrganizationAddress());
+                oAuthor.getRepresentedOrganizationIdAssigningAuthority(), null,
+                oAuthor.getRepresentedOrganizationName(), oAuthor.getRepresentedOrganizationAddress());
             if (oRepOrg != null) {
                 oAssignedAuthor.setRepresentedOrganization(oRepOrg);
                 bHaveAssignedAuthorData = true;
@@ -970,7 +962,7 @@ public class CdaPdfCreator {
             // Assigned Entity ID
             // --------------------
             II oId = createII(oLegalAuthenticator.getAuthenticatorIdAssigningAuthority(),
-                    oLegalAuthenticator.getAuthenticatorId());
+                oLegalAuthenticator.getAuthenticatorId());
             if (oId != null) {
                 oAssignedEntity.getId().add(oId);
                 bHaveAssignedEntityData = true;
@@ -1112,13 +1104,13 @@ public class CdaPdfCreator {
      * This method creates a single CDA document from the given BinaryDocumentPolicyCriterionType.
      *
      * @param oPtPref This contains the patient preference information. There is some infomration in this that is common
-     *            to each of the criterion that need to be available when we create the CDA document.
+     * to each of the criterion that need to be available when we create the CDA document.
      * @param oCriterion The binary document criterion containing the data.
      * @return The CDA document returned.
      * @throws AdapterPIPException This exception is thrown if there are any errors.
      */
     public POCDMT000040ClinicalDocument createCDA(PatientPreferencesType oPtPref,
-            BinaryDocumentPolicyCriterionType oCriterion) throws AdapterPIPException {
+        BinaryDocumentPolicyCriterionType oCriterion) throws AdapterPIPException {
         POCDMT000040ClinicalDocument oCda = new POCDMT000040ClinicalDocument();
         boolean bHaveData = false;
 
@@ -1165,8 +1157,8 @@ public class CdaPdfCreator {
             // Record Target
             // ---------------
             oCda.getRecordTarget().add(
-                    createRecordTarget(oPtPref.getAssigningAuthority(), oPtPref.getPatientId(),
-                            oCriterion.getPatientInfo()));
+                createRecordTarget(oPtPref.getAssigningAuthority(), oPtPref.getPatientId(),
+                    oCriterion.getPatientInfo()));
 
             // Author (Original)
             // ------------------
@@ -1214,13 +1206,13 @@ public class CdaPdfCreator {
      * @throws AdapterPIPException This is thrown if any exception occurs in the process.
      */
     public List<POCDMT000040ClinicalDocument> createCDA(PatientPreferencesType oPtPref) throws AdapterPIPException {
-        ArrayList<POCDMT000040ClinicalDocument> olCda = new ArrayList<POCDMT000040ClinicalDocument>();
+        ArrayList<POCDMT000040ClinicalDocument> olCda = new ArrayList<>();
 
         if ((oPtPref != null) && (oPtPref.getBinaryDocumentPolicyCriteria() != null)
-                && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null)
-                && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().size() > 0)) {
+            && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null)
+            && (oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().size() > 0)) {
             for (BinaryDocumentPolicyCriterionType oCriterion : oPtPref.getBinaryDocumentPolicyCriteria()
-                    .getBinaryDocumentPolicyCriterion()) {
+                .getBinaryDocumentPolicyCriterion()) {
                 POCDMT000040ClinicalDocument oCda = createCDA(oPtPref, oCriterion);
                 if (oCda != null) {
                     olCda.add(oCda);

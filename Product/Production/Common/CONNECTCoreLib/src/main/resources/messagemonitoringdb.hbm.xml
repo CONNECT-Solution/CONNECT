@@ -60,7 +60,7 @@
             <one-to-many class="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification" />
         </set>
     </class>
-    
+
     <class name="gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification" table="monitoredmessagenotification" catalog="messagemonitoringdb">
         <id name="id" type="java.lang.Long">
             <column name="id" />

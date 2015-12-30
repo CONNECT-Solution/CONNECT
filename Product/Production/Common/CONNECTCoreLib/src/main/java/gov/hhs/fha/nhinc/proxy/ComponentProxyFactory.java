@@ -55,6 +55,6 @@ public class ComponentProxyFactory extends ComponentProxyObjectFactory {
      * @return an instance of the generic type.
      */
     public <T> T getInstance(final String beanName, final Class<T> clazz) {
-        return (T) getBean(beanName, clazz);
+        return getBean(beanName, clazz);
     }
 }

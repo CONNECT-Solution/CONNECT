@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.policyengine.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +47,7 @@ public class AdapterPolicyEngineImpl {
     public CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType request, WebServiceContext context) {
         LOG.debug("Begin AdapterPolicyEngineImpl.checkPolicy (unsecure)");
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl();
         try {

@@ -41,6 +41,7 @@ public class PatientCorrelationProxyObjectFactory extends ComponentProxyObjectFa
     /**
      * @return ConfigFileName where to read.
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
@@ -48,6 +49,7 @@ public class PatientCorrelationProxyObjectFactory extends ComponentProxyObjectFa
     /**
      * @return Bean instantiated to invoke PatientCorrelationProxy.
      */
+    @Override
     public PatientCorrelationProxy getPatientCorrelationProxy() {
         return getBean(BEAN_NAME, PatientCorrelationProxy.class);
     }

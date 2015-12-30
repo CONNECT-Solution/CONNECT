@@ -26,23 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import com.google.common.collect.ImmutableList;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
-import com.google.common.collect.ImmutableList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -60,18 +56,18 @@ public class DocSubmissionBaseEventDescriptionBuilderTest extends BaseDescriptio
         AssertionType assertion = new AssertionType();
         RegistryResponseType response = new RegistryResponseType();
 
-        List<String> payloadSizes = new ArrayList<String>();
+        List<String> payloadSizes = new ArrayList<>();
         payloadSizes.add("payloadSize");
         when(requestExtractor.getPayloadSize(request)).thenReturn(payloadSizes);
 
-        List<String> payloadTypes = new ArrayList<String>();
+        List<String> payloadTypes = new ArrayList<>();
         payloadTypes.add("payloadType");
         when(requestExtractor.getPayloadTypes(request)).thenReturn(payloadTypes);
 
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
 
-        List<String> errorCodes = new ArrayList<String>();
+        List<String> errorCodes = new ArrayList<>();
         errorCodes.add("errorCode");
         when(responseExtractor.getErrorCodes(response)).thenReturn(errorCodes);
 

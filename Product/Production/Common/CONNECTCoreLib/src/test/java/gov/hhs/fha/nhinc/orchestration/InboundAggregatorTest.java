@@ -71,6 +71,7 @@ public class InboundAggregatorTest {
 
     public class NhinAggregatorImpl implements NhinAggregator {
 
+        @Override
         public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
         }
     }

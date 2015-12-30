@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication.proxy;
 
+import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationImpl;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationImpl;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +47,7 @@ public class AdapterAuthenticationJavaProxy implements AdapterAuthenticationProx
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
+    @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();

@@ -28,27 +28,25 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author akong
  */
 public abstract class OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder implements
-        OrchestrationContextBuilder {
+    OrchestrationContextBuilder {
 
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private ProvideAndRegisterDocumentSetRequestType request;
     private NhinTargetSystemType target;
 
+    @Override
     public abstract OrchestrationContext build();
 
     public void init(OutboundOrchestratable message) {

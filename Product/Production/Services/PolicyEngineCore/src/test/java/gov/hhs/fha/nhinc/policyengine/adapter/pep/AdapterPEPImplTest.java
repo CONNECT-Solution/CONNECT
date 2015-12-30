@@ -26,33 +26,20 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 
-import static org.junit.Assert.*;
-
-import java.util.Iterator;
-
-import java.util.MissingResourceException;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-
-import org.junit.Test;
-
 import com.sun.identity.xacml.context.Attribute;
-
 import com.sun.identity.xacml.context.Request;
-
 import com.sun.identity.xacml.context.Subject;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import java.util.Iterator;
+import java.util.MissingResourceException;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
+import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
+import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class AdapterPEPImplTest {
 

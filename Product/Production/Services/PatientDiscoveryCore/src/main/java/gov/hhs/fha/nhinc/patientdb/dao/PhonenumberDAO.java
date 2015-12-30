@@ -28,16 +28,14 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +43,6 @@ import org.hibernate.criterion.Expression;
  *
  * @author richard.ettema
  */
-
 public class PhonenumberDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PhonenumberDAO.class);
@@ -56,7 +53,6 @@ public class PhonenumberDAO {
      *
      * Constructor
      */
-
     private PhonenumberDAO() {
 
         LOG.info("PhonenumberDAO - Initialized");
@@ -69,7 +65,6 @@ public class PhonenumberDAO {
      *
      * @return PhonenumberDAO
      */
-
     public static PhonenumberDAO getPhonenumberDAOInstance() {
 
         LOG.debug("getPhonenumberDAOInstance()..");
@@ -79,11 +74,8 @@ public class PhonenumberDAO {
     }
 
     // =========================
-
     // Standard CRUD DML Methods
-
     // =========================
-
     /**
      *
      * Create a single <code>Phonenumber</code> record. The generated id
@@ -94,7 +86,6 @@ public class PhonenumberDAO {
      *
      * @return boolean
      */
-
     public boolean create(Phonenumber phonenumberRecord) {
 
         LOG.debug("PhonenumberDAO.create() - Begin");
@@ -138,7 +129,6 @@ public class PhonenumberDAO {
             } finally {
 
                 // Actual Phonenumber insertion will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -165,7 +155,6 @@ public class PhonenumberDAO {
      *
      * @return Phonenumber
      */
-
     public Phonenumber read(Long id) {
 
         LOG.debug("PhonenumberDAO.read() - Begin");
@@ -182,7 +171,7 @@ public class PhonenumberDAO {
 
         Session session = null;
 
-        List<Phonenumber> queryList = null;
+        List<Phonenumber> queryList;
 
         Phonenumber foundRecord = null;
 
@@ -195,7 +184,6 @@ public class PhonenumberDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
             aCriteria.add(Expression.eq("id", id));
@@ -215,7 +203,6 @@ public class PhonenumberDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -240,7 +227,6 @@ public class PhonenumberDAO {
      *
      * @return boolean
      */
-
     public boolean update(Phonenumber phonenumberRecord) {
 
         LOG.debug("PhonenumberDAO.update() - Begin");
@@ -284,7 +270,6 @@ public class PhonenumberDAO {
             } finally {
 
                 // Actual Phonenumber update will happen at this step
-
                 if (session != null) {
 
                     session.close();
@@ -307,7 +292,6 @@ public class PhonenumberDAO {
      *
      * @param phonenumberRecord
      */
-
     public void delete(Phonenumber phonenumberRecord) {
 
         LOG.debug("PhonenumberDAO.delete() - Begin");
@@ -323,7 +307,6 @@ public class PhonenumberDAO {
             LOG.info("Deleting Record...");
 
             // Delete the Phonenumber record
-
             session.delete(phonenumberRecord);
 
         } catch (Exception e) {
@@ -333,7 +316,6 @@ public class PhonenumberDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();
@@ -349,11 +331,8 @@ public class PhonenumberDAO {
     }
 
     // =========================
-
     // Find DML Methods
-
     // =========================
-
     /**
      *
      * Read (Query) the database to get a <code>Phonenumber</code> record based
@@ -364,7 +343,6 @@ public class PhonenumberDAO {
      *
      * @return List<Phonenumber>
      */
-
     public List<Phonenumber> findPatientPhonenumbers(Long patientId) {
 
         LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - Begin");
@@ -392,7 +370,6 @@ public class PhonenumberDAO {
             LOG.info("Reading Record...");
 
             // Build the criteria
-
             Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
             aCriteria.add(Expression.eq("patient.patientId", patientId));
@@ -406,7 +383,6 @@ public class PhonenumberDAO {
         } finally {
 
             // Flush and close session
-
             if (session != null) {
 
                 session.flush();

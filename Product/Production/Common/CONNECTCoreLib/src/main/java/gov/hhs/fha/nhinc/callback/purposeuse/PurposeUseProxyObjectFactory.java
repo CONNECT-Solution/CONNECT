@@ -41,6 +41,7 @@ public class PurposeUseProxyObjectFactory extends ComponentProxyObjectFactory {
      * Returns the name of the config file.
      * @return the config file name
      */
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

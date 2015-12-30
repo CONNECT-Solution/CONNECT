@@ -35,7 +35,6 @@ package gov.hhs.fha.nhinc.docquery.entity;
 public class OutboundDocQueryOrchestrationContextBuilder_g0 extends OutboundDocQueryOrchestrationContextBuilder {
 
     // CHECKSTYLE:ON
-
     /**
      * @return strategy for g0
      */
@@ -49,9 +48,7 @@ public class OutboundDocQueryOrchestrationContextBuilder_g0 extends OutboundDocQ
      */
     @Override
     protected OutboundDocQueryOrchestratable getOrchestratable() {
-        OutboundDocQueryOrchestratable_a0 orcha0 = new OutboundDocQueryOrchestratable_a0(getNhinDelegate(),
-            getPolicyTransformer(), getAssertionType(), getServiceName(),
-            getTargetSystemType(), getRequest());
-        return orcha0;
+        return new OutboundDocQueryOrchestratable_a0(getNhinDelegate(), getPolicyTransformer(), getAssertionType(),
+            getServiceName(), getTargetSystemType(), getRequest());
     }
 }

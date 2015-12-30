@@ -27,11 +27,9 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-
 import javax.servlet.ServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;

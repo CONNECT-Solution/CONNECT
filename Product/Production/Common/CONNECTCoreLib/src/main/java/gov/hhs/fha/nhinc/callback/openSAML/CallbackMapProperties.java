@@ -29,12 +29,10 @@ package gov.hhs.fha.nhinc.callback.openSAML;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -45,7 +43,7 @@ import org.joda.time.format.ISODateTimeFormat;
  */
 public class CallbackMapProperties implements CallbackProperties {
 
-    private final Map<Object, Object> map = new HashMap<Object, Object>();
+    private final Map<Object, Object> map = new HashMap<>();
     private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeParser();
 
     /**
@@ -362,6 +360,7 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(NhincConstants.ACTION_PROP);
     }
 
+    @Override
     public String getServiceName() {
         return getNullSafeString(NhincConstants.SERVICE_NAME);
     }
@@ -414,7 +413,7 @@ public class CallbackMapProperties implements CallbackProperties {
             if (value instanceof List<?>) {
                 list = (List<Object>) value;
             } else {
-                list = new ArrayList<Object>();
+                list = new ArrayList<>();
                 list.add(value);
             }
         }

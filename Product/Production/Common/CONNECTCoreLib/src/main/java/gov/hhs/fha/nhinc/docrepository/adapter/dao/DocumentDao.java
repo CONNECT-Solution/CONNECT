@@ -32,15 +32,16 @@ import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Data access object class for Document data
@@ -72,15 +73,15 @@ public class DocumentDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -111,15 +112,15 @@ public class DocumentDao {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
-                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -152,8 +153,8 @@ public class DocumentDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -161,8 +162,7 @@ public class DocumentDao {
     }
 
     protected SessionFactory getSessionFactory() {
-        SessionFactory fact = HibernateUtil.getSessionFactory();
-        return fact;
+        return HibernateUtil.getSessionFactory();
     }
 
     /**
@@ -192,8 +192,8 @@ public class DocumentDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }
@@ -267,8 +267,8 @@ public class DocumentDao {
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("Document query - class code: " + classCode);
                         }
-                        String newClassCode = null;
-                        String newCodeScheme = null;
+                        String newClassCode;
+                        String newCodeScheme;
 
                         if (classCode.contains("^^")) {
                             int index = classCode.indexOf("^^");
@@ -358,9 +358,9 @@ public class DocumentDao {
 
                 if (params.getOnDemand() != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - onDemand: " + params.getOnDemand().booleanValue());
+                        LOG.debug("Document query - onDemand: " + params.getOnDemand());
                     }
-                    criteria.add(Expression.eq("onDemand", params.getOnDemand().booleanValue()));
+                    criteria.add(Expression.eq("onDemand", params.getOnDemand()));
                 }
 
                 documents = criteria.list();
@@ -376,8 +376,8 @@ public class DocumentDao {
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
-                    LOG.error("Failed to close session: " + t.getMessage(), t);
+                } catch (HibernateException he) {
+                    LOG.error("Failed to close session: " + he.getMessage(), he);
                 }
             }
         }

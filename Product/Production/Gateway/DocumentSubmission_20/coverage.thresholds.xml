@@ -1,123 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionImpl_g1"
-              linecount="19"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1"
-              linecount="6"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1"
-              linecount="7"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestImpl_g1"
-              linecount="16"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseImpl_g1"
-              linecount="19"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinDocSubmissionImpl_g1"
-              linecount="7"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1"
-              linecount="3"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinDocSubmissionDeferredRequestImpl20"
-              linecount="7"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinDocSubmissionDeferredResponseImpl20"
-              linecount="10"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20"
-              linecount="3"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionImpl_g1"
-              linecount="5"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestImpl_g1"
-              linecount="14"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseImpl_g1"
-              linecount="17"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionImpl_g1"
+               linecount="19"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1"
+               linecount="6"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1"
+               linecount="7"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestImpl_g1"
+               linecount="16"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseImpl_g1"
+               linecount="19"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinDocSubmissionImpl_g1"
+               linecount="7"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1"
+               linecount="3"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinDocSubmissionDeferredRequestImpl20"
+               linecount="7"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinDocSubmissionDeferredResponseImpl20"
+               linecount="10"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20"
+               linecount="3"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionImpl_g1"
+               linecount="5"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestImpl_g1"
+               linecount="14"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseImpl_g1"
+               linecount="17"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+               class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1"
+               linecount="2"
+               linerate="80"
+               linesexecuted="0"/>
 </thresholds>

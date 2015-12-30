@@ -26,13 +26,11 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Date;
-
 import org.apache.cxf.message.Message;
 import org.apache.cxf.message.MessageImpl;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class TimestampInterceptorTest {

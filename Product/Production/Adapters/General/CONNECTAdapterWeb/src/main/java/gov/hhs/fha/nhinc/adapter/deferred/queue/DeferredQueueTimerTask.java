@@ -28,9 +28,6 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,14 +48,13 @@ public class DeferredQueueTimerTask {
             DeferredQueueManagerHelper helper = new DeferredQueueManagerHelper();
             helper.forceProcess();
         } catch (DeferredQueueException ex) {
-            LOG.error("DeferredQueueTimerTask DeferredQueueException thrown.", ex);
+            LOG.error("DeferredQueueTimerTask DeferredQueueException thrown: {}", ex.getLocalizedMessage(), ex);
 
-            StringWriter stackTrace = new StringWriter();
-            ex.printStackTrace(new PrintWriter(stackTrace));
-            String sValue = stackTrace.toString();
-            if (sValue.indexOf("EJBClassLoader") >= 0) {
-                DeferredQueueTimer timer = DeferredQueueTimer.getInstance();
-                timer.stopTimer();
+            for (StackTraceElement ste : ex.getStackTrace()) {
+                if (ste.toString().contains("EJBClassLoader")) {
+                    DeferredQueueTimer.getInstance().stopTimer();
+                    break;
+                }
             }
         }
     }
@@ -67,9 +63,10 @@ public class DeferredQueueTimerTask {
      * This method is called each time the timer thread wakes up.
      */
     public void run() {
-        boolean bQueueActive = true;
+        boolean bQueueActive;
         try {
-            bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
+            bQueueActive = PropertyAccessor.getInstance()
+                .getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
 
             if (bQueueActive) {
                 LOG.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");
@@ -92,17 +89,16 @@ public class DeferredQueueTimerTask {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("Starting test.");
+        LOG.info("Starting test.");
 
         try {
             DeferredQueueTimerTask oTimerTask = new DeferredQueueTimerTask();
             oTimerTask.run();
         } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
+            LOG.error("An unexpected exception occurred: " + e.getLocalizedMessage(), e);
+            throw new RuntimeException(e);
         }
 
-        System.out.println("End of test.");
+        LOG.info("End of test.");
     }
 }

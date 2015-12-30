@@ -40,8 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.namespace.QName;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
@@ -77,6 +75,8 @@ import org.opensaml.xml.security.x509.BasicX509Credential;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class OpenSAML2ComponentBuilder.
@@ -229,7 +229,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             try {
                 INSTANCE = new OpenSAML2ComponentBuilder();
             } catch (ConfigurationException e) {
-                LOG.error(e.getMessage(), e);
+                LOG.error("Unable to get instance: {}", e.getLocalizedMessage(), e);
                 INSTANCE = null;
             }
 
@@ -473,8 +473,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the assertion
      */
     public Assertion createAssertion() {
-        Assertion assertion = (Assertion) createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
-        return assertion;
+        return (Assertion) createOpenSAMLObject(Assertion.DEFAULT_ELEMENT_NAME);
     }
 
     /**
@@ -557,8 +556,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the xS any
      */
     XSAny createAny(final String namespace, final String name, final String prefix) {
-        XSAny any = xsAnyBuilder.buildObject(namespace, name, prefix);
-        return any;
+        return xsAnyBuilder.buildObject(namespace, name, prefix);
     }
 
     /**
@@ -618,7 +616,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     List<AttributeStatement> createAttributeStatement(List<Attribute> attributes) {
-        List<AttributeStatement> attributeStatements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> attributeStatements = new ArrayList<>();
         if (attributes != null && attributes.size() > 0) {
 
             AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
@@ -655,9 +653,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
         List evidenceInstanceAccessConsentValues, final String namespace) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
 
-        List<Attribute> attributes = new ArrayList<Attribute>();
+        List<Attribute> attributes = new ArrayList<>();
 
         if (accessConstentValues != null) {
             attributes.add(createAttribute(null, "AccessConsentPolicy", namespace, accessConstentValues));
@@ -703,7 +701,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public XSAny createHL7Attribute(String name, String code, String codeSystem, String codeSystemName,
         String displayName) {
-        Map<QName, String> userRoleAttributes = new HashMap<QName, String>();
+        Map<QName, String> userRoleAttributes = new HashMap<>();
 
         boolean hasHl7prefix = getHl7PrefixProperty();
 
@@ -726,8 +724,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         userRoleAttributes.put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
             SamlConstants.HL7_TYPE_PREFIX), SamlConstants.HL7_TYPE_KEY_VALUE);
 
-        XSAny attributeValue = createAttributeValue(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX, userRoleAttributes);
-        return attributeValue;
+        return createAttributeValue(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX, userRoleAttributes);
 
     }
 
@@ -735,11 +732,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         return hasPrefix ? new QName(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX) : new QName(name);
     }
 
-    boolean getHl7PrefixProperty(){
+    boolean getHl7PrefixProperty() {
         try {
-            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.warn(ex.getLocalizedMessage());
+            LOG.trace("Get HL7 Prefix Property exception: {}", ex.getLocalizedMessage(), ex);
         }
         return false;
     }
@@ -771,7 +770,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public List<AttributeStatement> createHomeCommunitAttributeStatement(String communityId) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createHomeCommunityAttribute(communityId);
 
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
@@ -824,7 +823,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public List<AttributeStatement> createPurposeOfUseAttributeStatements(String purposeCode, String purposeSystem,
         String purposeSystemName, String purposeDisplay) {
 
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createPurposeOfUseAttribute(purposeCode, purposeSystem, purposeSystemName, purposeDisplay);
         statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
         return statements;
@@ -841,7 +840,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public List<AttributeStatement> createPurposeForUseAttributeStatements(String purposeCode, String purposeSystem,
         String purposeSystemName, String purposeDisplay) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createPurposeForUseAttribute(purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
         statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
@@ -890,7 +889,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public List<AttributeStatement> createOrganizationIdAttributeStatement(String organizationId) {
-        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null, Arrays.asList(organizationId));
 
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));

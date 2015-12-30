@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.configuration.jmx;
 
-import javax.servlet.ServletContext;
-
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
+import javax.servlet.ServletContext;
 
 /**
  * The Class AbstractAdminDistributionWebServicesMXBean.

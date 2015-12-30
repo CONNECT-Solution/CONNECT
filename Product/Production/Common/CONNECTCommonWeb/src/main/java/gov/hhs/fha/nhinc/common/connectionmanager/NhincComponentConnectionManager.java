@@ -48,12 +48,10 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.List;
 import java.util.Set;
-
+import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -75,6 +73,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *            this operation. The values themselves are not used.
      * @return The BusinessDetail which contains a list of all business entities known by the connection manager.
      */
+    @WebMethod
+    @Override
     public BusinessDetail getAllBusinessEntities(EmptyParameterType emptyRequest) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
@@ -95,6 +95,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param sHomeCommunityId The home community ID that is being searched for.
      * @return the business entity information for the specified home community.
      */
+    @WebMethod
+    @Override
     public BusinessEntity getBusinessEntity(HomeCommunityIdType homeCommunity) {
         BusinessEntity bEntity = new BusinessEntity();;
         try {
@@ -112,6 +114,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param saHomeCommunityId The set of home communities to be retrieved.
      * @return The BusinessDetail containing the list of business entities found.
      */
+    @WebMethod
+    @Override
     public BusinessDetail getBusinessEntitySet(HomeCommunityIdListType homeCommunityIdList) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
@@ -134,6 +138,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @return The Business Entity information along with only the requested service. if the service is not found, then
      *         null is returned.
      */
+    @WebMethod
+    @Override
     public BusinessEntity getBusinessEntityByServiceName(GetBusinessEntityByServiceNameRequestType request) {
         BusinessEntity bEntity = new BusinessEntity();
         try {
@@ -153,6 +159,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
      *         null is returned.
      */
+    @WebMethod
+    @Override
     public EndpointURLType getDefaultEndpointURLByServiceName(GetDefaultEndpointURLByServiceNameRequestType request) {
         String endpointUrl = null;
         try {
@@ -175,6 +183,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @return The URL for only the requested service at the local home community. If the service is not found, then
      *         null is returned.
      */
+    @WebMethod
+    @Override
     public EndpointURLType getInternalEndpointURLByServiceName(ServiceNameType serviceName) {
         String endpointUrl = null;
         try {
@@ -199,6 +209,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param request The request containing the target system information for the community being looked up and the service name
      * @return The URL to the requested service.
      */
+    @WebMethod
+    @Override
     public EndpointURLType getEndpointURLFromNhinTarget(GetEndpointURLFromNhinTargetRequestType request) {
         String endpointUrl = null;
         try {
@@ -225,6 +237,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param request The request containing the target system information for the community being looked up and the service name
      * @return A response containing the set of URLs for the requested service and targets.
      */
+    @WebMethod
+    @Override
     public GetEndpointURLFromNhinTargetCommunitiesResponseType getEndpointURLFromNhinTargetCommunities(
             GetEndpointURLFromNhinTargetCommunitiesRequestType request) {
 
@@ -259,6 +273,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param request The request containing the home community id and service name
      * @return A BusinessDetail containing the list of business entities
      */
+    @WebMethod
+    @Override
     public BusinessDetail getBusinessEntitySetByServiceName(GetBusinessEntitySetByServiceNameRequestType request) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
@@ -279,6 +295,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param sUniformServiceName The service name to lookup
      * @return A BusinessDetail containing the list of business entities
      */
+    @WebMethod
+    @Override
     public BusinessDetail getAllBusinessEntitySetByServiceName(ServiceNameType serviceName) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
@@ -299,6 +317,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param request The request containing the service name and the adapter level
      * @return The adapter endpoint url
      */
+    @WebMethod
+    @Override
     public EndpointURLType getAdapterEndpointURL(GetAdapterEndpointURLRequestType request) {
         String endpointUrl = null;
         try {
@@ -321,6 +341,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *            this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
+    @WebMethod
+    @Override
     public SuccessOrFailType forceRefreshUDDICache(EmptyParameterType emptyRequest) {
         SuccessOrFailType response = new SuccessOrFailType();
         response.setSuccess(true);
@@ -341,6 +363,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *            this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
+    @WebMethod
+    @Override
     public SuccessOrFailType forceRefreshInternalConnectCache(EmptyParameterType emptyRequest) {
         SuccessOrFailType response = new SuccessOrFailType();
         response.setSuccess(true);
@@ -360,6 +384,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param homeCommunityId The hcid to be used for lookup
      * @return A response containing a list of assigning authorities associated with the hcid
      */
+    @WebMethod
+    @Override
     public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(HomeCommunityIdType homeCommunityId) {
 
         GetAssigningAuthoritiesByHomeCommunityResponseType response = new GetAssigningAuthoritiesByHomeCommunityResponseType();
@@ -380,9 +406,11 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * @param assigningAuthorityId The assigning authority id to be used for lookup
      * @return The hcid of the assigning authority
      */
+    @WebMethod
+    @Override
     public HomeCommunityIdType getHomeCommunityByAssigningAuthority(AssigningAuthorityIdType assigningAuthorityId) {
 
-        String homeCommunityId = null;
+        String homeCommunityId;
         if (NullChecker.isNullish(assigningAuthorityId.getValue())) {
             return null;
         }

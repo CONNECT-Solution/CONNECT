@@ -11,4 +11,5 @@
     <alias alias="eventfactory" name="baseeventfactory"/>
 
     <bean name="baseeventfactory" class="gov.hhs.fha.nhinc.event.EventFactory"/>
+
 </beans>

@@ -26,16 +26,10 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
@@ -49,6 +43,9 @@ import org.hl7.v3.II;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
@@ -263,7 +260,7 @@ public class HL7DataTransformHelperTest {
         String title = "Patient";
         String suffix = "S";
         EnExplicitFamily familyName = null;
-        EnExplicitGiven givenName = null;
+        EnExplicitGiven givenName;
         EnExplicitPrefix prefix = null;
         EnExplicitSuffix suf = null;
         HL7DataTransformHelper helper = new HL7DataTransformHelper();

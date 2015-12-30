@@ -36,6 +36,7 @@ public class NhinDocSubmissionProxyObjectFactory extends ComponentProxyObjectFac
     private static final String CONFIG_FILE_NAME = "DocumentSubmissionProxyConfig.xml";
     private static final String BEAN_NAME = "nhinxdr";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

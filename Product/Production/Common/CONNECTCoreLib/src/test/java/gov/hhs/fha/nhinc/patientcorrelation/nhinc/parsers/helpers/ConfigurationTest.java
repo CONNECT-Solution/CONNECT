@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 /**

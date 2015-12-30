@@ -35,6 +35,7 @@ public class AdapterDocSubmissionProxyObjectFactory extends ComponentProxyObject
     private static final String CONFIG_FILE_NAME = "DocumentSubmissionProxyConfig.xml";
     private static final String BEAN_NAME = "adapterdocsubmission";
 
+    @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

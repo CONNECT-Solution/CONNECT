@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.messaging.service;
 
 import javax.xml.ws.soap.SOAPBinding;
-
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**

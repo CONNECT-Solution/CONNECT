@@ -29,9 +29,7 @@ package gov.hhs.fha.nhinc.policyengine.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-
 import javax.xml.ws.WebServiceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -46,7 +44,7 @@ public class AdapterPolicyEngineSecuredImpl {
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body, WebServiceContext context) {
         // Collect assertion
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-        CheckPolicyResponseType checkPolicyResp = null;
+        CheckPolicyResponseType checkPolicyResp;
 
         AdapterPolicyEngineProcessorImpl oPolicyEngine = new AdapterPolicyEngineProcessorImpl();
         try {

@@ -74,7 +74,7 @@ public class AdapterComponentDocRepositoryHelper {
         // loop through binaryDocs list and put them into a hashmap for later use
         // when looping through the metadata - we need to associate the metadata
         // with the document (this is done by looking at the XDS Document id attribute).
-        HashMap<String, DataHandler> docMap = new HashMap<String, DataHandler>();
+        HashMap<String, DataHandler> docMap = new HashMap<>();
 
         for (ProvideAndRegisterDocumentSetRequestType.Document tempDoc : binaryDocs) {
             docMap.put(tempDoc.getId(), tempDoc.getValue());
@@ -90,10 +90,10 @@ public class AdapterComponentDocRepositoryHelper {
         // query for the doc unique id
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(sPatId);
-        List<String> lClassCodeList = new ArrayList<String>();
+        List<String> lClassCodeList = new ArrayList<>();
         lClassCodeList.add(sClassCode);
         params.setClassCodes(lClassCodeList);
-        List<String> lStatus = new ArrayList<String>();
+        List<String> lStatus = new ArrayList<>();
         lStatus.add(sStatus);
         params.setStatuses(lStatus);
 
@@ -179,7 +179,7 @@ public class AdapterComponentDocRepositoryHelper {
                 break; // found desired classification, have values, exit loop
             } // if (classificationSchemeUUID.equals(classificationSchemeName))
         }
-        if (classificationValue != null && !classificationValue.equals("")) {
+        if (classificationValue != null && !classificationValue.isEmpty()) {
             classificationValue = StringUtil.extractStringFromTokens(classificationValue, "'()");
         }
         LOG.debug(classificationValueName + ": " + classificationValue);
@@ -213,7 +213,7 @@ public class AdapterComponentDocRepositoryHelper {
                     int counter = 0;
                     Iterator<String> iter = slot.getValueList().getValue().iterator();
                     while (iter.hasNext()) {
-                        String value = (String) iter.next();
+                        String value = iter.next();
                         slotValues.append(value);
                         counter++;
                         if (counter < listSize) {
@@ -255,7 +255,7 @@ public class AdapterComponentDocRepositoryHelper {
             if (DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName())) {
                 Iterator<String> iter = slot.getValueList().getValue().iterator();
                 while (iter.hasNext()) {
-                    String nextSlotValue = (String) iter.next();
+                    String nextSlotValue = iter.next();
                     if (nextSlotValue.startsWith(patientInfoName)) {
                         slotValue = nextSlotValue.substring(patientInfoName.length() + 1);
                         LOG.debug(patientInfoName + " extractionValue: " + slotValue);

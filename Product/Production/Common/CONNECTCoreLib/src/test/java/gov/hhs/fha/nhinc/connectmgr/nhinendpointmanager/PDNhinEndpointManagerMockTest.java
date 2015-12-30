@@ -26,16 +26,13 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.nhinendpointmanager;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import java.util.ArrayList;
+import java.util.List;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * @author mweaver
@@ -71,7 +68,7 @@ public class PDNhinEndpointManagerMockTest extends AbstractNhinEndpointManagerMo
      */
     @Override
     protected void expectConnectionManagerCacheBoth() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_1_0);
         list.add(UDDI_SPEC_VERSION.SPEC_2_0);
 
@@ -79,7 +76,7 @@ public class PDNhinEndpointManagerMockTest extends AbstractNhinEndpointManagerMo
     }
 
     protected void expectConnectionManagerCacheMisconfiguration() {
-        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        List<UDDI_SPEC_VERSION> list = new ArrayList<>();
         list.add(UDDI_SPEC_VERSION.SPEC_3_0);
 
         expectConnectionManagerCache(list);

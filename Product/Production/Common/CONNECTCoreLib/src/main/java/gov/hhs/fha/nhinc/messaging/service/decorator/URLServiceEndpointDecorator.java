@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-
 import java.util.Map;
 
 /**

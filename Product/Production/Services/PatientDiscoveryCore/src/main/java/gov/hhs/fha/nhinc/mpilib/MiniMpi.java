@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  * Singleton class.
@@ -112,7 +111,7 @@ public class MiniMpi implements IMPI {
     }
 
     private void validateNewPatient(Patient patient) {
-        if ((patient.getNames().size() == 0) || !(patient.getNames().get(0).isValid())) {
+        if ((patient.getNames().isEmpty()) || !(patient.getNames().get(0).isValid())) {
             throw new MpiException("New patient must hava a name");
         }
 
@@ -120,12 +119,12 @@ public class MiniMpi implements IMPI {
 
     @Override
     public synchronized Patient addUpdate(Patient newPatient) {
-        Patient resultPatient = null;
+        Patient resultPatient;
         validateNewPatient(newPatient);
 
         Patients existingPatients = search(newPatient, true, true);
 
-        if (existingPatients.size() == 0) {
+        if (existingPatients.isEmpty()) {
             getPatients().add(newPatient);
             resultPatient = newPatient;
         } else if (existingPatients.size() == 1) {
@@ -152,7 +151,7 @@ public class MiniMpi implements IMPI {
         Patients existingPatients = search(patient, true, true);
 
         Identifier id;
-        if (existingPatients.size() == 0) {
+        if (existingPatients.isEmpty()) {
             LOG.error("Delete failed.  Patient not found in MPI.");
         } else if (existingPatients.size() == 1) {
             LOG.info("Found 1 entry in MPI for the patient");
@@ -200,7 +199,7 @@ public class MiniMpi implements IMPI {
             LOG.info("no attempt on demographic search");
         }
 
-        if (results.size() == 0) {
+        if (results.isEmpty()) {
             LOG.info("searching by id");
             results = searchById(patient, includeOptOutPatient);
         } else {

@@ -33,12 +33,10 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.InboundPatientDiscoveryDeferredResponse;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType;
-
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
 import org.hl7.v3.PRPAIN201306UV02;
 
 @Addressing(enabled = true)
@@ -66,6 +64,7 @@ public class NhinPatientDiscoveryDeferredResponse extends BaseService implements
     @InboundMessageEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
         afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
         serviceType = "Patient Discovery Deferred Response", version = "1.0")
+    @Override
     public org.hl7.v3.MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body) {
         AssertionType assertion = getAssertion(context, null);
 

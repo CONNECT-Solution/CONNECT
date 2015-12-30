@@ -45,7 +45,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +105,8 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
     @Override
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
-        XDRAcknowledgementType response = null;
+
+        XDRAcknowledgementType response;
 
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {

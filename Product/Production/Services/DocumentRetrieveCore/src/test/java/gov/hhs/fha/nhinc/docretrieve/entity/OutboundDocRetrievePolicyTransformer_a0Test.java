@@ -31,10 +31,10 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -62,7 +62,7 @@ public class OutboundDocRetrievePolicyTransformer_a0Test {
     }
 
     /**
-     * Test of tranform method, of class OutboundDocRetrievePolicyTransformer_a0.
+     * Test of transform method, of class OutboundDocRetrievePolicyTransformer_a0.
      */
     @Test
     public void testTranform() {

@@ -46,7 +46,7 @@ public class TargetDescriptionExtractor {
         List<String> responders = null;
         if(target.getHomeCommunity() != null
                 && target.getHomeCommunity().getHomeCommunityId() != null){
-            responders = new ArrayList<String>();
+            responders = new ArrayList<>();
             responders.add(target.getHomeCommunity().getHomeCommunityId());
         }
         return responders;

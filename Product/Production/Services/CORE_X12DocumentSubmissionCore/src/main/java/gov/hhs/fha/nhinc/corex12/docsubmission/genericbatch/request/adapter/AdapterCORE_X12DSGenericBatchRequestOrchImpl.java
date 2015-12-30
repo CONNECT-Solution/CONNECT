@@ -30,10 +30,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import java.sql.Timestamp;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author svalluripalli
@@ -51,7 +51,7 @@ public class AdapterCORE_X12DSGenericBatchRequestOrchImpl {
      */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission msg, AssertionType assertion) {
 
-        COREEnvelopeBatchSubmissionResponse oResponse = null;
+        COREEnvelopeBatchSubmissionResponse oResponse;
         if (msg != null) {
             LOG.trace("Begin AdapterCORE_X12DSGenericBatchRequestOrchImpl.batchSubmitTransaction()");
             //Call to a method which builds response metadata and returns response

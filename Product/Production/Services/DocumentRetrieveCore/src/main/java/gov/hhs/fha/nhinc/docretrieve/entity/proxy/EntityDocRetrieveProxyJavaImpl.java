@@ -31,9 +31,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestrator;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundStandardDocRetrieveOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
@@ -49,6 +49,7 @@ public class EntityDocRetrieveProxyJavaImpl implements EntityDocRetrieveProxy {
     public EntityDocRetrieveProxyJavaImpl() {
     }
 
+    @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
