@@ -67,16 +67,11 @@ import org.nhindirect.xd.common.type.LoincEnum;
 import org.nhindirect.xd.common.type.PracticeSettingCodeEnum;
 import org.nhindirect.xd.transform.pojo.SimplePerson;
 import org.nhindirect.xd.transform.util.type.MimeType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 /**
  * Utilities for running Direct Core Unit Tests.
  */
 public class DirectUnitTestUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(DirectUnitTestUtil.class);
 
     /**
      * email for the sender at the initiating gateway.
@@ -115,8 +110,8 @@ public class DirectUnitTestUtil {
     /**
      * content type for encrypted messages.
      */
-    protected static final String CONTENT_TYPE_ENCRYPTED =
-            "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
+    protected static final String CONTENT_TYPE_ENCRYPTED
+        = "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
 
     /**
      * content type for multi-part mixed mime messages.
@@ -126,9 +121,8 @@ public class DirectUnitTestUtil {
     /**
      * content type for mdn messages.
      */
-    protected static final String CONTENT_TYPE_MDN =
-            "multipart/report; report-type=disposition-notification; boundary=\"";
-
+    protected static final String CONTENT_TYPE_MDN
+        = "multipart/report; report-type=disposition-notification; boundary=\"";
 
     /**
      * Sets up the properties in order to connect to the green mail test server.
@@ -171,6 +165,7 @@ public class DirectUnitTestUtil {
 
     /**
      * Mock document for testing direct messages.
+     *
      * @return the mocked document.
      * @throws IOException possible error.
      */
@@ -211,7 +206,7 @@ public class DirectUnitTestUtil {
      * @return recipients.
      */
     public static Address[] getRecipients() {
-        return new InternetAddress[] {toInternetAddress(RECIP_AT_RESPONDING_GW)};
+        return new InternetAddress[]{toInternetAddress(RECIP_AT_RESPONDING_GW)};
     }
 
     /**
@@ -221,8 +216,8 @@ public class DirectUnitTestUtil {
         MimeMessage mimeMessage = null;
         try {
             Session session = MailUtils.getMailSession(
-                    getMailServerProps(RECIP_AT_RESPONDING_GW, DUMMY_PORT, DUMMY_PORT), RECIP_AT_RESPONDING_GW,
-                    RECIP_AT_RESPONDING_GW);
+                getMailServerProps(RECIP_AT_RESPONDING_GW, DUMMY_PORT, DUMMY_PORT), RECIP_AT_RESPONDING_GW,
+                RECIP_AT_RESPONDING_GW);
             mimeMessage = getMimeMessageBuilder(session).build();
         } catch (IOException e) {
             fail(e.getMessage());
@@ -230,9 +225,9 @@ public class DirectUnitTestUtil {
         return mimeMessage;
     }
 
-
     /**
      * Return a stubbed out mime message builder.
+     *
      * @param session mail session
      * @return Mime Message Builder
      * @throws IOException on io error.
@@ -240,7 +235,7 @@ public class DirectUnitTestUtil {
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
         MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
         testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName")
-                .documents(getMockDirectDocuments()).messageId("1234");
+            .documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }
 
@@ -255,32 +250,15 @@ public class DirectUnitTestUtil {
     }
 
     /**
-     * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
-     * for them from a relative path in order to use inside a junit test. The template config file references the
-     * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
-     */
-    public static void writeSmtpAgentConfig() {
-        try {
-            String smtpAgentConfigTmpl = getFileAsString("smtp.agent.config.tmpl.xml");
-            File path = getClassPath();
-            FileUtils.writeStringToFile(new File(path + "/smtp.agent.config.xml"),
-                    smtpAgentConfigTmpl.replace("{jks.keystore.path}", path.getPath() + "/"));
-            LOG.debug("smtp.agent.config.xml: "
-                    + smtpAgentConfigTmpl.replace("{jks.keystore.path}", path.getPath() + "/"));
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    /**
      * Retrieve the contents of the resource file (relative to classpath) as a string .
+     *
      * @param filename resource file name to be stringified
      * @return String representation of the contents of the file
      */
     public static String getFileAsString(String filename) {
         String fileAsString = null;
         try {
-            fileAsString =  FileUtils.readFileToString(new File(getClassPath() + "/" + filename));
+            fileAsString = FileUtils.readFileToString(new File(getClassPath() + "/" + filename));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -300,6 +278,7 @@ public class DirectUnitTestUtil {
 
     /**
      * Used when calling code requires absolute paths to test resources.
+     *
      * @return absolute classpath.
      */
     public static File getClassPath() throws URISyntaxException {
@@ -348,7 +327,7 @@ public class DirectUnitTestUtil {
         metadata1.setAuthorSpecialty("1.13");
         metadata1.setClassCode(ClassCodeEnum.HISTORY_AND_PHYSICAL.getValue());
         metadata1.setClassCode_localized(ClassCodeEnum.HISTORY_AND_PHYSICAL
-                .getValue());
+            .getValue());
         metadata1.setConfidentialityCode("1.16");
         metadata1.setConfidentialityCode_localized("1.17");
         metadata1.setFormatCode(FormatCodeEnum.CARE_MANAGEMENT_CM);
@@ -396,14 +375,13 @@ public class DirectUnitTestUtil {
         return documents;
     }
 
-
     /**
      * @param numNotificationMessages number of notification messages expected.
      * @return mocked message process result.
      * @throws MessagingException on error.
      */
     public static MessageProcessResult getMockMessageProcessResult(int numNotificationMessages)
-            throws MessagingException {
+        throws MessagingException {
 
         MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);
         MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);
@@ -422,13 +400,13 @@ public class DirectUnitTestUtil {
         when(mockMessageEnvelope.getMessage()).thenReturn(mockMessage);
         when(mockMessage.getContentType()).thenReturn(CONTENT_TYPE_MULTIPART);
         when(mockMessageProcessResult.getNotificationMessages()).thenReturn(notificationCollection);
-        when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {recipAddress});
-        when(mockMessage.getAllRecipients()).thenReturn(new Address[] {recipAddress});
-        when(mockMessage.getFrom()).thenReturn(new Address[] {senderAddress});
+        when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[]{recipAddress});
+        when(mockMessage.getAllRecipients()).thenReturn(new Address[]{recipAddress});
+        when(mockMessage.getFrom()).thenReturn(new Address[]{senderAddress});
 
-        when(mockNotificationMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {senderAddress});
-        when(mockNotificationMessage.getAllRecipients()).thenReturn(new Address[] {senderAddress});
-        when(mockNotificationMessage.getFrom()).thenReturn(new Address[] {recipAddress});
+        when(mockNotificationMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[]{senderAddress});
+        when(mockNotificationMessage.getAllRecipients()).thenReturn(new Address[]{senderAddress});
+        when(mockNotificationMessage.getFrom()).thenReturn(new Address[]{recipAddress});
 
         return mockMessageProcessResult;
     }

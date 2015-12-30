@@ -49,7 +49,6 @@ public class DirectClientFactoryTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        DirectUnitTestUtil.writeSmtpAgentConfig();
     }
 
     /**
@@ -61,10 +60,10 @@ public class DirectClientFactoryTest {
     }
 
     /**
-     * Test {@link DirectAdapterFactory#getDirectAdapter()}.
-     * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
-     * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
-     * it.
+     * Test {@link DirectAdapterFactory#getDirectAdapter()}. Note: This test fails when run as part of the suite - it
+     * seems that the config is loaded in another test before we are setting the system property for the
+     * nhinc.properties.dir. Ignoring for now til more time can be spent on it.
+     *
      * @throws URISyntaxException
      */
     @Test
