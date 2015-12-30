@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 import java.net.URISyntaxException;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertNotNull;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -43,13 +42,6 @@ import org.slf4j.LoggerFactory;
 public class DirectClientFactoryTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(DirectClientFactoryTest.class);
-
-    /**
-     * Set up keystore for test.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-    }
 
     /**
      * Tear down keystore created in setup.
