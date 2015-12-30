@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.adaptercore.AdapterCORETransactionPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -41,7 +39,6 @@ import javax.xml.ws.soap.SOAPBinding;
  *
  * @author sadusumilli
  */
-@WebService
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterCORE_X12DSRealTimeUnsecured implements AdapterCORETransactionPortType {
@@ -49,7 +46,6 @@ public class AdapterCORE_X12DSRealTimeUnsecured implements AdapterCORETransactio
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(AdapterCOREEnvelopeRealTimeRequestType body) {
         return new AdapterCORE_X12DSRealTimeImpl().realTimeTransaction(body, context);

@@ -31,24 +31,24 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponse
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Neil Webb
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterComponentRedactionEngine implements
-gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType {
+    gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType {
+
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public FilterDocQueryResultsResponseType filterDocQueryResults(
-            FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
+        FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
         FilterDocQueryResultsResponseType response = null;
 
         AdapterComponentRedactionEngineImpl redactionEngineImpl = getAdapterComponentRedactionEngineImpl();
@@ -59,10 +59,9 @@ gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortT
         return response;
     }
 
-    @WebMethod
     @Override
     public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(
-            FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
+        FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
         FilterDocRetrieveResultsResponseType response = null;
 
         AdapterComponentRedactionEngineImpl redactionEngineImpl = getAdapterComponentRedactionEngineImpl();

@@ -27,15 +27,15 @@
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class DocumentRepositoryService implements ihe.iti.xds_b._2007.DocumentRepositoryPortType {
 
     @Resource
@@ -45,17 +45,15 @@ public class DocumentRepositoryService implements ihe.iti.xds_b._2007.DocumentRe
 
     }
 
-    @WebMethod
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new DocumentRepositoryServiceImpl().documentRepositoryProvideAndRegisterDocumentSet(body, context);
     }
 
-    @WebMethod
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+        ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return new DocumentRepositoryServiceImpl().documentRepositoryRetrieveDocumentSet(body, context);
     }
 

@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.admindistribution.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
@@ -39,10 +37,9 @@ import javax.xml.ws.soap.SOAPBinding;
  *
  * @author dunnek
  */
-
-@WebService
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterAdministrativeDistributionSecured implements gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType {
+
     @Resource
     private WebServiceContext context;
 
@@ -50,10 +47,9 @@ public class AdapterAdministrativeDistributionSecured implements gov.hhs.fha.nhi
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    @WebMethod
     @Override
     public void sendAlertMessage(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType body) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType body) {
 
         AssertionType assertion = extractAssertion(context);
         getImpl().sendAlertMessage(body.getEDXLDistribution(), assertion);

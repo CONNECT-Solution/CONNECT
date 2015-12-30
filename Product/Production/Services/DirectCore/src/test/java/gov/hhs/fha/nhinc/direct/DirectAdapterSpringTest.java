@@ -27,13 +27,11 @@
 package gov.hhs.fha.nhinc.direct;
 
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import gov.hhs.fha.nhinc.mail.MailReceiver;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,14 +57,10 @@ public class DirectAdapterSpringTest {
     private DirectSender directSender;
 
     @Autowired
-    private DirectReceiver directReceiver;
-
-    @Autowired
     private MailReceiver extMailReceiver;
 
     @Autowired
     private MailReceiver intMailReceiver;
-
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -79,14 +73,6 @@ public class DirectAdapterSpringTest {
     private static ThreadPoolTaskScheduler staticScheduler;
 
     /**
-     * Set up keystore for test.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        writeSmtpAgentConfig();
-    }
-
-    /**
      * Capture the app context and scheduler so we can shut them down later.
      */
     @Before
@@ -96,8 +82,7 @@ public class DirectAdapterSpringTest {
     }
 
     /**
-     * Tear down keystore created in setup. Cleanup the context and scheduler, so they don't interfere with other
-     * tests.
+     * Tear down keystore created in setup. Cleanup the context and scheduler, so they don't interfere with other tests.
      */
     @AfterClass
     public static void tearDownClass() {
@@ -124,6 +109,7 @@ public class DirectAdapterSpringTest {
 
     /**
      * Test that we can use spring task scheduler to run the polling mail handlers.
+     *
      * @throws InterruptedException on failure.
      */
     @Test

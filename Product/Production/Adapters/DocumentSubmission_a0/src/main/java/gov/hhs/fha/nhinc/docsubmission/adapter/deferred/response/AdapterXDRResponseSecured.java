@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -38,17 +36,16 @@ import javax.xml.ws.soap.SOAPBinding;
  *
  * @author JHOPPESC
  */
-@WebService
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterXDRResponseSecured implements gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType {
+
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
-            oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
+        oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         return new AdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
     }
 }

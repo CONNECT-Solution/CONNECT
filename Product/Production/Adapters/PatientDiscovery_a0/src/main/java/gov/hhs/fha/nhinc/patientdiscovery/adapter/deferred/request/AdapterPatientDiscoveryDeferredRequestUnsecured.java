@@ -27,26 +27,26 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author JHOPPESC
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientDiscoveryDeferredRequestUnsecured implements gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreq.AdapterPatientDiscoveryAsyncReqPortType{
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
+public class AdapterPatientDiscoveryDeferredRequestUnsecured implements gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreq.AdapterPatientDiscoveryAsyncReqPortType {
+
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncReq(
-            org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType processPatientDiscoveryAsyncReqAsyncRequest) {
+        org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType processPatientDiscoveryAsyncReqAsyncRequest) {
         return new AdapterPatientDiscoveryDeferredRequestImpl().processPatientDiscoveryAsyncReq(
-                processPatientDiscoveryAsyncReqAsyncRequest.getPRPAIN201305UV02(),
-                processPatientDiscoveryAsyncReqAsyncRequest.getAssertion(), context);
+            processPatientDiscoveryAsyncReqAsyncRequest.getPRPAIN201305UV02(),
+            processPatientDiscoveryAsyncReqAsyncRequest.getAssertion(), context);
     }
 
 }

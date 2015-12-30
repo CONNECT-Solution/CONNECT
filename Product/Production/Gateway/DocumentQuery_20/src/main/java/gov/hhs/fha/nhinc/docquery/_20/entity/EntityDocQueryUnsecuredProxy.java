@@ -36,16 +36,17 @@ import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyObjectFactory;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocQueryUnsecuredProxy implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
 
     @OutboundMessageEvent(beforeBuilder = AdhocQueryRequestTransformingBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "2.0")
+        afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+        version = "2.0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
         EntityDocQueryProxyObjectFactory factory = new EntityDocQueryProxyObjectFactory();

@@ -36,24 +36,24 @@ import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  * @author achidambaram
  *
  */
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocRetrieveUnSecuredProxy extends BaseService implements EntityDocRetrievePortType {
 
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "3.0")
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            RespondingGatewayCrossGatewayRetrieveRequestType request) {
+        RespondingGatewayCrossGatewayRetrieveRequestType request) {
 
         EntityDocRetrieveProxyObjectFactory factory = new EntityDocRetrieveProxyObjectFactory();
         return factory.getEntityDocRetrieveProxy().respondingGatewayCrossGatewayRetrieve(
-                request.getRetrieveDocumentSetRequest(), request.getAssertion(), request.getNhinTargetCommunities());
+            request.getRetrieveDocumentSetRequest(), request.getAssertion(), request.getNhinTargetCommunities());
     }
 
 }

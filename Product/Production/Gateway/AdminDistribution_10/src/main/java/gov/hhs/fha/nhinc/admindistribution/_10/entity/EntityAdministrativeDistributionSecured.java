@@ -38,23 +38,24 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author dunnek
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityAdministrativeDistributionSecured extends BaseService implements
-        AdministrativeDistributionSecuredPortType {
+    AdministrativeDistributionSecuredPortType {
 
     private WebServiceContext context;
     private OutboundAdminDistribution outboundAdminDist;
 
     @Override
     @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = ADRequestTransformingBuilder.class)
+        afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+        beforeBuilder = ADRequestTransformingBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = getAssertion(context, null);
 

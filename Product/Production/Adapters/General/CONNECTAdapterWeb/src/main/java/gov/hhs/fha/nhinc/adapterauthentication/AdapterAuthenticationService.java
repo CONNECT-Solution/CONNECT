@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.adapterauthentication;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.soap.SOAPBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType{
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
+public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterAuthenticationService.class);
 
@@ -48,9 +48,8 @@ public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterau
      *
      * @param authenticateUserRequest The request to authenticate the user
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
-     *         identifier
+     * identifier
      */
-    @WebMethod
     @Override
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
@@ -61,7 +60,7 @@ public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterau
             authResp = adapterAuthImpl.authenticateUser(authenticateUserRequest);
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterAuthenticationImpl.authenticateUser.  Error: "
-                    + ex.getMessage();
+                + ex.getMessage();
             LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }

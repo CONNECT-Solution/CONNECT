@@ -27,17 +27,17 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Sai Valluripalli
  */
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPEPService implements gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType {
+
     @Resource
     private WebServiceContext context;
 
@@ -56,10 +56,9 @@ public class AdapterPEPService implements gov.hhs.fha.nhinc.adapterpep.AdapterPE
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
-    @WebMethod
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return getAdapterPEPServiceImpl().checkPolicy(checkPolicyRequest, getWebServiceContext());
     }
 

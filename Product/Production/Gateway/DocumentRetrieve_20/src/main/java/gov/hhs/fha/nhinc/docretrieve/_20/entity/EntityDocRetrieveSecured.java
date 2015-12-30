@@ -44,8 +44,9 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocRetrieveSecured extends BaseService implements EntityDocRetrieveSecuredPortType {
 
@@ -63,7 +64,7 @@ public class EntityDocRetrieveSecured extends BaseService implements EntityDocRe
         }
 
         return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(body, assertion, createNhinTargetCommunities(body),
-                ADAPTER_API_LEVEL.LEVEL_a0);
+            ADAPTER_API_LEVEL.LEVEL_a0);
     }
 
     private NhinTargetCommunitiesType createNhinTargetCommunities(RetrieveDocumentSetRequestType body) {

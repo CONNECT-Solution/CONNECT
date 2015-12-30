@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -38,17 +36,16 @@ import javax.xml.ws.soap.SOAPBinding;
  *
  * @author JHOPPESC
  */
-@WebService
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterDocSubmissionSecured implements gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType {
+
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetb(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);
     }
 

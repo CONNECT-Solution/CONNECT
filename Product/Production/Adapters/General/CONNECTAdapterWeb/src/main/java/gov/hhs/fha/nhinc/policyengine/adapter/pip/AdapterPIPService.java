@@ -27,16 +27,17 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType {
+
     @Resource
     private WebServiceContext context;
 
@@ -55,12 +56,11 @@ public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPI
      * @return The patient consent information for that patient.
      * @throws AdapterPIPException This exception is thrown if the data cannot be retrieved.
      */
-    @WebMethod
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType retrievePtConsentByPtIdRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType retrievePtConsentByPtIdRequest) {
         return getAdapterPIPServiceImpl().retrievePtConsentByPtId(retrievePtConsentByPtIdRequest,
-                getWebServiceContext());
+            getWebServiceContext());
     }
 
     /**
@@ -69,12 +69,11 @@ public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPI
      * @param retrievePtConsentByPtDocIdRequest The doucment identifiers of a document in the repository.
      * @return The patient consent settings for the patient associated with the given document identifiers.
      */
-    @WebMethod
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType retrievePtConsentByPtDocIdRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType retrievePtConsentByPtDocIdRequest) {
         return getAdapterPIPServiceImpl().retrievePtConsentByPtDocId(retrievePtConsentByPtDocIdRequest,
-                getWebServiceContext());
+            getWebServiceContext());
     }
 
     /**
@@ -82,12 +81,11 @@ public class AdapterPIPService implements gov.hhs.fha.nhinc.adapterpip.AdapterPI
      *
      * @param storePtConsentRequest The patient consent settings to be stored.
      * @return Status of the storage. Currently this is either "SUCCESS" or or the word "FAILED" followed by a ':'
-     *         followed by the error information.
+     * followed by the error information.
      */
-    @WebMethod
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType storePtConsent(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType storePtConsentRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType storePtConsentRequest) {
         return getAdapterPIPServiceImpl().storePtConsent(storePtConsentRequest, getWebServiceContext());
     }
 }

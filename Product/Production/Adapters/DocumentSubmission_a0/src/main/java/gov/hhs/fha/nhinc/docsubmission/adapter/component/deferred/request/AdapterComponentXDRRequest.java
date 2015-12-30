@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request;
 
 import javax.annotation.Resource;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -38,17 +36,16 @@ import javax.xml.ws.soap.SOAPBinding;
  *
  * @author JHOPPESC
  */
-@WebService
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class AdapterComponentXDRRequest implements gov.hhs.fha.nhinc.adaptercomponentxdrrequest.AdapterComponentXDRRequestPortType {
+
     @Resource
     private WebServiceContext context;
 
-    @WebMethod
     @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterComponentXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
     }
 

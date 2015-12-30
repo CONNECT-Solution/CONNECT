@@ -36,8 +36,9 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocSubmissionDeferredRequestSecured_g1 implements EntityXDRSecuredAsyncRequestPortType {
 
@@ -46,13 +47,13 @@ public class EntityDocSubmissionDeferredRequestSecured_g1 implements EntityXDRSe
 
     @Override
     @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
-    serviceType = "Document Submission Deferred Request",
-    version = "2.0")
+        afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+        serviceType = "Document Submission Deferred Request",
+        version = "2.0")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
         return new EntityDocSubmissionDeferredRequestImpl_g1(outboundDocSubmissionRequest).provideAndRegisterDocumentSetBRequest(
-                provideAndRegisterAsyncReqRequest, context);
+            provideAndRegisterAsyncReqRequest, context);
     }
 
     @Resource
