@@ -147,7 +147,6 @@ public class AuditSearchBean {
     }
 
     public void fetchAuditBlob() {
-        this.auditBlobMsg = "";
         this.auditBlobMsg = service.fetchAuditBlob(this.auditId);
     }
 
