@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.apache.commons.lang.time.DateUtils;
 
 /**
  *
@@ -65,13 +64,15 @@ public class AuditSearchBean {
     private boolean auditFound;
     private String messageId;
     private String relatesTo;
-    private long id;
+    private long auditId;
     private Map<String, String> remoteHcidOrgNameMap;
     private String auditBlobMsg;
     private final String AUDIT_RECORDS_FOUND = "Audit Records Found";
     private final String AUDIT_RECORDS_NOT_FOUND = "Audit Records not Found";
+    private AuditService service;
 
     public AuditSearchBean() {
+        service = new AuditServiceImpl();
         setEventTypeList(populateEventTypeList());
         //This map stores key=Orgname and value =remoteHcid. Need this map for display in the dropdownbox
         //on AuditSearch screen.
@@ -86,10 +87,9 @@ public class AuditSearchBean {
      * eventEndDate
      */
     public void searchAudit() {
-        AuditService impl = new AuditServiceImpl();
-        this.auditRecordList = impl.searchAuditRecord(getSelectedEventOutcomeIndicator(), getSelectedServiceTypes(),
+        this.auditRecordList = service.searchAuditRecord(getSelectedEventOutcomeIndicator(), getSelectedServiceTypes(),
             NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null, getRemoteHCIDFromSelectedOrgs(), eventStartDate,
-            createEventEndDateToTimestamp(eventEndDate), getRemoteHcidOrgNameMap());
+            eventEndDate, getRemoteHcidOrgNameMap());
         if (NullChecker.isNullish(this.auditRecordList)) {
             this.auditMessage = AUDIT_RECORDS_NOT_FOUND;
             auditFound = false;
@@ -103,8 +103,7 @@ public class AuditSearchBean {
      * This method searches Audit database based on messageId and/or relatesTo
      */
     public void searchAuditMessageId() {
-        AuditServiceImpl impl = new AuditServiceImpl();
-        this.auditRecordList = impl.searchAuditRecordBasedOnMsgIdAndRelatesTo(
+        this.auditRecordList = service.searchAuditRecordBasedOnMsgIdAndRelatesTo(
             NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId.trim() : null,
             NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
         if (NullChecker.isNullish(this.auditRecordList)) {
@@ -147,9 +146,8 @@ public class AuditSearchBean {
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 
-    public String getBlobMessage(long id) {
-        AuditService impl = new AuditServiceImpl();
-        return impl.createMockAuditMessage(id);
+    public void fetchAuditBlob() {
+        this.auditBlobMsg = service.fetchAuditBlob(this.auditId);
     }
 
     private Map<String, String> populateRemoteOrgHcid() {
@@ -294,17 +292,17 @@ public class AuditSearchBean {
     }
 
     /**
-     * @return the id
+     * @return the auditId
      */
-    public long getId() {
-        return id;
+    public long getAuditId() {
+        return auditId;
     }
 
     /**
-     * @param id the id to set
+     * @param auditId
      */
-    public void setId(long id) {
-        this.id = id;
+    public void setAuditId(long auditId) {
+        this.auditId = auditId;
     }
 
     private Integer getSelectedEventOutcomeIndicator() {
@@ -339,15 +337,5 @@ public class AuditSearchBean {
 
     private Map<String, String> populateRemoteHcidAndOrgName() {
         return new ConnectionHelper().getRemoteHcidOrgNameMap();
-    }
-
-    //Adding the timestamp part to the endDate
-    private Date createEventEndDateToTimestamp(Date dateObj) {
-        if (dateObj != null) {
-            dateObj = DateUtils.setHours(dateObj, 23);
-            dateObj = DateUtils.setMinutes(dateObj, 59);
-            dateObj = DateUtils.setSeconds(dateObj, 59);
-        }
-        return dateObj;
     }
 }

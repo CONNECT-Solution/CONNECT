@@ -37,8 +37,6 @@ import java.util.Map;
  */
 public interface AuditService {
 
-    public String createMockAuditMessage(long id);
-
     public List<Audit> searchAuditRecord(Integer outcome, List<String> eventTypeList, String userId,
         List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap);
 
