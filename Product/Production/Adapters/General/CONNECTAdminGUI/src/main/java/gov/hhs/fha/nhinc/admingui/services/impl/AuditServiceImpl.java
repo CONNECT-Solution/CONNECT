@@ -205,20 +205,27 @@ public class AuditServiceImpl implements AuditService {
 
     private String marshallAuditMessage(AuditMessageType mess) {
         if (mess != null) {
+            ByteArrayOutputStream baOutStrm = null;
             try {
-                JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext(AUDIT_MESSAGE_NAMESPACE);
+                JAXBContext jc = new JAXBContextHandler().getJAXBContext(AUDIT_MESSAGE_NAMESPACE);
                 Marshaller marshaller = jc.createMarshaller();
                 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+                baOutStrm = new ByteArrayOutputStream();
                 baOutStrm.reset();
                 ObjectFactory factory = new ObjectFactory();
                 JAXBElement<AuditMessageType> oJaxbElement = factory.createAuditMessage(mess);
-                baOutStrm.close();
                 marshaller.marshal(oJaxbElement, baOutStrm);
                 return baOutStrm.toString();
-            } catch (JAXBException | IOException e) {
+            } catch (JAXBException e) {
                 LOG.error("Exception during Blob conversion {}", e.getLocalizedMessage(), e);
+            } finally {
+                if (baOutStrm != null) {
+                    try {
+                        baOutStrm.close();
+                    } catch (IOException ex) {
+                        LOG.error("Unable to close OutputStream {}", ex.getLocalizedMessage(), ex);
+                    }
+                }
             }
         }
         return null;
