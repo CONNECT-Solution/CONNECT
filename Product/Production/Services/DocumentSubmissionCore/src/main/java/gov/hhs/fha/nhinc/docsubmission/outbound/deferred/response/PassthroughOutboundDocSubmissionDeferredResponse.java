@@ -58,9 +58,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = createOrchestratable(delegate, body,
             assertion, targetSystem);
         auditRequest(body, assertion, targetSystem);
-        XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
-            .process(dsOrchestratable)).getResponse();
-
         return ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
             .process(dsOrchestratable)).getResponse();
     }
