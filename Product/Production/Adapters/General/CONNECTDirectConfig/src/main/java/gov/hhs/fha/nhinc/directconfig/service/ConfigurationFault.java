@@ -59,7 +59,7 @@ public class ConfigurationFault extends Exception {
 
     private String message = "";
 
-    private ConfigurationError error = ConfigurationError.Unknown;
+    private transient ConfigurationError error = ConfigurationError.Unknown;
 
     /**
      * Default constructor.
