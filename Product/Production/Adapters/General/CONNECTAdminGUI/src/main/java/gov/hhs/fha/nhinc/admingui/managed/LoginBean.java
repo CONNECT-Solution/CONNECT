@@ -186,7 +186,7 @@ public class LoginBean {
         return loggedIn;
     }
 
-    private void checkDisplays() {
+    private static void checkDisplays() {
         if (firstTimeLogged) {
             new DirectDisplayController().checkDisplay();
             new FhirDisplayController().checkDisplay();

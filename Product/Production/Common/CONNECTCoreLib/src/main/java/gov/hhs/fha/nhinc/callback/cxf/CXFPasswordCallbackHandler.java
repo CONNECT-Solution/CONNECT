@@ -42,7 +42,7 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
 
     /** Logger. */
     private static final Logger LOG = LoggerFactory.getLogger(CXFPasswordCallbackHandler.class);
-    private static final String SYSTEM_PROPERTY_KEYSTORE_PASSWORD = "javax.net.ssl.keyStorePassword";
+    private static final String SYSTEM_PROPERTY_KEYSTORE_PSWRD = "javax.net.ssl.keyStorePassword";
 
     /** Keystore Password property. **/
     private String keystorePassword;
@@ -51,7 +51,7 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
      * One default constructor, free of charge.
      */
     public CXFPasswordCallbackHandler() {
-        keystorePassword = System.getProperty(SYSTEM_PROPERTY_KEYSTORE_PASSWORD);
+        keystorePassword = System.getProperty(SYSTEM_PROPERTY_KEYSTORE_PSWRD);
     }
 
     public CXFPasswordCallbackHandler(String keystorePassword){
@@ -72,7 +72,7 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
 
         if (keystorePassword == null || keystorePassword.isEmpty()) {
             throw new IOException("keystore password was not provided. Please provide the system property: "
-                    + SYSTEM_PROPERTY_KEYSTORE_PASSWORD);
+                    + SYSTEM_PROPERTY_KEYSTORE_PSWRD);
         }
 
         for (Callback callback : callbacks) {

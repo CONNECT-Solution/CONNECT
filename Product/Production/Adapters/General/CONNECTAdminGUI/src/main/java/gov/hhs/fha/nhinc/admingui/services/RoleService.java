@@ -29,13 +29,15 @@ package gov.hhs.fha.nhinc.admingui.services;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author jasonasmith
  */
-public interface RoleService {
+public interface RoleService extends Serializable{
 
     /**
      * Checks the user access of a given page based on the roles assigned to the user.
