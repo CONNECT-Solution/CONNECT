@@ -37,7 +37,7 @@ import java.util.List;
  *
  * @author jasonasmith
  */
-public interface RoleService extends Serializable{
+public interface RoleService extends Serializable {
 
     /**
      * Checks the user access of a given page based on the roles assigned to the user.

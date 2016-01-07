@@ -26,15 +26,15 @@
  */
 package gov.hhs.fha.nhinc.asyncmsgs.model;
 
-import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  *
  * @author JHOPPESC, richard.ettema
  */
-public class AsyncMsgRecord implements Serializable{
+public class AsyncMsgRecord implements Serializable {
 
     private Long Id = null;
     private String messageId = null;
