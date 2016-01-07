@@ -545,8 +545,4 @@ public class HL7PRPA201301Transforms {
 
     }
 
-    @SuppressWarnings("static-access")
-	protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }

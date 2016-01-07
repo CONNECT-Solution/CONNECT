@@ -223,7 +223,4 @@ public class HL7PRPA201310Transforms {
         return queryAck;
     }
 
-    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }

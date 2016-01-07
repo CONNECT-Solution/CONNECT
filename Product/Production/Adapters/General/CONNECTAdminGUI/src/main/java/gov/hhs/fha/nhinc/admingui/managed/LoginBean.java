@@ -72,7 +72,7 @@ public class LoginBean {
      */
     public Boolean isCorrect = false;
 
-    private static boolean firstTimeLogged = true;
+    private boolean firstTimeLogged = true;
 
     /**
      * The login service.
@@ -186,7 +186,7 @@ public class LoginBean {
         return loggedIn;
     }
 
-    private static void checkDisplays() {
+    private void checkDisplays() {
         if (firstTimeLogged) {
             new DirectDisplayController().checkDisplay();
             new FhirDisplayController().checkDisplay();

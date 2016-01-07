@@ -92,7 +92,4 @@ public class HL7PRPA201305Transforms {
         return controlActProcess;
     }
 
-    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }
