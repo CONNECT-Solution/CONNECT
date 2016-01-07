@@ -214,7 +214,4 @@ public class HL7QueryParamsTransforms {
         return subjectTele;
     }
 
-    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }

@@ -702,7 +702,4 @@ public class HL7PRPA201306Transforms {
         return false;
     }
 
-    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }
