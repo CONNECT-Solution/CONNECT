@@ -66,7 +66,6 @@ public class AuditRepositoryOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
 
-    private static String logStatus = "";
     private AuditStore dbStore = null;
     private AuditStore fileStore = null;
 
@@ -110,15 +109,7 @@ public class AuditRepositoryOrchImpl {
      */
     public static FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
 
-        if (logStatus.isEmpty()) {
-            logStatus = "on";
-        }
 
-        if (logStatus.equalsIgnoreCase("off")) {
-            LOG.info("Enable Audit Logging Before Making Query by changing the "
-                + "value in 'auditlogchoice' properties file");
-            return null;
-        }
         FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();
         String userId = query.getUserId();
