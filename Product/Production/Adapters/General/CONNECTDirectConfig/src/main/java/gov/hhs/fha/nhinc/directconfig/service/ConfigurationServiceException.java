@@ -54,9 +54,6 @@ public class ConfigurationServiceException extends Exception {
 
     private static final long serialVersionUID = -1005166340298814306L;
 
-    @SuppressWarnings("unused")
-    private transient ConfigurationFault fault = new ConfigurationFault();
-
     /**
      * Default constructor.
      */
@@ -81,9 +78,6 @@ public class ConfigurationServiceException extends Exception {
      */
     public ConfigurationServiceException(Throwable cause) {
         super(cause);
-        if (cause instanceof Exception) {
-            fault = ConfigurationFault.errorToFault((Exception) cause);
-        }
     }
 
     /**
@@ -97,9 +91,6 @@ public class ConfigurationServiceException extends Exception {
      */
     public ConfigurationServiceException(String message, Throwable cause) {
         super(message, cause);
-        if (cause instanceof Exception) {
-            fault = ConfigurationFault.errorToFault((Exception) cause);
-        }
     }
 
     /**
@@ -109,6 +100,5 @@ public class ConfigurationServiceException extends Exception {
      *            A ConfigurationFault.
      */
     public ConfigurationServiceException(ConfigurationFault aFault) {
-        fault = aFault;
     }
 }
