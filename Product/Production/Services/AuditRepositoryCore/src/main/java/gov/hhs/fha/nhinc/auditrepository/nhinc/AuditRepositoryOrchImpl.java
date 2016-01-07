@@ -107,7 +107,7 @@ public class AuditRepositoryOrchImpl {
      * @param assertion the assertion
      * @return the found FindAuditEventsResponseType
      */
-    public static FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
+    public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
 
 
         FindCommunitiesAndAuditEventsResponseType auditEvents;
@@ -140,7 +140,7 @@ public class AuditRepositoryOrchImpl {
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse
      */
-    private static FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
+    private FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
 
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
@@ -187,7 +187,7 @@ public class AuditRepositoryOrchImpl {
      * @param auditBlob
      * @return AuditMessageType
      */
-    private static AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
+    private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
 
         AuditMessageType auditMessageType = null;
         InputStream in = null;
@@ -216,7 +216,7 @@ public class AuditRepositoryOrchImpl {
      * @param xmlCalDate
      * @return java.util.Date
      */
-    private static Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
+    private Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
         Calendar cal = Calendar.getInstance(Locale.getDefault());
         LOG.info("cal.getTime() -> " + cal.getTime());
         cal.setTime(xmlCalDate.toGregorianCalendar().getTime());
