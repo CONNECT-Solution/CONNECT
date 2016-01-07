@@ -142,10 +142,11 @@ public class XmlUtility {
             if (XmlUtfHelper.isUtf16(xml)) {
                 try {
                     element = convertXmlToElementWorker(xml);
-                } catch (Exception ex) {
+                } catch (Exception e) {
                     // Exception may be due to the encoding of the message being incorrect.
                     // retry using UTF-8
-                    LOG.warn("Failed to convert xml to element, retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
+                    LOG.warn("Failed to convert xml to element, retrying with UTF-8: {}", e.getLocalizedMessage());
+                    LOG.trace("Failed to convert xml to element, retrying with UTF-8: {}", e.getLocalizedMessage(), e);
                     xml = XmlUtfHelper.convertToUtf8(xml);
                     element = convertXmlToElementWorker(xml);
                 }

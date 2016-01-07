@@ -56,7 +56,8 @@ public class ErrorEventBuilder implements EventBuilder {
                 jsonObject.put("message", throwable.getMessage());
                 jsonObject.put("class", throwable.getClass());
             } catch (JSONException e) {
-                LOG.error("Could not build description: {}", e.getLocalizedMessage(), e);
+                LOG.error("Could not build description: {}", e.getLocalizedMessage());
+                LOG.trace("Could not build description: {}", e.getLocalizedMessage(), e);
             }
         }
         event.setDescription(jsonObject.toString());

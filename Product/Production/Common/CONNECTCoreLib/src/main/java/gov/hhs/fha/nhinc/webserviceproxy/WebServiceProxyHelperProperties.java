@@ -106,6 +106,8 @@ public class WebServiceProxyHelperProperties {
                 + configValue + "')");
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading retry attempts value from config file ({}.properties): {}", CONFIG_FILE,
+                ex.getLocalizedMessage());
+            LOG.trace("Error occurred reading retry attempts value from config file ({}.properties): {}", CONFIG_FILE,
                 ex.getLocalizedMessage(), ex);
         }
         return configValue;
@@ -132,9 +134,13 @@ public class WebServiceProxyHelperProperties {
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}",
+                CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, ex.getLocalizedMessage());
+            LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}",
                 CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
+                CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, nfe.getLocalizedMessage());
+            LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
                 CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return retryAttemptsProp;
@@ -160,9 +166,13 @@ public class WebServiceProxyHelperProperties {
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}",
+                CONFIG_KEY_RETRYDELAY, CONFIG_FILE, ex.getLocalizedMessage());
+            LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}",
                 CONFIG_KEY_RETRYDELAY, CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
+                CONFIG_KEY_RETRYDELAY, CONFIG_FILE, nfe.getLocalizedMessage());
+            LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
                 CONFIG_KEY_RETRYDELAY, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return retryDelayProp;
@@ -189,9 +199,13 @@ public class WebServiceProxyHelperProperties {
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}",
+                CONFIG_KEY_TIMEOUT, CONFIG_FILE, ex.getLocalizedMessage());
+            LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}",
                 CONFIG_KEY_TIMEOUT, CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
+                CONFIG_KEY_TIMEOUT, CONFIG_FILE, nfe.getLocalizedMessage());
+            LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
                 CONFIG_KEY_TIMEOUT, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return timeoutProp;
@@ -217,9 +231,13 @@ public class WebServiceProxyHelperProperties {
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}", propertyName,
+                CONFIG_FILE, ex.getLocalizedMessage());
+            LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}", propertyName,
                 CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
+                propertyName, CONFIG_FILE, nfe.getLocalizedMessage());
+            LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
                 propertyName, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return timeoutProp;
