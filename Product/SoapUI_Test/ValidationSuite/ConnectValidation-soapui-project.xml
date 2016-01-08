@@ -9694,10 +9694,6 @@ if(context.findProperty("PassThruOn").toBoolean()){
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
-            <!--Optional:-->
-            <urn1:messageId>?</urn1:messageId>
-            <!--Zero or more repetitions:-->
-            <urn1:relatesToList>?</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
         <urn:NhinTargetCommunities>

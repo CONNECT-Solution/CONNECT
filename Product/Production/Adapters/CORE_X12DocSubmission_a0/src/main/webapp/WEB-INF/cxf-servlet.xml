@@ -34,9 +34,13 @@ the License. -->
 
     <!-- Real time services -->
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCORESecured"
-                    address="/CORETransaction/AdapterCORETransactionSecured" serviceName="tns:AdapterCORETransactionSecured" endpointName="tns:AdapterCORETransactionSecured_Port"
-                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTimeSecured.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured"
+                    id="AdapterCORESecured"
+                    address="/CORETransaction/AdapterCORETransactionSecured"
+                    serviceName="tns:AdapterCORETransactionSecured"
+                    endpointName="tns:AdapterCORETransactionSecured_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.AdapterX12RealTimeSecured"
+                    wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTimeSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -47,52 +51,72 @@ the License. -->
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCORE"
-                    address="/CORETransaction/AdapterCORETransactionUnsecured" serviceName="tns:AdapterCORETransaction" endpointName="tns:AdapterCORETransaction_Port"
-                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.AdapterCORE_X12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore"
+                    id="AdapterCORE"
+                    address="/CORETransaction/AdapterCORETransactionUnsecured"
+                    serviceName="tns:AdapterCORETransaction"
+                    endpointName="tns:AdapterCORETransaction_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.AdapterX12RealTimeUnsecured"
+                    wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0RealTime.wsdl">
     </jaxws:endpoint>
 
     <!-- Batch services -->
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCOREGBRequestSecured"
-                    address="/COREGenericBatch/AdapterCOREGenericBatchRequestSecured" serviceName="tns:AdapterCOREGenericBatchTransactionSecured" endpointName="tns:AdapterCOREGenericBatchTransactionSecured_Port"
-                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.AdapterCORE_X12DSGenericBatchRequestSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatchSecured.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured"
+                    id="AdapterCOREGBRequestSecured"
+                    address="/COREGenericBatch/AdapterCOREGenericBatchRequestSecured"
+                    serviceName="tns:AdapterCOREGenericBatchTransactionSecured"
+                    endpointName="tns:AdapterCOREGenericBatchTransactionSecured_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.AdapterX12BatchRequestSecured"
+                    wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatchSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
-            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCOREGBRequestUnsecured"
-                    address="/COREGenericBatch/AdapterCOREGenericBatchRequestUnsecured" serviceName="tns:AdapterGenericBatchSubmissionTransaction" endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
-                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.AdapterCORE_X12DSGenericBatchRequestUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore"
+                    id="AdapterCOREGBRequestUnsecured"
+                    address="/COREGenericBatch/AdapterCOREGenericBatchRequestUnsecured"
+                    serviceName="tns:AdapterGenericBatchSubmissionTransaction"
+                    endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.AdapterX12BatchRequestUnsecured"
+                    wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured" id="AdapterCOREGBResponseSecured"
-                    address="/COREGenericBatch/AdapterCOREGenericBatchResponseSecured" serviceName="tns:AdapterCOREGenericBatchTransactionSecured" endpointName="tns:AdapterCOREGenericBatchTransactionSecured_Port"
-                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.AdapterCORE_X12DSGenericBatchResponseSecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatchSecured.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercoresecured"
+                    id="AdapterCOREGBResponseSecured"
+                    address="/COREGenericBatch/AdapterCOREGenericBatchResponseSecured"
+                    serviceName="tns:AdapterCOREGenericBatchTransactionSecured"
+                    endpointName="tns:AdapterCOREGenericBatchTransactionSecured_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.AdapterX12BatchResponseSecured"
+                    wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatchSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
-            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore" id="AdapterCOREGBResponseUnsecured"
-                    address="/COREGenericBatch/AdapterCOREGenericBatchResponseUnsecured" serviceName="tns:AdapterGenericBatchSubmissionTransaction" endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
-                    implementor="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.AdapterCORE_X12DSGenericBatchResponseUnsecured" wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercore"
+                    id="AdapterCOREGBResponseUnsecured"
+                    address="/COREGenericBatch/AdapterCOREGenericBatchResponseUnsecured"
+                    serviceName="tns:AdapterGenericBatchSubmissionTransaction"
+                    endpointName="tns:AdapterGenericBatchSubmissionTransaction_Port"
+                    implementor="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.AdapterX12BatchResponseUnsecured"
+                    wsdlLocation="classpath:wsdl/AdapterCORERule2.2.0GenericBatch.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>

@@ -168,6 +168,12 @@
                 <version>${cxf.version}</version>
                 <scope>runtime</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-hc</artifactId>
+                <version>${cxf.version}</version>
+                <scope>runtime</scope>
+            </dependency>
 
             <!-- Web Services -->
             <dependency>
@@ -980,7 +986,7 @@
             </dependency>
             <dependency>
                 <groupId>org.connectopensource</groupId>
-                <artifactId>CORERule2_2_0Webervices</artifactId>
+                <artifactId>CORERule2_2_0Webservices</artifactId>
                 <version>${connect.webservices.version}</version>
             </dependency>
             <dependency>

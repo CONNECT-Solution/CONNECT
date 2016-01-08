@@ -48,15 +48,21 @@ import org.apache.cxf.ws.addressing.AddressingProperties;
  */
 public abstract class BaseService {
 
-    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    private final AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
-    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
+    protected AssertionType getAssertion(WebServiceContext context) {
+        return getAssertion(context, null);
+    }
+
+    protected AssertionType getAssertion(WebServiceContext context, AssertionType assertionIn) {
         AssertionType assertion;
-        if (oAssertionIn == null) {
+
+        if (assertionIn == null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
-            assertion = oAssertionIn;
+            assertion = assertionIn;
         }
+
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null && NullChecker.isNullish(assertion.getMessageId())) {
             assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
@@ -66,7 +72,7 @@ public abstract class BaseService {
         if (assertion != null) {
             List<String> relatesToList = extractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(extractor.getAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().add(relatesToList.get(0));
             }
         }
 
@@ -89,12 +95,15 @@ public abstract class BaseService {
      */
     protected String getRemoteAddress(WebServiceContext context) {
         String remoteAddress = null;
+
         if (context != null && context.getMessageContext() != null
             && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+
             HttpServletRequest httpServletRequest
                 = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
+
         return remoteAddress;
     }
 
@@ -106,18 +115,21 @@ public abstract class BaseService {
      */
     protected String getWebServiceRequestUrl(WebServiceContext context) {
         String requestWebServiceUrl = null;
+
         if (context != null && context.getMessageContext() != null) {
             requestWebServiceUrl = (String) context.getMessageContext().get(org.apache.cxf.message.Message.REQUEST_URL);
         }
+
         return requestWebServiceUrl;
     }
 
     private String getInboundReplyToHeader(WebServiceContext context) {
-
         MessageContext messageContext = context.getMessageContext();
+
         if (messageContext == null || !(messageContext instanceof WrappedMessageContext)) {
             return null;
         }
+
         Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
         AddressingProperties maps = (AddressingProperties) message.get(NhincConstants.INBOUND_REPLY_TO_HEADER);
         return maps.getReplyTo().getAddress().getValue();
@@ -131,18 +143,19 @@ public abstract class BaseService {
      * @return
      */
     public Properties getWebContextProperties(WebServiceContext context) {
-
         Properties webContextProperties = new Properties();
+
         if (context != null && context.getMessageContext() != null) {
-            //add Web Service Request URL
+            // Add Web Service Request URL
             webContextProperties.put(NhincConstants.WEB_SERVICE_REQUEST_URL, getWebServiceRequestUrl(context));
 
-            //add Remote Server address or Host
+            // Add Remote Server address or Host
             webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
 
-            //Get Inbound Message ReplyTo Header
+            // Get Inbound Message ReplyTo Header
             webContextProperties.put(NhincConstants.INBOUND_REPLY_TO, getInboundReplyToHeader(context));
         }
+
         return webContextProperties;
     }
 }
