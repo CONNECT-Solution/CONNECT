@@ -26,12 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import java.io.Serializable;
+import java.util.List;
+
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  *
@@ -41,6 +41,7 @@ public interface RoleService extends Serializable {
 
     /**
      * Checks the user access of a given page based on the roles assigned to the user.
+     *
      * @param pageName Page to access.
      * @param user User to page access.
      * @return
@@ -49,12 +50,14 @@ public interface RoleService extends Serializable {
 
     /**
      * Get all user roles.
+     *
      * @return
      */
     public List<UserRole> getAllRoles();
 
     /**
      * Update a role preference.
+     *
      * @param preference
      * @return
      */

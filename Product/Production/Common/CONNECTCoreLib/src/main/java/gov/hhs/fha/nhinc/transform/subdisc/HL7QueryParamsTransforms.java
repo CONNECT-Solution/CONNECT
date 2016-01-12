@@ -26,9 +26,10 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.II;
@@ -47,6 +48,8 @@ import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.STExplicit;
 import org.hl7.v3.TELExplicit;
+
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  *
@@ -69,23 +72,22 @@ public class HL7QueryParamsTransforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
 
-        return new JAXBElement<>(
-                xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
+        return new JAXBElement<>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
     }
 
     public static PRPAMT201306UV02ParameterList createParamList(PRPAMT201301UV02Patient patient) {
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
         PRPAMT201301UV02Person person = null;
-        if (patient != null){
-           JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
-           person = jaxbPerson.getValue();
+        if (patient != null) {
+            JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
+            person = jaxbPerson.getValue();
         }
 
         // Set the Subject Gender Code
         if (person != null && person.getAdministrativeGenderCode() != null
                 && NullChecker.isNotNullish(person.getAdministrativeGenderCode().getCode())) {
-            paramList.getLivingSubjectAdministrativeGender().add(
-                    createGender(person.getAdministrativeGenderCode().getCode()));
+            paramList.getLivingSubjectAdministrativeGender()
+                    .add(createGender(person.getAdministrativeGenderCode().getCode()));
         }
 
         // Set the Subject Birth Time
@@ -109,7 +111,8 @@ public class HL7QueryParamsTransforms {
         }
 
         // Set the subject Id
-        if (patient != null && patient.getId() != null && patient.getId().size() > 0 && patient.getId().get(0) != null) {
+        if (patient != null && patient.getId() != null && patient.getId().size() > 0
+                && patient.getId().get(0) != null) {
             paramList.getLivingSubjectId().add(createSubjectId(patient.getId().get(0)));
         }
 
