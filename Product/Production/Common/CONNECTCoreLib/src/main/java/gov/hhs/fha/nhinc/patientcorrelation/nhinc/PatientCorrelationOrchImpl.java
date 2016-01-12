@@ -228,7 +228,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
                 result = null;
             }
         }
-        LOG.debug("Expiration Date = " + result);
+        LOG.debug("Expiration Date = {}", result);
         return result;
     }
 

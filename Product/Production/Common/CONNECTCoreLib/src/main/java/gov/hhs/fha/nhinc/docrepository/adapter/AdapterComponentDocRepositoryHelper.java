@@ -38,38 +38,37 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.activation.DataHandler;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class AdapterComponentDocRepositoryHelper {
 
-	private static final String VALUE_LIST_SEPERATOR = "~";
-	private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryHelper.class);
+    private static final String VALUE_LIST_SEPERATOR = "~";
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryHelper.class);
 
-	RegistryError setRegistryError(String codeContext, String location, String errorCode,
-    		String value){
-    	RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-    	error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not " + codeContext);
-    	error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
-                + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet" + location);
-    	error.setErrorCode(errorCode);
-    	error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+    RegistryError setRegistryError(String codeContext, String location, String errorCode, String value) {
+        RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
+        error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not " + codeContext);
+        error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
+            + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet" + location);
+        error.setErrorCode(errorCode);
+        error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         error.setValue(value);
 
-        LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity()
-                + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: "
-                + error.getCodeContext());
+        LOG.error("Error Location: {}; \nError Severity: {}; \nError ErrorCode: {}; \nError CodeContext: {}",
+            error.getLocation(), error.getSeverity(), error.getErrorCode(), error.getCodeContext());
 
         return error;
     }
 
-	HashMap<String, DataHandler> getDocumentMap(
-    		ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-    	// retrieve the documents (base64encoded representation)
+    HashMap<String, DataHandler> getDocumentMap(ProvideAndRegisterDocumentSetRequestType body) {
+        // retrieve the documents (base64encoded representation)
         List<ProvideAndRegisterDocumentSetRequestType.Document> binaryDocs = body.getDocument();
-        LOG.debug("There are " + binaryDocs.size() + " binary documents in this request.");
+        LOG.debug("There are {} binary documents in this request.", binaryDocs.size());
 
         // loop through binaryDocs list and put them into a hashmap for later use
         // when looping through the metadata - we need to associate the metadata
@@ -83,8 +82,9 @@ public class AdapterComponentDocRepositoryHelper {
         return docMap;
     }
 
-	long queryRepositoryByPatientId(String sPatId, String sDocId, String sClassCode, String sStatus,
-            DocumentService docService) {
+    long queryRepositoryByPatientId(String sPatId, String sDocId, String sClassCode, String sStatus,
+        DocumentService docService) {
+
         long nhincDocRepositoryDocId = 0;
 
         // query for the doc unique id
@@ -99,9 +99,9 @@ public class AdapterComponentDocRepositoryHelper {
 
         List<Document> documents = docService.documentQuery(params);
         if (NullChecker.isNotNullish(documents)) {
-            LOG.debug("queryRepositoryByPatientId " + documents.size() + " documents for patient: " + sPatId);
+            LOG.debug("queryRepositoryByPatientId {} documents for patient: {}", documents.size(), sPatId);
             for (Document doc : documents) {
-                LOG.debug("queryRepositoryByPatientId - sDocId: " + sDocId);
+                LOG.debug("queryRepositoryByPatientId - sDocId: {}", sDocId);
                 if (sDocId.equals(doc.getDocumentUniqueId())) {
                     nhincDocRepositoryDocId = doc.getDocumentid();
                     break;
@@ -112,25 +112,24 @@ public class AdapterComponentDocRepositoryHelper {
         return nhincDocRepositoryDocId;
     }
 
-	/**
+    /**
      * This method extracts metadata from the XDS classification element given the slotname of the metadata item.
      *
      * @param classifications A list of classifications to search through.
      * @param classificationSchemeUUID The classification scheme idendifier to search for.
      * @param slotName The name of the metadata item within the classification element.
      * @param valueIndex In case there are multiple values for the metadata item, the option to choose a single value or
-     *            all values (i.e. -1).
+     * all values (i.e. -1).
      * @return Returns the value of the metadata item found in the XDS classification element given the slotname.
      */
-    String extractClassificationMetadata(
-            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-            String classificationSchemeUUID, String slotName, int valueIndex) {
+    String extractClassificationMetadata(List<ClassificationType> classifications, String classificationSchemeUUID,
+        String slotName, int valueIndex) {
+
         String classificationValue = null;
 
         // loop through the classifications looking for the desired classification uuid
-        for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
-            String classificationSchemeName = classification.getClassificationScheme();
-            if (classificationSchemeUUID.equals(classificationSchemeName)) {
+        for (ClassificationType classification : classifications) {
+            if (classificationSchemeUUID.equals(classification.getClassificationScheme())) {
                 classificationValue = extractMetadataFromSlots(classification.getSlot(), slotName, valueIndex);
                 break;
             }
@@ -149,40 +148,48 @@ public class AdapterComponentDocRepositoryHelper {
      * @param classifications A list of classifications to search through.
      * @param classificationSchemeUUID The classification scheme idendifier to search for.
      * @param classificationValueName A string value indicating whether this method should return the classification
-     *            code representation, the code itself, the id of the classification element, or the id of the
-     *            extrinsicObject element that the classification refers to.
+     * code representation, the code itself, the id of the classification element, or the id of the extrinsicObject
+     * element that the classification refers to.
      * @return Returns the value of the metadata item found in the XDS classification element given the classification
-     *         scheme and the name of the desired metadata element.
+     * scheme and the name of the desired metadata element.
      */
-    String extractClassificationMetadata(
-            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-            String classificationSchemeUUID, String classificationValueName) {
+    String extractClassificationMetadata(List<ClassificationType> classifications, String classificationSchemeUUID,
+        String classificationValueName) {
+
         String classificationValue = null;
 
-        LOG.debug("Looking for classificationScheme=" + classificationSchemeUUID);
-        LOG.debug("Looking for classificationValueName=" + classificationValueName);
+        LOG.debug("Looking for classificationScheme={}", classificationSchemeUUID);
+        LOG.debug("Looking for classificationValueName={}", classificationValueName);
         // loop through the classifications looking for the desired classification uuid
-        for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
+        for (ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
-            LOG.debug("Found classificationScheme=" + classificationSchemeName);
+            LOG.debug("Found classificationScheme={}", classificationSchemeName);
 
             if (classificationSchemeUUID.equals(classificationSchemeName)) {
-                if (classificationValueName.equals(DocRepoConstants.XDS_NAME)) {
-                    classificationValue = classification.getName().getLocalizedString().get(0).getValue();
-                } else if (classificationValueName.equals(DocRepoConstants.XDS_NODE_REPRESENTATION)) {
-                    classificationValue = classification.getNodeRepresentation();
-                } else if (classificationValueName.equals(DocRepoConstants.XDS_CLASSIFIED_OBJECT)) {
-                    classificationValue = classification.getClassifiedObject();
-                } else if (classificationValueName.equals(DocRepoConstants.XDS_CLASSIFICATION_ID)) {
-                    classificationValue = classification.getClassifiedObject();
+                switch (classificationValueName) {
+                    case DocRepoConstants.XDS_NAME:
+                        classificationValue = classification.getName().getLocalizedString().get(0).getValue();
+                        break;
+                    case DocRepoConstants.XDS_NODE_REPRESENTATION:
+                        classificationValue = classification.getNodeRepresentation();
+                        break;
+                    case DocRepoConstants.XDS_CLASSIFIED_OBJECT:
+                        classificationValue = classification.getClassifiedObject();
+                        break;
+                    case DocRepoConstants.XDS_CLASSIFICATION_ID:
+                        classificationValue = classification.getClassifiedObject();
+                        break;
+                    default:
+                        break;
                 }
-                break; // found desired classification, have values, exit loop
-            } // if (classificationSchemeUUID.equals(classificationSchemeName))
+                // found desired classification, have values, exit loop
+                break;
+            }
         }
         if (classificationValue != null && !classificationValue.isEmpty()) {
             classificationValue = StringUtil.extractStringFromTokens(classificationValue, "'()");
         }
-        LOG.debug(classificationValueName + ": " + classificationValue);
+        LOG.debug("{}: {}", classificationValueName, classificationValue);
         return classificationValue;
     }
 
@@ -192,51 +199,33 @@ public class AdapterComponentDocRepositoryHelper {
      * @param documentSlots A list of XDS metadata slots
      * @param slotName The name of the slot containing the desired metadata item
      * @param valueIndex For slot multivalued possibilities, the index value desired. If the value is < 0 then all
-     *            values in the value list are returned in a '~' delimited list.
-     * @return Returns the value of the first metadata value with the given metadata name. Null if not present.
+     * values in the value list are returned in a '~' delimited list. @return Returns the value of the first metadata
+     * value with the given metad ata name. Null if not present.
      */
     String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
-            String slotName, int valueIndex) {
-        LOG.debug("extractMetadataFromSlots slotname: " + slotName + "; index: " + valueIndex);
+        String slotName, int valueIndex) {
+
+        LOG.debug("extractMetadataFromSlots slotname: {}; index: {}", slotName, valueIndex);
         String slotValue = null;
-        StringBuffer slotValues = null;
-        boolean returnAllValues = false;
-        if (valueIndex < 0) {
-            returnAllValues = true;
-            slotValues = new StringBuffer();
-        }
-        for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
+
+        for (SlotType1 slot : documentSlots) {
             if (slotName.equals(slot.getName())) {
-                LOG.debug("Found " + slotName + ": " + slot.getValueList().getValue());
-                if (returnAllValues) {
-                    int listSize = slot.getValueList().getValue().size();
-                    int counter = 0;
-                    Iterator<String> iter = slot.getValueList().getValue().iterator();
-                    while (iter.hasNext()) {
-                        String value = iter.next();
-                        slotValues.append(value);
-                        counter++;
-                        if (counter < listSize) {
-                            slotValues.append(VALUE_LIST_SEPERATOR);
-                        }
-                    }
+                LOG.debug("Found {}: {}", slotName, slot.getValueList().getValue());
+                if (valueIndex < 0) {
+                    slotValue = StringUtils.join(slot.getValueList().getValue(), VALUE_LIST_SEPERATOR);
+                } else if (slot.getValueList() != null && slot.getValueList().getValue() != null
+                    && !slot.getValueList().getValue().isEmpty()) {
 
+                    slotValue = slot.getValueList().getValue().get(valueIndex);
                 } else {
-                    if (slot.getValueList() != null && slot.getValueList().getValue() != null
-                            && slot.getValueList().getValue().size() > 0) {
-                        slotValue = slot.getValueList().getValue().get(valueIndex);
-                    } else {
-                        slotValue = "";
-                    }
+                    slotValue = "";
                 }
-                break; // found desired slot, have values, exit loop
-            } // if (slotName.equals(slot.getName()))
-        } // for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots)
-        if (returnAllValues) {
-            slotValue = slotValues.toString();
+                // found desired slot, have values, exit loop
+                break;
+            }
         }
 
-        LOG.debug(slotName + ": " + slotValue);
+        LOG.debug("{}: {}", slotName, slotValue);
         return slotValue;
     }
 
@@ -248,23 +237,22 @@ public class AdapterComponentDocRepositoryHelper {
      * @return Returns the value of the first metadata value with the given metadata name. Null if not present.
      */
     String extractPatientInfo(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
-            String patientInfoName) {
+        String patientInfoName) {
         String slotValue = null;
 
-        for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
-            if (DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName())) {
+        for (SlotType1 slot : documentSlots) {
+            if (slot.getName().equals(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT)) {
                 Iterator<String> iter = slot.getValueList().getValue().iterator();
                 while (iter.hasNext()) {
                     String nextSlotValue = iter.next();
                     if (nextSlotValue.startsWith(patientInfoName)) {
                         slotValue = nextSlotValue.substring(patientInfoName.length() + 1);
-                        LOG.debug(patientInfoName + " extractionValue: " + slotValue);
+                        LOG.debug("{} extractionValue: {}", patientInfoName, slotValue);
                     }
                 }
-            } // if (XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName()))
-        } // for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots)
+            }
+        }
 
         return slotValue;
     }
-
 }
