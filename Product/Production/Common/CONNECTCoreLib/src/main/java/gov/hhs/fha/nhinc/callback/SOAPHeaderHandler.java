@@ -85,7 +85,8 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 addMustUnderstandAttribute(oHeader);
             }
         } catch (SOAPException e) {
-            LOG.error("Unable to handle message: {}", e.getLocalizedMessage(), e);
+            LOG.error("Unable to handle message: {}", e.getLocalizedMessage());
+            LOG.trace("Unable to handle message: {}", e.getLocalizedMessage(), e);
         }
 
         return true;
@@ -189,7 +190,8 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 addMustUnderstandAttribute(oHeader);
             }
         } catch (SOAPException ex) {
-            LOG.warn("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage(), ex);
+            LOG.warn("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage());
+            LOG.trace("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage(), ex);
         }
 
         return true;

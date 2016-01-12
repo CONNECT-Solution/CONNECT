@@ -66,7 +66,8 @@ public class PurposeOfForDecider {
         try {
             serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
         } catch (IllegalArgumentException ex) {
-            LOG.error("Could not read purpose of / for action: {}", ex.getLocalizedMessage(), ex);
+            LOG.warn("Could not read purpose of / for action: {}", ex.getLocalizedMessage());
+            LOG.trace("Could not read purpose of / for action: {}", ex.getLocalizedMessage(), ex);
             return purposeFor;
         }
 
@@ -95,8 +96,7 @@ public class PurposeOfForDecider {
         return purposeFor;
     }
 
-    private void logPurposeDecision(Boolean purposeFor, String hcid,
-        String serviceName) {
+    private void logPurposeDecision(Boolean purposeFor, String hcid, String serviceName) {
         String purposeName;
         if (purposeFor) {
             purposeName = "PURPOSE FOR";
@@ -104,9 +104,7 @@ public class PurposeOfForDecider {
             purposeName = "PURPOSE OF";
         }
 
-        LOG.debug("PurposeOfForDecider decision for HCID: " + hcid
-            + " and Service Name: " + serviceName + " is = "
+        LOG.debug("PurposeOfForDecider decision for HCID: " + hcid + " and Service Name: " + serviceName + " is = "
             + purposeName + ".");
     }
-
 }

@@ -378,6 +378,8 @@ public class AssertionHelper {
                 orgIdURI = new URI(attributeValue);
             } catch (URISyntaxException ex) {
                 LOG.warn("Home Community in SAML is not a valid URI, it will not be included in message to policy"
+                    + " engine: {}", ex.getLocalizedMessage());
+                LOG.trace("Home Community in SAML is not a valid URI, it will not be included in message to policy"
                     + " engine: {}", ex.getLocalizedMessage(), ex);
             }
         } else {

@@ -65,7 +65,8 @@ public class XpathHelper {
             } catch (Exception ex) {
                 // Exception may be due to the encoding of the message being incorrect.
                 // retry using UTF-8
-                LOG.warn("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
+                LOG.warn("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage());
+                LOG.trace("failed to perform xpath query - retrying with UTF-8: {}", ex.getLocalizedMessage(), ex);
                 sourceXml = XmlUtfHelper.convertToUtf8(sourceXml);
                 result = performXpathQuery(sourceXml, xpathQuery);
             }

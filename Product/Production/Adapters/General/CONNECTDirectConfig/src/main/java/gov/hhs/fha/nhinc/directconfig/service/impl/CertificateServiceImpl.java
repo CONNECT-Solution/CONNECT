@@ -241,7 +241,8 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
                 }
             } catch (Exception e) {
                 // must not be a PKCS12 stream, go on to next step
-                LOG.warn("Not a PKCS12 stream: " + e.getLocalizedMessage(), e);
+                LOG.warn("Not a PKCS12 stream: " + e.getLocalizedMessage());
+                LOG.trace("Not a PKCS12 stream: " + e.getLocalizedMessage(), e);
             }
 
             if (certContainer == null) {
@@ -295,7 +296,8 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
             altNames = certificate.getSubjectAlternativeNames();
         } catch (CertificateParsingException ex) {
             /* no -op */
-            LOG.warn("Could not get Subject Alternative Names: " + ex.getLocalizedMessage(), ex);
+            LOG.warn("Could not get Subject Alternative Names: " + ex.getLocalizedMessage());
+            LOG.trace("Could not get Subject Alternative Names: " + ex.getLocalizedMessage(), ex);
         }
 
         if (altNames != null) {
