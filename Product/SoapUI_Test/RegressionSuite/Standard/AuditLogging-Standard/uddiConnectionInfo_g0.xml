@@ -196,7 +196,7 @@
                         </categoryBag>
                     </bindingTemplate>
 					<bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve<categoryBag>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
