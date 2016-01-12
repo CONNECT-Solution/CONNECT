@@ -49,16 +49,13 @@ import org.slf4j.LoggerFactory;
 public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositoryProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryProxyWebServiceSecuredImpl.class);
-
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    private AcknowledgementType result = new AcknowledgementType();
-
     private final String invokeMethodName = "logEvent";
 
     @Override
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
         LOG.debug("Entering AuditRepositoryProxyWebServiceSecured.auditLog(...)");
+        AcknowledgementType result = new AcknowledgementType();
 
         if (request.getAuditMessage() == null) {
             LOG.error("Audit Request Message is null");
@@ -83,8 +80,8 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
                 }
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
-                + ").  An unexpected exception occurred.  " + "Exception: " + e.getLocalizedMessage(), e);
+            LOG.error("Failed to call the web service({}). An unexpected exception occurred. Exception: {}",
+                NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME, e.getLocalizedMessage(), e);
         }
 
         LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to "
