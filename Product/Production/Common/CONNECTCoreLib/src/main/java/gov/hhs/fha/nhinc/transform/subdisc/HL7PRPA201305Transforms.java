@@ -27,7 +27,15 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.*;
+
+import org.hl7.v3.COCTMT090300UV01AssignedDevice;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
+import org.hl7.v3.XActMoodIntentEvent;
+import org.hl7.v3.XParticipationAuthorPerformer;
 
 /**
  *
@@ -45,7 +53,8 @@ public class HL7PRPA201305Transforms {
         result.setITSVersion(HL7Constants.ITS_VERSION);
         result.setId(idGenerator.generateHL7MessageId(localDeviceId));
         result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
-        result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201305UV02"));
+        result.setInteractionId(
+                HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201305UV02"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("P"));
         result.setProcessingModeCode(HL7DataTransformHelper.CSFactory("R"));
         result.setAcceptAckCode(HL7DataTransformHelper.CSFactory("AL"));
@@ -82,8 +91,8 @@ public class HL7PRPA201305Transforms {
         assignedDevice.getId().add(id);
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
-        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<>(
-                xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<>(xmlqname,
+                COCTMT090300UV01AssignedDevice.class, assignedDevice);
 
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
 

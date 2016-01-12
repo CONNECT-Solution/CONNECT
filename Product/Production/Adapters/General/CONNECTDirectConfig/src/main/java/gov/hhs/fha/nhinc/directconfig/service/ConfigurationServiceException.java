@@ -63,8 +63,7 @@ public class ConfigurationServiceException extends Exception {
     /**
      * Construct a ConfigurationServiceException object with a given message.
      *
-     * @param message
-     *            The ConfigurationServiceException message.
+     * @param message The ConfigurationServiceException message.
      */
     public ConfigurationServiceException(String message) {
         super(message);
@@ -73,21 +72,17 @@ public class ConfigurationServiceException extends Exception {
     /**
      * Construct a ConfigurationServiceException object from a Throwable.
      *
-     * @param cause
-     *            The Throwable object.
+     * @param cause The Throwable object.
      */
     public ConfigurationServiceException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * Construct a ConfigurationServiceException object with a given message
-     * from a Throwable.
+     * Construct a ConfigurationServiceException object with a given message from a Throwable.
      *
-     * @param message
-     *            The ConfigurationServiceException message.
-     * @param cause
-     *            The Throwable object.
+     * @param message The ConfigurationServiceException message.
+     * @param cause The Throwable object.
      */
     public ConfigurationServiceException(String message, Throwable cause) {
         super(message, cause);
@@ -96,8 +91,7 @@ public class ConfigurationServiceException extends Exception {
     /**
      * Construct a ConfigurationServiceException from a ConfigurationFault.
      *
-     * @param aFault
-     *            A ConfigurationFault.
+     * @param aFault A ConfigurationFault.
      */
     public ConfigurationServiceException(ConfigurationFault aFault) {
     }
