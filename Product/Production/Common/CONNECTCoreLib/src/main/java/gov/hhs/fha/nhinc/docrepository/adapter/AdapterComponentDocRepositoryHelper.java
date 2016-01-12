@@ -186,7 +186,7 @@ public class AdapterComponentDocRepositoryHelper {
                 break;
             }
         }
-        if (classificationValue != null && !classificationValue.isEmpty()) {
+        if (StringUtils.isNotEmpty(classificationValue)) {
             classificationValue = StringUtil.extractStringFromTokens(classificationValue, "'()");
         }
         LOG.debug("{}: {}", classificationValueName, classificationValue);
@@ -210,11 +210,12 @@ public class AdapterComponentDocRepositoryHelper {
 
         for (SlotType1 slot : documentSlots) {
             if (slotName.equals(slot.getName())) {
-                LOG.debug("Found {}: {}", slotName, slot.getValueList().getValue());
+                LOG.debug("Found slot with name: {}", slotName);
+
                 if (valueIndex < 0) {
                     slotValue = StringUtils.join(slot.getValueList().getValue(), VALUE_LIST_SEPERATOR);
-                } else if (slot.getValueList() != null && slot.getValueList().getValue() != null
-                    && !slot.getValueList().getValue().isEmpty()) {
+                } else if (slot.getValueList().getValue() != null
+                    && valueIndex < slot.getValueList().getValue().size()) {
 
                     slotValue = slot.getValueList().getValue().get(valueIndex);
                 } else {
@@ -225,7 +226,7 @@ public class AdapterComponentDocRepositoryHelper {
             }
         }
 
-        LOG.debug("{}: {}", slotName, slotValue);
+        LOG.debug("Value for slot name {}: {}", slotName, slotValue);
         return slotValue;
     }
 
@@ -236,12 +237,13 @@ public class AdapterComponentDocRepositoryHelper {
      * @param patientInfoName The name of the sourcePatientInfo pid containing the desired metadata item
      * @return Returns the value of the first metadata value with the given metadata name. Null if not present.
      */
-    String extractPatientInfo(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
-        String patientInfoName) {
+    String extractPatientInfo(List<SlotType1> documentSlots, String patientInfoName) {
         String slotValue = null;
 
         for (SlotType1 slot : documentSlots) {
-            if (slot.getName().equals(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT)) {
+            if (slot != null && slot.getName().equals(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT)
+                && slot.getValueList().getValue() != null) {
+
                 Iterator<String> iter = slot.getValueList().getValue().iterator();
                 while (iter.hasNext()) {
                     String nextSlotValue = iter.next();
