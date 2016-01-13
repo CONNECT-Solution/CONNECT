@@ -53,135 +53,135 @@ import static org.mockito.Mockito.when;
  */
 public class AdapterComponentDocRepositoryHelperTest {
 
-	@Test
+    @Test
     public void testGetDocumentMap() throws IOException {
-    	AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-    	ProvideAndRegisterDocumentSetRequestType body =
-    			mock(ProvideAndRegisterDocumentSetRequestType.class);
-    	List<ProvideAndRegisterDocumentSetRequestType.Document> docList=
-    			new ArrayList<>();
-    	ProvideAndRegisterDocumentSetRequestType.Document doc = new ProvideAndRegisterDocumentSetRequestType.Document();
-    	final String ID = "MOCK_ID";
-    	final String VALUE = "MOCK_VALUE";
-    	DataHandler dataHandler = LargeFileUtils.getInstance().convertToDataHandler(VALUE);
-    	doc.setId(ID);
-    	doc.setValue(dataHandler);
+        AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
+        ProvideAndRegisterDocumentSetRequestType body = mock(ProvideAndRegisterDocumentSetRequestType.class);
+        List<ProvideAndRegisterDocumentSetRequestType.Document> docList = new ArrayList<>();
+        ProvideAndRegisterDocumentSetRequestType.Document doc = new ProvideAndRegisterDocumentSetRequestType.Document();
+        final String ID = "MOCK_ID";
+        final String VALUE = "MOCK_VALUE";
+        DataHandler dataHandler = LargeFileUtils.getInstance().convertToDataHandler(VALUE);
+        doc.setId(ID);
+        doc.setValue(dataHandler);
 
-    	docList.add(doc);
+        docList.add(doc);
 
-    	when(body.getDocument()).thenReturn(docList);
+        when(body.getDocument()).thenReturn(docList);
 
-    	HashMap<String, DataHandler> docMap = docRepoHelper.getDocumentMap(body);
+        HashMap<String, DataHandler> docMap = docRepoHelper.getDocumentMap(body);
 
-    	assertEquals(docMap.get(ID), dataHandler);
+        assertEquals(docMap.get(ID), dataHandler);
     }
 
-	/**
-	 * Test for extractClassifcationMetadata(List<ClassificationType, String, String, int).
-	 */
-	@Test
-	public void testExtractClassificationMetadata(){
-		final String CLASS_VALUE = "Classfication value";
-		final String CLASS_SCHEME_NAME = "classificationSchemeName";
-		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper(){
+    /**
+     * Test for extractClassifcationMetadata(List<ClassificationType, String, String, int).
+     */
+    @Test
+    public void testExtractClassificationMetadata() {
+        final String CLASS_VALUE = "Classfication value";
+        final String CLASS_SCHEME_NAME = "classificationSchemeName";
+        AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper() {
             @Override
-			String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
-		            String slotName, int valueIndex) {
-				return CLASS_VALUE;
-			}
-		};
-		List<ClassificationType> classifications = new ArrayList<>();
-		ClassificationType classType = mock(ClassificationType.class);
+            String extractMetadataFromSlots(List<SlotType1> documentSlots, String slotName, int valueIndex) {
+                return CLASS_VALUE;
+            }
+        };
+        List<ClassificationType> classifications = new ArrayList<>();
+        ClassificationType classType = mock(ClassificationType.class);
 
-		classifications.add(classType);
+        classifications.add(classType);
 
-		when(classType.getClassificationScheme()).thenReturn(CLASS_SCHEME_NAME);
+        when(classType.getClassificationScheme()).thenReturn(CLASS_SCHEME_NAME);
 
-		String result = docRepoHelper.extractClassificationMetadata(classifications, CLASS_SCHEME_NAME, "slotName", 0);
-		assertEquals(result, CLASS_VALUE);
-	}
+        String result = docRepoHelper.extractClassificationMetadata(classifications, CLASS_SCHEME_NAME, "slotName", 0);
+        assertEquals(result, CLASS_VALUE);
+    }
 
-	@Test
-	public void testExtractPatientInfo(){
-		final String PATIENT_NAME = "John Doe";
-		final String SLOT_PATIENT_NAME = "John Doe <Patient Information>";
-		final String EXPECTED_RESULT = "<Patient Information>";
-		List<SlotType1> documentSlots = new ArrayList<>();
-		SlotType1 slot = mock(SlotType1.class);
-		documentSlots.add(slot);
-		ValueListType valueListType = mock(ValueListType.class);
-		List<String> valueList = new ArrayList<>();
-		valueList.add(SLOT_PATIENT_NAME);
+    @Test
+    public void testExtractPatientInfo() {
+        final String PATIENT_NAME = "John Doe";
+        final String SLOT_PATIENT_NAME = "John Doe <Patient Information>";
+        final String EXPECTED_RESULT = "<Patient Information>";
+        List<SlotType1> documentSlots = new ArrayList<>();
+        SlotType1 slot = mock(SlotType1.class);
+        documentSlots.add(slot);
+        ValueListType valueListType = mock(ValueListType.class);
+        List<String> valueList = new ArrayList<>();
+        valueList.add(SLOT_PATIENT_NAME);
 
-		when(slot.getName()).thenReturn(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT);
-		when(slot.getValueList()).thenReturn(valueListType);
-		when(valueListType.getValue()).thenReturn(valueList);
+        when(slot.getName()).thenReturn(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT);
+        when(slot.getValueList()).thenReturn(valueListType);
+        when(valueListType.getValue()).thenReturn(valueList);
 
-		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
+        AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
 
-		String result = docRepoHelper.extractPatientInfo(documentSlots, PATIENT_NAME);
+        String result = docRepoHelper.extractPatientInfo(documentSlots, PATIENT_NAME);
 
-		assertEquals(result, EXPECTED_RESULT);
-	}
+        assertEquals(result, EXPECTED_RESULT);
+    }
 
-	/**
-	 * Test for extractClassificationMetadata(List<ClassificationType>, String, String).
-	 */
-	@Test
-	public void testExtractClassificationMetadata2(){
-		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-		String result;
-		List<ClassificationType> classifications = new ArrayList();
-		ClassificationType classificationType = mock(ClassificationType.class);
-		classifications.add(classificationType);
-		InternationalStringType internationalString = mock(InternationalStringType.class);
-		LocalizedStringType localizedString = new LocalizedStringType();
-		final String VALUE = "classification Value";
-		localizedString.setValue(VALUE);
-		List<LocalizedStringType> localizedList = new ArrayList();
-		localizedList.add(localizedString);
-		final String CLASSIFICATION_SCHEME = "classificationScheme";
+    /**
+     * Test for extractClassificationMetadata(List<ClassificationType>, String, String).
+     */
+    @Test
+    public void testExtractClassificationMetadata2() {
+        AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
+        String result;
+        List<ClassificationType> classifications = new ArrayList();
+        ClassificationType classificationType = mock(ClassificationType.class);
+        classifications.add(classificationType);
+        InternationalStringType internationalString = mock(InternationalStringType.class);
+        LocalizedStringType localizedString = new LocalizedStringType();
+        final String VALUE = "classification Value";
+        localizedString.setValue(VALUE);
+        List<LocalizedStringType> localizedList = new ArrayList();
+        localizedList.add(localizedString);
+        final String CLASSIFICATION_SCHEME = "classificationScheme";
 
-		when(classificationType.getClassificationScheme()).thenReturn(CLASSIFICATION_SCHEME);
-		when(classificationType.getName()).thenReturn(internationalString);
-		when(internationalString.getLocalizedString()).thenReturn(localizedList);
+        when(classificationType.getClassificationScheme()).thenReturn(CLASSIFICATION_SCHEME);
+        when(classificationType.getName()).thenReturn(internationalString);
+        when(internationalString.getLocalizedString()).thenReturn(localizedList);
 
-		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_NAME);
-		assertEquals(result, VALUE);
+        result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
+            DocRepoConstants.XDS_NAME);
+        assertEquals(result, VALUE);
 
-		when(classificationType.getNodeRepresentation()).thenReturn(VALUE);
-		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_NODE_REPRESENTATION);
-		assertEquals(result, VALUE);
+        when(classificationType.getNodeRepresentation()).thenReturn(VALUE);
+        result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
+            DocRepoConstants.XDS_NODE_REPRESENTATION);
+        assertEquals(result, VALUE);
 
-		when(classificationType.getClassifiedObject()).thenReturn(VALUE);
-		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_CLASSIFIED_OBJECT);
-		assertEquals(result, VALUE);
+        when(classificationType.getClassifiedObject()).thenReturn(VALUE);
+        result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
+            DocRepoConstants.XDS_CLASSIFIED_OBJECT);
+        assertEquals(result, VALUE);
 
-		result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME, DocRepoConstants.XDS_CLASSIFICATION_ID);
-		assertEquals(result, VALUE);
-	}
+        result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
+            DocRepoConstants.XDS_CLASSIFICATION_ID);
+        assertEquals(result, VALUE);
+    }
 
-	@Test
-	public void testQueryRepositoryByPatientId(){
-		AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
-		final String SPATID = "sPatId";
-		final String SDOCID = "Doc ID 1";
-		final String SCLASSCODE = "sClassCode";
-		final String ESTATUS = "sStatus";
-		final String DOC_UNIQUE_ID = "Doc ID 1";
-		final long DOC_ID = 12345;
-		DocumentService docService = mock(DocumentService.class);
-		List<Document> documents = new ArrayList<>();
-		Document doc = mock(Document.class);
-		documents.add(doc);
+    @Test
+    public void testQueryRepositoryByPatientId() {
+        AdapterComponentDocRepositoryHelper docRepoHelper = new AdapterComponentDocRepositoryHelper();
+        final String SPATID = "sPatId";
+        final String SDOCID = "Doc ID 1";
+        final String SCLASSCODE = "sClassCode";
+        final String ESTATUS = "sStatus";
+        final String DOC_UNIQUE_ID = "Doc ID 1";
+        final long DOC_ID = 12345;
+        DocumentService docService = mock(DocumentService.class);
+        List<Document> documents = new ArrayList<>();
+        Document doc = mock(Document.class);
+        documents.add(doc);
 
-		when(docService.documentQuery(any(DocumentQueryParams.class))).thenReturn(documents);
-		when(doc.getDocumentUniqueId()).thenReturn(DOC_UNIQUE_ID);
-		when(doc.getDocumentid()).thenReturn(DOC_ID);
+        when(docService.documentQuery(any(DocumentQueryParams.class))).thenReturn(documents);
+        when(doc.getDocumentUniqueId()).thenReturn(DOC_UNIQUE_ID);
+        when(doc.getDocumentid()).thenReturn(DOC_ID);
 
-		long result = docRepoHelper.queryRepositoryByPatientId(SPATID, SDOCID, SCLASSCODE, ESTATUS, docService);
+        long result = docRepoHelper.queryRepositoryByPatientId(SPATID, SDOCID, SCLASSCODE, ESTATUS, docService);
 
-		assertEquals(result, DOC_ID);
-	}
-
+        assertEquals(result, DOC_ID);
+    }
 }
