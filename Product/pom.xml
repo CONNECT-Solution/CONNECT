@@ -162,6 +162,11 @@
                 <artifactId>cxf-tools-validator</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
 
             <!-- Web Services -->
             <dependency>
