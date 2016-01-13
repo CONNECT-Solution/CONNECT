@@ -41,6 +41,8 @@ public class BaseConnctionManagerCache {
     protected static String HCID_1 = "1.1";
     protected static String HCID_2 = "2.2";
     protected static String HCID_3 = "3.3";
+    protected static String VERSION_OF_SERVICE_2_0 = "2.0";
+    protected static String VERSION_OF_SERVICE_3_0 = "3.0";
     protected static String QUERY_FOR_DOCUMENTS_NAME = "QueryForDocuments";
     protected static String RETRIEVE_DOCUMENTS_NAME = "RetrieveDocuments";
     protected static String DOCUMENT_SUBMISSION_NAME = "DocumentSubmission";
@@ -51,6 +53,8 @@ public class BaseConnctionManagerCache {
     protected static String QUERY_FOR_DOCUMENTS_DEFERRED_URL = "https://localhost:8181/QueryForDocumentsDeferredRequest";
     protected static String QUERY_FOR_DOCUMENTS_URL_22 = "https://server2:8181/QueryForDocuments";
     protected static String QUERY_FOR_DOCUMENTS_DEFERRED_URL_22 = "https://server2:8181/QueryForDocumentsDeferredRequest";
+    protected static String QUERY_FOR_DOCUMENTS_URL_3 = "https://server2:8181/QueryForDocuments/3_0";
+    protected static String QUERY_FOR_DOCUMENTS_URL_2 = "https://server2:8181/QueryForDocuments/2_0";
 
     protected static String FL_REGION_VALUE = "US-FL";
 
