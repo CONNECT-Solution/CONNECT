@@ -26,14 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -42,30 +44,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+    private static final long serialVersionUID = -7778943978909089913L;
     @Autowired
     private UserLoginDAO userDAO;
 
     /**
      * Default constructor.
      */
-    public RoleServiceImpl(){
+    public RoleServiceImpl() {
 
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#checkRole(String, gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserLogin)
+     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#checkRole(String, gov.hhs.fha
+     * .nhinc.admingui.services.persistence.jpa.entity.UserLogin)
      */
     @Override
     public boolean checkRole(String pageName, UserLogin user) {
-        if(user != null && user.getUserRole() != null && user.getUserRole().getPreferences() != null){
-            if(pageName.equalsIgnoreCase(NavigationConstant.STATUS_PAGE.concat(".xhtml"))) {
+        if (user != null && user.getUserRole() != null && user.getUserRole().getPreferences() != null) {
+            if (pageName.equalsIgnoreCase(NavigationConstant.STATUS_PAGE.concat(".xhtml"))) {
                 return true;
             }
 
-            for(RolePreference preference : user.getUserRole().getPreferences()){
-                if(preference.getPageName().equalsIgnoreCase(pageName)){
+            for (RolePreference preference : user.getUserRole().getPreferences()) {
+                if (preference.getPageName().equalsIgnoreCase(pageName)) {
                     return preference.getAccess() >= 0;
                 }
             }
@@ -79,14 +83,15 @@ public class RoleServiceImpl implements RoleService {
      * @see gov.hhs.fha.nhinc.admingui.services.RoleService#getAllRoles()
      */
     @Override
-    public List<UserRole> getAllRoles(){
+    public List<UserRole> getAllRoles() {
         return userDAO.getAllRoles();
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#updatePreference(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
+     * @see gov.hhs.fha.nhinc.admingui.services.RoleService#updatePreference(gov.hhs.fha
+     * .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
      */
     @Override
     public boolean updatePreference(RolePreference preference) {
