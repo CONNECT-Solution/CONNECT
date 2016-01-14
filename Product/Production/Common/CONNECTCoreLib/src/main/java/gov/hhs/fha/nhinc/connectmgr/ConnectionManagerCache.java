@@ -38,11 +38,14 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
@@ -866,17 +869,25 @@ public class ConnectionManagerCache implements ConnectionManager {
             } else if (targetSystem.getHomeCommunity() != null
                 && NullChecker.isNotNullish(targetSystem.getHomeCommunity().getHomeCommunityId())
                 && NullChecker.isNotNullish(serviceName)) {
-
                 // Get the URL based on Home Community Id and Service Name
                 String homeCommunityId = HomeCommunityMap.formatHomeCommunityId(targetSystem.getHomeCommunity()
                     .getHomeCommunityId());
-                LOG.debug("Attempting to look up URL by home communinity id: " + homeCommunityId
-                    + " and service name: " + serviceName);
-                sEndpointURL = getDefaultEndpointURLByServiceName(homeCommunityId, serviceName);
+                final String userSpecVersion = targetSystem.getUseSpecVersion();
+                if (!StringUtils.isEmpty(userSpecVersion)) {
+                    final UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(userSpecVersion);
+                    LOG.debug(
+                            "Attempting to look up URL by home communinity id:{}, and service name: {}, and version {}",
+                            homeCommunityId, serviceName, version.toString());
+                    sEndpointURL = getEndpointURLByServiceNameSpecVersion(homeCommunityId, serviceName, version);
+                } else {
+                    LOG.debug("Retrieve endpoint from service Name {}", serviceName);
+                    sEndpointURL = getDefaultEndpointURLByServiceName(homeCommunityId, serviceName);
+                }
+
             }
         }
 
-        LOG.debug("Returning URL: " + sEndpointURL);
+        LOG.debug("Returning URL: {}", sEndpointURL);
         return sEndpointURL;
     }
 

@@ -12,6 +12,18 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
+                     <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
+                        <accessPoint useType="endPoint">https://server2:8181/QueryForDocuments/3_0</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                     <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
+                        <accessPoint useType="endPoint">https://server2:8181/QueryForDocuments/2_0</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocument" keyValue="QueryForDocument"/>

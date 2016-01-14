@@ -342,11 +342,14 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
     }
 
     protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly() {
+        return createNhinTargetSystem_HCIDOnly(HCID_1,null);
+    }
+    protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly(String hcid, String userSpec) {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
-        homeCommunity.setHomeCommunityId(HCID_1);
+        homeCommunity.setHomeCommunityId(hcid);
         targetSystem.setHomeCommunity(homeCommunity);
-
+        targetSystem.setUseSpecVersion(userSpec);
         return targetSystem;
     }
 
@@ -366,6 +369,12 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(),
                     QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
+            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(HCID_2,VERSION_OF_SERVICE_2_0),
+                    QUERY_FOR_DOCUMENTS_NAME);
+            assertEquals(QUERY_FOR_DOCUMENTS_URL_2, url);
+            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(HCID_2,VERSION_OF_SERVICE_3_0),
+                    QUERY_FOR_DOCUMENTS_NAME);
+            assertEquals(QUERY_FOR_DOCUMENTS_URL_3, url);
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpointURLFromNhinTarget test: " + t.getMessage());
