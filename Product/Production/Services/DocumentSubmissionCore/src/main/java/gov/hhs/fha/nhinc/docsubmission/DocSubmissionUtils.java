@@ -26,20 +26,27 @@
  */
 package gov.hhs.fha.nhinc.docsubmission;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.activation.DataHandler;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,6 +86,20 @@ public class DocSubmissionUtils {
                 NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return passThroughModeEnabled;
+    }
+    /**
+     * set user spec version if target doesn't have it
+     * @param targets NhinTargetCommunitiesType
+     * @param version service spec version
+     */
+    public void setTargetCommunitiesVersion(NhinTargetCommunitiesType targets, UDDI_SPEC_VERSION version){
+        if (targets == null) {
+            targets = new ObjectFactory().createNhinTargetCommunitiesType();
+        }
+
+        if (StringUtils.isBlank(targets.getUseSpecVersion())) {
+            targets.setUseSpecVersion(version.toString());
+        }
     }
 
     public void convertFileLocationToDataIfEnabled(ProvideAndRegisterDocumentSetRequestType request)

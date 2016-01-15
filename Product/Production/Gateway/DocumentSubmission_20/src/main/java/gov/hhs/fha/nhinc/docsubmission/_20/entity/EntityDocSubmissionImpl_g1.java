@@ -31,11 +31,16 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +73,7 @@ class EntityDocSubmissionImpl_g1 extends BaseService {
 
         RegistryResponseType response = null;
         try {
+            DocSubmissionUtils.getInstance().setTargetCommunitiesVersion(targets, UDDI_SPEC_VERSION.SPEC_2_0);
             response = outboundDocSubmission.provideAndRegisterDocumentSetB(request, assertIn, targets, urlInfo);
         } catch (Exception e) {
             LOG.error("Failed to send request to Nwhin.", e);
