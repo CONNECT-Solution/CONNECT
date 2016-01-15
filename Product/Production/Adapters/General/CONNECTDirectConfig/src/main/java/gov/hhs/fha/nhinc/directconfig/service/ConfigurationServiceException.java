@@ -88,11 +88,4 @@ public class ConfigurationServiceException extends Exception {
         super(message, cause);
     }
 
-    /**
-     * Construct a ConfigurationServiceException from a ConfigurationFault.
-     *
-     * @param aFault A ConfigurationFault.
-     */
-    public ConfigurationServiceException(ConfigurationFault aFault) {
-    }
 }
