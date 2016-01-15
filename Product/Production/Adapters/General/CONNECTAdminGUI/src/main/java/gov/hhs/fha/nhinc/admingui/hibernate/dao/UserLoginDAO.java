@@ -26,12 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
+import java.util.List;
+
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-import java.util.List;
 
 /**
  * @author msw
