@@ -16333,9 +16333,8 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 	 }
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[2].each{ node ->		
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -16463,9 +16462,8 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 	}
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-		//Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->		
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -16730,7 +16728,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:38:57Z</con:value>
+          <con:value>2016-01-15T00:57:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -16774,7 +16772,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16886,11 +16884,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:28:57</con:value>
+          <con:value>01/15/2016 00:47:09</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:28:57Z</con:value>
+          <con:value>2016-01-15T00:47:09Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
