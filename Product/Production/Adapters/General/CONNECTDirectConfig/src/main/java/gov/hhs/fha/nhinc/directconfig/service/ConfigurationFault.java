@@ -59,7 +59,7 @@ public class ConfigurationFault extends Exception {
 
     private String message = "";
 
-    private transient ConfigurationError error = ConfigurationError.Unknown;
+    private ConfigurationError error = ConfigurationError.Unknown;
 
     /**
      * Default constructor.
@@ -70,21 +70,17 @@ public class ConfigurationFault extends Exception {
     /**
      * Construct a new ConfigurationFault with a specific ConfigurationError.
      *
-     * @param anError
-     *            A ConfigurationError.
+     * @param anError A ConfigurationError.
      */
     public ConfigurationFault(ConfigurationError anError) {
         setError(anError);
     }
 
     /**
-     * Construct a new ConfigurationFault with a specific message and
-     * ConfigurationError.
+     * Construct a new ConfigurationFault with a specific message and ConfigurationError.
      *
-     * @param aMsg
-     *            A message.
-     * @param anError
-     *            A ConfigurationError.
+     * @param aMsg A message.
+     * @param anError A ConfigurationError.
      */
     public ConfigurationFault(String aMsg, ConfigurationError anError) {
         setMessage(aMsg);
@@ -104,8 +100,7 @@ public class ConfigurationFault extends Exception {
     /**
      * Set the message.
      *
-     * @param message
-     *            The value of message.
+     * @param message The value of message.
      */
     public void setMessage(String message) {
         this.message = message;
@@ -123,8 +118,7 @@ public class ConfigurationFault extends Exception {
     /**
      * Set the value of error.
      *
-     * @param error
-     *            The value of error.
+     * @param error The value of error.
      */
     public void setError(ConfigurationError error) {
         this.error = error;

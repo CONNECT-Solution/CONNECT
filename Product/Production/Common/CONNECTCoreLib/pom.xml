@@ -28,7 +28,7 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
         </dependency>
-        
+
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
