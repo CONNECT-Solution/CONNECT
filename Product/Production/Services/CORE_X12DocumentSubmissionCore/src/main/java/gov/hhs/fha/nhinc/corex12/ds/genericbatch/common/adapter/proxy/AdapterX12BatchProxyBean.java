@@ -28,9 +28,9 @@ package gov.hhs.fha.nhinc.corex12.ds.genericbatch.common.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import org.apache.commons.lang.StringUtils;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.slf4j.Logger;
@@ -43,6 +43,9 @@ import org.slf4j.LoggerFactory;
 public abstract class AdapterX12BatchProxyBean extends AbstractAdapterX12BatchProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterX12BatchProxyBean.class);
+
+    // TODO: This should be kept in a common location for use across all services
+    private static final String TIMESTAMP_FORMAT = "yyyy/MM/dd HH:mm:ss";
 
     private String payload;
     private String payloadId;
@@ -171,12 +174,10 @@ public abstract class AdapterX12BatchProxyBean extends AbstractAdapterX12BatchPr
     }
 
     public void setTimeStamp(String timeStamp) {
-        if (timeStamp != null && !timeStamp.isEmpty()) {
+        if (StringUtils.isNotEmpty(timeStamp)) {
             this.timeStamp = timeStamp;
         } else {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Calendar cal = Calendar.getInstance();
-            this.timeStamp = dateFormat.format(cal.getTime());
+            this.timeStamp = new SimpleDateFormat(TIMESTAMP_FORMAT).format(Calendar.getInstance().getTime());
         }
     }
 }
