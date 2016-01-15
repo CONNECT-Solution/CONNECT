@@ -85,12 +85,13 @@ public class EntityDocSubmissionDeferredRequestImpl_g1 extends BaseService {
      */
     private XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
-            NhinTargetCommunitiesType targets, UrlInfoType urlInfo){
+            NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         XDRAcknowledgementType response = null;
-        try{
+        try {
             DocSubmissionUtils.getInstance().setTargetCommunitiesVersion(targets, UDDI_SPEC_VERSION.SPEC_2_0);
-            response = outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targets, urlInfo);
-        }catch(Exception e){
+            response = outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(request, assertion,
+                    targets, urlInfo);
+        } catch (Exception e) {
             LOG.error("Failed to send request to Nwhin.", e);
         }
         return response;
