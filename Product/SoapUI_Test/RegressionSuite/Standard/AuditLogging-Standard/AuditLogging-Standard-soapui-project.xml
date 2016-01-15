@@ -1125,7 +1125,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:40:38Z</con:value>
+          <con:value>2016-01-15T19:59:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1177,7 +1177,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -1229,11 +1229,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:30:38</con:value>
+          <con:value>01/15/2016 19:49:52</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:30:38Z</con:value>
+          <con:value>2016-01-15T19:49:52Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1946,7 +1946,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:40:47Z</con:value>
+          <con:value>2016-01-15T20:00:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1998,15 +1998,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:30:47</con:value>
+          <con:value>01/15/2016 19:50:11</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:30:47Z</con:value>
+          <con:value>2016-01-15T19:50:11Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2938,7 +2938,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:40:55Z</con:value>
+          <con:value>2016-01-15T20:00:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -2990,7 +2990,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -3042,11 +3042,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:30:55</con:value>
+          <con:value>01/15/2016 19:50:27</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:30:55Z</con:value>
+          <con:value>2016-01-15T19:50:27Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3976,7 +3976,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:41:03Z</con:value>
+          <con:value>2016-01-15T20:00:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -4056,7 +4056,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -4288,7 +4288,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:31:03</con:value>
+          <con:value>01/15/2016 19:50:46</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -4296,7 +4296,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:31:03Z</con:value>
+          <con:value>2016-01-15T19:50:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -5304,7 +5304,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:41:12Z</con:value>
+          <con:value>2016-01-15T20:01:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -5388,7 +5388,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -5620,7 +5620,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:31:12</con:value>
+          <con:value>01/15/2016 19:51:05</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -5628,7 +5628,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:31:12Z</con:value>
+          <con:value>2016-01-15T19:51:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -6518,7 +6518,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:41:21Z</con:value>
+          <con:value>2016-01-15T20:01:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -6558,7 +6558,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -6778,11 +6778,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:31:21</con:value>
+          <con:value>01/15/2016 19:51:38</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:31:21Z</con:value>
+          <con:value>2016-01-15T19:51:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -7624,7 +7624,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:41:29Z</con:value>
+          <con:value>2016-01-15T20:01:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -7668,7 +7668,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7784,11 +7784,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:31:29</con:value>
+          <con:value>01/15/2016 19:51:56</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:31:29Z</con:value>
+          <con:value>2016-01-15T19:51:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
@@ -8578,7 +8578,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:41:37Z</con:value>
+          <con:value>2016-01-15T20:02:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -8630,7 +8630,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -8746,11 +8746,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:31:37</con:value>
+          <con:value>01/15/2016 19:52:13</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:31:37Z</con:value>
+          <con:value>2016-01-15T19:52:13Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9143,19 +9143,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:31:54Z</con:value>
+          <con:value>2016-01-15T19:52:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:41:54Z</con:value>
+          <con:value>2016-01-15T20:02:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:31:54</con:value>
+          <con:value>01/15/2016 19:52:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9796,8 +9796,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -9953,8 +9952,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	    	//assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -10230,7 +10228,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:37:09Z</con:value>
+          <con:value>2016-01-15T20:07:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10282,7 +10280,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -10334,11 +10332,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:27:09</con:value>
+          <con:value>01/15/2016 19:57:01</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:27:09Z</con:value>
+          <con:value>2016-01-15T19:57:01Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10783,8 +10781,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -10880,8 +10877,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() &am
 //check for ActiveParticipant Destination details
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() &amp;&amp; parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	    	//assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID_g0" )	    
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
 	     }
@@ -11055,7 +11051,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:37:18Z</con:value>
+          <con:value>2016-01-15T20:07:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -11107,15 +11103,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:27:18</con:value>
+          <con:value>01/15/2016 19:57:10</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:27:18Z</con:value>
+          <con:value>2016-01-15T19:57:10Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -11707,8 +11703,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
@@ -11814,8 +11809,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
@@ -12048,7 +12042,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:37:35Z</con:value>
+          <con:value>2016-01-15T20:07:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -12100,7 +12094,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -12152,11 +12146,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:27:35</con:value>
+          <con:value>01/15/2016 19:57:18</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:27:35Z</con:value>
+          <con:value>2016-01-15T19:57:18Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13086,7 +13080,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:37:52Z</con:value>
+          <con:value>2016-01-15T20:07:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -13166,7 +13160,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -13398,7 +13392,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:27:52</con:value>
+          <con:value>01/15/2016 19:57:26</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -13406,7 +13400,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:27:52Z</con:value>
+          <con:value>2016-01-15T19:57:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -14411,7 +14405,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:38:12Z</con:value>
+          <con:value>2016-01-15T20:07:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -14495,7 +14489,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -14727,7 +14721,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:28:12</con:value>
+          <con:value>01/15/2016 19:57:41</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -14735,7 +14729,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:28:12Z</con:value>
+          <con:value>2016-01-15T19:57:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -15623,7 +15617,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:38:37Z</con:value>
+          <con:value>2016-01-15T20:07:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -15663,7 +15657,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -15883,11 +15877,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:28:37</con:value>
+          <con:value>01/15/2016 19:57:50</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:28:37Z</con:value>
+          <con:value>2016-01-15T19:57:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -16728,7 +16722,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T00:57:09Z</con:value>
+          <con:value>2016-01-15T20:08:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -16884,11 +16878,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 00:47:09</con:value>
+          <con:value>01/15/2016 19:58:06</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T00:47:09Z</con:value>
+          <con:value>2016-01-15T19:58:06Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17265,8 +17259,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
   }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	     //assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source_g0.@UserID" )
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
      	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
@@ -17393,12 +17386,8 @@ parsedXmlMessage.EventIdentification.find{
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
 }
 if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
-	parsedXmlMessage.ActiveParticipant[0].each{ node ->
-	     
-	     if(!node.@UserID.isEmpty()){
-	        //Commented out until code fix for populating correct userid as per spec (FHAC-576)
-	        //assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )
-	     }
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source_g0.@UserID" )	     
      	assert(!node.@AlternativeUserID.isEmpty())     	
      	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
      	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
@@ -17674,7 +17663,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:39:14Z</con:value>
+          <con:value>2016-01-15T20:08:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -17726,7 +17715,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -17842,11 +17831,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:29:14</con:value>
+          <con:value>01/15/2016 19:58:13</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:29:14Z</con:value>
+          <con:value>2016-01-15T19:58:13Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18239,19 +18228,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-13T19:29:32Z</con:value>
+          <con:value>2016-01-15T19:58:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-13T19:39:32Z</con:value>
+          <con:value>2016-01-15T20:08:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/13/2016 19:29:32</con:value>
+          <con:value>01/15/2016 19:58:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-12T00:00:00Z</con:value>
+          <con:value>2016-02-14T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
