@@ -72,8 +72,6 @@ public class LoginBean {
      */
     public Boolean isCorrect = false;
 
-    private static boolean firstTimeLogged = true;
-
     /**
      * The login service.
      */
@@ -174,7 +172,6 @@ public class LoginBean {
                 externalContext.invalidateSession();
                 HttpSession session = (HttpSession) externalContext.getSession(true);
                 session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
-                checkDisplays();
             }
         } catch (UserLoginException e) {
             LOG.error("Exception during login: " + e.getLocalizedMessage(), e);
@@ -186,12 +183,4 @@ public class LoginBean {
         return loggedIn;
     }
 
-    private void checkDisplays() {
-        if (firstTimeLogged) {
-            new DirectDisplayController().checkDisplay();
-            new FhirDisplayController().checkDisplay();
-            // can add additional checks for enable / disable other displays in the future
-            firstTimeLogged = false;
-        }
-    }
 }

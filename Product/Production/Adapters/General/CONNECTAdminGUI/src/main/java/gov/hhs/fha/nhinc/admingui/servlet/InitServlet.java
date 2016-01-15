@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,43 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.servlet;
 
-import java.io.Serializable;
-import java.util.List;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+import gov.hhs.fha.nhinc.admingui.display.DirectDisplayController;
+import gov.hhs.fha.nhinc.admingui.display.FhirDisplayController;
 
 /**
- *
- * @author jasonasmith
+ * Started on webapplication init, checks whether to enable/disable displays during the initial login to the ADMIN GUI.
  */
-public interface RoleService extends Serializable {
+public class InitServlet extends HttpServlet {
 
-    /**
-     * Checks the user access of a given page based on the roles assigned to the user.
-     *
-     * @param pageName Page to access.
-     * @param user User to page access.
-     * @return
-     */
-    public boolean checkRole(String pageName, UserLogin user);
+    private static final long serialVersionUID = -7194100487044821581L;
 
-    /**
-     * Get all user roles.
-     *
-     * @return
-     */
-    public List<UserRole> getAllRoles();
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
 
-    /**
-     * Update a role preference.
-     *
-     * @param preference
-     * @return
-     */
-    public boolean updatePreference(RolePreference preference);
+        new DirectDisplayController().checkDisplay();
+        new FhirDisplayController().checkDisplay();
+        // can add additional checks for enable / disable other displays in the future
+    }
 
 }

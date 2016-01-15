@@ -26,11 +26,15 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
+import java.io.Serializable;
+
 /**
  *
  * @author patlollav
  */
-public class PatientVO {
+public class PatientVO implements Serializable {
+
+    private static final long serialVersionUID = -5670853436728202040L;
     private String firstName;
     private String lastName;
     private String middleName;

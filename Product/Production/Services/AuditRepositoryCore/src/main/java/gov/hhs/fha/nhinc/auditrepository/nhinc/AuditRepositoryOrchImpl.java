@@ -26,9 +26,28 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.stream.XMLStreamException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
@@ -41,21 +60,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.stream.XMLStreamException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -66,7 +70,6 @@ public class AuditRepositoryOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryOrchImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
 
-    private static String logStatus = "";
     private AuditStore dbStore = null;
     private AuditStore fileStore = null;
 
@@ -110,15 +113,6 @@ public class AuditRepositoryOrchImpl {
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
 
-        if (logStatus.isEmpty()) {
-            logStatus = "on";
-        }
-
-        if (logStatus.equalsIgnoreCase("off")) {
-            LOG.info("Enable Audit Logging Before Making Query by changing the "
-                + "value in 'auditlogchoice' properties file");
-            return null;
-        }
         FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();
         String userId = query.getUserId();
@@ -135,7 +129,7 @@ public class AuditRepositoryOrchImpl {
         }
 
         List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
-            beginDate, endDate);
+                beginDate, endDate);
         LOG.debug("after query call to logDAO.");
         LOG.debug("responseList is not NULL ");
         auditEvents = buildAuditReponseType(responseList);
@@ -167,10 +161,11 @@ public class AuditRepositoryOrchImpl {
                     response.getFindAuditEventsReturn().add(auditMessageType);
 
                     if (auditMessageType.getAuditSourceIdentification().size() > 0
-                        && auditMessageType.getAuditSourceIdentification().get(0) != null
-                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
-                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
-                        String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
+                            && auditMessageType.getAuditSourceIdentification().get(0) != null
+                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
+                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
+                        String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0)
+                                .getAuditSourceID();
                         if (!auditResType.getCommunities().contains(tempCommunity)) {
                             auditResType.getCommunities().add(tempCommunity);
                             LOG.debug("Adding community " + tempCommunity);
@@ -252,7 +247,7 @@ public class AuditRepositoryOrchImpl {
     protected boolean isLoggingToDatabaseOn() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
-                NhincConstants.LOG_TO_DATABASE);
+                    NhincConstants.LOG_TO_DATABASE);
         } catch (PropertyAccessException ex) {
             LOG.error("Unable to read the Audit logging property: {}", ex.getLocalizedMessage(), ex);
         }
@@ -262,7 +257,7 @@ public class AuditRepositoryOrchImpl {
     protected boolean isLoggingToAuditFileOn() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
-                NhincConstants.LOG_TO_FILE);
+                    NhincConstants.LOG_TO_FILE);
         } catch (PropertyAccessException ex) {
             LOG.error("Unable to read the Audit logging property: {}", ex.getLocalizedMessage(), ex);
         }

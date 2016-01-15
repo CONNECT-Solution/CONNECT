@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
+
 import org.hl7.v3.II;
 import org.hl7.v3.MFMIMT700711UV01QueryAck;
 import org.hl7.v3.PNExplicit;
@@ -72,9 +73,8 @@ public class HL7PRPA201310Transforms {
         return createPRPA201310("", "", "", senderOID, receiverOID, null);
     }
 
-    public static PRPAIN201310UV02 createPRPA201310(String patientId, String assigningAuthorityId,
-            String localDeviceId, String senderOID, String receiverOID,
-            JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
+    public static PRPAIN201310UV02 createPRPA201310(String patientId, String assigningAuthorityId, String localDeviceId,
+            String senderOID, String receiverOID, JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
 
         // Create Transmission header
         PRPAIN201310UV02 ret201310 = createTransmissionWrapper(localDeviceId);
@@ -87,8 +87,8 @@ public class HL7PRPA201310Transforms {
 
         // Create the control act process
         PRPAMT201304UV02Patient patient201304 = createPRPAMT201304UVPatient(patientId, assigningAuthorityId);
-        ret201310
-                .setControlActProcess(createMFMIMT700711UV01ControlActProcess(patient201304, localDeviceId, queryParam));
+        ret201310.setControlActProcess(
+                createMFMIMT700711UV01ControlActProcess(patient201304, localDeviceId, queryParam));
 
         return ret201310;
     }
@@ -99,8 +99,8 @@ public class HL7PRPA201310Transforms {
         message.setITSVersion(HL7Constants.ITS_VERSION);
         message.setId(idGenerator.generateHL7MessageId(localDeviceId));
         message.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
-        message.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT,
-                INTERACTION_ID_EXTENSION));
+        message.setInteractionId(
+                HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, INTERACTION_ID_EXTENSION));
         message.setProcessingCode(HL7DataTransformHelper.CSFactory(PROCESSING_CODE_VALUE));
         message.setProcessingModeCode(HL7DataTransformHelper.CSFactory(PROCESSING_CODE_MODE));
         message.setAcceptAckCode(HL7DataTransformHelper.CSFactory(ACCEPT_ACK_CODE_VALUE));
@@ -164,8 +164,8 @@ public class HL7PRPA201310Transforms {
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
-        subject1.setRegistrationEvent(createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(patient201304,
-                localDeviceId));
+        subject1.setRegistrationEvent(
+                createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(patient201304, localDeviceId));
 
         return subject1;
     }
@@ -211,11 +211,11 @@ public class HL7PRPA201310Transforms {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
 
-        return new JAXBElement<>(
-                xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
+        return new JAXBElement<>(xmlqname, PRPAMT201307UV02QueryByParameter.class, queryParams);
     }
 
-    private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(PRPAMT201307UV02QueryByParameter queryParam) {
+    private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(
+            PRPAMT201307UV02QueryByParameter queryParam) {
         MFMIMT700711UV01QueryAck queryAck = new MFMIMT700711UV01QueryAck();
 
         queryAck.setQueryId(queryParam.getQueryId());
@@ -223,7 +223,4 @@ public class HL7PRPA201310Transforms {
         return queryAck;
     }
 
-    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.asyncmsgs.model;
 
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
 
@@ -33,8 +34,9 @@ import java.util.Date;
  *
  * @author JHOPPESC, richard.ettema
  */
-public class AsyncMsgRecord {
+public class AsyncMsgRecord implements Serializable {
 
+    private static final long serialVersionUID = 2515212314474911391L;
     private Long Id = null;
     private String messageId = null;
     private Date creationTime = null;

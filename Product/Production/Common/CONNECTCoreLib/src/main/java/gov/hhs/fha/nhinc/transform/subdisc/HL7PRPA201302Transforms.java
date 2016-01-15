@@ -95,8 +95,8 @@ public class HL7PRPA201302Transforms {
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201302UV"));
 
-        controlActProcess.getSubject().add(
-                createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
+        controlActProcess.getSubject()
+                .add(createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
         return controlActProcess;
     }
 
@@ -108,8 +108,8 @@ public class HL7PRPA201302Transforms {
 
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201302UV"));
 
-        controlActProcess.getSubject().add(
-                createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
+        controlActProcess.getSubject()
+                .add(createPRPAIN201302UVMFMIMT700701UV01Subject1(patient, remotePatId, remoteDeviceId));
         return controlActProcess;
     }
 
@@ -120,8 +120,8 @@ public class HL7PRPA201302Transforms {
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
-        subject1.setRegistrationEvent(createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(patient, remotePatId,
-                remoteDeviceId));
+        subject1.setRegistrationEvent(
+                createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(patient, remotePatId, remoteDeviceId));
 
         return subject1;
     }
@@ -133,8 +133,8 @@ public class HL7PRPA201302Transforms {
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
-        subject1.setRegistrationEvent(createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(patient, remotePatId,
-                remoteDeviceId));
+        subject1.setRegistrationEvent(
+                createPRPAIN201302UVMFMIMT700701UV01RegistrationEvent(patient, remotePatId, remoteDeviceId));
 
         return subject1;
     }
@@ -199,7 +199,4 @@ public class HL7PRPA201302Transforms {
         return subject;
     }
 
-    protected void setHL7MessageIdGenerator(HL7MessageIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
-    }
 }
