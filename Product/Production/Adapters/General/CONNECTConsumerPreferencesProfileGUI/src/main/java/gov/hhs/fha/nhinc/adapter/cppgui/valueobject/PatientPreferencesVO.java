@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,10 @@ import java.util.List;
  *
  * @author patlollav
  */
-public class PatientPreferencesVO {
+public class PatientPreferencesVO implements Serializable {
+
+    private static final long serialVersionUID = 7671707960303952407L;
+
     private Boolean optIn;
 
     private List<FineGrainedPolicyCriterionVO> fineGrainedPolicyCriteria;
