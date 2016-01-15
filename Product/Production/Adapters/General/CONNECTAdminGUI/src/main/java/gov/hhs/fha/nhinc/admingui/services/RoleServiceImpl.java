@@ -46,7 +46,7 @@ public class RoleServiceImpl implements RoleService {
 
     private static final long serialVersionUID = -7778943978909089913L;
     @Autowired
-    private UserLoginDAO userDAO;
+    private transient UserLoginDAO userDAO;
 
     /**
      * Default constructor.

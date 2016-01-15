@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
-import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -43,6 +39,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 
 /**
  * @author msw
@@ -84,7 +86,8 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#createUser(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.UserLogin)
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#createUser(gov.hhs.fha
+     * .nhinc.admingui.services.persistence.jpa.entity.UserLogin)
      */
     @Override
     public boolean createUser(UserLogin createUser) throws UserLoginException {
@@ -123,7 +126,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         try {
             session = this.sessionFactory.openSession();
             result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role))
-                .uniqueResult();
+                    .uniqueResult();
         } catch (HibernateException e) {
             LOG.error("Could not get role: " + e.getLocalizedMessage(), e);
         } finally {
@@ -159,7 +162,8 @@ public class UserLoginDAOImpl implements UserLoginDAO {
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#updatePreferences(gov.hhs.fha .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
+     * @see gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO#updatePreferences(gov.hhs.fha
+     * .nhinc.admingui.services.persistence.jpa.entity.RolePreference)
      */
     @Override
     public boolean updatePreference(RolePreference preference) {
