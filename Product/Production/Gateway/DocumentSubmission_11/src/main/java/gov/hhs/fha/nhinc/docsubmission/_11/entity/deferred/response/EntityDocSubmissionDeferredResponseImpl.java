@@ -29,9 +29,12 @@ package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import javax.xml.ws.WebServiceContext;
 
 
@@ -47,7 +50,9 @@ public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
             RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest,
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
-
+        DocSubmissionUtils.getInstance().setTargetCommunitiesVersion(
+                provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities(),
+                UDDI_SPEC_VERSION.SPEC_1_1);
         return outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
                 provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion,
                 provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
@@ -57,7 +62,8 @@ public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
             RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest,
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
-
+        DocSubmissionUtils.getInstance().setTargetCommunitiesVersion(
+                provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities(), UDDI_SPEC_VERSION.SPEC_1_1);
         return outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
                 provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion,
                 provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());

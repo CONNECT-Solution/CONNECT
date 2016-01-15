@@ -28,9 +28,12 @@ package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.OutboundDocSubmissionDeferredRequest;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import javax.xml.ws.WebServiceContext;
 
 
@@ -46,7 +49,8 @@ public class EntityDocSubmissionDeferredRequestImpl extends BaseService {
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
-
+        DocSubmissionUtils.getInstance().setTargetCommunitiesVersion(
+                provideAndRegisterRequestRequest.getNhinTargetCommunities(), UDDI_SPEC_VERSION.SPEC_1_1);
         return outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(
                         provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                         provideAndRegisterRequestRequest.getNhinTargetCommunities(),
@@ -57,7 +61,8 @@ public class EntityDocSubmissionDeferredRequestImpl extends BaseService {
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest,
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterAsyncReqRequest.getAssertion());
-
+        DocSubmissionUtils.getInstance().setTargetCommunitiesVersion(
+                provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(), UDDI_SPEC_VERSION.SPEC_1_1);
         return outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(
                         provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                         provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(),
