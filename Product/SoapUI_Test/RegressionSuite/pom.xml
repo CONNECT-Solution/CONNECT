@@ -32,7 +32,7 @@
                 <!--module>stopEmbedded</module-->
             </modules>
         </profile>
-		
+
         <profile>
             <id>direct-testing</id>
             <activation>
@@ -45,7 +45,6 @@
                 <module>Direct</module>
             </modules>
         </profile>
-		
     </profiles>
 
     <build>
