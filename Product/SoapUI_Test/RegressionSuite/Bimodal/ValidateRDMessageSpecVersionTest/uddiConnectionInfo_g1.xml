@@ -4,7 +4,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents  -->
+            <!-- Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -27,7 +27,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Retrieve Documents  -->
+            <!-- Retrieve Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">RetrieveDocuments</name>
@@ -50,7 +50,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Patient Discovery  -->
+            <!-- Patient Discovery -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -98,7 +98,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">DocSubmission</name>
@@ -161,7 +161,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Administrative Distribution  -->
+            <!-- Administrative Distribution -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">AdminDistribution</name>
@@ -194,13 +194,13 @@
         </categoryBag>
     </businessEntity>
 
-    <!--  Gateway 2.2  -->
+    <!-- Gateway 2.2 -->
 
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents  -->
+            <!-- Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -223,7 +223,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Retrieve Documents  -->
+            <!-- Retrieve Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">RetrieveDocuments</name>
@@ -246,7 +246,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Patient Discovery  -->
+            <!-- Patient Discovery -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -294,7 +294,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">DocSubmission</name>
@@ -357,7 +357,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Administrative Distribution  -->
+            <!-- Administrative Distribution -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">AdminDistribution</name>

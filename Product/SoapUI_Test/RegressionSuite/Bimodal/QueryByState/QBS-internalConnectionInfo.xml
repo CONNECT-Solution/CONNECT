@@ -3,6 +3,9 @@
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">DoD</name>
         <businessServices>
+
+            <!-- Patient Discovery -->
+
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
@@ -79,9 +82,15 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
+
+    <!--  Gateway 4.4  -->
+
     <businessEntity businessKey="uddi:testnhincnode:4.4">
         <name xml:lang="en">DoD</name>
         <businessServices>
+
+            <!-- Patient Discovery -->
+
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:4.4">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>

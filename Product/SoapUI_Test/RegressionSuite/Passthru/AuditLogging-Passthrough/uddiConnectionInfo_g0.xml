@@ -4,7 +4,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents  -->
+            <!-- Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -20,9 +20,9 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
                 </categoryBag>
             </businessService>
- 
 
-            <!--  Retrieve Documents  -->
+
+            <!-- Retrieve Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
                 <name xml:lang="en">RetrieveDocuments</name>
@@ -39,7 +39,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  PatientDiscovery  -->
+            <!-- PatientDiscovery -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -84,7 +84,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
@@ -128,8 +128,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
                 </categoryBag>
             </businessService>
-			
-			<!--  CORE X12 Document Submission RealTime-->
+
+			<!-- CORE X12 Document Submission RealTime-->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSRealTime" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">CORE_X12DSRealTime</name>
@@ -146,7 +146,7 @@
                 </categoryBag>
             </businessService>
 
-			<!--  CORE X12 Document Submission Generic Batch Request-->
+			<!-- CORE X12 Document Submission Generic Batch Request-->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
@@ -162,8 +162,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchRequest" keyValue="CORE_X12DSGenericBatchRequest"/>
                 </categoryBag>
             </businessService>
-			
-			<!--  CORE X12 Document Submission Generic Batch Response-->
+
+			<!-- CORE X12 Document Submission Generic Batch Response-->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
@@ -180,7 +180,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Administrative Distribution  -->
+            <!-- Administrative Distribution -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
                 <name xml:lang="en">AdminDistribution</name>
@@ -206,13 +206,13 @@
         </categoryBag>
     </businessEntity>
 
-    <!--  Gateway 2.2  -->
+    <!-- Gateway 2.2 -->
 
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-		<!--  Query for Documents -->
+		<!-- Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -235,7 +235,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Retrieve Documents  -->
+            <!-- Retrieve Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
                 <name xml:lang="en">RetrieveDocuments</name>
@@ -257,8 +257,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
                 </categoryBag>
             </businessService>
- 
-            <!--  PatientDiscovery  -->
+
+            <!-- PatientDiscovery -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -303,7 +303,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
@@ -383,7 +383,7 @@
                 </categoryBag>
             </businessService>
 
-			<!--  CORE X12 Document Submission Generic Batch Request-->
+			<!-- CORE X12 Document Submission Generic Batch Request-->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchRequest" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">CORE_X12DSGenericBatchRequest</name>
@@ -399,8 +399,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchRequest" keyValue="CORE_X12DSGenericBatchRequest"/>
                 </categoryBag>
             </businessService>
-			
-			<!--  CORE X12 Document Submission Generic Batch Response-->
+
+			<!-- CORE X12 Document Submission Generic Batch Response-->
 
             <businessService serviceKey="uddi:nhincnode:CORE_X12DSGenericBatchResponse" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">CORE_X12DSGenericBatchResponse</name>
@@ -416,8 +416,8 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="CORE_X12DSGenericBatchResponse" keyValue="CORE_X12DSGenericBatchResponse"/>
                 </categoryBag>
             </businessService>
-			
-            <!--  Administrative Distribution  -->
+
+            <!-- Administrative Distribution -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
                 <name xml:lang="en">AdminDistribution</name>

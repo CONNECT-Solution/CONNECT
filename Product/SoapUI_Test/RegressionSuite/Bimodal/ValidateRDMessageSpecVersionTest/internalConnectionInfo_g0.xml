@@ -4,7 +4,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Document Retrieve  -->
+            <!-- Document Retrieve -->
 
             <businessService serviceKey="uddi:nhincnode:adapterdocretrieve">
                 <name xml:lang="en">adapterdocretrieve</name>
@@ -75,7 +75,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Audit Repository  -->
+            <!-- Audit Repository -->
 
             <businessService serviceKey="uddi:nhincnode:auditrepository">
                 <name xml:lang="en">auditrepository</name>
@@ -134,7 +134,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Policy Engine  -->
+            <!-- Policy Engine -->
 
             <businessService serviceKey="uddi:nhincnode:policyengineservice">
                 <name xml:lang="en">policyengineservice</name>
@@ -207,7 +207,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Doc Repository  -->
+            <!-- Doc Repository -->
 
             <businessService serviceKey="uddi:nhincnode:adapterxdsbdocrepository">
                 <name xml:lang="en">adapterxdsbdocrepository</name>
@@ -224,7 +224,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Doc Registry  -->
+            <!-- Doc Registry -->
 
             <businessService serviceKey="uddi:nhincnode:adapterxdsbdocregistry">
                 <name xml:lang="en">adapterxdsbdocregistry</name>
@@ -241,7 +241,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  PIP  -->
+            <!-- PIP -->
 
             <businessService serviceKey="uddi:nhincnode:adapterpip">
                 <name xml:lang="en">adapterpip</name>
@@ -258,7 +258,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  PEP  -->
+            <!-- PEP -->
 
             <businessService serviceKey="uddi:nhincnode:adapterpep">
                 <name xml:lang="en">adapterpep</name>
@@ -275,7 +275,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Authentication  -->
+            <!-- Authentication -->
 
             <businessService serviceKey="uddi:nhincnode:adapterauthentication">
                 <name xml:lang="en">adapterauthentication</name>
@@ -292,7 +292,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Redaction Engine  -->
+            <!-- Redaction Engine -->
 
             <businessService serviceKey="uddi:nhincnode:adapterredactionengine">
                 <name xml:lang="en">adapterredactionengine</name>
@@ -309,7 +309,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Deferred Queue Manager  -->
+            <!-- Deferred Queue Manager -->
 
             <businessService serviceKey="uddi:nhincnode:deferredqueuemanager">
                 <name xml:lang="en">deferredqueuemanager</name>
@@ -326,7 +326,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Performance Log Query  -->
+            <!-- Performance Log Query -->
 
             <businessService serviceKey="uddi:nhincnode:entityperformancelogquery">
                 <name xml:lang="en">entityperformancelogquery</name>

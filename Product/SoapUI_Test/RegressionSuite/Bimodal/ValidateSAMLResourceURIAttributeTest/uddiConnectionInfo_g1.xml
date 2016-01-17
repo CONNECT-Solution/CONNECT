@@ -4,7 +4,7 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
@@ -59,13 +59,13 @@
         </categoryBag>
     </businessEntity>
 
-    <!--  Gateway 2.2  -->
+    <!-- Gateway 2.2 -->
 
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
