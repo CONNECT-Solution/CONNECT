@@ -26,12 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.orchestration;
 
+import org.apache.commons.lang.StringUtils;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.connectmgr.UddiSpecVersionRegistry;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
@@ -57,6 +62,24 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
                 serviceName);
         return getBuilder(apiLevel, serviceName);
+    }
+    /**
+     * Retrieve correct OrchestrationContextBuilder base on user spec and version
+     * @param targets NhinTargetSystemType
+     * @param serviceName NHIN_SERVICE_NAMES
+     * @return OrchestrationContextBuilder
+     */
+    public OrchestrationContextBuilder getBuilder(NhinTargetSystemType targets,
+            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        final String userSpec = targets.getUseSpecVersion();
+        if (StringUtils.isEmpty(userSpec)) {
+            return getBuilder(targets.getHomeCommunity(), serviceName);
+        } else {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(
+                    UDDI_SPEC_VERSION.fromString(userSpec), serviceName);
+            return getBuilder(apiLevel, serviceName);
+        }
+
     }
 
     private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,

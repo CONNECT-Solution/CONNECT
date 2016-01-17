@@ -158,7 +158,7 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
     private void setMockContextFactoryToReturnG0() {
         context.checking(new Expectations() {
             {
-                oneOf(mockContextFactory).getBuilder(with(any(HomeCommunityType.class)),
+                oneOf(mockContextFactory).getBuilder(with(any(NhinTargetSystemType.class)),
                         with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_RESPONSE)));
                 will(returnValue(createOutboundDocSubmissionDeferredResponseOrchestrationContextBuilder_g0()));
             }
@@ -184,7 +184,7 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
     private void setMockContextFactoryToReturnG1() {
         context.checking(new Expectations() {
             {
-                oneOf(mockContextFactory).getBuilder(with(any(HomeCommunityType.class)),
+                oneOf(mockContextFactory).getBuilder(with(any(NhinTargetSystemType.class)),
                         with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_RESPONSE)));
                 will(returnValue(createOutboundDocSubmissionDeferredResponseOrchestrationContextBuilder_g1()));
             }
@@ -210,7 +210,7 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
     private void setMockContextFactoryToReturnNull() {
         context.checking(new Expectations() {
             {
-                oneOf(mockContextFactory).getBuilder(with(any(HomeCommunityType.class)),
+                oneOf(mockContextFactory).getBuilder(with(any(NhinTargetSystemType.class)),
                         with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_RESPONSE)));
                 will(returnValue(null));
             }
