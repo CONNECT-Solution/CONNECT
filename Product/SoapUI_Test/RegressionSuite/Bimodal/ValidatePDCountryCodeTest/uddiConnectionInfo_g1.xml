@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+
+    <!-- Gateway 1.1 -->
+
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">DoD</name>
         <businessServices>
@@ -103,12 +106,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
                         </categoryBag>
                     </bindingTemplate>
-                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
-                            <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
-                            <categoryBag>
-                                <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            </categoryBag>
-                        </bindingTemplate>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
@@ -178,6 +181,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
         </identifierBag>
@@ -298,12 +302,12 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
                         </categoryBag>
                     </bindingTemplate>
-                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
-                            <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
-                            <categoryBag>
-                                <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            </categoryBag>
-                        </bindingTemplate>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>

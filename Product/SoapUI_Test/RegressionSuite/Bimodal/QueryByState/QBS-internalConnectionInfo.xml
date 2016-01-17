@@ -22,6 +22,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
         </identifierBag>
@@ -30,9 +31,15 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 2.2 -->
+
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
+
+            <!-- Patient Discovery -->
+
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
@@ -49,15 +56,22 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="2.2"/>
         </identifierBag>
         <categoryBag>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 8.8 -->
+
     <businessEntity businessKey="uddi:testnhincnode:8.8">
         <name xml:lang="en">DoD</name>
         <businessServices>
+
+            <!-- Patient Discovery -->
+
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:8.8">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
@@ -83,7 +97,7 @@
         </categoryBag>
     </businessEntity>
 
-    <!--  Gateway 4.4  -->
+    <!-- Gateway 4.4 -->
 
     <businessEntity businessKey="uddi:testnhincnode:4.4">
         <name xml:lang="en">DoD</name>
@@ -107,6 +121,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="4.4"/>
         </identifierBag>

@@ -3,6 +3,9 @@
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">BusinessEntity1</name>
         <businessServices>
+
+            <!-- Document Query -->
+
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>
@@ -33,6 +36,9 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocumentsDeferredRequest" keyValue="QueryForDocumentsDeferredRequest"/>
                 </categoryBag>
             </businessService>
+
+            <!-- Document Retrieve -->
+
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">RetrieveDocuments</name>
                 <bindingTemplates>

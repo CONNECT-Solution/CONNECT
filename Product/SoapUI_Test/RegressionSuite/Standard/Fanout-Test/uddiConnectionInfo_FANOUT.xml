@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+
+    <!-- Gateway 1.1 -->
+
     <businessEntity businessKey="uddi:nhincnode:1.1">
         <name xml:lang="en">DoD</name>
         <businessServices>
@@ -320,7 +323,6 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-
             <businessService serviceKey="uddi:nhincnode:PatientDiscoveryDeferredReq" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">PatientDiscoveryDeferredReq</name>
                 <bindingTemplates>
@@ -335,7 +337,6 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscoveryDeferredReq" keyValue="PatientDiscoveryDeferredReq"/>
                 </categoryBag>
             </businessService>
-
             <businessService serviceKey="uddi:nhincnode:PatientDiscoveryDeferredResp" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">PatientDiscoveryDeferredResp</name>
                 <bindingTemplates>

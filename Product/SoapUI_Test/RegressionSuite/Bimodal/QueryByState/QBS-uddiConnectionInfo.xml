@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+
+    <!-- Gateway 1.1 -->
+
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">DoD</name>
         <businessServices>
@@ -26,6 +29,9 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 4.4 -->
+
     <businessEntity businessKey="uddi:testnhincnode:4.4">
         <name xml:lang="en">DoD</name>
         <businessServices>
@@ -66,6 +72,9 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 5.5 -->
+
     <businessEntity businessKey="uddi:testnhincnode:5.5">
         <name xml:lang="en">DoD</name>
         <businessServices>
@@ -92,6 +101,9 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 6.6 -->
+
     <businessEntity businessKey="uddi:testnhincnode:6.6">
         <name xml:lang="en">DoD</name>
         <businessServices>
@@ -132,6 +144,9 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Florida" keyValue="US-FL"/>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 7.7 -->
+
     <businessEntity businessKey="uddi:testnhincnode:7.7">
         <name xml:lang="en">DoD</name>
         <businessServices>
