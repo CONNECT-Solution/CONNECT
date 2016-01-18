@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.io.Serializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author patlollav
  */
-public class FineGrainedPolicyCriterionVO {
+public class FineGrainedPolicyCriterionVO implements Serializable {
 
+    private static final long serialVersionUID = 3208678668380200036L;
     private static final Logger LOG = LoggerFactory.getLogger(FineGrainedPolicyCriterionVO.class);
 
     /** Creates a new instance of FineGrainedPolicyCriteriaForm */
@@ -55,10 +57,10 @@ public class FineGrainedPolicyCriterionVO {
     }
 
     public String getConfidentialityCodeDesc() {
-        return this.getDescription(CPPConstants.CONFIDENTIALITY_CODE_PROPERTIES, this.confidentialityCode);
+        return getDescription(CPPConstants.CONFIDENTIALITY_CODE_PROPERTIES, confidentialityCode);
     }
 
-    public void setConfidentialityCode(String confidentialityCode) {
+    public void setConfidentialityCode(final String confidentialityCode) {
         this.confidentialityCode = confidentialityCode;
     }
 
@@ -67,10 +69,10 @@ public class FineGrainedPolicyCriterionVO {
     }
 
     public String getDocumentTypeCodeDesc() {
-        return getDescription(CPPConstants.DOCUMENT_TYPE_CODE_PROPERTIES, this.documentTypeCode);
+        return getDescription(CPPConstants.DOCUMENT_TYPE_CODE_PROPERTIES, documentTypeCode);
     }
 
-    public void setDocumentTypeCode(String documentTypeCode) {
+    public void setDocumentTypeCode(final String documentTypeCode) {
         this.documentTypeCode = documentTypeCode;
     }
 
@@ -78,7 +80,7 @@ public class FineGrainedPolicyCriterionVO {
         return permit;
     }
 
-    public void setPermit(String permit) {
+    public void setPermit(final String permit) {
         this.permit = permit;
     }
 
@@ -86,7 +88,7 @@ public class FineGrainedPolicyCriterionVO {
         return policyOID;
     }
 
-    public void setPolicyOID(String policyOID) {
+    public void setPolicyOID(final String policyOID) {
         this.policyOID = policyOID;
     }
 
@@ -95,10 +97,10 @@ public class FineGrainedPolicyCriterionVO {
     }
 
     public String getPurposeOfUseDesc() {
-        return this.getDescription(CPPConstants.PURPOSE_OF_USE_PROPERTIES, this.purposeOfUse);
+        return getDescription(CPPConstants.PURPOSE_OF_USE_PROPERTIES, purposeOfUse);
     }
 
-    public void setPurposeOfUse(String purposeOfUse) {
+    public void setPurposeOfUse(final String purposeOfUse) {
         this.purposeOfUse = purposeOfUse;
     }
 
@@ -107,26 +109,26 @@ public class FineGrainedPolicyCriterionVO {
     }
 
     public String getUserRoleDesc() {
-        return this.getDescription(CPPConstants.USER_ROLE_PROPERTIES, this.userRole);
+        return getDescription(CPPConstants.USER_ROLE_PROPERTIES, userRole);
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(final String userRole) {
         this.userRole = userRole;
     }
 
-    private String getDescription(String propertyFile, String propertyName) {
+    private String getDescription(final String propertyFile, final String propertyName) {
         String description = null;
 
         try {
-            if ((propertyFile == null) || ((propertyFile.trim()).isEmpty())) {
+            if (propertyFile == null || propertyFile.trim().isEmpty()) {
                 LOG.error("propertyFile value is null");
-            } else if ((propertyName == null) || ((propertyName.trim()).isEmpty())) {
+            } else if (propertyName == null || propertyName.trim().isEmpty()) {
                 LOG.error("propertyName value is null");
             } else {
                 description = PropertyAccessor.getInstance().getProperty(propertyFile, propertyName);
             }
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception while reading the property: " + propertyFile + "." + propertyName, e);
         }
 
