@@ -32,6 +32,7 @@ import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -42,21 +43,27 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
+import gov.hhs.fha.nhinc.transform.policy.AssertionHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,11 +142,16 @@ public abstract class AuditTransforms<T, K> {
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
-
+        String userID = getUserId(auditMsg.getActiveParticipant());
+        AssertionHelper assertionHelper = new AssertionHelper();
+        if (StringUtils.isEmpty(userID)){
+            userID = assertionHelper.extractUserName(assertion);
+            LOG.debug("Extract userName from assertion: {}", userID);
+        }
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
             serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
             auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(), getUserId(auditMsg.getActiveParticipant()));
+            auditMsg.getEventIdentification().getEventDateTime(), userID);
     }
 
     /**
@@ -228,13 +240,13 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Event Action Time
         try {
-            GregorianCalendar today = new java.util.GregorianCalendar(TimeZone.getTimeZone("GMT"));
+            GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
             DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
             XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
-                today.get(java.util.GregorianCalendar.YEAR), today.get(java.util.GregorianCalendar.MONTH) + 1,
-                today.get(java.util.GregorianCalendar.DAY_OF_MONTH), today.get(java.util.GregorianCalendar.HOUR_OF_DAY),
-                today.get(java.util.GregorianCalendar.MINUTE), today.get(java.util.GregorianCalendar.SECOND),
-                today.get(java.util.GregorianCalendar.MILLISECOND), 0);
+                today.get(GregorianCalendar.YEAR), today.get(GregorianCalendar.MONTH) + 1,
+                today.get(GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.HOUR_OF_DAY),
+                today.get(GregorianCalendar.MINUTE), today.get(GregorianCalendar.SECOND),
+                today.get(GregorianCalendar.MILLISECOND), 0);
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
             LOG.error("Exception when creating XMLGregorian Date: " + e.getLocalizedMessage(), e);
