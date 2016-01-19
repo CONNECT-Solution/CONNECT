@@ -59,7 +59,7 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
             OutboundDocSubmissionOrchestratable dsMessage = (OutboundDocSubmissionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
-                    dsMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
+                    dsMessage.getTarget(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
 
             if (contextBuilder instanceof OutboundDocSubmissionOrchestrationContextBuilder_g0) {
                 ((OutboundDocSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);

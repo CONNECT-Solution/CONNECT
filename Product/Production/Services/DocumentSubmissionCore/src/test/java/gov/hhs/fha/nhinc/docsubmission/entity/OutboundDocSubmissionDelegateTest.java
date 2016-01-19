@@ -159,7 +159,7 @@ public class OutboundDocSubmissionDelegateTest {
     private void setMockContextFactoryToReturnG0() {
         context.checking(new Expectations() {
             {
-                oneOf(mockContextFactory).getBuilder(with(any(HomeCommunityType.class)), with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION)));
+                oneOf(mockContextFactory).getBuilder(with(any(NhinTargetSystemType.class)), with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION)));
                 will(returnValue(createOutboundDocSubmissionOrchestrationContextBuilder_g0()));
             }
         });
@@ -184,7 +184,7 @@ public class OutboundDocSubmissionDelegateTest {
     private void setMockContextFactoryToReturnG1() {
         context.checking(new Expectations() {
             {
-                oneOf(mockContextFactory).getBuilder(with(any(HomeCommunityType.class)), with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION)));
+                oneOf(mockContextFactory).getBuilder(with(any(NhinTargetSystemType.class)), with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION)));
                 will(returnValue(createOutboundDocSubmissionOrchestrationContextBuilder_g1()));
             }
         });
@@ -209,7 +209,7 @@ public class OutboundDocSubmissionDelegateTest {
     private void setMockContextFactoryToReturnNull() {
         context.checking(new Expectations() {
             {
-                oneOf(mockContextFactory).getBuilder(with(any(HomeCommunityType.class)), with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION)));
+                oneOf(mockContextFactory).getBuilder(with(any(NhinTargetSystemType.class)), with(equal(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION)));
                 will(returnValue(null));
             }
         });
