@@ -52,7 +52,7 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
@@ -143,9 +143,8 @@ public abstract class AuditTransforms<T, K> {
             serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
         String userID = getUserId(auditMsg.getActiveParticipant());
-        AssertionHelper assertionHelper = new AssertionHelper();
         if (StringUtils.isEmpty(userID)){
-            userID = assertionHelper.extractUserName(assertion);
+            userID = new AssertionHelper().extractUserName(assertion);
             LOG.debug("Extract userName from assertion: {}", userID);
         }
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
