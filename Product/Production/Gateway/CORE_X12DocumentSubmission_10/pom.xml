@@ -4,7 +4,7 @@
     <parent>
         <artifactId>Gateway</artifactId>
         <groupId>org.connectopensource</groupId>
-        <version>4.5.1-SNAPSHOT</version>
+        <version>4.5.1-RC1</version>
     </parent>
 
     <artifactId>CORE_X12DocumentSubmission_10</artifactId>
