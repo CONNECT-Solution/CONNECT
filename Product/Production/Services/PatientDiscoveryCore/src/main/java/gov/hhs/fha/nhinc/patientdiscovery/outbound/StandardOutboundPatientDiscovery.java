@@ -132,7 +132,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 response = getResponseFromCommunities(request, assertion);
             }
         } catch (final Exception e) {
-            LOG.error("Exception occurred while getting responses: {}", e);
+            LOG.error("Exception occurred while getting responses", e);
 
             // generate error message and add to response
             addErrorMessageToResponse(request, response, e);
@@ -190,9 +190,10 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                         auditRequest(message.getRequest(), message.getAssertion(), message.getTarget());
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
-                        LOG.debug("Added NhinCallableRequest for hcid={}", target.getHomeCommunity().getHomeCommunityId());
+                        LOG.debug("Added NhinCallableRequest" + " for hcid=" 
+                                + target.getHomeCommunity().getHomeCommunityId());
                     } else {
-                        LOG.debug("Policy Check Failed for homeId={}", urlInfo.getHcid());
+                        LOG.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
                         final CommunityPRPAIN201306UV02ResponseType communityResponse = createFailedPolicyCommunityResponseFromRequest(
                                 request.getPRPAIN201305UV02(), urlInfo.getHcid());
 
@@ -213,7 +214,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 addPolicyErrorsToResponse(response, policyErrList);
             }
         } catch (final Exception e) {
-            LOG.error("Exception occurred while getting responses from communities: {}", e);
+            LOG.error("Exception occurred while getting responses from communities", e);
 
             addErrorMessageToResponse(request, response, e);
         }
@@ -387,7 +388,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         } catch (final ConnectionManagerException ex) {
-            LOG.error("Failed to obtain target URLs: {}", ex);
+            LOG.error("Failed to obtain target URLs", ex);
         }
         return urlInfoList;
     }
@@ -398,7 +399,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (final PropertyAccessException ex) {
-            LOG.error("Error while retrieving the HomeCommunityId: {}", ex);
+            LOG.error("Error while retrieving the HomeCommunityId: " + ex);
         }
         return sHomeCommunity;
     }
