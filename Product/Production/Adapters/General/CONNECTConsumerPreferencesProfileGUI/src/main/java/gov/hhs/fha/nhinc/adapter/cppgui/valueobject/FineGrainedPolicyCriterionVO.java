@@ -123,14 +123,14 @@ public class FineGrainedPolicyCriterionVO implements Serializable {
         try {
             if (StringUtils.isBlank(propertyFile)) {
                 LOG.error("propertyFile value is null");
-            } else if (propertyName == null || propertyName.trim().isEmpty()) {
+            } else if (StringUtils.isBlank(propertyName)) {
                 LOG.error("propertyName value is null");
             } else {
                 description = PropertyAccessor.getInstance().getProperty(propertyFile, propertyName);
             }
 
         } catch (final Exception e) {
-            LOG.error("Exception while reading the property: " + propertyFile + "." + propertyName + " : {}",
+            LOG.error("Exception while reading the property: {}.{} : {}", propertyFile, propertyName,
                     e.getLocalizedMessage(), e);
         }
 
