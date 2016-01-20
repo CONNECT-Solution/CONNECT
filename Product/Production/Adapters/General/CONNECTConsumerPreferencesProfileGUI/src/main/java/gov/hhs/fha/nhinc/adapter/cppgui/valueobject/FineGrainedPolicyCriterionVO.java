@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.io.Serializable;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author patlollav
  */
-public class FineGrainedPolicyCriterionVO {
+public class FineGrainedPolicyCriterionVO implements Serializable {
 
+    private static final long serialVersionUID = 3208678668380200036L;
     private static final Logger LOG = LoggerFactory.getLogger(FineGrainedPolicyCriterionVO.class);
 
     /** Creates a new instance of FineGrainedPolicyCriteriaForm */
