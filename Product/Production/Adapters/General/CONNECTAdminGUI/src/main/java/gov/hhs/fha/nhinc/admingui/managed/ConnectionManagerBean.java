@@ -64,9 +64,6 @@ public class ConnectionManagerBean {
     private HashMap<String, BusinessEntity> externalEntities = new HashMap<>();
     private final List<String> entityNames = new ArrayList<>();
 
-    //TODO Display local entity endpoints (internal and external).
-    private BusinessEntity localEntity;
-
     private BusinessEntity selectedEntity;
     private String selectedEntityName;
 
