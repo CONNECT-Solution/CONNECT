@@ -21,71 +21,71 @@
         </property>
     </bean>
 
-    <!-- X12 DocSubmisison Request-->
+    <!-- CORE X12 Document Submission Generic Batch Request -->
 
-    <bean id="nhinX12DSGenericBatchRequest" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.nhin.NhinCORE_X12DSGenericBatchRequest">
-        <property name="inboundCORE_X12DSGenericBatchRequest">
+    <bean id="nhinX12DSGenericBatchRequest" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request._10.nhin.NhinX12BatchRequest">
+        <property name="inboundCORE_X12DSGenericBatch">
             <bean class="${x12docsubmission.inboundCORE_X12DSGenericBatchRequest}" />
         </property>
     </bean>
 
-    <bean id="entityX12DSGBRequestUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.entity.EntityCORE_X12DSGenericBatchRequestUnsecured">
-        <property name="outboundCORE_X12DSGenericBatchRequest">
+    <bean id="entityX12DSGBRequestUnsecured" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request._10.entity.EntityX12BatchRequestUnsecured">
+        <property name="outboundCORE_X12DSGenericBatch">
             <bean class="${x12docsubmission.outboundCORE_X12DSGenericBatchRequest}" />
         </property>
     </bean>
 
-    <bean id="entityX12DSGBRequestSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request._10.entity.EntityCORE_X12DSGenericBatchRequestSecured">
-        <property name="outboundCORE_X12DSGenericBatchRequest">
+    <bean id="entityX12DSGBRequestSecured" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request._10.entity.EntityX12BatchRequestSecured">
+        <property name="outboundCORE_X12DSGenericBatch">
             <bean class="${x12docsubmission.outboundCORE_X12DSGenericBatchRequest}" />
         </property>
     </bean>
 
-    <!-- X12 DocSubmisison Response-->
+    <!-- CORE X12 Document Submission Generic Batch Response -->
 
-    <bean id="nhinX12DSGenericBatchResponse" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.nhin.NhinCORE_X12DSGenericBatchResponse">
-        <property name="inboundCORE_X12DSGenericBatchResponse">
+    <bean id="nhinX12DSGenericBatchResponse" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response._10.nhin.NhinX12BatchResponse">
+        <property name="inboundCORE_X12DSGenericBatch">
             <bean class="${x12docsubmission.inboundCORE_X12DSGenericBatchResponse}" />
         </property>
     </bean>
 
-    <bean id="entityX12DSGBResponseUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.entity.EntityCORE_X12DSGenericBatchResponseUnsecured">
-        <property name="outboundCORE_X12DSGenericBatchResponse">
+    <bean id="entityX12DSGBResponseUnsecured" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response._10.entity.EntityX12BatchResponseUnsecured">
+        <property name="outboundCORE_X12DSGenericBatch">
             <bean class="${x12docsubmission.outboundCORE_X12DSGenericBatchResponse}" />
         </property>
     </bean>
 
-    <bean id="entityX12DSGBResponseSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response._10.entity.EntityCORE_X12DSGenericBatchResponseSecured">
-        <property name="outboundCORE_X12DSGenericBatchResponse">
+    <bean id="entityX12DSGBResponseSecured" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response._10.entity.EntityX12BatchResponseSecured">
+        <property name="outboundCORE_X12DSGenericBatch">
             <bean class="${x12docsubmission.outboundCORE_X12DSGenericBatchResponse}" />
         </property>
     </bean>
 
-    <!-- CORE X12 Document Submission -->
-    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.nhin.NhinCORE_X12DSRealTime">
+    <!-- CORE X12 Document Submission Real Time -->
+    <bean id="nhinX12DSRealTime" class="gov.hhs.fha.nhinc.corex12.ds.realtime._10.nhin.NhinX12RealTime">
         <property name="inboundCORE_X12DSRealTime">
             <bean class="${x12docsubmission.inboundCORE_X12DSRealTime}" />
         </property>
     </bean>
 
-    <bean id="entityX12DSRealTimeUnsecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeUnsecured">
+    <bean id="entityX12DSRealTimeUnsecured" class="gov.hhs.fha.nhinc.corex12.ds.realtime._10.entity.EntityX12RealTimeUnsecured">
         <property name="outboundCORE_X12DSRealTime">
             <bean class="${x12docsubmission.outboundCORE_X12DSRealTime}" />
         </property>
     </bean>
 
-    <bean id="entityX12DSRealTimeSecured" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime._10.entity.EntityCORE_X12DSRealTimeSecured">
+    <bean id="entityX12DSRealTimeSecured" class="gov.hhs.fha.nhinc.corex12.ds.realtime._10.entity.EntityX12RealTimeSecured">
         <property name="outboundCORE_X12DSRealTime">
             <bean class="${x12docsubmission.outboundCORE_X12DSRealTime}" />
         </property>
     </bean>
 
-    <bean id="ptCORE_X12DSRealTimeOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.outbound.PassthroughOutboundCORE_X12DSRealTime" />
-    <bean id="ptCORE_X12DSRealTimeInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.inbound.PassthroughInboundCORE_X12DSRealTime" />
-    <bean id="ptCORE_X12DSGenericBatchRequestInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.inbound.PassthroughInboundCORE_X12DSGenericBatchRequest"/>
-    <bean id="ptCORE_X12DSGenericBatchRequestOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.outbound.PassthroughOutboundCORE_X12DSGenericBatchRequest"/>
-    <bean id="ptCORE_X12DSGenericBatchResponseInbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.inbound.PassthroughInboundCORE_X12DSGenericBatchResponse"/>
-    <bean id="ptCORE_X12DSGenericBatchResponseOutbound" class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.outbound.PassthroughOutboundCORE_X12DSGenericBatchResponse"/>
+    <bean id="ptCORE_X12DSRealTimeOutbound" class="gov.hhs.fha.nhinc.corex12.ds.realtime.outbound.PassthroughOutboundX12RealTime" />
+    <bean id="ptCORE_X12DSRealTimeInbound" class="gov.hhs.fha.nhinc.corex12.ds.realtime.inbound.PassthroughInboundX12RealTime" />
+    <bean id="ptCORE_X12DSGenericBatchRequestInbound" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.inbound.PassthroughInboundX12BatchRequest"/>
+    <bean id="ptCORE_X12DSGenericBatchRequestOutbound" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.outbound.PassthroughOutboundX12BatchRequest"/>
+    <bean id="ptCORE_X12DSGenericBatchResponseInbound" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.inbound.PassthroughInboundX12BatchResponse"/>
+    <bean id="ptCORE_X12DSGenericBatchResponseOutbound" class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.outbound.PassthroughOutboundX12BatchResponse"/>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />

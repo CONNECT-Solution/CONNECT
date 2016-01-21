@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CORERule2_2_0Webervices</artifactId>
+            <artifactId>CORERule2_2_0Webservices</artifactId>
         </dependency>
     </dependencies>
 

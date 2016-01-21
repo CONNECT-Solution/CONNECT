@@ -31,8 +31,13 @@
 
     <!-- Nhin services -->
 
-    <jaxws:endpoint xmlns:nds="http://www.caqh.org/SOAP/WSDL/" id="CORE" address="/X12DocumentSubmission_Service"
-        serviceName="nds:Core" endpointName="nds:CoreSoapPort" implementor="#nhinX12DSRealTime"
+    <jaxws:endpoint
+        xmlns:nds="http://www.caqh.org/SOAP/WSDL/"
+        id="CORE"
+        address="/X12DocumentSubmission_Service"
+        serviceName="nds:Core"
+        endpointName="nds:CoreSoapPort"
+        implementor="#nhinX12DSRealTime"
         wsdlLocation="classpath:wsdl/CORERule2.2.0RealTime.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
@@ -48,14 +53,19 @@
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:nds="http://www.caqh.org/SOAP/WSDL/" id="GenericBatchRequest" address="/GenericBatchRequestTransaction_Service"
-        serviceName="nds:GenericBatchTransaction" endpointName="nds:GenericBatchTransactionPort" implementor="#nhinX12DSGenericBatchRequest"
+    <jaxws:endpoint
+        xmlns:nds="http://www.caqh.org/SOAP/WSDL/"
+        id="GenericBatchRequest"
+        address="/GenericBatchRequestTransaction_Service"
+        serviceName="nds:GenericBatchTransaction"
+        endpointName="nds:GenericBatchTransactionPort"
+        implementor="#nhinX12DSGenericBatchRequest"
         wsdlLocation="classpath:wsdl/CORERule2.2.0GenericBatch.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.callback.cxf.largefile.CoreX12GenericBatchTimestampValidator" />
+                <bean class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.callback.cxf.largefile.X12BatchTimestampValidator" />
             </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
@@ -69,14 +79,19 @@
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:nds="http://www.caqh.org/SOAP/WSDL/" id="GenericBatchResponse" address="/GenericBatchResponseTransaction_Service"
-        serviceName="nds:GenericBatchTransaction" endpointName="nds:GenericBatchTransactionPort" implementor="#nhinX12DSGenericBatchResponse"
+    <jaxws:endpoint
+        xmlns:nds="http://www.caqh.org/SOAP/WSDL/"
+        id="GenericBatchResponse"
+        address="/GenericBatchResponseTransaction_Service"
+        serviceName="nds:GenericBatchTransaction"
+        endpointName="nds:GenericBatchTransactionPort"
+        implementor="#nhinX12DSGenericBatchResponse"
         wsdlLocation="classpath:wsdl/CORERule2.2.0GenericBatch.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.callback.cxf.largefile.CoreX12GenericBatchTimestampValidator" />
+                <bean class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.callback.cxf.largefile.X12BatchTimestampValidator" />
             </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
@@ -92,17 +107,27 @@
 
     <!-- Entity Unsecured services -->
 
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCORE"
-        address="/EntityService/EntityCORETransactionUnsecured" serviceName="eds:EntityCORETransaction" endpointName="eds:EntityCORETransaction_Port"
-        implementor="#entityX12DSRealTimeUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTime.wsdl">
+    <jaxws:endpoint
+        xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore"
+        id="NhincEntityCORE"
+        address="/EntityService/EntityCORETransactionUnsecured"
+        serviceName="eds:EntityCORETransaction"
+        endpointName="eds:EntityCORETransaction_Port"
+        implementor="#entityX12DSRealTimeUnsecured"
+        wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTime.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCORERequest"
-        address="/EntityService/EntityCOREGenericBatchRequestUnsecured" serviceName="eds:EntityCOREGenericBatchTransaction" endpointName="eds:EntityCOREGenericBatchTransaction_Port"
-        implementor="#entityX12DSGBRequestUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatch.wsdl">
+    <jaxws:endpoint
+        xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore"
+        id="NhincEntityCORERequest"
+        address="/EntityService/EntityCOREGenericBatchRequestUnsecured"
+        serviceName="eds:EntityCOREGenericBatchTransaction"
+        endpointName="eds:EntityCOREGenericBatchTransaction_Port"
+        implementor="#entityX12DSGBRequestUnsecured"
+        wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatch.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -111,9 +136,14 @@
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore" id="NhincEntityCOREResponse"
-        address="/EntityService/EntityCOREGenericBatchResponseUnsecured" serviceName="eds:EntityCOREGenericBatchTransaction" endpointName="eds:EntityCOREGenericBatchTransaction_Port"
-        implementor="#entityX12DSGBResponseUnsecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatch.wsdl">
+    <jaxws:endpoint
+        xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentitycore"
+        id="NhincEntityCOREResponse"
+        address="/EntityService/EntityCOREGenericBatchResponseUnsecured"
+        serviceName="eds:EntityCOREGenericBatchTransaction"
+        endpointName="eds:EntityCOREGenericBatchTransaction_Port"
+        implementor="#entityX12DSGBResponseUnsecured"
+        wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatch.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -124,9 +154,14 @@
 
     <!-- Entity Secured services -->
 
-    <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORESecured"
-        address="/EntityService/EntityCORETransactionSecured" serviceName="edss:EntityCORETransactionSecured" endpointName="edss:EntityCORETransactionSecured_Port"
-        implementor="#entityX12DSRealTimeSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTimeSecured.wsdl">
+    <jaxws:endpoint
+        xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured"
+        id="NhincEntityCORESecured"
+        address="/EntityService/EntityCORETransactionSecured"
+        serviceName="edss:EntityCORETransactionSecured"
+        endpointName="edss:EntityCORETransactionSecured_Port"
+        implementor="#entityX12DSRealTimeSecured"
+        wsdlLocation="classpath:wsdl/EntityCORERule2.2.0RealTimeSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -143,9 +178,14 @@
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCORERequestSecured"
-        address="/EntityService/EntityCOREGenericBatchRequestSecured" serviceName="edss:EntityCOREGenericBatchTransactionSecured" endpointName="edss:EntityCOREGenericBatchTransactionSecured_Port"
-        implementor="#entityX12DSGBRequestSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatchSecured.wsdl">
+    <jaxws:endpoint
+        xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured"
+        id="NhincEntityCORERequestSecured"
+        address="/EntityService/EntityCOREGenericBatchRequestSecured"
+        serviceName="edss:EntityCOREGenericBatchTransactionSecured"
+        endpointName="edss:EntityCOREGenericBatchTransactionSecured_Port"
+        implementor="#entityX12DSGBRequestSecured"
+        wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatchSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -163,9 +203,14 @@
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured" id="NhincEntityCOREResponseSecured"
-        address="/EntityService/EntityCOREGenericBatchResponseSecured" serviceName="edss:EntityCOREGenericBatchTransactionSecured" endpointName="edss:EntityCOREGenericBatchTransactionSecured_Port"
-        implementor="#entityX12DSGBResponseSecured" wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatchSecured.wsdl">
+    <jaxws:endpoint
+        xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentitycoresecured"
+        id="NhincEntityCOREResponseSecured"
+        address="/EntityService/EntityCOREGenericBatchResponseSecured"
+        serviceName="edss:EntityCOREGenericBatchTransactionSecured"
+        endpointName="edss:EntityCOREGenericBatchTransactionSecured_Port"
+        implementor="#entityX12DSGBResponseSecured"
+        wsdlLocation="classpath:wsdl/EntityCORERule2.2.0GenericBatchSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />

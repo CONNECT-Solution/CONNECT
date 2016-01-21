@@ -19,13 +19,15 @@
 
     <import resource="classpath:CONNECT-context.xml" />
 
-    <!-- Beans defined: adaptercore_x12dsgenericbatchrequest -->
-    <alias alias="adaptercore_x12dsgenericbatchrequest" name="adaptercore_x12dsenericbatchrequestwsunsecured" />
+    <!--
+        Beans defined for adaptercore_x12dsgenericbatchrequest
+    -->
+    <alias alias="adaptercore_x12dsgenericbatchrequest" name="adaptercore_x12dsgenericbatchrequestsecured" />
 
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchrequestnoop"
           name="adaptercore_x12dsgenericbatchrequestnoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyNoOpImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.proxy.AdapterX12BatchRequestProxyNoOpImpl"
           lazy-init="true">
 
         <meta key="impltype" value="noop" />
@@ -34,7 +36,7 @@
     <!-- Java Implementation -->
     <bean id="adaptercore_x12dsgenericbatchrequestjava"
           name="adaptercore_x12dsgenericbatchrequestjava"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyJavaImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.proxy.AdapterX12BatchRequestProxyJavaImpl"
           lazy-init="true">
 
         <meta key="impltype" value="java" />
@@ -43,7 +45,7 @@
     <!-- Secured web service Implementation -->
     <bean id="adaptercore_x12dsgenericbatchrequestsecured"
           name="adaptercore_x12dsgenericbatchrequestsecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.proxy.AdapterX12BatchRequestProxyWSSecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wssecured" />
@@ -51,9 +53,9 @@
     </bean>
 
     <!-- Unsecured web service Implementation -->
-    <bean id="adaptercore_x12dsenericbatchrequestwsunsecured"
-          name="adaptercore_x12dsenericbatchrequestwsunsecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyWebServiceUnsecuredImpl"
+    <bean id="adaptercore_x12dsgenericbatchrequestwsunsecured"
+          name="adaptercore_x12dsgenericbatchrequestwsunsecured"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.proxy.AdapterX12BatchRequestProxyWSUnsecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wsunsecured" />
@@ -62,10 +64,10 @@
     <!-- Adapter X12 Core DS Exception Builder -->
     <bean id="adaptercore_x12dsgenericbatchrequestproxybean"
           name="adaptercore_x12dsgenericbatchrequestproxybean"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.adapter.proxy.AdapterCORE_X12DSGenericBatchRequestProxyBeanImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.adapter.proxy.AdapterX12BatchRequestProxyBeanImpl"
           lazy-init="true">
 
-        <property name="payload" value="file:///c:/Temp/test.txt"/>
+        <property name="payload" value="file:///c:/Temp/test.txt" />
         <property name="payloadId" value="f81d4fae-7dec-11d0-a765-00a0c91e6bf6" />
         <property name="payloadType" value="X12_BatchReceiptConfirmation" />
         <property name="coreRulesVersion" value="uri:" />
@@ -86,7 +88,7 @@
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsgenericbatchresponsenoop"
           name="adaptercore_x12dsgenericbatchresponsenoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyNoOpImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.proxy.AdapterX12BatchResponseProxyNoOpImpl"
           lazy-init="true">
 
         <meta key="impltype" value="noop" />
@@ -95,7 +97,7 @@
     <!-- Java Implementation -->
     <bean id="adaptercore_x12dsgenericbatchresponsejava"
           name="adaptercore_x12dsgenericbatchresponsejava"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyJavaImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.proxy.AdapterX12BatchResponseProxyJavaImpl"
           lazy-init="true">
 
         <meta key="impltype" value="java" />
@@ -104,17 +106,26 @@
     <!-- Secured web service Implementation -->
     <bean id="adaptercore_x12dsgenericbatchresponsesecured"
           name="adaptercore_x12dsgenericbatchresponsesecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.proxy.AdapterX12BatchResponseProxyWSSecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wssecured" />
         <meta key="default" value="true" />
     </bean>
 
+    <!-- Unsecured web service Implementation -->
+    <bean id="adaptercore_x12dsgenericbatchresponsewsunsecured"
+          name="adaptercore_x12dsgenericbatchresponsewsunsecured"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.proxy.AdapterX12BatchResponseProxyWSUnsecuredImpl"
+          lazy-init="true">
+
+        <meta key="impltype" value="wsunsecured" />
+    </bean>
+
     <!-- Adapter X12 Core DS Exception Builder -->
     <bean id="adaptercore_x12dsgenericbatchresponseproxybean"
           name="adaptercore_x12dsgenericbatchresponseproxybean"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyBeanImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.proxy.AdapterX12BatchResponseProxyBeanImpl"
           lazy-init="true">
 
         <property name="payload" value="file:///c:/Temp/test.txt" />
@@ -130,15 +141,6 @@
         <property name="errorMessage" value="None" />
     </bean>
 
-    <!-- Unsecured web service Implementation -->
-    <bean id="adaptercore_x12dsenericbatchresponsewsunsecured"
-          name="adaptercore_x12dsenericbatchresponsewsunsecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.adapter.proxy.AdapterCORE_X12DSGenericBatchResponseProxyWebServiceUnsecuredImpl"
-          lazy-init="true">
-
-        <meta key="impltype" value="wsunsecured" />
-    </bean>
-
     <!--
         Beans defined for nhincore_x12dsgenericbatchrequest
     -->
@@ -147,7 +149,7 @@
     <!-- No-op Implementation -->
     <bean id="nhincore_x12dsgenericbatchrequestnoop"
           name="nhincore_x12dsgenericbatchrequestnoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy.NhinCORE_X12DSGenericBatchRequestProxyNoOpImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.nhin.proxy.NhinX12BatchRequestProxyNoOpImpl"
           lazy-init="true">
 
         <meta key="impltype" value="noop" />
@@ -156,20 +158,22 @@
     <!-- Secured web service Implementation -->
     <bean id="nhincore_x12dsgenericbatchrequestwssecured"
           name="nhincore_x12dsgenericbatchrequestwssecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.request.nhin.proxy.NhinCORE_X12DSGenericBatchRequestProxyWebServiceSecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.request.nhin.proxy.NhinX12BatchRequestProxyWSSecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wssecured" />
         <meta key="default" value="true" />
     </bean>
 
-    <!-- Beans defined: nhincore_x12dsgenericbatchresponse -->
+    <!--
+        Beans defined for nhincore_x12dsgenericbatchresponse
+    -->
     <alias alias="nhincore_x12dsgenericbatchresponse" name="nhincore_x12dsgenericbatchresponsewssecured" />
 
     <!-- No-op Implementation -->
     <bean id="nhincore_x12dsgenericbatchresponsenoop"
           name="nhincore_x12dsgenericbatchresponsenoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.NhinCORE_X12DSGenericBatchResponseProxyNoOpImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.nhin.proxy.NhinX12BatchResponseProxyNoOpImpl"
           lazy-init="true">
 
         <meta key="impltype" value="noop" />
@@ -178,7 +182,7 @@
     <!-- Secured web service Implementation -->
     <bean id="nhincore_x12dsgenericbatchresponsewssecured"
           name="nhincore_x12dsgenericbatchresponsewssecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.genericbatch.response.nhin.proxy.NhinCORE_X12DSGenericBatchResponseProxyWebServiceSecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.nhin.proxy.NhinX12BatchResponseProxyWSSecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wssecured" />

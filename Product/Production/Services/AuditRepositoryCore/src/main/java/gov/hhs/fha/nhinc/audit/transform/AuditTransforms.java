@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.audit.transform;
 
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.CodedValueType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -38,7 +44,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.policy.AssertionHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -50,22 +55,13 @@ import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
  * This abstract class follows the Template design pattern. EventIdentification, ActiveParticipant (HumanRequestor,
@@ -104,6 +100,7 @@ public abstract class AuditTransforms<T, K> {
     public final LogEventRequestType transformRequestToAuditMsg(T request, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
+
         setRequest(request);
         setTarget(target);
         setAssertion(assertion);
@@ -135,6 +132,7 @@ public abstract class AuditTransforms<T, K> {
     public final LogEventRequestType transformResponseToAuditMsg(T request, K response, AssertionType assertion,
         NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
         Properties webContextProperties, String serviceName) {
+
         setRequest(request);
         setAssertion(assertion);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
@@ -142,7 +140,7 @@ public abstract class AuditTransforms<T, K> {
             serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
         String userID = getUserId(auditMsg.getActiveParticipant());
-        if (StringUtils.isEmpty(userID)){
+        if (StringUtils.isEmpty(userID)) {
             userID = new AssertionHelper().extractUserName(assertion);
             LOG.debug("Extract userName from assertion: {}", userID);
         }
@@ -215,7 +213,7 @@ public abstract class AuditTransforms<T, K> {
         ActiveParticipant participant = new ActiveParticipant();
 
         // Set the User Id
-        if (userInfo != null && userInfo.getUserName() != null && userInfo.getUserName().length() > 0) {
+        if (userInfo != null && StringUtils.isNotEmpty(userInfo.getUserName())) {
             participant.setUserID(userInfo.getUserName());
         }
 
@@ -239,15 +237,15 @@ public abstract class AuditTransforms<T, K> {
         // Set the Event Action Time
         try {
             GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-            DatatypeFactory factory = javax.xml.datatype.DatatypeFactory.newInstance();
-            XMLGregorianCalendar calendar = factory.newXMLGregorianCalendar(
+            XMLGregorianCalendar calendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(
                 today.get(GregorianCalendar.YEAR), today.get(GregorianCalendar.MONTH) + 1,
                 today.get(GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.HOUR_OF_DAY),
                 today.get(GregorianCalendar.MINUTE), today.get(GregorianCalendar.SECOND),
                 today.get(GregorianCalendar.MILLISECOND), 0);
+
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
-            LOG.error("Exception when creating XMLGregorian Date: " + e.getLocalizedMessage(), e);
+            LOG.error("Exception when creating XMLGregorian Date: {}", e.getLocalizedMessage(), e);
             // TODO -- do we need to set anything on failure, or throw an exception?
         }
 
@@ -296,7 +294,6 @@ public abstract class AuditTransforms<T, K> {
             participant.setUserName(userName);
         }
         return participant;
-
     }
 
     /**
@@ -325,7 +322,7 @@ public abstract class AuditTransforms<T, K> {
                 participant.setNetworkAccessPointID(ipOrHost);
                 participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
             } catch (MalformedURLException ex) {
-                LOG.error("Couldn't parse the given NetworkAccessPointID as a URL: " + ex.getLocalizedMessage(), ex);
+                LOG.error("Couldn't parse the given NetworkAccessPointID as a URL: {}", ex.getLocalizedMessage(), ex);
                 // The url is null or not a valid url; for now, set the user id to anonymous
                 participant.setUserID(AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE);
                 // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
@@ -375,6 +372,7 @@ public abstract class AuditTransforms<T, K> {
     protected String getWebServiceRequestUrl(Properties webContextProperties) {
         if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
             NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
+
             return webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
@@ -385,17 +383,16 @@ public abstract class AuditTransforms<T, K> {
             try {
                 return getConnectionManagerCache().getEndpointURLFromNhinTarget(target, serviceName);
             } catch (ConnectionManagerException ex) {
-                LOG.error("Error retrieving endpoint URL from target: " + ex.getLocalizedMessage(), ex);
+                LOG.error("Error retrieving endpoint URL from target: {}", ex.getLocalizedMessage(), ex);
             }
         }
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_USER_ID_SOURCE;
     }
 
     protected String getInboundReplyToFromHeader(Properties webContextProperties) {
-
         String inboundReplyTo = null;
-        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
-            NhincConstants.INBOUND_REPLY_TO) != null) {
+        if (webContextProperties != null && !webContextProperties.isEmpty()
+            && webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO) != null) {
 
             inboundReplyTo = webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO);
         }
@@ -406,7 +403,7 @@ public abstract class AuditTransforms<T, K> {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
-            LOG.error("Error while returning local host Address: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Error while returning local host Address: {}", ex.getLocalizedMessage(), ex);
             return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
         }
     }
@@ -444,10 +441,10 @@ public abstract class AuditTransforms<T, K> {
     /**
      * Create the <code>CodedValueType</code> for an audit log record.
      *
-     * @param code
-     * @param codeSys
-     * @param codeSysName
-     * @param dispName
+     * @param code the code for the coded value, must not be null
+     * @param codeSys the code system where the code can be found
+     * @param codeSysName the name of the code system
+     * @param dispName the display name of the code
      * @return <code>CodedValueType</code>
      */
     protected static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
@@ -455,25 +452,13 @@ public abstract class AuditTransforms<T, K> {
 
         CodedValueType codeValueType = new CodedValueType();
 
-        // Set the Code
-        if (NullChecker.isNotNullish(code)) {
+        if (StringUtils.isNotEmpty(code)) {
             codeValueType.setCode(code);
         }
 
-        // Set the Codesystem
-        if (NullChecker.isNotNullish(codeSys)) {
-            codeValueType.setCodeSystem(codeSys);
-        }
-
-        // Set the Codesystem Name
-        if (NullChecker.isNotNullish(codeSysName)) {
-            codeValueType.setCodeSystemName(codeSysName);
-        }
-
-        // Set the Display Name
-        if (NullChecker.isNotNullish(dispName)) {
-            codeValueType.setDisplayName(dispName);
-        }
+        codeValueType.setCodeSystem(codeSys);
+        codeValueType.setCodeSystemName(codeSysName);
+        codeValueType.setDisplayName(dispName);
 
         return codeValueType;
     }
@@ -492,8 +477,6 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Audit Source Id (community id)
         if (communityId != null) {
-            /* HomeCommunityMap.getHomeCommunityIdWithPrefix(communityId) mehtod
-             checks & takes care of prefix if not populated*/
             auditSrcId.setAuditSourceID(HomeCommunityMap.getHomeCommunityIdWithPrefix(communityId));
         }
 
@@ -541,13 +524,11 @@ public abstract class AuditTransforms<T, K> {
     protected String getUserName(UserType userInfo) {
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
-            if (NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())) {
-
+            if (StringUtils.isNotEmpty(userInfo.getPersonName().getGivenName())) {
                 userName = userInfo.getPersonName().getGivenName();
             }
 
-            if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
-
+            if (StringUtils.isNotEmpty(userInfo.getPersonName().getFamilyName())) {
                 if (userName != null) {
                     userName += " " + userInfo.getPersonName().getFamilyName();
                 } else {
@@ -559,9 +540,9 @@ public abstract class AuditTransforms<T, K> {
         return userName;
     }
 
-    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction, String communityId,
-        String serviceName, AssertionType assertion, String eventId, BigInteger outcome, XMLGregorianCalendar eventDate,
-        String userId) {
+    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,
+        String communityId, String serviceName, AssertionType assertion, String eventId, BigInteger outcome,
+        XMLGregorianCalendar eventDate, String userId) {
 
         LogEventRequestType result = new LogEventRequestType();
         result.setAuditMessage(auditMsg);
@@ -607,7 +588,7 @@ public abstract class AuditTransforms<T, K> {
 
     protected abstract String getServiceEventActionCodeResponder();
 
-    //PD Deferred Response services require incoming Request. so getters and setters are created.
+    // PD Deferred Response services require incoming request
     protected void setRequest(T request) {
         this.request = request;
     }
@@ -616,8 +597,7 @@ public abstract class AuditTransforms<T, K> {
         return request;
     }
 
-    //Getter and setters are provided for NhinTargetSystemType as DQ requires to store the responding gateway HCID in
-    //ParticpantObjectDetail element
+    // DQ services require storing responding gateway HCID in ParticpantObjectDetail element
     protected NhinTargetSystemType getTarget() {
         return target;
     }
@@ -626,7 +606,7 @@ public abstract class AuditTransforms<T, K> {
         this.target = target;
     }
 
-    //DS Deferred Response services require assertion. so getters and setters are created.
+    // DS Deferred Response services require assertion
     protected AssertionType getAssertion() {
         return assertion;
     }
@@ -642,6 +622,7 @@ public abstract class AuditTransforms<T, K> {
                 AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
                 && !obj.getRoleIDCode().get(0).getDisplayName().equals(
                 AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+
                 return obj.getUserID();
             }
         }
@@ -654,6 +635,6 @@ public abstract class AuditTransforms<T, K> {
     }
 
     private String getRelatesToValue(List<String> relatesTo) {
-        return NullChecker.isNotNullish(relatesTo.get(0)) ? relatesTo.get(0) : null;
+        return StringUtils.isNotEmpty(relatesTo.get(0)) ? relatesTo.get(0) : null;
     }
 }

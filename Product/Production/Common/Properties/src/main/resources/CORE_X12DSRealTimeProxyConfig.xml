@@ -25,7 +25,7 @@
     <!-- No-op Implementation -->
     <bean id="adaptercore_x12dsrealtimenoop"
           name="adaptercore_x12dsrealtimenoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyNoOpImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxyNoOpImpl"
           lazy-init="true">
 
         <meta key="impltype" value="noop" />
@@ -34,7 +34,7 @@
     <!-- Java Implementation -->
     <bean id="adaptercore_x12dsrealtimejava"
           name="adaptercore_x12dsrealtimejava"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyJavaImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxyJavaImpl"
           lazy-init="true">
 
         <meta key="impltype" value="java" />
@@ -43,7 +43,7 @@
     <!-- Payload Java Implementation -->
     <bean id="adaptercore_x12dsrealtimepayloadjava"
           name="adaptercore_x12dsrealtimepayloadjava"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyJavaPayloadImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxyJavaPayloadImpl"
           lazy-init="true">
 
         <meta key="impltype" value="java" />
@@ -52,7 +52,7 @@
     <!-- Secured web service Implementation -->
     <bean id="adaptercore_x12dsrealtimewssecured"
           name="adaptercore_x12dsrealtimewssecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyWebServiceSecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxyWSSecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wssecured" />
@@ -62,7 +62,7 @@
     <!-- Unsecured web service Implementation -->
     <bean id="adaptercore_x12dsrealtimewsunsecured"
           name="adaptercore_x12dsrealtimewsunsecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.adapter.proxy.AdapterCORE_X12DSRealTimeProxyWebServiceUnsecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxyWSUnsecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wsunsecured" />
@@ -76,7 +76,7 @@
     <!-- No-op Implementation -->
     <bean id="nhincore_x12dsrealtimenoop"
           name="nhincore_x12dsrealtimenoop"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.NhinCORE_X12DSRealTimeProxyNoOpImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.nhin.proxy.NhinX12RealTimeProxyNoOpImpl"
           lazy-init="true">
 
         <meta key="impltype" value="noop" />
@@ -85,7 +85,7 @@
     <!-- Secured web service Implementation -->
     <bean id="nhincore_x12dsrealtimewssecured"
           name="nhincore_x12dsrealtimewssecured"
-          class="gov.hhs.fha.nhinc.corex12.docsubmission.realtime.nhin.proxy.NhinCORE_X12DSRealTimeProxyWebServiceSecuredImpl"
+          class="gov.hhs.fha.nhinc.corex12.ds.realtime.nhin.proxy.NhinX12RealTimeProxyWSSecuredImpl"
           lazy-init="true">
 
         <meta key="impltype" value="wssecured" />
