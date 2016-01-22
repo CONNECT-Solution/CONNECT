@@ -637,7 +637,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId = "'+ context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId = "'+ context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -806,7 +809,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())    
 
 parsedXmlMessage.EventIdentification.find{
 assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -1125,7 +1131,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T19:59:52Z</con:value>
+          <con:value>2016-01-22T15:55:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1177,7 +1183,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -1229,11 +1235,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:49:52</con:value>
+          <con:value>01/22/2016 15:45:07</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:49:52Z</con:value>
+          <con:value>2016-01-22T15:45:07Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1633,7 +1639,10 @@ else
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+//assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -1727,7 +1736,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -1946,7 +1958,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:00:11Z</con:value>
+          <con:value>2016-01-22T15:55:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1998,15 +2010,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:50:11</con:value>
+          <con:value>01/22/2016 15:45:35</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:50:11Z</con:value>
+          <con:value>2016-01-22T15:45:35Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2541,7 +2553,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -2663,7 +2678,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())    
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -2938,7 +2956,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:00:27Z</con:value>
+          <con:value>2016-01-22T15:55:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -2990,7 +3008,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -3042,11 +3060,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:50:27</con:value>
+          <con:value>01/22/2016 15:45:54</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:50:27Z</con:value>
+          <con:value>2016-01-22T15:45:54Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3429,7 +3447,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -3588,7 +3609,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -3976,7 +4000,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:00:46Z</con:value>
+          <con:value>2016-01-22T15:56:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -4056,7 +4080,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -4288,7 +4312,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:50:46</con:value>
+          <con:value>01/22/2016 15:46:15</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -4296,7 +4320,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:50:46Z</con:value>
+          <con:value>2016-01-22T15:46:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -4753,7 +4777,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+//assert(!userId_Outbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -4910,7 +4937,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Inbound.isEmpty())   
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -5304,7 +5334,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:01:05Z</con:value>
+          <con:value>2016-01-22T16:04:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -5388,7 +5418,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -5620,7 +5650,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:51:05</con:value>
+          <con:value>01/22/2016 15:54:48</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -5628,7 +5658,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:51:05Z</con:value>
+          <con:value>2016-01-22T15:54:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -6048,7 +6078,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -6204,7 +6237,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())    
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -6518,7 +6554,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:01:38Z</con:value>
+          <con:value>2016-01-22T15:57:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -6558,7 +6594,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -6778,11 +6814,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:51:38</con:value>
+          <con:value>01/22/2016 15:47:03</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:51:38Z</con:value>
+          <con:value>2016-01-22T15:47:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -7173,7 +7209,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -7317,7 +7356,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())    
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -7472,331 +7514,331 @@ if (propertiesFile.exists()) {
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
-          <con:value/>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>&lt;!--Human</con:name>
-          <con:value>Requestor--></con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Requestor--></con:value>
         </con:property>
         <con:property>
           <con:name>&lt;!--Source--></con:name>
-          <con:value/>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>&lt;--Document</con:name>
-          <con:value>--></con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">--></con:value>
         </con:property>
         <con:property>
           <con:name>&lt;--Patient--></con:name>
-          <con:value/>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>&lt;--RESPONDER--></con:name>
-          <con:value/>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.1</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserID</con:name>
-          <con:value>kskagerb</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">kskagerb</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserIsRequestor</con:name>
-          <con:value>true</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">true</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Karl Skagerberg</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
-          <con:value>307969004</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">307969004</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
-          <con:value>SNOMED_CT</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">SNOMED_CT</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
-          <con:value>Human Requestor</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Human Requestor</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
-          <con:value>localhost</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">localhost</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
-          <con:value>2</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
-          <con:value>false</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">false</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Karl Skagerberg</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
-          <con:value>110152</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">110152</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">DCM</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
-          <con:value>Destination</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Destination</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name>
-          <con:value>2</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
-          <con:value>19233@192.168.1.2</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
-          <con:value>192.168.1.2</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">192.168.1.2</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
-          <con:value>2</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@UserID</con:name>
-          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2005/08/addressing/anonymous</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
-          <con:value>true</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">true</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.@UserName</con:name>
-          <con:value>Karl Skagerberg</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Karl Skagerberg</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
-          <con:value>110153</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">110153</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">DCM</con:value>
         </con:property>
         <con:property>
           <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
-          <con:value>Source</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Source</con:value>
         </con:property>
         <con:property>
           <con:name>AuditMessage.xmlns</con:name>
-          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">http://nhinc.services.com/schema/auditmessage</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
-          <con:value>DoD</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">DoD</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
-          <con:value>urn:oid:1.1</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">urn:oid:1.1</con:value>
         </con:property>
         <con:property>
           <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
-          <con:value>1010</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">1010</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:01:56Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-01-22T15:57:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
-          <con:value>E</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">E</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventDateTime</con:name>
-          <con:value>2015-04-02T13:47:30.199Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2015-04-02T13:47:30.199Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
-          <con:value>0</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">0</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@code</con:name>
-          <con:value>110112</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">110112</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@codeSystemName</con:name>
-          <con:value>DCM</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">DCM</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventID.@displayName</con:name>
-          <con:value>Query</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Query</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventTypeCode.@code</con:name>
-          <con:value>ITI-38</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">ITI-38</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
-          <con:value>IHE Transactions</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">IHE Transactions</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
-          <con:value>Cross Gateway Query</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Cross Gateway Query</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
-          <con:value>Export</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Export</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
-          <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>parsedParticipantObjectQuery.AdhocQuery.Slot.ValueList.Value.PatientID</con:name>
-          <con:value>D123401</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">D123401</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
-          <con:value/>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
-          <con:value>D123401^^^&amp;2.2&amp;ISO</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">D123401^^^&amp;2.2&amp;ISO</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectSensitivity</con:name>
-          <con:value/>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
-          <con:value>1</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">1</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
-          <con:value>1</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">1</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>2</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
-          <con:value>RFC-3881</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">RFC-3881</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>Patient Number</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Patient Number</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name>
-          <con:value>anonymus</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.ParticipantObjectQuery</con:name>
-          <con:value>unknown</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.@ParticipantObjectDataLifeCycle</con:name>
-          <con:value/>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.@ParticipantObjectID</con:name>
-          <con:value>D123401</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">D123401</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.@ParticipantObjectSensitivity</con:name>
-          <con:value/>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.@ParticipantObjectTypeCode</con:name>
-          <con:value>2</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.@ParticipantObjectTypeCodeRole</con:name>
-          <con:value>24</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">24</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type</con:name>
-          <con:value>QueryEncoding</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">QueryEncoding</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value</con:name>
-          <con:value>UTF-8</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">UTF-8</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type</con:name>
-          <con:value>urn:ihe:iti:xca:2010:homeCommunityId</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">urn:ihe:iti:xca:2010:homeCommunityId</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name>
-          <con:value>urn:oid:2.2</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@code</con:name>
-          <con:value>ITI-38</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">ITI-38</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
-          <con:value>IHE Transactions</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">IHE Transactions</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@displayName</con:name>
-          <con:value>Cross Gateway Query</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Cross Gateway Query</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectName</con:name>
-          <con:value>1.1</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">1.1</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification_Document.ParticipantObjectQuery</con:name>
-          <con:value>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxBZGhvY1F1ZXJ5UmVxdWVzdCB4bWx....</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ResponderActiveParticipant_Dest.@AlternativeUserID</con:name>
-          <con:value>3732@GFE-ONC-WDEV22</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>ResponderActiveParticipant_Dest.@UserID</con:name>
-          <con:value>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:51:56</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">01/22/2016 15:47:31</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:51:56Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-01-22T15:47:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
-          <con:value>true</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
         <con:property>
           <con:name>AuditOff</con:name>
-          <con:value>false</con:value>
+          <con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8144,7 +8186,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -8286,7 +8331,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
           <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())   
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -8578,7 +8626,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:02:13Z</con:value>
+          <con:value>2016-01-22T15:57:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -8630,7 +8678,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -8746,11 +8794,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:52:13</con:value>
+          <con:value>01/22/2016 15:47:52</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:52:13Z</con:value>
+          <con:value>2016-01-22T15:47:52Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9143,19 +9191,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:52:29Z</con:value>
+          <con:value>2016-01-22T15:48:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:02:29Z</con:value>
+          <con:value>2016-01-22T15:58:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:52:29</con:value>
+          <con:value>01/22/2016 15:48:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9738,7 +9786,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -9907,7 +9958,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())
 
 parsedXmlMessage.EventIdentification.find{
 assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -10228,7 +10282,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:07:01Z</con:value>
+          <con:value>2016-01-22T16:07:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10280,7 +10334,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -10332,11 +10386,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:57:01</con:value>
+          <con:value>01/22/2016 15:57:54</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:57:01Z</con:value>
+          <con:value>2016-01-22T15:57:54Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10736,7 +10790,10 @@ else
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+//assert(!userId_Outbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -10829,7 +10886,10 @@ parsedXmlMessage.AuditSourceIdentification.find{
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -11051,7 +11111,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:07:10Z</con:value>
+          <con:value>2016-01-22T16:08:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -11103,15 +11163,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:57:10</con:value>
+          <con:value>01/22/2016 15:58:16</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:57:10Z</con:value>
+          <con:value>2016-01-22T15:58:16Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -11646,7 +11706,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -11768,7 +11831,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -12042,7 +12108,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:07:18Z</con:value>
+          <con:value>2016-01-22T16:08:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -12094,7 +12160,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -12146,11 +12212,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:57:18</con:value>
+          <con:value>01/22/2016 15:58:30</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:57:18Z</con:value>
+          <con:value>2016-01-22T15:58:30Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -12533,7 +12599,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -12692,7 +12761,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefReq') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -13080,7 +13152,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:07:26Z</con:value>
+          <con:value>2016-01-22T16:08:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -13160,7 +13232,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -13392,7 +13464,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:57:26</con:value>
+          <con:value>01/22/2016 15:58:54</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -13400,7 +13472,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:57:26Z</con:value>
+          <con:value>2016-01-22T15:58:54Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -13857,7 +13929,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Inbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -14009,7 +14084,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+//assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -14405,7 +14483,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:07:41Z</con:value>
+          <con:value>2016-01-22T16:09:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -14489,7 +14567,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -14721,7 +14799,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:57:41</con:value>
+          <con:value>01/22/2016 15:59:07</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -14729,7 +14807,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:57:41Z</con:value>
+          <con:value>2016-01-22T15:59:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -15149,7 +15227,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -15306,7 +15387,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePD') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -15617,7 +15701,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:07:50Z</con:value>
+          <con:value>2016-01-22T16:09:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -15657,7 +15741,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -15877,11 +15961,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:57:50</con:value>
+          <con:value>01/22/2016 15:59:22</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:57:50Z</con:value>
+          <con:value>2016-01-22T15:59:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -16272,7 +16356,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -16416,7 +16503,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())   
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -16722,7 +16812,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:08:06Z</con:value>
+          <con:value>2016-01-22T16:09:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -16766,7 +16856,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16878,11 +16968,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:58:06</con:value>
+          <con:value>01/22/2016 15:59:30</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:58:06Z</con:value>
+          <con:value>2016-01-22T15:59:30Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17230,7 +17320,10 @@ else
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -17372,7 +17465,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
           <script><![CDATA[import java.util.regex.*
 context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDR') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
@@ -17663,7 +17759,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:08:13Z</con:value>
+          <con:value>2016-01-22T16:09:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -17715,7 +17811,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -17831,11 +17927,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:58:13</con:value>
+          <con:value>01/22/2016 15:59:51</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:58:13Z</con:value>
+          <con:value>2016-01-22T15:59:51Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18228,19 +18324,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-15T19:58:22Z</con:value>
+          <con:value>2016-01-22T16:00:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-15T20:08:22Z</con:value>
+          <con:value>2016-01-22T16:10:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/15/2016 19:58:22</con:value>
+          <con:value>01/22/2016 16:00:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-14T00:00:00Z</con:value>
+          <con:value>2016-02-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
