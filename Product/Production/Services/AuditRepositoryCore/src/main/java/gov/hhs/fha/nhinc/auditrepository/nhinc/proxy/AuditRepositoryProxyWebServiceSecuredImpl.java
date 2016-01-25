@@ -59,25 +59,20 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
         if (request.getAuditMessage() == null) {
             LOG.error("Audit Request Message is null");
-            synchronized (result) {
-                return result;
-            }
+            return result;
         }
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
 
             if (NullChecker.isNotNullish(url)) {
-
                 ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor
                     = new AuditRepositorySecuredServicePortDescriptor();
 
                 CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
 
-                synchronized (result) {
-                    result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
-                        invokeMethodName, createLogSecureEventRequestType(request));
-                }
+                result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
+                    invokeMethodName, createLogSecureEventRequestType(request));
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service({}). An unexpected exception occurred. Exception: {}",
