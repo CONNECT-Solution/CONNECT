@@ -79,7 +79,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
     private final TransactionLogger transactionLogger = new TransactionLogger();
-    private PatientDiscoveryAuditLogger patientDiscoveryAuditor;
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -98,7 +97,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param e
      * @param le
      */
-    public StandardOutboundPatientDiscovery(ExecutorService e, ExecutorService le) {
+    public StandardOutboundPatientDiscovery(final ExecutorService e, final ExecutorService le) {
         setExecutorService(e, le);
     }
 
@@ -109,17 +108,15 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param largeJobExecutor
      */
     @Override
-    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
+    public void setExecutorService(final ExecutorService regularExecutor, final ExecutorService largeJobExecutor) {
         this.regularExecutor = regularExecutor;
-        this.largejobExecutor = largeJobExecutor;
+        largejobExecutor = largeJobExecutor;
     }
 
     @Override
-    @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
-        afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
-        version = "1.0")
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class, afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery", version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-        RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+            final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType assertion) {
 
         LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
@@ -134,7 +131,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             } else {
                 response = getResponseFromCommunities(request, assertion);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception occurred while getting responses", e);
 
             // generate error message and add to response
@@ -149,66 +146,66 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param response
      * @param e
      */
-    protected void addErrorMessageToResponse(RespondingGatewayPRPAIN201305UV02RequestType request,
-        RespondingGatewayPRPAIN201306UV02ResponseType response, Exception e) {
-        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-        communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
-            request.getPRPAIN201305UV02(), e.getMessage()));
+    protected void addErrorMessageToResponse(final RespondingGatewayPRPAIN201305UV02RequestType request,
+            final RespondingGatewayPRPAIN201306UV02ResponseType response, final Exception e) {
+        final CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+        communityResponse.setPRPAIN201306UV02(
+                new HL7PRPA201306Transforms().createPRPA201306ForErrors(request.getPRPAIN201305UV02(), e.getMessage()));
         response.getCommunityResponse().add(communityResponse);
     }
 
     @SuppressWarnings("static-access")
     protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(
-        RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+            final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType assertion) {
         LOG.debug("Begin getResponseFromCommunities");
 
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
-        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = getGatewayVersion();
+        final NhincConstants.GATEWAY_API_LEVEL gatewayLevel = getGatewayVersion();
         try {
-            List<UrlInfo> urlInfoList = getEndpoints(request.getNhinTargetCommunities());
+            final List<UrlInfo> urlInfoList = getEndpoints(request.getNhinTargetCommunities());
             if (NullChecker.isNullish(urlInfoList)) {
                 throw new Exception("No target endpoints were found for the Patient Discovery Request.");
             } else {
-                List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList = new ArrayList<>();
-                String transactionId = (UUID.randomUUID()).toString();
+                final List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList = new ArrayList<>();
+                final String transactionId = UUID.randomUUID().toString();
 
                 // we hold the error messages for any failed policy checks in policyErrList
-                List<CommunityPRPAIN201306UV02ResponseType> policyErrList = new ArrayList<>();
+                final List<CommunityPRPAIN201306UV02ResponseType> policyErrList = new ArrayList<>();
 
                 // loop through the communities and send request if results were not null
-                for (UrlInfo urlInfo : urlInfoList) {
-                    NhinTargetSystemType target = createNhinTargetSystemType(urlInfo.getHcid());
+                for (final UrlInfo urlInfo : urlInfoList) {
+                    final NhinTargetSystemType target = createNhinTargetSystemType(urlInfo.getHcid());
 
                     // create a new request to send out to each target community
-                    RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request,
-                        assertion, urlInfo, urlInfoList.size());
+                    final RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, assertion,
+                            urlInfo, urlInfoList.size());
 
                     if (checkPolicy(newRequest)) {
                         setHomeCommunityIdInRequest(newRequest, urlInfo.getHcid());
 
                         logTransaction(assertion.getMessageId(), newRequest.getAssertion().getMessageId());
 
-                        OutboundPatientDiscoveryOrchestratable message = createOrchestratable(
-                            newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), target, gatewayLevel);
+                        final OutboundPatientDiscoveryOrchestratable message = createOrchestratable(
+                                newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), target, gatewayLevel);
                         auditRequest(message.getRequest(), message.getAssertion(), message.getTarget());
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
-                        LOG.debug("Added NhinCallableRequest" + " for hcid="
-                            + target.getHomeCommunity().getHomeCommunityId());
+                        LOG.debug("Added NhinCallableRequest" + " for hcid=" 
+                                + target.getHomeCommunity().getHomeCommunityId());
                     } else {
                         LOG.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
-                        CommunityPRPAIN201306UV02ResponseType communityResponse
-                            = createFailedPolicyCommunityResponseFromRequest(request.getPRPAIN201305UV02(),
-                                urlInfo.getHcid());
+                        final CommunityPRPAIN201306UV02ResponseType communityResponse = createFailedPolicyCommunityResponseFromRequest(
+                                request.getPRPAIN201305UV02(), urlInfo.getHcid());
 
                         policyErrList.add(communityResponse);
                     }
                 }
                 if (callableList.size() > 0) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
-                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
-                        ? largejobExecutor : regularExecutor, callableList, transactionId);
+                    final NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = new NhinTaskExecutor<>(
+                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
+                                    ? largejobExecutor : regularExecutor,
+                            callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
                     response = getCumulativeResponse(pdExecutor);
@@ -216,7 +213,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
                 addPolicyErrorsToResponse(response, policyErrList);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception occurred while getting responses from communities", e);
 
             addErrorMessageToResponse(request, response, e);
@@ -233,63 +230,65 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      */
     protected GATEWAY_API_LEVEL getGatewayVersion() {
         return new NhinEndpointManager().getApiVersion(getLocalHomeCommunityId(),
-            NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+                NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
     }
 
-    protected NhinTargetSystemType createNhinTargetSystemType(String hcid) {
-        NhinTargetSystemType target = new NhinTargetSystemType();
-        HomeCommunityType targetCommunity = new HomeCommunityType();
+    protected NhinTargetSystemType createNhinTargetSystemType(final String hcid) {
+        final NhinTargetSystemType target = new NhinTargetSystemType();
+        final HomeCommunityType targetCommunity = new HomeCommunityType();
         targetCommunity.setHomeCommunityId(hcid);
         target.setHomeCommunity(targetCommunity);
 
         return target;
     }
 
-    protected void setHomeCommunityIdInRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String hcid) {
+    protected void setHomeCommunityIdInRequest(final RespondingGatewayPRPAIN201305UV02RequestType request,
+            final String hcid) {
         if (request.getPRPAIN201305UV02() != null && request.getPRPAIN201305UV02().getReceiver() != null
-            && request.getPRPAIN201305UV02().getReceiver().get(0) != null
-            && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
-            && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
-            && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
+                && request.getPRPAIN201305UV02().getReceiver().get(0) != null
+                && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
+                && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
+                && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
-            request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
-                HomeCommunityMap.formatHomeCommunityId(hcid));
+            request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
+                    .setRoot(HomeCommunityMap.formatHomeCommunityId(hcid));
         }
     }
 
-    protected OutboundPatientDiscoveryOrchestratable createOrchestratable(PRPAIN201305UV02 message,
-        AssertionType assertion, NhinTargetSystemType target, NhincConstants.GATEWAY_API_LEVEL gatewayLevel) {
-        OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
-        OutboundResponseProcessor np = new OutboundPatientDiscoveryProcessor(gatewayLevel);
-        OutboundPatientDiscoveryOrchestratable orchestratable = new OutboundPatientDiscoveryOrchestratable(nd,
-            Optional.of(np), null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, message);
+    protected OutboundPatientDiscoveryOrchestratable createOrchestratable(final PRPAIN201305UV02 message,
+            final AssertionType assertion, final NhinTargetSystemType target,
+            final NhincConstants.GATEWAY_API_LEVEL gatewayLevel) {
+        final OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
+        final OutboundResponseProcessor np = new OutboundPatientDiscoveryProcessor(gatewayLevel);
+        final OutboundPatientDiscoveryOrchestratable orchestratable = new OutboundPatientDiscoveryOrchestratable(nd,
+                Optional.of(np), null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, message);
 
         return orchestratable;
     }
 
     protected CommunityPRPAIN201306UV02ResponseType createFailedPolicyCommunityResponseFromRequest(
-        PRPAIN201305UV02 message, String hcid) {
-        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-        NhinTargetCommunityType tc = new NhinTargetCommunityType();
-        HomeCommunityType home = new HomeCommunityType();
+            final PRPAIN201305UV02 message, final String hcid) {
+        final CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+        final NhinTargetCommunityType tc = new NhinTargetCommunityType();
+        final HomeCommunityType home = new HomeCommunityType();
         home.setHomeCommunityId(hcid);
         tc.setHomeCommunity(home);
         communityResponse.setNhinTargetCommunity(tc);
-        communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(message,
-            "Policy Check Failed for homeId=" + hcid));
+        communityResponse.setPRPAIN201306UV02(new HL7PRPA201306Transforms().createPRPA201306ForErrors(message,
+                "Policy Check Failed for homeId=" + hcid));
 
         return communityResponse;
     }
 
     protected RespondingGatewayPRPAIN201306UV02ResponseType getCumulativeResponse(
-        NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> dqexecutor) {
-        OutboundPatientDiscoveryOrchestratable orchResponse = dqexecutor.getFinalResponse();
+            final NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> dqexecutor) {
+        final OutboundPatientDiscoveryOrchestratable orchResponse = dqexecutor.getFinalResponse();
         return orchResponse.getCumulativeResponse();
     }
 
-    protected void addPolicyErrorsToResponse(RespondingGatewayPRPAIN201306UV02ResponseType response,
-        List<CommunityPRPAIN201306UV02ResponseType> policyErrList) {
-        for (CommunityPRPAIN201306UV02ResponseType policyError : policyErrList) {
+    protected void addPolicyErrorsToResponse(final RespondingGatewayPRPAIN201306UV02ResponseType response,
+            final List<CommunityPRPAIN201306UV02ResponseType> policyErrList) {
+        for (final CommunityPRPAIN201306UV02ResponseType policyError : policyErrList) {
             response.getCommunityResponse().add(policyError);
         }
     }
@@ -300,7 +299,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param request
      * @return
      */
-    protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
+    protected boolean checkPolicy(final RespondingGatewayPRPAIN201305UV02RequestType request) {
         return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
@@ -316,13 +315,13 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @return new RespondingGatewayPRPAIN201305UV02RequestType
      */
     protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(
-        RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, UrlInfo urlInfo,
-        int numTargets) {
+            final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType assertion,
+            final UrlInfo urlInfo, final int numTargets) {
 
         AssertionType newAssertion;
         if (numTargets == 1) {
-            newAssertion = MessageGeneratorUtils.getInstance().clone(
-                MessageGeneratorUtils.getInstance().generateMessageId(assertion));
+            newAssertion = MessageGeneratorUtils.getInstance()
+                    .clone(MessageGeneratorUtils.getInstance().generateMessageId(assertion));
         } else {
             newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
         }
@@ -340,18 +339,19 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @return new RespondingGatewayPRPAIN201305UV02RequestType
      */
     private RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(
-        RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType newAssertion, UrlInfo urlInfo) {
-        RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+            final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType newAssertion,
+            final UrlInfo urlInfo) {
+        final RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor().createNewRequest(
-            cloneRequest(request.getPRPAIN201305UV02()), urlInfo.getHcid());
+        final PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor()
+                .createNewRequest(cloneRequest(request.getPRPAIN201305UV02()), urlInfo.getHcid());
 
         // Make sure the response modality and response priority codes are set as per the spec
         if (new201305.getControlActProcess() != null
-            && new201305.getControlActProcess().getQueryByParameter() != null) {
+                && new201305.getControlActProcess().getQueryByParameter() != null) {
 
-            PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter()
-                .getValue();
+            final PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter()
+                    .getValue();
             if (queryParams.getResponseModalityCode() == null) {
                 queryParams.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
             }
@@ -366,7 +366,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         return newRequest;
     }
 
-    private PRPAIN201305UV02 cloneRequest(PRPAIN201305UV02 request) {
+    private PRPAIN201305UV02 cloneRequest(final PRPAIN201305UV02 request) {
         return MessageGeneratorUtils.getInstance().clone(request);
     }
 
@@ -376,18 +376,18 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      * @param relatedMessageId the message id of a previous transaction that the request message id should be a part of
      * @param requestMessageId the message id to be logged
      */
-    private void logTransaction(String relatedMessageId, String requestMessageId) {
+    private void logTransaction(final String relatedMessageId, final String requestMessageId) {
         if (!relatedMessageId.equals(requestMessageId)) {
             transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, requestMessageId);
         }
     }
 
-    protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
+    protected List<UrlInfo> getEndpoints(final NhinTargetCommunitiesType targetCommunities) {
         List<UrlInfo> urlInfoList = null;
         try {
             urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
-                targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+                    targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        } catch (final ConnectionManagerException ex) {
             LOG.error("Failed to obtain target URLs", ex);
         }
         return urlInfoList;
@@ -397,8 +397,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         String sHomeCommunity = null;
         try {
             sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        } catch (PropertyAccessException ex) {
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        } catch (final PropertyAccessException ex) {
             LOG.error("Error while retrieving the HomeCommunityId: " + ex);
         }
         return sHomeCommunity;
@@ -411,9 +411,10 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         return new PatientDiscoveryAuditLogger();
     }
 
-    private void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
-        getAuditLogger().auditRequestMessage(request, assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
-            null, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+    private void auditRequest(final PRPAIN201305UV02 request, final AssertionType assertion,
+            final NhinTargetSystemType target) {
+        getAuditLogger().auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null,
+                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 }
