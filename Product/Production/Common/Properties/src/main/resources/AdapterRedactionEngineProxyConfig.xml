@@ -15,7 +15,7 @@
     <!-- No-op Implementation -->
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyNoOpImpl" id="adapterredactionenginenoop" name="adapterredactionenginenoop">
         <!--meta key="impltype" value="noop"/>
-		<meta key="default" value="true"/-->
+        <meta key="default" value="true"/-->
     </bean>
 
     <!-- Java Implementation -->

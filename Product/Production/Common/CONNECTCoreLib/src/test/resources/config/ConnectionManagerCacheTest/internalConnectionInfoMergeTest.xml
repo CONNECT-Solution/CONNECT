@@ -3,6 +3,9 @@
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">BusinessEntity1</name>
         <businessServices>
+
+            <!-- Document Query -->
+
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:1.1">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>
@@ -46,6 +49,9 @@
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">BusinessEntity2</name>
         <businessServices>
+
+            <!-- Document Query -->
+
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:2.2">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>

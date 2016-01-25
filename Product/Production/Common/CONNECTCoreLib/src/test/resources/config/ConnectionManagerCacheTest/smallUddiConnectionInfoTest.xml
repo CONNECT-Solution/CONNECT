@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+
+    <!-- Gateway 1.1 -->
+
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">BusinessEntity1</name>
         <businessServices>
@@ -42,6 +45,8 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Florida" keyValue="US-FL"/>
         </categoryBag>
     </businessEntity>
+
+    <!-- Gateway 2.2 -->
 
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">BusinessEntity2</name>

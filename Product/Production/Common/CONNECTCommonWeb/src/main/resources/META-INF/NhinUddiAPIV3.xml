@@ -13,7 +13,7 @@
     targetNamespace="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3">
 
     <documentation>
-		NHIN Secured SOAP/HTTP binding for UDDI API V3.0
+        NHIN Secured SOAP/HTTP binding for UDDI API V3.0
     </documentation>
 
     <types>

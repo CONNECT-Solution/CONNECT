@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+
+    <!-- Gateway 1.1 -->
+
     <businessEntity businessKey="uddi:testnhincnode:1.1">
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents  -->
+            <!-- Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -21,7 +24,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Retrieve Documents  -->
+            <!-- Retrieve Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
                 <name xml:lang="en">RetrieveDocuments</name>
@@ -38,7 +41,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Patient Discovery  -->
+            <!-- Patient Discovery -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -83,7 +86,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
@@ -128,7 +131,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Administrative Distribution  -->
+            <!-- Administrative Distribution -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
                 <name xml:lang="en">AdminDistribution</name>
@@ -155,13 +158,13 @@
         </categoryBag>
     </businessEntity>
 
-    <!--  Gateway 2.2  -->
+    <!-- Gateway 2.2 -->
 
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents  -->
+            <!-- Query for Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
@@ -172,7 +175,7 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:testnhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
+                    <bindingTemplate bindingKey="uddi:testnhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
@@ -184,7 +187,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Retrieve Documents  -->
+            <!-- Retrieve Documents -->
 
             <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
                 <name xml:lang="en">RetrieveDocuments</name>
@@ -195,7 +198,7 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
                     </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
+                    <bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
@@ -207,7 +210,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Patient Discovery  -->
+            <!-- Patient Discovery -->
 
             <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
@@ -252,7 +255,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Document Submission  -->
+            <!-- Document Submission -->
 
             <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
@@ -263,7 +266,7 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
                         </categoryBag>
                     </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
@@ -283,7 +286,7 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
                         </categoryBag>
                     </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
+                    <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
                         <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
@@ -315,7 +318,7 @@
                 </categoryBag>
             </businessService>
 
-            <!--  Administrative Distribution  -->
+            <!-- Administrative Distribution -->
 
             <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
                 <name xml:lang="en">AdminDistribution</name>

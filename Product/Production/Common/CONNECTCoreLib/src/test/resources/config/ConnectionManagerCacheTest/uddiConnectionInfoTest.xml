@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+
+    <!-- Gateway 2.2 -->
+
     <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">BusinessEntity2</name>
         <businessServices>
@@ -12,13 +15,13 @@
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
                         </categoryBag>
                     </bindingTemplate>
-                     <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
+                    <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
                         <accessPoint useType="endPoint">https://server2:8181/QueryForDocuments/3_0</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
-                     <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
+                    <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
                         <accessPoint useType="endPoint">https://server2:8181/QueryForDocuments/2_0</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
