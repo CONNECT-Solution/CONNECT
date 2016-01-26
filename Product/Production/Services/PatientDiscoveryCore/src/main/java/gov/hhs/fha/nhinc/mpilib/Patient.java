@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-
 /**
  *
  * @author rayj
@@ -57,9 +56,10 @@ public class Patient implements java.io.Serializable {
 
     /**
      * Method sets the optedIn parameter for the Patient.
+     * 
      * @param optedIn true if the patient is opted in, false otherwise
      */
-    public void setOptedIn(boolean optedIn) {
+    public void setOptedIn(final boolean optedIn) {
         this.optedIn = optedIn;
     }
 
@@ -73,15 +73,15 @@ public class Patient implements java.io.Serializable {
     /**
      * @param newVal the Date of Birth to set for this Person.
      */
-    public void setDateOfBirth(String newVal) {
-        this.dateOfBirth = newVal;
+    public void setDateOfBirth(final String newVal) {
+        dateOfBirth = newVal;
     }
 
     /**
      * @param val the phone number values to set for this Person
      */
-    public void setPhoneNumbers(PhoneNumbers val) {
-        this.phoneNumbers = val;
+    public void setPhoneNumbers(final PhoneNumbers val) {
+        phoneNumbers = val;
     }
 
     /**
@@ -101,8 +101,8 @@ public class Patient implements java.io.Serializable {
     /**
      * @param newVal the Identifiers value to set for this Person
      */
-    public void setIdentifiers(Identifiers newVal) {
-        this.patientIdentifiers = newVal;
+    public void setIdentifiers(final Identifiers newVal) {
+        patientIdentifiers = newVal;
     }
 
     /**
@@ -115,8 +115,8 @@ public class Patient implements java.io.Serializable {
     /**
      * @param newVal the gender value for this Person
      */
-    public void setGender(String newVal) {
-        this.gender = newVal;
+    public void setGender(final String newVal) {
+        gender = newVal;
     }
 
     /**
@@ -129,8 +129,8 @@ public class Patient implements java.io.Serializable {
     /**
      * @param val the Social Security Number value to set for this Person
      */
-    public void setSSN(String val) {
-        this.ssn = val;
+    public void setSSN(final String val) {
+        ssn = val;
     }
 
     /**
@@ -143,15 +143,15 @@ public class Patient implements java.io.Serializable {
     /**
      * @param val the Addresses value to associate with this Person
      */
-    public void setAddresses(Addresses val) {
-        this.adds = val;
+    public void setAddresses(final Addresses val) {
+        adds = val;
     }
 
     /**
      * @param newVal the names value to associate with this Person
      */
-    public void setNames(PersonNames newVal) {
-        this.names = newVal;
+    public void setNames(final PersonNames newVal) {
+        names = newVal;
     }
 
     /**
@@ -163,16 +163,22 @@ public class Patient implements java.io.Serializable {
 
     @Override
     public String toString() {
-        String result = "";
+        final StringBuilder result = new StringBuilder();
 
-        if (this.names.size() > 0) {
+        if (names.size() > 0) {
 
-            for (PersonName personName : this.names) {
-                result += "|" + personName.toString();
+            for (int i = 0; i < names.size(); i++) {
+                final PersonName personName = names.get(i);
+                // Do not append "|" to the first name in the list.
+                if (i == 0) {
+                    result.append(personName.toString());
+                } else {
+                    result.append("|");
+                    result.append(personName.toString());
+                }
             }
 
-            result = result.replaceFirst("|", "");
         }
-        return result;
+        return result.toString();
     }
 }
