@@ -132,8 +132,8 @@ public class GatewayService {
         try {
             // Call the entity/gateway Patient Discovery service
             final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
-            LOG.debug("Patient Discovery call successful. Total number of patients found:"
-                    + patientDiscoveryResults.getPatientList().size());
+            LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
+                    patientDiscoveryResults.getPatientList().size());
 
             // Return false if no patient found
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
@@ -227,7 +227,7 @@ public class GatewayService {
                 patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(response.getDocument());
             }
             patientQuerySearch.getSelectedCurrentDocument().setDocumentRetrieved(true);
-            LOG.debug("Successfully retrieved the content of document with documentid:" + response.getContentType());
+            LOG.debug("Successfully retrieved the content of document with documentid: {}", response.getContentType());
             return true;
         }
         return false;
