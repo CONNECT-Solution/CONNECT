@@ -163,16 +163,21 @@ public class Patient implements java.io.Serializable {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         if (this.names.size() > 0) {
-
-            for (PersonName personName : this.names) {
-                result += "|" + personName.toString();
+            
+            for (int i=0; i<this.names.size(); i++){
+                PersonName personName = this.names.get(i);
+                // Do not append "|" to the first name in the list.
+                if (i==0){
+                    result.append(personName.toString());
+                }else{
+                    result.append("|" + personName.toString());
+                }
             }
-
-            result = result.replaceFirst("|", "");
+            
         }
-        return result;
+        return result.toString();
     }
 }
