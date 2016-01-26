@@ -114,9 +114,9 @@ public abstract class AuditTransforms<T, K> {
         auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-            serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
-            auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(), getRequestorUserId(auditMsg,assertion));
+                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(), auditMsg
+                        .getEventIdentification().getEventOutcomeIndicator(), auditMsg.getEventIdentification()
+                        .getEventDateTime(), getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
     }
 
     /**
@@ -144,24 +144,22 @@ public abstract class AuditTransforms<T, K> {
             serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-            serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
-            auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(), getRequestorUserId(auditMsg,assertion));
+                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(), auditMsg
+                        .getEventIdentification().getEventOutcomeIndicator(), auditMsg.getEventIdentification()
+                        .getEventDateTime(), getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
     }
 
     /**
      * Retrieve User Id from Audit Active Participant or AssertionType
      *
-     * @param auditMessageType Audit Message Type
+     * @param ActiveParticipant List of Active Participants
      * @param assertionType Assertion Type
      * @return return userId from Audit Active participant/AssertType in order
      */
-    private final String getRequestorUserId(final AuditMessageType auditMessageType, final AssertionType assertionType) {
-        String userId = null;
-        if (auditMessageType != null) {
-            userId = getUserId(auditMessageType.getActiveParticipant());
-            LOG.debug("Extract userName from Active Participant: {}", userId);
-        }
+    private final String getRequestorUserId(final List<ActiveParticipant> activeParticipants,
+            final AssertionType assertionType) {
+        String userId = getUserId(activeParticipants);
+        LOG.debug("Extract userName from Active Participant: {}", userId);
         if (StringUtils.isEmpty(userId)) {
             userId = new AssertionHelper().extractUserName(assertion);
             LOG.debug("Extract userName from assertion: {}", userId);
