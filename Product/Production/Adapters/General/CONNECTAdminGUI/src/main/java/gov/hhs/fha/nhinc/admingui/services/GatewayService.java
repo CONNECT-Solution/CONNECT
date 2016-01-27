@@ -344,7 +344,7 @@ public class GatewayService {
 
     private String getCommunityName(final PatientSearchBean searchBean, final String hcid) {
         for (final String name : searchBean.getOrganizationList().keySet()) {
-            // FHAC-818: Find the Home community ID of the BusinessEntity to compare with hcid.
+            // Find the Home community ID of the BusinessEntity to compare with hcid.
             final ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
             final String busEntityHcid = helper.getCommunityId(searchBean.getOrganizationList().get(name));
             if (StringUtils.isNotBlank(busEntityHcid) && hcid.equals(busEntityHcid)) {
