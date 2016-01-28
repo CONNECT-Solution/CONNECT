@@ -168,7 +168,7 @@
    <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2095,7 +2095,7 @@ if (propertiesFile.exists()) {
    <soap:Body testSuite="Entity_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -3209,7 +3209,7 @@ if (propertiesFile.exists()) {
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
+            <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:address>            
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -5873,7 +5873,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
+            <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -7115,8 +7115,8 @@ if (propertiesFile.exists()) {
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
-            <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:messageId>${#Project#MessageID}</urn3:messageId>
+            <urn3:address>
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
                   <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
@@ -7131,17 +7131,17 @@ if (propertiesFile.exists()) {
                <urn3:streetAddress>AddrStreet</urn3:streetAddress>
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
-            <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
-            <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
-            <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
-            <urn3:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveWitnessSignature>
-            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:dateOfBirth>06/04/1959 05:21:00</urn3:dateOfBirth>
+            <urn3:explanationNonClaimantSignature>Electronic</urn3:explanationNonClaimantSignature>
+            <urn3:haveSecondWitnessSignature>false</urn3:haveSecondWitnessSignature>
+            <urn3:haveSignature>false</urn3:haveSignature>
+            <urn3:haveWitnessSignature>false</urn3:haveWitnessSignature>
+            <urn3:homeCommunity>
                <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
                <urn3:name>${#Project#LocalHCDescription}</urn3:name>
             </urn3:homeCommunity>
-            <urn3:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:personName>
                <urn3:familyName>Smith</urn3:familyName>
                <urn3:givenName>Sandy</urn3:givenName>
                <urn3:nameType>
@@ -7155,7 +7155,7 @@ if (propertiesFile.exists()) {
                <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                <urn3:fullName>Sandy S. Smith</urn3:fullName>
             </urn3:personName>
-            <urn3:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:phoneNumber>
                <urn3:areaCode>321</urn3:areaCode>
                <urn3:countryCode>1</urn3:countryCode>
                <urn3:extension>5436</urn3:extension>
@@ -7169,7 +7169,7 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:secondWitnessAddress>
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
                   <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
@@ -7184,7 +7184,7 @@ if (propertiesFile.exists()) {
                <urn3:streetAddress>Addr2Street</urn3:streetAddress>
                <urn3:zipCode>Addr2Zip</urn3:zipCode>
             </urn3:secondWitnessAddress>
-            <urn3:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:secondWitnessName>
                <urn3:familyName>Smith</urn3:familyName>
                <urn3:givenName>Sammy</urn3:givenName>
                <urn3:nameType>
@@ -7198,7 +7198,7 @@ if (propertiesFile.exists()) {
                <urn3:secondNameOrInitials>s</urn3:secondNameOrInitials>
                <urn3:fullName>Sammy S. Smith</urn3:fullName>
             </urn3:secondWitnessName>
-            <urn3:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:secondWitnessPhone>
                <urn3:areaCode>321</urn3:areaCode>
                <urn3:countryCode>1</urn3:countryCode>
                <urn3:extension>5424</urn3:extension>
@@ -7212,9 +7212,9 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
-            <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
-            <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:SSN>253-98-7546</urn3:SSN>
+            <urn3:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:witnessAddress>
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
                   <urn3:codeSystem>addrCodeSyst</urn3:codeSystem>
@@ -7229,7 +7229,7 @@ if (propertiesFile.exists()) {
                <urn3:streetAddress>825 North</urn3:streetAddress>
                <urn3:zipCode>32184</urn3:zipCode>
             </urn3:witnessAddress>
-            <urn3:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:witnessName>
                <urn3:familyName>Smith</urn3:familyName>
                <urn3:givenName>Scott</urn3:givenName>
                <urn3:nameType>
@@ -7243,7 +7243,7 @@ if (propertiesFile.exists()) {
                <urn3:secondNameOrInitials>S.</urn3:secondNameOrInitials>
                <urn3:fullName>Scott S. Smith</urn3:fullName>
             </urn3:witnessName>
-            <urn3:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:witnessPhone>
                <urn3:areaCode>321</urn3:areaCode>
                <urn3:countryCode>1</urn3:countryCode>
                <urn3:extension>8432</urn3:extension>
@@ -7257,7 +7257,7 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:witnessPhone>
-            <urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:userInfo>
                <urn3:personName>
                   <urn3:familyName>Skagerberg</urn3:familyName>
                   <urn3:givenName>Karl</urn3:givenName>
@@ -7287,8 +7287,8 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>Public Health</urn3:originalText>
                </urn3:roleCoded>
             </urn3:userInfo>
-            <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
-            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:authorized>true</urn3:authorized>
+            <urn3:purposeOfDisclosureCoded>
                <urn3:code>PUBLICHEALTH</urn3:code>
                <urn3:codeSystem>2.16.840.1.113883.3.18.7.1</urn3:codeSystem>
                <urn3:codeSystemName>nhin-purpose</urn3:codeSystemName>
@@ -7296,14 +7296,14 @@ if (propertiesFile.exists()) {
                <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
                <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
             </urn3:purposeOfDisclosureCoded>
-            <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthnStatement>
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+         <urn3:samlAuthzDecisionStatement>
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -8064,8 +8064,8 @@ if (propertiesFile.exists()) {
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
-            <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:messageId>${#Project#MessageID}</urn2:messageId>
+            <urn2:address>
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
                   <urn2:codeSystem>AddrCodeSyst</urn2:codeSystem>
@@ -8080,17 +8080,17 @@ if (propertiesFile.exists()) {
                <urn2:streetAddress>AddrStreet</urn2:streetAddress>
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
-            <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
-            <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
-            <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
-            <urn2:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveWitnessSignature>
-            <urn2:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:dateOfBirth>06/04/1959 05:21:00</urn2:dateOfBirth>
+            <urn2:explanationNonClaimantSignature>Electronic</urn2:explanationNonClaimantSignature>
+            <urn2:haveSecondWitnessSignature>false</urn2:haveSecondWitnessSignature>
+            <urn2:haveSignature>false</urn2:haveSignature>
+            <urn2:haveWitnessSignature>false</urn2:haveWitnessSignature>
+            <urn2:homeCommunity>
                <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#LocalHCDescription}</urn2:name>
             </urn2:homeCommunity>
-            <urn2:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:personName>
                <urn2:familyName>Smith</urn2:familyName>
                <urn2:givenName>Sandy</urn2:givenName>
                <urn2:nameType>
@@ -8104,7 +8104,7 @@ if (propertiesFile.exists()) {
                <urn2:secondNameOrInitials>S</urn2:secondNameOrInitials>
                <urn2:fullName>Sandy S. Smith</urn2:fullName>
             </urn2:personName>
-            <urn2:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:phoneNumber>
                <urn2:areaCode>321</urn2:areaCode>
                <urn2:countryCode>1</urn2:countryCode>
                <urn2:extension>5436</urn2:extension>
@@ -8118,7 +8118,7 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <urn2:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:secondWitnessAddress>
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
                   <urn2:codeSystem>AddrCodeSyst</urn2:codeSystem>
@@ -8133,7 +8133,7 @@ if (propertiesFile.exists()) {
                <urn2:streetAddress>Addr2Street</urn2:streetAddress>
                <urn2:zipCode>Addr2Zip</urn2:zipCode>
             </urn2:secondWitnessAddress>
-            <urn2:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:secondWitnessName>
                <urn2:familyName>Smith</urn2:familyName>
                <urn2:givenName>Sammy</urn2:givenName>
                <urn2:nameType>
@@ -8147,7 +8147,7 @@ if (propertiesFile.exists()) {
                <urn2:secondNameOrInitials>s</urn2:secondNameOrInitials>
                <urn2:fullName>Sammy S. Smith</urn2:fullName>
             </urn2:secondWitnessName>
-            <urn2:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:secondWitnessPhone>
                <urn2:areaCode>321</urn2:areaCode>
                <urn2:countryCode>1</urn2:countryCode>
                <urn2:extension>5424</urn2:extension>
@@ -8161,9 +8161,9 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:secondWitnessPhone>
-            <urn2:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn2:SSN>
-            <urn2:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn2:uniquePatientId>
-            <urn2:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:SSN>253-98-7546</urn2:SSN>
+            <urn2:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn2:uniquePatientId>
+            <urn2:witnessAddress>
                <urn2:addressType>
                   <urn2:code>addrCode</urn2:code>
                   <urn2:codeSystem>addrCodeSyst</urn2:codeSystem>
@@ -8178,7 +8178,7 @@ if (propertiesFile.exists()) {
                <urn2:streetAddress>825 North</urn2:streetAddress>
                <urn2:zipCode>32184</urn2:zipCode>
             </urn2:witnessAddress>
-            <urn2:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:witnessName>
                <urn2:familyName>Smith</urn2:familyName>
                <urn2:givenName>Scott</urn2:givenName>
                <urn2:nameType>
@@ -8192,7 +8192,7 @@ if (propertiesFile.exists()) {
                <urn2:secondNameOrInitials>S.</urn2:secondNameOrInitials>
                <urn2:fullName>Scott S. Smith</urn2:fullName>
             </urn2:witnessName>
-            <urn2:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:witnessPhone>
                <urn2:areaCode>321</urn2:areaCode>
                <urn2:countryCode>1</urn2:countryCode>
                <urn2:extension>8432</urn2:extension>
@@ -8206,7 +8206,7 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:witnessPhone>
-            <urn2:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:userInfo>
                <urn2:personName>
                   <urn2:familyName>Skagerberg</urn2:familyName>
                   <urn2:givenName>Karl</urn2:givenName>
@@ -8236,8 +8236,8 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>Public Health</urn2:originalText>
                </urn2:roleCoded>
             </urn2:userInfo>
-            <urn2:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn2:authorized>
-            <urn2:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:authorized>true</urn2:authorized>
+            <urn2:purposeOfDisclosureCoded>
                <urn2:code>PUBLICHEALTH</urn2:code>
                <urn2:codeSystem>2.16.840.1.113883.3.18.7.1</urn2:codeSystem>
                <urn2:codeSystemName>nhin-purpose</urn2:codeSystemName>
@@ -8245,14 +8245,14 @@ if (propertiesFile.exists()) {
                <urn2:displayName>Use or disclosure of Psychotherapy Notes</urn2:displayName>
                <urn2:originalText>Use or disclosure of Psychotherapy Notes</urn2:originalText>
             </urn2:purposeOfDisclosureCoded>
-            <urn2:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:samlAuthnStatement>
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
                <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
                <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
-            <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:samlAuthzDecisionStatement>
                <urn2:decision>Permit</urn2:decision>
                <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
@@ -9496,7 +9496,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
    <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -11428,7 +11428,7 @@ if (propertiesFile.exists()) {
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -12542,7 +12542,7 @@ if (propertiesFile.exists()) {
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-           <urn1:messageId>${#Project#MessageID}</urn1:messageId>
+            <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -15222,7 +15222,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
+            <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -16451,8 +16451,8 @@ if (propertiesFile.exists()) {
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
-            <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:messageId>${#Project#MessageID}</urn3:messageId>
+            <urn3:address>
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
                   <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
@@ -16467,17 +16467,17 @@ if (propertiesFile.exists()) {
                <urn3:streetAddress>AddrStreet</urn3:streetAddress>
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
-            <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
-            <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
-            <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
-            <urn3:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveWitnessSignature>
-            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:dateOfBirth>06/04/1959 05:21:00</urn3:dateOfBirth>
+            <urn3:explanationNonClaimantSignature>Electronic</urn3:explanationNonClaimantSignature>
+            <urn3:haveSecondWitnessSignature>false</urn3:haveSecondWitnessSignature>
+            <urn3:haveSignature>false</urn3:haveSignature>
+            <urn3:haveWitnessSignature>false</urn3:haveWitnessSignature>
+            <urn3:homeCommunity>
                <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
                <urn3:name>${#Project#LocalHCDescription}</urn3:name>
             </urn3:homeCommunity>
-            <urn3:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:personName>
                <urn3:familyName>Smith</urn3:familyName>
                <urn3:givenName>Sandy</urn3:givenName>
                <urn3:nameType>
@@ -16491,7 +16491,7 @@ if (propertiesFile.exists()) {
                <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                <urn3:fullName>Sandy S. Smith</urn3:fullName>
             </urn3:personName>
-            <urn3:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:phoneNumber>
                <urn3:areaCode>321</urn3:areaCode>
                <urn3:countryCode>1</urn3:countryCode>
                <urn3:extension>5436</urn3:extension>
@@ -16505,7 +16505,7 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:secondWitnessAddress>
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
                   <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
@@ -16520,7 +16520,7 @@ if (propertiesFile.exists()) {
                <urn3:streetAddress>Addr2Street</urn3:streetAddress>
                <urn3:zipCode>Addr2Zip</urn3:zipCode>
             </urn3:secondWitnessAddress>
-            <urn3:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:secondWitnessName>
                <urn3:familyName>Smith</urn3:familyName>
                <urn3:givenName>Sammy</urn3:givenName>
                <urn3:nameType>
@@ -16534,7 +16534,7 @@ if (propertiesFile.exists()) {
                <urn3:secondNameOrInitials>s</urn3:secondNameOrInitials>
                <urn3:fullName>Sammy S. Smith</urn3:fullName>
             </urn3:secondWitnessName>
-            <urn3:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:secondWitnessPhone>
                <urn3:areaCode>321</urn3:areaCode>
                <urn3:countryCode>1</urn3:countryCode>
                <urn3:extension>5424</urn3:extension>
@@ -16548,9 +16548,9 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
-            <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
-            <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:SSN>253-98-7546</urn3:SSN>
+            <urn3:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:witnessAddress>
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
                   <urn3:codeSystem>addrCodeSyst</urn3:codeSystem>
@@ -16565,7 +16565,7 @@ if (propertiesFile.exists()) {
                <urn3:streetAddress>825 North</urn3:streetAddress>
                <urn3:zipCode>32184</urn3:zipCode>
             </urn3:witnessAddress>
-            <urn3:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:witnessName>
                <urn3:familyName>Smith</urn3:familyName>
                <urn3:givenName>Scott</urn3:givenName>
                <urn3:nameType>
@@ -16579,7 +16579,7 @@ if (propertiesFile.exists()) {
                <urn3:secondNameOrInitials>S.</urn3:secondNameOrInitials>
                <urn3:fullName>Scott S. Smith</urn3:fullName>
             </urn3:witnessName>
-            <urn3:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:witnessPhone>
                <urn3:areaCode>321</urn3:areaCode>
                <urn3:countryCode>1</urn3:countryCode>
                <urn3:extension>8432</urn3:extension>
@@ -16593,7 +16593,7 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:witnessPhone>
-            <urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:userInfo>
                <urn3:personName>
                   <urn3:familyName>Skagerberg</urn3:familyName>
                   <urn3:givenName>Karl</urn3:givenName>
@@ -16623,8 +16623,8 @@ if (propertiesFile.exists()) {
                   <urn3:originalText>Public Health</urn3:originalText>
                </urn3:roleCoded>
             </urn3:userInfo>
-            <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
-            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:authorized>true</urn3:authorized>
+            <urn3:purposeOfDisclosureCoded>
                <urn3:code>PUBLICHEALTH</urn3:code>
                <urn3:codeSystem>2.16.840.1.113883.3.18.7.1</urn3:codeSystem>
                <urn3:codeSystemName>nhin-purpose</urn3:codeSystemName>
@@ -16632,14 +16632,14 @@ if (propertiesFile.exists()) {
                <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
                <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
             </urn3:purposeOfDisclosureCoded>
-            <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthnStatement>
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+         <urn3:samlAuthzDecisionStatement>
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -17411,8 +17411,8 @@ if (propertiesFile.exists()) {
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
-            <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:messageId>${#Project#MessageID}</urn2:messageId>
+            <urn2:address>
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
                   <urn2:codeSystem>AddrCodeSyst</urn2:codeSystem>
@@ -17427,17 +17427,17 @@ if (propertiesFile.exists()) {
                <urn2:streetAddress>AddrStreet</urn2:streetAddress>
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
-            <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
-            <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
-            <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
-            <urn2:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveWitnessSignature>
-            <urn2:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:dateOfBirth>06/04/1959 05:21:00</urn2:dateOfBirth>
+            <urn2:explanationNonClaimantSignature>Electronic</urn2:explanationNonClaimantSignature>
+            <urn2:haveSecondWitnessSignature>false</urn2:haveSecondWitnessSignature>
+            <urn2:haveSignature>false</urn2:haveSignature>
+            <urn2:haveWitnessSignature>false</urn2:haveWitnessSignature>
+            <urn2:homeCommunity>
                <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#LocalHCDescription}</urn2:name>
             </urn2:homeCommunity>
-            <urn2:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:personName>
                <urn2:familyName>Smith</urn2:familyName>
                <urn2:givenName>Sandy</urn2:givenName>
                <urn2:nameType>
@@ -17451,7 +17451,7 @@ if (propertiesFile.exists()) {
                <urn2:secondNameOrInitials>S</urn2:secondNameOrInitials>
                <urn2:fullName>Sandy S. Smith</urn2:fullName>
             </urn2:personName>
-            <urn2:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:phoneNumber>
                <urn2:areaCode>321</urn2:areaCode>
                <urn2:countryCode>1</urn2:countryCode>
                <urn2:extension>5436</urn2:extension>
@@ -17465,7 +17465,7 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <urn2:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:secondWitnessAddress>
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
                   <urn2:codeSystem>AddrCodeSyst</urn2:codeSystem>
@@ -17480,7 +17480,7 @@ if (propertiesFile.exists()) {
                <urn2:streetAddress>Addr2Street</urn2:streetAddress>
                <urn2:zipCode>Addr2Zip</urn2:zipCode>
             </urn2:secondWitnessAddress>
-            <urn2:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:secondWitnessName>
                <urn2:familyName>Smith</urn2:familyName>
                <urn2:givenName>Sammy</urn2:givenName>
                <urn2:nameType>
@@ -17494,7 +17494,7 @@ if (propertiesFile.exists()) {
                <urn2:secondNameOrInitials>s</urn2:secondNameOrInitials>
                <urn2:fullName>Sammy S. Smith</urn2:fullName>
             </urn2:secondWitnessName>
-            <urn2:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:secondWitnessPhone>
                <urn2:areaCode>321</urn2:areaCode>
                <urn2:countryCode>1</urn2:countryCode>
                <urn2:extension>5424</urn2:extension>
@@ -17508,9 +17508,9 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:secondWitnessPhone>
-            <urn2:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn2:SSN>
-            <urn2:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn2:uniquePatientId>
-            <urn2:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:SSN>253-98-7546</urn2:SSN>
+            <urn2:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn2:uniquePatientId>
+            <urn2:witnessAddress>
                <urn2:addressType>
                   <urn2:code>addrCode</urn2:code>
                   <urn2:codeSystem>addrCodeSyst</urn2:codeSystem>
@@ -17525,7 +17525,7 @@ if (propertiesFile.exists()) {
                <urn2:streetAddress>825 North</urn2:streetAddress>
                <urn2:zipCode>32184</urn2:zipCode>
             </urn2:witnessAddress>
-            <urn2:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:witnessName>
                <urn2:familyName>Smith</urn2:familyName>
                <urn2:givenName>Scott</urn2:givenName>
                <urn2:nameType>
@@ -17539,7 +17539,7 @@ if (propertiesFile.exists()) {
                <urn2:secondNameOrInitials>S.</urn2:secondNameOrInitials>
                <urn2:fullName>Scott S. Smith</urn2:fullName>
             </urn2:witnessName>
-            <urn2:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:witnessPhone>
                <urn2:areaCode>321</urn2:areaCode>
                <urn2:countryCode>1</urn2:countryCode>
                <urn2:extension>8432</urn2:extension>
@@ -17553,7 +17553,7 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:witnessPhone>
-            <urn2:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:userInfo>
                <urn2:personName>
                   <urn2:familyName>Skagerberg</urn2:familyName>
                   <urn2:givenName>Karl</urn2:givenName>
@@ -17583,8 +17583,8 @@ if (propertiesFile.exists()) {
                   <urn2:originalText>Public Health</urn2:originalText>
                </urn2:roleCoded>
             </urn2:userInfo>
-            <urn2:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn2:authorized>
-            <urn2:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:authorized>true</urn2:authorized>
+            <urn2:purposeOfDisclosureCoded>
                <urn2:code>PUBLICHEALTH</urn2:code>
                <urn2:codeSystem>2.16.840.1.113883.3.18.7.1</urn2:codeSystem>
                <urn2:codeSystemName>nhin-purpose</urn2:codeSystemName>
@@ -17592,14 +17592,14 @@ if (propertiesFile.exists()) {
                <urn2:displayName>Use or disclosure of Psychotherapy Notes</urn2:displayName>
                <urn2:originalText>Use or disclosure of Psychotherapy Notes</urn2:originalText>
             </urn2:purposeOfDisclosureCoded>
-            <urn2:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:samlAuthnStatement>
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
                <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
                <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
-            <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn2:samlAuthzDecisionStatement>
                <urn2:decision>Permit</urn2:decision>
                <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
@@ -18786,7 +18786,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             <Payload>${#TestCase#X12RealTimePayload}</Payload>
          </cor:COREEnvelopeRealTimeRequest>
         <urn:assertion>
-         <urn1:messageId>${#Project#MessageID}</urn1:messageId>
+            <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
@@ -19626,7 +19626,7 @@ if (propertiesFile.exists()) {
             <Payload>${#TestCase#X12GenericBatchPayload}</Payload>       
          </cor:COREEnvelopeBatchSubmission>
         <urn:assertion>
-          <urn1:messageId>${#Project#MessageID}</urn1:messageId>
+            <urn1:messageId>${#Project#MessageID}</urn1:messageId>
             <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
