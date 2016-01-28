@@ -26,12 +26,6 @@
  */
 package gov.hhs.fha.nhinc.audit.transform;
 
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -44,6 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.policy.AssertionHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -55,13 +50,22 @@ import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.CodedValueType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
  * This abstract class follows the Template design pattern. EventIdentification, ActiveParticipant (HumanRequestor,
@@ -110,9 +114,9 @@ public abstract class AuditTransforms<T, K> {
         auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-            serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
-            auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(), getUserId(auditMsg.getActiveParticipant()));
+                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(), auditMsg
+                        .getEventIdentification().getEventOutcomeIndicator(), auditMsg.getEventIdentification()
+                        .getEventDateTime(), getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
     }
 
     /**
@@ -139,15 +143,28 @@ public abstract class AuditTransforms<T, K> {
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
             serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
-        String userID = getUserId(auditMsg.getActiveParticipant());
-        if (StringUtils.isEmpty(userID)) {
-            userID = new AssertionHelper().extractUserName(assertion);
-            LOG.debug("Extract userName from assertion: {}", userID);
-        }
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-            serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
-            auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(), userID);
+                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(), auditMsg
+                        .getEventIdentification().getEventOutcomeIndicator(), auditMsg.getEventIdentification()
+                        .getEventDateTime(), getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
+    }
+
+    /**
+     * Retrieve User Id from Audit Active Participant or AssertionType
+     *
+     * @param ActiveParticipant List of Active Participants
+     * @param assertionType Assertion Type
+     * @return return userId from Audit Active participant/AssertType in order
+     */
+    private final String getRequestorUserId(final List<ActiveParticipant> activeParticipants,
+            final AssertionType assertionType) {
+        String userId = getUserId(activeParticipants);
+        LOG.debug("Extract userName from Active Participant: {}", userId);
+        if (StringUtils.isEmpty(userId)) {
+            userId = new AssertionHelper().extractUserName(assertion);
+            LOG.debug("Extract userName from assertion: {}", userId);
+        }
+        return userId;
     }
 
     /**
