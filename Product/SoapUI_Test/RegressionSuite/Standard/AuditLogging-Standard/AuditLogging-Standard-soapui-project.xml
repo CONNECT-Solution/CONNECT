@@ -5100,8 +5100,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-
-
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/PatientDiscoveryDeferredResponseAuditLog.properties"
@@ -5113,8 +5111,7 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscoveryDeferredReq','true', log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -6405,8 +6402,7 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientDiscovery','true', log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--ActiveParticipant_Dest.@AlternativeUserID</con:name>
@@ -7497,7 +7493,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -10122,7 +10117,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/DocumentSubmissionDeferredRequestAuditLog.properties"
@@ -10990,7 +10984,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")</script>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -15544,8 +15537,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-
-
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/PatientDiscoveryAuditLog.properties"
@@ -17590,7 +17581,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/RetrieveDocumentAuditLog.properties"
@@ -17602,8 +17592,7 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'RetrieveDocuments','true', log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
