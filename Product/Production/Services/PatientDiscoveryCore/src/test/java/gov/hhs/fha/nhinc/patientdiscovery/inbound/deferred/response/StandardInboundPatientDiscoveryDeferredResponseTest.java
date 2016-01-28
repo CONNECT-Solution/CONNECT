@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -73,7 +72,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
     private final PRPAIN201306UV02 request = new PRPAIN201306UV02();
     private final AssertionType assertion = new AssertionType();
     private final Properties webContextProperties = new Properties();
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {

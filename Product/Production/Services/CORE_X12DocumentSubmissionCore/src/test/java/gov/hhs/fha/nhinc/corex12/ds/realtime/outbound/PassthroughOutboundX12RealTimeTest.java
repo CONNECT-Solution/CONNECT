@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.corex12.ds.realtime.outbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -60,7 +59,7 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughOutboundX12RealTimeTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final COREEnvelopeRealTimeRequest request = new COREEnvelopeRealTimeRequest();
     private final AssertionType assertion = new AssertionType();
     private final UrlInfoType urlInfo = new UrlInfoType();

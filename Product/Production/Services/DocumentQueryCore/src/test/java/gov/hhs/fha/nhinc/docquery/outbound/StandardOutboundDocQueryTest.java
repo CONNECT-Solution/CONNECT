@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -73,7 +72,7 @@ import static org.mockito.Mockito.when;
  */
 public class StandardOutboundDocQueryTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
     private final AggregationStrategy strategy = mock(AggregationStrategy.class);
     private final AggregationService service = mock(AggregationService.class);

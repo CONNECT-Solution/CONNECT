@@ -19,6 +19,7 @@
     <modules>
         <module>AdapterAuthenticationCore</module>
         <module>AuditRepositoryCore</module>
+        <module>AuditRepositoryEJB</module>
         <module>ConnectionManagerCore</module>
         <module>RedactionEngineCore</module>
         <module>DocRepositoryCore</module>

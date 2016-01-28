@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
@@ -65,11 +64,11 @@ import static org.mockito.Mockito.when;
  */
 public class StandardInboundDocRetrieveTest {
 
-    private AuditEJBLoggerImpl mockEJBLogger;
+    private AuditEJBLogger mockEJBLogger;
 
     @Before
     public void setup() {
-        mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+        mockEJBLogger = mock(AuditEJBLogger.class);
     }
 
     @Test

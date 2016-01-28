@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -56,7 +55,7 @@ import static org.mockito.Mockito.when;
  */
 public class PassthroughOutboundPatientDiscoveryDeferredRequestTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
 
     @Test
     public void invoke() {

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
@@ -64,11 +63,11 @@ public class PassthroughInboundDocRetrieveTest {
     AssertionType assertionType;
     RetrieveDocumentSetRequestType retrieveDocumentSetRequestType;
     RetrieveDocumentSetResponseType retrieveDocumentSetResponseType;
-    AuditEJBLoggerImpl mockEJBLogger;
+    AuditEJBLogger mockEJBLogger;
 
     @Before
     public void setup() {
-        mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+        mockEJBLogger = mock(AuditEJBLogger.class);
     }
 
     @Test
