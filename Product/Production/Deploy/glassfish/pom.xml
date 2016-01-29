@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
+            <artifactId>AuditRepositoryEJB</artifactId>
             <version>${project.parent.version}</version>
             <type>ejb</type>
         </dependency>
@@ -64,7 +64,7 @@
                     <modules>
                         <ejbModule>
                             <groupId>org.connectopensource</groupId>
-                            <artifactId>AuditRepositoryCore</artifactId>
+                            <artifactId>AuditRepositoryEJB</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbModule>
                         <webModule>

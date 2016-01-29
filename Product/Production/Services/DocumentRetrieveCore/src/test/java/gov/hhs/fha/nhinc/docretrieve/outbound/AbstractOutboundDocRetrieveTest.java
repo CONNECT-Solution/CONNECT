@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -58,7 +57,7 @@ import static org.mockito.Mockito.when;
  */
 public abstract class AbstractOutboundDocRetrieveTest {
 
-    protected AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    protected AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
 
     /**
      * @param orchestrator

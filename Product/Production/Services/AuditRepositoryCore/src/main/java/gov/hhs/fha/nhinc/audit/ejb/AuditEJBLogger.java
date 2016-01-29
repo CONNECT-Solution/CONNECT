@@ -41,10 +41,10 @@ public interface AuditEJBLogger<T, K> {
 
     public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target,
         String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
-        AuditTransforms transforms);
+        AuditTransforms<T, K> transforms);
 
     public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
         String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
-        AuditTransforms transforms);
+        AuditTransforms<T, K> transforms);
 
 }

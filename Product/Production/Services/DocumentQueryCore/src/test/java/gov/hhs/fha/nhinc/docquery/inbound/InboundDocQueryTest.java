@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -74,11 +73,11 @@ public class InboundDocQueryTest {
     protected static final AdhocQueryRequest request = new AdhocQueryRequest();
     protected static final AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
     protected static final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
-    protected AuditEJBLoggerImpl mockEJBLogger;
+    protected AuditEJBLogger mockEJBLogger;
 
     @Before
     public void setUp() {
-        mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+        mockEJBLogger = mock(AuditEJBLogger.class);
     }
 
     protected void hasInboundProcessingEvent(Class<? extends InboundDocQuery> clazz) throws Exception {

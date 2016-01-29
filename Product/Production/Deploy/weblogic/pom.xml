@@ -23,11 +23,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonWeb</artifactId>
@@ -48,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
+            <artifactId>AuditRepositoryEJB</artifactId>
             <version>${project.parent.version}</version>
             <type>ejb</type>
         </dependency>
@@ -82,7 +78,7 @@
                     <modules>
                         <ejbModule>
                             <groupId>org.connectopensource</groupId>
-                            <artifactId>AuditRepositoryCore</artifactId>
+                            <artifactId>AuditRepositoryEJB</artifactId>
                         </ejbModule>
                         <webModule>
                             <groupId>org.connectopensource</groupId>
@@ -102,11 +98,11 @@
                     </modules>
                     <version>6</version>
                     <packagingExcludes>
+                        lib/Properties-*.jar
                         lib/geronimo-stax-api-*.jar,
                         lib/jsr173*.jar,
                         lib/geronimo-servlet_3.0_spec-1.0.jar,
                         lib/servlet-api-2.5.jar,
-                        lib/Properties-*.jar
                     </packagingExcludes>
                 </configuration>
             </plugin>

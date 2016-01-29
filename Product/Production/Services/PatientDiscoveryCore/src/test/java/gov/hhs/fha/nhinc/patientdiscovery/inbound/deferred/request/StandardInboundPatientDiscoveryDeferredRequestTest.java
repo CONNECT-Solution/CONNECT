@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -64,7 +63,7 @@ import static org.mockito.Mockito.when;
  */
 public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {

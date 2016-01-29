@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @param <K> Response
  */
 @Stateless
-@TransactionManagement(value = TransactionManagementType.BEAN)
+@TransactionManagement(value = TransactionManagementType.CONTAINER)
 public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditEJBLoggerImpl.class);
@@ -69,7 +69,8 @@ public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
     @Override
     public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target,
         String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
-        AuditTransforms transforms) {
+        AuditTransforms<T, K> transforms) {
+
         LOG.trace("--- Before asynchronous audit call of request message ---");
         LogEventRequestType auditLogMsg = transforms.transformRequestToAuditMsg(request, assertion, target,
             direction, _interface, isRequesting, webContextProperties, serviceName);
@@ -95,7 +96,8 @@ public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
     @Override
     public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
         String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
-        AuditTransforms transforms) {
+        AuditTransforms<T, K> transforms) {
+
         LOG.trace("--- Before asynchronous audit call of response message ---");
         LogEventRequestType auditLogMsg = transforms.transformResponseToAuditMsg(request, response, assertion,
             target, direction, _interface, isRequesting, webContextProperties, serviceName);
@@ -110,5 +112,4 @@ public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
             LOG.error("auditLogMsg is null, no auditing will take place.");
         }
     }
-
 }

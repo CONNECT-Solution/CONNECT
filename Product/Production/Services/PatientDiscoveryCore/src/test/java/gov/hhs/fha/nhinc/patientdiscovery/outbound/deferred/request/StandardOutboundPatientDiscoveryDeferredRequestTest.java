@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -85,7 +84,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequestTest {
     private MCCIIN000002UV01 expectedResponse;
     private II patientId;
     private AssertionType assertion;
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final PatientDiscovery201305Processor pd201305Processor = mock(PatientDiscovery201305Processor.class);
     private final AsyncMessageProcessHelper asyncProcessHelper = mock(AsyncMessageProcessHelper.class);
     private final PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);

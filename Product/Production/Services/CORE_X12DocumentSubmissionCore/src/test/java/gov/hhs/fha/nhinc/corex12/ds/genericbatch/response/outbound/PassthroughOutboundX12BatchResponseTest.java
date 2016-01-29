@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.outbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -57,7 +56,7 @@ import static org.mockito.Mockito.verify;
  */
 public class PassthroughOutboundX12BatchResponseTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final OutboundX12BatchResponseOrchestratable mockOrchestratable
         = mock(OutboundX12BatchResponseOrchestratable.class);
     private final OutboundX12BatchResponseDelegate mockDelegate

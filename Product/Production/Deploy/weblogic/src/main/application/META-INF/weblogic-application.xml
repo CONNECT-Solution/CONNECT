@@ -28,12 +28,19 @@
         <package-name>com.bea.faces.*</package-name>
         <package-name>javax.wsdl.*</package-name>
         <package-name>org.slf4j.*</package-name>
+        <package-name>org.joda.time.*</package-name>
+        <package-name>schemaorg_apache_xmlbeans.system.sXMLCONFIG.*</package-name>
+        <package-name>schemaorg_apache_xmlbeans.system.sXMLLANG.*</package-name>
+        <package-name>schemaorg_apache_xmlbeans.system.sXMLSCHEMA.*</package-name>
+        <package-name>schemaorg_apache_xmlbeans.system.sXMLTOOLS.*</package-name>
     </prefer-application-packages>
     <prefer-application-resources>
         <resource-name>javax.faces.*</resource-name>
         <resource-name>com.sun.faces.*</resource-name>
         <resource-name>com.bea.faces.*</resource-name>
         <resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</resource-name>
+        <resource-name>META-INF/services/javax.xml.ws.spi.Provider</resource-name>
+        <resource-name>org/slf4j/impl/StaticLoggerBinder.class</resource-name>
     </prefer-application-resources>
 </weblogic-application>
 

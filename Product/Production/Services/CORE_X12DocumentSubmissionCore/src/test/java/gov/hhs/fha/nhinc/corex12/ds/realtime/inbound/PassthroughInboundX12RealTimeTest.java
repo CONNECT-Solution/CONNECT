@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.corex12.ds.realtime.inbound;
 
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.ds.audit.X12RealTimeAuditLogger;
@@ -53,7 +52,7 @@ import static org.mockito.Mockito.verify;
  */
 public class PassthroughInboundX12RealTimeTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final AdapterX12RealTimeProxyObjectFactory mockFactory
         = mock(AdapterX12RealTimeProxyObjectFactory.class);
     private final AdapterX12RealTimeProxy mockAdapterProxy = mock(AdapterX12RealTimeProxy.class);

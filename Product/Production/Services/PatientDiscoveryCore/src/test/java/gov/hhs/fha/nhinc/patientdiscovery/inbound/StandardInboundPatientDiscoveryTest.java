@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
-import gov.hhs.fha.nhinc.audit.ejb.impl.AuditEJBLoggerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -60,7 +59,7 @@ import static org.mockito.Mockito.when;
  */
 public class StandardInboundPatientDiscoveryTest {
 
-    private final AuditEJBLoggerImpl mockEJBLogger = mock(AuditEJBLoggerImpl.class);
+    private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
     private final PatientDiscovery201305Processor patientDiscoveryProcessor = mock(PatientDiscovery201305Processor.class);
 
     @Test
