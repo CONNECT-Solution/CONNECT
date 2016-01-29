@@ -52,8 +52,8 @@ public class JAXBContextHandler {
      * @return The JAXB context for that context name.
      * @throws javax.xml.bind.JAXBException
      */
-    public JAXBContext getJAXBContext(String sContextName) throws javax.xml.bind.JAXBException {
-        if ((sContextName != null) && (sContextName.length() > 0)) {
+    public JAXBContext getJAXBContext(final String sContextName) throws javax.xml.bind.JAXBException {
+        if (sContextName != null && sContextName.length() > 0) {
             JAXBContext oContext = hContexts.get(sContextName);
             if (oContext == null) {
                 LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
@@ -78,10 +78,10 @@ public class JAXBContextHandler {
      * @return The JAXB context for that context name.
      * @throws javax.xml.bind.JAXBException
      */
-    public JAXBContext getJAXBContext(Class oClass1, Class oClass2) throws javax.xml.bind.JAXBException {
+    public JAXBContext getJAXBContext(final Class oClass1, final Class oClass2) throws javax.xml.bind.JAXBException {
         JAXBContext oContext = null;
         String sContextName = "";
-        if ((oClass1 != null) && (oClass2 != null)) {
+        if (oClass1 != null && oClass2 != null) {
             sContextName = oClass1.getPackage().getName() + "_" + oClass2.getPackage().getName();
         } else if (oClass1 != null) {
             sContextName = oClass1.getPackage().getName();
@@ -89,11 +89,11 @@ public class JAXBContextHandler {
             sContextName = oClass2.getPackage().getName();
         }
 
-        if ((sContextName != null) && (sContextName.length() > 0)) {
+        if (sContextName != null && sContextName.length() > 0) {
             oContext = hContexts.get(sContextName);
             if (oContext == null) {
                 LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
-                if ((oClass1 != null) && (oClass2 != null)) {
+                if (oClass1 != null && oClass2 != null) {
                     oContext = JAXBContext.newInstance(oClass1, oClass2);
                 } else if (oClass1 != null) {
                     oContext = JAXBContext.newInstance(oClass1);
@@ -122,14 +122,12 @@ public class JAXBContextHandler {
      * @return The JAXB context for that context name.
      * @throws javax.xml.bind.JAXBException
      */
-    public JAXBContext getJAXBContext(Class oClass) throws javax.xml.bind.JAXBException {
+    public JAXBContext getJAXBContext(final Class oClass) throws javax.xml.bind.JAXBException {
         JAXBContext oContext = null;
         String sContextName = "";
-        if (oClass != null) {
-            sContextName = oClass.getPackage().getName();
-        }
+        sContextName = oClass.getPackage().getName();
 
-        if ((sContextName != null) && (sContextName.length() > 0)) {
+        if (sContextName != null && sContextName.length() > 0) {
             oContext = hContexts.get(sContextName);
             if (oContext == null) {
                 LOG.debug("Loading JAXB Context for '" + sContextName + "'.");

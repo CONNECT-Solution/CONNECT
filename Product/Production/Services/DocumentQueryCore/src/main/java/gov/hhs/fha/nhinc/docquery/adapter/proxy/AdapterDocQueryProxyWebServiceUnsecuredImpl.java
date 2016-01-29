@@ -57,12 +57,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
      */
     public ServicePortDescriptor<AdapterDocQueryPortType> getServicePortDescriptor(
         NhincConstants.ADAPTER_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-            case LEVEL_a0:
-                return new AdapterDocQueryServicePortDescriptor();
-            default:
-                return new AdapterDocQueryServicePortDescriptor();
-        }
+        return new AdapterDocQueryServicePortDescriptor();
     }
 
     /**

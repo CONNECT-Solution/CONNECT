@@ -70,12 +70,7 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
      */
     public ServicePortDescriptor<EntityDocQueryPortType> getServicePortDescriptor(
             NhincConstants.ADAPTER_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-        case LEVEL_a0:
-            return new EntityDocQueryServicePortDescriptor();
-        default:
-            return new EntityDocQueryServicePortDescriptor();
-        }
+        return new EntityDocQueryServicePortDescriptor();
     }
 
     /** This method returns AdhocQueryResponse from entity Interface.

@@ -51,17 +51,17 @@ import org.apache.commons.lang.StringUtils;
 public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseHelper {
 
     @Override
-    public String getSingleSlotValue(ResponseSlotName slotName, IdentifiableType identifiableType) {
+    public String getSingleSlotValue(final ResponseSlotName slotName, final IdentifiableType identifiableType) {
         return getSingleSlotValue(slotName.toString(), identifiableType);
     }
 
     @Override
-    public String getSingleSlotValue(String customSlotName, IdentifiableType identifiableType) {
-        if (identifiableType != null && (identifiableType.getSlot() != null)) {
-            for (SlotType1 s : identifiableType.getSlot()) {
+    public String getSingleSlotValue(final String customSlotName, final IdentifiableType identifiableType) {
+        if (identifiableType != null && identifiableType.getSlot() != null) {
+            for (final SlotType1 s : identifiableType.getSlot()) {
                 if (StringUtils.equalsIgnoreCase(customSlotName, s.getName()) && s.getValueList() != null) {
-                    ValueListType vlt = s.getValueList();
-                    if (vlt.getValue() != null && !vlt.getValue().isEmpty()){
+                    final ValueListType vlt = s.getValueList();
+                    if (vlt.getValue() != null && !vlt.getValue().isEmpty()) {
                         return vlt.getValue().get(0);
                     }
                 }
@@ -71,7 +71,7 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     }
 
     @Override
-    public String getStatus(ExtrinsicObjectType extrinsicObject) {
+    public String getStatus(final ExtrinsicObjectType extrinsicObject) {
         String status = null;
         if (extrinsicObject != null) {
             status = extrinsicObject.getStatus();
@@ -80,11 +80,11 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     }
 
     @Override
-    public String getTitle(ExtrinsicObjectType extrinsicObject) {
+    public String getTitle(final ExtrinsicObjectType extrinsicObject) {
         String title = null;
         if (extrinsicObject != null && extrinsicObject.getName() != null
-            && extrinsicObject.getName().getLocalizedString() != null) {
-            List<LocalizedStringType> names = extrinsicObject.getName().getLocalizedString();
+                && extrinsicObject.getName().getLocalizedString() != null) {
+            final List<LocalizedStringType> names = extrinsicObject.getName().getLocalizedString();
             if (names.size() >= 1 && extrinsicObject.getName().getLocalizedString().get(0) != null) {
                 title = extrinsicObject.getName().getLocalizedString().get(0).getValue();
             }
@@ -94,19 +94,21 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     }
 
     @Override
-    public String getClassificationValue(ClassificationScheme classification, ExtrinsicObjectType extrinsicObject) {
-        RegistryObjectType registryObjectType = getClassification(classification, extrinsicObject);
-        if (registryObjectType != null && (registryObjectType instanceof ClassificationType)) {
+    public String getClassificationValue(final ClassificationScheme classification,
+            final ExtrinsicObjectType extrinsicObject) {
+        final RegistryObjectType registryObjectType = getClassification(classification, extrinsicObject);
+        if (registryObjectType != null && registryObjectType instanceof ClassificationType) {
             return ((ClassificationType) registryObjectType).getNodeRepresentation();
         }
         return null;
     }
 
     @Override
-    public String getExternalIdentifierValue(IdentificationScheme idScheme, ExtrinsicObjectType extrinsicObject) {
+    public String getExternalIdentifierValue(final IdentificationScheme idScheme,
+            final ExtrinsicObjectType extrinsicObject) {
         String value = null;
-        List<ExternalIdentifierType> externalIds = extrinsicObject.getExternalIdentifier();
-        for (ExternalIdentifierType id : externalIds) {
+        final List<ExternalIdentifierType> externalIds = extrinsicObject.getExternalIdentifier();
+        for (final ExternalIdentifierType id : externalIds) {
             if (StringUtils.equalsIgnoreCase(idScheme.toString(), id.getIdentificationScheme())) {
                 value = id.getValue();
             }
@@ -115,11 +117,12 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     }
 
     @Override
-    public RegistryObjectType getClassification(ClassificationScheme classification, ExtrinsicObjectType extrinsicObject) {
+    public RegistryObjectType getClassification(final ClassificationScheme classification,
+            final ExtrinsicObjectType extrinsicObject) {
         RegistryObjectType registryObject = null;
-        if (extrinsicObject != null && classification != null) {
-            List<ClassificationType> classifications = extrinsicObject.getClassification();
-            for (ClassificationType c : classifications) {
+        if (extrinsicObject != null) {
+            final List<ClassificationType> classifications = extrinsicObject.getClassification();
+            for (final ClassificationType c : classifications) {
                 if (StringUtils.equalsIgnoreCase(c.getClassificationScheme(), classification.toString())) {
                     registryObject = c;
                 }

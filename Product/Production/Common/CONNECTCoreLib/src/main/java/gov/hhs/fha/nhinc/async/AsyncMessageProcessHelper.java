@@ -104,10 +104,11 @@ public class AsyncMessageProcessHelper {
      * @param direction - The direction
      * @return true - success; false - error
      */
-    public boolean addPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion, String direction) {
+    public boolean addPatientDiscoveryRequest(final PRPAIN201305UV02 request, final AssertionType assertion,
+            final String direction) {
         LOG.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
 
-        RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+        final RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         newRequest.setAssertion(assertion);
         newRequest.setPRPAIN201305UV02(request);
 
@@ -124,15 +125,16 @@ public class AsyncMessageProcessHelper {
      * @param direction
      * @return true - success; false - error
      */
-    public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction) {
+    public boolean addPatientDiscoveryRequest(final RespondingGatewayPRPAIN201305UV02RequestType request,
+            final String direction) {
         LOG.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
 
         boolean result = false;
 
         try {
-            List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<>();
-            AsyncMsgRecord rec = new AsyncMsgRecord();
-            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            final List<AsyncMsgRecord> asyncMsgRecs = new ArrayList<>();
+            final AsyncMsgRecord rec = new AsyncMsgRecord();
+            final AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
             // Replace with message id from the assertion class
             rec.setMessageId(request.getAssertion().getMessageId());
@@ -151,7 +153,7 @@ public class AsyncMessageProcessHelper {
             if (!result) {
                 LOG.error("Failed to insert asynchronous record in the database");
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("ERROR: Failed to add the async request to async msg repository.", e);
         }
 
@@ -169,7 +171,8 @@ public class AsyncMessageProcessHelper {
      * @param ack
      * @return true - success; false - error
      */
-    public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack) {
+    public boolean processAck(final String messageId, String newStatus, final String errorStatus,
+            final MCCIIN000002UV01 ack) {
         LOG.debug("Begin AsyncMessageProcessHelper.processAck()...");
 
         boolean result = false;
@@ -178,10 +181,10 @@ public class AsyncMessageProcessHelper {
             if (isAckError(ack)) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            final AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
 
-            String direction = getInitialDirectionFromStatus(newStatus);
-            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
+            final String direction = getInitialDirectionFromStatus(newStatus);
+            final List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromMCCIIN000002UV01(ack));
@@ -190,7 +193,7 @@ public class AsyncMessageProcessHelper {
 
             // Success if we got this far
             result = true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("ERROR: Failed to update the async request.", e);
         }
 
@@ -206,16 +209,16 @@ public class AsyncMessageProcessHelper {
      * @param newStatus
      * @return true - success; false - error
      */
-    public boolean processMessageStatus(String messageId, String newStatus) {
+    public boolean processMessageStatus(final String messageId, final String newStatus) {
         LOG.debug("Begin AsyncMessageProcessHelper.processMessageStatus()...");
 
         boolean result = false;
 
         try {
-            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
-            String direction = getInitialDirectionFromStatus(newStatus);
+            final AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            final String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
+            final List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setStatus(newStatus);
                 instance.save(records.get(0));
@@ -223,7 +226,7 @@ public class AsyncMessageProcessHelper {
 
             // Success if we got this far
             result = true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("ERROR: Failed to update the async request status.", e);
         }
 
@@ -241,8 +244,8 @@ public class AsyncMessageProcessHelper {
      * @param ack
      * @return true - success; false - error
      */
-    public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus,
-            RespondingGatewayPRPAIN201306UV02RequestType response) {
+    public boolean processPatientDiscoveryResponse(final String messageId, String newStatus, final String errorStatus,
+            final RespondingGatewayPRPAIN201306UV02RequestType response) {
         LOG.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
 
         boolean result = false;
@@ -251,10 +254,10 @@ public class AsyncMessageProcessHelper {
             if (response == null) {
                 newStatus = errorStatus;
             }
-            AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
-            String direction = getInitialDirectionFromStatus(newStatus);
+            final AsyncMsgRecordDao instance = createAsyncMsgRecordDao();
+            final String direction = getInitialDirectionFromStatus(newStatus);
 
-            List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
+            final List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
             if (records != null && records.size() > 0) {
                 records.get(0).setResponseTime(new Date());
 
@@ -270,7 +273,7 @@ public class AsyncMessageProcessHelper {
                 // Success if we got this far
                 result = true;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("ERROR: Failed to update the async response.", e);
         }
 
@@ -285,33 +288,33 @@ public class AsyncMessageProcessHelper {
      * @param orig
      * @return copy of AssertionType
      */
-    public AssertionType copyAssertionTypeObject(AssertionType orig) {
+    public AssertionType copyAssertionTypeObject(final AssertionType orig) {
         AssertionType copy = null;
         ByteArrayOutputStream baOutStrm = null;
         ByteArrayInputStream baInStrm = null;
 
         try {
-            JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
-            Marshaller marshaller = jc.createMarshaller();
+            final JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
+            final JAXBContextHandler oHandler = new JAXBContextHandler();
+            final JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
+            final Marshaller marshaller = jc.createMarshaller();
 
             baOutStrm = new ByteArrayOutputStream();
-            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
-            JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(orig);
+            final gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+            final JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(orig);
 
             marshaller.marshal(oJaxbElement, baOutStrm);
-            byte[] buffer = baOutStrm.toByteArray();
+            final byte[] buffer = baOutStrm.toByteArray();
 
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            final Unmarshaller unmarshaller = jc.createUnmarshaller();
             baInStrm = new ByteArrayInputStream(buffer);
-            JAXBElement<AssertionType> oJaxbElementCopy =
-                    (JAXBElement<AssertionType>) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
+            final JAXBElement<AssertionType> oJaxbElementCopy = (JAXBElement<AssertionType>) unmarshaller
+                    .unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
             copy = oJaxbElementCopy.getValue();
 
-        } catch (JAXBException e) {
+        } catch (final JAXBException e) {
             LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
-        } catch (XMLStreamException e) {
+        } catch (final XMLStreamException e) {
             LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
         } finally {
             StreamUtils.closeReaderSilently(baOutStrm);
@@ -327,32 +330,32 @@ public class AsyncMessageProcessHelper {
      * @param orig
      * @return copy of AssertionType
      */
-    public String marshalAssertionTypeObject(AssertionType assertion) {
+    public String marshalAssertionTypeObject(final AssertionType assertion) {
         String returnValue = "";
 
         try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
-            Marshaller marshaller = jc.createMarshaller();
+            final JAXBContextHandler oHandler = new JAXBContextHandler();
+            final JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
+            final Marshaller marshaller = jc.createMarshaller();
             // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            final ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
-            JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(assertion);
+            final gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
+            final JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(assertion);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
-            byte[] buffer = baOutStrm.toByteArray();
+            final byte[] buffer = baOutStrm.toByteArray();
             returnValue = StringUtil.convertToStringUTF8(buffer);
-        } catch (JAXBException je) {
+        } catch (final JAXBException je) {
             LOG.error("Exception during marshalAssertionTypeObject conversion :" + je, je);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             LOG.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
 
         return returnValue;
     }
 
-    private static String getInitialDirectionFromStatus(String status) {
+    private static String getInitialDirectionFromStatus(final String status) {
         String direction = null;
 
         if (statusToDirectionMap.containsKey(status)) {
@@ -362,84 +365,85 @@ public class AsyncMessageProcessHelper {
         return direction;
     }
 
-    private Blob getBlobFromMCCIIN000002UV01(MCCIIN000002UV01 ack) {
+    private Blob getBlobFromMCCIIN000002UV01(final MCCIIN000002UV01 ack) {
         Blob asyncMessage = null; // Not Implemented
 
         try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            final JAXBContextHandler oHandler = new JAXBContextHandler();
+            final JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
+            final Marshaller marshaller = jc.createMarshaller();
+            final ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-            PIXConsumerMCCIIN000002UV01RequestType request = factory.createPIXConsumerMCCIIN000002UV01RequestType();
+            final org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+            final PIXConsumerMCCIIN000002UV01RequestType request = factory
+                    .createPIXConsumerMCCIIN000002UV01RequestType();
             request.setMCCIIN000002UV01(ack);
-            JAXBElement<PIXConsumerMCCIIN000002UV01RequestType> oJaxbElement = factory
+            final JAXBElement<PIXConsumerMCCIIN000002UV01RequestType> oJaxbElement = factory
                     .createPIXConsumerMCCIIN000002UV01Request(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
-            byte[] buffer = baOutStrm.toByteArray();
+            final byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
     }
 
-    private Blob getBlobFromPRPAIN201305UV02RequestType(RespondingGatewayPRPAIN201305UV02RequestType request) {
+    private Blob getBlobFromPRPAIN201305UV02RequestType(final RespondingGatewayPRPAIN201305UV02RequestType request) {
         Blob asyncMessage = null; // Not Implemented
 
         try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            final JAXBContextHandler oHandler = new JAXBContextHandler();
+            final JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
+            final Marshaller marshaller = jc.createMarshaller();
+            final ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-            JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> oJaxbElement = factory
+            final org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+            final JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> oJaxbElement = factory
                     .createRespondingGatewayPRPAIN201305UV02Request(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
-            byte[] buffer = baOutStrm.toByteArray();
+            final byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
     }
 
-    private Blob getBlobFromPRPAIN201306UV02RequestType(RespondingGatewayPRPAIN201306UV02RequestType request) {
+    private Blob getBlobFromPRPAIN201306UV02RequestType(final RespondingGatewayPRPAIN201306UV02RequestType request) {
         Blob asyncMessage = null; // Not Implemented
 
         try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+            final JAXBContextHandler oHandler = new JAXBContextHandler();
+            final JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
+            final Marshaller marshaller = jc.createMarshaller();
+            final ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-            JAXBElement<RespondingGatewayPRPAIN201306UV02RequestType> oJaxbElement = factory
+            final org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+            final JAXBElement<RespondingGatewayPRPAIN201306UV02RequestType> oJaxbElement = factory
                     .createRespondingGatewayPRPAIN201306UV02Request(request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
-            byte[] buffer = baOutStrm.toByteArray();
+            final byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
     }
 
-    private boolean isAckError(MCCIIN000002UV01 ack) {
+    private boolean isAckError(final MCCIIN000002UV01 ack) {
         boolean result = false;
 
         if (ack != null && ack.getAcknowledgement() != null && ack.getAcknowledgement().size() > 0
                 && ack.getAcknowledgement().get(0).getTypeCode() != null
-                && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null
-                && ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
+                && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null && ack.getAcknowledgement().get(0)
+                        .getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
             result = true;
         }
 
@@ -453,8 +457,8 @@ public class AsyncMessageProcessHelper {
      * @param direction
      * @return String
      */
-    private String getPatientDiscoveryMessageCommunityId(RespondingGatewayPRPAIN201305UV02RequestType requestMessage,
-            String direction) {
+    private String getPatientDiscoveryMessageCommunityId(
+            final RespondingGatewayPRPAIN201305UV02RequestType requestMessage, final String direction) {
         String communityId = "";
         boolean useReceiver = false;
 
@@ -472,16 +476,16 @@ public class AsyncMessageProcessHelper {
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
                                 .getValue() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue().getId().size() > 0
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
-                                .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId() != null
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId().size() > 0
+                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
                             .getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
                 }
@@ -493,7 +497,8 @@ public class AsyncMessageProcessHelper {
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null
+                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId()
+                                    .get(0) != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
                                     .getRoot() != null) {
                         communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId()
@@ -525,7 +530,8 @@ public class AsyncMessageProcessHelper {
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0).getRoot() != null) {
+                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0)
+                                    .getRoot() != null) {
                         communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0)
                                 .getRoot();
                     }

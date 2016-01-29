@@ -45,12 +45,13 @@ public class AdapterComponentMpiOrchImpl {
      * @param assertion The assertion information.
      * @return The patients found.
      */
-    public PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
+    public PRPAIN201306UV02 findCandidates(final org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest,
+            final AssertionType assertion) {
         // return PatientChecker.FindPatient(findCandidatesRequest);
         LOG.trace("Entering AdapterComponentMpiOrchImpl.findCandidates method...");
 
         AdapterComponentMpiChecker oMpiChecker;
-        AdapterComponentMpiCheckerObjectFactory oFactory = new AdapterComponentMpiCheckerObjectFactory();
+        final AdapterComponentMpiCheckerObjectFactory oFactory = new AdapterComponentMpiCheckerObjectFactory();
         oMpiChecker = oFactory.getAdapterComponentMpiChecker();
         return oMpiChecker.findPatient(findCandidatesRequest);
     }

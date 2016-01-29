@@ -73,7 +73,7 @@ public class AdapterMpiImpl extends BaseService {
         LOG.debug("Entering AdapterMpiImpl.findCandidates");
 
         AssertionType assertion;
-        if ((bIsSecure) && (context != null)) {
+        if (context != null) {
             assertion = extractAssertion(context);
         } else {
             assertion = new AssertionType();

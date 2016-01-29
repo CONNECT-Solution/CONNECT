@@ -50,13 +50,13 @@ public class DatabaseEventLoggerDao {
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
 
-
     private static class SingletonHolder {
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
     }
 
     /**
      * Get an instance of DatabaseEventLoggerDao.
+     *
      * @return singleton instance of DatabaseEventLoggerDao
      */
     public static DatabaseEventLoggerDao getInstance() {
@@ -66,10 +66,11 @@ public class DatabaseEventLoggerDao {
 
     /**
      * Insert an event in the database.
+     *
      * @param databaseEvent to be added to the database
      * @return true if the event was successfully inserted.
      */
-    public boolean insertEvent(DatabaseEvent databaseEvent) {
+    public boolean insertEvent(final DatabaseEvent databaseEvent) {
 
         Session session = null;
         Transaction tx = null;
@@ -77,7 +78,7 @@ public class DatabaseEventLoggerDao {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
 
@@ -85,72 +86,64 @@ public class DatabaseEventLoggerDao {
 
             tx.commit();
 
-        } catch (HibernateException e) {
+        } catch (final HibernateException e) {
             result = false;
             transactionRollback(tx);
-            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+            LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
         } finally {
-            closeSession(session, false);
+            closeSession(session);
         }
 
         return result;
     }
 
     /**
-     * Hibernate Query for event counts for a given Event type grouping by HCID and
-     * service type.
+     * Hibernate Query for event counts for a given Event type grouping by HCID and service type.
+     *
      * @param eventType Location of event call in processing.
-     * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2]
-     * the service type.
+     * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2] the service type.
      */
-    public List getCounts(String eventType, String hcidType){
+    public List getCounts(final String eventType, final String hcidType) {
         Session session = null;
         List results = null;
 
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         session = sessionFactory.openSession();
 
-        results = session.createCriteria(DatabaseEvent.class)
-            .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
-            .setProjection(Projections.projectionList()
-                .add(Projections.rowCount())
-                .add(Projections.groupProperty(hcidType))
-                .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
-            .list();
+        results = session.createCriteria(DatabaseEvent.class).add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
+                .setProjection(Projections.projectionList().add(Projections.rowCount())
+                        .add(Projections.groupProperty(hcidType))
+                        .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
+                .list();
 
-        closeSession(session, false);
+        closeSession(session);
 
         return results;
     }
 
-    public DatabaseEvent getLatestEvent(String eventType){
+    public DatabaseEvent getLatestEvent(final String eventType) {
         Session session = null;
         DatabaseEvent event = null;
 
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         session = sessionFactory.openSession();
 
         event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
-            .add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
-            .addOrder(Order.desc(DATE_NAME))
-            .setMaxResults(1)
-            .uniqueResult();
+                .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
+                .uniqueResult();
 
-        closeSession(session, false);
+        closeSession(session);
 
         return event;
     }
 
-    private void closeSession(Session session, boolean flush) {
+    private void closeSession(final Session session) {
         if (session != null) {
-            if (flush) {
-                session.flush();
-            }
             session.close();
         }
     }
 
-    private void transactionRollback(Transaction tx) {
+    private void transactionRollback(final Transaction tx) {
         if (tx != null) {
             tx.rollback();
         }
