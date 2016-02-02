@@ -297,8 +297,8 @@ public class ConnectionManagerCache implements ConnectionManager {
             if (NullChecker.isNotNullish(homeCommunityId)) {
                 BusinessEntity oExistingEntity = helper.extractBusinessEntity(allEntities, homeCommunityId);
                 if (oExistingEntity != null) {
-                    helper.mergeBusinessEntityServices(oExistingEntity, uddiEntity);
-                    helper.replaceBusinessEntity(allEntities, oExistingEntity);
+                    helper.replaceBusinessEntity(allEntities, helper.mergeBusinessEntityServices(
+                        oExistingEntity, uddiEntity));
                 } else {
                     allEntities.add(uddiEntity);
                 }
@@ -345,7 +345,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         if ((oInternalEntity != null) && (oUDDIEntity != null)) {
-            helper.mergeBusinessEntityServices(oInternalEntity, oUDDIEntity);
+            oInternalEntity = helper.mergeBusinessEntityServices(oInternalEntity, oUDDIEntity);
         } else if (oUDDIEntity != null) {
             return oUDDIEntity;
         }
@@ -468,8 +468,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         // Merge local and remote
         BusinessEntity oCombinedEntity;
         if ((internalBusinessEntity != null) && (uddiEntity != null)) {
-            helper.mergeBusinessEntityServices(internalBusinessEntity, uddiEntity);
-            oCombinedEntity = internalBusinessEntity;
+            oCombinedEntity = helper.mergeBusinessEntityServices(internalBusinessEntity, uddiEntity);
         } else if (internalBusinessEntity != null) {
             oCombinedEntity = internalBusinessEntity;
         } else if (uddiEntity != null) {
@@ -876,8 +875,8 @@ public class ConnectionManagerCache implements ConnectionManager {
                 if (!StringUtils.isEmpty(userSpecVersion)) {
                     final UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(userSpecVersion);
                     LOG.debug(
-                            "Attempting to look up URL by home communinity id:{}, and service name: {}, and version {}",
-                            homeCommunityId, serviceName, version.toString());
+                        "Attempting to look up URL by home communinity id:{}, and service name: {}, and version {}",
+                        homeCommunityId, serviceName, version.toString());
                     sEndpointURL = getEndpointURLByServiceNameSpecVersion(homeCommunityId, serviceName, version);
                 } else {
                     LOG.debug("Retrieve endpoint from service Name {}", serviceName);
