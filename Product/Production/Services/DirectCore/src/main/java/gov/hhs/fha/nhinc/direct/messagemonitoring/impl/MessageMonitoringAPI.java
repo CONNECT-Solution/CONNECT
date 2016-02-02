@@ -312,9 +312,6 @@ public class MessageMonitoringAPI {
         for (final MonitoredMessage trackMessage : messageMonitoringCache.values()) {
             if (trackMessage.getStatus().equals(STATUS_ERROR)) {
                 failedMessages.add(trackMessage);
-            } else if (trackMessage.getStatus().equals(STATUS_PENDING)) {
-                // if its pending & if its elapsed then
-                // change the status to Error
             }
         }
         return failedMessages;
@@ -608,6 +605,10 @@ public class MessageMonitoringAPI {
         return DirectEventLogger.getInstance();
     }
 
+    /*
+     * TODO: The MimeMessage is always null when an exception is thrown and logErrorEvent() is called. Can this method
+     * be removed?
+     */
     public void logErrorEvent(final MimeMessage message, final String errorMessage) {
         if (message != null) {
             getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMessage);

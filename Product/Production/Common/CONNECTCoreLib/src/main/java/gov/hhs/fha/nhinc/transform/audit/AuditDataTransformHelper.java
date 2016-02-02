@@ -190,13 +190,11 @@ public class AuditDataTransformHelper {
         // If specified, set the User Name
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
-            if (userInfo.getPersonName().getGivenName() != null
-                    && userInfo.getPersonName().getGivenName().length() > 0) {
+            if (StringUtils.isNotEmpty(userInfo.getPersonName().getGivenName())) {
                 userName = userInfo.getPersonName().getGivenName();
             }
 
-            if (userInfo.getPersonName().getFamilyName() != null
-                    && userInfo.getPersonName().getFamilyName().length() > 0) {
+            if (StringUtils.isNotEmpty(userInfo.getPersonName().getFamilyName())) {
                 if (userName != null) {
                     userName += " " + userInfo.getPersonName().getFamilyName();
                 } else {

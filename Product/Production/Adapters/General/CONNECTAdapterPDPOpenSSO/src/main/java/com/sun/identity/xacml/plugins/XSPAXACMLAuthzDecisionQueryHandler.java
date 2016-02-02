@@ -50,9 +50,6 @@ import com.sun.identity.xacml.context.StatusCode;
 import com.sun.identity.xacml.context.StatusDetail;
 import com.sun.identity.xacml.context.StatusMessage;
 import com.sun.identity.xacml.context.Subject;
-import com.sun.identity.xacml.policy.Obligation;
-import com.sun.identity.xacml.policy.Obligations;
-import com.sun.identity.xacml.policy.PolicyFactory;
 import com.sun.identity.xacml.saml2.XACMLAuthzDecisionQuery;
 import com.sun.identity.xacml.saml2.XACMLAuthzDecisionStatement;
 import com.sun.identity.xacml.spi.ActionMapper;
@@ -61,7 +58,6 @@ import com.sun.identity.xacml.spi.ResourceMapper;
 import com.sun.identity.xacml.spi.ResultMapper;
 import com.sun.identity.xacml.spi.SubjectMapper;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -150,7 +146,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         final boolean returnContext = ((XACMLAuthzDecisionQuery) samlpRequest).getReturnContext();
 
         boolean permitAccess = false;
-        final String obligationId = null; // obligation on emergency, uba, ma
         final String fullfillOn = null;
 
         // subject attributes
@@ -193,21 +188,22 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             // environment attributes
             environmentLocality = getEnvironmentLocality(xacmlRequest);
 
-            LOG.info("xspa.handleQuery():\n" + "userId = " + userId + "\n" + "Roles = " + userRoles + "\n"
-                    + "resourceId = " + resourceId + "\n" + "purpose = " + pou + "\n" + "communityId = " + communityId
-                    + "\n" + "serviceType = " + serviceType + "\n" + "OptIN = " + Boolean.toString(optIn) + "\n"
-                    + "userLocality = " + userLocality + "\n" + "environmentLocality = " + environmentLocality + "\n"
-                    + "actionId = " + actionId + "\n");
+            LOG.info(
+                    "xspa.handleQuery():\nuserId = {} \nRoles = \nresourceId = {}"
+                            + "\npurpose = {}\ncommunityId = {}\nserviceType = {}"
+                            + "\nOptIN = {}\nuserLocality = {}\nenvironmentLocality = {}\nactionId = {}\n",
+                    userId, userRoles, resourceId, pou, communityId, serviceType, Boolean.toString(optIn), userLocality,
+                    environmentLocality, actionId);
 
             // BEGIN CUSTOM BUS LOGIC
             if (optIn) {
                 effect = PERMIT;
                 detailText = detailText + "PERMIT based upon OPT-IN";
-                LOG.info("xspa.handleQuery():" + "Permit based upon OPT-IN");
+                LOG.info("xspa.handleQuery(): Permit based upon OPT-IN");
             } else {
                 effect = DENY;
                 detailText = detailText + "DENY: based upon OPT-OUT";
-                LOG.warn("xspa.handleQuery():" + "DENY: based upon OPT-OUT");
+                LOG.warn("xspa.handleQuery(): DENY: based upon OPT-OUT");
             }
 
         } catch (final Exception e) {
@@ -263,11 +259,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         status.setStatusDetail(detail);
         result.setStatus(status);
 
-        if (obligationId != null) {
-            final Obligations obligations = createObligations(obligationId, permitAccess);
-            result.setObligations(obligations);
-        }
-
         final Response response = ContextFactory.getInstance().createResponse();
         response.addResult(result);
 
@@ -318,21 +309,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         samlpResponse.setAssertion(assertions);
 
         return samlpResponse;
-    }
-
-    private Obligations createObligations(final String obligationId, final boolean permitAccess) throws XACMLException {
-        Obligations obligations;
-        try {
-            final Obligation obligation = PolicyFactory.getInstance().createObligation();
-            obligation.setObligationId(new URI(obligationId));
-            obligation.setFulfillOn(permitAccess ? PERMIT : DENY);
-            obligations = PolicyFactory.getInstance().createObligations();
-            obligations.addObligation(obligation);
-        } catch (URISyntaxException | XACMLException e) {
-            LOG.error("Error: failed to create obligations: {}", e.getLocalizedMessage(), e);
-            throw new XACMLException("Error: failed to create obligations");
-        }
-        return obligations;
     }
 
     String getUserId(final Request request) {
