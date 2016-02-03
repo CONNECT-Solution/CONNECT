@@ -59,8 +59,8 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
     public ImapMailReceiver(Properties mailServerProps) {
         super(mailServerProps);
         deleteUnhandledMsgs = Boolean.parseBoolean(mailServerProps.getProperty("connect.delete.unhandled.msgs"));
-        maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("connect.max.msgs.in.batch",
-                DEF_NUM_MSGS_TO_HANDLE));
+        maxNumberOfMsgsToHandle = Integer
+                .parseInt(mailServerProps.getProperty("connect.max.msgs.in.batch", DEF_NUM_MSGS_TO_HANDLE));
         imapHost = mailServerProps.getProperty("mail.imaps.host");
     }
 
@@ -74,7 +74,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         handlerInvocations++;
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("handleMessages() invoked, (" + this.hashCode() + " : " + Thread.currentThread().getId() + "), ["
+            LOG.debug("handleMessages() invoked, (" + hashCode() + " : " + Thread.currentThread().getId() + "), ["
                     + imapHost + "], handler: " + handler.getClass().getName() + ", invocation count: "
                     + handlerInvocations);
         } else {
@@ -94,7 +94,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
 
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
         LOG.info("Call the message monitoring check here");
-        //call the message monitoring service
+        // call the message monitoring service
         handleMessageMonitoring();
 
         return numberOfMsgsHandled;
@@ -155,7 +155,8 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
             inbox.open(Folder.READ_WRITE);
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store);
-            throw new MailClientException("Could not retrieve opened folder: " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE", e);
+            throw new MailClientException(
+                    "Could not retrieve opened folder: " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE", e);
         }
         return inbox;
     }
@@ -168,7 +169,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         }
     }
 
-    protected void handleMessageMonitoring(){
+    protected void handleMessageMonitoring() {
         MessageMonitoringAPI.getInstance().process();
     }
 }
