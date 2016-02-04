@@ -1642,7 +1642,7 @@ def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING ut
 def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
-//assert(!userId_Outbound.isEmpty())  
+assert(!userId_Outbound.isEmpty())  
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -4780,7 +4780,7 @@ def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING ut
 def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePDDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 
-//assert(!userId_Outbound.isEmpty()) 
+assert(!userId_Outbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
@@ -10787,7 +10787,7 @@ def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING ut
 def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmissionDefRes') + '" and relatesTo= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
 
-//assert(!userId_Outbound.isEmpty()) 
+assert(!userId_Outbound.isEmpty()) 
 
 parsedXmlMessage.EventIdentification.find{
 	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
