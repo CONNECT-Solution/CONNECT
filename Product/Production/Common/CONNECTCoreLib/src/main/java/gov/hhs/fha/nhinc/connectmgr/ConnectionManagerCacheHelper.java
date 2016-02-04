@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
+import org.uddi.api_v3.BusinessServices;
 import org.uddi.api_v3.KeyedReference;
 
 public class ConnectionManagerCacheHelper {
@@ -61,10 +62,24 @@ public class ConnectionManagerCacheHelper {
         }
         for (BusinessService uddiService : uddiEntity.getBusinessServices().getBusinessService()) {
             if (!internalServiceNames.containsKey(uddiService.getServiceKey())) {
-                internalEntity.getBusinessServices().getBusinessService().add(uddiService);
+                internalServiceNames.put(uddiService.getServiceKey(), uddiService);
             }
         }
-        return internalEntity;
+        BusinessEntity mergedEntity = new BusinessEntity();
+        List<BusinessService> mergedList = new ArrayList<>(internalServiceNames.values());
+        BusinessServices mergedServices = new BusinessServices();
+        mergedServices.getBusinessService().addAll(mergedList);
+        mergedEntity.setBusinessServices(mergedServices);
+        mergedEntity.setBusinessKey(internalEntity.getBusinessKey());
+        mergedEntity.setCategoryBag(internalEntity.getCategoryBag());
+        mergedEntity.setContacts(internalEntity.getContacts());
+        mergedEntity.setDiscoveryURLs(internalEntity.getDiscoveryURLs());
+        mergedEntity.setIdentifierBag(internalEntity.getIdentifierBag());
+        mergedEntity.getName().addAll(internalEntity.getName());
+        mergedEntity.getDescription().addAll(internalEntity.getDescription());
+        mergedEntity.getSignature().addAll(internalEntity.getSignature());
+
+        return mergedEntity;
     }
 
     public String getCommunityId(BusinessEntity businessEntity) {
