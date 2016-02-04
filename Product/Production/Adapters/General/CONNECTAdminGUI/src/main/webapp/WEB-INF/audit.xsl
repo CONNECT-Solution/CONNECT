@@ -268,11 +268,11 @@
                 <th>ParticipantObjectIDTypeCode</th>
                 <th>displayName</th>
                 <th>codeSystemName</th>
-				<th>ParticipantObjectQuery</th>
+                <th>ParticipantObjectQuery</th>
                 <th>ObjectDetailRepType</th>
                 <th>ObjectDetailRepValue</th>
-                <th>ObjectDetailHcidType</th> 
-                <th>ObjectDetailHcidValue</th> 
+                <th>ObjectDetailHcidType</th>
+                <th>ObjectDetailHcidValue</th>
             </tr>
             <xsl:for-each select="/n1:AuditMessage/n1:ParticipantObjectIdentification">
                 <tr>
@@ -336,7 +336,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </td>
-				    <td>
+                    <td>
                         <xsl:choose>
                             <xsl:when test="n1:ParticipantObjectQuery">
                                 <xsl:value-of select="n1:ParticipantObjectQuery"/>
@@ -348,8 +348,8 @@
                     </td>
                     <td>
                         <xsl:choose>
-                            <xsl:when test="n1:ParticipantObjectDetail/[@type ='Repository Unique Id']">
-                                <xsl:value-of select="n1:ParticipantObjectDetail/@type" />
+                            <xsl:when test="n1:ParticipantObjectDetail/[@type ='Repository Unique Id']/@type">
+                                <xsl:value-of select="n1:ParticipantObjectDetail[@type ='Repository Unique Id']" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text>Information not available</xsl:text>
@@ -359,7 +359,7 @@
                     <td>
                         <xsl:choose>
                             <xsl:when test="n1:ParticipantObjectDetail/[@type ='Repository Unique Id']">
-                                <xsl:value-of select="n1:ParticipantObjectDetail/@value" />
+                                <xsl:value-of select="n1:ParticipantObjectDetail[@type ='Repository Unique Id']/@value" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text>Information not available</xsl:text>
