@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -166,7 +166,6 @@ public class AuditRetrieveDBTest {
         dbRec.setMessageId(MESSAGE_ID);
         dbRec.setRelatesTo(RELATES_TO);
         dbRec.setUserId(USER_ID);
-        dbRec.setOutcome(OUTCOME);
         dbRec.setEventTimestamp(EVENT_TIMESTAMP);
         dbRec.setMessage(Hibernate.createBlob(AUDIT_MESSAGE.getBytes()));
         list.add(dbRec);

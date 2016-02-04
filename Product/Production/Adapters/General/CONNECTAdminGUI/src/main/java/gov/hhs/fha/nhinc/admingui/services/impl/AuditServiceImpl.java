@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,12 +30,11 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import gov.hhs.fha.nhinc.admingui.event.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
+import gov.hhs.fha.nhinc.admingui.util.GUIConstants;
 import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieve;
 import gov.hhs.fha.nhinc.auditquerylog.nhinc.proxy.AuditQueryLogProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditquerylog.EventTypeList;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobRequest;
-import java.util.ArrayList;
-import java.util.Date;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMessageId;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
@@ -49,6 +48,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,8 +79,7 @@ public class AuditServiceImpl implements AuditService {
     }
 
     /**
-     * This method searches Audit database based on eventoutcome, serviceTypes, userId, remoteHcid, eventstartDate and
-     * eventEndDate.
+     * This method searches Audit database based on serviceTypes, userId, remoteHcid, eventstartDate and eventEndDate.
      *
      * @param outcome
      * @param eventTypeList
@@ -92,10 +91,10 @@ public class AuditServiceImpl implements AuditService {
      * @return
      */
     @Override
-    public List<Audit> searchAuditRecord(Integer outcome, List<String> eventTypeList, String userId,
+    public List<Audit> searchAuditRecord(List<String> eventTypeList, String userId,
         List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap) {
         QueryAuditEventsRequestType auditRequest = new QueryAuditEventsRequestType();
-        auditRequest.setEventOutcomeIndicator(outcome != null ? BigInteger.valueOf(outcome) : null);
+        //auditRequest.setEventOutcomeIndicator(outcome != null ? BigInteger.valueOf(outcome) : null);
         auditRequest.setEventTypeList(createEventTypeList(eventTypeList));
         auditRequest.setUserId(userId);
         auditRequest.setRemoteHcidList(createRemoteHcidList(remoteHcidList));
@@ -171,8 +170,7 @@ public class AuditServiceImpl implements AuditService {
             List<Audit> auditList = new ArrayList<>();
             for (QueryAuditEventsResults auditEvent : result.getQueryAuditEventsResults()) {
                 Audit obj = new Audit();
-                obj.setEventOutcomeIndicator(NhincConstants.EVENT_IDENTIFICATION_STATUS.fromDisplayString(
-                    auditEvent.getEventOutcomeIndicator().toString()).name());
+
                 obj.setEventTimestamp(formateDate(convertXMLGregorianDate(auditEvent.getEventTimestamp())));
                 obj.setEventType(getEventTypeDisplayName(auditEvent.getEventType()));
                 obj.setMessageId(auditEvent.getRequestMessageId());
@@ -196,7 +194,7 @@ public class AuditServiceImpl implements AuditService {
     }
 
     private String getEventTypeDisplayName(String eventType) {
-        return eventType != null ? NhincConstants.NHIN_SERVICE_NAMES.fromValueString(eventType).name() : null;
+        return GUIConstants.EVENT_NAMES.valueOf(eventType).getAbbServiceName();
     }
 
     private String getRemoteHcidDisplayName(String remoteHcid, Map<String, String> remoteOrgMap) {

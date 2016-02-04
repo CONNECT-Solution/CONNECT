@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS auditrepo.auditrepository (
     eventId varchar(100) NOT NULL COMMENT 'column EVENTID provides type of Event Query/Import/Export',
     userId varchar(100) DEFAULT NULL COMMENT 'column userId provides Human initiated the transaction',
     eventType varchar(100) NOT NULL COMMENT 'column provides Name of Service Nwhin service',
-    outcome tinyint(2) NOT NULL COMMENT 'column outcome identifies Audit Event Success or Failure',
     messageId varchar(100) DEFAULT NULL COMMENT 'column MessageId provides messageId of Request',
     relatesTo varchar(100) DEFAULT NULL COMMENT 'column relatesTo provides ID Relates to deferred Request',
     direction char(20) NOT NULL COMMENT 'column direction identifies Inbound or Outbound transaction',

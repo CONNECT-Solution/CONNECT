@@ -4,8 +4,7 @@
 -- -----------------------------------------------------------------------------------------------------
 ALTER TABLE auditrepo.auditrepository
 ADD COLUMN eventType VARCHAR(100) NOT NULL AFTER userId,
-ADD COLUMN outcome TINYINT(2) NOT NULL AFTER eventType,
-ADD COLUMN messageId VARCHAR(100) DEFAULT NULL AFTER outcome,
+ADD COLUMN messageId VARCHAR(100) DEFAULT NULL AFTER eventType,
 ADD COLUMN relatesTo VARCHAR(100) DEFAULT NULL AFTER messageId,
 ADD COLUMN direction CHAR(20) NOT NULL AFTER relatesTo;
 

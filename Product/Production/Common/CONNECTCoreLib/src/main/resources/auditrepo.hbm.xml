@@ -24,9 +24,6 @@
         <property name="eventType">
             <column name="eventType"/>
         </property>
-        <property name="outcome">
-            <column name="outcome"/>
-        </property>
         <property name="messageId">
             <column name="messageId"/>
         </property>

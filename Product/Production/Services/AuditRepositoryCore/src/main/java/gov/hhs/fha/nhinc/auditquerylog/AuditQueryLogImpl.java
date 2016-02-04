@@ -73,7 +73,7 @@ public class AuditQueryLogImpl {
      */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType request) {
         return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryByAuditOptions(
-            getEventOutcome(request.getEventOutcomeIndicator()), getEventTypes(request.getEventTypeList()),
+            getEventTypes(request.getEventTypeList()),
             request.getUserId(), getRemoteHcids(request.getRemoteHcidList()), getRequestDate(request.getEventBeginDate()),
             getRequestDate(request.getEventEndDate())));
 

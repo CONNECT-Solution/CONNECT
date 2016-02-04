@@ -24,6 +24,8 @@
 	- tables
 	- dialogs
 07. FHIR RING STYLES
+08. UNIVERSAL CLIENT STYLES
+09. AUDIT LOG STYLES
 
 99. RESPONSIVE @MEDIA
     - set different styles at different browser window sizes
@@ -1677,6 +1679,39 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 .modal-uc-docs .uc-doc-pdf {
 	height:100%; /* 300px */
 }
+
+
+
+
+
+
+
+
+
+
+/* -- AUDIT LOG STYLES -----------------------------------------------*/
+form[id*='auditQueryTabView'].form-inline .form-group .control-label {display:block;padding-left:0px;padding-right:10px;}
+form[id*='auditQueryTabView'].form-inline .form-group > span[class*='col-'] {display:block;padding-left:0px;padding-right:10px;}
+form[id*='auditQueryTabView'] .form-block.container-fluid {padding:10px 0px;}
+form[id*='auditQueryTabView'] .row {margin-bottom:20px;}
+form[id*='auditQueryTabView'] h3 {line-height:1;margin:0px;padding:10px;background:#cccccc;font-size:16px;font-weight:bold;}
+form[id*='auditQueryTabView'] .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {box-sizing:content-box;}
+form[id*='auditQueryTabView'] .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon {margin-top:8px;}
+form[id*='auditQueryTabView'] .ui-selectcheckboxmenu .ui-selectcheckboxmenu-label {padding:0px 25px 0px 5px;}
+
+form[id*='auditQueryTabView'] div[class^='table-responsive'][class*='table-'] .ui-datatable-scrollable table, 
+form[id*='auditQueryTabView'] div[class*='table-responsive.table-'] .ui-datatable-sticky table {
+	/*table-layout:fixed !important;*/
+}
+form[id*='auditQueryTabView'] table .table-button-column {width:140px;max-width:140px;}
+form[id*='auditQueryTabView'] div[id*='auditResult'] table td:first-child,
+form[id*='auditQueryTabView'] div[id*='auditResult'] table td:first-child > span {
+	word-break:normal !important;
+}
+form[id*='auditQueryTabView'] div[id*='auditBlobDlg'] {width:90% !important;height:90% !important;padding-bottom:40px;}
+form[id*='auditQueryTabView'] div[id*='auditBlobDlg'].ui-dialog .ui-dialog-content {width:100% !important;height:100% !important;overflow:auto;border-top:2px solid #f7f3f7;}
+
+
 
 
 
