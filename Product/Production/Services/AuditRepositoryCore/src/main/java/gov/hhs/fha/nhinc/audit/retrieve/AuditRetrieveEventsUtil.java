@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,6 @@ public class AuditRetrieveEventsUtil {
                 auditObj = new QueryAuditEventsResults();
                 auditObj.setDirection(rec.getDirection());
                 auditObj.setEventId(rec.getEventId());
-                auditObj.setEventOutcomeIndicator(BigInteger.valueOf(rec.getOutcome()));
                 auditObj.setEventTimestamp(convertDateToXMLGregorianCalendar(rec.getEventTimestamp()));
                 auditObj.setEventType(rec.getEventType());
                 auditObj.setId(rec.getId());

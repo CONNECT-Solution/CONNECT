@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -97,7 +97,6 @@ public class AuditQueryLogImplTest {
         assertEquals("QueryAuditEventsResults.RelatesTo(mismatch", obj.getRelatesTo(), RELATES_TO);
         assertEquals("QueryAuditEventsResults.UserId mismatch", obj.getUserId(), USER_ID);
         assertEquals("QueryAuditEventsResults.id mismatch", obj.getId(), ID.longValue());
-        assertEquals("QueryAuditEventsResults.outcome mismatch", obj.getEventOutcomeIndicator().intValue(), OUTCOME);
         assertEquals("QueryAuditEventsResults.EventTimestamp mismatch",
             obj.getEventTimestamp().toGregorianCalendar().getTime(), EVENT_TIMESTAMP);
     }
@@ -113,7 +112,6 @@ public class AuditQueryLogImplTest {
         dbRec.setRelatesTo(RELATES_TO);
         dbRec.setUserId(USER_ID);
         dbRec.setId(ID);
-        dbRec.setOutcome(OUTCOME);
         dbRec.setEventTimestamp(EVENT_TIMESTAMP);
         list.add(dbRec);
         return list;

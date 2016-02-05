@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,10 +56,9 @@ public class CryptoRandomGenerator {
 
     /**
      *
-     * @return
-     * If SecureRandom object is null and it's handled to navigate to Login Page but when the user is in login page 
-     * and if they have provided username and password those values are still available in browser. we need to handle it 
-     * to set username and password to Null values.
+     * @return If SecureRandom object is null and it's handled to navigate to Login Page but when the user is in login
+     * page and if they have provided username and password those values are still available in browser. we need to
+     * handle it to set username and password to Null values.
      */
     public synchronized String createToken() {
         if (random != null) {

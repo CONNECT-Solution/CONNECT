@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,6 @@ public class AuditRepositoryRecord {
     private String relatesTo;
     private String messageId;
     private String eventType;
-    private int outcome;
     private Blob message;
 
     public AuditRepositoryRecord() {
@@ -64,14 +63,6 @@ public class AuditRepositoryRecord {
 
     public void setEventType(String eventType) {
         this.eventType = eventType;
-    }
-
-    public int getOutcome() {
-        return outcome;
-    }
-
-    public void setOutcome(int outcome) {
-        this.outcome = outcome;
     }
 
     public String getEventId() {

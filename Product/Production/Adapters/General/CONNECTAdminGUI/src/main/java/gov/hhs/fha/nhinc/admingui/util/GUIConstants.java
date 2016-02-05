@@ -24,24 +24,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.event.model.Audit;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+package gov.hhs.fha.nhinc.admingui.util;
 
 /**
  *
  * @author achidamb
  */
-public interface AuditService {
+public class GUIConstants {
 
-    public List<Audit> searchAuditRecord(List<String> eventTypeList, String userId,
-        List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap);
+    public static enum EVENT_NAMES {
 
-    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesTo(String msgId, String relatesTo,
-        Map<String, String> remoteHcidOrgNameMap);
+        PatientDiscovery("PD"), PatientDiscoveryDeferredReq("PDDefReq"), PatientDiscoveryDeferredResp("PDDefResp"),
+        QueryForDocuments("QD"), RetrieveDocuments("RD"), DocSubmission("DS"), DocSubmissionDeferredReq("DSDefReq"),
+        DocSubmissionDeferredResp("DSDefResp"), AdminDistribution("AD");
 
-    public String fetchAuditBlob(long auditId);
+        public String abbServiceName = null;
+
+        EVENT_NAMES(String value) {
+            this.abbServiceName = value;
+        }
+
+        public String getAbbServiceName() {
+            return this.abbServiceName;
+        }
+
+        public static EVENT_NAMES fromValueString(String valueString) {
+            if (valueString != null) {
+                for (EVENT_NAMES enumValue : EVENT_NAMES.values()) {
+                    if (valueString.equals(enumValue.abbServiceName)) {
+                        return enumValue;
+                    }
+                }
+            }
+            throw new IllegalArgumentException("No enum constant " + valueString);
+        }
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -157,7 +157,7 @@ public class AuditRepositoryDAOTest {
     @Test
     public void testQueryByEventTypeList() {
         eventType = new ArrayList<>(Arrays.asList("DocSubmissionDeferredReq", "DocSubmission", "QueryForDocuments"));
-        responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+        responseList = auditLogDao.queryByAuditOptions(eventType, userId, remoteHcid, startDate, endDate);
         assertNotNull(responseList);
     }
 
@@ -171,7 +171,7 @@ public class AuditRepositoryDAOTest {
             String dateStr = "12/13/2015 22:53:07";
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             startDate = formatter.parse(dateStr);
-            responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+            responseList = auditLogDao.queryByAuditOptions(eventType, userId, remoteHcid, startDate, endDate);
             assertNotNull(responseList);
         } catch (ParseException ex) {
             LOG.error("Exception occurred due to :" + ex.getLocalizedMessage(), ex);
@@ -190,7 +190,7 @@ public class AuditRepositoryDAOTest {
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             startDate = formatter.parse(dateStartStr);
             endDate = formatter.parse(dateEndStr);
-            responseList = auditLogDao.queryByAuditOptions(outcome, eventType, userId, remoteHcid, startDate, endDate);
+            responseList = auditLogDao.queryByAuditOptions(eventType, userId, remoteHcid, startDate, endDate);
             assertNotNull(responseList);
         } catch (ParseException ex) {
             LOG.error("Exception occurred due to :" + ex.getLocalizedMessage(), ex);

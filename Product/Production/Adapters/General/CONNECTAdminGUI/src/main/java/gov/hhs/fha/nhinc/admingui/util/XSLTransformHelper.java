@@ -24,24 +24,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.util;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Audit;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import javax.xml.XMLConstants;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author achidamb
  */
-public interface AuditService {
+public class XSLTransformHelper {
 
-    public List<Audit> searchAuditRecord(List<String> eventTypeList, String userId,
-        List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap);
+    private static final Logger LOG = LoggerFactory.getLogger(XSLTransformHelper.class);
 
-    public List<Audit> searchAuditRecordBasedOnMsgIdAndRelatesTo(String msgId, String relatesTo,
-        Map<String, String> remoteHcidOrgNameMap);
+    public byte[] convertXMLToHTML(InputStream xml, InputStream xsl) {
 
-    public String fetchAuditBlob(long auditId);
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        try {
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            Templates template = tFactory.newTemplates(new StreamSource(xsl));
+            Transformer transformer = template.newTransformer();
+            transformer.transform(new StreamSource(xml), new StreamResult(output));
+
+        } catch (TransformerException e) {
+            LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
+        }
+
+        return output.toByteArray();
+    }
+
 }

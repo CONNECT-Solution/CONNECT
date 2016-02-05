@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,15 +31,22 @@ import gov.hhs.fha.nhinc.admingui.event.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.services.impl.AuditServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
+import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.util.StreamUtils;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,16 +56,16 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class AuditSearchBean {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AuditSearchBean.class);
+
     private String userId;
     private Map<String, String> remoteHcidMap;
     private Date eventStartDate;
     private Date eventEndDate;
     private List<String> eventTypeList;
     private int activeIndex = 0;
-    private String outcomeIndicator;
     private List<String> selectedRemoteHcidList;
     private List<String> selectedEventTypeList;
-    private List<String> eventOutcomeIndicatorList;
     private List<Audit> auditRecordList;
     private String auditMessage;
     private boolean auditFound;
@@ -69,7 +76,11 @@ public class AuditSearchBean {
     private String auditBlobMsg;
     private final String AUDIT_RECORDS_FOUND = "Audit Records Found";
     private final String AUDIT_RECORDS_NOT_FOUND = "Audit Records not Found";
-    private AuditService service;
+    public static final String DEFAULT_AUDIT_XSL_FILE = "/WEB-INF/audit.xsl";
+    public String blobContent;
+
+    private final XSLTransformHelper transformHelper = new XSLTransformHelper();
+    private final AuditService service;
 
     public AuditSearchBean() {
         service = new AuditServiceImpl();
@@ -77,7 +88,7 @@ public class AuditSearchBean {
         //This map stores key=Orgname and value =remoteHcid. Need this map for display in the dropdownbox
         //on AuditSearch screen.
         setRemoteHcidMap(populateRemoteOrgHcid());
-        setEventOutcomeIndicatorList(populateEventOutcomeIndicatorValues());
+
         //This map stores key=remoteHcid and value=Orgname. Need this map for datatable display on AuditSearch screen.
         setRemoteHcidOrgNameMap(populateRemoteHcidAndOrgName());
     }
@@ -87,25 +98,15 @@ public class AuditSearchBean {
      * eventEndDate
      */
     public void searchAudit() {
-        this.auditRecordList = service.searchAuditRecord(getSelectedEventOutcomeIndicator(), getSelectedServiceTypes(),
-            NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null, getRemoteHCIDFromSelectedOrgs(), eventStartDate,
-            eventEndDate, getRemoteHcidOrgNameMap());
-        if (NullChecker.isNullish(this.auditRecordList)) {
-            this.auditMessage = AUDIT_RECORDS_NOT_FOUND;
-            auditFound = false;
+        if (NullChecker.isNullish(this.messageId) && NullChecker.isNullish(this.relatesTo)) {
+            this.auditRecordList = service.searchAuditRecord(
+                this.selectedEventTypeList, NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null,
+                getRemoteHCIDFromSelectedOrgs(), eventStartDate, eventEndDate, getRemoteHcidOrgNameMap());
         } else {
-            this.auditMessage = AUDIT_RECORDS_FOUND;
-            auditFound = true;
+            this.auditRecordList = service.searchAuditRecordBasedOnMsgIdAndRelatesTo(
+                NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId.trim() : null,
+                NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
         }
-    }
-
-    /**
-     * This method searches Audit database based on messageId and/or relatesTo
-     */
-    public void searchAuditMessageId() {
-        this.auditRecordList = service.searchAuditRecordBasedOnMsgIdAndRelatesTo(
-            NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId.trim() : null,
-            NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
         if (NullChecker.isNullish(this.auditRecordList)) {
             this.auditMessage = AUDIT_RECORDS_NOT_FOUND;
             auditFound = false;
@@ -124,7 +125,7 @@ public class AuditSearchBean {
         if (this.selectedRemoteHcidList != null) {
             this.selectedRemoteHcidList.clear();
         }
-        this.outcomeIndicator = null;
+
         this.userId = null;
         if (auditRecordList != null) {
             this.auditRecordList.clear();
@@ -147,20 +148,39 @@ public class AuditSearchBean {
     }
 
     public void fetchAuditBlob() {
+        this.blobContent = "";
         this.auditBlobMsg = service.fetchAuditBlob(this.auditId);
+        this.blobContent = new String(getAuditHtml());
+    }
+
+    private byte[] getAuditHtml() {
+        byte[] convertXmlToHtml = null;
+        InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().
+            getResourceAsStream(DEFAULT_AUDIT_XSL_FILE);
+        InputStream xml = new ByteArrayInputStream(this.auditBlobMsg.getBytes());
+        if (xsl != null) {
+            convertXmlToHtml = transformHelper.convertXMLToHTML(xml, xsl);
+            closeStream(xsl);
+            closeStream(xml);
+        }
+        return convertXmlToHtml;
+    }
+
+    private void closeStream(InputStream stream) {
+        StreamUtils.closeStreamSilently(stream);
+
     }
 
     private Map<String, String> populateRemoteOrgHcid() {
         return new ConnectionHelper().getOrgNameRemoteHcidExternalEntities();
-
     }
 
     private List<String> populateEventTypeList() {
-        return NhincConstants.NHIN_SERVICE_NAMES.getServiceNamesList();
-    }
-
-    private List<String> populateEventOutcomeIndicatorValues() {
-        return NhincConstants.EVENT_IDENTIFICATION_STATUS.getEventDisplayStatusList();
+        List<String> serviceNames = new ArrayList<>();
+        for (String serviceName : NhincConstants.NHIN_SERVICE_NAMES.getEnumServiceNamesList()) {
+            serviceNames.add(NhincConstants.NHIN_SERVICE_NAMES.valueOf(serviceName).getUDDIServiceName());
+        }
+        return serviceNames;
     }
 
     public String getMessageId() {
@@ -195,14 +215,6 @@ public class AuditSearchBean {
         this.auditRecordList = auditRecordList;
     }
 
-    public List<String> getEventOutcomeIndicatorList() {
-        return eventOutcomeIndicatorList;
-    }
-
-    private void setEventOutcomeIndicatorList(List<String> eventOutcomeIndicatorList) {
-        this.eventOutcomeIndicatorList = eventOutcomeIndicatorList;
-    }
-
     public List<String> getSelectedEventTypeList() {
         return this.selectedEventTypeList;
     }
@@ -217,14 +229,6 @@ public class AuditSearchBean {
 
     public void setSelectedRemoteHcidList(List<String> remoteHcid) {
         this.selectedRemoteHcidList = remoteHcid;
-    }
-
-    public String getOutcomeIndicator() {
-        return outcomeIndicator;
-    }
-
-    public void setOutcomeIndicator(String outcomeIndicator) {
-        this.outcomeIndicator = outcomeIndicator;
     }
 
     public int getActiveIndex() {
@@ -305,12 +309,12 @@ public class AuditSearchBean {
         this.auditId = auditId;
     }
 
-    private Integer getSelectedEventOutcomeIndicator() {
-        if (NullChecker.isNotNullish(outcomeIndicator)) {
-            return new Integer(NhincConstants.EVENT_IDENTIFICATION_STATUS.valueOf(outcomeIndicator).
-                getEventStatusCode());
-        }
-        return null;
+    public String getBlobContent() {
+        return blobContent;
+    }
+
+    public void setBlobContent(String blobContent) {
+        this.blobContent = blobContent;
     }
 
     private List<String> getRemoteHCIDFromSelectedOrgs() {
@@ -324,18 +328,8 @@ public class AuditSearchBean {
         return null;
     }
 
-    private List<String> getSelectedServiceTypes() {
-        if (NullChecker.isNotNullish(selectedEventTypeList)) {
-            List<String> serviceType = new ArrayList<>();
-            for (String eventType : selectedEventTypeList) {
-                serviceType.add(NhincConstants.NHIN_SERVICE_NAMES.valueOf(eventType).getUDDIServiceName());
-            }
-            return serviceType;
-        }
-        return null;
-    }
-
     private Map<String, String> populateRemoteHcidAndOrgName() {
         return new ConnectionHelper().getRemoteHcidOrgNameMap();
     }
+
 }

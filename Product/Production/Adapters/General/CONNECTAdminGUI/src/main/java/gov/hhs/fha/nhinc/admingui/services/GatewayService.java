@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
-
 import gov.hhs.fha.nhinc.admingui.event.model.Document;
 import gov.hhs.fha.nhinc.admingui.event.model.Patient;
 import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
@@ -35,6 +33,7 @@ import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentRetrieveServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.docquery.builder.impl.FindDocumentsAdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
@@ -44,20 +43,14 @@ import gov.hhs.fha.nhinc.docquery.model.builder.impl.DocumentMetadataResultsMode
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.core.MediaType;
-import javax.xml.XMLConstants;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +82,7 @@ public class GatewayService {
     public static final String CONTENT_TYPE_APPLICATION_OCTET_STREAM = MediaType.APPLICATION_OCTET_STREAM;
     public static final String CONTENT_TYPE_APPLICATION_PDF = "application/pdf";
     public static final String DEFAULT_XSL_FILE = "/WEB-INF/CDA.xsl";
+    private final XSLTransformHelper transformer = new XSLTransformHelper();
 
     private GatewayService() {
         // create the Service implementation instances
@@ -133,7 +127,7 @@ public class GatewayService {
             // Call the entity/gateway Patient Discovery service
             final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
             LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
-                    patientDiscoveryResults.getPatientList().size());
+                patientDiscoveryResults.getPatientList().size());
 
             // Return false if no patient found
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
@@ -175,7 +169,7 @@ public class GatewayService {
 
         try {
             final DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(
-                    new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
+                new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
             final DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
 
             // Check the number of documents
@@ -211,15 +205,15 @@ public class GatewayService {
         // set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
             if (response.getContentType() != null && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
-                    || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
-                    || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
-                    || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
                 final InputStream xsl = FacesContext.getCurrentInstance().getExternalContext()
-                        .getResourceAsStream(DEFAULT_XSL_FILE);
+                    .getResourceAsStream(DEFAULT_XSL_FILE);
                 final InputStream xml = new ByteArrayInputStream(response.getDocument());
                 byte[] convertXmlToHtml = null;
                 if (xsl != null) {
-                    convertXmlToHtml = convertXMLToHTML(xml, xsl);
+                    convertXmlToHtml = transformer.convertXMLToHTML(xml, xsl);
                     closeStreamSilently(xsl);
                 }
                 patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(convertXmlToHtml);
@@ -233,35 +227,18 @@ public class GatewayService {
         return false;
     }
 
-    private byte[] convertXMLToHTML(final InputStream xml, final InputStream xsl) {
-
-        final ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-        try {
-            final TransformerFactory tFactory = TransformerFactory.newInstance();
-            tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            final Transformer transformer = tFactory.newTransformer(new StreamSource(xsl));
-            transformer.transform(new StreamSource(xml), new StreamResult(output));
-
-        } catch (final TransformerException e) {
-            LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
-        }
-
-        return output.toByteArray();
-    }
-
     /**
      * Internal method to populate the patient data to the Patient bean used in the UI.
      *
      */
     private void populatePatientBean(final PatientSearchResults patientQueryResults,
-            final PatientSearchBean patientQuerySearch) {
+        final PatientSearchBean patientQuerySearch) {
         final int patientIndex = 0;
         // start with a clean slate
         patientQuerySearch.getPatientList().clear();
         // loop through Patient Discovery results and set the UI patient bean
         for (final gov.hhs.fha.nhinc.patientdiscovery.model.Patient retrievedPatient : patientQueryResults
-                .getPatientList()) {
+            .getPatientList()) {
             final Patient patient = new Patient();
             // Patient personal Information
             patient.setDateOfBirth(patientQuerySearch.getDateOfBirth());
@@ -296,7 +273,7 @@ public class GatewayService {
      *
      */
     private void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
-            final PatientSearchBean patientQuerySearch) {
+        final PatientSearchBean patientQuerySearch) {
         int documentIndex = 0;
         // start with a clean slate
         patientQuerySearch.getSelectedCurrentPatient().getDocumentList().clear();
@@ -321,7 +298,7 @@ public class GatewayService {
             // this logic needs to be revisited after the demo
             if (patientDocument.getDocumentType() != null) {
                 patientDocument.setDocumentTypeName(
-                        patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
+                    patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
             }
             // for the demo set the value from the patient
             patientDocument.setSourcePatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());

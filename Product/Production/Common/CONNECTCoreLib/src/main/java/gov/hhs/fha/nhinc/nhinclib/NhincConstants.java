@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -79,7 +79,7 @@ public class NhincConstants {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
             PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-            PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
         DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
         DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
         DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
@@ -109,44 +109,12 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
 
-        public static List<String> getServiceNamesList() {
-            List<String> serviceNamesList = new ArrayList<>();
+        public static List<String> getEnumServiceNamesList() {
+            List<String> enumServiceNames = new ArrayList<>();
             for (NHIN_SERVICE_NAMES m : values()) {
-                serviceNamesList.add(m.toString());
+                enumServiceNames.add(m.toString());
             }
-            return serviceNamesList;
-        }
-    }
-
-    public static enum EVENT_IDENTIFICATION_STATUS {
-        Success("0"), Failure("12");
-        private String statusCode = null;
-
-        EVENT_IDENTIFICATION_STATUS(String statusCode) {
-            this.statusCode = statusCode;
-        }
-
-        public String getEventStatusCode() {
-            return this.statusCode;
-        }
-
-        public static EVENT_IDENTIFICATION_STATUS fromDisplayString(String valueString) {
-            if (valueString != null) {
-                for (EVENT_IDENTIFICATION_STATUS enumValue : EVENT_IDENTIFICATION_STATUS.values()) {
-                    if (valueString.equals(enumValue.statusCode)) {
-                        return enumValue;
-                    }
-                }
-            }
-            throw new IllegalArgumentException("No enum constant " + valueString);
-        }
-
-        public static List<String> getEventDisplayStatusList() {
-            List<String> displayStatusList = new ArrayList<>();
-            for (EVENT_IDENTIFICATION_STATUS m : values()) {
-                displayStatusList.add(m.toString());
-            }
-            return displayStatusList;
+            return enumServiceNames;
         }
     }
 

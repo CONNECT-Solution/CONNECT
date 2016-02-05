@@ -73,7 +73,7 @@ public class AuditQueryLogImpl {
      */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType request) {
         return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryByAuditOptions(
-            getEventOutcome(request.getEventOutcomeIndicator()), getEventTypes(request.getEventTypeList()),
+            getEventTypes(request.getEventTypeList()),
             request.getUserId(), getRemoteHcids(request.getRemoteHcidList()), getRequestDate(request.getEventBeginDate()),
             getRequestDate(request.getEventEndDate())));
 
@@ -122,13 +122,6 @@ public class AuditQueryLogImpl {
             LOG.info("{}-{}-{} {}:{}:{} {}", dateObj.getMonth(), dateObj.getDay(), dateObj.getYear(), dateObj.getHour(),
                 dateObj.getMinute(), dateObj.getSecond(), dateObj.getTimezone());
             return new Date(dateObj.toGregorianCalendar().getTimeInMillis());
-        }
-        return null;
-    }
-
-    private Integer getEventOutcome(BigInteger outcome) {
-        if (outcome != null) {
-            return outcome.intValue();
         }
         return null;
     }
