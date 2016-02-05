@@ -348,8 +348,8 @@
                     </td>
                     <td>
                         <xsl:choose>
-                            <xsl:when test="n1:ParticipantObjectDetail/[@type ='Repository Unique Id']/@type">
-                                <xsl:value-of select="n1:ParticipantObjectDetail[@type ='Repository Unique Id']" />
+                            <xsl:when test="n1:ParticipantObjectDetail[@type ='Repository Unique Id']/@type">
+                                <xsl:value-of select="n1:ParticipantObjectDetail[@type ='Repository Unique Id']/@type" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text>Information not available</xsl:text>
@@ -358,7 +358,7 @@
                     </td>
                     <td>
                         <xsl:choose>
-                            <xsl:when test="n1:ParticipantObjectDetail/[@type ='Repository Unique Id']">
+                            <xsl:when test="n1:ParticipantObjectDetail[@type ='Repository Unique Id']">
                                 <xsl:value-of select="n1:ParticipantObjectDetail[@type ='Repository Unique Id']/@value" />
                             </xsl:when>
                             <xsl:otherwise>

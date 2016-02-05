@@ -115,32 +115,6 @@
                                             </p:panel>
                                             <!-- END: SEARCH FORM -->
 
-                                            <!-- BEGIN: SEARCH FORM #2 -->
-                                            <!--
-                                            <h3>Message ID and/or Relates To parameters</h3>
-                                            <div class="form-block container-fluid">
-                                                <div class="row">
-                                                    <div class="form-group col-xs-6">
-                                                        <h:outputLabel for="messageid" class="control-label" id="labelMessageId" value="Message ID:" />
-                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.messageId}" style="/*height:32px;width:200px*/" id="messageId" maxlength="50" required="false" />
-                                                    </div>
-                                                    <div class="form-group col-xs-6">
-                                                        <h:outputLabel for="relatesto" class="control-label" id="labelRelatesTo" value="Relates To:" />
-                                                        <p:inputText styleClass="form-control" value="#{auditSearchBean.relatesTo}" style="/*height:32px;width:200px*/" id="relatesTo" maxlength="50" required="false" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-sm-12">
-                                                        <div class="form-button-row">
-                                                            <p:commandButton id="ResetAuditTabMessageId" value="Reset" styleClass="btn btn-default" action="#{auditSearchBean.clearAuditTabMessageId()}" immediate="true" update=":auditQueryTabView"/>
-                                                            <p:commandButton id="searchAuditMessageId" update=":auditQueryTabView, auditResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{auditSearchBean.searchAuditMessageId()}"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            -->
-                                            <!-- END: SEARCH FORM #2 -->
-
                                             <!-- BEGIN: SEARCH RESULTS -->
                                             <p:outputLabel value="#{auditSearchBean.auditMessage}" styleClass="uc-search-result-title" style="margin-top:20px;margin-bottom:10px;" />
                                             <div class="form-block" style="padding:0px;">
