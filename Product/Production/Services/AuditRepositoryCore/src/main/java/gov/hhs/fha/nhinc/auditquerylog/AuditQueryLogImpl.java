@@ -126,13 +126,6 @@ public class AuditQueryLogImpl {
         return null;
     }
 
-    private Integer getEventOutcome(BigInteger outcome) {
-        if (outcome != null) {
-            return outcome.intValue();
-        }
-        return null;
-    }
-
     private List<String> getEventTypes(EventTypeList eventList) {
         if (eventList != null) {
             return eventList.getEventType();

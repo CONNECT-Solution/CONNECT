@@ -187,7 +187,6 @@ public class AuditRepositoryDAO {
     /**
      * This method does a query to database to get the Audit Log Messages based different options
      *
-     * @param outcome - status success or failure
      * @param startDate - Audit Event Start Date
      * @param userId - Human initiator who initiated transaction. SAML Attribute statement SubjectID.
      * @param eventTypeList - ServiceNames like PatientDiscovery (PD), DocumentQuery (DQ) and other CONNECT supported
@@ -196,7 +195,7 @@ public class AuditRepositoryDAO {
      * @param endDate - Event End date
      * @return List
      */
-    public List<AuditRepositoryRecord> queryByAuditOptions(final Integer outcome, final List<String> eventTypeList,
+    public List<AuditRepositoryRecord> queryByAuditOptions(final List<String> eventTypeList,
         final String userId, final List<String> remoteHcidList, final Date startDate, final Date endDate) {
 
         Session session = null;
