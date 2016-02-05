@@ -4,7 +4,6 @@
     <xsl:template match="n1:AuditMessage">
         <html>
             <body>
-                <!--<h3>Audit Message</h3>-->
                 <xsl:call-template name="EventIdentification"/>
                 <xsl:call-template name="ActiveParticipant"/>
                 <xsl:call-template name="AuditSourceIdentification"/>

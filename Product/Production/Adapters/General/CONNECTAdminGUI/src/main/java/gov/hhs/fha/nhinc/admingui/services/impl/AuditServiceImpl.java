@@ -94,7 +94,6 @@ public class AuditServiceImpl implements AuditService {
     public List<Audit> searchAuditRecord(List<String> eventTypeList, String userId,
         List<String> remoteHcidList, Date startDate, Date endDate, Map<String, String> remoteHcidOrgNameMap) {
         QueryAuditEventsRequestType auditRequest = new QueryAuditEventsRequestType();
-        //auditRequest.setEventOutcomeIndicator(outcome != null ? BigInteger.valueOf(outcome) : null);
         auditRequest.setEventTypeList(createEventTypeList(eventTypeList));
         auditRequest.setUserId(userId);
         auditRequest.setRemoteHcidList(createRemoteHcidList(remoteHcidList));
