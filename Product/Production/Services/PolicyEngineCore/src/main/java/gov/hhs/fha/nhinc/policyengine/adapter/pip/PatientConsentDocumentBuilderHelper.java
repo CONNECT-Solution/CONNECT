@@ -87,7 +87,7 @@ public class PatientConsentDocumentBuilderHelper {
     protected String getPropertiesFilePath() {
         String propertiesFilePath = null;
         final String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
-        if (sValue != null && sValue.length() > 0) {
+        if (StringUtils.isNotEmpty(sValue)) {
             // Set it up so that we always have a "/" at the end - in case
             // ------------------------------------------------------------
             if (sValue.endsWith("/") || sValue.endsWith("\\")) {

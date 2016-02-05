@@ -65,7 +65,6 @@ public final class ElementBuilder {
      * @param ns Namespace
      * @param name Name
      * @param content Content
-     * @param mustUnderstand mustUnderstand, true or false
      * @return built element
      */
     public Element buildElement(final String ns, final String name, final String content) {

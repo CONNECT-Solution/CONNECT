@@ -146,7 +146,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
         final boolean returnContext = ((XACMLAuthzDecisionQuery) samlpRequest).getReturnContext();
 
         boolean permitAccess = false;
-        final String fullfillOn = null;
 
         // subject attributes
         String userId;
