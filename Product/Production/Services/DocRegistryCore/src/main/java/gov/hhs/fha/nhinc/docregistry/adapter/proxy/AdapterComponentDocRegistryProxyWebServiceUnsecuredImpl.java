@@ -49,7 +49,8 @@ import org.slf4j.LoggerFactory;
  * @author svalluripalli
  */
 public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy {
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl() {
@@ -61,13 +62,8 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
     }
 
     public ServicePortDescriptor<DocumentRegistryPortType> getServicePortDescriptor(
-            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-        case LEVEL_a0:
-            return new AdapterComponentDocRegistryServicePortDescriptor();
-        default:
-            return new AdapterComponentDocRegistryServicePortDescriptor();
-        }
+            final NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        return new AdapterComponentDocRegistryServicePortDescriptor();
     }
 
     /**
@@ -76,21 +72,22 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
      * @return AdhocQueryResponse
      */
     @Override
-    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest msg, AssertionType assertion) {
+    public AdhocQueryResponse registryStoredQuery(final AdhocQueryRequest msg, final AssertionType assertion) {
         LOG.debug("Begin registryStoredQuery");
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper
+            final String url = oProxyHelper
                     .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
                     LOG.error("Message was null");
                 } else {
-                    ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                    final ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor(
+                            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                    CONNECTClient<DocumentRegistryPortType> client = CONNECTClientFactory.getInstance()
+                    final CONNECTClient<DocumentRegistryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(DocumentRegistryPortType.class,
@@ -100,13 +97,13 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME
                         + ").  The URL is null.");
             }
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOG.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
             response.setRegistryObjectList(new RegistryObjectListType());
 
-            RegistryError registryError = new RegistryError();
+            final RegistryError registryError = new RegistryError();
             registryError.setCodeContext("Processing Adapter Doc Query document query");
             registryError.setErrorCode("XDSRegistryError");
             registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);

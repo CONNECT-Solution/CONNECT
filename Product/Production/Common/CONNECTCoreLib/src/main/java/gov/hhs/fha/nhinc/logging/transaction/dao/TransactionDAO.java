@@ -72,7 +72,7 @@ public class TransactionDAO {
      * @param transactionRepo
      * @return boolean
      */
-    public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
+    public boolean insertIntoTransactionRepo(final TransactionRepo transactionRepo) {
 
         LOG.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
         Session session = null;
@@ -81,7 +81,7 @@ public class TransactionDAO {
 
         if (transactionRepo != null) {
             try {
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
@@ -90,12 +90,12 @@ public class TransactionDAO {
 
                 LOG.info("TransactionRepo Inserted successfully...");
                 tx.commit();
-            } catch (HibernateException e) {
+            } catch (final HibernateException e) {
                 result = false;
                 transactionRollback(tx);
                 LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
-                closeSession(session, false);
+                closeSession(session);
             }
         }
         LOG.debug("TransactionDAO.insertIntoTransactionRepo() - End");
@@ -109,7 +109,7 @@ public class TransactionDAO {
      * @return String
      */
     @SuppressWarnings("unchecked")
-    public String getTransactionId(String messageId) {
+    public String getTransactionId(final String messageId) {
         LOG.debug("TransactionDAO.getTransactinId() - Begin");
 
         if (NullChecker.isNullish(messageId)) {
@@ -121,40 +121,37 @@ public class TransactionDAO {
         Session session = null;
 
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
 
             if (LOG.isDebugEnabled()) {
                 LOG.info("Getting Records");
             }
-            Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
+            final Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
             namedQuery.setString("messageId", messageId);
 
-            List<TransactionRepo> queryList = (List<TransactionRepo>) namedQuery.list();
+            final List<TransactionRepo> queryList = namedQuery.list();
 
             if (!queryList.isEmpty()) {
-            	TransactionRepo trans = queryList.get(0);
+                final TransactionRepo trans = queryList.get(0);
                 return trans.getTransactionId();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Exception in getTransactionId() occured due to :" + e.getMessage(), e);
         } finally {
-            closeSession(session, false);
+            closeSession(session);
         }
 
         return null;
     }
 
-    private void closeSession(Session session, boolean flush) {
+    private void closeSession(final Session session) {
         if (session != null) {
-            if (flush) {
-                session.flush();
-            }
             session.close();
         }
     }
 
-    private void transactionRollback(Transaction tx) {
+    private void transactionRollback(final Transaction tx) {
         if (tx != null) {
             tx.rollback();
         }

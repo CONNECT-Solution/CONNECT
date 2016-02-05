@@ -26,6 +26,13 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.Properties;
 import javax.mail.Flags;
 import javax.mail.Folder;
@@ -33,13 +40,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author achidambaram
@@ -69,9 +70,10 @@ public class ImapMailReceiverTest {
             Store getImapsStore() {
                 return mockStore;
             }
+
             @Override
             protected void handleMessageMonitoring() {
-                //do nothing
+                // do nothing
             }
         };
         result = receiver.handleMessages(handler);
@@ -84,7 +86,7 @@ public class ImapMailReceiverTest {
     }
 
     @Test(expected = MailClientException.class)
-    public void testHandleMessageExceptionOnStoreConnect() throws MessagingException, MailClientException{
+    public void testHandleMessageExceptionOnStoreConnect() throws MessagingException, MailClientException {
         when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("false");
         when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
 
@@ -95,9 +97,10 @@ public class ImapMailReceiverTest {
             Store getImapsStore() {
                 return mockStore;
             }
+
             @Override
             protected void handleMessageMonitoring() {
-                //do nothing
+                // do nothing
             }
         };
 
@@ -124,9 +127,10 @@ public class ImapMailReceiverTest {
             protected Folder getInbox(Store store) {
                 return mockFolder;
             }
+
             @Override
             protected void handleMessageMonitoring() {
-                //do nothing
+                // do nothing
             }
         };
         result = receiver.handleMessages(handler);
@@ -147,9 +151,10 @@ public class ImapMailReceiverTest {
             protected Folder getInbox(Store store) {
                 return mockFolder;
             }
+
             @Override
             protected void handleMessageMonitoring() {
-                //do nothing
+                // do nothing
             }
         };
         result = receiver.handleMessages(handler);
@@ -173,7 +178,7 @@ public class ImapMailReceiverTest {
 
             @Override
             protected void handleMessageMonitoring() {
-                //do nothing for now
+                // do nothing for now
             }
 
         };

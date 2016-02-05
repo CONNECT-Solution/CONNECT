@@ -63,13 +63,13 @@ public class AuditRepositoryDAO {
      * @param auditList
      * @return boolean
      */
-    public boolean insertAuditRepository(List<AuditRepositoryRecord> auditList) {
+    public boolean insertAuditRepository(final List<AuditRepositoryRecord> auditList) {
 
         Session session = null;
         Transaction tx = null;
         boolean result = true;
         if (auditList != null && auditList.size() > 0) {
-            int size = auditList.size();
+            final int size = auditList.size();
             AuditRepositoryRecord auditRecord = null;
 
             try {
@@ -77,19 +77,19 @@ public class AuditRepositoryDAO {
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
                 for (int i = 0; i < size; i++) {
-                    auditRecord = (AuditRepositoryRecord) auditList.get(i);
+                    auditRecord = auditList.get(i);
                     session.persist(auditRecord);
                 }
                 LOG.info("AuditRepository List Inserted seccussfully...");
                 tx.commit();
-            } catch (HibernateException e) {
+            } catch (final HibernateException e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
                 LOG.error("Error during insertion caused by :" + e.getLocalizedMessage(), e);
             } finally {
-                closeSession(session, false);
+                closeSession(session);
             }
         }
 
@@ -106,7 +106,8 @@ public class AuditRepositoryDAO {
      * @param endDate
      * @return List
      */
-    public List queryAuditRepositoryOnCriteria(String eUserId, String ePatientId, Date startDate, Date endDate) {
+    public List queryAuditRepositoryOnCriteria(final String eUserId, final String ePatientId, final Date startDate,
+            final Date endDate) {
 
         if (eUserId == null && ePatientId == null && startDate == null) {
             LOG.info("-- No - Input Parameters found for Audit Query --");
@@ -120,7 +121,7 @@ public class AuditRepositoryDAO {
             LOG.info("Getting Record");
 
             // Build the criteria
-            Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            final Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
             if (eUserId != null && !eUserId.isEmpty()) {
                 aCriteria.add(Expression.eq("userId", eUserId));
             }
@@ -129,16 +130,16 @@ public class AuditRepositoryDAO {
             }
 
             if (startDate != null && endDate != null) {
-                aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
-                    new Date(endDate.getTime())));
+                aCriteria.add(
+                        Expression.between("timeStamp", new Date(startDate.getTime()), new Date(endDate.getTime())));
             } else if (startDate != null && endDate == null) {
                 aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
             }
             queryList = aCriteria.list();
-        } catch (HibernateException e) {
+        } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            closeSession(session, false);
+            closeSession(session);
         }
         return queryList;
     }
@@ -150,7 +151,7 @@ public class AuditRepositoryDAO {
      * @param relatesTo
      * @return List
      */
-    public List<AuditRepositoryRecord> queryAuditRecords(String messageId, String relatesTo) {
+    public List<AuditRepositoryRecord> queryAuditRecords(final String messageId, final String relatesTo) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
@@ -159,14 +160,14 @@ public class AuditRepositoryDAO {
             LOG.info("Getting Record for Audit Viewer ");
 
             // Build the criteria
-            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
             if (NullChecker.isNotNullish(messageId)) {
                 if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
                     queryCriteria.add(Restrictions.eq("messageId", messageId));
                 } else {
-                    queryCriteria.add(Restrictions.eq("messageId",
-                        NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
+                    queryCriteria.add(
+                            Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
                 }
             }
 
@@ -175,10 +176,10 @@ public class AuditRepositoryDAO {
             }
             // if no criteria is passed then it will search full database with above mentioned columns in the result
             queryList = queryCriteria.list();
-        } catch (HibernateException e) {
+        } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            closeSession(session, false);
+            closeSession(session);
         }
         return queryList;
     }
@@ -190,13 +191,13 @@ public class AuditRepositoryDAO {
      * @param startDate - Audit Event Start Date
      * @param userId - Human initiator who initiated transaction. SAML Attribute statement SubjectID.
      * @param eventTypeList - ServiceNames like PatientDiscovery (PD), DocumentQuery (DQ) and other CONNECT supported
-     * Nwhin services
+     *            Nwhin services
      * @param remoteHcidList - Remote Organization ID's
      * @param endDate - Event End date
      * @return List
      */
-    public List<AuditRepositoryRecord> queryByAuditOptions(Integer outcome, List<String> eventTypeList, String userId,
-        List<String> remoteHcidList, Date startDate, Date endDate) {
+    public List<AuditRepositoryRecord> queryByAuditOptions(final Integer outcome, final List<String> eventTypeList,
+            final String userId, final List<String> remoteHcidList, final Date startDate, final Date endDate) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;
@@ -205,7 +206,7 @@ public class AuditRepositoryDAO {
             LOG.info("Getting Record for Audit Query ");
 
             // Build the criteria
-            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
             if (outcome != null && outcome >= 0) {
                 queryCriteria.add(Restrictions.eq("outcome", outcome));
@@ -224,8 +225,7 @@ public class AuditRepositoryDAO {
             }
 
             if (startDate != null && endDate != null) {
-                queryCriteria.add(Expression.between("eventTimestamp", startDate,
-                    endDate));
+                queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
             } else if (startDate != null && endDate == null) {
                 queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
             } else if (startDate == null && endDate != null) {
@@ -234,10 +234,10 @@ public class AuditRepositoryDAO {
             // if no criteria is passed then it will search full database with above mentioned columns in the result
             queryList = queryCriteria.list();
 
-        } catch (HibernateException e) {
+        } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            closeSession(session, false);
+            closeSession(session);
         }
         return queryList;
     }
@@ -248,7 +248,7 @@ public class AuditRepositoryDAO {
      * @param auditId - AuidtRepository table Primary Key unique Id
      * @return Blob - Audit Blob message corresponding to Audit Id supplied
      */
-    public Blob queryByAuditId(long auditId) {
+    public Blob queryByAuditId(final long auditId) {
 
         Session session = null;
         Blob message = null;
@@ -257,15 +257,15 @@ public class AuditRepositoryDAO {
             LOG.info("Getting Record for Audit Viewer using auditId");
 
             // Build the criteria
-            Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
             queryCriteria.add(Restrictions.eq("id", auditId));
             queryCriteria.setProjection(Projections.property("message"));
 
             message = (Blob) queryCriteria.uniqueResult();
-        } catch (HibernateException e) {
+        } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
         } finally {
-            closeSession(session, false);
+            closeSession(session);
         }
         return message;
     }
@@ -277,11 +277,8 @@ public class AuditRepositoryDAO {
      * @param flush
      *
      */
-    private void closeSession(Session session, boolean flush) {
+    private void closeSession(final Session session) {
         if (session != null) {
-            if (flush) {
-                session.flush();
-            }
             session.close();
         }
     }

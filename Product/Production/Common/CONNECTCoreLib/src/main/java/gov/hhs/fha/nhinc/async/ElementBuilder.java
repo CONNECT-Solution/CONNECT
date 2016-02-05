@@ -46,7 +46,7 @@ public final class ElementBuilder {
     private ElementBuilder() {
         try {
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        } catch (ParserConfigurationException e) {
+        } catch (final ParserConfigurationException e) {
             LOG.error("Unable to create document: {}", e.getLocalizedMessage(), e);
         }
     }
@@ -58,7 +58,7 @@ public final class ElementBuilder {
      */
     public Element buildElement(final String ns, final String name) {
 
-        return buildElement(ns, name, null, null);
+        return buildElement(ns, name, null);
     }
 
     /**
@@ -69,18 +69,6 @@ public final class ElementBuilder {
      */
     public Element buildElement(final String ns, final String name, final String content) {
 
-        return buildElement(ns, name, content, null);
-    }
-
-    /**
-     * @param ns Namespace
-     * @param name Name
-     * @param content Content
-     * @param mustUnderstand mustUnderstand, true or false
-     * @return built element
-     */
-    public Element buildElement(final String ns, final String name, final String content, Boolean mustUnderstand) {
-
         Element theElement = null;
         theElement = document.createElementNS(ns, name);
 
@@ -88,9 +76,6 @@ public final class ElementBuilder {
             theElement.setTextContent(content);
         }
 
-        if (mustUnderstand != null) {
-            theElement.setAttribute("mustUnderstand", mustUnderstand.toString());
-        }
         return theElement;
     }
 

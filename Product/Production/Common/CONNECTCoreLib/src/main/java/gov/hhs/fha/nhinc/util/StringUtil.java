@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * String utilities...
@@ -45,11 +46,12 @@ public class StringUtil {
      * @param tokens
      * @return String
      */
-    public static String extractStringFromTokens(String tokenString, String tokens) {
+    public static String extractStringFromTokens(final String tokenString, final String tokens) {
         String resultString = "";
-        if (tokens != null && !tokens.isEmpty()) {
-            StringTokenizer tk = new StringTokenizer(tokenString, tokens);
-            StringBuffer outString = new StringBuffer();
+
+        if (StringUtils.isNotEmpty(tokens)) {
+            final StringTokenizer tk = new StringTokenizer(tokenString, tokens);
+            final StringBuffer outString = new StringBuffer();
             while (tk.hasMoreTokens()) {
                 outString.append(tk.nextToken());
             }
@@ -57,6 +59,7 @@ public class StringUtil {
         } else {
             resultString = tokenString;
         }
+
         return resultString;
     }
 
@@ -66,7 +69,7 @@ public class StringUtil {
      * @param sText The text to be wrapped in a CDATA tag.
      * @return The wrapped text.
      */
-    public static String wrapCdata(String sText) {
+    public static String wrapCdata(final String sText) {
         if (sText != null) {
             return "[CDATA[" + sText + "]]";
         } else {
@@ -79,10 +82,10 @@ public class StringUtil {
      *
      * @param sText The text containing a CDATA wrapper.
      * @return The text without the CDATA wrapper. If it does not contain a CDATA wrapper, it simply returns the same
-     * text it was passed.
+     *         text it was passed.
      */
-    public static String unwrapCdata(String sText) {
-        if ((sText != null) && (sText.trim().startsWith("[CDATA[")) && (sText.trim().endsWith("]]"))) {
+    public static String unwrapCdata(final String sText) {
+        if (sText != null && sText.trim().startsWith("[CDATA[") && sText.trim().endsWith("]]")) {
             return sText.trim().substring(7, sText.trim().length() - 2);
         } else {
             return sText;
@@ -96,7 +99,7 @@ public class StringUtil {
      * @return UTF-8 format string
      *
      */
-    public static String convertToStringUTF8(byte[] byteArray) throws UnsupportedEncodingException {
+    public static String convertToStringUTF8(final byte[] byteArray) throws UnsupportedEncodingException {
         return new String(byteArray, UTF8_CHARSET);
     }
 }

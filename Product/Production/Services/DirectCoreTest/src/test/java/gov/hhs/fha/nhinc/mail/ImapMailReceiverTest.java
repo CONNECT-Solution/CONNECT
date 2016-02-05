@@ -32,10 +32,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Properties;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import org.junit.Test;
 
 /**
@@ -45,6 +43,7 @@ public class ImapMailReceiverTest extends GreenMailTest {
 
     /**
      * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} can receive and handle messages.
+     * 
      * @throws MailClientException mail client exception
      * @throws MessagingException messaging exception
      */
@@ -58,7 +57,7 @@ public class ImapMailReceiverTest extends GreenMailTest {
 
         final int numberOfFullBatches = NUMBER_OF_MSGS / NUMBER_OF_MSGS_IN_BATCH;
         final int lastBatchCount = NUMBER_OF_MSGS % NUMBER_OF_MSGS_IN_BATCH;
-        for (int i=0;i < numberOfFullBatches; i++) {
+        for (int i = 0; i < numberOfFullBatches; i++) {
             assertEquals("Number of handled messages matches batch size.", NUMBER_OF_MSGS_IN_BATCH,
                     testMailReceiver.handleMessages(mockHandler));
             expungeMissedMessages();
@@ -74,6 +73,7 @@ public class ImapMailReceiverTest extends GreenMailTest {
     /**
      * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} will delete messages that were received but could
      * not be handled (based on configuration).
+     * 
      * @throws MailClientException
      * @throws MessagingException
      */
@@ -87,13 +87,14 @@ public class ImapMailReceiverTest extends GreenMailTest {
         assertEquals("Expecting zero messages handled.", 0, testMailReceiver.handleMessages(handler));
         expungeMissedMessages();
 
-        assertEquals(NUMBER_OF_MSGS_IN_BATCH + " should be removed from the server.", NUMBER_OF_MSGS
-                - NUMBER_OF_MSGS_IN_BATCH, countRemainingMsgs());
+        assertEquals(NUMBER_OF_MSGS_IN_BATCH + " should be removed from the server.",
+                NUMBER_OF_MSGS - NUMBER_OF_MSGS_IN_BATCH, countRemainingMsgs());
     }
 
     /**
-     * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} will leave messages that were received but could
-     * not be handled on the server (based on configuration).
+     * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} will leave messages that were received but could not
+     * be handled on the server (based on configuration).
+     * 
      * @throws MailClientException
      * @throws MessagingException
      */
@@ -112,6 +113,7 @@ public class ImapMailReceiverTest extends GreenMailTest {
 
     /**
      * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} can handle zero messages.
+     * 
      * @throws MailClientException
      */
     @Test
@@ -122,7 +124,7 @@ public class ImapMailReceiverTest extends GreenMailTest {
     }
 
     private void deliverMsgs(final int numberOfMsgs) {
-        for (int i=0; i < numberOfMsgs; i++) {
+        for (int i = 0; i < numberOfMsgs; i++) {
             deliverMsg(MESSAGE_FILEPATH);
         }
     }
@@ -142,7 +144,5 @@ public class ImapMailReceiverTest extends GreenMailTest {
         when(mockHandler.handleMessage(any(MimeMessage.class))).thenReturn(returnStatus);
         return mockHandler;
     }
-
-
 
 }

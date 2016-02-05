@@ -71,12 +71,7 @@ public class EntityDocQueryProxyWebServiceSecuredImpl implements EntityDocQueryP
      */
     public ServicePortDescriptor<EntityDocQuerySecuredPortType> getServicePortDescriptor(
             NhincConstants.ADAPTER_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-        case LEVEL_a0:
-            return new EntityDocQuerySecuredServicePortDescriptor();
-        default:
-            return new EntityDocQuerySecuredServicePortDescriptor();
-        }
+        return new EntityDocQuerySecuredServicePortDescriptor();
     }
 
     /** This method returns AdhocQueryResponse from entity Interface.

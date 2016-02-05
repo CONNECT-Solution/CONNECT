@@ -65,13 +65,10 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private CertificateManagerImpl() {
         try {
-            if (keyStore == null) {
-                initKeyStore();
-            }
-            if (trustStore == null) {
-                initTrustStore();
-            }
-        } catch (Exception e) {
+            initKeyStore();
+            initTrustStore();
+
+        } catch (final Exception e) {
             LOG.error("Unable to initialize keystores: " + e.getLocalizedMessage(), e);
         }
     }
@@ -88,7 +85,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @return
      */
     static CertificateManager getInstance(final HashMap<String, String> keyStoreProperties,
-        final HashMap<String, String> trustStoreProperties) {
+            final HashMap<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
             protected HashMap<String, String> getKeyStoreSystemProperties() {
@@ -129,10 +126,10 @@ public class CertificateManagerImpl implements CertificateManager {
 
         InputStream is = null;
 
-        HashMap<String, String> keyStoreProperties = getKeyStoreSystemProperties();
+        final HashMap<String, String> keyStoreProperties = getKeyStoreSystemProperties();
         String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
-        String password = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
-        String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
+        final String password = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
+        final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
 
         if (storeType == null) {
             LOG.error("javax.net.ssl.keyStoreType is not defined");
@@ -153,22 +150,22 @@ public class CertificateManagerImpl implements CertificateManager {
                     is = new FileInputStream(storeLoc);
                 }
                 keyStore.load(is, password.toCharArray());
-            } catch (NoSuchAlgorithmException ex) {
-                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
+            } catch (final NoSuchAlgorithmException ex) {
+                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
-            } catch (CertificateException ex) {
-                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
+            } catch (final CertificateException ex) {
+                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
-            } catch (KeyStoreException ex) {
-                LOG.error("Error initializing KeyStore: " + ex.getLocalizedMessage(), ex);
+            } catch (final KeyStoreException ex) {
+                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } finally {
                 try {
                     if (is != null) {
                         is.close();
                     }
-                } catch (IOException ex) {
-                    LOG.debug("KeyStoreCallbackHandler " + ex);
+                } catch (final IOException ex) {
+                    LOG.debug("KeyStoreCallbackHandler {}", ex);
                 }
             }
         }
@@ -187,10 +184,10 @@ public class CertificateManagerImpl implements CertificateManager {
 
         InputStream is = null;
 
-        HashMap<String, String> trustStoreProperties = getTrustStoreSystemProperties();
+        final HashMap<String, String> trustStoreProperties = getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
-        String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
-        String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
+        final String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
         if (storeType == null) {
             LOG.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
@@ -207,22 +204,22 @@ public class CertificateManagerImpl implements CertificateManager {
                         is = new FileInputStream(storeLoc);
                     }
                     trustStore.load(is, password.toCharArray());
-                } catch (NoSuchAlgorithmException ex) {
-                    LOG.error("Error initializing TrustStore: " + ex.getLocalizedMessage(), ex);
+                } catch (final NoSuchAlgorithmException ex) {
+                    LOG.error("Error initializing TrustStore: {}", ex.getLocalizedMessage(), ex);
                     throw new Exception(ex.getMessage());
-                } catch (CertificateException ex) {
-                    LOG.error("Error initializing TrustStore: " + ex.getLocalizedMessage(), ex);
+                } catch (final CertificateException ex) {
+                    LOG.error("Error initializing TrustStore: {}", ex.getLocalizedMessage(), ex);
                     throw new IOException(ex.getMessage());
-                } catch (KeyStoreException ex) {
-                    LOG.error("Error initializing TrustStore: " + ex.getLocalizedMessage(), ex);
+                } catch (final KeyStoreException ex) {
+                    LOG.error("Error initializing TrustStore: {}", ex.getLocalizedMessage(), ex);
                     throw new IOException(ex.getMessage());
                 } finally {
                     try {
                         if (is != null) {
                             is.close();
                         }
-                    } catch (IOException ex) {
-                        LOG.debug("KeyStoreCallbackHandler " + ex);
+                    } catch (final IOException ex) {
+                        LOG.debug("KeyStoreCallbackHandler {}", ex);
                     }
                 }
             }
@@ -256,21 +253,21 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         KeyStore.PrivateKeyEntry pkEntry = null;
 
-        String client_key_alias = StoreUtil.getInstance().getPrivateKeyAlias();
+        final String client_key_alias = StoreUtil.getInstance().getPrivateKeyAlias();
         if (client_key_alias != null) {
-            String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
+            final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(client_key_alias,
-                        new KeyStore.PasswordProtection(password.toCharArray()));
+                            new KeyStore.PasswordProtection(password.toCharArray()));
 
-                } catch (NoSuchAlgorithmException ex) {
+                } catch (final NoSuchAlgorithmException ex) {
                     LOG.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
-                } catch (KeyStoreException ex) {
+                } catch (final KeyStoreException ex) {
                     LOG.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
-                } catch (UnrecoverableEntryException ex) {
+                } catch (final UnrecoverableEntryException ex) {
                     LOG.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
                 }
@@ -296,7 +293,7 @@ public class CertificateManagerImpl implements CertificateManager {
     public RSAPublicKey getDefaultPublicKey() {
         try {
             return (RSAPublicKey) getDefaultCertificate().getPublicKey();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("Could not get default public key: " + e.getLocalizedMessage(), e);
 
         }
@@ -305,7 +302,7 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     protected HashMap<String, String> getTrustStoreSystemProperties() {
-        HashMap<String, String> map = new HashMap<>();
+        final HashMap<String, String> map = new HashMap<>();
         map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
         map.put(TRUST_STORE_PASSWORD_KEY, System.getProperty(TRUST_STORE_PASSWORD_KEY));
         map.put(TRUST_STORE_TYPE_KEY, System.getProperty(TRUST_STORE_TYPE_KEY));
@@ -313,7 +310,7 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     protected HashMap<String, String> getKeyStoreSystemProperties() {
-        HashMap<String, String> map = new HashMap<>();
+        final HashMap<String, String> map = new HashMap<>();
         map.put(KEY_STORE_KEY, System.getProperty(KEY_STORE_KEY));
         map.put(KEY_STORE_TYPE_KEY, System.getProperty(KEY_STORE_TYPE_KEY));
         map.put(KEY_STORE_PASSWORD_KEY, System.getProperty(KEY_STORE_PASSWORD_KEY));

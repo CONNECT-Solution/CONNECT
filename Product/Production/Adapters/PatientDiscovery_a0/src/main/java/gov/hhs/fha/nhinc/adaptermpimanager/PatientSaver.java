@@ -26,13 +26,17 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
-import gov.hhs.fha.nhinc.mpilib.*;
+import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.HL7Parser201301;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
-import org.hl7.v3.*;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.MCCIMT000100UV01Sender;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,13 +50,13 @@ public class PatientSaver {
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
-    public static org.hl7.v3.MCCIIN000002UV01 SavePatient(org.hl7.v3.PRPAIN201301UV02 message) {
-        return PatientSaver.SaveAnnouncePatient(message, true, true, true, false);
+    public static org.hl7.v3.MCCIIN000002UV01 SavePatient(final org.hl7.v3.PRPAIN201301UV02 message) {
+        return PatientSaver.SaveAnnouncePatient(message, true, true, false);
     }
 
-    private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV02 message,
-        boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded,
-        boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
+    private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(final PRPAIN201301UV02 message,
+            final boolean AllowSearchByDemographics, final boolean UpdateDemographicsIfNeeded,
+            final boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
 
         LOG.info("in SaveAnnouncePatient (PRPAIN201301UV)");
         MCCIIN000002UV01 result;
@@ -64,30 +68,30 @@ public class PatientSaver {
 
         // Set the senderOID in the Ack message
         if (NullChecker.isNotNullish(message.getReceiver()) && message.getReceiver().get(0).getDevice() != null
-            && NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId())
-            && NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
+                && NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId())
+                && NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
             senderOID = message.getReceiver().get(0).getDevice().getId().get(0).getRoot();
         }
 
         // Set the receiverOID in the Ack Message
         if (message.getSender() != null && message.getSender().getDevice() != null
-            && NullChecker.isNotNullish(message.getSender().getDevice().getId())
-            && NullChecker.isNotNullish(message.getSender().getDevice().getId().get(0).getRoot())) {
+                && NullChecker.isNotNullish(message.getSender().getDevice().getId())
+                && NullChecker.isNotNullish(message.getSender().getDevice().getId().get(0).getRoot())) {
             receiverOID = message.getSender().getDevice().getId().get(0).getRoot();
         }
 
         // Set the localDeviceId in the Ack Message
         try {
             localDeviceId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.warn("Using default localDeviceId, could not read property: {}", e.getLocalizedMessage(), e);
             localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
         }
 
         HL7Parser201301.PrintMessageIdFromMessage(message);
 
-        PRPAMT201301UV02Patient patient = HL7Parser201301.ExtractHL7PatientFromMessage(message);
-        MCCIMT000100UV01Sender sender = message.getSender();
+        final PRPAMT201301UV02Patient patient = HL7Parser201301.ExtractHL7PatientFromMessage(message);
+        final MCCIMT000100UV01Sender sender = message.getSender();
 
         if (patient == null) {
             LOG.warn(" no patient supplied");
@@ -98,20 +102,16 @@ public class PatientSaver {
             ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ERROR;
             msgText = "Error: No Sender Supplied";
         } else {
-            Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
+            final Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
             LOG.info("perform patient lookup in mpi");
 
-            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographics);
+            final Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographics);
 
             if (CommonChecks.isZeroSearchResult(searchResults)) {
                 LOG.info("patient not found in MPI");
-                if (CreatePatientIfDoesNotExist) {
-                    LOG.info("creating patient");
-                    MpiDataAccess.SavePatient(sourcePatient);
-                    msgText = "Patient Successfully added to the MPI";
-                } else {
-                    LOG.info("patient not found in MPI - ignore");
-                }
+                LOG.info("creating patient");
+                MpiDataAccess.SavePatient(sourcePatient);
+                msgText = "Patient Successfully added to the MPI";
             } else if (CommonChecks.isMultipleSearchResult(searchResults)) {
                 LOG.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
                 msgText = "Error: Multiple patients were found in the MPI";
@@ -123,7 +123,7 @@ public class PatientSaver {
         }
 
         result = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), ackTypeCode, msgText, senderOID,
-            receiverOID);
+                receiverOID);
 
         return result;
     }
