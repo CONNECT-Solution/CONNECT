@@ -20,8 +20,8 @@
                 <th>EventDateTime</th>
                 <th>EventOutcomeIndicator</th>
                 <th>EventIDCode</th>
-                <th>EventIDdisplayName</th>
-                <th>codeSystemName</th>
+                <th>EventIDDisplayName</th>
+                <th>CodeSystemName</th>
                 <th>EventTypeCode</th>
                 <th>EventTypeCodeDisplayName</th>
                 <th>EventTypeCodeSystemName</th>
@@ -133,7 +133,7 @@
                 <th>AccessPointID</th>
                 <th>AccessPointTypeCode</th>
                 <th>RoleIDCode</th>
-                <th>codeSystemName</th>
+                <th>CodeSystemName</th>
                 <th>Type</th>
             </tr>
             <xsl:for-each select="/n1:AuditMessage/n1:ActiveParticipant">
@@ -266,8 +266,8 @@
                 <th>ParticipantObjectTypeCode</th>
                 <th>ParticipantObjectTypeCodeRole</th>
                 <th>ParticipantObjectIDTypeCode</th>
-                <th>displayName</th>
-                <th>codeSystemName</th>
+                <th>DisplayName</th>
+                <th>CodeSystemName</th>
                 <th>ParticipantObjectQuery</th>
                 <th>ObjectDetailRepType</th>
                 <th>ObjectDetailRepValue</th>

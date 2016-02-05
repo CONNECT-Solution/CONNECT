@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentRetrieveServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.docquery.builder.impl.FindDocumentsAdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
@@ -45,19 +46,12 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.core.MediaType;
-import javax.xml.XMLConstants;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import org.jdom.transform.XSLTransformer;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,11 +65,11 @@ public class GatewayService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GatewayService.class);
 
-    private PatientService patientService;
-    private DocumentQueryService documentQueryService;
-    private DocumentRetrieveService documentRetrieveService;
+    private final PatientService patientService;
+    private final DocumentQueryService documentQueryService;
+    private final DocumentRetrieveService documentRetrieveService;
 
-    //Should be moved to a constant file later
+    // Should be moved to a constant file later
     public static final String CONTENT_TYPE_IMAGE_PNG = org.springframework.http.MediaType.IMAGE_PNG.toString();
     public static final String CONTENT_TYPE_IMAGE_JPEG = org.springframework.http.MediaType.IMAGE_JPEG.toString();
     public static final String CONTENT_TYPE_IMAGE_GIF = org.springframework.http.MediaType.IMAGE_GIF.toString();
@@ -91,10 +85,10 @@ public class GatewayService {
     private final XSLTransformHelper transformer = new XSLTransformHelper();
 
     private GatewayService() {
-        //create the Service implementation instances
-        this.patientService = new PatientServiceImpl();
-        this.documentQueryService = new DocumentQueryServiceImpl();
-        this.documentRetrieveService = new DocumentRetrieveServiceImpl();
+        // create the Service implementation instances
+        patientService = new PatientServiceImpl();
+        documentQueryService = new DocumentQueryServiceImpl();
+        documentRetrieveService = new DocumentRetrieveServiceImpl();
     }
 
     private static class SingletonHolder {
@@ -113,37 +107,38 @@ public class GatewayService {
      *
      * @return true if the patient is found else false
      */
-    public boolean discoverPatient(PatientSearchBean patientQuerySearch) {
+    public boolean discoverPatient(final PatientSearchBean patientQuerySearch) {
 
-        //Create the patient bean that needs to be passed to the service layer
-        gov.hhs.fha.nhinc.patientdiscovery.model.Patient patientBean = new gov.hhs.fha.nhinc.patientdiscovery.model.Patient();
-        //set the orgainization
+        // Create the patient bean that needs to be passed to the service layer
+        final gov.hhs.fha.nhinc.patientdiscovery.model.Patient patientBean = new gov.hhs.fha.nhinc.patientdiscovery.model.Patient();
+        // set the orgainization
         patientBean.setOrganization(patientQuerySearch.getOrganization());
-        //set birth date in YYYYMMDD
-        DateFormat df = new SimpleDateFormat(UTCDateUtil.DATE_ONLY_FORMAT);
+        // set birth date in YYYYMMDD
+        final DateFormat df = new SimpleDateFormat(UTCDateUtil.DATE_ONLY_FORMAT);
         patientBean.setBirthDate(df.format(patientQuerySearch.getDateOfBirth()));
-        //set the first name
+        // set the first name
         patientBean.setFirstName(patientQuerySearch.getFirstName());
-        //set last name
+        // set last name
         patientBean.setLastName(patientQuerySearch.getLastName());
-        //set the gender
+        // set the gender
         patientBean.setGender(patientQuerySearch.getGender());
 
         try {
-            //Call the entity/gateway Patient Discovery service
-            PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
-            LOG.debug("Patient Discovery call successful. Total number of patients found:" + patientDiscoveryResults.getPatientList().size());
+            // Call the entity/gateway Patient Discovery service
+            final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
+            LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
+                patientDiscoveryResults.getPatientList().size());
 
-            //Return false if no patient found
+            // Return false if no patient found
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
                 return false;
             }
-            //populate the UI patient object with the results data
+            // populate the UI patient object with the results data
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
             return true;
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             LOG.error("Failed to Retrieve Patient Data: {}", ex.getLocalizedMessage(), ex);
-            //TODO: notify the UI or somehow inform the user
+            // TODO: notify the UI or somehow inform the user
             return false;
         }
     }
@@ -155,36 +150,36 @@ public class GatewayService {
      *
      * @return true if the documents found else false
      */
-    public boolean queryDocument(PatientSearchBean patientQuerySearch) {
-        //set the document retrieve request values document id, organization, respository id, documenttypes, start time
-        //and end time
-        DocumentMetadata document = new DocumentMetadata();
-        //document type
+    public boolean queryDocument(final PatientSearchBean patientQuerySearch) {
+        // set the document retrieve request values document id, organization, respository id, documenttypes, start time
+        // and end time
+        final DocumentMetadata document = new DocumentMetadata();
+        // document type
         document.setDocumentType(patientQuerySearch.getQueryDocuments());
-        //set the document range from date
+        // set the document range from date
         document.setStartTime(patientQuerySearch.getDocumentRangeFrom());
-        //set the document range to date
+        // set the document range to date
         document.setEndTime(patientQuerySearch.getDocumentRangeTo());
-        //set the organization
+        // set the organization
         document.setOrganization(patientQuerySearch.getSelectedCurrentPatient().getOrganization());
-        //set the Patient Id
+        // set the Patient Id
         document.setPatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());
-        //set the assigning authority id
+        // set the assigning authority id
         document.setPatientIdRoot(patientQuerySearch.getSelectedCurrentPatient().getAssigningAuthorityId());
 
         try {
-            DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(new FindDocumentsAdhocQueryRequestBuilder(),
-                new DocumentMetadataResultsModelBuilderImpl());
-            DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
+            final DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(
+                new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
+            final DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
 
-            //Check the number of documents
+            // Check the number of documents
             if (documentQueryResults.getResults().isEmpty()) {
                 return false;
             }
             populatePatientBeanWithDQResults(documentQueryResults, patientQuerySearch);
             return true;
 
-        } catch (DocumentMetadataException ex) {
+        } catch (final DocumentMetadataException ex) {
             LOG.error("discoverPatient() failed: {}", ex.getLocalizedMessage(), ex);
             return false;
         }
@@ -198,22 +193,24 @@ public class GatewayService {
      *
      * @return true if the document retrieval is successful else false
      */
-    public boolean retrieveDocument(PatientSearchBean patientQuerySearch) {
-        //set the document retrieve request values document id, organization and respository id
-        DocumentRetrieve docRetrieve = new DocumentRetrieve();
+    public boolean retrieveDocument(final PatientSearchBean patientQuerySearch) {
+        // set the document retrieve request values document id, organization and respository id
+        final DocumentRetrieve docRetrieve = new DocumentRetrieve();
         docRetrieve.setDocumentId(patientQuerySearch.getSelectedCurrentDocument().getDocumentId());
         docRetrieve.setHCID(patientQuerySearch.getOrganization());
         docRetrieve.setRepositoryId(patientQuerySearch.getSelectedCurrentDocument().getRepositoryUniqueId());
 
-        //Call the NwHIN service to retrieve the document
-        DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve);
-        //set the retrieved document to the UI patient bean
+        // Call the NwHIN service to retrieve the document
+        final DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve);
+        // set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
-            if ((response.getContentType() != null) && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML) || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
+            if (response.getContentType() != null && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
                 || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
-                InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(DEFAULT_XSL_FILE);
-                InputStream xml = new ByteArrayInputStream(response.getDocument());
+                final InputStream xsl = FacesContext.getCurrentInstance().getExternalContext()
+                    .getResourceAsStream(DEFAULT_XSL_FILE);
+                final InputStream xml = new ByteArrayInputStream(response.getDocument());
                 byte[] convertXmlToHtml = null;
                 if (xsl != null) {
                     convertXmlToHtml = transformer.convertXMLToHTML(xml, xsl);
@@ -224,7 +221,7 @@ public class GatewayService {
                 patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(response.getDocument());
             }
             patientQuerySearch.getSelectedCurrentDocument().setDocumentRetrieved(true);
-            LOG.debug("Successfully retrieved the content of document with documentid:" + response.getContentType());
+            LOG.debug("Successfully retrieved the content of document with documentid: {}", response.getContentType());
             return true;
         }
         return false;
@@ -234,20 +231,22 @@ public class GatewayService {
      * Internal method to populate the patient data to the Patient bean used in the UI.
      *
      */
-    private void populatePatientBean(PatientSearchResults patientQueryResults, PatientSearchBean patientQuerySearch) {
-        int patientIndex = 0;
-        //start with a clean slate
+    private void populatePatientBean(final PatientSearchResults patientQueryResults,
+        final PatientSearchBean patientQuerySearch) {
+        final int patientIndex = 0;
+        // start with a clean slate
         patientQuerySearch.getPatientList().clear();
-        //loop through Patient Discovery results and set the UI patient bean
-        for (gov.hhs.fha.nhinc.patientdiscovery.model.Patient retrievedPatient : patientQueryResults.getPatientList()) {
-            Patient patient = new Patient();
-            //Patient personal Information
+        // loop through Patient Discovery results and set the UI patient bean
+        for (final gov.hhs.fha.nhinc.patientdiscovery.model.Patient retrievedPatient : patientQueryResults
+            .getPatientList()) {
+            final Patient patient = new Patient();
+            // Patient personal Information
             patient.setDateOfBirth(patientQuerySearch.getDateOfBirth());
             patient.setFirstName(retrievedPatient.getFirstName());
             patient.setMiddleName(retrievedPatient.getMiddleName());
             patient.setLastName(retrievedPatient.getLastName());
             patient.setGender(retrievedPatient.getGender());
-            //Should have only the last four digits
+            // Should have only the last four digits
             patient.setSSN(retrievedPatient.getSsn());
             patient.setPatientIndex(patientIndex);
             patient.setDrivinglicense(retrievedPatient.getdLicense());
@@ -256,15 +255,15 @@ public class GatewayService {
             patient.setState(retrievedPatient.getState());
             patient.setZip(retrievedPatient.getZip());
             patient.setPhone(retrievedPatient.getPhone());
-            //Other patient information
+            // Other patient information
             patient.setDomain(retrievedPatient.getDomain());
             patient.setOrganization(patientQuerySearch.getOrganization());
             patient.setOrganizationName(getCommunityName(patientQuerySearch, patientQuerySearch.getOrganization()));
             patient.setPatientId(retrievedPatient.getPid());
             patient.setAssigningAuthorityId(retrievedPatient.getAaId());
             patientQuerySearch.getPatientList().add(patient);
-            //TODO: Currently only one patient is possibe/supported, need to figure out if we are planning to handle
-            //multiple patients received from the PD service in the future
+            // TODO: Currently only one patient is possibe/supported, need to figure out if we are planning to handle
+            // multiple patients received from the PD service in the future
             break;
         }
     }
@@ -273,12 +272,13 @@ public class GatewayService {
      * Internal method to populate the patient data to the Patient bean used in the UI.
      *
      */
-    private void populatePatientBeanWithDQResults(DocumentMetadataResults DocumentQueryResults, PatientSearchBean patientQuerySearch) {
+    private void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
+        final PatientSearchBean patientQuerySearch) {
         int documentIndex = 0;
-        //start with a clean slate
+        // start with a clean slate
         patientQuerySearch.getSelectedCurrentPatient().getDocumentList().clear();
-        for (DocumentMetadataResult documentMetadataResult : DocumentQueryResults.getResults()) {
-            Document patientDocument = new Document();
+        for (final DocumentMetadataResult documentMetadataResult : DocumentQueryResults.getResults()) {
+            final Document patientDocument = new Document();
             patientDocument.setAuthorInstitution(documentMetadataResult.getAuthorInstitution());
             patientDocument.setAuthorPerson(documentMetadataResult.getAuthorPerson());
             patientDocument.setAuthorRole(documentMetadataResult.getAuthorRole());
@@ -294,12 +294,13 @@ public class GatewayService {
             patientDocument.setDocumentClassCode(documentMetadataResult.getDocumentClassCode());
             patientDocument.setUri(documentMetadataResult.getUri());
 
-            //populate document type name from the static list
-            //this logic needs to be revisited after the demo
+            // populate document type name from the static list
+            // this logic needs to be revisited after the demo
             if (patientDocument.getDocumentType() != null) {
-                patientDocument.setDocumentTypeName(patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
+                patientDocument.setDocumentTypeName(
+                    patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
             }
-            //for the demo set the value from the patient
+            // for the demo set the value from the patient
             patientDocument.setSourcePatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());
             patientDocument.setSize(documentMetadataResult.getSize());
             patientDocument.setHash(documentMetadataResult.getHash());
@@ -318,9 +319,12 @@ public class GatewayService {
         }
     }
 
-    private String getCommunityName(PatientSearchBean searchBean, String hcid) {
-        for (String name : searchBean.getOrganizationList().keySet()) {
-            if (hcid.equals(searchBean.getOrganizationList().get(name))) {
+    private String getCommunityName(final PatientSearchBean searchBean, final String hcid) {
+        for (final String name : searchBean.getOrganizationList().keySet()) {
+            // Find the Home community ID of the BusinessEntity to compare with hcid.
+            final ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
+            final String busEntityHcid = helper.getCommunityId(searchBean.getOrganizationList().get(name));
+            if (StringUtils.isNotBlank(busEntityHcid) && hcid.equals(busEntityHcid)) {
                 return name;
             }
         }
