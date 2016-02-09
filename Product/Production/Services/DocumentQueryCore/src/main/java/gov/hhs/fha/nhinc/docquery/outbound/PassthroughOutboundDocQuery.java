@@ -92,10 +92,11 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         AdhocQueryResponse response;
 
         try {
+            auditRequest(request, assertion, target);
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,
                 assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
             response = delegate.process(orchestratable).getResponse();
-            auditRequest(request, assertion, target);
+
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
             response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
