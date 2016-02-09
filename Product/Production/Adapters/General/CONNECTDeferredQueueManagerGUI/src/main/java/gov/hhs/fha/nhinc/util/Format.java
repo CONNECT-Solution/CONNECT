@@ -62,7 +62,7 @@ public final class Format {
         boolean isValidDate = false;
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("=== isValidDateString('" + dateStr + "','" + format + "') ===");
+            LOG.debug("=== isValidDateString('{}','{}') ===", dateStr, format);
         }
 
         try {
@@ -71,12 +71,12 @@ public final class Format {
                 isValidDate = true;
             }
         } catch (Exception e) {
-            LOG.debug("Could not verify date: " + e.getLocalizedMessage(), e);
+            LOG.debug("Could not verify date: {}", e.getLocalizedMessage(), e);
             isValidDate = false;
         }
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("=== isValidDateString('" + dateStr + "','" + format + "') = " + isValidDate + " ===");
+            LOG.debug("=== isValidDateString('{}','{}') = {} ===", dateStr, format, isValidDate);
         }
 
         return isValidDate;
@@ -104,16 +104,15 @@ public final class Format {
                 ParsePosition pos = new ParsePosition(0);
                 Date parseDate = formatter.parse(date, pos);
 
-                if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
+                if (strict && (pos.getIndex() < format.length() || date.length() != format.length())) {
                     // no-op
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
+                        LOG.debug("Strict Formatting Failed! [format='{}'; date='{}'; strict={}]", format, date,
+                                strict);
                     }
                 } else {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
+                        LOG.debug("parseDate = {}[format='{}'; date='{}'; strict={}]", parseDate, format, date, strict);
                     }
                     if (parseDate != null) {
                         dateValue = new java.sql.Date(parseDate.getTime());
@@ -135,10 +134,6 @@ public final class Format {
      * @return
      */
     public static Timestamp getTimestampInstance(String format, String date) {
-        return getTimestampInstance(format, date, false);
-    }
-
-    public static Timestamp getTimestampInstance(String format, String date, boolean strict) {
         // The date has to be in a valid format
         Timestamp ts = null;
         SimpleDateFormat formatter = new SimpleDateFormat(format);
@@ -148,21 +143,13 @@ public final class Format {
                 ParsePosition pos = new ParsePosition(0);
                 Date parseDate = formatter.parse(date, pos);
 
-                if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
-                    // no-op
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
-                    }
-                } else {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
-                            + strict + "]");
-                    }
-                    if (parseDate != null) {
-                        ts = new Timestamp(parseDate.getTime());
-                    }
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("parseDate = {}[format='{}'; date='{}']", parseDate, format, date);
                 }
+                if (parseDate != null) {
+                    ts = new Timestamp(parseDate.getTime());
+                }
+
             }
         } catch (ParseException pe) {
             return null;
