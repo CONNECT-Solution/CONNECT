@@ -46,6 +46,21 @@ public class BeanPropertyArgumentTransformerTest {
     public void before() {
         builder = mock(BeanPropertyArgumentTransformer.class, Mockito.CALLS_REAL_METHODS);
         bean = new Object() {
+            public void setFoo(String foo) {
+
+            }
+
+            public String getFoo() {
+                return foo;
+            }
+
+            public void setBar(int bar) {
+
+            }
+
+            public int getBar() {
+                return bar;
+            }
         };
     }
 
