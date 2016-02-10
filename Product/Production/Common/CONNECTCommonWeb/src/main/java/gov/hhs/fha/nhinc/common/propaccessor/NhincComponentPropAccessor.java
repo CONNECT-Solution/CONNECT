@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,8 @@ import org.slf4j.LoggerFactory;
  * @author Sai Valluripalli
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType {
+public class NhincComponentPropAccessor
+        implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhincComponentPropAccessor.class);
 
@@ -158,7 +159,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
      */
     @Override
     public GetPropertyFileLocationResponseType getPropertyFileLocation(
-        GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
+            GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
         GetPropertyFileLocationResponseType oOutput = null;
 
         try {

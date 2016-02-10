@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ public class AttributeHelper {
 
         List<XMLObject> attrVals = attrib.getAttributeValues();
 
-        if ((attrVals != null) && (attrVals.size() > 0)) {
+        if (attrVals != null && attrVals.size() > 0) {
             if (LOG.isTraceEnabled()) {
                 LOG.trace("AttributeValue is: " + attrVals.get(0).getClass());
             }
@@ -84,20 +84,20 @@ public class AttributeHelper {
                 nodelist = elem.getDOM().getChildNodes();
             } else {
                 LOG.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass()
-                    + " expected an XSAnyImpl");
+                        + " expected an XSAnyImpl");
             }
-            if ((nodelist != null) && (nodelist.getLength() > 0)) {
+            if (nodelist != null && nodelist.getLength() > 0) {
                 int numNodes = nodelist.getLength();
                 for (int idx = 0; idx < numNodes; idx++) {
                     if (nodelist.item(idx) != null) {
                         Node node = nodelist.item(idx);
                         NamedNodeMap attrMap = node.getAttributes();
-                        if ((attrMap != null) && (attrMap.getLength() > 0)) {
+                        if (attrMap != null && attrMap.getLength() > 0) {
                             int numMapNodes = attrMap.getLength();
                             for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
                                 Node attrNode = attrMap.item(attrIdx);
-                                if ((attrNode != null) && (attrNode.getNodeName() != null)
-                                    && (!attrNode.getNodeName().isEmpty())) {
+                                if (attrNode != null && attrNode.getNodeName() != null
+                                        && !attrNode.getNodeName().isEmpty()) {
                                     if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
                                         ce.setCode(attrNode.getNodeValue());
                                         if (LOG.isTraceEnabled()) {
@@ -192,7 +192,7 @@ public class AttributeHelper {
         // Assumption is that before the 1st space reflects the first name,
         // after the last space is the last name, anything between is the middle name
         List<XMLObject> attrVals = attrib.getAttributeValues();
-        if ((attrVals != null) && (attrVals.size() >= 1)) {
+        if (attrVals != null && attrVals.size() >= 1) {
             PersonNameType personName = assertOut.getUserInfo().getPersonName();
 
             // Although SAML allows for multiple attribute values, the NHIN Specification
@@ -246,7 +246,7 @@ public class AttributeHelper {
                 personName.setSecondNameOrInitials(midName.toString());
                 if (LOG.isTraceEnabled()) {
                     LOG.trace("Assertion.userInfo.personName.secondNameOrInitials = "
-                        + personName.getSecondNameOrInitials());
+                            + personName.getSecondNameOrInitials());
                 }
             }
         } else {

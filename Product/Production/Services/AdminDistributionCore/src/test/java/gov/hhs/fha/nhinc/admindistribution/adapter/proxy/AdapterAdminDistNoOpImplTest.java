@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,7 @@ public class AdapterAdminDistNoOpImplTest {
 
         AdapterAdminDistributionProxyNoOpImpl instance = new AdapterAdminDistributionProxyNoOpImpl();
 
-        //TODO Make better test.  No assertions.
+        // TODO Make better test. No assertions.
 
         instance.sendAlertMessage(body, new AssertionType());
         context.assertIsSatisfied();

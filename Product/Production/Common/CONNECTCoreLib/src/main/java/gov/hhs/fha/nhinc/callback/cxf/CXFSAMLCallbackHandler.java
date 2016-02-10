@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -91,7 +91,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SamlTokenCreator creator = new SamlTokenCreator();
 
                     CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
-                        creator.createRequestContext(custAssertion, getResource(message), null), message));
+                            creator.createRequestContext(custAssertion, getResource(message), null), message));
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,16 +46,6 @@ import org.slf4j.LoggerFactory;
 public class PRPAIN201309UVParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201309UVParser.class);
-    private static String CODE = "CA";
-    private static String CNTRL_MODCODE = "EVN";
-    private static String CNTRL_CODE = "PRPA_TE201310UV";
-    private static String CNTRL_SUBJ_TYPECODE = "SUBJ";
-    private static String STATUS_CD = "active";
-    private static String CNTRL_SUBJ_EVENT_SUBJ_CLASS_CODE = "PAT";
-    private static String PATIENTPERSON_CLASSCODE = "PSN";
-    // private static String DETERMINER_CODE = "INSTANCE";
-    private static String QUERY_RESPONSE = "OK";
-
 
     public static PRPAMT201307UV02ParameterList parseHL7ParameterListFrom201309Message(PRPAIN201309UV02 message) {
         if (message == null) {
@@ -69,8 +59,8 @@ public class PRPAIN201309UVParser {
         if (queryByParameter == null) {
             return null;
         }
-        PRPAMT201307UV02ParameterList parameterList = (queryByParameter.getValue() != null) ? queryByParameter
-            .getValue().getParameterList() : null;
+        PRPAMT201307UV02ParameterList parameterList = queryByParameter.getValue() != null
+                ? queryByParameter.getValue().getParameterList() : null;
         if (parameterList == null) {
             return null;
         }
@@ -80,8 +70,8 @@ public class PRPAIN201309UVParser {
     public static PRPAMT201307UV02PatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV02 message) {
         LOG.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
-        PRPAMT201307UV02PatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier().size() > 0) ? parameterList
-            .getPatientIdentifier().get(0) : null;
+        PRPAMT201307UV02PatientIdentifier patientIdentifier = parameterList.getPatientIdentifier().size() > 0
+                ? parameterList.getPatientIdentifier().get(0) : null;
         LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         return patientIdentifier;
     }

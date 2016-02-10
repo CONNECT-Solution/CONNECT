@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -153,11 +153,11 @@ public class UserAuthorizationListener implements PhaseListener {
     /**
      * @param event
      *
-     * when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml
-     * and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The
-     * validation is now performed by checking if token is null and ignore the transitioned page. Below "if" method can
-     * be re-written in a way so that if token is null and the phase of transition can be checked it will be safer to
-     * ignore that validation.
+     *            when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for
+     *            status.xhtml and afterPhase method will be again executed and it will try to verify the token for
+     *            properties.xhtml.The validation is now performed by checking if token is null and ignore the
+     *            transitioned page. Below "if" method can be re-written in a way so that if token is null and the phase
+     *            of transition can be checked it will be safer to ignore that validation.
      */
     public void validateCsrfToken(PhaseEvent event) {
         String csrfToken = event.getFacesContext().getExternalContext().getRequestParameterMap().get("csrfToken");

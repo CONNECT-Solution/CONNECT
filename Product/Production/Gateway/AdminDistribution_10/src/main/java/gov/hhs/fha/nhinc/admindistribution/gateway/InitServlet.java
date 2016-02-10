@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,8 +44,12 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -331241203887741599L;
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.ServletContext)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.
+     * ServletContext)
      */
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {

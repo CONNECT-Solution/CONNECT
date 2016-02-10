@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,16 +42,14 @@ import javax.xml.ws.soap.SOAPBinding;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistributionSecured_g1 extends BaseService implements
-    AdministrativeDistributionSecuredPortType {
+public class EntityAdministrativeDistributionSecured_g1 extends BaseService
+        implements AdministrativeDistributionSecuredPortType {
 
     private WebServiceContext context;
     private OutboundAdminDistribution outboundAdminDist;
 
     @Override
-    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
-        afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-        beforeBuilder = ADRequestTransformingBuilder.class)
+    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "2.0", afterReturningBuilder = DefaultEventDescriptionBuilder.class, beforeBuilder = ADRequestTransformingBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = getAssertion(context, null);
 

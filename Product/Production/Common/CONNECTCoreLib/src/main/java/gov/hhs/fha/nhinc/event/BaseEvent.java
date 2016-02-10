@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,14 +28,12 @@ package gov.hhs.fha.nhinc.event;
 
 public abstract class BaseEvent implements Event {
 
-
     private String description;
     private String messageID;
     private String transactionID;
     private String serviceType;
     private String initiatorHcid;
     private String respondingHcid;
-
 
     public BaseEvent() {
 
@@ -54,7 +52,7 @@ public abstract class BaseEvent implements Event {
     /**
      * @param description
      */
-     @Override
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
@@ -72,7 +70,7 @@ public abstract class BaseEvent implements Event {
     /**
      * @param messageID
      */
-     @Override
+    @Override
     public void setMessageID(String messageID) {
         this.messageID = messageID;
     }
@@ -90,7 +88,7 @@ public abstract class BaseEvent implements Event {
     /**
      * @param transactionID
      */
-     @Override
+    @Override
     public void setTransactionID(String transactionID) {
         this.transactionID = transactionID;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,14 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -38,15 +46,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.uddi.api_v3.BusinessEntity;
 import org.w3._2005._08.addressing.AttributedURIType;
 import org.w3._2005._08.addressing.EndpointReferenceType;
@@ -63,12 +64,14 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         return new ConnectionManagerCache() {
             @Override
             protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
-                return createUddiConnectionInfoDAO("/config/ConnectionManagerCacheTest/emptyBusinessDetailConnectionInfo.xml");
+                return createUddiConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/emptyBusinessDetailConnectionInfo.xml");
             }
 
             @Override
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
-                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/emptyBusinessDetailConnectionInfo.xml");
+                return createInternalConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/emptyBusinessDetailConnectionInfo.xml");
             }
         };
     }
@@ -77,12 +80,14 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         return new ConnectionManagerCache() {
             @Override
             protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
-                return createUddiConnectionInfoDAO("/config/ConnectionManagerCacheTest/emptyBusinessEntityConnectionInfo.xml");
+                return createUddiConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/emptyBusinessEntityConnectionInfo.xml");
             }
 
             @Override
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
-                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/emptyBusinessEntityConnectionInfo.xml");
+                return createInternalConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/emptyBusinessEntityConnectionInfo.xml");
             }
         };
     }
@@ -98,7 +103,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
 
             @Override
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
-                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/internalConnectionInfoTest.xml");
+                return createInternalConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/internalConnectionInfoTest.xml");
             }
 
         };
@@ -108,12 +114,14 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         return new ConnectionManagerCache() {
             @Override
             protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
-                return createUddiConnectionInfoDAO("/config/ConnectionManagerCacheTest/uddiConnectionInfoMergeTest.xml");
+                return createUddiConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/uddiConnectionInfoMergeTest.xml");
             }
 
             @Override
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
-                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/internalConnectionInfoMergeTest.xml");
+                return createInternalConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/internalConnectionInfoMergeTest.xml");
             }
         };
     }
@@ -122,12 +130,14 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         return new ConnectionManagerCache() {
             @Override
             protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
-                return createUddiConnectionInfoDAO("/config/ConnectionManagerCacheTest/smallUddiConnectionInfoTest.xml");
+                return createUddiConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/smallUddiConnectionInfoTest.xml");
             }
 
             @Override
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
-                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/smallInternalConnectionInfoTest.xml");
+                return createInternalConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/smallInternalConnectionInfoTest.xml");
             }
         };
     }
@@ -342,8 +352,9 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
     }
 
     protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly() {
-        return createNhinTargetSystem_HCIDOnly(HCID_1,null);
+        return createNhinTargetSystem_HCIDOnly(HCID_1, null);
     }
+
     protected NhinTargetSystemType createNhinTargetSystem_HCIDOnly(String hcid, String userSpec) {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
@@ -369,11 +380,11 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(),
                     QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
-            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(HCID_2,VERSION_OF_SERVICE_2_0),
-                    QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getEndpointURLFromNhinTarget(
+                    createNhinTargetSystem_HCIDOnly(HCID_2, VERSION_OF_SERVICE_2_0), QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL_2, url);
-            url = connectionManager.getEndpointURLFromNhinTarget(createNhinTargetSystem_HCIDOnly(HCID_2,VERSION_OF_SERVICE_3_0),
-                    QUERY_FOR_DOCUMENTS_NAME);
+            url = connectionManager.getEndpointURLFromNhinTarget(
+                    createNhinTargetSystem_HCIDOnly(HCID_2, VERSION_OF_SERVICE_3_0), QUERY_FOR_DOCUMENTS_NAME);
             assertEquals(QUERY_FOR_DOCUMENTS_URL_3, url);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -430,8 +441,8 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            List<UrlInfo> endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(
-                    createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
+            List<UrlInfo> endpointUrlList = connectionManager
+                    .getEndpointURLFromNhinTargetCommunities(createNhinTargetCommunites(), QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(endpointUrlList.get(0).getUrl().equals(QUERY_FOR_DOCUMENTS_URL));
 
             endpointUrlList = connectionManager.getEndpointURLFromNhinTargetCommunities(null, QUERY_FOR_DOCUMENTS_NAME);

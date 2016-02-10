@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -214,7 +214,8 @@ public interface DirectConfigProxy {
      * @param outgoing
      * @throws Exception
      */
-    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception;
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing)
+            throws Exception;
 
     /**
      * Direct Config proxy call to delete direct trust bundles with the given IDs.
@@ -269,7 +270,7 @@ public interface DirectConfigProxy {
      * @throws Exception
      */
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
-        Certificate signingCert, int trustBundleRefreshInterval) throws Exception;
+            Certificate signingCert, int trustBundleRefreshInterval) throws Exception;
 
     /**
      * Direct Config proxy call to delete a direct domain address.
@@ -281,6 +282,7 @@ public interface DirectConfigProxy {
 
     /**
      * Service to check if Direct is deployed as part of CONNECT.
+     * 
      * @param url Direct Configuration web service URL
      * @return
      * @throws Exception

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,16 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -42,16 +52,7 @@ import org.apache.ws.security.saml.SAMLKeyInfo;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.validate.Credential;
 import org.joda.time.DateTime;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SAMLVersion;
@@ -147,7 +148,8 @@ public class CONNECTSamlAssertionValidatorTest {
     }
 
     @Test
-    public void testValidateAssertionSaml2_blankResource() throws WSSecurityException, XMLParserException, UnmarshallingException, ConfigurationException {
+    public void testValidateAssertionSaml2_blankResource()
+            throws WSSecurityException, XMLParserException, UnmarshallingException, ConfigurationException {
 
         /*
          * when(saml2Assertion.getElementQName()).thenReturn(assertionQName); org.opensaml.saml2.core.Issuer issuer =
@@ -191,10 +193,12 @@ public class CONNECTSamlAssertionValidatorTest {
 
         // Get apropriate unmarshaller
         UnmarshallerFactory unmarshallerFactory = Configuration.getUnmarshallerFactory();
-        Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion"));
+        Unmarshaller unmarshaller = unmarshallerFactory
+                .getUnmarshaller(new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion"));
 
         // Unmarshall using the document root element, an EntitiesDescriptor in this case
-        org.opensaml.saml2.core.Assertion saml2Assertion = (org.opensaml.saml2.core.Assertion) unmarshaller.unmarshall(metadataRoot);
+        org.opensaml.saml2.core.Assertion saml2Assertion = (org.opensaml.saml2.core.Assertion) unmarshaller
+                .unmarshall(metadataRoot);
 
         AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
 
@@ -217,7 +221,8 @@ public class CONNECTSamlAssertionValidatorTest {
 
         when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
         when(saml2Assertion.getIssuer()).thenReturn(issuer);
-        when(saml2Assertion.getIssuer().getFormat()).thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
+        when(saml2Assertion.getIssuer().getFormat())
+                .thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
 
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,8 @@ public class AdapterComponentRedactionEngineImpl {
         if (filterDocRetrieveResultsRequest == null) {
             LOG.warn("FilterDocRetrieveResultsRequestType was null");
         } else {
-            RetrieveDocumentSetResponseType retrieveDocSetResonse = invokeRedactionEngineForRetrieve(filterDocRetrieveResultsRequest);
+            RetrieveDocumentSetResponseType retrieveDocSetResonse = invokeRedactionEngineForRetrieve(
+                    filterDocRetrieveResultsRequest);
             response = new FilterDocRetrieveResultsResponseType();
             response.setRetrieveDocumentSetResponse(retrieveDocSetResonse);
         }

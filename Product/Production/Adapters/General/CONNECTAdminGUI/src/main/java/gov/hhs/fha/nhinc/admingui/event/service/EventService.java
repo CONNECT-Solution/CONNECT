@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,8 +31,9 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import java.util.List;
 
 /**
- *  Service for querying the Event DB and sorting counts into displayable organization information.
- *  Can display by total, inbound, and outbound;
+ * Service for querying the Event DB and sorting counts into displayable organization information. Can display by total,
+ * inbound, and outbound;
+ * 
  * @author jasonasmith
  */
 public interface EventService {
@@ -44,30 +45,35 @@ public interface EventService {
 
     /**
      * Merges the inbound and outbound cache and returns the total displayable organizations.
+     * 
      * @return
      */
     public List<EventNwhinOrganization> getTotalOrganizations();
 
     /**
      * Gets the displayable organizations for inbound transactions.
+     * 
      * @return
      */
     public List<EventNwhinOrganization> getInboundOrganizations();
 
     /**
      * Gets the displayable organizations for outbound transactions.
+     * 
      * @return
      */
     public List<EventNwhinOrganization> getOutboundOrganizations();
 
     /**
      * Gets the latest inbound request.
+     * 
      * @return
      */
     public DatabaseEvent getLatestInbound();
 
     /**
      * Gets the latest outbound request.
+     * 
      * @return
      */
     public DatabaseEvent getLatestOutbound();

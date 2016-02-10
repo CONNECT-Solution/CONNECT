@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,10 +62,8 @@ public class AdhocQueryResponseAsserter {
     /**
      * JUnit style assert method that checks whether the given response object complies with the defining schema.
      *
-     * @param response
-     *            the response object to check
-     * @throws Exception
-     *             on any problem whatsoever
+     * @param response the response object to check
+     * @throws Exception on any problem whatsoever
      */
     public static void assertSchemaCompliant(AdhocQueryResponse response) throws Exception {
         JAXBSource source = new JAXBSource(CONTEXT, response);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
 import org.junit.Test;
 
 /**
@@ -56,7 +55,7 @@ public class SHA1PasswordServiceTest {
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "MhOFzcgMIkTaeHvIqXK/VkdJZHE=".getBytes();
         PasswordService service = getSHA1PasswordService();
-        assert (service.checkPassword(passwordHash, candidatePassword, salt));
+        assert service.checkPassword(passwordHash, candidatePassword, salt);
     }
 
     /**
@@ -72,7 +71,7 @@ public class SHA1PasswordServiceTest {
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "nottherighthash".getBytes();
         PasswordService service = getSHA1PasswordService();
-        assert (!service.checkPassword(passwordHash, candidatePassword, salt));
+        assert !service.checkPassword(passwordHash, candidatePassword, salt);
     }
 
     @Test
@@ -80,18 +79,6 @@ public class SHA1PasswordServiceTest {
         String salt = "ABCD";// generateRandomSalt();
         String password = "password";
         String sha1 = new String(calculateHash(salt.getBytes(), password.getBytes()));
-    }
-
-    private String generateRandomSalt() {
-        Random rng = new Random();
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int length = 4;
-
-        char[] text = new char[length];
-        for (int i = 0; i < length; i++) {
-            text[i] = characters.charAt(rng.nextInt(characters.length()));
-        }
-        return new String(text);
     }
 
     private byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException {

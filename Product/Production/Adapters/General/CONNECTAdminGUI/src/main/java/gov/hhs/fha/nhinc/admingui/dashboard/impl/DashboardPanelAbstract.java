@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,6 @@ import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
  * @author jasonasmith
  */
 
-
 public abstract class DashboardPanelAbstract implements DashboardPanel {
 
     private boolean closed;
@@ -54,7 +53,7 @@ public abstract class DashboardPanelAbstract implements DashboardPanel {
      *
      * @param closed
      */
-    protected void setClosed(boolean closed){
+    protected void setClosed(boolean closed) {
         this.closed = closed;
     }
 
@@ -71,7 +70,7 @@ public abstract class DashboardPanelAbstract implements DashboardPanel {
      *
      * @return
      */
-    protected DashboardObserver getObserver(){
+    protected DashboardObserver getObserver() {
         return observer;
     }
 

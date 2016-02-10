@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,7 @@ public class AdminDistributionTransformHelper {
     }
 
     public CheckPolicyRequestType transformEntityAlertToCheckPolicy(RespondingGatewaySendAlertMessageType message,
-        String target) {
+            String target) {
 
         CheckPolicyRequestType result = new CheckPolicyRequestType();
         if (message == null) {
@@ -107,9 +107,8 @@ public class AdminDistributionTransformHelper {
         request.getSubject().add(subject);
 
         ResourceType resource = new ResourceType();
-        resource.getAttribute().add(
-            attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, message
-            .getAssertion().getHomeCommunity().getHomeCommunityId()));
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId,
+                Constants.DataTypeString, message.getAssertion().getHomeCommunity().getHomeCommunityId()));
 
         request.getResource().add(resource);
 

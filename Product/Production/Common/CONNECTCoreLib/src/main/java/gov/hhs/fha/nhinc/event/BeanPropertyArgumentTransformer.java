@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,8 +56,8 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
             return new Object[] {};
         }
         List<Object> resultList = new ArrayList<>();
-        for (int curArg = 0; curArg < arguments.length; ++curArg) {
-            resultList.addAll(transformSingleArgument(arguments[curArg]));
+        for (Object argument : arguments) {
+            resultList.addAll(transformSingleArgument(argument));
         }
         return resultList.toArray();
     }
@@ -68,8 +68,8 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
         }
         List<Object> result = new ArrayList<>();
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(argument.getClass());
-        for (int i = 0; i < propertyDescriptors.length; ++i) {
-            Method readMethod = propertyDescriptors[i].getReadMethod();
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            Method readMethod = propertyDescriptor.getReadMethod();
             if (readMethod == null) {
                 continue;
             }

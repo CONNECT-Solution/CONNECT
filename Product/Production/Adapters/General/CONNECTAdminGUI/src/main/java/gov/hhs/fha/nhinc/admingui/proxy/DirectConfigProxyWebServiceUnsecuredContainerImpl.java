@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -96,7 +96,8 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(gov.hhs.fha.nhinc.direct.config.UpdateDomain)
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(gov.hhs.fha.nhinc.direct.config.UpdateDomain)
      */
     @Override
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws DomainException {
@@ -131,7 +132,8 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(gov.hhs.fha.nhinc.direct.config.RemoveAnchors)
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(gov.hhs.fha.nhinc.direct.config.RemoveAnchors)
      */
     @Override
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
@@ -141,17 +143,20 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(gov.hhs.fha.nhinc.direct.config.GetAnchorsForOwner)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(gov.hhs.fha.nhinc.direct.config.
+     * GetAnchorsForOwner)
      */
     @Override
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
-        return getConfigService().getConfigurationServiceImplPort().getAnchorsForOwner(getAnchorsForOwner.getOwner(), getAnchorsForOwner.getOptions());
+        return getConfigService().getConfigurationServiceImplPort().getAnchorsForOwner(getAnchorsForOwner.getOwner(),
+                getAnchorsForOwner.getOptions());
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(gov.hhs.fha.nhinc.direct.config.AddCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(gov.hhs.fha.nhinc.direct.config.
+     * AddCertificates)
      */
     @Override
     public void addCertificates(AddCertificates certificate) throws Exception {
@@ -161,7 +166,8 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(gov.hhs.fha.nhinc.direct.config.RemoveCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(gov.hhs.fha.nhinc.direct.config.
+     * RemoveCertificates)
      */
     @Override
     public void removeCertificate(RemoveCertificates certificate) throws Exception {
@@ -171,11 +177,13 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(gov.hhs.fha.nhinc.direct.config.ListCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(gov.hhs.fha.nhinc.direct.config.
+     * ListCertificates)
      */
     @Override
     public List<Certificate> listCertificates(ListCertificates listCert) throws Exception {
-        return getConfigService().getConfigurationServiceImplPort().listCertificates(listCert.getLastCertificateId(), listCert.getMaxResutls(), listCert.getOptions());
+        return getConfigService().getConfigurationServiceImplPort().listCertificates(listCert.getLastCertificateId(),
+                listCert.getMaxResutls(), listCert.getOptions());
     }
 
     /*
@@ -211,7 +219,8 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(gov.hhs.fha.nhinc.direct.config.TrustBundle)
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(gov.hhs.fha.nhinc.direct.config.TrustBundle)
      */
     @Override
     public void addTrustBundle(TrustBundle tb) throws Exception {
@@ -252,22 +261,27 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#associateTrustBundleToDomain(long, long, boolean, boolean)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#associateTrustBundleToDomain(long, long, boolean,
+     * boolean)
      */
     @Override
-    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception {
-        getConfigService().getConfigurationServiceImplPort().associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing)
+            throws Exception {
+        getConfigService().getConfigurationServiceImplPort().associateTrustBundleToDomain(domainId, trustBundleId,
+                incoming, outgoing);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String, gov.hhs.fha.nhinc.direct.config.Certificate, int)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String,
+     * gov.hhs.fha.nhinc.direct.config.Certificate, int)
      */
     @Override
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
             Certificate signingCert, int trustBundleRefreshInterval) throws Exception {
-        getConfigService().getConfigurationServiceImplPort().updateTrustBundleAttributes(trustBundleId, trustBundleName, trustBundleURL, signingCert, trustBundleRefreshInterval);
+        getConfigService().getConfigurationServiceImplPort().updateTrustBundleAttributes(trustBundleId, trustBundleName,
+                trustBundleURL, signingCert, trustBundleRefreshInterval);
     }
 
     /*
@@ -330,10 +344,12 @@ public class DirectConfigProxyWebServiceUnsecuredContainerImpl implements Direct
         getConfigService().getConfigurationServiceImplPort().removeAddress(addressEmail);
     }
 
-    private ConfigurationServiceImplService getConfigService() throws ConnectionManagerException, MalformedURLException {
+    private ConfigurationServiceImplService getConfigService()
+            throws ConnectionManagerException, MalformedURLException {
         synchronized (this) {
             if (cfService == null) {
-                String url = oProxyHelper.getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+                String url = oProxyHelper
+                        .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
                 cfService = new ConfigurationServiceImplService(new URL(url + "?wsdl"));
             }
         }

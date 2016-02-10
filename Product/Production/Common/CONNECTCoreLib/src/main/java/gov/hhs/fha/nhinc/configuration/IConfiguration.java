@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -108,8 +108,8 @@ public interface IConfiguration {
      *
      * @throws InstantiationException
      */
-    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException;
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /*
      * Sets the gateway in Passthru Mode for Specific Service in Specific Direction which is required for Testing
@@ -121,7 +121,7 @@ public interface IConfiguration {
      *
      * @throws InstantiationException
      */
-    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException;
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
 }

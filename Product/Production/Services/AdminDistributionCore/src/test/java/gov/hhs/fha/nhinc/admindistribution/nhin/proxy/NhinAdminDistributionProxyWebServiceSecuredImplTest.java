@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -34,9 +38,6 @@ import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDi
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author msw
@@ -78,7 +79,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImplTest {
              */
             @Override
             protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
-       ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor,
+                    ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor,
                     String url, AssertionType assertion, String target, String serviceName) {
                 return client;
             }

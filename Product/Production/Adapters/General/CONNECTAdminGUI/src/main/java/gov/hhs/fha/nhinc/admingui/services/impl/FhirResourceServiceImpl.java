@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -116,7 +116,8 @@ public class FhirResourceServiceImpl implements FhirResourceService {
 
     protected String getUrl(String serviceName) {
         try {
-            return ConnectionManagerCache.getInstance().getAdapterEndpointURL(serviceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+            return ConnectionManagerCache.getInstance().getAdapterEndpointURL(serviceName,
+                    NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
         } catch (ConnectionManagerException ex) {
             LOG.warn("Unable to access resource url for service: " + serviceName, ex);
         }
@@ -133,7 +134,8 @@ public class FhirResourceServiceImpl implements FhirResourceService {
         return confResources;
     }
 
-    private List<ConformanceResource> populateConfResources(List<Conformance.ConformanceRestResourceComponent> resources) {
+    private List<ConformanceResource> populateConfResources(
+            List<Conformance.ConformanceRestResourceComponent> resources) {
         List<ConformanceResource> confResources = new ArrayList<>();
         for (Conformance.ConformanceRestResourceComponent resource : resources) {
             ConformanceResource builtResource = new ConformanceResource();
@@ -146,35 +148,35 @@ public class FhirResourceServiceImpl implements FhirResourceService {
         return confResources;
     }
 
-    private void populateOperations(ConformanceResource builtResource, List<Conformance.ConformanceRestResourceOperationComponent> operations) {
+    private void populateOperations(ConformanceResource builtResource,
+            List<Conformance.ConformanceRestResourceOperationComponent> operations) {
         for (Conformance.ConformanceRestResourceOperationComponent operation : operations) {
             if (operation.getCode() != null) {
                 switch (operation.getCode().getValue()) {
-                    case create:
-                        builtResource.setSupportingCreate(true);
-                        break;
-                    case read:
-                        builtResource.setSupportingRead(true);
-                        break;
-                    case vread:
-                        builtResource.setSupportingVRead(true);
-                        break;
-                    case validate:
-                        builtResource.setSupportingValidate(true);
-                        break;
-                    case delete:
-                        builtResource.setSupportingDelete(true);
-                        break;
-                    case update:
-                        builtResource.setSupportingUpdate(true);
-                        break;
-                    case searchtype:
-                        builtResource.setSupportingSearchType(true);
-                        break;
+                case create:
+                    builtResource.setSupportingCreate(true);
+                    break;
+                case read:
+                    builtResource.setSupportingRead(true);
+                    break;
+                case vread:
+                    builtResource.setSupportingVRead(true);
+                    break;
+                case validate:
+                    builtResource.setSupportingValidate(true);
+                    break;
+                case delete:
+                    builtResource.setSupportingDelete(true);
+                    break;
+                case update:
+                    builtResource.setSupportingUpdate(true);
+                    break;
+                case searchtype:
+                    builtResource.setSupportingSearchType(true);
+                    break;
                 }
             }
         }
     }
 
 }
-

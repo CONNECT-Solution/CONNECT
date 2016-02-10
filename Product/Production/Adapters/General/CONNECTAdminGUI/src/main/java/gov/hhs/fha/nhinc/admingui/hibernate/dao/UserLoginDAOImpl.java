@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
+import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -39,12 +43,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 
 /**
  * @author msw
@@ -70,7 +68,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         Query query;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             query = session.createQuery("from UserLogin where userName = :userName");
             query.setParameter("userName", login.getUserName());
             userLogin = (UserLogin) query.uniqueResult();
@@ -96,7 +94,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         boolean result = true;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.persist(createUser);
             LOG.info("create user record Inserted successfully from dao impl...");
@@ -124,7 +122,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         UserRole result = null;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role))
                     .uniqueResult();
         } catch (HibernateException e) {
@@ -148,7 +146,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         List<UserRole> roles = null;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             roles = session.createCriteria(UserRole.class).list();
         } catch (HibernateException e) {
             LOG.error("Could not get roles: " + e.getLocalizedMessage(), e);
@@ -172,7 +170,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         boolean updated = false;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
 
             session.update(preference);
@@ -195,7 +193,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         Transaction tx = null;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.delete(user);
             tx.commit();
@@ -215,7 +213,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         List<UserLogin> users = null;
 
         try {
-            session = this.sessionFactory.openSession();
+            session = sessionFactory.openSession();
             users = session.createCriteria(UserLogin.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: " + e.getLocalizedMessage(), e);

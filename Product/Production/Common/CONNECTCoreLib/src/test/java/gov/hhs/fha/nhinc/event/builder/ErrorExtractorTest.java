@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,11 +26,12 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
+import static org.junit.Assert.assertEquals;
+
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -47,7 +48,6 @@ public class ErrorExtractorTest {
 
         RegistryError registryError2 = new RegistryError();
         registryError2.setErrorCode("errorCode2");
-
 
         List<RegistryError> registryErrorList = new ArrayList<>();
         registryErrorList.add(registryError1);

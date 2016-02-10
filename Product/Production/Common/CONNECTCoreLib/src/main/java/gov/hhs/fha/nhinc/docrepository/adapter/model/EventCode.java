@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -97,36 +97,36 @@ public class EventCode {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
+        }
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
         EventCode toCheck = (EventCode) obj;
 
-        if ((this.getEventCodeId() == null) && (toCheck.getEventCodeId() != null)) {
+        if (getEventCodeId() == null && toCheck.getEventCodeId() != null) {
             return false;
-        } else if ((this.getEventCodeId() != null) && (!this.getEventCodeId().equals(toCheck.getEventCodeId()))) {
-            return false;
-        }
-
-        if ((this.getEventCode() == null) && (toCheck.getEventCode() != null)) {
-            return false;
-        } else if ((this.getEventCode() != null) && (!this.getEventCode().equals(toCheck.getEventCode()))) {
+        } else if (getEventCodeId() != null && !getEventCodeId().equals(toCheck.getEventCodeId())) {
             return false;
         }
 
-        if ((this.getEventCodeScheme() == null) && (toCheck.getEventCodeScheme() != null)) {
+        if (getEventCode() == null && toCheck.getEventCode() != null) {
             return false;
-        } else if ((this.getEventCodeScheme() != null)
-                && (!this.getEventCodeScheme().equals(toCheck.getEventCodeScheme()))) {
+        } else if (getEventCode() != null && !getEventCode().equals(toCheck.getEventCode())) {
             return false;
         }
 
-        if ((this.getEventCodeDisplayName() == null) && (toCheck.getEventCodeDisplayName() != null)) {
+        if (getEventCodeScheme() == null && toCheck.getEventCodeScheme() != null) {
             return false;
-        } else if ((this.getEventCodeDisplayName() != null)
-                && (!this.getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName()))) {
+        } else if (getEventCodeScheme() != null && !getEventCodeScheme().equals(toCheck.getEventCodeScheme())) {
+            return false;
+        }
+
+        if (getEventCodeDisplayName() == null && toCheck.getEventCodeDisplayName() != null) {
+            return false;
+        } else if (getEventCodeDisplayName() != null
+                && !getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName())) {
             return false;
         }
         return true;

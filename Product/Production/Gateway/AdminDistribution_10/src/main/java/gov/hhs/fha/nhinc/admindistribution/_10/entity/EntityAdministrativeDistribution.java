@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,9 +48,7 @@ public class EntityAdministrativeDistribution extends BaseService implements Adm
     private OutboundAdminDistribution outboundAdminDist;
 
     @Override
-    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-        afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-        beforeBuilder = ADRequestTransformingBuilder.class)
+    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", afterReturningBuilder = DefaultEventDescriptionBuilder.class, beforeBuilder = ADRequestTransformingBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
 
@@ -72,6 +70,6 @@ public class EntityAdministrativeDistribution extends BaseService implements Adm
      * @return the outbound admin distribution
      */
     public OutboundAdminDistribution getOutboundAdminDistribution() {
-        return this.outboundAdminDist;
+        return outboundAdminDist;
     }
 }

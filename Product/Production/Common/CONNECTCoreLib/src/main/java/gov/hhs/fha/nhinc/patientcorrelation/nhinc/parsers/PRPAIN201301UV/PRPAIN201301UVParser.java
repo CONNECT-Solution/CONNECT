@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -94,7 +94,8 @@ public class PRPAIN201301UVParser {
         return patient;
     }
 
-    public static PRPAIN201301UV02MFMIMT700701UV01Subject1 parseSubjectFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
+    public static PRPAIN201301UV02MFMIMT700701UV01Subject1 parseSubjectFromMessage(
+            org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
 
         if (message == null) {
@@ -109,7 +110,7 @@ public class PRPAIN201301UVParser {
         // HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.isEmpty())) {
+        if (subjects == null || subjects.isEmpty()) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }

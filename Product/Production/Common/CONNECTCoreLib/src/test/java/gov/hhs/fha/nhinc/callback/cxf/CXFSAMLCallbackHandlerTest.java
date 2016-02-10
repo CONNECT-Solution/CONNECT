@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -36,12 +41,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.cxf.message.Message;
 import org.apache.ws.security.saml.ext.SAMLCallback;
-import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.opensaml.common.SAMLVersion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -90,8 +91,7 @@ public class CXFSAMLCallbackHandlerTest {
         callbackHandler.handle(callbackList);
 
         assertEquals(samlCallback.getSamlVersion(), SAMLVersion.VERSION_20);
-        assertEquals(samlCallback.getAssertionElement().getTextContent(),
-            ASSERTION);
+        assertEquals(samlCallback.getAssertionElement().getTextContent(), ASSERTION);
     }
 
     @Test

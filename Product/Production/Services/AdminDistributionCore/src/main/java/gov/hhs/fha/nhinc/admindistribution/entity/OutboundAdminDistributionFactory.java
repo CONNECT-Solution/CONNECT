@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,14 +35,16 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public final class OutboundAdminDistributionFactory {
 
-    //CHECKSTYLE:OFF
+    // CHECKSTYLE:OFF
     private static OutboundAdminDistributionFactory INSTANCE = new OutboundAdminDistributionFactory();
-    //CHECKSTYLE:ON
+    // CHECKSTYLE:ON
 
     private OutboundAdminDistributionFactory() {
     }
 
-    /** This method returns OutboundAdminDistributionOrchestrationContextBuilder based on gateway apiLevel.
+    /**
+     * This method returns OutboundAdminDistributionOrchestrationContextBuilder based on gateway apiLevel.
+     * 
      * @param apiLevel gateway apiLevel received (g0 or g1).
      * @return instance of OutboundAdminDistributionOrchestrationContextBuilder based on gateway apiLevel.
      */

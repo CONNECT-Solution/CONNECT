@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ UddiSpecVersionRegistryTest.class, ADSpecVersionRegistryTest.class, PDSpecVersionRegistryTest.class,
-    DSSpecVersionRegistryTest.class, DQSpecVersionRegistryTest.class, DRSpecVersionRegistryTest.class })
+        DSSpecVersionRegistryTest.class, DQSpecVersionRegistryTest.class, DRSpecVersionRegistryTest.class })
 public class SpecVersionRegistryTests {
 
 }

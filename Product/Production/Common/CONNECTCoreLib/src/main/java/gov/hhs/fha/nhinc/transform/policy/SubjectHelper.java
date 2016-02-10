@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,9 +49,8 @@ public class SubjectHelper {
         // subject.getAttribute().add(AttributeHelper.attributeFactory(UserAttributeId, Constants.DataTypeString,
         // AssertionHelper.extractUserName(assertion)));
         AttributeHelper attrHelper = new AttributeHelper();
-        subject.getAttribute().add(
-                attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
-                        determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
+        subject.getAttribute().add(attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
+                determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
 
@@ -64,9 +63,8 @@ public class SubjectHelper {
         // subject.getAttribute().add(AttributeHelper.attributeFactory(PurposeAttributeId, Constants.DataTypeString,
         // AssertionHelper.extractPurpose(assertion)));
         AttributeHelper attrHelper = new AttributeHelper();
-        subject.getAttribute().add(
-                attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
-                        determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
+        subject.getAttribute().add(attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
+                determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
 

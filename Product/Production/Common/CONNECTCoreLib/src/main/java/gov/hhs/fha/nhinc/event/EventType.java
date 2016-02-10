@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,19 +32,17 @@ package gov.hhs.fha.nhinc.event;
  */
 public enum EventType {
 
-    BEGIN_OUTBOUND_MESSAGE("beginOutboundMessage"),
-    BEGIN_OUTBOUND_PROCESSING("beginOutboundProcessing"),
-    BEGIN_NWHIN_INVOCATION("beginNwhinInvocation"),
-    END_NWHIN_INVOCATION("endNwhinInvocation"),
-    END_OUTBOUND_PROCESSING("endOutboundProcessing"),
-    END_OUTBOUND_MESSAGE("endOutboundMessage"),
-    BEGIN_INBOUND_MESSAGE("beginInboundMessage"),
-    BEGIN_INBOUND_PROCESSING("beginInboundProcessing"),
-    BEGIN_ADAPTER_DELEGATION("beginAdapterDelegation"),
-    END_ADAPTER_DELEGATION("endAdapterDelegation"),
-    END_INBOUND_PROCESSING("endInboundProcessing"),
-    END_INBOUND_MESSAGE("endInboundMessage"),
-    MESSAGE_PROCESSING_FAILED("messageProcessingFailed");
+    BEGIN_OUTBOUND_MESSAGE("beginOutboundMessage"), BEGIN_OUTBOUND_PROCESSING(
+            "beginOutboundProcessing"), BEGIN_NWHIN_INVOCATION("beginNwhinInvocation"), END_NWHIN_INVOCATION(
+                    "endNwhinInvocation"), END_OUTBOUND_PROCESSING("endOutboundProcessing"), END_OUTBOUND_MESSAGE(
+                            "endOutboundMessage"), BEGIN_INBOUND_MESSAGE(
+                                    "beginInboundMessage"), BEGIN_INBOUND_PROCESSING(
+                                            "beginInboundProcessing"), BEGIN_ADAPTER_DELEGATION(
+                                                    "beginAdapterDelegation"), END_ADAPTER_DELEGATION(
+                                                            "endAdapterDelegation"), END_INBOUND_PROCESSING(
+                                                                    "endInboundProcessing"), END_INBOUND_MESSAGE(
+                                                                            "endInboundMessage"), MESSAGE_PROCESSING_FAILED(
+                                                                                    "messageProcessingFailed");
 
     private final String name;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ public class ContextEventHelper {
             transactionId = store.getTransactionId(transactionIdList.get(0));
         }
 
-        if ((transactionId == null) && (messageId != null)) {
+        if (transactionId == null && messageId != null) {
             transactionId = store.getTransactionId(messageId);
         }
 
@@ -66,15 +66,15 @@ public class ContextEventHelper {
     }
 
     void setTransactionStoreFacotyr(TransactionStoreFactory factory) {
-    	this.factory = factory;
+        this.factory = factory;
     }
 
-	WebServiceContext getContext() {
-		return context;
-	}
+    WebServiceContext getContext() {
+        return context;
+    }
 
-	AsyncMessageIdExtractor getExtractor() {
-		return extractor;
-	}
+    AsyncMessageIdExtractor getExtractor() {
+        return extractor;
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
@@ -41,11 +46,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * @author jsmith
@@ -144,21 +145,21 @@ public class AdapterComponentDocRepositoryHelperTest {
         when(internationalString.getLocalizedString()).thenReturn(localizedList);
 
         result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
-            DocRepoConstants.XDS_NAME);
+                DocRepoConstants.XDS_NAME);
         assertEquals(result, VALUE);
 
         when(classificationType.getNodeRepresentation()).thenReturn(VALUE);
         result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
-            DocRepoConstants.XDS_NODE_REPRESENTATION);
+                DocRepoConstants.XDS_NODE_REPRESENTATION);
         assertEquals(result, VALUE);
 
         when(classificationType.getClassifiedObject()).thenReturn(VALUE);
         result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
-            DocRepoConstants.XDS_CLASSIFIED_OBJECT);
+                DocRepoConstants.XDS_CLASSIFIED_OBJECT);
         assertEquals(result, VALUE);
 
         result = docRepoHelper.extractClassificationMetadata(classifications, CLASSIFICATION_SCHEME,
-            DocRepoConstants.XDS_CLASSIFICATION_ID);
+                DocRepoConstants.XDS_CLASSIFICATION_ID);
         assertEquals(result, VALUE);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
@@ -51,7 +52,8 @@ public class ConnectionManagerCacheGuidanceTest extends BaseConnctionManagerCach
 
             @Override
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
-                return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/internalConnectionInfoTest.xml");
+                return createInternalConnectionInfoDAO(
+                        "/config/ConnectionManagerCacheTest/internalConnectionInfoTest.xml");
             }
         };
     }
@@ -61,7 +63,8 @@ public class ConnectionManagerCacheGuidanceTest extends BaseConnctionManagerCach
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, QUERY_FOR_DOCUMENTS_NAME, UDDI_SPEC_VERSION.fromString("2.0"));
+            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, QUERY_FOR_DOCUMENTS_NAME,
+                    UDDI_SPEC_VERSION.fromString("2.0"));
 
             fail();
         } catch (Throwable t) {
@@ -74,7 +77,8 @@ public class ConnectionManagerCacheGuidanceTest extends BaseConnctionManagerCach
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, QUERY_FOR_DOCUMENTS_NAME, UDDI_SPEC_VERSION.fromString("3.0"));
+            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, QUERY_FOR_DOCUMENTS_NAME,
+                    UDDI_SPEC_VERSION.fromString("3.0"));
 
             fail();
         } catch (Throwable t) {
@@ -87,7 +91,8 @@ public class ConnectionManagerCacheGuidanceTest extends BaseConnctionManagerCach
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, RETRIEVE_DOCUMENTS_NAME, UDDI_SPEC_VERSION.fromString("2.0"));
+            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, RETRIEVE_DOCUMENTS_NAME,
+                    UDDI_SPEC_VERSION.fromString("2.0"));
             fail();
         } catch (Throwable t) {
             assertTrue(t.getMessage().contains("No matching target endpoint for guidance: 2.0"));
@@ -99,7 +104,8 @@ public class ConnectionManagerCacheGuidanceTest extends BaseConnctionManagerCach
         try {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
-            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, RETRIEVE_DOCUMENTS_NAME, UDDI_SPEC_VERSION.fromString("3.0"));
+            connectionManager.getEndpointURLByServiceNameSpecVersion(HCID_1, RETRIEVE_DOCUMENTS_NAME,
+                    UDDI_SPEC_VERSION.fromString("3.0"));
 
             fail();
         } catch (Throwable t) {

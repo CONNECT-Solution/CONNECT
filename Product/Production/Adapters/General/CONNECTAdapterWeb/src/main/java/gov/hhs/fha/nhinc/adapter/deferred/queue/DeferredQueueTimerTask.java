@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,8 +65,8 @@ public class DeferredQueueTimerTask {
     public void run() {
         boolean bQueueActive;
         try {
-            bQueueActive = PropertyAccessor.getInstance()
-                .getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
+            bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+                    DEFERRED_QUEUE_SWITCH_PROPERTY);
 
             if (bQueueActive) {
                 LOG.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,14 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
@@ -35,13 +43,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -55,22 +56,22 @@ public class PassthroughInboundAdminDistributionTest {
         AssertionType assertion = new AssertionType();
 
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
-        AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
+        AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(
+                AdapterAdminDistributionProxyObjectFactory.class);
         AdapterAdminDistributionProxy adapterProxy = mock(AdapterAdminDistributionProxy.class);
         AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
 
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-        		adminUtils, adapterFactory);
+                adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 
         verify(adapterProxy).sendAlertMessage(eq(request), eq(assertion));
 
-        verify(auditLogger, times(1)).auditNhinAdminDist(any(EDXLDistribution.class),
-        		any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class),
-        		any(String.class));
+        verify(auditLogger, times(1)).auditNhinAdminDist(any(EDXLDistribution.class), any(AssertionType.class),
+                any(String.class), any(NhinTargetSystemType.class), any(String.class));
 
     }
 
@@ -81,13 +82,14 @@ public class PassthroughInboundAdminDistributionTest {
         LargePayloadException exception = new LargePayloadException();
 
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
-        AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
+        AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(
+                AdapterAdminDistributionProxyObjectFactory.class);
         AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
 
         doThrow(exception).when(adminUtils).convertDataToFileLocationIfEnabled(request);
 
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-        		adminUtils, adapterFactory);
+                adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 

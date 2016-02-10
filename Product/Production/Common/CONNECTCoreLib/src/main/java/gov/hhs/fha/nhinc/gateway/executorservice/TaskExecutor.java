@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,8 +62,6 @@ public class TaskExecutor<Target, Request, Response> {
     private WebServiceClient client = null;
     private List<Target> targetList = null;
     private Request request = null;
-    private String transactionId = null;
-
     private List<CallableRequest<Target, Request, Response>> requestList = new ArrayList<>();
 
     /**
@@ -79,7 +77,6 @@ public class TaskExecutor<Target, Request, Response> {
         client = c;
         targetList = t;
         request = req;
-        transactionId = id;
         executor = e;
     }
 
@@ -100,8 +97,8 @@ public class TaskExecutor<Target, Request, Response> {
 
         try {
             for (Target target : targetList) {
-                CallableRequest<Target, Request, Response> callable = new CallableRequest<>(
-                        target, request, processor, client);
+                CallableRequest<Target, Request, Response> callable = new CallableRequest<>(target, request, processor,
+                        client);
                 requestList.add(callable);
             }
 

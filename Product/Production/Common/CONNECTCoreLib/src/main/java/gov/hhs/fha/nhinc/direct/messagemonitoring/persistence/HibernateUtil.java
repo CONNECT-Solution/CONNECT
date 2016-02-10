@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,9 +69,12 @@ public class HibernateUtil {
         File result = null;
 
         try {
-            result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_MESSAGE_MONITORING_REPOSITORY);
+            result = HibernateAccessor.getInstance()
+                    .getHibernateFile(NhincConstants.HIBERNATE_MESSAGE_MONITORING_REPOSITORY);
         } catch (Exception ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_MESSAGE_MONITORING_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error(
+                    "Unable to load " + NhincConstants.HIBERNATE_MESSAGE_MONITORING_REPOSITORY + " " + ex.getMessage(),
+                    ex);
         }
 
         return result;

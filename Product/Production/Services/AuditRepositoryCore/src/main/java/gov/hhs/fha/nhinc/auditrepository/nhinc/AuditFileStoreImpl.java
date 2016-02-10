@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ public class AuditFileStoreImpl implements AuditStore {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             JAXBElement<LogEventSecureRequestType> oJaxbElement = new JAXBElement<>(new QName("uri", "local"),
-                LogEventSecureRequestType.class, request);
+                    LogEventSecureRequestType.class, request);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             return new String(baOutStrm.toByteArray());

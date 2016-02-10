@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -125,8 +125,8 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
     @Override
-    public abstract void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public abstract void configureInboundStdImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure inbound Passthrough implementation. This method is abstract because subclass implementations must use
@@ -138,8 +138,8 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
     @Override
-    public abstract void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public abstract void configureInboundPtImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
@@ -151,8 +151,8 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
     @Override
-    public abstract void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public abstract void configureOutboundStdImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
@@ -164,8 +164,8 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
      */
     @Override
-    public abstract void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public abstract void configureOutboundPtImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Compares the class name of an object vs the class name passed in.
@@ -177,7 +177,8 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      */
     protected boolean compareClassName(Object clazz, String className) {
         boolean matches = false;
-        if (clazz != null && clazz.getClass() != null && StringUtils.startsWith(clazz.getClass().getName(), className)) {
+        if (clazz != null && clazz.getClass() != null
+                && StringUtils.startsWith(clazz.getClass().getName(), className)) {
             matches = true;
         }
         return matches;

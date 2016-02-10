@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,8 +63,8 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
      * @param auditLogger
      */
     public StandardInboundAdminDistribution(AdminDistributionPolicyChecker policyChecker,
-    		AdminDistributionAuditLogger auditLogger, AdapterAdminDistributionProxyObjectFactory adapterFactory,
-    		AdminDistributionUtils adminUtils) {
+            AdminDistributionAuditLogger auditLogger, AdapterAdminDistributionProxyObjectFactory adapterFactory,
+            AdminDistributionUtils adminUtils) {
         this.policyChecker = policyChecker;
         this.auditLogger = auditLogger;
         this.adapterFactory = adapterFactory;
@@ -75,8 +75,8 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
         if (isPolicyValid(body, assertion)) {
-        	auditRequestToAdapter(body, assertion);
-        	sendToAdapter(body, assertion, adminUtils, adapterFactory);
+            auditRequestToAdapter(body, assertion);
+            sendToAdapter(body, assertion, adminUtils, adapterFactory);
         } else {
             LOG.warn("Invalid policy.  Will not send message to adapter.");
         }
@@ -95,13 +95,12 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
     }
 
     private void auditRequestToAdapter(EDXLDistribution body, AssertionType assertion) {
-        auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                null, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, null,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
+
     @Override
-    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
+    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "", afterReturningBuilder = DefaultEventDescriptionBuilder.class, beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         auditRequestFromNhin(body, assertion);
 

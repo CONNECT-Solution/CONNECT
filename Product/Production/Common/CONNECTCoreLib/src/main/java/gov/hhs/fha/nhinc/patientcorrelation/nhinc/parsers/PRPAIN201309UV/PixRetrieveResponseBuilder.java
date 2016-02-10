@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,22 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.SenderReceiver
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.UniqueIdHelper;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.*;
+import org.hl7.v3.COCTMT090003UV01AssignedEntity;
+import org.hl7.v3.II;
+import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
+import org.hl7.v3.MFMIMT700711UV01Custodian;
+import org.hl7.v3.MFMIMT700711UV01QueryAck;
+import org.hl7.v3.PNExplicit;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201310UV02;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201304UV02Patient;
+import org.hl7.v3.PRPAMT201304UV02Person;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.hl7.v3.XActMoodIntentEvent;
 
 /**
  *
@@ -46,7 +61,6 @@ import org.hl7.v3.*;
 public class PixRetrieveResponseBuilder {
 
     private static String CODE = "CA";
-    private static String MoodCode = "EVN";
     private static String ControlActProcessCode = "PRPA_TE201310UV";
     private static String SubjectTypeCode = "SUBJ";
     private static String StatusCodeValue = "active";
@@ -61,14 +75,15 @@ public class PixRetrieveResponseBuilder {
 
     public static PRPAIN201310UV02 createPixRetrieveResponse(PRPAIN201309UV02 retrievePatientCorrelationsRequest,
             List<II> resultListII) {
-        PRPAIN201310UV02 message = createTransmissionWrapper(
-                IIHelper.IIFactory(Configuration.getMyCommunityId(), null), IIHelper.IIFactoryCreateNull());
+        PRPAIN201310UV02 message = createTransmissionWrapper(IIHelper.IIFactory(Configuration.getMyCommunityId(), null),
+                IIHelper.IIFactoryCreateNull());
         message.getAcknowledgement().add(createAck());
         message.setControlActProcess(createControlActProcess(resultListII, retrievePatientCorrelationsRequest));
         return message;
     }
 
-    private static MFMIMT700711UV01QueryAck createQueryAck(PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlAct) {
+    private static MFMIMT700711UV01QueryAck createQueryAck(
+            PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlAct) {
 
         MFMIMT700711UV01QueryAck queryAck = new MFMIMT700711UV01QueryAck();
         queryAck.setQueryId(controlAct.getQueryByParameter().getValue().getQueryId());

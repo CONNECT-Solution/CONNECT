@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,11 +66,11 @@ public class UDDIAccessor {
             try {
                 String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME,
                         UDDI_BUSINESSES_TO_IGNORE);
-                if ((sValue != null) && (sValue.length() > 0)) {
+                if (sValue != null && sValue.length() > 0) {
                     String saBusiness[] = sValue.split(";");
-                    if ((saBusiness != null) && (saBusiness.length > 0)) {
-                        for (int i = 0; i < saBusiness.length; i++) {
-                            m_hBusinessToIgnore.add(saBusiness[i]);
+                    if (saBusiness != null && saBusiness.length > 0) {
+                        for (String saBusines : saBusiness) {
+                            m_hBusinessToIgnore.add(saBusines);
                         }
                     }
                 }
@@ -95,7 +95,7 @@ public class UDDIAccessor {
     private String extractBusinessKey(BusinessInfo oBusInfo) {
         String sKey = "";
 
-        if ((oBusInfo != null) && (oBusInfo.getBusinessKey() != null) && (oBusInfo.getBusinessKey().length() > 0)) {
+        if (oBusInfo != null && oBusInfo.getBusinessKey() != null && oBusInfo.getBusinessKey().length() > 0) {
             sKey = oBusInfo.getBusinessKey();
         }
 
@@ -105,9 +105,9 @@ public class UDDIAccessor {
 
     private void removeIgnoredBusinesses(BusinessList businessList) {
         ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<>();
-        if ((businessList != null) && (businessList.getBusinessInfos() != null)
-                && (businessList.getBusinessInfos().getBusinessInfo() != null)
-                && (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
+        if (businessList != null && businessList.getBusinessInfos() != null
+                && businessList.getBusinessInfos().getBusinessInfo() != null
+                && businessList.getBusinessInfos().getBusinessInfo().size() > 0) {
             for (BusinessInfo oBusInfo : businessList.getBusinessInfos().getBusinessInfo()) {
                 String sKey = extractBusinessKey(oBusInfo);
 
@@ -192,7 +192,7 @@ public class UDDIAccessor {
     private GetBusinessDetail createSearchParamsFromBusinessKeys(BusinessInfos businessInfos) {
         GetBusinessDetail searchParams = new GetBusinessDetail();
         for (BusinessInfo businessInfo : businessInfos.getBusinessInfo()) {
-            if ((businessInfo.getBusinessKey() != null) && (businessInfo.getBusinessKey().length() > 0)) {
+            if (businessInfo.getBusinessKey() != null && businessInfo.getBusinessKey().length() > 0) {
                 searchParams.getBusinessKey().add(businessInfo.getBusinessKey());
             }
         }

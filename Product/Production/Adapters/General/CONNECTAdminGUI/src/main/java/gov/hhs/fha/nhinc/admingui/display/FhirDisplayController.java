@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,8 +44,8 @@ public class FhirDisplayController implements DisplayController {
 
     @Override
     public void checkDisplay() {
-        String[] resourceNames = new String[]{FhirResourceService.BINARY_RESOURCE_NAME, FhirResourceService.DOCREF_RESOURCE_NAME,
-            FhirResourceService.PATIENT_RESOURCE_NAME};
+        String[] resourceNames = new String[] { FhirResourceService.BINARY_RESOURCE_NAME,
+                FhirResourceService.DOCREF_RESOURCE_NAME, FhirResourceService.PATIENT_RESOURCE_NAME };
 
         for (String resourceName : resourceNames) {
             boolean hasResource;
@@ -65,7 +65,8 @@ public class FhirDisplayController implements DisplayController {
     }
 
     private boolean checkForResource(String resourceName) throws ConnectionManagerException {
-        return NullChecker.isNotNullish(ConnectionManagerCache.getInstance().getAdapterEndpointURL(resourceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
+        return NullChecker.isNotNullish(ConnectionManagerCache.getInstance().getAdapterEndpointURL(resourceName,
+                NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
     }
 
 }

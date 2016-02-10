@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ public class DocumentClassCodeParser {
             resultCollection = new ArrayList<>();
         }
 
-        if ((NullChecker.isNotNullish(paramFormattedString)) && (resultCollection != null)) {
+        if (NullChecker.isNotNullish(paramFormattedString) && resultCollection != null) {
             if (paramFormattedString.startsWith("(")) {
                 String working = paramFormattedString.substring(1);
                 int endIndex = working.indexOf(")");
@@ -66,8 +66,8 @@ public class DocumentClassCodeParser {
                 }
                 String[] multiValueString = working.split(",");
                 if (multiValueString != null) {
-                    for (int i = 0; i < multiValueString.length; i++) {
-                        String singleValue = multiValueString[i];
+                    for (String element : multiValueString) {
+                        String singleValue = element;
                         if (singleValue != null) {
                             singleValue = singleValue.trim();
 
@@ -100,7 +100,7 @@ public class DocumentClassCodeParser {
 
     public static String buildDocumentClassCodeItem(List<String> documentClassCodeList) {
         StringBuffer buffer = new StringBuffer();
-        if ((documentClassCodeList != null) && (documentClassCodeList.size() > 0)) {
+        if (documentClassCodeList != null && documentClassCodeList.size() > 0) {
             buffer.append("(");
             for (String documentClassCode : documentClassCodeList) {
                 documentClassCode = documentClassCode.trim();

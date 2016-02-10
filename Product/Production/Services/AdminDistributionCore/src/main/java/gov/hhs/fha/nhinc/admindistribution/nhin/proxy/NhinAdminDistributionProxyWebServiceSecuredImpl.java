@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -82,13 +82,13 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @return NhinAdminDistributionPortDescriptor based on g0/g1 impl
      */
     public ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> getServicePortDescriptor(
-        NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
 
         switch (apiLevel) {
-            case LEVEL_g0:
-                return new NhinAdminDistributionG0ServicePortDescriptor();
-            default:
-                return new NhinAdminDistributionG1ServicePortDescriptor();
+        case LEVEL_g0:
+            return new NhinAdminDistributionG0ServicePortDescriptor();
+        default:
+            return new NhinAdminDistributionG1ServicePortDescriptor();
         }
     }
 
@@ -103,11 +103,11 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @return CXFClient to implement Secured Service.
      */
     protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
-        ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
-        AssertionType assertion, String target, String serviceName) {
+            ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
+            AssertionType assertion, String target, String serviceName) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
-            serviceName);
+                serviceName);
     }
 
     /**
@@ -119,11 +119,9 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @param apiLevel gateway apiLevel (g0/g1).
      */
     @Override
-    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-        afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class,
-        serviceType = "Admin Distribution", version = "")
+    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
-        NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
 
         LOG.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
@@ -135,12 +133,12 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
             try {
                 getAdminDistributionUtils().convertFileLocationToDataIfEnabled(body);
 
-                ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor
-                    = getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(
+                        apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
-                    portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(),
-                    NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+                        portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(),
+                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
 
                 if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g1) {
                     client.enableMtom();
@@ -148,12 +146,14 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
             } catch (Exception ex) {
-                LOG.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME
-                    + ").  An unexpected exception occurred.  " + "Exception: " + ex.getLocalizedMessage(), ex);
+                LOG.error(
+                        "Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME
+                                + ").  An unexpected exception occurred.  " + "Exception: " + ex.getLocalizedMessage(),
+                        ex);
             }
         } else {
             LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
-                + ").  The URL is null.");
+                    + ").  The URL is null.");
         }
     }
 
@@ -166,10 +166,10 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @param target
      */
     protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction,
-        NhinTargetSystemType target) {
+            NhinTargetSystemType target) {
 
         AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction, target,
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         if (ack != null) {
             LOG.debug("ack: " + ack.getMessage());
         }
@@ -179,7 +179,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @return Nhin AdminDist audit logger.
      */
     protected AdminDistributionAuditLogger getLogger() {
-        return (adLogger != null) ? adLogger : new AdminDistributionAuditLogger();
+        return adLogger != null ? adLogger : new AdminDistributionAuditLogger();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -95,9 +95,10 @@ public class PatientSearchFacade {
         II patId = new II();
         patId.setExtension(patientSearchCriteria.getPatientID());
         patId.setRoot(patientSearchCriteria.getAssigningAuthorityID());
-        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms
-                .create201301PatientPerson(patientSearchCriteria.getFirstName(), patientSearchCriteria.getLastName(),
-                        null, null, null), patId);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(
+                HL7PatientTransforms.create201301PatientPerson(patientSearchCriteria.getFirstName(),
+                        patientSearchCriteria.getLastName(), null, null, null),
+                patId);
         PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient,
                 patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getOrganizationID(),
                 patientSearchCriteria.getAssigningAuthorityID());
@@ -125,13 +126,13 @@ public class PatientSearchFacade {
         PRPAMT201310UV02Patient mpiPatResult;
         PersonNameType name;
         PersonName personName;
-        if ((patients != null) && (patients.getControlActProcess() != null)
+        if (patients != null && patients.getControlActProcess() != null
                 && NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
             LOG.debug("convertPRPAIN201306UVToPatients - patients size: "
                     + patients.getControlActProcess().getSubject().size());
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : patients.getControlActProcess().getSubject()) {
-                if ((subj1.getRegistrationEvent() != null) && (subj1.getRegistrationEvent().getSubject1() != null)
-                        && (subj1.getRegistrationEvent().getSubject1().getPatient() != null)) {
+                if (subj1.getRegistrationEvent() != null && subj1.getRegistrationEvent().getSubject1() != null
+                        && subj1.getRegistrationEvent().getSubject1().getPatient() != null) {
                     mpiPatResult = subj1.getRegistrationEvent().getSubject1().getPatient();
                     searchPatient = new Patient();
 
@@ -148,8 +149,8 @@ public class PatientSearchFacade {
 
                     if (mpiPatResult.getPatientPerson() != null && mpiPatResult.getPatientPerson().getValue() != null
                             && mpiPatResult.getPatientPerson().getValue().getName() != null) {
-                        name = HL7Extractors.translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue()
-                                .getName());
+                        name = HL7Extractors
+                                .translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue().getName());
                         if (name != null) {
                             LOG.debug("convertPRPAIN201306UVToPatients - patients name.getGivenName(): "
                                     + name.getGivenName());

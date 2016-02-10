@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -47,7 +49,8 @@ public class CallableRequestTest {
     @Test
     public void testGetRequest() {
         System.out.println("getRequest");
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, null, null, null);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(
+                null, null, null, null);
         Object expResult = null;
         Object result = instance.getRequest();
         assertEquals(expResult, result);
@@ -59,7 +62,8 @@ public class CallableRequestTest {
     @Test
     public void testGetTarget() {
         System.out.println("getTarget");
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, null, null, null);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(
+                null, null, null, null);
         Object expResult = null;
         Object result = instance.getTarget();
         assertEquals(expResult, result);
@@ -73,7 +77,8 @@ public class CallableRequestTest {
         System.out.println("call");
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         TestClient testClient = new TestClient();
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, request, null, testClient);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(
+                null, request, null, testClient);
         ResponseWrapper rw = new ResponseWrapper();
         Object result = instance.call();
         assertNotNull(result);
@@ -85,7 +90,8 @@ public class CallableRequestTest {
     @Test(expected = Exception.class)
     public void testCallWithRequestNull() throws Exception {
         System.out.println("testCallWithRequestNull");
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, null, null, null);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(
+                null, null, null, null);
         Object result = instance.call();
     }
 
@@ -98,12 +104,14 @@ public class CallableRequestTest {
         TestClient testClient = new TestClient();
         testClient.setReturnResponseNull(true);
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(null, request, null, testClient);
+        CallableRequest<UrlInfo, RespondingGatewayPRPAIN201305UV02RequestType, ResponseWrapper> instance = new CallableRequest<>(
+                null, request, null, testClient);
         Object result = instance.call();
     }
-    //create WebService client class
+    // create WebService client class
 
-    private static class TestClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends ResponseWrapper> implements WebServiceClient<Target, Request, Response> {
+    private static class TestClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends ResponseWrapper>
+            implements WebServiceClient<Target, Request, Response> {
 
         private boolean returnResponseNull = false;
 
@@ -113,7 +121,7 @@ public class CallableRequestTest {
             if (returnResponseNull) {
                 return null;
             } else {
-                return (Response) (new ResponseWrapper(t, r, response));
+                return (Response) new ResponseWrapper(t, r, response);
             }
         }
 

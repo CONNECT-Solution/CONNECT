@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -152,8 +152,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
 
     protected final void setLocalResponder() {
         try {
-            String hcid
-                = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            String hcid = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
             if (NullChecker.isNotNullish(hcid)) {
                 List<String> responders = new ArrayList<>();
@@ -188,7 +188,7 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < description.getRespondingHCIDs().size(); i++) {
                     builder.append(description.getRespondingHCIDs().get(i));
-                    if (i != (description.getRespondingHCIDs().size() - 1)) {
+                    if (i != description.getRespondingHCIDs().size() - 1) {
                         builder.append(", ");
                     }
                 }

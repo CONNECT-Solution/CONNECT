@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
-
 /**
  *
  * @author nnguyen
@@ -48,6 +47,7 @@ public abstract class OutboundAdminDistributionOrchestrationContextBuilder imple
 
     /**
      * Implement OrchestrationContext build() in the implemntation classes.
+     * 
      * @return OrchestrationContext.
      */
     @Override
@@ -109,7 +109,9 @@ public abstract class OutboundAdminDistributionOrchestrationContextBuilder imple
         this.targetSystem = targetSystem;
     }
 
-    /** This method gets and sets assertion,request and target info from orchestartable message.
+    /**
+     * This method gets and sets assertion,request and target info from orchestartable message.
+     * 
      * @param message outboundOrchestratable message.
      */
     public void init(OutboundOrchestratable message) {

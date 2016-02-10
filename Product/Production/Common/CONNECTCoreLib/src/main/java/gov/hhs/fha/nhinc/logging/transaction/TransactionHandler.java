@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * \<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/"\>SOME-UUID\</txn:TransactionID\>.
      */
     private static final QName TRANSACTION_QNAME = new QName("http://connectopensource.org/transaction/",
-        "TransactionID");
+            "TransactionID");
     private static final Logger LOG = LoggerFactory.getLogger(TransactionHandler.class);
     private static final String WSA_NS_2005 = "http://www.w3.org/2005/08/addressing";
     private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";

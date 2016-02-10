@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -122,9 +122,8 @@ public class DirectDomainBean {
             directService.deleteDomain(selectedDomain);
             refreshDomains();
         } else {
-            FacesContext.getCurrentInstance().addMessage("domainDeleteError",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.",
-                    ""));
+            FacesContext.getCurrentInstance().addMessage("domainDeleteError", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.", ""));
         }
         selectedDomain = null;
     }
@@ -146,14 +145,13 @@ public class DirectDomainBean {
             refreshDomains();
         } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
-            FacesContext.getCurrentInstance().addMessage("domainAddErrors",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot add domain: "
-                    + domainException.getLocalizedMessage(), ""));
+            FacesContext.getCurrentInstance().addMessage("domainAddErrors", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Cannot add domain: " + domainException.getLocalizedMessage(), ""));
             LOG.error("Error creating domain: {}", domainException.getLocalizedMessage(), domainException);
         }
 
-        this.domainName = null;
-        this.domainPostmaster = null;
+        domainName = null;
+        domainPostmaster = null;
     }
 
     /**
@@ -179,9 +177,8 @@ public class DirectDomainBean {
             refreshDomains();
         } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
-            FacesContext.getCurrentInstance().addMessage("domainEditErrors",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot update domain: "
-                    + domainException.getLocalizedMessage(), ""));
+            FacesContext.getCurrentInstance().addMessage("domainEditErrors", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Cannot update domain: " + domainException.getLocalizedMessage(), ""));
             LOG.error("Error updating domain: {}", domainException.getLocalizedMessage(), domainException);
         }
     }
@@ -502,7 +499,7 @@ public class DirectDomainBean {
             for (String bundleName : namesOfBundlesToAdd) {
                 TrustBundle tb = directService.getTrustBundleByName(bundleName);
                 directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), bundleIncoming,
-                    bundleOutgoing);
+                        bundleOutgoing);
             }
 
             namesOfBundlesToAdd.clear();
@@ -552,7 +549,7 @@ public class DirectDomainBean {
             if (bundleRelations != null) {
                 for (TrustBundleDomainReltn tbdr : bundleRelations) {
                     DirectTrustBundle dtb = new DirectTrustBundle(tbdr.getTrustBundle(), tbdr.isIncoming(),
-                        tbdr.isOutgoing());
+                            tbdr.isOutgoing());
                     associatedTrustBundles.add(dtb);
                 }
             }

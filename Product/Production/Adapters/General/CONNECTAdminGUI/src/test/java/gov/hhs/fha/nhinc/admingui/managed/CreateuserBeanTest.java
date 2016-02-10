@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
@@ -35,11 +38,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -85,7 +86,7 @@ public class CreateuserBeanTest {
 
             @Override
             public void deleteUser(UserLogin user) throws UserLoginException {
-                //do nothing
+                // do nothing
             }
         };
 

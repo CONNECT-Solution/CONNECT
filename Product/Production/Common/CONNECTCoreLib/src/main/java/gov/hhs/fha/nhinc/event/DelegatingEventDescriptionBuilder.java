@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -123,8 +123,7 @@ public abstract class DelegatingEventDescriptionBuilder implements EventDescript
     }
 
     /**
-     * @param delegate
-     *            The builder to delegate to, after transforming the arguments. Must not be null.
+     * @param delegate The builder to delegate to, after transforming the arguments. Must not be null.
      */
     protected final void setDelegate(EventDescriptionBuilder delegate) {
         if (delegate == null) {
@@ -154,17 +153,17 @@ public abstract class DelegatingEventDescriptionBuilder implements EventDescript
     }
 
     @Override
-    public final String getServiceType(){
+    public final String getServiceType() {
         return delegate.getServiceType();
     }
 
     @Override
-    public final String getInitiatorHcid(){
+    public final String getInitiatorHcid() {
         return delegate.getInitiatorHcid();
     }
 
     @Override
-    public final String getRespondingHcid(){
+    public final String getRespondingHcid() {
         return delegate.getRespondingHcid();
     }
 }

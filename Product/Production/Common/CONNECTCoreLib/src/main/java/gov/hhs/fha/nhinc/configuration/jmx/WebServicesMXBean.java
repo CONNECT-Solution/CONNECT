@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,8 +71,8 @@ public interface WebServicesMXBean {
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
      */
-    public void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException;
+    public void configureOutboundStdImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure outbound dependency for passthru orchestration implementation.

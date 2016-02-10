@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,9 +45,6 @@ public class ConnectionManagerCommunityMapping {
         mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
     }
 
-
-
-
     /**
      * @param mappingDao
      */
@@ -55,15 +52,12 @@ public class ConnectionManagerCommunityMapping {
         this.mappingDao = mappingDao;
     }
 
-
-
-
     /**
      *
      * @param requestType
      * @return GetHomeCommunityByAssigningAuthorityResponseType
      */
-    public  HomeCommunityType getHomeCommunityByAssigningAuthority(String assigningAuthId) {
+    public HomeCommunityType getHomeCommunityByAssigningAuthority(String assigningAuthId) {
         HomeCommunityType hc = new HomeCommunityType();
 
         // Verify assigning authority id is valid
@@ -75,6 +69,5 @@ public class ConnectionManagerCommunityMapping {
 
         return hc;
     }
-
 
 }

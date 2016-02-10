@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                 if (sess != null) {
                     Query namedQuery = sess.getNamedQuery("findAAByHomeCommunityId");
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
-                    for (AssigningAuthorityToHomeCommunityMapping mapping : (List<AssigningAuthorityToHomeCommunityMapping>) namedQuery.list()) {
+                    for (AssigningAuthorityToHomeCommunityMapping mapping : (List<AssigningAuthorityToHomeCommunityMapping>) namedQuery
+                            .list()) {
                         listOfAAs.add(mapping.getAssigningAuthorityId());
                     }
 
@@ -114,7 +115,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      * @return
      */
     public String getHomeCommunityId(String assigningAuthority) {
-        LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
+        LOG.debug(
+                "--Begin AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
         String homeCommunity = "";
         if (assigningAuthority != null && !assigningAuthority.isEmpty()) {
             Session sess = null;
@@ -156,14 +158,14 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     public boolean storeMapping(String homeCommunityId, String assigningAuthority) {
         LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out
-            .println("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        System.out.println(
+                "--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         boolean success = false;
         AssigningAuthorityToHomeCommunityMapping mappingInfo = null;
         Transaction trans = null;
         Session sess = null;
         if (homeCommunityId != null && !homeCommunityId.isEmpty() && assigningAuthority != null
-            && !assigningAuthority.isEmpty()) {
+                && !assigningAuthority.isEmpty()) {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();
@@ -206,8 +208,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             LOG.error("Invalid data entered, Enter Valid data to store");
         }
         LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out
-            .println("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        System.out.println(
+                "--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         return success;
     }
 }

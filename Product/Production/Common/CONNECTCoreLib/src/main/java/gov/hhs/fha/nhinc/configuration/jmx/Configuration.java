@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -133,8 +133,8 @@ public class Configuration implements ConfigurationMXBean {
      * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setStandardMode(java.lang.String, java.lang.String)
      */
     @Override
-    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setPassthruMode(serviceName, direction);
 
@@ -146,8 +146,8 @@ public class Configuration implements ConfigurationMXBean {
      * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setPassthruMode(java.lang.String, java.lang.String)
      */
     @Override
-    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setStandardMode(serviceName, direction);
     }
@@ -156,7 +156,7 @@ public class Configuration implements ConfigurationMXBean {
     public boolean isPassthru(serviceEnum serviceName, directionEnum direction) {
         boolean passthruMode;
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-        passthruMode = registry.isPassthru(serviceName,direction);
+        passthruMode = registry.isPassthru(serviceName, direction);
         return passthruMode;
     }
 
@@ -164,7 +164,7 @@ public class Configuration implements ConfigurationMXBean {
     public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
         boolean standardMode;
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-        standardMode = registry.isStandard(serviceName,direction);
+        standardMode = registry.isStandard(serviceName, direction);
         return standardMode;
     }
 }

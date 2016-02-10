@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,8 +76,8 @@ public class XDRPolicyTransformHelper {
         RequestType request = new RequestType();
 
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
+                event.getMessage().getAssertion());
         LOG.debug("transformXDRToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
@@ -88,13 +88,12 @@ public class XDRPolicyTransformHelper {
         if (patId != null && assigningAuthorityId != null) {
             ResourceType resource = new ResourceType();
             AttributeHelper attrHelper = new AttributeHelper();
-            resource.getAttribute().add(
-                    attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString,
-                            assigningAuthorityId));
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId,
+                    Constants.DataTypeString, assigningAuthorityId));
 
             LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = " + patId);
-            resource.getAttribute().add(
-                    attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
+            resource.getAttribute()
+                    .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
 
             request.getResource().add(resource);
         }
@@ -123,14 +122,14 @@ public class XDRPolicyTransformHelper {
         String result = "";
 
         if (request == null) {
-            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
+            LOG.error("Incoming ProvideAndRegisterDocumentSetRequestType was null");
             return null;
         }
 
         if (request.getSubmitObjectsRequest() == null)
 
         {
-            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
+            LOG.error("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null");
             return null;
         }
 
@@ -191,8 +190,8 @@ public class XDRPolicyTransformHelper {
         RequestType request = new RequestType();
 
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
+                event.getMessage().getAssertion());
         LOG.debug("transformXDRResponseToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,8 +54,8 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
         keystorePassword = System.getProperty(SYSTEM_PROPERTY_KEYSTORE_PASSWORD);
     }
 
-    public CXFPasswordCallbackHandler(String keystorePassword){
-    	this.keystorePassword = keystorePassword;
+    public CXFPasswordCallbackHandler(String keystorePassword) {
+        this.keystorePassword = keystorePassword;
     }
 
     /**
@@ -76,9 +76,9 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
         }
 
         for (Callback callback : callbacks) {
-            if(callback instanceof WSPasswordCallback){
-            	WSPasswordCallback pc = (WSPasswordCallback) callback;
-            	pc.setPassword(keystorePassword);
+            if (callback instanceof WSPasswordCallback) {
+                WSPasswordCallback pc = (WSPasswordCallback) callback;
+                pc.setPassword(keystorePassword);
             }
         }
         LOG.trace("end CXFPasswordCallbackHandler.handle() ... ");

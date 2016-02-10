@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,9 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     private static final Logger LOG = LoggerFactory.getLogger(SOAPHeaderHandler.class);
     private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.xml.ws.handler.soap.SOAPHandler#getHeaders()
      */
     @Override
@@ -64,7 +66,9 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         return Collections.emptySet();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see javax.xml.ws.handler.Handler#handleMessage(javax.xml.ws.handler.MessageContext)
      */
     @Override
@@ -75,7 +79,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPMessage oMessage = messageContext.getMessage();
             SOAPHeader oHeader = oMessage.getSOAPHeader();
 
-            if (isOutboundMessage && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
+            if (isOutboundMessage && !messageContext.containsKey(MESSAGE_ID_CONTEXT)) {
                 adjustMessageId(messageContext, oHeader);
             } else {
                 LOG.debug("Will not adjust messageID on inbound request");
@@ -113,13 +117,13 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
         // Steps that need to be performed
         SOAPElement oMessageIdElem = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID,
-            NhincConstants.WS_ADDRESSING_URL);
+                NhincConstants.WS_ADDRESSING_URL);
         if (oMessageIdElem != null) {
             oMessageIdElem.setTextContent(messageId);
         } else {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
             oMessageIdElem = soapFactory.createElement(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID, "",
-                NhincConstants.WS_ADDRESSING_URL);
+                    NhincConstants.WS_ADDRESSING_URL);
             oMessageIdElem.setTextContent(messageId);
 
             if (oHeader != null) {
@@ -212,11 +216,11 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     private void addMustUnderstandAttribute(SOAPHeader oHeader) throws SOAPException {
         SOAPElement action = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION,
-            NhincConstants.WS_ADDRESSING_URL);
+                NhincConstants.WS_ADDRESSING_URL);
 
         if (action != null && !action.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)) {
             QName mustUnderstandQ = new QName(NhincConstants.WS_SOAP_ENV_URL,
-                NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, NhincConstants.WS_SOAP_ENV_PREFIX);
+                    NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, NhincConstants.WS_SOAP_ENV_PREFIX);
             action.addAttribute(mustUnderstandQ, Boolean.TRUE.toString());
         }
     }

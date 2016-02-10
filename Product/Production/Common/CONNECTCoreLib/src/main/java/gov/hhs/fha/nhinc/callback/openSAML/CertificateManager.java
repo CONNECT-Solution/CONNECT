@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,37 +37,38 @@ import java.security.interfaces.RSAPublicKey;
  */
 public interface CertificateManager {
 
-	/**
-	 * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
-	 * endorsing supporting token.
-	 */
-	public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
+    /**
+     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
+     * endorsing supporting token.
+     */
+    public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
 
-	/**
-	 * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
-	 */
-	public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
+    /**
+     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
+     */
+    public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
 
-	/**
-	 * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-	 * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-	 *
-	 * @param request The SignatureKeyCallback request object
-	 * @throws Exception
-	 */
-	public abstract X509Certificate getDefaultCertificate() throws Exception;
+    /**
+     * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
+     * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
+     *
+     * @param request The SignatureKeyCallback request object
+     * @throws Exception
+     */
+    public abstract X509Certificate getDefaultCertificate() throws Exception;
 
-	public abstract PrivateKey getDefaultPrivateKey()
-			throws Exception;
+    public abstract PrivateKey getDefaultPrivateKey() throws Exception;
 
-	/**
-	 * @return
-	 */
-	public abstract RSAPublicKey getDefaultPublicKey();
+    /**
+     * @return
+     */
+    public abstract RSAPublicKey getDefaultPublicKey();
+
     /**
      * @return the keyStore
      */
     public abstract KeyStore getKeyStore();
+
     /**
      * @return the trustStore
      */

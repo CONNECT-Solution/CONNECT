@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     private AssertionType assertion;
 
     public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
-        String wsAddressingAction, AssertionType assertion) {
+            String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
 
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();

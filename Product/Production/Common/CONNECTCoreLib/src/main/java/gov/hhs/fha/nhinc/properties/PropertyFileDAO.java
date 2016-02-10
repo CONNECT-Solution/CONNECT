@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -129,7 +129,8 @@ public class PropertyFileDAO {
                 }
             }
         }
-        throw new PropertyAccessException("Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+        throw new PropertyAccessException(
+                "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
 
     public long getPropertyLong(String propertyFileName, String propertyName) throws PropertyAccessException {
@@ -141,7 +142,8 @@ public class PropertyFileDAO {
                 throw new PropertyAccessException("Could not convert property value to long for: " + propertyName, ex);
             }
         }
-        throw new PropertyAccessException("Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+        throw new PropertyAccessException(
+                "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
 
     public Set<String> getPropertyNames(String propertyFileName) {

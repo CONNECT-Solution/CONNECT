@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ public class DashboardLastInbound extends DashboardPanelAbstract implements Dash
     /**
      *
      */
-    public DashboardLastInbound(){
+    public DashboardLastInbound() {
         eventService = new EventServiceImpl();
     }
 
@@ -57,7 +57,7 @@ public class DashboardLastInbound extends DashboardPanelAbstract implements Dash
      * @param observer
      * @param closed
      */
-    public DashboardLastInbound(DashboardObserver observer, boolean closed){
+    public DashboardLastInbound(DashboardObserver observer, boolean closed) {
         setObserver(observer);
         setClosed(closed);
         eventService = new EventServiceImpl();
@@ -97,10 +97,10 @@ public class DashboardLastInbound extends DashboardPanelAbstract implements Dash
     @Override
     public DashboardPanel setData() {
         DatabaseEvent event = eventService.getLatestInbound();
-        if(event != null){
+        if (event != null) {
             title = event.getFormattedEventTime();
             description = event.getServiceType() + "\n" + event.getInitiatorHcid();
-        }else {
+        } else {
             title = "No current messages.";
         }
         return this;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,6 +25,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
@@ -58,17 +69,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author achidamb / jsmith
@@ -119,8 +120,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         DataHandler dataHandler = mock(DataHandler.class);
 
         when(doc.getRawData()).thenReturn(url.getBytes());
-        when(largeFileUtils.convertToDataHandler(any(File.class))).thenReturn(
-            dataHandler);
+        when(largeFileUtils.convertToDataHandler(any(File.class))).thenReturn(dataHandler);
 
         result = docRepo.setDocumentResponse(doc, oDocResponse);
 
@@ -140,8 +140,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         DataHandler dataHandler = mock(DataHandler.class);
 
         when(doc.getRawData()).thenReturn(url.getBytes());
-        when(largeFileUtils.convertToDataHandler(any(byte[].class)))
-            .thenReturn(dataHandler);
+        when(largeFileUtils.convertToDataHandler(any(byte[].class))).thenReturn(dataHandler);
 
         Boolean result = docRepo.setDocumentResponse(doc, oDocResponse);
 
@@ -154,10 +153,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     public void testDocumentRepositoryRetrieveDocumentSet_Success() {
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithEmptyRetrieveDocuments();
         ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
-        response = docRepo
-            .documentRepositoryRetrieveDocumentSet(createDocumentRequest_Success());
+        response = docRepo.documentRepositoryRetrieveDocumentSet(createDocumentRequest_Success());
         assertSame(response.getRegistryResponse().getStatus(),
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
+                "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
 
     }
 
@@ -165,10 +163,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     public void testDocumentRepositoryRetrieveDocumentSet_Failure() {
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithEmptyRetrieveDocuments();
         ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
-        response = docRepo
-            .documentRepositoryRetrieveDocumentSet(createDocumentRequest_Failure());
+        response = docRepo.documentRepositoryRetrieveDocumentSet(createDocumentRequest_Failure());
         assertSame(response.getRegistryResponse().getStatus(),
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+                "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
 
     }
 
@@ -176,11 +173,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     public void testDocumentRepositoryRetrieveDocumentSet_PartialSuccess() {
         AdapterComponentDocRepositoryOrchImpl docrepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
-            protected void retrieveDocuments(
-                boolean repositoryIdMatched,
-                List<String> documentUniqueIds,
-                ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-                String homeCommunityId, RegistryErrorList regerrList) {
+            protected void retrieveDocuments(boolean repositoryIdMatched, List<String> documentUniqueIds,
+                    ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response, String homeCommunityId,
+                    RegistryErrorList regerrList) {
                 Document doc1 = new Document();
                 doc1.setDocumentUniqueId("2.531.777");
                 Document doc2 = new Document();
@@ -188,22 +183,19 @@ public class AdapterComponentDocRepositoryOrchImplTest {
                 ArrayList<Document> docs = new ArrayList<>();
                 docs.add(doc1);
                 docs.add(doc2);
-                loadDocumentResponses(response, docs, homeCommunityId,
-                    documentUniqueIds, regerrList);
+                loadDocumentResponses(response, docs, homeCommunityId, documentUniqueIds, regerrList);
             }
 
             @Override
-            protected boolean setDocumentResponse(Document doc,
-                DocumentResponse oDocResponse) {
+            protected boolean setDocumentResponse(Document doc, DocumentResponse oDocResponse) {
                 return true;
             }
 
         };
         ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
-        response = docrepo
-            .documentRepositoryRetrieveDocumentSet(createDocumentRequest_PartialSuccess());
+        response = docrepo.documentRepositoryRetrieveDocumentSet(createDocumentRequest_PartialSuccess());
         assertSame(response.getRegistryResponse().getStatus(),
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess");
+                "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess");
 
     }
 
@@ -211,10 +203,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     public void testRetrieveDocuments_RepositoryIdMatched() {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
-            protected void loadDocumentResponses(
-                ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-                List<Document> docs, String homeCommunityId,
-                List<String> documentUniqueId, RegistryErrorList regerrList) {
+            protected void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
+                    List<Document> docs, String homeCommunityId, List<String> documentUniqueId,
+                    RegistryErrorList regerrList) {
                 assertTrue(true);
             }
 
@@ -244,7 +235,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
                 return new AdapterComponentDocRepositoryHelper() {
                     @Override
                     HashMap<String, DataHandler> getDocumentMap(
-                        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+                            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
                         return docMap;
                     }
                 };
@@ -252,34 +243,29 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 
             @Override
             protected Document setDocument(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                RegistryErrorList errorList, int i,
-                HashMap<String, DataHandler> docMap,
-                boolean requestHasReplacementAssociation) {
+                    List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+                    RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap,
+                    boolean requestHasReplacementAssociation) {
                 return null;
             }
 
             @Override
             protected boolean checkForReplacementAssociation(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                RegistryErrorList errorList) {
+                    List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+                    RegistryErrorList errorList) {
                 return true;
             }
         };
 
         when(body.getSubmitObjectsRequest()).thenReturn(submitObjectsRequest);
-        when(submitObjectsRequest.getRegistryObjectList()).thenReturn(
-            regObjectList);
-        when(regObjectList.getIdentifiable())
-            .thenReturn(identifiableObjectList);
+        when(submitObjectsRequest.getRegistryObjectList()).thenReturn(regObjectList);
+        when(regObjectList.getIdentifiable()).thenReturn(identifiableObjectList);
 
         when(identifiableObjectList.size()).thenReturn(1);
 
-        RegistryResponseType registryResponse = docRepo
-            .documentRepositoryProvideAndRegisterDocumentSet(body);
+        RegistryResponseType registryResponse = docRepo.documentRepositoryProvideAndRegisterDocumentSet(body);
 
-        assertEquals(registryResponse.getStatus(),
-            DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
+        assertEquals(registryResponse.getStatus(), DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
     }
 
     @Test
@@ -287,64 +273,58 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         ProvideAndRegisterDocumentSetRequestType body = null;
 
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
-        RegistryResponseType registryResponse = docRepo
-            .documentRepositoryProvideAndRegisterDocumentSet(body);
+        RegistryResponseType registryResponse = docRepo.documentRepositoryProvideAndRegisterDocumentSet(body);
 
         RegistryErrorList errorList = registryResponse.getRegistryErrorList();
         RegistryError error = errorList.getRegistryError().get(0);
 
-        assertEquals(registryResponse.getStatus(),
-            DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
-        assertEquals(
-            error.getValue(),
-            DocRepoConstants.XDS_MISSING_REQUEST_MESSAGE_DATA
-            + " ProvideAndRegisterDocumentSetRequestType element is null.");
+        assertEquals(registryResponse.getStatus(), DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
+        assertEquals(error.getValue(), DocRepoConstants.XDS_MISSING_REQUEST_MESSAGE_DATA
+                + " ProvideAndRegisterDocumentSetRequestType element is null.");
     }
 
     @Test
     public void testCheckForReplacementAssociation_Success() {
         RegistryErrorList errorList = new RegistryErrorList();
-        List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = mock(ArrayList.class);
+        List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = mock(
+                ArrayList.class);
         final AssociationType1 associationType1 = new AssociationType1();
-        associationType1
-            .setAssociationType("urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC");
+        associationType1.setAssociationType("urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC");
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
             protected Object getIdentifiableObjectValue(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                int i) {
+                    List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+                    int i) {
                 return associationType1;
             }
         };
 
         when(identifiableObjectList.size()).thenReturn(1);
-        boolean result = docRepo.checkForReplacementAssociation(
-            identifiableObjectList, errorList);
+        boolean result = docRepo.checkForReplacementAssociation(identifiableObjectList, errorList);
         assertTrue(result);
     }
 
     @Test
     public void testCheckForReplacementAssociation_Failure() {
         RegistryErrorList errorList = new RegistryErrorList();
-        List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = mock(ArrayList.class);
+        List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = mock(
+                ArrayList.class);
         final AssociationType1 associationType1 = new AssociationType1();
 
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
             protected Object getIdentifiableObjectValue(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                int i) {
+                    List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+                    int i) {
                 return associationType1;
             }
         };
 
         when(identifiableObjectList.size()).thenReturn(1);
-        boolean result = docRepo.checkForReplacementAssociation(
-            identifiableObjectList, errorList);
+        boolean result = docRepo.checkForReplacementAssociation(identifiableObjectList, errorList);
         assertFalse(result);
         assertEquals(errorList.getRegistryError().get(0).getValue(),
-            DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA
-            + " associationType element is null.");
+                DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA + " associationType element is null.");
     }
 
     @Test
@@ -402,17 +382,13 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMutipleOverrides(extrinsicObject);
 
-        when(extrinsicObject.getExternalIdentifier()).thenReturn(
-            externalIdentifierList);
+        when(extrinsicObject.getExternalIdentifier()).thenReturn(externalIdentifierList);
         when(externalIdentifier.getName()).thenReturn(name);
         when(name.getLocalizedString()).thenReturn(nameValueList);
         when(nameValueList.get(0)).thenReturn(nameValue);
-        when(nameValue.getValue()).thenReturn(
-            DocRepoConstants.XDS_DOCUMENT_UNIQUE_ID,
-            DocRepoConstants.XDS_PATIENT_ID, DOCUMENT_TITLE,
-            DOCUMENT_DESCRIPTION);
-        when(externalIdentifier.getValue()).thenReturn(DOC_UNIQUE_ID,
-            PATIENT_ID);
+        when(nameValue.getValue()).thenReturn(DocRepoConstants.XDS_DOCUMENT_UNIQUE_ID, DocRepoConstants.XDS_PATIENT_ID,
+                DOCUMENT_TITLE, DOCUMENT_DESCRIPTION);
+        when(externalIdentifier.getValue()).thenReturn(DOC_UNIQUE_ID, PATIENT_ID);
 
         when(extrinsicObject.getName()).thenReturn(name);
 
@@ -421,39 +397,28 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         when(extrinsicObject.getMimeType()).thenReturn(MIME_TYPE);
 
         when(extrinsicObject.getSlot()).thenReturn(documentSlots);
-        when(slot.getName()).thenReturn(
-            DocRepoConstants.XDS_INTENDED_RECIPIENT_SLOT,
-            DocRepoConstants.XDS_LANGUAGE_CODE_SLOT,
-            DocRepoConstants.XDS_LEGAL_AUTHENTICATOR_SLOT,
-            DocRepoConstants.XDS_CREATION_TIME_SLOT,
-            DocRepoConstants.XDS_START_TIME_SLOT,
-            DocRepoConstants.XDS_STOP_TIME_SLOT,
-            DocRepoConstants.XDS_SOURCE_PATIENT_ID_SLOT);
+        when(slot.getName()).thenReturn(DocRepoConstants.XDS_INTENDED_RECIPIENT_SLOT,
+                DocRepoConstants.XDS_LANGUAGE_CODE_SLOT, DocRepoConstants.XDS_LEGAL_AUTHENTICATOR_SLOT,
+                DocRepoConstants.XDS_CREATION_TIME_SLOT, DocRepoConstants.XDS_START_TIME_SLOT,
+                DocRepoConstants.XDS_STOP_TIME_SLOT, DocRepoConstants.XDS_SOURCE_PATIENT_ID_SLOT);
 
         when(slot.getValueList()).thenReturn(valueListType);
         when(valueListType.getValue()).thenReturn(valueList);
         when(valueList.size()).thenReturn(1);
-        when(valueList.get(0)).thenReturn(XDS_INTENDED_RECIPIENT,
-            XDS_LANGUAGE_CODE, XDS_LEGAL_AUTHENTICATOR,
-            CREATION_TIME_STRING, START_TIME_STRING, STOP_TIME_STRING,
-            XDS_PATIENT_ID);
+        when(valueList.get(0)).thenReturn(XDS_INTENDED_RECIPIENT, XDS_LANGUAGE_CODE, XDS_LEGAL_AUTHENTICATOR,
+                CREATION_TIME_STRING, START_TIME_STRING, STOP_TIME_STRING, XDS_PATIENT_ID);
 
-        when(utcDateUtil.parseUTCDateOptionalTimeZone(CREATION_TIME_STRING))
-            .thenReturn(createTimeDate);
-        when(utcDateUtil.parseUTCDateOptionalTimeZone(START_TIME_STRING))
-            .thenReturn(startTimeDate);
-        when(utcDateUtil.parseUTCDateOptionalTimeZone(STOP_TIME_STRING))
-            .thenReturn(stopTimeDate);
+        when(utcDateUtil.parseUTCDateOptionalTimeZone(CREATION_TIME_STRING)).thenReturn(createTimeDate);
+        when(utcDateUtil.parseUTCDateOptionalTimeZone(START_TIME_STRING)).thenReturn(startTimeDate);
+        when(utcDateUtil.parseUTCDateOptionalTimeZone(STOP_TIME_STRING)).thenReturn(stopTimeDate);
 
         when(extrinsicObject.getId()).thenReturn(DOC_UNIQUE_ID);
         when(docMap.get(DOC_UNIQUE_ID)).thenReturn(dataHandler);
-        when(largeFileUtils.convertToBytes(dataHandler)).thenReturn(
-            RAW_DATA.getBytes());
+        when(largeFileUtils.convertToBytes(dataHandler)).thenReturn(RAW_DATA.getBytes());
 
         when(extrinsicObject.getStatus()).thenReturn(STATUS);
 
-        Document doc = docRepo.setDocument(identifiableObjectList, errorList,
-            0, docMap, true);
+        Document doc = docRepo.setDocument(identifiableObjectList, errorList, 0, docMap, true);
 
         assertEquals(doc.getPatientId(), PATIENT_ID_NO_QUOTES);
         assertEquals(doc.getDocumentTitle(), DOCUMENT_TITLE);
@@ -536,8 +501,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         when(doc.getDocumentUniqueId()).thenReturn(DOC_UNIQUE_ID);
         when(doc.getClassCode()).thenReturn(CLASS_CODE);
         when(doc.getStatus()).thenReturn(STATUS);
-        when(docService.documentQuery(any(DocumentQueryParams.class)))
-            .thenReturn(docList);
+        when(docService.documentQuery(any(DocumentQueryParams.class))).thenReturn(docList);
         when(doc.getDocumentid()).thenReturn(DOC_ID);
 
         docRepo.saveDocument(doc, true, DOC_UNIQUE_ID, errorList);
@@ -545,8 +509,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         RegistryError error = errorList.getRegistryError().get(0);
 
         verify(docService).saveDocument(doc);
-        assertEquals(error.getValue(), DocRepoConstants.XDS_REPOSITORY_ERROR
-            + " DocumentUniqueId: " + DOC_UNIQUE_ID);
+        assertEquals(error.getValue(), DocRepoConstants.XDS_REPOSITORY_ERROR + " DocumentUniqueId: " + DOC_UNIQUE_ID);
 
     }
 
@@ -568,26 +531,16 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         final String PID8 = "PID8";
         final String PID11 = "PID11";
 
-        when(
-            docRepoHelper.extractPatientInfo(documentSlots,
-                DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID3))
-            .thenReturn(PID3);
-        when(
-            docRepoHelper.extractPatientInfo(documentSlots,
-                DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID5))
-            .thenReturn(PID5);
-        when(
-            docRepoHelper.extractPatientInfo(documentSlots,
-                DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID7))
-            .thenReturn(PID7);
-        when(
-            docRepoHelper.extractPatientInfo(documentSlots,
-                DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID8))
-            .thenReturn(PID8);
-        when(
-            docRepoHelper.extractPatientInfo(documentSlots,
-                DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID11))
-            .thenReturn(PID11);
+        when(docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID3))
+                .thenReturn(PID3);
+        when(docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID5))
+                .thenReturn(PID5);
+        when(docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID7))
+                .thenReturn(PID7);
+        when(docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID8))
+                .thenReturn(PID8);
+        when(docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID11))
+                .thenReturn(PID11);
 
         docRepo.setDocumentPidObjects(doc, documentSlots);
 
@@ -633,20 +586,14 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         final String TYPE_CODE = "type code";
         final String TYPE_CODE_NAME = "type code name";
 
-        when(
-            docRepoHelper.extractClassificationMetadata(any(List.class),
-                anyString(), anyString(), anyInt())).thenReturn(
-                AUTHOR_PERSON, AUTHOR_INSTITUTION, AUTHOR_ROLE,
-                AUTHOR_SPECIALTY, CLASS_CODE_SCHEME,
-                CONFIDENTIALITY_CODE_SCHEME, FORMAT_CODE_SCHEME,
-                HC_CODE_SCHEME, PRACTICE_SETTING_SCHEME, TYPE_CODE_SCHEME);
-        when(
-            docRepoHelper.extractClassificationMetadata(any(List.class),
-                anyString(), anyString())).thenReturn(CLASS_CODE,
-                CLASS_CODE_NAME, CONFIDENTIALITY_CODE,
-                CONFIDENTIALITY_CODE_NAME, FORMAT_CODE, FORMAT_CODE_NAME,
-                HC_CODE, HC_CODE_NAME, PRACTICE_SETTING, PRACTICE_SETTING_NAME,
-                TYPE_CODE, TYPE_CODE_NAME);
+        when(docRepoHelper.extractClassificationMetadata(any(List.class), anyString(), anyString(), anyInt()))
+                .thenReturn(AUTHOR_PERSON, AUTHOR_INSTITUTION, AUTHOR_ROLE, AUTHOR_SPECIALTY, CLASS_CODE_SCHEME,
+                        CONFIDENTIALITY_CODE_SCHEME, FORMAT_CODE_SCHEME, HC_CODE_SCHEME, PRACTICE_SETTING_SCHEME,
+                        TYPE_CODE_SCHEME);
+        when(docRepoHelper.extractClassificationMetadata(any(List.class), anyString(), anyString())).thenReturn(
+                CLASS_CODE, CLASS_CODE_NAME, CONFIDENTIALITY_CODE, CONFIDENTIALITY_CODE_NAME, FORMAT_CODE,
+                FORMAT_CODE_NAME, HC_CODE, HC_CODE_NAME, PRACTICE_SETTING, PRACTICE_SETTING_NAME, TYPE_CODE,
+                TYPE_CODE_NAME);
 
         docRepo.setDocumentObjectsFromClassifications(doc, classifications);
 
@@ -658,10 +605,8 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         assertEquals(doc.getClassCodeDisplayName(), CLASS_CODE_NAME);
         assertEquals(doc.getClassCodeScheme(), CLASS_CODE_SCHEME);
         assertEquals(doc.getConfidentialityCode(), CONFIDENTIALITY_CODE);
-        assertEquals(doc.getConfidentialityCodeDisplayName(),
-            CONFIDENTIALITY_CODE_NAME);
-        assertEquals(doc.getConfidentialityCodeScheme(),
-            CONFIDENTIALITY_CODE_SCHEME);
+        assertEquals(doc.getConfidentialityCodeDisplayName(), CONFIDENTIALITY_CODE_NAME);
+        assertEquals(doc.getConfidentialityCodeScheme(), CONFIDENTIALITY_CODE_SCHEME);
         assertEquals(doc.getFacilityCode(), HC_CODE);
         assertEquals(doc.getFacilityCodeDisplayName(), HC_CODE_NAME);
         assertEquals(doc.getFacilityCodeScheme(), HC_CODE_SCHEME);
@@ -701,17 +646,14 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         eventCodeDisplayNameList.add(localizedString);
         Document doc = new Document();
 
-        when(classificationType.getClassificationScheme()).thenReturn(
-            DocRepoConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION);
+        when(classificationType.getClassificationScheme())
+                .thenReturn(DocRepoConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION);
         when(classificationType.getSlot()).thenReturn(slotList);
         when(classificationType.getNodeRepresentation()).thenReturn(NODE_REP);
-        when(
-            docRepoHelper.extractMetadataFromSlots(slotList,
-                DocRepoConstants.XDS_CODING_SCHEME_SLOT, 0))
-            .thenReturn(EVENT_SCHEME);
+        when(docRepoHelper.extractMetadataFromSlots(slotList, DocRepoConstants.XDS_CODING_SCHEME_SLOT, 0))
+                .thenReturn(EVENT_SCHEME);
         when(classificationType.getName()).thenReturn(internationalString);
-        when(internationalString.getLocalizedString()).thenReturn(
-            eventCodeDisplayNameList);
+        when(internationalString.getLocalizedString()).thenReturn(eventCodeDisplayNameList);
 
         docRepo.extractEventCodes(classifications, doc);
 
@@ -770,11 +712,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     private AdapterComponentDocRepositoryOrchImpl getDocRepoWithEmptyRetrieveDocuments() {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
-            protected void retrieveDocuments(
-                boolean repositoryIdMatched,
-                List<String> documentUniqueIds,
-                ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-                String homeCommunityId, RegistryErrorList regerrList) {
+            protected void retrieveDocuments(boolean repositoryIdMatched, List<String> documentUniqueIds,
+                    ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response, String homeCommunityId,
+                    RegistryErrorList regerrList) {
             }
 
         };
@@ -782,40 +722,38 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     }
 
     private AdapterComponentDocRepositoryOrchImpl getDocRepoWithMutipleOverrides(
-        final ExtrinsicObjectType extrinsicObject) {
+            final ExtrinsicObjectType extrinsicObject) {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
             protected Object getExtrinsicObjectValue(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                int i) {
+                    List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+                    int i) {
                 return extrinsicObject;
             }
 
             @Override
-            protected void setDocumentPidObjects(
-                Document doc,
-                List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots) {
+            protected void setDocumentPidObjects(Document doc,
+                    List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots) {
                 // Do nothing
             }
 
             @Override
-            protected void setDocumentObjectsFromClassifications(
-                Document doc,
-                List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications) {
+            protected void setDocumentObjectsFromClassifications(Document doc,
+                    List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications) {
                 // Do nothing
             }
 
             @Override
             protected void extractEventCodes(
-                List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-                gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
+                    List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
+                    gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
                 // Do nothing
             }
 
             @Override
             protected void logDeclaredType(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                int i) {
+                    List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+                    int i) {
                 // Do nothing
             }
 
@@ -825,9 +763,8 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             }
 
             @Override
-            protected void saveDocument(Document doc,
-                boolean requestHasReplacementAssociation,
-                String documentUniqueId, RegistryErrorList errorList) {
+            protected void saveDocument(Document doc, boolean requestHasReplacementAssociation, String documentUniqueId,
+                    RegistryErrorList errorList) {
                 // Do nothing
             }
 

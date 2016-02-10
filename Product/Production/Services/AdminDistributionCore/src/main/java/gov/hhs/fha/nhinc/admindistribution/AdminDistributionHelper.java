@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ public class AdminDistributionHelper {
      * Constructs an instance of WebServiceProxyHelper.
      */
     public AdminDistributionHelper() {
-        this.webServiceProxyHelper = new WebServiceProxyHelper();
+        webServiceProxyHelper = new WebServiceProxyHelper();
     }
 
     /**
@@ -125,8 +125,8 @@ public class AdminDistributionHelper {
             try {
                 url = webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, apiLevel);
             } catch (Exception ex) {
-                LOG.error("Error: Failed to retrieve url for service {}: {}", targetSystem,
-                    ex.getLocalizedMessage(), ex);
+                LOG.error("Error: Failed to retrieve url for service {}: {}", targetSystem, ex.getLocalizedMessage(),
+                        ex);
             }
         } else {
             LOG.error("Target system passed into the proxy is null");
@@ -149,7 +149,7 @@ public class AdminDistributionHelper {
             return ConnectionManagerCache.getInstance().getAdapterEndpointURL(adapterServcice, adapterApiLevel);
         } catch (ConnectionManagerException ex) {
             LOG.error("Error: Failed to retrieve url for service {}: {}",
-                NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ex.getLocalizedMessage(), ex);
+                    NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ex.getLocalizedMessage(), ex);
         }
 
         return null;
@@ -164,11 +164,11 @@ public class AdminDistributionHelper {
     public boolean readBooleanGatewayProperty(String propertyName) {
         boolean result = false;
         try {
-            result = PropertyAccessor.getInstance()
-                .getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+            result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    propertyName);
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve {} from property file {}: ", propertyName,
-                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
+                    NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return result;
     }
@@ -185,7 +185,7 @@ public class AdminDistributionHelper {
             result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (Exception ex) {
             LOG.error("Unable to retrieve property {} from {}.properties: {}", propertyName,
-                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
+                    NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return result;
     }

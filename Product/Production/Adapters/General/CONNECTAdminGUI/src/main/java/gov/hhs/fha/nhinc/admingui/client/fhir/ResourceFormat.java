@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,8 +33,7 @@ package gov.hhs.fha.nhinc.admingui.client.fhir;
  */
 public enum ResourceFormat {
 
-    RESOURCE_XML("application/xml+fhir"),
-    RESOURCE_JSON("application/json+fhir");
+    RESOURCE_XML("application/xml+fhir"), RESOURCE_JSON("application/json+fhir");
 
     private String header;
 
@@ -43,7 +42,7 @@ public enum ResourceFormat {
     }
 
     public String getHeader() {
-        return this.header;
+        return header;
     }
 
 }

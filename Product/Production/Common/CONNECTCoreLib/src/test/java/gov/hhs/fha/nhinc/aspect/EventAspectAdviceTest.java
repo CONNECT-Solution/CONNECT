@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,18 +26,19 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import org.aspectj.lang.JoinPoint;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import org.aspectj.lang.JoinPoint;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -100,7 +101,7 @@ public class EventAspectAdviceTest {
 
             @Override
             public Object[] answer(InvocationOnMock invocation) throws Throwable {
-                return new Object[]{};
+                return new Object[] {};
             }
         });
     }

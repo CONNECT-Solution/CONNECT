@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,8 +60,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Modified FHIR client taken from reference client used strictly for Conformance resource lookup.
  *
- * @see
- * <a href="https://github.com/cnanjo/FhirJavaReferenceClient">https://github.com/cnanjo/FhirJavaReferenceClient</a>
+ * @see <a href="https://github.com/cnanjo/FhirJavaReferenceClient">https://github.com/cnanjo/FhirJavaReferenceClient
+ *      </a>
  * @author jassmit
  */
 public class ConformanceClient {
@@ -73,7 +73,7 @@ public class ConformanceClient {
     public Conformance getConformanceStatement(String baseServiceUrl) throws URISyntaxException {
         ResourceAddress resourceAddress = new ResourceAddress(baseServiceUrl);
         return (Conformance) issueGetResourceRequest(resourceAddress.resolveMetadataUri(),
-            ResourceFormat.RESOURCE_XML.getHeader()).getResource();
+                ResourceFormat.RESOURCE_XML.getHeader()).getResource();
     }
 
     protected static <T extends Resource> ResourceRequest<T> issueGetResourceRequest(URI resourceUri, String format) {
@@ -82,7 +82,7 @@ public class ConformanceClient {
     }
 
     protected static <T extends Resource> ResourceRequest<T> issueResourceRequest(String format,
-        HttpUriRequest request) {
+            HttpUriRequest request) {
 
         configureFhirRequest(format, request);
         HttpResponse response = sendRequest(request);
@@ -149,11 +149,11 @@ public class ConformanceClient {
             format = ResourceFormat.RESOURCE_XML.getHeader();
         }
         if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
-            || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
+                || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
 
             return new JsonParser();
         } else if (format.equalsIgnoreCase("xml") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader())
-            || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
+                || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
 
             return new XmlParser();
         } else {
@@ -165,14 +165,14 @@ public class ConformanceClient {
         AtomEntry<T> entry = new AtomEntry<>();
         String location = null;
 
-        if (response.getHeaders("location").length > 0) {//TODO Distinguish between both cases if necessary
+        if (response.getHeaders("location").length > 0) {// TODO Distinguish between both cases if necessary
             location = response.getHeaders("location")[0].getValue();
         } else if (response.getHeaders("content-location").length > 0) {
             location = response.getHeaders("content-location")[0].getValue();
         }
 
         if (location != null) {
-            entry.getLinks().put("self", location);//TODO Make sure this is right.
+            entry.getLinks().put("self", location);// TODO Make sure this is right.
         }
 
         List<AtomCategory> tags = parseTags(response);

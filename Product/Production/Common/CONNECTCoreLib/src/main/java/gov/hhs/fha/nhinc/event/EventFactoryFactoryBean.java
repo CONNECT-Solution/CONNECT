@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,13 +34,11 @@ public class EventFactoryFactoryBean implements FactoryBean<EventFactory> {
     private static final String CONFIG_FILE_NAME = "EventFactoryConfig.xml";
     private static final String BEAN_NAME = "eventfactory";
 
-   /**
-    *   <bean id="factory"  class="gov.hhs.fha.nhinc.event.EventFactoryFactoryBean" />
-    *
-    *   <bean class="doc">
-    *     <property name="eventFactory" ref="factory/>
-    *   </bean>
-    */
+    /**
+     * <bean id="factory" class="gov.hhs.fha.nhinc.event.EventFactoryFactoryBean" />
+     *
+     * <bean class="doc"> <property name="eventFactory" ref="factory/> </bean>
+     */
 
     @Override
     public EventFactory getObject() throws Exception {

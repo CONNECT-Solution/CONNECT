@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -89,8 +89,8 @@ public class PatientServiceImpl implements PatientService {
         pdMessageDirector.build();
         RespondingGatewayPRPAIN201305UV02RequestType request = pdMessageDirector.getMessage();
         EntityPatientDiscoveryProxyWebServiceUnsecuredImpl instance = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl();
-        RespondingGatewayPRPAIN201306UV02ResponseType response
-            = instance.respondingGatewayPRPAIN201305UV02(request.getPRPAIN201305UV02(), request.getAssertion(), request.getNhinTargetCommunities());
+        RespondingGatewayPRPAIN201306UV02ResponseType response = instance.respondingGatewayPRPAIN201305UV02(
+                request.getPRPAIN201305UV02(), request.getAssertion(), request.getNhinTargetCommunities());
         resultsBuilder = new PatientSearchResultsModelBuilderImpl();
         resultsBuilder.setMessage(response.getCommunityResponse().get(0).getPRPAIN201306UV02());
         resultsBuilder.build();

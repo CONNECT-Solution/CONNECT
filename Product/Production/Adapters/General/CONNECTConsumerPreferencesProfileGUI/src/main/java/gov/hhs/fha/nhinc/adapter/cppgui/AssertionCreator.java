@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,10 +57,6 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_USER_SYSTEM = "AssertionUserSystem";
     private static final String PROPERTY_KEY_USER_SYSTEM_NAME = "AssertionUserSystemName";
     private static final String PROPERTY_KEY_USER_DISPLAY = "AssertionUserDisplay";
-    private static final String PROPERTY_KEY_EXPIRE = "AssertionExpiration";
-    private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
-    private static final String PROPERTY_KEY_ACCESS_CONSENT = "AssertionAccessConsent";
-
     private static final Logger LOG = LoggerFactory.getLogger(AssertionCreator.class);
 
     public AssertionType createAssertion() {
@@ -82,8 +78,8 @@ public class AssertionCreator {
 
             userPerson.setGivenName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_FIRST));
             userPerson.setFamilyName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_LAST));
-            userPerson.setSecondNameOrInitials(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
-                PROPERTY_KEY_USER_MIDDLE));
+            userPerson.setSecondNameOrInitials(
+                    propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_MIDDLE));
             userHc.setName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_ORG));
             user.setUserName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_NAME));
             userRole.setCode(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_CODE));
@@ -93,8 +89,8 @@ public class AssertionCreator {
 
             purposeCoded.setCode(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_CODE));
             purposeCoded.setCodeSystem(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM));
-            purposeCoded.setCodeSystemName(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
-                PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
+            purposeCoded.setCodeSystemName(
+                    propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
         } catch (PropertyAccessException ex) {
             LOG.error("Universal Client can not access property: {}", ex.getLocalizedMessage(), ex);

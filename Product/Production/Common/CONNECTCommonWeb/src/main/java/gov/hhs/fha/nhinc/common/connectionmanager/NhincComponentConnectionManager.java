@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,8 @@ import org.uddi.api_v3.BusinessEntity;
  * @author akong
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
+public class NhincComponentConnectionManager
+        implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhincComponentConnectionManager.class);
 
@@ -70,7 +71,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * This method will return a list of all business entities that are known by the connection manager.
      *
      * @param emptyRequest The only purpose for this parameter is so that the web service has a unique document that
-     * identifies this operation. The values themselves are not used.
+     *            identifies this operation. The values themselves are not used.
      * @return The BusinessDetail which contains a list of all business entities known by the connection manager.
      */
     @Override
@@ -116,8 +117,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     public BusinessDetail getBusinessEntitySet(HomeCommunityIdListType homeCommunityIdList) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
-            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySet(
-                homeCommunityIdList.getHomeCommunityId());
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance()
+                    .getBusinessEntitySet(homeCommunityIdList.getHomeCommunityId());
             if (businessEntitySet != null) {
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
@@ -133,14 +134,14 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *
      * @param request The request containing the home community ID and the service name
      * @return The Business Entity information along with only the requested service. if the service is not found, then
-     * null is returned.
+     *         null is returned.
      */
     @Override
     public BusinessEntity getBusinessEntityByServiceName(GetBusinessEntityByServiceNameRequestType request) {
         BusinessEntity bEntity = new BusinessEntity();
         try {
             bEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(request.getHomeCommunityId(),
-                request.getServiceName());
+                    request.getServiceName());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getBusinessEntityByServiceName", cme);
         }
@@ -153,14 +154,14 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *
      * @param request The request containing the home community ID and the service name
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
-     * null is returned.
+     *         null is returned.
      */
     @Override
     public EndpointURLType getDefaultEndpointURLByServiceName(GetDefaultEndpointURLByServiceNameRequestType request) {
         String endpointUrl = null;
         try {
-            endpointUrl = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
-                request.getHomeCommunityId(), request.getServiceName());
+            endpointUrl = ConnectionManagerCache.getInstance()
+                    .getDefaultEndpointURLByServiceName(request.getHomeCommunityId(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getEndpointURLByServiceName", cme);
         }
@@ -176,13 +177,14 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      *
      * @param serviceName The name of the service to locate.
      * @return The URL for only the requested service at the local home community. If the service is not found, then
-     * null is returned.
+     *         null is returned.
      */
     @Override
     public EndpointURLType getInternalEndpointURLByServiceName(ServiceNameType serviceName) {
         String endpointUrl = null;
         try {
-            endpointUrl = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName.getValue());
+            endpointUrl = ConnectionManagerCache.getInstance()
+                    .getInternalEndpointURLByServiceName(serviceName.getValue());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getLocalEndpointURLByServiceName", cme);
         }
@@ -201,15 +203,15 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * provided to lookup the URL for that service at that particular home community.
      *
      * @param request The request containing the target system information for the community being looked up and the
-     * service name
+     *            service name
      * @return The URL to the requested service.
      */
     @Override
     public EndpointURLType getEndpointURLFromNhinTarget(GetEndpointURLFromNhinTargetRequestType request) {
         String endpointUrl = null;
         try {
-            endpointUrl = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(
-                request.getNhinTargetSystem(), request.getServiceName());
+            endpointUrl = ConnectionManagerCache.getInstance()
+                    .getEndpointURLFromNhinTarget(request.getNhinTargetSystem(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
             LOG.error("Failed to invoke getEndpointURLFromNhinTarget", cme);
         }
@@ -229,17 +231,17 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * NhinTargetCommunities specified it will return the list of URLs for the entire NHIN for that service.
      *
      * @param request The request containing the target system information for the community being looked up and the
-     * service name
+     *            service name
      * @return A response containing the set of URLs for the requested service and targets.
      */
     @Override
     public GetEndpointURLFromNhinTargetCommunitiesResponseType getEndpointURLFromNhinTargetCommunities(
-        GetEndpointURLFromNhinTargetCommunitiesRequestType request) {
+            GetEndpointURLFromNhinTargetCommunitiesRequestType request) {
 
         GetEndpointURLFromNhinTargetCommunitiesResponseType response = new GetEndpointURLFromNhinTargetCommunitiesResponseType();
         try {
             List<UrlInfo> urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
-                request.getNhinTargetCommunities(), request.getServiceName());
+                    request.getNhinTargetCommunities(), request.getServiceName());
 
             String hcid, url;
             UrlInfoType urlInfoType;
@@ -272,7 +274,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         BusinessDetail bDetail = new BusinessDetail();
         try {
             Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance()
-                .getBusinessEntitySetByServiceName(request.getHomeCommunityId(), request.getServiceName());
+                    .getBusinessEntitySetByServiceName(request.getHomeCommunityId(), request.getServiceName());
             if (businessEntitySet != null) {
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
@@ -293,7 +295,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
     public BusinessDetail getAllBusinessEntitySetByServiceName(ServiceNameType serviceName) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
-            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getAllBusinessEntitySetByServiceName(serviceName.getValue());
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance()
+                    .getAllBusinessEntitySetByServiceName(serviceName.getValue());
             if (businessEntitySet != null) {
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
@@ -315,7 +318,8 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         String endpointUrl = null;
         try {
             ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(request.getAdapterLevel());
-            endpointUrl = ConnectionManagerCache.getInstance().getAdapterEndpointURL(request.getServiceName(), adapterLevel);
+            endpointUrl = ConnectionManagerCache.getInstance().getAdapterEndpointURL(request.getServiceName(),
+                    adapterLevel);
         } catch (Exception e) {
             LOG.error("Failed to invoke getAdapterEndpointURL", e);
         }
@@ -330,7 +334,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * This method causes the UDDI service information to be refreshed.
      *
      * @param emptyRequest The only purpose for this parameter is so that the web service has a unique document that
-     * identifies this operation. The values themselves are not used.
+     *            identifies this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
     @Override
@@ -351,7 +355,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      * This method causes the Internal Connection service information to be refreshed.
      *
      * @param emptyRequest The only purpose for this parameter is so that the web service has a unique document that
-     * identifies this operation. The values themselves are not used.
+     *            identifies this operation. The values themselves are not used.
      * @return Whether this succeeded or failed.
      */
     @Override
@@ -376,10 +380,9 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
      */
     @Override
     public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(
-        HomeCommunityIdType homeCommunityId) {
+            HomeCommunityIdType homeCommunityId) {
 
-        GetAssigningAuthoritiesByHomeCommunityResponseType response
-            = new GetAssigningAuthoritiesByHomeCommunityResponseType();
+        GetAssigningAuthoritiesByHomeCommunityResponseType response = new GetAssigningAuthoritiesByHomeCommunityResponseType();
 
         if (NullChecker.isNullish(homeCommunityId.getValue())) {
             return null;

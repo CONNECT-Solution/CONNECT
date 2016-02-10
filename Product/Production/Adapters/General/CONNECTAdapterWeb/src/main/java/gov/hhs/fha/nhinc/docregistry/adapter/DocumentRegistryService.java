@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,13 +43,13 @@ public class DocumentRegistryService implements ihe.iti.xds_b._2007.DocumentRegi
 
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRegistryRegisterDocumentSetB(
-        oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest body) {
+            oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest body) {
         throw new UnsupportedOperationException("Not supported.");
     }
 
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(
-        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
+            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
         return new DocumentRegistryImpl().documentRegistryRegistryStoredQuery(body, context);
     }
 

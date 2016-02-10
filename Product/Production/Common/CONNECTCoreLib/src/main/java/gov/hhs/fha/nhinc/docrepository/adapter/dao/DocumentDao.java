@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -146,8 +146,8 @@ public class DocumentDao {
             }
 
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Completed document retrieve by id. Result was " + ((document == null) ? "not " : "")
-                        + "found");
+                LOG.debug(
+                        "Completed document retrieve by id. Result was " + (document == null ? "not " : "") + "found");
             }
         } finally {
             if (sess != null) {
@@ -186,7 +186,7 @@ public class DocumentDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed retrieve of all documents. "
-                        + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
+                        + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
         } finally {
             if (sess != null) {
@@ -246,13 +246,14 @@ public class DocumentDao {
                     criteria.add(Expression.eq("patientId", patientId));
                 }
 
-                if ((classCodes != null) && (!classCodes.isEmpty())) {
+                if (classCodes != null && !classCodes.isEmpty()) {
                     /**************************************************************
                      * The class code and class code scheme combination can come in two different formats:
                      *
                      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
-                     * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList>
-                     * <ns7:Value>2.16.840.1.113883.6.1</ns7:Value> </ns7:ValueList> </ns7:Slot>
+                     * </ns7:ValueList> </ns7:Slot>
+                     * <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6
+                     * .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
                      *
                      * or
                      *
@@ -332,13 +333,13 @@ public class DocumentDao {
 
                 if (serviceStopTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service stop time to: "
-                                + logDateFormatter.format(serviceStopTimeTo));
+                        LOG.debug(
+                                "Document query - service stop time to: " + logDateFormatter.format(serviceStopTimeTo));
                     }
                     criteria.add(Expression.le("serviceStopTime", serviceStopTimeTo));
                 }
 
-                if ((statuses != null) && (!statuses.isEmpty())) {
+                if (statuses != null && !statuses.isEmpty()) {
                     if (LOG.isDebugEnabled()) {
                         for (String status : statuses) {
                             LOG.debug("Document query - status: " + status);
@@ -347,7 +348,7 @@ public class DocumentDao {
                     criteria.add(Expression.in("status", statuses));
                 }
 
-                if ((documentUniqueIds != null) && (!documentUniqueIds.isEmpty())) {
+                if (documentUniqueIds != null && !documentUniqueIds.isEmpty()) {
                     if (LOG.isDebugEnabled()) {
                         for (String documentUniqueId : documentUniqueIds) {
                             LOG.debug("Document query - document unique id: " + documentUniqueId);
@@ -370,7 +371,7 @@ public class DocumentDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed retrieve of document query. "
-                        + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
+                        + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
         } finally {
             if (sess != null) {

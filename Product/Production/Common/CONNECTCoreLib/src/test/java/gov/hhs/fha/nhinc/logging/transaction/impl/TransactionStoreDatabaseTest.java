@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction.impl;
 
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
-import java.util.UUID;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
+import java.util.UUID;
+import org.junit.Test;
 
 /**
  * The Class TransactionStoreDatabaseTest.

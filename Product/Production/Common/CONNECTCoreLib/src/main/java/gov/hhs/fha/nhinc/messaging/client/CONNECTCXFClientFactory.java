@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion) {
+            AssertionType assertion) {
         return getCONNECTClientSecured(portDescriptor, url, assertion, null, null);
     }
 
@@ -51,9 +51,9 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion, String wsAddressingTo, String subscriptionId) {
+            AssertionType assertion, String wsAddressingTo, String subscriptionId) {
         String wsAddressingToValue = wsAddressingTo;
-        //use the url if the wsaddressing is null or blank
+        // use the url if the wsaddressing is null or blank
         if (StringUtils.isBlank(wsAddressingToValue)) {
             wsAddressingToValue = url;
         }
@@ -66,7 +66,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
+            AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
         return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
     }
 
@@ -75,7 +75,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion) {
+            AssertionType assertion) {
         return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
     }
 }

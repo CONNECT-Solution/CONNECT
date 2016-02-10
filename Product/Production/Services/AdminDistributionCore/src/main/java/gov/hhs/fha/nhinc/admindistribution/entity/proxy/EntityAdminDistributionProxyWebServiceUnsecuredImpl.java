@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,8 @@ import org.slf4j.LoggerFactory;
  */
 
 public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
-    private static final Logger LOG = LoggerFactory.getLogger(EntityAdminDistributionProxyWebServiceUnsecuredImpl.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(EntityAdminDistributionProxyWebServiceUnsecuredImpl.class);
 
     /**
      * @return instance of AdminDistributionHelper.
@@ -57,8 +58,9 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         return new AdminDistributionHelper();
     }
 
-
-    /**This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel.
+    /**
+     * This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel.
+     * 
      * @param apiLevel gateway apiLevel received (g0/g1).
      * @return instance of EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel.
      */
@@ -72,8 +74,10 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         }
     }
 
-    /** This method returns CXFClient to implement AdminDist Unsecured Service.
-     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName  and WS_ADDRESSING_ACTION.
+    /**
+     * This method returns CXFClient to implement AdminDist Unsecured Service.
+     * 
+     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName and WS_ADDRESSING_ACTION.
      * @param url target community url .
      * @param assertion Assertion received.
      * @return CXFClient to implement AdminDist Unsecured Service.
@@ -85,7 +89,9 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
-    /** This method implements sendAlertMessage from initiater to responder.
+    /**
+     * This method implements sendAlertMessage from initiater to responder.
+     * 
      * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      * @param target NhinTargetCommunity receievd.
@@ -106,11 +112,11 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
                 message.setNhinTargetCommunities(target);
                 message.setAssertion(assertion);
 
-                ServicePortDescriptor<AdministrativeDistributionPortType> portDescriptor =
-                        getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<AdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(
+                        apiLevel);
 
-                CONNECTClient<AdministrativeDistributionPortType> client = getCONNECTClientUnsecured(
-                        portDescriptor, url, assertion);
+                CONNECTClient<AdministrativeDistributionPortType> client = getCONNECTClientUnsecured(portDescriptor,
+                        url, assertion);
 
                 client.invokePort(AdministrativeDistributionPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {

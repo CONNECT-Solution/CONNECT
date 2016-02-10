@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -83,9 +83,8 @@ public class DirectAgentBean {
             refreshSetting();
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().validationFailed();
-            FacesContext.getCurrentInstance().addMessage("agentErrorMessages",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key",
-                    ex.getLocalizedMessage()));
+            FacesContext.getCurrentInstance().addMessage("agentErrorMessages", new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Setting Add Error: Duplicate Key", ex.getLocalizedMessage()));
             LOG.error("Not able to load the document types from the property file: {}", ex.getLocalizedMessage(), ex);
         }
     }

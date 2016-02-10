@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ public class AdminDistributionAuditLogger {
      * @return ack Acknowledgement
      */
     public AcknowledgementType auditEntityAdminDist(RespondingGatewaySendAlertMessageType request,
-        AssertionType assertion, String direction) {
+            AssertionType assertion, String direction) {
 
         LOG.debug("begin auditEntityAdminDist() " + direction);
         AcknowledgementType ack = new AcknowledgementType();
@@ -90,14 +90,14 @@ public class AdminDistributionAuditLogger {
      * @return ack Acknowledgement.
      */
     public AcknowledgementType auditNhincAdminDist(EDXLDistribution body, AssertionType assertion,
-        NhinTargetSystemType target, String direction) {
+            NhinTargetSystemType target, String direction) {
 
         LOG.debug("begin auditNhincAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
         LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction,
-            NhincConstants.AUDIT_LOG_PROXY_INTERFACE);
+                NhincConstants.AUDIT_LOG_PROXY_INTERFACE);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
@@ -119,7 +119,7 @@ public class AdminDistributionAuditLogger {
      * @return ack Acknowledgement.
      */
     public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction,
-        NhinTargetSystemType target, String logInterface) {
+            NhinTargetSystemType target, String logInterface) {
 
         LOG.debug("begin auditNhinAdminDist() " + direction);
         AcknowledgementType ack = null;
@@ -129,7 +129,7 @@ public class AdminDistributionAuditLogger {
         LOG.debug("assertion == null = " + (assertion == null));
 
         LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction,
-            logInterface);
+                logInterface);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);

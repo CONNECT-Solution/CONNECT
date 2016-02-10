@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,16 +81,16 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         int timeout = 0;
         try {
             String sValue = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                CONFIG_KEY_TIMEOUT);
+                    CONFIG_KEY_TIMEOUT);
             if (NullChecker.isNotNullish(sValue)) {
                 timeout = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property value from config file ({}): {}", CONFIG_KEY_TIMEOUT,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property value from config file ({}): {}", CONFIG_KEY_TIMEOUT,
-                nfe.getLocalizedMessage(), nfe);
+                    nfe.getLocalizedMessage(), nfe);
         }
         return timeout;
     }

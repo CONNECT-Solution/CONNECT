@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Before;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -51,7 +52,8 @@ public class EventAspectBeforeAndAfterAdviceTest {
     private String beforeMethodName;
     private String afterMethodName;
 
-    public EventAspectBeforeAndAfterAdviceTest(String beforeMethodName, String afterMethodName, Class<?> annotationClass) {
+    public EventAspectBeforeAndAfterAdviceTest(String beforeMethodName, String afterMethodName,
+            Class<?> annotationClass) {
         this.beforeMethodName = beforeMethodName;
         this.annotationClass = annotationClass;
         this.afterMethodName = afterMethodName;
@@ -63,9 +65,9 @@ public class EventAspectBeforeAndAfterAdviceTest {
                 { "beginOutboundMessageEvent", "endOutboundMessageEvent", OutboundMessageEvent.class },
                 { "beginInboundMessageEvent", "endInboundMessageEvent", InboundMessageEvent.class },
                 { "beginOutboundProcessingEvent", "endOutboundProcessingEvent", OutboundProcessingEvent.class },
-                { "beginInboundProcessingEvent", "endInboundProcessingEvent", InboundProcessingEvent.class},
-                { "beginNwhinInvocationEvent", "endNwhinInvocationEvent", NwhinInvocationEvent.class},
-                { "beginAdapterDelegationEvent","endAdapterDelegationEvent", AdapterDelegationEvent.class} };
+                { "beginInboundProcessingEvent", "endInboundProcessingEvent", InboundProcessingEvent.class },
+                { "beginNwhinInvocationEvent", "endNwhinInvocationEvent", NwhinInvocationEvent.class },
+                { "beginAdapterDelegationEvent", "endAdapterDelegationEvent", AdapterDelegationEvent.class } };
         return Arrays.asList(data);
     }
 
@@ -79,7 +81,6 @@ public class EventAspectBeforeAndAfterAdviceTest {
 
         assertEquals("@annotation(annotation)", beforeAnnotation.value());
     }
-
 
     @Test
     public void verifyAfterReturning() throws NoSuchMethodException, SecurityException {

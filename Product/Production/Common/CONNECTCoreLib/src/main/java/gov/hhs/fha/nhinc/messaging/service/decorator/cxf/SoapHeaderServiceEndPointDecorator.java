@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,8 +65,8 @@ public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecora
             List<Header> headers = new ArrayList<>();
             Header SoapHeader;
             try {
-                SoapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"),
-                        subscriptionId, new JAXBDataBinding(String.class));
+                SoapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"), subscriptionId,
+                        new JAXBDataBinding(String.class));
                 headers.add(SoapHeader);
             } catch (JAXBException e) {
                 LOG.error("Failed to set subscription id to header", e);

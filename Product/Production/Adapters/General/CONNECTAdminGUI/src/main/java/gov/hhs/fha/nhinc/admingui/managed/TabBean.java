@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -168,31 +168,31 @@ public class TabBean {
     public void onDirectTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
         if (selectedTab.getId().equalsIgnoreCase(directDomainTab)) {
-            this.directTabIndex = 0;
+            directTabIndex = 0;
         } else if (selectedTab.getId().equalsIgnoreCase(directAgentTab)) {
-            this.directTabIndex = 1;
+            directTabIndex = 1;
         } else if (selectedTab.getId().equalsIgnoreCase(directCertTab)) {
-            this.directTabIndex = 2;
+            directTabIndex = 2;
         } else {
-            this.directTabIndex = 3;
+            directTabIndex = 3;
         }
     }
 
     public void onPropertyTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
         if (selectedTab.getId().equalsIgnoreCase(gatewayPropTab)) {
-            this.propIndex = 0;
+            propIndex = 0;
         } else {
-            this.propIndex = 1;
+            propIndex = 1;
         }
     }
 
     public void onAcctTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
         if (selectedTab.getId().equalsIgnoreCase(acctUsersTab)) {
-            this.adminTabIndex = 0;
+            adminTabIndex = 0;
         } else {
-            this.adminTabIndex = 1;
+            adminTabIndex = 1;
         }
     }
 
@@ -291,17 +291,17 @@ public class TabBean {
     }
 
     public String setGatewayPropertyTabAndNavigate(int i) {
-        this.propIndex = i;
+        propIndex = i;
         return NavigationConstant.PROPERTIES_PAGE;
     }
 
     public String setPatientSearchTabAndNavigate(int i) {
-        this.propIndex = i;
+        propIndex = i;
         return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
 
     public String setAuditSearchTabAndNavigate(int i) {
-        this.propIndex = i;
+        propIndex = i;
         return NavigationConstant.AUDIT_SEARCH_PAGE;
     }
 

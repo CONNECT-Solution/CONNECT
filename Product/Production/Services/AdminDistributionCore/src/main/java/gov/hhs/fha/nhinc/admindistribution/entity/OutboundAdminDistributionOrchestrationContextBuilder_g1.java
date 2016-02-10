@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,11 +34,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author nnguyen
  */
-//CHECKSTYLE:OFF
-public class OutboundAdminDistributionOrchestrationContextBuilder_g1 extends
-        OutboundAdminDistributionOrchestrationContextBuilder {
-//CHECKSTYLE:ON
-    private static final Logger LOG = LoggerFactory.getLogger(OutboundAdminDistributionOrchestrationContextBuilder_g1.class);
+// CHECKSTYLE:OFF
+public class OutboundAdminDistributionOrchestrationContextBuilder_g1
+        extends OutboundAdminDistributionOrchestrationContextBuilder {
+    // CHECKSTYLE:ON
+    private static final Logger LOG = LoggerFactory
+            .getLogger(OutboundAdminDistributionOrchestrationContextBuilder_g1.class);
 
     @Override
     public OrchestrationContext build() {

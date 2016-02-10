@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,8 +37,8 @@ public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObj
     private static final String BEAN_NAME_ADMIN_DISTRIBUTION = "entityadmindist";
 
     /**
-    * @return CONFIG_FILE_NAME FileName to read AdapterAuditQueryProxy Bean info.
-    */
+     * @return CONFIG_FILE_NAME FileName to read AdapterAuditQueryProxy Bean info.
+     */
     @Override
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;

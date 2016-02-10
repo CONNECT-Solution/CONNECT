@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,8 +62,8 @@ public class DocRetrieveTransformHelper {
         }
 
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
+                event.getMessage().getAssertion());
         request.getSubject().add(subject);
         DocRetrieveMessageType docMessage = event.getMessage();
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = docMessage.getRetrieveDocumentSetRequest();
@@ -92,14 +92,12 @@ public class DocRetrieveTransformHelper {
         LOG.debug("getResource - documentId: " + documentId);
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
-        resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
-                        homeCommunityId));
-        resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString,
-                        repositoryUniqueId));
-        resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId,
+                Constants.DataTypeString, homeCommunityId));
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.RespositoryAttributeId,
+                Constants.DataTypeString, repositoryUniqueId));
+        resource.getAttribute()
+                .add(attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
         return resource;
     }
 }

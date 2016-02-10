@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -107,7 +107,7 @@ public class AuditRepositoryDAO {
      * @return List
      */
     public List queryAuditRepositoryOnCriteria(final String eUserId, final String ePatientId, final Date startDate,
-        final Date endDate) {
+            final Date endDate) {
 
         if (eUserId == null && ePatientId == null && startDate == null) {
             LOG.info("-- No - Input Parameters found for Audit Query --");
@@ -131,7 +131,7 @@ public class AuditRepositoryDAO {
 
             if (startDate != null && endDate != null) {
                 aCriteria.add(
-                    Expression.between("timeStamp", new Date(startDate.getTime()), new Date(endDate.getTime())));
+                        Expression.between("timeStamp", new Date(startDate.getTime()), new Date(endDate.getTime())));
             } else if (startDate != null && endDate == null) {
                 aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
             }
@@ -167,7 +167,7 @@ public class AuditRepositoryDAO {
                     queryCriteria.add(Restrictions.eq("messageId", messageId));
                 } else {
                     queryCriteria.add(
-                        Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
+                            Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
                 }
             }
 
@@ -190,13 +190,13 @@ public class AuditRepositoryDAO {
      * @param startDate - Audit Event Start Date
      * @param userId - Human initiator who initiated transaction. SAML Attribute statement SubjectID.
      * @param eventTypeList - ServiceNames like PatientDiscovery (PD), DocumentQuery (DQ) and other CONNECT supported
-     * Nwhin services
+     *            Nwhin services
      * @param remoteHcidList - Remote Organization ID's
      * @param endDate - Event End date
      * @return List
      */
-    public List<AuditRepositoryRecord> queryByAuditOptions(final List<String> eventTypeList,
-        final String userId, final List<String> remoteHcidList, final Date startDate, final Date endDate) {
+    public List<AuditRepositoryRecord> queryByAuditOptions(final List<String> eventTypeList, final String userId,
+            final List<String> remoteHcidList, final Date startDate, final Date endDate) {
 
         Session session = null;
         List<AuditRepositoryRecord> queryList = null;

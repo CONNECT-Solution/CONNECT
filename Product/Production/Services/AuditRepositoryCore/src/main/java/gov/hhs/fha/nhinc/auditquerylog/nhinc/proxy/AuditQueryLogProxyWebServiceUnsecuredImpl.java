@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditQueryLogProxyWebServiceUnsecuredImpl.class);
     private final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
-    //method names to invoke
+    // method names to invoke
     private final String QUERY_AUDIT_EVENTS = "queryAuditEvents";
     private final String QUERY_AUDIT_EVENTS_BY_MSG_RELATESTO_ID = "queryAuditEventsByMessageID";
     private final String QUERY_AUDIT_EVENTS_BY_ID = "queryAuditEventsBlob";
@@ -63,7 +63,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
     /**
      *
      * @param request - Request provides search params to retrieve Audit Events. If none of the elements are provided in
-     * request. If optional elements are not provided will return all audit events
+     *            request. If optional elements are not provided will return all audit events
      * @return QueryAuditEventsResponseType
      */
     @Override
@@ -73,12 +73,12 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
         try {
 
             CONNECTClient<AuditQueryLogPortType> client = getCONNECTClient(getQueryAuditEventsPortDescriptor());
-            response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class,
-                QUERY_AUDIT_EVENTS, request);
+            response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class, QUERY_AUDIT_EVENTS,
+                    request);
 
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         }
         return response;
     }
@@ -86,23 +86,23 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
     /**
      *
      * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
-     * elements are provided in request. If optional elements are not provided will return all audit events
+     *            elements are provided in request. If optional elements are not provided will return all audit events
      * @return QueryAuditEventsResponseType
      */
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
-        QueryAuditEventsRequestByRequestMessageId request) {
+            QueryAuditEventsRequestByRequestMessageId request) {
         QueryAuditEventsResponseType response = null;
         try {
 
             CONNECTClient<AuditQueryLogPortType> client = getCONNECTClient(
-                getQueryAuditEventsByMessageIdAndRelatesToPortDescriptor());
+                    getQueryAuditEventsByMessageIdAndRelatesToPortDescriptor());
             response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class,
-                QUERY_AUDIT_EVENTS_BY_MSG_RELATESTO_ID, request);
+                    QUERY_AUDIT_EVENTS_BY_MSG_RELATESTO_ID, request);
 
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         }
         return response;
     }
@@ -119,11 +119,11 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
 
             CONNECTClient<AuditQueryLogPortType> client = getCONNECTClient(getQueryAuditEventsByIdPortDescriptor());
             response = (QueryAuditEventsBlobResponse) client.invokePort(AuditQueryLogPortType.class,
-                QUERY_AUDIT_EVENTS_BY_ID, request);
+                    QUERY_AUDIT_EVENTS_BY_ID, request);
 
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         }
         return response;
     }
@@ -134,23 +134,22 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
             url = proxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Error while retrieving url for {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
             return url;
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         }
         return url;
     }
 
     private CONNECTClient<AuditQueryLogPortType> getCONNECTClient(
-        ServicePortDescriptor<AuditQueryLogPortType> portDescriptor) {
+            ServicePortDescriptor<AuditQueryLogPortType> portDescriptor) {
 
         String url = getAdapterQueryLogUnsecuredSerrviceUrl();
         CONNECTClient<AuditQueryLogPortType> client = null;
         if (NullChecker.isNotNullish(url)) {
-            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
-                portDescriptor, url, null);
+            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
         }
         return client;
 

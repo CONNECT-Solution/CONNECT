@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,7 +67,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     public String getInternalConnectionFileLocation() {
         if (file == null) {
             String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
-            if ((sValue != null) && (sValue.length() > 0)) {
+            if (sValue != null && sValue.length() > 0) {
                 if (sValue.endsWith(File.separator)) {
                     setFileName(sValue + INTERNAL_XML_FILE_NAME);
                 } else {

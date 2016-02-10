@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,15 +45,23 @@ public abstract class AbstractMessageDirector {
      */
     protected NhinTargetCommunitiesBuilder targetBuilder = null;
 
-    /* (non-Javadoc)
-     * @see org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setAssertionBuilder(org.cahih.messaging.builder.AssertionBuilder)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setAssertionBuilder(org.cahih.messaging.builder.
+     * AssertionBuilder)
      */
     public void setAssertionBuilder(AssertionBuilder assertionBuilder) {
         this.assertionBuilder = assertionBuilder;
     }
 
-    /* (non-Javadoc)
-     * @see org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setTargetCommunitiesBuilder(org.cahih.messaging.builder.NhinTargetCommunitiesBuilder)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setTargetCommunitiesBuilder(org.cahih.messaging.
+     * builder.NhinTargetCommunitiesBuilder)
      */
     public void setTargetCommunitiesBuilder(NhinTargetCommunitiesBuilder targetBuilder) {
         this.targetBuilder = targetBuilder;

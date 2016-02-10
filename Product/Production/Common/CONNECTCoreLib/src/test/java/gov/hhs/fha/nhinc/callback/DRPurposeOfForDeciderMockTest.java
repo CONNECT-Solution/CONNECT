@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ public class DRPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMo
     /*-----------------Setup Methods---------------*/
 
     @Override
-    protected Map<String,Object> createTokenValues() {
+    protected Map<String, Object> createTokenValues() {
         HashMap<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
         tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);

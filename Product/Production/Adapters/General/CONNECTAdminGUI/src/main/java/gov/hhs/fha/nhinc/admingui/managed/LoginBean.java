@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
-import gov.hhs.fha.nhinc.admingui.display.DirectDisplayController;
-import gov.hhs.fha.nhinc.admingui.display.FhirDisplayController;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
@@ -129,8 +127,8 @@ public class LoginBean {
     public String loginAndNavigate() {
         if (!login()) {
             FacesContext.getCurrentInstance().validationFailed();
-            FacesContext.getCurrentInstance().addMessage("loginErrors",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "The user name or password entered is incorrect.", ""));
+            FacesContext.getCurrentInstance().addMessage("loginErrors", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "The user name or password entered is incorrect.", ""));
             return null;
         }
         return NavigationConstant.STATUS_PAGE;

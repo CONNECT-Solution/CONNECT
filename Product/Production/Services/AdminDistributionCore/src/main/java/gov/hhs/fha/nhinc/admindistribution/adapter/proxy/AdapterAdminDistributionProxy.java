@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,8 +35,10 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  */
 public interface AdapterAdminDistributionProxy {
 
-    /** This method implements SendAlertMessage for AdminDist.
-     * @param body  Emergency Message Distribution Element transaction message body received.
+    /**
+     * This method implements SendAlertMessage for AdminDist.
+     * 
+     * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      */
     void sendAlertMessage(EDXLDistribution body, AssertionType assertion);

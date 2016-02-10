@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,23 +26,27 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.service;
 
-import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
-import java.util.ArrayList;
-import java.util.List;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Tests the ability to sort event results into displayable organizations by total, inbound, and outbound.
+ * 
  * @author jasonasmith
  */
 public class EventCountImplTest {
@@ -77,28 +81,32 @@ public class EventCountImplTest {
         };
 
         daoInboundResults = new ArrayList();
-        daoInboundResults.add(new Object[]{2, "1.1", "Patient Discovery"});
-        daoInboundResults.add(new Object[]{2, "1.1", "Document Query"});
+        daoInboundResults.add(new Object[] { 2, "1.1", "Patient Discovery" });
+        daoInboundResults.add(new Object[] { 2, "1.1", "Document Query" });
 
         daoOutboundResults = new ArrayList();
-        daoOutboundResults.add(new Object[]{2, "1.1", "Patient Discovery"});
-        daoOutboundResults.add(new Object[]{2, "2.2", "Retrieve Document"});
+        daoOutboundResults.add(new Object[] { 2, "1.1", "Patient Discovery" });
+        daoOutboundResults.add(new Object[] { 2, "2.2", "Retrieve Document" });
 
         daoInboundDirectResults = new ArrayList();
-        daoInboundDirectResults.add(new Object[]{2, "1.1", "Direct"});
-        daoInboundDirectResults.add(new Object[]{2, "1.1", "Direct"});
+        daoInboundDirectResults.add(new Object[] { 2, "1.1", "Direct" });
+        daoInboundDirectResults.add(new Object[] { 2, "1.1", "Direct" });
 
         daoOutboundDirectResults = new ArrayList();
-        daoOutboundDirectResults.add(new Object[]{2, "1.1", "Direct"});
-        daoOutboundDirectResults.add(new Object[]{2, "2.2", "Direct"});
+        daoOutboundDirectResults.add(new Object[] { 2, "1.1", "Direct" });
+        daoOutboundDirectResults.add(new Object[] { 2, "2.2", "Direct" });
     }
 
     private void setMockCounts() throws ConnectionManagerException {
 
-        when(mockDao.getCounts(EventServiceImpl.INBOUND_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE)).thenReturn(daoInboundResults);
-        when(mockDao.getCounts(EventServiceImpl.OUTBOUND_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE)).thenReturn(daoOutboundResults);
-        when(mockDao.getCounts(EventServiceImpl.INBOUND_DIRECT_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE)).thenReturn(daoInboundDirectResults);
-        when(mockDao.getCounts(EventServiceImpl.OUTBOUND_DIRECT_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE)).thenReturn(daoOutboundDirectResults);
+        when(mockDao.getCounts(EventServiceImpl.INBOUND_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE))
+                .thenReturn(daoInboundResults);
+        when(mockDao.getCounts(EventServiceImpl.OUTBOUND_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE))
+                .thenReturn(daoOutboundResults);
+        when(mockDao.getCounts(EventServiceImpl.INBOUND_DIRECT_EVENT_TYPE, EventServiceImpl.INBOUND_HCID_TYPE))
+                .thenReturn(daoInboundDirectResults);
+        when(mockDao.getCounts(EventServiceImpl.OUTBOUND_DIRECT_EVENT_TYPE, EventServiceImpl.OUTBOUND_HCID_TYPE))
+                .thenReturn(daoOutboundDirectResults);
         when(mockCM.getBusinessEntityName("1.1")).thenReturn(ORG_1);
         when(mockCM.getBusinessEntityName("2.2")).thenReturn(ORG_2);
 

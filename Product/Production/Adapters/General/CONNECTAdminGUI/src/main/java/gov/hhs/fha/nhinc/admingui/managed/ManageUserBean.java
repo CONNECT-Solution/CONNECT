@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ public class ManageUserBean {
      * @param loginservice
      */
     ManageUserBean(LoginService loginservice) {
-        this.loginService = loginservice;
+        loginService = loginservice;
     }
 
     /**
@@ -111,7 +111,7 @@ public class ManageUserBean {
         } catch (UserLoginException e) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("userAddErrors",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not add user: " + e.getLocalizedMessage(), ""));
             LOG.error("Error creating user: {}", e.getLocalizedMessage(), e);
         }
         userName = null;
@@ -187,8 +187,8 @@ public class ManageUserBean {
             try {
                 loginService.deleteUser(selectedUser);
             } catch (UserLoginException ex) {
-                FacesContext.getCurrentInstance().addMessage("userDeleteMessages", new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    ex.getLocalizedMessage(), ""));
+                FacesContext.getCurrentInstance().addMessage("userDeleteMessages",
+                        new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getLocalizedMessage(), ""));
                 LOG.error("Error deleting user: {}", ex.getLocalizedMessage(), ex);
             }
         }

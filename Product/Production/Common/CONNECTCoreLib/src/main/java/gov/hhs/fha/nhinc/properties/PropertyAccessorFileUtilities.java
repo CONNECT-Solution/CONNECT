@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,8 +54,8 @@ public class PropertyAccessorFileUtilities {
 
         if (propertyFileDirAbsolutePath == null) {
             LOG.error("Unable to determine the path to the configuration files.  "
-                + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
-                + "of your CONNECT configuration files.");
+                    + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
+                    + "of your CONNECT configuration files.");
         } else {
             propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
         }
@@ -89,7 +89,7 @@ public class PropertyAccessorFileUtilities {
      *
      * @param propertyFilename - String containing the filename only (no extension)
      * @return A Properties object containing the contents of the file. If the file does not exists, an empty Properties
-     * is returned.
+     *         is returned.
      */
     public Properties loadPropertyFile(String propertyFilename) {
         return loadPropertyFile(new File(getPropertyFileLocation(propertyFilename)));
@@ -100,7 +100,7 @@ public class PropertyAccessorFileUtilities {
      *
      * @param propertyFile - The properties file to load
      * @return A Properties object containing the contents of the file. If the file does not exists, an empty Properties
-     * is returned.
+     *         is returned.
      */
     public Properties loadPropertyFile(File propertyFile) {
         Properties properties = new Properties();

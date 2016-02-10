@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,8 +55,8 @@ public class SAMLIssuerImpl implements SAMLIssuer {
 
     static {
         try {
-            DEFAULT_DELEGATE = new org.apache.ws.security.saml.SAMLIssuerImpl(SAMLConfigFactory.getInstance()
-                .getConfiguration());
+            DEFAULT_DELEGATE = new org.apache.ws.security.saml.SAMLIssuerImpl(
+                    SAMLConfigFactory.getInstance().getConfiguration());
         } catch (WSSecurityException e) {
             LOG.error("Could not initialize SAMLIssuerImpl: " + e.getLocalizedMessage(), e);
         }

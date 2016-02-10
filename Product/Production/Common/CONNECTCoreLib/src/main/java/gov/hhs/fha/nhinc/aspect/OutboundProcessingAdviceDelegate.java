@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,9 @@ public class OutboundProcessingAdviceDelegate extends BaseEventAdviceDelegate {
 
     private EventFactory eventFactory;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.aspect.BaseEventAdviceDelegate#createBeginEvent()
      */
     @Override
@@ -46,7 +48,9 @@ public class OutboundProcessingAdviceDelegate extends BaseEventAdviceDelegate {
         return eventFactory.createBeginOutboundProcessing();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.aspect.BaseEventAdviceDelegate#createEndEvent()
      */
     @Override
@@ -56,6 +60,7 @@ public class OutboundProcessingAdviceDelegate extends BaseEventAdviceDelegate {
 
     /**
      * inject eventfactory.
+     * 
      * @param eventFactory
      */
     @Autowired

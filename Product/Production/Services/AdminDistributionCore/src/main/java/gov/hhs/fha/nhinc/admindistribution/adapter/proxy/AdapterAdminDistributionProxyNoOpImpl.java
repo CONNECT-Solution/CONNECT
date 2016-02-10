@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,14 +44,10 @@ public class AdapterAdminDistributionProxyNoOpImpl implements AdapterAdminDistri
     /**
      * This method does not implement anything.
      *
-     * @param body
-     *            Emergency Message Distribution Element transaction message body received.
-     * @param assertion
-     *            Assertion received.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");

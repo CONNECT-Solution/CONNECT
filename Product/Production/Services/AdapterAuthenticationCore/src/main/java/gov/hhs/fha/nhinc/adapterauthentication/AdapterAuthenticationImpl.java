@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ public class AdapterAuthenticationImpl {
      *
      * @param authenticateUserRequest The request to authenticate the user
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
-     * identifier
+     *         identifier
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
@@ -119,12 +119,12 @@ public class AdapterAuthenticationImpl {
 
         Callback[] callback = lc.getRequirements();
 
-        for (int i = 0; i < callback.length; i++) {
-            if (callback[i] instanceof NameCallback) {
-                NameCallback name = (NameCallback) callback[i];
+        for (Callback element : callback) {
+            if (element instanceof NameCallback) {
+                NameCallback name = (NameCallback) element;
                 name.setName(userName);
-            } else if (callback[i] instanceof PasswordCallback) {
-                PasswordCallback pass = (PasswordCallback) callback[i];
+            } else if (element instanceof PasswordCallback) {
+                PasswordCallback pass = (PasswordCallback) element;
                 pass.setPassword(password.toCharArray());
             }
         }

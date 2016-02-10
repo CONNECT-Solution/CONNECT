@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,12 +35,14 @@ import java.util.Observer;
  */
 public abstract class EventLogger implements Observer {
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
      */
     @Override
     public void update(Observable o, Object arg) {
-        if ((arg instanceof Event) && (o instanceof EventManager)) {
+        if (arg instanceof Event && o instanceof EventManager) {
             recordEvent((EventManager) o, (Event) arg);
         }
     }

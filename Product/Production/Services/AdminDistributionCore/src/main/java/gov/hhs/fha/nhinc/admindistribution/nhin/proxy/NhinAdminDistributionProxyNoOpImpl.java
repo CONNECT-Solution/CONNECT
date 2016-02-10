@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,18 +45,12 @@ public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistribution
     /**
      * This method does not do any implementation.
      *
-     * @param body
-     *            Emergency Message Distribution Element transaction messgae body.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTargetCommunity received.
-     * @param apiLevel
-     *            gateway apiLevel (g0/g1).
+     * @param body Emergency Message Distribution Element transaction messgae body.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     * @param apiLevel gateway apiLevel (g0/g1).
      */
-    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {

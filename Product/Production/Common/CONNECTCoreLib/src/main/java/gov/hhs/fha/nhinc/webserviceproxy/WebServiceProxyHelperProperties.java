@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,14 +60,14 @@ public class WebServiceProxyHelperProperties {
 
     public WebServiceProxyHelperProperties(IPropertyAcessor propertyAccessor) {
         this.propertyAccessor = propertyAccessor;
-        this.retryDelay = getRetryDelayFromConfig();
-        this.exceptionText = getExceptionTextFromConfig();
-        this.retryAttempts = getRetryAttemptsFromConfig();
-        this.timeout = getTimeoutFromConfig();
+        retryDelay = getRetryDelayFromConfig();
+        exceptionText = getExceptionTextFromConfig();
+        retryAttempts = getRetryAttemptsFromConfig();
+        timeout = getTimeoutFromConfig();
     }
 
     public WebServiceProxyHelperProperties(IPropertyAcessor propertyAccessor, int retryDelay, String exceptionText,
-        int retryAttempts, int timeout) {
+            int retryAttempts, int timeout) {
         this.propertyAccessor = propertyAccessor;
         this.retryDelay = retryDelay;
         this.exceptionText = exceptionText;
@@ -85,7 +85,7 @@ public class WebServiceProxyHelperProperties {
      * configured in the gateway.properties file.
      *
      * @return String The string of exception text. This is a comma delimited list of text strings to look for in the
-     * exception. If any one of the strings are
+     *         exception. If any one of the strings are
      */
     public String getExceptionText() {
         return exceptionText;
@@ -96,19 +96,19 @@ public class WebServiceProxyHelperProperties {
      * configured in the gateway.properties file.
      *
      * @return String The string of exception text. This is a comma delimited list of text strings to look for in the
-     * exception. If any one of the strings are
+     *         exception. If any one of the strings are
      */
     private String getExceptionTextFromConfig() {
         String configValue = "";
         try {
             configValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_EXCEPTION);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_EXCEPTION + "='"
-                + configValue + "')");
+                    + configValue + "')");
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading retry attempts value from config file ({}.properties): {}", CONFIG_FILE,
-                ex.getLocalizedMessage());
+                    ex.getLocalizedMessage());
             LOG.trace("Error occurred reading retry attempts value from config file ({}.properties): {}", CONFIG_FILE,
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         }
         return configValue;
     }
@@ -126,22 +126,23 @@ public class WebServiceProxyHelperProperties {
     private int getRetryAttemptsFromConfig() {
         int retryAttemptsProp = 0;
         try {
-            String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_RETRYATTEMPTS);
+            String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    CONFIG_KEY_RETRYATTEMPTS);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_RETRYATTEMPTS + "='"
-                + sValue + "')");
+                    + sValue + "')");
             if (NullChecker.isNotNullish(sValue)) {
                 retryAttemptsProp = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, ex.getLocalizedMessage());
+                    CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, ex.getLocalizedMessage());
             LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, ex.getLocalizedMessage(), ex);
+                    CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, nfe.getLocalizedMessage());
+                    CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, nfe.getLocalizedMessage());
             LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
+                    CONFIG_KEY_RETRYATTEMPTS, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return retryAttemptsProp;
     }
@@ -160,20 +161,20 @@ public class WebServiceProxyHelperProperties {
         try {
             String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_RETRYDELAY);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_RETRYDELAY + "='"
-                + sValue + "')");
+                    + sValue + "')");
             if (NullChecker.isNotNullish(sValue)) {
                 retryDelayProp = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYDELAY, CONFIG_FILE, ex.getLocalizedMessage());
+                    CONFIG_KEY_RETRYDELAY, CONFIG_FILE, ex.getLocalizedMessage());
             LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYDELAY, CONFIG_FILE, ex.getLocalizedMessage(), ex);
+                    CONFIG_KEY_RETRYDELAY, CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYDELAY, CONFIG_FILE, nfe.getLocalizedMessage());
+                    CONFIG_KEY_RETRYDELAY, CONFIG_FILE, nfe.getLocalizedMessage());
             LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                CONFIG_KEY_RETRYDELAY, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
+                    CONFIG_KEY_RETRYDELAY, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return retryDelayProp;
     }
@@ -193,20 +194,20 @@ public class WebServiceProxyHelperProperties {
         try {
             String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, CONFIG_KEY_TIMEOUT);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + CONFIG_KEY_TIMEOUT + "='"
-                + sValue + "')");
+                    + sValue + "')");
             if (NullChecker.isNotNullish(sValue)) {
                 timeoutProp = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}",
-                CONFIG_KEY_TIMEOUT, CONFIG_FILE, ex.getLocalizedMessage());
+                    CONFIG_KEY_TIMEOUT, CONFIG_FILE, ex.getLocalizedMessage());
             LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}",
-                CONFIG_KEY_TIMEOUT, CONFIG_FILE, ex.getLocalizedMessage(), ex);
+                    CONFIG_KEY_TIMEOUT, CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                CONFIG_KEY_TIMEOUT, CONFIG_FILE, nfe.getLocalizedMessage());
+                    CONFIG_KEY_TIMEOUT, CONFIG_FILE, nfe.getLocalizedMessage());
             LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                CONFIG_KEY_TIMEOUT, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
+                    CONFIG_KEY_TIMEOUT, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return timeoutProp;
     }
@@ -219,26 +220,26 @@ public class WebServiceProxyHelperProperties {
      * @return timeout in milliseconds
      */
     public int getTimeoutFromConfig(String serviceName) {
-        int timeoutProp = this.timeout;
+        int timeoutProp = timeout;
         String propertyName = "";
         try {
             propertyName = serviceName + "." + CONFIG_KEY_REQUESTTIMEOUT;
             String sValue = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
             LOG.debug("Retrieved from config file (" + CONFIG_FILE + ".properties) " + propertyName + "='" + sValue
-                + "')");
+                    + "')");
             if (NullChecker.isNotNullish(sValue)) {
                 timeoutProp = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property {} value from config file ({}.properties): {}", propertyName,
-                CONFIG_FILE, ex.getLocalizedMessage());
+                    CONFIG_FILE, ex.getLocalizedMessage());
             LOG.trace("Error occurred reading property {} value from config file ({}.properties): {}", propertyName,
-                CONFIG_FILE, ex.getLocalizedMessage(), ex);
+                    CONFIG_FILE, ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                propertyName, CONFIG_FILE, nfe.getLocalizedMessage());
+                    propertyName, CONFIG_FILE, nfe.getLocalizedMessage());
             LOG.trace("Error occurred converting property {} value to integer from config file ({}.properties): {}",
-                propertyName, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
+                    propertyName, CONFIG_FILE, nfe.getLocalizedMessage(), nfe);
         }
         return timeoutProp;
     }

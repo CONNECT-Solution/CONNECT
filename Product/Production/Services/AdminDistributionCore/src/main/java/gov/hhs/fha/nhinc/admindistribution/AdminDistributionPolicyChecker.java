@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,9 @@ public class AdminDistributionPolicyChecker {
         return invokePolicyEngine(checkPolicyRequest);
     }
 
-    /**This method checks the incoming policy and returns boolean.
+    /**
+     * This method checks the incoming policy and returns boolean.
+     * 
      * @param request Emergency Message Distribution Element transaction message request.
      * @param assertion Assertion received.
      * @return true or false.
@@ -80,7 +82,9 @@ public class AdminDistributionPolicyChecker {
         return invokePolicyEngine(checkPolicyRequest);
     }
 
-    /**This method returns boolean and true if policycheck is Permit; else denied.
+    /**
+     * This method returns boolean and true if policycheck is Permit; else denied.
+     * 
      * @param policyCheckReq CheckPolicyRequestType request received.
      * @return boolean true if Permit;else denied.
      */

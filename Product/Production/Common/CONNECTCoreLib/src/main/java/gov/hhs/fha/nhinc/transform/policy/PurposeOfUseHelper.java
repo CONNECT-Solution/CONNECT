@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ public class PurposeOfUseHelper {
     }
 
     private void appendPurposeOfUseToAction(RequestType policyXacmlRequest, String purposeOfUse) {
-        if ((policyXacmlRequest != null) && (policyXacmlRequest.getAction() != null)) {
+        if (policyXacmlRequest != null && policyXacmlRequest.getAction() != null) {
             AttributeHelper attrHelper = new AttributeHelper();
             AttributeType purposeOfUseAttribute = attrHelper.attributeFactory(PurposeOfUseActionAttributeId,
                     Constants.DataTypeString, purposeOfUse);
@@ -59,7 +59,7 @@ public class PurposeOfUseHelper {
     }
 
     private void appendPurposeOfUseToSubject(RequestType policyXacmlRequest, String purposeOfUse) {
-        if ((policyXacmlRequest != null) && (policyXacmlRequest.getSubject() != null)) {
+        if (policyXacmlRequest != null && policyXacmlRequest.getSubject() != null) {
             AttributeHelper attrHelper = new AttributeHelper();
             AttributeType purposeOfUseAttribute = attrHelper.attributeFactory(PurposeOfUseSubjectAttributeId,
                     Constants.DataTypeString, purposeOfUse);

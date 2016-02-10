@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,29 +34,32 @@ import java.util.List;
  * @author jasonasmith
  */
 
-
 public interface DashboardObserver {
 
     /**
      * Gets all open Admin GUI dashboard panels.
+     * 
      * @return
      */
     public List<DashboardPanel> getOpenDashboardPanels();
 
     /**
      * Closes Admin GUI dashboard panel of given class type.
+     * 
      * @param c
      */
     public void closePanel(Class c);
 
     /**
      * Opens the given dashboard panel.
+     * 
      * @param panel
      */
     public void openPanel(DashboardPanel panel);
 
     /**
      * Saves the given dashboard panels according to the given user.
+     * 
      * @param user
      */
     public void save(User user);
@@ -68,12 +71,14 @@ public interface DashboardObserver {
 
     /**
      * Sets the dashboard panels according to the user settings.
+     * 
      * @param user
      */
     public void setUserPanels(User user);
 
     /**
      * Helps determine if this is the first time the panels have been loaded.
+     * 
      * @return
      */
     public boolean isStarted();
@@ -85,12 +90,14 @@ public interface DashboardObserver {
 
     /**
      * Gets all closed dashboard panels.
+     * 
      * @return
      */
     public List<DashboardPanel> getClosedDashboardPanels();
 
     /**
      * Opens a dashboard panel of the given class type.
+     * 
      * @param c
      */
     public void openPanel(Class c);

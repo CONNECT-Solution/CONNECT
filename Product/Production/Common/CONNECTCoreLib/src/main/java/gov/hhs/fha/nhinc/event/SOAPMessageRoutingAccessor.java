@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,74 +38,70 @@ import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
 public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
 
-	private WebServiceContext context;
-	private AsyncMessageIdExtractor extractor;
-	private TransactionStoreFactory transactionStoreFactory;
+    private WebServiceContext context;
+    private AsyncMessageIdExtractor extractor;
+    private TransactionStoreFactory transactionStoreFactory;
 
-	public SOAPMessageRoutingAccessor() {
-		this.context = new WebServiceContextImpl();
-		this.extractor = new AsyncMessageIdExtractor();
-		this.transactionStoreFactory = new TransactionStoreFactory();
-	}
+    public SOAPMessageRoutingAccessor() {
+        context = new WebServiceContextImpl();
+        extractor = new AsyncMessageIdExtractor();
+        transactionStoreFactory = new TransactionStoreFactory();
+    }
 
-	SOAPMessageRoutingAccessor(WebServiceContext context,
-			AsyncMessageIdExtractor extractor,
-			TransactionStoreFactory transactionStoreFactory) {
-		this.context = context;
-		this.extractor = extractor;
-		this.transactionStoreFactory = transactionStoreFactory;
-	}
+    SOAPMessageRoutingAccessor(WebServiceContext context, AsyncMessageIdExtractor extractor,
+            TransactionStoreFactory transactionStoreFactory) {
+        this.context = context;
+        this.extractor = extractor;
+        this.transactionStoreFactory = transactionStoreFactory;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
-	 */
-	@Override
-	public String getMessageId() {
-		return extractor.getMessageId(context);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
+     */
+    @Override
+    public String getMessageId() {
+        return extractor.getMessageId(context);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
-	 */
-	@Override
-	public String getTransactionId() {
-		String messageId = extractor.getMessageId(context);
-		String transactionId = null;
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
+     */
+    @Override
+    public String getTransactionId() {
+        String messageId = extractor.getMessageId(context);
+        String transactionId = null;
 
-		List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
-		if (NullChecker.isNotNullish(transactionIdList)) {
-			TransactionStore store = transactionStoreFactory
-					.getTransactionStore();
-			transactionId = store.getTransactionId(transactionIdList.get(0));
-		}
+        List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
+        if (NullChecker.isNotNullish(transactionIdList)) {
+            TransactionStore store = transactionStoreFactory.getTransactionStore();
+            transactionId = store.getTransactionId(transactionIdList.get(0));
+        }
 
-		if ((transactionId == null) && (messageId != null)) {
-			TransactionStore store = transactionStoreFactory
-					.getTransactionStore();
-			transactionId = store.getTransactionId(messageId);
-		}
+        if (transactionId == null && messageId != null) {
+            TransactionStore store = transactionStoreFactory.getTransactionStore();
+            transactionId = store.getTransactionId(messageId);
+        }
 
-		return transactionId;
-	}
+        return transactionId;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<String> getResponseMsgIdList() {
-		MessageContext mContext = context.getMessageContext();
-		if (mContext == null) {
-			return null;
-		}
-		return (List<String>) mContext
-				.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> getResponseMsgIdList() {
+        MessageContext mContext = context.getMessageContext();
+        if (mContext == null) {
+            return null;
+        }
+        return (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+    }
 
 }

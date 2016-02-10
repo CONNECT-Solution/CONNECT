@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -132,12 +132,12 @@ public class DirectTrustBundleBean {
             cert = new Certificate();
             cert.setData(selectedTb.getSigningCertificateData());
         }
-        directService.updateTrustBundle(selectedTb.getId(), selectedTb.getBundleName(), selectedTb.getBundleURL(),
-                cert, selectedTb.getRefreshInterval());
+        directService.updateTrustBundle(selectedTb.getId(), selectedTb.getBundleName(), selectedTb.getBundleURL(), cert,
+                selectedTb.getRefreshInterval());
     }
 
     public void refreshBundle(ActionEvent event) {
-        if(selectedTb != null) {
+        if (selectedTb != null) {
             directService.refreshTrustBundle(selectedTb.getId());
             refreshTrustBundle();
         }
@@ -147,8 +147,8 @@ public class DirectTrustBundleBean {
      *
      * @return
      */
-    public List<TrustBundleAnchor> getSelectedTrustBundleAnchors(){
-        if(selectedTb != null){
+    public List<TrustBundleAnchor> getSelectedTrustBundleAnchors() {
+        if (selectedTb != null) {
             return selectedTb.getTrustBundleAnchors();
         }
         return null;
@@ -167,8 +167,8 @@ public class DirectTrustBundleBean {
      *
      */
     public void showTrustBundleAnchors() {
-        if(selectedTb != null) {
-             RequestContext.getCurrentInstance().execute("tbAnchorDlg.show()");
+        if (selectedTb != null) {
+            RequestContext.getCurrentInstance().execute("tbAnchorDlg.show()");
         }
     }
 

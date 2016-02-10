@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,8 +47,7 @@ import org.slf4j.LoggerFactory;
  * @author Neil Webb
  */
 
-public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
-{
+public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy {
     private static final String DECISION_VALUE_PERMIT = "Permit";
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPDPProxyNoopImpl.class);
 
@@ -61,18 +60,15 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
      */
 
     @Override
-    public Response processPDPRequest(Request pdpRequest)
-    {
+    public Response processPDPRequest(Request pdpRequest) {
         LOG.debug("Begin AdapterPDPProxyNoopImpl.processPDPRequest(...)");
         Response resp = createResponse();
         LOG.debug("End AdapterPDPProxyNoopImpl.processPDPRequest(...)");
         return resp;
     }
 
-    protected Response createResponse()
-    {
-        Response response = new Response()
-        {
+    protected Response createResponse() {
+        Response response = new Response() {
             @SuppressWarnings("unchecked")
             List results = null;
 
@@ -148,7 +144,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
             @Override
             public String toXMLString(boolean arg0, boolean arg1)
 
-            throws XACMLException
+                    throws XACMLException
 
             {
 
@@ -255,7 +251,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
             @Override
             public void setDecision(Decision arg0)
 
-            throws XACMLException
+                    throws XACMLException
 
             {
 
@@ -266,7 +262,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
             @Override
             public void setObligations(Obligations arg0)
 
-            throws XACMLException
+                    throws XACMLException
 
             {
 
@@ -277,7 +273,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
             @Override
             public void setResourceId(String arg0)
 
-            throws XACMLException
+                    throws XACMLException
 
             {
 
@@ -308,7 +304,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
             @Override
             public String toXMLString(boolean arg0, boolean arg1)
 
-            throws XACMLException
+                    throws XACMLException
 
             {
 
@@ -402,7 +398,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
             @Override
             public String toXMLString(boolean arg0, boolean arg1)
 
-            throws XACMLException
+                    throws XACMLException
 
             {
 

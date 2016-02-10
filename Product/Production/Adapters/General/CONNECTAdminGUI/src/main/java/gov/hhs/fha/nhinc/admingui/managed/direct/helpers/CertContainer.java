@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -98,9 +98,8 @@ public class CertContainer {
             bais = new ByteArrayInputStream(data);
 
             try {
-                this.cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-                    bais);
-                this.key = null;
+                cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
+                key = null;
             } catch (Exception e) {
                 LOG.trace("Error during cert conversion: {}", e.getLocalizedMessage(), e);
                 LOG.warn("Cert data cannot be converted to X.509, trying next option...");

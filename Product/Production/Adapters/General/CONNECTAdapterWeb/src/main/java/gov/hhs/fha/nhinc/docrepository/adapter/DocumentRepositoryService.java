@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,13 +47,13 @@ public class DocumentRepositoryService implements ihe.iti.xds_b._2007.DocumentRe
 
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new DocumentRepositoryServiceImpl().documentRepositoryProvideAndRegisterDocumentSet(body, context);
     }
 
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
-        ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return new DocumentRepositoryServiceImpl().documentRepositoryRetrieveDocumentSet(body, context);
     }
 

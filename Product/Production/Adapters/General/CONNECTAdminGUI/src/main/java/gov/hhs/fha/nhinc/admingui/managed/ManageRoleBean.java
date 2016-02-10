@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
+
+import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
@@ -131,7 +132,7 @@ public class ManageRoleBean {
      * @param pages the pages to set
      */
     public void setPages(DataModel<PageAccessMapping> pages) {
-        this.pagesModel = pages;
+        pagesModel = pages;
     }
 
     /**
@@ -166,12 +167,12 @@ public class ManageRoleBean {
                     && preference.getPageName().toLowerCase().contains("direct")) {
                 continue;
             }
-            
-            if(!DisplayHolder.getInstance().isFhirEnabled()
+
+            if (!DisplayHolder.getInstance().isFhirEnabled()
                     && preference.getPageName().toLowerCase().contains("fhir")) {
                 continue;
             }
-            
+
             mappings.add(new PageAccessMapping(preference, this));
         }
         pagesModel = new ListDataModel<>(mappings);

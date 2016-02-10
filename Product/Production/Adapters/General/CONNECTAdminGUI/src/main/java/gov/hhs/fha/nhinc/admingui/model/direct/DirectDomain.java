@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,7 +49,7 @@ public class DirectDomain {
     /**
      *
      */
-    public DirectDomain(){
+    public DirectDomain() {
 
     }
 
@@ -62,7 +62,8 @@ public class DirectDomain {
      * @param domainCreated
      * @param domainUpdated
      */
-    public DirectDomain(int position, String domainStatus, String domainName, String domainPostMaster, String domainCreated, String domainUpdated) {
+    public DirectDomain(int position, String domainStatus, String domainName, String domainPostMaster,
+            String domainCreated, String domainUpdated) {
         this.position = position;
         this.domainStatus = domainStatus;
         this.domainName = domainName;
@@ -187,7 +188,7 @@ public class DirectDomain {
      *
      * @param address
      */
-    public void addAddress(DirectAddress address){
+    public void addAddress(DirectAddress address) {
         addresses.add(address);
     }
 
@@ -211,7 +212,7 @@ public class DirectDomain {
      *
      * @param anchor
      */
-    public void addAnchor(DirectAnchor anchor){
+    public void addAnchor(DirectAnchor anchor) {
         anchors.add(anchor);
     }
 
@@ -235,7 +236,7 @@ public class DirectDomain {
      *
      * @param tb
      */
-    public void addTrustBundle(DirectTrustBundle tb){
+    public void addTrustBundle(DirectTrustBundle tb) {
         trustBundles.add(tb);
     }
 
@@ -243,7 +244,7 @@ public class DirectDomain {
      *
      * @param tbs
      */
-    public void addTrustBundles(List<DirectTrustBundle> tbs){
+    public void addTrustBundles(List<DirectTrustBundle> tbs) {
         trustBundles.addAll(tbs);
     }
 }

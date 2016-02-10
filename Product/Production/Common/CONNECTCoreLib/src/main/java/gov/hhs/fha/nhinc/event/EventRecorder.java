@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,8 +31,7 @@ public interface EventRecorder {
     /**
      * Records an event. May be a no-op (discoverable via {@link #isRecordEventEnabled()}.
      *
-     * @param event
-     *            event to record
+     * @param event event to record
      */
     void recordEvent(Event event);
 

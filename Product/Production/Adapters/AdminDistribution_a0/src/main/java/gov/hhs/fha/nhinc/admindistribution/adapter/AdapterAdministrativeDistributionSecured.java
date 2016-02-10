@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,8 @@ import javax.xml.ws.soap.SOAPBinding;
  * @author dunnek
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterAdministrativeDistributionSecured implements gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType {
+public class AdapterAdministrativeDistributionSecured
+        implements gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType {
 
     @Resource
     private WebServiceContext context;
@@ -49,7 +50,7 @@ public class AdapterAdministrativeDistributionSecured implements gov.hhs.fha.nhi
 
     @Override
     public void sendAlertMessage(
-        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType body) {
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType body) {
 
         AssertionType assertion = extractAssertion(context);
         getImpl().sendAlertMessage(body.getEDXLDistribution(), assertion);

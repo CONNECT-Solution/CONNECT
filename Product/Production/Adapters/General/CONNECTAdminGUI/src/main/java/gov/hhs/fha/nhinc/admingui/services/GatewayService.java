@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
+
 import gov.hhs.fha.nhinc.admingui.event.model.Document;
 import gov.hhs.fha.nhinc.admingui.event.model.Patient;
 import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
@@ -43,7 +45,6 @@ import gov.hhs.fha.nhinc.docquery.model.builder.impl.DocumentMetadataResultsMode
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -127,7 +128,7 @@ public class GatewayService {
             // Call the entity/gateway Patient Discovery service
             final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
             LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
-                patientDiscoveryResults.getPatientList().size());
+                    patientDiscoveryResults.getPatientList().size());
 
             // Return false if no patient found
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
@@ -169,7 +170,7 @@ public class GatewayService {
 
         try {
             final DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(
-                new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
+                    new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
             final DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
 
             // Check the number of documents
@@ -205,11 +206,11 @@ public class GatewayService {
         // set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
             if (response.getContentType() != null && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
+                    || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
+                    || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
+                    || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
                 final InputStream xsl = FacesContext.getCurrentInstance().getExternalContext()
-                    .getResourceAsStream(DEFAULT_XSL_FILE);
+                        .getResourceAsStream(DEFAULT_XSL_FILE);
                 final InputStream xml = new ByteArrayInputStream(response.getDocument());
                 byte[] convertXmlToHtml = null;
                 if (xsl != null) {
@@ -232,13 +233,13 @@ public class GatewayService {
      *
      */
     private void populatePatientBean(final PatientSearchResults patientQueryResults,
-        final PatientSearchBean patientQuerySearch) {
+            final PatientSearchBean patientQuerySearch) {
         final int patientIndex = 0;
         // start with a clean slate
         patientQuerySearch.getPatientList().clear();
         // loop through Patient Discovery results and set the UI patient bean
         for (final gov.hhs.fha.nhinc.patientdiscovery.model.Patient retrievedPatient : patientQueryResults
-            .getPatientList()) {
+                .getPatientList()) {
             final Patient patient = new Patient();
             // Patient personal Information
             patient.setDateOfBirth(patientQuerySearch.getDateOfBirth());
@@ -273,7 +274,7 @@ public class GatewayService {
      *
      */
     private void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
-        final PatientSearchBean patientQuerySearch) {
+            final PatientSearchBean patientQuerySearch) {
         int documentIndex = 0;
         // start with a clean slate
         patientQuerySearch.getSelectedCurrentPatient().getDocumentList().clear();
@@ -298,7 +299,7 @@ public class GatewayService {
             // this logic needs to be revisited after the demo
             if (patientDocument.getDocumentType() != null) {
                 patientDocument.setDocumentTypeName(
-                    patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
+                        patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
             }
             // for the demo set the value from the patient
             patientDocument.setSourcePatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());

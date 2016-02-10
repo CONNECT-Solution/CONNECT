@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  * @author akong
  *
  */
-public class TestInboundAdminDistribution implements InboundAdminDistribution{
+public class TestInboundAdminDistribution implements InboundAdminDistribution {
 
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {

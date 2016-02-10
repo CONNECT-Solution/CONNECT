@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,11 +37,12 @@ import org.slf4j.LoggerFactory;
 public class NhinAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinAdminDistributionProxyObjectFactory.class);
-	private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_NHIN_ADMIN_DIST = "nhinadmindist";
 
     /**
      * This method returns the spring proxy config filename to read the identifier for adapter admin dist.
+     * 
      * @return CONFIG_FILE_NAME spring proxy config file for adapter AdminDist.
      */
     @Override

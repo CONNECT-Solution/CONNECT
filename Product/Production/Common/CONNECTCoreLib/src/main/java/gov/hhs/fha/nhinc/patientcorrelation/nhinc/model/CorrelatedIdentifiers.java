@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class CorrelatedIdentifiers {
     }
 
     public void setCorrelatedPatientAssigningAuthorityId(String CorrelatedPatientAssigningAuthority) {
-        this.CorrelatedPatientAssigningAuthorityId = CorrelatedPatientAssigningAuthority;
+        CorrelatedPatientAssigningAuthorityId = CorrelatedPatientAssigningAuthority;
     }
 
     public String getCorrelatedPatientId() {
@@ -86,7 +86,7 @@ public class CorrelatedIdentifiers {
     }
 
     public void setPatientAssigningAuthorityId(String patientAssigningAuthority) {
-        this.patientAssigningAuthorityId = patientAssigningAuthority;
+        patientAssigningAuthorityId = patientAssigningAuthority;
     }
 
     public String getPatientId() {

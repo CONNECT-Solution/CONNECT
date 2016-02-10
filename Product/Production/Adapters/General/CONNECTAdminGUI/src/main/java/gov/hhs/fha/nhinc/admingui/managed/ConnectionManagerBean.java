@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -86,8 +86,7 @@ public class ConnectionManagerBean {
 
     public String getSelectedEntityName() {
         String name = NULL_DISPLAY;
-        if (selectedEntity != null && selectedEntity.getName() != null
-            && !selectedEntity.getName().isEmpty()) {
+        if (selectedEntity != null && selectedEntity.getName() != null && !selectedEntity.getName().isEmpty()) {
             name = selectedEntity.getName().get(0).getValue();
         }
         return name;
@@ -107,7 +106,8 @@ public class ConnectionManagerBean {
     public String getSelectedEntityDescription() {
         String description = NULL_DISPLAY;
 
-        if (selectedEntity != null && selectedEntity.getDescription() != null && !selectedEntity.getDescription().isEmpty()) {
+        if (selectedEntity != null && selectedEntity.getDescription() != null
+                && !selectedEntity.getDescription().isEmpty()) {
             description = selectedEntity.getDescription().get(0).getValue();
         }
 
@@ -117,8 +117,8 @@ public class ConnectionManagerBean {
     public String getSelectedEntityRegions() {
         String regions = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getCategoryBag() != null
-            && selectedEntity.getCategoryBag().getKeyedReference() != null
-            && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
+                && selectedEntity.getCategoryBag().getKeyedReference() != null
+                && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
 
             StringBuilder regionBuilder = new StringBuilder();
             for (KeyedReference ref : selectedEntity.getCategoryBag().getKeyedReference()) {
@@ -136,8 +136,9 @@ public class ConnectionManagerBean {
     public String getSelectedEntityContact() {
         String contactValue = NULL_DISPLAY;
 
-        if (selectedEntity != null && selectedEntity.getContacts() != null && selectedEntity.getContacts().getContact() != null
-            && !selectedEntity.getContacts().getContact().isEmpty()) {
+        if (selectedEntity != null && selectedEntity.getContacts() != null
+                && selectedEntity.getContacts().getContact() != null
+                && !selectedEntity.getContacts().getContact().isEmpty()) {
             Contact contact = selectedEntity.getContacts().getContact().get(0);
 
             if (contact.getPersonName() != null && !contact.getPersonName().isEmpty()) {
@@ -151,8 +152,8 @@ public class ConnectionManagerBean {
     public String getSelectedEntityHcid() {
         String hcid = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getIdentifierBag() != null
-            && selectedEntity.getIdentifierBag().getKeyedReference() != null
-            && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
+                && selectedEntity.getIdentifierBag().getKeyedReference() != null
+                && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
             for (KeyedReference ref : selectedEntity.getIdentifierBag().getKeyedReference()) {
                 if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)) {
                     hcid = ref.getKeyValue();
@@ -165,21 +166,24 @@ public class ConnectionManagerBean {
     public void ping() {
         if (selectedEndpoint != null) {
             boolean status = pingService.ping(selectedEndpoint.getServiceUrl());
-            EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(), status);
+            EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(),
+                    status);
         }
     }
 
     public List<ConnectionEndpoint> getEndpoints() {
         endpoints = new ArrayList<>();
         if (selectedEntity != null && selectedEntity.getBusinessKey() != null
-            && selectedEntity.getBusinessServices().getBusinessService() != null
-            && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
+                && selectedEntity.getBusinessServices().getBusinessService() != null
+                && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
             for (BusinessService bService : selectedEntity.getBusinessServices().getBusinessService()) {
-                if (bService.getBindingTemplates() != null && bService.getBindingTemplates().getBindingTemplate() != null) {
+                if (bService.getBindingTemplates() != null
+                        && bService.getBindingTemplates().getBindingTemplate() != null) {
                     for (BindingTemplate template : bService.getBindingTemplates().getBindingTemplate()) {
                         String url = template.getAccessPoint().getValue();
                         String version = getSpecVersion(template.getCategoryBag());
-                        EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance().getEndpointInfo(url);
+                        EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance()
+                                .getEndpointInfo(url);
 
                         String timestamp = null;
                         String status = "None";
@@ -188,7 +192,8 @@ public class ConnectionManagerBean {
                             timestamp = DateUtils.formatDate(info.getTimestamp(), DATE_FORMAT);
                             status = info.isSuccessfulPing() ? "Pass" : "Fail";
                         }
-                        endpoints.add(new ConnectionEndpoint(bService.getName().get(0).getValue(), url, version, status, timestamp));
+                        endpoints.add(new ConnectionEndpoint(bService.getName().get(0).getValue(), url, version, status,
+                                timestamp));
                     }
                 }
             }
@@ -219,11 +224,11 @@ public class ConnectionManagerBean {
 
     private String getSpecVersion(CategoryBag categoryBag) {
         if (categoryBag != null && categoryBag.getKeyedReference() != null
-            && !categoryBag.getKeyedReference().isEmpty()) {
+                && !categoryBag.getKeyedReference().isEmpty()) {
 
             for (KeyedReference kRef : categoryBag.getKeyedReference()) {
-                if (kRef.getTModelKey() != null && kRef.getTModelKey()
-                    .equals(ConnectionManagerCache.UDDI_SPEC_VERSION_KEY)) {
+                if (kRef.getTModelKey() != null
+                        && kRef.getTModelKey().equals(ConnectionManagerCache.UDDI_SPEC_VERSION_KEY)) {
 
                     return kRef.getKeyValue();
                 }

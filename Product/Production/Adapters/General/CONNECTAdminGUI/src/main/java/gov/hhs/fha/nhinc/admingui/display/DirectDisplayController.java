@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,8 +45,7 @@ public class DirectDisplayController implements DisplayController {
     private static final Logger LOG = LoggerFactory.getLogger(DirectDisplayController.class);
 
     /**
-     * Determines if direct is currently enabled and therefore direct pages can
-     * be displayed in the Admin GUI.
+     * Determines if direct is currently enabled and therefore direct pages can be displayed in the Admin GUI.
      */
     @Override
     public void checkDisplay() {

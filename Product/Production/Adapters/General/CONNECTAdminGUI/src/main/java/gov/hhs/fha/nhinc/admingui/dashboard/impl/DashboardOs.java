@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ public class DashboardOs extends DashboardPanelAbstract implements DashboardPane
     /**
      *
      */
-    public DashboardOs(){
+    public DashboardOs() {
 
     }
 
@@ -54,7 +54,7 @@ public class DashboardOs extends DashboardPanelAbstract implements DashboardPane
      * @param observer
      * @param closed
      */
-    public DashboardOs(DashboardObserver observer, boolean closed){
+    public DashboardOs(DashboardObserver observer, boolean closed) {
         setObserver(observer);
         setClosed(closed);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     /**
      *
      */
-    public DashboardAppServer(){
+    public DashboardAppServer() {
 
     }
 
@@ -52,7 +52,7 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
      * @param observer
      * @param closed
      */
-    public DashboardAppServer(DashboardObserver observer, boolean closed){
+    public DashboardAppServer(DashboardObserver observer, boolean closed) {
         setObserver(observer);
         setClosed(closed);
     }
@@ -92,9 +92,9 @@ public class DashboardAppServer extends DashboardPanelAbstract implements Dashbo
     public DashboardPanel setData() {
         description = ApplicationInfo.getInstance().getServerInfo();
 
-        if(description == null || description.isEmpty()) {
+        if (description == null || description.isEmpty()) {
             description = "Unknown";
-        } else if(description.length() > 100) {
+        } else if (description.length() > 100) {
             description = description.substring(0, 100).concat("...");
         }
         return this;

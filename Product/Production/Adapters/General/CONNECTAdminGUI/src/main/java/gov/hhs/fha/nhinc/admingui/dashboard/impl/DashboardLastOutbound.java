@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
  * @author jasonasmith
  */
 
-
 public class DashboardLastOutbound extends DashboardPanelAbstract implements DashboardPanel {
 
     private final String type = "Last Outbound";
@@ -49,7 +48,7 @@ public class DashboardLastOutbound extends DashboardPanelAbstract implements Das
     /**
      *
      */
-    public DashboardLastOutbound(){
+    public DashboardLastOutbound() {
         eventService = new EventServiceImpl();
     }
 
@@ -58,7 +57,7 @@ public class DashboardLastOutbound extends DashboardPanelAbstract implements Das
      * @param observer
      * @param closed
      */
-    public DashboardLastOutbound(DashboardObserver observer, boolean closed){
+    public DashboardLastOutbound(DashboardObserver observer, boolean closed) {
         setObserver(observer);
         setClosed(closed);
         eventService = new EventServiceImpl();
@@ -98,10 +97,10 @@ public class DashboardLastOutbound extends DashboardPanelAbstract implements Das
     @Override
     public DashboardPanel setData() {
         DatabaseEvent event = eventService.getLatestOutbound();
-        if(event != null){
+        if (event != null) {
             title = event.getFormattedEventTime();
             description = event.getServiceType() + "\n" + event.getInitiatorHcid();
-        }else {
+        } else {
             title = "No current messages.";
         }
         return this;

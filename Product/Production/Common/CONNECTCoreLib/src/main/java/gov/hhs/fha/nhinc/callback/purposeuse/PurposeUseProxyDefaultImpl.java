@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
      */
     public PurposeUseProxyDefaultImpl() {
         super();
-        this.propertyAccessor = PropertyAccessor.getInstance();
+        propertyAccessor = PropertyAccessor.getInstance();
     }
 
     /**
@@ -74,13 +74,13 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
         try {
             // Use CONNECT utility class to access gateway.properties
             String purposeForUseEnabled = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+                    PURPOSE_FOR_USE_DEPRECATED_ENABLED);
             if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve {} from property file {}: {}", PURPOSE_FOR_USE_DEPRECATED_ENABLED,
-                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
+                    NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return match;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,15 +40,15 @@ import javax.xml.ws.soap.SOAPBinding;
  * @author Neil Webb
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterComponentRedactionEngine implements
-    gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType {
+public class AdapterComponentRedactionEngine
+        implements gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType {
 
     @Resource
     private WebServiceContext context;
 
     @Override
     public FilterDocQueryResultsResponseType filterDocQueryResults(
-        FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
+            FilterDocQueryResultsRequestType filterDocQueryResultsRequest) {
         FilterDocQueryResultsResponseType response = null;
 
         AdapterComponentRedactionEngineImpl redactionEngineImpl = getAdapterComponentRedactionEngineImpl();
@@ -61,7 +61,7 @@ public class AdapterComponentRedactionEngine implements
 
     @Override
     public FilterDocRetrieveResultsResponseType filterDocRetrieveResults(
-        FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
+            FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest) {
         FilterDocRetrieveResultsResponseType response = null;
 
         AdapterComponentRedactionEngineImpl redactionEngineImpl = getAdapterComponentRedactionEngineImpl();

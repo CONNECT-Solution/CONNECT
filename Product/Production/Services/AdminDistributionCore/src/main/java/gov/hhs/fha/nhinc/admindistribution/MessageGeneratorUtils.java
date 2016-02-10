@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,8 +61,9 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      * @param target
      * @return the unsecured format of the message
      */
-    public RespondingGatewaySendAlertMessageType convertToUnsecured(RespondingGatewaySendAlertMessageSecuredType message,
-            AssertionType assertion, NhinTargetCommunitiesType target) {
+    public RespondingGatewaySendAlertMessageType convertToUnsecured(
+            RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
+            NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = new RespondingGatewaySendAlertMessageType();
 
         request.setAssertion(assertion);

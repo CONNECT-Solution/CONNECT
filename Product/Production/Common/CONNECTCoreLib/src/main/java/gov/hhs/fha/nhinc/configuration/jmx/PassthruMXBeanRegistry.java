@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -104,8 +104,8 @@ public class PassthruMXBeanRegistry {
      * @param serviceName
      * @param direction
      */
-    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
                 b.configureInboundPtImpl();
@@ -123,8 +123,8 @@ public class PassthruMXBeanRegistry {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {

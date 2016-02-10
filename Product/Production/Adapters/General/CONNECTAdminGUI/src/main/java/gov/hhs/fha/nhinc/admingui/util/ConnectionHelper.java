@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,8 +69,8 @@ public class ConnectionHelper {
             Iterator<Map.Entry<String, BusinessEntity>> it = organizationMap.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, BusinessEntity> entry = it.next();
-                if (checkLocalHcid(getHcidFromKeyedReference(entry.getValue().getIdentifierBag()
-                    .getKeyedReference()))) {
+                if (checkLocalHcid(
+                        getHcidFromKeyedReference(entry.getValue().getIdentifierBag().getKeyedReference()))) {
                     it.remove();
                 }
             }
@@ -104,8 +104,8 @@ public class ConnectionHelper {
     private List<KeyedReference> getKeyedReference(BusinessEntity entity) {
         List<KeyedReference> keyedReference = new ArrayList<>();
         if (entity != null && entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
-            && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
-            keyedReference = (entity.getIdentifierBag().getKeyedReference());
+                && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
+            keyedReference = entity.getIdentifierBag().getKeyedReference();
         }
         return keyedReference;
     }
@@ -115,8 +115,9 @@ public class ConnectionHelper {
         try {
             businessEntities = ConnectionManagerCache.getInstance().getAllBusinessEntities();
         } catch (ConnectionManagerException ex) {
-            LOG.error("Exception while retrieving BusinessEntities from UDDIConnectionInfo: "
-                + ex.getLocalizedMessage(), ex);
+            LOG.error(
+                    "Exception while retrieving BusinessEntities from UDDIConnectionInfo: " + ex.getLocalizedMessage(),
+                    ex);
         }
         return businessEntities;
     }
@@ -125,7 +126,7 @@ public class ConnectionHelper {
         String localHcid = null;
         try {
             localHcid = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error("Exception retrieving property from gateway.properties: " + ex.getLocalizedMessage(), ex);
         }
@@ -165,9 +166,10 @@ public class ConnectionHelper {
             for (BusinessEntity businessEntity : entities) {
                 List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
                 if (NullChecker.isNotNullish(keyedReference)
-                    && NullChecker.isNotNullishIgnoreSpace(keyedReference.get(0).getKeyValue())) {
-                    organizationMap.put(HomeCommunityMap.getHomeCommunityWithoutPrefix(
-                        keyedReference.get(0).getKeyValue()), getEntityName(businessEntity));
+                        && NullChecker.isNotNullishIgnoreSpace(keyedReference.get(0).getKeyValue())) {
+                    organizationMap.put(
+                            HomeCommunityMap.getHomeCommunityWithoutPrefix(keyedReference.get(0).getKeyValue()),
+                            getEntityName(businessEntity));
                 }
             }
         }

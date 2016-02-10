@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,16 +33,16 @@ import gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor;
  *
  * @author jasonasmith
  */
-public class DirectConfigUnsecuredServicePortDescriptor extends
-    SOAP11ServicePortDescriptor<ConfigurationService> {
+public class DirectConfigUnsecuredServicePortDescriptor extends SOAP11ServicePortDescriptor<ConfigurationService> {
 
     private String configAction;
 
     /**
      * Sets the WS action.
+     * 
      * @param configAction
      */
-    public void setWSAddressingAction(String configAction){
+    public void setWSAddressingAction(String configAction) {
         this.configAction = configAction;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -91,10 +91,10 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
             Map<String, Object> responseContext = clientProxy.getResponseContext();
             String responseMsgId = (String) responseContext.get(NhincConstants.RESPONSE_MESSAGE_ID_KEY);
 
-            if ((responseMsgId != null) && (currentMessage != null)) {
+            if (responseMsgId != null && currentMessage != null) {
 
-                List<String> responseMsgIdList = (List<String>) currentMessage.getExchange().get(
-                    NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+                List<String> responseMsgIdList = (List<String>) currentMessage.getExchange()
+                        .get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
                 if (responseMsgIdList == null) {
                     responseMsgIdList = new ArrayList<>();
                 }

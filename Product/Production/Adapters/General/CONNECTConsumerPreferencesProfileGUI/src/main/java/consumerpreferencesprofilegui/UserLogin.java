@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -177,8 +177,9 @@ public class UserLogin extends AbstractPageBean {
         }
 
         try {
-            String agencyName = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
-            this.agencyLogo.setText(agencyName);
+            String agencyName = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER,
+                    PROPERTY_FILE_KEY_AGENCY);
+            agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
             LOG.error("CPP GUI can not access " + PROPERTY_FILE_KEY_AGENCY + " property: ", ex);
         }

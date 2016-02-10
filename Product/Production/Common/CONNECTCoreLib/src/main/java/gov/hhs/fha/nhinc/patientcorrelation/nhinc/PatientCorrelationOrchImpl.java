@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,9 +72,9 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
     @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
-        PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
+            PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
         PRPAMT201307UV02PatientIdentifier patIdentifier = PRPAIN201309UVParser
-            .parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
+                .parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
         if (patIdentifier == null) {
             return null;
         }
@@ -89,27 +89,27 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         QualifiedPatientIdentifier inputQualifiedPatientIdentifier = qualifiedPatientIdentifierFactory(inputPatientId);
         // only non-expired patient correlation records will be returned
         // expired correlation records will be removed by the following call.
-        List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrieveQualifiedPatientIdentifiers(inputQualifiedPatientIdentifier,
-            dataSourceList);
+        List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrieveQualifiedPatientIdentifiers(
+                inputQualifiedPatientIdentifier, dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
-        PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(
-            retrievePatientCorrelationsRequest, iiList);
+        PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder
+                .createPixRetrieveResponse(retrievePatientCorrelationsRequest, iiList);
         RetrievePatientCorrelationsResponseType result = new RetrievePatientCorrelationsResponseType();
         result.setPRPAIN201310UV02(IN201310);
         return result;
     }
 
-    protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
-        List<String> dataSourceList) {
+    protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(
+            QualifiedPatientIdentifier inputQualifiedPatientIdentifier, List<String> dataSourceList) {
 
         return dao.retrievePatientCorrelation(inputQualifiedPatientIdentifier, dataSourceList);
     }
 
     @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 addPatientCorrelationRequest,
-        AssertionType assertion) {
+            AssertionType assertion) {
         PRPAMT201301UV02Patient patient = PRPAIN201301UVParser
-            .parseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
+                .parseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
         String patientId;
         String patientAssigningAuthId;
         String correlatedPatientId;
@@ -142,7 +142,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             return null;
         }
         correlatedPatientId = ids.get(1).getExtension();
-        if ((correlatedPatientId == null) || (correlatedPatientId.isEmpty())) {
+        if (correlatedPatientId == null || correlatedPatientId.isEmpty()) {
             LOG.warn("correlatedPatientId was not supplied");
             return null;
         }
@@ -171,7 +171,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     private static List<String> extractDataSourceList(PRPAIN201309UV02 IN201309) {
         List<String> dataSourceStringList = new ArrayList<>();
         PRPAMT201307UV02ParameterList parameterList = PRPAIN201309UVParser
-            .parseHL7ParameterListFrom201309Message(IN201309);
+                .parseHL7ParameterListFrom201309Message(IN201309);
 
         List<PRPAMT201307UV02DataSource> dataSources = parameterList.getDataSource();
         if (!dataSources.isEmpty()) {

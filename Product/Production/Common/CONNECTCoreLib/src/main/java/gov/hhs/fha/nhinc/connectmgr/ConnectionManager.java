@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,6 +60,7 @@ public interface ConnectionManager {
 
     /**
      * Returns the name of the entity for the given home community id.
+     * 
      * @param homeCommunityId
      * @return
      * @throws ConnectionManagerException
@@ -129,7 +130,8 @@ public interface ConnectionManager {
     public Set<BusinessEntity> getAllBusinessEntitySetByServiceName(String sUniformServiceName)
             throws ConnectionManagerException;
 
-    public List<UDDI_SPEC_VERSION> getSpecVersions(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName);
+    public List<UDDI_SPEC_VERSION> getSpecVersions(String homeCommunityId,
+            NhincConstants.NHIN_SERVICE_NAMES serviceName);
 
     public String getAdapterEndpointURL(String sHomeCommunityId, String sServiceName, ADAPTER_API_LEVEL level)
             throws ConnectionManagerException;

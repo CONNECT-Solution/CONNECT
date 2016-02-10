@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,9 +56,9 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
 
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
-        NhinTargetCommunitiesType target) {
+            NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message,
-            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
+                MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         sendAlertMessage(request, assertion, target);
     }
@@ -72,16 +72,17 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      */
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
-        NhinTargetCommunitiesType targetCommunities) {
+            NhinTargetCommunitiesType targetCommunities) {
 
         NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
         sendToNhin(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
     }
 
     private void sendToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
-        NhinTargetSystemType target) {
+            NhinTargetSystemType target) {
 
-        OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
+        OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(
+                adDelegate);
         orchestratable.setRequest(request);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);

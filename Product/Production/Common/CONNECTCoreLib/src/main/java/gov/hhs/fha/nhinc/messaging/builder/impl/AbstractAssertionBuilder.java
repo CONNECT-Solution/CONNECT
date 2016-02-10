@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -166,8 +166,7 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
 
             setUserFirstName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_FIRST));
             setUserLastName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_LAST));
-            setUserMiddleName(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
-                PROPERTY_KEY_USER_MIDDLE));
+            setUserMiddleName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_MIDDLE));
             setUserOrganization(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_ORG));
             setUserName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_NAME));
             setUserCode(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_USER_CODE));
@@ -177,8 +176,8 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
 
             setPurposeCode(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_CODE));
             setPurposeCodeSystem(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM));
-            setPurposeCodeSystemName(propertyAccessor.getProperty(PROPERTY_FILE_NAME,
-                PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
+            setPurposeCodeSystemName(
+                    propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             setPurposeDisplayName(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
             setAccessConsentPolicy(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_ACCESS_CONSENT));
             setSamlAuthInstant(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_INSTANT));

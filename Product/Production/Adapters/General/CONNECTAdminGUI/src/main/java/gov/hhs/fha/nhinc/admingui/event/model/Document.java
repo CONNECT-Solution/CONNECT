@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ public class Document {
     private final String KILOBYTE_LABEL = "KB";
     private Date creationTime;
     private String hash;
-    //used in the UI
+    // used in the UI
     private int documentIndex;
 
     private String intendedRecipient;
@@ -48,7 +48,7 @@ public class Document {
     private Date serviceStopTime;
     private int size;
     private String sourcePatientId;
-    //not sure if we need this
+    // not sure if we need this
     private String sourcePatientInfo;
     private String uri;
     private String repositoryUniqueId;
@@ -62,7 +62,7 @@ public class Document {
     private String authorSpecialty;
     private String codingScheme;
     private String codingSchemeName;
-    //unique ID from document
+    // unique ID from document
     private String documentId;
     private String patientId;
 
@@ -81,7 +81,7 @@ public class Document {
     private String documentTypeName;
 
     public Document() {
-        this.documentRetrieved = false;
+        documentRetrieved = false;
     }
 
     /**
@@ -372,9 +372,9 @@ public class Document {
      * @return the documentId
      */
     public String getDocumentId() {
-        //workaround for now, once the CONNECT FHIR adapter supports
-        //documentId, we will remove this logic
-        return (documentId == null) ? uri : documentId;
+        // workaround for now, once the CONNECT FHIR adapter supports
+        // documentId, we will remove this logic
+        return documentId == null ? uri : documentId;
     }
 
     /**
@@ -430,9 +430,9 @@ public class Document {
      * @return the documentType
      */
     public String getDocumentType() {
-        //workaround for now, once the CONNECT FHIR adapter supports
-        //documentType, we will remove this logic
-        return (documentType == null) ? documentClassCode : documentType;
+        // workaround for now, once the CONNECT FHIR adapter supports
+        // documentType, we will remove this logic
+        return documentType == null ? documentClassCode : documentType;
     }
 
     /**

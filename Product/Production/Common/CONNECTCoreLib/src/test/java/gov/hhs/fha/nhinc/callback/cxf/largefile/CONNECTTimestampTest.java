@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,18 +26,19 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import org.apache.ws.security.WSConstants;
 import org.apache.ws.security.WSSecurityException;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
@@ -81,12 +82,10 @@ public class CONNECTTimestampTest {
     }
 
     @Test
-    public void testIsExpired_False() throws WSSecurityException,
-        ParseException {
+    public void testIsExpired_False() throws WSSecurityException, ParseException {
         Date invocationDate = dateFormat.parse(BEFORE_EXPIRE_TIME);
 
-        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(
-            TIMESTAMP_ELEMENT);
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(TIMESTAMP_ELEMENT);
         boolean result = connectTimestamp.isExpired(invocationDate);
 
         assertFalse(result);
@@ -96,7 +95,8 @@ public class CONNECTTimestampTest {
     public void testIsExpired_True() throws ParseException, WSSecurityException {
         Date invocationDate = dateFormat.parse(AFTER_EXPIRE_TIME);
 
-        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(TIMESTAMP_ELEMENT);;
+        CONNECTTimestamp connectTimestamp = new CONNECTTimestamp(TIMESTAMP_ELEMENT);
+        ;
 
         assertTrue(connectTimestamp.isExpired(invocationDate));
     }

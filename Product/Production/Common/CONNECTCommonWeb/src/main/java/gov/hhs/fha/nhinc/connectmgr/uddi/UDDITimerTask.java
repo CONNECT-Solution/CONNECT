@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,8 +66,8 @@ public class UDDITimerTask {
     public void run() {
         boolean bUDDIActive;
         try {
-            bUDDIActive = PropertyAccessor.getInstance()
-                .getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_SWITCH_PROPERTY);
+            bUDDIActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+                    UDDI_SWITCH_PROPERTY);
 
             if (bUDDIActive) {
                 LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
@@ -80,7 +80,7 @@ public class UDDITimerTask {
             }
         } catch (PropertyAccessException ex) {
             LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: {}",
-                ex.getLocalizedMessage(), ex);
+                    ex.getLocalizedMessage(), ex);
         }
     }
 

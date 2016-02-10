@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,18 +27,17 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class SAMLAssertionBuilderFactoryImplTest {
 
-	@Test
-	public void getBuilderTest() {
-		SAMLAssertionBuilderFactoryImpl builderFactory = new SAMLAssertionBuilderFactoryImpl();
-		SAMLAssertionBuilder hokBuilder = builderFactory
-				.getBuilder(SAMLAssertionBuilderFactory.HOK_ASSERTION_TYPE);
-		assertTrue(hokBuilder instanceof HOKSAMLAssertionBuilder);
-		SAMLAssertionBuilder svBuilder = builderFactory
-				.getBuilder(SAMLAssertionBuilderFactory.SV_ASSERTION_TYPE);
-		assertTrue(svBuilder instanceof SVSAMLAssertionBuilder);
-	}
+    @Test
+    public void getBuilderTest() {
+        SAMLAssertionBuilderFactoryImpl builderFactory = new SAMLAssertionBuilderFactoryImpl();
+        SAMLAssertionBuilder hokBuilder = builderFactory.getBuilder(SAMLAssertionBuilderFactory.HOK_ASSERTION_TYPE);
+        assertTrue(hokBuilder instanceof HOKSAMLAssertionBuilder);
+        SAMLAssertionBuilder svBuilder = builderFactory.getBuilder(SAMLAssertionBuilderFactory.SV_ASSERTION_TYPE);
+        assertTrue(svBuilder instanceof SVSAMLAssertionBuilder);
+    }
 }

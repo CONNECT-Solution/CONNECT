@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,8 +51,8 @@ public final class JaxbDocumentUtils {
         Predicate<SlotType1> slotPredicate = new Predicate<SlotType1>() {
             @Override
             public boolean apply(SlotType1 slot) {
-                return ((slot != null) && expectedType.equals(slot.getName()) && slot.getValueList() != null
-                    && !slot.getValueList().getValue().isEmpty());
+                return slot != null && expectedType.equals(slot.getName()) && slot.getValueList() != null
+                        && !slot.getValueList().getValue().isEmpty();
             }
         };
         Optional<SlotType1> slot = Iterables.tryFind(slotList, slotPredicate);

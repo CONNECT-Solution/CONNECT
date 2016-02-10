@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ public class AttributeHelper {
 
     public AttributeType attributeFactory(String attributeId, String dataType, Object value) {
         LOG.debug("creating XACML attribute [id='" + attributeId + "'; value='" + value + "'; datatype='" + dataType
-            + "']");
+                + "']");
 
         // There is a problem if the value is null. If that occurs then we get a XACML Attribute outer tag
         // and no inner "<AttributeValue> tag. This causes the receiving PEP to error out because it should not occur.
@@ -67,8 +67,8 @@ public class AttributeHelper {
         // a JAXB list where the value is null turns into a noop.
         // -----------------------------------------------------------------------------------------------------------------
         if (value == null) {
-            LOG.debug("XACML attribute [id='" + attributeId
-                + "' was null - returning null - no atribute will be added.");
+            LOG.debug(
+                    "XACML attribute [id='" + attributeId + "' was null - returning null - no atribute will be added.");
             return null;
         }
 
@@ -83,7 +83,8 @@ public class AttributeHelper {
             atttibuteValue.getContent().addAll((List<String>) value);
         } else if (value instanceof byte[]) {
             try {
-                String sValue = StringUtil.convertToStringUTF8((byte[]) value); // Note that JAXB already decoded this. We need to re-encode it.
+                String sValue = StringUtil.convertToStringUTF8((byte[]) value); // Note that JAXB already decoded this.
+                                                                                // We need to re-encode it.
                 String sEncodedValue = Base64Coder.encodeString(sValue);
                 atttibuteValue.getContent().add(sEncodedValue);
             } catch (UnsupportedEncodingException ex) {
@@ -111,12 +112,12 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(SubjectType subject, String attributeId, String dataType,
-        String attributeValue, boolean appendIfValueNull) {
+            String attributeValue, boolean appendIfValueNull) {
         return appendAttributeToParent(subject, attributeId, dataType, (Object) attributeValue, appendIfValueNull);
     }
 
     public AttributeType appendAttributeToParent(SubjectType subject, String attributeId, String dataType,
-        URI attributeValue, boolean appendIfValueNull) {
+            URI attributeValue, boolean appendIfValueNull) {
         String strAttributeVal = null;
         if (attributeValue != null) {
             strAttributeVal = attributeValue.toString();
@@ -125,7 +126,7 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(SubjectType subject, String attributeId, String dataType,
-        Object attributeValue, boolean appendIfValueNull) {
+            Object attributeValue, boolean appendIfValueNull) {
         AttributeType attribute = null;
         if (attributeValue != null) {
             attribute = attributeFactory(attributeId, dataType, attributeValue);
@@ -135,12 +136,12 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-        String attributeValue, boolean appendIfValueNull) {
+            String attributeValue, boolean appendIfValueNull) {
         return appendAttributeToParent(resource, attributeId, dataType, (Object) attributeValue, appendIfValueNull);
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-        XMLGregorianCalendar attributeValue, boolean appendIfValueNull) {
+            XMLGregorianCalendar attributeValue, boolean appendIfValueNull) {
         String strAttributeVal = null;
         if (attributeValue != null) {
             strAttributeVal = attributeValue.toXMLFormat();
@@ -149,7 +150,7 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-        URI attributeValue, boolean appendIfValueNull) {
+            URI attributeValue, boolean appendIfValueNull) {
         String strAttributeVal = null;
         if (attributeValue != null) {
             strAttributeVal = attributeValue.toString();
@@ -158,7 +159,7 @@ public class AttributeHelper {
     }
 
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType,
-        Object attributeValue, boolean appendIfValueNull) {
+            Object attributeValue, boolean appendIfValueNull) {
         AttributeType attribute = null;
         if (attributeValue != null) {
             attribute = attributeFactory(attributeId, dataType, attributeValue);
@@ -175,8 +176,8 @@ public class AttributeHelper {
                     matchingAttribute = attribute;
                 } else {
                     throw new IllegalArgumentException(
-                        "getSingleAttribute() assumes that there is a single matching attribute in list.  List contained multiple items with attributeId='"
-                        + attributeID + "'.");
+                            "getSingleAttribute() assumes that there is a single matching attribute in list.  List contained multiple items with attributeId='"
+                                    + attributeID + "'.");
                 }
             }
         }
@@ -191,13 +192,13 @@ public class AttributeHelper {
         if (attribute != null) {
             if (attribute.getAttributeValue().size() > 1) {
                 throw new IllegalArgumentException(
-                    "getSingleContentValue assumes that attribute contains a single attribute value.");
+                        "getSingleContentValue assumes that attribute contains a single attribute value.");
             }
             if (attribute.getAttributeValue().size() == 1) {
                 AttributeValueType attributeValue = attribute.getAttributeValue().get(0);
                 if (attributeValue.getContent().size() > 1) {
                     throw new IllegalArgumentException(
-                        "getSingleContentValue assumes that attribute value contains a single content item.");
+                            "getSingleContentValue assumes that attribute value contains a single content item.");
                 }
                 if (attributeValue.getContent().size() == 1) {
                     contentValue = attributeValue.getContent().get(0);
