@@ -317,16 +317,8 @@ public class CdaPdfCreator {
      */
     private CS createCS(final String sCode) {
         final CS oHL7Cs = new CS();
-        boolean bHaveData = false;
-
         oHL7Cs.setCode(sCode);
-        bHaveData = true;
-
-        if (bHaveData) {
-            return oHL7Cs;
-        } else {
-            return null;
-        }
+        return oHL7Cs;
     }
 
     /**
