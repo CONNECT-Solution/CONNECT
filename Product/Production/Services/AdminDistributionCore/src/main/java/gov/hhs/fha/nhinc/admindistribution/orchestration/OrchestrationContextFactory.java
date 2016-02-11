@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,9 +40,9 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  */
 public final class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    //CHECKSTYLE:OFF
+    // CHECKSTYLE:OFF
     private static final OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
-    //CHECKSTYLE:ON
+    // CHECKSTYLE:ON
 
     private OrchestrationContextFactory() {
     }
@@ -64,13 +64,11 @@ public final class OrchestrationContextFactory extends AbstractOrchestrationCont
     @Override
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();
-        GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
-            serviceName);
+        GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(), serviceName);
         return getBuilder(apiLevel, serviceName);
     }
 
-    private OrchestrationContextBuilder getBuilder(GATEWAY_API_LEVEL apiLevel,
-        NHIN_SERVICE_NAMES serviceName) {
+    private OrchestrationContextBuilder getBuilder(GATEWAY_API_LEVEL apiLevel, NHIN_SERVICE_NAMES serviceName) {
         if (serviceName == NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION) {
             return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         } else {

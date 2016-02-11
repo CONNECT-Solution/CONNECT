@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logFindAuditEvents(FindAuditEventsMessageType message, String direction,
-        String _interface) {
+            String _interface) {
         LOG.debug("Entering AuditRepositoryLogger.logFindAuditEvents(...)");
         LogEventRequestType auditMsg;
         LogFindAuditEventsRequestType logReqMsg = new LogFindAuditEventsRequestType();
@@ -83,15 +83,15 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityAdminDist(
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message,
-        AssertionType assertion, String direction) {
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message,
+            AssertionType assertion, String direction) {
         LOG.trace("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
 
         LogEventRequestType auditMsg = null;
         try {
             EDXLDistribution body = message.getEDXLDistribution();
             auditMsg = adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(body, assertion, direction,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         } catch (NullPointerException ex) {
             LOG.error("The Incoming Send Alert message was Null", ex);
         }
@@ -111,10 +111,10 @@ public class AuditRepositoryLogger {
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface) {
+            NhinTargetSystemType target, String direction, String _interface) {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, target, direction,
-            _interface);
+                _interface);
     }
 
     /**
@@ -127,7 +127,7 @@ public class AuditRepositoryLogger {
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, String direction,
-        String _interface) {
+            String _interface) {
 
         return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, _interface);
     }

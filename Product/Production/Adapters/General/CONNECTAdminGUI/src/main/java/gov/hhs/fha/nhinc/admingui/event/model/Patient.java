@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Patient {
 
-   //used in the UI
+    // used in the UI
     private int patientIndex;
 
     private String firstName;
@@ -49,8 +49,8 @@ public class Patient {
     private String organization;
     private String organizationName;
     private String patientId;
-    //Not sure if we need these fields, Remove it if we don't
-    //need it
+    // Not sure if we need these fields, Remove it if we don't
+    // need it
     private String middleName;
     private String streetname;
     private String city;
@@ -64,9 +64,8 @@ public class Patient {
     private List<Document> documentList;
 
     public Patient() {
-        this.documentList = new ArrayList<>();
+        documentList = new ArrayList<>();
     }
-
 
     /**
      * @return the firstName
@@ -150,15 +149,15 @@ public class Patient {
      */
     public void setOrganization(String organization) {
         this.organization = organization;
-        //find if the organization name is available
-        this.organizationName = organization;
+        // find if the organization name is available
+        organizationName = organization;
     }
 
     /**
      * @return the name
      */
     public String getName() {
-        return firstName + " "+lastName;
+        return firstName + " " + lastName;
     }
 
     /**
@@ -175,10 +174,10 @@ public class Patient {
         this.patientId = patientId;
     }
 
-    public void clearAll(){
-        //clear the patient info
+    public void clearAll() {
+        // clear the patient info
 
-        //clear the document info
+        // clear the document info
     }
 
     /**

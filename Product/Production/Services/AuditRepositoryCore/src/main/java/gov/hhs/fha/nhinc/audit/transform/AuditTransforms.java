@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.audit.transform;
 
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.CodedValueType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -38,7 +44,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.policy.AssertionHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
 import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -50,22 +55,13 @@ import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
  * This abstract class follows the Template design pattern. EventIdentification, ActiveParticipant (HumanRequestor,
@@ -102,21 +98,22 @@ public abstract class AuditTransforms<T, K> {
      * @return Audit Request
      */
     public final LogEventRequestType transformRequestToAuditMsg(T request, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
-        Properties webContextProperties, String serviceName) {
+            NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
+            Properties webContextProperties, String serviceName) {
 
         setRequest(request);
         setTarget(target);
         setAssertion(assertion);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
-            serviceName);
+                serviceName);
         auditMsg = getParticipantObjectIdentificationForRequest(request, assertion, auditMsg);
 
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(), auditMsg
-                        .getEventIdentification().getEventOutcomeIndicator(), auditMsg.getEventIdentification()
-                        .getEventDateTime(), getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
+                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
+                auditMsg.getEventIdentification().getEventOutcomeIndicator(),
+                auditMsg.getEventIdentification().getEventDateTime(),
+                getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
     }
 
     /**
@@ -134,19 +131,20 @@ public abstract class AuditTransforms<T, K> {
      * @return Audit Request
      */
     public final LogEventRequestType transformResponseToAuditMsg(T request, K response, AssertionType assertion,
-        NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
-        Properties webContextProperties, String serviceName) {
+            NhinTargetSystemType target, String direction, String _interface, boolean isRequesting,
+            Properties webContextProperties, String serviceName) {
 
         setRequest(request);
         setAssertion(assertion);
         // TODO: auditMsg should either use a builder, or modify in-method with no return
         AuditMessageType auditMsg = createBaseAuditMessage(assertion, target, isRequesting, webContextProperties,
-            serviceName);
+                serviceName);
         auditMsg = getParticipantObjectIdentificationForResponse(request, response, assertion, auditMsg);
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
-                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(), auditMsg
-                        .getEventIdentification().getEventOutcomeIndicator(), auditMsg.getEventIdentification()
-                        .getEventDateTime(), getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
+                serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
+                auditMsg.getEventIdentification().getEventOutcomeIndicator(),
+                auditMsg.getEventIdentification().getEventDateTime(),
+                getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
     }
 
     /**
@@ -176,7 +174,7 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     protected abstract AuditMessageType getParticipantObjectIdentificationForRequest(T request, AssertionType assertion,
-        AuditMessageType auditMsg);
+            AuditMessageType auditMsg);
 
     /**
      * Adds Participant Object Identification information to auditMsg
@@ -188,7 +186,7 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     protected abstract AuditMessageType getParticipantObjectIdentificationForResponse(T request, K response,
-        AssertionType assertion, AuditMessageType auditMsg);
+            AssertionType assertion, AuditMessageType auditMsg);
 
     private AuditSourceIdentificationType getAuditSourceIdentificationType() {
         String hcid = HomeCommunityMap.getLocalHomeCommunityId();
@@ -200,22 +198,23 @@ public abstract class AuditTransforms<T, K> {
         // create a method to call the AuditDataTransformHelper - one expectation
         ActiveParticipant participant = createActiveParticipantFromUser(oUserInfo);
         if (oUserInfo.getRoleCoded() != null) {
-            participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded()
-                .getCode(), "", oUserInfo.getRoleCoded().getCodeSystemName(),
-                oUserInfo.getRoleCoded().getDisplayName()));
+            participant.getRoleIDCode()
+                    .add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
+                            oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
         }
         return participant;
     }
 
     protected EventIdentificationType createEventIdentification(boolean isRequesting) {
-        CodedValueType eventId = createCodeValueType(isRequesting ? getServiceEventIdCodeRequestor()
-            : getServiceEventIdCodeResponder(), null, getServiceEventCodeSystem(),
-            isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
+        CodedValueType eventId = createCodeValueType(
+                isRequesting ? getServiceEventIdCodeRequestor() : getServiceEventIdCodeResponder(), null,
+                getServiceEventCodeSystem(),
+                isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventId, isRequesting);
-        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper
-            .createCodeValueType(getServiceEventTypeCode(), null, getServiceEventTypeCodeSystem(),
-                getServiceEventTypeCodeDisplayName()));
+        oEventIdentificationType.getEventTypeCode()
+                .add(AuditDataTransformHelper.createCodeValueType(getServiceEventTypeCode(), null,
+                        getServiceEventTypeCodeSystem(), getServiceEventTypeCodeDisplayName()));
 
         return oEventIdentificationType;
     }
@@ -249,16 +248,16 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Event Action Code
         eventIdentification.setEventActionCode(
-            isRequesting ? getServiceEventActionCodeRequestor() : getServiceEventActionCodeResponder());
+                isRequesting ? getServiceEventActionCodeRequestor() : getServiceEventActionCodeResponder());
 
         // Set the Event Action Time
         try {
             GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
             XMLGregorianCalendar calendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(
-                today.get(GregorianCalendar.YEAR), today.get(GregorianCalendar.MONTH) + 1,
-                today.get(GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.HOUR_OF_DAY),
-                today.get(GregorianCalendar.MINUTE), today.get(GregorianCalendar.SECOND),
-                today.get(GregorianCalendar.MILLISECOND), 0);
+                    today.get(GregorianCalendar.YEAR), today.get(GregorianCalendar.MONTH) + 1,
+                    today.get(GregorianCalendar.DAY_OF_MONTH), today.get(GregorianCalendar.HOUR_OF_DAY),
+                    today.get(GregorianCalendar.MINUTE), today.get(GregorianCalendar.SECOND),
+                    today.get(GregorianCalendar.MILLISECOND), 0);
 
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException | ArrayIndexOutOfBoundsException e) {
@@ -268,7 +267,7 @@ public abstract class AuditTransforms<T, K> {
 
         // Set the Event Outcome Indicator
         eventIdentification.setEventOutcomeIndicator(
-            new BigInteger(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString()));
+                new BigInteger(AuditTransformsConstants.EVENT_OUTCOME_INDICATOR_SUCCESS.toString()));
 
         // Set the Event Id
         eventIdentification.setEventID(eventId);
@@ -287,19 +286,20 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     protected ActiveParticipant getActiveParticipantSource(NhinTargetSystemType target, String serviceName,
-        boolean isRequesting, Properties webContextProperties, UserType oUserInfo) {
+            boolean isRequesting, Properties webContextProperties, UserType oUserInfo) {
 
         String ipOrHost = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        participant.setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO
-            : getInboundReplyToFromHeader(webContextProperties));
+        participant.setUserID(
+                isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
         participant.setNetworkAccessPointID(ipOrHost);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
-        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        participant.getRoleIDCode()
+                .add(AuditDataTransformHelper.createCodeValueType(
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(Boolean.TRUE);
 
         if (isRequesting) {
@@ -323,7 +323,7 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target, boolean isRequesting,
-        Properties webContextProperties, String serviceName) {
+            Properties webContextProperties, String serviceName) {
 
         String url;
         String ipOrHost;
@@ -331,7 +331,7 @@ public abstract class AuditTransforms<T, K> {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
 
         url = isRequesting ? getWebServiceUrlFromRemoteObject(target, serviceName)
-            : getWebServiceRequestUrl(webContextProperties);
+                : getWebServiceRequestUrl(webContextProperties);
         if (url != null) {
             try {
                 participant.setUserID(url);
@@ -351,10 +351,11 @@ public abstract class AuditTransforms<T, K> {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
         participant.setUserIsRequestor(Boolean.FALSE);
-        participant.getRoleIDCode().add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        participant.getRoleIDCode()
+                .add(AuditDataTransformHelper.createCodeValueType(
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                        AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
 
         return participant;
     }
@@ -378,8 +379,8 @@ public abstract class AuditTransforms<T, K> {
 
     // Getters below are "protected" scope to allow for overriding during unit testing
     protected String getRemoteHostAddress(Properties webContextProperties) {
-        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
-            NhincConstants.REMOTE_HOST_ADDRESS) != null) {
+        if (webContextProperties != null && !webContextProperties.isEmpty()
+                && webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
 
             return webContextProperties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
         }
@@ -387,8 +388,8 @@ public abstract class AuditTransforms<T, K> {
     }
 
     protected String getWebServiceRequestUrl(Properties webContextProperties) {
-        if (webContextProperties != null && !webContextProperties.isEmpty() && webContextProperties.getProperty(
-            NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
+        if (webContextProperties != null && !webContextProperties.isEmpty()
+                && webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
 
             return webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL);
         }
@@ -409,7 +410,7 @@ public abstract class AuditTransforms<T, K> {
     protected String getInboundReplyToFromHeader(Properties webContextProperties) {
         String inboundReplyTo = null;
         if (webContextProperties != null && !webContextProperties.isEmpty()
-            && webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO) != null) {
+                && webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO) != null) {
 
             inboundReplyTo = webContextProperties.getProperty(NhincConstants.INBOUND_REPLY_TO);
         }
@@ -435,8 +436,8 @@ public abstract class AuditTransforms<T, K> {
      * @return
      */
     protected ParticipantObjectIdentificationType createParticipantObjectIdentification(short participantObjectCode,
-        short participantObjectCodeRole, String participantObjectIdCode, String particpantObjectIdCodeSystem,
-        String participantObjectIdDisplayName) {
+            short participantObjectCodeRole, String participantObjectIdCode, String particpantObjectIdCodeSystem,
+            String participantObjectIdDisplayName) {
 
         ParticipantObjectIdentificationType participantObject = new ParticipantObjectIdentificationType();
 
@@ -465,7 +466,7 @@ public abstract class AuditTransforms<T, K> {
      * @return <code>CodedValueType</code>
      */
     protected static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
-        String dispName) {
+            String dispName) {
 
         CodedValueType codeValueType = new CodedValueType();
 
@@ -488,7 +489,7 @@ public abstract class AuditTransforms<T, K> {
      * @return <code>AuditSourceIdentificationType</code>
      */
     private static AuditSourceIdentificationType createAuditSourceIdentification(String communityId,
-        String communityName) {
+            String communityName) {
 
         AuditSourceIdentificationType auditSrcId = new AuditSourceIdentificationType();
 
@@ -506,7 +507,7 @@ public abstract class AuditTransforms<T, K> {
     }
 
     private AuditMessageType createBaseAuditMessage(AssertionType assertion, NhinTargetSystemType target,
-        boolean isRequesting, Properties webContextProperties, String serviceName) {
+            boolean isRequesting, Properties webContextProperties, String serviceName) {
 
         AuditMessageType auditMsg = new AuditMessageType();
         // ****************************Construct Event Identification**************************
@@ -522,9 +523,9 @@ public abstract class AuditTransforms<T, K> {
             }
         }
         ActiveParticipant participantSource = getActiveParticipantSource(target, serviceName, isRequesting,
-            webContextProperties, assertion.getUserInfo());
-        ActiveParticipant participantDestination = getActiveParticipantDestination(target,
-            isRequesting, webContextProperties, serviceName);
+                webContextProperties, assertion.getUserInfo());
+        ActiveParticipant participantDestination = getActiveParticipantDestination(target, isRequesting,
+                webContextProperties, serviceName);
         auditMsg.getActiveParticipant().add(participantSource);
         auditMsg.getActiveParticipant().add(participantDestination);
 
@@ -558,13 +559,13 @@ public abstract class AuditTransforms<T, K> {
     }
 
     private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,
-        String communityId, String serviceName, AssertionType assertion, String eventId, BigInteger outcome,
-        XMLGregorianCalendar eventDate, String userId) {
+            String communityId, String serviceName, AssertionType assertion, String eventId, BigInteger outcome,
+            XMLGregorianCalendar eventDate, String userId) {
 
         LogEventRequestType result = new LogEventRequestType();
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
-        //set the target community identifier
+        // set the target community identifier
         result.setRemoteHCID(communityId);
         result.setEventType(serviceName);
         result.setAssertion(assertion);
@@ -635,10 +636,10 @@ public abstract class AuditTransforms<T, K> {
     private String getUserId(List<ActiveParticipant> participants) {
         for (ActiveParticipant obj : participants) {
             if (NullChecker.isNotNullish(obj.getRoleIDCode())
-                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
-                && !obj.getRoleIDCode().get(0).getDisplayName().equals(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                    && !obj.getRoleIDCode().get(0).getDisplayName()
+                            .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
+                    && !obj.getRoleIDCode().get(0).getDisplayName()
+                            .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
 
                 return obj.getUserID();
             }
@@ -648,7 +649,7 @@ public abstract class AuditTransforms<T, K> {
 
     private String getRelatesTo(AssertionType assertion) {
         return NullChecker.isNotNullish(assertion.getRelatesToList()) ? getRelatesToValue(assertion.getRelatesToList())
-            : null;
+                : null;
     }
 
     private String getRelatesToValue(List<String> relatesTo) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ import java.util.Map;
 public class TransactionStoreInmemory implements TransactionStore {
 
     /** The map. */
-    Map<String,List<String>> map = null;
+    Map<String, List<String>> map = null;
 
     /**
      * Instantiates a new transaction store inmemory.
@@ -55,30 +55,33 @@ public class TransactionStoreInmemory implements TransactionStore {
      *
      * @return the map
      */
-    protected Map<String,List<String>> getMap() {
+    protected Map<String, List<String>> getMap() {
         return new HashMap<>();
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#insertIntoTransactionRepo(gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#insertIntoTransactionRepo(gov.hhs.fha.nhinc.logging.
+     * transaction.model.TransactionRepo)
      */
     @Override
     public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
         boolean inserted = false;
         if (transactionRepo != null && map != null) {
-        	String messageId = transactionRepo.getMessageId();
-        	String transactionId = transactionRepo.getTransactionId();
-        	List<String> transactionIds;
+            String messageId = transactionRepo.getMessageId();
+            String transactionId = transactionRepo.getTransactionId();
+            List<String> transactionIds;
 
-        	if (map.containsKey(messageId)) {
-        		transactionIds = map.get(messageId);
-        	} else {
-        		transactionIds = new LinkedList<>();
-        	}
+            if (map.containsKey(messageId)) {
+                transactionIds = map.get(messageId);
+            } else {
+                transactionIds = new LinkedList<>();
+            }
 
-        	if (!transactionIds.contains(transactionId)) {
-        		transactionIds.add(transactionId);
-        	}
+            if (!transactionIds.contains(transactionId)) {
+                transactionIds.add(transactionId);
+            }
 
             map.put(messageId, transactionIds);
             inserted = true;
@@ -86,17 +89,19 @@ public class TransactionStoreInmemory implements TransactionStore {
         return inserted;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#getTransactionId(java.lang.String)
      */
     @Override
     public String getTransactionId(String messageId) {
         String transactionId = null;
         if (map != null) {
-        	List<String> transactionIds = map.get(messageId);
-        	if (transactionIds != null) {
-        		transactionId = transactionIds.get(0);
-        	}
+            List<String> transactionIds = map.get(messageId);
+            if (transactionIds != null) {
+                transactionId = transactionIds.get(0);
+            }
         }
         return transactionId;
     }

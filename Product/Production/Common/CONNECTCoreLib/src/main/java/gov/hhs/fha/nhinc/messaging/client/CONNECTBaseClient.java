@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
     public abstract T getPort();
 
     @Override
-    public Object invokePort(Class<T> portClass, String methodName, Object ... operationInput) throws Exception {
+    public Object invokePort(Class<T> portClass, String methodName, Object... operationInput) throws Exception {
         Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
 
         SoapResponseInInterceptor.addResponseMessageIdToContext(getPort(), PhaseInterceptorChain.getCurrentMessage());

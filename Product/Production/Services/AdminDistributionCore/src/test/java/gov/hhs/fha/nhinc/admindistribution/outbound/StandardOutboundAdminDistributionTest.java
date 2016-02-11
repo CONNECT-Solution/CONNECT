@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -98,7 +98,7 @@ public class StandardOutboundAdminDistributionTest {
      * Expectations for successful sendAlertMessage().
      */
     private void expectationsInAlertMessage() {
-    	expectProcessOrchestratable();
+        expectProcessOrchestratable();
     }
 
     /**
@@ -111,9 +111,8 @@ public class StandardOutboundAdminDistributionTest {
     private void expectMockAudits(final int n) {
         context.checking(new Expectations() {
             {
-                exactly(n).of(mockAuditLog).auditEntityAdminDist(
-                        with(any(RespondingGatewaySendAlertMessageType.class)), with(any(AssertionType.class)),
-                        with(any(String.class)));
+                exactly(n).of(mockAuditLog).auditEntityAdminDist(with(any(RespondingGatewaySendAlertMessageType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
             }
         });
     }

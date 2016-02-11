@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,16 +52,16 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
 
     protected final void extractTarget(Object... arguments) {
         if (arguments != null) {
-            for (int i = 0; i < arguments.length; ++i) {
-                if (arguments[i] instanceof NhinTargetSystemType) {
-                    target = Optional.of((NhinTargetSystemType) arguments[i]);
+            for (Object argument : arguments) {
+                if (argument instanceof NhinTargetSystemType) {
+                    target = Optional.of((NhinTargetSystemType) argument);
                     return;
-                }else if(arguments[i] instanceof NhinTargetCommunitiesType){
-                    NhinTargetCommunitiesType communities = (NhinTargetCommunitiesType) arguments[i];
-                    if(communities != null && communities.getNhinTargetCommunity() != null
-                        && !communities.getNhinTargetCommunity().isEmpty()
-                        && communities.getNhinTargetCommunity().get(0) != null
-                        && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null){
+                } else if (argument instanceof NhinTargetCommunitiesType) {
+                    NhinTargetCommunitiesType communities = (NhinTargetCommunitiesType) argument;
+                    if (communities != null && communities.getNhinTargetCommunity() != null
+                            && !communities.getNhinTargetCommunity().isEmpty()
+                            && communities.getNhinTargetCommunity().get(0) != null
+                            && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {
                         target = Optional.of(convertToTargetSystem(communities.getNhinTargetCommunity().get(0)));
                         return;
                     }
@@ -71,7 +71,7 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
         target = Optional.absent();
     }
 
-    private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunityType communityType){
+    private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunityType communityType) {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         targetSystem.setHomeCommunity(communityType.getHomeCommunity());
 

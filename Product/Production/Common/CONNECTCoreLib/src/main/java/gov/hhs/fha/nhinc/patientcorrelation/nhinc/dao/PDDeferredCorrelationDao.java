@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,7 @@ public class PDDeferredCorrelationDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed database record retrieve by message id. Results found: "
-                    + ((pdCorrelations == null) ? "0" : Integer.toString(pdCorrelations.size())));
+                        + (pdCorrelations == null ? "0" : Integer.toString(pdCorrelations.size())));
             }
         } finally {
             if (sess != null) {
@@ -89,7 +89,7 @@ public class PDDeferredCorrelationDao {
             }
         }
 
-        if ((pdCorrelations == null) || (pdCorrelations.size() != 1)) {
+        if (pdCorrelations == null || pdCorrelations.size() != 1) {
             LOG.error("Failed to find a unique patient id with the given message id " + messageId);
         } else {
             PDDeferredCorrelation pdCorrelation = pdCorrelations.get(0);
@@ -148,7 +148,7 @@ public class PDDeferredCorrelationDao {
                     Query query = sess.getNamedQuery("queryByMessageId");
                     query.setParameter("MessageId", pdCorrelation.getMessageId());
                     List<PDDeferredCorrelation> pdCorrelations = query.list();
-                    if ((pdCorrelations != null) && (pdCorrelations.size() == 1)) {
+                    if (pdCorrelations != null && pdCorrelations.size() == 1) {
                         PDDeferredCorrelation updatedPdCorrelation = pdCorrelations.get(0);
                         copyValues(pdCorrelation, updatedPdCorrelation);
                         sess.saveOrUpdate(updatedPdCorrelation);

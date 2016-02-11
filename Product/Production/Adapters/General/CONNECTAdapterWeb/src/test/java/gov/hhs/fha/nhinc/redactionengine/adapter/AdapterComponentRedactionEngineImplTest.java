@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
@@ -40,7 +44,6 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -74,8 +77,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
             filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
 
-            FilterDocQueryResultsResponseType response = redactionEngine.filterDocQueryResults(
-                    filterDocQueryResultsRequest, mockContext);
+            FilterDocQueryResultsResponseType response = redactionEngine
+                    .filterDocQueryResults(filterDocQueryResultsRequest, mockContext);
             assertNotNull("FilterDocQueryResultsResponseType was null", response);
             assertNotNull("AdhocQueryResponse was null", response.getAdhocQueryResponse());
         } catch (Throwable t) {
@@ -96,8 +99,8 @@ public class AdapterComponentRedactionEngineImplTest {
             };
 
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest = null;
-            FilterDocQueryResultsResponseType response = redactionEngine.filterDocQueryResults(
-                    filterDocQueryResultsRequest, mockContext);
+            FilterDocQueryResultsResponseType response = redactionEngine
+                    .filterDocQueryResults(filterDocQueryResultsRequest, mockContext);
             assertNull("FilterDocQueryResultsResponseType was not null", response);
         } catch (Throwable t) {
             System.out.println("Error running testFilterDocQueryResultsNullInput: " + t.getMessage());
@@ -128,8 +131,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
             filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
 
-            FilterDocQueryResultsResponseType response = redactionEngine.filterDocQueryResults(
-                    filterDocQueryResultsRequest, mockContext);
+            FilterDocQueryResultsResponseType response = redactionEngine
+                    .filterDocQueryResults(filterDocQueryResultsRequest, mockContext);
             assertNotNull("FilterDocQueryResultsResponseType was null", response);
             assertNull("AdhocQueryResponse was not null", response.getAdhocQueryResponse());
         } catch (Throwable t) {
@@ -161,8 +164,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
             filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
 
-            FilterDocQueryResultsResponseType response = redactionEngine.filterDocQueryResults(
-                    filterDocQueryResultsRequest, mockContext);
+            FilterDocQueryResultsResponseType response = redactionEngine
+                    .filterDocQueryResults(filterDocQueryResultsRequest, mockContext);
             assertNotNull("FilterDocQueryResultsResponseType was null", response);
             assertNotNull("AdhocQueryResponse was null", response.getAdhocQueryResponse());
         } catch (Throwable t) {
@@ -194,8 +197,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
             filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
 
-            FilterDocQueryResultsResponseType response = redactionEngine.filterDocQueryResults(
-                    filterDocQueryResultsRequest, mockContext);
+            FilterDocQueryResultsResponseType response = redactionEngine
+                    .filterDocQueryResults(filterDocQueryResultsRequest, mockContext);
             assertNotNull("FilterDocQueryResultsResponseType was null", response);
             assertNotNull("AdhocQueryResponse was null", response.getAdhocQueryResponse());
         } catch (Throwable t) {
@@ -227,8 +230,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
-            FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(
-                    filterDocRetrieveResultsRequest, mockContext);
+            FilterDocRetrieveResultsResponseType response = redactionEngine
+                    .filterDocRetrieveResults(filterDocRetrieveResultsRequest, mockContext);
             assertNotNull("FilterDocRetrieveResultsResponseType was null", response);
             assertNotNull("RetrieveDocumentSetResponseType was null", response.getRetrieveDocumentSetResponse());
         } catch (Throwable t) {
@@ -256,8 +259,8 @@ public class AdapterComponentRedactionEngineImplTest {
             };
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = null;
 
-            FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(
-                    filterDocRetrieveResultsRequest, mockContext);
+            FilterDocRetrieveResultsResponseType response = redactionEngine
+                    .filterDocRetrieveResults(filterDocRetrieveResultsRequest, mockContext);
             assertNull("FilterDocRetrieveResultsResponseType was not null", response);
         } catch (Throwable t) {
             System.out.println("Error running testFilterDocRetrieveResultsNullInput: " + t.getMessage());
@@ -288,8 +291,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
-            FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(
-                    filterDocRetrieveResultsRequest, mockContext);
+            FilterDocRetrieveResultsResponseType response = redactionEngine
+                    .filterDocRetrieveResults(filterDocRetrieveResultsRequest, mockContext);
             assertNotNull("FilterDocRetrieveResultsResponseType was null", response);
             assertNull("RetrieveDocumentSetResponseType was not null", response.getRetrieveDocumentSetResponse());
         } catch (Throwable t) {
@@ -321,8 +324,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
-            FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(
-                    filterDocRetrieveResultsRequest, mockContext);
+            FilterDocRetrieveResultsResponseType response = redactionEngine
+                    .filterDocRetrieveResults(filterDocRetrieveResultsRequest, mockContext);
             assertNotNull("FilterDocRetrieveResultsResponseType was null", response);
             assertNotNull("RetrieveDocumentSetResponseType was null", response.getRetrieveDocumentSetResponse());
         } catch (Throwable t) {
@@ -354,8 +357,8 @@ public class AdapterComponentRedactionEngineImplTest {
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocRequest);
             filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retreiveDocResponse);
 
-            FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(
-                    filterDocRetrieveResultsRequest, mockContext);
+            FilterDocRetrieveResultsResponseType response = redactionEngine
+                    .filterDocRetrieveResults(filterDocRetrieveResultsRequest, mockContext);
             assertNotNull("FilterDocRetrieveResultsResponseType was null", response);
             assertNotNull("RetrieveDocumentSetResponseType was null", response.getRetrieveDocumentSetResponse());
         } catch (Throwable t) {

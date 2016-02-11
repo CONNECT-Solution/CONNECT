@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
@@ -33,8 +36,6 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -87,8 +88,8 @@ public class AuditDBStoreImplTest {
     }
 
     private EventIdentificationType createEventIdentification() {
-        return AuditDataTransformHelper.createEventIdentification(EVENT_ACTION_CODE, 0,
-            AuditDataTransformHelper.createEventId(EVENT_ID_CODE, null, EVENT_ID_CODE_SYS_NAME, EVENT_ID_CODE_DISP_NAME));
+        return AuditDataTransformHelper.createEventIdentification(EVENT_ACTION_CODE, 0, AuditDataTransformHelper
+                .createEventId(EVENT_ID_CODE, null, EVENT_ID_CODE_SYS_NAME, EVENT_ID_CODE_DISP_NAME));
     }
 
     private AssertionType createAssertion() {

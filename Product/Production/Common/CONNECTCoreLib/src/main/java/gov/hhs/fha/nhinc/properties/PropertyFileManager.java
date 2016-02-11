@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ public class PropertyFileManager {
      * @throws PropertyAccessException This exception is thrown if there are any errors.
      */
     public static void writePropertyFile(String sPropertyFile, Properties oProps) throws PropertyAccessException {
-        if ((sPropertyFile == null) || (sPropertyFile.length() <= 0)) {
+        if (sPropertyFile == null || sPropertyFile.length() <= 0) {
             throw new PropertyAccessException("writePropertyFile called with no property file name.");
         }
 
@@ -84,7 +84,7 @@ public class PropertyFileManager {
      * Delete the specified property file.
      *
      * @param sPropertyFile The file to be deleted. This is the name of the property file without the ".properties"
-     * extension. It must be located in the configured properties directory.
+     *            extension. It must be located in the configured properties directory.
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if there is an error.
      */
     public static void deletePropertyFile(String sPropertyFile) throws PropertyAccessException {

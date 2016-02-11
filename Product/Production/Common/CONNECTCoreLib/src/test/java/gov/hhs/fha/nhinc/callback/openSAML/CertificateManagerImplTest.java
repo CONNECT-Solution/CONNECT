@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,17 +26,18 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
-import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 /**
  * @author mweaver/jsmith
@@ -74,8 +75,8 @@ public class CertificateManagerImplTest {
     public void testGetInstance_StoresNotSet() {
         HashMap<String, String> mockKeyStoreMap = mock(HashMap.class);
         HashMap<String, String> mockTrustStoreMap = mock(HashMap.class);
-        CertificateManagerImpl certManager
-            = (CertificateManagerImpl) CertificateManagerImpl.getInstance(mockKeyStoreMap, mockTrustStoreMap);
+        CertificateManagerImpl certManager = (CertificateManagerImpl) CertificateManagerImpl
+                .getInstance(mockKeyStoreMap, mockTrustStoreMap);
         assertTrue(certManager instanceof CertificateManagerImpl);
         assertNull(certManager.getKeyStore());
         assertNull(certManager.getTrustStore());

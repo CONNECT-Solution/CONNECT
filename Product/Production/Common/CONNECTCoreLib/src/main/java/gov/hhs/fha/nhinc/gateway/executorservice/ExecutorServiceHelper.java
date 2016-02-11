@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,17 +71,17 @@ public class ExecutorServiceHelper {
 
             // get executor service pool sizes
             String concurrentPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.CONCURRENT_POOL_SIZE);
+                    NhincConstants.CONCURRENT_POOL_SIZE);
             concurrentPoolSize = Integer.parseInt(concurrentPoolSizeStr);
             String largejobPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.LARGEJOB_POOL_SIZE);
+                    NhincConstants.LARGEJOB_POOL_SIZE);
             largejobPoolSize = Integer.parseInt(largejobPoolSizeStr);
             // get large job percentage
             String largejobSizePercentStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.LARGEJOB_SIZE_PERCENT);
+                    NhincConstants.LARGEJOB_SIZE_PERCENT);
 
             // convert to a decimal percent; throws exception for illegal Integer values
-            largejobSizePercent = (double) (new Integer(largejobSizePercentStr)) / 100.0;
+            largejobSizePercent = (double) new Integer(largejobSizePercentStr) / 100.0;
 
             if (largejobSizePercent <= 0 || largejobSizePercent >= 1) {
                 throw new NumberFormatException("largejobSizePercentString must be between 0 and 100, exclusive");
@@ -97,8 +97,8 @@ public class ExecutorServiceHelper {
             largejobSizePercent = .75;
         }
         LOG.debug("ExecutorServiceHelper created singleton instance and "
-            + "set executor service configuration parameters: " + "concurrentPoolSize=" + concurrentPoolSize
-            + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
+                + "set executor service configuration parameters: " + "concurrentPoolSize=" + concurrentPoolSize
+                + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
     }
 
     private static class SingletonHolder {
@@ -140,7 +140,7 @@ public class ExecutorServiceHelper {
         if (targetListCount >= maxSize.intValue()) {
             bigJob = true;
             LOG.debug("checkExecutorTaskIsLarge has large job size=" + targetListCount
-                + " so returning LargeJobExecutor");
+                    + " so returning LargeJobExecutor");
         }
         return bigJob;
     }
@@ -164,7 +164,7 @@ public class ExecutorServiceHelper {
      */
     public static String getFormattedExceptionInfo(Exception ex, NhinTargetSystemType target, String serviceName) {
         String err = "EXCEPTION: " + ex.getClass().getCanonicalName() + "\r\nEXCEPTION Cause Message: "
-            + ex.getMessage() + "\r\n";
+                + ex.getMessage() + "\r\n";
         Throwable cause = ex.getCause();
         if (cause != null) {
             err += "EXCEPTION Cause: " + cause.getClass().getCanonicalName() + "\r\n";

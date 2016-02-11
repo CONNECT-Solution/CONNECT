@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@ package gov.hhs.fha.nhinc.document;
  */
 public class DocumentConstants {
 
-	public static final String EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE = "formatCode";
+    public static final String EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE = "formatCode";
     public static final String EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME = "codingScheme";
     public static final String EBXML_RESPONSE_SIZE_SLOTNAME = "size";
     public static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
@@ -41,13 +41,13 @@ public class DocumentConstants {
     public static final String XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS ="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess";
+    public static final String XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess";
     public static final String XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_SUBMISSION_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
     public static final String XDS_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
     public static final String XDS_REGISTRY_BUSY = "XDSRegistryBusy";
-	public static final String XDS_REGISTRY_ERROR = "XDSRegistryError";
+    public static final String XDS_REGISTRY_ERROR = "XDSRegistryError";
     public static final String XDS_MISSING_DOCUMENT = "XDSMissingDocument";
     public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
     public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";

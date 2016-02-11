@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -94,10 +94,10 @@ public class TimestampValidator implements Validator {
         Date invocationTime = (Date) ((Message) data.getMsgContext()).get(TimestampInterceptor.INVOCATION_TIME_KEY);
 
         // Validate whether the security semantics have expired
-        if ((timeStampStrict && timeStamp.isExpired(invocationTime))
-            || !timeStamp.verifyCreated(timeStampTTL, futureTimeToLive, invocationTime)) {
+        if (timeStampStrict && timeStamp.isExpired(invocationTime)
+                || !timeStamp.verifyCreated(timeStampTTL, futureTimeToLive, invocationTime)) {
             throw new WSSecurityException(WSSecurityException.MESSAGE_EXPIRED, "invalidTimestamp",
-                new Object[]{"The security semantics of the message have expired"});
+                    new Object[] { "The security semantics of the message have expired" });
         }
         return credential;
     }
@@ -105,10 +105,10 @@ public class TimestampValidator implements Validator {
     protected long getTimeStampTTL() {
         try {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.TIMESTAMP_TIME_TO_LIVE);
+                    NhincConstants.TIMESTAMP_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
             LOG.warn("Failed to determine timestamp time to live in gateway.properties, will use default values: {}",
-                pae.getLocalizedMessage());
+                    pae.getLocalizedMessage());
             LOG.trace("Get Timestamp TTL exception: {}", pae.getLocalizedMessage(), pae);
         }
 
@@ -118,10 +118,10 @@ public class TimestampValidator implements Validator {
     protected long getTimeStampFutureTTL() {
         try {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.TIMESTAMP_FUTURE_TIME_TO_LIVE);
+                    NhincConstants.TIMESTAMP_FUTURE_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
             LOG.warn("Failed to determine timestamp future TTL in gateway.properties, will use default value: {}",
-                pae.getLocalizedMessage());
+                    pae.getLocalizedMessage());
             LOG.trace("Get Timestamp future TTL exception: {}", pae.getLocalizedMessage(), pae);
         }
 
@@ -131,10 +131,10 @@ public class TimestampValidator implements Validator {
     protected boolean getTimeStampStrict() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.TIMESTAMP_STRICT);
+                    NhincConstants.TIMESTAMP_STRICT);
         } catch (PropertyAccessException pae) {
             LOG.warn("Failed to determine timestamp strict in gateway.properties, will use default value: {}",
-                pae.getLocalizedMessage());
+                    pae.getLocalizedMessage());
             LOG.trace("Get Timestamp strict exception: {}", pae.getLocalizedMessage(), pae);
         }
 

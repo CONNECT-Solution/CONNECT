@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -161,12 +161,12 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
     }
 
     private Panel getPanel(DashboardPanel panelData, Application application, FacesContext fc) {
-        Panel panel = (Panel) application.createComponent(fc, PANEL_CLASS , PANEL_RENDERER_CLASS);
+        Panel panel = (Panel) application.createComponent(fc, PANEL_CLASS, PANEL_RENDERER_CLASS);
 
         panel.setId(panelData.getType().replace(" ", "_").toLowerCase());
         panel.setHeader(panelData.getType().toUpperCase());
         panel.setClosable(true);
-        //panel.setToggleable(true);
+        // panel.setToggleable(true);
 
         addTitle(panel, panelData);
         addDescription(panel, panelData);
@@ -201,11 +201,11 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
     }
 
     private MethodExpression getCloseExpression() {
-        if(closeExpp == null){
+        if (closeExpp == null) {
             FacesContext fc = FacesContext.getCurrentInstance();
             ExpressionFactory ef = fc.getApplication().getExpressionFactory();
-            closeExpp =
-                ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null, new Class<?>[]{CloseEvent.class});
+            closeExpp = ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null,
+                    new Class<?>[] { CloseEvent.class });
         }
         return closeExpp;
     }

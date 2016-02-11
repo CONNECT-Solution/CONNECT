@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,9 @@ public class CallbackMapProperties implements CallbackProperties {
         map.putAll(properties);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAssertionIssuerFormat()
      */
     @Override
@@ -63,7 +65,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getIssuer()
      */
     @Override
@@ -71,7 +75,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.ASSERTION_ISSUER_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUsername()
      */
     @Override
@@ -79,7 +85,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_NAME_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationContextClass()
      */
     @Override
@@ -87,7 +95,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.AUTHN_CONTEXT_CLASS_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationSessionIndex()
      */
     @Override
@@ -95,7 +105,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.AUTHN_SESSION_INDEX_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationInstant()
      */
     @Override
@@ -103,7 +115,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeDateTime(SamlConstants.AUTHN_INSTANT_PROP, null);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getSubjectLocality()
      */
     @Override
@@ -111,7 +125,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getSubjectDNS()
      */
     @Override
@@ -119,16 +135,19 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.SUBJECT_LOCALITY_DNS_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationStatementExists()
      */
     @Override
     public Boolean getAuthenicationStatementExists() {
-        return getNullSafeBoolean(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP,
-            Boolean.FALSE);
+        return getNullSafeBoolean(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, Boolean.FALSE);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthnicationResource()
      */
     @Override
@@ -136,7 +155,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.RESOURCE_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationDecision()
      */
     @Override
@@ -144,7 +165,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.AUTHZ_DECISION_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceID()
      */
     @Override
@@ -152,7 +175,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.EVIDENCE_ID_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceInstant()
      */
     @Override
@@ -160,7 +185,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeDateTime(SamlConstants.EVIDENCE_INSTANT_PROP, null);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceIssuerFormat()
      */
     @Override
@@ -168,7 +195,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceIssuer()
      */
     @Override
@@ -176,25 +205,29 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.EVIDENCE_ISSUER_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceConditionNotBefore()
      */
     @Override
     public DateTime getEvidenceConditionNotBefore() {
-        return getNullSafeDateTime(
-            SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP, null);
+        return getNullSafeDateTime(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP, null);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceConditionNotAfter()
      */
     @Override
     public DateTime getEvidenceConditionNotAfter() {
-        return getNullSafeDateTime(
-            SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP, null);
+        return getNullSafeDateTime(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP, null);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceAccessConstent()
      */
     @Override
@@ -202,7 +235,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeList(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceInstanctAccessConsent()
      */
     @Override
@@ -210,7 +245,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeList(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceSubject()
      */
     @Override
@@ -218,7 +255,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.EVIDENCE_SUBJECT_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserCode()
      */
     @Override
@@ -226,7 +265,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_CODE_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserSystem()
      */
     @Override
@@ -234,7 +275,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_SYST_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserSystemName()
      */
     @Override
@@ -242,7 +285,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_SYST_NAME_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserDisplay()
      */
     @Override
@@ -250,7 +295,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_DISPLAY_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeCode()
      */
     @Override
@@ -258,7 +305,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.PURPOSE_CODE_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeSystem()
      */
     @Override
@@ -266,7 +315,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.PURPOSE_SYST_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeSystemName()
      */
     @Override
@@ -274,7 +325,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.PURPOSE_SYST_NAME_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeDisplay()
      */
     @Override
@@ -282,7 +335,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.PURPOSE_DISPLAY_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserOrganization()
      */
     @Override
@@ -290,7 +345,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_ORG_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserOrganization()
      */
     @Override
@@ -298,7 +355,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.USER_ORG_ID_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getHomeCommunity()
      */
     @Override
@@ -306,7 +365,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.HOME_COM_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPatientID()
      */
     @Override
@@ -314,7 +375,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.PATIENT_ID_PROP);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserFullName()
      */
     @Override
@@ -344,7 +407,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return nameConstruct.toString();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getTargetHomeCommunityId()
      */
     @Override
@@ -352,7 +417,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAction()
      */
     @Override
@@ -365,7 +432,9 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(NhincConstants.SERVICE_NAME);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getTargetApiLevel()
      */
     @Override
@@ -373,8 +442,7 @@ public class CallbackMapProperties implements CallbackProperties {
         return (GATEWAY_API_LEVEL) getNullSafeObject(NhincConstants.TARGET_API_LEVEL, null);
     }
 
-    private Boolean getNullSafeBoolean(final String property,
-        Boolean defaultValue) {
+    private Boolean getNullSafeBoolean(final String property, Boolean defaultValue) {
         Boolean value = defaultValue;
         if (map.containsKey(property) && map.get(property) != null) {
             value = Boolean.valueOf(map.get(property).toString());
@@ -382,8 +450,7 @@ public class CallbackMapProperties implements CallbackProperties {
         return value;
     }
 
-    private DateTime getNullSafeDateTime(final String property,
-        DateTime defaultValue) {
+    private DateTime getNullSafeDateTime(final String property, DateTime defaultValue) {
         String dateTimeTxt = getNullSafeString(property);
 
         DateTime dateTime = defaultValue;

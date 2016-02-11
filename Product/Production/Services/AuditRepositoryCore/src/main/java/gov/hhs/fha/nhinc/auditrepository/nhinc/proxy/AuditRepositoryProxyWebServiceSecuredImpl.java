@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,22 +65,21 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
 
             if (NullChecker.isNotNullish(url)) {
-                ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor
-                    = new AuditRepositorySecuredServicePortDescriptor();
+                ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor = new AuditRepositorySecuredServicePortDescriptor();
 
                 CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion);
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
-                    invokeMethodName, createLogSecureEventRequestType(request));
+                        invokeMethodName, createLogSecureEventRequestType(request));
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service({}). An unexpected exception occurred. Exception: {}",
-                NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME, e.getLocalizedMessage(), e);
+                    NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME, e.getLocalizedMessage(), e);
         }
 
         LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to "
-            + "retrieve endpoint.");
+                + "retrieve endpoint.");
 
         return result;
     }

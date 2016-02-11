@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,34 +37,32 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StoreUtil {
 
-	/**
-	 * Easy way to instantiate for code readability.
-	 *
-	 * @return
-	 */
-	public static StoreUtil getInstance() {
-		return new StoreUtil();
-	}
+    /**
+     * Easy way to instantiate for code readability.
+     *
+     * @return
+     */
+    public static StoreUtil getInstance() {
+        return new StoreUtil();
+    }
 
-	/**
-	 * Default constructor.
-	 */
-	public StoreUtil() {
+    /**
+     * Default constructor.
+     */
+    public StoreUtil() {
 
-	}
+    }
 
-	/**
-	 * Gets the private key alias used for digital signatures. The method will
-	 * return the value of the system property defined in
-	 * CertifcateManager.CLIENT_KEY_ALIAS or the default alias defined in
-	 * CertificateManager.DEFAULT_CLIENT_KEY_ALIAS.
-	 *
-	 * @return String containing the private key alias.
-	 */
-	public String getPrivateKeyAlias() {
-		String alias = System.getProperty(CertificateManager.CLIENT_KEY_ALIAS);
-		return StringUtils.isBlank(alias) ? CertificateManager.DEFAULT_CLIENT_KEY_ALIAS
-				: alias;
-	}
+    /**
+     * Gets the private key alias used for digital signatures. The method will return the value of the system property
+     * defined in CertifcateManager.CLIENT_KEY_ALIAS or the default alias defined in
+     * CertificateManager.DEFAULT_CLIENT_KEY_ALIAS.
+     *
+     * @return String containing the private key alias.
+     */
+    public String getPrivateKeyAlias() {
+        String alias = System.getProperty(CertificateManager.CLIENT_KEY_ALIAS);
+        return StringUtils.isBlank(alias) ? CertificateManager.DEFAULT_CLIENT_KEY_ALIAS : alias;
+    }
 
 }

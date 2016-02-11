@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,8 +34,6 @@ public class EndInboundProcessingEvent extends ResponderEvent {
 
     private static final String EVENT_NAME = "END_INBOUND_PROCESSING";
 
-
-
     public EndInboundProcessingEvent() {
         super();
         // TODO Auto-generated constructor stub
@@ -50,7 +48,9 @@ public class EndInboundProcessingEvent extends ResponderEvent {
         super(messageID, transactionID, description);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.event.Event#getEventName()
      */
     @Override

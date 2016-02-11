@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -93,7 +93,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setFirstName(TextField tf) {
-        this.firstName = tf;
+        firstName = tf;
     }
 
     private TextField lastName = new TextField();
@@ -103,7 +103,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setLastName(TextField tf) {
-        this.lastName = tf;
+        lastName = tf;
     }
 
     private TextField identifier = new TextField();
@@ -113,7 +113,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setIdentifier(TextField tf) {
-        this.identifier = tf;
+        identifier = tf;
     }
 
     private TextField aaId = new TextField();
@@ -123,7 +123,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setAaId(TextField tf) {
-        this.aaId = tf;
+        aaId = tf;
     }
 
     private Tab searchPatientTab = new Tab();
@@ -143,7 +143,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPatientPreferencesTab(Tab t) {
-        this.patientPreferencesTab = t;
+        patientPreferencesTab = t;
     }
 
     private StaticText patientName = new StaticText();
@@ -153,7 +153,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPatientName(StaticText st) {
-        this.patientName = st;
+        patientName = st;
     }
 
     private SingleSelectOptionsList optInDefaultOptions = new SingleSelectOptionsList();
@@ -187,7 +187,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setOptInDefaultOptions(SingleSelectOptionsList ssol) {
-        this.optInDefaultOptions = ssol;
+        optInDefaultOptions = ssol;
     }
 
     private DefaultSelectItemsArray permissionListDefaultItems = new DefaultSelectItemsArray();
@@ -199,7 +199,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPermissionListDefaultItems(DefaultSelectItemsArray dsia) {
-        this.permissionListDefaultItems = dsia;
+        permissionListDefaultItems = dsia;
     }
 
     private SingleSelectOptionsList documentTypeDefaultOptions = new SingleSelectOptionsList();
@@ -213,7 +213,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setDocumentTypeDefaultOptions(SingleSelectOptionsList ssol) {
-        this.documentTypeDefaultOptions = ssol;
+        documentTypeDefaultOptions = ssol;
     }
 
     private SingleSelectOptionsList userRoleDefaultOptions = new SingleSelectOptionsList();
@@ -226,7 +226,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setUserRoleDefaultOptions(SingleSelectOptionsList ssol) {
-        this.userRoleDefaultOptions = ssol;
+        userRoleDefaultOptions = ssol;
     }
 
     private SingleSelectOptionsList purposeOfUseDefaultOptions = new SingleSelectOptionsList();
@@ -239,7 +239,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPurposeOfUseDefaultOptions(SingleSelectOptionsList ssol) {
-        this.purposeOfUseDefaultOptions = ssol;
+        purposeOfUseDefaultOptions = ssol;
     }
 
     private SingleSelectOptionsList confidentialityCodeDefaultOptions = new SingleSelectOptionsList();
@@ -251,7 +251,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setConfidentialityCodeDefaultOptions(SingleSelectOptionsList ssol) {
-        this.confidentialityCodeDefaultOptions = ssol;
+        confidentialityCodeDefaultOptions = ssol;
     }
 
     private TabSet preferencesTab = new TabSet();
@@ -261,7 +261,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPreferencesTab(TabSet ts) {
-        this.preferencesTab = ts;
+        preferencesTab = ts;
     }
 
     private HtmlSelectOneRadio permission = new HtmlSelectOneRadio();
@@ -272,7 +272,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPermission(HtmlSelectOneRadio hsor) {
-        this.permission = hsor;
+        permission = hsor;
     }
 
     private DropDown documentType = new DropDown();
@@ -282,7 +282,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setDocumentType(DropDown dd) {
-        this.documentType = dd;
+        documentType = dd;
     }
 
     private DropDown purposeOfUse = new DropDown();
@@ -292,7 +292,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPurposeOfUse(DropDown dd) {
-        this.purposeOfUse = dd;
+        purposeOfUse = dd;
     }
 
     private DropDown userRole = new DropDown();
@@ -302,7 +302,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setUserRole(DropDown dd) {
-        this.userRole = dd;
+        userRole = dd;
     }
 
     private DropDown confidentialityCode = new DropDown();
@@ -312,7 +312,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setConfidentialityCode(DropDown dd) {
-        this.confidentialityCode = dd;
+        confidentialityCode = dd;
     }
 
     private Hyperlink policyOID = new Hyperlink();
@@ -332,7 +332,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setOptIn(RadioButtonGroup rbg) {
-        this.optIn = rbg;
+        optIn = rbg;
     }
 
     private PanelLayout fineGrainedPolicyPrefPanel = new PanelLayout();
@@ -342,7 +342,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setFineGrainedPolicyPrefPanel(PanelLayout pl) {
-        this.fineGrainedPolicyPrefPanel = pl;
+        fineGrainedPolicyPrefPanel = pl;
     }
 
     private Table preferencesTable = new Table();
@@ -352,7 +352,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setPreferencesTable(Table t) {
-        this.preferencesTable = t;
+        preferencesTable = t;
     }
 
     private StaticText errorMessages = new StaticText();
@@ -362,7 +362,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setErrorMessages(StaticText st) {
-        this.errorMessages = st;
+        errorMessages = st;
     }
 
     private Button savePreferences = new Button();
@@ -372,7 +372,7 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public void setSavePreferences(Button b) {
-        this.savePreferences = b;
+        savePreferences = b;
     }
 
     // </editor-fold>
@@ -442,13 +442,13 @@ public class SearchPatient extends AbstractPageBean {
      */
     @Override
     public void prerender() {
-        this.deactivatePatientPreferencesTab();
+        deactivatePatientPreferencesTab();
         UserSession userSession = (UserSession) getBean("UserSession");
         String token = userSession.getAuthToken();
 
         if (token == null || token.isEmpty()) {
             try {
-                this.getExternalContext().redirect("UserLogin.jsp");
+                getExternalContext().redirect("UserLogin.jsp");
             } catch (IOException ex) {
                 LOG.error("CPP can not prerender SearchPatient.jsp: " + ex.getMessage(), ex);
             }
@@ -470,7 +470,7 @@ public class SearchPatient extends AbstractPageBean {
     public String searchPatientButton_action() throws Exception {
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         PatientSearchFacade patientSearchFacade = new PatientSearchFacade();
 
         PatientSearchCriteria criteria = createPatientSearchCriteria();
@@ -531,11 +531,11 @@ public class SearchPatient extends AbstractPageBean {
 
     public String displayConsumerPreferences() {
 
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         activatePatientPreferencesTab();
-        this.getPreferencesTab().setSelected("patientPreferencesTab");
+        getPreferencesTab().setSelected("patientPreferencesTab");
 
-        String patientID = this.selectedPatientID.getText().toString();
+        String patientID = selectedPatientID.getText().toString();
 
         // Retrieve the patient from session
         UserSession userSession = (UserSession) getBean("UserSession");
@@ -556,7 +556,7 @@ public class SearchPatient extends AbstractPageBean {
 
         PatientPreferencesVO patientPreferences = new PatientPreferencesVO();
         if (selectedPatient != null) {
-            this.patientName.setText(selectedPatient.getFirstName() + " " + selectedPatient.getLastName());
+            patientName.setText(selectedPatient.getFirstName() + " " + selectedPatient.getLastName());
 
             LOG.debug("displayConsumerPreferences - selectedPatient.getPatientID: " + selectedPatient.getPatientID());
             LOG.debug("displayConsumerPreferences - selectedPatient.getAssigningAuthorityID: "
@@ -564,8 +564,8 @@ public class SearchPatient extends AbstractPageBean {
             LOG.debug("displayConsumerPreferences - selectedPatient.getOrganizationID: "
                     + selectedPatient.getOrganizationID());
 
-            ConsumerPreferencesSearchCriteria criteria = createPreferencesSearchCriteria(
-                    selectedPatient.getPatientID(), selectedPatient.getAssigningAuthorityID());
+            ConsumerPreferencesSearchCriteria criteria = createPreferencesSearchCriteria(selectedPatient.getPatientID(),
+                    selectedPatient.getAssigningAuthorityID());
 
             patientPreferences = adapterPIPFacade.retriveConsumerPreferences(criteria);
 
@@ -579,21 +579,21 @@ public class SearchPatient extends AbstractPageBean {
         // Set the opt-in preferences
 
         if (Boolean.TRUE.equals(patientPreferences.getOptIn())) {
-            this.optIn.setValue("true");
-            this.preferencesTable.setVisible(false);
-            this.fineGrainedPolicyPrefPanel.setVisible(false);
-            this.savePreferences.setVisible(true);
+            optIn.setValue("true");
+            preferencesTable.setVisible(false);
+            fineGrainedPolicyPrefPanel.setVisible(false);
+            savePreferences.setVisible(true);
         } else if (patientPreferences.getFineGrainedPolicyCriteria() != null
                 && patientPreferences.getFineGrainedPolicyCriteria().size() > 0) {
-            this.optIn.setValue("None");
-            this.preferencesTable.setVisible(true);
-            this.fineGrainedPolicyPrefPanel.setVisible(true);
-            this.savePreferences.setVisible(false);
+            optIn.setValue("None");
+            preferencesTable.setVisible(true);
+            fineGrainedPolicyPrefPanel.setVisible(true);
+            savePreferences.setVisible(false);
         } else {
-            this.optIn.setValue("false");
-            this.preferencesTable.setVisible(false);
-            this.fineGrainedPolicyPrefPanel.setVisible(false);
-            this.savePreferences.setVisible(true);
+            optIn.setValue("false");
+            preferencesTable.setVisible(false);
+            fineGrainedPolicyPrefPanel.setVisible(false);
+            savePreferences.setVisible(true);
         }
 
         return null;
@@ -611,29 +611,29 @@ public class SearchPatient extends AbstractPageBean {
     public String preferencesTab_action() {
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         return null;
     }
 
     public void optIn_processValueChange(ValueChangeEvent vce) {
-        this.errorMessages.setText("");
-        if ("None".equals(this.optIn.getSelected().toString())) {
-            this.preferencesTable.setVisible(true);
-            this.fineGrainedPolicyPrefPanel.setVisible(true);
-            this.savePreferences.setVisible(false);
-            this.resetFineGrainedPrefencesForm();
+        errorMessages.setText("");
+        if ("None".equals(optIn.getSelected().toString())) {
+            preferencesTable.setVisible(true);
+            fineGrainedPolicyPrefPanel.setVisible(true);
+            savePreferences.setVisible(false);
+            resetFineGrainedPrefencesForm();
         } else {
-            this.preferencesTable.setVisible(false);
-            this.fineGrainedPolicyPrefPanel.setVisible(false);
-            this.savePreferences.setVisible(true);
+            preferencesTable.setVisible(false);
+            fineGrainedPolicyPrefPanel.setVisible(false);
+            savePreferences.setVisible(true);
         }
     }
 
     private void activatePatientPreferencesTab() {
-        this.patientPreferencesTab.setDisabled(false);
+        patientPreferencesTab.setDisabled(false);
         /*
-         * String tabLabelStyle = this.getPatientPreferencesTab().getStyle(); if
-         * (tabLabelStyle.contains("color: gray; ")) { String newStyle = tabLabelStyle.replace("color: gray; ", "");
+         * String tabLabelStyle = this.getPatientPreferencesTab().getStyle(); if (tabLabelStyle.contains("color: gray; "
+         * )) { String newStyle = tabLabelStyle.replace("color: gray; ", "");
          * this.patientPreferencesTab.setStyle(newStyle); }
          */
     }
@@ -644,7 +644,7 @@ public class SearchPatient extends AbstractPageBean {
          * StringBuffer newStyle = new StringBuffer(tabLabelStyle); newStyle.insert(0, "color: gray; ");
          * this.patientPreferencesTab.setStyle(newStyle.toString()); }
          */
-        this.patientPreferencesTab.setDisabled(true);
+        patientPreferencesTab.setDisabled(true);
     }
 
     public String patientPreferencesTab_action() {
@@ -663,13 +663,13 @@ public class SearchPatient extends AbstractPageBean {
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
 
-        this.errorMessages.setText("");
-        if (this.optIn.getSelected() == null) {
-            this.errorMessages.setText("Please select an option");
+        errorMessages.setText("");
+        if (optIn.getSelected() == null) {
+            errorMessages.setText("Please select an option");
             return null;
         }
 
-        String userSelectedOptInValue = this.optIn.getSelected().toString();
+        String userSelectedOptInValue = optIn.getSelected().toString();
 
         UserSession userSession = (UserSession) getBean("UserSession");
         PatientVO patientVO = userSession.getPatient();
@@ -687,9 +687,9 @@ public class SearchPatient extends AbstractPageBean {
         String status = adapterPIPFacade.saveOptInConsumerPreference(patientVO);
 
         if (CPPConstants.SUCCESS.equalsIgnoreCase(status)) {
-            this.errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
+            errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
         } else {
-            this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
+            errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
         // Refresh ths list
@@ -704,29 +704,28 @@ public class SearchPatient extends AbstractPageBean {
     public String addPreferences() {
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
-        if (this.permission.getValue() == null || this.documentType.getValue() == null) {
-            this.errorMessages
-                    .setText("Please select atleast Permission and Document Type to create a Fine Grained Policy");
+        errorMessages.setText("");
+        if (permission.getValue() == null || documentType.getValue() == null) {
+            errorMessages.setText("Please select atleast Permission and Document Type to create a Fine Grained Policy");
             return null;
         }
 
-        String selectedPermission = this.permission.getValue().toString();
-        String selectedDocumentType = this.documentType.getValue().toString();
+        String selectedPermission = permission.getValue().toString();
+        String selectedDocumentType = documentType.getValue().toString();
 
         String selectedUserRole = null;
-        if (this.userRole.getValue() != null) {
-            selectedUserRole = this.userRole.getValue().toString();
+        if (userRole.getValue() != null) {
+            selectedUserRole = userRole.getValue().toString();
         }
 
         String selectedPurposeOfUse = null;
-        if (this.purposeOfUse.getValue() != null) {
-            selectedPurposeOfUse = this.purposeOfUse.getValue().toString();
+        if (purposeOfUse.getValue() != null) {
+            selectedPurposeOfUse = purposeOfUse.getValue().toString();
         }
 
         String selectedConfidentialityCode = null;
-        if (this.confidentialityCode.getValue() != null) {
-            selectedConfidentialityCode = this.confidentialityCode.getValue().toString();
+        if (confidentialityCode.getValue() != null) {
+            selectedConfidentialityCode = confidentialityCode.getValue().toString();
         }
 
         FineGrainedPolicyCriterionVO fineGrainedPolicyCriterion = new FineGrainedPolicyCriterionVO();
@@ -755,9 +754,9 @@ public class SearchPatient extends AbstractPageBean {
         String status = adapterPIPFacade.saveOptInConsumerPreference(patientVO);
 
         if (CPPConstants.SUCCESS.equalsIgnoreCase(status)) {
-            this.errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
+            errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
         } else {
-            this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
+            errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
         resetFineGrainedPrefencesForm();
@@ -766,11 +765,11 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     public String deletePreferences() {
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         UserSession userSession = (UserSession) getBean("UserSession");
 
         if (userSession.getSelectedPolicyOID() == null) {
-            this.errorMessages.setText("Please select the Fine Grained Policy that needs to be deleted");
+            errorMessages.setText("Please select the Fine Grained Policy that needs to be deleted");
             return null;
         }
 
@@ -781,7 +780,7 @@ public class SearchPatient extends AbstractPageBean {
         if (patientVO.getPatientPreferences() == null
                 || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria() == null
                 || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria().size() < 1) {
-            this.errorMessages.setText("Unable to delete this record as it does not exist");
+            errorMessages.setText("Unable to delete this record as it does not exist");
             return null;
         } else {
             PatientPreferencesVO patientPreferences = patientVO.getPatientPreferences();
@@ -799,9 +798,9 @@ public class SearchPatient extends AbstractPageBean {
         String status = adapterPIPFacade.saveOptInConsumerPreference(patientVO);
 
         if (CPPConstants.SUCCESS.equalsIgnoreCase(status)) {
-            this.errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
+            errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
         } else {
-            this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
+            errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
         resetFineGrainedPrefencesForm();
@@ -814,37 +813,36 @@ public class SearchPatient extends AbstractPageBean {
         // case name where null will return to the same page.
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         UserSession userSession = (UserSession) getBean("UserSession");
 
         if (userSession.getSelectedPolicyOID() == null) {
-            this.errorMessages.setText("Please select the Fine Grained Policy that needs to be updated");
+            errorMessages.setText("Please select the Fine Grained Policy that needs to be updated");
             return null;
         }
 
-        if (this.permission.getValue() == null || this.documentType.getValue() == null) {
-            this.errorMessages
-                    .setText("Please select atleast Permission and Document Type to create a Fine Grained Policy");
+        if (permission.getValue() == null || documentType.getValue() == null) {
+            errorMessages.setText("Please select atleast Permission and Document Type to create a Fine Grained Policy");
             return null;
         }
 
         String selectedPolicyOID = userSession.getSelectedPolicyOID();
-        String selectedPermission = this.permission.getValue().toString();
-        String selectedDocumentType = this.documentType.getValue().toString();
+        String selectedPermission = permission.getValue().toString();
+        String selectedDocumentType = documentType.getValue().toString();
 
         String selectedUserRole = null;
-        if (this.userRole.getValue() != null) {
-            selectedUserRole = this.userRole.getValue().toString();
+        if (userRole.getValue() != null) {
+            selectedUserRole = userRole.getValue().toString();
         }
 
         String selectedPurposeOfUse = null;
-        if (this.purposeOfUse.getValue() != null) {
-            selectedPurposeOfUse = this.purposeOfUse.getValue().toString();
+        if (purposeOfUse.getValue() != null) {
+            selectedPurposeOfUse = purposeOfUse.getValue().toString();
         }
 
         String selectedConfidentialityCode = null;
-        if (this.confidentialityCode.getValue() != null) {
-            selectedConfidentialityCode = this.confidentialityCode.getValue().toString();
+        if (confidentialityCode.getValue() != null) {
+            selectedConfidentialityCode = confidentialityCode.getValue().toString();
         }
 
         PatientVO patientVO = userSession.getPatient();
@@ -852,7 +850,7 @@ public class SearchPatient extends AbstractPageBean {
         if (patientVO.getPatientPreferences() == null
                 || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria() == null
                 || patientVO.getPatientPreferences().getFineGrainedPolicyCriteria().size() < 1) {
-            this.errorMessages.setText("Unable to update this record as it does not exist");
+            errorMessages.setText("Unable to update this record as it does not exist");
             return null;
         } else {
 
@@ -874,9 +872,9 @@ public class SearchPatient extends AbstractPageBean {
         String status = adapterPIPFacade.saveOptInConsumerPreference(patientVO);
 
         if (CPPConstants.SUCCESS.equalsIgnoreCase(status)) {
-            this.errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
+            errorMessages.setText("Successfully saved Opt-In/Opt-Out preferences");
         } else {
-            this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
+            errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
         resetFineGrainedPrefencesForm();
@@ -887,18 +885,18 @@ public class SearchPatient extends AbstractPageBean {
     public String searchPatientTab_action() {
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         return null;
     }
 
     public String displayFineGrainedPreferences() {
-        this.errorMessages.setText("");
+        errorMessages.setText("");
 
         // this.policyOID.setStyle("color: green; text-decoration: underline");
 
         // String selectedPolicyOID = this.policyOID.getText().toString();
 
-        String selectedPolicyOID = this.userSelectedPolicyOID.getValue().toString();
+        String selectedPolicyOID = userSelectedPolicyOID.getValue().toString();
 
         UserSession userSession = (UserSession) getBean("UserSession");
         PatientVO patientVO = userSession.getPatient();
@@ -907,11 +905,11 @@ public class SearchPatient extends AbstractPageBean {
         for (FineGrainedPolicyCriterionVO fineGrainedPolicyCriterion : patientVO.getPatientPreferences()
                 .getFineGrainedPolicyCriteria()) {
             if (selectedPolicyOID.equalsIgnoreCase(fineGrainedPolicyCriterion.getPolicyOID())) {
-                this.permission.setValue(fineGrainedPolicyCriterion.getPermit());
-                this.documentType.setValue(fineGrainedPolicyCriterion.getDocumentTypeCode());
-                this.userRole.setValue(fineGrainedPolicyCriterion.getUserRole());
-                this.purposeOfUse.setValue(fineGrainedPolicyCriterion.getPurposeOfUse());
-                this.confidentialityCode.setValue(fineGrainedPolicyCriterion.getConfidentialityCode());
+                permission.setValue(fineGrainedPolicyCriterion.getPermit());
+                documentType.setValue(fineGrainedPolicyCriterion.getDocumentTypeCode());
+                userRole.setValue(fineGrainedPolicyCriterion.getUserRole());
+                purposeOfUse.setValue(fineGrainedPolicyCriterion.getPurposeOfUse());
+                confidentialityCode.setValue(fineGrainedPolicyCriterion.getConfidentialityCode());
                 break;
             }
         }
@@ -923,7 +921,7 @@ public class SearchPatient extends AbstractPageBean {
         // TODO: Process the action. Return value is a navigation
         // case name where null will return to the same page.
 
-        HttpSession session = (HttpSession) this.getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) getExternalContext().getSession(false);
         session.invalidate();
         return "login_required";
     }
@@ -968,10 +966,10 @@ public class SearchPatient extends AbstractPageBean {
     }
 
     private void resetFineGrainedPrefencesForm() {
-        this.permission.setValue("");
-        this.documentType.setValue("");
-        this.userRole.setValue("");
-        this.purposeOfUse.setValue("");
-        this.confidentialityCode.setValue("");
+        permission.setValue("");
+        documentType.setValue("");
+        userRole.setValue("");
+        purposeOfUse.setValue("");
+        confidentialityCode.setValue("");
     }
 }

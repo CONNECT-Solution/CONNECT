@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import org.junit.Test;
 
 /**
  *
@@ -55,8 +56,8 @@ public class AuditRepositoryOrchImplTest {
             }
         };
         AuditFileStoreImpl mockFileStore = mock(AuditFileStoreImpl.class);
-        when(mockFileStore.saveAuditRecord(any(LogEventSecureRequestType.class), any(AssertionType.class))).
-            thenReturn(Boolean.TRUE);
+        when(mockFileStore.saveAuditRecord(any(LogEventSecureRequestType.class), any(AssertionType.class)))
+                .thenReturn(Boolean.TRUE);
         AcknowledgementType ack = auditRepo.logAudit(new LogEventSecureRequestType(), new AssertionType());
         assertEquals("AcknowledgementType message mismatch", ack.getMessage(), "Created Log Message in Audit File...");
     }

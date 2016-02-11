@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -115,8 +115,8 @@ public class EventServiceImpl implements EventService {
 
         for (String hcid : outboundOrganizations.keySet()) {
             if (totalEvents.containsKey(hcid)) {
-                EventNwhinOrganization combinedOrg
-                    = combineOrganizations(outboundOrganizations.get(hcid), totalEvents.remove(hcid));
+                EventNwhinOrganization combinedOrg = combineOrganizations(outboundOrganizations.get(hcid),
+                        totalEvents.remove(hcid));
                 totalEvents.put(hcid, combinedOrg);
             } else {
                 totalEvents.put(hcid, outboundOrganizations.get(hcid));
@@ -149,8 +149,7 @@ public class EventServiceImpl implements EventService {
     private void setEvents(List results, HashMap<String, EventNwhinOrganization> organizations) {
         organizations.clear();
         for (Object result : results) {
-            if (result instanceof Object[]
-                && ((Object[]) result).length == 3) {
+            if (result instanceof Object[] && ((Object[]) result).length == 3) {
                 Object[] resultArray = (Object[]) result;
                 String hcid = setHcid((String) resultArray[1]);
                 Integer count = (Integer) resultArray[0];
@@ -206,7 +205,7 @@ public class EventServiceImpl implements EventService {
             organization.setAdCount(count);
         } else if (serviceType.equalsIgnoreCase(DIRECT_SERVICE_TYPE)) {
             organization.setDirectCount(count);
-        }//else do nothing
+        } // else do nothing
 
         return organization;
     }

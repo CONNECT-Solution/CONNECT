@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,8 +67,8 @@ public class AdminDistributionUtils {
      * is thrown, then the content object will not be converted back to its original value.
      *
      * @param request - the message to be converted
-     * @throws LargePayloadException Throws LargePayloadException when retrieving contentObject or
-     * saving the attachment to system.
+     * @throws LargePayloadException Throws LargePayloadException when retrieving contentObject or saving the attachment
+     *             to system.
      */
     public void convertFileLocationToDataIfEnabled(EDXLDistribution request) throws LargePayloadException {
 
@@ -91,8 +91,8 @@ public class AdminDistributionUtils {
      * request! If an exception is thrown, then the content object will not be converted back to its original value.
      *
      * @param request - the message to be converted
-     * @throws LargePayloadException Throws LargePayloadException when retrieving contentObject or
-     * saving the attachment to system.
+     * @throws LargePayloadException Throws LargePayloadException when retrieving contentObject or saving the attachment
+     *             to system.
      *
      */
     public void convertDataToFileLocationIfEnabled(EDXLDistribution request) throws LargePayloadException {

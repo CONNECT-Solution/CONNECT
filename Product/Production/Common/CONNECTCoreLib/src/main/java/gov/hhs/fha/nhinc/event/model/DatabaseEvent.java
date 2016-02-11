@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,6 +52,7 @@ public class DatabaseEvent implements Event {
     public Long getId() {
         return id;
     }
+
     /**
      * @param id the id to set
      */
@@ -66,6 +67,7 @@ public class DatabaseEvent implements Event {
     public String getEventName() {
         return eventName;
     }
+
     /**
      * @param eventName the eventName to set
      */
@@ -95,7 +97,7 @@ public class DatabaseEvent implements Event {
 
     @Override
     public void setMessageID(String messageID) {
-        this.messageID =  messageID;
+        this.messageID = messageID;
     }
 
     @Override
@@ -115,7 +117,7 @@ public class DatabaseEvent implements Event {
 
     @Override
     public void setInitiatorHcid(String hcid) {
-        this.initiatorHcid = hcid;
+        initiatorHcid = hcid;
     }
 
     @Override
@@ -125,7 +127,7 @@ public class DatabaseEvent implements Event {
 
     @Override
     public void setRespondingHcid(String hcid) {
-        this.respondingHcid = hcid;
+        respondingHcid = hcid;
     }
 
     @Override
@@ -141,7 +143,7 @@ public class DatabaseEvent implements Event {
         this.eventTime = eventTime;
     }
 
-    public String getFormattedEventTime(){
+    public String getFormattedEventTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm");
         return sdf.format(eventTime);
     }

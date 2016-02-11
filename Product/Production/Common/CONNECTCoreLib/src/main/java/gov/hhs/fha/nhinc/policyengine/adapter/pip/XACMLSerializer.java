@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -102,7 +102,8 @@ public class XACMLSerializer {
             is = new ByteArrayInputStream(sConsentXACML.getBytes());
             JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
 
-            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oUnmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(is));
+            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oUnmarshaller
+                    .unmarshal(util.getSafeStreamReaderFromInputStream(is));
             if (oJAXBElementConsentXACML.getValue() instanceof PolicyType) {
                 oConsentXACML = (PolicyType) oJAXBElementConsentXACML.getValue();
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,15 +55,15 @@ public class EventDescriptionDirector {
         builder.buildAction();
     }
 
-    public String getServiceType(){
+    public String getServiceType() {
         return builder.getServiceType();
     }
 
-    public String getInitiatorHcid(){
+    public String getInitiatorHcid() {
         return builder.getInitiatorHcid();
     }
 
-    public String getResponderHcid(){
+    public String getResponderHcid() {
         return builder.getRespondingHcid();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
+import static org.junit.Assert.assertNotNull;
+
 import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -37,7 +39,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -167,7 +168,7 @@ public class NhinCallableRequestTest {
         private boolean returnNullObject = false;
 
         public TestOutboundDelegate(boolean value) {
-            this.returnNullObject = value;
+            returnNullObject = value;
         }
 
         @Override
@@ -188,19 +189,13 @@ public class NhinCallableRequestTest {
         public Orchestratable process(Orchestratable message) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-
-        /**
-         * @param returnNullObject the returnNullObject to set
-         */
-        public void setReturnNullObject(boolean returnNullObject) {
-            this.returnNullObject = returnNullObject;
-        }
     }
 
     private static class TestOutboundResponse implements gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor {
 
         @Override
-        public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individualResponse, OutboundOrchestratableMessage cumulativeResponse) {
+        public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individualResponse,
+                OutboundOrchestratableMessage cumulativeResponse) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 

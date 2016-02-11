@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,8 @@ import javax.xml.ws.soap.SOAPBinding;
  * @author Sai Valluripalli
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPolicyEngineOrchestrator implements gov.hhs.fha.nhinc.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorPortType {
+public class AdapterPolicyEngineOrchestrator
+        implements gov.hhs.fha.nhinc.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorPortType {
 
     @Resource
     private WebServiceContext context;
@@ -58,7 +59,7 @@ public class AdapterPolicyEngineOrchestrator implements gov.hhs.fha.nhinc.adapte
      */
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(
-        gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType checkPolicyRequest) {
         return getAdapterComponentPolicyEngineImpl().checkPolicy(checkPolicyRequest, getWebServiceContext());
     }
 

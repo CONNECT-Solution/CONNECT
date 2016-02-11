@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,10 +71,10 @@ public class LargeFileUtils {
     public boolean isParsePayloadAsFileLocationEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
+                    NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
         } catch (PropertyAccessException pae) {
             LOG.error("Failed to determine if payload should be parsed as a file location.  Will assume false: {}",
-                pae.getLocalizedMessage(), pae);
+                    pae.getLocalizedMessage(), pae);
         }
 
         return false;
@@ -88,10 +88,10 @@ public class LargeFileUtils {
     public boolean isSavePayloadToFileEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
+                    NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
         } catch (PropertyAccessException pae) {
             LOG.error("Failed to determine if payload should be saved to a file location.  Will assume false: {}",
-                pae.getLocalizedMessage(), pae);
+                    pae.getLocalizedMessage(), pae);
         }
 
         return false;
@@ -203,8 +203,8 @@ public class LargeFileUtils {
     public DataHandler convertToDataHandler(File file) throws IOException {
         if (!file.exists()) {
             throw new IOException(
-                "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
-                + file.getAbsolutePath());
+                    "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
+                            + file.getAbsolutePath());
         }
 
         URI fileURI = file.toURI();
@@ -316,10 +316,10 @@ public class LargeFileUtils {
     protected String getPayloadSaveDirectory() {
         try {
             return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.PAYLOAD_SAVE_DIRECTORY);
+                    NhincConstants.PAYLOAD_SAVE_DIRECTORY);
         } catch (PropertyAccessException pae) {
             LOG.error("Failed to determine payload save directory.  Is {} set in gateway.properties?",
-                NhincConstants.PAYLOAD_SAVE_DIRECTORY, pae.getLocalizedMessage(), pae);
+                    NhincConstants.PAYLOAD_SAVE_DIRECTORY, pae.getLocalizedMessage(), pae);
         }
 
         return null;

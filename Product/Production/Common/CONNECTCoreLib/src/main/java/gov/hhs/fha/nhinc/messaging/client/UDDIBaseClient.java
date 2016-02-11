@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,6 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     public UDDIBaseClient(ServicePortDescriptor<T> portDescriptor, String url) {
 
-
         proxyHelper = new WebServiceProxyHelper();
 
         CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<>(portDescriptor);
@@ -66,11 +65,13 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
     }
 
     @Override
-    public Object invokePort(Class<T> portClass, String methodName, Object ... operationInput) throws Exception {
+    public Object invokePort(Class<T> portClass, String methodName, Object... operationInput) throws Exception {
         return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
      */
     @Override
@@ -78,13 +79,17 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
         // Do nothing, UDDI doesn't support Mtom.
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType,
+     * java.lang.String, java.lang.String)
      */
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
+                wsAddressingActionId, assertion);
     }
-
 
 }

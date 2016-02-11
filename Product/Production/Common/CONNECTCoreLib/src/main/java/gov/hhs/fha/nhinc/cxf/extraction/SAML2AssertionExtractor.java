@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,9 +37,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
- * This class is used to extract the AssertionType from Saml2Assertion in the ws
- * security header. This AssertionType is provided to the responding HIO for
- * using the information for authorization.
+ * This class is used to extract the AssertionType from Saml2Assertion in the ws security header. This AssertionType is
+ * provided to the responding HIO for using the information for authorization.
  *
  * @author mweaver
  *

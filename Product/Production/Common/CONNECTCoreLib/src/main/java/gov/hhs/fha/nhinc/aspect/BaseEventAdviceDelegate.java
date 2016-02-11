@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -95,10 +95,10 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void begin(Object[] args, String serviceType, String version,
-        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
+                    createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
 
             createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
         }
@@ -123,10 +123,10 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void end(Object[] args, String serviceType, String version,
-        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
+                    createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
             createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
         }
     }
@@ -154,8 +154,8 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      * @return
      */
     protected EventDescriptionBuilder createAndInitializeEventDecriptionBuilder(Object[] args,
-        EventContextAccessor eventContextAccessor,
-        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
+            EventContextAccessor eventContextAccessor,
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
         EventDescriptionBuilder eventDescriptionBuilder = createEventDescriptionBuilder(eventDescriptionbuilderClass);
 
         eventDescriptionBuilder.setArguments(args);
@@ -173,14 +173,14 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      * @return
      */
     private EventDescriptionBuilder createEventDescriptionBuilder(
-        Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
         EventDescriptionBuilder eventDescriptionBuilder;
         try {
             eventDescriptionBuilder = eventDescriptionbuilderClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             eventDescriptionBuilder = new DefaultEventDescriptionBuilder();
             LOG.warn("Could not get event description builder instance, using default instead: {}",
-                e.getLocalizedMessage());
+                    e.getLocalizedMessage());
             LOG.trace("Event Description Builder exception: {}", e.getLocalizedMessage(), e);
         }
         return eventDescriptionBuilder;

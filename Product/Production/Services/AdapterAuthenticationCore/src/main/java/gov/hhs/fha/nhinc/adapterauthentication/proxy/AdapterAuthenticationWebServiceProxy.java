@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -85,8 +85,8 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
                     LOG.error("Request was null");
                 } else {
                     ServicePortDescriptor<AdapterAuthenticationPortType> portDescriptor = new AdapterAuthenticationServicePortDescriptor();
-                    CONNECTClient<AdapterAuthenticationPortType> client = getCONNECTClientUnsecured(portDescriptor,
-                            url, null);
+                    CONNECTClient<AdapterAuthenticationPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
+                            null);
 
                     authResp = (AuthenticateUserResponseType) client.invokePort(AdapterAuthenticationPortType.class,
                             "authenticateUser", authenticateUserRequest);

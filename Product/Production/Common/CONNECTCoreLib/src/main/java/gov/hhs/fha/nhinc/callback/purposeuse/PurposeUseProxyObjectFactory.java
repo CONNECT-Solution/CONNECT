@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.callback.purposeuse;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * Purpose Use proxy object factory. Used to obtain a proxy object for
- * creating a purposeOfUse or purposeForUse based on specifications
+ * Purpose Use proxy object factory. Used to obtain a proxy object for creating a purposeOfUse or purposeForUse based on
+ * specifications
  */
 public class PurposeUseProxyObjectFactory extends ComponentProxyObjectFactory {
 
@@ -39,6 +39,7 @@ public class PurposeUseProxyObjectFactory extends ComponentProxyObjectFactory {
 
     /**
      * Returns the name of the config file.
+     * 
      * @return the config file name
      */
     @Override
@@ -47,8 +48,7 @@ public class PurposeUseProxyObjectFactory extends ComponentProxyObjectFactory {
     }
 
     /**
-     * Retrieve a purpose use engine implementation.
-     * This method retrieves the object from the framework that has an
+     * Retrieve a purpose use engine implementation. This method retrieves the object from the framework that has an
      * identifier of "purposeuse."
      *
      * @return PurposeUseProxy instance

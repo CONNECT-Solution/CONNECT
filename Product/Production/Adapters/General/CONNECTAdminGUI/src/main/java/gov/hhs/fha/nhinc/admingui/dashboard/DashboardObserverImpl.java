@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public class DashboardObserverImpl implements DashboardObserver {
     @Override
     public void closePanel(Class c) {
         DashboardPanel foundPanel = findPanel(c, openPanels);
-        if(foundPanel != null){
+        if (foundPanel != null) {
             closedPanels.add(foundPanel);
         }
     }
@@ -75,18 +75,18 @@ public class DashboardObserverImpl implements DashboardObserver {
      * @param c
      */
     @Override
-    public void openPanel(Class c){
+    public void openPanel(Class c) {
         DashboardPanel foundPanel = findPanel(c, closedPanels);
-        if(foundPanel != null){
+        if (foundPanel != null) {
             openPanels.add(foundPanel);
         }
     }
 
-    private DashboardPanel findPanel(Class c, List<DashboardPanel> panels){
-        for(int i = 0; i < panels.size(); i++){
-           if(panels.get(i).getClass().equals(c)){
-               return panels.remove(i);
-           }
+    private DashboardPanel findPanel(Class c, List<DashboardPanel> panels) {
+        for (int i = 0; i < panels.size(); i++) {
+            if (panels.get(i).getClass().equals(c)) {
+                return panels.remove(i);
+            }
         }
         return null;
     }
@@ -96,7 +96,7 @@ public class DashboardObserverImpl implements DashboardObserver {
      * @return
      */
     @Override
-    public boolean isStarted(){
+    public boolean isStarted() {
         return started;
     }
 
@@ -148,7 +148,7 @@ public class DashboardObserverImpl implements DashboardObserver {
      */
     @Override
     public void refreshData() {
-        for(DashboardPanel panel : openPanels){
+        for (DashboardPanel panel : openPanels) {
             panel.setData();
         }
     }

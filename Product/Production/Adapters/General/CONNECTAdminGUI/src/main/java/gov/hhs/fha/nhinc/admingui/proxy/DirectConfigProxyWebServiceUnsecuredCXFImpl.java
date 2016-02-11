@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -100,7 +100,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(gov.hhs.fha.nhinc.direct.config.UpdateDomain)
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateDomain(gov.hhs.fha.nhinc.direct.config.UpdateDomain)
      */
     @Override
     public UpdateDomainResponse updateDomain(UpdateDomain updateDomain) throws DomainException {
@@ -129,14 +130,15 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public void addAnchor(AddAnchor addAnchor) throws Exception {
-        getClient()
-                .invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR, addAnchor.getAnchor());
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ADD_ANCHOR,
+                addAnchor.getAnchor());
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(gov.hhs.fha.nhinc.direct.config.RemoveAnchors)
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeAnchors(gov.hhs.fha.nhinc.direct.config.RemoveAnchors)
      */
     @Override
     public void removeAnchors(RemoveAnchors removeAnchors) throws Exception {
@@ -147,7 +149,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(gov.hhs.fha.nhinc.direct.config.GetAnchorsForOwner)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#getAnchorsForOwner(gov.hhs.fha.nhinc.direct.config.
+     * GetAnchorsForOwner)
      */
     @Override
     public List<Anchor> getAnchorsForOwner(GetAnchorsForOwner getAnchorsForOwner) throws Exception {
@@ -159,7 +162,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(gov.hhs.fha.nhinc.direct.config.AddCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addCertificates(gov.hhs.fha.nhinc.direct.config.
+     * AddCertificates)
      */
     @Override
     public void addCertificates(AddCertificates certificate) throws Exception {
@@ -170,7 +174,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(gov.hhs.fha.nhinc.direct.config.RemoveCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#removeCertificate(gov.hhs.fha.nhinc.direct.config.
+     * RemoveCertificates)
      */
     @Override
     public void removeCertificate(RemoveCertificates certificate) throws Exception {
@@ -182,7 +187,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(gov.hhs.fha.nhinc.direct.config.ListCertificates)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#listCertificates(gov.hhs.fha.nhinc.direct.config.
+     * ListCertificates)
      */
     @Override
     public List<Certificate> listCertificates(ListCertificates listCert) throws Exception {
@@ -225,7 +231,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(gov.hhs.fha.nhinc.direct.config.TrustBundle)
+     * @see
+     * gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#addTrustBundle(gov.hhs.fha.nhinc.direct.config.TrustBundle)
      */
     @Override
     public void addTrustBundle(TrustBundle tb) throws Exception {
@@ -240,7 +247,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public List<TrustBundle> getTrustBundles(boolean fetchAnchors) throws Exception {
-        return (List<TrustBundle>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLES, fetchAnchors);
+        return (List<TrustBundle>) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLES, fetchAnchors);
     }
 
     /*
@@ -250,7 +258,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public TrustBundle getTrustBundleByName(String bundleName) throws Exception {
-        return (TrustBundle) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, bundleName);
+        return (TrustBundle) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLE_BY_NAME, bundleName);
     }
 
     /*
@@ -260,23 +269,28 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public List<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId, boolean fetchAnchors) throws Exception {
-        return (List<TrustBundleDomainReltn>) getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLES_BY_DOMAIN, domainId, fetchAnchors);
+        return (List<TrustBundleDomainReltn>) getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_GET_TRUST_BUNDLES_BY_DOMAIN, domainId, fetchAnchors);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#associateTrustBundleToDomain(long, long, boolean, boolean)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#associateTrustBundleToDomain(long, long, boolean,
+     * boolean)
      */
     @Override
-    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing) throws Exception {
-        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN, domainId, trustBundleId, incoming, outgoing);
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming, boolean outgoing)
+            throws Exception {
+        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_ASSOCIATE_TRUST_BUNDLE_TO_DOMAIN,
+                domainId, trustBundleId, incoming, outgoing);
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String, gov.hhs.fha.nhinc.direct.config.Certificate, int)
+     * @see gov.hhs.fha.nhinc.admingui.proxy.DirectConfigProxy#updateTrustBundleAttributes(long, String, String,
+     * gov.hhs.fha.nhinc.direct.config.Certificate, int)
      */
     @Override
     public void updateTrustBundleAttributes(long trustBundleId, String trustBundleName, String trustBundleURL,
@@ -303,7 +317,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public void disassociateTrustBundleFromDomain(long domainId, long trustBundleId) throws Exception {
-        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN, domainId, trustBundleId);
+        getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAIN, domainId, trustBundleId);
     }
 
     /*
@@ -313,7 +328,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public void disassociateTrustBundleFromDomains(long trustBundleId) throws Exception {
-        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAINS, trustBundleId);
+        getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLE_FROM_DOMAINS, trustBundleId);
     }
 
     /*
@@ -323,7 +339,8 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
      */
     @Override
     public void disassociateTrustBundlesFromDomain(long domainId) throws Exception {
-        getClient().invokePort(directConfigClazz, DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLES_FROM_DOMAIN, domainId);
+        getClient().invokePort(directConfigClazz,
+                DirectConfigConstants.DIRECT_CONFIG_DISASSOCIATE_TRUST_BUNDLES_FROM_DOMAIN, domainId);
     }
 
     /**
@@ -353,13 +370,14 @@ public class DirectConfigProxyWebServiceUnsecuredCXFImpl implements DirectConfig
 
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(
-                portDescriptor, url, new AssertionType());
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+                new AssertionType());
     }
 
     @Override
     public boolean pingDirectConfig(String url) throws Exception {
-        List<Domain> domains = (List<Domain>) getClient().invokePort(ConfigurationService.class, DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
+        List<Domain> domains = (List<Domain>) getClient().invokePort(ConfigurationService.class,
+                DirectConfigConstants.DIRECT_CONFIG_LIST_DOMAINS, null, 0);
         return domains != null;
     }
 }

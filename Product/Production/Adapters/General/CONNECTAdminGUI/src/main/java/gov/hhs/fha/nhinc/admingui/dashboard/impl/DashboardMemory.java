@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,7 @@ public class DashboardMemory extends DashboardPanelAbstract implements Dashboard
     /**
      *
      */
-    public DashboardMemory(){
+    public DashboardMemory() {
 
     }
 
@@ -55,7 +55,7 @@ public class DashboardMemory extends DashboardPanelAbstract implements Dashboard
      * @param observer
      * @param closed
      */
-    public DashboardMemory(DashboardObserver observer, boolean closed){
+    public DashboardMemory(DashboardObserver observer, boolean closed) {
         setObserver(observer);
         setClosed(closed);
     }
@@ -98,9 +98,9 @@ public class DashboardMemory extends DashboardPanelAbstract implements Dashboard
         long otherMemUsed = memoryBean.getNonHeapMemoryUsage().getUsed();
         long totalMemoryUsed = (heapMemUsed + otherMemUsed) / MB_VALUE;
 
-        if(totalMemoryUsed > 0){
+        if (totalMemoryUsed > 0) {
             title = Long.toString(totalMemoryUsed) + " MB";
-        }else {
+        } else {
             title = "Unknown";
         }
         return this;

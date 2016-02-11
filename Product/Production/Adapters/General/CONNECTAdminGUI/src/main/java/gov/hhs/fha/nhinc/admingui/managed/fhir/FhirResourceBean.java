@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,14 +74,16 @@ public class FhirResourceBean {
      */
     public void onUrlChange(ValueChangeEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
-        ResourceInfo resource = context.getApplication().evaluateExpressionGet(context, "#{fResource}", ResourceInfo.class);
+        ResourceInfo resource = context.getApplication().evaluateExpressionGet(context, "#{fResource}",
+                ResourceInfo.class);
 
         if (!event.getNewValue().equals(event.getOldValue())) {
             try {
                 fhirService.updateUrl(resource.getServiceName(), (String) event.getNewValue());
                 resource.setUrl((String) event.getNewValue());
             } catch (Exception ex) {
-                LOG.warn("Unable to set new url value for resource: " + resource.getServiceName() + " with value: " + event.getNewValue(), ex);
+                LOG.warn("Unable to set new url value for resource: " + resource.getServiceName() + " with value: "
+                        + event.getNewValue(), ex);
             }
         }
     }

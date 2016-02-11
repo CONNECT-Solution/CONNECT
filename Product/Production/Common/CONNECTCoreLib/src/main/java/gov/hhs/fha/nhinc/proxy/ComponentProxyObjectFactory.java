@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,8 +57,7 @@ public abstract class ComponentProxyObjectFactory {
     // the context is specific to each of the derived classes, we need to keep a map for all of them.
     // We have synchronized the method that sets and retrieves this to make it thread safe.
     // ------------------------------------------------------------------------------------------------
-    private static final HashMap<String, LocalApplicationContextInfo> contextMap
-        = new HashMap<>();
+    private static final HashMap<String, LocalApplicationContextInfo> contextMap = new HashMap<>();
 
     /**
      * Get the URL to properties files.
@@ -127,7 +126,7 @@ public abstract class ComponentProxyObjectFactory {
                 appContext = appContextInfo.getApplicationContext();
             } else {
                 LOG.debug("ApplicationContext for: " + getConfigFileName()
-                    + " was not null - checking to see if it is stale.");
+                        + " was not null - checking to see if it is stale.");
                 long lastModified = getLastModified(configFilePath);
                 if (appContextInfo.getConfigLastModified() != lastModified) {
                     LOG.debug("Refreshing the Spring application context for: " + getConfigFileName());

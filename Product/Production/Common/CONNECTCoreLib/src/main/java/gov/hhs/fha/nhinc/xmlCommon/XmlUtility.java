@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,7 +76,8 @@ public class XmlUtility {
         return (DOMImplementationLS) document.getImplementation();
     }
 
-    public static String serializeElement(Element element) throws TransformerFactoryConfigurationError, TransformerException {
+    public static String serializeElement(Element element)
+            throws TransformerFactoryConfigurationError, TransformerException {
         String serializedElement = null;
         if (element != null) {
             StringWriter output = new StringWriter();
@@ -90,7 +91,7 @@ public class XmlUtility {
     }
 
     public static String serializeNode(Node node) throws LSException, IllegalAccessException, DOMException,
-        InstantiationException, ClassNotFoundException, ClassCastException {
+            InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (node != null) {
             DOMImplementationLS impl = getDOMImplementationLS(node);
@@ -107,6 +108,7 @@ public class XmlUtility {
      * @return
      * @throws javax.xml.xpath.XPathExpressionException
      */
+    @Deprecated
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceXml, xpathQuery);
     }
@@ -118,6 +120,7 @@ public class XmlUtility {
      * @return
      * @throws javax.xml.xpath.XPathExpressionException
      */
+    @Deprecated
     public static Node performXpathQuery(Element sourceElement, String xpathQuery) throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceElement, xpathQuery);
     }
@@ -130,8 +133,9 @@ public class XmlUtility {
      * @return
      * @throws javax.xml.xpath.XPathExpressionException
      */
+    @Deprecated
     public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
-        throws XPathExpressionException {
+            throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceElement, xpathQuery, namespaceContext);
     }
 
@@ -190,9 +194,9 @@ public class XmlUtility {
 
     public static Element getSingleChildElement(Element element, String namespaceURI, String localName) {
         Element childElement = null;
-        if ((element != null) && (NullChecker.isNotNullish(namespaceURI) && (NullChecker.isNotNullish(localName)))) {
+        if (element != null && NullChecker.isNotNullish(namespaceURI) && NullChecker.isNotNullish(localName)) {
             NodeList result = element.getElementsByTagNameNS(namespaceURI, localName);
-            if ((result != null) && (result.getLength() >= 1)) {
+            if (result != null && result.getLength() >= 1) {
                 childElement = (Element) result.item(0);
             }
         }

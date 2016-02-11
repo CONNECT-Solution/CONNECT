@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import javax.xml.bind.JAXBElement;
-
 import org.hl7.v3.CS;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Agent;
@@ -55,8 +55,6 @@ import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 import org.hl7.v3.QUQIMT021001UV01DataEnterer;
 import org.hl7.v3.XActMoodIntentEvent;
-
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  *
@@ -318,7 +316,7 @@ public class HL7PRPA201301Transforms {
     private static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyInformationReceipent(
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from,
             PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
-        if ((from != null) && (from.getInformationRecipient().size() > 0)) {
+        if (from != null && from.getInformationRecipient().size() > 0) {
             to.getInformationRecipient().clear();
             for (MFMIMT700711UV01InformationRecipient item : from.getInformationRecipient()) {
                 to.getInformationRecipient().add(copyInformationRecepient(item));

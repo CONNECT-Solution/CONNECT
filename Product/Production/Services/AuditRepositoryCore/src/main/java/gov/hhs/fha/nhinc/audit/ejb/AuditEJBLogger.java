@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,12 +39,12 @@ import java.util.Properties;
  */
 public interface AuditEJBLogger<T, K> {
 
-    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
-        AuditTransforms<T, K> transforms);
+    public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
+            String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
+            AuditTransforms<T, K> transforms);
 
     public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName,
-        AuditTransforms<T, K> transforms);
+            String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
+            String serviceName, AuditTransforms<T, K> transforms);
 
 }

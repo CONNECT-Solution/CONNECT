@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,7 +68,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setMessageId(String MessageId) {
-        this.messageId = MessageId;
+        messageId = MessageId;
     }
 
     public Date getCreationTime() {
@@ -108,7 +108,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setDuration(Long Duration) {
-        this.duration = Duration;
+        duration = Duration;
     }
 
     public String getServiceName() {
@@ -116,7 +116,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setServiceName(String ServiceName) {
-        this.serviceName = ServiceName;
+        serviceName = ServiceName;
     }
 
     public String getDirection() {
@@ -124,7 +124,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setDirection(String Direction) {
-        this.direction = Direction;
+        direction = Direction;
     }
 
     public String getCommunityId() {
@@ -132,7 +132,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setCommunityId(String CommunityId) {
-        this.communityId = CommunityId;
+        communityId = CommunityId;
     }
 
     public String getStatus() {
@@ -140,7 +140,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setStatus(String Status) {
-        this.status = Status;
+        status = Status;
     }
 
     public String getResponseType() {
@@ -148,7 +148,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setResponseType(String ResponseType) {
-        this.responseType = ResponseType;
+        responseType = ResponseType;
     }
 
     public String getReserved() {
@@ -156,7 +156,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setReserved(String Reserved) {
-        this.reserved = Reserved;
+        reserved = Reserved;
     }
 
     public Blob getMsgData() {
@@ -164,7 +164,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setMsgData(Blob MsgData) {
-        this.msgData = MsgData;
+        msgData = MsgData;
     }
 
     public Blob getRspData() {
@@ -172,7 +172,7 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setRspData(Blob RspData) {
-        this.rspData = RspData;
+        rspData = RspData;
     }
 
     public Blob getAckData() {
@@ -180,6 +180,6 @@ public class AsyncMsgRecord implements Serializable {
     }
 
     public void setAckData(Blob AckData) {
-        this.ackData = AckData;
+        ackData = AckData;
     }
 }

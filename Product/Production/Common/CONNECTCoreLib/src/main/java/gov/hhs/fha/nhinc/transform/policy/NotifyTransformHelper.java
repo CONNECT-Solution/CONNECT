@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,8 +50,8 @@ public class NotifyTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
+                event.getMessage().getAssertion());
         request.getSubject().add(subject);
 
         AssertionHelper assertHelp = new AssertionHelper();

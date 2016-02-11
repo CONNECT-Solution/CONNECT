@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,24 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import javax.activation.DataHandler;
-import javax.xml.bind.JAXBElement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
@@ -56,6 +38,19 @@ import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import javax.activation.DataHandler;
+import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
@@ -64,6 +59,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -82,7 +79,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     }
 
     protected AdapterComponentDocRepositoryHelper getHelper() {
-        return (docRepoHelper != null) ? docRepoHelper : new AdapterComponentDocRepositoryHelper();
+        return docRepoHelper != null ? docRepoHelper : new AdapterComponentDocRepositoryHelper();
     }
 
     public DocumentService getDocumentService() {
@@ -94,7 +91,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     }
 
     public UTCDateUtil getDateUtil() {
-        return (utcDateUtil != null) ? utcDateUtil : new UTCDateUtil();
+        return utcDateUtil != null ? utcDateUtil : new UTCDateUtil();
     }
 
     /**
@@ -114,7 +111,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         response.setRegistryResponse(regResponse);
         RegistryErrorList regerrList = new RegistryErrorList();
 
-        if ((body != null) && (body.getDocumentRequest() != null) && (!body.getDocumentRequest().isEmpty())) {
+        if (body != null && body.getDocumentRequest() != null && !body.getDocumentRequest().isEmpty()) {
             String homeCommunityId = null;
             List<String> documentUniqueIds = new ArrayList<>();
             List<String> repositoryUniqueIds = new ArrayList<>();
@@ -125,15 +122,15 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 DocumentRequest oDocRequest = iterDocRequest.next();
                 // Home Community
                 // ----------------
-                if ((homeCommunityId == null) && (oDocRequest.getHomeCommunityId() != null)
-                        && (oDocRequest.getHomeCommunityId().length() > 0)) {
+                if (homeCommunityId == null && oDocRequest.getHomeCommunityId() != null
+                        && oDocRequest.getHomeCommunityId().length() > 0) {
                     homeCommunityId = oDocRequest.getHomeCommunityId();
                 }
 
                 // Document Uniqiue ID
                 // --------------------
-                if ((oDocRequest.getDocumentUniqueId() != null) && (oDocRequest.getDocumentUniqueId().length() > 0)
-                        && (!(oDocRequest.getDocumentUniqueId().isEmpty()))) {
+                if (oDocRequest.getDocumentUniqueId() != null && oDocRequest.getDocumentUniqueId().length() > 0
+                        && !oDocRequest.getDocumentUniqueId().isEmpty()) {
                     docUniqueId = StringUtil.extractStringFromTokens(oDocRequest.getDocumentUniqueId(), "'()");
                     documentUniqueIds.add(docUniqueId);
 
@@ -149,8 +146,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                 // Repository Unique ID
                 // ----------------------
-                if ((oDocRequest.getRepositoryUniqueId() != null) && (oDocRequest.getRepositoryUniqueId().length() > 0)
-                        && (!(oDocRequest.getRepositoryUniqueId().isEmpty()))) {
+                if (oDocRequest.getRepositoryUniqueId() != null && oDocRequest.getRepositoryUniqueId().length() > 0
+                        && !oDocRequest.getRepositoryUniqueId().isEmpty()) {
                     reposUniqueId = StringUtil.extractStringFromTokens(oDocRequest.getRepositoryUniqueId(), "'()");
                     repositoryUniqueIds.add(reposUniqueId);
                 } else {
@@ -159,7 +156,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
             } // while (iterDocRequest.hasNext())
 
-            if ((!documentUniqueIds.isEmpty()) && (!repositoryUniqueIds.isEmpty())) {
+            if (!documentUniqueIds.isEmpty() && !repositoryUniqueIds.isEmpty()) {
                 boolean repositoryIdMatched = true;
                 for (String repositoryUniqueId : repositoryUniqueIds) {
                     if (!REPOSITORY_UNIQUE_ID.equals(repositoryUniqueId)) {
@@ -194,7 +191,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             String responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
             List<DocumentResponse> olDocResponse = response.getDocumentResponse();
 
-            if ((docs != null) && (!docs.isEmpty())) {
+            if (docs != null && !docs.isEmpty()) {
                 for (String documentId : documentUniqueId) {
                     boolean documentIdPresent = false;
                     for (Document doc : docs) {
@@ -262,12 +259,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
             }
             // response.getRegistryResponse().setStatus(responseStatus);
             if (response.getRegistryResponse().getStatus().equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE)
-                    && (response.getDocumentResponse().size() > 0)) {
+                    && response.getDocumentResponse().size() > 0) {
                 response.getRegistryResponse().setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS);
             } else if (response.getRegistryResponse().getStatus()
                     .equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)
-                    && (response.getRegistryResponse().getRegistryErrorList() != null)
-                    && (response.getRegistryResponse().getRegistryErrorList().getRegistryError() != null)) {
+                    && response.getRegistryResponse().getRegistryErrorList() != null
+                    && response.getRegistryResponse().getRegistryErrorList().getRegistryError() != null) {
                 response.getRegistryResponse().setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
             }
         } else {
@@ -352,7 +349,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         // return the correct response based on the results of the query.
         String responseStatus;
-        if ((errorList.getRegistryError().isEmpty())) {
+        if (errorList.getRegistryError().isEmpty()) {
             responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS;
         } else {
             responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
@@ -576,7 +573,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         // determine if the save was successful - Hibernate will generate
         // a documentId for the record and populate this value in the
         // document object if the save was successful.
-        if ((doc.getDocumentid() == null) || (doc.getDocumentid() < 1)) {
+        if (doc.getDocumentid() == null || doc.getDocumentid() < 1) {
             RegistryError error = docRepoHelper.setRegistryError("store a document.", " storeDocument",
                     DocRepoConstants.XDS_ERROR_CODE_REPOSITORY_ERROR,
                     DocRepoConstants.XDS_REPOSITORY_ERROR + " DocumentUniqueId: " + documentUniqueId);

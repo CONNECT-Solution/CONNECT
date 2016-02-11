@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +26,15 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import java.util.HashMap;
-import java.util.Map;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Test;
 
 public class ExecutorServiceHelperTest {
 
@@ -63,7 +66,7 @@ public class ExecutorServiceHelperTest {
     @Test
     public void testGetExecutorPoolSize() {
         System.out.println("getExecutorPoolSize");
-        //default Pool Size
+        // default Pool Size
         int expResult = 100;
         int result = ExecutorServiceHelper.getExecutorPoolSize();
         assertEquals(expResult, result);
@@ -75,7 +78,7 @@ public class ExecutorServiceHelperTest {
     @Test
     public void testGetLargeJobExecutorPoolSize() {
         System.out.println("getLargeJobExecutorPoolSize");
-        //default value
+        // default value
         int expResult = 200;
         int result = ExecutorServiceHelper.getLargeJobExecutorPoolSize();
         assertEquals(expResult, result);
@@ -98,7 +101,7 @@ public class ExecutorServiceHelperTest {
     @Test
     public void testGetTimeoutValues() {
         System.out.println("getTimeoutValues");
-        //set the default values
+        // set the default values
         Map expResult = new HashMap();
         Map result = ExecutorServiceHelper.getTimeoutValues();
         assertEquals(expResult, result);

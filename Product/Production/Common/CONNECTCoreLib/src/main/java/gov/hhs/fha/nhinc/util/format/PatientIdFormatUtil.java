@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ public class PatientIdFormatUtil {
     public static String parsePatientId(String receivedPatientId) {
         LOG.debug("Parsing patient id: " + receivedPatientId);
         String patientId = receivedPatientId;
-        if ((patientId != null) && (patientId.length() > 0)) {
+        if (patientId != null && patientId.length() > 0) {
             patientId = stripQuotesFromPatientId(patientId);
             int componentIndex = patientId.indexOf("^");
             LOG.debug("Index: " + componentIndex);
@@ -98,14 +98,14 @@ public class PatientIdFormatUtil {
     public static String parseCommunityId(String encodedPatientId) {
         LOG.debug("Parsing community id: " + encodedPatientId);
         String communityId = null;
-        if ((encodedPatientId != null) && (encodedPatientId.length() > 0)) {
+        if (encodedPatientId != null && encodedPatientId.length() > 0) {
             String workingCommunityId = encodedPatientId;
             workingCommunityId = stripQuotesFromPatientId(workingCommunityId);
 
             // First remove the first components
             int componentIndex = workingCommunityId.lastIndexOf("^");
             LOG.debug("Index: " + componentIndex);
-            if ((componentIndex != -1) && (workingCommunityId.length() > (componentIndex + 1))) {
+            if (componentIndex != -1 && workingCommunityId.length() > componentIndex + 1) {
                 workingCommunityId = workingCommunityId.substring(componentIndex + 1);
                 LOG.debug("Working community id after first components removed: " + workingCommunityId);
 
@@ -140,7 +140,7 @@ public class PatientIdFormatUtil {
         }
         String encodedPatientId = null;
         LOG.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: "
-            + sLocalHomeCommunityId);
+                + sLocalHomeCommunityId);
         if (patientId != null) {
             encodedPatientId = "'" + patientId + "^^^&" + sLocalHomeCommunityId + "&ISO" + "'";
             LOG.debug("HL7 encoded patient id: " + encodedPatientId);

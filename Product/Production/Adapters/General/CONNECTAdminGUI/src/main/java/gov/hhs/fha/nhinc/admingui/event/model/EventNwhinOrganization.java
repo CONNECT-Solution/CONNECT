@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -241,7 +241,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getTotalCount(){
+    public int getTotalCount() {
         return getPdCount() + getDqCount() + getDrCount() + getDsCount() + getAdCount() + getDirectCount();
     }
 

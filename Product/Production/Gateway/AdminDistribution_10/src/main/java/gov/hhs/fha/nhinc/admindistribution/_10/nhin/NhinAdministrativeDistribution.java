@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,16 +41,14 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinAdministrativeDistribution extends BaseService implements
-    RespondingGatewayAdministrativeDistributionPortType {
+public class NhinAdministrativeDistribution extends BaseService
+        implements RespondingGatewayAdministrativeDistributionPortType {
 
     private WebServiceContext context;
     private InboundAdminDistribution inboundAdminDist;
 
     @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-        afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class,
-        beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body) {
         AssertionType assertion = getAssertion(context, null);
         inboundAdminDist.sendAlertMessage(body, assertion);
@@ -71,6 +69,6 @@ public class NhinAdministrativeDistribution extends BaseService implements
      * @return the inbound admin distribution
      */
     public InboundAdminDistribution getInboundAdminDistribution() {
-        return this.inboundAdminDist;
+        return inboundAdminDist;
     }
 }

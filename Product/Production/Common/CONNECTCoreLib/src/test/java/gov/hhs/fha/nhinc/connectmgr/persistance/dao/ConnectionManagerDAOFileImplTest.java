@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,10 +45,10 @@ import org.slf4j.LoggerFactory;
 public class ConnectionManagerDAOFileImplTest {
 
     private static final String TEST_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-        + "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">"
-        + "<businessEntity businessKey=\"key\">" + "<name xml:lang=\"EN\">BusinessEntity 1</name>"
-        + "</businessEntity>" + "<businessEntity businessKey=\"key\">"
-        + "<name xml:lang=\"EN\">BusinessEntity 2</name>" + "</businessEntity>" + "</businessDetail>";
+            + "<businessDetail xmlns=\"urn:uddi-org:api_v3\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">"
+            + "<businessEntity businessKey=\"key\">" + "<name xml:lang=\"EN\">BusinessEntity 1</name>"
+            + "</businessEntity>" + "<businessEntity businessKey=\"key\">"
+            + "<name xml:lang=\"EN\">BusinessEntity 2</name>" + "</businessEntity>" + "</businessDetail>";
     private static boolean ignoreWhitespaceSavedValue;
     private File tempFile = null;
 

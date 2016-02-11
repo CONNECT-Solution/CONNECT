@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -93,7 +93,7 @@ public class UDDITimer extends Thread {
         try {
             String sDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE,
                     UDDI_REFRESH_DURATION_PROPERTY);
-            if ((sDuration != null) && (sDuration.length() > 0)) {
+            if (sDuration != null && sDuration.length() > 0) {
                 m_iDurationSeconds = Integer.parseInt(sDuration);
             }
         } catch (Exception e) {

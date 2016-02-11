@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -83,7 +83,8 @@ public class AdhocQueryTransformHelper {
         return result;
     }
 
-    private static CheckPolicyRequestType transformAdhocQueryResponseToCheckPolicyBase(AdhocQueryResultEventType event) {
+    private static CheckPolicyRequestType transformAdhocQueryResponseToCheckPolicyBase(
+            AdhocQueryResultEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
 
         RequestType request = new RequestType();
@@ -102,8 +103,8 @@ public class AdhocQueryTransformHelper {
         String sStrippedPatientId = null;
         String aaId = null;
         if (event != null && event.getMessage() != null && event.getMessage().getAssertion() != null
-            && NullChecker.isNotNullish(event.getMessage().getAssertion().getUniquePatientId())
-            && NullChecker.isNotNullish(event.getMessage().getAssertion().getUniquePatientId().get(0))) {
+                && NullChecker.isNotNullish(event.getMessage().getAssertion().getUniquePatientId())
+                && NullChecker.isNotNullish(event.getMessage().getAssertion().getUniquePatientId().get(0))) {
             sPatientId = event.getMessage().getAssertion().getUniquePatientId().get(0);
             sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
             aaId = PatientIdFormatUtil.parseCommunityId(sPatientId);
@@ -111,18 +112,17 @@ public class AdhocQueryTransformHelper {
         LOG.debug("transformAdhocQueryResponseToCheckPolicyBase aaId: " + aaId);
         LOG.debug("transformAdhocQueryResponseToCheckPolicyBase PatientId: " + sStrippedPatientId);
 
-        resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+        resource.getAttribute()
+                .add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
 
-        resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+        resource.getAttribute()
+                .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = null;
         if (event != null && event.getMessage() != null) {
-            subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+            subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         }
         request.getSubject().add(subject);
 
@@ -141,22 +141,18 @@ public class AdhocQueryTransformHelper {
     }
 
     private static CheckPolicyRequestType transformAdhocQueryResponseInboundToCheckPolicy(
-        AdhocQueryResultEventType event) {
+            AdhocQueryResultEventType event) {
         return transformAdhocQueryResponseToCheckPolicyBase(event);
     }
 
     private static CheckPolicyRequestType transformAdhocQueryResponseOutboundToCheckPolicy(
-        AdhocQueryResultEventType event) {
+            AdhocQueryResultEventType event) {
         CheckPolicyRequestType checkPolicy = transformAdhocQueryResponseToCheckPolicyBase(event);
         AttributeHelper attrHelper = new AttributeHelper();
         if (event != null) {
-            checkPolicy
-                .getRequest()
-                .getResource()
-                .get(0)
-                .getAttribute()
-                .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
-                CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+            checkPolicy.getRequest().getResource().get(0).getAttribute()
+                    .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                            CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
         }
         return checkPolicy;
     }
@@ -183,8 +179,8 @@ public class AdhocQueryTransformHelper {
 
         if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
-            if ((assertion != null) && (assertion.getUniquePatientId() != null)
-                    && (assertion.getUniquePatientId().size() > 0)) {
+            if (assertion != null && assertion.getUniquePatientId() != null
+                    && assertion.getUniquePatientId().size() > 0) {
                 aaId = PatientIdFormatUtil.parseCommunityId(assertion.getUniquePatientId().get(0));
                 sStrippedPatientId = PatientIdFormatUtil.parsePatientId(assertion.getUniquePatientId().get(0));
 
@@ -200,17 +196,17 @@ public class AdhocQueryTransformHelper {
 
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
-        resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
+        resource.getAttribute()
+                .add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
 
-        resource.getAttribute().add(
-            attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+        resource.getAttribute()
+                .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
         if (event != null && event.getMessage() != null) {
-            SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+            SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
+                    event.getMessage().getAssertion());
             request.getSubject().add(subject);
         }
 
@@ -236,13 +232,9 @@ public class AdhocQueryTransformHelper {
         CheckPolicyRequestType checkPolicy = transformAdhocQueryToCheckPolicyBase(event);
         AttributeHelper attrHelper = new AttributeHelper();
         if (event != null) {
-            checkPolicy
-                .getRequest()
-                .getResource()
-                .get(0)
-                .getAttribute()
-                .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
-                CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+            checkPolicy.getRequest().getResource().get(0).getAttribute()
+                    .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                            CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
         }
         return checkPolicy;
     }
@@ -259,10 +251,10 @@ public class AdhocQueryTransformHelper {
     private static String extractPatientIdentifier(AdhocQueryRequest docQuery) {
         String patientIdentifier = null;
 
-        if ((docQuery != null) && (docQuery.getAdhocQuery() != null)) {
+        if (docQuery != null && docQuery.getAdhocQuery() != null) {
             List<SlotType1> slots = docQuery.getAdhocQuery().getSlot();
             for (SlotType1 slot : slots) {
-                if ((slot.getName() != null) && (slot.getName().contentEquals("$XDSDocumentEntryPatientId"))) {
+                if (slot.getName() != null && slot.getName().contentEquals("$XDSDocumentEntryPatientId")) {
                     if (slot.getValueList() != null) {
                         if (slot.getValueList().getValue().size() == 1) {
                             patientIdentifier = slot.getValueList().getValue().get(0);

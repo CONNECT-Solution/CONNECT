@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -95,8 +95,8 @@ public class CallableRequest<Target, Request, Response> implements Callable<Resp
             }
         } catch (Exception e) {
             LOG.trace("Exception making service call: {}", e.getLocalizedMessage(), e);
-            response = (Response) new ResponseWrapper(target, request, processor.processError(e.getLocalizedMessage(),
-                request, target));
+            response = (Response) new ResponseWrapper(target, request,
+                    processor.processError(e.getLocalizedMessage(), request, target));
         }
         return response;
     }

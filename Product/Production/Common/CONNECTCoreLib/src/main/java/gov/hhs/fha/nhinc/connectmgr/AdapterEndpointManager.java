@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ public class AdapterEndpointManager {
             LOG.error("Error getting API version: ", ex);
         }
 
-        return (result == null) ? ADAPTER_API_LEVEL.LEVEL_a1 : result;
+        return result == null ? ADAPTER_API_LEVEL.LEVEL_a1 : result;
     }
 
     private ADAPTER_API_LEVEL getHighestGatewayApiLevel(Set<ADAPTER_API_LEVEL> apiLevels) {

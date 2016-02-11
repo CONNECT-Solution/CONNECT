@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,12 +71,9 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     /**
      * This method returns CXFClient to implement AdpaterAdmin Dist Secured Service.
      *
-     * @param portDescriptor
-     *            comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
-     * @param url
-     *            targetCommunity Url received.
-     * @param assertion
-     *            Assertion received.
+     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
+     * @param url targetCommunity Url received.
+     * @param assertion Assertion received.
      * @return CXFClient for AdapterAdminDist Secured Service.
      */
     protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
@@ -94,14 +91,10 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     /**
      * This method implements SendAlertMessage for AdminDist.
      *
-     * @param body
-     *            Emergency Message Distribution Element transaction message body received.
-     * @param assertion
-     *            Assertion received.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");

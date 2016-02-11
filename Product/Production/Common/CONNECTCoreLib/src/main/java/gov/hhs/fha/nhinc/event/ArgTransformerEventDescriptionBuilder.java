@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,8 +48,7 @@ public abstract class ArgTransformerEventDescriptionBuilder extends DelegatingEv
     /**
      * Go from the input arguments to the delegate's input arguments.
      *
-     * @param arguments
-     *            input arguments that <code>setArguments</code> will be called with
+     * @param arguments input arguments that <code>setArguments</code> will be called with
      * @return arguments expected by the delegate
      */
     public abstract Object[] transformArguments(Object[] arguments);
@@ -57,8 +56,7 @@ public abstract class ArgTransformerEventDescriptionBuilder extends DelegatingEv
     /**
      * Go from the input return value to the delegate's return value.
      *
-     * @param returnValue
-     *            value <code>setReturnValue</code> will be called with
+     * @param returnValue value <code>setReturnValue</code> will be called with
      * @return value expected by the delegate
      */
     public abstract Object transformReturnValue(Object returnValue);

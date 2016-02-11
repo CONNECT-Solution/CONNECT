@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -131,16 +131,15 @@ public class Storer {
         Transaction trans = null;
 
         String deleteCorrelatedIdentifiersSQL = "delete from correlatedidentifiers "
-            + "where ((PatientAssigningAuthorityId = :patientAssigningAuthority "
-            + "and PatientId= :patientId "
-            + "and CorrelatedPatientAssignAuthId= :correlatedPatientAssignAuthId "
-            + "and CorrelatedPatientId= :correlatedPatientId) "
-            + "or (PatientAssigningAuthorityId= :correlatedPatientAssignAuthId "
-            + "and PatientId= :correlatedPatientId "
-            + "and CorrelatedPatientAssignAuthId= :patientAssigningAuthority "
-            + "and CorrelatedPatientId= :patientId))";
+                + "where ((PatientAssigningAuthorityId = :patientAssigningAuthority " + "and PatientId= :patientId "
+                + "and CorrelatedPatientAssignAuthId= :correlatedPatientAssignAuthId "
+                + "and CorrelatedPatientId= :correlatedPatientId) "
+                + "or (PatientAssigningAuthorityId= :correlatedPatientAssignAuthId "
+                + "and PatientId= :correlatedPatientId "
+                + "and CorrelatedPatientAssignAuthId= :patientAssigningAuthority "
+                + "and CorrelatedPatientId= :patientId))";
 
-        //get the SQL bind values
+        // get the SQL bind values
         String paramPatientAssigningAuthority = correlatedIdentifers.getPatientAssigningAuthorityId();
         String paramPatientId = correlatedIdentifers.getPatientId();
         String paramCorrelatedPatientAssignAuthId = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
@@ -157,9 +156,9 @@ public class Storer {
                     query.setString("patientId", paramPatientId);
                     query.setString("correlatedPatientAssignAuthId", paramCorrelatedPatientAssignAuthId);
                     query.setString("correlatedPatientId", paramCorrelatedPatientId);
-                    //delete the rows
+                    // delete the rows
                     int rowsDeleted = query.executeUpdate();
-                    //commit the trasaction
+                    // commit the trasaction
                     trans.commit();
                     if (rowsDeleted != 0) {
                         LOG.debug("Total Rows Deleted from table correlatedidentifiers -->" + rowsDeleted);

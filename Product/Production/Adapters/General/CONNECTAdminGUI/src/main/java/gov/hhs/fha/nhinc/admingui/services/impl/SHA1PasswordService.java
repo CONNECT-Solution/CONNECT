@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,6 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
+
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -70,7 +71,7 @@ public class SHA1PasswordService extends AbstractBase64EncodedPasswordService {
         return encode(digest);
     }
 
-     /**
+    /**
      *
      * @return the salt value
      */

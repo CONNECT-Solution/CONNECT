@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,23 +68,23 @@ public class EventCodeParam {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
+        }
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
         EventCodeParam toCheck = (EventCodeParam) obj;
 
-        if ((this.getEventCode() == null) && (toCheck.getEventCode() != null)) {
+        if (getEventCode() == null && toCheck.getEventCode() != null) {
             return false;
-        } else if ((this.getEventCode() != null) && (!this.getEventCode().equals(toCheck.getEventCode()))) {
+        } else if (getEventCode() != null && !getEventCode().equals(toCheck.getEventCode())) {
             return false;
         }
 
-        if ((this.getEventCodeScheme() == null) && (toCheck.getEventCodeScheme() != null)) {
+        if (getEventCodeScheme() == null && toCheck.getEventCodeScheme() != null) {
             return false;
-        } else if ((this.getEventCodeScheme() != null)
-                && (!this.getEventCodeScheme().equals(toCheck.getEventCodeScheme()))) {
+        } else if (getEventCodeScheme() != null && !getEventCodeScheme().equals(toCheck.getEventCodeScheme())) {
             return false;
         }
         return true;

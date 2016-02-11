@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,11 +66,11 @@ public abstract class AuditLogger<T, K> {
      * @param serviceName Name of the Service being audited
      */
     public void auditRequestMessage(T request, AssertionType assertion, NhinTargetSystemType target, String direction,
-        String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
+            String _interface, Boolean isRequesting, Properties webContextProperties, String serviceName) {
         LOG.trace("--- Before auditing of request message ---");
         if (isAuditLoggingOn(serviceName) && getAuditLogger() != null) {
             getAuditLogger().auditRequestMessage(request, assertion, target, direction, _interface, isRequesting,
-                webContextProperties, serviceName, getAuditTransforms());
+                    webContextProperties, serviceName, getAuditTransforms());
         }
         LOG.trace("--- After auditing of request message ---");
     }
@@ -91,13 +91,13 @@ public abstract class AuditLogger<T, K> {
      * @param serviceName Name of the Service being audited
      */
     public void auditResponseMessage(T request, K response, AssertionType assertion, NhinTargetSystemType target,
-        String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
-        String serviceName) {
+            String direction, String _interface, Boolean isRequesting, Properties webContextProperties,
+            String serviceName) {
 
         LOG.trace("--- Before auditing of response message ---");
         if (isAuditLoggingOn(serviceName) && getAuditLogger() != null) {
             getAuditLogger().auditResponseMessage(request, response, assertion, target, direction, _interface,
-                isRequesting, webContextProperties, serviceName, getAuditTransforms());
+                    isRequesting, webContextProperties, serviceName, getAuditTransforms());
         }
         LOG.trace("--- After auditing of response message ---");
     }
@@ -105,8 +105,8 @@ public abstract class AuditLogger<T, K> {
     protected AuditEJBLogger getAuditLogger() {
         try {
             String globalAuditLoggerAsyncEJBName = "java:app/" + NhincConstants.EJB_CORE_MODULE_NAME + "/"
-                + NhincConstants.AUDIT_LOGGER_EJB_BEAN_NAME;
-            return (AuditEJBLogger) (new InitialContext()).lookup(globalAuditLoggerAsyncEJBName);
+                    + NhincConstants.AUDIT_LOGGER_EJB_BEAN_NAME;
+            return (AuditEJBLogger) new InitialContext().lookup(globalAuditLoggerAsyncEJBName);
         } catch (NamingException ex) {
             LOG.error("JNDI EJB Lookup Failed : " + ex.getMessage(), ex);
             return null;
@@ -124,7 +124,7 @@ public abstract class AuditLogger<T, K> {
 
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
-                serviceName);
+                    serviceName);
         } catch (PropertyAccessException ex) {
             LOG.error("Unable to read the Audit logging property: " + ex.getLocalizedMessage(), ex);
         }

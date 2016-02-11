@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,16 +45,16 @@ public class SHA1HashCode {
      */
     private static String convertToHex(byte[] data) {
         StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < data.length; i++) {
-            int halfbyte = (data[i] >>> 4) & 0x0F;
+        for (byte element : data) {
+            int halfbyte = element >>> 4 & 0x0F;
             int two_halfs = 0;
             do {
-                if ((0 <= halfbyte) && (halfbyte <= 9)) {
+                if (0 <= halfbyte && halfbyte <= 9) {
                     buf.append((char) ('0' + halfbyte));
                 } else {
                     buf.append((char) ('a' + (halfbyte - 10)));
                 }
-                halfbyte = data[i] & 0x0F;
+                halfbyte = element & 0x0F;
             } while (two_halfs++ < 1);
         }
         return buf.toString();

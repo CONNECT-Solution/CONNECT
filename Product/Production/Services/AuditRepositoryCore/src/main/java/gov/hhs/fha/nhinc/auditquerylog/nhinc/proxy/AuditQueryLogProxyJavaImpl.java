@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ public class AuditQueryLogProxyJavaImpl implements AuditRetrieve {
     /**
      *
      * @param req - Request provides search params to retrieve Audit Events. If none of the elements are provided in
-     * request. If optional elements are not provided will return all audit events
+     *            request. If optional elements are not provided will return all audit events
      * @return QueryAuditEventsResponseType
      */
     @Override
@@ -61,12 +61,12 @@ public class AuditQueryLogProxyJavaImpl implements AuditRetrieve {
     /**
      *
      * @param request - Request provides search params MessageId and RelatesTo to retrieve Audit Events. If none of the
-     * elements are provided in request. If optional elements are not provided will return all audit events
+     *            elements are provided in request. If optional elements are not provided will return all audit events
      * @return QueryAuditEventsResponseType
      */
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
-        QueryAuditEventsRequestByRequestMessageId request) {
+            QueryAuditEventsRequestByRequestMessageId request) {
         return queryImpl.queryAuditEventsByMessageIdAndRelatesTo(request);
     }
 

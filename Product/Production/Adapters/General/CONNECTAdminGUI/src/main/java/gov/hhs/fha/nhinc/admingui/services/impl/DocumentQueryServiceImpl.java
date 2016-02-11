@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     }
 
     public DocumentQueryServiceImpl(AdhocQueryRequestBuilder requestBuilder,
-        DocumentMetadataResultsModelBuilder responseBuilder) {
+            DocumentMetadataResultsModelBuilder responseBuilder) {
         this.requestBuilder = requestBuilder;
         this.responseBuilder = responseBuilder;
     }
@@ -103,8 +104,8 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         targetCommunity.build();
         EntityDocQueryProxyWebServiceUnsecuredImpl instance = new EntityDocQueryProxyWebServiceUnsecuredImpl();
 
-        AdhocQueryResponse response = instance.respondingGatewayCrossGatewayQuery(
-            request.getAdhocQueryRequest(), request.getAssertion(), targetCommunity.getNhinTargetCommunities());
+        AdhocQueryResponse response = instance.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(),
+                request.getAssertion(), targetCommunity.getNhinTargetCommunities());
 
         return createDocumentMetadataResult(response);
     }

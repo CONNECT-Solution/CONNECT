@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
      * @param userLoginDao
      */
     LoginServiceImpl(UserLoginDAO userLoginDao) {
-        this.userLoginDAO = userLoginDao;
+        userLoginDAO = userLoginDao;
     }
 
     /**
@@ -91,8 +91,8 @@ public class LoginServiceImpl implements LoginService {
 
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
-                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(), login.getPassword()
-                    .getBytes(), user.getSalt().getBytes());
+                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(),
+                        login.getPassword().getBytes(), user.getSalt().getBytes());
                 if (!loggedIn) {
                     user = null;
                 }
@@ -115,8 +115,7 @@ public class LoginServiceImpl implements LoginService {
         byte[] saltValue;
         try {
             saltValue = passwordService.generateRandomSalt();
-            passwordHash = new String(
-                passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
+            passwordHash = new String(passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
 
         } catch (PasswordServiceException | IOException e) {
             throw new UserLoginException("Error while calculating hash.", e);

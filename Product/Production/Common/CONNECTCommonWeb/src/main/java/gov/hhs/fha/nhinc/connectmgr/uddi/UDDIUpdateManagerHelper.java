@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -101,10 +101,10 @@ public class UDDIUpdateManagerHelper {
         boolean createBackups = true;
         try {
             createBackups = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-                UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
+                    UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
         } catch (Exception e) {
             LOG.warn("Failed to retrieve property {} from {}.properties. Defaulting to creating backups: {}",
-                UDDI_REFRESH_KEEP_BACKUPS_PROPERTY, GATEWAY_PROPERTY_FILE, e.getLocalizedMessage(), e);
+                    UDDI_REFRESH_KEEP_BACKUPS_PROPERTY, GATEWAY_PROPERTY_FILE, e.getLocalizedMessage(), e);
         }
 
         if (createBackups) {
@@ -122,7 +122,7 @@ public class UDDIUpdateManagerHelper {
                 }
             } catch (Exception e) {
                 LOG.error("Failed to rename the current file {} to {}: {}", uddiFileLocation, backupUddiFileLocation,
-                    e.getLocalizedMessage(), e);
+                        e.getLocalizedMessage(), e);
             }
         }
     }
@@ -141,10 +141,11 @@ public class UDDIUpdateManagerHelper {
     private void addToBackupList(String latestFilename) {
         int maxNumBackup = MAX_NUM_BACKUP;
         try {
-            maxNumBackup = (int) PropertyAccessor.getInstance().getPropertyLong(GATEWAY_PROPERTY_FILE, UDDI_MAX_NUM_BACKUPS_PROPERTY);
+            maxNumBackup = (int) PropertyAccessor.getInstance().getPropertyLong(GATEWAY_PROPERTY_FILE,
+                    UDDI_MAX_NUM_BACKUPS_PROPERTY);
         } catch (Exception e) {
             LOG.warn("Failed to retrieve property {} from {}.properties. Defaulting to {}: {}",
-                UDDI_MAX_NUM_BACKUPS_PROPERTY, GATEWAY_PROPERTY_FILE, MAX_NUM_BACKUP, e.getLocalizedMessage(), e);
+                    UDDI_MAX_NUM_BACKUPS_PROPERTY, GATEWAY_PROPERTY_FILE, MAX_NUM_BACKUP, e.getLocalizedMessage(), e);
         }
 
         String filenameToDelete = null;
@@ -174,7 +175,7 @@ public class UDDIUpdateManagerHelper {
      * @return True if the file was loaded false if it was not.
      */
     public UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
-        UDDIUpdateManagerForceRefreshRequestType part1) {
+            UDDIUpdateManagerForceRefreshRequestType part1) {
         UDDIUpdateManagerForceRefreshResponseType oResponse = new UDDIUpdateManagerForceRefreshResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);

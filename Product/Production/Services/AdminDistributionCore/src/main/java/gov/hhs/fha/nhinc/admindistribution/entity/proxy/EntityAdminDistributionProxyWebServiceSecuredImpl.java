@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,9 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         return new WebServiceProxyHelper();
     }
 
-    /**This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel.
+    /**
+     * This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel.
+     * 
      * @param apiLevel gateway apiLevel received (g0/g1).
      * @return instance of EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel.
      */
@@ -78,8 +80,10 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         }
     }
 
-    /** This method returns CXFClient to implement AdminDist Secured Service.
-     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName  and WS_ADDRESSING_ACTION.
+    /**
+     * This method returns CXFClient to implement AdminDist Secured Service.
+     * 
+     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName and WS_ADDRESSING_ACTION.
      * @param url target community url .
      * @param assertion Assertion received.
      * @return CXFClient to implement AdminDist Secured Service.
@@ -91,7 +95,9 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
-    /** This method implements sendAlertMessage from initiater to responder.
+    /**
+     * This method implements sendAlertMessage from initiater to responder.
+     * 
      * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      * @param target NhinTargetCommunity receievd.
@@ -106,13 +112,12 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
 
         if (NullChecker.isNotNullish(url)) {
             try {
-                RespondingGatewaySendAlertMessageSecuredType message =
-                        new RespondingGatewaySendAlertMessageSecuredType();
+                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
                 message.setNhinTargetCommunities(target);
 
-                ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor =
-                        getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor = getServicePortDescriptor(
+                        apiLevel);
 
                 CONNECTClient<AdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);

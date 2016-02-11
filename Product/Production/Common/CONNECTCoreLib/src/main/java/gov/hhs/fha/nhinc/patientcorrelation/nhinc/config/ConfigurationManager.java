@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -97,7 +97,7 @@ public class ConfigurationManager {
             final String FEATURE = "http://xml.org/sax/features/external-general-entities";
             dbf.setFeature(FEATURE, false);
 
-            //For Xerces 2
+            // For Xerces 2
             final String FEATURE_2 = "http://apache.org/xml/features/disallow-doctype-decl";
             dbf.setFeature(FEATURE_2, true);
 
@@ -110,9 +110,9 @@ public class ConfigurationManager {
 
             String defaultUnits = "";
             Node defaultDurationNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
-                .getNamedItem("defaultDuration");
+                    .getNamedItem("defaultDuration");
             Node defaultUnitNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
-                .getNamedItem("defaultUnits");
+                    .getNamedItem("defaultUnits");
 
             if (defaultDurationNode != null) {
                 defaultConfiguration = Integer.parseInt(defaultDurationNode.getTextContent());

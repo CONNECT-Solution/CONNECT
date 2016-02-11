@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestByRequestMe
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.auditquerylog.RemoteHcidList;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -63,36 +62,36 @@ public class AuditQueryLogImpl {
     /**
      *
      * @param request - Audit Search params will be provided by this requestAuditEvents. The Request may have Event
-     * startDate, Event EndDate, UserId, Remote Org Id and ServiceName/EventType.These are optional parameters. If none
-     * of them is provided all records will be retrieved.
+     *            startDate, Event EndDate, UserId, Remote Org Id and ServiceName/EventType.These are optional
+     *            parameters. If none of them is provided all records will be retrieved.
      * @return QueryAuditEventsResponseType - The Response will be having EventType or ServiceName, EventStatus- Success
-     * or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound), MessageID
-     * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
-     * Audit Id.
+     *         or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound),
+     *         MessageID -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote
+     *         Organization Id and Audit Id.
      *
      */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType request) {
-        return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryByAuditOptions(
-            getEventTypes(request.getEventTypeList()),
-            request.getUserId(), getRemoteHcids(request.getRemoteHcidList()), getRequestDate(request.getEventBeginDate()),
-            getRequestDate(request.getEventEndDate())));
+        return resultUtil.getQueryAuditEventResponse(
+                getAuditRepositoryDao().queryByAuditOptions(getEventTypes(request.getEventTypeList()),
+                        request.getUserId(), getRemoteHcids(request.getRemoteHcidList()),
+                        getRequestDate(request.getEventBeginDate()), getRequestDate(request.getEventEndDate())));
 
     }
 
     /**
      *
      * @param request - Audit search params MessageId and RelatesTo will be provided by Request. These are optional
-     * fields in requestAuditEvents
+     *            fields in requestAuditEvents
      * @return QueryAuditEventsResponseType - The Response will be having EventType or ServiceName, EventStatus- Success
-     * or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound), MessageID
-     * -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote Organization Id and
-     * Audit Id.
+     *         or Failure, Event Timestamp, UserId(Human who initiated transaction), Direction (Outbound/Inbound),
+     *         MessageID -RequestMessageID, RelatesTo (Relates the DeferredRequests and DeferredResponses, Remote
+     *         Organization Id and Audit Id.
      *
      */
     public QueryAuditEventsResponseType queryAuditEventsByMessageIdAndRelatesTo(
-        QueryAuditEventsRequestByRequestMessageId request) {
-        return resultUtil.getQueryAuditEventResponse(getAuditRepositoryDao().queryAuditRecords(
-            request.getRequestMessageId(), request.getRelatesTo()));
+            QueryAuditEventsRequestByRequestMessageId request) {
+        return resultUtil.getQueryAuditEventResponse(
+                getAuditRepositoryDao().queryAuditRecords(request.getRequestMessageId(), request.getRelatesTo()));
     }
 
     /**
@@ -120,7 +119,7 @@ public class AuditQueryLogImpl {
         if (dateObj != null) {
             LOG.info("Converting XMLGregorianCalendar to a date object");
             LOG.info("{}-{}-{} {}:{}:{} {}", dateObj.getMonth(), dateObj.getDay(), dateObj.getYear(), dateObj.getHour(),
-                dateObj.getMinute(), dateObj.getSecond(), dateObj.getTimezone());
+                    dateObj.getMinute(), dateObj.getSecond(), dateObj.getTimezone());
             return new Date(dateObj.toGregorianCalendar().getTimeInMillis());
         }
         return null;

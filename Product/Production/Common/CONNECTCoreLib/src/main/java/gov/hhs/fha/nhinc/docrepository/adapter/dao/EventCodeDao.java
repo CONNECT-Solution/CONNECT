@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -164,9 +164,9 @@ public class EventCodeDao {
                     HashMap<String, String> hashMap = new HashMap<>();
                     if (slots != null) {
                         for (SlotType1 slot : slots) {
-                            if ((slot.getName() != null) && (slot.getName().length() > 0)
-                                && (slot.getValueList() != null) && (slot.getValueList().getValue() != null)
-                                && (slot.getValueList().getValue().size() > 0)) {
+                            if (slot.getName() != null && slot.getName().length() > 0 && slot.getValueList() != null
+                                    && slot.getValueList().getValue() != null
+                                    && slot.getValueList().getValue().size() > 0) {
                                 if (slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
                                     eventCodeSlotSize++;
                                     ValueListType valueListType = slot.getValueList();
@@ -179,25 +179,25 @@ public class EventCodeDao {
                                             for (int l = 0; l < orValues.size(); l++) {
                                                 String innereventCode = getEventCode(classCodes.get(l), "eventCode");
                                                 String innereventCodeScheme = getEventCode(classCodes.get(l),
-                                                    "eventCodeScheme");
+                                                        "eventCodeScheme");
                                                 andCondition = Restrictions.and(
-                                                    Restrictions.eq("eventCode", innereventCode),
-                                                    Restrictions.eq("eventCodeScheme", innereventCodeScheme));
+                                                        Restrictions.eq("eventCode", innereventCode),
+                                                        Restrictions.eq("eventCodeScheme", innereventCodeScheme));
                                                 orCondition.add(andCondition);
                                                 eventCodesList.add(innereventCode);
                                                 eventCodeSchemeList.add(innereventCodeScheme);
-                                                hashMap.put((innereventCode + "^^" + innereventCodeScheme),
-                                                    Integer.toString(eventCodeSlotSize));
+                                                hashMap.put(innereventCode + "^^" + innereventCodeScheme,
+                                                        Integer.toString(eventCodeSlotSize));
                                             }
                                         } else {
                                             String eventCode = getEventCode(classCodes.get(j), "eventCode");
                                             String eventCodeScheme = getEventCode(classCodes.get(j), "eventCodeScheme");
                                             orCondition.add(Restrictions.and(Restrictions.eq("eventCode", eventCode),
-                                                Restrictions.eq("eventCodeScheme", eventCodeScheme)));
+                                                    Restrictions.eq("eventCodeScheme", eventCodeScheme)));
                                             eventCodesList.add(eventCode);
                                             eventCodeSchemeList.add(eventCodeScheme);
-                                            hashMap.put((eventCode + "^^" + eventCodeScheme),
-                                                Integer.toString(eventCodeSlotSize));
+                                            hashMap.put(eventCode + "^^" + eventCodeScheme,
+                                                    Integer.toString(eventCodeSlotSize));
                                         }
                                     }
                                 }
@@ -207,8 +207,8 @@ public class EventCodeDao {
                     String groupBy = "documentid" + " having " + "count(*) >= " + eventCodeSlotSize;
                     subCriteria.add(orCondition);
 
-                    subCriteria.setProjection(Projections.projectionList().add(
-                        Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
+                    subCriteria.setProjection(Projections.projectionList()
+                            .add(Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
 
                     criteria.add(Subqueries.propertyIn("document", subCriteria));
                     criteria.addOrder(Order.asc("document"));
@@ -305,7 +305,7 @@ public class EventCodeDao {
      * @return true, if successful
      */
     private boolean documentInAllSlots(List<EventCode> eventCodes, int eventCodeSlotSize,
-        HashMap<String, String> hashMap, Long documentId) {
+            HashMap<String, String> hashMap, Long documentId) {
         boolean slotsPresent = false;
         for (int i = 1; i <= eventCodeSlotSize; i++) {
             slotsPresent = findDocumentId(hashMap, documentId, eventCodes, i);
@@ -329,7 +329,7 @@ public class EventCodeDao {
      * @return true, if successful
      */
     protected boolean findDocumentId(HashMap<String, String> hashMap, Long documentId, List<EventCode> eventCodes,
-        int slotIndex) {
+            int slotIndex) {
         java.util.Iterator<Entry<String, String>> entries = hashMap.entrySet().iterator();
         boolean doucmentPresent = false;
         while (entries.hasNext()) {
@@ -337,9 +337,9 @@ public class EventCodeDao {
             String key = entry.getKey();
             String value = entry.getValue();
             for (int j = 0; j < eventCodes.size(); j++) {
-                if ((slotIndex == Integer.parseInt(value))
-                    && ((eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())
-                    .equals(key))) {
+                if (slotIndex == Integer.parseInt(value)
+                        && (eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())
+                                .equals(key)) {
                     Long extractedDocumentid = eventCodes.get(j).getDocument().getDocumentid();
                     if (extractedDocumentid.equals(documentId)) {
                         doucmentPresent = true;
@@ -380,7 +380,7 @@ public class EventCodeDao {
     private String getEventCode(String eventCodeParam, String paramName) {
         String[] eventCodeList;
         String separate = "\\^\\^";
-        eventCodeList = (eventCodeParam.split(separate));
+        eventCodeList = eventCodeParam.split(separate);
         if (paramName.equalsIgnoreCase("eventCode")) {
             return eventCodeList[0];
         } else {
@@ -395,7 +395,7 @@ public class EventCodeDao {
      * @param resultCollection the result collection
      */
     public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
-        if ((paramFormattedString != null) && (resultCollection != null)) {
+        if (paramFormattedString != null && resultCollection != null) {
             if (paramFormattedString.startsWith("(")) {
                 String working = paramFormattedString.substring(1);
                 int endIndex = working.indexOf(")");
@@ -404,8 +404,8 @@ public class EventCodeDao {
                 }
                 String[] multiValueString = working.split(",");
                 if (multiValueString != null) {
-                    for (int i = 0; i < multiValueString.length; i++) {
-                        String singleValue = multiValueString[i];
+                    for (String element : multiValueString) {
+                        String singleValue = element;
                         if (singleValue != null) {
                             singleValue = singleValue.trim();
                             if (singleValue.startsWith("'")) {

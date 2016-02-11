@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -35,50 +41,44 @@ import org.apache.cxf.attachment.AttachmentDataSource;
 import org.apache.cxf.message.Attachment;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.message.Message;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class AttachmentReleaseFaultOutInterceptorTest {
 
-	@Test
-	public void testHandleMessage() {
-		final LargeFileUtils largeFileUtils = mock(LargeFileUtils.class);
-		Message message = mock(Message.class);
-		Exchange exchange = mock(Exchange.class);
-		Collection<Attachment> attachments = new ArrayList<>();
-		Attachment attachment = mock(Attachment.class);
-		attachments.add(attachment);
-		DataHandler dataHandler = mock(DataHandler.class);
-		AttachmentDataSource dataSource = mock(AttachmentDataSource.class);
+    @Test
+    public void testHandleMessage() {
+        final LargeFileUtils largeFileUtils = mock(LargeFileUtils.class);
+        Message message = mock(Message.class);
+        Exchange exchange = mock(Exchange.class);
+        Collection<Attachment> attachments = new ArrayList<>();
+        Attachment attachment = mock(Attachment.class);
+        attachments.add(attachment);
+        DataHandler dataHandler = mock(DataHandler.class);
+        AttachmentDataSource dataSource = mock(AttachmentDataSource.class);
 
-		AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor() {
-			@Override
-			protected LargeFileUtils getLargeFileUtils() {
-				return largeFileUtils;
-			}
-		};
+        AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor() {
+            @Override
+            protected LargeFileUtils getLargeFileUtils() {
+                return largeFileUtils;
+            }
+        };
 
-		when(message.getExchange()).thenReturn(exchange);
-		when(exchange.getInMessage()).thenReturn(message);
-		when(message.getAttachments()).thenReturn(attachments);
+        when(message.getExchange()).thenReturn(exchange);
+        when(exchange.getInMessage()).thenReturn(message);
+        when(message.getAttachments()).thenReturn(attachments);
 
-		when(attachment.getDataHandler()).thenReturn(dataHandler);
-		when(dataHandler.getDataSource()).thenReturn(dataSource);
+        when(attachment.getDataHandler()).thenReturn(dataHandler);
+        when(dataHandler.getDataSource()).thenReturn(dataSource);
 
-		interceptor.handleMessage(message);
+        interceptor.handleMessage(message);
 
-		verify(dataSource).release();
-		verify(largeFileUtils).closeStreamWithoutException(
-				any(InputStream.class));
-	}
+        verify(dataSource).release();
+        verify(largeFileUtils).closeStreamWithoutException(any(InputStream.class));
+    }
 
-	@Test
-	public void testGetLargeFileUtils() {
-		AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor();
-		assertTrue(interceptor.getLargeFileUtils() instanceof LargeFileUtils);
-	}
+    @Test
+    public void testGetLargeFileUtils() {
+        AttachmentReleaseFaultOutInterceptor interceptor = new AttachmentReleaseFaultOutInterceptor();
+        assertTrue(interceptor.getLargeFileUtils() instanceof LargeFileUtils);
+    }
 }

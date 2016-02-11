@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,8 @@ public class ConnectionEndpoint {
     private String pingStatus;
     private String pingTimestamp;
 
-    public ConnectionEndpoint(String name, String serviceUrl, String serviceSpec, String pingStatus, String pingTimestamp) {
+    public ConnectionEndpoint(String name, String serviceUrl, String serviceSpec, String pingStatus,
+            String pingTimestamp) {
         this.name = name;
         this.serviceSpec = serviceSpec;
         this.serviceUrl = serviceUrl;

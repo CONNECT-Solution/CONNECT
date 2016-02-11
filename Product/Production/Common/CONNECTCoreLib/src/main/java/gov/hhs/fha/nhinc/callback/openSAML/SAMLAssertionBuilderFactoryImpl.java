@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,20 +32,20 @@ package gov.hhs.fha.nhinc.callback.openSAML;
  */
 public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFactory {
 
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilderFactory#getBuilder(java.lang.String)
-	 */
-	@Override
-	public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
-		SAMLAssertionBuilder builder = null;
-		if ( confirmationMethod.equals(HOK_ASSERTION_TYPE)) {
-			builder = new HOKSAMLAssertionBuilder();
-		} else if (confirmationMethod.equals(SV_ASSERTION_TYPE)) {
-			   builder = new SVSAMLAssertionBuilder();
-		}
-		return builder;
-	}
-
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilderFactory#getBuilder(java.lang.String)
+     */
+    @Override
+    public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
+        SAMLAssertionBuilder builder = null;
+        if (confirmationMethod.equals(HOK_ASSERTION_TYPE)) {
+            builder = new HOKSAMLAssertionBuilder();
+        } else if (confirmationMethod.equals(SV_ASSERTION_TYPE)) {
+            builder = new SVSAMLAssertionBuilder();
+        }
+        return builder;
+    }
 
 }

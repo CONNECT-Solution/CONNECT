@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -108,8 +108,7 @@ public class DashboardBean {
             LOG.error("Could not add panels: {}", e.getLocalizedMessage(), e);
         }
 
-        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().
-            getExternalContext().getSessionMap().get("tabBean");
+        TabBean tabs = (TabBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tabBean");
 
         if (tabs != null) {
             tabs.setDashboardTabIndex(0);
@@ -167,8 +166,7 @@ public class DashboardBean {
         Set keys = System.getProperties().keySet();
 
         for (Object key : keys) {
-            builder.append((String) key).append(" : ")
-                .append(System.getProperty((String) key)).append("\n");
+            builder.append((String) key).append(" : ").append(System.getProperty((String) key)).append("\n");
         }
 
         return builder.toString();

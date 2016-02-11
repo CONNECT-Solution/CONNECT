@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,14 +62,12 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
     private CumulativeResponse cumulativeResponse = null;
 
     private Executor executor = null;
-    private String transactionId = null;
     private List<NhinCallableRequest<IndividualResponse>> callableList = new ArrayList<>();
 
     /**
      *
      */
     public NhinTaskExecutor(Executor e, List<NhinCallableRequest<IndividualResponse>> list, String id) {
-        transactionId = id;
         executor = e;
         callableList = list;
     }
@@ -90,8 +88,7 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
         LOG.debug("NhinTaskExecutor::executeTask begin");
 
         try {
-            CompletionService<IndividualResponse> executorCompletionService = new ExecutorCompletionService<>(
-                    executor);
+            CompletionService<IndividualResponse> executorCompletionService = new ExecutorCompletionService<>(executor);
             // loop through the callableList and submit the callable requests for execution
             for (NhinCallableRequest<IndividualResponse> c : callableList) {
                 executorCompletionService.submit(c);
@@ -122,7 +119,8 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
                                     cumulativeResponse);
                         } else {
                             // shouldn't ever get here, but if we do all we can do is log and skip it
-                            LOG.error("NhinTaskExecutor::executeTask (count=" + count + ") received null response!!!!!");
+                            LOG.error(
+                                    "NhinTaskExecutor::executeTask (count=" + count + ") received null response!!!!!");
                         }
                     } catch (Exception e) {
                         // shouldn't ever get here

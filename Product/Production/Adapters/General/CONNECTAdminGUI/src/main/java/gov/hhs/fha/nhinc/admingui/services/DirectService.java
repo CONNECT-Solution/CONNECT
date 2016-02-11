@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -192,7 +192,7 @@ public interface DirectService {
      * @param trustBundleRefreshInterval
      */
     public void updateTrustBundle(long trustBundleId, String trustBundleName, String trustBundleURL,
-        Certificate signingCert, int trustBundleRefreshInterval);
+            Certificate signingCert, int trustBundleRefreshInterval);
 
     /**
      * Refresh the given direct trust bundle by ID.

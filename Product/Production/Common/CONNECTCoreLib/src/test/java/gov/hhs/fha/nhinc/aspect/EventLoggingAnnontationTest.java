@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -35,9 +39,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -51,7 +52,7 @@ public class EventLoggingAnnontationTest {
 
     public EventLoggingAnnontationTest(Class<?> annotationClass) {
         this.annotationClass = annotationClass;
-        this.className = annotationClass.getCanonicalName();
+        className = annotationClass.getCanonicalName();
     }
 
     @Parameters
@@ -82,8 +83,8 @@ public class EventLoggingAnnontationTest {
     public void verifyBeforeBuilderMethod() throws Throwable {
         Method descriptionBuilderMethod = annotationClass.getMethod("beforeBuilder");
         assertNotNull(className + " has method beforeBuilder", descriptionBuilderMethod);
-        assertTrue(BaseEventDescriptionBuilder.class.getClass().isAssignableFrom(
-                descriptionBuilderMethod.getReturnType()));
+        assertTrue(BaseEventDescriptionBuilder.class.getClass()
+                .isAssignableFrom(descriptionBuilderMethod.getReturnType()));
 
     }
 
@@ -91,8 +92,8 @@ public class EventLoggingAnnontationTest {
     public void verifyAfterReturningBuilderMethod() throws Throwable {
         Method descriptionBuilderMethod = annotationClass.getMethod("afterReturningBuilder");
         assertNotNull(className + " has method afterReturningBuilder", descriptionBuilderMethod);
-        assertTrue(BaseEventDescriptionBuilder.class.getClass().isAssignableFrom(
-                descriptionBuilderMethod.getReturnType()));
+        assertTrue(BaseEventDescriptionBuilder.class.getClass()
+                .isAssignableFrom(descriptionBuilderMethod.getReturnType()));
 
     }
 

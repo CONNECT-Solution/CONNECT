@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,22 +63,21 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.AUDIT_REPO_SERVICE_NAME);
 
             if (NullChecker.isNotNullish(url)) {
-                ServicePortDescriptor<AuditRepositoryManagerPortType> portDescriptor
-                    = new AuditRepositoryUnsecuredServicePortDescriptor();
+                ServicePortDescriptor<AuditRepositoryManagerPortType> portDescriptor = new AuditRepositoryUnsecuredServicePortDescriptor();
 
                 CONNECTClient<AuditRepositoryManagerPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerPortType.class,
-                    invokeMethodName, request);
+                result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerPortType.class, invokeMethodName,
+                        request);
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service ({}).  An unexpected exception occurred. Exception: {}",
-                NhincConstants.AUDIT_REPO_SERVICE_NAME, e.getLocalizedMessage(), e);
+                    NhincConstants.AUDIT_REPO_SERVICE_NAME, e.getLocalizedMessage(), e);
         }
 
         LOG.debug("In AuditRepositoryProxyWebServiceUnsecuredImpl.auditLog(...) - completed called to "
-            + "ConnectionManager to retrieve endpoint.");
+                + "ConnectionManager to retrieve endpoint.");
 
         return result;
     }

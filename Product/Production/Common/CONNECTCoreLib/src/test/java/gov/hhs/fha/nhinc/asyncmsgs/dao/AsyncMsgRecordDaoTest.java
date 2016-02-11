@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.asyncmsgs.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -40,13 +46,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Unit test class for AsyncMsgRecordDao
@@ -307,11 +309,11 @@ public class AsyncMsgRecordDaoTest {
     public void testQueryByCriteria() {
         System.out.println("queryByCriteria");
         QueryDeferredQueueRequestType queryCriteria = new QueryDeferredQueueRequestType();
-        queryCriteria.setCreationBeginTime(long2Gregorian((new Date()).getTime()));
-        queryCriteria.setCreationEndTime(long2Gregorian((new Date()).getTime()));
+        queryCriteria.setCreationBeginTime(long2Gregorian(new Date().getTime()));
+        queryCriteria.setCreationEndTime(long2Gregorian(new Date().getTime()));
         queryCriteria.setDirection("Test");
-        queryCriteria.setResponseBeginTime(long2Gregorian((new Date()).getTime()));
-        queryCriteria.setResponseEndTime(long2Gregorian((new Date()).getTime()));
+        queryCriteria.setResponseBeginTime(long2Gregorian(new Date().getTime()));
+        queryCriteria.setResponseEndTime(long2Gregorian(new Date().getTime()));
         queryCriteria.setResponseType("DQ");
 
         QueryDeferredQueueRequestType queryCriteria1 = new QueryDeferredQueueRequestType();

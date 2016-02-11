@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,8 +70,8 @@ public class HomeCommunityMap {
         try {
 
             BusinessEntity oEntity = connection.getBusinessEntity(sHomeCommunityId);
-            if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
-                && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)) {
+            if (oEntity != null && oEntity.getName() != null && oEntity.getName().size() > 0
+                    && oEntity.getName().get(0) != null && oEntity.getName().get(0).getValue().length() > 0) {
                 sHomeCommunityName = oEntity.getName().get(0).getValue();
             }
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public class HomeCommunityMap {
     public static String getCommunityIdFromTargetCommunities(NhinTargetCommunitiesType target) {
         String responseCommunityId = null;
         if (target != null && NullChecker.isNotNullish(target.getNhinTargetCommunity())
-            && target.getNhinTargetCommunity().get(0) != null) {
+                && target.getNhinTargetCommunity().get(0) != null) {
             responseCommunityId = target.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId();
         }
         LOG.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
@@ -106,7 +106,7 @@ public class HomeCommunityMap {
     public static String getCommunityIdFromTargetSystem(NhinTargetSystemType target) {
         String responseCommunityId = null;
         if (target != null && target.getHomeCommunity() != null
-            && target.getHomeCommunity().getHomeCommunityId() != null) {
+                && target.getHomeCommunity().getHomeCommunityId() != null) {
             responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         }
         LOG.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
@@ -128,7 +128,7 @@ public class HomeCommunityMap {
 
             if (userInfo != null && userInfo.getOrg() != null) {
                 if (userInfo.getOrg().getHomeCommunityId() != null
-                    && userInfo.getOrg().getHomeCommunityId().length() > 0) {
+                        && userInfo.getOrg().getHomeCommunityId().length() > 0) {
                     communityId = userInfo.getOrg().getHomeCommunityId();
                 }
             }
@@ -150,7 +150,7 @@ public class HomeCommunityMap {
         String homeCommunity = null;
 
         if (assertion != null && assertion.getHomeCommunity() != null
-            && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
+                && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
             homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
         }
 
@@ -180,9 +180,9 @@ public class HomeCommunityMap {
     public static String getCommunityIdForDeferredQDResponse(AdhocQueryResponse body) {
         String responseCommunityID = null;
         if (body != null && body.getRegistryObjectList() != null
-            && body.getRegistryObjectList().getIdentifiable() != null
-            && body.getRegistryObjectList().getIdentifiable().size() > 0
-            && body.getRegistryObjectList().getIdentifiable().get(0) != null) {
+                && body.getRegistryObjectList().getIdentifiable() != null
+                && body.getRegistryObjectList().getIdentifiable().size() > 0
+                && body.getRegistryObjectList().getIdentifiable().get(0) != null) {
             responseCommunityID = body.getRegistryObjectList().getIdentifiable().get(0).getValue().getHome();
         }
         return formatHomeCommunityId(responseCommunityID);
@@ -197,7 +197,7 @@ public class HomeCommunityMap {
     public static String getCommunityIdForRDRequest(RetrieveDocumentSetRequestType body) {
         String responseCommunityID = null;
         if (body != null && NullChecker.isNotNullish(body.getDocumentRequest())
-            && body.getDocumentRequest().get(0) != null) {
+                && body.getDocumentRequest().get(0) != null) {
             responseCommunityID = body.getDocumentRequest().get(0).getHomeCommunityId();
         }
         return getHomeCommunityIdWithPrefix(responseCommunityID);
@@ -212,7 +212,7 @@ public class HomeCommunityMap {
     public static String getCommunityIdForDeferredRDResponse(RetrieveDocumentSetResponseType body) {
         String responseCommunityID = null;
         if (body != null && NullChecker.isNotNullish(body.getDocumentResponse())
-            && body.getDocumentResponse().get(0) != null) {
+                && body.getDocumentResponse().get(0) != null) {
             responseCommunityID = body.getDocumentResponse().get(0).getHomeCommunityId();
         }
         return formatHomeCommunityId(responseCommunityID);
@@ -249,7 +249,7 @@ public class HomeCommunityMap {
         String sHomeCommunity = null;
         try {
             sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error("Could not get HCID from prop file: {}", ex.getLocalizedMessage(), ex);
         }

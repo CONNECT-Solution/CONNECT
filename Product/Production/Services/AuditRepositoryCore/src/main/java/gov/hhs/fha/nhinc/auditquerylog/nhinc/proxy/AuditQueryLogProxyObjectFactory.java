@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class AuditQueryLogProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    //AduitQueryLogProxyConfig File name
+    // AduitQueryLogProxyConfig File name
     private static final String CONFIG_FILE_NAME = "AuditQueryLogProxyConfig.xml";
     private static final String BEAN_NAME = "auditquerylog";
 

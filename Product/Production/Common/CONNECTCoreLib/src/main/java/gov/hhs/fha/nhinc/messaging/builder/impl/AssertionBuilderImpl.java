@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,48 +58,48 @@ public class AssertionBuilderImpl extends AbstractAssertionBuilder implements As
         }
 
         UserType userInfo = new UserType();
-        userInfo.setUserName(this.userName);
+        userInfo.setUserName(userName);
 
         PersonNameType personName = new PersonNameType();
-        personName.setGivenName(this.userFirstName);
-        personName.setFamilyName(this.userLastName);
-        personName.setSecondNameOrInitials(this.userMiddleName);
+        personName.setGivenName(userFirstName);
+        personName.setFamilyName(userLastName);
+        personName.setSecondNameOrInitials(userMiddleName);
         userInfo.setPersonName(personName);
 
         // User organization attribute statement
-        if (StringUtils.isBlank(this.userOrganization)) {
+        if (StringUtils.isBlank(userOrganization)) {
             throw new IllegalArgumentException("User Organization is required.");
         }
         HomeCommunityType homeCommunity = new HomeCommunityType();
-        homeCommunity.setName(this.userOrganization);
+        homeCommunity.setName(userOrganization);
         userInfo.setOrg(homeCommunity);
 
         // User role
-        if (StringUtils.isBlank(this.userCode) || StringUtils.isBlank(this.userSystem)
-            || StringUtils.isBlank(this.userSystemName) || StringUtils.isBlank(this.userDisplay)) {
+        if (StringUtils.isBlank(userCode) || StringUtils.isBlank(userSystem) || StringUtils.isBlank(userSystemName)
+                || StringUtils.isBlank(userDisplay)) {
             CeType userRole = new CeType();
-            userRole.setCode(this.userCode);
-            userRole.setCodeSystem(this.userSystem);
-            userRole.setCodeSystemName(this.userSystemName);
-            userRole.setDisplayName(this.userDisplay);
+            userRole.setCode(userCode);
+            userRole.setCodeSystem(userSystem);
+            userRole.setCodeSystemName(userSystemName);
+            userRole.setDisplayName(userDisplay);
             userInfo.setRoleCoded(userRole);
         }
         assertionType.setUserInfo(userInfo);
-        //end UserInfo Assertion
+        // end UserInfo Assertion
 
         // building purposeCoded assertion
         CeType purposeCoded = new CeType();
-        purposeCoded.setCode(this.purposeCode);
-        purposeCoded.setCodeSystem(this.purposeCodeSystem);
-        purposeCoded.setCodeSystemName(this.purposeCodeSystemName);
-        purposeCoded.setDisplayName(this.purposeDisplayName);
+        purposeCoded.setCode(purposeCode);
+        purposeCoded.setCodeSystem(purposeCodeSystem);
+        purposeCoded.setCodeSystemName(purposeCodeSystemName);
+        purposeCoded.setDisplayName(purposeDisplayName);
         assertionType.setPurposeOfDisclosureCoded(purposeCoded);
-        //end purposeCoded assertion
+        // end purposeCoded assertion
 
         // authentication instant
         SamlAuthnStatementType authnStatement = new SamlAuthnStatementType();
-        authnStatement.setAuthInstant(this.samlAuthInstant);
-        authnStatement.setAuthContextClassRef(this.samlAuthClass);
+        authnStatement.setAuthInstant(samlAuthInstant);
+        authnStatement.setAuthContextClassRef(samlAuthClass);
         assertionType.setSamlAuthnStatement(authnStatement);
     }
 

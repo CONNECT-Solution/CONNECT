@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -91,8 +91,8 @@ public class HL7SenderTransforms {
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
-                MCCIMT000200UV01Agent.class, agent);
+        JAXBElement<MCCIMT000200UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent, MCCIMT000200UV01Agent.class,
+                agent);
 
         senderDevice.setAsAgent(agentElem);
 
@@ -138,8 +138,8 @@ public class HL7SenderTransforms {
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
-                MCCIMT000100UV01Agent.class, agent);
+        JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent, MCCIMT000100UV01Agent.class,
+                agent);
 
         senderDevice.setAsAgent(agentElem);
 
@@ -185,8 +185,8 @@ public class HL7SenderTransforms {
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
-        JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
-                MCCIMT000300UV01Agent.class, agent);
+        JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent, MCCIMT000300UV01Agent.class,
+                agent);
 
         senderDevice.setAsAgent(agentElem);
 

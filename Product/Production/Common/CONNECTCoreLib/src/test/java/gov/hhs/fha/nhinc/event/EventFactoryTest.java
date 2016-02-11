@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+
 import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
@@ -42,8 +45,6 @@ import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,56 +106,56 @@ public class EventFactoryTest {
     }
 
     @Test
-     public void createEndNwhinInvocation() {
-         Event event = eventFactory.createEndNwhinInvocation();
-         assertTrue(event instanceof EndNwhinInvocationEvent);
+    public void createEndNwhinInvocation() {
+        Event event = eventFactory.createEndNwhinInvocation();
+        assertTrue(event instanceof EndNwhinInvocationEvent);
 
-     }
-
-    @Test
-     public void createEndOutboundProcessing() {
-         Event event = eventFactory.createEndOutboundProcessing();
-         assertTrue(event instanceof EndOutboundProcessingEvent);
-
-     }
+    }
 
     @Test
-     public void createEndOutboundMessage() {
-         Event event = eventFactory.createEndOutboundMessage();
-         assertTrue(event instanceof EndOutboundMessageEvent);
+    public void createEndOutboundProcessing() {
+        Event event = eventFactory.createEndOutboundProcessing();
+        assertTrue(event instanceof EndOutboundProcessingEvent);
 
-     }
-
-    @Test
-     public void createBeginInboundProcessing() {
-         Event event = eventFactory.createBeginInboundProcessing();
-         assertTrue(event instanceof BeginInboundProcessingEvent);
-
-     }
+    }
 
     @Test
-     public void createBeginAdapterDelegation() {
-         Event event = eventFactory.createBeginAdapterDelegation();
-         assertTrue(event instanceof BeginAdapterDelegationEvent);
-     }
+    public void createEndOutboundMessage() {
+        Event event = eventFactory.createEndOutboundMessage();
+        assertTrue(event instanceof EndOutboundMessageEvent);
+
+    }
 
     @Test
-     public void createEndAdapterDelegation() {
+    public void createBeginInboundProcessing() {
+        Event event = eventFactory.createBeginInboundProcessing();
+        assertTrue(event instanceof BeginInboundProcessingEvent);
+
+    }
+
+    @Test
+    public void createBeginAdapterDelegation() {
+        Event event = eventFactory.createBeginAdapterDelegation();
+        assertTrue(event instanceof BeginAdapterDelegationEvent);
+    }
+
+    @Test
+    public void createEndAdapterDelegation() {
         Event event = eventFactory.createEndAdapterDelegation();
         assertTrue(event instanceof EndAdapterDelegationEvent);
-     }
+    }
 
     @Test
-     public void createEndInboundProcessing() {
-         Event event = eventFactory.createEndInboundProcessing();
-         assertTrue(event instanceof EndInboundProcessingEvent);
+    public void createEndInboundProcessing() {
+        Event event = eventFactory.createEndInboundProcessing();
+        assertTrue(event instanceof EndInboundProcessingEvent);
 
-     }
+    }
 
     @Test
-     public void createMessageProcessingFailed() {
+    public void createMessageProcessingFailed() {
         Event event = eventFactory.createMessageProcessingFailed();
         assertTrue(event instanceof MessageProcessingFailedEvent);
-     }
+    }
 
 }

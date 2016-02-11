@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
  * @author akong
  *
  */
-public class AdapterAuthenticationServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterAuthenticationPortType> {
+public class AdapterAuthenticationServicePortDescriptor
+        extends SOAP12ServicePortDescriptor<AdapterAuthenticationPortType> {
 
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterauthentication:AuthenticateUser";
 

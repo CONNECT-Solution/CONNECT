@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -558,7 +558,7 @@ public class Document {
      * @return Persistence layer code for persistent flag.
      */
     public int getPersistentCode() {
-        return (persistent ? 1 : 0);
+        return persistent ? 1 : 0;
     }
 
     /**
@@ -568,7 +568,7 @@ public class Document {
      * @param persistentCode Persistence layer code for the persistence flag.
      */
     public void setPersistentCode(int persistentCode) {
-        persistent = (persistentCode == 1);
+        persistent = persistentCode == 1;
 
     }
 

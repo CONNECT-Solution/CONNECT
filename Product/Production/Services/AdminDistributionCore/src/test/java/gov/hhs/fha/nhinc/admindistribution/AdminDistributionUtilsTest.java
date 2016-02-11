@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,9 @@
 
 package gov.hhs.fha.nhinc.admindistribution;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import java.io.File;
 import java.io.IOException;
@@ -40,8 +43,6 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -50,105 +51,98 @@ import org.junit.Test;
  */
 public class AdminDistributionUtilsTest {
 
-	final String URI_STRING = "file:///nhin/temp";
-	final String URI_SAVED_FILE_STRING = "file:///nhin/temp/saved";
+    final String URI_STRING = "file:///nhin/temp";
+    final String URI_SAVED_FILE_STRING = "file:///nhin/temp/saved";
 
-	protected Mockery context = new JUnit4Mockery() {
-		{
-			setImposteriser(ClassImposteriser.INSTANCE);
-		}
-	};
-	final LargeFileUtils mockFileUtils = context.mock(LargeFileUtils.class);
+    protected Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final LargeFileUtils mockFileUtils = context.mock(LargeFileUtils.class);
 
-	@Test
-	public void testConvertFileLocationToDataIfEnabled() throws Exception {
-		AdminDistributionUtils adminUtils = createAdminDistributionUtils();
+    @Test
+    public void testConvertFileLocationToDataIfEnabled() throws Exception {
+        AdminDistributionUtils adminUtils = createAdminDistributionUtils();
 
-		context.checking(new Expectations() {
-			{
-				oneOf(mockFileUtils).isParsePayloadAsFileLocationEnabled();
-				will(returnValue(true));
+        context.checking(new Expectations() {
+            {
+                oneOf(mockFileUtils).isParsePayloadAsFileLocationEnabled();
+                will(returnValue(true));
 
-				oneOf(mockFileUtils).parseBase64DataAsUri(
-						with(any(DataHandler.class)));
-				will(returnValue(new URI(URI_SAVED_FILE_STRING)));
+                oneOf(mockFileUtils).parseBase64DataAsUri(with(any(DataHandler.class)));
+                will(returnValue(new URI(URI_SAVED_FILE_STRING)));
 
-				oneOf(mockFileUtils)
-						.convertToDataHandler(with(any(File.class)));
-				will(returnValue(createDataHandler()));
-			}
-		});
+                oneOf(mockFileUtils).convertToDataHandler(with(any(File.class)));
+                will(returnValue(createDataHandler()));
+            }
+        });
 
-		EDXLDistribution request = createEDXLDistribution();
-		adminUtils.convertFileLocationToDataIfEnabled(request);
+        EDXLDistribution request = createEDXLDistribution();
+        adminUtils.convertFileLocationToDataIfEnabled(request);
 
-		DataHandler dh = request.getContentObject().get(0).getNonXMLContent()
-				.getContentData();
+        DataHandler dh = request.getContentObject().get(0).getNonXMLContent().getContentData();
 
-		assertNotNull(dh);
-	}
+        assertNotNull(dh);
+    }
 
-	@Test
-	public void testConvertDataToFileLocationIfEnabled() throws Exception {
-		AdminDistributionUtils adminUtils = createAdminDistributionUtils();
+    @Test
+    public void testConvertDataToFileLocationIfEnabled() throws Exception {
+        AdminDistributionUtils adminUtils = createAdminDistributionUtils();
 
-		context.checking(new Expectations() {
-			{
-				oneOf(mockFileUtils).isSavePayloadToFileEnabled();
-				will(returnValue(true));
+        context.checking(new Expectations() {
+            {
+                oneOf(mockFileUtils).isSavePayloadToFileEnabled();
+                will(returnValue(true));
 
-				oneOf(mockFileUtils).generateAttachmentFile();
-				will(returnValue(new File(new URI(URI_SAVED_FILE_STRING))));
+                oneOf(mockFileUtils).generateAttachmentFile();
+                will(returnValue(new File(new URI(URI_SAVED_FILE_STRING))));
 
-				oneOf(mockFileUtils).saveDataToFile(
-						with(any(DataHandler.class)), with(any(File.class)));
+                oneOf(mockFileUtils).saveDataToFile(with(any(DataHandler.class)), with(any(File.class)));
 
-				oneOf(mockFileUtils).convertToDataHandler(
-						with(any(String.class)));
-				will(returnValue(LargeFileUtils.getInstance()
-						.convertToDataHandler(URI_SAVED_FILE_STRING)));
+                oneOf(mockFileUtils).convertToDataHandler(with(any(String.class)));
+                will(returnValue(LargeFileUtils.getInstance().convertToDataHandler(URI_SAVED_FILE_STRING)));
 
-			}
-		});
+            }
+        });
 
-		EDXLDistribution request = createEDXLDistribution();
-		adminUtils.convertDataToFileLocationIfEnabled(request);
+        EDXLDistribution request = createEDXLDistribution();
+        adminUtils.convertDataToFileLocationIfEnabled(request);
 
-		URI contentUri = LargeFileUtils.getInstance().parseBase64DataAsUri(
-				request.getContentObject().get(0).getNonXMLContent()
-						.getContentData());
+        URI contentUri = LargeFileUtils.getInstance()
+                .parseBase64DataAsUri(request.getContentObject().get(0).getNonXMLContent().getContentData());
 
-		assertEquals(URI_SAVED_FILE_STRING, contentUri.toString());
-	}
+        assertEquals(URI_SAVED_FILE_STRING, contentUri.toString());
+    }
 
-	private EDXLDistribution createEDXLDistribution() throws IOException {
-		LargeFileUtils fileUtils = LargeFileUtils.getInstance();
+    private EDXLDistribution createEDXLDistribution() throws IOException {
+        LargeFileUtils fileUtils = LargeFileUtils.getInstance();
 
-		EDXLDistribution request = new EDXLDistribution();
+        EDXLDistribution request = new EDXLDistribution();
 
-		ContentObjectType co = new ContentObjectType();
-		NonXMLContentType nonXmlContentType = new NonXMLContentType();
-		DataHandler dh = fileUtils.convertToDataHandler(URI_STRING);
+        ContentObjectType co = new ContentObjectType();
+        NonXMLContentType nonXmlContentType = new NonXMLContentType();
+        DataHandler dh = fileUtils.convertToDataHandler(URI_STRING);
 
-		nonXmlContentType.setContentData(dh);
-		co.setNonXMLContent(nonXmlContentType);
-		request.getContentObject().add(co);
+        nonXmlContentType.setContentData(dh);
+        co.setNonXMLContent(nonXmlContentType);
+        request.getContentObject().add(co);
 
-		return request;
-	}
+        return request;
+    }
 
-	private DataHandler createDataHandler() {
-		ByteDataSource bds = new ByteDataSource(new byte[0]);
-		return new DataHandler(bds);
-	}
+    private DataHandler createDataHandler() {
+        ByteDataSource bds = new ByteDataSource(new byte[0]);
+        return new DataHandler(bds);
+    }
 
-	private AdminDistributionUtils createAdminDistributionUtils() {
-		return new AdminDistributionUtils() {
+    private AdminDistributionUtils createAdminDistributionUtils() {
+        return new AdminDistributionUtils() {
             @Override
-			protected LargeFileUtils getLargeFileUtils() {
-				return mockFileUtils;
-			}
-		};
-	}
+            protected LargeFileUtils getLargeFileUtils() {
+                return mockFileUtils;
+            }
+        };
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.async;
 
+import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
@@ -33,17 +38,13 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import static org.junit.Assert.assertSame;
 import org.junit.Test;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.w3c.dom.Element;
 
 public class AsyncMessageIdExtractorTest {
 
     @Test
-    //@Ignore
+    // @Ignore
     public void pullsFirstSoapHeader() {
         List<Header> headers = new ArrayList<>();
         Element mockElement = addHeader(headers, "local");

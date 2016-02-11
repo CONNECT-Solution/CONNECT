@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,8 +42,7 @@ import org.slf4j.LoggerFactory;
  * ExtrinsicObject/Slot[@name=size]/ValueList/Value[0]
  *
  */
-public class PayloadSizeExtractor implements
-        Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
+public class PayloadSizeExtractor implements Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PayloadSizeExtractor.class);
 
@@ -54,7 +53,8 @@ public class PayloadSizeExtractor implements
         IdentifiableType value = jaxbElement.getValue();
         if (value instanceof ExtrinsicObjectType) {
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            payloadSize = JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+            payloadSize = JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(),
+                    DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         } else {
             LOG.warn("Passed in element has an unexpected type.  Expecting ExtrinsicObjectType.  Returning as absent.");
         }

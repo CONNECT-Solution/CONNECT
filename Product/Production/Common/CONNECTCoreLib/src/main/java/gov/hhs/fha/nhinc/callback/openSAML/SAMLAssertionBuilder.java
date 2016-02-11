@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,6 @@ abstract public class SAMLAssertionBuilder {
 
     static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
 
-
     // Authorization Decision Action is always set to Execute
     static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
 
@@ -49,10 +48,10 @@ abstract public class SAMLAssertionBuilder {
     static final String AUTHZ_DECISION_PERMIT = "Permit";
     private static final String AUTHZ_DECISION_DENY = "Deny";
     private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
-    private static final String[] VALID_AUTHZ_DECISION_ARRAY = {AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
-            AUTHZ_DECISION_INDETERMINATE};
-    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays
-            .asList(VALID_AUTHZ_DECISION_ARRAY));
+    private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
+            AUTHZ_DECISION_INDETERMINATE };
+    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections
+            .unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
 
     // Valid Name Identification values
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
@@ -64,8 +63,8 @@ abstract public class SAMLAssertionBuilder {
     private static final String PERSISTENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:persistent";
     private static final String TRANSIENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:transient";
 
-    private static final String[] VALID_NAME_ID_ARRAY = {UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
-            WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID};
+    private static final String[] VALID_NAME_ID_ARRAY = { UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
+            WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID };
     private static final List<String> VALID_NAME_LIST = Collections
             .unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
 
@@ -90,8 +89,8 @@ abstract public class SAMLAssertionBuilder {
             KERBEROS_AUTHN_CNTX_CLS, PREVIOUS_AUTHN_CNTX_CLS, REMOTE_AUTHN_CNTX_CLS, TLS_AUTHN_CNTX_CLS,
             X509_AUTHN_CNTX_CLS, PGP_AUTHN_CNTX_CLS, SPKI_AUTHN_CNTX_CLS, DIG_SIGN_AUTHN_CNTX_CLS,
             UNSPECIFIED_AUTHN_CNTX_CLS };
-    private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections.unmodifiableList(Arrays
-            .asList(VALID_AUTHN_CNTX_CLS_ARRAY));
+    private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections
+            .unmodifiableList(Arrays.asList(VALID_AUTHN_CNTX_CLS_ARRAY));
 
     static boolean isValidNameidFormat(final String format) {
         return VALID_NAME_LIST.contains(format.trim());

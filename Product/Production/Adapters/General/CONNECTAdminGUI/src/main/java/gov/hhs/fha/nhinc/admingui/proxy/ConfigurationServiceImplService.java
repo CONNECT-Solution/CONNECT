@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,20 +35,19 @@ import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
 
-
 /**
  *
  * @author nsubrama
  */
 @WebServiceClient(name = "ConfigurationServiceImplService", targetNamespace = "http://nhind.org/config", wsdlLocation = "http://localhost:8080/CONNECTDirectConfig/ConfigurationService?wsdl")
-public class ConfigurationServiceImplService
-    extends Service
+public class ConfigurationServiceImplService extends Service
 
 {
 
     private final static URL CONFIGURATIONSERVICEIMPLSERVICE_WSDL_LOCATION;
     private final static WebServiceException CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION;
-    private final static QName CONFIGURATIONSERVICEIMPLSERVICE_QNAME = new QName("http://nhind.org/config", "ConfigurationServiceImplService");
+    private final static QName CONFIGURATIONSERVICEIMPLSERVICE_QNAME = new QName("http://nhind.org/config",
+            "ConfigurationServiceImplService");
 
     static {
         URL url = null;
@@ -88,32 +87,32 @@ public class ConfigurationServiceImplService
 
     /**
      *
-     * @return
-     *     returns ConfigurationService
+     * @return returns ConfigurationService
      */
     @WebEndpoint(name = "ConfigurationServiceImplPort")
     public gov.hhs.fha.nhinc.direct.config.ConfigurationService getConfigurationServiceImplPort() {
-        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"), gov.hhs.fha.nhinc.direct.config.ConfigurationService.class);
+        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"),
+                gov.hhs.fha.nhinc.direct.config.ConfigurationService.class);
     }
 
     /**
      *
-     * @param features
-     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
-     * @return
-     *     returns ConfigurationService
+     * @param features A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy. Supported features
+     *            not in the <code>features</code> parameter will have their default values.
+     * @return returns ConfigurationService
      */
     @WebEndpoint(name = "ConfigurationServiceImplPort")
-    public gov.hhs.fha.nhinc.direct.config.ConfigurationService getConfigurationServiceImplPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"), gov.hhs.fha.nhinc.direct.config.ConfigurationService.class, features);
+    public gov.hhs.fha.nhinc.direct.config.ConfigurationService getConfigurationServiceImplPort(
+            WebServiceFeature... features) {
+        return super.getPort(new QName("http://nhind.org/config", "ConfigurationServiceImplPort"),
+                gov.hhs.fha.nhinc.direct.config.ConfigurationService.class, features);
     }
 
     private static URL __getWsdlLocation() {
-        if (CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION!= null) {
+        if (CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION != null) {
             throw CONFIGURATIONSERVICEIMPLSERVICE_EXCEPTION;
         }
         return CONFIGURATIONSERVICEIMPLSERVICE_WSDL_LOCATION;
     }
 
 }
-

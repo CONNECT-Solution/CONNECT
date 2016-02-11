@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,18 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.ack;
 
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.*;
-import org.hl7.v3.*;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.CSHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.Configuration;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.CreationTimeHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.IIHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.InteractionIdHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.SenderReceiverHelperMCCIMT000200UV01;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.UniqueIdHelper;
+import org.hl7.v3.II;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
+import org.hl7.v3.MCCIMT000200UV01TargetMessage;
+import org.hl7.v3.PRPAIN201301UV02;
 
 /**
  *
@@ -48,8 +58,8 @@ public class AckBuilder {
         II originalMessageId = null;
 
         if (originalMessage != null) {
-            if ((originalMessage.getSender() != null) && (originalMessage.getSender().getDevice() != null)
-                && (originalMessage.getSender().getDevice().getId().size() > 0)) {
+            if (originalMessage.getSender() != null && originalMessage.getSender().getDevice() != null
+                    && originalMessage.getSender().getDevice().getId().size() > 0) {
                 receiverId = originalMessage.getSender().getDevice().getId().get(0);
             }
 
@@ -63,7 +73,7 @@ public class AckBuilder {
     }
 
     public static MCCIIN000002UV01 buildAck(II receiverId, II senderId, String acknowledgementTypeCode,
-        II originalMessageId) {
+            II originalMessageId) {
         MCCIIN000002UV01 message = new MCCIIN000002UV01();
 
         message.setITSVersion(ITSVersion);

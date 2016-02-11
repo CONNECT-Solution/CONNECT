@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,8 @@ public class Marshaller {
                     element = XmlUtility.convertXmlToElement(xml);
                 }
             } catch (Exception e) {
-                // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
+                // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException:
+                // com.sun.xml.bind.v2.ContextFactory"
                 LOG.error("Failed to marshall: {}", e.getLocalizedMessage(), e);
                 element = null;
             }
@@ -88,7 +89,7 @@ public class Marshaller {
      * @param qname - the qualified name of the XML (i.e. "urn:org:hl7:v3")
      * @return the XML Element
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Element marshal(Object object, String contextPath, QName qname) {
         Element element = null;
         StringWriter stringWriter = new StringWriter();
@@ -151,7 +152,8 @@ public class Marshaller {
                 unmarshalledObject = unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(is));
                 LOG.debug("end unmarshal");
             } catch (Exception e) {
-                // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
+                // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException:
+                // com.sun.xml.bind.v2.ContextFactory"
                 // use jaxb element
                 LOG.error("Failed to unmarshall: {}", e.getLocalizedMessage(), e);
                 unmarshalledObject = null;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,20 +36,21 @@ public class ApplicationInfo {
 
     private String serverInfo;
 
-    private ApplicationInfo(){}
+    private ApplicationInfo() {
+    }
 
-    public static ApplicationInfo getInstance(){
-        if(INSTANCE == null) {
+    public static ApplicationInfo getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new ApplicationInfo();
         }
         return INSTANCE;
     }
 
-    public void setServerInfo(String serverInfo){
+    public void setServerInfo(String serverInfo) {
         this.serverInfo = serverInfo;
     }
 
-    public String getServerInfo(){
+    public String getServerInfo() {
         return serverInfo;
     }
 }

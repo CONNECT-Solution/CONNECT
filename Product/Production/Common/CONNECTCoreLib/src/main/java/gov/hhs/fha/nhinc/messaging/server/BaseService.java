@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -97,10 +97,10 @@ public abstract class BaseService {
         String remoteAddress = null;
 
         if (context != null && context.getMessageContext() != null
-            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+                && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
 
-            HttpServletRequest httpServletRequest
-                = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
+            HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext()
+                    .get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -98,8 +98,8 @@ public class AdapterPIPFacade {
             assertion = consentReq.getAssertion();
         }
 
-        RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy
-                .retrievePtConsentByPtId(consentReq, assertion);
+        RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtId(consentReq,
+                assertion);
 
         return convertConsentResponseToPatientPreferences(consentResp);
     }
@@ -132,8 +132,8 @@ public class AdapterPIPFacade {
                         }
 
                         if (fineGrainedCriterionRespObj.getDocumentTypeCode() != null) {
-                            fineGrainedPolicyCriterion.setDocumentTypeCode(fineGrainedCriterionRespObj
-                                    .getDocumentTypeCode().getCode());
+                            fineGrainedPolicyCriterion
+                                    .setDocumentTypeCode(fineGrainedCriterionRespObj.getDocumentTypeCode().getCode());
                         }
 
                         if (fineGrainedCriterionRespObj.getUserRole() != null) {
@@ -141,13 +141,13 @@ public class AdapterPIPFacade {
                         }
 
                         if (fineGrainedCriterionRespObj.getPurposeOfUse() != null) {
-                            fineGrainedPolicyCriterion.setPurposeOfUse(fineGrainedCriterionRespObj.getPurposeOfUse()
-                                    .getCode());
+                            fineGrainedPolicyCriterion
+                                    .setPurposeOfUse(fineGrainedCriterionRespObj.getPurposeOfUse().getCode());
                         }
 
                         if (fineGrainedCriterionRespObj.getConfidentialityCode() != null) {
-                            fineGrainedPolicyCriterion.setConfidentialityCode(fineGrainedCriterionRespObj
-                                    .getConfidentialityCode().getCode());
+                            fineGrainedPolicyCriterion.setConfidentialityCode(
+                                    fineGrainedCriterionRespObj.getConfidentialityCode().getCode());
                         }
 
                         patientPreferences.addFineGrainedPolicyCriterion(fineGrainedPolicyCriterion);

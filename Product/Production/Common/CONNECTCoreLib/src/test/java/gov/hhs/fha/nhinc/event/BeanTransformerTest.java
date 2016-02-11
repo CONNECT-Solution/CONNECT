@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,9 +26,10 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import java.beans.PropertyDescriptor;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.beans.PropertyDescriptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
@@ -50,15 +51,15 @@ public abstract class BeanTransformerTest<T extends BeanPropertyArgumentTransfor
     @Test
     public final void jaxbTypesHaveCorrectBeanProperties() {
         Class<?>[] classes = getExpectedWrapperClasses();
-        for (int curClass = 0; curClass < classes.length; ++curClass) {
-            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
+        for (Class<?> classe : classes) {
+            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classe);
             boolean found = false;
-            for (int i = 0; i < propertyDescriptors.length; ++i) {
-                if (propertyDescriptors[i].getPropertyType().equals(getTransformToClass())) {
+            for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+                if (propertyDescriptor.getPropertyType().equals(getTransformToClass())) {
                     found = true;
                 }
             }
-            assertTrue(classes[curClass].toString(), found);
+            assertTrue(classe.toString(), found);
         }
     }
 

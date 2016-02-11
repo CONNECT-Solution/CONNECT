@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,11 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.uddi.api_v3.BusinessEntity;
 
@@ -59,8 +61,7 @@ public class ConnectionHelperTest {
     }
 
     /**
-     * *
-     * Test for Negative case
+     * * Test for Negative case
      *
      */
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,14 +48,15 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             ServicePortBuilder<T> portBuilder) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url, (assertion != null) ? assertion.getTransactionTimeout() : null);
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url,
+                assertion != null ? assertion.getTransactionTimeout() : null);
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             ServicePortBuilder<T> portBuilder, String subscriptionId) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId, (assertion != null) ? assertion.getTransactionTimeout() : null);
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId,
+                assertion != null ? assertion.getTransactionTimeout() : null);
     }
-
 
     @Override
     public T getPort() {
@@ -70,7 +71,8 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
+                wsAddressingActionId, assertion);
         serviceEndpoint.configure();
     }
 }

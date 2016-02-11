@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ public class PatientSearchBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientSearchBean.class);
 
-    //Generic Variables, can be moved to a constant file
+    // Generic Variables, can be moved to a constant file
     private static final String PATIENT_FOUND = "Patient Record Found:";
     private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
     private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
@@ -73,12 +73,12 @@ public class PatientSearchBean {
     private int activeIndex = 0;
     private String displayOrganizationName;
 
-    //For Lookup..should be moved to a different managed bean
+    // For Lookup..should be moved to a different managed bean
     private List<SelectItem> documentTypeList;
     private Map<String, BusinessEntity> organizationList;
     private Map<String, String> genderList;
 
-    //Used in Patient Query Page
+    // Used in Patient Query Page
     private boolean patientFound;
     private String patientMessage;
     private String firstName;
@@ -89,31 +89,31 @@ public class PatientSearchBean {
     private List<Patient> patientList;
     private int selectedPatient;
 
-    //Used in Document Query Page
+    // Used in Document Query Page
     private boolean documentFound;
     private Date documentRangeFrom;
     private Date documentRangeTo;
     private String documentMessage;
     private List<String> querySelectedDocuments;
     private int selectedDocument;
-    //TODO: Temporary should be removed, should use the patient object documentList
+    // TODO: Temporary should be removed, should use the patient object documentList
     private List<Document> documentList;
 
     /**
      * Instantiate all the variables and load the lookup Data
      */
     public PatientSearchBean() {
-        this.documentList = new ArrayList<>();
-        this.querySelectedDocuments = new ArrayList<>();
-        this.patientList = new ArrayList<>();
-        this.documentTypeList = new ArrayList<>();
+        documentList = new ArrayList<>();
+        querySelectedDocuments = new ArrayList<>();
+        patientList = new ArrayList<>();
+        documentTypeList = new ArrayList<>();
 
-        //Populate Organization List from UDDI
-        this.organizationList = populateOrganizationFromConnectManagerCache();
-        //populate Gender List
-        this.genderList = populteGenderList();
-        //populate document types
-        this.documentTypeList = populateDocumentTypes();
+        // Populate Organization List from UDDI
+        organizationList = populateOrganizationFromConnectManagerCache();
+        // populate Gender List
+        genderList = populteGenderList();
+        // populate document types
+        documentTypeList = populateDocumentTypes();
     }
 
     /**
@@ -121,11 +121,11 @@ public class PatientSearchBean {
      *
      */
     public void searchPatient() {
-        //start with a clean slate
+        // start with a clean slate
         clearDocumentQueryTab();
-        //Call the NwHIN PD to get the documents
+        // Call the NwHIN PD to get the documents
         patientFound = GatewayService.getInstance().discoverPatient(this);
-        //set the UI display message
+        // set the UI display message
         patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
     }
 
@@ -134,9 +134,9 @@ public class PatientSearchBean {
      *
      */
     public void searchPatientDocument() {
-        //Call the NwHIN QD to get the documents
+        // Call the NwHIN QD to get the documents
         documentFound = GatewayService.getInstance().queryDocument(this);
-        //set the UI display message
+        // set the UI display message
         documentMessage = documentFound ? DOCUMENT_FOUND : DOCUMENT_NOT_FOUND;
     }
 
@@ -145,11 +145,11 @@ public class PatientSearchBean {
      *
      */
     public void retrieveDocument() {
-        //check to make sure if the Document Retrieve is already done
-        if (this.getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
+        // check to make sure if the Document Retrieve is already done
+        if (getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
             return;
         }
-        //Call the NwHIN RD to get the documents
+        // Call the NwHIN RD to get the documents
         documentFound = GatewayService.getInstance().retrieveDocument(this);
     }
 
@@ -160,16 +160,16 @@ public class PatientSearchBean {
      * @return
      */
     public String startOver() {
-        //make it clean slate
-        //go back to the Patient Search tab
+        // make it clean slate
+        // go back to the Patient Search tab
         clearDocumentQueryTab();
-        this.setActiveIndex(0);
-        //reload the lookup data
-        //Populate Organization List from UDDI
+        setActiveIndex(0);
+        // reload the lookup data
+        // Populate Organization List from UDDI
         organizationList = populateOrganizationFromConnectManagerCache();
-        //populate Gender List
+        // populate Gender List
         genderList = populteGenderList();
-        //populate document types
+        // populate document types
         documentTypeList = populateDocumentTypes();
         return clearPatientTab();
     }
@@ -180,14 +180,14 @@ public class PatientSearchBean {
      * @return
      */
     public String clearPatientTab() {
-        this.dateOfBirth = null;
-        this.firstName = null;
-        this.lastName = null;
-        this.organization = "";
-        this.gender = null;
-        this.patientFound = false;
+        dateOfBirth = null;
+        firstName = null;
+        lastName = null;
+        organization = "";
+        gender = null;
+        patientFound = false;
         patientMessage = "";
-        this.patientList.clear();
+        patientList.clear();
         setSelectedPatient(0);
         return clearDocumentQueryTab();
     }
@@ -198,14 +198,14 @@ public class PatientSearchBean {
      * @return
      */
     public String clearDocumentQueryTab() {
-        this.documentFound = false;
-        this.documentRangeFrom = null;
-        this.documentRangeTo = null;
-        this.querySelectedDocuments.clear();
+        documentFound = false;
+        documentRangeFrom = null;
+        documentRangeTo = null;
+        querySelectedDocuments.clear();
         documentMessage = "";
-        //Reset the list
-        this.documentList.clear();
-        this.getSelectedCurrentPatient().getDocumentList().clear();
+        // Reset the list
+        documentList.clear();
+        getSelectedCurrentPatient().getDocumentList().clear();
         setSelectedDocument(0);
         return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
@@ -312,7 +312,7 @@ public class PatientSearchBean {
      * @param queryDocuments the queryDocuments to set
      */
     public void setQueryDocuments(List<String> queryDocuments) {
-        this.querySelectedDocuments = queryDocuments;
+        querySelectedDocuments = queryDocuments;
     }
 
     /**
@@ -363,11 +363,11 @@ public class PatientSearchBean {
      * @return the documentList
      */
     public List<Document> getDocumentList() {
-        //always return the list from the patient object
+        // always return the list from the patient object
         if (getSelectedCurrentPatient() != null) {
             return getSelectedCurrentPatient().getDocumentList();
         }
-        //return the empty list if the patient object is empty
+        // return the empty list if the patient object is empty
         return documentList;
     }
 
@@ -464,9 +464,9 @@ public class PatientSearchBean {
         List<SelectItem> localDocumentTypeList = new ArrayList<>();
 
         try {
-            //Load the documentType.properties file
+            // Load the documentType.properties file
             Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
-                .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
+                    .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
@@ -484,9 +484,9 @@ public class PatientSearchBean {
      */
     public String getCreationTimeUiDisplay() {
         String formattedDate = null;
-        if (!this.getDocumentList().isEmpty()) {
-            if (this.getDocumentList().get(selectedDocument).getCreationTime() != null) {
-                Date currentDate = this.getDocumentList().get(selectedDocument).getCreationTime();
+        if (!getDocumentList().isEmpty()) {
+            if (getDocumentList().get(selectedDocument).getCreationTime() != null) {
+                Date currentDate = getDocumentList().get(selectedDocument).getCreationTime();
                 SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
                 formattedDate = dateformat.format(currentDate);
             }
@@ -514,10 +514,10 @@ public class PatientSearchBean {
      * @return Patient
      */
     public Patient getSelectedCurrentPatient() {
-        if (this.getPatientList().isEmpty()) {
+        if (getPatientList().isEmpty()) {
             return new Patient();
         }
-        return this.getPatientList().get(selectedPatient);
+        return getPatientList().get(selectedPatient);
     }
 
     /**
@@ -526,19 +526,22 @@ public class PatientSearchBean {
      * @return Document
      */
     public Document getSelectedCurrentDocument() {
-        if (this.getDocumentList().isEmpty()) {
-            //required for rendering the page for the first time
-            return (new Document());
+        if (getDocumentList().isEmpty()) {
+            // required for rendering the page for the first time
+            return new Document();
         }
-        return this.getDocumentList().get(selectedDocument);
+        return getDocumentList().get(selectedDocument);
     }
 
     public StreamedContent getDocumentImage() {
-        //return the content only if its an image file
-        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
+        // return the content only if its an image file
+        if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
+                .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
-            return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), getSelectedCurrentDocument().getContentType());
+            return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
+                    getSelectedCurrentDocument().getContentType());
         }
         return null;
     }
@@ -547,34 +550,41 @@ public class PatientSearchBean {
      * @return the renderDocumentimage
      */
     public boolean isRenderDocumentimage() {
-        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
+        return getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
+                .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
     }
 
     /**
      * @return the renderDocumentPdf
      */
     public boolean isRenderDocumentPdf() {
-        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF));
+        return getSelectedCurrentDocument().getContentType() != null
+                && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
     }
 
     /**
      * @return the renderDocumentText
      */
     public boolean isRenderDocumentText() {
-        return (getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+        return getSelectedCurrentDocument().getContentType() != null
+                && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+                        || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                        || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                        || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
     /**
      * @return the documentPdf
      */
     public StreamedContent getDocumentPdf() {
-        //return the content only if its an pdf file
-        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF))) {
+        // return the content only if its an pdf file
+        if (getSelectedCurrentDocument().getContentType() != null
+                && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
-            return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray), getSelectedCurrentDocument().getContentType());
+            return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
+                    getSelectedCurrentDocument().getContentType());
         }
         return null;
     }
@@ -583,11 +593,13 @@ public class PatientSearchBean {
      * @return the XML Clinical document in HTML format
      */
     public String getDocumentXml() {
-        //return the content only if its an pdf file
-        if ((getSelectedCurrentDocument().getContentType() != null) && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML) || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
-            return (new String(getSelectedCurrentDocument().getDocumentContent()));
+        // return the content only if its an pdf file
+        if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
+                .equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
+            return new String(getSelectedCurrentDocument().getDocumentContent());
         }
         return null;
     }

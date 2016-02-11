@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,13 +35,14 @@ import java.util.List;
  * @author jassmit
  */
 public interface FhirResourceService {
-    
+
     public static final String PATIENT_RESOURCE_NAME = "FHIRPatientResource";
     public static final String DOCREF_RESOURCE_NAME = "FHIRDocumentReferenceResource";
     public static final String BINARY_RESOURCE_NAME = "FHIRBinaryResource";
-    
+
     /**
      * Loads resource information from config file.
+     * 
      * @return
      */
     public List<ResourceInfo> loadResources();
@@ -57,6 +58,7 @@ public interface FhirResourceService {
 
     /**
      * Pulls conformance information for a given resource url using a FHIR client.
+     * 
      * @param url
      * @return
      */

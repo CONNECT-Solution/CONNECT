@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,9 +38,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author nnguyen
  */
-//CHECKSTYLE:OFF
+// CHECKSTYLE:OFF
 public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationStrategy {
-//CHECKSTYLE:ON
+    // CHECKSTYLE:ON
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundAdminDistributionStrategyImpl_g1.class);
 
@@ -53,7 +53,9 @@ public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationSt
         }
     }
 
-    /**This method forwards outbound orchestratable message to Nhin.
+    /**
+     * This method forwards outbound orchestratable message to Nhin.
+     * 
      * @param message Orchestratable AdminDist message .
      */
     public void execute(OutboundAdminDistributionOrchestratable message) {
@@ -66,12 +68,12 @@ public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationSt
         if (message instanceof OutboundAdminDistributionOrchestratable) {
             NhinAdminDistributionProxy nhincAdminDist = new NhinAdminDistributionProxyObjectFactory()
                     .getNhinAdminDistProxy();
-            nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(), message.getRequest()
-                    .getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+            nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(),
+                    message.getRequest().getAssertion(), message.getTarget(),
+                    NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         } else {
-            LOG.error(
-                    "NhinAdminDistributionImpl_g1 AdapterDelegateImpl.process recieved a message "
-                            + "which was not of type NhinAdminDistributionOrchestratableImpl_g1.");
+            LOG.error("NhinAdminDistributionImpl_g1 AdapterDelegateImpl.process recieved a message "
+                    + "which was not of type NhinAdminDistributionOrchestratableImpl_g1.");
         }
         LOG.debug("End NhinAdminDistributionOrchestratableImpl_g1.process");
     }

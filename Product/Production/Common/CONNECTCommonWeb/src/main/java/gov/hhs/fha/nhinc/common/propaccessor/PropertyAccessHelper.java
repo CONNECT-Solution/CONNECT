@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,8 +71,8 @@ public class PropertyAccessHelper {
     public static GetPropertyResponseType getProperty(GetPropertyRequestType input) throws PropertyAccessException {
         GetPropertyResponseType oOutput = new GetPropertyResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)
-                && (input.getPropertyName() != null) && (input.getPropertyName().length() > 0)) {
+        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0
+                && input.getPropertyName() != null && input.getPropertyName().length() > 0) {
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
@@ -96,8 +96,8 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         GetPropertyBooleanResponseType oOutput = new GetPropertyBooleanResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)
-                && (input.getPropertyName() != null) && (input.getPropertyName().length() > 0)) {
+        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0
+                && input.getPropertyName() != null && input.getPropertyName().length() > 0) {
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
@@ -118,7 +118,7 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         GetPropertyNamesResponseType oOutput = new GetPropertyNamesResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
+        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0) {
             String sPropertyFile = input.getPropertyFile();
 
             Set<String> setKeys = PropertyAccessor.getInstance().getPropertyNames(sPropertyFile);
@@ -154,7 +154,7 @@ public class PropertyAccessHelper {
         PropertiesType oProperties = new PropertiesType();
         boolean bHasProps = false;
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
+        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0) {
             String sPropertyFile = input.getPropertyFile();
 
             Properties oProps = PropertyAccessor.getInstance().getProperties(sPropertyFile);
@@ -211,7 +211,7 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         DumpPropsToLogResponseType oOutput = new DumpPropsToLogResponseType();
 
-        if ((input != null) && (input.getPropertyFile() != null) && (input.getPropertyFile().length() > 0)) {
+        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0) {
             String sPropertyFile = input.getPropertyFile();
 
             PropertyAccessor.getInstance().dumpPropsToLog(sPropertyFile);
@@ -239,22 +239,22 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         WritePropertyFileResponseType oOutput = new WritePropertyFileResponseType();
 
-        if ((part1 != null) && (part1.getPropertyFile() != null) && (part1.getPropertyFile().length() > 0)
-                && (part1.getProperties() != null) && (part1.getProperties().getProperty() != null)
-                && (part1.getProperties().getProperty().size() > 0)) {
+        if (part1 != null && part1.getPropertyFile() != null && part1.getPropertyFile().length() > 0
+                && part1.getProperties() != null && part1.getProperties().getProperty() != null
+                && part1.getProperties().getProperty().size() > 0) {
             String sPropertyFile = part1.getPropertyFile();
 
             java.util.Properties oPropsToStore = new java.util.Properties();
 
             for (PropertyType oInputProp : part1.getProperties().getProperty()) {
-                if ((oInputProp.getPropertyName() == null) || (oInputProp.getPropertyName().length() <= 0)) {
+                if (oInputProp.getPropertyName() == null || oInputProp.getPropertyName().length() <= 0) {
                     throw new PropertyAccessException(
                             "Found a property without a name.  All properties must have a name.");
                 }
 
                 if (oInputProp.getPropertyValue() == null) {
-                    throw new PropertyAccessException("The property value cannot be null.  Property: "
-                            + oInputProp.getPropertyName());
+                    throw new PropertyAccessException(
+                            "The property value cannot be null.  Property: " + oInputProp.getPropertyName());
                 }
 
                 String sPropName = oInputProp.getPropertyName();
@@ -266,8 +266,7 @@ public class PropertyAccessHelper {
             PropertyFileManager.writePropertyFile(sPropertyFile, oPropsToStore);
         } else {
             String sErrorMessage = "Failed to write property file.  There must be both a valid "
-                    + "file name without the '.properties' extension and at least "
-                    + "one property to write.";
+                    + "file name without the '.properties' extension and at least " + "one property to write.";
             throw new PropertyAccessException(sErrorMessage);
         }
 
@@ -288,7 +287,7 @@ public class PropertyAccessHelper {
             throws PropertyAccessException {
         DeletePropertyFileResponseType oOutput = new DeletePropertyFileResponseType();
 
-        if ((part1 != null) && (part1.getPropertyFile() != null) && (part1.getPropertyFile().length() > 0)) {
+        if (part1 != null && part1.getPropertyFile() != null && part1.getPropertyFile().length() > 0) {
             String sPropertyFile = part1.getPropertyFile();
             PropertyFileManager.deletePropertyFile(sPropertyFile);
         }

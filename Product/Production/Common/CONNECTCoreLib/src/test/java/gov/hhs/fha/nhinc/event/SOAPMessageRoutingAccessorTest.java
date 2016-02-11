@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,13 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
@@ -33,19 +40,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SOAPMessageRoutingAccessorTest {
 
-	private static final String MESSAGE_ID = UUID.randomUUID().toString();
-	private static final String RELATES_TO = UUID.randomUUID().toString();
-	private static final String TRANSACTION_ID = UUID.randomUUID().toString();
+    private static final String MESSAGE_ID = UUID.randomUUID().toString();
+    private static final String RELATES_TO = UUID.randomUUID().toString();
+    private static final String TRANSACTION_ID = UUID.randomUUID().toString();
 
     @Test
     public void nullMessageContext() {
@@ -66,7 +67,8 @@ public class SOAPMessageRoutingAccessorTest {
 
         TransactionStore store = mock(TransactionStore.class);
         when(extractor.getMessageId(any(WebServiceContext.class))).thenReturn(MESSAGE_ID);
-        when(extractor.getAsyncRelatesTo(any(WebServiceContext.class))).thenReturn(Collections.singletonList(RELATES_TO));
+        when(extractor.getAsyncRelatesTo(any(WebServiceContext.class)))
+                .thenReturn(Collections.singletonList(RELATES_TO));
         when(factory.getTransactionStore()).thenReturn(store);
         when(store.getTransactionId(eq(RELATES_TO))).thenReturn(TRANSACTION_ID);
 

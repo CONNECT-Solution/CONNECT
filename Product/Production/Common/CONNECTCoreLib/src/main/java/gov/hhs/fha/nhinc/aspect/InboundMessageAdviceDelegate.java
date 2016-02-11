@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,12 +34,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author bhumphrey
  *
  */
-public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate  {
+public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate {
 
     private EventFactory eventFactory;
 
     /**
      * inject eventfactory.
+     * 
      * @param eventFactory
      */
     @Autowired
@@ -51,7 +52,6 @@ public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate  {
     protected Event createBeginEvent() {
         return eventFactory.createBeginInboundMessage();
     }
-
 
     @Override
     protected Event createEndEvent() {

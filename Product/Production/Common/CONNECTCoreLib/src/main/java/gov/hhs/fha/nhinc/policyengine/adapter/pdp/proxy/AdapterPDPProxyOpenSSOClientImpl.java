@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,8 +45,7 @@ import org.slf4j.LoggerFactory;
  * @author Neil Webb
  */
 
-public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
-{
+public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy {
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_PDP_ENTITY = "PdpEntityName";
     private static final String OPENSSO_PEP_NAME = "ConnectOpenSSOPepEntity";
@@ -61,8 +60,7 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
      * .Request)
      */
     @Override
-    public Response processPDPRequest(Request pdpRequest) throws PropertyAccessException, XACMLException,
-            SAML2Exception
+    public Response processPDPRequest(Request pdpRequest) throws PropertyAccessException, XACMLException, SAML2Exception
 
     {
 
@@ -130,8 +128,8 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
      * @throws SAML2Exception
      */
 
-    protected Response callOpenSSO(Request pdpRequest, String pdpEntity, String pepEntity) throws XACMLException,
-            SAML2Exception
+    protected Response callOpenSSO(Request pdpRequest, String pdpEntity, String pepEntity)
+            throws XACMLException, SAML2Exception
 
     {
 

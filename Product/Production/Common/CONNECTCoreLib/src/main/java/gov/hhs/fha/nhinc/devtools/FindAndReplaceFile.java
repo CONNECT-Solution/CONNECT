@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -113,7 +113,7 @@ public class FindAndReplaceFile {
             int iCopies = 0;
 
             File[] faFilesInDir = fDirToLook.listFiles();
-            if ((faFilesInDir != null) && (faFilesInDir.length > 0)) {
+            if (faFilesInDir != null && faFilesInDir.length > 0) {
                 for (File fFile : faFilesInDir) {
                     iCopies += searchAndReplace(fFile, fFileName);
                 }
@@ -135,7 +135,7 @@ public class FindAndReplaceFile {
                     }
                 } catch (Exception e) {
                     LOG.error("Failed to replace file {}: {}", fDirToLook.getCanonicalPath(), e.getLocalizedMessage(),
-                        e);
+                            e);
                 }
             }
         }

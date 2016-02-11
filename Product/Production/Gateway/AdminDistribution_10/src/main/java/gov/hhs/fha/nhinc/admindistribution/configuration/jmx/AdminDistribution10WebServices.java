@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,8 +40,7 @@ import javax.servlet.ServletContext;
  */
 public class AdminDistribution10WebServices extends AbstractAdminDistributionWebServicesMXBean {
 
-
-	/** The Constant NHIN_AD_BEAN_NAME. */
+    /** The Constant NHIN_AD_BEAN_NAME. */
     private static final String NHIN_AD_BEAN_NAME = "NhinAdministrativeDistributionBean";
 
     /** The Constant ENTITY_UNSECURED_AD_BEAN_NAME. */
@@ -77,7 +76,9 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         return isPassthru;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
      */
     @Override
@@ -85,7 +86,9 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         return NHIN_AD_BEAN_NAME;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
      */
     @Override
@@ -93,13 +96,16 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         return ENTITY_UNSECURED_AD_BEAN_NAME;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
      */
     @Override
     protected String getEntitySecuredBeanName() {
         return ENTITY_SECURED_AD_BEAN_NAME;
     }
+
     /*
      * (non-Javadoc)
      *
@@ -117,10 +123,9 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         return isPassthru;
     }
 
-
-        @Override
+    @Override
     public serviceEnum getServiceName() {
-        return this.serviceName;
+        return serviceName;
     }
 
     /*
@@ -169,8 +174,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImplementation(java.lang.String)
      */
     @Override
-    public void configureInboundStdImpl() throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
+    public void configureInboundStdImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         NhinAdministrativeDistribution nhinAD;
         InboundAdminDistribution inboundAD;
 
@@ -180,11 +185,9 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         nhinAD.setInboundAdminDistribution(inboundAD);
     }
 
-
     @Override
-    public void configureInboundPtImpl() throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
-    	NhinAdministrativeDistribution nhinAD;
+    public void configureInboundPtImpl() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        NhinAdministrativeDistribution nhinAD;
         InboundAdminDistribution inboundAD;
 
         nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
@@ -193,10 +196,9 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         nhinAD.setInboundAdminDistribution(inboundAD);
     }
 
-
     @Override
-    public void configureOutboundStdImpl() throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
+    public void configureOutboundStdImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         EntityAdministrativeDistribution entityAD;
         OutboundAdminDistribution outboundAD;
 
@@ -207,9 +209,9 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     }
 
     @Override
-    public void configureOutboundPtImpl() throws InstantiationException,
-            IllegalAccessException, ClassNotFoundException {
-    	EntityAdministrativeDistribution entityAD;
+    public void configureOutboundPtImpl()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        EntityAdministrativeDistribution entityAD;
         OutboundAdminDistribution outboundAD;
 
         entityAD = retrieveBean(EntityAdministrativeDistribution.class, getEntityUnsecuredBeanName());
@@ -217,6 +219,5 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
 
         entityAD.setOutboundAdminDistribution(outboundAD);
     }
-
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-
 import java.util.UUID;
 
 /**
- * This class manages the creation of the header section of the soap message
- * that defines WS-Addressing.
+ * This class manages the creation of the header section of the soap message that defines WS-Addressing.
  */
 public class AddressingHeaderCreator {
     private static String UUID_TAG = "urn:uuid:";

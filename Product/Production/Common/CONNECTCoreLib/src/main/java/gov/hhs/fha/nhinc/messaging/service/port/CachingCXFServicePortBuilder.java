@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,13 +69,10 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      * All non-thread safe configuration should be done here.
      *
      * The following configuration to the port are considered not thread safe as they will be shared between all
-     * threads:
-     * 1. Interceptors
-     * 2. Modifying the HTTP Conduit
+     * threads: 1. Interceptors 2. Modifying the HTTP Conduit
      *
-     * The following configuration to the port are considered local and are thread safe if configured properly:
-     * 1. The request context if configured for thread local
-     * 2. HTTPClientPolicy BUT only through the request context
+     * The following configuration to the port are considered local and are thread safe if configured properly: 1. The
+     * request context if configured for thread local 2. HTTPClientPolicy BUT only through the request context
      *
      * @param port The port to be configured
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -227,10 +227,10 @@ public class DirectServiceImpl implements DirectService {
      */
     @Override
     public void updateTrustBundle(long trustBundleId, String trustBundleName, String trustBundleURL,
-        Certificate signingCert, int trustBundleRefreshInterval) {
+            Certificate signingCert, int trustBundleRefreshInterval) {
         try {
-            getDirectConfigProxy().updateTrustBundleAttributes(trustBundleId, trustBundleName, trustBundleURL, signingCert,
-                trustBundleRefreshInterval);
+            getDirectConfigProxy().updateTrustBundleAttributes(trustBundleId, trustBundleName, trustBundleURL,
+                    signingCert, trustBundleRefreshInterval);
         } catch (Exception ex) {
             LOG.error("Unable to update trust bundle with Name: " + trustBundleName, ex);
         }
@@ -320,7 +320,8 @@ public class DirectServiceImpl implements DirectService {
         try {
             getDirectConfigProxy().associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
         } catch (Exception ex) {
-            LOG.error("Unable to associate Trust Bundle with ID " + trustBundleId + " to Domain with ID " + domainId, ex);
+            LOG.error("Unable to associate Trust Bundle with ID " + trustBundleId + " to Domain with ID " + domainId,
+                    ex);
         }
     }
 
@@ -334,7 +335,8 @@ public class DirectServiceImpl implements DirectService {
         try {
             getDirectConfigProxy().disassociateTrustBundleFromDomain(domainId, trustBundleId);
         } catch (Exception ex) {
-            LOG.error("Unable to disassociate Trust Bundle with ID " + trustBundleId + " to Domain with ID " + domainId, ex);
+            LOG.error("Unable to disassociate Trust Bundle with ID " + trustBundleId + " to Domain with ID " + domainId,
+                    ex);
         }
     }
 
@@ -376,9 +378,8 @@ public class DirectServiceImpl implements DirectService {
         try {
             anchors = getDirectConfigProxy().getAnchorsForOwner(getAnchorsForOwner);
         } catch (Exception ex) {
-            LOG.error(
-                "Error retrieving list of anchors for owner " + getAnchorsForOwner.getOwner() + ": "
-                + ex.getMessage(), ex);
+            LOG.error("Error retrieving list of anchors for owner " + getAnchorsForOwner.getOwner() + ": "
+                    + ex.getMessage(), ex);
         }
 
         return anchors;

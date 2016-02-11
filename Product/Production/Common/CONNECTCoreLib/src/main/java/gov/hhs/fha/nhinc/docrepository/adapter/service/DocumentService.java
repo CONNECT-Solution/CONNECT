@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,7 @@ public class DocumentService {
                 if (ecDoc != null) {
                     // Delete existing event codes
                     Set<EventCode> eventCodes = ecDoc.getEventCodes();
-                    if ((eventCodes != null) && !eventCodes.isEmpty()) {
+                    if (eventCodes != null && !eventCodes.isEmpty()) {
                         EventCodeDao eventCodeDao = getEventCodeDao();
                         for (EventCode eventCode : eventCodes) {
                             eventCodeDao.delete(eventCode);
@@ -82,7 +82,7 @@ public class DocumentService {
 
                     // Reset event code identifiers
                     eventCodes = document.getEventCodes();
-                    if ((eventCodes != null) && !eventCodes.isEmpty()) {
+                    if (eventCodes != null && !eventCodes.isEmpty()) {
                         for (EventCode eventCode : eventCodes) {
                             if (eventCode.getEventCodeId() != null) {
                                 eventCode.setEventCodeId(null);
@@ -131,18 +131,18 @@ public class DocumentService {
         LOG.debug("Deleting a document");
         DocumentDao dao = getDocumentDao();
 
-        if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
+        if (document != null && document.getDocumentid() == null && document.getDocumentUniqueId() != null) {
             // Query by unique id and delete if only one exists.
             DocumentQueryParams params = new DocumentQueryParams();
             List<String> uniqueIds = new ArrayList<>();
             uniqueIds.add(document.getDocumentUniqueId());
 
             List<Document> docs = documentQuery(params);
-            if ((docs != null) && (docs.size() == 1)) {
+            if (docs != null && docs.size() == 1) {
                 document = docs.get(0);
             } else {
-                throw new DocumentServiceException("Single document match not found for document unique id: "
-                    + document.getDocumentUniqueId());
+                throw new DocumentServiceException(
+                        "Single document match not found for document unique id: " + document.getDocumentUniqueId());
             }
         } else {
             if (document == null) {
@@ -187,7 +187,7 @@ public class DocumentService {
         DocumentDao dao = getDocumentDao();
         List<Document> queryMatchDocs = dao.findDocuments(params);
         List<Document> eventCodeMatchDocs;
-        if ((params != null) && NullChecker.isNotNullish(params.getEventCodeParams())) {
+        if (params != null && NullChecker.isNotNullish(params.getEventCodeParams())) {
             eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams(), params.getSlots());
             if (NullChecker.isNotNullish(queryMatchDocs) && NullChecker.isNotNullish(eventCodeMatchDocs)) {
                 // Both doc parameter and event code query doc matches found. Return union of collections
@@ -211,7 +211,7 @@ public class DocumentService {
         if (NullChecker.isNotNullish(eventCodeParams)) {
             EventCodeDao eventCodeDao = getEventCodeDao();
             eventCodes = eventCodeDao.eventCodeQuery(slots);
-            if (eventCodes != null && (!eventCodes.isEmpty())) {
+            if (eventCodes != null && !eventCodes.isEmpty()) {
                 for (EventCode ec : eventCodes) {
                     if (ec != null) {
                         documentSet.add(ec.getDocument());
@@ -241,10 +241,10 @@ public class DocumentService {
 
     private boolean listContainsDoc(List<Document> docs, Document doc) {
         boolean containsDoc = false;
-        if ((doc != null) && (doc.getDocumentUniqueId() != null) && NullChecker.isNotNullish(docs)) {
+        if (doc != null && doc.getDocumentUniqueId() != null && NullChecker.isNotNullish(docs)) {
 
             for (Document docFromList : docs) {
-                if ((docFromList != null) && (doc.getDocumentUniqueId().equals(docFromList.getDocumentUniqueId()))) {
+                if (docFromList != null && doc.getDocumentUniqueId().equals(docFromList.getDocumentUniqueId())) {
                     containsDoc = true;
                     break;
                 }

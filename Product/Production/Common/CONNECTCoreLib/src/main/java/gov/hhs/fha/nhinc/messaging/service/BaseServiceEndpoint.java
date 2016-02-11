@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,7 +30,6 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.SOAPBinding;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-
 
 /**
  * @author akong
@@ -64,17 +63,16 @@ public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
         return (SOAPBinding) ((BindingProvider) getPort()).getBinding();
     }
 
-
     /**
-     * Get the {@link HTTPClientPolicy} from the request context of bindingProvider, creates the  {@link HTTPClientPolicy} if null.
+     * Get the {@link HTTPClientPolicy} from the request context of bindingProvider, creates the
+     * {@link HTTPClientPolicy} if null.
      *
      * @param bindingProvider provider to get the {@link HTTPClientPolicy} from
      * @return the existing {@link HTTPClientPolicy} or a new one.
      */
-     HTTPClientPolicy getHTTPClientPolicy(BindingProvider bindingProvider) {
+    HTTPClientPolicy getHTTPClientPolicy(BindingProvider bindingProvider) {
         Map<String, Object> requestContext = bindingProvider.getRequestContext();
-        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) requestContext.get(
-                HTTPClientPolicy.class.getName());
+        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) requestContext.get(HTTPClientPolicy.class.getName());
 
         if (httpClientPolicy == null) {
             httpClientPolicy = new HTTPClientPolicy();
@@ -83,6 +81,5 @@ public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
 
         return httpClientPolicy;
     }
-
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,20 +55,24 @@ public class UrlInfo {
     }
 
     @Override
-    public boolean equals(Object that){
-        if ( this == that ) return true;
-        if ( !(that instanceof UrlInfo) ) return false;
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (!(that instanceof UrlInfo)) {
+            return false;
+        }
         UrlInfo thatUrlInfo = (UrlInfo) that;
 
-        if (!this.getUrl().equals(thatUrlInfo.getUrl())) {
+        if (!getUrl().equals(thatUrlInfo.getUrl())) {
             return false;
         }
 
-        if (!this.getHcid().equals(thatUrlInfo.getHcid())) {
+        if (!getHcid().equals(thatUrlInfo.getHcid())) {
             return false;
         }
 
         return true;
-      }
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,8 +68,11 @@ public class PolicyEngineChecker implements DocumentRetrievePolicyEngineChecker 
         return policyTransformer.transformAdhocQueryResultToCheckPolicy(request);
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker#checkPolicyDocRetrieve(gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker#checkPolicyDocRetrieve(gov.hhs.fha.nhinc.
+     * common.eventcommon.DocRetrieveEventType)
      */
     @Override
     public CheckPolicyRequestType checkPolicyDocRetrieve(DocRetrieveEventType request) {

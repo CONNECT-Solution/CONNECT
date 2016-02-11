@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,30 +26,29 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.message.MessageImpl;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class TimestampInterceptorTest {
 
-	@Test
-	public void testHandleMessage() {
-		Message message = new MessageImpl();
+    @Test
+    public void testHandleMessage() {
+        Message message = new MessageImpl();
 
-		Date beforeDate = new Date();
+        Date beforeDate = new Date();
 
-		TimestampInterceptor interceptor = new TimestampInterceptor();
-		interceptor.handleMessage(message);
+        TimestampInterceptor interceptor = new TimestampInterceptor();
+        interceptor.handleMessage(message);
 
-		Date interceptorDate = (Date) message
-				.get(interceptor.INVOCATION_TIME_KEY);
+        Date interceptorDate = (Date) message.get(interceptor.INVOCATION_TIME_KEY);
 
-		assertNotNull(interceptorDate);
-		assertTrue(beforeDate.before(interceptorDate)
-				|| beforeDate.equals(interceptorDate));
-	}
+        assertNotNull(interceptorDate);
+        assertTrue(beforeDate.before(interceptorDate) || beforeDate.equals(interceptorDate));
+    }
 
 }

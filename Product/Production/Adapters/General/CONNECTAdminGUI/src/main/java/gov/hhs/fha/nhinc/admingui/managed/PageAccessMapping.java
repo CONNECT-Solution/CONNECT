@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,17 +65,17 @@ public class PageAccessMapping {
 
     private void setDefaultSelectedAccessLevel() {
         switch (preference.getAccess()) {
-            case -1:
-                selectedAccessLevel = "NoAccess";
-                break;
-            case 0:
-                selectedAccessLevel = "Read Only";
-                break;
-            case 1:
-                selectedAccessLevel = "Read Write";
-                break;
-            default:
-                selectedAccessLevel = "No Access";
+        case -1:
+            selectedAccessLevel = "NoAccess";
+            break;
+        case 0:
+            selectedAccessLevel = "Read Only";
+            break;
+        case 1:
+            selectedAccessLevel = "Read Write";
+            break;
+        default:
+            selectedAccessLevel = "No Access";
         }
     }
 

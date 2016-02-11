@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Builder that pulls NPI and InitiatingHCID from an Assertion. To use,
- * subclasses should dispatch the call to <code>setArguments</code> to
- * <code>extractAssertion</code>.
+ * Builder that pulls NPI and InitiatingHCID from an Assertion. To use, subclasses should dispatch the call to
+ * <code>setArguments</code> to <code>extractAssertion</code>.
  */
 public abstract class AssertionEventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
@@ -61,26 +60,25 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
     }
 
     /**
-     * Find the AssertionType from the provided argument list. Finds the first
-     * one, if present.
+     * Find the AssertionType from the provided argument list. Finds the first one, if present.
      *
      * @param arguments argument list to search. may be null.
      */
     protected final void extractAssertion(Object... arguments) {
         if (arguments != null) {
-            for (int i = 0; i < arguments.length; ++i) {
-                if (arguments[i] instanceof AssertionType) {
-                    assertion = Optional.of((AssertionType) arguments[i]);
+            for (Object argument : arguments) {
+                if (argument instanceof AssertionType) {
+                    assertion = Optional.of((AssertionType) argument);
                     return;
                 }
             }
         }
 
-        //Extracts if AssertionType was not availbale as an argument but the context is.
+        // Extracts if AssertionType was not availbale as an argument but the context is.
         try {
             if (assertion == null || !assertion.isPresent()) {
-                AssertionType contextAssertion
-                        = SAML2AssertionExtractor.getInstance().extractSamlAssertion(getContext());
+                AssertionType contextAssertion = SAML2AssertionExtractor.getInstance()
+                        .extractSamlAssertion(getContext());
                 if (contextAssertion != null) {
                     assertion = Optional.of(contextAssertion);
                     return;
@@ -111,7 +109,7 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
         this.assertionExtractor = assertionExtractor;
     }
 
-    protected WebServiceContext getContext(){
+    protected WebServiceContext getContext() {
         return new WebServiceContextImpl();
     }
 }
