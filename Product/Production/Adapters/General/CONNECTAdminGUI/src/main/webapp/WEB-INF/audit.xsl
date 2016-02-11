@@ -13,8 +13,10 @@
     </xsl:template>
     <xsl:template name="EventIdentification">
         <h4>Event Identification:</h4>
-        <table class="table table-bordered table-condensed">
-            <tr bgcolor="#e3ebf5">
+        <table>
+            <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+            <tr>
+                <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>EventActionCode</th>
                 <th>EventDateTime</th>
                 <th>EventOutcomeIndicator</th>
@@ -123,8 +125,10 @@
     </xsl:template>
     <xsl:template name="ActiveParticipant">
         <h4>Active Participant:</h4>
-        <table class="table table-bordered table-condensed">
-            <tr bgcolor="#e3ebf5">
+        <table>
+	    <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+	    <tr>
+                <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>UserID</th>
                 <th>AlternativeUserID</th>
                 <th>UserName</th>
@@ -226,8 +230,10 @@
     </xsl:template>
     <xsl:template name="AuditSourceIdentification">
         <h4>Audit Source Identification:</h4>
-        <table class="table table-bordered table-condensed">
-            <tr bgcolor="#e3ebf5">
+        <table>
+	    <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+	    <tr>
+                <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>AuditEnterpriseSiteID</th>
                 <th>AuditSourceID</th>
             </tr>
@@ -259,8 +265,10 @@
     </xsl:template>
     <xsl:template name="ParticipantObjectIdentification">
         <h4>Participant Object Identification:</h4>
-        <table class="table table-bordered table-condensed">
-            <tr bgcolor="#e3ebf5">
+        <table>
+	    <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+	    <tr>
+                <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>ParticipantObjectID</th>
                 <th>ParticipantObjectTypeCode</th>
                 <th>ParticipantObjectTypeCodeRole</th>
@@ -385,7 +393,6 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </td>
-
                 </tr>
             </xsl:for-each>
         </table>
