@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<weblogic-ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.bea.com/ns/weblogic/weblogic-ejb-jar http://www.bea.com/ns/weblogic/weblogic-ejb-jar/1.0/weblogic-ejb-jar.xsd"
+                  xmlns="http://www.bea.com/ns/weblogic/weblogic-ejb-jar">
+    <weblogic-enterprise-bean>
+        <ejb-name>AuditEJBLoggerImpl</ejb-name>
+        <stateless-session-descriptor>
+            <pool>
+                <max-beans-in-free-pool>500</max-beans-in-free-pool>
+                <initial-beans-in-free-pool>250</initial-beans-in-free-pool>
+            </pool>
+        </stateless-session-descriptor>
+    </weblogic-enterprise-bean>
+</weblogic-ejb-jar>
