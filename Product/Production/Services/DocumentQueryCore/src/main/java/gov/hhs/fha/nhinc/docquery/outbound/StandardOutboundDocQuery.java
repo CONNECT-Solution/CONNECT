@@ -100,7 +100,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         if (aggregateRequests.isEmpty()) {
             LOG.info("no patient correlation found.");
             response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
-            //auditRequest(adhocQueryRequest, assertion, getNhinTarget(targets));
         } else {
             OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(
                 new OutboundDocQueryAggregator(), assertion, NhincConstants.DOC_QUERY_SERVICE_NAME,
