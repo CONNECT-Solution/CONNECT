@@ -32,6 +32,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
  */
 import gov.hhs.fha.nhinc.admingui.services.PatientService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -82,7 +83,7 @@ public class PatientServiceImpl implements PatientService {
         if (NullChecker.isNullish(query.getOrganization())) {
             throw new PatientSearchException("Organization is a required field");
         }
-        targetCommunity.setTarget(HomeCommunityMap.formatHomeCommunityId(query.getOrganization()));
+        targetCommunity.setTarget(query.getOrganization());
         pdMessageDirector.setTargetCommunitiesBuilder(targetCommunity);
 
         setPRPAINBuilder(query);
@@ -90,7 +91,7 @@ public class PatientServiceImpl implements PatientService {
         RespondingGatewayPRPAIN201305UV02RequestType request = pdMessageDirector.getMessage();
         EntityPatientDiscoveryProxyWebServiceUnsecuredImpl instance = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl();
         RespondingGatewayPRPAIN201306UV02ResponseType response = instance.respondingGatewayPRPAIN201305UV02(
-                request.getPRPAIN201305UV02(), request.getAssertion(), request.getNhinTargetCommunities());
+            request.getPRPAIN201305UV02(), request.getAssertion(), request.getNhinTargetCommunities());
         resultsBuilder = new PatientSearchResultsModelBuilderImpl();
         resultsBuilder.setMessage(response.getCommunityResponse().get(0).getPRPAIN201306UV02());
         resultsBuilder.build();
