@@ -75,7 +75,7 @@ public class PatientSearchBean {
 
     // For Lookup..should be moved to a different managed bean
     private List<SelectItem> documentTypeList;
-    private Map<String, BusinessEntity> organizationList;
+    private Map<String, String> organizationList;
     private Map<String, String> genderList;
 
     // Used in Patient Query Page
@@ -409,7 +409,7 @@ public class PatientSearchBean {
     /**
      * @return the organizationList
      */
-    public Map<String, BusinessEntity> getOrganizationList() {
+    public Map<String, String> getOrganizationList() {
         return organizationList;
     }
 
@@ -439,8 +439,8 @@ public class PatientSearchBean {
      * application bean.
      *
      */
-    private Map<String, BusinessEntity> populateOrganizationFromConnectManagerCache() {
-        return new ConnectionHelper().getRemoteHcidFromUUID();
+    private Map<String, String> populateOrganizationFromConnectManagerCache() {
+        return new ConnectionHelper().getOrgNameAndRemoteHcidMap();
     }
 
     /**
@@ -466,7 +466,7 @@ public class PatientSearchBean {
         try {
             // Load the documentType.properties file
             Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
-                    .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
+                .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
@@ -536,12 +536,12 @@ public class PatientSearchBean {
     public StreamedContent getDocumentImage() {
         // return the content only if its an image file
         if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-                .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
+            .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
             return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
-                    getSelectedCurrentDocument().getContentType());
+                getSelectedCurrentDocument().getContentType());
         }
         return null;
     }
@@ -551,9 +551,9 @@ public class PatientSearchBean {
      */
     public boolean isRenderDocumentimage() {
         return getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-                .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
+            .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
     }
 
     /**
@@ -561,7 +561,7 @@ public class PatientSearchBean {
      */
     public boolean isRenderDocumentPdf() {
         return getSelectedCurrentDocument().getContentType() != null
-                && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
+            && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
     }
 
     /**
@@ -569,10 +569,10 @@ public class PatientSearchBean {
      */
     public boolean isRenderDocumentText() {
         return getSelectedCurrentDocument().getContentType() != null
-                && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-                        || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-                        || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-                        || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+            && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
     /**
@@ -581,10 +581,10 @@ public class PatientSearchBean {
     public StreamedContent getDocumentPdf() {
         // return the content only if its an pdf file
         if (getSelectedCurrentDocument().getContentType() != null
-                && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
+            && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
             return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
-                    getSelectedCurrentDocument().getContentType());
+                getSelectedCurrentDocument().getContentType());
         }
         return null;
     }
@@ -595,10 +595,10 @@ public class PatientSearchBean {
     public String getDocumentXml() {
         // return the content only if its an pdf file
         if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-                .equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
+            .equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
             return new String(getSelectedCurrentDocument().getDocumentContent());
         }
         return null;

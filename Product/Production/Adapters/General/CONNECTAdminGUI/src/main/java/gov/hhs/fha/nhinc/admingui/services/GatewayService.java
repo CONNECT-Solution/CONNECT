@@ -128,7 +128,7 @@ public class GatewayService {
             // Call the entity/gateway Patient Discovery service
             final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
             LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
-                    patientDiscoveryResults.getPatientList().size());
+                patientDiscoveryResults.getPatientList().size());
 
             // Return false if no patient found
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
@@ -170,7 +170,7 @@ public class GatewayService {
 
         try {
             final DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(
-                    new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
+                new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
             final DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
 
             // Check the number of documents
@@ -206,11 +206,11 @@ public class GatewayService {
         // set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
             if (response.getContentType() != null && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
-                    || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
-                    || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
-                    || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
+                || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
                 final InputStream xsl = FacesContext.getCurrentInstance().getExternalContext()
-                        .getResourceAsStream(DEFAULT_XSL_FILE);
+                    .getResourceAsStream(DEFAULT_XSL_FILE);
                 final InputStream xml = new ByteArrayInputStream(response.getDocument());
                 byte[] convertXmlToHtml = null;
                 if (xsl != null) {
@@ -233,13 +233,13 @@ public class GatewayService {
      *
      */
     private void populatePatientBean(final PatientSearchResults patientQueryResults,
-            final PatientSearchBean patientQuerySearch) {
+        final PatientSearchBean patientQuerySearch) {
         final int patientIndex = 0;
         // start with a clean slate
         patientQuerySearch.getPatientList().clear();
         // loop through Patient Discovery results and set the UI patient bean
         for (final gov.hhs.fha.nhinc.patientdiscovery.model.Patient retrievedPatient : patientQueryResults
-                .getPatientList()) {
+            .getPatientList()) {
             final Patient patient = new Patient();
             // Patient personal Information
             patient.setDateOfBirth(patientQuerySearch.getDateOfBirth());
@@ -274,7 +274,7 @@ public class GatewayService {
      *
      */
     private void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
-            final PatientSearchBean patientQuerySearch) {
+        final PatientSearchBean patientQuerySearch) {
         int documentIndex = 0;
         // start with a clean slate
         patientQuerySearch.getSelectedCurrentPatient().getDocumentList().clear();
@@ -299,7 +299,7 @@ public class GatewayService {
             // this logic needs to be revisited after the demo
             if (patientDocument.getDocumentType() != null) {
                 patientDocument.setDocumentTypeName(
-                        patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
+                    patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
             }
             // for the demo set the value from the patient
             patientDocument.setSourcePatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());
@@ -323,8 +323,7 @@ public class GatewayService {
     private String getCommunityName(final PatientSearchBean searchBean, final String hcid) {
         for (final String name : searchBean.getOrganizationList().keySet()) {
             // Find the Home community ID of the BusinessEntity to compare with hcid.
-            final ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-            final String busEntityHcid = helper.getCommunityId(searchBean.getOrganizationList().get(name));
+            final String busEntityHcid = searchBean.getOrganizationList().get(name);
             if (StringUtils.isNotBlank(busEntityHcid) && hcid.equals(busEntityHcid)) {
                 return name;
             }

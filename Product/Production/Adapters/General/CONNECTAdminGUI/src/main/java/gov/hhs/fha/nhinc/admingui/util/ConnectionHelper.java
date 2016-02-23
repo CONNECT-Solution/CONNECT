@@ -70,7 +70,7 @@ public class ConnectionHelper {
             while (it.hasNext()) {
                 Map.Entry<String, BusinessEntity> entry = it.next();
                 if (checkLocalHcid(
-                        getHcidFromKeyedReference(entry.getValue().getIdentifierBag().getKeyedReference()))) {
+                    getHcidFromKeyedReference(entry.getValue().getIdentifierBag().getKeyedReference()))) {
                     it.remove();
                 }
             }
@@ -104,7 +104,7 @@ public class ConnectionHelper {
     private List<KeyedReference> getKeyedReference(BusinessEntity entity) {
         List<KeyedReference> keyedReference = new ArrayList<>();
         if (entity != null && entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
-                && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
+            && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
             keyedReference = entity.getIdentifierBag().getKeyedReference();
         }
         return keyedReference;
@@ -116,8 +116,8 @@ public class ConnectionHelper {
             businessEntities = ConnectionManagerCache.getInstance().getAllBusinessEntities();
         } catch (ConnectionManagerException ex) {
             LOG.error(
-                    "Exception while retrieving BusinessEntities from UDDIConnectionInfo: " + ex.getLocalizedMessage(),
-                    ex);
+                "Exception while retrieving BusinessEntities from UDDIConnectionInfo: " + ex.getLocalizedMessage(),
+                ex);
         }
         return businessEntities;
     }
@@ -126,7 +126,7 @@ public class ConnectionHelper {
         String localHcid = null;
         try {
             localHcid = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error("Exception retrieving property from gateway.properties: " + ex.getLocalizedMessage(), ex);
         }
@@ -166,10 +166,24 @@ public class ConnectionHelper {
             for (BusinessEntity businessEntity : entities) {
                 List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
                 if (NullChecker.isNotNullish(keyedReference)
-                        && NullChecker.isNotNullishIgnoreSpace(keyedReference.get(0).getKeyValue())) {
+                    && NullChecker.isNotNullishIgnoreSpace(keyedReference.get(0).getKeyValue())) {
                     organizationMap.put(
-                            HomeCommunityMap.getHomeCommunityWithoutPrefix(keyedReference.get(0).getKeyValue()),
-                            getEntityName(businessEntity));
+                        HomeCommunityMap.getHomeCommunityWithoutPrefix(keyedReference.get(0).getKeyValue()),
+                        getEntityName(businessEntity));
+                }
+            }
+        }
+        return organizationMap;
+    }
+
+    public Map<String, String> getOrgNameAndRemoteHcidMap() {
+        HashMap<String, String> organizationMap = new HashMap<>();
+        List<BusinessEntity> entityList = getAllBusinessEntities();
+        if (NullChecker.isNotNullish(entityList)) {
+            for (BusinessEntity businessEntity : entityList) {
+                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
+                if (NullChecker.isNotNullish(keyedReference)) {
+                    organizationMap.put(getEntityName(businessEntity), keyedReference.get(0).getKeyValue());
                 }
             }
         }
