@@ -1691,7 +1691,8 @@ ul[id*='ringFHIR'] .ringFHIR-content label {
 
 /* -- AUDIT LOG STYLES -----------------------------------------------*/
 form[id*='auditQueryTabView'].form-inline .form-group .control-label {display:block;padding-left:0px;padding-right:10px;}
-form[id*='auditQueryTabView'].form-inline .form-group > span[class*='col-'] {display:block;padding-left:0px;padding-right:10px;}
+form[id*='auditQueryTabView'].form-inline .form-group > span[class*='col-'] {display:block;padding-left:0px;padding-right:0px;}
+form[id*='auditQueryTabView'].form-inline .form-group > span[class*='col-'] input.hasDatepicker {height:34px;}
 form[id*='auditQueryTabView'] .form-block.container-fluid {padding:10px 0px;}
 form[id*='auditQueryTabView'] .row {margin-bottom:20px;}
 form[id*='auditQueryTabView'] h3 {line-height:1;margin:0px;padding:10px;background:#cccccc;font-size:16px;font-weight:bold;}
