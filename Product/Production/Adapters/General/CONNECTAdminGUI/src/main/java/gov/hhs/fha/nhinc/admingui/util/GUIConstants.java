@@ -36,7 +36,8 @@ public class GUIConstants {
 
         PatientDiscovery("PD"), PatientDiscoveryDeferredReq("PDDefReq"), PatientDiscoveryDeferredResp("PDDefResp"),
         QueryForDocuments("QD"), RetrieveDocuments("RD"), DocSubmission("DS"), DocSubmissionDeferredReq("DSDefReq"),
-        DocSubmissionDeferredResp("DSDefResp"), AdminDistribution("AD");
+        DocSubmissionDeferredResp("DSDefResp"), AdminDistribution("AD"), CORE_X12DSRealTime("X12RealTime"),
+        CORE_X12DSGenericBatchRequest("X12BatchReq"), CORE_X12DSGenericBatchResponse("X12BatchResp");
 
         public String abbServiceName = null;
 
