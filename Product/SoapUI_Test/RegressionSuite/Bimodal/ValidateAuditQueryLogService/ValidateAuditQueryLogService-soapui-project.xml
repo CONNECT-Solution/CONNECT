@@ -95,7 +95,6 @@ if there are any matching rows, auditquery service return results in response. I
 	def table = context.findProperty('AuditrepositoryTable')
 	sql.execute('delete from ' + table)	
 	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
-	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
 	def MessageId1 = context.findProperty( "MessageId-1" )
 	def EventId1= context.findProperty( "EventId-1" )
 	def UserId1 = context.findProperty( "UserId-1" )
@@ -105,7 +104,6 @@ if there are any matching rows, auditquery service return results in response. I
 	def Blob1 = context.findProperty( "Blob-1" )
 
 	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
-	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
 	def MessageId2 = context.findProperty( "MessageId-2")
 	def EventId2 = context.findProperty( "EventId-2" )
 	def UserId2 = context.findProperty( "UserId-2" )
@@ -113,11 +111,11 @@ if there are any matching rows, auditquery service return results in response. I
 	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
 	def Direction2 = context.findProperty( "Direction-2" )
 	def Blob2 = context.findProperty( "Blob-2" )
-	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
 
-	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
 	}</script>
         </con:config>
       </con:testStep>
@@ -145,7 +143,8 @@ if there are any matching rows, auditquery service return results in response. I
             <EventType>${#Project#EventType-2}</EventType>
          </EventTypeList>
          <!--Optional:-->
-        <EventOutcomeIndicator>${#Project#EventOutcome-1}</EventOutcomeIndicator>
+         <!-- Commented out until FHAC-894 fix -->
+        <!--<EventOutcomeIndicator></EventOutcomeIndicator>-->
          <!--Optional:-->
         <EventBeginDate>${#Project#EventTimeStamp-1}</EventBeginDate>
          <!--Optional:-->
@@ -158,7 +157,7 @@ if there are any matching rows, auditquery service return results in response. I
       </urn:QueryAuditEventsRequestType>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Schema Compliance" name="Schema Compliance">
+            <con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true">
               <con:configuration>
                 <definition/>
               </con:configuration>
@@ -198,7 +197,7 @@ if there are any matching rows, auditquery service return results in response. I
                 <ignoreComments>false</ignoreComments>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match" name="EventOutcomeIndicator XPath Match">
+            <con:assertion type="XPath Match" name="EventOutcomeIndicator XPath Match" disabled="true">
               <con:configuration>
                 <path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:auditquerylog';
 
@@ -258,19 +257,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T21:57:01Z</con:value>
+          <con:value>2016-03-08T16:07:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T22:07:01Z</con:value>
+          <con:value>2016-03-08T16:17:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 21:57:01</con:value>
+          <con:value>03/08/2016 16:07:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-01-22T00:00:00Z</con:value>
+          <con:value>2016-04-07T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -284,7 +283,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def table = context.findProperty('AuditrepositoryTable')
 	sql.execute('delete from ' + table)
 	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
-	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
 	def MessageId1 = context.findProperty( "MessageId-1" )
 	def EventId1= context.findProperty( "EventId-1" )
 	def UserId1 = context.findProperty( "UserId-1" )
@@ -294,7 +292,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def Blob1 = context.findProperty( "Blob-1" )
 
 	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
-	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
 	def MessageId2 = context.findProperty( "MessageId-2")
 	def EventId2 = context.findProperty( "EventId-2" )
 	def UserId2 = context.findProperty( "UserId-2" )
@@ -302,11 +299,11 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
 	def Direction2 = context.findProperty( "Direction-2" )
 	def Blob2 = context.findProperty( "Blob-2" )
-	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
 
-	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
 	}</script>
         </con:config>
       </con:testStep>
@@ -329,7 +326,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:QueryAuditEventsBlobRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Schema Compliance" name="Schema Compliance">
+            <con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true">
               <con:configuration>
                 <definition/>
               </con:configuration>
@@ -363,19 +360,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T21:57:02Z</con:value>
+          <con:value>2016-03-08T16:07:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T22:07:02Z</con:value>
+          <con:value>2016-03-08T16:17:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 21:57:02</con:value>
+          <con:value>03/08/2016 16:07:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-01-22T00:00:00Z</con:value>
+          <con:value>2016-04-07T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -389,7 +386,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def table = context.findProperty('AuditrepositoryTable')
 	sql.execute('delete from ' + table)
 	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
-	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
 	def MessageId1 = context.findProperty( "MessageId-1" )
 	def EventId1= context.findProperty( "EventId-1" )
 	def UserId1 = context.findProperty( "UserId-1" )
@@ -399,7 +395,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def Blob1 = context.findProperty( "Blob-1" )
 
 	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
-	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
 	def MessageId2 = context.findProperty( "MessageId-2")
 	def EventId2 = context.findProperty( "EventId-2" )
 	def UserId2 = context.findProperty( "UserId-2" )
@@ -407,11 +402,11 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
 	def Direction2 = context.findProperty( "Direction-2" )
 	def Blob2 = context.findProperty( "Blob-2" )
-	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
 
-	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
 	}</script>
         </con:config>
       </con:testStep>
@@ -468,19 +463,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T19:49:31Z</con:value>
+          <con:value>2016-03-08T16:07:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T19:59:31Z</con:value>
+          <con:value>2016-03-08T16:17:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 19:49:31</con:value>
+          <con:value>03/08/2016 16:07:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-01-22T00:00:00Z</con:value>
+          <con:value>2016-04-07T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -493,8 +488,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
           <script>context.withSql('auditRepoDB') { sql -> 
 	def table = context.findProperty('AuditrepositoryTable')
 	sql.execute('delete from ' + table)	
-	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
-	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
+	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )	
 	def MessageId1 = context.findProperty( "MessageId-2" )
 	def EventId1= context.findProperty( "EventId-1" )
 	def UserId1 = context.findProperty( "UserId-1" )
@@ -504,7 +498,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def Blob1 = context.findProperty( "Blob-1" )
 
 	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
-	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
 	def MessageId2 = context.findProperty( "MessageId-2")
 	def EventId2 = context.findProperty( "EventId-2" )
 	def UserId2 = context.findProperty( "UserId-2" )
@@ -512,11 +505,11 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
 	def Direction2 = context.findProperty( "Direction-2" )
 	def Blob2 = context.findProperty( "Blob-2" )
-	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, MessageId1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
 
-	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, MessageId2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
 	}</script>
         </con:config>
       </con:testStep>
@@ -542,7 +535,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:QueryAuditEventsRequestByRequestMessageId>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Schema Compliance" name="Schema Compliance">
+            <con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true">
               <con:configuration>
                 <definition/>
               </con:configuration>
@@ -588,19 +581,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T21:57:04Z</con:value>
+          <con:value>2016-03-08T16:07:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T22:07:04Z</con:value>
+          <con:value>2016-03-08T16:17:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 21:57:04</con:value>
+          <con:value>03/08/2016 16:07:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-01-22T00:00:00Z</con:value>
+          <con:value>2016-04-07T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -614,7 +607,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def table = context.findProperty('AuditrepositoryTable')
 	sql.execute('delete from ' + table)	
 	def EventTimeStamp1 = context.findProperty( "EventTimeStamp-1" )
-	def EventOutcome1 = context.findProperty( "EventOutcome-1" )
 	def MessageId1 = context.findProperty( "MessageId-3" )
 	def RelatesTo1 = context.findProperty( "RelatesTo-1" )
 	def EventId1= context.findProperty( "EventId-1" )
@@ -625,7 +617,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def Blob1 = context.findProperty( "Blob-1" )
 
 	def EventTimeStamp2 = context.findProperty( "EventTimeStamp-2" )
-	def EventOutcome2 = context.findProperty( "EventOutcome-2" )
 	def MessageId2 = context.findProperty( "MessageId-3")
 	def RelatesTo2 = context.findProperty( "RelatesTo-1" )
 	def EventId2 = context.findProperty( "EventId-2" )
@@ -634,11 +625,11 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	def RemoteHcid2 = context.findProperty( "RemoteHcid-2" )
 	def Direction2 = context.findProperty( "Direction-2" )
 	def Blob2 = context.findProperty( "Blob-2" )
-	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, relatesTo, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, EventOutcome1, MessageId1, RelatesTo1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
+	def insertSql = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, relatesTo, userId, eventType, remoteHcid, direction, message) " + "values (1,?,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql, [EventTimeStamp1, EventId1, MessageId1, RelatesTo1, UserId1, EventType1, RemoteHcid1, Direction1, Blob1])
 
-	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, outcome, messageId, relatesTo, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?,?)"
-	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, EventOutcome2, MessageId2, RelatesTo2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
+	def insertSql2 = "insert into " + table + " ( id, eventTimestamp, eventId, messageId, relatesTo, userId, eventType, remoteHcid, direction, message) " + "values (2,?,?,?,?,?,?,?,?,?)"
+	sql.executeUpdate(insertSql2, [EventTimeStamp2, EventId2, MessageId2, RelatesTo2, UserId2, EventType2, RemoteHcid2, Direction2, Blob2])
 	}</script>
         </con:config>
       </con:testStep>
@@ -664,7 +655,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:QueryAuditEventsRequestByRequestMessageId>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="Schema Compliance" name="Schema Compliance">
+            <con:assertion type="Schema Compliance" name="Schema Compliance" disabled="true">
               <con:configuration>
                 <definition/>
               </con:configuration>
@@ -722,19 +713,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2015-12-23T20:18:46Z</con:value>
+          <con:value>2016-03-08T16:07:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2015-12-23T20:28:46Z</con:value>
+          <con:value>2016-03-08T16:17:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/23/2015 20:18:46</con:value>
+          <con:value>03/08/2016 16:07:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-01-22T00:00:00Z</con:value>
+          <con:value>2016-04-07T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -787,10 +778,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:value>PatientDiscovery</con:value>
     </con:property>
     <con:property>
-      <con:name>EventOutcome-1</con:name>
-      <con:value>0</con:value>
-    </con:property>
-    <con:property>
       <con:name>RemoteHcid-1</con:name>
       <con:value>2.2</con:value>
     </con:property>
@@ -821,10 +808,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
     <con:property>
       <con:name>EventType-2</con:name>
       <con:value>PatientDiscovery</con:value>
-    </con:property>
-    <con:property>
-      <con:name>EventOutcome-2</con:name>
-      <con:value>0</con:value>
     </con:property>
     <con:property>
       <con:name>RemoteHcid-2</con:name>
