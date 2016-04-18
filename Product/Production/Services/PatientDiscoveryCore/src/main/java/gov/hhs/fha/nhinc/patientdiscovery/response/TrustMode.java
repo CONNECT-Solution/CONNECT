@@ -73,10 +73,12 @@ public class TrustMode implements ResponseMode {
             PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
             List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
+            boolean hasResponseSubjectObj = false;
             if (response != null && response.getControlActProcess() != null
                     && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                 pRPAINSubjects = response.getControlActProcess().getSubject();
-                LOG.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
+                LOG.debug("processResponse - Subjects size: {}",pRPAINSubjects.size());
+                hasResponseSubjectObj = true;
             } else {
                 LOG.debug("processResponse - response/subjects is null");
             }
@@ -86,8 +88,11 @@ public class TrustMode implements ResponseMode {
 
             if (requestHasLivingSubjectId(requestMsg) && localPatId != null) {
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
-                    int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
-                    LOG.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
+                    int pRPAINSubjectInd = -1;
+                    if (hasResponseSubjectObj){
+                        pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+                    }
+                    LOG.debug("processResponse - SubjectIndex: {}",pRPAINSubjectInd);
 
                     PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess()
                             .getSubject().set(0, pRPAINSubject);

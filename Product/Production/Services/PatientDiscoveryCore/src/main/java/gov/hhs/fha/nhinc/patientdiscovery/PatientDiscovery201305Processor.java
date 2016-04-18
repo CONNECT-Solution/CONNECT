@@ -39,9 +39,12 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
@@ -125,9 +128,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         // ************************************************************************************************
+        boolean hasEmptySubject = checkEmptySubject(response);
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
-        if (response != null && response.getControlActProcess() != null
-                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+        if (!hasEmptySubject) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
             LOG.debug("checkPolicy - Before policy Check-Subjects size: " + pRPAINSubjects.size());
         } else {
@@ -136,7 +139,10 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<>();
         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
-            int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+            int pRPAINSubjectInd = -1;
+            if (!hasEmptySubject){
+                pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+            }
             LOG.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
 
             PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject()
@@ -156,19 +162,16 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             response.getControlActProcess().getSubject().set(0, subjReplaced);
         }
 
-        if (response != null && response.getControlActProcess() != null
-                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())
-                && NullChecker.isNotNullish(delPRPAINSubjects)) {
+        if (!hasEmptySubject && NullChecker.isNotNullish(delPRPAINSubjects)) {
             LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size:"
                     + delPRPAINSubjects.size());
             response.getControlActProcess().getSubject().removeAll(delPRPAINSubjects);
         }
 
-        if (response != null && response.getControlActProcess() != null
-                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+        if (!hasEmptySubject) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
             LOG.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
-            if (pRPAINSubjects.size() > 0) {
+            if (!pRPAINSubjects.isEmpty()) {
                 isPermit = true;
             }
         } else {

@@ -44,10 +44,6 @@ public class PurposeOfForDecider {
 
     private static final Logger LOG = LoggerFactory.getLogger(PurposeOfForDecider.class);
 
-    public PurposeOfForDecider() {
-
-    }
-
     protected NhinEndpointManager getNhinEndpointManager() {
         return new NhinEndpointManager();
     }
@@ -90,7 +86,12 @@ public class PurposeOfForDecider {
         }
 
         if (LOG.isDebugEnabled()) {
-            logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
+            if (serviceName != null){
+                logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
+            }else{
+                logPurposeDecision(purposeFor, hcid, null);
+            }
+
         }
 
         return purposeFor;

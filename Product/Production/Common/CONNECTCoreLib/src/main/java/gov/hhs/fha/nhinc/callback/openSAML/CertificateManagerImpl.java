@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +41,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +64,7 @@ public class CertificateManagerImpl implements CertificateManager {
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
     public static final String JKS_TYPE = "JKS";
     public static final String PKCS11_TYPE = "PKCS11";
+    private final String KEY_STORE_ERROR_MSG = "Error initializing KeyStore: {}";
 
     private CertificateManagerImpl() {
         try {
@@ -149,15 +152,15 @@ public class CertificateManagerImpl implements CertificateManager {
                 if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
                     is = new FileInputStream(storeLoc);
                 }
-                keyStore.load(is, password.toCharArray());
+                keyStore.load(is, (password != null) ? password.toCharArray() : null);
             } catch (final NoSuchAlgorithmException ex) {
-                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
+                LOG.error(KEY_STORE_ERROR_MSG, ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } catch (final CertificateException ex) {
-                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
+                LOG.error(KEY_STORE_ERROR_MSG, ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } catch (final KeyStoreException ex) {
-                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
+                LOG.error(KEY_STORE_ERROR_MSG, ex.getLocalizedMessage(), ex);
                 throw new Exception(ex.getMessage());
             } finally {
                 try {
