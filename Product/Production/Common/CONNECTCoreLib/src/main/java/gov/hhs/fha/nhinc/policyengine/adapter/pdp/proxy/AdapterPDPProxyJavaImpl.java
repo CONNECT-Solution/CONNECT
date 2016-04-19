@@ -47,6 +47,7 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
 
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +111,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     final DocumentService service = new DocumentService();
                     final List<Document> docs = service.documentQuery(params);
                     int docsSize = 0;
-                    if (!CollectionUtils.isEmpty(docs)) {
+                    if (CollectionUtils.isNotEmpty(docs)) {
                         docsSize = docs.size();
                         LOG.debug("processPDPRequest - Policy Document Count:" + String.valueOf(docsSize));
                     } else {
@@ -264,7 +265,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         params.setDocumentUniqueId(docIds);
         final List<Document> docs = new DocumentService().documentQuery(params);
         int docsSize;
-        if (!CollectionUtils.isEmpty(docs)) {
+        if (CollectionUtils.isNotEmpty(docs)) {
             docsSize = docs.size();
             LOG.debug("getPatientIdByDocumentUniqueId - Document size:" + String.valueOf(docsSize));
             patientId = docs.get(0).getPatientId();
@@ -301,7 +302,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                 } else {
                     LOG.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: null");
                 }
-                if (!CollectionUtils.isEmpty(rules)) {
+                if (CollectionUtils.isNotEmpty(rules)) {
                     LOG.debug("Rules list size: " + rules.size());
                     String policyMatchId;
                     String policyAttrValue;
@@ -318,13 +319,13 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                             if (targetType.getSubjects() != null) {
                                 List<SubjectType> subjects;
                                 subjects = targetType.getSubjects().getSubject();
-                                if (!CollectionUtils.isEmpty(subjects)) {
+                                if (CollectionUtils.isNotEmpty(subjects)) {
                                     LOG.debug("Subjects list size" + subjects.size());
                                     subjectsFor: for (final SubjectType subject : subjects) {
                                         isMatch = false;
                                         List<SubjectMatchType> subjectMatchs;
                                         subjectMatchs = subject.getSubjectMatch();
-                                        if (!CollectionUtils.isEmpty(subjectMatchs)) {
+                                        if (CollectionUtils.isNotEmpty(subjectMatchs)) {
                                             LOG.debug("subjectMatchs list size" + subjectMatchs.size());
                                             subjectMatchsFor: for (final SubjectMatchType subjectMatch : subjectMatchs) {
                                                 policyMatchId = subjectMatch.getMatchId();

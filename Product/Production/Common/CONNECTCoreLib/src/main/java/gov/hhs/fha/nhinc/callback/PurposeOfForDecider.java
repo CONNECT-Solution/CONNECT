@@ -86,12 +86,7 @@ public class PurposeOfForDecider {
         }
 
         if (LOG.isDebugEnabled()) {
-            if (serviceName != null){
-                logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
-            }else{
-                logPurposeDecision(purposeFor, hcid, null);
-            }
-
+            logPurposeDecision(purposeFor, hcid, serviceName != null ? serviceName.getUDDIServiceName() : null);
         }
 
         return purposeFor;

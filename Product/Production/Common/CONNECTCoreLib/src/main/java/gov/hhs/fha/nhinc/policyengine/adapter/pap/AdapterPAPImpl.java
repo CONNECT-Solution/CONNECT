@@ -65,7 +65,7 @@ public class AdapterPAPImpl {
             DocumentService service = new DocumentService();
             List<Document> docs = service.documentQuery(params);
             int docsSize = 0;
-            if (!CollectionUtils.isEmpty(docs)){
+            if (CollectionUtils.isNotEmpty(docs)){
                 docsSize = docs.size();
                 document = docs.get(0);
             }
