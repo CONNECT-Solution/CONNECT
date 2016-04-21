@@ -67,6 +67,9 @@ public class TrustMode implements ResponseMode {
         LOG.debug("Begin TrustMode.processResponse()...");
         PRPAIN201306UV02 response = null;
         int sonargithub = 1;
+        if (sonargithub ==2){
+            System.out.println("Please don't merge this"); 
+        }
         if (params != null) {
             response = params.response;
             AssertionType assertion = params.assertion;
