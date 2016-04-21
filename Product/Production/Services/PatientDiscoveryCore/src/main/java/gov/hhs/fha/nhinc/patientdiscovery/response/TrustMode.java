@@ -66,7 +66,7 @@ public class TrustMode implements ResponseMode {
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         LOG.debug("Begin TrustMode.processResponse()...");
         PRPAIN201306UV02 response = null;
-
+        int sonargithub = 1;
         if (params != null) {
             response = params.response;
             AssertionType assertion = params.assertion;
