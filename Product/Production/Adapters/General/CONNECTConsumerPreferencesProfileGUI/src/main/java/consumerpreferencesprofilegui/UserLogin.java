@@ -166,8 +166,8 @@ public class UserLogin extends AbstractPageBean {
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
 
         if (authResp != null) {
-            LOG.debug("UserLogin.prerender Authentication Service " + adapterAuthenticationProxy + " Avail: "
-                    + authResp.isIsAuthenticationAvailable());
+            LOG.debug("UserLogin.prerender Authentication Service {} Avail: {}", adapterAuthenticationProxy,
+                    authResp.isIsAuthenticationAvailable());
 
             if (!authResp.isIsAuthenticationAvailable()) {
                 try {
@@ -185,7 +185,7 @@ public class UserLogin extends AbstractPageBean {
                     PROPERTY_FILE_KEY_AGENCY);
             agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
-            LOG.error("CPP GUI can not access " + PROPERTY_FILE_KEY_AGENCY + " property: ", ex);
+            LOG.error("CPP GUI can not access {} property: ", PROPERTY_FILE_KEY_AGENCY, ex.getLocalizedMessage(), ex);
         }
     }
 
