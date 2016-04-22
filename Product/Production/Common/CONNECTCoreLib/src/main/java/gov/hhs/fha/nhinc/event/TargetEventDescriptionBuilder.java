@@ -58,8 +58,7 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
                     return;
                 } else if (argument instanceof NhinTargetCommunitiesType) {
                     NhinTargetCommunitiesType communities = (NhinTargetCommunitiesType) argument;
-                    if (communities != null && communities.getNhinTargetCommunity() != null
-                            && !communities.getNhinTargetCommunity().isEmpty()
+                    if (communities.getNhinTargetCommunity() != null && !communities.getNhinTargetCommunity().isEmpty()
                             && communities.getNhinTargetCommunity().get(0) != null
                             && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {
                         target = Optional.of(convertToTargetSystem(communities.getNhinTargetCommunity().get(0)));

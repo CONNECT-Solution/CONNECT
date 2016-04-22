@@ -164,15 +164,19 @@ public class UserLogin extends AbstractPageBean {
         authRequest.setUserName("Default");
         authRequest.setPassword("Default");
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        LOG.debug("UserLogin.prerender Authentication Service " + adapterAuthenticationProxy + " Avail: "
-                + authResp.isIsAuthenticationAvailable());
-        if (authResp != null && !authResp.isIsAuthenticationAvailable()) {
-            try {
-                getUserSession().setAuthToken("NoOpToken");
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.getExternalContext().redirect("faces/SearchPatient.jsp");
-            } catch (IOException ex) {
-                LOG.error("CPP GUI can not prerender UserLogin: ", ex);
+
+        if (authResp != null) {
+            LOG.debug("UserLogin.prerender Authentication Service " + adapterAuthenticationProxy + " Avail: "
+                    + authResp.isIsAuthenticationAvailable());
+
+            if (!authResp.isIsAuthenticationAvailable()) {
+                try {
+                    getUserSession().setAuthToken("NoOpToken");
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.getExternalContext().redirect("faces/SearchPatient.jsp");
+                } catch (IOException ex) {
+                    LOG.error("CPP GUI can not prerender UserLogin: ", ex);
+                }
             }
         }
 

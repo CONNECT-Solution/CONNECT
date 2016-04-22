@@ -127,13 +127,12 @@ public class VerifyMode implements ResponseMode {
     protected String getSenderCommunityId(PRPAIN201306UV02 response) {
         String hcid = null;
 
-        if (response != null
-                && response.getSender() != null
-                && response.getSender().getDevice() != null
+        if (response != null && response.getSender() != null && response.getSender().getDevice() != null
                 && response.getSender().getDevice().getAsAgent() != null
                 && response.getSender().getDevice().getAsAgent().getValue() != null
                 && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue() != null
                 && NullChecker.isNotNullish(response.getSender().getDevice().getAsAgent().getValue()
                         .getRepresentedOrganization().getValue().getId())
                 && response.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
@@ -150,8 +149,7 @@ public class VerifyMode implements ResponseMode {
     protected PRPAMT201301UV02Patient extractPatient(PRPAIN201306UV02 response) {
         PRPAMT201301UV02Patient patient = null;
 
-        if (response != null
-                && response.getControlActProcess() != null
+        if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())
                 && response.getControlActProcess().getSubject().get(0) != null
                 && response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
@@ -183,8 +181,7 @@ public class VerifyMode implements ResponseMode {
         List<II> requestPatientIds = new ArrayList<>();
         List<PRPAMT201306UV02LivingSubjectId> requestSubjectIds;
 
-        if (requestMsg != null
-                && requestMsg.getControlActProcess() != null
+        if (requestMsg != null && requestMsg.getControlActProcess() != null
                 && requestMsg.getControlActProcess().getQueryByParameter() != null
                 && requestMsg.getControlActProcess().getQueryByParameter().getValue() != null
                 && requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
@@ -220,21 +217,20 @@ public class VerifyMode implements ResponseMode {
             if (mpiResult != null) {
                 try {
                     LOG.debug("Received result from mpi.");
-                    if ((mpiResult.getControlActProcess() != null)
+                    if (mpiResult.getControlActProcess() != null
                             && NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject())) {
                         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : mpiResult.getControlActProcess()
                                 .getSubject()) {
-                            if ((subj1.getRegistrationEvent() != null)
-                                    && (subj1.getRegistrationEvent().getSubject1() != null)
-                                    && (subj1.getRegistrationEvent().getSubject1().getPatient() != null)
-                                    && (subj1.getRegistrationEvent().getSubject1().getPatient().getId() != null)) {
+                            if (subj1.getRegistrationEvent() != null
+                                    && subj1.getRegistrationEvent().getSubject1() != null
+                                    && subj1.getRegistrationEvent().getSubject1().getPatient() != null
+                                    && subj1.getRegistrationEvent().getSubject1().getPatient().getId() != null) {
                                 mpiIds.add(subj1.getRegistrationEvent().getSubject1().getPatient().getId().get(0));
                             }
                         }
                     }
-                    if (mpiIds != null) {
-                        LOG.debug("mpiIds size: " + mpiIds.size());
-                    }
+
+                    LOG.debug("mpiIds size: " + mpiIds.size());
 
                     requestIdsSearch: for (II id : localPatientIds) {
                         for (II mpiId : mpiIds) {
@@ -315,10 +311,10 @@ public class VerifyMode implements ResponseMode {
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
             LOG.info("Sending query to the Secured MPI");
             try {
-				queryResults = mpiProxy.findCandidates(query, assertion);
-			} catch (PatientDiscoveryException e) {
-				LOG.error("Error queries MPI in verify mode.", e);
-			}
+                queryResults = mpiProxy.findCandidates(query, assertion);
+            } catch (PatientDiscoveryException e) {
+                LOG.error("Error queries MPI in verify mode.", e);
+            }
 
         } else {
             LOG.error("MPI Request is null");
