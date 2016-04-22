@@ -67,8 +67,11 @@ public class TrustMode implements ResponseMode {
         LOG.debug("Begin TrustMode.processResponse()...");
         PRPAIN201306UV02 response = null;
         int sonargithub = 1;
+        //TODO: remove this
         if (sonargithub ==2){
-            System.out.println("Please don't merge this"); 
+            String removeLine = "remove me";
+            //System.out.println("Please don't merge this");
+            System.out.println("Please don't merge it again");
         }
         if (params != null) {
             response = params.response;
