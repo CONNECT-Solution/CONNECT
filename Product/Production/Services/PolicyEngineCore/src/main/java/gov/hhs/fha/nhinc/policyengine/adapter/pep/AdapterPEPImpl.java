@@ -142,7 +142,7 @@ public class AdapterPEPImpl {
                 AdapterPDPProxy pdpProxy = pdpProxyFactory.getAdapterPDPProxy();
                 Response pdpResponse = pdpProxy.processPDPRequest(pdpRequest);
 
-                LOG.debug("PDP Response: {}", pdpResponse.toXMLString());
+                LOG.debug("PDP Response: " + pdpResponse.toXMLString());
 
                 boolean isPermitted = false;
                 for (Object pdpRetObj : pdpResponse.getResults()) {
@@ -168,7 +168,7 @@ public class AdapterPEPImpl {
                 checkPolicyResp = createResponse(DecisionType.DENY);
                 try {
                     if (pdpRequest != null) {
-                        LOG.error("Unable to process PDP request: {} ", pdpRequest.toXMLString());
+                        LOG.error("Unable to process PDP request: " + pdpRequest.toXMLString());
                     }
                 } catch (XACMLException ex) {
                     LOG.error("Failed to conver PDP request to XML string: {}", ex.getLocalizedMessage(), ex);
@@ -223,7 +223,7 @@ public class AdapterPEPImpl {
             List<Attribute> subjIdList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ID, XSPA_SUBJECT_ID, null);
             removeEmptyItems(subjIdList);
             if (subjIdList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_SUBJECT_ID);
+                LOG.debug(XSPA_SUBJECT_ID + " Attribute is empty");
             }
             subjAttrList.addAll(subjIdList);
 
@@ -232,7 +232,7 @@ public class AdapterPEPImpl {
                     null);
             removeEmptyItems(subjOrgList);
             if (subjOrgList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_SUBJECT_ORG);
+                LOG.debug(XSPA_SUBJECT_ORG + " Attribute is empty");
             }
             subjAttrList.addAll(subjOrgList);
 
@@ -241,7 +241,7 @@ public class AdapterPEPImpl {
                     XSPA_SUBJECT_ORG_ID, null);
             removeEmptyItems(subjOrgIdList);
             if (subjOrgIdList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_SUBJECT_ID);
+                LOG.debug(XSPA_SUBJECT_ID + " Attribute is empty");
             }
             subjAttrList.addAll(subjOrgIdList);
 
@@ -251,7 +251,7 @@ public class AdapterPEPImpl {
                     XSPA_SUBJECT_ROLE, extractedUserRoles);
             removeEmptyItems(subjUserRoleList);
             if (subjUserRoleList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_SUBJECT_ROLE);
+                LOG.debug(XSPA_SUBJECT_ROLE + " Attribute is empty");
             }
             subjAttrList.addAll(subjUserRoleList);
 
@@ -261,7 +261,7 @@ public class AdapterPEPImpl {
                     XSPA_SUBJECT_PURPOSE, extractedPurpose);
             removeEmptyItems(subjPurposeList);
             if (subjPurposeList.isEmpty()) {
-                LOG.debug("Create a default {} Attribute", XSPA_SUBJECT_PURPOSE);
+                LOG.debug("Create a default " + XSPA_SUBJECT_PURPOSE + " Attribute");
                 subjPurposeList.addAll(createDefaultAttrs(XSPA_SUBJECT_PURPOSE, DEFAULT_PURPOSE_TEXT));
             }
             subjAttrList.addAll(subjPurposeList);
@@ -287,7 +287,7 @@ public class AdapterPEPImpl {
                     extractedServices);
             removeEmptyItems(resourceServiceList);
             if (resourceServiceList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_SERVICE_TYPE);
+                LOG.debug(XSPA_SERVICE_TYPE + " Attribute is empty");
             }
             resourceAttrList.addAll(resourceServiceList);
 
@@ -297,7 +297,7 @@ public class AdapterPEPImpl {
                     XSPA_RESOURCE_ID, extractedResourceIds);
             removeEmptyItems(resourceIdList);
             if (resourceIdList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_RESOURCE_ID);
+                LOG.debug(XSPA_RESOURCE_ID + " Attribute is empty");
             }
             resourceAttrList.addAll(resourceIdList);
             if (!extractedResourceIds.isEmpty()) {
@@ -318,11 +318,11 @@ public class AdapterPEPImpl {
                             createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds, assertion));
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
                     if (resourcePatientOptInList.isEmpty()) {
-                        LOG.debug("Create a default {} Attribute with value Opt-Out", XSPA_PATIENT_OPT_IN);
+                        LOG.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
                         resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
                     }
                 } else {
-                    LOG.debug("Create a default {} Attribute with value Opt-Out", XSPA_PATIENT_OPT_IN);
+                    LOG.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
                     resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
                 }
             } else {
@@ -341,9 +341,9 @@ public class AdapterPEPImpl {
                         extractedRepositoryIds);
 
                 if (!extractedDocIds.isEmpty()) {
-                    LOG.debug("createPdpRequest - extractedDocIds.size: {}", extractedDocIds.size());
+                    LOG.debug("createPdpRequest - extractedDocIds.size: " + extractedDocIds.size());
                     for (String docId : extractedDocIds) {
-                        LOG.debug("createPdpRequest - docId: {}", docId);
+                        LOG.debug("createPdpRequest - docId: " + docId);
                     }
 
                     try {
@@ -363,7 +363,7 @@ public class AdapterPEPImpl {
                     resourcePatientOptInList.addAll(createDocumentOptStatusAttrs(extractedDocIds, extractedCommunityIds,
                             extractedRepositoryIds, assertion));
                     if (resourcePatientOptInList.isEmpty()) {
-                        LOG.debug("Create a default {} Attribute with value Opt-Out", XSPA_PATIENT_OPT_IN);
+                        LOG.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
                         resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
                     }
                 } else {
@@ -374,7 +374,8 @@ public class AdapterPEPImpl {
                             extractedSubscription);
                     if (!extractedSubscription.isEmpty()) {
                         // Subscription requests are automatically opted-In
-                        LOG.debug("Subscription request assigns {} Attribute with value Opt-In", XSPA_PATIENT_OPT_IN);
+                        LOG.debug(
+                                "Subscription request assigns " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-In");
                         resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                     } else {
                         // This message type is not identifiable as patient specific, document specific, or subscription
@@ -382,17 +383,17 @@ public class AdapterPEPImpl {
                         // The only other valid type that is known is AuditLogQuery
                         if (extractedServices.contains("AuditLogQueryIn")
                                 || extractedServices.contains("AuditLogQueryOut")) {
-                            LOG.debug("Audit Log Query request assigns {} Attribute with value Opt-In",
-                                    XSPA_PATIENT_OPT_IN);
+                            LOG.debug("Audit Log Query request assigns " + XSPA_PATIENT_OPT_IN
+                                    + " Attribute with value Opt-In");
                             resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                         } else if (extractedServices.contains("HIEMNotifyIn")
                                 || extractedServices.contains("HIEMNotifyOut")) {
-                            LOG.debug("HIEM Notify request assigns {} Attribute with value Opt-In",
-                                    XSPA_PATIENT_OPT_IN);
+                            LOG.debug("HIEM Notify request assigns " + XSPA_PATIENT_OPT_IN
+                                    + " Attribute with value Opt-In");
                             resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                         } else {
-                            LOG.debug("Unknown message type assign {} Attribute with value Opt-Out",
-                                    XSPA_PATIENT_OPT_IN);
+                            LOG.debug("Unknown message type assign " + XSPA_PATIENT_OPT_IN
+                                    + " Attribute with value Opt-Out");
                             resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
                         }
                     }
@@ -401,7 +402,7 @@ public class AdapterPEPImpl {
 
             removeEmptyItems(resourcePatientOptInList);
             if (resourcePatientOptInList.isEmpty()) {
-                LOG.debug("Create a default {} Attribute with value Opt-Out", XSPA_PATIENT_OPT_IN);
+                LOG.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
                 resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
             }
             resourceAttrList.addAll(resourcePatientOptInList);
@@ -423,7 +424,7 @@ public class AdapterPEPImpl {
             List<Attribute> actionIdList = createActionAttrs(checkPolicyRequest, XACML_ACTION, XSPA_ACTION, null);
             removeEmptyItems(actionIdList);
             if (actionIdList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_ACTION);
+                LOG.debug(XSPA_ACTION + " Attribute is empty");
                 actionIdList.addAll(createDefaultAttrs(XSPA_ACTION, "Unknown"));
             }
             actionAttrList.addAll(actionIdList);
@@ -443,7 +444,7 @@ public class AdapterPEPImpl {
                     XSPA_ENVIRONMENT_LOCALITY, null);
             removeEmptyItems(envHomeCommunityList);
             if (envHomeCommunityList.isEmpty()) {
-                LOG.debug("{} Attribute is empty", XSPA_ENVIRONMENT_LOCALITY);
+                LOG.debug(XSPA_ENVIRONMENT_LOCALITY + " Attribute is empty");
                 LOG.debug("Sender community is assumed to be this gateway");
                 envHomeCommunityList.addAll(createEnvLocAttrs());
             }
@@ -499,7 +500,7 @@ public class AdapterPEPImpl {
 
                     List<Attribute> xspaAttrs = extractAttrs(subjItem.getAttribute(), xacmlId, xspaId, extractedVals);
                     if (xspaAttrs.isEmpty()) {
-                        LOG.debug("Subject Attributes for check policy request do not include values for {}", xacmlId);
+                        LOG.debug("Subject Attributes for check policy request do not include values for " + xacmlId);
                     } else {
                         retSubjList.addAll(xspaAttrs);
                     }
@@ -539,7 +540,7 @@ public class AdapterPEPImpl {
                     List<Attribute> xspaAttrs = extractAttrs(resourceItem.getAttribute(), xacmlId, xspaId,
                             extractedVals);
                     if (xspaAttrs.isEmpty()) {
-                        LOG.debug("Resource Attributes for check policy request do not include values for {}", xacmlId);
+                        LOG.debug("Resource Attributes for check policy request do not include values for " + xacmlId);
                     } else {
                         retResourceList.addAll(xspaAttrs);
                     }
@@ -576,7 +577,7 @@ public class AdapterPEPImpl {
 
                 List<Attribute> xspaAttrs = extractAttrs(actionItem.getAttribute(), xacmlId, xspaId, extractedVals);
                 if (xspaAttrs.isEmpty()) {
-                    LOG.debug("Action Attributes for check policy request do not include values for {}", xacmlId);
+                    LOG.debug("Action Attributes for check policy request do not include values for " + xacmlId);
                 } else {
                     retActionList.addAll(xspaAttrs);
                 }
@@ -619,7 +620,7 @@ public class AdapterPEPImpl {
                         }
                     }
                     if (extractedContent.isEmpty()) {
-                        LOG.debug("The attribute in the check policy request has no values for {}", xacmlId);
+                        LOG.debug("The attribute in the check policy request has no values for " + xacmlId);
                     } else {
                         if (extractedVals != null) {
                             extractedVals.addAll(extractedContent);
@@ -703,7 +704,7 @@ public class AdapterPEPImpl {
             List<String> optStatusVals = determineDocumentOptStatus(documentIdList, communityIds, repositoryIds,
                     assertion);
             for (String optStatusVal : optStatusVals) {
-                LOG.debug("Adding attribute value: {} for {}", optStatusVal, XSPA_PATIENT_OPT_IN);
+                LOG.debug("Adding attribute value: " + optStatusVal + " for " + XSPA_PATIENT_OPT_IN);
             }
 
             xspaAttr.setAttributeStringValues(optStatusVals);
@@ -730,7 +731,8 @@ public class AdapterPEPImpl {
         int numDocIdAttr = documentIds.size();
         int numCommunityIdAttr = communityIds.size();
         int numRepoIdAttr = repositoryIds.size();
-        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr) {
+        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr
+                || numCommunityIdAttr != numRepoIdAttr) {
             LOG.error("Error in extracting DocumentOptInStatus values: "
                     + "Number of DocumentId Attributes should match number of Community and Repository Attributes");
         } else {
@@ -739,8 +741,8 @@ public class AdapterPEPImpl {
                 String communityId = communityIds.get(idx).trim();
                 String repositoryId = repositoryIds.get(idx).trim();
 
-                LOG.debug("Process document id: {} for community: {} in repository: {}", documentId, communityId,
-                        repositoryId);
+                LOG.debug("Process document id: " + documentId + " for community: " + communityId + " in repository: "
+                        + repositoryId);
 
                 AdapterPIPProxyObjectFactory factory = new AdapterPIPProxyObjectFactory();
                 AdapterPIPProxy adapterPIPProxy = factory.getAdapterPIPProxy();
@@ -852,7 +854,7 @@ public class AdapterPEPImpl {
         // the direction being inbound or outbound
         for (String actionValue : extractedVals) {
             translatedActions.add(actionMap.get(actionValue.trim()));
-            LOG.debug("Translated Action: {} to {}", actionValue.trim(), actionMap.get(actionValue.trim()));
+            LOG.debug("Translated Action: " + actionValue.trim() + " to " + actionMap.get(actionValue.trim()));
         }
 
         return translatedActions;
