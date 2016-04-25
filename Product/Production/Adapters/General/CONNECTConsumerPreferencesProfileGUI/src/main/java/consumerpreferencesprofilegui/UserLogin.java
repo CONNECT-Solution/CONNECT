@@ -175,7 +175,7 @@ public class UserLogin extends AbstractPageBean {
                     FacesContext context = FacesContext.getCurrentInstance();
                     context.getExternalContext().redirect("faces/SearchPatient.jsp");
                 } catch (IOException ex) {
-                    LOG.error("CPP GUI can not prerender UserLogin: ", ex);
+                    LOG.error("CPP GUI can not prerender UserLogin: ", ex.getLocalizedMessage(), ex);
                 }
             }
         }
