@@ -813,8 +813,8 @@ public class AdapterPEPImpl {
         int numIdAttr = resourceIds.size();
         int numAuthAttr = assigningAuths.size();
         if (numIdAttr != numAuthAttr) {
-            LOG.error(
-                    "Error in extracting PatientOptStatus values: Number of Patient Id Attributes should match number of Assigning Authority Attributes");
+            LOG.error("Error in extracting PatientOptStatus values: "
+                    + "Number of Patient Id Attributes should match number of Assigning Authority Attributes");
         } else {
             for (int idx = 0; idx < numIdAttr; idx++) {
                 String patientId = resourceIds.get(idx).trim();
