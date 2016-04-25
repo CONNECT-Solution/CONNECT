@@ -111,7 +111,7 @@ public class Certificate {
 
     private static final Log LOG = LogFactory.getLog(Certificate.class);
 
-    private static final byte[] NULL_CERT = new byte[]{};
+    private static final byte[] NULL_CERT = new byte[] {};
 
     /**
      * Getter to encapsulate NULL_CERT constant array
@@ -198,7 +198,7 @@ public class Certificate {
      * @throws CertificateException
      */
     public void setPrivateKey(boolean b) throws CertificateException {
-        this.privateKey = b;
+        privateKey = b;
     }
 
     private void setThumbprint(String aThumbprint) {
@@ -316,7 +316,7 @@ public class Certificate {
     }
 
     private boolean hasData() {
-        return (data != null && !Arrays.equals(data, Certificate.NULL_CERT));
+        return data != null && !Arrays.equals(data, Certificate.NULL_CERT);
     }
 
     /**
@@ -358,7 +358,7 @@ public class Certificate {
                 setThumbprint("");
             } else {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());
-                setPrivateKey(container != null && container.getKey() != null);
+                setPrivateKey(container.getKey() != null);
             }
         } catch (Exception e) {
             setData(NULL_CERT);
@@ -401,8 +401,8 @@ public class Certificate {
                 bais.reset();
                 bais = new ByteArrayInputStream(data);
 
-                X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-                    bais);
+                X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509")
+                        .generateCertificate(bais);
                 certContainer = new CertContainer(cert, null);
             }
             bais.close();
@@ -419,8 +419,8 @@ public class Certificate {
         private final Key key;
 
         public CertContainer() {
-            this.cert = null;
-            this.key = null;
+            cert = null;
+            key = null;
         }
 
         public CertContainer(X509Certificate cert, Key key) {

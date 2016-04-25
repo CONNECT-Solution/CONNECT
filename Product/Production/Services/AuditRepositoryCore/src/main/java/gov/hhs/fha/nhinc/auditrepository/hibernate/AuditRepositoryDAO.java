@@ -129,12 +129,15 @@ public class AuditRepositoryDAO {
                 aCriteria.add(Expression.eq("receiverPatientId", ePatientId));
             }
 
-            if (startDate != null && endDate != null) {
-                aCriteria.add(
-                        Expression.between("timeStamp", new Date(startDate.getTime()), new Date(endDate.getTime())));
-            } else if (startDate != null && endDate == null) {
-                aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
+            if (startDate != null) {
+                if (endDate != null) {
+                    aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
+                            new Date(endDate.getTime())));
+                } else {
+                    aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
+                }
             }
+
             queryList = aCriteria.list();
         } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
@@ -219,13 +222,18 @@ public class AuditRepositoryDAO {
                 queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
             }
 
-            if (startDate != null && endDate != null) {
-                queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
-            } else if (startDate != null && endDate == null) {
-                queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
-            } else if (startDate == null && endDate != null) {
-                queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
+            if (startDate != null) {
+                if (endDate != null) {
+                    queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
+                } else {
+                    queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
+                }
+            } else {
+                if (endDate != null) {
+                    queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
+                }
             }
+
             // if no criteria is passed then it will search full database with above mentioned columns in the result
             queryList = queryCriteria.list();
 

@@ -164,15 +164,19 @@ public class UserLogin extends AbstractPageBean {
         authRequest.setUserName("Default");
         authRequest.setPassword("Default");
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        LOG.debug("UserLogin.prerender Authentication Service " + adapterAuthenticationProxy + " Avail: "
-                + authResp.isIsAuthenticationAvailable());
-        if (authResp != null && !authResp.isIsAuthenticationAvailable()) {
-            try {
-                getUserSession().setAuthToken("NoOpToken");
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.getExternalContext().redirect("faces/SearchPatient.jsp");
-            } catch (IOException ex) {
-                LOG.error("CPP GUI can not prerender UserLogin: ", ex);
+
+        if (authResp != null) {
+            LOG.debug("UserLogin.prerender Authentication Service {} Avail: {}", adapterAuthenticationProxy,
+                    authResp.isIsAuthenticationAvailable());
+
+            if (!authResp.isIsAuthenticationAvailable()) {
+                try {
+                    getUserSession().setAuthToken("NoOpToken");
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.getExternalContext().redirect("faces/SearchPatient.jsp");
+                } catch (IOException ex) {
+                    LOG.error("CPP GUI can not prerender UserLogin: ", ex.getLocalizedMessage(), ex);
+                }
             }
         }
 
@@ -181,7 +185,7 @@ public class UserLogin extends AbstractPageBean {
                     PROPERTY_FILE_KEY_AGENCY);
             agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
-            LOG.error("CPP GUI can not access " + PROPERTY_FILE_KEY_AGENCY + " property: ", ex);
+            LOG.error("CPP GUI can not access {} property: ", PROPERTY_FILE_KEY_AGENCY, ex.getLocalizedMessage(), ex);
         }
     }
 

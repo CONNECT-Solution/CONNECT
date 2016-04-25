@@ -99,13 +99,13 @@ public class DocQueryResponseProcessor {
 
         } else {
             extractIdentifiers(adhocQueryRequest);
-            if ((patientId != null) && (!patientId.isEmpty())) {
+            if (patientId != null && !patientId.isEmpty()) {
                 PatientConsentHelper patientConsentHelper = getPatientConsentHelper();
                 if (patientConsentHelper == null) {
                     LOG.warn("PatientConsentHelper was null.");
                 } else {
-                    PatientPreferencesType patientPreferences = patientConsentHelper.retrievePatientConsentbyPatientId(
-                            patientId, assigningAuthorityId);
+                    PatientPreferencesType patientPreferences = patientConsentHelper
+                            .retrievePatientConsentbyPatientId(patientId, assigningAuthorityId);
                     if (patientPreferences == null) {
                         LOG.warn("PatientPreferences was null.");
                     } else {
@@ -130,15 +130,12 @@ public class DocQueryResponseProcessor {
             if (adhocQuery != null) {
                 homeCommunityId = HomeCommunityMap.getCommunityId(adhocQuery);
 
-                List<SlotType1> slots;
-                if (adhocQuery != null) {
-                    slots = adhocQuery.getSlot();
-                    List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
-                    if ((slotValues != null) && (!slotValues.isEmpty())) {
-                        String formattedPatientId = slotValues.get(0);
-                        patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
-                        assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
-                    }
+                List<SlotType1> slots = adhocQuery.getSlot();
+                List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
+                if (slotValues != null && !slotValues.isEmpty()) {
+                    String formattedPatientId = slotValues.get(0);
+                    patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
+                    assigningAuthorityId = PatientIdFormatUtil.parseCommunityId(formattedPatientId);
                 }
             }
         }
@@ -151,8 +148,8 @@ public class DocQueryResponseProcessor {
         List<String> returnValues = null;
         if (slots != null) {
             for (SlotType1 slot : slots) {
-                if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
-                        && (slot.getValueList().getValue() != null) && (slot.getValueList().getValue().size() > 0)) {
+                if (slot.getName() != null && slot.getName().length() > 0 && slot.getValueList() != null
+                        && slot.getValueList().getValue() != null && slot.getValueList().getValue().size() > 0) {
 
                     if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
@@ -193,12 +190,11 @@ public class DocQueryResponseProcessor {
             if (sourceRegistryObjectList != null) {
                 List<JAXBElement<? extends IdentifiableType>> olRegObjs = sourceRegistryObjectList.getIdentifiable();
                 for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
-                    if ((oJAXBObj != null)
-                            && (oJAXBObj.getDeclaredType() != null)
-                            && (oJAXBObj.getDeclaredType().getCanonicalName() != null)
-                            && (oJAXBObj.getDeclaredType().getCanonicalName()
-                                    .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType"))
-                            && (oJAXBObj.getValue() != null)) {
+                    if (oJAXBObj != null && oJAXBObj.getDeclaredType() != null
+                            && oJAXBObj.getDeclaredType().getCanonicalName() != null
+                            && oJAXBObj.getDeclaredType().getCanonicalName()
+                                    .equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")
+                            && oJAXBObj.getValue() != null) {
                         ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
                         PatientPreferencesType workingPatientPreferences;
                         if (patientPreferences == null) {
@@ -245,9 +241,9 @@ public class DocQueryResponseProcessor {
         if (!oExtObj.getExternalIdentifier().isEmpty()) {
             List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
             for (ExternalIdentifierType oExtId : olExtId) {
-                if ((oExtId.getIdentificationScheme() != null)
-                        && (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME))
-                        && (oExtId.getValue() != null) && (oExtId.getValue().length() > 0)) {
+                if (oExtId.getIdentificationScheme() != null
+                        && oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME)
+                        && oExtId.getValue() != null && oExtId.getValue().length() > 0) {
                     documentId = oExtId.getValue().trim();
                 }
             }
@@ -262,8 +258,8 @@ public class DocQueryResponseProcessor {
         if (!oExtObj.getSlot().isEmpty()) {
             List<SlotType1> slots = oExtObj.getSlot();
             for (SlotType1 slot : slots) {
-                if ((slot != null) && (CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID.equals(slot.getName()))
-                        && (slot.getValueList() != null) && (!slot.getValueList().getValue().isEmpty())) {
+                if (slot != null && CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID.equals(slot.getName())
+                        && slot.getValueList() != null && !slot.getValueList().getValue().isEmpty()) {
                     repositoryId = slot.getValueList().getValue().get(0);
                     if (repositoryId != null) {
                         repositoryId = repositoryId.trim();
@@ -282,8 +278,8 @@ public class DocQueryResponseProcessor {
         if (!oExtObj.getClassification().isEmpty()) {
             List<ClassificationType> classifications = oExtObj.getClassification();
             for (ClassificationType classification : classifications) {
-                if ((classification != null)
-                        && (EBXML_RESPONSE_TYPECODE_CLASS_SCHEME.equals(classification.getClassificationScheme()))) {
+                if (classification != null
+                        && EBXML_RESPONSE_TYPECODE_CLASS_SCHEME.equals(classification.getClassificationScheme())) {
                     documentType = classification.getNodeRepresentation();
                     break;
                 }
