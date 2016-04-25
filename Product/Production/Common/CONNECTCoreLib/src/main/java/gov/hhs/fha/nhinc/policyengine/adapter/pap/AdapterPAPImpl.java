@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pap;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,13 +65,12 @@ public class AdapterPAPImpl {
             DocumentService service = new DocumentService();
             List<Document> docs = service.documentQuery(params);
             int docsSize = 0;
-            if (docs != null) {
+            if (CollectionUtils.isNotEmpty(docs)){
                 docsSize = docs.size();
-            }
-            LOG.debug("Document size:" + String.valueOf(docsSize));
-            if (docsSize > 0) {
                 document = docs.get(0);
             }
+            LOG.debug("Document size: {}", docsSize);
+
         } catch (Exception ex) {
             LOG.error("Exception occured while retrieving documents: {}", ex.getLocalizedMessage(), ex);
         }

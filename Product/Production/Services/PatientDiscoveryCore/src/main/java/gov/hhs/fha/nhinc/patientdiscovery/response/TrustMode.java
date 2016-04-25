@@ -73,38 +73,22 @@ public class TrustMode implements ResponseMode {
             PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
 
             List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
+            boolean hasResponseSubjectObj = false;
             if (response != null && response.getControlActProcess() != null
                     && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                 pRPAINSubjects = response.getControlActProcess().getSubject();
-                LOG.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
+                LOG.debug("processResponse - Subjects size: {}",pRPAINSubjects.size());
+                hasResponseSubjectObj = true;
             } else {
                 LOG.debug("processResponse - response/subjects is null");
             }
 
-            II remotePatId;
+         
             II localPatId = getPatientId(requestMsg);
 
             if (requestHasLivingSubjectId(requestMsg) && localPatId != null) {
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
-                    int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
-                    LOG.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
-
-                    PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess()
-                            .getSubject().set(0, pRPAINSubject);
-                    response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
-
-                    try {
-                        remotePatId = getPatientId(response);
-                        if (remotePatId != null) {
-                            sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
-                        } else {
-                            LOG.error("One or more of the Patient Id values are null");
-                        }
-                    } catch (Exception ex) {
-                        LOG.error(ex.getMessage(), ex);
-                    }
-                    response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
-                    response.getControlActProcess().getSubject().set(0, subjReplaced);
+                    processTrustMode(hasResponseSubjectObj, response, pRPAINSubject, localPatId, assertion);
                 }
             } else {
                 LOG.debug("Local Patient Id was not provided, no correlation will be attempted");
@@ -114,6 +98,34 @@ public class TrustMode implements ResponseMode {
         }
         LOG.debug("End TrustMode.processResponse()...");
         return response;
+    }
+
+    private void processTrustMode(boolean hasResponseSubjectObj, PRPAIN201306UV02 response,
+            PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject, II localPatId, AssertionType assertion) {
+
+        int pRPAINSubjectInd = -1;
+        if (hasResponseSubjectObj) {
+            pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+        }
+        LOG.debug("processResponse - SubjectIndex: {}", pRPAINSubjectInd);
+
+        PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject()
+                .set(0, pRPAINSubject);
+        response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
+
+        try {
+            II remotePatId = getPatientId(response);
+            if (remotePatId != null) {
+                sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
+            } else {
+                LOG.error("One or more of the Patient Id values are null");
+            }
+        } catch (Exception ex) {
+            LOG.error(ex.getMessage(), ex);
+        }
+        response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
+        response.getControlActProcess().getSubject().set(0, subjReplaced);
+
     }
 
     /**

@@ -125,9 +125,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         // ************************************************************************************************
+        boolean hasEmptySubject = checkEmptySubject(response);
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<>();
-        if (response != null && response.getControlActProcess() != null
-                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+        if (!hasEmptySubject) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
             LOG.debug("checkPolicy - Before policy Check-Subjects size: {}", pRPAINSubjects.size());
         } else {
@@ -136,8 +136,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<>();
         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
-            int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
-            LOG.debug("checkPolicy - SubjectIndex: {}", pRPAINSubjectInd);
+            int pRPAINSubjectInd = -1;
+            if (!hasEmptySubject) {
+                pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
+            }
+            LOG.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
 
             PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0,
                     pRPAINSubject);
@@ -156,19 +159,17 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             response.getControlActProcess().getSubject().set(0, subjReplaced);
         }
 
-        if (response != null && response.getControlActProcess() != null
-                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())
-                && NullChecker.isNotNullish(delPRPAINSubjects)) {
-            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size: {}",
-                    delPRPAINSubjects.size());
+        if (!hasEmptySubject && NullChecker.isNotNullish(delPRPAINSubjects)) {
+            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size:"
+                    + delPRPAINSubjects.size());
+
             response.getControlActProcess().getSubject().removeAll(delPRPAINSubjects);
         }
 
-        if (response != null && response.getControlActProcess() != null
-                && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
+        if (!hasEmptySubject) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
             LOG.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
-            if (pRPAINSubjects.size() > 0) {
+            if (!pRPAINSubjects.isEmpty()) {
                 isPermit = true;
             }
         } else {

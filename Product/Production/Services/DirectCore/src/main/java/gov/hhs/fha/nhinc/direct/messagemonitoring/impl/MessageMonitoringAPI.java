@@ -122,15 +122,15 @@ public class MessageMonitoringAPI {
 
             final String senderMailId = getSenderEmailId(message);
 
-            final MonitoredMessageNotification tmn = getTrackmessagenotification(tm, senderMailId);
+            MonitoredMessageNotification tmn = getTrackmessagenotification(tm, senderMailId);
+            if (tmn == null){
+                tmn = new MonitoredMessageNotification();
+            }
             // check if its a MDN or DSN
             // if its an DSN then set the status to Error
             if (TxUtil.getMessageType(message).equals(TxMessageType.DSN)) {
-                if (tmn == null) {
-                    tm.setStatus(STATUS_ERROR);
-                } else {
-                    tmn.setStatus(STATUS_ERROR);
-                }
+                tmn.setStatus(STATUS_ERROR);
+                tm.setStatus(STATUS_ERROR);
             } // if its an MDN and also if delivery is requested
             else if (tm.getDeliveryrequested()) {
                 // Update only if MDN is dispatched
@@ -140,19 +140,20 @@ public class MessageMonitoringAPI {
                 } else { // Update the status to Processed
                     tmn.setStatus(STATUS_PROCESSED);
                 }
-            } else if (isMDNDispatched | isMDNProcessed) {
+            } else if (isMDNDispatched || isMDNProcessed) {
                 tmn.setStatus(STATUS_COMPLETED);
             } else { // if error
                 tmn.setStatus(STATUS_ERROR);
             }
             final Date updatedTime = new Date();
-            if (getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PENDING)
-                    || getIncomingMessagesReceivedStatus(tm).equalsIgnoreCase(STATUS_PROCESSED)) {
+            String incomingMsgReceivedStatus = getIncomingMessagesReceivedStatus(tm);
+            if (incomingMsgReceivedStatus.equalsIgnoreCase(STATUS_PENDING)
+                    || incomingMsgReceivedStatus.equalsIgnoreCase(STATUS_PROCESSED)) {
                 tmn.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateMessageNotification(tmn);
             } else {
                 // set the status to Completed or Error
-                tm.setStatus(getIncomingMessagesReceivedStatus(tm));
+                tm.setStatus(incomingMsgReceivedStatus);
                 tm.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateOutgoingMessage(tm);
             }
