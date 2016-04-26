@@ -38,9 +38,12 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.AbstractPatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
+
 import java.io.Serializable;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
@@ -55,6 +58,7 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchResultsModelBuilder
         implements PatientSearchResultsModelBuilder {
@@ -110,10 +114,6 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
     private void extractNames(PRPAMT201310UV02Person person, Patient patient) {
         if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
                 && person.getName().get(0).getContent() != null && person.getName().get(0).getContent().size() > 0) {
-
-            boolean firstNameFound = false;
-            boolean secondNameFound = false;
-
             for (Serializable object : person.getName().get(0).getContent()) {
                 if (object instanceof JAXBElement<?>) {
                     Object nameValue = ((JAXBElement<?>) object).getValue();
@@ -121,17 +121,19 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
                     if (nameValue instanceof EnExplicitFamily) {
                         patient.setLastName(((EnExplicitFamily) nameValue).getContent());
                     } else if (nameValue instanceof EnExplicitGiven) {
-                        if (!firstNameFound) {
-                            patient.setFirstName(((EnExplicitGiven) nameValue).getContent());
-                            firstNameFound = true;
-                        } else if (!secondNameFound) {
-                            patient.setMiddleName(((EnExplicitGiven) nameValue).getContent());
-                            secondNameFound = true;
+                        //the first given name is first name, following by middle name
+                        String givenName = ((EnExplicitGiven) nameValue).getContent();
+                        if (StringUtils.hasText(patient.getFirstName())){
+                            patient.setMiddleName(givenName);
+                        }else{
+                            patient.setFirstName(givenName);
                         }
+
                     }
                 }
             }
         }
+
     }
 
     private void extractPidAndAAId(PRPAMT201310UV02Patient msgPatient, Patient patient) {
