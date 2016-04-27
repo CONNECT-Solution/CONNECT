@@ -366,13 +366,7 @@ public class ManageQueue extends AbstractPageBean {
         if (startCreationDate == null || stopCreationDate == null) {
             message.append("Earliest Date and Most Recent Date should not be null");
             isValid = false;
-        } else if (startCreationDate == null || getStopCreationDate() == null) {
-            message.append("Earliest Date and Most Recent Date should not be null");
-            isValid = false;
-        } // else if (this.startCreationDate.after(this.getStopCreationDate())) {
-          // message.append("Earliest Date should not be after Most Recent Date");
-          // isValid = false;
-          // }
+        }
 
         errors = message.toString();
 
