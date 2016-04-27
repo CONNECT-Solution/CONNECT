@@ -731,8 +731,7 @@ public class AdapterPEPImpl {
         int numDocIdAttr = documentIds.size();
         int numCommunityIdAttr = communityIds.size();
         int numRepoIdAttr = repositoryIds.size();
-        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr
-                || numCommunityIdAttr != numRepoIdAttr) {
+        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr) {
             LOG.error("Error in extracting DocumentOptInStatus values: "
                     + "Number of DocumentId Attributes should match number of Community and Repository Attributes");
         } else {
