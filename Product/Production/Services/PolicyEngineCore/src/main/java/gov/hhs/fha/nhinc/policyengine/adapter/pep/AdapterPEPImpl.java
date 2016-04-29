@@ -78,8 +78,6 @@ public class AdapterPEPImpl {
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
     private static final String DEFAULT_PURPOSE_TEXT = "Purpose for Use code not provided";
-    private static final String VALID_PURPOSE = "PUBLICHEALTH";
-    private static final String VALID_USER_ROLE_CODE = "307969004";
     private static final String XSPA_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
     private static final String XSPA_SUBJECT_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
     private static final String XSPA_SUBJECT_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
@@ -107,14 +105,14 @@ public class AdapterPEPImpl {
     private static final String XACML_ACTION = "urn:oasis:names:tc:xacml:1.0:action:action-id";
     // These define the possible xacml definitions of our services
     // There must be a one-to-one correspondance with the xspa action definitions
-    private static final String[] xacmlActionDef = {"PatientDiscoveryIn", "PatientDiscoveryOut", "DocumentQueryIn",
-        "DocumentQueryOut", "DocumentRetrieveIn", "DocumentRetrieveOut", "AuditLogQueryIn", "AuditLogQueryOut",
-        "HIEMSubscriptionRequestIn", "HIEMSubscriptionRequestOut", "HIEMSubscriptionCancelIn",
-        "HIEMSubscriptionCancelOut", "HIEMNotifyIn", "HIEMNotifyOut", "XDRIn", "XDROut"};
+    private static final String[] xacmlActionDef = { "PatientDiscoveryIn", "PatientDiscoveryOut", "DocumentQueryIn",
+            "DocumentQueryOut", "DocumentRetrieveIn", "DocumentRetrieveOut", "AuditLogQueryIn", "AuditLogQueryOut",
+            "HIEMSubscriptionRequestIn", "HIEMSubscriptionRequestOut", "HIEMSubscriptionCancelIn",
+            "HIEMSubscriptionCancelOut", "HIEMNotifyIn", "HIEMNotifyOut", "XDRIn", "XDROut" };
     // These define the xspa actions corresponding to the xacml definitions
     // Correlation is order driven
-    private static final String[] xspaActionDef = {"create", "create", "read", "read", "read", "read", "read", "read",
-        "create", "create", "delete", "delete", "update", "update", "read", "read", "create", "create"};
+    private static final String[] xspaActionDef = { "create", "create", "read", "read", "read", "read", "read", "read",
+            "create", "create", "delete", "delete", "update", "update", "read", "read", "create", "create" };
     // Mapping of the NHIN actions to the cooresponding XSPA action
     private static Map<String, String> actionMap = new HashMap<>();
 
@@ -165,7 +163,7 @@ public class AdapterPEPImpl {
             } catch (PropertyAccessException pex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
                 LOG.error("PropertyAccessException thrown from XACMLRequestProcessor: {}", pex.getLocalizedMessage(),
-                    pex);
+                        pex);
             } catch (XACMLException xex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
                 try {
@@ -231,7 +229,7 @@ public class AdapterPEPImpl {
 
             // Subject organization must be present it is extracted from the Subject of the request
             List<Attribute> subjOrgList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ORG, XSPA_SUBJECT_ORG,
-                null);
+                    null);
             removeEmptyItems(subjOrgList);
             if (subjOrgList.isEmpty()) {
                 LOG.debug(XSPA_SUBJECT_ORG + " Attribute is empty");
@@ -240,7 +238,7 @@ public class AdapterPEPImpl {
 
             // Subject organization id must be present it is extracted from the Subject of the request
             List<Attribute> subjOrgIdList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ORG_ID,
-                XSPA_SUBJECT_ORG_ID, null);
+                    XSPA_SUBJECT_ORG_ID, null);
             removeEmptyItems(subjOrgIdList);
             if (subjOrgIdList.isEmpty()) {
                 LOG.debug(XSPA_SUBJECT_ID + " Attribute is empty");
@@ -250,7 +248,7 @@ public class AdapterPEPImpl {
             // User role is optional
             List<String> extractedUserRoles = new ArrayList<>();
             List<Attribute> subjUserRoleList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ROLE,
-                XSPA_SUBJECT_ROLE, extractedUserRoles);
+                    XSPA_SUBJECT_ROLE, extractedUserRoles);
             removeEmptyItems(subjUserRoleList);
             if (subjUserRoleList.isEmpty()) {
                 LOG.debug(XSPA_SUBJECT_ROLE + " Attribute is empty");
@@ -260,7 +258,7 @@ public class AdapterPEPImpl {
             // Purpose of use must be present
             List<String> extractedPurpose = new ArrayList<>();
             List<Attribute> subjPurposeList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_PURPOSE,
-                XSPA_SUBJECT_PURPOSE, extractedPurpose);
+                    XSPA_SUBJECT_PURPOSE, extractedPurpose);
             removeEmptyItems(subjPurposeList);
             if (subjPurposeList.isEmpty()) {
                 LOG.debug("Create a default " + XSPA_SUBJECT_PURPOSE + " Attribute");
@@ -285,8 +283,8 @@ public class AdapterPEPImpl {
             // Service type must be present - identifies the NHIN service inbound or outbound
             // It is extracted from the Action attribute of the request
             List<String> extractedServices = new ArrayList<>();
-            List<Attribute> resourceServiceList = createActionAttrs(checkPolicyRequest, XACML_ACTION,
-                XSPA_SERVICE_TYPE, extractedServices);
+            List<Attribute> resourceServiceList = createActionAttrs(checkPolicyRequest, XACML_ACTION, XSPA_SERVICE_TYPE,
+                    extractedServices);
             removeEmptyItems(resourceServiceList);
             if (resourceServiceList.isEmpty()) {
                 LOG.debug(XSPA_SERVICE_TYPE + " Attribute is empty");
@@ -296,7 +294,7 @@ public class AdapterPEPImpl {
             // Resource id is only present if the request is patient specific
             List<String> extractedResourceIds = new ArrayList<>();
             List<Attribute> resourceIdList = createResourceAttrs(checkPolicyRequest, XACML_RESOURCE_ID,
-                XSPA_RESOURCE_ID, extractedResourceIds);
+                    XSPA_RESOURCE_ID, extractedResourceIds);
             removeEmptyItems(resourceIdList);
             if (resourceIdList.isEmpty()) {
                 LOG.debug(XSPA_RESOURCE_ID + " Attribute is empty");
@@ -306,8 +304,8 @@ public class AdapterPEPImpl {
                 LOG.debug("createPdpRequest - extractedResourceIds not empty");
                 // If request is patient specific then get the home community
                 List<String> extractedCommunityIds = new ArrayList<>();
-                List<Attribute> resourceHomeCommunityList = createResourceAttrs(checkPolicyRequest,
-                    XACML_ASSIGING_AUTH, XSPA_ASSIGNING_AUTH, extractedCommunityIds);
+                List<Attribute> resourceHomeCommunityList = createResourceAttrs(checkPolicyRequest, XACML_ASSIGING_AUTH,
+                        XSPA_ASSIGNING_AUTH, extractedCommunityIds);
                 if (resourceHomeCommunityList.isEmpty()) {
                     LOG.debug(XSPA_ASSIGNING_AUTH + " Attribute is empty");
                 }
@@ -316,8 +314,8 @@ public class AdapterPEPImpl {
                 if (!extractedResourceIds.isEmpty() && !extractedCommunityIds.isEmpty()) {
                     // The existance of a patient identifier in the request indicates that
                     // the policy engine needs to check the patient opt-in status (Yes or No)
-                    resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds,
-                        extractedCommunityIds, assertion));
+                    resourcePatientOptInList.addAll(
+                            createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds, assertion));
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
                     if (resourcePatientOptInList.isEmpty()) {
                         LOG.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
@@ -338,9 +336,9 @@ public class AdapterPEPImpl {
 
                 createResourceAttrs(checkPolicyRequest, XACML_DOCUMENT_ID, XSPA_RESOURCE_ID, extractedDocIds);
                 createResourceAttrs(checkPolicyRequest, XACML_DOC_COMMUNITY_ID, XSPA_RESOURCE_ID,
-                    extractedCommunityIds);
+                        extractedCommunityIds);
                 createResourceAttrs(checkPolicyRequest, XACML_DOC_REPOSITORY_ID, XSPA_RESOURCE_ID,
-                    extractedRepositoryIds);
+                        extractedRepositoryIds);
 
                 if (!extractedDocIds.isEmpty()) {
                     LOG.debug("createPdpRequest - extractedDocIds.size: " + extractedDocIds.size());
@@ -356,14 +354,14 @@ public class AdapterPEPImpl {
                         resourcePatientOptInList.add(docResAttr);
                     } catch (URISyntaxException | XACMLException ex) {
                         LOG.error("Error in setting attribute value for documentid resource-id: {}",
-                            ex.getLocalizedMessage(), ex);
+                                ex.getLocalizedMessage(), ex);
                     }
 
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
                     // The existance of a document identifier in the request indicates that
                     // the policy engine needs to check the patient opt-in status (Yes or No)
-                    resourcePatientOptInList.addAll(createDocumentOptStatusAttrs(extractedDocIds,
-                        extractedCommunityIds, extractedRepositoryIds, assertion));
+                    resourcePatientOptInList.addAll(createDocumentOptStatusAttrs(extractedDocIds, extractedCommunityIds,
+                            extractedRepositoryIds, assertion));
                     if (resourcePatientOptInList.isEmpty()) {
                         LOG.debug("Create a default " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
                         resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
@@ -373,29 +371,29 @@ public class AdapterPEPImpl {
                     // If it is not patient specific nor document specific then look for subscription
                     List<String> extractedSubscription = new ArrayList<>();
                     createResourceAttrs(checkPolicyRequest, XACML_SUBSCRIPTION_ID, XSPA_RESOURCE_ID,
-                        extractedSubscription);
+                            extractedSubscription);
                     if (!extractedSubscription.isEmpty()) {
                         // Subscription requests are automatically opted-In
-                        LOG.debug("Subscription request assigns " + XSPA_PATIENT_OPT_IN
-                            + " Attribute with value Opt-In");
+                        LOG.debug(
+                                "Subscription request assigns " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-In");
                         resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                     } else {
                         // This message type is not identifiable as patient specific, document specific, or subscription
                         // based
                         // The only other valid type that is known is AuditLogQuery
                         if (extractedServices.contains("AuditLogQueryIn")
-                            || extractedServices.contains("AuditLogQueryOut")) {
+                                || extractedServices.contains("AuditLogQueryOut")) {
                             LOG.debug("Audit Log Query request assigns " + XSPA_PATIENT_OPT_IN
-                                + " Attribute with value Opt-In");
+                                    + " Attribute with value Opt-In");
                             resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                         } else if (extractedServices.contains("HIEMNotifyIn")
-                            || extractedServices.contains("HIEMNotifyOut")) {
+                                || extractedServices.contains("HIEMNotifyOut")) {
                             LOG.debug("HIEM Notify request assigns " + XSPA_PATIENT_OPT_IN
-                                + " Attribute with value Opt-In");
+                                    + " Attribute with value Opt-In");
                             resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                         } else {
                             LOG.debug("Unknown message type assign " + XSPA_PATIENT_OPT_IN
-                                + " Attribute with value Opt-Out");
+                                    + " Attribute with value Opt-Out");
                             resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
                         }
                     }
@@ -443,7 +441,7 @@ public class AdapterPEPImpl {
             // In inbound messages it is extracted from the Subject of the request
             // In outbound messages it is looked up in our gateway properties
             List<Attribute> envHomeCommunityList = createSubjAttrs(checkPolicyRequest, XACML_HOME_COMMUNITY,
-                XSPA_ENVIRONMENT_LOCALITY, null);
+                    XSPA_ENVIRONMENT_LOCALITY, null);
             removeEmptyItems(envHomeCommunityList);
             if (envHomeCommunityList.isEmpty()) {
                 LOG.debug(XSPA_ENVIRONMENT_LOCALITY + " Attribute is empty");
@@ -490,13 +488,13 @@ public class AdapterPEPImpl {
      * @return The listing of the generated XSPA attributes
      */
     private List<Attribute> createSubjAttrs(CheckPolicyRequestType checkPolicyRequest, String xacmlId, String xspaId,
-        List<String> extractedVals) {
+            List<String> extractedVals) {
 
         List<Attribute> retSubjList = new ArrayList<>();
 
         if (checkPolicyRequest != null && checkPolicyRequest.getRequest() != null
-            && checkPolicyRequest.getRequest().getSubject() != null
-            && !checkPolicyRequest.getRequest().getSubject().isEmpty()) {
+                && checkPolicyRequest.getRequest().getSubject() != null
+                && !checkPolicyRequest.getRequest().getSubject().isEmpty()) {
             for (SubjectType subjItem : checkPolicyRequest.getRequest().getSubject()) {
                 if (subjItem != null && subjItem.getAttribute() != null && !subjItem.getAttribute().isEmpty()) {
 
@@ -529,18 +527,18 @@ public class AdapterPEPImpl {
      * @return The listing of the generated XSPA attributes
      */
     private List<Attribute> createResourceAttrs(CheckPolicyRequestType checkPolicyRequest, String xacmlId,
-        String xspaId, List<String> extractedVals) {
+            String xspaId, List<String> extractedVals) {
         LOG.debug("Begin createResourceAttrs()..");
         List<Attribute> retResourceList = new ArrayList<>();
 
         if (checkPolicyRequest != null && checkPolicyRequest.getRequest() != null
-            && checkPolicyRequest.getRequest().getResource() != null
-            && !checkPolicyRequest.getRequest().getResource().isEmpty()) {
+                && checkPolicyRequest.getRequest().getResource() != null
+                && !checkPolicyRequest.getRequest().getResource().isEmpty()) {
             for (ResourceType resourceItem : checkPolicyRequest.getRequest().getResource()) {
                 if (resourceItem != null && resourceItem.getAttribute() != null
-                    && !resourceItem.getAttribute().isEmpty()) {
+                        && !resourceItem.getAttribute().isEmpty()) {
                     List<Attribute> xspaAttrs = extractAttrs(resourceItem.getAttribute(), xacmlId, xspaId,
-                        extractedVals);
+                            extractedVals);
                     if (xspaAttrs.isEmpty()) {
                         LOG.debug("Resource Attributes for check policy request do not include values for " + xacmlId);
                     } else {
@@ -568,12 +566,12 @@ public class AdapterPEPImpl {
      * @return The listing of the generated XSPA attributes
      */
     private List<Attribute> createActionAttrs(CheckPolicyRequestType checkPolicyRequest, String xacmlId, String xspaId,
-        List<String> extractedVals) {
+            List<String> extractedVals) {
 
         List<Attribute> retActionList = new ArrayList<>();
 
         if (checkPolicyRequest != null && checkPolicyRequest.getRequest() != null
-            && checkPolicyRequest.getRequest().getAction() != null) {
+                && checkPolicyRequest.getRequest().getAction() != null) {
             ActionType actionItem = checkPolicyRequest.getRequest().getAction();
             if (actionItem != null && actionItem.getAttribute() != null && !actionItem.getAttribute().isEmpty()) {
 
@@ -605,7 +603,7 @@ public class AdapterPEPImpl {
      * @return The listing of the generated XSPA attributes
      */
     private List<Attribute> extractAttrs(List<AttributeType> xacmlAttrs, String xacmlId, String xspaId,
-        List<String> extractedVals) {
+            List<String> extractedVals) {
         LOG.debug("Begin extractAttrs()..");
         List<Attribute> xspaAttrs = new ArrayList<>();
 
@@ -671,7 +669,7 @@ public class AdapterPEPImpl {
 
             List<String> homeCommunityVals = new ArrayList<>();
             String homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
-                PROPERTY_FILE_KEY_HOME_COMMUNITY);
+                    PROPERTY_FILE_KEY_HOME_COMMUNITY);
             LOG.debug("Adding hcid attribute value for " + XSPA_ENVIRONMENT_LOCALITY);
             homeCommunityVals.add(homeCommunityId);
 
@@ -694,7 +692,7 @@ public class AdapterPEPImpl {
      * @return The XSPA Attributes containing the determined consent status (Yes - optIn, No -optOut)
      */
     private List<Attribute> createDocumentOptStatusAttrs(List<String> documentIdList, List<String> communityIds,
-        List<String> repositoryIds, AssertionType assertion) {
+            List<String> repositoryIds, AssertionType assertion) {
         LOG.debug("Begin createDocumentOptStatusAttrs()..");
         List<Attribute> xspaAttrs = new ArrayList<>();
 
@@ -704,7 +702,7 @@ public class AdapterPEPImpl {
             xspaAttr.setDataType(new URI(XACML_DATATYPE));
 
             List<String> optStatusVals = determineDocumentOptStatus(documentIdList, communityIds, repositoryIds,
-                assertion);
+                    assertion);
             for (String optStatusVal : optStatusVals) {
                 LOG.debug("Adding attribute value: " + optStatusVal + " for " + XSPA_PATIENT_OPT_IN);
             }
@@ -727,16 +725,15 @@ public class AdapterPEPImpl {
      * @return The listing of matching consent status (Yes - optIn, No -optOut)
      */
     protected List<String> determineDocumentOptStatus(List<String> documentIds, List<String> communityIds,
-        List<String> repositoryIds, AssertionType assertion) {
+            List<String> repositoryIds, AssertionType assertion) {
         LOG.debug("Begin determineDocumentOptStatus()..");
         List<String> optStatus = new ArrayList<>();
         int numDocIdAttr = documentIds.size();
         int numCommunityIdAttr = communityIds.size();
         int numRepoIdAttr = repositoryIds.size();
-        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr || numCommunityIdAttr
-            != numRepoIdAttr) {
+        if (numDocIdAttr != numCommunityIdAttr || numDocIdAttr != numRepoIdAttr) {
             LOG.error("Error in extracting DocumentOptInStatus values: "
-                + "Number of DocumentId Attributes should match number of Community and Repository Attributes");
+                    + "Number of DocumentId Attributes should match number of Community and Repository Attributes");
         } else {
             for (int idx = 0; idx < numDocIdAttr; idx++) {
                 String documentId = documentIds.get(idx).trim();
@@ -744,7 +741,7 @@ public class AdapterPEPImpl {
                 String repositoryId = repositoryIds.get(idx).trim();
 
                 LOG.debug("Process document id: " + documentId + " for community: " + communityId + " in repository: "
-                    + repositoryId);
+                        + repositoryId);
 
                 AdapterPIPProxyObjectFactory factory = new AdapterPIPProxyObjectFactory();
                 AdapterPIPProxy adapterPIPProxy = factory.getAdapterPIPProxy();
@@ -753,8 +750,8 @@ public class AdapterPEPImpl {
                 consentReq.setDocumentId(documentId);
                 consentReq.setHomeCommunityId(communityId);
                 consentReq.setRepositoryId(repositoryId);
-                RetrievePtConsentByPtDocIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtDocId(
-                    consentReq, assertion);
+                RetrievePtConsentByPtDocIdResponseType consentResp = adapterPIPProxy
+                        .retrievePtConsentByPtDocId(consentReq, assertion);
                 if (consentResp.getPatientPreferences().isOptIn()) {
                     optStatus.add("Yes");
                     LOG.debug("Determined Patient Opt-In Status as: Yes");
@@ -777,7 +774,7 @@ public class AdapterPEPImpl {
      * @return The XSPA Attributes containing the determined consent status (Yes - optIn, No -optOut)
      */
     private List<Attribute> createPatientOptStatusAttrs(List<String> resourceIdList, List<String> assigningAuthList,
-        AssertionType assertion) {
+            AssertionType assertion) {
         LOG.debug("Begin createPatientOptStatusAttrs()..");
         List<Attribute> xspaAttrs = new ArrayList<>();
 
@@ -809,14 +806,14 @@ public class AdapterPEPImpl {
      * @return The listing of matching consent status (Yes - optIn, No -optOut)
      */
     protected List<String> determinePatientOptStatus(List<String> resourceIds, List<String> assigningAuths,
-        AssertionType assertion) {
+            AssertionType assertion) {
         LOG.debug("Begin determinePatientOptStatus()..");
         List<String> optStatus = new ArrayList<>();
         int numIdAttr = resourceIds.size();
         int numAuthAttr = assigningAuths.size();
         if (numIdAttr != numAuthAttr) {
             LOG.error("Error in extracting PatientOptStatus values: "
-                + "Number of Patient Id Attributes should match number of Assigning Authority Attributes");
+                    + "Number of Patient Id Attributes should match number of Assigning Authority Attributes");
         } else {
             for (int idx = 0; idx < numIdAttr; idx++) {
                 String patientId = resourceIds.get(idx).trim();
@@ -830,7 +827,7 @@ public class AdapterPEPImpl {
                 consentReq.setAssigningAuthority(authId);
                 consentReq.setAssertion(assertion);
                 RetrievePtConsentByPtIdResponseType consentResp = adapterPIPProxy.retrievePtConsentByPtId(consentReq,
-                    assertion);
+                        assertion);
                 if (consentResp.getPatientPreferences().isOptIn()) {
                     optStatus.add("Yes");
                     LOG.debug("Determined Patient Opt-In Status as: Yes");

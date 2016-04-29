@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +41,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +64,7 @@ public class CertificateManagerImpl implements CertificateManager {
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
     public static final String JKS_TYPE = "JKS";
     public static final String PKCS11_TYPE = "PKCS11";
+    private static final String KEYSTORE_ERROR_MSG = "Error initializing KeyStore: {}";
 
     private CertificateManagerImpl() {
         try {
@@ -136,40 +139,32 @@ public class CertificateManagerImpl implements CertificateManager {
             LOG.warn("Default to JKS keyStoreType");
             storeType = JKS_TYPE;
         }
-        if (password == null || storeLoc == null) {
-            LOG.error("Store password or store location not defined");
-            LOG.error("Please define javax.net.ssl.keyStorePassword and javax.net.ssl.keyStore");
-        }
-
-        if (JKS_TYPE.equals(storeType) && storeLoc == null) {
-            LOG.error("javax.net.ssl.keyStore is not defined");
-        } else {
-            try {
-                keyStore = KeyStore.getInstance(storeType);
-                if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-                    is = new FileInputStream(storeLoc);
-                }
-                keyStore.load(is, password.toCharArray());
-            } catch (final NoSuchAlgorithmException ex) {
-                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
-                throw new Exception(ex.getMessage());
-            } catch (final CertificateException ex) {
-                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
-                throw new Exception(ex.getMessage());
-            } catch (final KeyStoreException ex) {
-                LOG.error("Error initializing KeyStore: {}", ex.getLocalizedMessage(), ex);
-                throw new Exception(ex.getMessage());
-            } finally {
+        if (password !=null){
+            if (JKS_TYPE.equals(storeType) && storeLoc == null) {
+                LOG.error("javax.net.ssl.keyStore is not defined");
+            } else {
                 try {
-                    if (is != null) {
-                        is.close();
+                    keyStore = KeyStore.getInstance(storeType);
+                    if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                        is = new FileInputStream(storeLoc);
                     }
-                } catch (final IOException ex) {
-                    LOG.debug("KeyStoreCallbackHandler {}", ex);
+                    keyStore.load(is, password.toCharArray());
+                } catch (final NoSuchAlgorithmException|CertificateException|KeyStoreException ex) {
+                    LOG.error(KEYSTORE_ERROR_MSG, ex.getLocalizedMessage(), ex);
+                    throw new Exception(ex.getMessage());
+                } finally {
+                    try {
+                        if (is != null) {
+                            is.close();
+                        }
+                    } catch (final IOException ex) {
+                        LOG.debug("KeyStoreCallbackHandler {}", ex);
+                    }
                 }
             }
+        }else{
+            LOG.error("Please define javax.net.ssl.keyStorePassword");
         }
-
         LOG.debug("SamlCallbackHandler.initKeyStore() -- End");
     }
 

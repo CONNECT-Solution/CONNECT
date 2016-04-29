@@ -63,8 +63,6 @@ public class ManageQueue extends AbstractPageBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(ManageQueue.class);
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
-    private static final String QUERY_FOR_DOCUMENT = "QueryForDocument";
-    private static final String RETRIEVE_DOCUMENT = "RetrieveDocument";
     private TabSet processTabSet = new TabSet();
     private Tab processQueueTab = new Tab();
     private Tab unProcessQueueTab = new Tab();
@@ -86,7 +84,7 @@ public class ManageQueue extends AbstractPageBean {
     }
 
     public void setProcessTabSet(TabSet ts) {
-        this.processTabSet = ts;
+        processTabSet = ts;
     }
 
     public Tab getProcessQueueTab() {
@@ -110,7 +108,7 @@ public class ManageQueue extends AbstractPageBean {
     }
 
     public void setErrorMessages(StaticText st) {
-        this.errorMessages = st;
+        errorMessages = st;
     }
 
     public TextField getStartCreationDate() {
@@ -256,14 +254,14 @@ public class ManageQueue extends AbstractPageBean {
     public String processQueueTab_action() {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         return null;
     }
 
     public String unProcessQueueTab_action() {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
         List<Option> deferredQueueStatuses = deferredQueueManagerFacade.queryForDeferredQueueStatuses();
         UserSession userSession = (UserSession) getBean("UserSession");
@@ -275,13 +273,13 @@ public class ManageQueue extends AbstractPageBean {
     public String retrieveProcessButton_action() throws Exception {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
-        this.errorMessages.setText("");
+        errorMessages.setText("");
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
         List<AsyncMsgRecord> processQueueResults = deferredQueueManagerFacade.queryForDeferredQueueProcessing();
 
         if (processQueueResults == null || processQueueResults.isEmpty()) {
-            this.errorMessages.setText("No records found to process.");
+            errorMessages.setText("No records found to process.");
         }
 
         UserSession userSession = (UserSession) getBean("UserSession");
@@ -295,11 +293,11 @@ public class ManageQueue extends AbstractPageBean {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
 
-        this.errorMessages.setText("");
+        errorMessages.setText("");
 
         if (!isDateSearchCriteriaValid()) {
             LOG.error("Error Message: " + errors);
-            this.errorMessages.setText(errors);
+            errorMessages.setText(errors);
             return null;
         }
 
@@ -312,7 +310,6 @@ public class ManageQueue extends AbstractPageBean {
             startCreationTime = (String) startCreationDate.getText();
             stopCreationTime = (String) stopCreationDate.getText();
             statusValue = (String) status.getValue();
-            String statusValue1 = (String) status.getLabel();
 
             if (startCreationTime == null) {
                 startCreationTime = "";
@@ -328,34 +325,31 @@ public class ManageQueue extends AbstractPageBean {
             Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
 
             if (cal1 == null || cal2 == null) {
-                this.errorMessages
-                        .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                errorMessages.setText(
+                        "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
                 return null;
             }
 
-            if (cal1 != null) {
-                startDate = cal1.getTime();
-            }
-            if (cal2 != null) {
-                stopDate = cal2.getTime();
-            }
+            startDate = cal1.getTime();
+            stopDate = cal2.getTime();
+
         } catch (Exception ex) {
             LOG.error("Error Message: " + ex);
-            this.errorMessages
-                    .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+            errorMessages.setText(
+                    "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
             return null;
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
         List<AsyncMsgRecord> unProcessQueueResults;
-        if ((startCreationTime.isEmpty() && stopCreationTime.isEmpty() && statusValue.isEmpty())) {
+        if (startCreationTime.isEmpty() && stopCreationTime.isEmpty() && statusValue.isEmpty()) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
             unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate, statusValue);
         }
 
         if (unProcessQueueResults == null || unProcessQueueResults.isEmpty()) {
-            this.errorMessages.setText("No records found to process.");
+            errorMessages.setText("No records found to process.");
         }
 
         UserSession userSession = (UserSession) getBean("UserSession");
@@ -369,16 +363,10 @@ public class ManageQueue extends AbstractPageBean {
         StringBuffer message = new StringBuffer();
         boolean isValid = true;
 
-        if (this.startCreationDate == null || this.stopCreationDate == null) {
+        if (startCreationDate == null || stopCreationDate == null) {
             message.append("Earliest Date and Most Recent Date should not be null");
             isValid = false;
-        } else if (this.startCreationDate == null || this.getStopCreationDate() == null) {
-            message.append("Earliest Date and Most Recent Date should not be null");
-            isValid = false;
-        } // else if (this.startCreationDate.after(this.getStopCreationDate())) {
-          // message.append("Earliest Date should not be after Most Recent Date");
-          // isValid = false;
-          // }
+        }
 
         errors = message.toString();
 
@@ -386,7 +374,7 @@ public class ManageQueue extends AbstractPageBean {
     }
 
     public String process_action(javax.faces.event.ActionEvent event) throws Exception {
-        String asyncMsgId = (String) this.messageId.getText();
+        String asyncMsgId = (String) messageId.getText();
         String serviceName = (String) this.serviceName.getText();
         PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse;
 
@@ -396,10 +384,10 @@ public class ManageQueue extends AbstractPageBean {
             gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse
                     .getSuccessOrFail();
             if (sfpd.isSuccess()) {
-                this.userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
+                userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
             } else {
-                this.errorMessages
-                        .setText("Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
+                errorMessages.setText(
+                        "Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
             }
         }
 

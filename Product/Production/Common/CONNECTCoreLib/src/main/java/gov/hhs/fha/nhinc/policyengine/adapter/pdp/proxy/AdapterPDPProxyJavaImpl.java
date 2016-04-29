@@ -26,6 +26,33 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.XACMLSerializer;
+import gov.hhs.fha.nhinc.util.StringUtil;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBException;
+
+import oasis.names.tc.xacml._2_0.policy.schema.os.EffectType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
+import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
+
+
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
+
 import com.sun.identity.shared.xml.XMLUtils;
 import com.sun.identity.xacml.common.XACMLException;
 import com.sun.identity.xacml.context.Attribute;
@@ -39,26 +66,6 @@ import com.sun.identity.xacml.context.Status;
 import com.sun.identity.xacml.context.StatusCode;
 import com.sun.identity.xacml.context.StatusMessage;
 import com.sun.identity.xacml.context.Subject;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
-import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
-import gov.hhs.fha.nhinc.policyengine.adapter.pip.XACMLSerializer;
-import gov.hhs.fha.nhinc.util.StringUtil;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.bind.JAXBException;
-import oasis.names.tc.xacml._2_0.policy.schema.os.EffectType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Element;
 
 /**
  * Java implementation of the adapter PDP service.
@@ -104,7 +111,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     final DocumentService service = new DocumentService();
                     final List<Document> docs = service.documentQuery(params);
                     int docsSize = 0;
-                    if (docs != null && docs.size() > 0) {
+                    if (CollectionUtils.isNotEmpty(docs)) {
                         docsSize = docs.size();
                         LOG.debug("processPDPRequest - Policy Document Count:" + String.valueOf(docsSize));
                     } else {
@@ -258,7 +265,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         params.setDocumentUniqueId(docIds);
         final List<Document> docs = new DocumentService().documentQuery(params);
         int docsSize;
-        if (docs != null && docs.size() > 0) {
+        if (CollectionUtils.isNotEmpty(docs)) {
             docsSize = docs.size();
             LOG.debug("getPatientIdByDocumentUniqueId - Document size:" + String.valueOf(docsSize));
             patientId = docs.get(0).getPatientId();
@@ -295,7 +302,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                 } else {
                     LOG.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: null");
                 }
-                if (rules != null && rules.size() > 0) {
+                if (CollectionUtils.isNotEmpty(rules)) {
                     LOG.debug("Rules list size: " + rules.size());
                     String policyMatchId;
                     String policyAttrValue;
@@ -312,13 +319,13 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                             if (targetType.getSubjects() != null) {
                                 List<SubjectType> subjects;
                                 subjects = targetType.getSubjects().getSubject();
-                                if (subjects != null && subjects.size() > 0) {
+                                if (CollectionUtils.isNotEmpty(subjects)) {
                                     LOG.debug("Subjects list size" + subjects.size());
                                     subjectsFor: for (final SubjectType subject : subjects) {
                                         isMatch = false;
                                         List<SubjectMatchType> subjectMatchs;
                                         subjectMatchs = subject.getSubjectMatch();
-                                        if (subjectMatchs != null && subjectMatchs.size() > 0) {
+                                        if (CollectionUtils.isNotEmpty(subjectMatchs)) {
                                             LOG.debug("subjectMatchs list size" + subjectMatchs.size());
                                             subjectMatchsFor: for (final SubjectMatchType subjectMatch : subjectMatchs) {
                                                 policyMatchId = subjectMatch.getMatchId();
@@ -467,7 +474,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     if (!isAnyAttributeInfoNull) {
                         LOG.debug("evaluateSubjectMatch - Request AttributeId: " + requestAttrId);
                         LOG.debug("evaluateSubjectMatch - Request Attribute DataType : " + requestAttrDataType);
-                        if (policyAttrDesAttrId.equals(requestAttrId)
+                        if (requestAttrId.equals(policyAttrDesAttrId)
                                 && policyAttrDesAttrDataType.equals(requestAttrDataType)) {
                             isMatch = evaluateMatchWithFunction(policyMatchId, policyAttrValue, requestAttrValue);
                         }
