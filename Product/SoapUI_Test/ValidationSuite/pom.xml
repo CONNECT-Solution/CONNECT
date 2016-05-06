@@ -381,7 +381,7 @@
                             <testSuite>${test.suite}</testSuite>
                             <testCase>${test.case}</testCase>
                             <projectProperties>
-                                <value>GatewayPropDir=${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</value>
+                                <value>GatewayPropDir=${project.parent.basedir}/${wildfly.properties.dir}</value>
                                 <value>DBHost=${db.host}</value>
                                 <value>DBPass=${db.password}</value>
                                 <value>DBPort=${db.port}</value>
