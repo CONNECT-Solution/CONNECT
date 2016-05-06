@@ -17,6 +17,403 @@
     </properties>
 
     <profiles>
+    <profile>
+            <id>wildfly-embedded</id>
+            <activation>
+                <property>
+                    <name>!validation.wildfly.skip</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- You need the maven dependency plugin to download locally a zip 
+                        with the server, unless you provide your own, it will download under the 
+                        /target directory -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.8</version>
+                        <executions>
+                            <execution>
+                                <id>unpack jboss server</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>${wildfly.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>target</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                         <execution>
+                                <id>setupUser</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                        <target>
+                                            <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.sh" osfamily="unix">
+                                                <arg value="-s" />
+                                                <arg value="${as.username}" />
+                                                <arg value="${as.password}" />
+                                            </exec>
+                                             <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.bat" osfamily="windows">
+                                                <arg value="-s" />
+                                                <arg value="${as.username}" />
+                                                <arg value="${as.password}" />
+                                            </exec>
+                                        </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>setup-selfsigned-certs</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${project.build.directory}/domain1/config" />
+                                        <copy
+                                            file="${project.basedir}/src/test/resources/chaincerts/gateway.jks"
+                                            todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
+                                        <copy
+                                            file="${project.basedir}/src/test/resources/chaincerts/cacerts.jks"
+                                            todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <!-- Used to pull XSD files from the JAR -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+
+                            <execution>
+                                <id>unpack-nhin-properties</id>
+                                <!-- Using the initialize phase because it is before the generate 
+                                    sources phase -->
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${skip.unpack}</skip>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <!-- Artifact that holds our custom templates -->
+                                            <groupId>org.connectopensource</groupId>
+                                            <artifactId>Properties</artifactId>
+                                            <version>${project.parent.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>**/*</includes>
+                                    <outputDirectory>${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-resources-mysql-conn-to-lib</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/wildfly-${wildfly.version}/standalone/deployments</outputDirectory>
+                                    <silent>true</silent>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>mysql</groupId>
+                                            <artifactId>mysql-connector-java</artifactId>
+                                            <version>5.1.10</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>unpack-sql-scripts</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${skip.unpack}</skip>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <!-- Artifact that holds our SQL scripts -->
+                                            <groupId>org.connectopensource</groupId>
+                                            <artifactId>DBScripts</artifactId>
+                                            <version>${project.parent.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>**/*</includes>
+                                    <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-module-embedded-jboss</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/src/main/resources/wildfly</directory>
+                                            <includes>
+                                                <include>module.xml</include>
+                                            </includes>
+                                        </resource>
+                                        <resource>
+                                            <directory>${project.basedir}/src/main/resources/wildfly</directory>
+                                            <includes>
+                                                <include>gateway.jks</include>
+                                                <include>cacerts.jks</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-datasource</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/wildfly-${wildfly.version}/standalone/configuration</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/src/main/resources/wildfly</directory>
+                                            <includes>
+                                                <include>standalone.xml</include>
+                                            </includes>
+
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <!-- standalone bat -->
+                            <execution>
+                                <id>copy-standalonebatch</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/wildfly-${wildfly.version}/bin</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/src/main/resources/wildfly</directory>
+                                            <includes>
+                                                <include>standalone.conf.bat</include>
+                                            </includes>
+
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- run sql script -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.10</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>jdbc:mysql://${db.host}</url>
+                            <username>root</username>
+                            <password>${mysql.root.password}</password>
+
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <!-- <phase>process-test-classes</phase> -->
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <srcFiles>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.17</version>
+                        <configuration>
+
+                            <forkMode>always</forkMode>
+                            <systemPropertyVariables>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <jboss.home>${project.basedir}/target/wildfly-${wildfly.version}</jboss.home>
+                                <module.path>${project.basedir}/target/wildfly-${wildfly.version}/modules</module.path>
+                            </systemPropertyVariables>
+                            <argLine>-Xmx5000m -XX:MaxPermSize=1024m -XX:PermSize=1024m
+                                -Dnhinc.properties.dir=${project.build.directory}\wildfly-${wildfly.version}\modules\system\layers\base\org\connectopensource\configuration\main
+                                -Djavax.net.ssl.keyStore=${project.build.directory}\wildfly-${wildfly.version}\modules\system\layers\base\org\connectopensource\configuration\main\gateway.jks
+                                -Djavax.net.ssl.keyStorePassword=changeit
+                                -Djavax.net.ssl.keyStoreType=JKS
+                                -Djavax.net.ssl.trustStore=${project.build.directory}\wildfly-${wildfly.version}\modules\system\layers\base\org\connectopensource\configuration\main\cacerts.jks
+                                -Djavax.net.ssl.trustStorePassword=changeit
+                                -Djavax.net.ssl.trustStoreType=JKS -DCLIENT_KEY_ALIAS=gateway</argLine>
+
+                            <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                        </configuration>
+                        <!-- <argLine>-Dnhinc.properties.dir=${project.basedir}/target/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main/</argLine> -->
+                    </plugin>
+                    <!-- Start the server and deployment -->
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>1.1.0.Alpha7</version>
+                        <configuration>
+                            <jbossHome>${project.build.directory}/wildfly-${wildfly.version}</jbossHome>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start server</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <javaOpts>
+                                        <javaOpt>-Xmx5000m</javaOpt>
+                                        <javaOpt>-XX:MaxPermSize=1024m</javaOpt>
+                                        <javaOpt>-XX:PermSize=1024m</javaOpt>
+                                        <javaOpt>-Dnhinc.properties.dir=${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</javaOpt>
+                                        <javaOpt>-Djavax.net.ssl.keyStore=${project.build.directory}\wildfly-${wildfly.version}\modules\system\layers\base\org\connectopensource\configuration\main\gateway.jks</javaOpt>
+                                        <javaOpt>-Djavax.net.ssl.keyStorePassword=changeit</javaOpt>
+                                        <javaOpt>-Djavax.net.ssl.keyStoreType=JKS</javaOpt>
+                                        <javaOpt>-Djavax.net.ssl.trustStore=${project.build.directory}\wildfly-${wildfly.version}\modules\system\layers\base\org\connectopensource\configuration\main\cacerts.jks</javaOpt>
+                                        <javaOpt>-Djavax.net.ssl.trustStorePassword=changeit</javaOpt>
+                                        <javaOpt>-Djavax.net.ssl.trustStoreType=JKS</javaOpt>
+                                        <javaOpt>-DCLIENT_KEY_ALIAS=gateway</javaOpt>
+                                        <javaOpt>-Dorg.connectopensource.enablejmx=true</javaOpt>
+                                    </javaOpts>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>deploy server</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy-artifact</goal>
+                                </goals>
+                                <configuration>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>CONNECT-JB7</artifactId>
+                                    <version>${project.parent.version}</version>
+                                </configuration>
+                            </execution>
+                        </executions>
+
+                    </plugin>
+                    <!-- Run soapUI test -->
+                    <plugin>
+                        <groupId>com.github.redfish4ktc.soapui</groupId>
+                        <artifactId>maven-soapui-extension-plugin</artifactId>
+                        <configuration>
+                            <settingsFile>${project.basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                            <outputFolder>${project.basedir}/target/soapui/output/</outputFolder>
+                            <soapuiProperties>
+                                <property>
+                                    <name>soapui.logroot</name>
+                                    <value>${project.build.directory}/soapui/my_custom_logs/</value>
+                                </property>
+                                <property>
+                                    <name>soapui.scripting.library</name>
+                                    <value>${project.basedir}/src/main/resources/groovy_scripts</value>
+                                </property>
+                                <property>
+                                    <name>soapui.ext.libraries</name>
+                                    <value>${project.basedir}/src/main/resources/ext</value>
+                                </property>
+                            </soapuiProperties>
+                            <exportAll>true</exportAll>
+                            <printReport>true</printReport>
+                            <junitReport>true</junitReport>
+                            <coverage>false</coverage>
+                            <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
+                            <saveAfterRun>false</saveAfterRun>
+                            <host>${host}:${port}</host>
+                            <testSuite>${test.suite}</testSuite>
+                            <testCase>${test.case}</testCase>
+                            <projectProperties>
+                                <value>GatewayPropDir=${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</value>
+                                <value>DBHost=${db.host}</value>
+                                <value>DBPass=${db.password}</value>
+                                <value>DBPort=${db.port}</value>
+                                <value>DBUser=${db.user}</value>
+                            </projectProperties>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>ConnectValidation-soapui-project.xml</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <projectFile>${project.basedir}/ConnectValidation-soapui-project.xml</projectFile>
+                                    <outputFolder>${project.build.directory}/soapui/output/ConnectValidation</outputFolder>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>test-verify</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>test-verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- End of soapUI test -->
+                </plugins>
+            </build>
+        </profile>
+    <!-- Old Validation Suite -->
         <profile>
             <id>validation-testing</id>
             <activation>
