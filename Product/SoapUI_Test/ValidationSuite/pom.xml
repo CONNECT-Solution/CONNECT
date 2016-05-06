@@ -418,7 +418,7 @@
             <id>validation-testing</id>
             <activation>
                 <property>
-                    <name>!validation.skip</name>
+                    <name>validation.skip</name>
                 </property>
             </activation>
             <build>
@@ -489,7 +489,7 @@
             <id>embedded-testing</id>
             <activation>
                 <property>
-                    <name>!standalone</name>
+                    <name>standalone</name>
                 </property>
             </activation>
             <properties>
