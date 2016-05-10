@@ -20,14 +20,12 @@
     <profile>
             <id>wildfly-embedded</id>
             <activation>
-                <property>
-                    <name>!validation.wildfly.skip</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
-                    <!-- You need the maven dependency plugin to download locally a zip 
-                        with the server, unless you provide your own, it will download under the 
+                    <!-- You need the maven dependency plugin to download locally a zip
+                        with the server, unless you provide your own, it will download under the
                         /target directory -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -36,7 +34,7 @@
                         <executions>
                             <execution>
                                 <id>unpack jboss server</id>
-                                <phase>process-test-classes</phase>
+                                <!--<phase>process-test-classes</phase>-->
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
@@ -81,14 +79,14 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>setup-selfsigned-certs</id>
+                                <id>setup-selfsigned-certs-wildfly</id>
                                 <phase>process-test-resources</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <mkdir dir="${project.build.directory}/domain1/config" />
+                                        <!-- <mkdir dir="${project.build.directory}/domain1/config" /> -->
                                         <copy
                                             file="${project.basedir}/src/test/resources/chaincerts/gateway.jks"
                                             todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
@@ -108,8 +106,8 @@
                         <executions>
 
                             <execution>
-                                <id>unpack-nhin-properties</id>
-                                <!-- Using the initialize phase because it is before the generate 
+                                <id>unpack-nhin-properties-wildfly</id>
+                                <!-- Using the initialize phase because it is before the generate
                                     sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
@@ -350,8 +348,7 @@
                         </executions>
 
                     </plugin>
-                    <!-- Run soapUI test -->
-                    <plugin>
+<plugin>
                         <groupId>com.github.redfish4ktc.soapui</groupId>
                         <artifactId>maven-soapui-extension-plugin</artifactId>
                         <configuration>
@@ -409,18 +406,19 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!-- End of soapUI test -->
                 </plugins>
             </build>
         </profile>
-    <!-- Old Validation Suite -->
         <profile>
             <id>validation-testing</id>
             <activation>
                 <property>
-                    <name>validation.skip</name>
+                    <name>standalone</name>
                 </property>
             </activation>
+            <properties>
+                <properties.dir>${project.parent.basedir}/${wildfly.properties.dir} </properties.dir>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -485,294 +483,6 @@
             </build>
         </profile>
 
-        <profile>
-            <id>embedded-testing</id>
-            <activation>
-                <property>
-                    <name>standalone</name>
-                </property>
-            </activation>
-            <properties>
-                <properties.dir>${project.build.directory}/nhinc-properties-dir</properties.dir>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- Used to pull XSD files from the JAR -->
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>dependency-validate</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${endorsed.dir}</outputDirectory>
-                                    <silent>true</silent>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>javax</groupId>
-                                            <artifactId>javaee-endorsed-api</artifactId>
-                                            <version>6.0</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>dependency-properties</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>properties</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>unpack-nhin-properties</id>
-                                <!-- Using the initialize phase because it is before the generate sources phase -->
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>${skip.unpack}</skip>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <!-- Artifact that holds our custom templates -->
-                                            <groupId>org.connectopensource</groupId>
-                                            <artifactId>Properties</artifactId>
-                                            <version>${project.parent.version}</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <includes>**/*</includes>
-                                    <outputDirectory>${project.build.directory}/nhinc-properties-dir/</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-resources-mysql-conn-to-lib</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
-                                    <silent>true</silent>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>mysql</groupId>
-                                            <artifactId>mysql-connector-java</artifactId>
-                                            <version>5.1.10</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>unpack-sql-scripts</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>${skip.unpack}</skip>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <!-- Artifact that holds our SQL scripts -->
-                                            <groupId>org.connectopensource</groupId>
-                                            <artifactId>DBScripts</artifactId>
-                                            <version>${project.parent.version}</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <includes>**/*</includes>
-                                    <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-resources-embedded-glassfish-domain</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${project.basedir}/src/test/resources/domain1/</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-resources-gateway.properties</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/domain1/config/nhin/</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${project.build.testOutputDirectory}</directory>
-                                            <includes>
-                                                <include>gateway.properties</include>
-                                            </includes>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
 
-                    <!-- Create the Properties jar from the nhinc properties directory for build. Refer to CONN-1212 for more info. -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>2.3.1</version>
-                        <executions>
-                            <execution>
-                                <id>generate-jar</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <!-- The configuration of the plugin -->
-                                <configuration>
-                                    <finalName>Properties</finalName>
-                                    <classesDirectory>${project.build.directory}/nhinc-properties-dir/</classesDirectory>
-                                    <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <!-- Copy configdb.hibernate.build.cfg.xml to nhinc-properties-dir, renaming to configdb.hibernate.cfg.xml.
-                                     This is a workaround for embedded GlassFish v3, which has a classloader issue with the antlr jar
-                                     loaded by CONNECTDirectConfig. Refer to CONN-1212 for more info. -->
-                                <id>copy-configdb.hibernate.build.cfg.xml</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <copy file="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.build.cfg.xml" tofile="${project.build.directory}/nhinc-properties-dir/hibernate/configdb.hibernate.cfg.xml" overwrite="true" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>create-docroot</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <mkdir dir="${project.build.directory}/domain1/docroot/" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>setup-selfsigned-certs</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <mkdir dir="${project.build.directory}/domain1/config" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks" todir="${project.build.directory}/domain1/config/" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks" todir="${project.build.directory}/domain1/config/" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/gateway.jks" todir="${project.build.directory}/domain1/lib/classes/" />
-                                        <copy file="${project.build.directory}/test-classes/chaincerts/cacerts.jks" todir="${project.build.directory}/domain1/lib/classes/" />
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>sql-maven-plugin</artifactId>
-                        <version>1.5</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>mysql</groupId>
-                                <artifactId>mysql-connector-java</artifactId>
-                                <version>5.1.10</version>
-                            </dependency>
-                        </dependencies>
-                        <configuration>
-                            <driver>com.mysql.jdbc.Driver</driver>
-                            <url>jdbc:mysql://${db.host}</url>
-                            <username>root</username>
-                            <password>${mysql.root.password}</password>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <srcFiles>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
-                                    </srcFiles>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.glassfish.embedded</groupId>
-                        <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>start-glassfish</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>glassfish-deploy</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>glassfish-undeploy</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>undeploy</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-glassfish</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>
