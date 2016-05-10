@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodesStandards" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" id="ccedc04e-75db-494c-8db6-d90dbd4fc00a" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodesStandards" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="ccedc04e-75db-494c-8db6-d90dbd4fc00a" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="21c6ad92-7af8-43e3-859e-23c274cdc9f8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -12,19 +12,14 @@
     </con:operation>
   </con:interface>
   <con:testSuite name="DocQueryErrorCodes" id="2600d47e-8d71-4273-a014-5023b3366117">
-    <con:description>This Test Case MUST be run in standard mode.</con:description>
+    <con:description>This Test Case MUST be run in standard mode. 
+Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/B4AZAg</con:description>
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSUnknownPatientId" searchProperties="true" id="b653f7c0-e092-4fb0-8529-85756d005423">
       <con:description>When the patient ID in the $XDSDocumentEntryPatientId slot is unknown (meaning no correlations are present for the patient), the error "XDSUnknownPatientId" should be returned
 *****MUST BE RUN IN STANDARD MODE********</con:description>
       <con:settings/>
-      <con:testStep name="update config" type="groovy" id="b03420ee-3e86-41e4-915e-bce7d71aae88">
-        <con:settings/>
-        <con:config>
-          <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
-        </con:config>
-      </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="9c334c8f-724e-4f9e-a350-a991921f02f6">
         <con:settings/>
         <con:config>
@@ -364,19 +359,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-03-19T18:16:13Z</con:value>
+          <con:value>2016-05-10T16:29:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-03-19T18:26:13Z</con:value>
+          <con:value>2016-05-10T16:39:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/19/2013 18:16:13</con:value>
+          <con:value>05/10/2016 16:29:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-04-18T00:00:00Z</con:value>
+          <con:value>2016-06-09T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
