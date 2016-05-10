@@ -2322,8 +2322,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   log.info "Standard valud-->"+standard
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
@@ -2350,8 +2349,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = 
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
    
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
@@ -2371,8 +2369,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   log.info "Standard valud-->"+standard
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');

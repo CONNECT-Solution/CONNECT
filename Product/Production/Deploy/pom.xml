@@ -822,13 +822,19 @@
                 <module>weblogic</module>
             </modules>
         </profile>
-
-        <!-- Glassfish -->
+		<!-- JBOSS7 -->
      	<profile>
-            <id>glassfish</id>
+            <id>jboss7</id>
 			<activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+			<modules>
+				<module>jboss7</module>
+			</modules>
+		</profile>
+        <!-- Glassfish -->
+     	<profile>
+            <id>glassfish</id>
 			<modules>
 				<module>glassfish</module>
 			</modules>
