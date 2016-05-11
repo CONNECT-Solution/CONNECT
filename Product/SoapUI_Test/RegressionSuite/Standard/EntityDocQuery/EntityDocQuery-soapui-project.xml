@@ -1959,7 +1959,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:\wildfly-8.2.1.Final\modules\system\layers\base\org\connectopensource\configuration\main</con:value>
+      <con:value/>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
