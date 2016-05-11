@@ -1132,9 +1132,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </urn3:nhinTargetCommunity>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>${#Project#UDDIhc1description}</urn3:description>
+                  <urn3:description>${#Project#UDDIhc3description}</urn3:description>
                   <urn3:homeCommunityId>${#Project#UDDIhcid3}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#UDDIhc1description}</urn3:name>
+                  <urn3:name>${#Project#UDDIhc3description}</urn3:name>
                </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
