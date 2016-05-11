@@ -36,7 +36,7 @@
                     <testSuite>${test.suite}</testSuite>
                     <testCase>${test.case}</testCase>
                     <projectProperties>
-                        <value>GatewayPropDir=${properties.dir}</value>
+                        <value>GatewayPropDir=${project.parent.parent.parent.basedir}/${wildfly.properties.dir}</value>
                         <value>RemoteGatewayPropDir=${remote.properties.dir}</value>
                         <value>DBHost=${db.host}</value>
                         <value>DBPass=${db.password}</value>
@@ -46,10 +46,10 @@
                         <value>RemoteDBPass=${db.remote.password}</value>
                         <value>RemoteDBPort=${db.remote.port}</value>
                         <value>RemoteDBUser=${db.remote.user}</value>
-                        <value>ASUsername=admin</value>
-                        <value>ASPassword=adminadmin</value>
-                        <value>JMXHost=localhost</value>
-                        <value>JMXPort=8686</value>
+                        <value>ASUsername=${as.username}</value>
+                        <value>ASPassword=${as.password}</value>
+                        <value>JMXHost=${jmx.host}</value>
+                        <value>JMXPort=${jmx.port}</value>
                         <value>MailServerIP=${mailip}</value>
                         <value>MailUserid=${mailid}</value>
                         <value>MailPass=${mailpass}</value>
