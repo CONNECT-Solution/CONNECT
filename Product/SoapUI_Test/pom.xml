@@ -12,7 +12,6 @@
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
         <host>localhost</host>
         <secured.port>8181</secured.port>
         <port>8080</port>
@@ -36,12 +35,6 @@
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECT-GF</artifactId>
-            <version>${project.parent.version}</version>
-            <type>ear</type>
-        </dependency>
        <dependency>
     		<groupId>org.connectopensource</groupId>
     		<artifactId>CONNECT-JB7</artifactId>
@@ -77,32 +70,9 @@
                             <artifactId>remoting-jmx</artifactId>
                             <version>2.0.1.Final</version>
                         </dependency>
-						<!-- <dependency>
-						  <groupId>org.jboss.as</groupId>
-						  <artifactId>jboss-as-protocol</artifactId>
-						  <version>7.2.0.Final</version>
-						</dependency>
-						<dependency>
-						  <groupId>org.jboss.remoting3</groupId>
-						    <artifactId>jboss-remoting</artifactId>
-						    <version>3.2.14.GA</version>
-						</dependency>
-						-->
                     </dependencies>
                 </plugin>
-                <plugin>
-                    <groupId>org.glassfish.embedded</groupId>
-                    <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                    <version>3.1.2.2</version>
-                    <configuration>
-                        <goalPrefix>embedded-glassfish</goalPrefix>
-                        <name>CONNECT-GF</name>
-                        <app>${ear.path}</app>
-                        <autoDelete>true</autoDelete>
-                        <port>${port}</port>
-                        <instanceRoot>${project.build.directory}/domain1</instanceRoot>
-                    </configuration>
-                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
