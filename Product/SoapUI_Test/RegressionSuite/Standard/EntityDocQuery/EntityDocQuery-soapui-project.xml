@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="1567cbeb-dc24-43fd-8302-7d2eeb783f05" xmlns:con="http://eviware.com/soapui/config">
-  <con:settings/>
+<con:soapui-project abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="1567cbeb-dc24-43fd-8302-7d2eeb783f05" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>This project test DocumentQuery FanOut scenarios by rpoviding good/bad endpoints and  providing only state in nhinTargetCommunity.</con:description><con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="62a6ed6a-0cde-466c-bcc6-76933e69c465" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
@@ -23,21 +23,8 @@
 nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy" id="abe28c3e-ce4b-4ab3-bc3e-398e798900cb">
-        <con:settings/>
-        <con:config>
-          <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Generate patient ID for Doc Query" type="groovy" id="c4dc685c-4c4b-401c-b902-f2d2a5c4ac5b">
-        <con:settings/>
-        <con:config>
-          <script>def localAA = context.findProperty('LocalAA')
-def dqPatientID = context.findProperty('DQPatientID')
-
-context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
-        </con:config>
-      </con:testStep>
+      
+      
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="489c7f9d-f22a-4f4c-9798-1e4e1f3eab04">
         <con:settings/>
         <con:config>
@@ -335,17 +322,6 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <!--urn:NhinTargetCommunities>
-            <urn3:nhinTargetCommunity>
-               <urn3:homeCommunity>
-                  <urn3:description></urn3:description>
-                  <urn3:homeCommunityId></urn3:homeCommunityId>
-                  <urn3:name></urn3:name>
-               </urn3:homeCommunity>
-               <urn3:list/>
-               <urn3:region>US-NY</urn3:region>
-            </urn3:nhinTargetCommunity>
-         </urn:NhinTargetCommunities-->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -379,19 +355,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-01T01:00:38Z</con:value>
+          <con:value>2016-05-11T16:59:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-01T01:10:38Z</con:value>
+          <con:value>2016-05-11T17:09:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/01/2013 01:00:38</con:value>
+          <con:value>05/11/2016 16:59:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-31T00:00:00Z</con:value>
+          <con:value>2016-06-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -410,21 +386,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy" id="7eb7888c-b7e2-443a-8425-f52e3f389c5f">
-        <con:settings/>
-        <con:config>
-          <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Generate patient ID for Doc Query" type="groovy" id="c3750c7b-afde-4290-a285-64ea856e1600">
-        <con:settings/>
-        <con:config>
-          <script>def localAA = context.findProperty('LocalAA')
-def dqPatientID = context.findProperty('DQPatientID')
-
-context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
-        </con:config>
-      </con:testStep>
+      
+      
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="e5733609-646b-4c99-b12b-e064f54d0561">
         <con:settings/>
         <con:config>
@@ -720,17 +683,6 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-<!--
-         <urn:NhinTargetCommunities>
-            <urn3:nhinTargetCommunity>
-               <urn3:homeCommunity>
-                  <urn3:description>InternalTest2</urn3:description>
-                  <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
-                  <urn3:name>InternalTest2</urn3:name>
-               </urn3:homeCommunity>
-            </urn3:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
--->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -773,19 +725,19 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-01T01:00:40Z</con:value>
+          <con:value>2016-05-11T16:59:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-01T01:10:40Z</con:value>
+          <con:value>2016-05-11T17:09:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/01/2013 01:00:40</con:value>
+          <con:value>05/11/2016 16:59:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-31T00:00:00Z</con:value>
+          <con:value>2016-06-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -804,21 +756,8 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
 nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy" id="a35f9d48-1f3c-4591-8e0c-be2d6be39cd2">
-        <con:settings/>
-        <con:config>
-          <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Generate patient ID for Doc Query" type="groovy" id="18056be2-76c9-4cc6-af16-e40a0ea116e9">
-        <con:settings/>
-        <con:config>
-          <script>def localAA = context.findProperty('LocalAA')
-def dqPatientID = context.findProperty('DQPatientID')
-
-context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
-        </con:config>
-      </con:testStep>
+      
+      
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="4df7899f-3589-4e5a-a434-ced024ae3cab">
         <con:settings/>
         <con:config>
@@ -1107,17 +1046,6 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-<!--
-         <urn:NhinTargetCommunities>
-            <urn3:nhinTargetCommunity>
-               <urn3:homeCommunity>
-                  <urn3:description>InternalTest2</urn3:description>
-                  <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
-                  <urn3:name>InternalTest2</urn3:name>
-               </urn3:homeCommunity>
-            </urn3:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
--->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -1150,19 +1078,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-01T01:00:42Z</con:value>
+          <con:value>2016-05-11T16:59:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-01T01:10:42Z</con:value>
+          <con:value>2016-05-11T17:09:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/01/2013 01:00:42</con:value>
+          <con:value>05/11/2016 16:59:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-31T00:00:00Z</con:value>
+          <con:value>2016-06-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1173,7 +1101,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
-      <con:settings/>
+      <con:description>This test do a Documet query fan-out based on region US_NY define in NhinTargetCommunities.</con:description><con:settings/>
       <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="b530ae9e-3173-4f56-9046-da7d19db1f91">
         <con:settings/>
         <con:config>
@@ -1181,21 +1109,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy" id="a70dc8b9-31ce-4692-9269-3591051b3c72">
-        <con:settings/>
-        <con:config>
-          <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Generate patient ID for Doc Query" type="groovy" id="e22cc2a3-e6c7-4c6c-b57b-eb18cbdaef94">
-        <con:settings/>
-        <con:config>
-          <script>def localAA = context.findProperty('LocalAA')
-def dqPatientID = context.findProperty('DQPatientID')
-
-context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
-        </con:config>
-      </con:testStep>
+      
+      
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="eb3bf261-2c85-4b40-9990-4bb324605ef9">
         <con:settings/>
         <con:config>
@@ -1238,19 +1153,17 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy" id="14f44ab6-3098-4999-a58e-c679d6bdc031">
         <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script>
-        </con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="5cf3e38b-1014-45af-99fb-3609c2a58c16">
         <con:settings/>
@@ -1537,19 +1450,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-01T01:00:44Z</con:value>
+          <con:value>2016-05-11T16:59:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-01T01:10:44Z</con:value>
+          <con:value>2016-05-11T17:09:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/01/2013 01:00:44</con:value>
+          <con:value>05/11/2016 16:59:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-31T00:00:00Z</con:value>
+          <con:value>2016-06-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1568,21 +1481,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy" id="37ac2cc6-cf70-48dd-be51-ef990ed89025">
-        <con:settings/>
-        <con:config>
-          <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Generate patient ID for Doc Query" type="groovy" id="5ff2d917-40e3-400e-8e50-767594ca53ae">
-        <con:settings/>
-        <con:config>
-          <script>def localAA = context.findProperty('LocalAA')
-def dqPatientID = context.findProperty('DQPatientID')
-
-context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
-        </con:config>
-      </con:testStep>
+      
+      
       <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation" id="fe491310-2149-4bf7-9e1d-91dbac5c1f09">
         <con:settings/>
         <con:config>
@@ -1923,19 +1823,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-01T13:10:00Z</con:value>
+          <con:value>2016-05-11T16:59:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-01T13:20:00Z</con:value>
+          <con:value>2016-05-11T17:09:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/01/2013 13:10:00</con:value>
+          <con:value>05/11/2016 16:59:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-31T00:00:00Z</con:value>
+          <con:value>2016-06-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2012,10 +1912,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:name>LocalPatientID</con:name>
       <con:value>D123400</con:value>
     </con:property>
-    <con:property>
-      <con:name>NHINGatewayConfigDir</con:name>
-      <con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-    </con:property>
+    
     <con:property>
       <con:name>PatientCorrelationDB</con:name>
       <con:value>patientcorrelationdb</con:value>
@@ -2062,7 +1959,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value>C:\wildfly-8.2.1.Final\modules\system\layers\base\org\connectopensource\configuration\main</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
