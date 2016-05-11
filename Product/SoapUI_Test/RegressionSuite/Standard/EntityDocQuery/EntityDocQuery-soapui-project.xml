@@ -1101,7 +1101,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
-      <con:description>This test do a Documet query fan-out based on region US_NY define in NhinTargetCommunities.</con:description><con:settings/>
+      <con:description>This test do a Document query fan-out based on region US_NY define in NhinTargetCommunities.</con:description><con:settings/>
       <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="b530ae9e-3173-4f56-9046-da7d19db1f91">
         <con:settings/>
         <con:config>
