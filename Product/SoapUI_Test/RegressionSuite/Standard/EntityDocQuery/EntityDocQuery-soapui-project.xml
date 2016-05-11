@@ -69,19 +69,15 @@ nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.fin
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy" id="344f526a-df73-494a-b84e-3e86a58e7cbd">
         <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def Host2 = context.findProperty("Host2");
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host = context.findProperty("Host");
 def HCID2 = context.findProperty("RemoteHCID1");
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"2.0", log)</script>
-        </con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1,"2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="e04fb984-2d28-497c-a650-211e1af55204">
         <con:settings/>
@@ -331,15 +327,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="eefe7de6-4c74-4d65-91f8-b37c06216580"/>
             <con:assertion name="Document Count" type="XPath Match" id="d8669250-e36f-4487-9dc9-88e273246faa">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>4</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-                <ignoreComments>false</ignoreComments>
-              </con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
@@ -355,15 +345,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-11T16:59:28Z</con:value>
+          <con:value>2016-05-11T20:08:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-11T17:09:28Z</con:value>
+          <con:value>2016-05-11T20:18:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/11/2016 16:59:28</con:value>
+          <con:value>05/11/2016 20:08:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -430,19 +420,15 @@ nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.fin
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy" id="bc5b93e7-513f-400c-b8ba-16f5aba15111">
         <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def Host2 = context.findProperty("Host2");
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host = context.findProperty("Host");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
-
-def Host3 = context.findProperty("Host3");
+def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/BadURL";
+def docQueryURL2 = "https://" + Host + ":8181/RespondingGateway_Query_Service/BadURL";
 
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script>
-        </con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="78d22b22-27c8-49c7-9b53-81edc2cb26d9">
         <con:settings/>
@@ -725,15 +711,15 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-11T16:59:30Z</con:value>
+          <con:value>2016-05-11T20:09:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-11T17:09:30Z</con:value>
+          <con:value>2016-05-11T20:19:08Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/11/2016 16:59:30</con:value>
+          <con:value>05/11/2016 20:09:08</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -798,14 +784,12 @@ nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.fin
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy" id="7db36dc2-6c65-47e0-860b-3a117d408890">
         <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def Host2 = context.findProperty("Host2");
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host = context.findProperty("Host");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)</script>
-        </con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="01b5a358-1238-41bd-8bbe-1b16698f992f">
         <con:settings/>
@@ -1078,15 +1062,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-11T16:59:31Z</con:value>
+          <con:value>2016-05-11T20:08:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-11T17:09:31Z</con:value>
+          <con:value>2016-05-11T20:18:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/11/2016 16:59:31</con:value>
+          <con:value>05/11/2016 20:08:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1154,16 +1138,14 @@ nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.fin
       <con:testStep name="Set Connection Info" type="groovy" id="14f44ab6-3098-4999-a58e-c679d6bdc031">
         <con:settings/>
         <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def Host2 = context.findProperty("Host2");
+def Host = context.findProperty("Host");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="5cf3e38b-1014-45af-99fb-3609c2a58c16">
         <con:settings/>
@@ -1450,15 +1432,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-11T16:59:33Z</con:value>
+          <con:value>2016-05-11T20:08:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-11T17:09:33Z</con:value>
+          <con:value>2016-05-11T20:18:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/11/2016 16:59:33</con:value>
+          <con:value>05/11/2016 20:08:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1525,19 +1507,14 @@ nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.fin
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy" id="4adfc0cd-8790-4c0a-8e38-de293c4eecb5">
         <con:settings/>
-        <con:config>
-          <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def Host2 = context.findProperty("Host2");
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host = context.findProperty("Host");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
-
-def Host3 = context.findProperty("Host3");
+def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script>
-        </con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="bdec9800-bd81-44ce-8fc4-84558f1ba7d8">
         <con:settings/>
@@ -1800,14 +1777,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="7483426f-6c19-4f43-a9c8-a4e1df2f141b"/>
             <con:assertion name="Document Count" type="XPath Match" id="f728ff5f-3f6e-46dc-ab7a-ed9ae5e4386e">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>4</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
@@ -1823,15 +1795,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-11T16:59:35Z</con:value>
+          <con:value>2016-05-11T20:08:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-11T17:09:35Z</con:value>
+          <con:value>2016-05-11T20:18:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/11/2016 16:59:35</con:value>
+          <con:value>05/11/2016 20:08:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
