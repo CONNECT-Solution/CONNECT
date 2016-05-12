@@ -319,24 +319,16 @@
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="f31a4804-ed6f-47eb-b91c-25a8b06b4393"/>
             <con:assertion name="DocID Match" type="GroovyScriptAssertion" id="fe1154d8-c7c3-4597-9e84-0ae93b44f22d">
-              <con:configuration>
-                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+              <con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 				def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
-
+				def documentID = context.findProperty('DQDocID')
+		
 				log.info("Doc ID used: " + documentID);
 				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-				assert (documentID == msgDocID)</scriptText>
-              </con:configuration>
+				assert (documentID == msgDocID)</scriptText></con:configuration>
             </con:assertion>
             <con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
@@ -357,15 +349,15 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T18:42:17Z</con:value>
+          <con:value>2016-05-12T18:58:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T18:52:17Z</con:value>
+          <con:value>2016-05-12T19:08:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 18:42:17</con:value>
+          <con:value>05/12/2016 18:58:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -696,24 +688,16 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="1cca79b2-ed93-4528-8625-97b1a28326bc"/>
             <con:assertion name="DocID Match" type="GroovyScriptAssertion" id="f4d2814d-441d-4e22-b774-048a175be4df">
-              <con:configuration>
-                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+              <con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 				def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
+				def documentID =  context.findProperty('DQDocID');
 
 				log.info("Doc ID used: " + documentID);
 				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-				assert (documentID == msgDocID)</scriptText>
-              </con:configuration>
+				assert (documentID == msgDocID)</scriptText></con:configuration>
             </con:assertion>
             <con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
@@ -742,15 +726,15 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T18:42:26Z</con:value>
+          <con:value>2016-05-12T18:58:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T18:52:26Z</con:value>
+          <con:value>2016-05-12T19:08:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 18:42:26</con:value>
+          <con:value>05/12/2016 18:58:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -891,7 +875,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
     
     
     
-  <con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property></con:properties>
+  <con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
