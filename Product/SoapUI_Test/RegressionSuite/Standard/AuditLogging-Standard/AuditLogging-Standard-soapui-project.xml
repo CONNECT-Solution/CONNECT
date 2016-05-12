@@ -1131,7 +1131,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:55:07Z</con:value>
+          <con:value>2016-05-12T17:44:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -1183,7 +1183,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -1235,11 +1235,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:45:07</con:value>
+          <con:value>05/12/2016 17:34:50</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:45:07Z</con:value>
+          <con:value>2016-05-12T17:34:50Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1958,7 +1958,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:55:35Z</con:value>
+          <con:value>2016-05-12T17:45:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -2010,15 +2010,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:45:35</con:value>
+          <con:value>05/12/2016 17:35:02</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:45:35Z</con:value>
+          <con:value>2016-05-12T17:35:02Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2956,7 +2956,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:55:54Z</con:value>
+          <con:value>2016-05-12T17:45:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -3008,7 +3008,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -3060,11 +3060,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:45:54</con:value>
+          <con:value>05/12/2016 17:35:15</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:45:54Z</con:value>
+          <con:value>2016-05-12T17:35:15Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4000,7 +4000,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:56:15Z</con:value>
+          <con:value>2016-05-12T17:45:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -4080,7 +4080,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -4312,7 +4312,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:46:15</con:value>
+          <con:value>05/12/2016 17:35:27</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -4320,7 +4320,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:46:15Z</con:value>
+          <con:value>2016-05-12T17:35:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -5331,7 +5331,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:04:48Z</con:value>
+          <con:value>2016-05-12T17:48:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -5415,7 +5415,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -5647,7 +5647,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:54:48</con:value>
+          <con:value>05/12/2016 17:38:13</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -5655,7 +5655,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:54:48Z</con:value>
+          <con:value>2016-05-12T17:38:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -6550,7 +6550,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:57:03Z</con:value>
+          <con:value>2016-05-12T17:45:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -6590,7 +6590,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -6810,11 +6810,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:47:03</con:value>
+          <con:value>05/12/2016 17:35:59</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:47:03Z</con:value>
+          <con:value>2016-05-12T17:35:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -7661,7 +7661,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-01-22T15:57:31Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-05-12T17:46:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -7705,7 +7705,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-02-21T00:00:00Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7821,11 +7821,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">01/22/2016 15:47:31</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">05/12/2016 17:36:11</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-01-22T15:47:31Z</con:value>
+          <con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2016-05-12T17:36:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>auditLogStatus</con:name>
@@ -8621,7 +8621,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:57:52Z</con:value>
+          <con:value>2016-05-12T17:46:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -8673,7 +8673,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -8789,11 +8789,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:47:52</con:value>
+          <con:value>05/12/2016 17:36:25</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:47:52Z</con:value>
+          <con:value>2016-05-12T17:36:25Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9186,19 +9186,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:48:17Z</con:value>
+          <con:value>2016-05-12T17:36:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T15:58:17Z</con:value>
+          <con:value>2016-05-12T17:46:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:48:17</con:value>
+          <con:value>05/12/2016 17:36:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -10276,7 +10276,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:07:54Z</con:value>
+          <con:value>2016-05-12T17:49:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -10328,7 +10328,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -10380,11 +10380,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:57:54</con:value>
+          <con:value>05/12/2016 17:39:04</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:57:54Z</con:value>
+          <con:value>2016-05-12T17:39:04Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -11104,7 +11104,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:08:16Z</con:value>
+          <con:value>2016-05-12T17:49:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -11156,15 +11156,15 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:58:16</con:value>
+          <con:value>05/12/2016 17:39:18</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:58:16Z</con:value>
+          <con:value>2016-05-12T17:39:18Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -12101,7 +12101,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:08:30Z</con:value>
+          <con:value>2016-05-12T17:49:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -12153,7 +12153,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
@@ -12205,11 +12205,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:58:30</con:value>
+          <con:value>05/12/2016 17:39:30</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:58:30Z</con:value>
+          <con:value>2016-05-12T17:39:30Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -13145,7 +13145,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:08:54Z</con:value>
+          <con:value>2016-05-12T17:49:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -13225,7 +13225,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -13457,7 +13457,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:58:54</con:value>
+          <con:value>05/12/2016 17:39:42</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -13465,7 +13465,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:58:54Z</con:value>
+          <con:value>2016-05-12T17:39:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -14476,7 +14476,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:09:07Z</con:value>
+          <con:value>2016-05-12T17:49:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>Endpoint-AuditLogQuery</con:name>
@@ -14560,7 +14560,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FamilyName</con:name>
@@ -14792,7 +14792,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:59:07</con:value>
+          <con:value>05/12/2016 17:39:53</con:value>
         </con:property>
         <con:property>
           <con:name>SSN</con:name>
@@ -14800,7 +14800,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:59:07Z</con:value>
+          <con:value>2016-05-12T17:39:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>State</con:name>
@@ -15692,7 +15692,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:09:22Z</con:value>
+          <con:value>2016-05-12T17:50:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -15732,7 +15732,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>parameterList.livingSubjectAdministrativeGender.semanticsText</con:name>
@@ -15952,11 +15952,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:59:22</con:value>
+          <con:value>05/12/2016 17:40:05</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:59:22Z</con:value>
+          <con:value>2016-05-12T17:40:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>statusCode.@code</con:name>
@@ -16803,7 +16803,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:09:30Z</con:value>
+          <con:value>2016-05-12T17:50:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -16847,7 +16847,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -16959,11 +16959,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:59:30</con:value>
+          <con:value>05/12/2016 17:40:18</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:59:30Z</con:value>
+          <con:value>2016-05-12T17:40:18Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -17748,7 +17748,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:09:51Z</con:value>
+          <con:value>2016-05-12T17:50:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>EventIdentification.@EventActionCode</con:name>
@@ -17800,7 +17800,7 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name>
@@ -17916,11 +17916,11 @@ if (propertiesFile.exists()) {
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 15:59:51</con:value>
+          <con:value>05/12/2016 17:40:30</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T15:59:51Z</con:value>
+          <con:value>2016-05-12T17:40:30Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18313,19 +18313,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-01-22T16:00:13Z</con:value>
+          <con:value>2016-05-12T17:40:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-01-22T16:10:13Z</con:value>
+          <con:value>2016-05-12T17:50:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/22/2016 16:00:13</con:value>
+          <con:value>05/12/2016 17:40:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-02-21T00:00:00Z</con:value>
+          <con:value>2016-06-11T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -18546,18 +18546,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:value>1111</con:value>
     </con:property>
     <con:property>
-      <con:name>SubscribePatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionDB</con:name>
-      <con:value>subscriptionrepository</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionTable</con:name>
-      <con:value>subscription</con:value>
-    </con:property>
-    <con:property>
       <con:name>UniquePatientId</con:name>
       <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
     </con:property>
@@ -18604,6 +18592,18 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     <con:property>
       <con:name>EventTypeDR</con:name>
       <con:value>RetrieveDocuments</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+      <con:value>DoD</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+      <con:value>urn:oid:1.1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+      <con:value>1010</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
