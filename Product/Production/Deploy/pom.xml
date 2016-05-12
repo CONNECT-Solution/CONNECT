@@ -10,11 +10,10 @@
     <name>CONNECT Deployment</name>
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
-
-    <modules>
-        <module>glassfish</module>
-    </modules>
-
+		<modules>
+             <module>jboss7</module>
+         </modules>
+    
     <reporting>
         <plugins>
             <plugin>
@@ -823,13 +822,22 @@
                 <module>weblogic</module>
             </modules>
         </profile>
-
-        <!-- JBoss 7 -->
-        <profile>
+		<!-- JBOSS7 -->
+     	<profile>
             <id>jboss7</id>
-            <modules>
-                <module>jboss7</module>
-            </modules>
-        </profile>
-    </profiles>
+			<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+			<modules>
+				<module>jboss7</module>
+			</modules>
+		</profile>
+        <!-- Glassfish -->
+     	<profile>
+            <id>glassfish</id>
+			<modules>
+				<module>glassfish</module>
+			</modules>
+		</profile>
+	</profiles>
 </project>

@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <parent>
+ <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
         <version>4.6.1-SNAPSHOT</version>
@@ -13,7 +12,6 @@
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
         <host>localhost</host>
         <secured.port>8181</secured.port>
         <port>8080</port>
@@ -24,8 +22,10 @@
         <as.username>admin</as.username>
         <as.password>adminadmin</as.password>
         <jmx.host>localhost</jmx.host>
-        <jmx.port>8686</jmx.port>
+        <jmx.port>9990</jmx.port>
         <mysql.root.password>NHIE-Gateway</mysql.root.password>
+        <wildfly.version>8.2.1.Final</wildfly.version>
+        <wildfly.properties.dir>ValidationSuite/target/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</wildfly.properties.dir>
     </properties>
 
     <modules>
@@ -35,14 +35,13 @@
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECT-GF</artifactId>
-            <version>${project.parent.version}</version>
-            <type>ear</type>
-        </dependency>
+       <dependency>
+    		<groupId>org.connectopensource</groupId>
+    		<artifactId>CONNECT-JB7</artifactId>
+    		<version>${project.parent.version}</version>
+    		<type>ear</type>
+    	</dependency>
     </dependencies>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -66,21 +65,14 @@
                             <artifactId>FileUtils</artifactId>
                             <version>${project.parent.version}</version>
                         </dependency>
+                        <dependency>
+                            <groupId>org.jboss.remotingjmx</groupId>
+                            <artifactId>remoting-jmx</artifactId>
+                            <version>2.0.1.Final</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
-                <plugin>
-                    <groupId>org.glassfish.embedded</groupId>
-                    <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                    <version>3.1.2.2</version>
-                    <configuration>
-                        <goalPrefix>embedded-glassfish</goalPrefix>
-                        <name>CONNECT-GF</name>
-                        <app>${ear.path}</app>
-                        <autoDelete>true</autoDelete>
-                        <port>${port}</port>
-                        <instanceRoot>${project.build.directory}/domain1</instanceRoot>
-                    </configuration>
-                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>

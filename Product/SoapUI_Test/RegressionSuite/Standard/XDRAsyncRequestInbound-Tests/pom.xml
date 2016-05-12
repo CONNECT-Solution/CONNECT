@@ -35,6 +35,9 @@
                     </soapuiProperties>
                     <testSuite>${test.suite}</testSuite>
                     <testCase>${test.case}</testCase>
+                    <projectProperties>
+                       <value>GatewayPropDir=${project.parent.parent.parent.basedir}/${wildfly.properties.dir}</value>
+                    </projectProperties>
                 </configuration>
                 <executions>
                     <execution>
