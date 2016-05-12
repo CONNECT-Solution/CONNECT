@@ -43,7 +43,6 @@
                 <module>XDRAsyncRequestOutbound-Tests</module>
                 <module>EntityDocQuerySecuredInterfaceTest</module>
                 <module>EntityDocRetrieveSecuredInterfaceTest</module>
-                <module>DQDROnDemandAndStableDocumentRetrievalTest</module>
                 <module>PDSAMLIssuerWithX509SubjectNameTest</module>
                 <module>ValidateConnectionManagerForAllServices</module>
             </modules>
