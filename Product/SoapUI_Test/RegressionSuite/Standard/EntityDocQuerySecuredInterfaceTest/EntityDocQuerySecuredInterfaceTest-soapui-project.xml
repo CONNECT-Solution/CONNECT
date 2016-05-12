@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="CONN-892" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="e4c16b89-f05b-4bd6-bb1a-4c9cc51316a3" xmlns:con="http://eviware.com/soapui/config">
-  <con:settings/>
+  <con:description>The EnittyDocQuerySecuredInterface project uses EntityDocQuerySecured interface (configured through DocumentQueryProxyConfig.xml) file. The CONN-892 initially required to use soapUI in 2-way SSL mode however this was achieved DocumentQueryProxyConfig.xml.</con:description><con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="fd908d2d-ddca-4aab-a7f7-0be54c0defc1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
@@ -15,35 +15,7 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru" id="55b20b3e-669b-4098-8250-8c19f3bb996b">
-        <con:settings/>
-        <con:config>
-          <script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
-	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("Document Query");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}</script>
-        </con:config>
-      </con:testStep>
+      
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="396290a4-9c1d-4fe6-b652-03caa2c83d79">
         <con:settings/>
@@ -381,21 +353,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "DocumentQueryProxyConfig.xml", context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T17:36:31Z</con:value>
+          <con:value>2016-05-12T18:42:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T17:46:31Z</con:value>
+          <con:value>2016-05-12T18:52:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 17:36:31</con:value>
+          <con:value>05/12/2016 18:42:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -422,35 +392,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a9707ab4-3b2c-484c-a302-24ab8377c2a4" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru" id="54146456-c380-4430-ba5d-21154aa0cc17">
-        <con:settings/>
-        <con:config>
-          <script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.20.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
-	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("Document Query");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}</script>
-        </con:config>
-      </con:testStep>
+      
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="2a8fefc0-0588-4b95-abbe-bd2156462c09">
         <con:settings/>
@@ -788,9 +730,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "DocumentQueryProxyConfig.xml", context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -802,15 +742,15 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T17:36:40Z</con:value>
+          <con:value>2016-05-12T18:42:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T17:46:40Z</con:value>
+          <con:value>2016-05-12T18:52:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 17:36:40</con:value>
+          <con:value>05/12/2016 18:42:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -873,7 +813,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:\wildfly-8.2.1.Final\modules\system\layers\base\org\connectopensource\configuration\main</con:value>
+      <con:value/>
     </con:property>
     
     
