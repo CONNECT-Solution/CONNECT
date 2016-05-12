@@ -349,15 +349,15 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T18:58:13Z</con:value>
+          <con:value>2016-05-12T18:59:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:08:13Z</con:value>
+          <con:value>2016-05-12T19:09:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 18:58:13</con:value>
+          <con:value>05/12/2016 18:59:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -367,10 +367,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
           <con:name>FullPatientID</con:name>
           <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
         </con:property>
-        <con:property>
-          <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
-        </con:property>
+        
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
@@ -720,21 +717,18 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
           <con:name>FullPatientID</con:name>
           <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
         </con:property>
-        <con:property>
-          <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
-        </con:property>
+        
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T18:58:19Z</con:value>
+          <con:value>2016-05-12T19:00:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:08:19Z</con:value>
+          <con:value>2016-05-12T19:10:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 18:58:19</con:value>
+          <con:value>05/12/2016 19:00:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
