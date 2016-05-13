@@ -66,9 +66,14 @@
         </dependency>
         <dependency>
             <!-- Used for EnumType -->
+		<!--
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
             <scope>runtime</scope>
+		-->
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<scope>runtime</scope>
         </dependency>
 
         <!-- CXF -->

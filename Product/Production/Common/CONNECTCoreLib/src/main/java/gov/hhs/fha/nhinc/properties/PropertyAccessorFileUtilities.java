@@ -50,6 +50,8 @@ public class PropertyAccessorFileUtilities {
     }
 
     protected void checkPropertyFileDir() {
+        // System.setProperty("nhinc.properties.dir",
+        // "C:/dev/Connect/Product/Production/Common/CONNECTCoreLib/target/test-classes");
         propertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
 
         if (propertyFileDirAbsolutePath == null) {

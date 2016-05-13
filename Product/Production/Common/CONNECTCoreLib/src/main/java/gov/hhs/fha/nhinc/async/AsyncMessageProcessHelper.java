@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
@@ -49,7 +50,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
-import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -383,7 +385,7 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = Hibernate.createBlob(buffer);
+            asyncMessage = getSession().getLobHelper().createBlob(buffer);
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
@@ -406,7 +408,7 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = Hibernate.createBlob(buffer);
+            asyncMessage = getSession().getLobHelper().createBlob(buffer);
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
@@ -429,7 +431,7 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = Hibernate.createBlob(buffer);
+            asyncMessage = getSession().getLobHelper().createBlob(buffer);
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
@@ -540,6 +542,17 @@ public class AsyncMessageProcessHelper {
         }
 
         return communityId;
+    }
+
+    protected Session getSession() {
+        Session session = null;
+        SessionFactory fact = HibernateUtil.getSessionFactory();
+        if (fact != null) {
+            session = fact.openSession();
+        } else {
+            LOG.error("Session is null");
+        }
+        return session;
     }
 
 }

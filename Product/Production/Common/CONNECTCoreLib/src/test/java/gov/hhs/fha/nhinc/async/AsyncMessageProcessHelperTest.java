@@ -30,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
@@ -38,6 +39,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Session;
 import org.hl7.v3.CS;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
@@ -59,6 +61,7 @@ import org.junit.Test;
  */
 public class AsyncMessageProcessHelperTest {
 
+    private final Session session = mock(Session.class);
     Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -91,6 +94,11 @@ public class AsyncMessageProcessHelperTest {
 
     private AsyncMessageProcessHelper createAsyncMessageProcessHelper() {
         return new AsyncMessageProcessHelper() {
+            @Override
+            protected Session getSession() {
+                return session;
+            }
+
             @Override
             protected AsyncMsgRecordDao createAsyncMsgRecordDao() {
                 return mockDao;

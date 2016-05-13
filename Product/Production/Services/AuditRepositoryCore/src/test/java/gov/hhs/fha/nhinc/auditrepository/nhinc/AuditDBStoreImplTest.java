@@ -55,6 +55,11 @@ public class AuditDBStoreImplTest {
     private final String RELATES_TO_2 = "val2";
     private final String MESSAGE_ID = "MessageId";
 
+    // @Before
+    // public void setup() {
+    // System.setProperty("nhinc.properties.dir", ".\\src\\test\\resources");
+    // }
+
     @Test
     public void testCreateDBAuditObj() {
         AuditDBStoreImpl dbStore = new AuditDBStoreImpl();

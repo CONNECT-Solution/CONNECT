@@ -666,6 +666,7 @@
                 </dependency>
 
                 <!-- Persistence -->
+				<!--
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-commons-annotations</artifactId>
@@ -674,6 +675,7 @@
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-validator</artifactId>
                 </dependency>
+				-->
 
                 <!-- Spring Framework -->
                 <dependency>

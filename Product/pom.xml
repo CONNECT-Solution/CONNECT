@@ -23,7 +23,7 @@
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
-                <version>6.0</version>
+                <version>7.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -384,7 +384,7 @@
 				-->
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>5.0.9.Final</version>
+				<version>5.1.0.Final</version>
                 <exclusions>
                     <exclusion>
                         <groupId>antlr</groupId>
@@ -411,8 +411,21 @@
                         <groupId>javax.transaction</groupId>
                         <artifactId>jta</artifactId>
                     </exclusion>
+					<!--
+					<exclusion>
+						<groupId>org.jboss.logging</groupId>
+						<artifactId>jboss-logging</artifactId>						
+					</exclusion>
+					-->
                 </exclusions>
             </dependency>
+		
+            <dependency>
+                <groupId>org.hibernate.common</groupId>
+                <artifactId>hibernate-commons-annotations</artifactId>
+                <version>5.0.1.Final</version>
+            </dependency>			
+			<!--
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
@@ -428,11 +441,14 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+			-->
+			<!--
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-commons-annotations</artifactId>
                 <version>3.0.0.ga</version>
             </dependency>
+			-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
