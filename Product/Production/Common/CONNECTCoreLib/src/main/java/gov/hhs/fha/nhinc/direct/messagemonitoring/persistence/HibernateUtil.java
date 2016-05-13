@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import java.io.File;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,8 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
+            SESSION_FACTORY = new Configuration().configure()
+                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
         } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
             LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());

@@ -19,8 +19,12 @@
     <dependencies>
         <!-- Java EE APIs -->
         <dependency>
+			<!--
             <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
+            <artifactId>javaee-api</artifactId>-->
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
         </dependency>
 
         <!-- CONNECT Modules / Web Services -->

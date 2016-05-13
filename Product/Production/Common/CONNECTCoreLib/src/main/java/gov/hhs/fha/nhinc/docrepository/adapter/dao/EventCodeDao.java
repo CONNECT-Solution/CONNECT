@@ -38,7 +38,6 @@ import java.util.Set;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -157,7 +156,8 @@ public class EventCodeDao {
                     String[] alias = new String[1];
                     alias[0] = "documentid";
                     Type[] types = new Type[1];
-                    types[0] = Hibernate.INTEGER;
+                    // types[0] = Hibernate.INTEGER;
+                    types[0] = org.hibernate.type.StandardBasicTypes.INTEGER;
                     List<String> classCodes;
                     List<String> orValues;
                     int eventCodeSlotSize = 0;

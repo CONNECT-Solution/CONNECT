@@ -54,8 +54,12 @@
         </dependency>
         <dependency>
             <!-- Used for EnumType -->
+			<!--
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
+			-->
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>			
             <scope>runtime</scope>
         </dependency>
 
