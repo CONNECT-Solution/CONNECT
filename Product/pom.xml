@@ -377,11 +377,6 @@
 
             <!-- Persistence -->
             <dependency>
-				<!--
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate</artifactId>
-                <version>3.2.5.ga</version>
-				-->
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>5.1.0.Final</version>
@@ -411,12 +406,6 @@
                         <groupId>javax.transaction</groupId>
                         <artifactId>jta</artifactId>
                     </exclusion>
-					<!--
-					<exclusion>
-						<groupId>org.jboss.logging</groupId>
-						<artifactId>jboss-logging</artifactId>						
-					</exclusion>
-					-->
                 </exclusions>
             </dependency>
 		
@@ -425,30 +414,6 @@
                 <artifactId>hibernate-commons-annotations</artifactId>
                 <version>5.0.1.Final</version>
             </dependency>			
-			<!--
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-annotations</artifactId>
-                <version>3.3.1.GA</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>cglib</groupId>
-                        <artifactId>cglib</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>ejb3-persistence</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-			-->
-			<!--
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-commons-annotations</artifactId>
-                <version>3.0.0.ga</version>
-            </dependency>
-			-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
