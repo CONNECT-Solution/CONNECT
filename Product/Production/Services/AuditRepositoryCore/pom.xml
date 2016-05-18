@@ -29,10 +29,11 @@
 
         <!-- Java EE APIs -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-        </dependency>
-
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+        </dependency>		
+		
         <!-- Persistence -->
         <dependency>
             <groupId>org.hibernate</groupId>

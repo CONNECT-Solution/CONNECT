@@ -172,8 +172,7 @@ public class Storer {
         } catch (HibernateException he) {
             LOG.error(he.getLocalizedMessage(), he);
         } finally {
-            // if (trans != null && trans.isActive()) {
-            if (trans.getStatus() == org.hibernate.resource.transaction.spi.TransactionStatus.ACTIVE) {
+            if (trans != null && trans.getStatus() == org.hibernate.resource.transaction.spi.TransactionStatus.ACTIVE) {
                 try {
                     trans.rollback();
                 } catch (HibernateException he) {

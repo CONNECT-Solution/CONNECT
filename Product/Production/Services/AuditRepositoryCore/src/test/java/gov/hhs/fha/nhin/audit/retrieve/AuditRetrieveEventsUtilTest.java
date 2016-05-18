@@ -132,7 +132,6 @@ public class AuditRetrieveEventsUtilTest {
 
     @Test
     public void testGetQueryAuditEventBlobResponse() {
-        // Blob blob = Hibernate.createBlob(AUDIT_MESSAGE.getBytes());
         Blob blob = HibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(AUDIT_MESSAGE.getBytes());
         QueryAuditEventsBlobResponse response = util.getQueryAuditEventBlobResponse(blob);
         AuditMessageType audit = response.getAuditMessage();
