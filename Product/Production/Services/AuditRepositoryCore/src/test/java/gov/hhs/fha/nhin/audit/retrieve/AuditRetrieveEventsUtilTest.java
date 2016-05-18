@@ -94,7 +94,7 @@ public class AuditRetrieveEventsUtilTest {
 
     @Before
     public void setup() {
-        System.setProperty("nhinc.properties.dir", ".\\src\\test\\resources");
+        System.setProperty("nhinc.properties.dir", ".//src//test//resources");
     }
 
     @Test
