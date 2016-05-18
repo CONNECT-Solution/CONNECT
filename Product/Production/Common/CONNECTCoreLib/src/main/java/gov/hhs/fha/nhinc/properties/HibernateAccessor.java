@@ -57,7 +57,8 @@ public class HibernateAccessor {
 
     public synchronized File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
         checkEnvVarSet();
-
+        LOG.debug("Checking the hibernate file.");
+        LOG.debug(propertyFileDir + File.separator + "hibernate" + File.separator + hibernateFileName);
         File result = new File(propertyFileDir + File.separator + "hibernate" + File.separator + hibernateFileName);
         if (!result.exists()) {
             throw new PropertyAccessException("Unable to locate " + result);
