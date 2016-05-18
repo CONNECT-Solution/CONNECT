@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -55,10 +56,10 @@ public class AuditDBStoreImplTest {
     private final String RELATES_TO_2 = "val2";
     private final String MESSAGE_ID = "MessageId";
 
-    // @Before
-    // public void setup() {
-    // System.setProperty("nhinc.properties.dir", ".\\src\\test\\resources");
-    // }
+    @Before
+    public void setup() {
+        System.setProperty("nhinc.properties.dir", ".\\src\\test\\resources");
+    }
 
     @Test
     public void testCreateDBAuditObj() {
