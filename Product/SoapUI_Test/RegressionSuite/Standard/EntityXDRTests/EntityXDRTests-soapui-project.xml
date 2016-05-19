@@ -5860,7 +5860,7 @@ nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "se
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:tearDownScript>FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7ab026d6-4438-498b-af6c-4e08d85df3b6" keepSession="false" maxResults="0" name="Success message from mock NHINC" searchProperties="true" disabled="true">
       <con:settings/>
@@ -6384,7 +6384,7 @@ nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "moc
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:tearDownScript>FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a83d4d4f-cf93-41e9-abf8-19e76d2bccf0" keepSession="false" maxResults="0" name="Audit Log Check" searchProperties="true" disabled="true">
       <con:settings/>
@@ -6999,7 +6999,7 @@ assert (count > 0);</script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value/>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntityXDRTests-soapui-project.properties')

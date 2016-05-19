@@ -965,7 +965,7 @@
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript/>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1017,8 +1017,7 @@
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0cb2c0df-b008-4285-b363-e56504707a05" keepSession="false" maxResults="0" name="Simple Retrieve" searchProperties="true">
       <con:settings/>
@@ -1343,7 +1342,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript/>
+     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1380,7 +1379,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="708cf740-23a5-44fb-afd3-4328b60f5f87" keepSession="false" maxResults="0" name="Simple Retrieve with multiple in repository" searchProperties="true">
       <con:settings/>
@@ -2010,7 +2009,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript/>
+       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -2063,7 +2062,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2ea19a05-affb-4fcc-859c-89eb8c97b68a" keepSession="false" maxResults="0" name="Multiple results" searchProperties="true">
       <con:settings/>
@@ -3087,7 +3086,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript/>
+     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -3164,7 +3163,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6f809e56-9c83-48e1-8d60-c03cb53b59db" keepSession="false" maxResults="0" name="Retrieve with empty repository" searchProperties="true">
       <con:settings/>
@@ -3480,7 +3479,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript/>
+     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -3517,7 +3516,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="34355ad6-e834-45cf-9ca0-aea649e68d00" keepSession="false" maxResults="0" name="Retrieve with no results" searchProperties="true">
       <con:settings/>
@@ -3961,7 +3960,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript/>
+     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -4010,7 +4009,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:properties>
       <con:property>
@@ -4080,7 +4079,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value/>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'PatientCorrelation-soapui-project.properties')
