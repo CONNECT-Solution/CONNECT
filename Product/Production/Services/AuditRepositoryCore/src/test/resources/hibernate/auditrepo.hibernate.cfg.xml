@@ -24,7 +24,7 @@
 
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/auditrepo</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">passw0rd</property>
+        <property name="hibernate.connection.password">NHIE-Gateway</property>
         <!-- Mapping files -->
         <mapping resource="auditrepo.hbm.xml"/>
     </session-factory>

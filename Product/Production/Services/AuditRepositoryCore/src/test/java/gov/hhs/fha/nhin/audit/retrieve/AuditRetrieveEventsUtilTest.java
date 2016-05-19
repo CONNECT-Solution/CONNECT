@@ -27,20 +27,24 @@
 package gov.hhs.fha.nhin.audit.retrieve;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieveEventsUtil;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
-import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResults;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -132,9 +136,20 @@ public class AuditRetrieveEventsUtilTest {
 
     @Test
     public void testGetQueryAuditEventBlobResponse() {
-        Blob blob = HibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(AUDIT_MESSAGE.getBytes());
-        QueryAuditEventsBlobResponse response = util.getQueryAuditEventBlobResponse(blob);
+        /*
+         * Use a mock Blob object here to avoid using HibernateUtil. There are issues with using HibernateUtil for test
+         * /* classes during the CI jobs.
+         */
+        Blob mockBlob = mock(Blob.class);
+        try {
+            when(mockBlob.length()).thenReturn(new Long("30"));
+            when(mockBlob.getBinaryStream()).thenReturn(new ByteArrayInputStream(AUDIT_MESSAGE.getBytes()));
+        } catch (NumberFormatException | SQLException e) {
+            LOG.error("Exception during mock setup for blob : {}", e.getLocalizedMessage(), e);
+        }
+        QueryAuditEventsBlobResponse response = util.getQueryAuditEventBlobResponse(mockBlob);
         AuditMessageType audit = response.getAuditMessage();
+        assertNotNull("Audit Blob mismatch", getAuditString(audit));
         assertEquals("Audit Blob mismatch", getAuditString(audit), AUDIT_MESSAGE);
     }
 
@@ -168,7 +183,7 @@ public class AuditRetrieveEventsUtilTest {
             marshaller.marshal(oJaxbElement, baOutStrm);
             return new String(baOutStrm.toByteArray());
         } catch (JAXBException | IOException e) {
-            LOG.error("Exception during Blob conversion :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception during Blob conversion : {}", e.getLocalizedMessage(), e);
         }
         return null;
     }

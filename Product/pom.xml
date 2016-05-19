@@ -379,7 +379,7 @@
             <dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>5.1.0.Final</version>
+				<version>${hibernate.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>antlr</groupId>
@@ -755,6 +755,12 @@
                 <version>1.1.1</version>
             </dependency>
 
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+			
             <!-- JSF -->
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
