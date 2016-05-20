@@ -50,7 +50,6 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            // sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory()
             LOG.debug("Building the session factory in HibernateUtil in AuditRepositoryCore");
             sessionFactory = new Configuration().configure()
                     .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());

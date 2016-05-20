@@ -386,6 +386,7 @@ public class AsyncMessageProcessHelper {
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = getSession().getLobHelper().createBlob(buffer);
+            getSession().close();
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }

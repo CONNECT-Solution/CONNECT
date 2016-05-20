@@ -89,7 +89,7 @@ public class AuditDBStoreImpl implements AuditStore {
         return auditRec;
     }
 
-    private Blob getBlobFromAuditMessage(AuditMessageType mess) {
+    protected Blob getBlobFromAuditMessage(AuditMessageType mess) {
         Blob eventMessage = null;
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
