@@ -29,6 +29,7 @@ package gov.hhs.fha.nhin.audit.retrieve;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -142,7 +143,7 @@ public class AuditRetrieveEventsUtilTest {
          */
         Blob mockBlob = mock(Blob.class);
         try {
-            when(mockBlob.length()).thenReturn(new Long("30"));
+            when(mockBlob.length()).thenReturn(anyLong());
             when(mockBlob.getBinaryStream()).thenReturn(new ByteArrayInputStream(AUDIT_MESSAGE.getBytes()));
         } catch (NumberFormatException | SQLException e) {
             LOG.error("Exception during mock setup for blob : {}", e.getLocalizedMessage(), e);
