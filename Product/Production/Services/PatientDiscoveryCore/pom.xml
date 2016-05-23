@@ -62,7 +62,7 @@
         <!-- Persistence -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-core</artifactId>
         </dependency>
 
         <!-- Logging -->

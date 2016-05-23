@@ -30,6 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
@@ -46,7 +47,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,7 +89,7 @@ public class AuditDBStoreImpl implements AuditStore {
         return auditRec;
     }
 
-    private Blob getBlobFromAuditMessage(AuditMessageType mess) {
+    protected Blob getBlobFromAuditMessage(AuditMessageType mess) {
         Blob eventMessage = null;
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -102,7 +102,7 @@ public class AuditDBStoreImpl implements AuditStore {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            eventMessage = Hibernate.createBlob(buffer);
+            eventMessage = HibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(buffer);
         } catch (JAXBException | IOException e) {
             LOG.error("Exception during Blob conversion :" + e.getLocalizedMessage(), e);
         }

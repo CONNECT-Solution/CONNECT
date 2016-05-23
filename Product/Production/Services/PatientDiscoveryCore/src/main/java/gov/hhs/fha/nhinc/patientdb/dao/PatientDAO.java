@@ -42,6 +42,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
+import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +55,6 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
-    private static final String ALLOW_SSN_QUERY = "mpi.db.allow.ssn.query";
 
     /**
      * Constructor
@@ -273,7 +273,7 @@ public class PatientDAO {
 
             // Build the select with query criteria
             StringBuffer sqlSelect = new StringBuffer(
-                "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
+                    "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
             sqlSelect.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
@@ -401,10 +401,10 @@ public class PatientDAO {
 
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
-            SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString()).addScalar("patientId", Hibernate.LONG)
-                .addScalar("dateOfBirth", Hibernate.TIMESTAMP).addScalar("gender", Hibernate.STRING)
-                .addScalar("ssn", Hibernate.STRING).addScalar("id", Hibernate.STRING)
-                .addScalar("organizationid", Hibernate.STRING);
+            SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString()).addScalar("patientId", StandardBasicTypes.LONG)
+                    .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP).addScalar("gender", StandardBasicTypes.STRING)
+                    .addScalar("ssn", StandardBasicTypes.STRING).addScalar("id", StandardBasicTypes.STRING)
+                    .addScalar("organizationid", StandardBasicTypes.STRING);
 
             int iParam = 0;
             if (NullChecker.isNotNullish(gender)) {
@@ -503,11 +503,11 @@ public class PatientDAO {
 
                     // Populate demographic data
                     patientData
-                        .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
-                    patientData.setPersonnames(PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(
-                        patientIdArray[i]));
-                    patientData.setPhonenumbers(PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(
-                        patientIdArray[i]));
+                            .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                    patientData.setPersonnames(
+                            PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
+                    patientData.setPhonenumbers(
+                            PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
 
                     patientsList.add(patientData);
                 }

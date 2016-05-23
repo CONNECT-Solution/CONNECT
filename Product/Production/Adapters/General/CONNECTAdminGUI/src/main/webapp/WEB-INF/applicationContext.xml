@@ -19,9 +19,11 @@
         <property name="configLocation">
             <value>file:///${nhinc.properties.dir}/hibernate/admingui.hibernate.cfg.xml</value>
         </property>
+        <!-- 
         <property name="configurationClass">
             <value>org.hibernate.cfg.AnnotationConfiguration</value>
         </property>
+        -->
     </bean>
 
     <tx:annotation-driven />
