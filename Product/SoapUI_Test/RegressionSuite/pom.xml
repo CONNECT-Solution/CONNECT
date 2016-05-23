@@ -29,6 +29,7 @@
                 <module>Passthru</module>
                 <module>Bimodal</module>
                 <module>NewFeature</module>
+				<module>Manual</module>
                 <!--module>stopEmbedded</module-->
             </modules>
         </profile>
@@ -51,6 +52,8 @@
            	<modules>
 		         <module>Bimodal/ValidateRDMessageSpecVersionTest</module>
 				 <module>Bimodal/ValidateSAMLResourceURIAttributeTest</module>
+				 <module>Bimodal/ValidateAuditQueryLogService</module>
+				 <module>Bimodal/ValidateQDMessageSpecVersionTest</module>
 				 <module>Passthru/AuditLogging-Passthrough</module>
 				 <module>Passthru/DocQueryErrorCodesPassthru</module>
 				 <module>Passthru/NHINCReceivingXDRAsyncRequestTests</module>
@@ -61,6 +64,14 @@
 				 <module>Standard/TransactionIDTest</module>
 				 <module>startEmbedded</module>
 				 <module>stopEmbedded</module> 
+				 <module>Manual/DirectMessageTestingWithEventLogging</module>
+				 <module>Manual/PurposeForOfUse</module>
+                 <module>Manual/RelatesToList</module>
+                 <module>Manual/RequestResponseContentTypeTest</module>
+                 <module>Manual/TransactionTest</module>
+                 <module>Manual/TransactionTimeout</module>
+                 <module>Manual/ValidateWSA-ActionSoapMustUnderstandTest</module>
+                 <module>Manual/ValidateWSAToFieldInSoapHeaderTest</module>
 			 </modules>
 	   </profile>
     </profiles>
