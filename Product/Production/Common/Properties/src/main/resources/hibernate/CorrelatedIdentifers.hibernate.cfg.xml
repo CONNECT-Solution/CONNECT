@@ -13,7 +13,7 @@
         <!-- Disable the second-level cache  -->
         <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
 
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/patientcorrelationdb_datasource</property>
+        <property name="hibernate.connection.datasource">jdbc/patientcorrelationdb_datasource</property>
 
         <!-- We currently have the antlr classpath conflict described here:
             http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/

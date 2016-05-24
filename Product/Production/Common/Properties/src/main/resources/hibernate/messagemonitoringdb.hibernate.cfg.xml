@@ -16,7 +16,7 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/messagemonitoringdb_datasource</property>
+        <property name="hibernate.connection.datasource">jdbc/messagemonitoringdb_datasource</property>
 
         <!-- SQL Debug Properties -->
         <!--property name="show_sql">true</property>

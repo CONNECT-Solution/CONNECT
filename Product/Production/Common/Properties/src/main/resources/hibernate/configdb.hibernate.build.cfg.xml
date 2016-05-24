@@ -17,7 +17,7 @@ CONN-1212. -->
         <!-- Disable the second-level cache -->
         <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
 
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/configdb_datasource</property>
+        <property name="hibernate.connection.datasource">jdbc/configdb_datasource</property>
 
         <property name="hibernate.transaction.coordinator_class">org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorBuilderImpl</property>
 
