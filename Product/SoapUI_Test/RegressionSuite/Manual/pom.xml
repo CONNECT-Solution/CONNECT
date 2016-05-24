@@ -17,13 +17,8 @@
 
     <profiles>
        	 <profile>
-            <id>regression-testing</id>
-			 <activation>
-                <property>
-                    <name>regression</name>
-                </property>
-            </activation>
-            <modules>
+            <id>manual-testing</id>
+		    <modules>
                 <module>DirectMessageTestingWithEventLogging</module>
                 <module>PurposeForOfUse</module>
                 <module>RelatesToList</module>

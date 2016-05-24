@@ -50,6 +50,50 @@
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
+					<execution>
+                        <id>AdminDistribution</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>${project.basedir}/AdminDistribution.xml</projectFile>
+                            <outputFolder>${project.build.directory}/soapui/output</outputFolder>
+                        </configuration>
+                    </execution>
+					<execution>
+                        <id>DocumentQuery</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>${project.basedir}/DocumentQuery.xml</projectFile>
+                            <outputFolder>${project.build.directory}/soapui/output</outputFolder>
+                        </configuration>
+                    </execution>
+					<execution>
+                        <id>DocumentRetrieve</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>${project.basedir}/DocumentRetrieve.xml</projectFile>
+                            <outputFolder>${project.build.directory}/soapui/output</outputFolder>
+                        </configuration>
+                    </execution>
+					<execution>
+                        <id>DocumentSubmission</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>${project.basedir}/DocumentSubmission.xml</projectFile>
+                            <outputFolder>${project.build.directory}/soapui/output</outputFolder>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>test-verify</id>
                         <phase>post-integration-test</phase>
