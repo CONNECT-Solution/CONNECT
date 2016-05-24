@@ -21,7 +21,7 @@
             Switching to the classing translator so that our named query works.
         -->
         <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/adminguidb_datasource</property>
+        <property name="hibernate.connection.datasource">jdbc/adminguidb_datasource</property>
         <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin" />
         <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole" />
         <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference" />

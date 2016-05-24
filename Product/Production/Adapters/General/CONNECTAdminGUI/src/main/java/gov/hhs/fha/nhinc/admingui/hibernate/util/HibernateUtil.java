@@ -46,9 +46,6 @@ public class HibernateUtil {
     private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    public HibernateUtil() {
-    }
-
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
@@ -58,9 +55,8 @@ public class HibernateUtil {
     }
 
     /**
-     * Method returns an instance of Hibernate SessionFactory
+     * Method creates Hibernate SessionFactory
      *
-     * @return SessionFactory
      */
     public void buildSessionFactory() {
         try {
@@ -71,11 +67,20 @@ public class HibernateUtil {
             // Make sure you log the exception, as it might be swallowed
             LOG.error("Initial SessionFactory creation failed: {}", ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
-
         }
     }
 
-    private File getConfigFile() {
+    /**
+     * Method close the Hibernate SessionFactory
+     *
+     */
+    public void closeSessionFactory() {
+        if (sessionFactory != null && !sessionFactory.isClosed()) {
+            sessionFactory.close();
+        }
+    }
+
+    private static File getConfigFile() {
         File result = null;
 
         try {

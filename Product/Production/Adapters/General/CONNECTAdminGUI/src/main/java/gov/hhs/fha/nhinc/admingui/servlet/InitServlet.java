@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServlet;
 
 import gov.hhs.fha.nhinc.admingui.display.DirectDisplayController;
 import gov.hhs.fha.nhinc.admingui.display.FhirDisplayController;
-import gov.hhs.fha.nhinc.admingui.hibernate.util.HibernateUtil;
 
 /**
  * Started on webapplication init, checks whether to enable/disable displays during the initial login to the ADMIN GUI.
@@ -44,7 +43,6 @@ public class InitServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        //HibernateUtil.getSessionFactory();
         new DirectDisplayController().checkDisplay();
         new FhirDisplayController().checkDisplay();
         // can add additional checks for enable / disable other displays in the future
