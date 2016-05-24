@@ -41,6 +41,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -50,6 +51,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserLoginDAOImpl implements UserLoginDAO {
 
+    @Autowired
+    HibernateUtil hibernateUtil;
     private static final Logger LOG = LoggerFactory.getLogger(UserLoginDAOImpl.class);
 
     /*
@@ -64,7 +67,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         Query query;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             query = session.createQuery("from UserLogin where userName = :userName");
             query.setParameter("userName", login.getUserName());
             userLogin = (UserLogin) query.uniqueResult();
@@ -90,7 +93,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         boolean result = true;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             session.persist(createUser);
             LOG.info("create user record Inserted successfully from dao impl...");
@@ -118,7 +121,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         UserRole result = null;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role))
                 .uniqueResult();
         } catch (HibernateException e) {
@@ -142,7 +145,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         List<UserRole> roles = null;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             roles = session.createCriteria(UserRole.class).list();
         } catch (HibernateException e) {
             LOG.error("Could not get roles: {}", e.getLocalizedMessage(), e);
@@ -166,7 +169,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         boolean updated = false;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
 
             session.update(preference);
@@ -189,7 +192,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         Transaction tx = null;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             session.delete(user);
             tx.commit();
@@ -209,7 +212,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         List<UserLogin> users = null;
 
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             users = session.createCriteria(UserLogin.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);

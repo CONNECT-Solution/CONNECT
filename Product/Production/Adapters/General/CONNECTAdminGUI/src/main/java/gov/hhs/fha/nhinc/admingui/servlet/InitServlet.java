@@ -44,7 +44,7 @@ public class InitServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        HibernateUtil.getSessionFactory();
+        //HibernateUtil.getSessionFactory();
         new DirectDisplayController().checkDisplay();
         new FhirDisplayController().checkDisplay();
         // can add additional checks for enable / disable other displays in the future

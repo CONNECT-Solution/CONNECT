@@ -43,10 +43,26 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    public HibernateUtil() {
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    /**
+     * Method returns an instance of Hibernate SessionFactory
+     *
+     * @return SessionFactory
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new Configuration().configure().buildSessionFactory(
@@ -55,10 +71,11 @@ public class HibernateUtil {
             // Make sure you log the exception, as it might be swallowed
             LOG.error("Initial SessionFactory creation failed: {}", ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
+
         }
     }
 
-    private static File getConfigFile() {
+    private File getConfigFile() {
         File result = null;
 
         try {
@@ -67,18 +84,7 @@ public class HibernateUtil {
             LOG.error("Unable to load {} {}", NhincConstants.HIBERNATE_ADMINGUI_REPOSITORY, ex.getLocalizedMessage(),
                 ex);
         }
-
         return result;
-
-    }
-
-    /**
-     * Method returns an instance of Hibernate SessionFactory
-     *
-     * @return SessionFactory
-     */
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
     }
 
 }
