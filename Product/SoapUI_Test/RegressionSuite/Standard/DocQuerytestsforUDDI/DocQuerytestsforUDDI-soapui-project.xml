@@ -5447,7 +5447,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ecb4d188-094b-4f8c-bb59-b5cf33c4e974" keepSession="false" maxResults="0" name="State Alt Path - Multiple regions and correlations" searchProperties="true">
       <con:settings/>
@@ -6286,7 +6287,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
@@ -6714,7 +6716,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>

@@ -8078,7 +8078,9 @@ assert docCount.toInteger() == 0;</scriptText>
       </con:testStep>
       <con:properties/>
       <con:reportParameters/>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+      </con:tearDownScript>
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="30aca504-5f48-472f-818f-772029eaab39" keepSession="false" maxResults="0" name="3.5.1.UT.2 - Too Many Results" searchProperties="true">
       <con:settings/>
