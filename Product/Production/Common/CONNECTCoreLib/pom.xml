@@ -19,8 +19,8 @@
     <dependencies>
         <!-- Java EE APIs -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <!-- CONNECT Modules / Web Services -->
@@ -174,7 +174,7 @@
         <!-- Persistence -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-core</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>antlr</groupId>

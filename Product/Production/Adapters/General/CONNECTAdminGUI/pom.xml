@@ -115,6 +115,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate.common</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
@@ -125,6 +126,7 @@
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <scope>runtime</scope>
         </dependency>
+		
 
         <!-- Parsing & Code Generation -->
         <dependency>

@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhin.audit.retrieve;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieveEventsUtil;
@@ -34,9 +40,11 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResults;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,9 +53,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.hibernate.Hibernate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,28 +74,32 @@ public class AuditRetrieveEventsUtilTest {
     private final String RELATES_TO = "urn:uuid:4abc7cc8-1edc-409d-b061-bf65b21f7b1e";
     private final String USER_ID = "wanderson";
     private final Long ID = 1L;
-    private final int OUTCOME = 0;
     private final Date EVENT_TIMESTAMP = Calendar.getInstance().getTime();
     private final String AUDIT_MESSAGE = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-        + "<AuditMessage xmlns=\"http://nhinc.services.com/schema/auditmessage\">"
-        + "<EventIdentification EventActionCode=\"E\" EventDateTime=\"2015-12-15T15:41:29.678Z\" EventOutcomeIndicator=\"0\">"
-        + "<EventID code=\"110112\" displayName=\"Query\" codeSystemName=\"DCM\"/>"
-        + "<EventTypeCode code=\"ITI-55\" displayName=\"Cross Gateway Patient Discovery\" codeSystemName=\"IHE Transactions\"/>"
-        + "</EventIdentification>"
-        + "<ActiveParticipant UserID=\"wanderson\" UserName=\"Wilma Anderson\" UserIsRequestor=\"true\">"
-        + "<RoleIDCode code=\"307969004\" displayName=\"Public Health\" codeSystemName=\"SNOMED_CT\"/></ActiveParticipant>"
-        + "<ActiveParticipant UserID=\"http://www.w3.org/2005/08/addressing/anonymous\" AlternativeUserID=\"6412@TJAFRI-F08051\" UserName=\"Wilma Anderson\" UserIsRequestor=\"true\" NetworkAccessPointID=\"192.168.1.155\" NetworkAccessPointTypeCode=\"2\">"
-        + "<RoleIDCode code=\"110153\" displayName=\"Source\" codeSystemName=\"DCM\"/></ActiveParticipant>"
-        + "<ActiveParticipant UserID=\"https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery\" UserIsRequestor=\"false\" NetworkAccessPointID=\"localhost\" NetworkAccessPointTypeCode=\"1\">"
-        + "<RoleIDCode code=\"110152\" displayName=\"Destination\" codeSystemName=\"DCM\"/></ActiveParticipant>"
-        + "<AuditSourceIdentification AuditEnterpriseSiteID=\"DoD\" AuditSourceID=\"urn:oid:1.1\"/>"
-        + "<ParticipantObjectIdentification ParticipantObjectID=\"D123401^^^&amp;1.1&amp;ISO\" ParticipantObjectTypeCode=\"1\" ParticipantObjectTypeCodeRole=\"1\">"
-        + "<ParticipantObjectIDTypeCode code=\"2\" displayName=\"Patient Number\" codeSystemName=\"RFC-3881\"/>"
-        + "</ParticipantObjectIdentification>"
-        + "<ParticipantObjectIdentification ParticipantObjectID=\"-abd3453dcd24wkkks545\" ParticipantObjectTypeCode=\"2\" ParticipantObjectTypeCodeRole=\"24\">"
-        + "<ParticipantObjectIDTypeCode code=\"ITI-55\" displayName=\"Cross Gateway Patient Discovery\" codeSystemName=\"IHE Transactions\"/>"
-        + "<ParticipantObjectQuery>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0idXJuOmdvdjpoaHM6ZmhhOm5oaW5jOmNvbW1vbjpwYXRpZW50Y29ycmVsYXRpb25mYWNhZGUiIHhtbG5zOm5zNT0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIj48cXVlcnlJZCByb290PSJ1cm46b2lkOjEuMSIgZXh0ZW5zaW9uPSItYWJkMzQ1M2RjZDI0d2tra3M1NDUiLz48c3RhdHVzQ29kZSBjb2RlPSJuZXciLz48cmVzcG9uc2VNb2RhbGl0eUNvZGUgY29kZT0iUiIvPjxyZXNwb25zZVByaW9yaXR5Q29kZSBjb2RlPSJJIi8+PG1hdGNoQ3JpdGVyaW9uTGlzdD48bWF0Y2hBbGdvcml0aG0+PHZhbHVlPiJYWVogTWF0Y2hBbGdvcml0aG0iPC92YWx1ZT48c2VtYW50aWNzVGV4dD5NYXRjaEFsZ29yaXRobTwvc2VtYW50aWNzVGV4dD48L21hdGNoQWxnb3JpdGhtPjxtaW5pbXVtRGVncmVlTWF0Y2g+PHZhbHVlIHZhbHVlPSI5OSIvPjxzZW1hbnRpY3NUZXh0Pk1pbmltdW1EZWdyZWVNYXRjaDwvc2VtYW50aWNzVGV4dD48L21pbmltdW1EZWdyZWVNYXRjaD48L21hdGNoQ3JpdGVyaW9uTGlzdD48cGFyYW1ldGVyTGlzdD48bGl2aW5nU3ViamVjdEFkbWluaXN0cmF0aXZlR2VuZGVyPjx2YWx1ZSBjb2RlPSJNIi8+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCI+TGl2aW5nU3ViamVjdC5hZG1pbmlzdHJhdGl2ZUdlbmRlcjwvc2VtYW50aWNzVGV4dD48L2xpdmluZ1N1YmplY3RBZG1pbmlzdHJhdGl2ZUdlbmRlcj48bGl2aW5nU3ViamVjdEJpcnRoVGltZT48dmFsdWUgdmFsdWU9IjE5NjMwODA0Ii8+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCI+TGl2aW5nU3ViamVjdC5iaXJ0aFRpbWU8L3NlbWFudGljc1RleHQ+PC9saXZpbmdTdWJqZWN0QmlydGhUaW1lPjxsaXZpbmdTdWJqZWN0SWQ+PHZhbHVlIHJvb3Q9IjEuMSIgZXh0ZW5zaW9uPSJEMTIzNDAxIi8+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCIvPjwvbGl2aW5nU3ViamVjdElkPjxsaXZpbmdTdWJqZWN0TmFtZT48dmFsdWU+PGZhbWlseSBwYXJ0VHlwZT0iRkFNIj5Zb3VuZ2VyPC9mYW1pbHk+PGdpdmVuIHBhcnRUeXBlPSJHSVYiPkdhbGxvdzwvZ2l2ZW4+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvdmFsdWU+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCI+TGl2aW5nU3ViamVjdC5uYW1lPC9zZW1hbnRpY3NUZXh0PjwvbGl2aW5nU3ViamVjdE5hbWU+PC9wYXJhbWV0ZXJMaXN0PjwvcXVlcnlCeVBhcmFtZXRlcj4=</ParticipantObjectQuery>"
-        + "</ParticipantObjectIdentification></AuditMessage>";
+            + "<AuditMessage xmlns=\"http://nhinc.services.com/schema/auditmessage\">"
+            + "<EventIdentification EventActionCode=\"E\" EventDateTime=\"2015-12-15T15:41:29.678Z\" EventOutcomeIndicator=\"0\">"
+            + "<EventID code=\"110112\" displayName=\"Query\" codeSystemName=\"DCM\"/>"
+            + "<EventTypeCode code=\"ITI-55\" displayName=\"Cross Gateway Patient Discovery\" codeSystemName=\"IHE Transactions\"/>"
+            + "</EventIdentification>"
+            + "<ActiveParticipant UserID=\"wanderson\" UserName=\"Wilma Anderson\" UserIsRequestor=\"true\">"
+            + "<RoleIDCode code=\"307969004\" displayName=\"Public Health\" codeSystemName=\"SNOMED_CT\"/></ActiveParticipant>"
+            + "<ActiveParticipant UserID=\"http://www.w3.org/2005/08/addressing/anonymous\" AlternativeUserID=\"6412@TJAFRI-F08051\" UserName=\"Wilma Anderson\" UserIsRequestor=\"true\" NetworkAccessPointID=\"192.168.1.155\" NetworkAccessPointTypeCode=\"2\">"
+            + "<RoleIDCode code=\"110153\" displayName=\"Source\" codeSystemName=\"DCM\"/></ActiveParticipant>"
+            + "<ActiveParticipant UserID=\"https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery\" UserIsRequestor=\"false\" NetworkAccessPointID=\"localhost\" NetworkAccessPointTypeCode=\"1\">"
+            + "<RoleIDCode code=\"110152\" displayName=\"Destination\" codeSystemName=\"DCM\"/></ActiveParticipant>"
+            + "<AuditSourceIdentification AuditEnterpriseSiteID=\"DoD\" AuditSourceID=\"urn:oid:1.1\"/>"
+            + "<ParticipantObjectIdentification ParticipantObjectID=\"D123401^^^&amp;1.1&amp;ISO\" ParticipantObjectTypeCode=\"1\" ParticipantObjectTypeCodeRole=\"1\">"
+            + "<ParticipantObjectIDTypeCode code=\"2\" displayName=\"Patient Number\" codeSystemName=\"RFC-3881\"/>"
+            + "</ParticipantObjectIdentification>"
+            + "<ParticipantObjectIdentification ParticipantObjectID=\"-abd3453dcd24wkkks545\" ParticipantObjectTypeCode=\"2\" ParticipantObjectTypeCodeRole=\"24\">"
+            + "<ParticipantObjectIDTypeCode code=\"ITI-55\" displayName=\"Cross Gateway Patient Discovery\" codeSystemName=\"IHE Transactions\"/>"
+            + "<ParticipantObjectQuery>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxxdWVyeUJ5UGFyYW1ldGVyIHhtbG5zPSJ1cm46aGw3LW9yZzp2MyIgeG1sbnM6bnMyPSJ1cm46aGw3LW9yZzpzZHRjIiB4bWxuczpuczM9InVybjpnb3Y6aGhzOmZoYTpuaGluYzpjb21tb246bmhpbmNjb21tb24iIHhtbG5zOm5zND0idXJuOmdvdjpoaHM6ZmhhOm5oaW5jOmNvbW1vbjpwYXRpZW50Y29ycmVsYXRpb25mYWNhZGUiIHhtbG5zOm5zNT0iaHR0cDovL3d3dy53My5vcmcvMjAwNS8wOC9hZGRyZXNzaW5nIj48cXVlcnlJZCByb290PSJ1cm46b2lkOjEuMSIgZXh0ZW5zaW9uPSItYWJkMzQ1M2RjZDI0d2tra3M1NDUiLz48c3RhdHVzQ29kZSBjb2RlPSJuZXciLz48cmVzcG9uc2VNb2RhbGl0eUNvZGUgY29kZT0iUiIvPjxyZXNwb25zZVByaW9yaXR5Q29kZSBjb2RlPSJJIi8+PG1hdGNoQ3JpdGVyaW9uTGlzdD48bWF0Y2hBbGdvcml0aG0+PHZhbHVlPiJYWVogTWF0Y2hBbGdvcml0aG0iPC92YWx1ZT48c2VtYW50aWNzVGV4dD5NYXRjaEFsZ29yaXRobTwvc2VtYW50aWNzVGV4dD48L21hdGNoQWxnb3JpdGhtPjxtaW5pbXVtRGVncmVlTWF0Y2g+PHZhbHVlIHZhbHVlPSI5OSIvPjxzZW1hbnRpY3NUZXh0Pk1pbmltdW1EZWdyZWVNYXRjaDwvc2VtYW50aWNzVGV4dD48L21pbmltdW1EZWdyZWVNYXRjaD48L21hdGNoQ3JpdGVyaW9uTGlzdD48cGFyYW1ldGVyTGlzdD48bGl2aW5nU3ViamVjdEFkbWluaXN0cmF0aXZlR2VuZGVyPjx2YWx1ZSBjb2RlPSJNIi8+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCI+TGl2aW5nU3ViamVjdC5hZG1pbmlzdHJhdGl2ZUdlbmRlcjwvc2VtYW50aWNzVGV4dD48L2xpdmluZ1N1YmplY3RBZG1pbmlzdHJhdGl2ZUdlbmRlcj48bGl2aW5nU3ViamVjdEJpcnRoVGltZT48dmFsdWUgdmFsdWU9IjE5NjMwODA0Ii8+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCI+TGl2aW5nU3ViamVjdC5iaXJ0aFRpbWU8L3NlbWFudGljc1RleHQ+PC9saXZpbmdTdWJqZWN0QmlydGhUaW1lPjxsaXZpbmdTdWJqZWN0SWQ+PHZhbHVlIHJvb3Q9IjEuMSIgZXh0ZW5zaW9uPSJEMTIzNDAxIi8+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCIvPjwvbGl2aW5nU3ViamVjdElkPjxsaXZpbmdTdWJqZWN0TmFtZT48dmFsdWU+PGZhbWlseSBwYXJ0VHlwZT0iRkFNIj5Zb3VuZ2VyPC9mYW1pbHk+PGdpdmVuIHBhcnRUeXBlPSJHSVYiPkdhbGxvdzwvZ2l2ZW4+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvdmFsdWU+PHNlbWFudGljc1RleHQgcmVwcmVzZW50YXRpb249IlRYVCI+TGl2aW5nU3ViamVjdC5uYW1lPC9zZW1hbnRpY3NUZXh0PjwvbGl2aW5nU3ViamVjdE5hbWU+PC9wYXJhbWV0ZXJMaXN0PjwvcXVlcnlCeVBhcmFtZXRlcj4=</ParticipantObjectQuery>"
+            + "</ParticipantObjectIdentification></AuditMessage>";
+
+    @Before
+    public void setup() {
+        System.setProperty("nhinc.properties.dir", ".//src//test//resources");
+    }
 
     @Test
     public void testGetQueryAuditEventResponse() {
@@ -105,7 +115,7 @@ public class AuditRetrieveEventsUtilTest {
         assertEquals("QueryAuditEventsResults.UserId mismatch", obj.getUserId(), USER_ID);
         assertEquals("QueryAuditEventsResults.id mismatch", obj.getId(), ID.longValue());
         assertEquals("QueryAuditEventsResults.EventTimestamp mismatch",
-            obj.getEventTimestamp().toGregorianCalendar().getTime(), EVENT_TIMESTAMP);
+                obj.getEventTimestamp().toGregorianCalendar().getTime(), EVENT_TIMESTAMP);
     }
 
     @Test
@@ -126,9 +136,20 @@ public class AuditRetrieveEventsUtilTest {
 
     @Test
     public void testGetQueryAuditEventBlobResponse() {
-        Blob blob = Hibernate.createBlob(AUDIT_MESSAGE.getBytes());
-        QueryAuditEventsBlobResponse response = util.getQueryAuditEventBlobResponse(blob);
+        /*
+         * Use a mock Blob object here to avoid using HibernateUtil. There are issues with using HibernateUtil for test
+         * /* classes during the CI jobs.
+         */
+        Blob mockBlob = mock(Blob.class);
+        try {
+            when(mockBlob.length()).thenReturn(new Long("30"));
+            when(mockBlob.getBinaryStream()).thenReturn(new ByteArrayInputStream(AUDIT_MESSAGE.getBytes()));
+        } catch (NumberFormatException | SQLException e) {
+            LOG.error("Exception during mock setup for blob : {}", e.getLocalizedMessage(), e);
+        }
+        QueryAuditEventsBlobResponse response = util.getQueryAuditEventBlobResponse(mockBlob);
         AuditMessageType audit = response.getAuditMessage();
+        assertNotNull("Audit Blob mismatch", getAuditString(audit));
         assertEquals("Audit Blob mismatch", getAuditString(audit), AUDIT_MESSAGE);
     }
 
@@ -162,7 +183,7 @@ public class AuditRetrieveEventsUtilTest {
             marshaller.marshal(oJaxbElement, baOutStrm);
             return new String(baOutStrm.toByteArray());
         } catch (JAXBException | IOException e) {
-            LOG.error("Exception during Blob conversion :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception during Blob conversion : {}", e.getLocalizedMessage(), e);
         }
         return null;
     }
