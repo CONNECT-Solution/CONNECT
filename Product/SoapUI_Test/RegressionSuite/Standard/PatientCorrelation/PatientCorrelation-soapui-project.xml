@@ -4079,11 +4079,11 @@
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'PatientCorrelation-soapui-project.properties')
 if (propertiesFile.exists()) {
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-	    project.setPropertyValue(key, value)
-	}
+    def props = new Properties()
+    props.load(new FileReader(propertiesFile))
+    props.each { key, value ->
+        project.setPropertyValue(key, value)
+    }
 }
 
 

@@ -102,6 +102,7 @@
                         lib/geronimo-stax-api-*.jar,
                         lib/jsr173*.jar,
                         lib/geronimo-servlet_3.0_spec-1.0.jar,
+						lib/javax.servlet-api-3.0.1.jar,
                         lib/servlet-api-2.5.jar,
                     </packagingExcludes>
                 </configuration>

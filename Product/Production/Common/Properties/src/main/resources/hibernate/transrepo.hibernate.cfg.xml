@@ -22,7 +22,7 @@
         <!-- Disable the second-level cache  -->
         <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
 
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/transrepo_datasource</property>
+        <property name="hibernate.connection.datasource">jdbc/transrepo_datasource</property>
 
         <!-- Drop and re-create the database schema on startup -->
         <!-- <property name="hbm2ddl.auto">create</property> -->

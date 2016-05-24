@@ -8888,11 +8888,11 @@ assert documentContent != "";</scriptText>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryRetrieveSelfTest-soapui-project.properties')
 if (propertiesFile.exists()) {
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-	    project.setPropertyValue(key, value)
-	}
+    def props = new Properties()
+    props.load(new FileReader(propertiesFile))
+    props.each { key, value ->
+        project.setPropertyValue(key, value)
+    }
 }
 
 
@@ -8980,7 +8980,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
     if (standard){
-  	config.setStandardMode();
+    config.setStandardMode();
   }
   else{
      config.setPassthruMode();
@@ -9024,7 +9024,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
     if (standard){
-  	config.setStandardMode(serviceName, direction);
+    config.setStandardMode(serviceName, direction);
   }
   else{
      config.setPassthruMode(serviceName, direction);

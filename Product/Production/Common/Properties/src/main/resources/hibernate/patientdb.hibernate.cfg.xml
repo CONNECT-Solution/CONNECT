@@ -24,7 +24,7 @@
         and let Hibernate bind the session automatically to the thread    -->
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/patientdb_datasource</property>
+        <property name="hibernate.connection.datasource">jdbc/patientdb_datasource</property>
 
         <!-- Mapping files -->
         <mapping resource="Patient.hbm.xml"/>

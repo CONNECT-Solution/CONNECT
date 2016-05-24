@@ -3052,25 +3052,25 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn1:subjectLocalityDNSName>subjectLocalityDNSName</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
-					<urn1:decision>Permit</urn1:decision>
-					<urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
-					<urn1:action>action</urn1:action>
-					<urn1:evidence>
-						<urn1:assertion>
-							<urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
-							<urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
-							<urn1:version>2.0</urn1:version>
-							<urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-							<urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
-							<urn1:conditions>
-								<urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
-								<urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
-							</urn1:conditions>
-							<urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
-							<urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
-						</urn1:assertion>
-					</urn1:evidence>
-				</urn1:samlAuthzDecisionStatement>
+                    <urn1:decision>Permit</urn1:decision>
+                    <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+                    <urn1:action>action</urn1:action>
+                    <urn1:evidence>
+                        <urn1:assertion>
+                            <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                            <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                            <urn1:version>2.0</urn1:version>
+                            <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                            <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                            <urn1:conditions>
+                                <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                                <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                            </urn1:conditions>
+                            <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                            <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                        </urn1:assertion>
+                    </urn1:evidence>
+                </urn1:samlAuthzDecisionStatement>
             <!--Optional:-->
             <urn1:samlSignature>
                <!--Optional:-->
@@ -5821,15 +5821,15 @@ nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "se
               <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@force_mtom">false</con:setting>
             </con:settings>
             <con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
-   <S:Header>
-      <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
-      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse</Action>
-      <MessageID xmlns="http://www.w3.org/2005/08/addressing">uuid:6fff9294-3737-4c66-a627-cc6dd5863c42</MessageID>
-      <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">a13eafb9-ec9e-46cd-9e92-9a19be79b9e8</RelatesTo>
-   </S:Header>
-   <S:Body>
-      <ns4:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:ihe:iti:xds-b:2007" xmlns:ns7="urn:gov:hhs:fha:nhinc:gateway:samltokendata"/>
-   </S:Body>
+   <S:Header>
+      <To xmlns="http://www.w3.org/2005/08/addressing">http://www.w3.org/2005/08/addressing/anonymous</To>
+      <Action xmlns="http://www.w3.org/2005/08/addressing">urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse</Action>
+      <MessageID xmlns="http://www.w3.org/2005/08/addressing">uuid:6fff9294-3737-4c66-a627-cc6dd5863c42</MessageID>
+      <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">a13eafb9-ec9e-46cd-9e92-9a19be79b9e8</RelatesTo>
+   </S:Header>
+   <S:Body>
+      <ns4:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:ihe:iti:xds-b:2007" xmlns:ns7="urn:gov:hhs:fha:nhinc:gateway:samltokendata"/>
+   </S:Body>
 </S:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
@@ -6583,25 +6583,25 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
             </urn1:samlAuthnStatement-->
             <!--Optional:-->
             <urn1:samlAuthzDecisionStatement>
-					<urn1:decision>Permit</urn1:decision>
-					<urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
-					<urn1:action>TestSaml</urn1:action>
-					<urn1:evidence>
-						<urn1:assertion>
-							<urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
-							<urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
-							<urn1:version>2.0</urn1:version>
-							<urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-							<urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
-							<urn1:conditions>
-								<urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
-								<urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
-							</urn1:conditions>
-							<urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
-							<urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
-						</urn1:assertion>
-					</urn1:evidence>
-				</urn1:samlAuthzDecisionStatement>
+                    <urn1:decision>Permit</urn1:decision>
+                    <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+                    <urn1:action>TestSaml</urn1:action>
+                    <urn1:evidence>
+                        <urn1:assertion>
+                            <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                            <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                            <urn1:version>2.0</urn1:version>
+                            <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                            <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                            <urn1:conditions>
+                                <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                                <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                            </urn1:conditions>
+                            <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                            <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                        </urn1:assertion>
+                    </urn1:evidence>
+                </urn1:samlAuthzDecisionStatement>
             <!--Optional:-->
             <urn1:samlSignature>
                <!--Optional:-->
@@ -6854,7 +6854,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
         <con:settings/>
         <con:config>
           <script>def count = context.withSql('AuditDB') { sql -> 
-	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
+    sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script>
@@ -7006,11 +7006,11 @@ assert (count > 0);</script>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntityXDRTests-soapui-project.properties')
 if (propertiesFile.exists()) {
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-	    project.setPropertyValue(key, value)
-	}
+    def props = new Properties()
+    props.load(new FileReader(propertiesFile))
+    props.each { key, value ->
+        project.setPropertyValue(key, value)
+    }
 }
 
 
