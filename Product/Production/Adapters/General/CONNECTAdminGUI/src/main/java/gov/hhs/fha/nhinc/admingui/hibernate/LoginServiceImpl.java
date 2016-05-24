@@ -44,7 +44,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author msw
@@ -85,14 +84,13 @@ public class LoginServiceImpl implements LoginService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc .admingui.model.Login)
      */
     @Override
-    @Transactional
     public UserLogin login(Login login) throws UserLoginException {
         UserLogin user = userLoginDAO.login(login);
 
         if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(),
-                        login.getPassword().getBytes(), user.getSalt().getBytes());
+                    login.getPassword().getBytes(), user.getSalt().getBytes());
                 if (!loggedIn) {
                     user = null;
                 }
