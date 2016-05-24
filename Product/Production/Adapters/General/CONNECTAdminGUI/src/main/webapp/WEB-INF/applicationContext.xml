@@ -14,20 +14,5 @@
     <context:annotation-config />
     <context:component-scan base-package="gov.hhs.fha.nhinc.admingui" />
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="configLocation">
-            <value>file:///${nhinc.properties.dir}/hibernate/admingui.hibernate.cfg.xml</value>
-        </property>
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>
-    </bean>
-
     <tx:annotation-driven />
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/adminguidb_datasource" />
 </beans>

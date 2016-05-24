@@ -79,7 +79,7 @@ public class NhincConstants {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
             PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+            PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
         DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
         DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
         DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
@@ -475,6 +475,7 @@ public class NhincConstants {
     public static final String HIBERNATE_EVENT_REPOSITORY = "event.hibernate.cfg.xml";
     public static final String HIBERNATE_DIRECTCONFIG_REPOSITORY = "configdb.hibernate.cfg.xml";
     public static final String HIBERNATE_MESSAGE_MONITORING_REPOSITORY = "messagemonitoringdb.hibernate.cfg.xml";
+    public static final String HIBERNATE_ADMINGUI_REPOSITORY = "admingui.hibernate.cfg.xml";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
     public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";

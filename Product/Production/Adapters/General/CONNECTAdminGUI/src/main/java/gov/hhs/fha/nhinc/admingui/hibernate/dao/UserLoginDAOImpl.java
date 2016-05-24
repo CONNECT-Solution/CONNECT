@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
+import gov.hhs.fha.nhinc.admingui.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.RolePreference;
@@ -36,12 +37,10 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -52,9 +51,6 @@ import org.springframework.stereotype.Service;
 public class UserLoginDAOImpl implements UserLoginDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserLoginDAOImpl.class);
-
-    @Autowired
-    private SessionFactory sessionFactory;
 
     /*
      * (non-Javadoc)
@@ -68,12 +64,12 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         Query query;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             query = session.createQuery("from UserLogin where userName = :userName");
             query.setParameter("userName", login.getUserName());
             userLogin = (UserLogin) query.uniqueResult();
         } catch (HibernateException e) {
-            LOG.error("Exception during query execution by: " + e.getMessage(), e);
+            LOG.error("Exception during query execution by: {}", e.getMessage(), e);
         } finally {
             closeSession(session, false);
         }
@@ -94,7 +90,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         boolean result = true;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             session.persist(createUser);
             LOG.info("create user record Inserted successfully from dao impl...");
@@ -102,7 +98,7 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         } catch (HibernateException e) {
             result = false;
             transactionRollback(tx);
-            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+            LOG.error("Exception during insertion caused by :{}", e.getMessage(), e);
             throw new UserLoginException("Could not create new user " + createUser.getUserName(), e);
         } finally {
             closeSession(session, false);
@@ -122,11 +118,11 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         UserRole result = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             result = (UserRole) session.createCriteria(UserRole.class).add(Restrictions.eq("roleId", role))
-                    .uniqueResult();
+                .uniqueResult();
         } catch (HibernateException e) {
-            LOG.error("Could not get role: " + e.getLocalizedMessage(), e);
+            LOG.error("Could not get role: {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
@@ -146,10 +142,10 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         List<UserRole> roles = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             roles = session.createCriteria(UserRole.class).list();
         } catch (HibernateException e) {
-            LOG.error("Could not get roles: " + e.getLocalizedMessage(), e);
+            LOG.error("Could not get roles: {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
@@ -170,14 +166,14 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         boolean updated = false;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
 
             session.update(preference);
             tx.commit();
             updated = true;
         } catch (HibernateException e) {
-            LOG.error("Could not update preferences: " + e.getLocalizedMessage(), e);
+            LOG.error("Could not update preferences: {}", e.getLocalizedMessage(), e);
             transactionRollback(tx);
             updated = false;
         } finally {
@@ -193,13 +189,13 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         Transaction tx = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             session.delete(user);
             tx.commit();
         } catch (HibernateException e) {
             transactionRollback(tx);
-            LOG.error("Unable to delete user: " + e.getLocalizedMessage(), e);
+            LOG.error("Unable to delete user: {}", e.getLocalizedMessage(), e);
             throw new UserLoginException("Unable to delete user: " + e.getLocalizedMessage());
         } finally {
             closeSession(session, true);
@@ -213,10 +209,10 @@ public class UserLoginDAOImpl implements UserLoginDAO {
         List<UserLogin> users = null;
 
         try {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             users = session.createCriteria(UserLogin.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
         } catch (HibernateException e) {
-            LOG.error("Could not retrieve users: " + e.getLocalizedMessage(), e);
+            LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
