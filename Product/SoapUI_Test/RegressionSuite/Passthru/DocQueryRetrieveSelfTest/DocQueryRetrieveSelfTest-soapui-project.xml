@@ -8079,8 +8079,7 @@ assert docCount.toInteger() == 0;</scriptText>
       <con:properties/>
       <con:reportParameters/>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-      </con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="30aca504-5f48-472f-818f-772029eaab39" keepSession="false" maxResults="0" name="3.5.1.UT.2 - Too Many Results" searchProperties="true">
       <con:settings/>
@@ -8405,7 +8404,8 @@ assert docCount.toInteger() == 20;</scriptText>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="8a054cf4-1ea4-4731-947f-0319b21908dd" keepSession="false" maxResults="0" name="11.3.2.UT.4 - Multiple Doc unique community ID multiple set" searchProperties="true">
       <con:settings/>
@@ -8777,7 +8777,8 @@ assert documentContent != "";</scriptText>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:properties/>
     <con:reportParameters/>
@@ -8887,11 +8888,11 @@ assert documentContent != "";</scriptText>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryRetrieveSelfTest-soapui-project.properties')
 if (propertiesFile.exists()) {
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-	    project.setPropertyValue(key, value)
-	}
+    def props = new Properties()
+    props.load(new FileReader(propertiesFile))
+    props.each { key, value ->
+        project.setPropertyValue(key, value)
+    }
 }
 
 
@@ -8901,7 +8902,7 @@ def testRunListener = [
   afterStep: { testRunner, runContext, result -> },
   beforeStep: { testRunner, runContext -> },
   beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  beforeRun: { testRunner, runContext ->
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -8915,7 +8916,7 @@ def testRunListener = [
       runContext.testCase.setPropertyValue("sigDate", startDate.format(df))
       runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
     }
-  }   
+  }
 ] as com.eviware.soapui.model.testsuite.TestRunListener
 
 project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
@@ -8936,7 +8937,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   def port = delegate.findProperty('DBPort')
   def user = delegate.findProperty('DBUser')
   def pass = delegate.findProperty('DBPass')
-  
+
   def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
   def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
   try {
@@ -8979,10 +8980,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
     if (standard){
-  	config.setStandardMode();
+    config.setStandardMode();
   }
   else{
-     config.setPassthruMode();	
+     config.setPassthruMode();
   }
   server.close();
   return true;
@@ -8998,7 +8999,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = 
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
-   
+
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
@@ -9023,10 +9024,10 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
     if (standard){
-  	config.setStandardMode(serviceName, direction);
+    config.setStandardMode(serviceName, direction);
   }
   else{
-     config.setPassthruMode(serviceName, direction);	
+     config.setPassthruMode(serviceName, direction);
   }
   server.close();
   return true;
