@@ -1,15 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <!--
-        Due to Maven limitations with plugins and multimodule reporting,
-        this POM cannot have an org.connectopensource parent module
-    -->
-	<parent>
+    <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>CONNECTSolution</artifactId>
         <version>4.7.0-SNAPSHOT</version>
     </parent>
-	
+
     <groupId>org.connectopensource</groupId>
     <artifactId>build-tools</artifactId>
     <packaging>jar</packaging>
