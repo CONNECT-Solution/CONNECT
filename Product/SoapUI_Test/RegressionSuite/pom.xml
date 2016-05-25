@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+	     <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
 
     <profiles>
@@ -63,10 +63,12 @@
 				 <module>Standard/Fanout-Test</module>
 				 <module>Standard/TransactionIDTest</module>
 				 <module>startEmbedded</module>
-				 <module>stopEmbedded</module> 
-				 
+				 <module>stopEmbedded</module>
+				 <module>Graveyard/LargePayloadTest</module> 
+				 <module>Utility/JMXConfigTest</module> 
 			 </modules>
 	   </profile>
+	   
     </profiles>
 
     <build>
