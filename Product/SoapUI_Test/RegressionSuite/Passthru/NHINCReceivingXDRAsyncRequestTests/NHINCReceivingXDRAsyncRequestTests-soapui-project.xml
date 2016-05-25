@@ -4990,7 +4990,7 @@ hin</con:value>
     </con:property>
     <con:property>
       <con:name>JMXPort</con:name>
-      <con:value>8686</con:value>
+      <con:value>9990</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'NHINCReceivingXDRAsyncRequestTests-soapui-project.properties')
