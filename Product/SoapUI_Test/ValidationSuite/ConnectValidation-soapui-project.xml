@@ -9159,6 +9159,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:config>
       </con:testStep>
       <con:properties/>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BatchSubmit RequestTransaction TestCase" searchProperties="true" id="8f7d43fa-ce1c-4e2c-b837-6ba31874760b" disabled="true">
       <con:settings/>
@@ -9455,6 +9458,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
           <con:value>2014-10-05T00:00:00Z</con:value>
         </con:property>
       </con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BatchSubmit Response Transaction TestCase" searchProperties="true" id="c40c3915-aa92-474c-9c95-35e28c2a4102" disabled="true">
       <con:settings/>
@@ -9753,6 +9759,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
           <con:value>2014-10-05T00:00:00Z</con:value>
         </con:property>
       </con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
     </con:testCase>
     <con:properties/>
     <con:setupScript/>
