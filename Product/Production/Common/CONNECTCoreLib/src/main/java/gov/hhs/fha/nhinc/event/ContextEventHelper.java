@@ -27,11 +27,13 @@
 package gov.hhs.fha.nhinc.event;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
 public class ContextEventHelper {
@@ -77,4 +79,11 @@ public class ContextEventHelper {
         return extractor;
     }
 
+    public String getMessageId(AssertionType assertion) {
+        if (assertion != null && StringUtils.isNotEmpty(assertion.getMessageId())) {
+            return assertion.getMessageId();
+        } else {
+            return getMessageId();
+        }
+    }
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -71,8 +72,11 @@ public class ErrorEventBuilderTest {
     @Test
     public void delegatesToContextHelper() {
         ContextEventHelper helper = mock(ContextEventHelper.class);
+        AssertionType assertion = new AssertionType();
+        assertion.setMessageId("messageId");
         builder.setContextHelper(helper);
-        when(helper.getMessageId()).thenReturn("messageId");
+        builder.setAssertion(assertion);
+        when(helper.getMessageId(assertion)).thenReturn("messageId");
         when(helper.getTransactionId()).thenReturn("transactionId");
 
         builder.buildMessageID();
@@ -93,7 +97,7 @@ public class ErrorEventBuilderTest {
         Event event = builder.getEvent();
         assertNotNull(event.getDescription());
         JSONAssert.assertEquals("{\"message\":\"message\", \"class\": \"" + t.getClass() + "\"}",
-                event.getDescription(), false);
+            event.getDescription(), false);
     }
 
     @Test
