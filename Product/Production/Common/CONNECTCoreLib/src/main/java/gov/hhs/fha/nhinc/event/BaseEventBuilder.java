@@ -33,9 +33,9 @@ public abstract class BaseEventBuilder implements EventBuilder {
 
     @Override
     public void buildDescription() {
-        eventDescriptionDirector.constructEventDescription();
+        eventDescriptionDirector.constructEventDescription(this.event);
         EventDescriptionJSONDecorator jsonDescorator = new EventDescriptionJSONDecorator(
-                eventDescriptionDirector.getEventDescription());
+            eventDescriptionDirector.getEventDescription());
         event.setDescription(jsonDescorator.toJSONString());
 
         buildServiceType();

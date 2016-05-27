@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.aspect;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.event.ContextEventBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
@@ -41,6 +44,7 @@ import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,6 +251,14 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
                 return ((RespondingGatewayCrossGatewayQueryRequestType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewayCrossGatewayRetrieveRequestType) {
                 return ((RespondingGatewayCrossGatewayRetrieveRequestType) obj).getAssertion();
+            } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetRequestType) {
+                return ((RespondingGatewayProvideAndRegisterDocumentSetRequestType) obj).getAssertion();
+            } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) {
+                return ((RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) obj).getAssertion();
+            } else if (obj instanceof RespondingGatewaySendAlertMessageType) {
+                return ((RespondingGatewaySendAlertMessageType) obj).getAssertion();
+            } else if (obj instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
+                return ((RespondingGatewayPRPAIN201306UV02RequestType) obj).getAssertion();
             }
         }
         return null;
