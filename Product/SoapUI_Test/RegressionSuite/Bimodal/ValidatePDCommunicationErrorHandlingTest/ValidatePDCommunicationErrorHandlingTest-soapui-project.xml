@@ -1090,7 +1090,7 @@ context.setGatewayStandard(TRUE);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>JMXPort</con:name>
-      <con:value>8686</con:value>
+      <con:value>9990</con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'

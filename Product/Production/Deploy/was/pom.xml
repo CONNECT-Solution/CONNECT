@@ -105,6 +105,7 @@
                         lib/geronimo-servlet_3.0_spec-1.0.jar,
                         lib/geronimo-javamail_1.4_spec-1.7.1.jar,
                         lib/servlet-api-2.5.jar,
+						lib/javax.servlet-api-3.0.1.jar,
                         lib/saaj-impl-1.3.18.jar,
                         lib/saaj-api-1.3.jar,
                     </packagingExcludes>

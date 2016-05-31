@@ -31,6 +31,7 @@ By advancing the adoption of interoperable health IT systems and health informat
         <spring.version>3.0.7.RELEASE</spring.version>
         <slf4j.version>1.7.13</slf4j.version>
         <openam.version>10.0.1</openam.version>
+		<hibernate.version>5.1.0.Final</hibernate.version>
 
         <!-- SCA and Reporting Plugin Versions -->
         <surefire.version>2.13</surefire.version>

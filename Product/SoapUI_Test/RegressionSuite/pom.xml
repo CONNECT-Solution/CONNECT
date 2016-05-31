@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+	     <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
 
     <profiles>
@@ -29,7 +29,7 @@
                 <module>Passthru</module>
                 <module>Bimodal</module>
                 <module>NewFeature</module>
-                <!--module>stopEmbedded</module-->
+				<!--module>stopEmbedded</module-->
             </modules>
         </profile>
 		
@@ -46,6 +46,29 @@
             </modules>
         </profile>
 		
+		<profile>
+            <id>manual-testing</id>
+           	<modules>
+			     <module>Manual</module>
+		         <module>Bimodal/ValidateRDMessageSpecVersionTest</module>
+				 <module>Bimodal/ValidateSAMLResourceURIAttributeTest</module>
+				 <module>Bimodal/ValidateAuditQueryLogService</module>
+				 <module>Bimodal/ValidateQDMessageSpecVersionTest</module>
+				 <module>Passthru/AuditLogging-Passthrough</module>
+				 <module>Passthru/DocQueryErrorCodesPassthru</module>
+				 <module>Passthru/NHINCReceivingXDRAsyncRequestTests</module>
+				 <module>Passthru/NHINCReceivingXDRAsyncResponseTests</module>
+				 <module>Standard/EntitySendingXDRAsyncReqTests</module>
+				 <module>Standard/EntitySendingXDRAsyncResponseTests</module>
+				 <module>Standard/Fanout-Test</module>
+				 <module>Standard/TransactionIDTest</module>
+				 <module>startEmbedded</module>
+				 <module>stopEmbedded</module>
+				 <module>Graveyard/LargePayloadTest</module> 
+				 <module>Utility/JMXConfigTest</module> 
+			 </modules>
+	   </profile>
+	   
     </profiles>
 
     <build>

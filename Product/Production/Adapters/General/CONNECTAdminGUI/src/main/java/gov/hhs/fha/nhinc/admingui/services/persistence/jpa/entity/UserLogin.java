@@ -35,6 +35,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * The Class UserLogin.
@@ -47,25 +48,36 @@ import javax.persistence.Table;
 @Table(name = "UserLogin")
 public class UserLogin implements Serializable {
 
-    /** The id. */
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "ID")
-    @GeneratedValue
+    @GeneratedValue(generator = "userloginGen")
+    @GenericGenerator(name = "userloginGen", strategy = "native")
     private long id;
 
-    /** The user name. */
+    /**
+     * The user name.
+     */
     @Column(name = "USERNAME")
     private String userName;
 
-    /** The salt. */
+    /**
+     * The salt.
+     */
     @Column(name = "SALT")
     private String salt;
 
-    /** The sha1. */
+    /**
+     * The sha1.
+     */
     @Column(name = "SHA1")
     private String sha1;
 
-    /** The role */
+    /**
+     * The role
+     */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userRole")
     private UserRole userRole;

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
@@ -36,6 +37,8 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
+import java.sql.Blob;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -55,9 +58,24 @@ public class AuditDBStoreImplTest {
     private final String RELATES_TO_2 = "val2";
     private final String MESSAGE_ID = "MessageId";
 
+    @Before
+    public void setup() {
+        System.setProperty("nhinc.properties.dir", ".//src//test//resources");
+    }
+
     @Test
     public void testCreateDBAuditObj() {
-        AuditDBStoreImpl dbStore = new AuditDBStoreImpl();
+
+        /*
+         * FHAC-977: Override getBlobFromAuditMessage() in AuditDBStoreImpl so HibernateUtil will not be used during
+         * testing.
+         */
+        AuditDBStoreImpl dbStore = new AuditDBStoreImpl() {
+            @Override
+            protected Blob getBlobFromAuditMessage(AuditMessageType mess) {
+                return mock(Blob.class);
+            }
+        };
         AssertionType assertion = createAssertion();
         LogEventSecureRequestType auditObj = createLogEventSecureObj(assertion);
         AuditRepositoryRecord dbRec = dbStore.createDBAuditObj(auditObj, assertion);

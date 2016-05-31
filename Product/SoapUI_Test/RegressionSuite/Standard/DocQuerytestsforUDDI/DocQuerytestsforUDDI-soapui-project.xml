@@ -416,7 +416,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def remoteAA = context.findProperty( "testAA" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -1121,7 +1121,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def remoteAA = context.findProperty( "testHCID" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -1507,7 +1507,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.f
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def uddiVA3 = context.findProperty( "UDDIhcid3" )
@@ -1913,7 +1913,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.f
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def uddiVA3 = context.findProperty( "UDDIhcid3" )
@@ -2672,7 +2672,7 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def remoteAA = context.findProperty( "testHCID" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -3039,7 +3039,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", conte
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def uddiFL1 = context.findProperty( "UDDIhcid3" )
@@ -3054,7 +3054,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", conte
 /*context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiFL1 = context.findProperty( "UDDIhcid3" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -4196,7 +4196,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def remoteAA = context.findProperty( "testHCID" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -4585,7 +4585,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.f
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiFL1 = context.findProperty( "UDDIhcid4" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -5044,7 +5044,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -5056,7 +5056,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA2 = context.findProperty( "UDDIhcid2" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -5068,7 +5068,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiFL1 = context.findProperty( "UDDIhcid3" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -5447,7 +5447,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ecb4d188-094b-4f8c-bb59-b5cf33c4e974" keepSession="false" maxResults="0" name="State Alt Path - Multiple regions and correlations" searchProperties="true">
       <con:settings/>
@@ -5474,7 +5475,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", conte
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def uddiGA1 = context.findProperty( "UDDIhcid4" )
@@ -5929,7 +5930,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -6286,7 +6287,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
@@ -6341,7 +6343,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def uddiVA1 = context.findProperty( "UDDIhcid1" )
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -6714,7 +6716,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-      <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
@@ -6733,7 +6736,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
           <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
 
-  def localAA = context.findProperty( "LocalAA" )	
+  def localAA = context.findProperty( "LocalAA" )   
   def localPatientID = context.findProperty("LocalPatientID")
   def remoteAA = "9.9";
   def remotePatientID = context.findProperty("RemotePatientID")
@@ -7341,11 +7344,11 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryTestsForUDDI-soapui-project.properties')
 if (propertiesFile.exists()) {
-	def props = new Properties()
-	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
-	    project.setPropertyValue(key, value)
-	}
+    def props = new Properties()
+    props.load(new FileReader(propertiesFile))
+    props.each { key, value ->
+        project.setPropertyValue(key, value)
+    }
 }
 
 

@@ -23,6 +23,9 @@
                     <name>regression</name>
                 </property>
             </activation>
+            <properties>
+                <properties.dir>${project.parent.parent.parent.basedir}/${wildfly.properties.dir}</properties.dir>
+            </properties>
             <modules>
                 <module>Admin-Distribution-Standard</module>
                 <module>AuditLogging-Standard</module>

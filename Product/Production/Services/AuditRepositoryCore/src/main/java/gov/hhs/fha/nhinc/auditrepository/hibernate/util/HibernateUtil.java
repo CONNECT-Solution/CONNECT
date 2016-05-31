@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.File;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +50,15 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
+            LOG.debug("Building the session factory in HibernateUtil in AuditRepositoryCore");
+            sessionFactory = new Configuration().configure()
+                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
         } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
             LOG.error("Initial SessionFactory creation failed." + ex.getLocalizedMessage(), ex);
+            throw new ExceptionInInitializerError(ex);
+        } catch (Exception ex) {
+            LOG.error("Error in building sessionFactory. {}", ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
