@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocumentRetrieveXDSErrorValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="1f2c1064-4b59-4ac8-8681-dd370eb99090" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocumentRetrieveXDSErrorValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="1f2c1064-4b59-4ac8-8681-dd370eb99090" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="../../../target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="d8bd23c5-f2b0-4e8a-90c0-adf3ba05e5b1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -2998,7 +2998,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSRegistryBusy TestCase" searchProperties="true" id="c9b9a5d3-6ff0-4569-8e09-7c9a8d49112e">
       <con:settings/>
@@ -3328,7 +3330,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSRegistryOutOfResources TestCase" searchProperties="true" id="01eaf1b4-0fb3-4eeb-a63b-1c60f58301ad">
       <con:settings/>
@@ -3658,7 +3662,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSTooManyResults TestCase" searchProperties="true" id="464166d4-8358-41b9-8cde-5ff93f174ef9">
       <con:settings/>
@@ -3988,7 +3994,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSUnknownStoredQuery TestCase" searchProperties="true" id="9ad9d1a6-0c55-42c5-956f-9b05e75db0f6">
       <con:settings/>
@@ -4318,7 +4326,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam TestCase" searchProperties="true" id="1b39c52f-a727-4acb-8af8-a3bf84816a08">
       <con:settings/>
@@ -4648,7 +4658,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber TestCase" searchProperties="true" id="03552ff9-342b-4e27-bee1-d1cdd62a195f">
       <con:settings/>
@@ -4978,7 +4990,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PartialSuccess TestCase" searchProperties="true" id="ac3bc303-2b3f-4ff6-9da7-67249c0c22e8">
       <con:settings/>
@@ -5308,7 +5322,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:properties/>
     <con:reportParameters/>
@@ -5345,7 +5361,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>ASUsername</con:name>
@@ -5502,6 +5518,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>

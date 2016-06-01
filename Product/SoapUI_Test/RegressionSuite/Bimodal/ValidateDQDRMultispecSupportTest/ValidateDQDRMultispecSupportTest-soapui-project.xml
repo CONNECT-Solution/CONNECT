@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="ValidateDQDRMultispecSupportTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="bd310916-f27a-492e-b95a-86125427d37a" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="ValidateDQDRMultispecSupportTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="bd310916-f27a-492e-b95a-86125427d37a" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="7aa3da15-2add-421d-8ebe-f3c8e994301d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -8753,9 +8753,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -8767,19 +8768,19 @@ context.setGatewayStandard(true);</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T16:15:27Z</con:value>
+          <con:value>2016-06-01T19:11:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T16:25:27Z</con:value>
+          <con:value>2016-06-01T19:21:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 16:15:27</con:value>
+          <con:value>06/01/2016 19:11:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2016-07-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9099,9 +9100,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -9113,19 +9115,19 @@ context.setGatewayStandard(true);</con:tearDownScript>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T16:15:28Z</con:value>
+          <con:value>2016-06-01T19:11:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T16:25:28Z</con:value>
+          <con:value>2016-06-01T19:21:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 16:15:28</con:value>
+          <con:value>06/01/2016 19:11:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2016-07-01T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9452,9 +9454,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -9796,9 +9799,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -10141,9 +10145,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -10479,9 +10484,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -10846,9 +10852,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -11193,9 +11200,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -11546,9 +11554,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -11890,9 +11899,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -12235,9 +12245,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -12587,9 +12598,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -12954,9 +12966,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -13307,9 +13320,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -13654,9 +13668,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -13998,9 +14013,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -14350,9 +14366,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -14695,9 +14712,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -15056,9 +15074,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -15402,9 +15421,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -15751,9 +15771,10 @@ testRunner.gotoStepByName("Document Query");</script>
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -16095,9 +16116,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -16447,9 +16469,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -16792,9 +16815,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 sleep(10000);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -17172,6 +17196,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
