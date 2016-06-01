@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocQueryRetrieveSelfTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="3564d8ed-a20b-4556-96a3-be58fadc9dc6" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocQueryRetrieveSelfTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="3564d8ed-a20b-4556-96a3-be58fadc9dc6" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDocQuery.wsdl" id="6f3dd67e-ffb3-44a3-a15c-06879e897e49" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
     </con:endpoints>
@@ -13,7 +13,7 @@
   </con:interface>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" id="6815685b-3b05-4f10-a599-8d04107b6972" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" id="69128f75-45a9-429b-9b65-521cad59d24e">
@@ -349,8 +349,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e8e39506-f682-4a9d-8b29-693e5f2a4f9f" keepSession="false" maxResults="0" name="3.3.2.UT.2 - Find by PatientId (multiple docs)" searchProperties="true">
       <con:settings/>
@@ -677,8 +678,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4b41f39f-3915-4250-b223-da0b927a6a55" keepSession="false" maxResults="0" name="3.4.1.UT.1 - No matching classcode" searchProperties="true">
       <con:settings/>
@@ -1001,8 +1003,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4c6ccf8f-8842-4cc6-a6e1-b2034d94d5dd" keepSession="false" maxResults="0" name="3.4.1.UT.2 - classcode one" searchProperties="true">
       <con:settings/>
@@ -1334,8 +1337,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="adc29b9d-ccb0-49f4-8e18-a1de5adf6833" keepSession="false" maxResults="0" name="3.4.2.UT.2 - no matching servicestarttime" searchProperties="true">
       <con:settings/>
@@ -1663,8 +1667,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b612e2a6-aac4-46cd-9d64-94f914a2ae57" keepSession="false" maxResults="0" name="3.4.2.UT.2 - matching service starttime" searchProperties="true">
       <con:settings/>
@@ -2002,8 +2007,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fe8645e6-e72e-418a-a6e1-4f51e31b9024" keepSession="false" maxResults="0" name="3.4.2.UT.2 - matching service stoptime" searchProperties="true">
       <con:settings/>
@@ -2340,8 +2346,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7b7edd61-c52f-4c25-abaa-f1eefb654982" keepSession="false" maxResults="0" name="3.4.3.UT.2 - no matching creationtime between" searchProperties="true">
       <con:settings/>
@@ -2669,8 +2676,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7ee16960-21e4-4e6c-a8ca-e36decdaa73d" keepSession="false" maxResults="0" name="3.4.3.UT.2 - creationtime between" searchProperties="true">
       <con:settings/>
@@ -3007,8 +3015,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7868a929-11b5-42a3-90d7-570eb348c6c7" keepSession="false" maxResults="0" name="3.4.3.UT.2 - creationtime left edge" searchProperties="true">
       <con:settings/>
@@ -3345,8 +3354,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="167cc6bb-f934-4b4b-97c7-a696ccce9b33" keepSession="false" maxResults="0" name="3.4.3.UT.2 - creationtime right edge" searchProperties="true">
       <con:settings/>
@@ -3683,8 +3693,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="efaa213a-4431-4ca2-9399-b4b56bc4b968" keepSession="false" maxResults="0" name="3.4.4.UT.2 - classCode &amp; serviceStartTime" searchProperties="true">
       <con:settings/>
@@ -4026,8 +4037,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d61789f8-745a-4726-b847-4de43d60acdb" keepSession="false" maxResults="0" name="3.4.4.UT.2 - classCode &amp; serviceStoptime" searchProperties="true">
       <con:settings/>
@@ -4369,8 +4381,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b257883f-dafc-46ed-b2d1-08cad1989ee4" keepSession="false" maxResults="0" name="3.4.5.UT.2 - creationTime &amp; serviceStartTime" searchProperties="true">
       <con:settings/>
@@ -4717,8 +4730,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="299729d8-c878-40dc-8148-275acdca78e6" keepSession="false" maxResults="0" name="3.4.5.UT.2 - creationTime &amp; serviceStopTime" searchProperties="true">
       <con:settings/>
@@ -5065,8 +5079,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5a83914e-6ceb-47d4-9282-fdac416be049" keepSession="false" maxResults="0" name="3.4.6.UT.2 - creationtime &amp; classCode" searchProperties="true">
       <con:settings/>
@@ -5408,8 +5423,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f72e6ca4-fa73-4aa3-b444-28cc2e080d75" keepSession="false" maxResults="0" name="3.4.7.UT.2 - No Documents Available" searchProperties="true">
       <con:settings/>
@@ -5727,8 +5743,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="47e04ddc-4acc-45ca-a8de-86104f3abb33" keepSession="false" maxResults="0" name="3.5.2.UT.2 - No Patient Found" searchProperties="true">
       <con:settings/>
@@ -6046,8 +6063,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a9aa6f3-8782-48a4-9f51-60102d340cff" keepSession="false" maxResults="0" name="3.5.4.UT.2 - Unknown Stored Query" searchProperties="true">
       <con:settings/>
@@ -6365,8 +6383,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="570b48df-8677-4ee9-a9d8-07c2d2205551" keepSession="false" maxResults="0" name="11.3.1.UT.2 - Single Doc" searchProperties="true">
       <con:settings/>
@@ -6717,8 +6736,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="490127d8-a2b5-45c5-a55a-0491b8d36b57" keepSession="false" maxResults="0" name="11.3.1.UT.4 - Document Persistence" searchProperties="true">
       <con:settings/>
@@ -7069,8 +7089,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ad9ac723-48e6-43f3-841d-3e364fc6c697" keepSession="false" maxResults="0" name="11.3.2.UT.2 - Multiple Doc unique community ID one set" searchProperties="true">
       <con:settings/>
@@ -7463,8 +7484,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9789c693-5474-476a-9dbb-78dafe5dd59c" keepSession="false" maxResults="0" name="11.4.1.UT.2 - Missing Document" searchProperties="true">
       <con:settings/>
@@ -7786,8 +7808,9 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="1e5193aa-903c-4484-a679-0a49bb203777" keepSession="false" maxResults="0" name="3.5.11.UT.2 - Missing Patient Id" searchProperties="true">
       <con:settings/>
@@ -8789,103 +8812,31 @@ assert documentContent != "";</scriptText>
       <con:name>//NhincProxyDocQueryEndpoint</con:name>
       <con:value>http://localhost:8080/NhinConnect/NhincProxyDocQuery</con:value>
     </con:property>
-    <con:property>
-      <con:name>//NhincProxyDocRetrieveEndpoint</con:name>
-      <con:value>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DocRepositoryID</con:name>
-      <con:value>1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Document1</con:name>
-      <con:value>1.123401.11111</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Document2</con:name>
-      <con:value>1.123401.22222</con:value>
-    </con:property>
-    <con:property>
-      <con:name>GatewayPropDir</con:name>
-      <con:value/>
-    </con:property>
-    <con:property>
-      <con:name>LocalAA</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCDescription</con:name>
-      <con:value>InternalTest1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCID</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>MultipleDocPatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NhincProxyDocQueryEndpoint</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NhincProxyDocRetrieveEndpoint</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NoDocsPatientID</con:name>
-      <con:value>D123403</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NonExistentDocument</con:name>
-      <con:value>111111111</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NonExistentPatientID</con:name>
-      <con:value>D123410</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteAA</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCDescription</con:name>
-      <con:value>InternalTest2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCID</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SingleDocPatientID</con:name>
-      <con:value>D123402</con:value>
-    </con:property>
-    <con:property>
-      <con:name>TooManyDocsPatientID</con:name>
-      <con:value>D123405</con:value>
-    </con:property>
-    <con:property>
-      <con:name>ZeroDocStatus</con:name>
-      <con:value>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</con:value>
-    </con:property>
-    <con:property>
-      <con:name>ASUsername</con:name>
-      <con:value>admin</con:value>
-    </con:property>
-    <con:property>
-      <con:name>ASPassword</con:name>
-      <con:value>adminadmin</con:value>
-    </con:property>
-    <con:property>
-      <con:name>JMXHost</con:name>
-      <con:value>localhost</con:value>
-    </con:property>
-    <con:property>
-      <con:name>JMXPort</con:name>
-      <con:value>9990</con:value>
-    </con:property>
-  </con:properties>
+    
+    
+    
+    <con:property><con:name>//NhincProxyDocRetrieveEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</con:value></con:property>
+    <con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>DocRepositoryID</con:name><con:value>1</con:value></con:property><con:property><con:name>Document1</con:name><con:value>1.123401.11111</con:value></con:property>
+    <con:property><con:name>Document2</con:name><con:value>1.123401.22222</con:value></con:property>
+    <con:property><con:name>GatewayPropDir</con:name><con:value/></con:property>
+    <con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property>
+    <con:property><con:name>JMXPort</con:name><con:value>9990</con:value></con:property>
+    <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+    <con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property>
+    <con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MultipleDocPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NhincProxyDocQueryEndpoint</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property>
+    
+    
+    
+    
+    <con:property><con:name>NhincProxyDocRetrieveEndpoint</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>NoDocsPatientID</con:name><con:value>D123403</con:value></con:property><con:property><con:name>NonExistentDocument</con:name><con:value>111111111</con:value></con:property>
+    
+    <con:property><con:name>NonExistentPatientID</con:name><con:value>D123410</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property>
+    <con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
+    
+    
+    <con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
+    
+  <con:property><con:name>SingleDocPatientID</con:name><con:value>D123402</con:value></con:property><con:property><con:name>TooManyDocsPatientID</con:name><con:value>D123405</con:value></con:property><con:property><con:name>ZeroDocStatus</con:name><con:value>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryRetrieveSelfTest-soapui-project.properties')
 if (propertiesFile.exists()) {
     def props = new Properties()
@@ -9031,6 +8982,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
