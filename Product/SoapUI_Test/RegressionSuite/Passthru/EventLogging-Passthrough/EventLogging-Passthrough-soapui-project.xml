@@ -653,9 +653,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionRequest",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1079,9 +1077,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionResponse",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1639,9 +1635,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -2038,9 +2032,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("patientDiscovery.inboundPatientDiscoveryRequest",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -2723,9 +2715,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("patientDiscovery.inboundPatientDiscoveryResponse",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -3515,9 +3505,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("patientDiscovery.inboundPatientDiscovery",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -3927,9 +3915,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -4304,9 +4290,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -4756,9 +4740,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("admindist.inboundAdminDist",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -5376,9 +5358,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionRequest",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -5802,9 +5782,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionResponse",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -6362,9 +6340,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -6761,9 +6737,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("patientDiscovery.inboundPatientDiscoveryRequest",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -7446,9 +7420,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("patientDiscovery.inboundPatientDiscoveryResponse",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>LocalHCID</con:name>
@@ -8238,9 +8210,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("patientDiscovery.inboundPatientDiscovery",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -8650,9 +8620,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -9027,9 +8995,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("docretrieve.20.inbound",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>CorrectedRemoteHCID</con:name>
@@ -9474,9 +9440,7 @@ public evaluateDescription(String description, String name){
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);def isStandardMode = context.checkGatewayMode("admindist.inboundAdminDist",context);context.setGatewayStandard(isStandardMode);log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -9972,6 +9936,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
