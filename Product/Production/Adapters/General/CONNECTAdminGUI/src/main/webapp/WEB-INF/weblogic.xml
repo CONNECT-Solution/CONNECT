@@ -30,6 +30,7 @@
             <package-name>com.sun.faces.*</package-name> 
             <package-name>com.bea.faces.*</package-name>
             <package-name>javax.wsdl.*</package-name>
+            <package-name>javax.persistence.*</package-name>
         </wls:prefer-application-packages>
         <wls:prefer-application-resources> 
             <resource-name>javax.faces.*</resource-name> 
