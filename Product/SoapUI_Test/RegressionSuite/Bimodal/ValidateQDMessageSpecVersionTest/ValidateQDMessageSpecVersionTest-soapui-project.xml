@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="ValidateQDMessageSpecVersionTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="4da236a7-6e0d-43e2-acdd-53d456cb7699" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="ValidateQDMessageSpecVersionTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="4da236a7-6e0d-43e2-acdd-53d456cb7699" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="6a0292eb-f01d-4545-8fa1-54405c7bdb71" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -6851,9 +6851,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -7432,9 +7433,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -8021,9 +8023,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -8602,9 +8605,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -9191,9 +9195,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -9772,9 +9777,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -10361,9 +10367,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -10950,9 +10957,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -11539,9 +11547,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -12128,9 +12137,10 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
-      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);
-context.setGatewayStandard(true);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -12676,6 +12686,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
