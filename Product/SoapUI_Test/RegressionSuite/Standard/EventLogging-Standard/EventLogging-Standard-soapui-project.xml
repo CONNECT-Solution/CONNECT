@@ -588,7 +588,7 @@
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508" addDefaultAction="false"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -645,25 +645,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Submission Deferred Request"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:36Z</con:value>
+          <con:value>2016-06-03T01:28:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:36Z</con:value>
+          <con:value>2016-06-03T01:38:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:36</con:value>
+          <con:value>06/03/2016 01:28:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -962,8 +991,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                <!--Optional:-->
                <urn1:issuerFormat>?</urn1:issuerFormat>
             </urn1:samlIssuer>
-            <!--Optional:-->
-            <urn1:messageId>?</urn1:messageId>
             <!--1 or more repetitions:-->
             <urn1:relatesToList>uuid:088a26e8-6b03-4bf8-84f1-737dc94be2e0</urn1:relatesToList>
          </urn:assertion>
@@ -1072,25 +1099,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset = sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Submission Deferred Response"') 	
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+		}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:38Z</con:value>
+          <con:value>2016-06-03T01:28:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:38Z</con:value>
+          <con:value>2016-06-03T01:38:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:38</con:value>
+          <con:value>06/03/2016 01:28:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -1633,25 +1689,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Submission"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!(name.equals("BEGIN_OUTBOUND_MESSAGE") || name.equals("BEGIN_OUTBOUND_PROCESSING") ) ){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:39Z</con:value>
+          <con:value>2016-06-03T01:28:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:39Z</con:value>
+          <con:value>2016-06-03T01:38:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:39</con:value>
+          <con:value>06/03/2016 01:28:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1985,7 +2070,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
-            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508" generateMessageId="false"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -2042,7 +2127,36 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Patient Discovery Deferred Request"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
@@ -2308,19 +2422,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:41Z</con:value>
+          <con:value>2016-06-03T01:28:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:41Z</con:value>
+          <con:value>2016-06-03T01:38:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:41</con:value>
+          <con:value>06/03/2016 01:28:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2732,7 +2846,36 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Element in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Patient Discovery Deferred Response"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
@@ -3002,19 +3145,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:42Z</con:value>
+          <con:value>2016-06-03T01:28:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:42Z</con:value>
+          <con:value>2016-06-03T01:38:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:42</con:value>
+          <con:value>06/03/2016 01:28:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3394,25 +3537,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Patient Discovery"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:44Z</con:value>
+          <con:value>2016-06-03T01:28:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:44Z</con:value>
+          <con:value>2016-06-03T01:38:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:44</con:value>
+          <con:value>06/03/2016 01:28:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3807,25 +3979,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Query"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!(name.equals("BEGIN_OUTBOUND_MESSAGE") || name.equals("BEGIN_OUTBOUND_PROCESSING") ) ){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:46Z</con:value>
+          <con:value>2016-06-03T01:28:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:46Z</con:value>
+          <con:value>2016-06-03T01:38:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:46</con:value>
+          <con:value>06/03/2016 01:28:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4185,7 +4386,36 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Retrieve Document"') 
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+		}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
@@ -4195,19 +4425,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:47Z</con:value>
+          <con:value>2016-06-03T01:28:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:47Z</con:value>
+          <con:value>2016-06-03T01:38:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:47</con:value>
+          <con:value>06/03/2016 01:28:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4633,25 +4863,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Admin Distribution"') 
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+		}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:35:49Z</con:value>
+          <con:value>2016-06-03T01:28:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:45:49Z</con:value>
+          <con:value>2016-06-03T01:38:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:35:49</con:value>
+          <con:value>06/03/2016 01:28:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -5254,25 +5513,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Submission Deferred Request"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:06Z</con:value>
+          <con:value>2016-06-03T01:29:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:06Z</con:value>
+          <con:value>2016-06-03T01:39:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:06</con:value>
+          <con:value>06/03/2016 01:29:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5681,25 +5969,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Eleemnts in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset = sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Submission Deferred Response"') 	
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+		}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:08Z</con:value>
+          <con:value>2016-06-03T01:29:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:08Z</con:value>
+          <con:value>2016-06-03T01:39:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:08</con:value>
+          <con:value>06/03/2016 01:29:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6242,25 +6559,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Eleemnts in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Submission"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!(name.equals("BEGIN_OUTBOUND_MESSAGE") || name.equals("BEGIN_OUTBOUND_PROCESSING") ) ){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:09Z</con:value>
+          <con:value>2016-06-03T01:29:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:09Z</con:value>
+          <con:value>2016-06-03T01:39:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:09</con:value>
+          <con:value>06/03/2016 01:29:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6651,7 +6997,36 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Patient Discovery Deferred Request"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
@@ -6917,19 +7292,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:10Z</con:value>
+          <con:value>2016-06-03T01:29:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:10Z</con:value>
+          <con:value>2016-06-03T01:39:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:10</con:value>
+          <con:value>06/03/2016 01:29:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7341,7 +7716,36 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Patient Discovery Deferred Response"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
@@ -7611,19 +8015,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:11Z</con:value>
+          <con:value>2016-06-03T01:39:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:11</con:value>
+          <con:value>06/03/2016 01:29:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:11Z</con:value>
+          <con:value>2016-06-03T01:29:43Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8003,25 +8407,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Patient Discovery"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:12Z</con:value>
+          <con:value>2016-06-03T01:29:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:12Z</con:value>
+          <con:value>2016-06-03T01:39:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:12</con:value>
+          <con:value>06/03/2016 01:29:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8416,25 +8849,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Query"')  
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+	}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!(name.equals("BEGIN_OUTBOUND_MESSAGE") || name.equals("BEGIN_OUTBOUND_PROCESSING") ) ){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:14Z</con:value>
+          <con:value>2016-06-03T01:29:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:14Z</con:value>
+          <con:value>2016-06-03T01:39:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:14</con:value>
+          <con:value>06/03/2016 01:29:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -8794,7 +9256,36 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Retrieve Document"') 
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+		}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
@@ -8804,19 +9295,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:15Z</con:value>
+          <con:value>2016-06-03T01:29:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:15Z</con:value>
+          <con:value>2016-06-03T01:39:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:15</con:value>
+          <con:value>06/03/2016 01:29:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9242,25 +9733,54 @@ public evaluateDescription(String description, String name){
 }</script>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="groovy" name="Verify Elements in Event Log"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Admin Distribution"') 
+	assert resultset.size !=0
+	resultset.each { item ->
+		validateElements(item)
+		}
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+
+	validateMessageId(name, messageId, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2016-05-12T19:37:16Z</con:value>
+          <con:value>2016-06-03T01:29:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2016-05-12T19:47:16Z</con:value>
+          <con:value>2016-06-03T01:39:51Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>05/12/2016 19:37:16</con:value>
+          <con:value>06/03/2016 01:29:51</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2016-06-11T00:00:00Z</con:value>
+          <con:value>2016-07-03T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9472,7 +9992,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:name>ZipCode</con:name>
       <con:value>12345</con:value>
     </con:property>
-  </con:properties>
+  <con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
