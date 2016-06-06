@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
@@ -242,25 +241,26 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     }
 
     private AssertionType getAssertion(Object[] args) {
+        AssertionType assertion = null;
         for (Object obj : args) {
             if (obj instanceof AssertionType) {
-                return (AssertionType) obj;
+                assertion = (AssertionType) obj;
             } else if (obj instanceof RespondingGatewayPRPAIN201305UV02RequestType) {
-                return ((RespondingGatewayPRPAIN201305UV02RequestType) obj).getAssertion();
+                assertion = ((RespondingGatewayPRPAIN201305UV02RequestType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewayCrossGatewayQueryRequestType) {
-                return ((RespondingGatewayCrossGatewayQueryRequestType) obj).getAssertion();
+                assertion = ((RespondingGatewayCrossGatewayQueryRequestType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewayCrossGatewayRetrieveRequestType) {
-                return ((RespondingGatewayCrossGatewayRetrieveRequestType) obj).getAssertion();
+                assertion = ((RespondingGatewayCrossGatewayRetrieveRequestType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetRequestType) {
-                return ((RespondingGatewayProvideAndRegisterDocumentSetRequestType) obj).getAssertion();
+                assertion = ((RespondingGatewayProvideAndRegisterDocumentSetRequestType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) {
-                return ((RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) obj).getAssertion();
+                assertion = ((RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewaySendAlertMessageType) {
-                return ((RespondingGatewaySendAlertMessageType) obj).getAssertion();
+                assertion = ((RespondingGatewaySendAlertMessageType) obj).getAssertion();
             } else if (obj instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
-                return ((RespondingGatewayPRPAIN201306UV02RequestType) obj).getAssertion();
+                assertion = ((RespondingGatewayPRPAIN201306UV02RequestType) obj).getAssertion();
             }
         }
-        return null;
+        return assertion;
     }
 }
