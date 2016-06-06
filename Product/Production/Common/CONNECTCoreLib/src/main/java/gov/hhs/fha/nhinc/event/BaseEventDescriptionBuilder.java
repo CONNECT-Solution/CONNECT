@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -153,7 +154,7 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     protected final void setLocalResponder() {
         try {
             String hcid = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
             if (NullChecker.isNotNullish(hcid)) {
                 List<String> responders = new ArrayList<>();
@@ -196,5 +197,10 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
             }
         }
         return null;
+    }
+
+    @Override
+    public void buildMessageId(String messageId) {
+        description.setMessageId(StringUtils.isNotEmpty(messageId) ? messageId : msgRouting.getMessageId());
     }
 }

@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.event;
 
 public class EventDescriptionDirector {
+
     private EventDescriptionBuilder builder;
 
     public void setEventDescriptionBuilder(EventDescriptionBuilder builder) {
@@ -66,4 +67,23 @@ public class EventDescriptionDirector {
     public String getResponderHcid() {
         return builder.getRespondingHcid();
     }
+
+    public void constructEventDescription(Event anEvent) {
+        builder.createEventDescription();
+
+        builder.buildMessageId(anEvent != null ? anEvent.getMessageID() : null);
+        builder.buildTransactionId();
+        builder.buildTimeStamp();
+        builder.buildStatuses();
+        builder.buildServiceType();
+        builder.buildResponseMsgIdList();
+        builder.buildRespondingHCIDs();
+        builder.buildPayloadTypes();
+        builder.buildPayloadSizes();
+        builder.buildNPI();
+        builder.buildInitiatingHCID();
+        builder.buildErrorCodes();
+        builder.buildAction();
+    }
+
 }

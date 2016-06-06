@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
 public interface EventBuilder {
 
     public void createNewEvent();
@@ -38,4 +40,5 @@ public interface EventBuilder {
 
     public Event getEvent();
 
+    public void setAssertion(AssertionType assertion);
 }

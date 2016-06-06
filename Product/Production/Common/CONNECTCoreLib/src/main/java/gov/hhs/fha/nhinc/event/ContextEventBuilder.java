@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
 public abstract class ContextEventBuilder extends BaseEventBuilder {
 
     private ContextEventHelper helper = new ContextEventHelper();
+    private AssertionType assertion;
 
     @Override
     public Event getEvent() {
@@ -37,7 +40,7 @@ public abstract class ContextEventBuilder extends BaseEventBuilder {
 
     @Override
     public void buildMessageID() {
-        event.setMessageID(helper.getMessageId());
+        event.setMessageID(helper.getMessageId(assertion));
     }
 
     @Override
@@ -51,5 +54,10 @@ public abstract class ContextEventBuilder extends BaseEventBuilder {
 
     void setContextHelper(ContextEventHelper helper) {
         this.helper = helper;
+    }
+
+    @Override
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.ContextEventHelper;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventBuilder;
@@ -42,6 +43,7 @@ public class ErrorEventBuilder implements EventBuilder {
     private MessageProcessingFailedEvent event = new MessageProcessingFailedEvent();
     private ContextEventHelper helper = new ContextEventHelper();
     private Throwable throwable;
+    private AssertionType assertion;
 
     @Override
     public void createNewEvent() {
@@ -65,7 +67,7 @@ public class ErrorEventBuilder implements EventBuilder {
 
     @Override
     public void buildMessageID() {
-        event.setMessageID(helper.getMessageId());
+        event.setMessageID(helper.getMessageId(assertion));
     }
 
     @Override
@@ -88,5 +90,10 @@ public class ErrorEventBuilder implements EventBuilder {
 
     public void setThrowable(Throwable t) {
         throwable = t;
+    }
+
+    @Override
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 }
