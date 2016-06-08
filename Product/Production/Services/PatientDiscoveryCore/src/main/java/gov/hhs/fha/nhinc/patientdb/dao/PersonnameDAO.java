@@ -49,6 +49,8 @@ public class PersonnameDAO {
 
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      *
      * Constructor
@@ -100,7 +102,7 @@ public class PersonnameDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -124,7 +126,7 @@ public class PersonnameDAO {
 
                 }
 
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -134,7 +136,7 @@ public class PersonnameDAO {
                     session.close();
 
                 }
-
+                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -177,7 +179,7 @@ public class PersonnameDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -198,7 +200,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -210,7 +212,7 @@ public class PersonnameDAO {
                 session.close();
 
             }
-
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PersonnameDAO.read() - End");
@@ -241,7 +243,7 @@ public class PersonnameDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -265,7 +267,7 @@ public class PersonnameDAO {
 
                 }
 
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -275,7 +277,7 @@ public class PersonnameDAO {
                     session.close();
 
                 }
-
+                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -300,7 +302,7 @@ public class PersonnameDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -311,7 +313,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -323,7 +325,7 @@ public class PersonnameDAO {
                 session.close();
 
             }
-
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PersonnameDAO.delete() - End");
@@ -363,7 +365,7 @@ public class PersonnameDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -378,7 +380,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -390,13 +392,18 @@ public class PersonnameDAO {
                 session.close();
 
             }
-
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
 
         return queryList;
 
+    }
+
+    protected SessionFactory getSessionFactory() {
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory();
     }
 
 }

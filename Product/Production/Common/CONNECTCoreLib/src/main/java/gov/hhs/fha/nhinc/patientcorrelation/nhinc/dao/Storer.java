@@ -46,7 +46,8 @@ public class Storer {
 
     public static void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.info("patient correlation add requested");
-        if (!Retriever.doesCorrelationExist(correlatedIdentifers)) {
+        Retriever retriever = new Retriever();
+        if (!retriever.doesCorrelationExist(correlatedIdentifers)) {
             localAddPatientCorrelation(correlatedIdentifers);
         } else if (correlatedIdentifers.getCorrelationExpirationDate() != null) {
             LOG.info("updating expiration date");
@@ -58,14 +59,18 @@ public class Storer {
 
     private static void localUpdatePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
+        SessionFactory fact = null;
         Session sess = null;
         Transaction trans = null;
-        CorrelatedIdentifiers singleRecord = Retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
+        Retriever retriever = new Retriever();
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        CorrelatedIdentifiers singleRecord = retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
 
         singleRecord.setCorrelationExpirationDate(correlatedIdentifers.getCorrelationExpirationDate());
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            hibernateUtil.buildSessionFactory();
+            fact = hibernateUtil.getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 trans = sess.beginTransaction();
@@ -78,27 +83,32 @@ public class Storer {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
+
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
     }
 
     private static void localAddPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.addPatientCorrelation() ---");
+        SessionFactory fact = null;
         Session sess = null;
         Transaction trans = null;
+        HibernateUtil hibernateUtil = new HibernateUtil();
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            hibernateUtil.buildSessionFactory();
+            fact = hibernateUtil.getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 trans = sess.beginTransaction();
@@ -111,24 +121,28 @@ public class Storer {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+
+            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.addPatientCorrelation() ---");
     }
 
     public static void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.removePatientCorrelation() ---");
+        SessionFactory fact = null;
         Session sess = null;
         Transaction trans = null;
+        HibernateUtil hibernateUtil = new HibernateUtil();
 
         String deleteCorrelatedIdentifiersSQL = "delete from correlatedidentifiers "
                 + "where ((PatientAssigningAuthorityId = :patientAssigningAuthority " + "and PatientId= :patientId "
@@ -145,9 +159,9 @@ public class Storer {
         String paramCorrelatedPatientAssignAuthId = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
         String paramCorrelatedPatientId = correlatedIdentifers.getCorrelatedPatientId();
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            hibernateUtil.buildSessionFactory();
+            fact = hibernateUtil.getSessionFactory();
             if (fact != null) {
-                System.out.println("Factory Created...");
                 sess = fact.openSession();
                 if (sess != null) {
                     trans = sess.beginTransaction();
@@ -176,17 +190,21 @@ public class Storer {
                 try {
                     trans.rollback();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+
+            hibernateUtil.closeSessionFactory();
+
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.removePatientCorrelation() ---");
     }
+
 }

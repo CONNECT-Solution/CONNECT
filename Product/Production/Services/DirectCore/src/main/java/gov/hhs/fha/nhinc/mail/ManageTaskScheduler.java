@@ -57,11 +57,14 @@ public class ManageTaskScheduler {
      */
     public void init() throws Exception {
         LOG.info("Inside init method -->TaskScheduler Instance:" + scheduler);
-        //Initialize the HibernateUtil within the appserver context
-        if (HibernateUtil.getSessionFactory() != null) {
-            LOG.info("Inside init method --> HibernateUtil.getSessionFactory()..getClass().getName():" + HibernateUtil.getSessionFactory().getClass().getName());
+        // Initialize the HibernateUtil within the appserver context
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        hibernateUtil.buildSessionFactory();
+        if (hibernateUtil.getSessionFactory() != null) {
+            LOG.info("Inside init method --> HibernateUtil.getSessionFactory()..getClass().getName(): {}",
+                    hibernateUtil.getSessionFactory().getClass().getName());
         } else {
-            LOG.info("Inside init method --> HibernateUtil.getSessionFactory():" + HibernateUtil.getSessionFactory());
+            LOG.info("Inside init method --> HibernateUtil.getSessionFactory(): {}", hibernateUtil.getSessionFactory());
         }
     }
 
@@ -70,9 +73,8 @@ public class ManageTaskScheduler {
      *
      */
     public void clean() {
-        System.out.println("Inside clean method -->TaskScheduler Instance:" + scheduler);
         LOG.info("Inside clean method -->TaskScheduler Instance:" + scheduler);
-        //shutdown the scheduler thread if its running
+        // shutdown the scheduler thread if its running
         if (scheduler != null) {
             scheduler.shutdown();
         }

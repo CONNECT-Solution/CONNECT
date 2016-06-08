@@ -59,6 +59,8 @@ public class AuditDBStoreImpl implements AuditStore {
     private static final Logger LOG = LoggerFactory.getLogger(AuditDBStoreImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     @Override
     public boolean saveAuditRecord(LogEventSecureRequestType request, AssertionType assertion) {
         List<AuditRepositoryRecord> auditRecList = new ArrayList<>();
@@ -102,9 +104,10 @@ public class AuditDBStoreImpl implements AuditStore {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            eventMessage = HibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(buffer);
+            hibernateUtil.buildSessionFactory();
+            eventMessage = hibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(buffer);
         } catch (JAXBException | IOException e) {
-            LOG.error("Exception during Blob conversion :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception during Blob conversion : {}", e.getLocalizedMessage(), e);
         }
         return eventMessage;
     }
@@ -123,4 +126,5 @@ public class AuditDBStoreImpl implements AuditStore {
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
     }
+
 }

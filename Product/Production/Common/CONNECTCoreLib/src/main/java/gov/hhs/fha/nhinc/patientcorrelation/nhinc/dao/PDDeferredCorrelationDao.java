@@ -47,6 +47,8 @@ public class PDDeferredCorrelationDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDDeferredCorrelationDao.class);
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      * Query by Message Id. This should return only one record.
      *
@@ -61,7 +63,8 @@ public class PDDeferredCorrelationDao {
         II patientId = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            hibernateUtil.buildSessionFactory();
+            SessionFactory fact = hibernateUtil.getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -84,13 +87,14 @@ public class PDDeferredCorrelationDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         if (pdCorrelations == null || pdCorrelations.size() != 1) {
-            LOG.error("Failed to find a unique patient id with the given message id " + messageId);
+            LOG.error("Failed to find a unique patient id with the given message id {}", messageId);
         } else {
             PDDeferredCorrelation pdCorrelation = pdCorrelations.get(0);
             patientId = new II();
@@ -139,7 +143,8 @@ public class PDDeferredCorrelationDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            hibernateUtil.buildSessionFactory();
+            SessionFactory fact = hibernateUtil.getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -166,16 +171,17 @@ public class PDDeferredCorrelationDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PDDeferredCorrelationDao.save() - End");

@@ -49,6 +49,8 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringDAOImpl.class);
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     private static class SingletonHolder {
 
         public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
@@ -226,6 +228,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         if (session != null) {
             session.close();
         }
+        hibernateUtil.closeSessionFactory();
     }
 
     /**
@@ -249,7 +252,8 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      */
     protected Session getSession() {
         Session session = null;
-        final SessionFactory fact = HibernateUtil.getSessionFactory();
+        hibernateUtil.buildSessionFactory();
+        SessionFactory fact = hibernateUtil.getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {
@@ -257,4 +261,5 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         }
         return session;
     }
+
 }

@@ -48,6 +48,8 @@ public class AddressDAO {
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      * Constructor.
      */
@@ -88,7 +90,7 @@ public class AddressDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -112,7 +114,7 @@ public class AddressDAO {
 
                 }
 
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -122,7 +124,7 @@ public class AddressDAO {
                     session.close();
 
                 }
-
+                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -165,7 +167,7 @@ public class AddressDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -186,7 +188,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -199,6 +201,7 @@ public class AddressDAO {
 
             }
 
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AddressDAO.read() - End");
@@ -229,7 +232,7 @@ public class AddressDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -253,7 +256,7 @@ public class AddressDAO {
 
                 }
 
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -264,6 +267,7 @@ public class AddressDAO {
 
                 }
 
+                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -288,7 +292,7 @@ public class AddressDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -299,7 +303,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -312,6 +316,7 @@ public class AddressDAO {
 
             }
 
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AddressDAO.delete() - End");
@@ -351,7 +356,7 @@ public class AddressDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -366,7 +371,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -379,12 +384,18 @@ public class AddressDAO {
 
             }
 
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("readPatientAddresses.read() - End");
 
         return queryList;
 
+    }
+
+    protected SessionFactory getSessionFactory() {
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory();
     }
 
 }

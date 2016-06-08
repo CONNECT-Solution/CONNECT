@@ -49,6 +49,8 @@ public class IdentifierDAO {
 
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      *
      * Constructor
@@ -100,7 +102,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -124,7 +126,7 @@ public class IdentifierDAO {
 
                 }
 
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -177,7 +179,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -198,7 +200,7 @@ public class IdentifierDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -241,7 +243,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -265,7 +267,7 @@ public class IdentifierDAO {
 
                 }
 
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -300,7 +302,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -311,7 +313,7 @@ public class IdentifierDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -330,4 +332,8 @@ public class IdentifierDAO {
 
     }
 
+    protected SessionFactory getSessionFactory() {
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory();
+    }
 }

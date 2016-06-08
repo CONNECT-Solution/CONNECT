@@ -49,7 +49,9 @@ public class Retriever {
 
     private static final Logger LOG = LoggerFactory.getLogger(Retriever.class);
 
-    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
+    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrievePatientCorrelation(
                 qualifiedPatientIdentifier);
@@ -59,7 +61,7 @@ public class Retriever {
         return qualifiedPatientIdentifiers;
     }
 
-    private static List<QualifiedPatientIdentifier> filterByIncludeList(
+    private List<QualifiedPatientIdentifier> filterByIncludeList(
             List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers,
             List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> filteredQualifiedPatientIdentifiers;
@@ -90,7 +92,7 @@ public class Retriever {
         return found;
     }
 
-    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
 
@@ -166,7 +168,7 @@ public class Retriever {
         return list1;
     }
 
-    public static boolean doesCorrelationExist(CorrelatedIdentifiers correlatedIdentifers) {
+    public boolean doesCorrelationExist(CorrelatedIdentifiers correlatedIdentifers) {
         boolean exists;
 
         CorrelatedIdentifiers criteria;
@@ -191,7 +193,7 @@ public class Retriever {
         return exists;
     }
 
-    public static CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
+    public CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         List<CorrelatedIdentifiers> resultSet;
         CorrelatedIdentifiers result = new CorrelatedIdentifiers();
 
@@ -222,14 +224,14 @@ public class Retriever {
 
     }
 
-    private static List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
+    private List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         SessionFactory fact;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
-        // List<CorrelatedIdentifiers> modifiedResult = null;
 
         try {
-            fact = HibernateUtil.getSessionFactory();
+            hibernateUtil.buildSessionFactory();
+            fact = hibernateUtil.getSessionFactory();
             sess = fact.openSession();
 
             Criteria criteria;
@@ -270,11 +272,6 @@ public class Retriever {
             }
         }
 
-        // only non-expired patient correlation records will be returned.
-        // expired correlation records will be removed from the datebase.
-        // modifiedResult = removeExpiredCorrelations(result);
-
-        // return modifiedResult;
         return result;
     }
 

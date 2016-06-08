@@ -35,35 +35,55 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author JHOPPESC
  */
+@Service
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Create the SessionFactory
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             LOG.debug("Building the session factory in HibernateUtil in CONNECTCoreLib");
-            sessionFactory = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
         } catch (HibernateException he) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + he);
+            LOG.error("Initial SessionFactory creation failed. {}", he);
             throw new ExceptionInInitializerError(he);
         }
     }
 
     /**
-     * Method returns an instance of Hibernate SessionFactory.
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
+        } catch (HibernateException he) {
+            LOG.error("Error while closing the sessionFactory: {}", he.getLocalizedMessage(), he);
+        }
+    }
+
+    /**
+     * Method returns this utility's SessionFactory.
      *
      * @return SessionFactory
      */
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
@@ -72,9 +92,8 @@ public class HibernateUtil {
 
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_ASYNCMSGS_REPOSITORY);
-            // result = HibernateAccessor.getInstance().getHibernateFile("auditrepo.hbm.xml");
         } catch (Exception ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_ASYNCMSGS_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load {} {}", NhincConstants.HIBERNATE_ASYNCMSGS_REPOSITORY, ex.getMessage(), ex);
         }
 
         return result;

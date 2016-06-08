@@ -43,18 +43,36 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory SESSION_FACTORY;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Create the SessionFactory
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            SESSION_FACTORY = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
         } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
+            LOG.error("Initial SessionFactory creation failed. {}", ex, ex.getCause());
             throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
+        } catch (HibernateException he) {
+            LOG.error("Error occurred during closing sessionFactory: {}", he.getLocalizedMessage(), he);
         }
     }
 
@@ -63,8 +81,8 @@ public class HibernateUtil {
      *
      * @return SessionFactory The Hibernate Session Factory
      */
-    public static SessionFactory getSessionFactory() {
-        return SESSION_FACTORY;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
     private static File getConfigFile() {

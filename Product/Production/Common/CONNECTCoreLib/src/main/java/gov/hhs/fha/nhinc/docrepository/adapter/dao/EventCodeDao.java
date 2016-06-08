@@ -52,18 +52,22 @@ import org.hibernate.criterion.Subqueries;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * Data access object class for EventCode data.
  *
  * @author Neil Webb, msw
  */
+@Component
 public class EventCodeDao {
 
     /**
      * The Constant LOG.
      */
     private static final Logger LOG = LoggerFactory.getLogger(EventCodeDao.class);
+
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
     /**
      * The Constant EBXML_EVENT_CODE_LIST.
@@ -76,7 +80,8 @@ public class EventCodeDao {
      * @return the session factory
      */
     protected SessionFactory getSessionFactory() {
-        return HibernateUtil.getSessionFactory();
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory();
     }
 
     /**
@@ -119,16 +124,17 @@ public class EventCodeDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
     }
 
@@ -240,9 +246,10 @@ public class EventCodeDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
         return eventCodes;
     }
@@ -418,16 +425,17 @@ public class EventCodeDao {
                         }
                         resultCollection.add(singleValue);
                         if (LOG.isDebugEnabled()) {
-                            LOG.debug("Added single value: " + singleValue + " to query parameters");
+                            LOG.debug("Added single value: {} to query parameters", singleValue);
                         }
                     }
                 }
             } else {
                 resultCollection.add(paramFormattedString);
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                    LOG.debug("No wrapper on status - adding status: {} to query parameters", paramFormattedString);
                 }
             }
         }
     }
+
 }

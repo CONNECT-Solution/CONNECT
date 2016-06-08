@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author JHOPPESC
  */
+
 public class AsyncMsgRecordDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMsgRecordDao.class);
@@ -78,6 +79,8 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENT = "RSPSENT";
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
+
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
     public AsyncMsgRecordDao() {
         accessor = PropertyAccessor.getInstance();
@@ -124,6 +127,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -166,6 +170,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -205,6 +210,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -244,6 +250,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -281,6 +288,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -319,6 +327,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -406,6 +415,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: " + he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -452,6 +462,7 @@ public class AsyncMsgRecordDao {
                 if (session != null) {
                     session.close();
                 }
+                hibernateUtil.closeSessionFactory();
             }
         }
 
@@ -492,6 +503,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AsyncMsgRecordDao.save() - End");
@@ -541,6 +553,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AsyncMsgRecordDao.save(list) - End");
@@ -579,6 +592,7 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("Completed database record delete");
     }
@@ -666,13 +680,15 @@ public class AsyncMsgRecordDao {
     }
 
     protected Session getSession() {
+        hibernateUtil.buildSessionFactory();
+        SessionFactory fact = hibernateUtil.getSessionFactory();
+
         Session session = null;
-        SessionFactory fact = HibernateUtil.getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
-        } else {
-            LOG.error("Session is null");
         }
+
         return session;
     }
+
 }

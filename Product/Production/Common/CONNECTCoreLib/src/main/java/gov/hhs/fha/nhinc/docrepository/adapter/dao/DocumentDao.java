@@ -51,6 +51,8 @@ import org.slf4j.LoggerFactory;
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
      *
@@ -74,16 +76,17 @@ public class DocumentDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("Completed document save");
@@ -113,16 +116,17 @@ public class DocumentDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("Completed document delete");
     }
@@ -140,7 +144,7 @@ public class DocumentDao {
         try {
             sess = getSession();
             if (sess != null) {
-                document = (Document) sess.get(Document.class, documentId);
+                document = sess.get(Document.class, documentId);
             } else {
                 LOG.error("Failed to obtain a session from the sessionFactory");
             }
@@ -154,15 +158,12 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
         return document;
-    }
-
-    protected SessionFactory getSessionFactory() {
-        return HibernateUtil.getSessionFactory();
     }
 
     /**
@@ -193,9 +194,10 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
         return documents;
     }
@@ -378,16 +380,18 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
+            hibernateUtil.closeSessionFactory();
         }
         return documents;
     }
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = HibernateUtil.getSessionFactory();
+        hibernateUtil.buildSessionFactory();
+        SessionFactory fact = hibernateUtil.getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {

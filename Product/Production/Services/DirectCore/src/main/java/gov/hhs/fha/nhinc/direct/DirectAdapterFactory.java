@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.direct;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
-import org.hibernate.SessionFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,13 +48,14 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
     public void registerHandlers() {
         /**
          * TODO: There is a race condition on accessing the SessionFactory for both Direct Message Monitoring a Event
-         * Persistence; initializing both when the Direct Servlet is initialized as a workaround.
-         * <br/>
+         * Persistence; initializing both when the Direct Servlet is initialized as a workaround. <br/>
          * DO NOT remove either of the following two lines of code until this issue is resolved.
          */
-        SessionFactory eventSession = gov.hhs.fha.nhinc.event.persistence.HibernateUtil.getSessionFactory();
-        SessionFactory msgMonitorSession = gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil
-            .getSessionFactory();
+        gov.hhs.fha.nhinc.event.persistence.HibernateUtil eventHibernateUtil = new gov.hhs.fha.nhinc.event.persistence.HibernateUtil();
+        eventHibernateUtil.buildSessionFactory();
+
+        gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil messageHibernateUtil = new gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil();
+        messageHibernateUtil.buildSessionFactory();
 
         LOG.trace("Registering event Loggers");
         EventLoggerFactory.getInstance().registerLoggers();
@@ -68,10 +68,10 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
      */
     private void stopTaskScheduler() {
         LOG.trace("stop the Spring Task Scheduler...");
-        //get the manage bean scheduler
+        // get the manage bean scheduler
         ManageTaskScheduler manageTaskScheduler = new ComponentProxyFactory(CONFIG_FILE_NAME)
-            .getInstance(BEAN_NAME_MANAGE_TASK_SCHEDULER, ManageTaskScheduler.class);
-        //call the bean clean to shutdown the spring default task scheduler
+                .getInstance(BEAN_NAME_MANAGE_TASK_SCHEDULER, ManageTaskScheduler.class);
+        // call the bean clean to shutdown the spring default task scheduler
         if (manageTaskScheduler != null) {
             manageTaskScheduler.clean();
         }
@@ -82,7 +82,7 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
      */
     private void stopAgentSettingsManager() {
         LOG.trace("stop the Direct Agent Settings Manager...");
-        //stop the agent settings if its running
+        // stop the agent settings if its running
         if (GatewayState.getInstance().isAgentSettingManagerRunning()) {
             GatewayState.getInstance().stopAgentSettingsManager();
         }
@@ -93,9 +93,9 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
      */
     public void stopAll() {
         LOG.trace("stop All ...");
-        //stop the spring task sceduler
+        // stop the spring task sceduler
         stopTaskScheduler();
-        //stop the Direct Agent Settings Manager
+        // stop the Direct Agent Settings Manager
         stopAgentSettingsManager();
     }
 }

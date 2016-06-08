@@ -51,6 +51,8 @@ public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
 
+    private HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      * Constructor
      */
@@ -87,7 +89,7 @@ public class AuditRepositoryDAO {
                 if (tx != null) {
                     tx.rollback();
                 }
-                LOG.error("Error during insertion caused by :" + e.getLocalizedMessage(), e);
+                LOG.error("Error during insertion caused by : {}", e.getLocalizedMessage(), e);
             } finally {
                 closeSession(session);
             }
@@ -140,7 +142,7 @@ public class AuditRepositoryDAO {
 
             queryList = aCriteria.list();
         } catch (final HibernateException e) {
-            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -180,7 +182,7 @@ public class AuditRepositoryDAO {
             // if no criteria is passed then it will search full database with above mentioned columns in the result
             queryList = queryCriteria.list();
         } catch (final HibernateException e) {
-            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -238,7 +240,7 @@ public class AuditRepositoryDAO {
             queryList = queryCriteria.list();
 
         } catch (final HibernateException e) {
-            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -266,7 +268,7 @@ public class AuditRepositoryDAO {
 
             message = (Blob) queryCriteria.uniqueResult();
         } catch (final HibernateException e) {
-            LOG.error("Exception in AuditLog.get() occurred due to :" + e.getLocalizedMessage(), e);
+            LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -284,6 +286,7 @@ public class AuditRepositoryDAO {
         if (session != null) {
             session.close();
         }
+        hibernateUtil.closeSessionFactory();
     }
 
     /**
@@ -291,6 +294,8 @@ public class AuditRepositoryDAO {
      * @return Hibernate session
      */
     protected Session getSession() {
-        return HibernateUtil.getSessionFactory().openSession();
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory().openSession();
     }
+
 }

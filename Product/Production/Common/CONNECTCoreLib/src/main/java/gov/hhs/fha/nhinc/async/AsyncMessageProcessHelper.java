@@ -59,17 +59,21 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
  *
  * @author richard.ettema
  */
+@Component
 public class AsyncMessageProcessHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
+
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -369,7 +373,7 @@ public class AsyncMessageProcessHelper {
 
     private Blob getBlobFromMCCIIN000002UV01(final MCCIIN000002UV01 ack) {
         Blob asyncMessage = null; // Not Implemented
-
+        Session session = null;
         try {
             final JAXBContextHandler oHandler = new JAXBContextHandler();
             final JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
@@ -385,10 +389,16 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = getSession().getLobHelper().createBlob(buffer);
-            getSession().close();
+
+            session = getSession();
+            asyncMessage = session.getLobHelper().createBlob(buffer);
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMessage;
@@ -396,6 +406,7 @@ public class AsyncMessageProcessHelper {
 
     private Blob getBlobFromPRPAIN201305UV02RequestType(final RespondingGatewayPRPAIN201305UV02RequestType request) {
         Blob asyncMessage = null; // Not Implemented
+        Session session = null;
 
         try {
             final JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -409,9 +420,16 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = getSession().getLobHelper().createBlob(buffer);
+            session = getSession();
+            asyncMessage = session.getLobHelper().createBlob(buffer);
+
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMessage;
@@ -419,6 +437,7 @@ public class AsyncMessageProcessHelper {
 
     private Blob getBlobFromPRPAIN201306UV02RequestType(final RespondingGatewayPRPAIN201306UV02RequestType request) {
         Blob asyncMessage = null; // Not Implemented
+        Session session = null;
 
         try {
             final JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -432,9 +451,16 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             final byte[] buffer = baOutStrm.toByteArray();
-            asyncMessage = getSession().getLobHelper().createBlob(buffer);
+            session = getSession();
+            asyncMessage = session.getLobHelper().createBlob(buffer);
+
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMessage;
@@ -547,7 +573,8 @@ public class AsyncMessageProcessHelper {
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = HibernateUtil.getSessionFactory();
+        hibernateUtil.buildSessionFactory();
+        SessionFactory fact = hibernateUtil.getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {

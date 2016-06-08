@@ -49,6 +49,8 @@ public class TransactionDAO {
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
+    private static HibernateUtil hibernateUtil = new HibernateUtil();
+
     /**
      * The constructor.
      */
@@ -63,6 +65,7 @@ public class TransactionDAO {
      */
     public static TransactionDAO getInstance() {
         LOG.debug("getTransactionDAOInstance()...");
+        hibernateUtil = new HibernateUtil();
         return INSTANCE;
     }
 
@@ -81,7 +84,7 @@ public class TransactionDAO {
 
         if (transactionRepo != null) {
             try {
-                final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                final SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
@@ -96,6 +99,7 @@ public class TransactionDAO {
                 LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
                 closeSession(session);
+                hibernateUtil.closeSessionFactory();
             }
         }
         LOG.debug("TransactionDAO.insertIntoTransactionRepo() - End");
@@ -121,7 +125,7 @@ public class TransactionDAO {
         Session session = null;
 
         try {
-            final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            final SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
 
             if (LOG.isDebugEnabled()) {
@@ -155,6 +159,11 @@ public class TransactionDAO {
         if (tx != null) {
             tx.rollback();
         }
+    }
+
+    protected SessionFactory getSessionFactory() {
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory();
     }
 
 }

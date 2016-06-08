@@ -36,7 +36,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -55,6 +54,8 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
+
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
     /**
      * Constructor
@@ -90,7 +91,7 @@ public class PatientDAO {
 
         if (patientRecord != null) {
             try {
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
@@ -104,12 +105,13 @@ public class PatientDAO {
                 if (tx != null) {
                     tx.rollback();
                 }
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
             } finally {
                 // Actual Patient insertion will happen at this step
                 if (session != null) {
                     session.close();
                 }
+                hibernateUtil.closeSessionFactory();
             }
         }
         LOG.debug("PatientDAO.create() - End");
@@ -135,7 +137,7 @@ public class PatientDAO {
         List<Patient> queryList;
         Patient foundRecord = null;
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             LOG.info("Reading Record...");
 
@@ -150,13 +152,14 @@ public class PatientDAO {
                 foundRecord = queryList.get(0);
             }
         } catch (Exception e) {
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
                 session.flush();
                 session.close();
             }
+            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("PatientDAO.read() - End");
         return foundRecord;
@@ -176,7 +179,7 @@ public class PatientDAO {
 
         if (patientRecord != null) {
             try {
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Updating Record...");
@@ -190,12 +193,13 @@ public class PatientDAO {
                 if (tx != null) {
                     tx.rollback();
                 }
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
             } finally {
                 // Actual Patient update will happen at this step
                 if (session != null) {
                     session.close();
                 }
+                hibernateUtil.closeSessionFactory();
             }
         }
         LOG.debug("PatientDAO.update() - End");
@@ -212,20 +216,21 @@ public class PatientDAO {
 
         Session session = null;
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             LOG.info("Deleting Record...");
 
             // Delete the Patient record
             session.delete(patientRecord);
         } catch (Exception e) {
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
                 session.flush();
                 session.close();
             }
+            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("PatientDAO.delete() - End");
     }
@@ -246,7 +251,7 @@ public class PatientDAO {
         List<Patient> patientsList = new ArrayList<>();
 
         try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
 
             LOG.info("Reading Records...");
@@ -401,10 +406,11 @@ public class PatientDAO {
 
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
-            SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString()).addScalar("patientId", StandardBasicTypes.LONG)
-                    .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP).addScalar("gender", StandardBasicTypes.STRING)
-                    .addScalar("ssn", StandardBasicTypes.STRING).addScalar("id", StandardBasicTypes.STRING)
-                    .addScalar("organizationid", StandardBasicTypes.STRING);
+            SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString())
+                    .addScalar("patientId", StandardBasicTypes.LONG)
+                    .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
+                    .addScalar("gender", StandardBasicTypes.STRING).addScalar("ssn", StandardBasicTypes.STRING)
+                    .addScalar("id", StandardBasicTypes.STRING).addScalar("organizationid", StandardBasicTypes.STRING);
 
             int iParam = 0;
             if (NullChecker.isNotNullish(gender)) {
@@ -514,16 +520,22 @@ public class PatientDAO {
             }
 
         } catch (Exception e) {
-            LOG.error("Exception during read occured due to : " + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
                 session.flush();
                 session.close();
             }
+            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("PatientDAO.findPatients() - End");
         return patientsList;
+    }
+
+    protected SessionFactory getSessionFactory() {
+        hibernateUtil.buildSessionFactory();
+        return hibernateUtil.getSessionFactory();
     }
 
 }
