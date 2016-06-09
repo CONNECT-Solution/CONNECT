@@ -40,6 +40,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -49,7 +50,7 @@ public class Retriever {
 
     private static final Logger LOG = LoggerFactory.getLogger(Retriever.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
@@ -230,8 +231,7 @@ public class Retriever {
         List<CorrelatedIdentifiers> result = null;
 
         try {
-            hibernateUtil.buildSessionFactory();
-            fact = hibernateUtil.getSessionFactory();
+            fact = getHibernateUtil().getSessionFactory();
             sess = fact.openSession();
 
             Criteria criteria;
@@ -304,4 +304,12 @@ public class Retriever {
 
         return modifiedResult;
     }
+
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        hibernateUtil = context.getBean("patientCorrHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
+    }
+
 }

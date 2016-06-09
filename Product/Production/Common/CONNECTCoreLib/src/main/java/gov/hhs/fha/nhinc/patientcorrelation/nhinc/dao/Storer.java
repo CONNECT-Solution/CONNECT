@@ -35,6 +35,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -43,6 +44,8 @@ import org.slf4j.LoggerFactory;
 public class Storer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Storer.class);
+
+    private static HibernateUtil hibernateUtil;
 
     public static void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.info("patient correlation add requested");
@@ -63,14 +66,12 @@ public class Storer {
         Session sess = null;
         Transaction trans = null;
         Retriever retriever = new Retriever();
-        HibernateUtil hibernateUtil = new HibernateUtil();
         CorrelatedIdentifiers singleRecord = retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
 
         singleRecord.setCorrelationExpirationDate(correlatedIdentifers.getCorrelationExpirationDate());
 
         try {
-            hibernateUtil.buildSessionFactory();
-            fact = hibernateUtil.getSessionFactory();
+            fact = getHibernateUtil().getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 trans = sess.beginTransaction();
@@ -93,7 +94,6 @@ public class Storer {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
 
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
@@ -107,8 +107,7 @@ public class Storer {
         HibernateUtil hibernateUtil = new HibernateUtil();
 
         try {
-            hibernateUtil.buildSessionFactory();
-            fact = hibernateUtil.getSessionFactory();
+            fact = getHibernateUtil().getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 trans = sess.beginTransaction();
@@ -132,7 +131,6 @@ public class Storer {
                 }
             }
 
-            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.addPatientCorrelation() ---");
     }
@@ -142,7 +140,6 @@ public class Storer {
         SessionFactory fact = null;
         Session sess = null;
         Transaction trans = null;
-        HibernateUtil hibernateUtil = new HibernateUtil();
 
         String deleteCorrelatedIdentifiersSQL = "delete from correlatedidentifiers "
                 + "where ((PatientAssigningAuthorityId = :patientAssigningAuthority " + "and PatientId= :patientId "
@@ -159,8 +156,7 @@ public class Storer {
         String paramCorrelatedPatientAssignAuthId = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
         String paramCorrelatedPatientId = correlatedIdentifers.getCorrelatedPatientId();
         try {
-            hibernateUtil.buildSessionFactory();
-            fact = hibernateUtil.getSessionFactory();
+            fact = getHibernateUtil().getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -201,10 +197,15 @@ public class Storer {
                 }
             }
 
-            hibernateUtil.closeSessionFactory();
-
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.removePatientCorrelation() ---");
+    }
+
+    protected static HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        hibernateUtil = context.getBean("patientCorrHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
 }

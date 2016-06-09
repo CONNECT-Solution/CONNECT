@@ -49,6 +49,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -59,7 +60,7 @@ public class AuditDBStoreImpl implements AuditStore {
     private static final Logger LOG = LoggerFactory.getLogger(AuditDBStoreImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     @Override
     public boolean saveAuditRecord(LogEventSecureRequestType request, AssertionType assertion) {
@@ -104,8 +105,7 @@ public class AuditDBStoreImpl implements AuditStore {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            hibernateUtil.buildSessionFactory();
-            eventMessage = hibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(buffer);
+            eventMessage = getHibernateUtil().getSessionFactory().openSession().getLobHelper().createBlob(buffer);
         } catch (JAXBException | IOException e) {
             LOG.error("Exception during Blob conversion : {}", e.getLocalizedMessage(), e);
         }
@@ -125,6 +125,18 @@ public class AuditDBStoreImpl implements AuditStore {
         Date eventDate = cal.getTime();
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
+    }
+
+    /**
+     * Load HibernateUtil bean.
+     *
+     * @return hibernateUtil
+     */
+    private HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
+        hibernateUtil = context.getBean("auditRepoHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
 }

@@ -37,6 +37,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 /**
  * TransactionDAO provides methods to query and update the transrepo database.
@@ -44,12 +46,13 @@ import org.slf4j.LoggerFactory;
  * @author jasonasmith
  *
  */
+@Service
 public class TransactionDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
-    private static HibernateUtil hibernateUtil = new HibernateUtil();
+    private static HibernateUtil hibernateUtil;
 
     /**
      * The constructor.
@@ -65,8 +68,16 @@ public class TransactionDAO {
      */
     public static TransactionDAO getInstance() {
         LOG.debug("getTransactionDAOInstance()...");
-        hibernateUtil = new HibernateUtil();
+        ClassPathXmlApplicationContext context = SingletonHolder.INSTANCE_CONTEXT;
+        LOG.debug("Memory address " + context.getId());
+        hibernateUtil = context.getBean("txHibernateUtil", HibernateUtil.class);
+
         return INSTANCE;
+    }
+
+    private static class SingletonHolder {
+        public static final ClassPathXmlApplicationContext INSTANCE_CONTEXT = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
     }
 
     /**
@@ -84,7 +95,7 @@ public class TransactionDAO {
 
         if (transactionRepo != null) {
             try {
-                final SessionFactory sessionFactory = getSessionFactory();
+                final SessionFactory sessionFactory = getTxHibernateUtil().getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
@@ -99,7 +110,6 @@ public class TransactionDAO {
                 LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
                 closeSession(session);
-                hibernateUtil.closeSessionFactory();
             }
         }
         LOG.debug("TransactionDAO.insertIntoTransactionRepo() - End");
@@ -125,7 +135,7 @@ public class TransactionDAO {
         Session session = null;
 
         try {
-            final SessionFactory sessionFactory = getSessionFactory();
+            final SessionFactory sessionFactory = getTxHibernateUtil().getSessionFactory();
             session = sessionFactory.openSession();
 
             if (LOG.isDebugEnabled()) {
@@ -161,9 +171,10 @@ public class TransactionDAO {
         }
     }
 
-    protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
+    /**
+     * @return the HibernateUtil
+     */
+    protected HibernateUtil getTxHibernateUtil() {
+        return hibernateUtil;
     }
-
 }

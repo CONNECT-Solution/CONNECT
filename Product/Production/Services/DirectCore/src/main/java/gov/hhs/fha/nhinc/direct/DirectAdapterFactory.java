@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Direct Client Factory responsible for {@link DirectAdapter}.
@@ -51,12 +52,13 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
          * Persistence; initializing both when the Direct Servlet is initialized as a workaround. <br/>
          * DO NOT remove either of the following two lines of code until this issue is resolved.
          */
+
         gov.hhs.fha.nhinc.event.persistence.HibernateUtil eventHibernateUtil = new gov.hhs.fha.nhinc.event.persistence.HibernateUtil();
         eventHibernateUtil.buildSessionFactory();
 
         gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil messageHibernateUtil = new gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil();
         messageHibernateUtil.buildSessionFactory();
-
+        
         LOG.trace("Registering event Loggers");
         EventLoggerFactory.getInstance().registerLoggers();
         LOG.trace("Registering handlers...");

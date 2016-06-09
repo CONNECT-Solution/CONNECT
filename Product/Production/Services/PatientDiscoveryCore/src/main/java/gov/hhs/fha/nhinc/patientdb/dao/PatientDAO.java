@@ -44,6 +44,7 @@ import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * PatientDAO Class provides methods to query and update Patient Data to/from MySQL Database using Hibernate
@@ -55,7 +56,7 @@ public class PatientDAO {
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      * Constructor
@@ -72,6 +73,18 @@ public class PatientDAO {
     public static PatientDAO getPatientDAOInstance() {
         LOG.debug("getPatientDAOInstance()..");
         return patientDAO;
+    }
+
+    /**
+     * Load HibernateUtil bean.
+     *
+     * @return hibernateUtil
+     */
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
+        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
     // =========================
@@ -111,7 +124,6 @@ public class PatientDAO {
                 if (session != null) {
                     session.close();
                 }
-                hibernateUtil.closeSessionFactory();
             }
         }
         LOG.debug("PatientDAO.create() - End");
@@ -159,7 +171,6 @@ public class PatientDAO {
                 session.flush();
                 session.close();
             }
-            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("PatientDAO.read() - End");
         return foundRecord;
@@ -199,7 +210,6 @@ public class PatientDAO {
                 if (session != null) {
                     session.close();
                 }
-                hibernateUtil.closeSessionFactory();
             }
         }
         LOG.debug("PatientDAO.update() - End");
@@ -230,7 +240,6 @@ public class PatientDAO {
                 session.flush();
                 session.close();
             }
-            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("PatientDAO.delete() - End");
     }
@@ -527,15 +536,13 @@ public class PatientDAO {
                 session.flush();
                 session.close();
             }
-            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("PatientDAO.findPatients() - End");
         return patientsList;
     }
 
     protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
+        return getHibernateUtil().getSessionFactory();
     }
 
 }

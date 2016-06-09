@@ -36,6 +36,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -49,7 +50,7 @@ public class IdentifierDAO {
 
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      *
@@ -73,6 +74,18 @@ public class IdentifierDAO {
 
         return identifierDAO;
 
+    }
+
+    /**
+     * Load HibernateUtil bean.
+     *
+     * @return hibernateUtil
+     */
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
+        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
     // =========================
@@ -102,7 +115,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -179,7 +192,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -243,7 +256,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -302,7 +315,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -332,8 +345,4 @@ public class IdentifierDAO {
 
     }
 
-    protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
-    }
 }

@@ -36,6 +36,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -49,7 +50,7 @@ public class PersonnameDAO {
 
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      *
@@ -73,6 +74,18 @@ public class PersonnameDAO {
 
         return personnameDAO;
 
+    }
+
+    /**
+     * Load HibernateUtil bean.
+     *
+     * @return hibernateUtil
+     */
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
+        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
     // =========================
@@ -136,7 +149,6 @@ public class PersonnameDAO {
                     session.close();
 
                 }
-                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -212,7 +224,6 @@ public class PersonnameDAO {
                 session.close();
 
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PersonnameDAO.read() - End");
@@ -277,7 +288,6 @@ public class PersonnameDAO {
                     session.close();
 
                 }
-                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -325,7 +335,6 @@ public class PersonnameDAO {
                 session.close();
 
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PersonnameDAO.delete() - End");
@@ -392,7 +401,6 @@ public class PersonnameDAO {
                 session.close();
 
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
@@ -402,8 +410,7 @@ public class PersonnameDAO {
     }
 
     protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
+        return getHibernateUtil().getSessionFactory();
     }
 
 }

@@ -37,6 +37,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -46,7 +47,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
@@ -99,7 +100,6 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                         LOG.error("Failed to close session: {}", he.getMessage(), he);
                     }
                 }
-                hibernateUtil.closeSessionFactory();
             }
         } else {
             LOG.error("Please provide a valid homeCommunityId");
@@ -144,7 +144,6 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                         LOG.error("Failed to close session: {}", he.getMessage(), he);
                     }
                 }
-                hibernateUtil.closeSessionFactory();
             }
         } else {
             LOG.error("Enter correct assigning authority");
@@ -207,7 +206,6 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                         LOG.error("Failed to close session: {}", he.getMessage(), he);
                     }
                 }
-                hibernateUtil.closeSessionFactory();
             }
         } else {
             LOG.error("Invalid data entered, Enter Valid data to store");
@@ -219,8 +217,14 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
     }
 
     protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
+        return getHibernateUtil().getSessionFactory();
+    }
+
+    private HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        hibernateUtil = context.getBean("connManHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
 }

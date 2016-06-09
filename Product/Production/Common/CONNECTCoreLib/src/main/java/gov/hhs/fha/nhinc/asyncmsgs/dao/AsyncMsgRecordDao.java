@@ -47,6 +47,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -80,7 +81,7 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     public AsyncMsgRecordDao() {
         accessor = PropertyAccessor.getInstance();
@@ -88,6 +89,14 @@ public class AsyncMsgRecordDao {
 
     public AsyncMsgRecordDao(PropertyAccessor accessor) {
         this.accessor = accessor;
+    }
+
+    private HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        LOG.debug("Memory address " + context.getId());
+        hibernateUtil = context.getBean("asyncmsgsHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
     /**
@@ -127,7 +136,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -170,7 +178,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -210,7 +217,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -250,7 +256,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -288,7 +293,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -327,7 +331,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -415,7 +418,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: " + he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMsgRecs;
@@ -462,7 +464,6 @@ public class AsyncMsgRecordDao {
                 if (session != null) {
                     session.close();
                 }
-                hibernateUtil.closeSessionFactory();
             }
         }
 
@@ -503,7 +504,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AsyncMsgRecordDao.save() - End");
@@ -553,7 +553,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AsyncMsgRecordDao.save(list) - End");
@@ -592,7 +591,6 @@ public class AsyncMsgRecordDao {
                     LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("Completed database record delete");
     }
@@ -680,8 +678,7 @@ public class AsyncMsgRecordDao {
     }
 
     protected Session getSession() {
-        hibernateUtil.buildSessionFactory();
-        SessionFactory fact = hibernateUtil.getSessionFactory();
+        SessionFactory fact = getHibernateUtil().getSessionFactory();
 
         Session session = null;
         if (fact != null) {

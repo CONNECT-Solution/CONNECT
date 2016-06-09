@@ -66,6 +66,7 @@ public class HibernateUtil {
      * Method closes the Hibernate SessionFactory
      */
     public void closeSessionFactory() {
+        LOG.info("Closing sessionFactory in HibernateUtil");
         try {
             if (sessionFactory != null && !sessionFactory.isClosed()) {
                 sessionFactory.close();

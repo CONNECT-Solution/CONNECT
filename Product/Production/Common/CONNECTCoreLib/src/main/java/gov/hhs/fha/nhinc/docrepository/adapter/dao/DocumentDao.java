@@ -42,6 +42,7 @@ import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Data access object class for Document data
@@ -51,7 +52,7 @@ import org.slf4j.LoggerFactory;
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private static HibernateUtil hibernateUtil;
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
@@ -86,7 +87,6 @@ public class DocumentDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("Completed document save");
@@ -126,7 +126,6 @@ public class DocumentDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
         LOG.debug("Completed document delete");
     }
@@ -161,7 +160,6 @@ public class DocumentDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
         return document;
     }
@@ -197,7 +195,6 @@ public class DocumentDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
         return documents;
     }
@@ -383,21 +380,26 @@ public class DocumentDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
         return documents;
     }
 
     protected Session getSession() {
         Session session = null;
-        hibernateUtil.buildSessionFactory();
-        SessionFactory fact = hibernateUtil.getSessionFactory();
+        SessionFactory fact = getHibernateUtil().getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {
             LOG.error("Session is null");
         }
         return session;
+    }
+
+    private static HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        hibernateUtil = context.getBean("docRepoHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
 }

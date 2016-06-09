@@ -50,6 +50,7 @@ public class HibernateUtil {
     /**
      * Method builds the Hibernate SessionFactory.
      */
+
     public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
@@ -70,6 +71,7 @@ public class HibernateUtil {
     public void closeSessionFactory() {
         try {
             if (sessionFactory != null && !sessionFactory.isClosed()) {
+                LOG.info("About to close sessionfactory in transaction.persistence.HibernateUtil");
                 sessionFactory.close();
             }
         } catch (HibernateException he) {

@@ -39,6 +39,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Class provides MessageMonitoringDb database interface services
@@ -49,11 +50,16 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringDAOImpl.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     private static class SingletonHolder {
 
+        private SingletonHolder() {
+        }
+
         public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
+        public static final ClassPathXmlApplicationContext INSTANCE_CONTEXT = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
     }
 
     /**
@@ -64,6 +70,12 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
     public static MessageMonitoringDAO getInstance() {
         LOG.debug("getInstance()...");
         return SingletonHolder.INSTANCE;
+    }
+
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = SingletonHolder.INSTANCE_CONTEXT;
+        hibernateUtil = context.getBean("msgMonitorHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
     /**
@@ -202,7 +214,6 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
     @Override
     public List<MonitoredMessage> getAllPendingMessages() {
         Session session = null;
-        final Transaction tx = null;
         List<MonitoredMessage> pendingList = new ArrayList<>();
 
         try {
@@ -228,7 +239,6 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         if (session != null) {
             session.close();
         }
-        hibernateUtil.closeSessionFactory();
     }
 
     /**
@@ -252,8 +262,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
      */
     protected Session getSession() {
         Session session = null;
-        hibernateUtil.buildSessionFactory();
-        SessionFactory fact = hibernateUtil.getSessionFactory();
+        SessionFactory fact = getHibernateUtil().getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {

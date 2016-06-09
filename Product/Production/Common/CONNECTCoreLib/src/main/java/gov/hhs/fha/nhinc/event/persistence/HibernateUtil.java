@@ -65,11 +65,9 @@ public class HibernateUtil {
                 sessionFactory = new Configuration().configure()
                         .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
             }
-        } catch (HibernateException he) {
+        } catch (ExceptionInInitializerError he) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + he, he.getCause());
-            LOG.error("Initial SessionFactory creation failed." + he);
-            throw new ExceptionInInitializerError(he);
+            LOG.error("Initial SessionFactory creation failed. {}", he, he.getCause());
         }
     }
 
@@ -77,9 +75,11 @@ public class HibernateUtil {
      * Method closes the Hibernate SessionFactory
      */
     public void closeSessionFactory() {
+        LOG.info("Closing sessionFactory in HibernateUtil");
         try {
             if (sessionFactory != null && !sessionFactory.isClosed()) {
                 sessionFactory.close();
+                LOG.info("Successfully closed sessionFactory in event.persistence.HibernateUtil");
             }
         } catch (HibernateException he) {
             LOG.error("Error while closing the sessionFactory: {}", he.getLocalizedMessage(), he);

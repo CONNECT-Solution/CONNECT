@@ -38,6 +38,7 @@ import org.hibernate.Transaction;
 import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -47,7 +48,7 @@ public class PDDeferredCorrelationDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDDeferredCorrelationDao.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      * Query by Message Id. This should return only one record.
@@ -63,8 +64,7 @@ public class PDDeferredCorrelationDao {
         II patientId = null;
 
         try {
-            hibernateUtil.buildSessionFactory();
-            SessionFactory fact = hibernateUtil.getSessionFactory();
+            SessionFactory fact = getHibernateUtil().getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -143,8 +143,7 @@ public class PDDeferredCorrelationDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            hibernateUtil.buildSessionFactory();
-            SessionFactory fact = hibernateUtil.getSessionFactory();
+            SessionFactory fact = getHibernateUtil().getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -181,10 +180,17 @@ public class PDDeferredCorrelationDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("PDDeferredCorrelationDao.save() - End");
+    }
+
+    private HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        LOG.debug("Memory address " + context.getId());
+        hibernateUtil = context.getBean("patientCorrHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
 }

@@ -41,6 +41,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * AuditRepositoryDAO Class provides methods to query and update Audit Data to/from MySQL Database using Hibernate
@@ -51,7 +52,7 @@ public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      * Constructor
@@ -286,7 +287,6 @@ public class AuditRepositoryDAO {
         if (session != null) {
             session.close();
         }
-        hibernateUtil.closeSessionFactory();
     }
 
     /**
@@ -294,8 +294,19 @@ public class AuditRepositoryDAO {
      * @return Hibernate session
      */
     protected Session getSession() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory().openSession();
+        return getHibernateUtil().getSessionFactory().openSession();
+    }
+
+    /**
+     * Load HibernateUtil bean.
+     *
+     * @return hibernateUtil
+     */
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
+        hibernateUtil = context.getBean("auditRepoHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
 }

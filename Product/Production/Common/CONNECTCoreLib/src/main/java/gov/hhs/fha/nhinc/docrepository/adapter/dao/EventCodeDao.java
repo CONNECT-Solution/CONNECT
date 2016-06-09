@@ -52,6 +52,7 @@ import org.hibernate.criterion.Subqueries;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -67,7 +68,7 @@ public class EventCodeDao {
      */
     private static final Logger LOG = LoggerFactory.getLogger(EventCodeDao.class);
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      * The Constant EBXML_EVENT_CODE_LIST.
@@ -75,13 +76,24 @@ public class EventCodeDao {
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
 
     /**
+     * Gets the static HibernateUtil
+     *
+     * @return hibernateUtil
+     */
+    private HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        hibernateUtil = context.getBean("docRepoHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
+    }
+
+    /**
      * Gets the session factory.
      *
      * @return the session factory
      */
     protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
+        return getHibernateUtil().getSessionFactory();
     }
 
     /**
@@ -134,7 +146,6 @@ public class EventCodeDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
     }
 
@@ -249,7 +260,6 @@ public class EventCodeDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
         return eventCodes;
     }

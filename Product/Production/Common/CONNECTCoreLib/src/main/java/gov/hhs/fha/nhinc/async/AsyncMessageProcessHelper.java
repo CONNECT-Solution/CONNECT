@@ -59,6 +59,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -73,7 +74,7 @@ public class AsyncMessageProcessHelper {
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private static HibernateUtil hibernateUtil;
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -398,7 +399,6 @@ public class AsyncMessageProcessHelper {
             if (session != null) {
                 session.close();
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMessage;
@@ -429,7 +429,6 @@ public class AsyncMessageProcessHelper {
             if (session != null) {
                 session.close();
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMessage;
@@ -460,7 +459,6 @@ public class AsyncMessageProcessHelper {
             if (session != null) {
                 session.close();
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         return asyncMessage;
@@ -573,8 +571,7 @@ public class AsyncMessageProcessHelper {
 
     protected Session getSession() {
         Session session = null;
-        hibernateUtil.buildSessionFactory();
-        SessionFactory fact = hibernateUtil.getSessionFactory();
+        SessionFactory fact = getHibernateUtil().getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {
@@ -583,4 +580,14 @@ public class AsyncMessageProcessHelper {
         return session;
     }
 
+    /**
+     * @return the HibernateUtil
+     */
+    protected static HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        LOG.debug("Memory address " + context.getId());
+        hibernateUtil = context.getBean("asyncmsgsHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
+    }
 }

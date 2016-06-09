@@ -36,6 +36,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -48,7 +49,7 @@ public class AddressDAO {
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
 
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil;
 
     /**
      * Constructor.
@@ -65,6 +66,18 @@ public class AddressDAO {
     public static AddressDAO getAddressDAOInstance() {
         LOG.debug("getAddressDAOInstance()..");
         return addressDAO;
+    }
+
+    /**
+     * Load HibernateUtil bean.
+     *
+     * @return hibernateUtil
+     */
+    protected HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:spring-beans.xml" });
+        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
+        return hibernateUtil;
     }
 
     // =========================
@@ -124,7 +137,6 @@ public class AddressDAO {
                     session.close();
 
                 }
-                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -200,8 +212,6 @@ public class AddressDAO {
                 session.close();
 
             }
-
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AddressDAO.read() - End");
@@ -266,8 +276,6 @@ public class AddressDAO {
                     session.close();
 
                 }
-
-                hibernateUtil.closeSessionFactory();
             }
 
         }
@@ -315,8 +323,6 @@ public class AddressDAO {
                 session.close();
 
             }
-
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("AddressDAO.delete() - End");
@@ -383,8 +389,6 @@ public class AddressDAO {
                 session.close();
 
             }
-
-            hibernateUtil.closeSessionFactory();
         }
 
         LOG.debug("readPatientAddresses.read() - End");
@@ -394,8 +398,7 @@ public class AddressDAO {
     }
 
     protected SessionFactory getSessionFactory() {
-        hibernateUtil.buildSessionFactory();
-        return hibernateUtil.getSessionFactory();
+        return getHibernateUtil().getSessionFactory();
     }
 
 }
