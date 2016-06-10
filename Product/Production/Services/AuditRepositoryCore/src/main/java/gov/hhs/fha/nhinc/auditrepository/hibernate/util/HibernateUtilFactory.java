@@ -19,6 +19,8 @@ public class HibernateUtilFactory {
 
     private static final String AUDIT_REPO_HIBERNATE = "auditRepoHibernateUtil";
 
+    private static HibernateUtil hibernateUtil;
+
     /**
      * Private constructor to hide the public one.
      */
@@ -50,8 +52,11 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getAuditRepoHibernateUtil {}", context.getId());
-        return context.getBean(AUDIT_REPO_HIBERNATE,
-                gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil.class);
+        if (hibernateUtil == null) {
+            hibernateUtil = context.getBean(AUDIT_REPO_HIBERNATE,
+                    gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil.class);
+        }
+        return hibernateUtil;
     }
 
 }

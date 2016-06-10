@@ -51,7 +51,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getDocRepoHibernateUtil();
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
@@ -385,8 +384,10 @@ public class DocumentDao {
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = hibernateUtil.getSessionFactory();
-        if (fact != null) {
+
+        HibernateUtil util = HibernateUtilFactory.getDocRepoHibernateUtil();
+        if (util != null) {
+            SessionFactory fact = util.getSessionFactory();
             session = fact.openSession();
         } else {
             LOG.error("Session is null");

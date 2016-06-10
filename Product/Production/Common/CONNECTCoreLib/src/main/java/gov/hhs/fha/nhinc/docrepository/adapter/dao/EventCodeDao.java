@@ -41,7 +41,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -72,27 +71,17 @@ public class EventCodeDao {
      */
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getDocRepoHibernateUtil();
-
-    /**
-     * Gets the session factory.
-     *
-     * @return the session factory
-     */
-    protected SessionFactory getSessionFactory() {
-        return hibernateUtil.getSessionFactory();
-    }
-
     /**
      * Gets the session.
      *
      * @param sessionFactory the session factory
      * @return the session
      */
-    protected Session getSession(SessionFactory sessionFactory) {
+    protected Session getSession() {
         Session session = null;
-        if (sessionFactory != null) {
-            session = sessionFactory.openSession();
+        HibernateUtil util = HibernateUtilFactory.getDocRepoHibernateUtil();
+        if (util != null) {
+            session = util.getSessionFactory().openSession();
         }
         return session;
     }
@@ -106,18 +95,15 @@ public class EventCodeDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = getSessionFactory();
-            if (fact != null) {
-                sess = getSession(fact);
-                if (sess != null) {
-                    trans = sess.beginTransaction();
-                    sess.delete(eventCode);
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+
+            sess = getSession();
+            if (sess != null) {
+                trans = sess.beginTransaction();
+                sess.delete(eventCode);
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
+
         } finally {
             if (trans != null) {
                 try {
@@ -149,7 +135,7 @@ public class EventCodeDao {
         List<String> eventCodeSchemeList = new ArrayList<>();
         Session sess = null;
         try {
-            sess = getSession(getSessionFactory());
+            sess = getSession();
 
             if (sess != null) {
                 Criteria criteria = sess.createCriteria(EventCode.class);

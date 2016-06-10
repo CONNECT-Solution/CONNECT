@@ -47,7 +47,6 @@ import org.slf4j.LoggerFactory;
 public class PDDeferredCorrelationDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDDeferredCorrelationDao.class);
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientCorrHibernateUtil();
 
     /**
      * Query by Message Id. This should return only one record.
@@ -190,10 +189,10 @@ public class PDDeferredCorrelationDao {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
+        HibernateUtil util = HibernateUtilFactory.getPatientCorrHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
         }
         return fact;
     }
-
 }

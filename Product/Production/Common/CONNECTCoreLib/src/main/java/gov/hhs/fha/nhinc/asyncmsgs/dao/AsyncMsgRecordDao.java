@@ -80,8 +80,6 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
 
-    private HibernateUtil hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
-
     public AsyncMsgRecordDao() {
         accessor = PropertyAccessor.getInstance();
     }
@@ -676,6 +674,7 @@ public class AsyncMsgRecordDao {
     protected Session getSession() {
 
         Session session = null;
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
         if (hibernateUtil != null) {
             session = hibernateUtil.getSessionFactory().openSession();
         }

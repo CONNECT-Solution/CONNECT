@@ -55,7 +55,6 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
 
     /**
      * Constructor
@@ -535,6 +534,7 @@ public class PatientDAO {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();
         }

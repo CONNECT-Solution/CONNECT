@@ -16,12 +16,12 @@ public class HibernateUtilFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtilFactory.class);
     private static final String PATIENT_DISCOVERY_HIBERNATE = "patientDbHibernateUtil";
+    private static HibernateUtil hibernateUtil;
 
     /**
      * Private constructor to hide the public one.
      */
     private HibernateUtilFactory() {
-
     }
 
     /**
@@ -48,7 +48,12 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getPatientDiscHibernateUtil {}", context.getId());
-        return context.getBean(PATIENT_DISCOVERY_HIBERNATE, HibernateUtil.class);
+
+        if (hibernateUtil == null) {
+            hibernateUtil = context.getBean(PATIENT_DISCOVERY_HIBERNATE, HibernateUtil.class);
+        }
+
+        return hibernateUtil;
     }
 
 }

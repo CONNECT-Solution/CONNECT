@@ -59,7 +59,6 @@ public class AuditDBStoreImpl implements AuditStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditDBStoreImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getAuditRepoHibernateUtil();
 
     @Override
     public boolean saveAuditRecord(LogEventSecureRequestType request, AssertionType assertion) {
@@ -132,7 +131,7 @@ public class AuditDBStoreImpl implements AuditStore {
      * @return hibernateUtil
      */
     private static HibernateUtil getHibernateUtil() {
-        return hibernateUtil;
+        return HibernateUtilFactory.getAuditRepoHibernateUtil();
     }
 
 }

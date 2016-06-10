@@ -46,7 +46,6 @@ import org.slf4j.LoggerFactory;
 public class AssigningAuthorityHomeCommunityMappingDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getConnManHibernateUtil();
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
@@ -112,7 +111,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method retrieves Home Community for an Assigning Authority...
-     * 
+     *
      * @param assigningAuthority
      * @return
      */
@@ -218,8 +217,9 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
+        HibernateUtil util = HibernateUtilFactory.getConnManHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
         }
         return fact;
     }

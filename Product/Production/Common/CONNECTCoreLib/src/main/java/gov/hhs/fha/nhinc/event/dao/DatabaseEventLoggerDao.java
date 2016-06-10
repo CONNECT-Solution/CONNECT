@@ -51,7 +51,6 @@ public class DatabaseEventLoggerDao {
     private static final String EVENT_TYPE_NAME = "eventName";
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getEventHibernateUtil();
 
     private static class SingletonHolder {
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
@@ -161,9 +160,9 @@ public class DatabaseEventLoggerDao {
 
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
+        HibernateUtil util = HibernateUtilFactory.getEventHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
         }
         return fact;
     }

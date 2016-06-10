@@ -49,7 +49,6 @@ import org.slf4j.LoggerFactory;
 public class Retriever {
 
     private static final Logger LOG = LoggerFactory.getLogger(Retriever.class);
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientCorrHibernateUtil();
 
     public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {

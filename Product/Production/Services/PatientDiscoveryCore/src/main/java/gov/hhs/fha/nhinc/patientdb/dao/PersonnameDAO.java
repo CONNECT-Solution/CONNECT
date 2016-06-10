@@ -50,8 +50,6 @@ public class PersonnameDAO {
 
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
-
     /**
      *
      * Constructor
@@ -404,6 +402,7 @@ public class PersonnameDAO {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();
         }

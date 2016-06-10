@@ -53,8 +53,6 @@ public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getAuditRepoHibernateUtil();
-
     /**
      * Constructor
      */
@@ -305,6 +303,7 @@ public class AuditRepositoryDAO {
      */
     protected Session getSession() {
         Session session = null;
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getAuditRepoHibernateUtil();
 
         if (hibernateUtil != null) {
             session = hibernateUtil.getSessionFactory().openSession();

@@ -50,8 +50,6 @@ public class PhonenumberDAO {
 
     private static PhonenumberDAO phonenumberDAO = new PhonenumberDAO();
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
-
     /**
      *
      * Constructor
@@ -410,6 +408,7 @@ public class PhonenumberDAO {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();
         }

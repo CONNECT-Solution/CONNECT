@@ -50,8 +50,6 @@ public class TransactionDAO {
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getTransactionHibernateUtil();
-
     /**
      * The constructor.
      */
@@ -166,7 +164,12 @@ public class TransactionDAO {
      * @return sessionFactory
      */
     protected static SessionFactory getSessionFactory() {
-        return hibernateUtil.getSessionFactory();
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getTransactionHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
     }
 
 }

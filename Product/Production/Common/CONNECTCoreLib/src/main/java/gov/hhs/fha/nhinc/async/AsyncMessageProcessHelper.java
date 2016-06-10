@@ -59,21 +59,19 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
  *
  * @author richard.ettema
  */
-@Component
 public class AsyncMessageProcessHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
+    private static HibernateUtil hibernateUtil;
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -191,7 +189,7 @@ public class AsyncMessageProcessHelper {
 
             final String direction = getInitialDirectionFromStatus(newStatus);
             final List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
-            if (records != null && records.size() > 0) {
+            if (records != null && !records.isEmpty()) {
                 records.get(0).setStatus(newStatus);
                 records.get(0).setAckData(getBlobFromMCCIIN000002UV01(ack));
                 instance.save(records.get(0));
@@ -225,7 +223,7 @@ public class AsyncMessageProcessHelper {
             final String direction = getInitialDirectionFromStatus(newStatus);
 
             final List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
-            if (records != null && records.size() > 0) {
+            if (records != null && !records.isEmpty()) {
                 records.get(0).setStatus(newStatus);
                 instance.save(records.get(0));
             }
@@ -264,7 +262,7 @@ public class AsyncMessageProcessHelper {
             final String direction = getInitialDirectionFromStatus(newStatus);
 
             final List<AsyncMsgRecord> records = instance.queryByMessageIdAndDirection(messageId, direction);
-            if (records != null && records.size() > 0) {
+            if (records != null && !records.isEmpty()) {
                 records.get(0).setResponseTime(new Date());
 
                 // Calculate the duration in milliseconds
@@ -572,11 +570,23 @@ public class AsyncMessageProcessHelper {
 
     protected Session getSession() {
         Session session = null;
-        if (hibernateUtil != null) {
-            session = hibernateUtil.getSessionFactory().openSession();
+        if (getHibernateUtil() != null) {
+            session = getHibernateUtil().getSessionFactory().openSession();
         } else {
             LOG.error("Session is null");
         }
         return session;
+    }
+
+    /**
+     * Get this class' HibernateUtil
+     *
+     * @return hibernateUtil
+     */
+    private static HibernateUtil getHibernateUtil() {
+        if (hibernateUtil == null) {
+            hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
+        }
+        return hibernateUtil;
     }
 }

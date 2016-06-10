@@ -49,7 +49,6 @@ public class AddressDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
 
     /**
      * Constructor.
@@ -386,8 +385,9 @@ public class AddressDAO {
 
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
+        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
         }
         return fact;
     }

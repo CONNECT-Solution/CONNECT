@@ -50,8 +50,6 @@ public class IdentifierDAO {
 
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
-    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
-
     /**
      *
      * Constructor
@@ -340,8 +338,9 @@ public class IdentifierDAO {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
+        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
         }
         return fact;
     }
