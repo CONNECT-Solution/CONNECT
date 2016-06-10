@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.PDDeferredCorrelation;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -46,6 +47,7 @@ import org.slf4j.LoggerFactory;
 public class PDDeferredCorrelationDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDDeferredCorrelationDao.class);
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientCorrHibernateUtil();
 
     /**
      * Query by Message Id. This should return only one record.
@@ -188,8 +190,8 @@ public class PDDeferredCorrelationDao {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-        if (HibernateUtilFactory.getPatientCorrHibernateUtil() != null) {
-            fact = HibernateUtilFactory.getPatientCorrHibernateUtil().getSessionFactory();
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
         }
         return fact;
     }

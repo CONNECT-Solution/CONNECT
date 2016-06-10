@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.common.connectionmanager.dao;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -45,6 +46,7 @@ import org.slf4j.LoggerFactory;
 public class AssigningAuthorityHomeCommunityMappingDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getConnManHibernateUtil();
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
@@ -110,7 +112,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method retrieves Home Community for an Assigning Authority...
-     *
+     * 
      * @param assigningAuthority
      * @return
      */
@@ -127,7 +129,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     Query namedQuery = sess.getNamedQuery("findAAByAAId");
                     namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
-                    if (l != null && l.size() > 0) {
+                    if (l != null && !l.isEmpty()) {
                         homeCommunity = l.get(0).getHomeCommunityId();
                     }
                 } else {
@@ -173,7 +175,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
 
-                    if (l != null && l.size() > 0) {
+                    if (l != null && !l.isEmpty()) {
                         LOG.info("Assigning Authority and Home Community pair already present in the repository");
                     } else {
                         mappingInfo = new AssigningAuthorityToHomeCommunityMapping();
@@ -216,8 +218,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
-        if (HibernateUtilFactory.getConnManHibernateUtil() != null) {
-            fact = HibernateUtilFactory.getConnManHibernateUtil().getSessionFactory();
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
         }
         return fact;
     }

@@ -1,7 +1,7 @@
 /**
  *
  */
-package gov.hhs.fha.nhinc.properties;
+package gov.hhs.fha.nhinc.persistence;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.slf4j.Logger;
@@ -33,11 +33,11 @@ public class HibernateUtilFactory {
      */
     private static class ClassPathSingleton {
 
-        private ClassPathSingleton() {
-        }
-
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
                 new String[] { "classpath:CONNECT-context.xml" });
+
+        private ClassPathSingleton() {
+        }
     }
 
     /**
@@ -49,20 +49,16 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address transactionHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil hibernateUtil = context.getBean(
-                NhincConstants.TRANSACTION_HIBERNATE_BEAN,
+        return context.getBean(NhincConstants.TRANSACTION_HIBERNATE_BEAN,
                 gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil.class);
-        return hibernateUtil;
     }
 
     public static gov.hhs.fha.nhinc.event.persistence.HibernateUtil getEventHibernateUtil() {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address eventHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.event.persistence.HibernateUtil hibernateUtil = context
-                .getBean(NhincConstants.EVENT_HIBERNATE_BEAN, gov.hhs.fha.nhinc.event.persistence.HibernateUtil.class);
-
-        return hibernateUtil;
+        return context.getBean(NhincConstants.EVENT_HIBERNATE_BEAN,
+                gov.hhs.fha.nhinc.event.persistence.HibernateUtil.class);
     }
 
     /**
@@ -71,11 +67,9 @@ public class HibernateUtilFactory {
     public static gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil getAsyncMsgsHibernateUtil() {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
-        LOG.debug("Memory address in getAsyncMsgsHibernateUtil, ", context.getId());
-        gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil hibernateUtil = context.getBean(
-                NhincConstants.ASYNC_MSG_HIBERNATE_BEAN, gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil.class);
-
-        return hibernateUtil;
+        LOG.debug("Memory address in getAsyncMsgsHibernateUtil {}", context.getId());
+        return context.getBean(NhincConstants.ASYNC_MSG_HIBERNATE_BEAN,
+                gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil.class);
     }
 
     /**
@@ -87,11 +81,8 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getConnManHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil hibernateUtil = context.getBean(
-                NhincConstants.CONNECTION_HIBERNATE_BEAN,
+        return context.getBean(NhincConstants.CONNECTION_HIBERNATE_BEAN,
                 gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil.class);
-
-        return hibernateUtil;
     }
 
     /**
@@ -103,11 +94,8 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getDocRepoHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil hibernateUtil = context.getBean(
-                NhincConstants.DOCREPO_HIBERNATE_BEAN,
+        return context.getBean(NhincConstants.DOCREPO_HIBERNATE_BEAN,
                 gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil.class);
-
-        return hibernateUtil;
     }
 
     /**
@@ -119,11 +107,8 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getPatientCorrHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil hibernateUtil = context.getBean(
-                NhincConstants.PATIENT_CORR_HIBERNATE_BEAN,
+        return context.getBean(NhincConstants.PATIENT_CORR_HIBERNATE_BEAN,
                 gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil.class);
-
-        return hibernateUtil;
     }
 
     /**
@@ -135,11 +120,8 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address geMsgMonitorHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil hibernateUtil = context.getBean(
-                NhincConstants.MSG_MONITOR_HIBERNATE_BEAN,
+        return context.getBean(NhincConstants.MSG_MONITOR_HIBERNATE_BEAN,
                 gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil.class);
-
-        return hibernateUtil;
     }
 
 }

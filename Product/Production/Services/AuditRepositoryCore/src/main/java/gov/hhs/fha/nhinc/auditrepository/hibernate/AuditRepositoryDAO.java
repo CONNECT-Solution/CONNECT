@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -51,6 +53,8 @@ public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
 
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getAuditRepoHibernateUtil();
+
     /**
      * Constructor
      */
@@ -67,7 +71,7 @@ public class AuditRepositoryDAO {
 
         Session session = null;
         boolean result = true;
-        if (auditList != null && auditList.size() > 0) {
+        if (auditList != null && !auditList.isEmpty()) {
             final int size = auditList.size();
             AuditRepositoryRecord auditRecord = null;
             Transaction tx = null;
@@ -110,13 +114,14 @@ public class AuditRepositoryDAO {
     public List queryAuditRepositoryOnCriteria(final String eUserId, final String ePatientId, final Date startDate,
             final Date endDate) {
 
+        List<AuditRepositoryRecord> queryList = new ArrayList<>();
+        Session session = null;
+
         if (eUserId == null && ePatientId == null && startDate == null) {
             LOG.info("-- No - Input Parameters found for Audit Query --");
-            return null;
+            return queryList;
         }
 
-        Session session = null;
-        List<AuditRepositoryRecord> queryList = null;
         try {
             session = getSession();
             LOG.info("Getting Record");
@@ -131,13 +136,12 @@ public class AuditRepositoryDAO {
                     aCriteria.add(Expression.eq("receiverPatientId", ePatientId));
                 }
 
-                if (startDate != null) {
-                    if (endDate != null) {
-                        aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
-                                new Date(endDate.getTime())));
-                    } else {
-                        aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
-                    }
+                if (startDate != null && endDate != null) {
+                    aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
+                            new Date(endDate.getTime())));
+                } else if (startDate != null) {
+                    // Assume that endDate is null here
+                    aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
                 }
 
                 queryList = aCriteria.list();
@@ -169,13 +173,15 @@ public class AuditRepositoryDAO {
             if (session != null) {
                 final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
-                if (NullChecker.isNotNullish(messageId)) {
-                    if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
-                        queryCriteria.add(Restrictions.eq("messageId", messageId));
-                    } else {
-                        queryCriteria.add(Restrictions.eq("messageId",
-                                NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
-                    }
+                boolean idHasPrefix = NullChecker.isNotNullish(messageId)
+                        && messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX);
+
+                if (idHasPrefix) {
+                    queryCriteria.add(Restrictions.eq("messageId", messageId));
+                } else if (NullChecker.isNotNullish(messageId)) {
+                    // Message ID exists but needs to have the prefix prepended
+                    queryCriteria.add(
+                            Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
                 }
 
                 if (NullChecker.isNotNullish(relatesTo)) {
@@ -228,16 +234,14 @@ public class AuditRepositoryDAO {
                     queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
                 }
 
-                if (startDate != null) {
-                    if (endDate != null) {
-                        queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
-                    } else {
-                        queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
-                    }
-                } else {
-                    if (endDate != null) {
-                        queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
-                    }
+                if (startDate != null && endDate != null) {
+                    queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
+                } else if (startDate != null) {
+                    // Criteria added for when the request has no end date
+                    queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
+                } else if (endDate != null) {
+                    // The request has an end date, but there is no start date
+                    queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
                 }
 
                 // if no criteria is passed then it will search full database with above mentioned columns in the result
@@ -302,8 +306,8 @@ public class AuditRepositoryDAO {
     protected Session getSession() {
         Session session = null;
 
-        if (HibernateUtilFactory.getAuditRepoHibernateUtil() != null) {
-            session = HibernateUtilFactory.getAuditRepoHibernateUtil().getSessionFactory().openSession();
+        if (hibernateUtil != null) {
+            session = hibernateUtil.getSessionFactory().openSession();
         }
         return session;
     }

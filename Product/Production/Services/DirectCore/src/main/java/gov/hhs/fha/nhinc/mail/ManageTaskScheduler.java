@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.mail;
 
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;

@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 import org.slf4j.Logger;

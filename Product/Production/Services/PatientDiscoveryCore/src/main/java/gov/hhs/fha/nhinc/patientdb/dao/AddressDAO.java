@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -48,6 +49,7 @@ public class AddressDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
 
     /**
      * Constructor.
@@ -178,7 +180,7 @@ public class AddressDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
 
                 foundRecord = queryList.get(0);
 
@@ -332,19 +334,17 @@ public class AddressDAO {
 
         LOG.debug("AddressDAO.readPatientAddresses() - Begin");
 
+        List<Address> queryList = new ArrayList<>();
+        Session session = null;
+
         if (patientId == null) {
 
             LOG.info("-- patientId Parameter is required for Address Query --");
 
             LOG.debug("AddressDAO.readPatientAddresses() - End");
 
-            return null;
-
+            return queryList;
         }
-
-        Session session = null;
-
-        List<Address> queryList = null;
 
         try {
 
@@ -385,7 +385,6 @@ public class AddressDAO {
     }
 
     protected SessionFactory getSessionFactory() {
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         SessionFactory fact = null;
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();

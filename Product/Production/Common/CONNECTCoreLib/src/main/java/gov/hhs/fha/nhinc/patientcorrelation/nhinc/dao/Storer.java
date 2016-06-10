@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
 public class Storer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Storer.class);
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientCorrHibernateUtil();
 
     public static void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.info("patient correlation add requested");
@@ -198,7 +199,7 @@ public class Storer {
     }
 
     protected static HibernateUtil getHibernateUtil() {
-        return HibernateUtilFactory.getPatientCorrHibernateUtil();
+        return hibernateUtil;
     }
 
 }

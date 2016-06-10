@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -39,12 +40,10 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 /**
  * Data Access Object which logs events in the database.
  */
-@Service
 public class DatabaseEventLoggerDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(DatabaseEventLoggerDao.class);
@@ -52,12 +51,13 @@ public class DatabaseEventLoggerDao {
     private static final String EVENT_TYPE_NAME = "eventName";
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getEventHibernateUtil();
 
     private static class SingletonHolder {
+        public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
+
         private SingletonHolder() {
         }
-
-        public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
     }
 
     /**
@@ -162,8 +162,8 @@ public class DatabaseEventLoggerDao {
     protected SessionFactory getSessionFactory() {
         SessionFactory fact = null;
 
-        if (HibernateUtilFactory.getEventHibernateUtil() != null) {
-            fact = HibernateUtilFactory.getEventHibernateUtil().getSessionFactory();
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
         }
         return fact;
     }

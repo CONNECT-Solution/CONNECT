@@ -34,11 +34,11 @@ public class HibernateUtilFactory {
      */
     private static class ClassPathSingleton {
 
-        private ClassPathSingleton() {
-        }
-
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
                 new String[] { "classpath:spring-beans.xml" });
+
+        private ClassPathSingleton() {
+        }
     }
 
     /**
@@ -50,9 +50,8 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getAuditRepoHibernateUtil {}", context.getId());
-        gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil hibernateUtil = context
-                .getBean(AUDIT_REPO_HIBERNATE, gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil.class);
-        return hibernateUtil;
+        return context.getBean(AUDIT_REPO_HIBERNATE,
+                gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil.class);
     }
 
 }

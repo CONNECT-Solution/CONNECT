@@ -28,9 +28,10 @@ package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
@@ -71,6 +72,8 @@ public class AsyncMessageProcessHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
+
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -569,8 +572,8 @@ public class AsyncMessageProcessHelper {
 
     protected Session getSession() {
         Session session = null;
-        if (HibernateUtilFactory.getAsyncMsgsHibernateUtil() != null) {
-            session = HibernateUtilFactory.getAsyncMsgsHibernateUtil().getSessionFactory().openSession();
+        if (hibernateUtil != null) {
+            session = hibernateUtil.getSessionFactory().openSession();
         } else {
             LOG.error("Session is null");
         }

@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.logging.transaction.dao;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -38,7 +38,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 /**
  * TransactionDAO provides methods to query and update the transrepo database.
@@ -46,13 +45,12 @@ import org.springframework.stereotype.Service;
  * @author jasonasmith
  *
  */
-@Service
 public class TransactionDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
-    private static HibernateUtil hibernateUtil;
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getTransactionHibernateUtil();
 
     /**
      * The constructor.
@@ -168,13 +166,7 @@ public class TransactionDAO {
      * @return sessionFactory
      */
     protected static SessionFactory getSessionFactory() {
-        return HibernateUtilFactory.getTransactionHibernateUtil().getSessionFactory();
+        return hibernateUtil.getSessionFactory();
     }
 
-    /**
-     * @return the HibernateUtil
-     */
-    protected HibernateUtil getTxHibernateUtil() {
-        return hibernateUtil;
-    }
 }

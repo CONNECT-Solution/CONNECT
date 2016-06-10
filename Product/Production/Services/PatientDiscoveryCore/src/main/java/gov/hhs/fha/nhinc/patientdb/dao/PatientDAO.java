@@ -55,6 +55,7 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
 
     /**
      * Constructor
@@ -146,7 +147,7 @@ public class PatientDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
                 foundRecord = queryList.get(0);
             }
         } catch (Exception e) {
@@ -263,11 +264,11 @@ public class PatientDAO {
             String suffix = patient.getPersonnames().get(0).getSuffix();
 
             Address address = new Address();
-            if (patient.getAddresses() != null && patient.getAddresses().size() > 0) {
+            if (patient.getAddresses() != null && !patient.getAddresses().isEmpty()) {
                 address = patient.getAddresses().get(0);
             }
             Phonenumber phonenumber = new Phonenumber();
-            if (patient.getPhonenumbers() != null && patient.getPhonenumbers().size() > 0) {
+            if (patient.getPhonenumbers() != null && !patient.getPhonenumbers().isEmpty()) {
                 phonenumber = patient.getPhonenumbers().get(0);
             }
 
@@ -469,7 +470,7 @@ public class PatientDAO {
 
             List<Object[]> result = sqlQuery.list();
 
-            if (result != null && result.size() > 0) {
+            if (result != null && !result.isEmpty()) {
                 Long[] patientIdArray = new Long[result.size()];
                 Timestamp[] dateOfBirthArray = new Timestamp[result.size()];
                 String[] genderArray = new String[result.size()];
@@ -533,7 +534,6 @@ public class PatientDAO {
      * @return
      */
     protected SessionFactory getSessionFactory() {
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         SessionFactory fact = null;
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();

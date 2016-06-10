@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOExcept
 import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -50,12 +50,13 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringDAOImpl.class);
 
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getMsgMonitorHibernateUtil();
+
     private static class SingletonHolder {
+        public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
 
         private SingletonHolder() {
         }
-
-        public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
     }
 
     /**
@@ -69,7 +70,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
     }
 
     protected HibernateUtil getHibernateUtil() {
-        return HibernateUtilFactory.getMsgMonitorHibernateUtil();
+        return hibernateUtil;
     }
 
     /**

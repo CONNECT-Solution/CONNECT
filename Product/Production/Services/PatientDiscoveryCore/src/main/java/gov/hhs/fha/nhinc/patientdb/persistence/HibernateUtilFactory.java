@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * @author drfernan
  *
+ *         Factory class to load the PatientDiscoveryCore spring configuration.
  */
 public class HibernateUtilFactory {
 
@@ -31,11 +32,11 @@ public class HibernateUtilFactory {
      */
     private static class ClassPathSingleton {
 
-        private ClassPathSingleton() {
-        }
-
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
                 new String[] { "classpath:spring-beans.xml" });
+
+        private ClassPathSingleton() {
+        }
     }
 
     /**
@@ -47,8 +48,7 @@ public class HibernateUtilFactory {
         ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
 
         LOG.debug("Memory address getPatientDiscHibernateUtil {}", context.getId());
-        HibernateUtil hibernateUtil = context.getBean(PATIENT_DISCOVERY_HIBERNATE, HibernateUtil.class);
-        return hibernateUtil;
+        return context.getBean(PATIENT_DISCOVERY_HIBERNATE, HibernateUtil.class);
     }
 
 }

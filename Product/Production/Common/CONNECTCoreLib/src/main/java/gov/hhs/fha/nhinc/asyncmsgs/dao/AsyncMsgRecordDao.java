@@ -27,10 +27,11 @@
 package gov.hhs.fha.nhinc.asyncmsgs.dao;
 
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
+import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
@@ -78,6 +79,8 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENT = "RSPSENT";
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
+
+    private HibernateUtil hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
 
     public AsyncMsgRecordDao() {
         accessor = PropertyAccessor.getInstance();
@@ -363,7 +366,7 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.le("ResponseTime", date));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
+                if (queryCriteria.getServiceName() != null && !queryCriteria.getServiceName().isEmpty()) {
                     criteria.add(Restrictions.in("ServiceName", queryCriteria.getServiceName()));
                     criteriaPopulated = true;
                 }
@@ -371,11 +374,11 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.eq("Direction", queryCriteria.getDirection()));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getCommunityId() != null && queryCriteria.getCommunityId().size() > 0) {
+                if (queryCriteria.getCommunityId() != null && !queryCriteria.getCommunityId().isEmpty()) {
                     criteria.add(Restrictions.in("CommunityId", queryCriteria.getCommunityId()));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getStatus() != null && queryCriteria.getStatus().size() > 0) {
+                if (queryCriteria.getStatus() != null && !queryCriteria.getStatus().isEmpty()) {
                     criteria.add(Restrictions.in("Status", queryCriteria.getStatus()));
                     criteriaPopulated = true;
                 }
@@ -673,8 +676,8 @@ public class AsyncMsgRecordDao {
     protected Session getSession() {
 
         Session session = null;
-        if (HibernateUtilFactory.getAsyncMsgsHibernateUtil() != null) {
-            session = HibernateUtilFactory.getAsyncMsgsHibernateUtil().getSessionFactory().openSession();
+        if (hibernateUtil != null) {
+            session = hibernateUtil.getSessionFactory().openSession();
         }
 
         return session;

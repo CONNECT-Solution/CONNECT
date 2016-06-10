@@ -50,6 +50,8 @@ public class IdentifierDAO {
 
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+
     /**
      *
      * Constructor
@@ -191,7 +193,7 @@ public class IdentifierDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
 
                 foundRecord = queryList.get(0);
 
@@ -337,7 +339,6 @@ public class IdentifierDAO {
      * @return
      */
     protected SessionFactory getSessionFactory() {
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         SessionFactory fact = null;
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();

@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +51,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getDocRepoHibernateUtil();
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
@@ -383,7 +385,7 @@ public class DocumentDao {
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory();
+        SessionFactory fact = hibernateUtil.getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {

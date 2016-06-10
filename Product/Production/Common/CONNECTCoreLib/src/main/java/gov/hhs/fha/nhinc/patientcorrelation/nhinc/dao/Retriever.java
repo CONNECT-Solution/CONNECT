@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,7 @@ import org.slf4j.LoggerFactory;
 public class Retriever {
 
     private static final Logger LOG = LoggerFactory.getLogger(Retriever.class);
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientCorrHibernateUtil();
 
     public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {

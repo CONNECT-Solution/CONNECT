@@ -50,6 +50,8 @@ public class PersonnameDAO {
 
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
 
+    private static HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+
     /**
      *
      * Constructor
@@ -190,7 +192,7 @@ public class PersonnameDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
 
                 foundRecord = queryList.get(0);
 
@@ -401,7 +403,6 @@ public class PersonnameDAO {
      * @return
      */
     protected SessionFactory getSessionFactory() {
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
         SessionFactory fact = null;
         if (hibernateUtil != null) {
             fact = hibernateUtil.getSessionFactory();
