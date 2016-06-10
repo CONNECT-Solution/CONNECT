@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,6 @@ import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * PatientDAO Class provides methods to query and update Patient Data to/from MySQL Database using Hibernate
@@ -55,8 +55,6 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
-
-    private HibernateUtil hibernateUtil;
 
     /**
      * Constructor
@@ -73,18 +71,6 @@ public class PatientDAO {
     public static PatientDAO getPatientDAOInstance() {
         LOG.debug("getPatientDAOInstance()..");
         return patientDAO;
-    }
-
-    /**
-     * Load HibernateUtil bean.
-     *
-     * @return hibernateUtil
-     */
-    protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
-        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 
     // =========================
@@ -286,7 +272,7 @@ public class PatientDAO {
             }
 
             // Build the select with query criteria
-            StringBuffer sqlSelect = new StringBuffer(
+            StringBuilder sqlSelect = new StringBuilder(
                     "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
@@ -298,7 +284,7 @@ public class PatientDAO {
                 sqlSelect.append(" INNER JOIN patientdb.phonenumber h ON p.patientId = h.patientId");
             }
 
-            StringBuffer criteriaString = new StringBuffer("");
+            StringBuilder criteriaString = new StringBuilder("");
             if (NullChecker.isNotNullish(gender)) {
                 if (criteriaString.length() > 0) {
                     criteriaString.append(" AND");
@@ -541,8 +527,18 @@ public class PatientDAO {
         return patientsList;
     }
 
+    /**
+     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     *
+     * @return
+     */
     protected SessionFactory getSessionFactory() {
-        return getHibernateUtil().getSessionFactory();
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        SessionFactory fact = null;
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
+        }
+        return fact;
     }
 
 }

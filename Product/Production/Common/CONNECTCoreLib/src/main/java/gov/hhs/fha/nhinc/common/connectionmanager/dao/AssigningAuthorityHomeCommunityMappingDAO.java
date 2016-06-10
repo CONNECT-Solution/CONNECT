@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.common.connectionmanager.dao;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping;
-import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -37,7 +37,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -46,8 +45,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AssigningAuthorityHomeCommunityMappingDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
-
-    private HibernateUtil hibernateUtil;
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
@@ -80,8 +77,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         if (homeCommunityId != null && !homeCommunityId.isEmpty()) {
             SessionFactory fact = getSessionFactory();
             try {
-                sess = fact.openSession();
-                if (sess != null) {
+                if (fact != null) {
+                    sess = fact.openSession();
                     Query namedQuery = sess.getNamedQuery("findAAByHomeCommunityId");
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
                     for (AssigningAuthorityToHomeCommunityMapping mapping : (List<AssigningAuthorityToHomeCommunityMapping>) namedQuery
@@ -125,8 +122,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             Session sess = null;
             SessionFactory fact = getSessionFactory();
             try {
-                sess = fact.openSession();
-                if (sess != null) {
+                if (fact != null) {
+                    sess = fact.openSession();
                     Query namedQuery = sess.getNamedQuery("findAAByAAId");
                     namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
@@ -161,8 +158,6 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     public boolean storeMapping(String homeCommunityId, String assigningAuthority) {
         LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out.println(
-                "--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         boolean success = false;
         AssigningAuthorityToHomeCommunityMapping mappingInfo = null;
         Transaction trans = null;
@@ -171,8 +166,8 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                 && !assigningAuthority.isEmpty()) {
             SessionFactory fact = getSessionFactory();
             try {
-                sess = fact.openSession();
-                if (sess != null) {
+                if (fact != null) {
+                    sess = fact.openSession();
                     Query namedQuery = sess.getNamedQuery("findAAByAAIdAndHomeCommunityId");
                     namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
@@ -211,20 +206,20 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             LOG.error("Invalid data entered, Enter Valid data to store");
         }
         LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out.println(
-                "--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         return success;
     }
 
+    /**
+     * Returns the session factory belonging to Connection Manager HibernateUtil
+     *
+     * @return
+     */
     protected SessionFactory getSessionFactory() {
-        return getHibernateUtil().getSessionFactory();
-    }
-
-    private HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        hibernateUtil = context.getBean("connManHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
+        SessionFactory fact = null;
+        if (HibernateUtilFactory.getConnManHibernateUtil() != null) {
+            fact = HibernateUtilFactory.getConnManHibernateUtil().getSessionFactory();
+        }
+        return fact;
     }
 
 }

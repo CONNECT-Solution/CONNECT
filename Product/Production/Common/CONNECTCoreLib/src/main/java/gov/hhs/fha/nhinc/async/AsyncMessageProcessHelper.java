@@ -28,9 +28,9 @@ package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
@@ -51,7 +51,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -59,7 +58,6 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -73,8 +71,6 @@ public class AsyncMessageProcessHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
-
-    private static HibernateUtil hibernateUtil;
 
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -269,8 +265,7 @@ public class AsyncMessageProcessHelper {
                 records.get(0).setResponseTime(new Date());
 
                 // Calculate the duration in milliseconds
-                Long duration = null;
-                duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
+                Long duration = records.get(0).getResponseTime().getTime() - records.get(0).getCreationTime().getTime();
                 records.get(0).setDuration(duration);
 
                 records.get(0).setStatus(newStatus);
@@ -344,7 +339,6 @@ public class AsyncMessageProcessHelper {
             final JAXBContextHandler oHandler = new JAXBContextHandler();
             final JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
             final Marshaller marshaller = jc.createMarshaller();
-            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
             final ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             final gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
@@ -392,7 +386,9 @@ public class AsyncMessageProcessHelper {
             final byte[] buffer = baOutStrm.toByteArray();
 
             session = getSession();
-            asyncMessage = session.getLobHelper().createBlob(buffer);
+            if (session != null) {
+                asyncMessage = session.getLobHelper().createBlob(buffer);
+            }
         } catch (final Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         } finally {
@@ -467,10 +463,12 @@ public class AsyncMessageProcessHelper {
     private boolean isAckError(final MCCIIN000002UV01 ack) {
         boolean result = false;
 
-        if (ack != null && ack.getAcknowledgement() != null && ack.getAcknowledgement().size() > 0
-                && ack.getAcknowledgement().get(0).getTypeCode() != null
-                && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null && ack.getAcknowledgement().get(0)
-                        .getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR)) {
+        boolean ackExists = ack != null && ack.getAcknowledgement() != null && !ack.getAcknowledgement().isEmpty();
+        boolean ackIsError = ackExists && ack.getAcknowledgement().get(0).getTypeCode() != null
+                && ack.getAcknowledgement().get(0).getTypeCode().getCode() != null
+                && ack.getAcknowledgement().get(0).getTypeCode().getCode().equals(HL7AckTransforms.ACK_TYPE_CODE_ERROR);
+
+        if (ackExists && ackIsError) {
             result = true;
         }
 
@@ -497,7 +495,7 @@ public class AsyncMessageProcessHelper {
             if (useReceiver) {
                 if (requestMessage.getPRPAIN201305UV02() != null
                         && requestMessage.getPRPAIN201305UV02().getReceiver() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
+                        && !requestMessage.getPRPAIN201305UV02().getReceiver().isEmpty()
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent() != null
@@ -509,8 +507,8 @@ public class AsyncMessageProcessHelper {
                                 .getRepresentedOrganization().getValue() != null
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
                                 .getRepresentedOrganization().getValue().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().size() > 0
+                        && !requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
+                                .getValue().getRepresentedOrganization().getValue().getId().isEmpty()
                         && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent().getValue()
                                 .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getAsAgent()
@@ -519,11 +517,11 @@ public class AsyncMessageProcessHelper {
                 // If represented organization is empty or null, check the device id
                 if (communityId == null || communityId.isEmpty()) {
                     if (requestMessage.getPRPAIN201305UV02().getReceiver() != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().size() > 0
+                            && !requestMessage.getPRPAIN201305UV02().getReceiver().isEmpty()
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0) != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
-                            && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().size() > 0
+                            && !requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().isEmpty()
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId()
                                     .get(0) != null
                             && requestMessage.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
@@ -543,8 +541,8 @@ public class AsyncMessageProcessHelper {
                                 .getRepresentedOrganization().getValue() != null
                         && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
                                 .getRepresentedOrganization().getValue().getId() != null
-                        && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().size() > 0
+                        && !requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
+                                .getRepresentedOrganization().getValue().getId().isEmpty()
                         && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
                                 .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
                     communityId = requestMessage.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue()
@@ -555,7 +553,7 @@ public class AsyncMessageProcessHelper {
                     if (requestMessage.getPRPAIN201305UV02().getSender() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice() != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId() != null
-                            && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().size() > 0
+                            && !requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().isEmpty()
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0) != null
                             && requestMessage.getPRPAIN201305UV02().getSender().getDevice().getId().get(0)
                                     .getRoot() != null) {
@@ -571,23 +569,11 @@ public class AsyncMessageProcessHelper {
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = getHibernateUtil().getSessionFactory();
-        if (fact != null) {
-            session = fact.openSession();
+        if (HibernateUtilFactory.getAsyncMsgsHibernateUtil() != null) {
+            session = HibernateUtilFactory.getAsyncMsgsHibernateUtil().getSessionFactory().openSession();
         } else {
             LOG.error("Session is null");
         }
         return session;
-    }
-
-    /**
-     * @return the HibernateUtil
-     */
-    protected static HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        LOG.debug("Memory address " + context.getId());
-        hibernateUtil = context.getBean("asyncmsgsHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 }

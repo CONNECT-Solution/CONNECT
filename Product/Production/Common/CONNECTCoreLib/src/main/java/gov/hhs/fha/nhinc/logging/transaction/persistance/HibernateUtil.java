@@ -36,6 +36,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -46,6 +47,8 @@ public class HibernateUtil {
 
     private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
+
+    private static HibernateUtil hibernateUtil;
 
     /**
      * Method builds the Hibernate SessionFactory.
@@ -98,5 +101,14 @@ public class HibernateUtil {
         }
 
         return result;
+    }
+
+    public static HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        if (hibernateUtil == null) {
+            hibernateUtil = context.getBean("txHibernateUtil", HibernateUtil.class);
+        }
+        return hibernateUtil;
     }
 }

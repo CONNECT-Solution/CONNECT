@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOExcept
 import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -39,7 +40,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Class provides MessageMonitoringDb database interface services
@@ -50,16 +50,12 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringDAOImpl.class);
 
-    private HibernateUtil hibernateUtil;
-
     private static class SingletonHolder {
 
         private SingletonHolder() {
         }
 
         public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
-        public static final ClassPathXmlApplicationContext INSTANCE_CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
     }
 
     /**
@@ -73,9 +69,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
     }
 
     protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = SingletonHolder.INSTANCE_CONTEXT;
-        hibernateUtil = context.getBean("msgMonitorHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
+        return HibernateUtilFactory.getMsgMonitorHibernateUtil();
     }
 
     /**
@@ -96,9 +90,11 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         try {
             LOG.debug("Inside addOutgoingMessage()");
             session = getSession();
-            tx = session.beginTransaction();
-            session.persist(trackMessage);
-            tx.commit();
+            if (session != null) {
+                tx = session.beginTransaction();
+                session.persist(trackMessage);
+                tx.commit();
+            }
 
         } catch (final HibernateException e) {
             result = false;
@@ -130,9 +126,11 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         try {
             LOG.debug("Inside addOutgoingMessage()");
             session = getSession();
-            tx = session.beginTransaction();
-            session.update(trackMessage);
-            tx.commit();
+            if (session != null) {
+                tx = session.beginTransaction();
+                session.update(trackMessage);
+                tx.commit();
+            }
         } catch (final HibernateException e) {
             result = false;
             transactionRollback(tx);
@@ -162,9 +160,11 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         try {
             LOG.debug("Inside addOutgoingMessage()");
             session = getSession();
-            tx = session.beginTransaction();
-            session.update(trackMessageNotification);
-            tx.commit();
+            if (session != null) {
+                tx = session.beginTransaction();
+                session.update(trackMessageNotification);
+                tx.commit();
+            }
         } catch (final HibernateException e) {
             result = false;
             transactionRollback(tx);
@@ -193,9 +193,11 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         try {
             LOG.debug("Inside addOutgoingMessage()");
             session = getSession();
-            tx = session.beginTransaction();
-            session.delete(trackMessage);
-            tx.commit();
+            if (session != null) {
+                tx = session.beginTransaction();
+                session.delete(trackMessage);
+                tx.commit();
+            }
         } catch (final HibernateException e) {
             result = false;
             transactionRollback(tx);
@@ -219,7 +221,9 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         try {
             LOG.debug("Inside addOutgoingMessage()");
             session = getSession();
-            pendingList = session.createCriteria(MonitoredMessage.class).list();
+            if (session != null) {
+                pendingList = session.createCriteria(MonitoredMessage.class).list();
+            }
         } catch (final HibernateException e) {
             LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
         } finally {

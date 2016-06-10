@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -36,7 +37,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -48,8 +48,6 @@ public class AddressDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
-
-    private HibernateUtil hibernateUtil;
 
     /**
      * Constructor.
@@ -66,18 +64,6 @@ public class AddressDAO {
     public static AddressDAO getAddressDAOInstance() {
         LOG.debug("getAddressDAOInstance()..");
         return addressDAO;
-    }
-
-    /**
-     * Load HibernateUtil bean.
-     *
-     * @return hibernateUtil
-     */
-    protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
-        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 
     // =========================
@@ -389,6 +375,7 @@ public class AddressDAO {
                 session.close();
 
             }
+
         }
 
         LOG.debug("readPatientAddresses.read() - End");
@@ -398,7 +385,12 @@ public class AddressDAO {
     }
 
     protected SessionFactory getSessionFactory() {
-        return getHibernateUtil().getSessionFactory();
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        SessionFactory fact = null;
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
+        }
+        return fact;
     }
 
 }

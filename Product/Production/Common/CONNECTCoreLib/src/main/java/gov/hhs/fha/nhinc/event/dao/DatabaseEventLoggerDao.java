@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
-import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -38,7 +39,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -53,22 +53,11 @@ public class DatabaseEventLoggerDao {
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
 
-    private HibernateUtil hibernateUtil;
-
-    /**
-     * @return the eventHibernateUtil
-     */
-    protected HibernateUtil getEventHibernateUtil() {
-        ClassPathXmlApplicationContext context = SingletonHolder.INSTANCE_CONTEXT;
-        LOG.debug("Memory address " + context.getId());
-        hibernateUtil = context.getBean("eventHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
-    }
-
     private static class SingletonHolder {
+        private SingletonHolder() {
+        }
+
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
-        public static final ClassPathXmlApplicationContext INSTANCE_CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
     }
 
     /**
@@ -95,13 +84,15 @@ public class DatabaseEventLoggerDao {
         boolean result = true;
 
         try {
-            sessionFactory = getEventHibernateUtil().getSessionFactory();
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
+            sessionFactory = getSessionFactory();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
+                tx = session.beginTransaction();
 
-            session.persist(databaseEvent);
+                session.persist(databaseEvent);
 
-            tx.commit();
+                tx.commit();
+            }
 
         } catch (final HibernateException e) {
             result = false;
@@ -121,30 +112,37 @@ public class DatabaseEventLoggerDao {
      * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2] the service type.
      */
     public List getCounts(final String eventType, final String hcidType) {
-        final SessionFactory sessionFactory = getEventHibernateUtil().getSessionFactory();
-        Session session = sessionFactory.openSession();
+        final SessionFactory sessionFactory = getSessionFactory();
+        List results = new ArrayList<>();
 
-        List results = session.createCriteria(DatabaseEvent.class).add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
-                .setProjection(Projections.projectionList().add(Projections.rowCount())
-                        .add(Projections.groupProperty(hcidType))
-                        .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
-                .list();
+        if (sessionFactory != null) {
+            Session session = sessionFactory.openSession();
 
-        closeSession(session);
+            results = session.createCriteria(DatabaseEvent.class).add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
+                    .setProjection(Projections.projectionList().add(Projections.rowCount())
+                            .add(Projections.groupProperty(hcidType))
+                            .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
+                    .list();
+
+            closeSession(session);
+        }
 
         return results;
     }
 
     public DatabaseEvent getLatestEvent(final String eventType) {
 
-        final SessionFactory sessionFactory = getEventHibernateUtil().getSessionFactory();
-        Session session = sessionFactory.openSession();
+        DatabaseEvent event = null;
+        final SessionFactory sessionFactory = getSessionFactory();
+        if (sessionFactory != null) {
+            Session session = sessionFactory.openSession();
 
-        DatabaseEvent event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
-                .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
-                .uniqueResult();
+            event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+                    .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
+                    .uniqueResult();
 
-        closeSession(session);
+            closeSession(session);
+        }
 
         return event;
     }
@@ -159,6 +157,15 @@ public class DatabaseEventLoggerDao {
         if (tx != null) {
             tx.rollback();
         }
+    }
+
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+
+        if (HibernateUtilFactory.getEventHibernateUtil() != null) {
+            fact = HibernateUtilFactory.getEventHibernateUtil().getSessionFactory();
+        }
+        return fact;
     }
 
 }

@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +52,6 @@ import org.hibernate.criterion.Subqueries;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -68,24 +67,10 @@ public class EventCodeDao {
      */
     private static final Logger LOG = LoggerFactory.getLogger(EventCodeDao.class);
 
-    private HibernateUtil hibernateUtil;
-
     /**
      * The Constant EBXML_EVENT_CODE_LIST.
      */
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
-
-    /**
-     * Gets the static HibernateUtil
-     *
-     * @return hibernateUtil
-     */
-    private HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        hibernateUtil = context.getBean("docRepoHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
-    }
 
     /**
      * Gets the session factory.
@@ -93,7 +78,7 @@ public class EventCodeDao {
      * @return the session factory
      */
     protected SessionFactory getSessionFactory() {
-        return getHibernateUtil().getSessionFactory();
+        return HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory();
     }
 
     /**
@@ -173,7 +158,6 @@ public class EventCodeDao {
                     String[] alias = new String[1];
                     alias[0] = "documentid";
                     Type[] types = new Type[1];
-                    // types[0] = Hibernate.INTEGER;
                     types[0] = org.hibernate.type.StandardBasicTypes.INTEGER;
                     List<String> classCodes;
                     List<String> orValues;
@@ -398,7 +382,7 @@ public class EventCodeDao {
         String[] eventCodeList;
         String separate = "\\^\\^";
         eventCodeList = eventCodeParam.split(separate);
-        if (paramName.equalsIgnoreCase("eventCode")) {
+        if ("eventCode".equalsIgnoreCase(paramName)) {
             return eventCodeList[0];
         } else {
             return eventCodeList[1];

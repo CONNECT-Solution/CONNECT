@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -36,7 +37,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -49,8 +49,6 @@ public class IdentifierDAO {
     private static final Logger LOG = LoggerFactory.getLogger(IdentifierDAO.class);
 
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
-
-    private HibernateUtil hibernateUtil;
 
     /**
      *
@@ -74,18 +72,6 @@ public class IdentifierDAO {
 
         return identifierDAO;
 
-    }
-
-    /**
-     * Load HibernateUtil bean.
-     *
-     * @return hibernateUtil
-     */
-    protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
-        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 
     // =========================
@@ -115,7 +101,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -192,7 +178,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -256,7 +242,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -315,7 +301,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = getHibernateUtil().getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -343,6 +329,20 @@ public class IdentifierDAO {
 
         LOG.debug("IdentifierDAO.delete() - End");
 
+    }
+
+    /**
+     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     *
+     * @return
+     */
+    protected SessionFactory getSessionFactory() {
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        SessionFactory fact = null;
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
+        }
+        return fact;
     }
 
 }

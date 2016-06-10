@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +40,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -50,9 +49,7 @@ public class Retriever {
 
     private static final Logger LOG = LoggerFactory.getLogger(Retriever.class);
 
-    private HibernateUtil hibernateUtil;
-
-    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrievePatientCorrelation(
                 qualifiedPatientIdentifier);
@@ -62,7 +59,7 @@ public class Retriever {
         return qualifiedPatientIdentifiers;
     }
 
-    private List<QualifiedPatientIdentifier> filterByIncludeList(
+    private static List<QualifiedPatientIdentifier> filterByIncludeList(
             List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers,
             List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> filteredQualifiedPatientIdentifiers;
@@ -93,7 +90,7 @@ public class Retriever {
         return found;
     }
 
-    public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
+    public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
 
@@ -169,7 +166,7 @@ public class Retriever {
         return list1;
     }
 
-    public boolean doesCorrelationExist(CorrelatedIdentifiers correlatedIdentifers) {
+    public static boolean doesCorrelationExist(CorrelatedIdentifiers correlatedIdentifers) {
         boolean exists;
 
         CorrelatedIdentifiers criteria;
@@ -194,7 +191,7 @@ public class Retriever {
         return exists;
     }
 
-    public CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
+    public static CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         List<CorrelatedIdentifiers> resultSet;
         CorrelatedIdentifiers result = new CorrelatedIdentifiers();
 
@@ -225,13 +222,13 @@ public class Retriever {
 
     }
 
-    private List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
+    private static List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         SessionFactory fact;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
 
         try {
-            fact = getHibernateUtil().getSessionFactory();
+            fact = HibernateUtilFactory.getPatientCorrHibernateUtil().getSessionFactory();
             sess = fact.openSession();
 
             Criteria criteria;
@@ -303,13 +300,6 @@ public class Retriever {
         }
 
         return modifiedResult;
-    }
-
-    protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        hibernateUtil = context.getBean("patientCorrHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 
 }

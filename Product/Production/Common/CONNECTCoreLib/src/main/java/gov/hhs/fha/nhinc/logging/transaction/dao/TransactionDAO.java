@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.logging.transaction.dao;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -37,7 +38,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -68,16 +68,7 @@ public class TransactionDAO {
      */
     public static TransactionDAO getInstance() {
         LOG.debug("getTransactionDAOInstance()...");
-        ClassPathXmlApplicationContext context = SingletonHolder.INSTANCE_CONTEXT;
-        LOG.debug("Memory address " + context.getId());
-        hibernateUtil = context.getBean("txHibernateUtil", HibernateUtil.class);
-
         return INSTANCE;
-    }
-
-    private static class SingletonHolder {
-        public static final ClassPathXmlApplicationContext INSTANCE_CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
     }
 
     /**
@@ -95,7 +86,7 @@ public class TransactionDAO {
 
         if (transactionRepo != null) {
             try {
-                final SessionFactory sessionFactory = getTxHibernateUtil().getSessionFactory();
+                final SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
@@ -135,7 +126,7 @@ public class TransactionDAO {
         Session session = null;
 
         try {
-            final SessionFactory sessionFactory = getTxHibernateUtil().getSessionFactory();
+            final SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
 
             if (LOG.isDebugEnabled()) {
@@ -169,6 +160,15 @@ public class TransactionDAO {
         if (tx != null) {
             tx.rollback();
         }
+    }
+
+    /**
+     * Protected method that gets the SingletonHolder's sessionFactory.
+     *
+     * @return sessionFactory
+     */
+    protected static SessionFactory getSessionFactory() {
+        return HibernateUtilFactory.getTransactionHibernateUtil().getSessionFactory();
     }
 
     /**

@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +42,6 @@ import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Data access object class for Document data
@@ -51,8 +50,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
-
-    private static HibernateUtil hibernateUtil;
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
@@ -386,20 +383,13 @@ public class DocumentDao {
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = getHibernateUtil().getSessionFactory();
+        SessionFactory fact = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory();
         if (fact != null) {
             session = fact.openSession();
         } else {
             LOG.error("Session is null");
         }
         return session;
-    }
-
-    private static HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        hibernateUtil = context.getBean("docRepoHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 
 }

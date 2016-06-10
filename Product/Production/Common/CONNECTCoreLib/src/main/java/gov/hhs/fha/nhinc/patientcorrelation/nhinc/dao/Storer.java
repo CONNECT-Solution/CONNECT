@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -35,7 +36,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -45,12 +45,9 @@ public class Storer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Storer.class);
 
-    private static HibernateUtil hibernateUtil;
-
     public static void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.info("patient correlation add requested");
-        Retriever retriever = new Retriever();
-        if (!retriever.doesCorrelationExist(correlatedIdentifers)) {
+        if (!Retriever.doesCorrelationExist(correlatedIdentifers)) {
             localAddPatientCorrelation(correlatedIdentifers);
         } else if (correlatedIdentifers.getCorrelationExpirationDate() != null) {
             LOG.info("updating expiration date");
@@ -65,8 +62,8 @@ public class Storer {
         SessionFactory fact = null;
         Session sess = null;
         Transaction trans = null;
-        Retriever retriever = new Retriever();
-        CorrelatedIdentifiers singleRecord = retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
+
+        CorrelatedIdentifiers singleRecord = Retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
 
         singleRecord.setCorrelationExpirationDate(correlatedIdentifers.getCorrelationExpirationDate());
 
@@ -104,7 +101,6 @@ public class Storer {
         SessionFactory fact = null;
         Session sess = null;
         Transaction trans = null;
-        HibernateUtil hibernateUtil = new HibernateUtil();
 
         try {
             fact = getHibernateUtil().getSessionFactory();
@@ -202,10 +198,7 @@ public class Storer {
     }
 
     protected static HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        hibernateUtil = context.getBean("patientCorrHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
+        return HibernateUtilFactory.getPatientCorrHibernateUtil();
     }
 
 }

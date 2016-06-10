@@ -40,15 +40,13 @@ public class CorrelatedIdentifiersDaoImpl implements CorrelatedIdentifiersDao {
     @Override
     public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
-        Retriever retriever = new Retriever();
-        return retriever.retrievePatientCorrelation(qualifiedPatientIdentifier, includeOnlyAssigningAuthorities);
+        return Retriever.retrievePatientCorrelation(qualifiedPatientIdentifier, includeOnlyAssigningAuthorities);
     }
 
     @Override
     public List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier) {
-        Retriever retriever = new Retriever();
-        return retriever.retrievePatientCorrelation(qualifiedPatientIdentifier);
+        return Retriever.retrievePatientCorrelation(qualifiedPatientIdentifier);
     }
 
     @Override

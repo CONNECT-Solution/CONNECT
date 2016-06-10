@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.PDDeferredCorrelation;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -38,7 +38,6 @@ import org.hibernate.Transaction;
 import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -47,8 +46,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class PDDeferredCorrelationDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDDeferredCorrelationDao.class);
-
-    private HibernateUtil hibernateUtil;
 
     /**
      * Query by Message Id. This should return only one record.
@@ -64,7 +61,7 @@ public class PDDeferredCorrelationDao {
         II patientId = null;
 
         try {
-            SessionFactory fact = getHibernateUtil().getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -90,7 +87,6 @@ public class PDDeferredCorrelationDao {
                     LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
-            hibernateUtil.closeSessionFactory();
         }
 
         if (pdCorrelations == null || pdCorrelations.size() != 1) {
@@ -143,7 +139,7 @@ public class PDDeferredCorrelationDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = getHibernateUtil().getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -185,12 +181,17 @@ public class PDDeferredCorrelationDao {
         LOG.debug("PDDeferredCorrelationDao.save() - End");
     }
 
-    private HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        LOG.debug("Memory address " + context.getId());
-        hibernateUtil = context.getBean("patientCorrHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
+    /**
+     * Gets the session factory belonging to Patient Correlation HibernateUtil
+     *
+     * @return sessionFactory
+     */
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        if (HibernateUtilFactory.getPatientCorrHibernateUtil() != null) {
+            fact = HibernateUtilFactory.getPatientCorrHibernateUtil().getSessionFactory();
+        }
+        return fact;
     }
 
 }

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
+import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -57,18 +59,13 @@ public class ManageTaskScheduler {
     public void init() throws Exception {
         LOG.info("Inside init method -->TaskScheduler Instance:" + scheduler);
         // Initialize the HibernateUtil within the appserver context
-
-        /* This bean is commented out in spring configuration. Removing it from init method. */
-        // ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-        // new String[] { "classpath:spring-beans.xml" });
-        // HibernateUtil hibernateUtil = context.getBean("msgMonitorHibernateUtil", HibernateUtil.class);
-        //
-        // if (hibernateUtil.getSessionFactory() != null) {
-        // LOG.info("Inside init method --> HibernateUtil.getSessionFactory()..getClass().getName(): {}",
-        // hibernateUtil.getSessionFactory().getClass().getName());
-        // } else {
-        // LOG.info("Inside init method --> HibernateUtil.getSessionFactory(): {}", hibernateUtil.getSessionFactory());
-        // }
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getEventHibernateUtil();
+        if (hibernateUtil.getSessionFactory() != null) {
+            LOG.info("Inside init method --> HibernateUtil.getSessionFactory()..getClass().getName(): {}",
+                    hibernateUtil.getSessionFactory().getClass().getName());
+        } else {
+            LOG.info("Inside init method --> HibernateUtil.getSessionFactory(): {}", hibernateUtil.getSessionFactory());
+        }
     }
 
     /**

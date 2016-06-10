@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -36,7 +37,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -49,8 +49,6 @@ public class PhonenumberDAO {
     private static final Logger LOG = LoggerFactory.getLogger(PhonenumberDAO.class);
 
     private static PhonenumberDAO phonenumberDAO = new PhonenumberDAO();
-
-    private HibernateUtil hibernateUtil;
 
     /**
      *
@@ -76,18 +74,6 @@ public class PhonenumberDAO {
 
     }
 
-    /**
-     * Load HibernateUtil bean.
-     *
-     * @return hibernateUtil
-     */
-    protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
-        hibernateUtil = context.getBean("patientDbHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
-    }
-
     // =========================
     // Standard CRUD DML Methods
     // =========================
@@ -107,11 +93,11 @@ public class PhonenumberDAO {
 
         Session session = null;
 
-        Transaction tx = null;
-
         boolean result = true;
 
         if (phonenumberRecord != null) {
+
+            Transaction tx = null;
 
             try {
 
@@ -193,21 +179,23 @@ public class PhonenumberDAO {
 
             SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
 
-            LOG.info("Reading Record...");
+                LOG.info("Reading Record...");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Phonenumber.class);
+                // Build the criteria
+                Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
-            aCriteria.add(Expression.eq("id", id));
+                aCriteria.add(Expression.eq("id", id));
 
-            queryList = aCriteria.list();
+                queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+                if (queryList != null && !queryList.isEmpty()) {
 
-                foundRecord = queryList.get(0);
+                    foundRecord = queryList.get(0);
 
+                }
             }
 
         } catch (Exception e) {
@@ -246,11 +234,11 @@ public class PhonenumberDAO {
 
         Session session = null;
 
-        Transaction tx = null;
-
         boolean result = true;
 
         if (phonenumberRecord != null) {
+
+            Transaction tx = null;
 
             try {
 
@@ -314,12 +302,14 @@ public class PhonenumberDAO {
 
             SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
 
-            LOG.info("Deleting Record...");
+                LOG.info("Deleting Record...");
 
-            // Delete the Phonenumber record
-            session.delete(phonenumberRecord);
+                // Delete the Phonenumber record
+                session.delete(phonenumberRecord);
+            }
 
         } catch (Exception e) {
 
@@ -376,17 +366,19 @@ public class PhonenumberDAO {
 
             SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
 
-            LOG.info("Reading Record...");
+                LOG.info("Reading Record...");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Phonenumber.class);
+                // Build the criteria
+                Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
-            aCriteria.add(Expression.eq("patient.patientId", patientId));
+                aCriteria.add(Expression.eq("patient.patientId", patientId));
 
-            queryList = aCriteria.list();
+                queryList = aCriteria.list();
 
+            }
         } catch (Exception e) {
 
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
@@ -409,8 +401,18 @@ public class PhonenumberDAO {
 
     }
 
+    /**
+     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     *
+     * @return
+     */
     protected SessionFactory getSessionFactory() {
-        return getHibernateUtil().getSessionFactory();
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        SessionFactory fact = null;
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
+        }
+        return fact;
     }
 
 }

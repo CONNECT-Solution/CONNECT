@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.hibernate;
 
-import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.sql.Blob;
@@ -41,7 +41,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * AuditRepositoryDAO Class provides methods to query and update Audit Data to/from MySQL Database using Hibernate
@@ -51,8 +50,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AuditRepositoryDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditRepositoryDAO.class);
-
-    private HibernateUtil hibernateUtil;
 
     /**
      * Constructor
@@ -69,14 +66,14 @@ public class AuditRepositoryDAO {
     public boolean insertAuditRepository(final List<AuditRepositoryRecord> auditList) {
 
         Session session = null;
-        Transaction tx = null;
         boolean result = true;
         if (auditList != null && auditList.size() > 0) {
             final int size = auditList.size();
             AuditRepositoryRecord auditRecord = null;
-
+            Transaction tx = null;
             try {
                 session = getSession();
+
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
                 for (int i = 0; i < size; i++) {
@@ -85,6 +82,7 @@ public class AuditRepositoryDAO {
                 }
                 LOG.info("AuditRepository List Inserted seccussfully...");
                 tx.commit();
+
             } catch (final HibernateException e) {
                 result = false;
                 if (tx != null) {
@@ -123,25 +121,27 @@ public class AuditRepositoryDAO {
             session = getSession();
             LOG.info("Getting Record");
 
-            // Build the criteria
-            final Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
-            if (eUserId != null && !eUserId.isEmpty()) {
-                aCriteria.add(Expression.eq("userId", eUserId));
-            }
-            if (ePatientId != null && !ePatientId.isEmpty()) {
-                aCriteria.add(Expression.eq("receiverPatientId", ePatientId));
-            }
-
-            if (startDate != null) {
-                if (endDate != null) {
-                    aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
-                            new Date(endDate.getTime())));
-                } else {
-                    aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
+            if (session != null) {
+                // Build the criteria
+                final Criteria aCriteria = session.createCriteria(AuditRepositoryRecord.class);
+                if (eUserId != null && !eUserId.isEmpty()) {
+                    aCriteria.add(Expression.eq("userId", eUserId));
                 }
-            }
+                if (ePatientId != null && !ePatientId.isEmpty()) {
+                    aCriteria.add(Expression.eq("receiverPatientId", ePatientId));
+                }
 
-            queryList = aCriteria.list();
+                if (startDate != null) {
+                    if (endDate != null) {
+                        aCriteria.add(Expression.between("timeStamp", new Date(startDate.getTime()),
+                                new Date(endDate.getTime())));
+                    } else {
+                        aCriteria.add(Expression.ge("timeStamp", new Date(startDate.getTime())));
+                    }
+                }
+
+                queryList = aCriteria.list();
+            }
         } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
@@ -166,22 +166,24 @@ public class AuditRepositoryDAO {
             LOG.info("Getting Record for Audit Viewer ");
 
             // Build the criteria
-            final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            if (session != null) {
+                final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
-            if (NullChecker.isNotNullish(messageId)) {
-                if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
-                    queryCriteria.add(Restrictions.eq("messageId", messageId));
-                } else {
-                    queryCriteria.add(
-                            Restrictions.eq("messageId", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
+                if (NullChecker.isNotNullish(messageId)) {
+                    if (messageId.startsWith(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX)) {
+                        queryCriteria.add(Restrictions.eq("messageId", messageId));
+                    } else {
+                        queryCriteria.add(Restrictions.eq("messageId",
+                                NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX + messageId));
+                    }
                 }
-            }
 
-            if (NullChecker.isNotNullish(relatesTo)) {
-                queryCriteria.add(Restrictions.eq("relatesTo", relatesTo));
+                if (NullChecker.isNotNullish(relatesTo)) {
+                    queryCriteria.add(Restrictions.eq("relatesTo", relatesTo));
+                }
+                // if no criteria is passed then it will search full database with above mentioned columns in the result
+                queryList = queryCriteria.list();
             }
-            // if no criteria is passed then it will search full database with above mentioned columns in the result
-            queryList = queryCriteria.list();
         } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
@@ -210,35 +212,37 @@ public class AuditRepositoryDAO {
             session = getSession();
             LOG.info("Getting Record for Audit Query ");
 
-            // Build the criteria
-            final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+            if (session != null) {
+                // Build the criteria
+                final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
 
-            if (NullChecker.isNotNullish(eventTypeList)) {
-                queryCriteria.add(Restrictions.in("eventType", eventTypeList));
-            }
+                if (NullChecker.isNotNullish(eventTypeList)) {
+                    queryCriteria.add(Restrictions.in("eventType", eventTypeList));
+                }
 
-            if (NullChecker.isNotNullish(userId)) {
-                queryCriteria.add(Restrictions.eq("userId", userId));
-            }
+                if (NullChecker.isNotNullish(userId)) {
+                    queryCriteria.add(Restrictions.eq("userId", userId));
+                }
 
-            if (NullChecker.isNotNullish(remoteHcidList)) {
-                queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
-            }
+                if (NullChecker.isNotNullish(remoteHcidList)) {
+                    queryCriteria.add(Restrictions.in("remoteHcid", remoteHcidList));
+                }
 
-            if (startDate != null) {
-                if (endDate != null) {
-                    queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
+                if (startDate != null) {
+                    if (endDate != null) {
+                        queryCriteria.add(Expression.between("eventTimestamp", startDate, endDate));
+                    } else {
+                        queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
+                    }
                 } else {
-                    queryCriteria.add(Restrictions.ge("eventTimestamp", startDate));
+                    if (endDate != null) {
+                        queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
+                    }
                 }
-            } else {
-                if (endDate != null) {
-                    queryCriteria.add(Restrictions.le("eventTimestamp", endDate));
-                }
-            }
 
-            // if no criteria is passed then it will search full database with above mentioned columns in the result
-            queryList = queryCriteria.list();
+                // if no criteria is passed then it will search full database with above mentioned columns in the result
+                queryList = queryCriteria.list();
+            }
 
         } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
@@ -262,12 +266,14 @@ public class AuditRepositoryDAO {
             session = getSession();
             LOG.info("Getting Record for Audit Viewer using auditId");
 
-            // Build the criteria
-            final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
-            queryCriteria.add(Restrictions.eq("id", auditId));
-            queryCriteria.setProjection(Projections.property("message"));
+            if (session != null) {
+                // Build the criteria
+                final Criteria queryCriteria = session.createCriteria(AuditRepositoryRecord.class);
+                queryCriteria.add(Restrictions.eq("id", auditId));
+                queryCriteria.setProjection(Projections.property("message"));
 
-            message = (Blob) queryCriteria.uniqueResult();
+                message = (Blob) queryCriteria.uniqueResult();
+            }
         } catch (final HibernateException e) {
             LOG.error("Exception in AuditLog.get() occurred due to : {}", e.getLocalizedMessage(), e);
         } finally {
@@ -294,19 +300,12 @@ public class AuditRepositoryDAO {
      * @return Hibernate session
      */
     protected Session getSession() {
-        return getHibernateUtil().getSessionFactory().openSession();
-    }
+        Session session = null;
 
-    /**
-     * Load HibernateUtil bean.
-     *
-     * @return hibernateUtil
-     */
-    protected HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
-        hibernateUtil = context.getBean("auditRepoHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
+        if (HibernateUtilFactory.getAuditRepoHibernateUtil() != null) {
+            session = HibernateUtilFactory.getAuditRepoHibernateUtil().getSessionFactory().openSession();
+        }
+        return session;
     }
 
 }

@@ -31,6 +31,7 @@ import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
+import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
@@ -49,7 +50,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -59,8 +59,6 @@ public class AuditDBStoreImpl implements AuditStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditDBStoreImpl.class);
     private static final AuditRepositoryDAO auditLogDao = new AuditRepositoryDAO();
-
-    private HibernateUtil hibernateUtil;
 
     @Override
     public boolean saveAuditRecord(LogEventSecureRequestType request, AssertionType assertion) {
@@ -132,11 +130,8 @@ public class AuditDBStoreImpl implements AuditStore {
      *
      * @return hibernateUtil
      */
-    private HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
-        hibernateUtil = context.getBean("auditRepoHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
+    private static HibernateUtil getHibernateUtil() {
+        return HibernateUtilFactory.getAuditRepoHibernateUtil();
     }
 
 }

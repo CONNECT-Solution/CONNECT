@@ -27,10 +27,10 @@
 package gov.hhs.fha.nhinc.asyncmsgs.dao;
 
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
-import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
@@ -42,12 +42,10 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -81,22 +79,12 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
 
-    private HibernateUtil hibernateUtil;
-
     public AsyncMsgRecordDao() {
         accessor = PropertyAccessor.getInstance();
     }
 
     public AsyncMsgRecordDao(PropertyAccessor accessor) {
         this.accessor = accessor;
-    }
-
-    private HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        LOG.debug("Memory address " + context.getId());
-        hibernateUtil = context.getBean("asyncmsgsHibernateUtil", HibernateUtil.class);
-        return hibernateUtil;
     }
 
     /**
@@ -677,12 +665,16 @@ public class AsyncMsgRecordDao {
         return currentTime.getTime();
     }
 
+    /**
+     * Returns a new session from AsyncMessages HibernateUtil
+     *
+     * @return
+     */
     protected Session getSession() {
-        SessionFactory fact = getHibernateUtil().getSessionFactory();
 
         Session session = null;
-        if (fact != null) {
-            session = fact.openSession();
+        if (HibernateUtilFactory.getAsyncMsgsHibernateUtil() != null) {
+            session = HibernateUtilFactory.getAsyncMsgsHibernateUtil().getSessionFactory().openSession();
         }
 
         return session;
