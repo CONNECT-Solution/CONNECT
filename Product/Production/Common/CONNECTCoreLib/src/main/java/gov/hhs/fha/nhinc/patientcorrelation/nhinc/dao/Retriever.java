@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.Date;

@@ -71,8 +71,6 @@ public class AsyncMessageProcessHelper {
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<>();
 
-    private static HibernateUtil hibernateUtil;
-
     static {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENT, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_REQSENTACK, AsyncMsgRecordDao.QUEUE_DIRECTION_OUTBOUND);
@@ -570,23 +568,13 @@ public class AsyncMessageProcessHelper {
 
     protected Session getSession() {
         Session session = null;
-        if (getHibernateUtil() != null) {
-            session = getHibernateUtil().getSessionFactory().openSession();
+        HibernateUtil util = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
+        if (util != null) {
+            session = util.getSessionFactory().openSession();
         } else {
             LOG.error("Session is null");
         }
         return session;
     }
 
-    /**
-     * Get this class' HibernateUtil
-     *
-     * @return hibernateUtil
-     */
-    private static HibernateUtil getHibernateUtil() {
-        if (hibernateUtil == null) {
-            hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
-        }
-        return hibernateUtil;
-    }
 }
