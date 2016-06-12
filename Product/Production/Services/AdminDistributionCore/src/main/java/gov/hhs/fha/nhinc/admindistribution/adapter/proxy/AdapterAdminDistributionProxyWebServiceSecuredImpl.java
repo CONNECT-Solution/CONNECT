@@ -77,15 +77,15 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
      * @return CXFClient for AdapterAdminDist Secured Service.
      */
     protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     protected String getUrl() {
         return adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
-                ADAPTER_API_LEVEL.LEVEL_a0);
+            ADAPTER_API_LEVEL.LEVEL_a0);
     }
 
     /**
@@ -94,7 +94,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
      * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
@@ -108,7 +108,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
                 ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor = new AdapterAdminDistributionSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
-                        portDescriptor, url, assertion);
+                    portDescriptor, url, assertion);
                 client.enableMtom();
 
                 client.invokePort(AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
@@ -117,7 +117,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
             }
         } else {
             LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
-                    + ").  The URL is null.");
+                + ").  The URL is null.");
         }
     }
 

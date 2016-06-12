@@ -30,9 +30,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import java.lang.reflect.Method;
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class EntityAdministrativeDistributionSecured_g1Test {
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
         assertEquals(ADRequestTransformingBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Admin Distribution", annotation.serviceType());
         assertEquals("2.0", annotation.version());
     }

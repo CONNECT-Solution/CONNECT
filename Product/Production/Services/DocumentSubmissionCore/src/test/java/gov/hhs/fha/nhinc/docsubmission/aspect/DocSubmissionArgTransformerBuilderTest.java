@@ -26,52 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
-import gov.hhs.fha.nhinc.event.BeanTransformerTest;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-public class DocSubmissionArgTransformerBuilderTest extends BeanTransformerTest<DocSubmissionArgTransformerBuilder> {
+public class DocSubmissionArgTransformerBuilderTest {
 
-    @Override
     public DocSubmissionArgTransformerBuilder getBuilder() {
         return new DocSubmissionArgTransformerBuilder();
     }
 
     @Test
     public void correctArgTransformerDelegate() {
-        assertTrue(builder instanceof BeanPropertyArgumentTransformer);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, builder.getDelegate().getClass());
-    }
-
-    @Test
-    public void unwrapsResponseIfNecessary() {
-        RegistryResponseType baseResponseMock = mock(RegistryResponseType.class);
-        assertEquals(baseResponseMock, builder.transformReturnValue(baseResponseMock));
-
-        XDRAcknowledgementType wrapperMock = mock(XDRAcknowledgementType.class);
-        when(wrapperMock.getMessage()).thenReturn(baseResponseMock);
-        assertEquals(baseResponseMock, builder.transformReturnValue(wrapperMock));
-    }
-
-    @Override
-    public Class<?> getTransformToClass() {
-        return ProvideAndRegisterDocumentSetRequestType.class;
-    }
-
-    @Override
-    public Class<?>[] getExpectedWrapperClasses() {
-        return new Class<?>[] {
-                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommoninternalorch.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class };
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, getBuilder().getDelegate().getClass());
     }
 }
