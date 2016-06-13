@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * EventDescriptionBuilder that delegates all work to the other builder. Concrete implementations should call
  * <code>setDelegate</code> during construction.
@@ -34,6 +36,7 @@ package gov.hhs.fha.nhinc.event;
  * All of the build* methods are final. They each delegate to the builder passed in via setDelegate.
  */
 public abstract class DelegatingEventDescriptionBuilder implements EventDescriptionBuilder {
+
     private EventDescriptionBuilder delegate;
     private MessageRoutingAccessor msgRouting;
     private EventContextAccessor msgContext;
@@ -165,5 +168,14 @@ public abstract class DelegatingEventDescriptionBuilder implements EventDescript
     @Override
     public final String getRespondingHcid() {
         return delegate.getRespondingHcid();
+    }
+
+    @Override
+    public final void buildMessageId(String messageId) {
+        if (StringUtils.isNotEmpty(messageId)) {
+            delegate.buildMessageId(messageId);
+        } else {
+            delegate.buildMessageId();
+        }
     }
 }

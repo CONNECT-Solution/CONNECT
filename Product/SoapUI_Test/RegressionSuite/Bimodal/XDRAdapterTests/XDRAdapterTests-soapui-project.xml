@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="XDRAdapter-Tests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="12ee4573-cb93-4bad-9edf-df51edc9739e" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="XDRAdapter-Tests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="12ee4573-cb93-4bad-9edf-df51edc9739e" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentxdr}AdapterComponentXDR_Binding" definition="../../../target/wsdl/AdapterComponentXDR.wsdl" name="AdapterComponentXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="f604d263-a19d-492e-8e25-81edadf9a553" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -4589,7 +4589,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success - Multiple Documents" searchProperties="true" id="d1fae703-6c52-4550-9cc0-842b1f5f4070">
       <con:settings/>
@@ -5128,7 +5130,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSUnknownPatientId" searchProperties="true" id="200c84d1-2fbc-478d-8acb-6f2519d19466">
       <con:settings/>
@@ -5643,7 +5647,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSPatientIdDoesNotMatch" searchProperties="true" id="429fd5c6-4295-4149-996f-042eb1a66c90">
       <con:settings/>
@@ -6222,7 +6228,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSMissingDocumentMetadata" searchProperties="true" id="09a1f902-c817-45e3-b46f-593bf657cefe">
       <con:settings/>
@@ -6736,7 +6744,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSMissingDocument" searchProperties="true" id="c0262553-c147-4779-a2ba-767f20086595">
       <con:settings/>
@@ -7040,7 +7050,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Multiple Failure Messages" searchProperties="true" id="2248ed58-95f1-41b3-899c-a6fb8d119e48">
       <con:settings/>
@@ -7582,7 +7594,9 @@ context.setGatewayStandard(false);</con:setupScript>
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmission",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:properties/>
     <con:reportParameters/>
@@ -7691,7 +7705,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>ASUsername</con:name>
@@ -7831,6 +7845,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncRequestTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="5307e689-f07b-4b63-b4da-e2fbb48d46aa" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncRequestTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="5307e689-f07b-4b63-b4da-e2fbb48d46aa" xmlns:con="http://eviware.com/soapui/config">
   <con:description>This suite tests inbound DS deferred request messages. This suite is standard mode only because it tests audit and policy logic.
 
 Set the GatewayPropsDir to the config/nhin directory of the gateway under test.</con:description>
@@ -2314,7 +2314,9 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound"
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionRequest",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0312d13c-2f1e-44e4-8b14-e5cfafd2b56f" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
       <con:settings/>
@@ -4327,7 +4329,9 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound"
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionRequest",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9034ee29-5dcd-40b5-bb2e-1aa24f86ab7d" keepSession="false" maxResults="0" name="AuditForNHINCXDRRequest" searchProperties="true">
       <con:settings/>
@@ -4888,7 +4892,9 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound"
       </con:properties>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true);</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docsubmission.inboundDocSubmissionRequest",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:properties/>
     <con:reportParameters/>
@@ -4929,8 +4935,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>d:glassfish3glassfishdomainsdomain1config
-hin</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>LocalAA</con:name>
@@ -5065,7 +5070,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfigurat
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ]
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
   def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
   return config;
@@ -5080,8 +5085,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
@@ -5104,8 +5108,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = 
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
    
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
@@ -5124,8 +5127,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
@@ -5137,6 +5139,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>

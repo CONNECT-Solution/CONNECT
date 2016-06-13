@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodesPassthrough" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" id="b8aba359-5e6a-4abc-82ce-770e28f9146e" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodesPassthrough" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="b8aba359-5e6a-4abc-82ce-770e28f9146e" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="9bf9137a-08fe-417b-a28d-a6d947c1c3c2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
     </con:endpoints>
@@ -368,8 +368,9 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -747,8 +748,9 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-context.setGatewayStandard(true);
-log.info ("Setting the gateway to Standard");</con:tearDownScript>
+def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1073,7 +1075,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfigurat
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ]
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
   def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
   return config;
@@ -1087,8 +1089,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
   //set the Gateway to Standard Mode
@@ -1111,8 +1112,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = 
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
    
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
@@ -1132,8 +1132,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
   ];
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
-'/jmxrmi';
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
   log.info "Standard valud-->"+standard
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
   def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
@@ -1146,6 +1145,22 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   }
   server.close();
   return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>

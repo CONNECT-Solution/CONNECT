@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.event;
 
 public class EventDirector {
+
     private EventBuilder builder;
 
     public void setEventBuilder(EventBuilder builder) {

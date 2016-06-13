@@ -89,4 +89,5 @@ public interface EventDescriptionBuilder {
 
     String getRespondingHcid();
 
+    void buildMessageId(String messageId);
 }
