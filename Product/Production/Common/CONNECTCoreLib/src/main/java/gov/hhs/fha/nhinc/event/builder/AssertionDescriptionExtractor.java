@@ -80,8 +80,6 @@ public class AssertionDescriptionExtractor {
                 if (obj instanceof AssertionType) {
                     return (AssertionType) obj;
                 } else {
-                    //Method assertionMethod = obj.getClass().getDeclaredMethod("getAssertion");
-                    //Method[] classMethods = obj.getClass().getDeclaredMethods();
                     return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
                 }
             }
