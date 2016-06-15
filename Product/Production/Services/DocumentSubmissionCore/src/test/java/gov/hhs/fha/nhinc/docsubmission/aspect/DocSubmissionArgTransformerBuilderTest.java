@@ -26,10 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class DocSubmissionArgTransformerBuilderTest {
+public class DocSubmissionArgTransformerBuilderTest extends BaseDescriptionBuilderTest {
 
     public DocSubmissionArgTransformerBuilder getBuilder() {
         return new DocSubmissionArgTransformerBuilder();
@@ -38,5 +45,20 @@ public class DocSubmissionArgTransformerBuilderTest {
     @Test
     public void correctArgTransformerDelegate() {
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, getBuilder().getDelegate().getClass());
+    }
+
+    @Test
+    public void validateSetArguments() {
+        AssertionType assertion = mock(AssertionType.class);
+        HomeCommunityType hcType = mock(HomeCommunityType.class);
+        AssertionDescriptionExtractor assertionExtractor = mock(AssertionDescriptionExtractor.class);
+        when(assertion.getHomeCommunity()).thenReturn(hcType);
+        when(hcType.getHomeCommunityId()).thenReturn("hcid");
+        when(assertionExtractor.getAssertion(assertion)).thenReturn(assertion);
+        Object[] args = new Object[]{assertion};
+        DocSubmissionArgTransformerBuilder builder = getBuilder();
+        builder.setArguments(args);
+        EventDescription eventDescription = getEventDescription(builder);
+        assertEquals("hcid", eventDescription.getInitiatingHCID());
     }
 }

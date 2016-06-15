@@ -50,6 +50,7 @@ public class AssertionEventDescriptionBuilderTest extends BaseDescriptionBuilder
         assertion = mock(AssertionType.class);
 
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
+        when(assertionExtractor.getAssertion(assertion)).thenReturn(assertion);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
 
@@ -70,7 +71,7 @@ public class AssertionEventDescriptionBuilderTest extends BaseDescriptionBuilder
     @Test
     public void extractsAssertion() {
         builder.setAssertionExtractor(assertionExtractor);
-        Object[] params = new Object[] { new Object(), new Object(), assertion };
+        Object[] params = new Object[]{new Object(), new Object(), assertion};
         builder.extractAssertion(params);
 
         EventDescription eventDescription = getEventDescription(builder);
@@ -81,7 +82,7 @@ public class AssertionEventDescriptionBuilderTest extends BaseDescriptionBuilder
     @Test
     public void worksWithNoAssertion() {
         builder.setAssertionExtractor(assertionExtractor);
-        Object[] params = new Object[] {};
+        Object[] params = new Object[]{};
         builder.extractAssertion(params);
 
         EventDescription eventDescription = getEventDescription(builder);

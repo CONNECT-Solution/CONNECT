@@ -28,17 +28,10 @@ package gov.hhs.fha.nhinc.event;
 
 import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +72,6 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
                 return;
             }
         }
-
         // Extracts if AssertionType was not availbale as an argument but the context is.
         try {
             if (assertion == null || !assertion.isPresent()) {
@@ -121,25 +113,10 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
 
     private AssertionType getAssertion(Object... arguments) {
         AssertionType assertObj = null;
-        if (arguments != null) {
-            for (Object obj : arguments) {
-                if (obj instanceof AssertionType) {
-                    assertObj = (AssertionType) obj;
-                } else if (obj instanceof RespondingGatewayPRPAIN201305UV02RequestType) {
-                    assertObj = ((RespondingGatewayPRPAIN201305UV02RequestType) obj).getAssertion();
-                } else if (obj instanceof RespondingGatewayCrossGatewayQueryRequestType) {
-                    assertObj = ((RespondingGatewayCrossGatewayQueryRequestType) obj).getAssertion();
-                } else if (obj instanceof RespondingGatewayCrossGatewayRetrieveRequestType) {
-                    assertObj = ((RespondingGatewayCrossGatewayRetrieveRequestType) obj).getAssertion();
-                } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetRequestType) {
-                    assertObj = ((RespondingGatewayProvideAndRegisterDocumentSetRequestType) obj).getAssertion();
-                } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) {
-                    assertObj = ((RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) obj).getAssertion();
-                } else if (obj instanceof RespondingGatewaySendAlertMessageType) {
-                    assertObj = ((RespondingGatewaySendAlertMessageType) obj).getAssertion();
-                } else if (obj instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
-                    assertObj = ((RespondingGatewayPRPAIN201306UV02RequestType) obj).getAssertion();
-                }
+        for (Object obj : arguments) {
+            assertObj = assertionExtractor.getAssertion(obj);
+            if (assertObj != null) {
+                return assertObj;
             }
         }
         return assertObj;
