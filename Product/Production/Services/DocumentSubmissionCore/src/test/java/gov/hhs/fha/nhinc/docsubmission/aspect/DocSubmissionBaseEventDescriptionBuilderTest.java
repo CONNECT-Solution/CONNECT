@@ -59,7 +59,7 @@ public class DocSubmissionBaseEventDescriptionBuilderTest extends BaseDescriptio
         List<String> payloadSizes = new ArrayList<>();
         payloadSizes.add("payloadSize");
         when(requestExtractor.getPayloadSize(request)).thenReturn(payloadSizes);
-
+        when(assertionExtractor.getAssertion(assertion)).thenReturn(assertion);
         List<String> payloadTypes = new ArrayList<>();
         payloadTypes.add("payloadType");
         when(requestExtractor.getPayloadTypes(request)).thenReturn(payloadTypes);
@@ -75,7 +75,7 @@ public class DocSubmissionBaseEventDescriptionBuilderTest extends BaseDescriptio
         when(responseExtractor.getStatuses(response)).thenReturn(statuses);
 
         DocSubmissionBaseEventDescriptionBuilder builder = new DocSubmissionBaseEventDescriptionBuilder(
-                requestExtractor, assertionExtractor, responseExtractor);
+            requestExtractor, assertionExtractor, responseExtractor);
         builder.setArguments(request, assertion);
         builder.setReturnValue(response);
         EventDescription eventDescription = getEventDescription(builder);
@@ -102,7 +102,7 @@ public class DocSubmissionBaseEventDescriptionBuilderTest extends BaseDescriptio
         ProvideAndRegisterDocumentSetRequestType request = mock(ProvideAndRegisterDocumentSetRequestType.class);
         AssertionType assertion = mock(AssertionType.class);
 
-        builder.setArguments(new Object[] { new Object(), request, new Object(), assertion });
+        builder.setArguments(new Object[]{new Object(), request, new Object(), assertion});
 
         assertEquals(request, builder.getRequest());
         assertEquals(assertion, builder.getAssertion().get());

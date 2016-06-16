@@ -54,15 +54,15 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
     public void before() throws PropertyAccessException {
         request = new AdhocQueryRequest();
         final PropertyAccessor mockProperties = mock(PropertyAccessor.class);
-        builder = new AdhocQueryRequestDescriptionBuilder(){
+        builder = new AdhocQueryRequestDescriptionBuilder() {
             @Override
-            protected PropertyAccessor getPropertyAccessor(){
+            protected PropertyAccessor getPropertyAccessor() {
                 return mockProperties;
             }
         };
         assertion = new AssertionType();
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
-
+        when(assertionExtractor.getAssertion(assertion)).thenReturn(assertion);
         when(mockProperties.getProperty(anyString(), anyString())).thenReturn(null);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
@@ -70,7 +70,7 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
 
     @Test
     public void noAssertion() {
-        Object[] arguments = { request };
+        Object[] arguments = {request};
         builder.setArguments(arguments);
         EventDescription eventDescription = assertBasicBuild(builder);
         assertNull(eventDescription.getNPI());
@@ -80,7 +80,7 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
     @Test
     public void withAssertion() {
         builder.setAssertionExtractor(assertionExtractor);
-        Object[] arguments = { request, assertion };
+        Object[] arguments = {request, assertion};
         builder.setArguments(arguments);
         EventDescription eventDescription = assertBasicBuild(builder);
         assertEquals("hcid", eventDescription.getInitiatingHCID());

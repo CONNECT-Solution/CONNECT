@@ -37,12 +37,15 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
  */
 public class RespondingGatewayPRPAIN201306UV02Builder extends DelegatingEventDescriptionBuilder {
 
+    PRPAIN201306UV02EventDescriptionBuilder eventDescBuilder = new PRPAIN201306UV02EventDescriptionBuilder();
+
     public RespondingGatewayPRPAIN201306UV02Builder() {
-        super.setDelegate(new PRPAIN201306UV02EventDescriptionBuilder());
+        super.setDelegate(eventDescBuilder);
     }
 
     @Override
     public void setArguments(Object... arguments) {
+        eventDescBuilder.setArguments(arguments);
         delegatePRPAIN201306UV02(arguments[0]);
     }
 

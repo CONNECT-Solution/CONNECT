@@ -31,8 +31,18 @@ import static org.junit.Assert.assertNull;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -71,5 +81,82 @@ public class AssertionDescriptionExtractorTest extends BaseDescriptionBuilderTes
 
         assertEquals("1.1", extractor.getInitiatingHCID(assertion));
         assertEquals("npi", extractor.getNPI(assertion));
+    }
+
+    @Test
+    public void extractAssertionFromRespondingGatewayPDRequestType() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+        AssertionType assertion = new AssertionType();
+        request.setAssertion(assertion);
+        AssertionType returnAssertion = extractor.getAssertion((Object) request);
+        assertNotNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertionFromRespondingGatewayQDRequestType() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
+        AssertionType assertion = new AssertionType();
+        request.setAssertion(assertion);
+        AssertionType returnAssertion = extractor.getAssertion((Object) request);
+        assertNotNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertionFromRespondingGatewayRDRequestType() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
+        AssertionType assertion = new AssertionType();
+        request.setAssertion(assertion);
+        AssertionType returnAssertion = extractor.getAssertion((Object) request);
+        assertNotNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertionFromRespondingGatewayDSRequestType() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        RespondingGatewayProvideAndRegisterDocumentSetRequestType request
+            = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
+        AssertionType assertion = new AssertionType();
+        request.setAssertion(assertion);
+        AssertionType returnAssertion = extractor.getAssertion((Object) request);
+        assertNotNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertionFromRespondingGatewayDSDefResponseType() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType request
+            = new RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType();
+        AssertionType assertion = new AssertionType();
+        request.setAssertion(assertion);
+        AssertionType returnAssertion = extractor.getAssertion((Object) request);
+        assertNotNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertionFromRespondingGatewayAD() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        RespondingGatewaySendAlertMessageType request = new RespondingGatewaySendAlertMessageType();
+        AssertionType assertion = new AssertionType();
+        request.setAssertion(assertion);
+        AssertionType returnAssertion = extractor.getAssertion((Object) request);
+        assertNotNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertion() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
+        AssertionType returnAssertion = extractor.getAssertion((Object) target);
+        assertNull(returnAssertion);
+    }
+
+    @Test
+    public void extractAssertionNullObjet() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        AssertionType returnAssertion = extractor.getAssertion(null);
+        assertNull(returnAssertion);
     }
 }

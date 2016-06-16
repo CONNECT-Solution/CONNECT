@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
 import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -48,7 +48,7 @@ public class EntityAdministrativeDistribution extends BaseService implements Adm
     private OutboundAdminDistribution outboundAdminDist;
 
     @Override
-    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", afterReturningBuilder = DefaultEventDescriptionBuilder.class, beforeBuilder = ADRequestTransformingBuilder.class)
+    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, beforeBuilder = ADRequestTransformingBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
 

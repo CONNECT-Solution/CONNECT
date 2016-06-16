@@ -27,12 +27,18 @@
 package gov.hhs.fha.nhinc.event.builder;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
  *
  */
 public class AssertionDescriptionExtractor {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AssertionDescriptionExtractor.class);
 
     /**
      * Extracts the NPI from the AssertionType
@@ -64,7 +70,31 @@ public class AssertionDescriptionExtractor {
         return hcid;
     }
 
-    private boolean hasHomeCommunity(AssertionType assertion) {
+    private static boolean hasHomeCommunity(AssertionType assertion) {
         return assertion != null && assertion.getHomeCommunity() != null;
+    }
+
+    public AssertionType getAssertion(Object obj) {
+        try {
+            if (obj != null) {
+                if (obj instanceof AssertionType) {
+                    return (AssertionType) obj;
+                } else {
+                    return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
+                }
+            }
+        } catch (IllegalAccessException | InvocationTargetException ex) {
+            LOG.info("Unable to extract AssertionType from Object", ex);
+        }
+        return null;
+    }
+
+    private AssertionType getAssertionType(Method[] methods, Object obj) throws IllegalAccessException, InvocationTargetException {
+        for (Method m : methods) {
+            if (("getAssertion").equals(m.getName())) {
+                return (AssertionType) m.invoke(obj);
+            }
+        }
+        return null;
     }
 }

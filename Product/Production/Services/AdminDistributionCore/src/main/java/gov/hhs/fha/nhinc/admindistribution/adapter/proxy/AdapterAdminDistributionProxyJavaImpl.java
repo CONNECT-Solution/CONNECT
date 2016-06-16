@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistributionOrchI
 import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +39,7 @@ import org.slf4j.LoggerFactory;
  * @author dunnek
  */
 public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistributionProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdapterAdminDistributionProxyJavaImpl.class);
 
     /**
@@ -48,7 +48,7 @@ public class AdapterAdminDistributionProxyJavaImpl implements AdapterAdminDistri
      * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");

@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
 import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -47,13 +47,13 @@ import javax.xml.ws.soap.SOAPBinding;
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityAdministrativeDistributionSecured extends BaseService
-        implements AdministrativeDistributionSecuredPortType {
+    implements AdministrativeDistributionSecuredPortType {
 
     private WebServiceContext context;
     private OutboundAdminDistribution outboundAdminDist;
 
     @Override
-    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", afterReturningBuilder = DefaultEventDescriptionBuilder.class, beforeBuilder = ADRequestTransformingBuilder.class)
+    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, beforeBuilder = ADRequestTransformingBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = getAssertion(context, null);
 

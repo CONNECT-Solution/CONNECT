@@ -26,24 +26,24 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
 
-public class DocSubmissionArgTransformerBuilder extends BeanPropertyArgumentTransformer {
+public class DocSubmissionArgTransformerBuilder extends DelegatingEventDescriptionBuilder {
 
     public DocSubmissionArgTransformerBuilder() {
         setDelegate(new DocSubmissionBaseEventDescriptionBuilder());
     }
 
     /**
-     * Handle XDRAcknowledgementType or RegistryResponseType.
+     * @param arguments
      */
     @Override
-    public Object transformReturnValue(Object input) {
-        if (input instanceof XDRAcknowledgementType) {
-            XDRAcknowledgementType ack = (XDRAcknowledgementType) input;
-            return ack.getMessage();
-        }
-        return input;
+    public void setArguments(Object... arguments) {
+        getDelegate().setArguments(arguments);
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        getDelegate().setReturnValue(returnValue);
     }
 }
