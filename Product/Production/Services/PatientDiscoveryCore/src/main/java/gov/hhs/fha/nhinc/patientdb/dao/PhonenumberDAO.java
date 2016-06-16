@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -92,15 +93,15 @@ public class PhonenumberDAO {
 
         Session session = null;
 
-        Transaction tx = null;
-
         boolean result = true;
 
         if (phonenumberRecord != null) {
 
+            Transaction tx = null;
+
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -124,7 +125,7 @@ public class PhonenumberDAO {
 
                 }
 
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -134,7 +135,6 @@ public class PhonenumberDAO {
                     session.close();
 
                 }
-
             }
 
         }
@@ -177,28 +177,30 @@ public class PhonenumberDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
 
-            LOG.info("Reading Record...");
+                LOG.info("Reading Record...");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Phonenumber.class);
+                // Build the criteria
+                Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
-            aCriteria.add(Expression.eq("id", id));
+                aCriteria.add(Expression.eq("id", id));
 
-            queryList = aCriteria.list();
+                queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+                if (queryList != null && !queryList.isEmpty()) {
 
-                foundRecord = queryList.get(0);
+                    foundRecord = queryList.get(0);
 
+                }
             }
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -210,7 +212,6 @@ public class PhonenumberDAO {
                 session.close();
 
             }
-
         }
 
         LOG.debug("PhonenumberDAO.read() - End");
@@ -233,15 +234,15 @@ public class PhonenumberDAO {
 
         Session session = null;
 
-        Transaction tx = null;
-
         boolean result = true;
 
         if (phonenumberRecord != null) {
 
+            Transaction tx = null;
+
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -265,7 +266,7 @@ public class PhonenumberDAO {
 
                 }
 
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -275,7 +276,6 @@ public class PhonenumberDAO {
                     session.close();
 
                 }
-
             }
 
         }
@@ -300,18 +300,20 @@ public class PhonenumberDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
 
-            LOG.info("Deleting Record...");
+                LOG.info("Deleting Record...");
 
-            // Delete the Phonenumber record
-            session.delete(phonenumberRecord);
+                // Delete the Phonenumber record
+                session.delete(phonenumberRecord);
+            }
 
         } catch (Exception e) {
 
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -323,7 +325,6 @@ public class PhonenumberDAO {
                 session.close();
 
             }
-
         }
 
         LOG.debug("PhonenumberDAO.delete() - End");
@@ -363,22 +364,24 @@ public class PhonenumberDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
 
-            LOG.info("Reading Record...");
+                LOG.info("Reading Record...");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Phonenumber.class);
+                // Build the criteria
+                Criteria aCriteria = session.createCriteria(Phonenumber.class);
 
-            aCriteria.add(Expression.eq("patient.patientId", patientId));
+                aCriteria.add(Expression.eq("patient.patientId", patientId));
 
-            queryList = aCriteria.list();
+                queryList = aCriteria.list();
 
+            }
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -390,13 +393,26 @@ public class PhonenumberDAO {
                 session.close();
 
             }
-
         }
 
         LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
 
         return queryList;
 
+    }
+
+    /**
+     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     *
+     * @return
+     */
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        if (hibernateUtil != null) {
+            fact = hibernateUtil.getSessionFactory();
+        }
+        return fact;
     }
 
 }

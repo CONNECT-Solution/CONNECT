@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -88,7 +90,7 @@ public class AddressDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -112,7 +114,7 @@ public class AddressDAO {
 
                 }
 
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -122,7 +124,6 @@ public class AddressDAO {
                     session.close();
 
                 }
-
             }
 
         }
@@ -165,7 +166,7 @@ public class AddressDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -178,7 +179,7 @@ public class AddressDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
 
                 foundRecord = queryList.get(0);
 
@@ -186,7 +187,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -198,7 +199,6 @@ public class AddressDAO {
                 session.close();
 
             }
-
         }
 
         LOG.debug("AddressDAO.read() - End");
@@ -229,7 +229,7 @@ public class AddressDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -253,7 +253,7 @@ public class AddressDAO {
 
                 }
 
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -263,7 +263,6 @@ public class AddressDAO {
                     session.close();
 
                 }
-
             }
 
         }
@@ -288,7 +287,7 @@ public class AddressDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -299,7 +298,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -311,7 +310,6 @@ public class AddressDAO {
                 session.close();
 
             }
-
         }
 
         LOG.debug("AddressDAO.delete() - End");
@@ -335,23 +333,21 @@ public class AddressDAO {
 
         LOG.debug("AddressDAO.readPatientAddresses() - Begin");
 
+        List<Address> queryList = new ArrayList<>();
+        Session session = null;
+
         if (patientId == null) {
 
             LOG.info("-- patientId Parameter is required for Address Query --");
 
             LOG.debug("AddressDAO.readPatientAddresses() - End");
 
-            return null;
-
+            return queryList;
         }
-
-        Session session = null;
-
-        List<Address> queryList = null;
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -366,7 +362,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -385,6 +381,15 @@ public class AddressDAO {
 
         return queryList;
 
+    }
+
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
     }
 
 }

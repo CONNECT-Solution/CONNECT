@@ -158,6 +158,10 @@ public class AuditRetrieveDBTest {
 
     private List<AuditRepositoryRecord> createAuditRepositoryRecord() {
         List<AuditRepositoryRecord> list = new ArrayList<>();
+
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        hibernateUtil.buildSessionFactory();
+
         AuditRepositoryRecord dbRec = new AuditRepositoryRecord();
         dbRec.setDirection(DIRECTION);
         dbRec.setRemoteHcid(REMOTE_HCID);
@@ -169,7 +173,7 @@ public class AuditRetrieveDBTest {
         dbRec.setEventTimestamp(EVENT_TIMESTAMP);
         // dbRec.setMessage(Hibernate.createBlob(AUDIT_MESSAGE.getBytes()));
         dbRec.setMessage(
-                HibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(AUDIT_MESSAGE.getBytes()));
+                hibernateUtil.getSessionFactory().openSession().getLobHelper().createBlob(AUDIT_MESSAGE.getBytes()));
         list.add(dbRec);
         return list;
     }
@@ -181,10 +185,11 @@ public class AuditRetrieveDBTest {
             try {
                 return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
             } catch (DatatypeConfigurationException ex) {
-                LOG.error("Unable to convert date: " + ex.getLocalizedMessage(), ex);
+                LOG.error("Unable to convert date: {}", ex.getLocalizedMessage(), ex);
                 return null;
             }
         }
         return null;
     }
+
 }

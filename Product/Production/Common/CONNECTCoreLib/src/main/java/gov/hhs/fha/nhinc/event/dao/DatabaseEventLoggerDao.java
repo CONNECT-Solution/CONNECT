@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -52,6 +54,9 @@ public class DatabaseEventLoggerDao {
 
     private static class SingletonHolder {
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
+
+        private SingletonHolder() {
+        }
     }
 
     /**
@@ -72,19 +77,21 @@ public class DatabaseEventLoggerDao {
      */
     public boolean insertEvent(final DatabaseEvent databaseEvent) {
 
+        SessionFactory sessionFactory = null;
         Session session = null;
         Transaction tx = null;
         boolean result = true;
 
         try {
+            sessionFactory = getSessionFactory();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
+                tx = session.beginTransaction();
 
-            final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
-            tx = session.beginTransaction();
+                session.persist(databaseEvent);
 
-            session.persist(databaseEvent);
-
-            tx.commit();
+                tx.commit();
+            }
 
         } catch (final HibernateException e) {
             result = false;
@@ -104,35 +111,37 @@ public class DatabaseEventLoggerDao {
      * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2] the service type.
      */
     public List getCounts(final String eventType, final String hcidType) {
-        Session session = null;
-        List results = null;
+        final SessionFactory sessionFactory = getSessionFactory();
+        List results = new ArrayList<>();
 
-        final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
+        if (sessionFactory != null) {
+            Session session = sessionFactory.openSession();
 
-        results = session.createCriteria(DatabaseEvent.class).add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
-                .setProjection(Projections.projectionList().add(Projections.rowCount())
-                        .add(Projections.groupProperty(hcidType))
-                        .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
-                .list();
+            results = session.createCriteria(DatabaseEvent.class).add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
+                    .setProjection(Projections.projectionList().add(Projections.rowCount())
+                            .add(Projections.groupProperty(hcidType))
+                            .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
+                    .list();
 
-        closeSession(session);
+            closeSession(session);
+        }
 
         return results;
     }
 
     public DatabaseEvent getLatestEvent(final String eventType) {
-        Session session = null;
+
         DatabaseEvent event = null;
+        final SessionFactory sessionFactory = getSessionFactory();
+        if (sessionFactory != null) {
+            Session session = sessionFactory.openSession();
 
-        final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
+            event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+                    .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
+                    .uniqueResult();
 
-        event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
-                .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
-                .uniqueResult();
-
-        closeSession(session);
+            closeSession(session);
+        }
 
         return event;
     }
@@ -147,6 +156,15 @@ public class DatabaseEventLoggerDao {
         if (tx != null) {
             tx.rollback();
         }
+    }
+
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getEventHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
     }
 
 }

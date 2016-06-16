@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -226,10 +226,9 @@ public class Retriever {
         SessionFactory fact;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
-        // List<CorrelatedIdentifiers> modifiedResult = null;
 
         try {
-            fact = HibernateUtil.getSessionFactory();
+            fact = HibernateUtilFactory.getPatientCorrHibernateUtil().getSessionFactory();
             sess = fact.openSession();
 
             Criteria criteria;
@@ -270,11 +269,6 @@ public class Retriever {
             }
         }
 
-        // only non-expired patient correlation records will be returned.
-        // expired correlation records will be removed from the datebase.
-        // modifiedResult = removeExpiredCorrelations(result);
-
-        // return modifiedResult;
         return result;
     }
 
@@ -307,4 +301,5 @@ public class Retriever {
 
         return modifiedResult;
     }
+
 }

@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
@@ -42,7 +43,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author JHOPPESC
  */
+
 public class AsyncMsgRecordDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncMsgRecordDao.class);
@@ -363,7 +364,7 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.le("ResponseTime", date));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
+                if (queryCriteria.getServiceName() != null && !queryCriteria.getServiceName().isEmpty()) {
                     criteria.add(Restrictions.in("ServiceName", queryCriteria.getServiceName()));
                     criteriaPopulated = true;
                 }
@@ -371,11 +372,11 @@ public class AsyncMsgRecordDao {
                     criteria.add(Restrictions.eq("Direction", queryCriteria.getDirection()));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getCommunityId() != null && queryCriteria.getCommunityId().size() > 0) {
+                if (queryCriteria.getCommunityId() != null && !queryCriteria.getCommunityId().isEmpty()) {
                     criteria.add(Restrictions.in("CommunityId", queryCriteria.getCommunityId()));
                     criteriaPopulated = true;
                 }
-                if (queryCriteria.getStatus() != null && queryCriteria.getStatus().size() > 0) {
+                if (queryCriteria.getStatus() != null && !queryCriteria.getStatus().isEmpty()) {
                     criteria.add(Restrictions.in("Status", queryCriteria.getStatus()));
                     criteriaPopulated = true;
                 }
@@ -665,14 +666,20 @@ public class AsyncMsgRecordDao {
         return currentTime.getTime();
     }
 
+    /**
+     * Returns a new session from AsyncMessages HibernateUtil
+     *
+     * @return
+     */
     protected Session getSession() {
+
         Session session = null;
-        SessionFactory fact = HibernateUtil.getSessionFactory();
-        if (fact != null) {
-            session = fact.openSession();
-        } else {
-            LOG.error("Session is null");
+        HibernateUtil hibernateUtil = HibernateUtilFactory.getAsyncMsgsHibernateUtil();
+        if (hibernateUtil != null) {
+            session = hibernateUtil.getSessionFactory().openSession();
         }
+
         return session;
     }
+
 }

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.PDDeferredCorrelation;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -61,7 +62,7 @@ public class PDDeferredCorrelationDao {
         II patientId = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -84,13 +85,13 @@ public class PDDeferredCorrelationDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
 
         if (pdCorrelations == null || pdCorrelations.size() != 1) {
-            LOG.error("Failed to find a unique patient id with the given message id " + messageId);
+            LOG.error("Failed to find a unique patient id with the given message id {}", messageId);
         } else {
             PDDeferredCorrelation pdCorrelation = pdCorrelations.get(0);
             patientId = new II();
@@ -139,7 +140,7 @@ public class PDDeferredCorrelationDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
@@ -166,14 +167,14 @@ public class PDDeferredCorrelationDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -181,4 +182,17 @@ public class PDDeferredCorrelationDao {
         LOG.debug("PDDeferredCorrelationDao.save() - End");
     }
 
+    /**
+     * Gets the session factory belonging to Patient Correlation HibernateUtil
+     *
+     * @return sessionFactory
+     */
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getPatientCorrHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
+    }
 }

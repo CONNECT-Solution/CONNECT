@@ -35,6 +35,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -43,29 +44,49 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory SESSION_FACTORY;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
-        try {
-            // Create the SessionFactory from hibernate.cfg.xml
-            SESSION_FACTORY = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
-        } catch (HibernateException he) {
-            // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + he, he.getCause());
-            LOG.error("Initial SessionFactory creation failed." + he);
-            throw new ExceptionInInitializerError(he);
-        }
-    }
+    private static HibernateUtil hibernateUtil;
 
     /**
      * Method returns an instance of Hibernate SessionFactory.
      *
      * @return SessionFactory The Hibernate Session Factory
      */
-    public static SessionFactory getSessionFactory() {
-        return SESSION_FACTORY;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    /**
+     * Method builds the Hibernate SessionFactory.
+     */
+    public void buildSessionFactory() {
+        try {
+            // Create the SessionFactory from hibernate.cfg.xml
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
+        } catch (ExceptionInInitializerError he) {
+            // Make sure you log the exception, as it might be swallowed
+            LOG.error("Initial SessionFactory creation failed. {}", he, he.getCause());
+        }
+    }
+
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        LOG.info("Closing sessionFactory in HibernateUtil");
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+                LOG.info("Successfully closed sessionFactory in event.persistence.HibernateUtil");
+            }
+        } catch (HibernateException he) {
+            LOG.error("Error while closing the sessionFactory: {}", he.getLocalizedMessage(), he);
+        }
     }
 
     private static File getConfigFile() {
@@ -78,5 +99,14 @@ public class HibernateUtil {
         }
 
         return result;
+    }
+
+    public static HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+        if (hibernateUtil == null) {
+            hibernateUtil = context.getBean("eventHibernateUtil", HibernateUtil.class);
+        }
+        return hibernateUtil;
     }
 }

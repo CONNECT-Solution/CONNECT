@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -74,14 +75,14 @@ public class DocumentDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -113,14 +114,14 @@ public class DocumentDao {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -140,7 +141,7 @@ public class DocumentDao {
         try {
             sess = getSession();
             if (sess != null) {
-                document = (Document) sess.get(Document.class, documentId);
+                document = sess.get(Document.class, documentId);
             } else {
                 LOG.error("Failed to obtain a session from the sessionFactory");
             }
@@ -154,15 +155,11 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
         return document;
-    }
-
-    protected SessionFactory getSessionFactory() {
-        return HibernateUtil.getSessionFactory();
     }
 
     /**
@@ -193,7 +190,7 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -378,7 +375,7 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -387,8 +384,10 @@ public class DocumentDao {
 
     protected Session getSession() {
         Session session = null;
-        SessionFactory fact = HibernateUtil.getSessionFactory();
-        if (fact != null) {
+
+        HibernateUtil util = HibernateUtilFactory.getDocRepoHibernateUtil();
+        if (util != null) {
+            SessionFactory fact = util.getSessionFactory();
             session = fact.openSession();
         } else {
             LOG.error("Session is null");

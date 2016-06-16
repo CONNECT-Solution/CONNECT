@@ -38,7 +38,6 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,26 +58,17 @@ public class EventCodeDaoTest {
     /** The event code dao. */
     private EventCodeDao eventCodeDao;
 
-    /** The session factory. */
-    private SessionFactory sessionFactory;
-
     /**
      * Sets the up.
      */
     @Before
     public void setUp() {
         transaction = mock(Transaction.class);
-        sessionFactory = mock(SessionFactory.class);
 
         eventCodeDao = new EventCodeDao() {
             @Override
-            protected Session getSession(SessionFactory sessionFactory) {
+            protected Session getSession() {
                 return session;
-            }
-
-            @Override
-            protected SessionFactory getSessionFactory() {
-                return sessionFactory;
             }
 
             @Override

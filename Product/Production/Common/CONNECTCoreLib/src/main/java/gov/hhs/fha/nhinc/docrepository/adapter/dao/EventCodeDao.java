@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,7 +41,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -58,6 +58,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Neil Webb, msw
  */
+
 public class EventCodeDao {
 
     /**
@@ -71,24 +72,16 @@ public class EventCodeDao {
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
 
     /**
-     * Gets the session factory.
-     *
-     * @return the session factory
-     */
-    protected SessionFactory getSessionFactory() {
-        return HibernateUtil.getSessionFactory();
-    }
-
-    /**
      * Gets the session.
      *
      * @param sessionFactory the session factory
      * @return the session
      */
-    protected Session getSession(SessionFactory sessionFactory) {
+    protected Session getSession() {
         Session session = null;
-        if (sessionFactory != null) {
-            session = sessionFactory.openSession();
+        HibernateUtil util = HibernateUtilFactory.getDocRepoHibernateUtil();
+        if (util != null) {
+            session = util.getSessionFactory().openSession();
         }
         return session;
     }
@@ -102,31 +95,28 @@ public class EventCodeDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = getSessionFactory();
-            if (fact != null) {
-                sess = getSession(fact);
-                if (sess != null) {
-                    trans = sess.beginTransaction();
-                    sess.delete(eventCode);
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+
+            sess = getSession();
+            if (sess != null) {
+                trans = sess.beginTransaction();
+                sess.delete(eventCode);
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
+
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -145,102 +135,97 @@ public class EventCodeDao {
         List<String> eventCodeSchemeList = new ArrayList<>();
         Session sess = null;
         try {
-            SessionFactory fact = getSessionFactory();
-            if (fact != null) {
-                sess = getSession(fact);
-                if (sess != null) {
-                    Criteria criteria = sess.createCriteria(EventCode.class);
-                    DetachedCriteria subCriteria = DetachedCriteria.forClass(EventCode.class);
-                    Criterion andCondition = Restrictions.conjunction();
-                    Disjunction orCondition = Restrictions.disjunction();
-                    String[] alias = new String[1];
-                    alias[0] = "documentid";
-                    Type[] types = new Type[1];
-                    // types[0] = Hibernate.INTEGER;
-                    types[0] = org.hibernate.type.StandardBasicTypes.INTEGER;
-                    List<String> classCodes;
-                    List<String> orValues;
-                    int eventCodeSlotSize = 0;
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    if (slots != null) {
-                        for (SlotType1 slot : slots) {
-                            if (slot.getName() != null && slot.getName().length() > 0 && slot.getValueList() != null
-                                    && slot.getValueList().getValue() != null
-                                    && slot.getValueList().getValue().size() > 0) {
-                                if (slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
-                                    eventCodeSlotSize++;
-                                    ValueListType valueListType = slot.getValueList();
-                                    List<String> slotValues = valueListType.getValue();
-                                    classCodes = new ArrayList<>();
-                                    for (int j = 0; j < slotValues.size(); j++) {
-                                        parseParamFormattedString(slotValues.get(j), classCodes);
-                                        if (slotValues.get(j).contains(",")) {
-                                            orValues = Arrays.asList(slotValues.get(j).split("\\,"));
-                                            for (int l = 0; l < orValues.size(); l++) {
-                                                String innereventCode = getEventCode(classCodes.get(l), "eventCode");
-                                                String innereventCodeScheme = getEventCode(classCodes.get(l),
-                                                        "eventCodeScheme");
-                                                andCondition = Restrictions.and(
-                                                        Restrictions.eq("eventCode", innereventCode),
-                                                        Restrictions.eq("eventCodeScheme", innereventCodeScheme));
-                                                orCondition.add(andCondition);
-                                                eventCodesList.add(innereventCode);
-                                                eventCodeSchemeList.add(innereventCodeScheme);
-                                                hashMap.put(innereventCode + "^^" + innereventCodeScheme,
-                                                        Integer.toString(eventCodeSlotSize));
-                                            }
-                                        } else {
-                                            String eventCode = getEventCode(classCodes.get(j), "eventCode");
-                                            String eventCodeScheme = getEventCode(classCodes.get(j), "eventCodeScheme");
-                                            orCondition.add(Restrictions.and(Restrictions.eq("eventCode", eventCode),
-                                                    Restrictions.eq("eventCodeScheme", eventCodeScheme)));
-                                            eventCodesList.add(eventCode);
-                                            eventCodeSchemeList.add(eventCodeScheme);
-                                            hashMap.put(eventCode + "^^" + eventCodeScheme,
-                                                    Integer.toString(eventCodeSlotSize));
-                                        }
+            sess = getSession();
+
+            if (sess != null) {
+                Criteria criteria = sess.createCriteria(EventCode.class);
+                DetachedCriteria subCriteria = DetachedCriteria.forClass(EventCode.class);
+                Criterion andCondition = Restrictions.conjunction();
+                Disjunction orCondition = Restrictions.disjunction();
+                String[] alias = new String[1];
+                alias[0] = "documentid";
+                Type[] types = new Type[1];
+                types[0] = org.hibernate.type.StandardBasicTypes.INTEGER;
+                List<String> classCodes;
+                List<String> orValues;
+                int eventCodeSlotSize = 0;
+                HashMap<String, String> hashMap = new HashMap<>();
+                if (slots != null) {
+                    for (SlotType1 slot : slots) {
+
+                        boolean slotContainsName = slot.getName() != null && slot.getName().length() > 0;
+                        boolean slotHasValues = slot.getValueList() != null && slot.getValueList().getValue() != null
+                                && !slot.getValueList().getValue().isEmpty();
+
+                        if (slotContainsName && slotHasValues && slot.getName().equals(EBXML_EVENT_CODE_LIST)) {
+                            eventCodeSlotSize++;
+                            ValueListType valueListType = slot.getValueList();
+                            List<String> slotValues = valueListType.getValue();
+                            classCodes = new ArrayList<>();
+                            for (int j = 0; j < slotValues.size(); j++) {
+                                parseParamFormattedString(slotValues.get(j), classCodes);
+                                if (slotValues.get(j).contains(",")) {
+                                    orValues = Arrays.asList(slotValues.get(j).split("\\,"));
+                                    for (int l = 0; l < orValues.size(); l++) {
+                                        String innereventCode = getEventCode(classCodes.get(l), "eventCode");
+                                        String innereventCodeScheme = getEventCode(classCodes.get(l),
+                                                "eventCodeScheme");
+                                        andCondition = Restrictions.and(Restrictions.eq("eventCode", innereventCode),
+                                                Restrictions.eq("eventCodeScheme", innereventCodeScheme));
+                                        orCondition.add(andCondition);
+                                        eventCodesList.add(innereventCode);
+                                        eventCodeSchemeList.add(innereventCodeScheme);
+                                        hashMap.put(innereventCode + "^^" + innereventCodeScheme,
+                                                Integer.toString(eventCodeSlotSize));
                                     }
+                                } else {
+                                    String eventCode = getEventCode(classCodes.get(j), "eventCode");
+                                    String eventCodeScheme = getEventCode(classCodes.get(j), "eventCodeScheme");
+                                    orCondition.add(Restrictions.and(Restrictions.eq("eventCode", eventCode),
+                                            Restrictions.eq("eventCodeScheme", eventCodeScheme)));
+                                    eventCodesList.add(eventCode);
+                                    eventCodeSchemeList.add(eventCodeScheme);
+                                    hashMap.put(eventCode + "^^" + eventCodeScheme,
+                                            Integer.toString(eventCodeSlotSize));
                                 }
                             }
+
                         }
                     }
-                    String groupBy = "documentid" + " having " + "count(*) >= " + eventCodeSlotSize;
-                    subCriteria.add(orCondition);
-
-                    subCriteria.setProjection(Projections.projectionList()
-                            .add(Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
-
-                    criteria.add(Subqueries.propertyIn("document", subCriteria));
-                    criteria.addOrder(Order.asc("document"));
-                    eventCodes = criteria.list();
-                    List<Long> DocumentIds;
-                    DocumentIds = getDocumentIds(eventCodes);
-                    List<Long> uniqueDocumentIds;
-                    uniqueDocumentIds = getUniqueDocumentIds(DocumentIds);
-                    boolean present;
-                    List<Long> documentNotPresent = new ArrayList<>();
-                    for (int i = 0; i < uniqueDocumentIds.size(); i++) {
-                        present = documentInAllSlots(eventCodes, eventCodeSlotSize, hashMap, uniqueDocumentIds.get(i));
-                        if (!present) {
-                            documentNotPresent.add(uniqueDocumentIds.get(i));
-                        }
-                    }
-                    eventCodes = resultEventCodesList(documentNotPresent, eventCodes);
-                    if (eventCodes == null) {
-                        eventCodes = new ArrayList<>();
-                    }
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
+                String groupBy = "documentid" + " having " + "count(*) >= " + eventCodeSlotSize;
+                subCriteria.add(orCondition);
+
+                subCriteria.setProjection(Projections.projectionList()
+                        .add(Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
+
+                criteria.add(Subqueries.propertyIn("document", subCriteria));
+                criteria.addOrder(Order.asc("document"));
+                eventCodes = criteria.list();
+                List<Long> documentIds;
+                documentIds = getDocumentIds(eventCodes);
+                List<Long> uniqueDocumentIds;
+                uniqueDocumentIds = getUniqueDocumentIds(documentIds);
+                boolean present;
+                List<Long> documentNotPresent = new ArrayList<>();
+                for (int i = 0; i < uniqueDocumentIds.size(); i++) {
+                    present = documentInAllSlots(eventCodes, eventCodeSlotSize, hashMap, uniqueDocumentIds.get(i));
+                    if (!present) {
+                        documentNotPresent.add(uniqueDocumentIds.get(i));
+                    }
+                }
+                eventCodes = resultEventCodesList(documentNotPresent, eventCodes);
+                eventCodes = eventCodes == null ? new ArrayList<EventCode>() : eventCodes;
+
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Session was null");
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (HibernateException he) {
-                    LOG.error("Failed to close session: " + he.getMessage(), he);
+                    LOG.error("Failed to close session: {}", he.getMessage(), he);
                 }
             }
         }
@@ -254,24 +239,24 @@ public class EventCodeDao {
      * @return the document ids
      */
     protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
-        List<Long> DocumentIds = new ArrayList<>();
+        List<Long> documentIds = new ArrayList<>();
         for (int i = 0; i < eventCodes.size(); i++) {
-            DocumentIds.add(eventCodes.get(i).getDocument().getDocumentid());
+            documentIds.add(eventCodes.get(i).getDocument().getDocumentid());
         }
-        return DocumentIds;
+        return documentIds;
     }
 
     /**
      * Gets the unique document ids.
      *
-     * @param DocumentIds the document ids
+     * @param documentIds the document ids
      * @return the unique document ids
      */
-    private List<Long> getUniqueDocumentIds(List<Long> DocumentIds) {
-        Set<Long> uniqueDocumentRef = new HashSet<>(DocumentIds);
-        DocumentIds.clear();
-        DocumentIds.addAll(uniqueDocumentRef);
-        return DocumentIds;
+    private List<Long> getUniqueDocumentIds(List<Long> documentIds) {
+        Set<Long> uniqueDocumentRef = new HashSet<>(documentIds);
+        documentIds.clear();
+        documentIds.addAll(uniqueDocumentRef);
+        return documentIds;
     }
 
     /**
@@ -381,7 +366,7 @@ public class EventCodeDao {
         String[] eventCodeList;
         String separate = "\\^\\^";
         eventCodeList = eventCodeParam.split(separate);
-        if (paramName.equalsIgnoreCase("eventCode")) {
+        if ("eventCode".equalsIgnoreCase(paramName)) {
             return eventCodeList[0];
         } else {
             return eventCodeList[1];
@@ -418,16 +403,17 @@ public class EventCodeDao {
                         }
                         resultCollection.add(singleValue);
                         if (LOG.isDebugEnabled()) {
-                            LOG.debug("Added single value: " + singleValue + " to query parameters");
+                            LOG.debug("Added single value: {} to query parameters", singleValue);
                         }
                     }
                 }
             } else {
                 resultCollection.add(paramFormattedString);
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                    LOG.debug("No wrapper on status - adding status: {} to query parameters", paramFormattedString);
                 }
             }
         }
     }
+
 }

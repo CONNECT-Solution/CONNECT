@@ -43,18 +43,35 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Method builds the Hibernate SessionFactory.
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
         } catch (HibernateException he) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + he);
-            throw new ExceptionInInitializerError(he);
+            LOG.error("Initial SessionFactory creation failed. {}", he.getLocalizedMessage(), he);
+        }
+    }
+
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
+        } catch (HibernateException e) {
+            LOG.error("Initial SessionFactory creation failed. {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -63,7 +80,7 @@ public class HibernateUtil {
      *
      * @return SessionFactory
      */
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 

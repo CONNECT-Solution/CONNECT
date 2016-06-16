@@ -44,22 +44,42 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Method builds the Hibernate SessionFactory.
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             LOG.debug("Building the session factory in HibernateUtil in AuditRepositoryCore");
-            sessionFactory = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
         } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex.getLocalizedMessage(), ex);
+            LOG.error("Initial SessionFactory creation failed. {}", ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
         } catch (Exception ex) {
             LOG.error("Error in building sessionFactory. {}", ex.getLocalizedMessage(), ex);
             throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+
+    public void closeSessionFactory() {
+        LOG.info("Closing the sessionFactory in HibernateUtil");
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
+        } catch (HibernateException e) {
+            LOG.error("Error in closing sessionFactory. {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -82,7 +102,7 @@ public class HibernateUtil {
      *
      * @return SessionFactory
      */
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }
