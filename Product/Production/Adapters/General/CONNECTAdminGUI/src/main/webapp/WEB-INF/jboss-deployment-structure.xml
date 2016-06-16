@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
-   <deployment>
+  <deployment>
         <exclusions>
             <!-- Exclude the Hibernate and persistence modules to get passed deployment error. -->
             <module name="org.hibernate" />
@@ -15,5 +15,5 @@
                 </imports>
             </module>	
         </dependencies>	
-   </deployment>
+  </deployment>
 </jboss-deployment-structure>
