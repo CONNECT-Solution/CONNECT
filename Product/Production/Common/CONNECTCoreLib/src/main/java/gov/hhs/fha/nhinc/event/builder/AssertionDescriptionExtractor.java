@@ -83,14 +83,13 @@ public class AssertionDescriptionExtractor {
                     return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
                 }
             }
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+        } catch (IllegalAccessException | InvocationTargetException ex) {
             LOG.info("Unable to extract AssertionType from Object", ex);
         }
         return null;
     }
 
-    private AssertionType getAssertionType(Method[] methods, Object obj) throws IllegalAccessException,
-        IllegalArgumentException, InvocationTargetException {
+    private AssertionType getAssertionType(Method[] methods, Object obj) throws IllegalAccessException, InvocationTargetException {
         for (Method m : methods) {
             if (("getAssertion").equals(m.getName())) {
                 return (AssertionType) m.invoke(obj);

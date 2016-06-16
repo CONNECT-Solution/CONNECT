@@ -32,7 +32,6 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import java.lang.reflect.Method;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.junit.Test;
