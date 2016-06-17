@@ -46,7 +46,7 @@ import org.junit.Test;
 
 /**
  * Tests the ability to sort event results into displayable organizations by total, inbound, and outbound.
- * 
+ *
  * @author jasonasmith
  */
 public class EventCountImplTest {
@@ -81,20 +81,20 @@ public class EventCountImplTest {
         };
 
         daoInboundResults = new ArrayList();
-        daoInboundResults.add(new Object[] { 2, "1.1", "Patient Discovery" });
-        daoInboundResults.add(new Object[] { 2, "1.1", "Document Query" });
+        daoInboundResults.add(new Object[] { new Long("2"), "1.1", "Patient Discovery" });
+        daoInboundResults.add(new Object[] { new Long("2"), "1.1", "Document Query" });
 
         daoOutboundResults = new ArrayList();
-        daoOutboundResults.add(new Object[] { 2, "1.1", "Patient Discovery" });
-        daoOutboundResults.add(new Object[] { 2, "2.2", "Retrieve Document" });
+        daoOutboundResults.add(new Object[] { new Long("2"), "1.1", "Patient Discovery" });
+        daoOutboundResults.add(new Object[] { new Long("2"), "2.2", "Retrieve Document" });
 
         daoInboundDirectResults = new ArrayList();
-        daoInboundDirectResults.add(new Object[] { 2, "1.1", "Direct" });
-        daoInboundDirectResults.add(new Object[] { 2, "1.1", "Direct" });
+        daoInboundDirectResults.add(new Object[] { new Long("2"), "1.1", "Direct" });
+        daoInboundDirectResults.add(new Object[] { new Long("2"), "1.1", "Direct" });
 
         daoOutboundDirectResults = new ArrayList();
-        daoOutboundDirectResults.add(new Object[] { 2, "1.1", "Direct" });
-        daoOutboundDirectResults.add(new Object[] { 2, "2.2", "Direct" });
+        daoOutboundDirectResults.add(new Object[] { new Long("2"), "1.1", "Direct" });
+        daoOutboundDirectResults.add(new Object[] { new Long("2"), "2.2", "Direct" });
     }
 
     private void setMockCounts() throws ConnectionManagerException {
@@ -144,12 +144,12 @@ public class EventCountImplTest {
     }
 
     private void assertTotals(EventNwhinOrganization org1, EventNwhinOrganization org2) {
-        assertEquals(org1.getPdCount(), 4);
-        assertEquals(org1.getDqCount(), 2);
-        assertEquals(org1.getTotalCount(), 10);
+        assertEquals(org1.getPdCount().longValue(), 4);
+        assertEquals(org1.getDqCount().longValue(), 2);
+        assertEquals(org1.getTotalCount().longValue(), 10);
 
-        assertEquals(org2.getDrCount(), 2);
-        assertEquals(org2.getTotalCount(), 4);
+        assertEquals(org2.getDrCount().longValue(), 2);
+        assertEquals(org2.getTotalCount().longValue(), 4);
     }
 
     /**
@@ -164,9 +164,9 @@ public class EventCountImplTest {
         assertNotNull(inboundOrgs);
         assertEquals(inboundOrgs.size(), 1);
 
-        assertEquals(inboundOrgs.get(0).getPdCount(), 2);
-        assertEquals(inboundOrgs.get(0).getDqCount(), 2);
-        assertEquals(inboundOrgs.get(0).getTotalCount(), 6);
+        assertEquals(inboundOrgs.get(0).getPdCount().longValue(), 2);
+        assertEquals(inboundOrgs.get(0).getDqCount().longValue(), 2);
+        assertEquals(inboundOrgs.get(0).getTotalCount().longValue(), 6);
     }
 
     /**
@@ -189,15 +189,15 @@ public class EventCountImplTest {
         assertTrue(org2.getOrganizationName().equals(ORG_1) || org2.getOrganizationName().equals(ORG_2));
 
         if (org1.getOrganizationName().equals(ORG_1)) {
-            assertEquals(org1.getPdCount(), 2);
-            assertEquals(org2.getDrCount(), 2);
+            assertEquals(org1.getPdCount().longValue(), 2);
+            assertEquals(org2.getDrCount().longValue(), 2);
         } else {
-            assertEquals(org1.getDrCount(), 2);
-            assertEquals(org2.getPdCount(), 2);
+            assertEquals(org1.getDrCount().longValue(), 2);
+            assertEquals(org2.getPdCount().longValue(), 2);
         }
 
-        assertEquals(org1.getTotalCount(), 4);
-        assertEquals(org2.getTotalCount(), 4);
+        assertEquals(org1.getTotalCount().longValue(), 4);
+        assertEquals(org2.getTotalCount().longValue(), 4);
     }
 
 }
