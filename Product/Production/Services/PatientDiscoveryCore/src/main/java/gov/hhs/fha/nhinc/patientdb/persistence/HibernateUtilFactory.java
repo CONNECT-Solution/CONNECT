@@ -33,7 +33,7 @@ public class HibernateUtilFactory {
     private static class ClassPathSingleton {
 
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-beans.xml" });
+                new String[] { "classpath:spring-pd-beans.xml" });
 
         private ClassPathSingleton() {
         }
