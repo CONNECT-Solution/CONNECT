@@ -110,8 +110,6 @@ public class DaoUtils {
             } catch (Exception e) {
                 LOG.error("Failed to close session: ", e);
             }
-        } else {
-            LOG.warn("Session is null, cannot close");
         }
     }
 

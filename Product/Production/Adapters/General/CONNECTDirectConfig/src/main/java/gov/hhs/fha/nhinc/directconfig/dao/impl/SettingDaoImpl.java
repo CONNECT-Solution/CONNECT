@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -145,8 +146,6 @@ public class SettingDaoImpl implements SettingDao {
             }
 
             log.debug("Settings found: " + results.size());
-        } catch (NullPointerException e) {
-            log.error("Exception while getting all settings: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -162,7 +161,7 @@ public class SettingDaoImpl implements SettingDao {
     public Collection<Setting> getByNames(Collection<String> names) {
         Collection<Setting> results = null;
 
-        if (names == null || names.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(names)) {
             results = getAll();
         } else {
             Session session = null;
@@ -181,8 +180,6 @@ public class SettingDaoImpl implements SettingDao {
                 }
 
                 log.debug("Settings found: " + results.size());
-            } catch (NullPointerException e) {
-                log.error("Exception while getting the settings: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }

@@ -59,6 +59,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -94,8 +95,6 @@ public class DomainDaoImpl implements DomainDao {
 
             count = ((Long) session.createQuery("SELECT count(*) FROM Domain").uniqueResult()).intValue();
 
-        } catch (NullPointerException e) {
-            log.error("NullPointerException in count(): ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -261,8 +260,6 @@ public class DomainDaoImpl implements DomainDao {
 
                 result = (Domain) query.uniqueResult();
 
-            } catch (NullPointerException e) {
-                log.error("Exception in trying to get the domain name: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -285,7 +282,7 @@ public class DomainDaoImpl implements DomainDao {
         try {
             session = DaoUtils.getSession();
 
-            if (names != null && !names.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(names)) {
                 query = session.getNamedQuery("getDomains");
 
                 query.setParameterList("nameList", names);
@@ -296,8 +293,6 @@ public class DomainDaoImpl implements DomainDao {
             query.setParameter("status", status == null ? status : status.ordinal());
 
             results = query.list();
-        } catch (NullPointerException e) {
-            log.error("NullPointerException while getting the domains: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -346,8 +341,6 @@ public class DomainDaoImpl implements DomainDao {
             if (results.isEmpty()) {
                 results = null;
             }
-        } catch (NullPointerException e) {
-            log.error("Exception while listing the domains: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -385,8 +378,6 @@ public class DomainDaoImpl implements DomainDao {
             if (result == null) {
                 result = new ArrayList<>();
             }
-        } catch (NullPointerException e) {
-            log.error("Exception while searching the domains: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -409,8 +400,6 @@ public class DomainDaoImpl implements DomainDao {
 
                 result = (Domain) session.get(Domain.class, id);
 
-            } catch (NullPointerException e) {
-                log.error("Exception while trying to get the domain: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }

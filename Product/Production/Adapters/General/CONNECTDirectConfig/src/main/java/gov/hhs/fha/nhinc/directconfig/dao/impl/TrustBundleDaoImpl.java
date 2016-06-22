@@ -63,6 +63,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
 import javax.persistence.NoResultException;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
@@ -230,7 +231,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx, cse);
             throw cse;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             DaoUtils.rollbackTransaction(tx, e);
             throw new ConfigurationStoreException("Failed to add trust bundle " + bundle.getBundleName(), e);
         } finally {
@@ -278,7 +279,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx, cse);
             throw cse;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             DaoUtils.rollbackTransaction(tx, e);
             throw new ConfigurationStoreException("Failed to update Trust Bundle Anchors: " + e.getLocalizedMessage(),
                     e);
@@ -322,7 +323,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx, cse);
             throw cse;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             DaoUtils.rollbackTransaction(tx, e);
             throw new ConfigurationStoreException("Failed to update bundle last refresh error.", e);
         } finally {
@@ -395,7 +396,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx, cse);
             throw cse;
-        } catch (CertificateException | CertificateEncodingException | HibernateException | NullPointerException e) {
+        } catch (CertificateException | CertificateEncodingException | HibernateException e) {
             DaoUtils.rollbackTransaction(tx, e);
             throw new ConfigurationStoreException("Failed to update bundle last refresh error.", e);
         } finally {
@@ -445,7 +446,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         } catch (ConfigurationStoreException cse) {
             DaoUtils.rollbackTransaction(tx, cse);
             throw cse;
-        } catch (CertificateException | CertificateEncodingException | HibernateException | NullPointerException e) {
+        } catch (CertificateException | CertificateEncodingException | HibernateException e) {
             DaoUtils.rollbackTransaction(tx, e);
             throw new ConfigurationStoreException("Failed to update bundle last refresh error.", e);
         } finally {
@@ -667,7 +668,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
      */
     private void loadAnchorData(Collection<TrustBundleAnchor> tba) {
         // make sure the anchors are loaded
-        if (tba != null && !tba.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(tba)) {
             for (TrustBundleAnchor anchor : tba) {
                 anchor.getData();
             }

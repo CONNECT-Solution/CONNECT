@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -241,8 +242,6 @@ public class AddressDaoImpl implements AddressDao {
                 result = (Address) query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()))
                         .uniqueResult();
 
-            } catch (Exception e) {
-                log.error("Exception while getting the address: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -265,7 +264,7 @@ public class AddressDaoImpl implements AddressDao {
         try {
             session = DaoUtils.getSession();
 
-            if (names != null && !names.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(names)) {
                 query = session.getNamedQuery("getAddress");
 
                 query.setParameterList("emailList", names);
@@ -282,9 +281,6 @@ public class AddressDaoImpl implements AddressDao {
             }
 
             log.debug("Addresses found: " + results.size());
-
-        } catch (Exception e) {
-            log.error("Exception while getting the list of addresses: ", e);
 
         } finally {
             DaoUtils.closeSession(session);
@@ -325,8 +321,6 @@ public class AddressDaoImpl implements AddressDao {
             }
 
             log.debug("Addresses found: " + results.size());
-        } catch (Exception e) {
-            log.error("Exception while getting the domain: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }

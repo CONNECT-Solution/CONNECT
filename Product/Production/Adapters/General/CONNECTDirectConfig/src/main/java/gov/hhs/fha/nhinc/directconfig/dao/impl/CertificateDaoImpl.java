@@ -58,6 +58,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
@@ -103,12 +104,10 @@ public class CertificateDaoImpl implements CertificateDao {
 
             results = query.list();
 
-            if (results != null && !results.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(results)) {
                 cert = results.iterator().next();
                 LOG.debug("Certificate found");
             }
-        } catch (Exception e) {
-            LOG.error("Exception while loading certificate: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -124,7 +123,7 @@ public class CertificateDaoImpl implements CertificateDao {
     public List<Certificate> list(List<Long> idList) {
         List<Certificate> results = Collections.emptyList();
 
-        if (idList != null && !idList.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(idList)) {
             Session session = null;
             Query query;
 
@@ -141,8 +140,6 @@ public class CertificateDaoImpl implements CertificateDao {
                 }
 
                 LOG.debug("Certificates found: " + results.size());
-            } catch (NullPointerException e) {
-                LOG.error("NullpointerException while getting the list of certificates: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -175,8 +172,6 @@ public class CertificateDaoImpl implements CertificateDao {
             }
 
             LOG.debug("Certificates found: " + results.size());
-        } catch (NullPointerException e) {
-            LOG.error("NullpointerException while listing certificates: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -229,7 +224,7 @@ public class CertificateDaoImpl implements CertificateDao {
                 session.persist(cert);
                 tx.commit();
 
-            } catch (CertificateException | HibernateException | NullPointerException e) {
+            } catch (CertificateException | HibernateException e) {
                 DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
@@ -243,7 +238,7 @@ public class CertificateDaoImpl implements CertificateDao {
      */
     @Override
     public void save(List<Certificate> certList) {
-        if (certList != null && !certList.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(certList)) {
             for (Certificate cert : certList) {
                 save(cert);
             }
@@ -257,7 +252,7 @@ public class CertificateDaoImpl implements CertificateDao {
     public void setStatus(List<Long> certificateIDs, EntityStatus status) {
         List<Certificate> certs = list(certificateIDs);
 
-        if (certs != null && !certs.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(certs)) {
             Session session = null;
             Transaction tx = null;
 
@@ -291,7 +286,7 @@ public class CertificateDaoImpl implements CertificateDao {
     public void setStatus(String owner, EntityStatus status) {
         List<Certificate> certs = list(owner);
 
-        if (certs != null && !certs.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(certs)) {
             Session session = null;
             Transaction tx = null;
 
