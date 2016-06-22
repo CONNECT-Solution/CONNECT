@@ -43,18 +43,41 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory SESSION_FACTORY;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Method builds the Hibernate SessionFactory.
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            SESSION_FACTORY = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
-        } catch (HibernateException he) {
+            LOG.debug("Building the session factory in HibernateUtil in directconfig.persistence");
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
+        } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + he, he.getCause());
-            throw new ExceptionInInitializerError(he);
+            LOG.error("Initial SessionFactory creation failed. {}", ex.getLocalizedMessage(), ex);
+            throw new ExceptionInInitializerError(ex);
+        } catch (Exception ex) {
+            LOG.error("Error in building sessionFactory. {}", ex.getLocalizedMessage(), ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        LOG.info("Closing the sessionFactory in HibernateUtil");
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
+        } catch (HibernateException e) {
+            LOG.error("Error in closing sessionFactory. {}", e.getLocalizedMessage(), e);
         }
     }
 
@@ -63,8 +86,8 @@ public class HibernateUtil {
      *
      * @return SessionFactory The Hibernate Session Factory
      */
-    public static SessionFactory getSessionFactory() {
-        return SESSION_FACTORY;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
     private static File getConfigFile() {

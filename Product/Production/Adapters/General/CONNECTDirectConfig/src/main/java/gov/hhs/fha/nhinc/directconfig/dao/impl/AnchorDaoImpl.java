@@ -89,7 +89,7 @@ public class AnchorDaoImpl implements AnchorDao {
         Collection<Anchor> anchors = list(Arrays.asList(owner));
         Anchor anchor = null;
 
-        if (anchors != null && anchors.size() > 0) {
+        if (anchors != null && !anchors.isEmpty()) {
             anchor = anchors.iterator().next();
         }
 
@@ -109,15 +109,16 @@ public class AnchorDaoImpl implements AnchorDao {
         try {
             session = DaoUtils.getSession();
 
-            if (session != null) {
-                results = session.getNamedQuery("getAllAnchors").list();
+            results = session.getNamedQuery("getAllAnchors").list();
 
-                if (results == null) {
-                    results = new ArrayList<>();
-                }
-
-                log.debug("Anchors found: " + results.size());
+            if (results == null) {
+                results = new ArrayList<>();
             }
+
+            log.debug("Anchors found: " + results.size());
+
+        } catch (NullPointerException e) {
+            log.error("Exception while listing anchors: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -142,18 +143,19 @@ public class AnchorDaoImpl implements AnchorDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    query = session.getNamedQuery("getAnchorsByOwner");
-                    query.setParameterList("ownerList", owners);
+                query = session.getNamedQuery("getAnchorsByOwner");
+                query.setParameterList("ownerList", owners);
 
-                    results = query.list();
+                results = query.list();
 
-                    if (results == null) {
-                        results = new ArrayList<>();
-                    }
-
-                    log.debug("Anchors found: " + results.size());
+                if (results == null) {
+                    results = new ArrayList<>();
                 }
+
+                log.debug("Anchors found: " + results.size());
+
+            } catch (NullPointerException e) {
+                log.error("Exception while listing anchors: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -195,19 +197,18 @@ public class AnchorDaoImpl implements AnchorDao {
 
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    log.debug("Saving anchor");
+                log.debug("Saving anchor");
 
-                    tx = session.beginTransaction();
-                    session.persist(anchor);
-                    tx.commit();
-                }
+                tx = session.beginTransaction();
+                session.persist(anchor);
+                tx.commit();
+
             } catch (CertificateException e) {
                 log.error("Could not convert anchor data to X509Certificate");
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
-            } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+            } catch (NullPointerException e) {
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -250,18 +251,19 @@ public class AnchorDaoImpl implements AnchorDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    query = session.getNamedQuery("getAnchorsByIds");
-                    query.setParameterList("idList", anchorIds);
+                query = session.getNamedQuery("getAnchorsByIds");
+                query.setParameterList("idList", anchorIds);
 
-                    results = query.list();
+                results = query.list();
 
-                    if (results == null) {
-                        results = new ArrayList<>();
-                    }
-
-                    log.debug("Anchors found: " + results.size());
+                if (results == null) {
+                    results = new ArrayList<>();
                 }
+
+                log.debug("Anchors found: " + results.size());
+
+            } catch (NullPointerException e) {
+                log.error("Exception while listing IDs: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -277,25 +279,24 @@ public class AnchorDaoImpl implements AnchorDao {
     public void setStatus(List<Long> anchorIDs, EntityStatus status) {
         List<Anchor> anchors = listByIds(anchorIDs);
 
-        if (anchors != null && anchors.size() > 0) {
+        if (anchors != null && !anchors.isEmpty()) {
             Session session = null;
             Transaction tx = null;
 
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    for (Anchor anchor : anchors) {
-                        anchor.setStatus(status);
-                        session.merge(anchor);
-                    }
-
-                    tx.commit();
+                for (Anchor anchor : anchors) {
+                    anchor.setStatus(status);
+                    session.merge(anchor);
                 }
+
+                tx.commit();
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -317,22 +318,21 @@ public class AnchorDaoImpl implements AnchorDao {
 
             List<Anchor> anchors = list(owners);
 
-            if (anchors != null && anchors.size() > 0) {
+            if (anchors != null && !anchors.isEmpty()) {
                 try {
                     session = DaoUtils.getSession();
 
-                    if (session != null) {
-                        tx = session.beginTransaction();
+                    tx = session.beginTransaction();
 
-                        for (Anchor anchor : anchors) {
-                            anchor.setStatus(status);
-                            session.merge(anchor);
-                        }
-
-                        tx.commit();
+                    for (Anchor anchor : anchors) {
+                        anchor.setStatus(status);
+                        session.merge(anchor);
                     }
+
+                    tx.commit();
+
                 } catch (Exception e) {
-                    DaoUtils.rollbackTransaction(tx);
+                    DaoUtils.rollbackTransaction(tx, e);
                     throw new ConfigurationStoreException(e);
                 } finally {
                     DaoUtils.closeSession(session);
@@ -346,7 +346,7 @@ public class AnchorDaoImpl implements AnchorDao {
      */
     @Override
     public void delete(List<Long> ids) {
-        if (ids != null && ids.size() > 0) {
+        if (ids != null && !ids.isEmpty()) {
             Session session = null;
             Transaction tx = null;
             Query query;
@@ -356,19 +356,18 @@ public class AnchorDaoImpl implements AnchorDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Anchor a WHERE a.id IN (:idList)");
-                    query.setParameterList("idList", ids);
+                query = session.createQuery("DELETE FROM Anchor a WHERE a.id IN (:idList)");
+                query.setParameterList("idList", ids);
 
-                    count = query.executeUpdate();
-                    tx.commit();
+                count = query.executeUpdate();
+                tx.commit();
 
-                    log.debug("Deleted " + count + " Anchors");
-                }
+                log.debug("Deleted " + count + " Anchors");
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -391,19 +390,18 @@ public class AnchorDaoImpl implements AnchorDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = :owner");
-                    query.setParameter("owner", owner.toUpperCase(Locale.getDefault()));
+                query = session.createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = :owner");
+                query.setParameter("owner", owner.toUpperCase(Locale.getDefault()));
 
-                    count = query.executeUpdate();
-                    tx.commit();
+                count = query.executeUpdate();
+                tx.commit();
 
-                    log.debug("Deleted " + count + " Anchors");
-                }
+                log.debug("Deleted " + count + " Anchors");
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);

@@ -77,15 +77,13 @@ public class SettingDaoImpl implements SettingDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
-                    session.persist(setting);
-                    tx.commit();
-                }
+                tx = session.beginTransaction();
+                session.persist(setting);
+                tx.commit();
 
                 log.debug("Setting added successfully");
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -108,19 +106,18 @@ public class SettingDaoImpl implements SettingDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Setting s WHERE UPPER(s.name) IN (:names)");
-                    query.setParameterList("names", names);
+                query = session.createQuery("DELETE FROM Setting s WHERE UPPER(s.name) IN (:names)");
+                query.setParameterList("names", names);
 
-                    count = query.executeUpdate();
-                    tx.commit();
+                count = query.executeUpdate();
+                tx.commit();
 
-                    log.debug("Exit: " + count + " setting records deleted");
-                }
+                log.debug("Exit: " + count + " setting records deleted");
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -141,15 +138,15 @@ public class SettingDaoImpl implements SettingDao {
         try {
             session = DaoUtils.getSession();
 
-            if (session != null) {
-                results = session.getNamedQuery("getAllSettings").list();
+            results = session.getNamedQuery("getAllSettings").list();
 
-                if (results == null) {
-                    results = Collections.emptyList();
-                }
-
-                log.debug("Settings found: " + results.size());
+            if (results == null) {
+                results = Collections.emptyList();
             }
+
+            log.debug("Settings found: " + results.size());
+        } catch (NullPointerException e) {
+            log.error("Exception while getting all settings: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -174,18 +171,18 @@ public class SettingDaoImpl implements SettingDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    query = session.getNamedQuery("getSettings");
-                    query.setParameterList("nameList", names);
+                query = session.getNamedQuery("getSettings");
+                query.setParameterList("nameList", names);
 
-                    results = query.list();
+                results = query.list();
 
-                    if (results == null) {
-                        results = Collections.emptyList();
-                    }
-
-                    log.debug("Settings found: " + results.size());
+                if (results == null) {
+                    results = Collections.emptyList();
                 }
+
+                log.debug("Settings found: " + results.size());
+            } catch (NullPointerException e) {
+                log.error("Exception while getting the settings: ", e);
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -208,19 +205,18 @@ public class SettingDaoImpl implements SettingDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    for (Setting setting : settings) {
-                        setting.setValue(value);
-                        setting.setUpdateTime(Calendar.getInstance());
-                        session.merge(setting);
-                    }
-
-                    tx.commit();
+                for (Setting setting : settings) {
+                    setting.setValue(value);
+                    setting.setUpdateTime(Calendar.getInstance());
+                    session.merge(setting);
                 }
+
+                tx.commit();
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
