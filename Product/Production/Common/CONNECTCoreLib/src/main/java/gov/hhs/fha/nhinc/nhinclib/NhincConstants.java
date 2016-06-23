@@ -518,6 +518,7 @@ public class NhincConstants {
     public static final String DOCREPO_HIBERNATE_BEAN = "docRepoHibernateUtil";
     public static final String PATIENT_CORR_HIBERNATE_BEAN = "patientCorrHibernateUtil";
     public static final String MSG_MONITOR_HIBERNATE_BEAN = "msgMonitorHibernateUtil";
+    public static final String DIRECT_CONFIG_HIBERNATE_BEAN = "directConfigHibernateUtil";
 
     private NhincConstants() {
     }

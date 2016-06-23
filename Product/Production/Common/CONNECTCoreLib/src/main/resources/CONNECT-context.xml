@@ -34,5 +34,8 @@
 
     <bean name="msgMonitorHibernateUtil" class="gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil" 
         init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>  
+        
+    <bean name="directConfigHibernateUtil" class="gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil" 
+        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>      
 
 </beans>
