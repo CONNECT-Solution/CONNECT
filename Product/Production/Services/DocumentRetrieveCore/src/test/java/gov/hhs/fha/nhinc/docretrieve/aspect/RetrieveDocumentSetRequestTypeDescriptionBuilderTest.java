@@ -54,15 +54,16 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
     @Before
     public void before() throws PropertyAccessException {
         final PropertyAccessor mockProperties = mock(PropertyAccessor.class);
-        builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(){
+        builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder() {
             @Override
-            protected PropertyAccessor getPropertyAccessor(){
+            protected PropertyAccessor getPropertyAccessor() {
                 return mockProperties;
             }
         };
         request = new RetrieveDocumentSetRequestType();
         assertion = new AssertionType();
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
+        when(assertionExtractor.getAssertion(assertion)).thenReturn(assertion);
         when(mockProperties.getProperty(anyString(), anyString())).thenReturn(null);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
@@ -85,7 +86,7 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
     @Test
     public void withAssertion() {
         builder.setAssertionExtractor(assertionExtractor);
-        Object[] arguments = { request, assertion };
+        Object[] arguments = {request, assertion};
         builder.setArguments(arguments);
         EventDescription eventDescription = assertBasicBuild();
         assertEquals("hcid", eventDescription.getInitiatingHCID());

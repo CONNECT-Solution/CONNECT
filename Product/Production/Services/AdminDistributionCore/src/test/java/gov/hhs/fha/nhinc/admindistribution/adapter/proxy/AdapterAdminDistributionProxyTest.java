@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistribut
 import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import java.lang.reflect.Method;
@@ -47,7 +46,7 @@ public class AdapterAdminDistributionProxyTest {
 
     @SuppressWarnings("unchecked")
     private final CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> secureClient = mock(
-            CONNECTClient.class);
+        CONNECTClient.class);
     @SuppressWarnings("unchecked")
     private final CONNECTClient<AdapterAdministrativeDistributionPortType> client = mock(CONNECTClient.class);
     private EDXLDistribution request = mock(EDXLDistribution.class);
@@ -69,15 +68,15 @@ public class AdapterAdminDistributionProxyTest {
 
     @Test
     public void hasEventAnnotation() throws Exception {
-        Class<?>[] classes = { AdapterAdminDistributionProxyJavaImpl.class, AdapterAdminDistributionProxyNoOpImpl.class,
-                AdapterAdminDistributionProxyWebServiceSecuredImpl.class,
-                AdapterAdminDistributionProxyWebServiceUnsecuredImpl.class };
+        Class<?>[] classes = {AdapterAdminDistributionProxyJavaImpl.class, AdapterAdminDistributionProxyNoOpImpl.class,
+            AdapterAdminDistributionProxyWebServiceSecuredImpl.class,
+            AdapterAdminDistributionProxyWebServiceUnsecuredImpl.class};
         for (Class<?> clazz : classes) {
             Method method = clazz.getMethod("sendAlertMessage", EDXLDistribution.class, AssertionType.class);
             AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
             assertNotNull(annotation);
             assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.beforeBuilder());
-            assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.afterReturningBuilder());
             assertEquals("Admin Distribution", annotation.serviceType());
             assertEquals("", annotation.version());
         }
@@ -94,8 +93,8 @@ public class AdapterAdminDistributionProxyTest {
              */
             @Override
             protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
-                    ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
-                    AssertionType assertion) {
+                ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
+                AssertionType assertion) {
                 return secureClient;
             }
 
@@ -124,8 +123,8 @@ public class AdapterAdminDistributionProxyTest {
              */
             @Override
             protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
-                    ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
-                    AssertionType assertion) {
+                ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
+                AssertionType assertion) {
                 return client;
             }
 

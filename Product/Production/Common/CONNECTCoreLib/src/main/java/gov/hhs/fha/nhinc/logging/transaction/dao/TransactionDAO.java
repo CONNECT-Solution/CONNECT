@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.logging.transaction.dao;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -81,7 +82,7 @@ public class TransactionDAO {
 
         if (transactionRepo != null) {
             try {
-                final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                final SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
@@ -121,7 +122,7 @@ public class TransactionDAO {
         Session session = null;
 
         try {
-            final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            final SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
 
             if (LOG.isDebugEnabled()) {
@@ -155,6 +156,20 @@ public class TransactionDAO {
         if (tx != null) {
             tx.rollback();
         }
+    }
+
+    /**
+     * Protected method that gets the SingletonHolder's sessionFactory.
+     *
+     * @return sessionFactory
+     */
+    protected static SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getTransactionHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
     }
 
 }

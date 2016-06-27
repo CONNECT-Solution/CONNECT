@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -86,9 +87,10 @@ public class AddressDaoImpl implements AddressDao {
         try {
             session = DaoUtils.getSession();
 
-            if (session != null) {
-                count = ((Long) session.createQuery("SELECT count(*) FROM Address").uniqueResult()).intValue();
-            }
+            count = ((Long) session.createQuery("SELECT count(*) FROM Address").uniqueResult()).intValue();
+
+        } catch (Exception e) {
+            log.error("Error in getting the count: ", e);
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -113,15 +115,14 @@ public class AddressDaoImpl implements AddressDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    log.debug("Saving address");
+                log.debug("Saving address");
 
-                    tx = session.beginTransaction();
-                    session.save(address);
-                    tx.commit();
-                }
+                tx = session.beginTransaction();
+                session.save(address);
+                tx.commit();
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -143,27 +144,26 @@ public class AddressDaoImpl implements AddressDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    log.debug("Retrieving address: " + address.getEmailAddress());
+                log.debug("Retrieving address: " + address.getEmailAddress());
 
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    entity = (Address) session.get(Address.class, address.getId());
+                entity = (Address) session.get(Address.class, address.getId());
 
-                    entity.setDisplayName(address.getDisplayName());
-                    entity.setEndpoint(address.getEndpoint());
-                    entity.setEmailAddress(address.getEmailAddress());
-                    entity.setType(address.getType());
-                    entity.setStatus(address.getStatus());
-                    entity.setUpdateTime(Calendar.getInstance());
+                entity.setDisplayName(address.getDisplayName());
+                entity.setEndpoint(address.getEndpoint());
+                entity.setEmailAddress(address.getEmailAddress());
+                entity.setType(address.getType());
+                entity.setStatus(address.getStatus());
+                entity.setUpdateTime(Calendar.getInstance());
 
-                    log.debug("Merging address");
+                log.debug("Merging address");
 
-                    session.merge(entity);
-                    tx.commit();
-                }
+                session.merge(entity);
+                tx.commit();
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -194,17 +194,16 @@ public class AddressDaoImpl implements AddressDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    tx = session.beginTransaction();
+                tx = session.beginTransaction();
 
-                    query = session.createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = :emailAddress");
-                    query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()));
+                query = session.createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = :emailAddress");
+                query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()));
 
-                    count = query.executeUpdate();
-                    tx.commit();
-                }
+                count = query.executeUpdate();
+                tx.commit();
+
             } catch (Exception e) {
-                DaoUtils.rollbackTransaction(tx);
+                DaoUtils.rollbackTransaction(tx, e);
                 throw new ConfigurationStoreException(e);
             } finally {
                 DaoUtils.closeSession(session);
@@ -237,13 +236,12 @@ public class AddressDaoImpl implements AddressDao {
             try {
                 session = DaoUtils.getSession();
 
-                if (session != null) {
-                    query = session
-                            .createQuery("SELECT DISTINCT a from Address a WHERE UPPER(a.emailAddress) = :emailAddress");
+                query = session
+                        .createQuery("SELECT DISTINCT a from Address a WHERE UPPER(a.emailAddress) = :emailAddress");
 
-                    result = (Address) query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()))
-                            .uniqueResult();
-                }
+                result = (Address) query.setParameter("emailAddress", name.toUpperCase(Locale.getDefault()))
+                        .uniqueResult();
+
             } finally {
                 DaoUtils.closeSession(session);
             }
@@ -266,25 +264,24 @@ public class AddressDaoImpl implements AddressDao {
         try {
             session = DaoUtils.getSession();
 
-            if (session != null) {
-                if (names != null && names.size() > 0) {
-                    query = session.getNamedQuery("getAddress");
+            if (CollectionUtils.isNotEmpty(names)) {
+                query = session.getNamedQuery("getAddress");
 
-                    query.setParameterList("emailList", names);
-                } else {
-                    query = session.getNamedQuery("getAddressByStatus");
-                }
-
-                query.setParameter("status", status == null ? status : status.ordinal());
-
-                results = query.list();
-
-                if (results == null) {
-                    results = new ArrayList<>();
-                }
-
-                log.debug("Addresses found: " + results.size());
+                query.setParameterList("emailList", names);
+            } else {
+                query = session.getNamedQuery("getAddressByStatus");
             }
+
+            query.setParameter("status", status == null ? status : status.ordinal());
+
+            results = query.list();
+
+            if (results == null) {
+                results = new ArrayList<>();
+            }
+
+            log.debug("Addresses found: " + results.size());
+
         } finally {
             DaoUtils.closeSession(session);
         }
@@ -308,24 +305,22 @@ public class AddressDaoImpl implements AddressDao {
         try {
             session = DaoUtils.getSession();
 
-            if (session != null) {
-                query = session.getNamedQuery("getAddressByDomain");
+            query = session.getNamedQuery("getAddressByDomain");
 
-                if (domain != null) {
-                    domainId = domain.getId();
-                }
-
-                query.setParameter("domainId", domainId);
-                query.setParameter("status", status == null ? status : status.ordinal());
-
-                results = query.list();
-
-                if (results == null) {
-                    results = new ArrayList<>();
-                }
-
-                log.debug("Addresses found: " + results.size());
+            if (domain != null) {
+                domainId = domain.getId();
             }
+
+            query.setParameter("domainId", domainId);
+            query.setParameter("status", status == null ? status : status.ordinal());
+
+            results = query.list();
+
+            if (results == null) {
+                results = new ArrayList<>();
+            }
+
+            log.debug("Addresses found: " + results.size());
         } finally {
             DaoUtils.closeSession(session);
         }

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.common.connectionmanager.dao;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping;
 import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -75,10 +76,10 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         Session sess = null;
         List<String> listOfAAs = new ArrayList<>();
         if (homeCommunityId != null && !homeCommunityId.isEmpty()) {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             try {
-                sess = fact.openSession();
-                if (sess != null) {
+                if (fact != null) {
+                    sess = fact.openSession();
                     Query namedQuery = sess.getNamedQuery("findAAByHomeCommunityId");
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
                     for (AssigningAuthorityToHomeCommunityMapping mapping : (List<AssigningAuthorityToHomeCommunityMapping>) namedQuery
@@ -94,7 +95,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     try {
                         sess.close();
                     } catch (HibernateException he) {
-                        LOG.error("Failed to close session: " + he.getMessage(), he);
+                        LOG.error("Failed to close session: {}", he.getMessage(), he);
                     }
                 }
             }
@@ -103,7 +104,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         }
         if (LOG.isTraceEnabled()) {
             LOG.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
-            LOG.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
+            LOG.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: {}", listOfAAs.size());
         }
         return listOfAAs;
     }
@@ -120,14 +121,14 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         String homeCommunity = "";
         if (assigningAuthority != null && !assigningAuthority.isEmpty()) {
             Session sess = null;
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             try {
-                sess = fact.openSession();
-                if (sess != null) {
+                if (fact != null) {
+                    sess = fact.openSession();
                     Query namedQuery = sess.getNamedQuery("findAAByAAId");
                     namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
-                    if (l != null && l.size() > 0) {
+                    if (l != null && !l.isEmpty()) {
                         homeCommunity = l.get(0).getHomeCommunityId();
                     }
                 } else {
@@ -138,7 +139,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     try {
                         sess.close();
                     } catch (HibernateException he) {
-                        LOG.error("Failed to close session: " + he.getMessage(), he);
+                        LOG.error("Failed to close session: {}", he.getMessage(), he);
                     }
                 }
             }
@@ -158,24 +159,22 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     public boolean storeMapping(String homeCommunityId, String assigningAuthority) {
         LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out.println(
-                "--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         boolean success = false;
         AssigningAuthorityToHomeCommunityMapping mappingInfo = null;
         Transaction trans = null;
         Session sess = null;
         if (homeCommunityId != null && !homeCommunityId.isEmpty() && assigningAuthority != null
                 && !assigningAuthority.isEmpty()) {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             try {
-                sess = fact.openSession();
-                if (sess != null) {
+                if (fact != null) {
+                    sess = fact.openSession();
                     Query namedQuery = sess.getNamedQuery("findAAByAAIdAndHomeCommunityId");
                     namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
                     namedQuery.setParameter("homeCommunityId", homeCommunityId);
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
 
-                    if (l != null && l.size() > 0) {
+                    if (l != null && !l.isEmpty()) {
                         LOG.info("Assigning Authority and Home Community pair already present in the repository");
                     } else {
                         mappingInfo = new AssigningAuthorityToHomeCommunityMapping();
@@ -193,14 +192,14 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     try {
                         trans.commit();
                     } catch (HibernateException he) {
-                        LOG.error("Failed to commit transaction: " + he.getMessage(), he);
+                        LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
                     }
                 }
                 if (sess != null) {
                     try {
                         sess.close();
                     } catch (HibernateException he) {
-                        LOG.error("Failed to close session: " + he.getMessage(), he);
+                        LOG.error("Failed to close session: {}", he.getMessage(), he);
                     }
                 }
             }
@@ -208,8 +207,21 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             LOG.error("Invalid data entered, Enter Valid data to store");
         }
         LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
-        System.out.println(
-                "--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         return success;
     }
+
+    /**
+     * Returns the session factory belonging to Connection Manager HibernateUtil
+     *
+     * @return
+     */
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getConnManHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
+    }
+
 }

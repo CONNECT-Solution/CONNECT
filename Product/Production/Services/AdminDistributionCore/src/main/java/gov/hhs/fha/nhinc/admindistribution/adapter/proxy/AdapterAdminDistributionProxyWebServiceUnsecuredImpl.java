@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescripti
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -51,7 +50,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements AdapterAdminDistributionProxy {
 
     private static final Logger LOG = LoggerFactory
-            .getLogger(AdapterAdminDistributionProxyWebServiceUnsecuredImpl.class);
+        .getLogger(AdapterAdminDistributionProxyWebServiceUnsecuredImpl.class);
     private AdminDistributionHelper adminDistributionHelper;
 
     /**
@@ -77,15 +76,15 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
      * @return CXFClient for AdapterAdminDist Unsecured Service.
      */
     protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     protected String getUrl() {
         return adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
-                ADAPTER_API_LEVEL.LEVEL_a0);
+            ADAPTER_API_LEVEL.LEVEL_a0);
     }
 
     /**
@@ -94,7 +93,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
      * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
@@ -110,7 +109,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
                 ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = new AdapterAdminDistributionUnsecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(
-                        portDescriptor, url, assertion);
+                    portDescriptor, url, assertion);
                 client.enableMtom();
 
                 client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
@@ -119,7 +118,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
             }
         } else {
             LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
-                    + ").  The URL is null.");
+                + ").  The URL is null.");
         }
     }
 

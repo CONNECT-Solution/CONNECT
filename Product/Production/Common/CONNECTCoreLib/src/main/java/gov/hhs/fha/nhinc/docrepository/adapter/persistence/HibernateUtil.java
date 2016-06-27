@@ -43,22 +43,40 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Method builds the Hibernate SessionFactory.
+     */
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
         } catch (HibernateException he) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + he);
+            LOG.error("Initial SessionFactory creation failed. {}", he);
             throw new ExceptionInInitializerError(he);
         }
     }
 
-    public static SessionFactory getSessionFactory() {
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
+        } catch (HibernateException he) {
+            LOG.error("Error occurred during closing the sessionFactory: {}", he.getLocalizedMessage(), he);
+        }
+    }
+
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
@@ -68,7 +86,7 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY);
         } catch (Exception ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load {} {}", NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY, ex.getMessage(), ex);
         }
 
         return result;

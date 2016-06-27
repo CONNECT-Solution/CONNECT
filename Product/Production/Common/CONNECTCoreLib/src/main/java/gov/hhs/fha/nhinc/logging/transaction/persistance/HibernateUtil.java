@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.File;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -43,18 +44,38 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory SESSION_FACTORY;
+    private SessionFactory sessionFactory;
     private static final Logger LOG = LoggerFactory.getLogger(HibernateUtil.class);
 
-    static {
+    /**
+     * Method builds the Hibernate SessionFactory.
+     */
+
+    public void buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            SESSION_FACTORY = new Configuration().configure()
-                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            if (sessionFactory == null || sessionFactory.isClosed()) {
+                sessionFactory = new Configuration().configure()
+                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+            }
         } catch (ExceptionInInitializerError ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
+            LOG.error("Initial SessionFactory creation failed. {}", ex.getLocalizedMessage(), ex);
             throw ex;
+        }
+    }
+
+    /**
+     * Method closes the Hibernate SessionFactory
+     */
+    public void closeSessionFactory() {
+        try {
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                LOG.info("About to close sessionfactory in transaction.persistence.HibernateUtil");
+                sessionFactory.close();
+            }
+        } catch (HibernateException he) {
+            LOG.error("Failed to close sessionFactory. {}", he.getLocalizedMessage(), he);
         }
     }
 
@@ -63,8 +84,8 @@ public class HibernateUtil {
      *
      * @return SessionFactory The Hibernate Session Factory
      */
-    public static SessionFactory getSessionFactory() {
-        return SESSION_FACTORY;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
     private static File getConfigFile() {
@@ -73,9 +94,10 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load {} {}", NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY, ex.getMessage(), ex);
         }
 
         return result;
     }
+
 }

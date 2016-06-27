@@ -21,7 +21,6 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
-
         <!-- CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -121,12 +120,6 @@
             <artifactId>hibernate-commons-annotations</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-		
 
         <!-- Parsing & Code Generation -->
         <dependency>

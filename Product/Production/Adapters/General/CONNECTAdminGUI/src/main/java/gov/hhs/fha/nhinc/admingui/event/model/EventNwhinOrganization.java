@@ -34,16 +34,16 @@ public class EventNwhinOrganization {
 
     private String organizationName;
 
-    private int dqCount = 0;
-    private int drCount = 0;
-    private int pdDefReqCount = 0;
-    private int pdDefRespCount = 0;
-    private int pdSyncCount = 0;
-    private int dsDefReqCount = 0;
-    private int dsDefRespCount = 0;
-    private int dsSyncCount = 0;
-    private int adCount = 0;
-    private int directCount = 0;
+    private Long dqCount = 0L;
+    private Long drCount = 0L;
+    private Long pdDefReqCount = 0L;
+    private Long pdDefRespCount = 0L;
+    private Long pdSyncCount = 0L;
+    private Long dsDefReqCount = 0L;
+    private Long dsDefRespCount = 0L;
+    private Long dsSyncCount = 0L;
+    private Long adCount = 0L;
+    private Long directCount = 0L;
 
     /**
      *
@@ -65,7 +65,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getPdCount() {
+    public Long getPdCount() {
         return pdSyncCount + pdDefReqCount + pdDefRespCount;
     }
 
@@ -73,7 +73,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDqCount() {
+    public Long getDqCount() {
         return dqCount;
     }
 
@@ -81,7 +81,7 @@ public class EventNwhinOrganization {
      *
      * @param dqCount
      */
-    public void setDqCount(int dqCount) {
+    public void setDqCount(Long dqCount) {
         this.dqCount = dqCount;
     }
 
@@ -89,7 +89,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDrCount() {
+    public Long getDrCount() {
         return drCount;
     }
 
@@ -97,7 +97,7 @@ public class EventNwhinOrganization {
      *
      * @param drCount
      */
-    public void setDrCount(int drCount) {
+    public void setDrCount(Long drCount) {
         this.drCount = drCount;
     }
 
@@ -105,7 +105,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDsCount() {
+    public Long getDsCount() {
         return dsSyncCount + dsDefReqCount + dsDefRespCount;
     }
 
@@ -113,7 +113,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getPdDefReqCount() {
+    public Long getPdDefReqCount() {
         return pdDefReqCount;
     }
 
@@ -121,7 +121,7 @@ public class EventNwhinOrganization {
      *
      * @param pdDefReqCount
      */
-    public void setPdDefReqCount(int pdDefReqCount) {
+    public void setPdDefReqCount(Long pdDefReqCount) {
         this.pdDefReqCount = pdDefReqCount;
     }
 
@@ -129,7 +129,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getPdDefRespCount() {
+    public Long getPdDefRespCount() {
         return pdDefRespCount;
     }
 
@@ -137,7 +137,7 @@ public class EventNwhinOrganization {
      *
      * @param pdDefRespCount
      */
-    public void setPdDefRespCount(int pdDefRespCount) {
+    public void setPdDefRespCount(Long pdDefRespCount) {
         this.pdDefRespCount = pdDefRespCount;
     }
 
@@ -145,7 +145,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getPdSyncCount() {
+    public Long getPdSyncCount() {
         return pdSyncCount;
     }
 
@@ -153,7 +153,7 @@ public class EventNwhinOrganization {
      *
      * @param pdSyncCount
      */
-    public void setPdSyncCount(int pdSyncCount) {
+    public void setPdSyncCount(Long pdSyncCount) {
         this.pdSyncCount = pdSyncCount;
     }
 
@@ -161,7 +161,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDsDefReqCount() {
+    public Long getDsDefReqCount() {
         return dsDefReqCount;
     }
 
@@ -169,7 +169,7 @@ public class EventNwhinOrganization {
      *
      * @param dsDefReqCount
      */
-    public void setDsDefReqCount(int dsDefReqCount) {
+    public void setDsDefReqCount(Long dsDefReqCount) {
         this.dsDefReqCount = dsDefReqCount;
     }
 
@@ -177,7 +177,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDsDefRespCount() {
+    public Long getDsDefRespCount() {
         return dsDefRespCount;
     }
 
@@ -185,7 +185,7 @@ public class EventNwhinOrganization {
      *
      * @param dsDefRespCount
      */
-    public void setDsDefRespCount(int dsDefRespCount) {
+    public void setDsDefRespCount(Long dsDefRespCount) {
         this.dsDefRespCount = dsDefRespCount;
     }
 
@@ -193,7 +193,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDsSyncCount() {
+    public Long getDsSyncCount() {
         return dsSyncCount;
     }
 
@@ -201,7 +201,7 @@ public class EventNwhinOrganization {
      *
      * @param dsSyncCount
      */
-    public void setDsSyncCount(int dsSyncCount) {
+    public void setDsSyncCount(Long dsSyncCount) {
         this.dsSyncCount = dsSyncCount;
     }
 
@@ -209,7 +209,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getAdCount() {
+    public Long getAdCount() {
         return adCount;
     }
 
@@ -217,7 +217,7 @@ public class EventNwhinOrganization {
      *
      * @param adCount
      */
-    public void setAdCount(int adCount) {
+    public void setAdCount(Long adCount) {
         this.adCount = adCount;
     }
 
@@ -225,7 +225,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getDirectCount() {
+    public Long getDirectCount() {
         return directCount;
     }
 
@@ -233,7 +233,7 @@ public class EventNwhinOrganization {
      *
      * @param directCount
      */
-    public void setDirectCount(int directCount) {
+    public void setDirectCount(Long directCount) {
         this.directCount = directCount;
     }
 
@@ -241,7 +241,7 @@ public class EventNwhinOrganization {
      *
      * @return
      */
-    public int getTotalCount() {
+    public Long getTotalCount() {
         return getPdCount() + getDqCount() + getDrCount() + getDsCount() + getAdCount() + getDirectCount();
     }
 

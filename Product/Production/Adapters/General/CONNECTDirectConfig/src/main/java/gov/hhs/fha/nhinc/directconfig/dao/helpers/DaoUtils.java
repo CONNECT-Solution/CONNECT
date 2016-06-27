@@ -27,15 +27,59 @@
 package gov.hhs.fha.nhinc.directconfig.dao.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * Hibernate utility class for DirectConfig classes
+ *
+ */
 public class DaoUtils {
 
-    private static final Log log = LogFactory.getLog(DaoUtils.class);
+    private static final Log LOG = LogFactory.getLog(DaoUtils.class);
+    private static HibernateUtil hibernateUtil;
+
+    private DaoUtils() {
+    }
+
+    /**
+     * Singleton class that holds the ClassPathXmlApplicationContext
+     *
+     * @author drfernan
+     *
+     */
+    private static class ClassPathSingleton {
+
+        public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:CONNECT-context.xml" });
+
+        private ClassPathSingleton() {
+        }
+    }
+
+    /**
+     * Method that returns the Transaction HibernateUtil
+     *
+     * @return
+     */
+    public static HibernateUtil getHibernateUtil() {
+        ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
+
+        LOG.debug("Memory address transactionHibernateUtil " + context.getId());
+        try {
+            if (hibernateUtil == null) {
+                hibernateUtil = context.getBean(NhincConstants.DIRECT_CONFIG_HIBERNATE_BEAN, HibernateUtil.class);
+            }
+        } catch (Exception e) {
+            LOG.error("Error retrieving the directConfig.persistence.HibernateUtil bean: ", e);
+        }
+        return hibernateUtil;
+    }
 
     /**
      * Opens and returns a Session, using the Hibernate SessionFactory.
@@ -44,45 +88,47 @@ public class DaoUtils {
      */
     public static Session getSession() {
         Session session = null;
-        SessionFactory fact = HibernateUtil.getSessionFactory();
+        SessionFactory fact = getHibernateUtil().getSessionFactory();
 
         if (fact != null) {
             session = fact.openSession();
         } else {
-            log.error("No Session available - SessionFactory is null.");
+            LOG.error("No Session available - SessionFactory is null.");
         }
-
         return session;
     }
 
     /**
      * Attempt (safely) to close the Session.
+     *
+     * @param session
      */
     public static void closeSession(Session session) {
         if (session != null) {
             try {
                 session.close();
             } catch (Exception e) {
-                log.error("Failed to close session: " + e.getMessage(), e);
+                LOG.error("Failed to close session: ", e);
             }
-        } else {
-            log.warn("Session is null, cannot close");
         }
     }
 
     /**
      * Attempt (safely) to rollback the Transaction.
+     *
+     * @param tx
+     * @param e
      */
-    public static void rollbackTransaction(Transaction tx) {
+    public static void rollbackTransaction(Transaction tx, Exception ex) {
         if (tx != null) {
             try {
-                log.error("Failed to commit transaction, attempting rollback...");
+                LOG.error("Failed to commit transaction, attempting rollback...", ex);
                 tx.rollback();
             } catch (Exception e) {
-                log.error("Failed to rollback transaction: " + e.getMessage(), e);
+                LOG.error("Failed to rollback transaction: ", e);
             }
         } else {
-            log.warn("Cannot roll back, transaction is null");
+            LOG.warn("Cannot roll back, transaction is null");
         }
     }
 }

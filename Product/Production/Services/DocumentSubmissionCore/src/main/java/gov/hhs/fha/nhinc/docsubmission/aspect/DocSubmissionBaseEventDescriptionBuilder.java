@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.aspect;
 
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -39,7 +40,6 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
 
     private final ProvideAndRegisterDocumentSetDescriptionExtractor REQUEST_EXTRACTOR;
     private final RegistryResponseDescriptionExtractor RESPONSE_EXTRACTOR;
-
     private ProvideAndRegisterDocumentSetRequestType request;
     private RegistryResponseType response;
 
@@ -49,9 +49,9 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
     }
 
     public DocSubmissionBaseEventDescriptionBuilder(
-            final ProvideAndRegisterDocumentSetDescriptionExtractor requestExtractor,
-            final AssertionDescriptionExtractor assertionExtractor,
-            final RegistryResponseDescriptionExtractor responseExtractor) {
+        final ProvideAndRegisterDocumentSetDescriptionExtractor requestExtractor,
+        final AssertionDescriptionExtractor assertionExtractor,
+        final RegistryResponseDescriptionExtractor responseExtractor) {
         REQUEST_EXTRACTOR = requestExtractor;
         RESPONSE_EXTRACTOR = responseExtractor;
         super.setAssertionExtractor(assertionExtractor);
@@ -140,6 +140,8 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
     public void setReturnValue(Object returnValue) {
         if (returnValue != null && returnValue instanceof RegistryResponseType) {
             this.response = (RegistryResponseType) returnValue;
+        } else if (returnValue != null && returnValue instanceof XDRAcknowledgementType) {
+            this.response = ((XDRAcknowledgementType) returnValue).getMessage();
         }
     }
 

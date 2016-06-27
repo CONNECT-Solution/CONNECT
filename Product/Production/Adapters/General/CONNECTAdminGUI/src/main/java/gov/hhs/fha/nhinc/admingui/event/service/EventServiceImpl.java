@@ -152,7 +152,7 @@ public class EventServiceImpl implements EventService {
             if (result instanceof Object[] && ((Object[]) result).length == 3) {
                 Object[] resultArray = (Object[]) result;
                 String hcid = setHcid((String) resultArray[1]);
-                Integer count = (Integer) resultArray[0];
+                Long count = (Long) resultArray[0];
                 String serviceType = (String) resultArray[2];
 
                 if (hcid == null) {
@@ -177,13 +177,13 @@ public class EventServiceImpl implements EventService {
         return resultHcid;
     }
 
-    private EventNwhinOrganization updateEvent(String serviceType, Integer count, String hcid) {
+    private EventNwhinOrganization updateEvent(String serviceType, Long count, String hcid) {
         EventNwhinOrganization organization = new EventNwhinOrganization();
         organization.setOrganizationName(hcid);
         return updateEvent(organization, serviceType, count);
     }
 
-    private EventNwhinOrganization updateEvent(EventNwhinOrganization organization, String serviceType, Integer count) {
+    private EventNwhinOrganization updateEvent(EventNwhinOrganization organization, String serviceType, Long count) {
 
         if (serviceType.equalsIgnoreCase(PD_SERVICE_TYPE)) {
             organization.setPdSyncCount(count);

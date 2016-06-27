@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -100,7 +101,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -124,7 +125,7 @@ public class IdentifierDAO {
 
                 }
 
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -177,7 +178,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -190,7 +191,7 @@ public class IdentifierDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
 
                 foundRecord = queryList.get(0);
 
@@ -198,7 +199,7 @@ public class IdentifierDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -241,7 +242,7 @@ public class IdentifierDAO {
 
             try {
 
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+                SessionFactory sessionFactory = getSessionFactory();
 
                 session = sessionFactory.openSession();
 
@@ -265,7 +266,7 @@ public class IdentifierDAO {
 
                 }
 
-                LOG.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
             } finally {
 
@@ -300,7 +301,7 @@ public class IdentifierDAO {
 
         try {
 
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            SessionFactory sessionFactory = getSessionFactory();
 
             session = sessionFactory.openSession();
 
@@ -311,7 +312,7 @@ public class IdentifierDAO {
 
         } catch (Exception e) {
 
-            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
         } finally {
 
@@ -328,6 +329,20 @@ public class IdentifierDAO {
 
         LOG.debug("IdentifierDAO.delete() - End");
 
+    }
+
+    /**
+     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     *
+     * @return
+     */
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = null;
+        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
+        if (util != null) {
+            fact = util.getSessionFactory();
+        }
+        return fact;
     }
 
 }

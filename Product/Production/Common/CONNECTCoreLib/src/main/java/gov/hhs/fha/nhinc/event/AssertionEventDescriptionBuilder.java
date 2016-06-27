@@ -60,25 +60,23 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
     }
 
     /**
-     * Find the AssertionType from the provided argument list. Finds the first one, if present.
+     * Find the AssertionType from the provided argument list.
      *
      * @param arguments argument list to search. may be null.
      */
     protected final void extractAssertion(Object... arguments) {
         if (arguments != null) {
-            for (Object argument : arguments) {
-                if (argument instanceof AssertionType) {
-                    assertion = Optional.of((AssertionType) argument);
-                    return;
-                }
+            AssertionType assertObj = getAssertion(arguments);
+            if (assertObj != null) {
+                assertion = Optional.of(assertObj);
+                return;
             }
         }
-
         // Extracts if AssertionType was not availbale as an argument but the context is.
         try {
             if (assertion == null || !assertion.isPresent()) {
                 AssertionType contextAssertion = SAML2AssertionExtractor.getInstance()
-                        .extractSamlAssertion(getContext());
+                    .extractSamlAssertion(getContext());
                 if (contextAssertion != null) {
                     assertion = Optional.of(contextAssertion);
                     return;
@@ -111,5 +109,16 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
 
     protected WebServiceContext getContext() {
         return new WebServiceContextImpl();
+    }
+
+    private AssertionType getAssertion(Object... arguments) {
+        AssertionType assertObj = null;
+        for (Object obj : arguments) {
+            assertObj = assertionExtractor.getAssertion(obj);
+            if (assertObj != null) {
+                return assertObj;
+            }
+        }
+        return assertObj;
     }
 }
