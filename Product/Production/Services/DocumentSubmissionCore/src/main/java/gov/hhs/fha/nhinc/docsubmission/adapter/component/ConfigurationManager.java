@@ -83,9 +83,16 @@ public class ConfigurationManager {
             final String FEATURE = "http://xml.org/sax/features/external-general-entities";
             dbf.setFeature(FEATURE, false);
 
-            //For Xerces 2
+            // For Xerces 2
             final String FEATURE_2 = "http://apache.org/xml/features/disallow-doctype-decl";
             dbf.setFeature(FEATURE_2, true);
+
+            final String FEATURE_3 = "http://xml.org/sax/features/external-parameter-entities";
+            dbf.setFeature(FEATURE_3, false);
+
+            // Disable external DTDs
+            final String FEATURE_4 = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+            dbf.setFeature(FEATURE_4, false);
 
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
