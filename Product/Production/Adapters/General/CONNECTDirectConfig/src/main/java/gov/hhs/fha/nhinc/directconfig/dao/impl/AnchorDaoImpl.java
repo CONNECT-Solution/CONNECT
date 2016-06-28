@@ -53,6 +53,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
+
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +62,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
@@ -133,7 +135,7 @@ public class AnchorDaoImpl implements AnchorDao {
     public List<Anchor> list(List<String> owners) {
         List<Anchor> results = null;
 
-        if (CollectionUtils.isNotEmpty(owners)) {
+        if (CollectionUtils.isEmpty(owners)) {
             results = listAll();
         } else {
             Session session = null;
@@ -239,7 +241,7 @@ public class AnchorDaoImpl implements AnchorDao {
     public List<Anchor> listByIds(List<Long> anchorIds) {
         List<Anchor> results = null;
 
-        if (CollectionUtils.isNotEmpty(anchorIds)) {
+        if (CollectionUtils.isEmpty(anchorIds)) {
             results = Collections.emptyList();
         } else {
             Session session = null;

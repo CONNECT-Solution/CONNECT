@@ -54,11 +54,13 @@ import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,6 +69,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 /**
  * Default Spring/JPA implemenation
@@ -310,10 +313,8 @@ public class DomainDaoImpl implements DomainDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Domain> listDomains(String name, int count) {
-        // Direct RI Comment:
-        // TODO I'm not sure if this is doing the right thing. I suspect that the
-        // real intent is to do some kind of db paging
-
+        // Direct RI Comment: Use by Direct third party component
+        //(org.nhindirect.gateway.smtp.config.WSSmtpAgentConfig), it will pass null,maxcount
         List<Domain> results = null;
         Query query;
 
@@ -321,14 +322,9 @@ public class DomainDaoImpl implements DomainDao {
 
         try {
             session = DaoUtils.getSession();
-
+            log.debug("Calling listDomain");
             query = session.getNamedQuery("getDomainsByName");
-            String nameUpperCase = "";
-            if (name != null) {
-                nameUpperCase = name.toUpperCase(Locale.getDefault());
-            }
-
-            query.setParameter("domainName", nameUpperCase);
+            query.setParameter("domainName", StringUtils.hasText(name) ? name.toUpperCase(Locale.getDefault()): null);
 
             // Direct RI Comment:
             // assuming that a count of zero really means no limit
