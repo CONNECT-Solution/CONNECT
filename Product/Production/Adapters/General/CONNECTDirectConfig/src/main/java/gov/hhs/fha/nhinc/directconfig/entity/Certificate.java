@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
+f * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -333,14 +333,14 @@ public class Certificate {
     private void loadCertFromData() throws CertificateException {
         X509Certificate cert = null;
         CertContainer container = null;
-
+        
         try {
             validate();
 
             try {
                 container = toCredential();
                 cert = container.getCert();
-            } catch (CertificateException e) {
+                } catch (CertificateException e) {
                 LOG.warn("Cert Container conversion failed: " + e.getLocalizedMessage(), e);
             }
 
@@ -358,7 +358,11 @@ public class Certificate {
                 setThumbprint("");
             } else {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());
-                setPrivateKey(container.getKey() != null);
+                Key key = container.getKey();
+                if(key != null)
+                {
+                setPrivateKey(true);
+                }
             }
         } catch (Exception e) {
             setData(NULL_CERT);
