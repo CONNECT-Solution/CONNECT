@@ -1,5 +1,5 @@
 /*
-f * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -358,10 +358,9 @@ public class Certificate {
                 setThumbprint("");
             } else {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());
-                Key key = container.getKey();
-                if(key != null)
+                if(container != null)
                 {
-                setPrivateKey(true);
+                setPrivateKey(container.getKey()!=null);
                 }
             }
         } catch (Exception e) {
