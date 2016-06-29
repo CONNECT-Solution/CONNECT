@@ -32,6 +32,7 @@ import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
@@ -94,12 +95,19 @@ public class ConfigurationManager {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-            final String FEATURE = "http://xml.org/sax/features/external-general-entities";
-            dbf.setFeature(FEATURE, false);
+            final String feature = "http://xml.org/sax/features/external-general-entities";
+            dbf.setFeature(feature, false);
 
             // For Xerces 2
-            final String FEATURE_2 = "http://apache.org/xml/features/disallow-doctype-decl";
-            dbf.setFeature(FEATURE_2, true);
+            final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
+            dbf.setFeature(feature2, true);
+
+            final String feature3 = "http://xml.org/sax/features/external-parameter-entities";
+            dbf.setFeature(feature3, false);
+
+            // Disable external DTDs
+            final String feature4 = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+            dbf.setFeature(feature4, false);
 
             DocumentBuilder db = dbf.newDocumentBuilder();
 
@@ -160,10 +168,9 @@ public class ConfigurationManager {
                 }
             }
 
-            if (result == null) {
-                if (config.getDefaultDuration() >= 0 && config.getDefaultUnits().length() > 0) {
-                    result = new Expiration("", config.getDefaultUnits(), config.getDefaultDuration());
-                }
+            if (result == null && config.getDefaultDuration() >= 0
+                    && StringUtils.isNotEmpty(config.getDefaultUnits())) {
+                result = new Expiration("", config.getDefaultUnits(), config.getDefaultDuration());
             }
 
         }
