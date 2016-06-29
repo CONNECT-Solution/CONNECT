@@ -56,13 +56,16 @@ import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
+
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
+
 import javax.persistence.NoResultException;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,10 +75,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 /**
  * Implementation of the TrustBundleDao interface
- *
+ * In case the parameter passes as null, do not convert into empty String to allow AutomatedDirectTest
+ * SoapUI test to finish
  * @author Greg Meyer
  * @since 1.2
  */
@@ -142,12 +147,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             session = DaoUtils.getSession();
 
             query = session.getNamedQuery("getTrustBundleByName");
-            String bundleNameUpper = "";
-            if (bundleName != null) {
-                bundleNameUpper = bundleName.toUpperCase(Locale.getDefault());
-            }
-
-            query.setParameter("bundleName", bundleNameUpper);
+            query.setParameter("bundleName", StringUtils.hasText(bundleName)? bundleName.toUpperCase(Locale.getDefault()) : null);
 
             result = (TrustBundle) query.uniqueResult();
 
