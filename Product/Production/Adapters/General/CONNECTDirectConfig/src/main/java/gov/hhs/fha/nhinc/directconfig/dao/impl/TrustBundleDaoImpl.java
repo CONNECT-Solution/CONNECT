@@ -79,7 +79,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * Implementation of the TrustBundleDao interface
- * In case no name exists, the parameter must be null and not an empty String to allow AutomatedDirectTest
+ * In case the parameter passes as null, do not convert into empty String to allow AutomatedDirectTest
  * SoapUI test to finish
  * @author Greg Meyer
  * @since 1.2

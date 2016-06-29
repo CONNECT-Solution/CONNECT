@@ -73,7 +73,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * Default Spring/JPA implemenation
- * In case no name exists, the parameter must be null and not an empty String to allow AutomatedDirectTest
+ * In case the parameter passes as null, do not convert into empty String to allow AutomatedDirectTest
  * SoapUI test to finish
  * @author ppyette
  */
