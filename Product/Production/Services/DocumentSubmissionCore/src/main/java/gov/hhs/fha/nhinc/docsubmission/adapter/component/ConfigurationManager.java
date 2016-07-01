@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -80,19 +81,14 @@ public class ConfigurationManager {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            
             final String feature = "http://xml.org/sax/features/external-general-entities";
             dbf.setFeature(feature, false);
 
             // For Xerces 2
             final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
             dbf.setFeature(feature2, true);
-
-            final String feature3 = "http://xml.org/sax/features/external-parameter-entities";
-            dbf.setFeature(feature3, false);
-
-            // Disable external DTDs
-            final String feature4 = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
-            dbf.setFeature(feature4, false);
 
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
