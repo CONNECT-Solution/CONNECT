@@ -333,7 +333,7 @@ public class Certificate {
     private void loadCertFromData() throws CertificateException {
         X509Certificate cert = null;
         CertContainer container = null;
-		Key  key = null;
+	Key  key = null;
         
         try {
             validate();
@@ -341,7 +341,7 @@ public class Certificate {
             try {
                 container = toCredential();
                 cert = container.getCert();
-				key =container.getKey();
+		key =container.getKey();
                 } catch (CertificateException e) {
                 LOG.warn("Cert Container conversion failed: " + e.getLocalizedMessage(), e);
             }
