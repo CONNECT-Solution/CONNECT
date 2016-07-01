@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import com.google.common.base.Optional;
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import java.util.ArrayList;
 import org.hl7.v3.PRPAIN201306UV02;
 
-public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class PRPAIN201306UV02EventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     private static final PRPAIN201306UV02HCIDExtractor HCID_EXTRACTOR = new PRPAIN201306UV02HCIDExtractor();
     private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
@@ -55,7 +55,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
         if (body.isPresent()) {
             setRespondingHCIDs(new ArrayList<>(HCID_EXTRACTOR.apply(body.get())));
         } else {
-            setLocalResponder();
+            super.buildRespondingHCIDs();
         }
     }
 
@@ -75,6 +75,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
+        extractTarget(arguments);
     }
 
     @Override

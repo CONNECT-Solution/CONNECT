@@ -28,9 +28,13 @@ package gov.hhs.fha.nhinc.event;
 
 import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.builder.TargetDescriptionExtractor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,9 +44,10 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
 
     protected Optional<NhinTargetSystemType> target = Optional.absent();
     private final TargetDescriptionExtractor targetExtractor = new TargetDescriptionExtractor();
+    private static final Logger LOG = LoggerFactory.getLogger(TargetEventDescriptionBuilder.class);
 
     @Override
-    public final void buildRespondingHCIDs() {
+    public void buildRespondingHCIDs() {
         if (target.isPresent()) {
             setRespondingHCIDs(targetExtractor.getResponders(target.get()));
         } else {
@@ -53,16 +58,20 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
     protected final void extractTarget(Object... arguments) {
         if (arguments != null) {
             for (Object argument : arguments) {
-                if (argument instanceof NhinTargetSystemType) {
-                    target = Optional.of((NhinTargetSystemType) argument);
-                    return;
-                } else if (argument instanceof NhinTargetCommunitiesType) {
-                    NhinTargetCommunitiesType communities = (NhinTargetCommunitiesType) argument;
-                    if (communities.getNhinTargetCommunity() != null && !communities.getNhinTargetCommunity().isEmpty()
-                            && communities.getNhinTargetCommunity().get(0) != null
-                            && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {
-                        target = Optional.of(convertToTargetSystem(communities.getNhinTargetCommunity().get(0)));
+                if (argument != null) {
+                    if (argument instanceof NhinTargetSystemType) {
+                        target = Optional.of((NhinTargetSystemType) argument);
                         return;
+                    } else if (argument instanceof NhinTargetCommunitiesType) {
+                        target = Optional.of(convertToTargetSystem((NhinTargetCommunitiesType) argument));
+                        return;
+                    } else {
+                        NhinTargetSystemType targetSystem
+                            = convertToTargetSystem(getNhinTargetCommunitiesType(argument.getClass(), argument));
+                        if (targetSystem != null) {
+                            target = Optional.of(targetSystem);
+                            return;
+                        }
                     }
                 }
             }
@@ -70,10 +79,28 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
         target = Optional.absent();
     }
 
-    private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunityType communityType) {
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        targetSystem.setHomeCommunity(communityType.getHomeCommunity());
+    private NhinTargetCommunitiesType getNhinTargetCommunitiesType(Class argClass, Object obj) {
+        try {
+            Method[] methods = argClass.getDeclaredMethods();
+            for (Method m : methods) {
+                if ("getNhinTargetCommunities".equals(m.getName())) {
+                    return (NhinTargetCommunitiesType) m.invoke(obj);
+                }
+            }
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            LOG.info("Unable to extract NhinTargetCommunitiesType from Object", ex);
+        }
+        return null;
+    }
 
-        return targetSystem;
+    private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunitiesType communities) {
+        if (communities != null && CollectionUtils.isNotEmpty(communities.getNhinTargetCommunity())
+            && communities.getNhinTargetCommunity().get(0) != null
+            && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {
+            NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+            targetSystem.setHomeCommunity(communities.getNhinTargetCommunity().get(0).getHomeCommunity());
+            return targetSystem;
+        }
+        return null;
     }
 }
