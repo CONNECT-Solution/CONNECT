@@ -30,8 +30,6 @@ import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import java.util.ArrayList;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,21 +37,23 @@ import org.slf4j.LoggerFactory;
  */
 public class PRPAIN201305UV02AdapterEventDescBuilder extends TargetEventDescriptionBuilder {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PRPAIN201305UV02AdapterEventDescBuilder.class);
     private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
 
     private Optional<PRPAIN201306UV02> body = Optional.absent();
 
     @Override
     public void buildErrorCodes() {
+        // Error Codes for Adapter MPI logging will go here
     }
 
     @Override
     public void buildPayloadSizes() {
+        // Payload Sizes for Adapter MPI logging will go here
     }
 
     @Override
     public void buildPayloadTypes() {
+        // Payload Types for Adapter MPI logging will go here
     }
 
     @Override
@@ -67,6 +67,7 @@ public class PRPAIN201305UV02AdapterEventDescBuilder extends TargetEventDescript
 
     @Override
     public void buildTimeStamp() {
+        // Timestamp for Adapter MPI logging will go here
     }
 
     @Override

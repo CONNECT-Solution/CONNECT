@@ -93,7 +93,7 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
         return null;
     }
 
-    private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunitiesType communities) {
+    private static NhinTargetSystemType convertToTargetSystem(NhinTargetCommunitiesType communities) {
         if (communities != null && CollectionUtils.isNotEmpty(communities.getNhinTargetCommunity())
             && communities.getNhinTargetCommunity().get(0) != null
             && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {

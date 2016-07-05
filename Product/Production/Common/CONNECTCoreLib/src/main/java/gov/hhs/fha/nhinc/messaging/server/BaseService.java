@@ -97,10 +97,10 @@ public abstract class BaseService {
         String remoteAddress = null;
 
         if (context != null && context.getMessageContext() != null
-                && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
 
             HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext()
-                    .get(AbstractHTTPDestination.HTTP_REQUEST);
+                .get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
 

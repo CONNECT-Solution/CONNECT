@@ -82,7 +82,7 @@ public class AdapterMpiProxyJavaImpl implements AdapterMpiProxy {
         return findCandidatesMpi(findCandidatesRequest, assertion);
     }
 
-    private PRPAIN201306UV02 findCandidatesMpi(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
+    private static PRPAIN201306UV02 findCandidatesMpi(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
         AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
         LOG.trace("Leaving AdapterMpiProxyJavaImpl.findCandidates");
