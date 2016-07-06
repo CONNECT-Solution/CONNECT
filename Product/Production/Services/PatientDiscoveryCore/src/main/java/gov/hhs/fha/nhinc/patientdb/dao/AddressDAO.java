@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -82,11 +83,11 @@ public class AddressDAO {
 
         Session session = null;
 
-        Transaction tx = null;
-
         boolean result = true;
 
         if (addressRecord != null) {
+
+            Transaction tx = null;
 
             try {
 
@@ -104,14 +105,12 @@ public class AddressDAO {
 
                 tx.commit();
 
-            } catch (Exception e) {
+            } catch (HibernateException | NullPointerException e) {
 
                 result = false;
 
                 if (tx != null) {
-
                     tx.rollback();
-
                 }
 
                 LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
@@ -120,8 +119,11 @@ public class AddressDAO {
 
                 // Actual Address insertion will happen at this step
                 if (session != null) {
-
-                    session.close();
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                    }
 
                 }
             }
@@ -185,7 +187,7 @@ public class AddressDAO {
 
             }
 
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
 
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
@@ -194,9 +196,12 @@ public class AddressDAO {
             // Flush and close session
             if (session != null) {
 
-                session.flush();
-
-                session.close();
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
+                }
 
             }
         }
@@ -243,7 +248,7 @@ public class AddressDAO {
 
                 tx.commit();
 
-            } catch (Exception e) {
+            } catch (HibernateException | NullPointerException e) {
 
                 result = false;
 
@@ -259,8 +264,11 @@ public class AddressDAO {
 
                 // Actual Address update will happen at this step
                 if (session != null) {
-
-                    session.close();
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session after update: {}", e.getMessage(), e);
+                    }
 
                 }
             }
@@ -296,7 +304,7 @@ public class AddressDAO {
             // Delete the Address record
             session.delete(addressRecord);
 
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
 
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
@@ -305,9 +313,12 @@ public class AddressDAO {
             // Flush and close session
             if (session != null) {
 
-                session.flush();
-
-                session.close();
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
+                }
 
             }
         }
@@ -360,7 +371,7 @@ public class AddressDAO {
 
             queryList = aCriteria.list();
 
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
 
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
@@ -369,9 +380,13 @@ public class AddressDAO {
             // Flush and close session
             if (session != null) {
 
-                session.flush();
-
-                session.close();
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after looking for patient address: {}",
+                            e.getMessage(), e);
+                }
 
             }
 

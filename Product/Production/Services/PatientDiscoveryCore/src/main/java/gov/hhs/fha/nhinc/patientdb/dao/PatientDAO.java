@@ -37,6 +37,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -99,7 +100,7 @@ public class PatientDAO {
 
                 LOG.info("Patient Inserted seccussfully...");
                 tx.commit();
-            } catch (Exception e) {
+            } catch (HibernateException | NullPointerException e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
@@ -108,7 +109,11 @@ public class PatientDAO {
             } finally {
                 // Actual Patient insertion will happen at this step
                 if (session != null) {
-                    session.close();
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                    }
                 }
             }
         }
@@ -149,13 +154,17 @@ public class PatientDAO {
             if (queryList != null && !queryList.isEmpty()) {
                 foundRecord = queryList.get(0);
             }
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
-                session.flush();
-                session.close();
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
+                }
             }
         }
         LOG.debug("PatientDAO.read() - End");
@@ -185,7 +194,7 @@ public class PatientDAO {
 
                 LOG.info("Patient Updated seccussfully...");
                 tx.commit();
-            } catch (Exception e) {
+            } catch (HibernateException | NullPointerException e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
@@ -194,7 +203,11 @@ public class PatientDAO {
             } finally {
                 // Actual Patient update will happen at this step
                 if (session != null) {
-                    session.close();
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
+                    }
                 }
             }
         }
@@ -218,13 +231,17 @@ public class PatientDAO {
 
             // Delete the Patient record
             session.delete(patientRecord);
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
-                session.flush();
-                session.close();
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
+                }
             }
         }
         LOG.debug("PatientDAO.delete() - End");
@@ -519,8 +536,12 @@ public class PatientDAO {
         } finally {
             // Flush and close session
             if (session != null) {
-                session.flush();
-                session.close();
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after looking for patients: {}", e.getMessage(), e);
+                }
             }
         }
         LOG.debug("PatientDAO.findPatients() - End");
