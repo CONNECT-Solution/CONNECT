@@ -51,6 +51,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
@@ -389,10 +390,14 @@ public class AsyncMessageProcessHelper {
                 asyncMessage = session.getLobHelper().createBlob(buffer);
             }
         } catch (final Exception e) {
-            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion : {}", e.getMessage(), e);
         } finally {
             if (session != null) {
-                session.close();
+                try {
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                }
             }
         }
 
@@ -422,7 +427,11 @@ public class AsyncMessageProcessHelper {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         } finally {
             if (session != null) {
-                session.close();
+                try {
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                }
             }
         }
 
@@ -452,7 +461,11 @@ public class AsyncMessageProcessHelper {
             LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         } finally {
             if (session != null) {
-                session.close();
+                try {
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                }
             }
         }
 

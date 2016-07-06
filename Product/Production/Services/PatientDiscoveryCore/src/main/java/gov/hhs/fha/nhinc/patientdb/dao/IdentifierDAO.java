@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -131,9 +132,11 @@ public class IdentifierDAO {
 
                 // Actual Identifier insertion will happen at this step
                 if (session != null) {
-
-                    session.close();
-
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                    }
                 }
 
             }
@@ -272,9 +275,11 @@ public class IdentifierDAO {
 
                 // Actual Identifier update will happen at this step
                 if (session != null) {
-
-                    session.close();
-
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
+                    }
                 }
 
             }
@@ -318,11 +323,12 @@ public class IdentifierDAO {
 
             // Flush and close session
             if (session != null) {
-
-                session.flush();
-
-                session.close();
-
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
+                }
             }
 
         }
