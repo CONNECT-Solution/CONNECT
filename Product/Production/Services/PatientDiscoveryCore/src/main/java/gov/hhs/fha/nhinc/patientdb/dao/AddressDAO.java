@@ -83,11 +83,11 @@ public class AddressDAO {
 
         Session session = null;
 
+        Transaction tx = null;
+
         boolean result = true;
 
         if (addressRecord != null) {
-
-            Transaction tx = null;
 
             try {
 
