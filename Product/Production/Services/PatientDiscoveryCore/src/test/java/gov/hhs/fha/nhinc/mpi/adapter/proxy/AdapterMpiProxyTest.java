@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02AdapterEventDescBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import java.lang.reflect.Method;
 import org.hl7.v3.PRPAIN201305UV02;
 import static org.junit.Assert.assertEquals;
@@ -40,14 +40,14 @@ public class AdapterMpiProxyTest {
 
     @Test
     public void hasAdapterDelegationEvent() throws Exception {
-        Class<?>[] classes = new Class<?>[] { AdapterMpiProxyJavaImpl.class, AdapterMpiProxyNoOpImpl.class,
-                AdapterMpiProxyWebServiceSecuredImpl.class, AdapterMpiProxyWebServiceUnsecuredImpl.class };
+        Class<?>[] classes = new Class<?>[]{AdapterMpiProxyJavaImpl.class, AdapterMpiProxyNoOpImpl.class,
+            AdapterMpiProxyWebServiceSecuredImpl.class, AdapterMpiProxyWebServiceUnsecuredImpl.class};
         for (Class<?> clazz : classes) {
             Method method = clazz.getMethod("findCandidates", PRPAIN201305UV02.class, AssertionType.class);
             AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
             assertNotNull(annotation);
             assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
-            assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals(PRPAIN201305UV02AdapterEventDescBuilder.class, annotation.afterReturningBuilder());
             assertEquals("Patient Discovery MPI", annotation.serviceType());
             assertEquals("1.0", annotation.version());
         }

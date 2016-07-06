@@ -28,8 +28,9 @@ package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02AdapterEventDescBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -39,20 +40,37 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author Les Westberg
  */
 public class AdapterMpiProxyNoOpImpl implements AdapterMpiProxy {
+
     /**
      * Find the matching candidates from the MPI.
      *
-     * @param findCandidatesRequest
-     *            The information to use for matching.
-     * @param assertion
-     *            The assertion data.
+     * @param findCandidatesRequest The information to use for matching.
+     * @param assertion The assertion data.
      * @return The matches that are found.
      */
     @Override
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery MPI", version = "1.0")
+        afterReturningBuilder = PRPAIN201305UV02AdapterEventDescBuilder.class,
+        serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
+        return new PRPAIN201306UV02();
+    }
+
+    /**
+     * The sole purpose of this method is to pass NhinTargetSystemType for Adapter Delegation Events. We need
+     * NhinTargetSystemType to log responding_hcids for BEGIN and END ADAPTER DELEGATION EVENTS.
+     *
+     * @param findCandidatesRequest The information to use for matching.
+     * @param assertion The assertion data.
+     * @param nhinTargetSystem
+     * @return The matches that are found.
+     */
+    @Override
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+        afterReturningBuilder = PRPAIN201305UV02AdapterEventDescBuilder.class,
+        serviceType = "Patient Discovery MPI", version = "1.0")
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion,
+        NhinTargetSystemType nhinTargetSystem) {
         return new PRPAIN201306UV02();
     }
 }
