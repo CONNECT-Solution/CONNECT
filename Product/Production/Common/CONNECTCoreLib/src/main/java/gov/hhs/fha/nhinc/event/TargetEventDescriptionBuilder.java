@@ -67,17 +67,13 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
                         return;
                     } else if (argument instanceof NhinTargetCommunitiesType) {
                         final NhinTargetSystemType targetSystem = convertToTargetSystem((NhinTargetCommunitiesType) argument);
-                        if (targetSystem != null) {
-                            target = Optional.of(targetSystem);
-                        }
+                        target = Optional.fromNullable(targetSystem);
                         return;
                     } else {
                         final NhinTargetSystemType targetSystem = convertToTargetSystem(getNhinTargetCommunitiesType(
                                 argument.getClass(), argument));
-                        if (targetSystem != null) {
-                            target = Optional.of(targetSystem);
-                            return;
-                        }
+                        target = Optional.fromNullable(targetSystem);
+                        return;
                     }
                 }
             }
