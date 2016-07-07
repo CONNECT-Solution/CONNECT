@@ -26,15 +26,18 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.builder.TargetDescriptionExtractor;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -63,15 +66,14 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
                         target = Optional.of((NhinTargetSystemType) argument);
                         return;
                     } else if (argument instanceof NhinTargetCommunitiesType) {
-                        target = Optional.of(convertToTargetSystem((NhinTargetCommunitiesType) argument));
+                        final NhinTargetSystemType targetSystem = convertToTargetSystem((NhinTargetCommunitiesType) argument);
+                        target = Optional.fromNullable(targetSystem);
                         return;
                     } else {
-                        NhinTargetSystemType targetSystem
-                            = convertToTargetSystem(getNhinTargetCommunitiesType(argument.getClass(), argument));
-                        if (targetSystem != null) {
-                            target = Optional.of(targetSystem);
-                            return;
-                        }
+                        final NhinTargetSystemType targetSystem = convertToTargetSystem(getNhinTargetCommunitiesType(
+                                argument.getClass(), argument));
+                        target = Optional.fromNullable(targetSystem);
+                        return;
                     }
                 }
             }
