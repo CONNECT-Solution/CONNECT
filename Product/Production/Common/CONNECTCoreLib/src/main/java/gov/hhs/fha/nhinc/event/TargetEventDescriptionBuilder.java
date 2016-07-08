@@ -61,24 +61,27 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
     protected final void extractTarget(Object... arguments) {
         if (arguments != null) {
             for (Object argument : arguments) {
-                if (argument != null) {
-                    if (argument instanceof NhinTargetSystemType) {
-                        target = Optional.of((NhinTargetSystemType) argument);
-                        return;
-                    } else if (argument instanceof NhinTargetCommunitiesType) {
-                        final NhinTargetSystemType targetSystem = convertToTargetSystem((NhinTargetCommunitiesType) argument);
-                        target = Optional.fromNullable(targetSystem);
-                        return;
-                    } else {
-                        final NhinTargetSystemType targetSystem = convertToTargetSystem(getNhinTargetCommunitiesType(
-                                argument.getClass(), argument));
-                        target = Optional.fromNullable(targetSystem);
-                        return;
-                    }
+                if (isNhinTargetPresent(argument)){
+                    return;
                 }
             }
         }
         target = Optional.absent();
+    }
+    private boolean isNhinTargetPresent(Object argument){
+        if (argument != null){
+            if (argument instanceof NhinTargetSystemType) {
+                target = Optional.of((NhinTargetSystemType) argument);
+            } else if (argument instanceof NhinTargetCommunitiesType) {
+                final NhinTargetSystemType targetSystem = convertToTargetSystem((NhinTargetCommunitiesType) argument);
+                target = Optional.fromNullable(targetSystem);
+            } else {
+                final NhinTargetSystemType targetSystem = convertToTargetSystem(getNhinTargetCommunitiesType(
+                        argument.getClass(), argument));
+                target = Optional.fromNullable(targetSystem);
+            }
+        }
+        return target.isPresent();
     }
 
     private NhinTargetCommunitiesType getNhinTargetCommunitiesType(Class argClass, Object obj) {
