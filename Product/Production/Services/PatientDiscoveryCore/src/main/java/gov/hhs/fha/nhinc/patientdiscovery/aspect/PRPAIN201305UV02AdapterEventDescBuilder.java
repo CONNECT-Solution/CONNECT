@@ -24,33 +24,65 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.mpi.adapter.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
-import org.hl7.v3.PRPAIN201305UV02;
+import com.google.common.base.Optional;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
+import java.util.ArrayList;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- * Component proxy interface for AdapterMpi service.
  *
- * @author Les Westberg
+ * @author tjafri
  */
-public interface AdapterMpiProxy {
+public class PRPAIN201305UV02AdapterEventDescBuilder extends TargetEventDescriptionBuilder {
 
-    /**
-     * Find the matching candidates from the MPI.
-     *
-     * @param request The information to use for matching.
-     * @param assertion The assertion data.
-     * @return The matches that are found.
-     * @throws PatientDiscoveryException
-     */
-    PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion)
-        throws PatientDiscoveryException;
+    private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
 
-    PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion,
-        NhinTargetSystemType nhinTargetSystem) throws PatientDiscoveryException;
+    private Optional<PRPAIN201306UV02> body = Optional.absent();
+
+    @Override
+    public void buildErrorCodes() {
+        // Error Codes for Adapter MPI logging will go here
+    }
+
+    @Override
+    public void buildPayloadSizes() {
+        // Payload Sizes for Adapter MPI logging will go here
+    }
+
+    @Override
+    public void buildPayloadTypes() {
+        // Payload Types for Adapter MPI logging will go here
+    }
+
+    @Override
+    public void buildStatuses() {
+        if (!body.isPresent()) {
+            return;
+        }
+
+        setStatuses(new ArrayList<>(STATUS_EXTRACTOR.apply(body.get())));
+    }
+
+    @Override
+    public void buildTimeStamp() {
+        // Timestamp for Adapter MPI logging will go here
+    }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        extractAssertion(arguments);
+        extractTarget(arguments);
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        if (returnValue == null || !(returnValue instanceof PRPAIN201306UV02)) {
+            body = Optional.absent();
+        } else {
+            body = Optional.of((PRPAIN201306UV02) returnValue);
+        }
+    }
 
 }

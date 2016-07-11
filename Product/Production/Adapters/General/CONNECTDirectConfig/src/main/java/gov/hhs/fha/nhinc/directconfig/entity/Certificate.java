@@ -333,6 +333,7 @@ public class Certificate {
     private void loadCertFromData() throws CertificateException {
         X509Certificate cert = null;
         CertContainer container = null;
+        Key key = null;
 
         try {
             validate();
@@ -340,6 +341,7 @@ public class Certificate {
             try {
                 container = toCredential();
                 cert = container.getCert();
+                key = container.getKey();
             } catch (CertificateException e) {
                 LOG.warn("Cert Container conversion failed: " + e.getLocalizedMessage(), e);
             }
@@ -358,7 +360,7 @@ public class Certificate {
                 setThumbprint("");
             } else {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());
-                setPrivateKey(container.getKey() != null);
+                setPrivateKey(key != null);
             }
         } catch (Exception e) {
             setData(NULL_CERT);

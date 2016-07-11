@@ -38,7 +38,7 @@ public class TargetDescriptionExtractor {
 
     /**
      * Extracts responder HCIDs from target.
-     * 
+     *
      * @param target
      * @return
      */

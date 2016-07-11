@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -115,7 +116,7 @@ public class PhonenumberDAO {
 
                 tx.commit();
 
-            } catch (Exception e) {
+            } catch (HibernateException | NullPointerException e) {
 
                 result = false;
 
@@ -131,9 +132,11 @@ public class PhonenumberDAO {
 
                 // Actual Phonenumber insertion will happen at this step
                 if (session != null) {
-
-                    session.close();
-
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+                    }
                 }
             }
 
@@ -198,7 +201,7 @@ public class PhonenumberDAO {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
 
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
@@ -207,10 +210,12 @@ public class PhonenumberDAO {
             // Flush and close session
             if (session != null) {
 
-                session.flush();
-
-                session.close();
-
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
+                }
             }
         }
 
@@ -256,7 +261,7 @@ public class PhonenumberDAO {
 
                 tx.commit();
 
-            } catch (Exception e) {
+            } catch (HibernateException | NullPointerException e) {
 
                 result = false;
 
@@ -272,9 +277,11 @@ public class PhonenumberDAO {
 
                 // Actual Phonenumber update will happen at this step
                 if (session != null) {
-
-                    session.close();
-
+                    try {
+                        session.close();
+                    } catch (HibernateException e) {
+                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
+                    }
                 }
             }
 
@@ -311,7 +318,7 @@ public class PhonenumberDAO {
                 session.delete(phonenumberRecord);
             }
 
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
 
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
@@ -320,10 +327,12 @@ public class PhonenumberDAO {
             // Flush and close session
             if (session != null) {
 
-                session.flush();
-
-                session.close();
-
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
+                }
             }
         }
 
@@ -379,7 +388,7 @@ public class PhonenumberDAO {
                 queryList = aCriteria.list();
 
             }
-        } catch (Exception e) {
+        } catch (HibernateException | NullPointerException e) {
 
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
@@ -387,11 +396,13 @@ public class PhonenumberDAO {
 
             // Flush and close session
             if (session != null) {
-
-                session.flush();
-
-                session.close();
-
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after looking for patient's phone numbers: {}",
+                            e.getMessage(), e);
+                }
             }
         }
 

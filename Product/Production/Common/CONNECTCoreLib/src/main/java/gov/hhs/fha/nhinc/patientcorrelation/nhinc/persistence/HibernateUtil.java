@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.File;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -89,7 +90,7 @@ public class HibernateUtil {
 
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_PATIENT_CORRELATION);
-        } catch (Exception ex) {
+        } catch (PropertyAccessException ex) {
             LOG.error("Unable to load " + NhincConstants.HIBERNATE_PATIENT_CORRELATION + " " + ex.getMessage(), ex);
         }
 
