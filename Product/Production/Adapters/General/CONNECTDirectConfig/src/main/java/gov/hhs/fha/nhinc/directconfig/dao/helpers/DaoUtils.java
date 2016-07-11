@@ -30,9 +30,11 @@ import gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.BeansException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -75,7 +77,7 @@ public class DaoUtils {
             if (hibernateUtil == null) {
                 hibernateUtil = context.getBean(NhincConstants.DIRECT_CONFIG_HIBERNATE_BEAN, HibernateUtil.class);
             }
-        } catch (Exception e) {
+        } catch (BeansException e) {
             LOG.error("Error retrieving the directConfig.persistence.HibernateUtil bean: ", e);
         }
         return hibernateUtil;
@@ -107,7 +109,7 @@ public class DaoUtils {
         if (session != null) {
             try {
                 session.close();
-            } catch (Exception e) {
+            } catch (HibernateException e) {
                 LOG.error("Failed to close session: ", e);
             }
         }
@@ -117,14 +119,14 @@ public class DaoUtils {
      * Attempt (safely) to rollback the Transaction.
      *
      * @param tx
-     * @param e
+     * @param ex
      */
     public static void rollbackTransaction(Transaction tx, Exception ex) {
         if (tx != null) {
             try {
                 LOG.error("Failed to commit transaction, attempting rollback...", ex);
                 tx.rollback();
-            } catch (Exception e) {
+            } catch (HibernateException e) {
                 LOG.error("Failed to rollback transaction: ", e);
             }
         } else {

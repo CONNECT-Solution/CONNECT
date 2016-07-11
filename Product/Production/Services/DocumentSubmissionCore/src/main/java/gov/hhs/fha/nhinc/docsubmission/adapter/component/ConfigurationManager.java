@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -80,12 +81,14 @@ public class ConfigurationManager {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-            final String FEATURE = "http://xml.org/sax/features/external-general-entities";
-            dbf.setFeature(FEATURE, false);
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            
+            final String feature = "http://xml.org/sax/features/external-general-entities";
+            dbf.setFeature(feature, false);
 
-            //For Xerces 2
-            final String FEATURE_2 = "http://apache.org/xml/features/disallow-doctype-decl";
-            dbf.setFeature(FEATURE_2, true);
+            // For Xerces 2
+            final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
+            dbf.setFeature(feature2, true);
 
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
@@ -115,16 +118,16 @@ public class ConfigurationManager {
             Node node = channels.getChildNodes().item(s);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                System.out.println(element.getNodeName());
-                if (element.getNodeName().equalsIgnoreCase("RoutingConfig")) {
+
+                if ("RoutingConfig".equalsIgnoreCase(element.getNodeName())) {
                     RoutingConfig item = new RoutingConfig();
                     for (int x = 0; x < element.getChildNodes().getLength(); x++) {
                         String nodeName = element.getChildNodes().item(x).getNodeName();
                         String nodeValue = element.getChildNodes().item(x).getTextContent();
 
-                        if (nodeName.equalsIgnoreCase("Recipient")) {
+                        if ("Recipient".equalsIgnoreCase(nodeName)) {
                             item.setRecepient(nodeValue);
-                        } else if (nodeName.equalsIgnoreCase("Bean")) {
+                        } else if ("Bean".equalsIgnoreCase(nodeName)) {
                             item.setBean(nodeValue);
                         }
                     }

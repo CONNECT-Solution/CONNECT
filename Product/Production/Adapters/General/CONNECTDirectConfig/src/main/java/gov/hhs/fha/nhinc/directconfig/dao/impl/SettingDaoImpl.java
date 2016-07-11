@@ -161,7 +161,7 @@ public class SettingDaoImpl implements SettingDao {
     public Collection<Setting> getByNames(Collection<String> names) {
         Collection<Setting> results = null;
 
-        if (CollectionUtils.isNotEmpty(names)) {
+        if (CollectionUtils.isEmpty(names)) {
             results = getAll();
         } else {
             Session session = null;
