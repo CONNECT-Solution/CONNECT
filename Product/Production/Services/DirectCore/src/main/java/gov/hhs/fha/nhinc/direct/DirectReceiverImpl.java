@@ -132,7 +132,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             result = process(message);
         } catch (Exception e) {
             //TODO: drop the message to a delete bin directory for future ref
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
+            final String errorMsg = e.getMessage();
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMsg);
+            LOG.error("Encounter receiveInbound error {}", errorMsg, e);
             return;
         }
 
@@ -171,10 +173,12 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             try {
                 proxy.provideAndRegisterDocumentSetB(processedMessage);
             } catch (DirectException e) {
-                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, e.getMessage());
-                //capture the error message
-                notificationFailureMessage = e.getMessage();
+                final String errorMessage = e.getMessage();
+                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, errorMessage);
+                // capture the error message
+                notificationFailureMessage = errorMessage;
                 notificationToEdgeFailed = true;
+                LOG.error("Encounter EdgeMDNNotification Exception {} ", errorMessage, e);
             }
         }
 

@@ -109,12 +109,12 @@ public abstract class DirectAdapter {
             urlString = oProxyHelper
                     .getAdapterEndPointFromConnectionManager(DIRECT_CONFIG_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            LOG.error("Error reading directConfig Url cannot be found: " + ex.getMessage());
+            LOG.error("Error reading directConfig Url cannot be found: {}", ex.getLocalizedMessage(), ex);
         }
         try {
             url = new URL(urlString);
         } catch (MalformedURLException ex) {
-            LOG.error("Error while converting urlString into Url format" + ex.getMessage());
+            LOG.error("Error while converting urlString into Url format {}", ex.getMessage(), ex);
         }
         return url;
     }

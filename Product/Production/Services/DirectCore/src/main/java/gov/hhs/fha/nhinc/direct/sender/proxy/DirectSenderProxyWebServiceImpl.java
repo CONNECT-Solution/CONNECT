@@ -70,12 +70,8 @@ public class DirectSenderProxyWebServiceImpl {
             senderMessage.setSubject(message.getSubject());
             parameters.setMessage(senderMessage);
             port.sendOutboundDirect(parameters);
-        } catch (IOException ex) {
-            LOG.error("DirectSender WebService Failed :" + ex.getMessage());
-        } catch (MessagingException ex) {
-            LOG.error("DirectSender WebService Failed :" + ex.getMessage());
-        } catch (ConnectionManagerException ex) {
-            LOG.error("DirectSender WebService Failed :" + ex.getMessage());
+        } catch (IOException | MessagingException | ConnectionManagerException ex) {
+            LOG.error("DirectSender WebService Failed :{}" + ex.getMessage(), ex);
         }
         LOG.debug("End DirectSenderUnsecuredProxy.sendOutboundDirect(MimeMessage)");
     }

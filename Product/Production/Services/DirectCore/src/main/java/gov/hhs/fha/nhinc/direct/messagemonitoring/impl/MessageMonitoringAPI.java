@@ -157,10 +157,8 @@ public class MessageMonitoringAPI {
                 tm.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateOutgoingMessage(tm);
             }
-        } catch (final MessagingException ex) {
-            LOG.info("Failed:" + ex.getMessage());
-        } catch (final MessageMonitoringDAOException mde) {
-            LOG.info("Failed:" + mde.getMessage());
+        } catch (final MessagingException | MessageMonitoringDAOException ex) {
+            LOG.info("Failed:{}", ex.getMessage(), ex);
         }
     }
 
@@ -213,10 +211,8 @@ public class MessageMonitoringAPI {
 
             messageMonitoringCache.put(messageId, tm);
 
-        } catch (final MessagingException ex) {
-            LOG.info("Failed:" + ex.getMessage());
-        } catch (final MessageMonitoringDAOException ex) {
-            LOG.info("Failed:" + ex.getMessage());
+        } catch (final MessagingException | MessageMonitoringDAOException ex) {
+            LOG.info("Failed: {}", ex.getMessage(), ex);
         }
     }
 
@@ -333,7 +329,7 @@ public class MessageMonitoringAPI {
             tmn.setEmailid(emailId);
             tmn.setStatus(STATUS_PENDING);
         } catch (final MessagingException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error(ex.getMessage(),ex);
         }
         return false;
     }
@@ -456,7 +452,7 @@ public class MessageMonitoringAPI {
             // delete the notified message
             processAllMessages();
         } catch (final MessageMonitoringDAOException ex) {
-            LOG.debug("Error in Message Monitoring API process()." + ex.getMessage());
+            LOG.error("Error in Message Monitoring API process().{}", ex.getMessage(), ex);
         }
         LOG.debug("Exiting Message Monitoring API process() method.");
     }
@@ -554,11 +550,11 @@ public class MessageMonitoringAPI {
             // Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_SUCCESSFUL, message);
         } catch (final AddressException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error("Unknown email address {}",ex.getLocalizedMessage(),ex);
             // if error then log a error event
             logErrorEvent(message, ex.getMessage());
         } catch (final MessagingException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error(ex.getMessage(),ex);
             // if error then log a error event
             logErrorEvent(message, ex.getMessage());
         }
@@ -586,11 +582,11 @@ public class MessageMonitoringAPI {
             // Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_FAILED, message);
         } catch (final AddressException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error("Unable to send FailEdgeNotification {}", ex.getMessage(), ex);
             // Log the error
             logErrorEvent(message, ex.getMessage());
         } catch (final MessagingException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error(ex.getMessage(), ex);
             // Log the error
             logErrorEvent(message, ex.getMessage());
         }
