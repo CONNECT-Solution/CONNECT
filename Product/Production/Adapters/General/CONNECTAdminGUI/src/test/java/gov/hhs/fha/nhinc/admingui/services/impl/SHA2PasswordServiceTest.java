@@ -38,13 +38,13 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 /**
- * The Class SHA1PasswordServiceTest.
+ * The Class SHA2PasswordServiceTest.
  */
 /**
  * @author msw
  *
  */
-public class SHA1PasswordServiceTest {
+public class SHA2PasswordServiceTest {
 
     /**
      * Test.
@@ -59,7 +59,7 @@ public class SHA1PasswordServiceTest {
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw=="
                 .getBytes();
-        PasswordService service = getSHA1PasswordService();
+        PasswordService service = getSHA2PasswordService();
         Assert.assertTrue("Password should match",service.checkPassword(passwordHash, candidatePassword, salt));
     }
 
@@ -75,7 +75,7 @@ public class SHA1PasswordServiceTest {
         byte[] candidatePassword = "candidatePassword".getBytes();
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "nottherighthash".getBytes();
-        PasswordService service = getSHA1PasswordService();
+        PasswordService service = getSHA2PasswordService();
         Assert.assertFalse("Password doesn't match",service.checkPassword(passwordHash, candidatePassword, salt));
     }
 
@@ -94,16 +94,16 @@ public class SHA1PasswordServiceTest {
         outputStream.write(salt);
         outputStream.write(password);
 
-        PasswordService service = getSHA1PasswordService();
+        PasswordService service = getSHA2PasswordService();
         return service.calculateHash(outputStream.toByteArray());
     }
 
     /**
-     * Gets the SHA1 password service.
+     * Gets the SHA2 password service.
      *
-     * @return the SHA1 password service
+     * @return the SHA2 password service
      */
-    private PasswordService getSHA1PasswordService() {
+    private PasswordService getSHA2PasswordService() {
         return new SHA2PasswordService();
     }
 
