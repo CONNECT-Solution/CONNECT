@@ -28,9 +28,13 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 /**
@@ -51,11 +55,12 @@ public class SHA1PasswordServiceTest {
      */
     @Test
     public void test() throws PasswordServiceException, NoSuchAlgorithmException, IOException {
-        byte[] candidatePassword = "candidatePassword".getBytes();
+        byte[] candidatePassword = "password".getBytes();
         byte[] salt = "ABCD".getBytes();
-        byte[] passwordHash = "MhOFzcgMIkTaeHvIqXK/VkdJZHE=".getBytes();
+        byte[] passwordHash = "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw=="
+                .getBytes();
         PasswordService service = getSHA1PasswordService();
-        assert service.checkPassword(passwordHash, candidatePassword, salt);
+        Assert.assertTrue("Password should match",service.checkPassword(passwordHash, candidatePassword, salt));
     }
 
     /**
@@ -71,7 +76,7 @@ public class SHA1PasswordServiceTest {
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "nottherighthash".getBytes();
         PasswordService service = getSHA1PasswordService();
-        assert !service.checkPassword(passwordHash, candidatePassword, salt);
+        Assert.assertFalse("Password doesn't match",service.checkPassword(passwordHash, candidatePassword, salt));
     }
 
     @Test
@@ -79,6 +84,8 @@ public class SHA1PasswordServiceTest {
         String salt = "ABCD";// generateRandomSalt();
         String password = "password";
         String sha1 = new String(calculateHash(salt.getBytes(), password.getBytes()));
+        Assert.assertTrue("It should less than 100 characters", sha1.length()<=100);
+        Assert.assertEquals("eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw==", sha1);
     }
 
     private byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException {
@@ -97,7 +104,7 @@ public class SHA1PasswordServiceTest {
      * @return the SHA1 password service
      */
     private PasswordService getSHA1PasswordService() {
-        return new SHA1PasswordService();
+        return new SHA2PasswordService();
     }
 
 }

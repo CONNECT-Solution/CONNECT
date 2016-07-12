@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +36,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -72,8 +74,8 @@ public class UserLogin implements Serializable {
     /**
      * The sha1.
      */
-    @Column(name = "SHA1")
-    private String sha1;
+    @Column(name = "SHA2")
+    private String sha2;
 
     /**
      * The role
@@ -86,7 +88,7 @@ public class UserLogin implements Serializable {
      * Instantiates a new user login.
      */
     public UserLogin() {
-
+        //This is DTO for userLogin for hibernate
     }
 
     /**
@@ -148,17 +150,17 @@ public class UserLogin implements Serializable {
      *
      * @return the sha1
      */
-    public String getSha1() {
-        return sha1;
+    public String getSha2() {
+        return sha2;
     }
 
     /**
      * Sets the sha1.
      *
-     * @param sha1 the sha1 to set
+     * @param sha2 the sha1 to set
      */
-    public void setSha1(String sha1) {
-        this.sha1 = sha1;
+    public void setSha2(String sha2) {
+        this.sha2 = sha2;
     }
 
     /**
