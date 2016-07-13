@@ -72,6 +72,13 @@ public class LoginServiceImpl implements LoginService {
     LoginServiceImpl(UserLoginDAO userLoginDao) {
         userLoginDAO = userLoginDao;
     }
+    
+    /**
+     * Default constructor
+     */
+    public LoginServiceImpl() {
+      //Spring can not instantiate without default constructor
+    }
 
     /*
      * (non-Javadoc)
