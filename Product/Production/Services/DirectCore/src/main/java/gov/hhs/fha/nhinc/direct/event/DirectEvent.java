@@ -187,6 +187,7 @@ public class DirectEvent extends BaseEvent {
         try {
             return MessageMonitoringUtil.getParentMessageId(msg);
         } catch (Exception e) {
+            LOG.error("Unable to getParentMessageId {}", e.getLocalizedMessage(), e);
             return null;
         }
 

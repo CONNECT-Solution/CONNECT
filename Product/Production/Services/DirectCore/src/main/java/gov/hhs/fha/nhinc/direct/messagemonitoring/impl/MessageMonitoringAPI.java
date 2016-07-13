@@ -157,10 +157,8 @@ public class MessageMonitoringAPI {
                 tm.setUpdatetime(updatedTime);
                 getMessageMonitoringDAO().updateOutgoingMessage(tm);
             }
-        } catch (final MessagingException ex) {
-            LOG.info("Failed:" + ex.getMessage());
-        } catch (final MessageMonitoringDAOException mde) {
-            LOG.info("Failed:" + mde.getMessage());
+        } catch (final MessagingException | MessageMonitoringDAOException ex) {
+            LOG.info("Failed:{}", ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -213,10 +211,8 @@ public class MessageMonitoringAPI {
 
             messageMonitoringCache.put(messageId, tm);
 
-        } catch (final MessagingException ex) {
-            LOG.info("Failed:" + ex.getMessage());
-        } catch (final MessageMonitoringDAOException ex) {
-            LOG.info("Failed:" + ex.getMessage());
+        } catch (final MessagingException | MessageMonitoringDAOException ex) {
+            LOG.info("Failed: {}", ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -333,7 +329,7 @@ public class MessageMonitoringAPI {
             tmn.setEmailid(emailId);
             tmn.setStatus(STATUS_PENDING);
         } catch (final MessagingException ex) {
-            LOG.error(ex.getMessage());
+            LOG.error(ex.getLocalizedMessage(),ex);
         }
         return false;
     }
@@ -456,7 +452,7 @@ public class MessageMonitoringAPI {
             // delete the notified message
             processAllMessages();
         } catch (final MessageMonitoringDAOException ex) {
-            LOG.debug("Error in Message Monitoring API process()." + ex.getMessage());
+            LOG.error("Error in Message Monitoring API process().{}", ex.getLocalizedMessage(), ex);
         }
         LOG.debug("Exiting Message Monitoring API process() method.");
     }
@@ -547,6 +543,7 @@ public class MessageMonitoringAPI {
         // logic goes here
         final DirectEdgeProxy proxy = MessageMonitoringUtil.getDirectEdgeProxy();
         MimeMessage message = null;
+        String errorMsg = null;
         try {
             message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject,
                     trackMessage.getSenderemailid(), emailText, trackMessage.getMessageid());
@@ -554,13 +551,15 @@ public class MessageMonitoringAPI {
             // Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_SUCCESSFUL, message);
         } catch (final AddressException ex) {
-            LOG.error(ex.getMessage());
+            errorMsg = ex.getLocalizedMessage();
+            LOG.error("Unknown email address {}",errorMsg,ex);
             // if error then log a error event
-            logErrorEvent(message, ex.getMessage());
+            logErrorEvent(message, errorMsg);
         } catch (final MessagingException ex) {
-            LOG.error(ex.getMessage());
+            errorMsg = ex.getLocalizedMessage();
+            LOG.error(errorMsg,ex);
             // if error then log a error event
-            logErrorEvent(message, ex.getMessage());
+            logErrorEvent(message, errorMsg);
         }
         LOG.debug("Exiting Message Monitoring API sendSuccessEdgeNotification() method.");
     }
@@ -579,6 +578,7 @@ public class MessageMonitoringAPI {
         // logic goes here
         final DirectEdgeProxy proxy = MessageMonitoringUtil.getDirectEdgeProxy();
         MimeMessage message = null;
+        String errorMsg = null;
         try {
             message = MessageMonitoringUtil.createMimeMessage(postmasterEmailId, subject,
                     trackMessage.getSenderemailid(), emailText, trackMessage.getMessageid());
@@ -586,13 +586,15 @@ public class MessageMonitoringAPI {
             // Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_FAILED, message);
         } catch (final AddressException ex) {
-            LOG.error(ex.getMessage());
+            errorMsg = ex.getLocalizedMessage();
+            LOG.error("Unable to send FailEdgeNotification {}", errorMsg, ex);
             // Log the error
-            logErrorEvent(message, ex.getMessage());
+            logErrorEvent(message, errorMsg);
         } catch (final MessagingException ex) {
-            LOG.error(ex.getMessage());
+            errorMsg = ex.getLocalizedMessage();
+            LOG.error(errorMsg, ex);
             // Log the error
-            logErrorEvent(message, ex.getMessage());
+            logErrorEvent(message, errorMsg);
         }
         LOG.debug("Exiting Message Monitoring API sendFailedEdgeNotification() method.");
     }
