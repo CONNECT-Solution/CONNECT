@@ -59,7 +59,7 @@ public abstract class DirectAdapter {
     static final String DIRECT_CONFIG_SERVICE_NAME = "directconfig";
 
     private final MailSender externalMailSender;
-    private static SmtpAgent smtpAgent = null;
+    private SmtpAgent smtpAgent = null;
     private final DirectEventLogger directEventLogger;
 
     /**
@@ -72,17 +72,13 @@ public abstract class DirectAdapter {
     }
 
     /**
-     * Process a direct message and return {@link MessageProcessResult}. If the
-     * returned result is null, a Direct Error event is created, and a
-     * DirectException is thrown. If the processed message envelope returned is
-     * null, a Direct Error event is created with the notification messages if
-     * they are available. Then a {@link DirectException} is thrown. This method
-     * is guaranteed to return a populated result, otherwise it throws a
-     * DirectException.
+     * Process a direct message and return {@link MessageProcessResult}. If the returned result is null, a Direct Error
+     * event is created, and a DirectException is thrown. If the processed message envelope returned is null, a Direct
+     * Error event is created with the notification messages if they are available. Then a {@link DirectException} is
+     * thrown. This method is guaranteed to return a populated result, otherwise it throws a DirectException.
      *
      * @param message (mime) to be processed.
-     * @return message process result, populated with a processed message
-     * envelope.
+     * @return message process result, populated with a processed message envelope.
      */
     protected MessageProcessResult process(MimeMessage message) {
 
@@ -96,9 +92,8 @@ public abstract class DirectAdapter {
     }
 
     /**
-     * The DirectConfig service endpoint is read from internalConnectionInfo and
-     * is converted as URL which is the input argument type for SMPTAgentFactory
-     * which creates Agent.
+     * The DirectConfig service endpoint is read from internalConnectionInfo and is converted as URL which is the input
+     * argument type for SMPTAgentFactory which creates Agent.
      *
      * @return URL, the directConfig url string is converted into URL format.
      */
@@ -106,8 +101,7 @@ public abstract class DirectAdapter {
         String urlString = null;
         URL url = null;
         try {
-            urlString = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(DIRECT_CONFIG_SERVICE_NAME);
+            urlString = oProxyHelper.getAdapterEndPointFromConnectionManager(DIRECT_CONFIG_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Error reading directConfig Url cannot be found: {}", ex.getLocalizedMessage(), ex);
         }
@@ -125,8 +119,7 @@ public abstract class DirectAdapter {
             NHINDAddressCollection collection = DirectAdapterUtils.getNhindRecipients(mimeMessage);
             URL url = getUrl();
             smtpAgent = getSmtpAgent(url);
-            result = smtpAgent.processMessage(mimeMessage, collection,
-                    DirectAdapterUtils.getNhindSender(mimeMessage));
+            result = smtpAgent.processMessage(mimeMessage, collection, DirectAdapterUtils.getNhindSender(mimeMessage));
         } catch (Exception e) {
             String errorString = "Error occurred while processing message.";
             LOG.error(errorString, e);
@@ -140,47 +133,42 @@ public abstract class DirectAdapter {
     }
 
     /**
-     * The SmtpAgentConfig.xml is removed as part of CONN-1213. The
-     * direct.appcontext.xml invokes smtpAgent and looks for
-     * ConfigurationService endpoints to be published before the deployment of
-     * Direct and this fails in case of Appservers JBoss,WebLogic and WebSphere
-     * whereas GlassFish works.
+     * The SmtpAgentConfig.xml is removed as part of CONN-1213. The direct.appcontext.xml invokes smtpAgent and looks
+     * for ConfigurationService endpoints to be published before the deployment of Direct and this fails in case of
+     * Appservers JBoss,WebLogic and WebSphere whereas GlassFish works.
      *
-     * CONN-1213: The SmtpAgent is created after the deployment of Direct.
-     * Whenever the DirectSender/DirectReceiver is initiated the SmtpAgent is
-     * created and the aAgent is used for further processing of Direct Messages.
-     * The SmtpAgent injection is removed from direct.beans.xml whereas
-     * ConfigurationService url can be configured in internalConnectionInfo.xml
-     * like any other CONNECT service.
+     * CONN-1213: The SmtpAgent is created after the deployment of Direct. Whenever the DirectSender/DirectReceiver is
+     * initiated the SmtpAgent is created and the aAgent is used for further processing of Direct Messages. The
+     * SmtpAgent injection is removed from direct.beans.xml whereas ConfigurationService url can be configured in
+     * internalConnectionInfo.xml like any other CONNECT service.
      *
-     * Also starts the Agent Settings Manager to refresh agent settings cache
-     * which stores information related to certificates, anchors, domains,
-     * settings etc. The default cache refresh time is 5 minutes and can be
-     * overridden using the gateway property AgentSettingsCacheRefreshTime.
+     * Also starts the Agent Settings Manager to refresh agent settings cache which stores information related to
+     * certificates, anchors, domains, settings etc. The default cache refresh time is 5 minutes and can be overridden
+     * using the gateway property AgentSettingsCacheRefreshTime.
      *
      * @param url the directConfig Service url String converted into URL format.
      * @return SmtpAgent SmtpAgent created to process Direct Messages.
      */
     protected SmtpAgent getSmtpAgent(URL url) {
 
-        if ((smtpAgent != null) && smtpAgent instanceof SmtpAgent) {
+        if (smtpAgent != null) {
             return smtpAgent;
         } else {
             smtpAgent = SmtpAgentFactory.createAgent(url);
             if (MessageMonitoringUtil.getAgentSettingsCacheRefreshActive()) {
                 GatewayState gatewayState = GatewayState.getInstance();
-                //Update timeout seconds
+                // Update timeout seconds
                 MessageMonitoringUtil.updateAgentSettingsCacheTimeoutValue();
-                //start Agent Settings Manager
-                //set smtpAgent and smtp agent config
+                // start Agent Settings Manager
+                // set smtpAgent and smtp agent config
                 gatewayState.setSmtpAgent(smtpAgent);
                 gatewayState.setSmptAgentConfig(SmptAgentConfigFactory.createSmtpAgentConfig(url, null, null));
-                //if the agent settings manager is running then stop it and start it again
+                // if the agent settings manager is running then stop it and start it again
                 if (gatewayState.isAgentSettingManagerRunning()) {
                     LOG.debug("Stop Agent Settings Manager");
                     gatewayState.stopAgentSettingsManager();
                 }
-                //start the Agent Settings Manager
+                // start the Agent Settings Manager
                 LOG.debug("Start Agent Settings Manager");
                 gatewayState.startAgentSettingsManager();
             } else {
