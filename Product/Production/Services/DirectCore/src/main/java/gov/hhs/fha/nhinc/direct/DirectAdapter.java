@@ -114,7 +114,7 @@ public abstract class DirectAdapter {
         try {
             url = new URL(urlString);
         } catch (MalformedURLException ex) {
-            LOG.error("Error while converting urlString into Url format {}", ex.getMessage(), ex);
+            LOG.error("Error while converting urlString into Url format {}", ex.getLocalizedMessage(), ex);
         }
         return url;
     }

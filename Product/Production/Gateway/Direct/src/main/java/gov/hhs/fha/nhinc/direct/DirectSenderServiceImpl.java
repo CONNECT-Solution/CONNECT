@@ -68,7 +68,7 @@ public class DirectSenderServiceImpl extends DirectAdapterEntity implements Dire
             mimeMessage.setSubject(message.getSubject());
             getDirectSender().sendOutboundDirect(mimeMessage);
         } catch (MessagingException ex) {
-            LOG.error(ex.getMessage(),ex);
+            LOG.error(ex.getLocalizedMessage(),ex);
         }
         LOG.debug("-- End DirectSenderServiceImpl.sendOutboundDirect() --");
     }

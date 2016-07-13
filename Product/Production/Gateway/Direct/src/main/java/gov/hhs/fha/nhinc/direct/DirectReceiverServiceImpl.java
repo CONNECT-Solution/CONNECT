@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Properties;
+
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -40,6 +41,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +80,7 @@ public class DirectReceiverServiceImpl extends DirectAdapterEntity implements Di
             mimeMessage.setSubject(message.getSubject());
             getDirectReceiver().receiveInbound(mimeMessage);
         }catch (MessagingException | IOException ex) {
-            LOG.error(ex.getMessage(),ex);
+            LOG.error(ex.getLocalizedMessage(),ex);
         }
         LOG.debug("-- End DirectReceiverServiceImpl.receiveInbound() --");
     }

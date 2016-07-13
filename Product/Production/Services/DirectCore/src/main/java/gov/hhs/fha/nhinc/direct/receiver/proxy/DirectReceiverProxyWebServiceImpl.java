@@ -80,7 +80,7 @@ public class DirectReceiverProxyWebServiceImpl {
             message.setSubject(inMessage.getSubject());
             port.receiveInbound(message);
         } catch (IOException | MessagingException ex) {
-            LOG.error("Unable to call DirectReceiver WebService :{}", ex.getMessage(), ex);
+            LOG.error("Unable to call DirectReceiver WebService :{}", ex.getLocalizedMessage(), ex);
         }
         LOG.debug("End DirectReceiverUnsecuredProxy.receiveInbound()");
     }
