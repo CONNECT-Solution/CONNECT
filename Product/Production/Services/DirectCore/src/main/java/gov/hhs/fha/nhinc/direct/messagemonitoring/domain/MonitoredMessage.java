@@ -46,12 +46,27 @@ public class MonitoredMessage implements java.io.Serializable {
     private String status;
     private Date createtime;
     private Date updatetime;
-    private Set monitoredmessagenotifications = new HashSet(0);
+    private transient Set monitoredmessagenotifications = new HashSet(0);
 
     public MonitoredMessage() {
+        // Default constructor
     }
 
-    public MonitoredMessage(String senderemailid, String subject, String messageid, String recipients, Boolean deliveryrequested, String status, Date createtime, Date updatetime, Set monitoredmessagenotifications) {
+    /**
+     *
+     * @param senderemailid
+     * @param subject
+     * @param messageid
+     * @param recipients
+     * @param deliveryrequested
+     * @param status
+     * @param createtime
+     * @param updatetime
+     * @param monitoredmessagenotifications
+     */
+    public MonitoredMessage(String senderemailid, String subject, String messageid, String recipients,
+            Boolean deliveryrequested, String status, Date createtime, Date updatetime,
+            Set monitoredmessagenotifications) {
         this.senderemailid = senderemailid;
         this.subject = subject;
         this.messageid = messageid;
@@ -64,7 +79,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -72,7 +87,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public String getSenderemailid() {
-        return this.senderemailid;
+        return senderemailid;
     }
 
     public void setSenderemailid(String senderemailid) {
@@ -80,7 +95,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public String getSubject() {
-        return this.subject;
+        return subject;
     }
 
     public void setSubject(String subject) {
@@ -88,7 +103,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public String getMessageid() {
-        return this.messageid;
+        return messageid;
     }
 
     public void setMessageid(String messageid) {
@@ -96,7 +111,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public String getRecipients() {
-        return this.recipients;
+        return recipients;
     }
 
     public void setRecipients(String recipients) {
@@ -104,7 +119,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public Boolean getDeliveryrequested() {
-        return this.deliveryrequested;
+        return deliveryrequested;
     }
 
     public void setDeliveryrequested(Boolean deliveryrequested) {
@@ -112,7 +127,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public String getStatus() {
-        return this.status;
+        return status;
     }
 
     public void setStatus(String status) {
@@ -120,7 +135,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public Date getCreatetime() {
-        return this.createtime;
+        return createtime;
     }
 
     public void setCreatetime(Date createtime) {
@@ -128,7 +143,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public Date getUpdatetime() {
-        return this.updatetime;
+        return updatetime;
     }
 
     public void setUpdatetime(Date updatetime) {
@@ -136,7 +151,7 @@ public class MonitoredMessage implements java.io.Serializable {
     }
 
     public Set getMonitoredmessagenotifications() {
-        return this.monitoredmessagenotifications;
+        return monitoredmessagenotifications;
     }
 
     public void setMonitoredmessagenotifications(Set monitoredmessagenotifications) {
