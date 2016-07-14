@@ -52,42 +52,89 @@ public interface SoapEdgeContext {
     public static final String DIRECT_TO = "DIRECT_TO";
     public static final String DIRECT_METADATA_LEVEL = "DIRECT_METADATA_LEVEL";
 
-    public static final String[] PropertyKeys = { MESSAGE_ID, REMOTE_HOST, ENDPOINT, TO, THIS_HOST, PAT_ID, SUBSET_ID,
-            P_ID, ACTION, RELATES_TO, REPLY_TO, FROM, DIRECT_FROM, DIRECT_TO, DIRECT_METADATA_LEVEL };
-
-
+    /**
+     * @return ImmutableMap<String, String>
+     */
     public ImmutableMap<String, String> getAuditableValues();
 
+    /**
+     * @return String
+     */
     public String getMessageId();
 
+    /**
+     * @param messageId
+     */
     public void setMessageId(String messageId);
 
+    /**
+     * @return String
+     */
     public String getRemoteHost();
 
+    /**
+     * @param remoteHost
+     */
     public void setRemoteHost(String remoteHost);
 
+    /**
+     * @return String
+     */
     public String getEndpoint();
 
+    /**
+     * @param endpoint
+     */
     public void setEndpoint(String endpoint);
 
+    /**
+     * @return String
+     */
     public String getTo();
 
+    /**
+     * @param to
+     */
     public void setTo(String to);
 
+    /**
+     * @return String
+     */
     public String getThisHost();
 
+    /**
+     * @param thisHost
+     */
     public void setThisHost(String thisHost);
 
+    /**
+     * @return String
+     */
     public String getPatId();
 
+    /**
+     * @param patId
+     */
     public void setPatId(String patId);
 
+    /**
+     * @return String
+     */
     public String getSubsetId();
 
-    public void SubsetId(String subsetId);
+    /**
+     * @param subsetId
+     */
+    public void subsetId(String subsetId);
 
+    /**
+     * @return
+     */
     public String getPid();
 
+    /**
+     * @param pid
+     */
     public void setPid(String pid);
 
     /**
@@ -126,12 +173,12 @@ public interface SoapEdgeContext {
     public void setDirectMetaDataLevel(String textContentFromChildNode);
 
     /**
-     * @return
+     * @return String
      */
     public String getDirectTo();
 
     /**
-     * @return
+     * @return String
      */
     public String getDirectFrom();
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import java.util.Arrays;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
@@ -60,7 +61,7 @@ public class DirectSenderServiceImpl extends DirectAdapterEntity implements Dire
             }
             MimeMultipart mpart = new MimeMultipart();
             MimeBodyPart bp = new MimeBodyPart();
-            bp.setText(message.getContent().toString());
+            bp.setText(Arrays.toString(message.getContent()));
             // add message body
             mpart.addBodyPart(bp);
             mimeMessage.setContent(mpart);
@@ -68,7 +69,7 @@ public class DirectSenderServiceImpl extends DirectAdapterEntity implements Dire
             mimeMessage.setSubject(message.getSubject());
             getDirectSender().sendOutboundDirect(mimeMessage);
         } catch (MessagingException ex) {
-            LOG.error(ex.getLocalizedMessage(),ex);
+            LOG.error(ex.getLocalizedMessage(), ex);
         }
         LOG.debug("-- End DirectSenderServiceImpl.sendOutboundDirect() --");
     }

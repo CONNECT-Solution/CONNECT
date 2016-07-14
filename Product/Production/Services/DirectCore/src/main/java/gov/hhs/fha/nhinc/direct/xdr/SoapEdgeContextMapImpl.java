@@ -40,6 +40,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
     /** The properties. */
     Map<String, String> properties = null;
 
+    private static final String[] PropertyKeys = { MESSAGE_ID, REMOTE_HOST, ENDPOINT, TO, THIS_HOST, PAT_ID, SUBSET_ID,
+            P_ID, ACTION, RELATES_TO, REPLY_TO, FROM, DIRECT_FROM, DIRECT_TO, DIRECT_METADATA_LEVEL };
+
     /**
      * Instantiates a new soap edge headers properties impl.
      */
@@ -56,7 +59,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
     public ImmutableMap<String, String> getAuditableValues() {
         ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
 
-        for (String s : SoapEdgeContext.PropertyKeys) {
+        for (String s : PropertyKeys) {
             String value = properties.get(s);
             if (StringUtils.isNotBlank(value)) {
                 builder.put(s, value);
@@ -201,7 +204,7 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#SubsetId(java.lang.String)
      */
     @Override
-    public void SubsetId(String subsetId) {
+    public void subsetId(String subsetId) {
         properties.put(SoapEdgeContext.SUBSET_ID, subsetId);
     }
 
@@ -225,7 +228,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.P_ID, pid);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setAction(java.lang.String)
      */
     @Override
@@ -233,7 +238,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.ACTION, action);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setRelatesTo(java.lang.String)
      */
     @Override
@@ -241,7 +248,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.RELATES_TO, relatesTo);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setReplyTo(java.lang.String)
      */
     @Override
@@ -249,7 +258,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.REPLY_TO, replyTo);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setFrom(java.lang.String)
      */
     @Override
@@ -257,7 +268,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.FROM, from);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setDirectFrom(java.lang.String)
      */
     @Override
@@ -265,7 +278,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.DIRECT_FROM, directFrom);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setDirectTo(java.lang.String)
      */
     @Override
@@ -273,7 +288,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.DIRECT_TO, directTo);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeaders#setDirectMetaDataLevel(java.lang.String)
      */
     @Override
@@ -281,7 +298,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         properties.put(SoapEdgeContext.DIRECT_METADATA_LEVEL, directMetadataLevel);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext#getDirectTo()
      */
     @Override
@@ -289,7 +308,9 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
         return properties.get(SoapEdgeContext.DIRECT_TO);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext#getDirectFrom()
      */
     @Override

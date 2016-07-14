@@ -27,10 +27,11 @@
 package gov.hhs.fha.nhinc.direct;
 
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
-import gov.hhs.fha.nhinc.mail.MailReceiver;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import gov.hhs.fha.nhinc.mail.MailReceiver;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -115,7 +116,10 @@ public class DirectAdapterSpringTest {
     @Test
     @Ignore
     public void canRunScheduledTaskEveryOneSec() throws InterruptedException {
-        Thread.sleep(DirectUnitTestUtil.WAIT_TIME_FOR_MAIL_HANDLER);
+        /*
+         * NOTE: Add Thread.sleep(DirectUnitTestUtil.WAIT_TIME_FOR_MAIL_HANDLER) right below this comment when running
+         * this test method.
+         */
 
         int internalInvocations = intMailReceiver.getHandlerInvocations();
         int externalInvocations = extMailReceiver.getHandlerInvocations();
