@@ -2212,36 +2212,12 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <con:value>correlatedidentifiers</con:value>
                 </con:property>
                 <con:property>
-                    <con:name>SubscriptionDB</con:name>
-                    <con:value>subscriptionrepository</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscriptionTable</con:name>
-                    <con:value>subscription</con:value>
-                </con:property>
-                <con:property>
                     <con:name>AAMappingDB</con:name>
                     <con:value>assigningauthoritydb</con:value>
                 </con:property>
                 <con:property>
                     <con:name>AAMappingTable</con:name>
                     <con:value>aa_to_home_community_mapping</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>PseudonymAA</con:name>
-                    <con:value>ABC</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>PseudonymPatientID</con:name>
-                    <con:value>PSEUDO001</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>RealAA</con:name>
-                    <con:value>1.1.1</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>RealPatientID</con:name>
-                    <con:value>D1234010050</con:value>
                 </con:property>
                 <con:property>
                     <con:name>DQDocID</con:name>
@@ -2263,20 +2239,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <con:name>DRRepoID</con:name>
                     <con:value>1</con:value>
                 </con:property>
-                <con:property>
-                    <con:name>SubscribePatientID</con:name>
-                    <con:value>D123401</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>NotifySubscriptionID</con:name>
-                    <con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-                </con:property>
-
-                <con:property>
-                    <con:name>UnSubscriptionID</con:name>
-                    <con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-                </con:property>
-
                 <con:property>
                     <con:name>AQUserID</con:name>
                     <con:value>kskagerb</con:value>
@@ -2883,14 +2845,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <con:value>correlatedidentifiers</con:value>
                 </con:property>
                 <con:property>
-                    <con:name>SubscriptionDB</con:name>
-                    <con:value>subscriptionrepository</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscriptionTable</con:name>
-                    <con:value>subscription</con:value>
-                </con:property>
-                <con:property>
                     <con:name>AAMappingDB</con:name>
                     <con:value>assigningauthoritydb</con:value>
                 </con:property>
@@ -2905,22 +2859,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 <con:property>
                     <con:name>AsyncMsgTable</con:name>
                     <con:value>asyncmsgrepo</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>PseudonymAA</con:name>
-                    <con:value>ABC</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>PseudonymPatientID</con:name>
-                    <con:value>PSEUDO001</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>RealAA</con:name>
-                    <con:value>1.1.1</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>RealPatientID</con:name>
-                    <con:value>D1234010050</con:value>
                 </con:property>
                 <con:property>
                     <con:name>DQDocID</con:name>
@@ -2941,18 +2879,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 <con:property>
                     <con:name>DRRepoID</con:name>
                     <con:value>1</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscribePatientID</con:name>
-                    <con:value>D123401</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>NotifySubscriptionID</con:name>
-                    <con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>UnSubscriptionID</con:name>
-                    <con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
                 </con:property>
                 <con:property>
                     <con:name>AQUserID</con:name>
@@ -3605,12 +3531,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <script>context.withSql('eventdb') { sql ->
                         sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
                         }</script>
-                </con:config>
-            </con:testStep>
-            <con:testStep name="update config" type="groovy" id="52a381f0-37b4-43ef-9dc1-42f94d1894d7">
-                <con:settings/>
-                <con:config>
-                    <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
                 </con:config>
             </con:testStep>
             <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="3bffbde9-fefd-4c5a-8520-db5b08bd018e">
@@ -7052,14 +6972,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <con:value>correlatedidentifiers</con:value>
                 </con:property>
                 <con:property>
-                    <con:name>SubscriptionDB</con:name>
-                    <con:value>subscriptionrepository</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscriptionTable</con:name>
-                    <con:value>subscription</con:value>
-                </con:property>
-                <con:property>
                     <con:name>AAMappingDB</con:name>
                     <con:value>assigningauthoritydb</con:value>
                 </con:property>
@@ -7102,18 +7014,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 <con:property>
                     <con:name>DRRepoID</con:name>
                     <con:value>1</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscribePatientID</con:name>
-                    <con:value>D123401</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>NotifySubscriptionID</con:name>
-                    <con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>UnSubscriptionID</con:name>
-                    <con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
                 </con:property>
                 <con:property>
                     <con:name>AQUserID</con:name>
@@ -7684,22 +7584,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <con:value>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:value>
                 </con:property>
                 <con:property>
-                    <con:name>Endpoint-Reidentification</con:name>
-                    <con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>Endpoint-Subscribe</con:name>
-                    <con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>Endpoint-Notify</con:name>
-                    <con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>Endpoint-Unsubscribe</con:name>
-                    <con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value>
-                </con:property>
-                <con:property>
                     <con:name>Endpoint-AuditLogQuery</con:name>
                     <con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
                 </con:property>
@@ -7736,14 +7620,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <con:value>correlatedidentifiers</con:value>
                 </con:property>
                 <con:property>
-                    <con:name>SubscriptionDB</con:name>
-                    <con:value>subscriptionrepository</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscriptionTable</con:name>
-                    <con:value>subscription</con:value>
-                </con:property>
-                <con:property>
                     <con:name>AAMappingDB</con:name>
                     <con:value>assigningauthoritydb</con:value>
                 </con:property>
@@ -7758,22 +7634,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 <con:property>
                     <con:name>AsyncMsgTable</con:name>
                     <con:value>asyncmsgrepo</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>PseudonymAA</con:name>
-                    <con:value>ABC</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>PseudonymPatientID</con:name>
-                    <con:value>PSEUDO001</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>RealAA</con:name>
-                    <con:value>1.1.1</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>RealPatientID</con:name>
-                    <con:value>D1234010050</con:value>
                 </con:property>
                 <con:property>
                     <con:name>DQDocID</con:name>
@@ -7794,34 +7654,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 <con:property>
                     <con:name>DRRepoID</con:name>
                     <con:value>1</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>NotificationEndpoint</con:name>
-                    <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscriptionEndpoint</con:name>
-                    <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscribePatientID</con:name>
-                    <con:value>D123401</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>NotifySubscriptionID</con:name>
-                    <con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-                    <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>UnSubscriptionID</con:name>
-                    <con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-                </con:property>
-                <con:property>
-                    <con:name>SubscriptionManagerEndpointAddress</con:name>
-                    <con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
                 </con:property>
                 <con:property>
                     <con:name>AQUserID</con:name>
@@ -8473,12 +8305,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                     <script>context.withSql('eventdb') { sql ->
                         sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
                         }</script>
-                </con:config>
-            </con:testStep>
-            <con:testStep name="update config" type="groovy" id="e6ef8148-a1b6-48fe-bbc3-3f703b54b655">
-                <con:settings/>
-                <con:config>
-                    <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
                 </con:config>
             </con:testStep>
             <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="e028e954-012e-47fd-ae26-37de3f2240dc">
@@ -9894,18 +9720,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             <con:name>DynamicDQDocID</con:name>
             <con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
         </con:property>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <con:property>
             <con:name>EventLoggingTable</con:name>
             <con:value>event</con:value>
@@ -9946,12 +9760,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             <con:name>LocalPatientID</con:name>
             <con:value>D123401</con:value>
         </con:property>
-        
-        <con:property>
-            <con:name>NotifySubscriptionID</con:name>
-            <con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value>
-        </con:property>
-        
         <con:property>
             <con:name>PatientCorrelationDB</con:name>
             <con:value>patientcorrelationdb</con:value>
@@ -10001,26 +9809,8 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             <con:value>1111</con:value>
         </con:property>
         <con:property>
-            <con:name>SubscribePatientID</con:name>
-            <con:value>D123401</con:value>
-        </con:property>
-        <con:property>
-            <con:name>SubscriptionDB</con:name>
-            <con:value>subscriptionrepository</con:value>
-        </con:property>
-        
-        
-        <con:property>
-            <con:name>SubscriptionTable</con:name>
-            <con:value>subscription</con:value>
-        </con:property>
-        <con:property>
             <con:name>UniquePatientId</con:name>
             <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-        </con:property>
-        <con:property>
-            <con:name>UnSubscriptionID</con:name>
-            <con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value>
         </con:property>
         <con:property>
             <con:name>ZipCode</con:name>
