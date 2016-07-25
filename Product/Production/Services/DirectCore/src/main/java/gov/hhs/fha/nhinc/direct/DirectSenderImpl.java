@@ -67,7 +67,8 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
         } catch (Exception e) {
             //if its security error then return send a message back to sender
             failed = true;
-            errorMessage = e.getMessage();
+            errorMessage = e.getLocalizedMessage();
+            LOG.error("Encounter sendOutBoundDirect error {}", errorMessage, e);
             //TODO: drop the message to a delete bin directory for future ref
             return;
         } finally {

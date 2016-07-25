@@ -132,7 +132,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             result = process(message);
         } catch (Exception e) {
             //TODO: drop the message to a delete bin directory for future ref
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, e.getMessage());
+            final String errorMsg = e.getLocalizedMessage();
+            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMsg);
+            LOG.error("Encounter receiveInbound error {}", errorMsg, e);
             return;
         }
 
@@ -171,10 +173,12 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             try {
                 proxy.provideAndRegisterDocumentSetB(processedMessage);
             } catch (DirectException e) {
-                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, e.getMessage());
-                //capture the error message
-                notificationFailureMessage = e.getMessage();
+                final String errorMessage = e.getLocalizedMessage();
+                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, errorMessage);
+                // capture the error message
+                notificationFailureMessage = errorMessage;
                 notificationToEdgeFailed = true;
+                LOG.error("Encounter EdgeMDNNotification Exception {} ", errorMessage, e);
             }
         }
 
@@ -202,7 +206,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
                     sendMdnDispatched(result);
                 }
             } catch (MessagingException e) {
-                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, e.getMessage());
+                getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, processedMessage, e.getLocalizedMessage());
                 throw new DirectException("Error sending MDN dispatched.", e, message);
             }
             getDirectEventLogger().log(DirectEventType.END_INBOUND_DIRECT, processedMessage);
@@ -226,8 +230,8 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         if (headers != null) {
             for (String header : headers) {
                 if (MessageMonitoringUtil.checkHeaderForDispatchedRequest(header)) {
-                    Message STAMessasge = new Message(processedMessage);
-                    IncomingMessage incomingMessage = new IncomingMessage(STAMessasge);
+                    Message staMessasge = new Message(processedMessage);
+                    IncomingMessage incomingMessage = new IncomingMessage(staMessasge);
                     if (getSmtpAgent() != null) {
                         incomingMessage.setAgent(getSmtpAgent().getAgent());
                         Collection<NotificationMessage> messages = dispatchProducer.produce(incomingMessage);

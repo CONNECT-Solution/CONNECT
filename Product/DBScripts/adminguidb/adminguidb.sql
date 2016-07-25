@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS adminguidb.PagePreference (
 CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
     id SERIAL PRIMARY KEY,
     salt varchar(100) NOT NULL,
-    sha1 varchar(100) NOT NULL,
+    sha2 varchar(100) NOT NULL,
     userName varchar(100) NOT NULL UNIQUE,
     userRole BIGINT unsigned NOT NULL,
     CONSTRAINT fk_role_user
@@ -73,9 +73,9 @@ VALUES
 ("auditLog.xhtml", "AuditSearch", 0, 3);
 
 INSERT INTO adminguidb.UserLogin
-(id, salt, sha1, userName, userRole)
+(id, salt, sha2, userName, userRole)
 VALUES
-(1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "CONNECTAdmin", 1);
+(1, "ABCD", "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw==", "CONNECTAdmin", 1);
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON adminguidb.* to nhincuser;
 -- end adminguidb

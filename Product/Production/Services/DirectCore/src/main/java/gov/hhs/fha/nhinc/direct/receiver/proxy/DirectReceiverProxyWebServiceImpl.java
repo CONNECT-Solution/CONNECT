@@ -27,12 +27,15 @@
 package gov.hhs.fha.nhinc.direct.receiver.proxy;
 
 import gov.hhs.fha.nhinc.direct.HeaderMap;
+
 import java.io.IOException;
 import java.util.Enumeration;
+
 import javax.mail.Header;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +50,9 @@ public class DirectReceiverProxyWebServiceImpl {
     /**
      * Constructor
      */
-    public DirectReceiverProxyWebServiceImpl() {}
+    public DirectReceiverProxyWebServiceImpl() {
+        //Default constructor
+    }
 
     /**
      *
@@ -74,12 +79,9 @@ public class DirectReceiverProxyWebServiceImpl {
             message.setSender(senderAddress.getAddress());
             message.setSubject(inMessage.getSubject());
             port.receiveInbound(message);
-        } catch (IOException ex) {
-            LOG.error("Unable to call DirectReceiver WebService :" + ex.getMessage());
-        } catch (MessagingException ex) {
-            LOG.error("Unable to call DirectReceiver WebService :" + ex.getMessage());
+        } catch (IOException | MessagingException ex) {
+            LOG.error("Unable to call DirectReceiver WebService :{}", ex.getLocalizedMessage(), ex);
         }
-
         LOG.debug("End DirectReceiverUnsecuredProxy.receiveInbound()");
     }
 }

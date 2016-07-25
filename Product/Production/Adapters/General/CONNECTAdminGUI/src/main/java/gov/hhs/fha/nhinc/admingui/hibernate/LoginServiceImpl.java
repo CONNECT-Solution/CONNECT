@@ -33,13 +33,16 @@ import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
-import gov.hhs.fha.nhinc.admingui.services.impl.SHA1PasswordService;
+import gov.hhs.fha.nhinc.admingui.services.impl.SHA2PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+
 import java.io.IOException;
 import java.util.List;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +61,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private UserLoginDAO userLoginDAO;
-
     /**
-     * default constructor
+     * The credential service.
      */
-    public LoginServiceImpl() {
-    }
-
+    private final PasswordService credentialService = new SHA2PasswordService();
     /**
      *
      * @param userLoginDao
@@ -72,11 +72,13 @@ public class LoginServiceImpl implements LoginService {
     LoginServiceImpl(UserLoginDAO userLoginDao) {
         userLoginDAO = userLoginDao;
     }
-
+    
     /**
-     * The password service.
+     * Default constructor
      */
-    private final PasswordService passwordService = new SHA1PasswordService();
+    public LoginServiceImpl() {
+      //Spring can not instantiate without default constructor
+    }
 
     /*
      * (non-Javadoc)
@@ -86,10 +88,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public UserLogin login(Login login) throws UserLoginException {
         UserLogin user = userLoginDAO.login(login);
-
-        if (user != null && user.getSha1() != null && user.getSalt() != null && login.getPassword() != null) {
+        if (user != null && user.getSha2() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
-                boolean loggedIn = passwordService.checkPassword(user.getSha1().getBytes(),
+                LOG.info("Prepare to check user credential");
+                boolean loggedIn = credentialService.checkPassword(user.getSha2().getBytes(),
                     login.getPassword().getBytes(), user.getSalt().getBytes());
                 if (!loggedIn) {
                     user = null;
@@ -112,8 +114,8 @@ public class LoginServiceImpl implements LoginService {
         String passwordHash;
         byte[] saltValue;
         try {
-            saltValue = passwordService.generateRandomSalt();
-            passwordHash = new String(passwordService.calculateHash(saltValue, user.getPassword().getBytes()));
+            saltValue = credentialService.generateRandomSalt();
+            passwordHash = new String(credentialService.calculateHash(saltValue, user.getPassword().getBytes()));
 
         } catch (PasswordServiceException | IOException e) {
             throw new UserLoginException("Error while calculating hash.", e);
@@ -121,7 +123,7 @@ public class LoginServiceImpl implements LoginService {
 
         UserLogin userLoginEntity = new UserLogin();
         userLoginEntity.setUserName(user.getUserName());
-        userLoginEntity.setSha1(passwordHash);
+        userLoginEntity.setSha2(passwordHash);
         userLoginEntity.setSalt(new String(saltValue));
 
         UserRole userRole = getUserRole(role);
