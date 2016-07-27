@@ -1,0 +1,110 @@
+diff --git a/Product/Production/Adapters/General/CONNECTAdminGUI/pom.xml b/Product/Production/Adapters/General/CONNECTAdminGUI/pom.xml
+index b211153..f6cb498 100644
+--- a/Product/Production/Adapters/General/CONNECTAdminGUI/pom.xml
++++ b/Product/Production/Adapters/General/CONNECTAdminGUI/pom.xml
+@@ -298,6 +298,38 @@
+                 </exclusion>
+             </exclusions>
+         </dependency>
++        <!-- OWASP Security -->
++        <dependency>
++                <groupId>org.owasp.esapi</groupId>
++                <artifactId>esapi</artifactId>
++                <version>2.1.0.1</version>
++                <exclusions>
++                    <exclusion>
++                        <groupId>xerces</groupId>
++                        <artifactId>xercesImpl</artifactId>
++                    </exclusion>
++                    <exclusion>
++                        <groupId>xalan</groupId>
++                        <artifactId>xalan</artifactId>
++                    </exclusion>
++                    <exclusion>
++                        <groupId>xml-apis</groupId>
++                        <artifactId>xml-apis</artifactId>
++                    </exclusion>
++                    <exclusion>
++                        <groupId>xml-apis</groupId>
++                        <artifactId>xml-apis-ext</artifactId>
++                    </exclusion>
++                </exclusions>
++            </dependency>
++             
++         <!--     <dependency>
++    <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
++    <artifactId>owasp-java-html-sanitizer</artifactId>
++    <version>20160628.1</version>
++    
++</dependency>
++ -->
+     </dependencies>
+ 
+     <repositories>
+diff --git a/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/resources/log4j.properties b/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/resources/log4j.properties
+index 58805bc..796a963 100644
+--- a/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/resources/log4j.properties
++++ b/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/resources/log4j.properties
+@@ -1,8 +1,16 @@
+ # Root logger option
+-log4j.rootLogger=ALL, stdout
++log4j.rootLogger=DEBUG, stdout, R
+ 
+ # Direct log messages to stdout
+ log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+-log4j.appender.stdout.Target=System.out
+ log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+ log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
++
++log4j.appender.R=org.apache.log4j.RollingFileAppender
++log4j.appender.R.File=C:/delete_my/logs/AdminGUI.log
++log4j.appender.R.MaxFileSize=100MB
++log4j.appender.R.MaxBackupIndex=10
++# info on layout pattern: http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html
++log4j.appender.R.layout=org.apache.log4j.PatternLayout
++log4j.appender.R.Threshold=DEBUG
++log4j.appender.R.layout.ConversionPattern=[%d{M/d/yyyy}, %d{HH:mm:ss:SSS}] %-5p  %-20.20c{1}  %m%n
+diff --git a/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/faces-config.xml b/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/faces-config.xml
+index 44c3cda..716ca34 100644
+--- a/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/faces-config.xml
++++ b/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/faces-config.xml
+@@ -86,5 +86,13 @@
+             <redirect />
+         </navigation-case>
+     </navigation-rule>
++    <navigation-rule>
++        <from-view-id>/*</from-view-id>
++        <navigation-case>
++            <from-outcome>customerror</from-outcome>
++            <to-view-id>/customerror.xhtml</to-view-id>
++            <redirect />
++        </navigation-case>
++    </navigation-rule>
+ 
+ </faces-config>
+diff --git a/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/web.xml b/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/web.xml
+index 31f7a1d..79beefb 100644
+--- a/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/web.xml
++++ b/Product/Production/Adapters/General/CONNECTAdminGUI/src/main/webapp/WEB-INF/web.xml
+@@ -109,7 +109,6 @@
+         <res-auth>Container</res-auth>
+         <res-sharing-scope>Shareable</res-sharing-scope>
+     </resource-ref>
+-
+     <filter>
+         <filter-name>PrimeFaces FileUpload Filter</filter-name>
+         <filter-class>
+@@ -120,4 +119,13 @@
+         <filter-name>PrimeFaces FileUpload Filter</filter-name>
+         <servlet-name>facesServlet</servlet-name>
+     </filter-mapping>
++    
++     <filter>  
++      <filter-name>sanitizationFilter</filter-name>
++      <filter-class>gov.hhs.fha.nhinc.admingui.servlet.SanitizationFilter</filter-class>
++    </filter>
++    <filter-mapping>
++        <filter-name>sanitizationFilter</filter-name>
++        <url-pattern>/*</url-pattern>
++    </filter-mapping>
+ </web-app>

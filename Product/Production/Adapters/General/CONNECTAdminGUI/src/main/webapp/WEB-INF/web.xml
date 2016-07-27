@@ -109,7 +109,6 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>
@@ -119,5 +118,14 @@
     <filter-mapping>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>facesServlet</servlet-name>
+    </filter-mapping>
+    
+     <filter>  
+      <filter-name>sanitizationFilter</filter-name>
+      <filter-class>gov.hhs.fha.nhinc.admingui.servlet.SanitizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sanitizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 </web-app>
