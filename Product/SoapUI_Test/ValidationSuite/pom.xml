@@ -237,27 +237,7 @@
                                         </resource>
                                     </resources>
                                 </configuration>
-                            </execution>
-							<!-- jboss-logging-3.3.0.Final.jar needs to be moved to embedded wildfly server module directory. -->
-                            <execution>
-                                <id>copy-jboss-logging-wildfly</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/jboss/logging/main</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/resources/jboss-logging</directory>
-                                            <includes>
-												<include>jboss-logging-3.3.0.Final.jar</include>
-                                                <include>module.xml</include>
-                                            </includes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>							
+                            </execution>					
                         </executions>
                     </plugin>
                     <!-- run sql script -->
