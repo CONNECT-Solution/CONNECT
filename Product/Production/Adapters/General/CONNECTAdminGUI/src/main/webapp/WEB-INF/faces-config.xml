@@ -86,13 +86,7 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
-        <navigation-case>
-            <from-outcome>customerror</from-outcome>
-            <to-view-id>/customerror.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
-
+  <factory>
+    <exception-handler-factory>gov.hhs.fha.nhinc.admingui.exceptionhandler.CustomExceptionHandlerFactory</exception-handler-factory>
+  </factory>
 </faces-config>
