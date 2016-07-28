@@ -78,6 +78,7 @@ public class UserAuthorizationListener implements PhaseListener {
      */
     public UserAuthorizationListener() {
         NO_LOGIN_REQUIRED_PAGES.add("/login.xhtml");
+        NO_LOGIN_REQUIRED_PAGES.add("/customerror.xhtml");
     }
 
     /*
@@ -89,7 +90,7 @@ public class UserAuthorizationListener implements PhaseListener {
     public void afterPhase(PhaseEvent event) {
         FacesContext facesContext = event.getFacesContext();
         String currentPage = facesContext.getViewRoot().getViewId();
-        LOG.debug("current page: ".concat(currentPage));
+        LOG.debug("current page 1111: ".concat(currentPage));
 
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         UserLogin currentUser = null;
@@ -101,6 +102,10 @@ public class UserAuthorizationListener implements PhaseListener {
             LOG.debug("login required and current user is null, redirecting to login page.");
             NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
             nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
+        }else if ("/customerror.xhtml".equalsIgnoreCase(currentPage)){
+            LOG.debug("Goinside customerrorpage now");
+            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+            nh.handleNavigation(facesContext, null, "customerror");
         } else {
             boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
             boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));

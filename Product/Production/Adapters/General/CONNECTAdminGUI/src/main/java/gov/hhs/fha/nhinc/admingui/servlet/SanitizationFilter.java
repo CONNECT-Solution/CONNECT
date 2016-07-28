@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SanitizationFilter implements Filter{
     private static final Logger LOG = LoggerFactory.getLogger(SanitizationFilter.class);
+    private FilterConfig filterConfig = null;
     /* (non-Javadoc)
      * @see javax.servlet.Filter#destroy()
      */
@@ -43,7 +44,7 @@ public class SanitizationFilter implements Filter{
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
             ServletException {
-      LOG.debug("Preapre to go inside doFilter version3");
+      LOG.debug("Preapre to go inside doFilter version 5 ");
       if (!(request instanceof HttpServletRequest)) {
           filterChain.doFilter(request, response);
           return;
@@ -51,13 +52,16 @@ public class SanitizationFilter implements Filter{
       if (request instanceof HttpServletRequest){
           HttpServletRequest hrequest = (HttpServletRequest)request;
           HttpServletResponse hresponse = (HttpServletResponse)response;
+          LOG.debug("SErvlet Request: "+hrequest.getServletPath());
           try {             
               checkHeaders(hrequest);              
-          } catch (Exception e) {
+          } catch (SanitizationException e) {
               LOG.error("Error in SanitilizeMessage {}: ",e.getLocalizedMessage(), e );
-              //need to route to error page
               hrequest.getSession().invalidate();
-              hresponse.sendRedirect("customerror");
+              filterConfig.getServletContext().getRequestDispatcher("/customerror.xhtml").forward(hrequest,hresponse);
+              //need to route to error page              
+              //throw new ServletException(e);
+              
           } finally {
               ESAPI.httpUtilities().clearCurrent();
           }
@@ -80,6 +84,7 @@ public class SanitizationFilter implements Filter{
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
        LOG.debug("init my own filter");
+       this.filterConfig = filterConfig;
         
     }
     private void checkHeaders(final HttpServletRequest request) throws SanitizationException {
