@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.admingui.exceptionhandler;
 
 import java.util.Iterator;
 import java.util.Map;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.ExceptionHandler;
@@ -36,6 +35,8 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -43,6 +44,7 @@ import javax.faces.event.ExceptionQueuedEventContext;
  */
 public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CustomExceptionHandlerWrapper.class);
     private ExceptionHandler wrapped;
 
     CustomExceptionHandlerWrapper(ExceptionHandler exception) {
@@ -55,7 +57,7 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
     }
 
     @Override
-    public void handle() throws FacesException {
+    public void handle() {
 
         final Iterator<ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator();
         while (i.hasNext()) {
@@ -65,7 +67,7 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
 
             // get the exception from context
             Throwable t = context.getException();
-
+            LOG.error("An exception occurred whil performing user request", t);
             final FacesContext fc = FacesContext.getCurrentInstance();
             final Map<String, Object> requestMap = fc.getExternalContext().getRequestMap();
             final NavigationHandler nav = fc.getApplication().getNavigationHandler();

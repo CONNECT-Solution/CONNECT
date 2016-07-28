@@ -44,8 +44,6 @@ public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
 
     @Override
     public ExceptionHandler getExceptionHandler() {
-
-        ExceptionHandler handler = new CustomExceptionHandlerWrapper(parent.getExceptionHandler());
-        return handler;
+        return new CustomExceptionHandlerWrapper(parent.getExceptionHandler());
     }
 }
