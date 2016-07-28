@@ -86,5 +86,7 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-
+  <factory>
+    <exception-handler-factory>gov.hhs.fha.nhinc.admingui.exceptionhandler.CustomExceptionHandlerFactory</exception-handler-factory>
+  </factory>
 </faces-config>
