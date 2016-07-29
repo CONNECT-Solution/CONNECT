@@ -44,19 +44,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class AbstractOutboundDocRetrieve {
 
-    private DocRetrieveAuditLogger docRetrieveAuditLogger;
 
-    /**
-     *
-     */
-    public AbstractOutboundDocRetrieve() {
-        super();
-        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
-    }
-
-    public AbstractOutboundDocRetrieve(DocRetrieveAuditLogger docRetrieveAuditLogger) {
-        docRetrieveAuditLogger = new DocRetrieveAuditLogger();
-    }
 
     /**
      * @param targets
