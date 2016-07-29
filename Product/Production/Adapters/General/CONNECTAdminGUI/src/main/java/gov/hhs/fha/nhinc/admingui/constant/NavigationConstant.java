@@ -34,6 +34,7 @@ public class NavigationConstant {
 
     public static final String STATUS_PAGE = "status";
     public static final String LOGIN_PAGE = "login";
+    public static final String LOGIN_XHTML = "/login.xhtml";
     public static final String ACCT_MGMT_PAGE = "acctmanage";
     public static final String DIRECT_PAGE = "direct";
     public static final String DIRECT_XHTML = "direct.xhtml";
@@ -43,6 +44,8 @@ public class NavigationConstant {
     public static final String PROPERTIES_PAGE = "properties";
     public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
     public static final String AUDIT_SEARCH_PAGE = "auditLog";
+    public static final String CUSTOM_ERROR_PAGE = "customerror";
+    public static final String CUSTOM_ERROR_XHTML = "/customerror.xhtml";
 
     public static final int DIRECT_DOMAIN_TAB = 0;
     public static final int DIRECT_SETTING_TAB = 1;
@@ -54,5 +57,10 @@ public class NavigationConstant {
 
     public static final int GATEWAY_DASHBOARD_TAB = 0;
     public static final int GATEWAY_REMOTELIST_TAB = 1;
+    /**
+     * Use this class to hold constant variables
+     */
+    private NavigationConstant() {
+    }
 
 }
