@@ -87,6 +87,7 @@
         </navigation-case>
     </navigation-rule>
   <factory>
+    <!-- Any run time exception will route to this exceptionFactory and render customerror.xhtml -->
     <exception-handler-factory>gov.hhs.fha.nhinc.admingui.exceptionhandler.CustomExceptionHandlerFactory</exception-handler-factory>
   </factory>
 </faces-config>
