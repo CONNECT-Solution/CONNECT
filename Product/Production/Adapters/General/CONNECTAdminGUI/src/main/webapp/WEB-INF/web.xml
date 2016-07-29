@@ -49,12 +49,19 @@
         <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
 
-    <!-- Error page -->
-    <error-page>
-        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/login.xhtml</location>
-    </error-page>
-
+   <!-- Error page -->
+   <error-page>
+     <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+     <location>/login.xhtml</location>
+   </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/customerror.xhtml</location>
+   </error-page>
+  <error-page>
+    <error-code>400</error-code>
+    <location>/customerror.xhtml</location>
+   </error-page>
     <context-param>
         <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
         <param-value>true</param-value>
@@ -120,4 +127,13 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>facesServlet</servlet-name>
     </filter-mapping>
+
+  <filter>
+    <filter-name>sanitizationFilter</filter-name>
+    <filter-class>gov.hhs.fha.nhinc.admingui.servlet.SanitizationFilter</filter-class>
+   </filter>
+  <filter-mapping>
+    <filter-name>sanitizationFilter</filter-name>
+    <servlet-name>facesServlet</servlet-name>
+   </filter-mapping>
 </web-app>

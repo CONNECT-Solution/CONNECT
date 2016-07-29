@@ -31,14 +31,17 @@ import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
 import gov.hhs.fha.nhinc.admingui.services.RoleServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -77,7 +80,8 @@ public class UserAuthorizationListener implements PhaseListener {
      *
      */
     public UserAuthorizationListener() {
-        NO_LOGIN_REQUIRED_PAGES.add("/login.xhtml");
+        NO_LOGIN_REQUIRED_PAGES.add(NavigationConstant.LOGIN_XHTML);
+        NO_LOGIN_REQUIRED_PAGES.add(NavigationConstant.CUSTOM_ERROR_XHTML);
     }
 
     /*
@@ -88,29 +92,39 @@ public class UserAuthorizationListener implements PhaseListener {
     @Override
     public void afterPhase(PhaseEvent event) {
         FacesContext facesContext = event.getFacesContext();
-        String currentPage = facesContext.getViewRoot().getViewId();
-        LOG.debug("current page: ".concat(currentPage));
-
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        UserLogin currentUser = null;
-        if (session != null) {
-            currentUser = (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
-        }
-        validateCsrfToken(event);
-        if (!NO_LOGIN_REQUIRED_PAGES.contains(currentPage) && currentUser == null) {
-            LOG.debug("login required and current user is null, redirecting to login page.");
-            NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-            nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
-        } else {
-            boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
-            boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
-
-            if (currentUser != null && (hasRolePermission == false || isConfigured == false)) {
-                LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
-                NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-                nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
+        try{
+            String currentPage = facesContext.getViewRoot().getViewId();
+            LOG.debug("current page: ".concat(currentPage));
+            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+            UserLogin currentUser = null;
+            if (session != null) {
+                currentUser = (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
             }
+            validateCsrfToken(event);
+            if (!NO_LOGIN_REQUIRED_PAGES.contains(currentPage) && currentUser == null) {
+                LOG.debug("login required and current user is null, redirecting to login page.");
+                NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+                nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
+            }else if (NavigationConstant.CUSTOM_ERROR_XHTML.equalsIgnoreCase(currentPage)){
+                LOG.debug("About to route to custom error page");
+                NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+                nh.handleNavigation(facesContext, null, NavigationConstant.CUSTOM_ERROR_PAGE);
+            } else {
+                boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
+                boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
+                //route to status page if user doesn't have permission to view or missing configuration
+                if (currentUser != null && (!hasRolePermission|| !isConfigured)) {
+                    LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
+                    NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+                    nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
+                }
+            }
+        }catch(Exception e){
+          LOG.error("Encounter exception in After Phrase {}",e.getLocalizedMessage(),e);
+          NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+          nh.handleNavigation(facesContext, null, NavigationConstant.CUSTOM_ERROR_PAGE);
         }
+              
     }
 
     /*
