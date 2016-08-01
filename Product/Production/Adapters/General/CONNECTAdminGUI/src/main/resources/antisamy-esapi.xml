@@ -33,7 +33,6 @@ Slashdot allowed tags taken from "Reply" page:
 		
 		<regexp name="htmlTitle" value="[a-zA-Z0-9\s-_',:\[\]!\./\\\(\)]*"/> <!-- force non-empty with a '+' at the end instead of '*' -->
 		<regexp name="onsiteURL" value="([\w\\/\.\?=&amp;;\#-~]+|\#(\w)+)"/>
-		<regexp name="offsiteURL" value="(\s)*((ht|f)tp(s?)://|mailto:)[A-Za-z0-9]+[~a-zA-Z0-9-_\.@#$%&amp;;:,\?=/\+!]*(\s)*"/>
 	
 	</common-regexps>
 	
@@ -70,7 +69,6 @@ Slashdot allowed tags taken from "Reply" page:
 		<attribute name="href" onInvalid="filterTag">
 			<regexp-list>
 				<regexp name="onsiteURL"/>
-				<regexp name="offsiteURL"/>
 			</regexp-list>
 		</attribute>
 	
