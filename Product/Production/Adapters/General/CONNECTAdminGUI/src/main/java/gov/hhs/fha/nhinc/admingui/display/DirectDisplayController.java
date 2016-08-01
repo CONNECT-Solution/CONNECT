@@ -56,7 +56,7 @@ public class DirectDisplayController implements DisplayController {
         boolean result;
         try {
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
+                .getAdapterEndPointFromConnectionManager(DirectConfigConstants.DIRECT_CONFIG_SERVICE_NAME);
             if (NullChecker.isNullish(url)) {
                 result = false;
             } else {
@@ -64,7 +64,8 @@ public class DirectDisplayController implements DisplayController {
             }
         } catch (Exception ex) {
             result = false;
-            LOG.error(ex.getLocalizedMessage(), ex);
+            LOG.warn("Unable to ping DirectConfig service. Please make sure that Connect.ear with Direct profile is deployed first");
+            LOG.warn(ex.getLocalizedMessage(), ex);
         }
 
         return result;
