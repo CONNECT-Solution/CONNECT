@@ -79,7 +79,7 @@ public class SanitizationFilter implements Filter {
             HttpServletRequest hrequest = (HttpServletRequest) request;
             HttpServletResponse hresponse = (HttpServletResponse) response;
             final String servletPath = hrequest.getServletPath();
-            LOG.debug("servlet Request: " + servletPath);
+            LOG.debug("servlet Request: {}", servletPath);
             try {
                 // skip to check for js/image/css so that the custom error page can render properly
                 if (!servletPath.startsWith(ResourceHandler.RESOURCE_IDENTIFIER)) {
