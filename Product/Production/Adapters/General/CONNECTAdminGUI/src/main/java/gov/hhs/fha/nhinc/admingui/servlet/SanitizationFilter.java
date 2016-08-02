@@ -87,7 +87,7 @@ public class SanitizationFilter implements Filter {
                 }
             } catch (SanitizationException e) {
                 LOG.error("Error in SanitilizeMessage {}: ", e.getLocalizedMessage(), e);
-                ESAPI.authenticator().logout();
+                hrequest.getSession().invalidate();
                 hrequest.getServletContext().getRequestDispatcher(NavigationConstant.CUSTOM_ERROR_XHTML)
                         .forward(hrequest, hresponse);
             } finally {
