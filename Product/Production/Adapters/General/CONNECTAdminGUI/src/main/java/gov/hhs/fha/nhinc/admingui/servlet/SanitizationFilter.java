@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.admingui.services.exception.SanitizationException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.faces.application.ResourceHandler;
 import javax.servlet.Filter;
@@ -156,8 +155,7 @@ public class SanitizationFilter implements Filter {
     private void sanitizeInput(final String value) throws SanitizationException {
         try {
             CleanResults result = antiSamy.scan(value);
-            List<String>errorMsgList = result.getErrorMessages();
-            if (CollectionUtils.isNotEmpty(errorMsgList)) {
+            if (CollectionUtils.isNotEmpty(result.getErrorMessages())) {
                 throw new SanitizationException("Malicious code has been detected on the HTTP header");
             }
         } catch (ScanException | PolicyException | SanitizationException ex) {
