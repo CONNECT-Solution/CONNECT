@@ -28,8 +28,11 @@ package gov.hhs.fha.nhinc.admingui.servlet;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.services.exception.SanitizationException;
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.Enumeration;
+
 import javax.faces.application.ResourceHandler;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -39,8 +42,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.errors.IntrusionException;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.owasp.validator.html.AntiSamy;
+import org.owasp.validator.html.CleanResults;
+import org.owasp.validator.html.Policy;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +58,11 @@ import org.slf4j.LoggerFactory;
  */
 public class SanitizationFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(SanitizationFilter.class);
-
+    /**
+     * AntiSammy policy
+     */
+    private AntiSamy antiSamy;
+    private Policy antiSamyPolicy = null;
     /*
      * (non-Javadoc)
      *
@@ -71,10 +83,6 @@ public class SanitizationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         LOG.debug("Prepare to interceptor request in Filter");
-        if (!(request instanceof HttpServletRequest)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
         if (request instanceof HttpServletRequest) {
             HttpServletRequest hrequest = (HttpServletRequest) request;
             HttpServletResponse hresponse = (HttpServletResponse) response;
@@ -90,8 +98,6 @@ public class SanitizationFilter implements Filter {
                 hrequest.getSession().invalidate();
                 hrequest.getServletContext().getRequestDispatcher(NavigationConstant.CUSTOM_ERROR_XHTML)
                         .forward(hrequest, hresponse);
-            } finally {
-                ESAPI.httpUtilities().clearCurrent();
             }
             if (hresponse.isCommitted()) {
                 /*
@@ -116,26 +122,64 @@ public class SanitizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         LOG.debug("init my own filter");
+        // copy code from HTMLValidationRule
+        final URL urlResource = loadResource("antisamy-esapi.xml");
+        if (urlResource != null) {
+            try {
+                antiSamyPolicy = Policy.getInstance(urlResource);
+                antiSamy = new AntiSamy(antiSamyPolicy);
+            } catch (PolicyException e) {
+                throw new ServletException("Couldn't parse antisamy policy", e);
+            }
+        } else {
+            throw new ServletException("Unable to locate antisamy-esapi.xml");
+        }
     }
 
-    private static void checkHeaders(final HttpServletRequest request) throws SanitizationException {
+    private void checkHeaders(final HttpServletRequest request) throws SanitizationException {
         final Enumeration<String> headerNames = request.getHeaderNames();
         LOG.debug("About to check header malicious code");
         while (headerNames.hasMoreElements()) {
             final String name = headerNames.nextElement();
             final String value = request.getHeader(name);
-            try {
-                boolean isValid = ESAPI.validator().isValidInput("HTTP header value: " + value, value,
-                        "HTTPHeaderValue", 200, true);
-                if (!isValid) {
-                    StringBuilder strBuilder = new StringBuilder();
-                    strBuilder.append("Malicious code has been detected on the HTTP header.");
-                    throw new SanitizationException(strBuilder.toString());
-                }
-            } catch (IntrusionException ex) {
-                throw new SanitizationException(ex);
-            }
+            sanitizeInput(value);
         }
         LOG.debug("End of checking header malicious code");
+    }
+
+    /**
+     * Sanitize value. will throw exception if detect malicious code
+     * @param value
+     * @throws SanitizationException
+     */
+    private void sanitizeInput(final String value) throws SanitizationException {
+        try {
+            CleanResults result = antiSamy.scan(value);
+            if (CollectionUtils.isNotEmpty(result.getErrorMessages())) {
+                throw new SanitizationException("Malicious code has been detected on the HTTP header");
+            }
+        } catch (ScanException | PolicyException | SanitizationException ex) {
+            throw new SanitizationException(ex);
+        }
+    }
+    /**
+     * Load Resource from Thread Context Loader/ classloader and classpath
+     * Adop from DefaultSecurityConfiguration class
+     * @param fileName
+     * @return
+     */
+    private URL loadResource(String fileName) {
+        URL urlResource = null;
+        ClassLoader[] loaders = new ClassLoader[] { Thread.currentThread().getContextClassLoader(),
+                ClassLoader.getSystemClassLoader(), this.getClass().getClassLoader() };
+        for (int i = 0; i < loaders.length; i++) {
+            if (loaders[i] != null) {
+                urlResource = loaders[i].getResource(fileName);
+                if (urlResource != null) {
+                    break;
+                }
+            }
+        }
+        return urlResource;
     }
 }
