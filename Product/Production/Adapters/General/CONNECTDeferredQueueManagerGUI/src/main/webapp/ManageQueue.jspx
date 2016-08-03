@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<%--
+<!--
     Document   : ManageQueue
     Created on : May 13, 2011, 10:40:40 PM
     Author     : richard.ettema
---%>
+-->
 <jsp:root version="2.1" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
     <jsp:directive.page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"/>
     <f:view>
