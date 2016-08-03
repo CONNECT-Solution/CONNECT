@@ -43,8 +43,6 @@ import org.w3c.dom.Element;
  */
 public class AsyncMessageIdExtractor {
 
-    private final WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
-
     protected Element getSoapHeaderElement(WebServiceContext context, String headerName) {
         if (context == null) {
             return null;
@@ -72,24 +70,36 @@ public class AsyncMessageIdExtractor {
         return null;
     }
 
+    /**
+     * @param context
+     * @return
+     */
     public String getMessageId(WebServiceContext context) {
-        String messageId = null;
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_MESSAGEID);
-        messageId = getFirstChildNodeValue(element);
-
-        return messageId;
+        return getFirstChildNodeValue(element);
     }
 
+    /**
+     * @param context
+     * @return
+     */
     public String getOrCreateAsyncMessageId(WebServiceContext context) {
         String messageId = getMessageId(context);
+        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
 
         if (StringUtils.isBlank(messageId)) {
             messageId = AddressingHeaderCreator.generateMessageId();
+        } else {
+            messageId = wsaHelper.fixMessageIDPrefix(messageId);
         }
         return messageId;
     }
 
+    /**
+     * @param context
+     * @return
+     */
     public List<String> getAsyncRelatesTo(WebServiceContext context) {
         List<String> relatesToId = new ArrayList<>();
 
@@ -99,13 +109,13 @@ public class AsyncMessageIdExtractor {
         return relatesToId;
     }
 
+    /**
+     * @param context
+     * @return
+     */
     public String getAction(WebServiceContext context) {
-        String action = null;
-
         Element element = getSoapHeaderElement(context, NhincConstants.WS_SOAP_HEADER_ACTION);
-        action = getFirstChildNodeValue(element);
-
-        return action;
+        return getFirstChildNodeValue(element);
     }
 
     protected String getFirstChildNodeValue(Element element) {
