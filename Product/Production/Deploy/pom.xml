@@ -552,7 +552,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <gui.excluded>false</gui.excluded>
+                <gui.excluded>true</gui.excluded>
             </properties>
 
             <dependencies>
