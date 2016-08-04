@@ -42,6 +42,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.owasp.validator.html.AntiSamy;
@@ -85,9 +86,10 @@ public class SanitizationFilter implements Filter {
         LOG.debug("Prepare to interceptor request in Filter");
         if (request instanceof HttpServletRequest) {
             HttpServletRequest hrequest = (HttpServletRequest) request;
-            HttpServletResponse hresponse = (HttpServletResponse) response;
             final String servletPath = hrequest.getServletPath();
             LOG.debug("servlet Request: {}", servletPath);
+         // Prevent rendering of JSESSIONID in URLs for all outgoing links
+            HttpServletResponseWrapper hresponse = new CustomHttpServletResponseWrapper((HttpServletResponse)response);
             try {
                 // skip to check for js/image/css so that the custom error page can render properly
                 if (!servletPath.startsWith(ResourceHandler.RESOURCE_IDENTIFIER)) {
@@ -181,5 +183,30 @@ public class SanitizationFilter implements Filter {
             }
         }
         return urlResource;
+    }
+    //This class will prevent to embedded jsessionid into browser url
+    private class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper{
+        /**
+         * @param arg0
+         */
+        public CustomHttpServletResponseWrapper(HttpServletResponse servletResponse) {
+            super(servletResponse);
+        }
+        @Override
+        public String encodeRedirectUrl(String url) {
+            return url;
+        }
+        @Override
+        public String encodeRedirectURL(String url) {
+            return url;
+        }
+        @Override
+        public String encodeUrl(String url) {
+            return url;
+        }
+        @Override
+        public String encodeURL(String url) {
+            return url;
+        }
     }
 }
