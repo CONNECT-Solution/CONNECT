@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import java.util.List;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,7 @@ public abstract class BaseService {
 
     protected AssertionType getAssertion(WebServiceContext context, AssertionType assertionIn) {
         AssertionType assertion;
+        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
 
         if (assertionIn == null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
@@ -64,8 +66,13 @@ public abstract class BaseService {
         }
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null && NullChecker.isNullish(assertion.getMessageId())) {
-            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+        if (assertion != null) {
+            if (NullChecker.isNullish(assertion.getMessageId())) {
+                assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+            } else {
+                // Message ID prefix should be added here to the assertion's original messageID if it is missing.
+                assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
+            }
         }
 
         // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
@@ -97,10 +104,10 @@ public abstract class BaseService {
         String remoteAddress = null;
 
         if (context != null && context.getMessageContext() != null
-            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+                && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
 
             HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext()
-                .get(AbstractHTTPDestination.HTTP_REQUEST);
+                    .get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
 
