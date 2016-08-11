@@ -27,9 +27,13 @@
 package gov.hhs.fha.nhinc.corex12.ds.audit.transform;
 
 import gov.hhs.fha.nhinc.corex12.ds.audit.X12AuditDataTransformConstants;
+
 import java.io.ByteArrayOutputStream;
+
+import javax.activation.DataHandler;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
 import org.slf4j.Logger;
@@ -48,9 +52,10 @@ public class X12BatchAuditTransforms extends
     protected byte[] marshallToByteArrayFromRequest(COREEnvelopeBatchSubmission request) {
         byte[] bObject = null;
         if (request != null) {
+            DataHandler payloadHandler = request.getPayload();
             try {
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-                // TODO: We set this as "" in COREX12RealTimeAuditTransforms
+                //since we don't audit payload element, set it to null.
                 request.setPayload(null);
                 Object element = new JAXBElement<>(getQname(X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     X12AuditDataTransformConstants.CORE_X12_BATCH_REQUEST_LOCALPART),
@@ -61,6 +66,7 @@ public class X12BatchAuditTransforms extends
                 LOG.error("Error while marshalling COREEnvelopeBatchSubmission Request: {}",
                     ex.getLocalizedMessage(), ex);
             }
+            request.setPayload(payloadHandler);
         }
         return bObject;
     }
@@ -69,9 +75,10 @@ public class X12BatchAuditTransforms extends
     protected byte[] marshallToByteArrayFromResponse(COREEnvelopeBatchSubmissionResponse response) {
         byte[] bObject = null;
         if (response != null) {
+            DataHandler payloadHandler = response.getPayload();
             try {
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-                // TODO: We set this as "" in COREX12RealTimeAuditTransforms
+                //since we don't audit payload element, set it to null.
                 response.setPayload(null);
                 Object element = new JAXBElement<>(getQname(X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     X12AuditDataTransformConstants.CORE_X12_BATCH_RESPONSE_LOCALPART),
@@ -82,6 +89,7 @@ public class X12BatchAuditTransforms extends
                 LOG.error("Error while marshalling COREEnvelopeBatchSubmission Response: {}",
                     ex.getLocalizedMessage(), ex);
             }
+            response.setPayload(payloadHandler);
         }
         return bObject;
     }

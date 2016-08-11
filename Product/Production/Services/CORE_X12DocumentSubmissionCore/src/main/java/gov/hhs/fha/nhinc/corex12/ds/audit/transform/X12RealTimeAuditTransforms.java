@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.corex12.ds.audit.transform;
 
 import gov.hhs.fha.nhinc.corex12.ds.audit.X12AuditDataTransformConstants;
+
 import java.io.ByteArrayOutputStream;
+
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import org.slf4j.Logger;
@@ -48,9 +51,9 @@ public class X12RealTimeAuditTransforms extends
     protected byte[] marshallToByteArrayFromRequest(COREEnvelopeRealTimeRequest request) {
         byte[] bObject = null;
         if (request != null) {
+            String payload = request.getPayload();
             try {
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-                // TODO: We set this as null in COREX12BatchSubmissionAuditTransforms
                 request.setPayload("");
                 Object element = new JAXBElement<>(getQname(X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     X12AuditDataTransformConstants.CORE_X12_REQUEST_LOCALPART),
@@ -61,6 +64,7 @@ public class X12RealTimeAuditTransforms extends
                 LOG.error("Error while marshalling COREEnvelopeRealTimeRequest Request: {}",
                     ex.getLocalizedMessage(), ex);
             }
+            request.setPayload(payload);
         }
         return bObject;
     }
@@ -69,9 +73,9 @@ public class X12RealTimeAuditTransforms extends
     protected byte[] marshallToByteArrayFromResponse(COREEnvelopeRealTimeResponse response) {
         byte[] bObject = null;
         if (response != null) {
+            String payload = response.getPayload();
             try {
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-                // TODO: We set this as null in COREX12BatchSubmissionAuditTransforms
                 response.setPayload("");
                 Object element = new JAXBElement<>(getQname(X12AuditDataTransformConstants.CORE_X12_NAMESPACE_URI,
                     X12AuditDataTransformConstants.CORE_X12_RESPONSE_LOCALPART),
@@ -82,6 +86,7 @@ public class X12RealTimeAuditTransforms extends
                 LOG.error("Error while marshalling COREEnvelopeRealTimeResponse Response: {}",
                     ex.getLocalizedMessage(), ex);
             }
+            response.setPayload(payload);
         }
         return bObject;
     }
