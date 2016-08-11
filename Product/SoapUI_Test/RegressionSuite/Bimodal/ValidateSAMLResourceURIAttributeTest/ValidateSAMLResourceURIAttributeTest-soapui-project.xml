@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="ValidateSAMLResourceURIAttributeTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="87508b02-aa27-4297-b111-6de75e1e4ec3" xmlns:con="http://eviware.com/soapui/config">
-  <con:settings/>
+  <con:description>Since FileUtil.setG0ConnectionInfo requires to ICI and Uddi.xml inside soapUI project, it is expected to see the error in the script log
+"Unable to find source file .. ValidateSAMLResourceURIAttributeTest\internalConnectionInfo_g0.xml" in this project since we don't need ICI for this particular tests.</con:description><con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../../target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="66fe0c97-9791-4d6e-a47c-280e6220ee58" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
@@ -36,7 +37,7 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="53f821fb-e99b-4318-a86d-66e62b517650" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="0090da94-c8df-4fd2-a57d-a4ef3c482c4c">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="0090da94-c8df-4fd2-a57d-a4ef3c482c4c" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -577,7 +578,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="dc3b8bf1-91e1-4aeb-b865-8b5c6b388a4f" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Groovy Script" id="eda40974-0e9d-4122-9be4-945f61c75b86">
+      <con:testStep type="groovy" name="Groovy Script" id="eda40974-0e9d-4122-9be4-945f61c75b86" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -976,7 +977,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="9efddace-ac14-45b4-894a-a63184a5bed9">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="9efddace-ac14-45b4-894a-a63184a5bed9" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1515,7 +1516,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c38fd36-469a-44e4-829a-93b26dce8709" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="904eaf9f-7af8-4905-b5ee-36f3d4ee5822">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="904eaf9f-7af8-4905-b5ee-36f3d4ee5822" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2054,7 +2055,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2622180a-2230-4df7-8f36-e1c9ad29bba8" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="7a599613-83bf-405a-a9f9-64548fe2df6f">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="7a599613-83bf-405a-a9f9-64548fe2df6f" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2449,7 +2450,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6d469896-2c35-4890-ae94-1750cd08214e" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="c0338769-a936-4995-ae0e-8b09cd9dd3b7">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="c0338769-a936-4995-ae0e-8b09cd9dd3b7" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2988,7 +2989,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="1ba43019-f8d8-4b2e-a69c-df975041f334">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="fdac244f-b447-461a-8b5c-a32cfb98d230">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="fdac244f-b447-461a-8b5c-a32cfb98d230" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3530,7 +3531,7 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="82222849-6565-41a9-a5cb-04ca682ea67c">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="2c13e273-4399-447e-83f4-66c4ae1837e1">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="2c13e273-4399-447e-83f4-66c4ae1837e1" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3928,7 +3929,7 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="8842f78f-3453-49f3-8b62-bd420b9f7644">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="4e6c19d7-140d-4469-86b7-f6112c0a8f0b">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="4e6c19d7-140d-4469-86b7-f6112c0a8f0b" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -4470,7 +4471,7 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="f496e4ee-76d8-4c08-a20d-807f24bc0a51">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="444850ec-5e5d-41e5-ba4d-828129880160">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="444850ec-5e5d-41e5-ba4d-828129880160" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -5014,7 +5015,7 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="f941bad6-34df-4aab-befd-68e672715762">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="111f57aa-4234-4a5a-a775-14132c653340">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="111f57aa-4234-4a5a-a775-14132c653340" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -5413,7 +5414,7 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="24ec19a7-688d-41bd-844a-b64a24e11282">
       <con:settings/>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="5c43bde2-0ae5-4c5e-a884-c2935eb8f842">
+      <con:testStep type="groovy" name="Copy uddiConnectionInfo" id="5c43bde2-0ae5-4c5e-a884-c2935eb8f842" disabled="true">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -5953,10 +5954,6 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
   <con:requirements/>
   <con:properties>
     <con:property>
-      <con:name>AAMappingDB</con:name>
-      <con:value>assigningauthoritydb</con:value>
-    </con:property>
-    <con:property>
       <con:name>AAMappingTable</con:name>
       <con:value>aa_to_home_community_mapping</con:value>
     </con:property>
@@ -6077,18 +6074,6 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:value>D123401</con:value>
     </con:property>
     <con:property>
-      <con:name>NotificationEndpoint</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotifySubscriptionID</con:name>
-      <con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-    </con:property>
-    <con:property>
       <con:name>PatientCorrelationDB</con:name>
       <con:value>patientcorrelationdb</con:value>
     </con:property>
@@ -6137,40 +6122,12 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:value>D123401</con:value>
     </con:property>
     <con:property>
-      <con:name>SubscribePatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionDB</con:name>
-      <con:value>subscriptionrepository</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionTable</con:name>
-      <con:value>subscription</con:value>
-    </con:property>
-    <con:property>
       <con:name>UniquePatientId</con:name>
       <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
     </con:property>
     <con:property>
-      <con:name>UnSubscriptionID</con:name>
-      <con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value>
-    </con:property>
-    <con:property>
       <con:name>ZipCode</con:name>
       <con:value>12345</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DQ_EntityEndpoint_g1</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DQ_EntityEndpoint_g0</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
     </con:property>
     <con:property>
       <con:name>DS_EntityEndpoint_g1</con:name>
@@ -6189,36 +6146,8 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
     <con:property>
-      <con:name>PDDefReq_EntityEndpoint</con:name>
-      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DR_EntityEndpoint_g1</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
-    </con:property>
-    <con:property>
-      <con:name>DR_EntityEndpoint_g0</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value>
-    </con:property>
-    <con:property>
-      <con:name>PDDefResp_EntityEndpoint</con:name>
-      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>PD_EntityEndpoint</con:name>
-      <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AD_EntityEndpoint_g1</con:name>
-      <con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:value>
-    </con:property>
-    <con:property>
       <con:name>DSDefReq_EntityEndpoint_g1</con:name>
       <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>AD_EntityEndpoint_g0</con:name>
-      <con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value>
     </con:property>
     <con:property>
       <con:name>DSDefReq_EntityEndpoint_g0</con:name>
