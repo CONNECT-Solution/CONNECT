@@ -9,7 +9,7 @@ We encourage the CONNECT community to upgrade to Release 4.7 to take advantage o
 
 **Hibernate Upgrade**
 
-With Veteran Affairs (VA) divesting Hibernate 3.2.5 after 2016, it became a release priority to upgrade CONNECT to the latest version of Hibernate (5.1.0 Final). After comparing Hibernate 5.0.9 to Hibernate 5.1.0 (artifacts, classes, dependencies), it was decided that upgrading to 5.1.0 would require no more effort than upgrading to 5.0.9 and would provide better software security. After completing the code changes and pom, Hibernate mapping, configuration and deployment script updates, the upgrade was thoroughly tested on all supported application servers. The update is seamless on WildFly, JBoss and WebLogic but additional server configurations are required for deploying CONNECT on WebSphere and GlassFish.
+With Veteran Affairs (VA) divesting Hibernate 3.2.5 after 2016, it became a release priority to upgrade CONNECT to the latest version of [Hibernate (5.1.0 Final)](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Community+Application+Server+Migration). After comparing Hibernate 5.0.9 to Hibernate 5.1.0 (artifacts, classes, dependencies), it was decided that upgrading to 5.1.0 would require no more effort than upgrading to 5.0.9 and would provide better software security. After completing the code changes and pom, Hibernate mapping, configuration and deployment script updates, the upgrade was thoroughly tested on all supported application servers. The update is seamless on WildFly, JBoss and WebLogic but additional server configurations are required for deploying CONNECT on WebSphere and GlassFish.
 
 **Migrate embedded glassfish to wildfly server**
 
@@ -27,7 +27,7 @@ The use of a broken or risky cryptographic algorithm is an unnecessary risk that
 
 OWASP scans exposed a vulnerability in the System Administration Module that could leave the web interface exposed to multiple types of attacks that can be delivered via HTTP Header injection such as SQL Injection, Cross-Site Scripting (XSS), and Cache Poisoning among others. To address this, all user input is now sanitized and neutralized before processing. In addition, users are now directed to a custom error page when a potential HTTP header injection attack is detected. See CONN-1682 for more details.
 
-### Important Bug Fixes
+**Important Bug Fixes**
 
 Some issues were discovered in the way CONNECT was storing messageIDs and home community IDs for the purposes of event logging. Updates to the CONNECT event logging approach have been documented and do not affect the way CONNECT is deployed and configured.
 
@@ -55,7 +55,7 @@ We encourage the members of the community that are using GlassFish to switch to 
 
 From a product development perspective, the team now uses WildFly as the open source application server. There were several reasons why we moved from GlassFish to WildFly. Oracle announced the sun setting of commercial support for future major releases of GlassFish Server. WildFly is an open source Application server (JBoss Community version) and we are aware of members using CONNECT on JBoss EAP, the enterprise version of WildFly. We had worked on developing instructions for FIPS configurations on JBoss EAP and will be looking at a similar configuration for WildFly in the future. In addition, strong community and Red Hat support, clear support path from JBoss WildFly to EAP and ease of installation, configuring, and upgrading are some of the other reasons.
 
-Development, installation and new feature testing will be done on WebLogic, WebSphere, JBoss and WildFly only. Product team’s regression testing is now executed on WildFly, as is all automated testing. GlassFish is no longer supported.
+Development, installation and new feature testing will be done on WebLogic, WebSphere, JBoss and WildFly only. Product team’s regression testing is now executed on WildFly, as is all automated testing. **GlassFish is no longer supported.**
 
 ## CONNECT 4.6 Release
 
