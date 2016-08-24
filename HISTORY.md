@@ -33,30 +33,25 @@ Some issues were discovered in the way CONNECT was storing messageIDs and home c
 
 ### Specification Compliance and Conformance update
 
-**NIST Testing**
+NIST Testing:
 
 CONNECT 4.7 was tested and successfully validated utilizing the NIST test cases for SOAP-based transport/XDR and Direct transport testing. Details of our collaboration and testing with NIST can be found [here](https://connectopensource.atlassian.net/wiki/x/NoD1Ag). 
 
-**eHealth Exchange Testing**
+eHealth Exchange Testing:
 
 CONNECT 4.7 was successfully tested against the eHealth Exchange test cases for participant and product certification. Details on the testing can be found at [eHealth Exchange/ DIL testing](https://connectopensource.atlassian.net/wiki/x/JYD1Ag). There are no open CONNECT issues related to participant testing.
 
-### Security Scans findings and security update
+**Security Scans findings and security update**: The CONNECT team as part of the release readiness process in 4.7, identified and addressed findings based on security scans performed on the CONNECT gateway code base. Several tools were used including Fortify, OWASP Dependency Checks and FindBugs as part of the scans executed on the 4.7 code.  All **Critical, High, Medium, and Cat 1 Low findings** were addressed and the team will continue to work with the federal partners to ensure the code quality meets their implementation requirements. Addressing these security findings will ensure adopters deploy a more secure implementation and will assist in meeting their organization's internal security reviews, as they deploy CONNECT in their preferred environments. 
 
-The CONNECT team as part of the release readiness process in 4.7, identified and addressed findings based on security scans performed on the CONNECT gateway code base. Several tools were used including Fortify, OWASP Dependency Checks and FindBugs as part of the scans executed on the 4.7 code.  All **Critical, High, Medium, and Cat 1 Low findings** were addressed and the team will continue to work with the federal partners to ensure the code quality meets their implementation requirements. Addressing these security findings will ensure adopters deploy a more secure implementation and will assist in meeting their organization's internal security reviews, as they deploy CONNECT in their preferred environments. 
+**Release Testing update**: CONNECT 4.7 was install-tested in multiple environments and with multiple operating systems to support the federal partner environments and application servers/configurations used by the community.  As with each release, CONNECT was regression tested as well as integration tested against prior supported versions of CONNECT.Test summary report is [here](https://connectopensource.atlassian.net/wiki/x/OID1Ag).
 
-**Release Testing update**
-
-CONNECT 4.7 was install-tested in multiple environments and with multiple operating systems to support the federal partner environments and application servers/configurations used by the community.  As with each release, CONNECT was regression tested as well as integration tested against prior supported versions of CONNECT.Test summary report is [here](https://connectopensource.atlassian.net/wiki/x/OID1Ag).
-
-### Open source Application Server – WildFly
-
-We encourage the members of the community that are using GlassFish to switch to WildFly as their application server to avail of new features in the future. Please be aware of ‘Oracle/GlassFish sun-setting support’ announcements; more information can be found here - https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Community+Application+Server+Migration 
+**Open source Application Server – WildFly**: We encourage the members of the community that are using GlassFish to switch to WildFly as their application server to avail of new features in the future. Please be aware of ‘Oracle/GlassFish sun-setting support’ announcements; more information can be found [here](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Community+Application+Server+Migration)
 
 From a product development perspective, the team now uses WildFly as the open source application server. There were several reasons why we moved from GlassFish to WildFly. Oracle announced the sun setting of commercial support for future major releases of GlassFish Server. WildFly is an open source Application server (JBoss Community version) and we are aware of members using CONNECT on JBoss EAP, the enterprise version of WildFly. We had worked on developing instructions for FIPS configurations on JBoss EAP and will be looking at a similar configuration for WildFly in the future. In addition, strong community and Red Hat support, clear support path from JBoss WildFly to EAP and ease of installation, configuring, and upgrading are some of the other reasons.
 
 Development, installation and new feature testing will be done on WebLogic, WebSphere, JBoss and WildFly only. Product team’s regression testing is now executed on WildFly, as is all automated testing. **GlassFish is no longer supported.**
 
+Complete CONNECT 4.7 details can be found on the [community wiki](https://connectopensource.atlassian.net/wiki/x/BIBcB).
 
 ## CONNECT 4.6 Release
 
