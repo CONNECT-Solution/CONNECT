@@ -9,7 +9,7 @@ We encourage the CONNECT community to upgrade to Release 4.7 to take advantage o
 
 **Hibernate Upgrade**
 
-With Veteran Affairs (VA) divesting Hibernate 3.2.5 after 2016, it became a release priority to upgrade CONNECT to the latest version of [Hibernate (5.1.0 Final)](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Community+Application+Server+Migration). After comparing Hibernate 5.0.9 to Hibernate 5.1.0 (artifacts, classes, dependencies), it was decided that upgrading to 5.1.0 would require no more effort than upgrading to 5.0.9 and would provide better software security. After completing the code changes and pom, Hibernate mapping, configuration and deployment script updates, the upgrade was thoroughly tested on all supported application servers. The update is seamless on WildFly, JBoss and WebLogic but additional server configurations are required for deploying CONNECT on [WebSphere](https://connectopensource.atlassian.net/wiki/x/CYDwB) and [GlassFish](https://connectopensource.atlassian.net/wiki/x/FgDhB).
+With Veteran Affairs (VA) divesting Hibernate 3.2.5 after 2016, it became a release priority to upgrade CONNECT to the latest version of [Hibernate (5.1.0 Final)](https://connectopensource.atlassian.net/wiki/x/CQA6B). After comparing Hibernate 5.0.9 to Hibernate 5.1.0 (artifacts, classes, dependencies), it was decided that upgrading to 5.1.0 would require no more effort than upgrading to 5.0.9 and would provide better software security. After completing the code changes and pom, Hibernate mapping, configuration and deployment script updates, the upgrade was thoroughly tested on all supported application servers. The update is seamless on WildFly, JBoss and WebLogic but additional server configurations are required for deploying CONNECT on [WebSphere](https://connectopensource.atlassian.net/wiki/x/CYDwB) and [GlassFish](https://connectopensource.atlassian.net/wiki/x/FgDhB).
 
 **Migrate embedded glassfish to wildfly server**
 
@@ -17,7 +17,7 @@ As GlassFish is no longer a supported application server, WildFly 8.2.1 is now u
 
 **FIPS/Wildfly Server**
 
-Although not an actual feature, it was important to provide guidance on how to implement WildFly in FIPS mode as it has replaced GlassFish as the supported application server for development and testing purposes. After making all the necessary configuration changes and thoroughly testing the implementation, the (WildFly FIPS installation)[https://connectopensource.atlassian.net/wiki/x/AgB5B] instructions has been published and shared with the community.
+Although not an actual feature, it was important to provide guidance on how to implement WildFly in FIPS mode as it has replaced GlassFish as the supported application server for development and testing purposes. After making all the necessary configuration changes and thoroughly testing the implementation, the [WildFly FIPS installation](https://connectopensource.atlassian.net/wiki/x/AgB5B) instructions has been published and shared with the community.
 
 **SHA2 Upgrade for System Administration Module**
 
@@ -35,15 +35,15 @@ Some issues were discovered in the way CONNECT was storing messageIDs and home c
 
 NIST Testing:
 
-CONNECT 4.7 was tested and successfully validated utilizing the NIST test cases for SOAP-based transport/XDR and Direct transport testing. Details of our collaboration and testing with NIST can be found [here](https://connectopensource.atlassian.net/wiki/x/NoD1Ag). 
+CONNECT 4.7 was tested and successfully validated utilizing the NIST test cases for SOAP-based transport/XDR and Direct transport testing. Details of our collaboration and testing with NIST can be found [here](https://connectopensource.atlassian.net/wiki/x/UoD6B). 
 
 eHealth Exchange Testing:
 
-CONNECT 4.7 was successfully tested against the eHealth Exchange test cases for participant and product certification. Details on the testing can be found at [eHealth Exchange/ DIL testing](https://connectopensource.atlassian.net/wiki/x/JYD1Ag). There are no open CONNECT issues related to participant testing.
+CONNECT 4.7 was successfully tested against the eHealth Exchange test cases for participant and product certification. Details on the testing can be found at [eHealth Exchange/ DIL testing](https://connectopensource.atlassian.net/wiki/x/D4D6B). There are no open CONNECT issues related to participant testing.
 
 **Security Scans findings and security update**: The CONNECT team as part of the release readiness process in 4.7, identified and addressed findings based on security scans performed on the CONNECT gateway code base. Several tools were used including Fortify, OWASP Dependency Checks and FindBugs as part of the scans executed on the 4.7 code.  All **Critical, High, Medium, and Cat 1 Low findings** were addressed and the team will continue to work with the federal partners to ensure the code quality meets their implementation requirements. Addressing these security findings will ensure adopters deploy a more secure implementation and will assist in meeting their organization's internal security reviews, as they deploy CONNECT in their preferred environments. 
 
-**Release Testing update**: CONNECT 4.7 was install-tested in multiple environments and with multiple operating systems to support the federal partner environments and application servers/configurations used by the community.  As with each release, CONNECT was regression tested as well as integration tested against prior supported versions of CONNECT.Test summary report is [here](https://connectopensource.atlassian.net/wiki/x/OID1Ag).
+**Release Testing update**: CONNECT 4.7 was install-tested in multiple environments and with multiple operating systems to support the federal partner environments and application servers/configurations used by the community.  As with each release, CONNECT was regression tested as well as integration tested against prior supported versions of CONNECT. Test summary report is [here](https://connectopensource.atlassian.net/wiki/x/XID6B).
 
 **Open source Application Server – WildFly**: We encourage the members of the community that are using GlassFish to switch to WildFly as their application server to avail of new features in the future. Please be aware of ‘Oracle/GlassFish sun-setting support’ announcements; more information can be found [here](https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Community+Application+Server+Migration)
 
