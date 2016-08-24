@@ -1,3 +1,62 @@
+## CONNECT 4.7 Release
+### Summary
+
+Release 4.7 continues to build on the functionality and architecture introduced in Release 4.0 through additional features, selected improvements, and bug fixes.This release includes upgrading hibernate from 3.2.5 to the 5.1.0, addressing event logging bugs, extending improved software security to the System Administration Module, migrating the automated test environment application server to WildFly, and providing WildFly support for FIPS compliance.
+
+We encourage the CONNECT community to upgrade to Release 4.7 to take advantage of these updates. Details can be found in the following subsections:
+
+### Enhancements and Announcements
+
+**Hibernate Upgrade**
+
+With Veteran Affairs (VA) divesting Hibernate 3.2.5 after 2016, it became a release priority to upgrade CONNECT to the latest version of Hibernate (5.1.0 Final). After comparing Hibernate 5.0.9 to Hibernate 5.1.0 (artifacts, classes, dependencies), it was decided that upgrading to 5.1.0 would require no more effort than upgrading to 5.0.9 and would provide better software security. After completing the code changes and pom, Hibernate mapping, configuration and deployment script updates, the upgrade was thoroughly tested on all supported application servers. The update is seamless on WildFly, JBoss and WebLogic but additional server configurations are required for deploying CONNECT on WebSphere and GlassFish.
+
+**Migrate embedded glassfish to wildfly server**
+
+As GlassFish is no longer a supported application server, WildFly 8.2.1 is now used for all automated testing. After some initial research, it was determined that the WildFly Maven plugin was the best choice to leverage existing CI configurations and minimize the amount of required code changes. This transition has no impact on the way users continue to build CONNECT from the source code.
+
+**FIPS/Wildfly Server**
+
+Although not an actual feature, it was important to provide guidance on how to implement WildFly in FIPS mode as it has replaced GlassFish as the supported application server for development and testing purposes. After making all the necessary configuration changes and thoroughly testing the implementation, the WildFly FIPS installation instructions has been published and shared with the community.
+
+**SHA2 Upgrade for System Administration Module**
+
+The use of a broken or risky cryptographic algorithm is an unnecessary risk that may result in the exposure of sensitive information and SHA1 is known to be particularly vulnerable . For this reason, the System Administration Module has been upgraded to use SHA2 for log in and session management purposes.  More information on this upgrade can be found on the CONNECT Adopters Implementation Guide.
+
+**HTTP Header Injection Vulnerability Addressed**
+
+OWASP scans exposed a vulnerability in the System Administration Module that could leave the web interface exposed to multiple types of attacks that can be delivered via HTTP Header injection such as SQL Injection, Cross-Site Scripting (XSS), and Cache Poisoning among others. To address this, all user input is now sanitized and neutralized before processing. In addition, users are now directed to a custom error page when a potential HTTP header injection attack is detected. See CONN-1682 for more details.
+
+### Important Bug Fixes
+
+Some issues were discovered in the way CONNECT was storing messageIDs and home community IDs for the purposes of event logging. Updates to the CONNECT event logging approach have been documented and do not affect the way CONNECT is deployed and configured.
+
+### Specification Compliance and Conformance update
+
+**NIST Testing**
+
+CONNECT 4.7 was tested and successfully validated utilizing the NIST test cases for SOAP-based transport/XDR and Direct transport testing. Details of our collaboration and testing with NIST can be found here. 
+
+**eHealth Exchange Testing**
+
+CONNECT 4.7 was successfully tested against the eHealth Exchange test cases for participant and product certification. Details on the testing can be found at eHealth Exchange/ DIL testing. There are no open CONNECT issues related to participant testing.
+
+### Security Scans findings and security update
+
+The CONNECT team as part of the release readiness process in 4.7, identified and addressed findings based on security scans performed on the CONNECT gateway code base. Several tools were used including Fortify, OWASP Dependency Checks and FindBugs as part of the scans executed on the 4.7 code.  All Critical, High, Medium, and Cat 1 Low findings were addressed and the team will continue to work with the federal partners to ensure the code quality meets their implementation requirements. Addressing these security findings will ensure adopters deploy a more secure implementation and will assist in meeting their organization's internal security reviews, as they deploy CONNECT in their preferred environments. 
+
+**Release Testing update**
+
+CONNECT 4.7 was install-tested in multiple environments and with multiple operating systems to support the federal partner environments and application servers/configurations used by the community.  As with each release, CONNECT was regression tested as well as integration tested against prior supported versions of CONNECT. 
+
+### Open source Application Server – WildFly
+
+We encourage the members of the community that are using GlassFish to switch to WildFly as their application server to avail of new features in the future. Please be aware of ‘Oracle/GlassFish sun-setting support’ announcements; more information can be found here - https://connectopensource.atlassian.net/wiki/display/CONNECTWIKI/Community+Application+Server+Migration 
+
+From a product development perspective, the team now uses WildFly as the open source application server. There were several reasons why we moved from GlassFish to WildFly. Oracle announced the sun setting of commercial support for future major releases of GlassFish Server. WildFly is an open source Application server (JBoss Community version) and we are aware of members using CONNECT on JBoss EAP, the enterprise version of WildFly. We had worked on developing instructions for FIPS configurations on JBoss EAP and will be looking at a similar configuration for WildFly in the future. In addition, strong community and Red Hat support, clear support path from JBoss WildFly to EAP and ease of installation, configuring, and upgrading are some of the other reasons.
+
+Development, installation and new feature testing will be done on WebLogic, WebSphere, JBoss and WildFly only. Product team’s regression testing is now executed on WildFly, as is all automated testing. GlassFish is no longer supported.
+
 ## CONNECT 4.6 Release
 
 ### Summary
