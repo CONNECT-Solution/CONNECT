@@ -65,7 +65,7 @@ public class PatientCorrelationServiceSecuredTest {
                 oneOf(mockFactory).createPatientCorrelationService();
                 will(returnValue(mockService));
 
-                oneOf(mockService).addPatientCorrelation(with(same(request)), with(any(AssertionType.class)));
+                oneOf(mockService).addPatientCorrelation(with(same(request)), with(aNull(AssertionType.class)));
                 will(returnValue(expectedResponse));
 
             }
@@ -89,7 +89,7 @@ public class PatientCorrelationServiceSecuredTest {
                 oneOf(mockFactory).createPatientCorrelationService();
                 will(returnValue(mockService));
 
-                oneOf(mockService).retrievePatientCorrelations(with(same(request)), with(any(AssertionType.class)));
+                oneOf(mockService).retrievePatientCorrelations(with(same(request)), with(aNull(AssertionType.class)));
                 will(returnValue(expectedResponse));
 
             }

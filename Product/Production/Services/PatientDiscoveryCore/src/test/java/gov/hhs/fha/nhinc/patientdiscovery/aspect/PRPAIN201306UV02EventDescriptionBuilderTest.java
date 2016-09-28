@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 import java.io.Serializable;
 import java.util.List;
+import static org.hamcrest.CoreMatchers.hasItems;
 import org.hl7.v3.BinaryDataEncoding;
 import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.EDExplicit;
@@ -47,6 +48,7 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -178,8 +180,8 @@ public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescription
 
         EventDescription eventDescription = getEventDescriptionWithIIs(ii1, ii2);
         assertEquals(2, eventDescription.getRespondingHCIDs().size());
-        assertEquals(NhincConstants.HCID_PREFIX + "1.2.3", eventDescription.getRespondingHCIDs().get(0));
-        assertEquals(NhincConstants.HCID_PREFIX + "1.2.3.4", eventDescription.getRespondingHCIDs().get(1));
+        assertThat(eventDescription.getRespondingHCIDs(),
+            hasItems(NhincConstants.HCID_PREFIX + "1.2.3", NhincConstants.HCID_PREFIX + "1.2.3.4"));
     }
 
     private EventDescription getEventDescriptionWithIIs(II... iis) {

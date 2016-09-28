@@ -188,7 +188,7 @@ public class AsyncMessageProcessHelperTest {
         context.checking(new Expectations() {
             {
                 exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
-                exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)), with(any(String.class)));
+                exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)), with(aNull(String.class)));
                 will(returnValue(returnMockRecords()));
             }
         });

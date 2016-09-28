@@ -94,8 +94,8 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockProxy11).provideAndRegisterDocumentSetBRequest11(
-                        with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
-                        with(any(NhinTargetSystemType.class)));
+                        with(aNull(ProvideAndRegisterDocumentSetRequestType.class)), with(aNull(AssertionType.class)),
+                        with(aNull(NhinTargetSystemType.class)));
                 will(returnValue(createXDRAcknowledgementType()));
             }
         });
@@ -105,8 +105,8 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockProxy20).provideAndRegisterDocumentSetBRequest20(
-                        with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
-                        with(any(NhinTargetSystemType.class)));
+                        with(aNull(ProvideAndRegisterDocumentSetRequestType.class)), with(aNull(AssertionType.class)),
+                        with(aNull(NhinTargetSystemType.class)));
                 will(returnValue(createRegistryResponseType()));
             }
         });

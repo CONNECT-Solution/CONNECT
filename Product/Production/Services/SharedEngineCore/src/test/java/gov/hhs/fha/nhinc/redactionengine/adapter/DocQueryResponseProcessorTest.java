@@ -1394,8 +1394,8 @@ public class DocQueryResponseProcessorTest {
             };
             context.checking(new Expectations() {
                 {
-                    one(mockPatientConsentHelper).retrievePatientConsentbyDocumentId(with(any(String.class)),
-                            with(any(String.class)), with(any(String.class)));
+                    oneOf(mockPatientConsentHelper).retrievePatientConsentbyDocumentId(with(aNull(String.class)),
+                        with(aNull(String.class)), with(any(String.class)));
                 }
             });
             PatientPreferencesType patientPreferences = processor.retrievePatientPreferencesForDocument(extObject);
