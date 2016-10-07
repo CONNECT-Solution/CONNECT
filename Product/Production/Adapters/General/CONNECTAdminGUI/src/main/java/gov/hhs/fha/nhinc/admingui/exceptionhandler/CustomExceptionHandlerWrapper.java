@@ -26,19 +26,25 @@
  */
 package gov.hhs.fha.nhinc.admingui.exceptionhandler;
 
+import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
+import gov.hhs.fha.nhinc.admingui.services.exception.SanitizationException;
 import java.util.Iterator;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This class handles run-time exceptions and ViewExpiredException. The user is redirected either to custom-error page
+ * or to login page based on the exception occurred.
  *
  * @author tjafri
  */
@@ -58,28 +64,39 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
 
     @Override
     public void handle() {
-
         final Iterator<ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator();
         while (i.hasNext()) {
             ExceptionQueuedEvent event = i.next();
             ExceptionQueuedEventContext context
                 = (ExceptionQueuedEventContext) event.getSource();
-
             // get the exception from context
             Throwable t = context.getException();
-            LOG.error("An exception occurred whil performing user request", t);
+            LOG.error("An exception occurred while performing user request", t);
             final FacesContext fc = FacesContext.getCurrentInstance();
             final Map<String, Object> requestMap = fc.getExternalContext().getRequestMap();
             final NavigationHandler nav = fc.getApplication().getNavigationHandler();
 
+            HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+            Object servletEx = request.getAttribute("javax.servlet.error.exception");
             try {
-
-                //redirect error page
-                FacesContext.getCurrentInstance().addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "An Exception occurred while performing the requested function.", ""));
-                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-                requestMap.put("exceptionMessage", t.getMessage());
-                nav.handleNavigation(fc, null, "/customerror");
+                if (servletEx instanceof SanitizationException) {
+                    //SanitizationFilter has redirected to customerror page
+                    fc.addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "An Exception occurred while performing the requested function.", ""));
+                    requestMap.put("exceptionMessage", ((SanitizationException) servletEx).getMessage());
+                    nav.handleNavigation(fc, null, NavigationConstant.CUSTOM_ERROR_XHTML);
+                } else if (t instanceof ViewExpiredException) {
+                    fc.addMessage("loginErrors", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Your session has expired, please login!", ""));
+                    nav.handleNavigation(fc, null, NavigationConstant.LOGIN_XHTML);
+                } else {
+                    // any run-time exception will use the else block
+                    fc.addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "An Exception occurred while performing the requested function.", ""));
+                    requestMap.put("exceptionMessage", t.getMessage());
+                    fc.getExternalContext().invalidateSession();
+                    nav.handleNavigation(fc, null, NavigationConstant.CUSTOM_ERROR_XHTML);
+                }
                 fc.renderResponse();
             } finally {
                 //remove it from queue

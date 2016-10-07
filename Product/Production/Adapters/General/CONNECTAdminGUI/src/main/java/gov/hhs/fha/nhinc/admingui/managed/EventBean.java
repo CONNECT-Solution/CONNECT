@@ -38,7 +38,6 @@ import org.springframework.stereotype.Component;
  *
  * @author jasonasmith
  */
-
 @ManagedBean(name = "eventBean")
 @RequestScoped
 @Component
@@ -46,13 +45,18 @@ public class EventBean {
 
     @Autowired
     private EventService eventService;
+    private List<EventNwhinOrganization> organizations;
 
     /**
      *
      * @return
      */
-    public List<EventNwhinOrganization> getTotalEvents() {
+    public List<EventNwhinOrganization> getOrganizations() {
+        return organizations;
+    }
+
+    public void load() {
         eventService.setCounts();
-        return eventService.getTotalOrganizations();
+        organizations = eventService.getTotalOrganizations();
     }
 }

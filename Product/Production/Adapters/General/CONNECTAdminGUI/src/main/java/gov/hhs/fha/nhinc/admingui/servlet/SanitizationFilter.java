@@ -58,12 +58,14 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SanitizationFilter implements Filter {
+
     private static final Logger LOG = LoggerFactory.getLogger(SanitizationFilter.class);
     /**
      * AntiSammy policy
      */
     private AntiSamy antiSamy;
     private Policy antiSamyPolicy = null;
+
     /*
      * (non-Javadoc)
      *
@@ -82,24 +84,25 @@ public class SanitizationFilter implements Filter {
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-            throws IOException, ServletException {
-        LOG.debug("Prepare to interceptor request in Filter");
+        throws IOException, ServletException {
+        LOG.debug("Prepare to intercept request in Filter");
         if (request instanceof HttpServletRequest) {
             HttpServletRequest hrequest = (HttpServletRequest) request;
             final String servletPath = hrequest.getServletPath();
             LOG.debug("servlet Request: {}", servletPath);
-         // Prevent rendering of JSESSIONID in URLs for all outgoing links
-            HttpServletResponseWrapper hresponse = new CustomHttpServletResponseWrapper((HttpServletResponse)response);
+            // Prevent rendering of JSESSIONID in URLs for all outgoing links
+            HttpServletResponseWrapper hresponse = new CustomHttpServletResponseWrapper((HttpServletResponse) response);
             try {
                 // skip to check for js/image/css so that the custom error page can render properly
                 if (!servletPath.startsWith(ResourceHandler.RESOURCE_IDENTIFIER)) {
                     checkHeaders(hrequest);
                 }
             } catch (SanitizationException e) {
-                LOG.error("Error in SanitilizeMessage {}: ", e.getLocalizedMessage(), e);
+                LOG.error("Error in SanitizeMessage {}: ", e.getLocalizedMessage(), e);
+                hrequest.setAttribute("javax.servlet.error.exception", e);
                 hrequest.getSession().invalidate();
                 hrequest.getServletContext().getRequestDispatcher(NavigationConstant.CUSTOM_ERROR_XHTML)
-                        .forward(hrequest, hresponse);
+                    .forward(hrequest, hresponse);
             }
             if (hresponse.isCommitted()) {
                 /*
@@ -112,7 +115,6 @@ public class SanitizationFilter implements Filter {
         } else {
             LOG.debug("request is not instance of HttpServletRequest");
             filterChain.doFilter(request, response);
-            return;
         }
     }
 
@@ -151,6 +153,7 @@ public class SanitizationFilter implements Filter {
 
     /**
      * Sanitize value. will throw exception if detect malicious code
+     *
      * @param value
      * @throws SanitizationException
      */
@@ -164,16 +167,17 @@ public class SanitizationFilter implements Filter {
             throw new SanitizationException(ex);
         }
     }
+
     /**
-     * Load Resource from Thread Context Loader/ classloader and classpath
-     * Adop from DefaultSecurityConfiguration class
+     * Load Resource from Thread Context Loader/ classloader and classpath Adop from DefaultSecurityConfiguration class
+     *
      * @param fileName
      * @return
      */
     private URL loadResource(String fileName) {
         URL urlResource = null;
-        ClassLoader[] loaders = new ClassLoader[] { Thread.currentThread().getContextClassLoader(),
-                ClassLoader.getSystemClassLoader(), this.getClass().getClassLoader() };
+        ClassLoader[] loaders = new ClassLoader[]{Thread.currentThread().getContextClassLoader(),
+            ClassLoader.getSystemClassLoader(), this.getClass().getClassLoader()};
         for (int i = 0; i < loaders.length; i++) {
             if (loaders[i] != null) {
                 urlResource = loaders[i].getResource(fileName);
@@ -183,27 +187,34 @@ public class SanitizationFilter implements Filter {
             }
         }
         return urlResource;
+
     }
+
     //This class will prevent to embedded jsessionid into browser url
-    private class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper{
+    private class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper {
+
         /**
          * @param arg0
          */
         public CustomHttpServletResponseWrapper(HttpServletResponse servletResponse) {
             super(servletResponse);
         }
+
         @Override
         public String encodeRedirectUrl(String url) {
             return url;
         }
+
         @Override
         public String encodeRedirectURL(String url) {
             return url;
         }
+
         @Override
         public String encodeUrl(String url) {
             return url;
         }
+
         @Override
         public String encodeURL(String url) {
             return url;
