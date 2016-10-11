@@ -34,4 +34,10 @@ public class MessageConstant {
 
     public static final String SESSION_EXPIRED_MSG = "Your session has expired, please login!";
     public static final String EXCEPTION_MSG = "An Exception occurred while performing the requested function.";
+
+    /**
+     * Use this class to hold constant variables
+     */
+    private MessageConstant() {
+    }
 }
