@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.exceptionhandler;
 
+import gov.hhs.fha.nhinc.admingui.constant.MessageConstant;
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.services.exception.SanitizationException;
 import java.util.Iterator;
@@ -82,17 +83,17 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
                 if (servletEx instanceof SanitizationException) {
                     //SanitizationFilter has redirected to customerror page
                     fc.addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "An Exception occurred while performing the requested function.", ""));
+                        MessageConstant.EXCEPTION_MSG, ""));
                     requestMap.put("exceptionMessage", ((SanitizationException) servletEx).getMessage());
                     nav.handleNavigation(fc, null, NavigationConstant.CUSTOM_ERROR_XHTML);
                 } else if (t instanceof ViewExpiredException) {
                     fc.addMessage("loginErrors", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Your session has expired, please login!", ""));
+                        MessageConstant.SESSION_EXPIRED_MSG, ""));
                     nav.handleNavigation(fc, null, NavigationConstant.LOGIN_XHTML);
                 } else {
                     // any run-time exception will use the else block
                     fc.addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "An Exception occurred while performing the requested function.", ""));
+                        MessageConstant.EXCEPTION_MSG, ""));
                     requestMap.put("exceptionMessage", t.getMessage());
                     fc.getExternalContext().invalidateSession();
                     nav.handleNavigation(fc, null, NavigationConstant.CUSTOM_ERROR_XHTML);
