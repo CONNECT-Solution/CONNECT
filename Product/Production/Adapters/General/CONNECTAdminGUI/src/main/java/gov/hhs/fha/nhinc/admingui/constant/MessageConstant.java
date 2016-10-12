@@ -32,6 +32,7 @@ package gov.hhs.fha.nhinc.admingui.constant;
  */
 public class MessageConstant {
 
+    // Exception messages displayed while user is redirected to CustomError page or login page.
     public static final String SESSION_EXPIRED_MSG = "Your session has expired, please login!";
     public static final String EXCEPTION_MSG = "An Exception occurred while performing the requested function.";
 
