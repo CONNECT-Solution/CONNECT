@@ -91,8 +91,9 @@ public class UserAuthorizationListener implements PhaseListener {
      */
     @Override
     public void afterPhase(PhaseEvent event) {
+
         FacesContext facesContext = event.getFacesContext();
-        try{
+        if (facesContext != null && facesContext.getViewRoot() != null) {
             String currentPage = facesContext.getViewRoot().getViewId();
             LOG.debug("current page: ".concat(currentPage));
             HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -105,26 +106,17 @@ public class UserAuthorizationListener implements PhaseListener {
                 LOG.debug("login required and current user is null, redirecting to login page.");
                 NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
                 nh.handleNavigation(facesContext, null, NavigationConstant.LOGIN_PAGE);
-            }else if (NavigationConstant.CUSTOM_ERROR_XHTML.equalsIgnoreCase(currentPage)){
-                LOG.debug("About to route to custom error page");
-                NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-                nh.handleNavigation(facesContext, null, NavigationConstant.CUSTOM_ERROR_PAGE);
             } else {
                 boolean hasRolePermission = roleService.checkRole(formatPageName(currentPage), currentUser);
                 boolean isConfigured = checkConfiguredDisplay(formatPageName(currentPage));
                 //route to status page if user doesn't have permission to view or missing configuration
-                if (currentUser != null && (!hasRolePermission|| !isConfigured)) {
+                if (currentUser != null && (!hasRolePermission || !isConfigured)) {
                     LOG.debug("User, " + currentUser.getUserName() + " can not access given page: " + currentPage);
                     NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
                     nh.handleNavigation(facesContext, null, NavigationConstant.STATUS_PAGE);
                 }
             }
-        }catch(Exception e){
-          LOG.error("Encounter exception in After Phrase {}",e.getLocalizedMessage(),e);
-          NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
-          nh.handleNavigation(facesContext, null, NavigationConstant.CUSTOM_ERROR_PAGE);
         }
-              
     }
 
     /*
@@ -167,11 +159,11 @@ public class UserAuthorizationListener implements PhaseListener {
     /**
      * @param event
      *
-     *            when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for
-     *            status.xhtml and afterPhase method will be again executed and it will try to verify the token for
-     *            properties.xhtml.The validation is now performed by checking if token is null and ignore the
-     *            transitioned page. Below "if" method can be re-written in a way so that if token is null and the phase
-     *            of transition can be checked it will be safer to ignore that validation.
+     * when a transition happens from status.xhtml to properties.xhtml the csrf token will be validated for status.xhtml
+     * and afterPhase method will be again executed and it will try to verify the token for properties.xhtml.The
+     * validation is now performed by checking if token is null and ignore the transitioned page. Below "if" method can
+     * be re-written in a way so that if token is null and the phase of transition can be checked it will be safer to
+     * ignore that validation.
      */
     public void validateCsrfToken(PhaseEvent event) {
         String csrfToken = event.getFacesContext().getExternalContext().getRequestParameterMap().get("csrfToken");

@@ -49,58 +49,59 @@
                             </ui:insert>
                         </p:tab>
                         <ui:remove>
-                        <!--  Under Development
-                            <p:tab title="Performance Statistics" closable="false">
-                            <div class="content-block">
-                                <h2 class="subsection-header">CONNECT Performance Statistics</h2>
-                                <div class="chart-block">
-									<p:lineChart value="#{chartBean.model}" legendPosition="ne"/>
-								</div>
-                            </div>
-                            <div class="content-block">
-                                <h2 class="subsection-header">Direct Performance Statistics</h2>
-								<div class="chart-block">
-									[to be developed]
-								</div>
-                            </div>
-                        </p:tab> -->
+                            <!--  Under Development
+                                <p:tab title="Performance Statistics" closable="false">
+                                <div class="content-block">
+                                    <h2 class="subsection-header">CONNECT Performance Statistics</h2>
+                                    <div class="chart-block">
+                                        <p:lineChart value="#{chartBean.model}" legendPosition="ne"/>
+                                    </div>
+                                </div>
+                                <div class="content-block">
+                                    <h2 class="subsection-header">Direct Performance Statistics</h2>
+                                    <div class="chart-block">
+                                        [to be developed]
+                                    </div>
+                                </div>
+                            </p:tab> -->
                         </ui:remove>
                         <!-- END: TAB PANE - PERFORMANCE STATISTICS -->
                         <!-- BEGIN: TAB PANE - REMOTE GATEWAYS -->
                         <p:tab title="Remote Gateway" closable="false">
-                        <div class="content-block">
+                            <div class="content-block">
                                 <h2 class="subsection-header">Remote Gateway List</h2>
+                                <f:event type="postAddToView" listener="#{eventBean.load}" />
                                 <div class="table-responsive">
-                                    <p:dataTable id="dashboardId" value="#{eventBean.totalEvents}" var="organization" styleClass="table table-striped table-remotegateways">
+                                    <p:dataTable id="dashboardId" value="#{eventBean.organizations}" var="organization" styleClass="table table-striped table-remotegateways">
                                         <p:column headerText="Gateway">
                                             <h:outputText value="#{organization.organizationName}" />
                                         </p:column>
 
-                                        <p:column sortBy="pd" headerText="PD">
+                                        <p:column sortBy="pdCount" headerText="PD">
                                             <h:outputText value="#{organization.pdCount}" />
                                         </p:column>
 
-                                        <p:column sortBy="dq" headerText="DQ">
+                                        <p:column sortBy="dqCount" headerText="DQ">
                                             <h:outputText value="#{organization.dqCount}" />
                                         </p:column>
 
-                                        <p:column sortBy="dr" headerText="DR">
+                                        <p:column sortBy="drCount" headerText="DR">
                                             <h:outputText value="#{organization.drCount}" />
                                         </p:column>
 
-                                        <p:column sortBy="ds" headerText="DS">
+                                        <p:column sortBy="dsCount" headerText="DS">
                                             <h:outputText value="#{organization.dsCount}" />
                                         </p:column>
 
-                                        <p:column sortBy="ad" headerText="AD">
+                                        <p:column sortBy="adCount" headerText="AD">
                                             <h:outputText value="#{organization.adCount}" />
                                         </p:column>
 
-                                        <p:column sortBy="direct" headerText="Direct">
+                                        <p:column sortBy="directCount" headerText="Direct">
                                             <h:outputText value="#{organization.directCount}" />
                                         </p:column>
 
-                                        <p:column sortBy="total" headerText="Total">
+                                        <p:column sortBy="totalCount" headerText="Total">
                                             <h:outputText value="#{organization.totalCount}" />
                                         </p:column>
                                     </p:dataTable>
@@ -108,7 +109,7 @@
                             </div>
                         </p:tab>
                     </p:tabView>
-                        <!-- END: TAB PANE - REMOTE GATEWAYS -->
+                    <!-- END: TAB PANE - REMOTE GATEWAYS -->
                 </h:form>
             </ui:define>
         </ui:composition>

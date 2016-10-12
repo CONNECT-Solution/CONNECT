@@ -24,39 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.managed;
-
-import gov.hhs.fha.nhinc.admingui.event.model.EventNwhinOrganization;
-import gov.hhs.fha.nhinc.admingui.event.service.EventService;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+package gov.hhs.fha.nhinc.admingui.constant;
 
 /**
  *
- * @author jasonasmith
+ * @author tjafri
  */
-@ManagedBean(name = "eventBean")
-@RequestScoped
-@Component
-public class EventBean {
+public class MessageConstant {
 
-    @Autowired
-    private EventService eventService;
-    private List<EventNwhinOrganization> organizations;
+    // Exception messages displayed while user is redirected to CustomError page or login page.
+    public static final String SESSION_EXPIRED_MSG = "Your session has expired, please login!";
+    public static final String EXCEPTION_MSG = "An Exception occurred while performing the requested function.";
 
     /**
-     *
-     * @return
+     * Use this class to hold constant variables
      */
-    public List<EventNwhinOrganization> getOrganizations() {
-        return organizations;
-    }
-
-    public void load() {
-        eventService.setCounts();
-        organizations = eventService.getTotalOrganizations();
+    private MessageConstant() {
     }
 }
