@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import org.apache.wss4j.common.saml.bean.Version;
+
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
@@ -39,8 +41,8 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
-import org.apache.ws.security.saml.ext.SAMLCallback;
-import org.opensaml.common.SAMLVersion;
+import org.apache.wss4j.common.saml.SAMLCallback;
+import org.opensaml.saml.common.SAMLVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,8 +87,12 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     }
 
                     SAMLCallback oSAMLCallback = (SAMLCallback) callback;
-
-                    oSAMLCallback.setSamlVersion(SAMLVersion.VERSION_20);
+                    oSAMLCallback.setIssuerKeyName("gateway");
+                    oSAMLCallback.setIssuerKeyPassword("changeit");
+                    oSAMLCallback.setSignAssertion(true);
+                    oSAMLCallback.setSendKeyValue(true);
+                    
+                    oSAMLCallback.setSamlVersion(Version.SAML_20);
 
                     SamlTokenCreator creator = new SamlTokenCreator();
 

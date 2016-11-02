@@ -31,11 +31,12 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.Date;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.WSSConfig;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.validate.Credential;
-import org.apache.ws.security.validate.Validator;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+import org.apache.wss4j.dom.engine.WSSConfig;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.validate.Credential;
+import org.apache.wss4j.dom.validate.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,18 +65,18 @@ public class TimestampValidator implements Validator {
     @Override
     public Credential validate(Credential credential, RequestData data) throws WSSecurityException {
         if (credential == null || credential.getTimestamp() == null) {
-            throw new WSSecurityException(WSSecurityException.FAILURE, "noCredential");
+            throw new WSSecurityException(ErrorCode.FAILURE, "noCredential");
         }
         if (data.getWssConfig() == null) {
-            throw new WSSecurityException("WSSConfig cannot be null");
+            throw new WSSecurityException(ErrorCode.FAILURE, "WSSConfig cannot be null");
         }
         WSSConfig wssConfig = data.getWssConfig();
         boolean timeStampStrict;
         int timeStampTTL = 300;
         int futureTimeToLive = 60;
         if (wssConfig != null) {
-            timeStampTTL = wssConfig.getTimeStampTTL();
-            futureTimeToLive = wssConfig.getTimeStampFutureTTL();
+            timeStampTTL = data.getTimeStampTTL();
+            futureTimeToLive = data.getTimeStampFutureTTL();
         }
 
         long timeStampTTLProperty = getTimeStampTTL();
@@ -96,7 +97,7 @@ public class TimestampValidator implements Validator {
         // Validate whether the security semantics have expired
         if (timeStampStrict && timeStamp.isExpired(invocationTime)
                 || !timeStamp.verifyCreated(timeStampTTL, futureTimeToLive, invocationTime)) {
-            throw new WSSecurityException(WSSecurityException.MESSAGE_EXPIRED, "invalidTimestamp",
+            throw new WSSecurityException(ErrorCode.MESSAGE_EXPIRED, "invalidTimestamp",
                     new Object[] { "The security semantics of the message have expired" });
         }
         return credential;

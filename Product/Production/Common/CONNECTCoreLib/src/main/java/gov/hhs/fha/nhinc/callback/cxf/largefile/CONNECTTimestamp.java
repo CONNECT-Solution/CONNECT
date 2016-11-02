@@ -27,8 +27,9 @@
 package gov.hhs.fha.nhinc.callback.cxf.largefile;
 
 import java.util.Date;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.message.token.Timestamp;
+import org.apache.wss4j.common.bsp.BSPEnforcer;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.message.token.Timestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -45,7 +46,9 @@ public class CONNECTTimestamp extends Timestamp {
      * {@inheritDoc}
      */
     public CONNECTTimestamp(Element timestampElement) throws WSSecurityException {
-        super(timestampElement);
+        //super(timestampElement);
+        super(timestampElement, new BSPEnforcer());
+        
     }
 
     /**
@@ -55,7 +58,7 @@ public class CONNECTTimestamp extends Timestamp {
      * @throws WSSecurityException
      */
     public CONNECTTimestamp(Timestamp timestamp) throws WSSecurityException {
-        super(timestamp.getElement());
+        super(timestamp.getElement(), new BSPEnforcer());
     }
 
     /**
@@ -66,12 +69,12 @@ public class CONNECTTimestamp extends Timestamp {
      *            will be used.
      */
     public boolean isExpired(Date invocationDate) {
-        if (expiresDate != null) {
+        if (getExpires() != null) {
             if (invocationDate == null) {
                 invocationDate = new Date();
             }
 
-            return expiresDate.before(invocationDate);
+            return getExpires().before(invocationDate);
         }
         return false;
     }
@@ -96,7 +99,7 @@ public class CONNECTTimestamp extends Timestamp {
             invocationDate.setTime(invocationTime + futureTimeToLive * 1000);
         }
         // Check to see if the created time is in the future
-        if (createdDate != null && createdDate.after(invocationDate)) {
+        if (getCreated() != null && getCreated().after(invocationDate)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Validation of Timestamp: The message was created in the future!");
             }
@@ -108,7 +111,7 @@ public class CONNECTTimestamp extends Timestamp {
         invocationDate.setTime(invocationTime);
 
         // Validate the time it took the message to travel
-        if (createdDate != null && createdDate.before(invocationDate)) {
+        if (getCreated() != null && getCreated().before(invocationDate)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Validation of Timestamp: The message was created too long ago");
             }

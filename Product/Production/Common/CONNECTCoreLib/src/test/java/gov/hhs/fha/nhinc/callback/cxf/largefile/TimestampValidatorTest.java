@@ -36,12 +36,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.WSConstants;
-import org.apache.ws.security.WSSConfig;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.message.token.Timestamp;
-import org.apache.ws.security.validate.Credential;
+import org.apache.wss4j.common.bsp.BSPEnforcer;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.WSConstants;
+import org.apache.wss4j.dom.engine.WSSConfig;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.message.token.Timestamp;
+import org.apache.wss4j.dom.validate.Credential;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
@@ -70,8 +71,8 @@ public class TimestampValidatorTest {
         credential.setTimestamp(credTimestamp);
 
         when(data.getWssConfig()).thenReturn(wssConfig);
-        when(wssConfig.getTimeStampTTL()).thenReturn(300);
-        when(wssConfig.getTimeStampFutureTTL()).thenReturn(60);
+        when(data.getTimeStampTTL()).thenReturn(300);
+        when(data.getTimeStampFutureTTL()).thenReturn(60);
 
         when(data.getMsgContext()).thenReturn(message);
         when(message.get(TimestampInterceptor.INVOCATION_TIME_KEY)).thenReturn(getInvocationDate());
@@ -130,7 +131,7 @@ public class TimestampValidatorTest {
 
         when(dateTextNode.getData()).thenReturn(CREATE_TIME, EXPIRE_TIME);
 
-        return new Timestamp(timestampElement);
+        return new Timestamp(timestampElement,new BSPEnforcer());
     }
 
     private Date getInvocationDate() throws ParseException {

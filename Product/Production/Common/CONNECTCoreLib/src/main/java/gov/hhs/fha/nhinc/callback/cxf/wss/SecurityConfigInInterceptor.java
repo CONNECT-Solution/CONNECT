@@ -33,7 +33,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
-import org.apache.ws.security.WSSConfig;
+import org.apache.wss4j.dom.engine.WSSConfig;
 
 /**
  * This interceptor will override how CXF normally handles the Signature element of the Security header by registering a
@@ -66,7 +66,8 @@ public class SecurityConfigInInterceptor extends AbstractPhaseInterceptor<Messag
         }
         config.setProcessor(new QName(SamlConstants.XML_SIGNATURE_NS, SamlConstants.SIGNATURE_TAG),
                 new CONNECTSignatureProcessor());
-        msg.setContextualProperty(WSSConfig.class.getName(), config);
+        //msg.setContextualProperty(WSSConfig.class.getName(), config);
+        msg.put(WSSConfig.class.getName(), config);
     }
 
 }
