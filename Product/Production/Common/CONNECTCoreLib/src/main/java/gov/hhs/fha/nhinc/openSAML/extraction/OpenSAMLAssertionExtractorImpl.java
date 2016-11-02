@@ -50,8 +50,8 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.common.util.StringUtils;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.saml.ext.OpenSAMLUtil;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.saml.OpenSAMLUtil;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -146,8 +146,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     private Assertion convertToAssertion(final Element element) {
         try {
-            XMLObject xmlObject = OpenSAMLUtil.fromDom(element);
-            if (xmlObject instanceof org.opensaml.saml2.core.Assertion) {
+            org.opensaml.core.xml.XMLObject xmlObject = OpenSAMLUtil.fromDom(element);
+            if (xmlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
                 return (Assertion) xmlObject;
             }
         } catch (WSSecurityException e) {

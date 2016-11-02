@@ -26,15 +26,19 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import java.util.Collection;
+import java.util.regex.Pattern;
+
 import java.io.InputStream;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import javax.security.auth.callback.CallbackHandler;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.components.crypto.Crypto;
-import org.apache.ws.security.components.crypto.CryptoType;
+import org.apache.wss4j.common.crypto.Crypto;
+import org.apache.wss4j.common.crypto.CryptoType;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
 
 /**
  * @author mweaver
@@ -50,7 +54,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public byte[] getBytesFromCertificates(X509Certificate[] arg0) throws WSSecurityException {
-        throw new WSSecurityException("getBytesFromCertificates");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getBytesFromCertificates");
     }
 
     /*
@@ -60,7 +64,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public CertificateFactory getCertificateFactory() throws WSSecurityException {
-        throw new WSSecurityException("getCertificateFactory");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getCertificateFactory");
     }
 
     /*
@@ -70,7 +74,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public X509Certificate[] getCertificatesFromBytes(byte[] arg0) throws WSSecurityException {
-        throw new WSSecurityException("getCertificatesFromBytes");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getCertificatesFromBytes");
     }
 
     /*
@@ -90,7 +94,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public String getDefaultX509Identifier() throws WSSecurityException {
-        throw new WSSecurityException("getDefaultX509Identifier");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getDefaultX509Identifier");
     }
 
     /*
@@ -101,7 +105,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public PrivateKey getPrivateKey(X509Certificate arg0, CallbackHandler arg1) throws WSSecurityException {
-        throw new WSSecurityException("getPrivateKey");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getPrivateKey");
     }
 
     /*
@@ -111,7 +115,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public PrivateKey getPrivateKey(String arg0, String arg1) throws WSSecurityException {
-        throw new WSSecurityException("getPrivateKey");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getPrivateKey");
     }
 
     /*
@@ -121,7 +125,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public byte[] getSKIBytesFromCert(X509Certificate arg0) throws WSSecurityException {
-        throw new WSSecurityException("getSKIBytesFromCert");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getSKIBytesFromCert");
     }
 
     /*
@@ -133,7 +137,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public X509Certificate[] getX509Certificates(CryptoType arg0) throws WSSecurityException {
-        throw new WSSecurityException("getX509Certificates");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getX509Certificates");
     }
 
     /*
@@ -143,7 +147,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public String getX509Identifier(X509Certificate arg0) throws WSSecurityException {
-        throw new WSSecurityException("getX509Identifier");
+        throw new WSSecurityException(ErrorCode.FAILURE,"getX509Identifier");
     }
 
     /*
@@ -153,20 +157,10 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public X509Certificate loadCertificate(InputStream arg0) throws WSSecurityException {
-        throw new WSSecurityException("loadCertificate");
+        throw new WSSecurityException(ErrorCode.FAILURE,"loadCertificate");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.apache.ws.security.components.crypto.Crypto#setCertificateFactory(java.lang.String,
-     * java.security.cert.CertificateFactory)
-     */
-    @Override
-    public void setCertificateFactory(String arg0, CertificateFactory arg1) {
-        // TODO Auto-generated method stub
-
-    }
+    
 
     /*
      * (non-Javadoc)
@@ -190,16 +184,7 @@ public class CryptoManager implements Crypto {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.apache.ws.security.components.crypto.Crypto#verifyTrust(java.security.cert.X509Certificate[])
-     */
-    @Override
-    public boolean verifyTrust(X509Certificate[] arg0) throws WSSecurityException {
-        // TODO Auto-generated method stub
-        throw new WSSecurityException("verifyTrust");
-    }
+ 
 
     /*
      * (non-Javadoc)
@@ -207,20 +192,60 @@ public class CryptoManager implements Crypto {
      * @see org.apache.ws.security.components.crypto.Crypto#verifyTrust(java.security.PublicKey)
      */
     @Override
-    public boolean verifyTrust(PublicKey arg0) throws WSSecurityException {
+    public void verifyTrust(PublicKey arg0) throws WSSecurityException {
         // TODO Auto-generated method stub
-        throw new WSSecurityException("verifyTrust");
+        
+        throw new WSSecurityException(ErrorCode.FAILURE,"verifyTrust");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.apache.ws.security.components.crypto.Crypto#verifyTrust(java.security.cert.X509Certificate[], boolean)
+    /* (non-Javadoc)
+     * @see org.apache.wss4j.common.crypto.Crypto#getTrustProvider()
      */
     @Override
-    public boolean verifyTrust(X509Certificate[] arg0, boolean arg1) throws WSSecurityException {
+    public String getTrustProvider() {
         // TODO Auto-generated method stub
-        throw new WSSecurityException("verifyTrust");
+        return null;
     }
+
+    /* (non-Javadoc)
+     * @see org.apache.wss4j.common.crypto.Crypto#setTrustProvider(java.lang.String)
+     */
+    @Override
+    public void setTrustProvider(String provider) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.wss4j.common.crypto.Crypto#setCertificateFactory(java.security.cert.CertificateFactory)
+     */
+    @Override
+    public void setCertificateFactory(CertificateFactory certFactory) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.wss4j.common.crypto.Crypto#verifyTrust(java.security.cert.X509Certificate[], boolean, java.util.Collection)
+     */
+    @Override
+    public void verifyTrust(X509Certificate[] certs, boolean enableRevocation,
+            Collection<Pattern> subjectCertConstraints) throws WSSecurityException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.wss4j.common.crypto.Crypto#verifyDirectTrust(java.security.cert.X509Certificate[])
+     */
+    @Override
+    public void verifyDirectTrust(X509Certificate[] certs) throws WSSecurityException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    
+
+   
 
 }

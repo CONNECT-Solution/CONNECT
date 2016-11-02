@@ -33,8 +33,8 @@ import java.io.InputStream;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import javax.security.auth.callback.CallbackHandler;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.components.crypto.CryptoType;
+import org.apache.wss4j.common.crypto.CryptoType;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.junit.Test;
 
 public class CryptoManagerTest {
@@ -112,7 +112,7 @@ public class CryptoManagerTest {
         X509Certificate[] certificateList = new X509Certificate[1];
         X509Certificate cert = mock(X509Certificate.class);
         certificateList[0] = cert;
-        cryptoManager.verifyTrust(certificateList);
+        cryptoManager.verifyDirectTrust(certificateList);
     }
 
     @Test(expected = WSSecurityException.class)
@@ -121,12 +121,6 @@ public class CryptoManagerTest {
         cryptoManager.verifyTrust(publicKey);
     }
 
-    @Test(expected = WSSecurityException.class)
-    public void testVerifyTrust_X509CertificateAndBoolean() throws WSSecurityException {
-        X509Certificate[] certificateList = new X509Certificate[1];
-        X509Certificate cert = mock(X509Certificate.class);
-        certificateList[0] = cert;
-        cryptoManager.verifyTrust(certificateList, true);
-    }
+    
 
 }

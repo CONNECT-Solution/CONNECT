@@ -40,7 +40,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
-import org.apache.ws.security.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

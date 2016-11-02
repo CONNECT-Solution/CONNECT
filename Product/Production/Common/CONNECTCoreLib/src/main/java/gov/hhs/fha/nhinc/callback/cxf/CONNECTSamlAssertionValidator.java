@@ -37,15 +37,17 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.xml.namespace.QName;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.saml.SAMLKeyInfo;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
-import org.apache.ws.security.saml.ext.OpenSAMLUtil;
-import org.apache.ws.security.validate.Credential;
-import org.apache.ws.security.validate.SamlAssertionValidator;
-import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.Issuer;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+import org.apache.wss4j.common.saml.OpenSAMLUtil;
+import org.apache.wss4j.common.saml.SAMLKeyInfo;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.validate.Credential;
+import org.apache.wss4j.dom.validate.SamlAssertionValidator;
+import org.opensaml.saml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml.saml2.core.Issuer;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 import org.slf4j.Logger;
@@ -102,16 +104,16 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @throws WSSecurityException the wS security exception
      */
     @Override
-    protected void validateAssertion(AssertionWrapper assertion) throws WSSecurityException {
+    protected void validateAssertion(SamlAssertionWrapper assertion) throws WSSecurityException {
         if (assertion.getSaml1() != null) {
             ValidatorSuite schemaValidators = org.opensaml.Configuration.getValidatorSuite("saml1-schema-validator");
             ValidatorSuite specValidators = org.opensaml.Configuration.getValidatorSuite("saml1-spec-validator");
             try {
-                schemaValidators.validate(assertion.getSaml1());
-                specValidators.validate(assertion.getSaml1());
+                schemaValidators.validate((XMLObject)assertion.getSaml1());
+                specValidators.validate((XMLObject)assertion.getSaml1());
             } catch (ValidationException e) {
                 LOG.debug("Saml Validation error: " + e.getMessage(), e);
-                throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+                throw new WSSecurityException(ErrorCode.FAILED_CHECK, "invalidSAMLsecurity");
             }
         } else if (assertion.getSaml2() != null) {
             List<ValidatorSuite> validators = new LinkedList<>();
@@ -127,18 +129,18 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             Issuer issuer = assertion.getSaml2().getIssuer();
             if (issuer.getFormat().equals("urn:oasis:names:tc:SAML:1.1:nameid-format:entity")) {
                 if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
-                    throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                    throw new WSSecurityException(ErrorCode.FAILED_CHECK,"SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
                             + "Security/Assertion/Issuer/@SPProvidedID" + " " + "is present.");
                 }
                 if (!StringUtils.isBlank(issuer.getNameQualifier())) {
-                    throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                    throw new WSSecurityException(ErrorCode.FAILED_CHECK,"SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
                             + "Security/Assertion/Issuer/@NameQualifier" + " " + "is present.");
                 }
 
                 if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
-                    throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                    throw new WSSecurityException(ErrorCode.FAILED_CHECK,"SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
                             + "Security/Assertion/Issuer/@SPNameQualifier" + " " + "is present.");
 
@@ -147,11 +149,11 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
             try {
                 for (ValidatorSuite v : validators) {
-                    v.validate(assertion.getSaml2());
+                    v.validate((XMLObject)assertion.getSaml2());
                 }
             } catch (ValidationException e) {
                 LOG.error("Saml Validation error: " + e.getMessage(), e);
-                throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+                throw new WSSecurityException(ErrorCode.FAILED_CHECK, "invalidSAMLsecurity");
             }
 
             for (AuthzDecisionStatement auth : assertion.getSaml2().getAuthzDecisionStatements()) {
@@ -241,18 +243,17 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         return suites;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.apache.ws.security.validate.SamlAssertionValidator( org.apache.ws.security.validate.Credential,
-     * org.apache.ws.security.handler.RequestData)
+    
+    
+    /* (non-Javadoc)
+     * @see org.apache.wss4j.dom.validate.SamlAssertionValidator#validate(org.apache.wss4j.dom.validate.Credential, org.apache.wss4j.dom.handler.RequestData)
      */
     @Override
     public Credential validate(Credential credential, RequestData data) throws WSSecurityException {
-        if (credential == null || credential.getAssertion() == null) {
-            throw new WSSecurityException(WSSecurityException.FAILURE, "noCredential");
+        if (credential == null || credential.getSamlAssertion() == null) {
+            throw new WSSecurityException(ErrorCode.FAILED_CHECK, "noCredential");
         }
-        AssertionWrapper assertion = credential.getAssertion();
+        SamlAssertionWrapper assertion = credential.getSamlAssertion();
 
         // Check HOK requirements
         String confirmMethod = null;
@@ -263,12 +264,12 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         if (OpenSAMLUtil.isMethodHolderOfKey(confirmMethod)) {
             if (assertion.getSubjectKeyInfo() == null) {
                 LOG.debug("There is no Subject KeyInfo to match the holder-of-key subject conf method");
-                throw new WSSecurityException(WSSecurityException.FAILURE, "noKeyInSAMLToken");
+                throw new WSSecurityException(ErrorCode.FAILED_CHECK, "noKeyInSAMLToken");
             }
             // The assertion must have been signed for HOK
             if (!assertion.isSigned()) {
                 LOG.debug("A holder-of-key assertion must be signed");
-                throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+                throw new WSSecurityException(ErrorCode.FAILED_CHECK, "invalidSAMLsecurity");
             }
         }
 
@@ -290,7 +291,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @param data the data
      * @throws WSSecurityException the wS security exception
      */
-    protected void checkSignedAssertion(AssertionWrapper assertion, RequestData data) throws WSSecurityException {
+    protected void checkSignedAssertion(SamlAssertionWrapper assertion, RequestData data) throws WSSecurityException {
 
         SAMLKeyInfo samlKeyInfo = assertion.getSignatureKeyInfo();
         X509Certificate[] certs = samlKeyInfo.getCerts();

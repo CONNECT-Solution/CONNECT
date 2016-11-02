@@ -30,10 +30,11 @@
         </dependency>
 
         <!-- CXF -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-api</artifactId>
         </dependency>
+        -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -137,11 +138,12 @@
         </dependency>
 
         <!-- XML -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <scope>runtime</scope>
+             <scope>runtime</scope>
         </dependency>
+         -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
@@ -191,10 +193,11 @@
         </dependency>
 
         <!-- Security -->
-        <dependency>
-            <groupId>org.apache.ws.security</groupId>
+        <!--<dependency>
+            <groupId>org.apache.wss4j</groupId>
             <artifactId>wss4j</artifactId>
         </dependency>
+        
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml</artifactId>
@@ -231,6 +234,54 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        -->
+        <!-- Minh own -->
+        <dependency>
+            <groupId>org.apache.wss4j</groupId>
+            <artifactId>wss4j-ws-security-common</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>xmltooling</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>opensaml</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- End of minh -->
         <dependency>
             <groupId>org.owasp.esapi</groupId>
             <artifactId>esapi</artifactId>
@@ -354,4 +405,10 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+    <repository>
+      <id>shibbole</id>
+      <url>https://build.shibboleth.net/nexus/content/repositories/releases/</url>
+    </repository>
+ </repositories>
 </project>
