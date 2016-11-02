@@ -136,4 +136,16 @@ public class X12LargePayloadUtils {
             }
         }
     }
+
+    public static void releaseFileLock(COREEnvelopeBatchSubmission request) {
+        if (FILE_UTILS.isParsePayloadAsFileLocationEnabled()) {
+            try {
+                if (request.getPayload() != null) {
+                    FILE_UTILS.closeStreamWithoutException(request.getPayload().getDataSource().getInputStream());
+                }
+            } catch (IOException e) {
+                LOG.info("Unable to release File lock", e);
+            }
+        }
+    }
 }

@@ -47,7 +47,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
-        NhinDocSubmissionDeferredRequestProxy {
+    NhinDocSubmissionDeferredRequestProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -68,19 +69,19 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
     }
 
     protected CONNECTClient<XDRDeferredRequestPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion,
-                       String target, String serviceName) {
+        ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion,
+        String target, String serviceName) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
-                serviceName);
+            serviceName);
     }
 
     @Override
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-    serviceType = "Document Submission Deferred Request",
-    version = "")
+        afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+        serviceType = "Document Submission Deferred Request",
+        version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
-            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
+        ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         LOG.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");
         XDRAcknowledgementType response = null;
 
@@ -89,17 +90,17 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
                 LOG.error("Message was null");
             } else {
                 String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
-                        NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+                    NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
                 getDocSubmissionUtils().convertFileLocationToDataIfEnabled(request);
 
                 ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor = new NhinDocSubmissionDeferredRequestServicePortDescriptor();
                 CONNECTClient<XDRDeferredRequestPortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion, targetSystem.getHomeCommunity().getHomeCommunityId(),
-                        NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME );
+                    assertion, targetSystem.getHomeCommunity().getHomeCommunityId(),
+                    NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
                 client.enableMtom();
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredRequestPortType.class,
-                        "provideAndRegisterDocumentSetBDeferredRequest", request);
+                    "provideAndRegisterDocumentSetBDeferredRequest", request);
             }
         } catch (LargePayloadException lpe) {
             LOG.error("Failed to send message.", lpe);
@@ -107,10 +108,10 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
         } catch (Exception ex) {
             LOG.error("Error calling provideAndRegisterDocumentSetBDeferredRequest: " + ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorXDRAcknowledgementType(ex.getMessage());
+        } finally {
+            getDocSubmissionUtils().releaseFileLock(request);
         }
-
         LOG.debug("End provideAndRegisterDocumentSetBAsyncRequest");
         return response;
     }
-
 }
