@@ -87,12 +87,14 @@ public class DocSubmissionUtils {
         }
         return passThroughModeEnabled;
     }
+
     /**
      * set user spec version if target doesn't have it
+     *
      * @param targets NhinTargetCommunitiesType
      * @param version service spec version
      */
-    public void setTargetCommunitiesVersion(NhinTargetCommunitiesType targets, UDDI_SPEC_VERSION version){
+    public void setTargetCommunitiesVersion(NhinTargetCommunitiesType targets, UDDI_SPEC_VERSION version) {
         if (targets == null) {
             targets = new ObjectFactory().createNhinTargetCommunitiesType();
         }
@@ -155,4 +157,15 @@ public class DocSubmissionUtils {
         return LargeFileUtils.getInstance();
     }
 
+    public void releaseFileLock(ProvideAndRegisterDocumentSetRequestType request) {
+        if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
+            try {
+                for (Document doc : request.getDocument()) {
+                    fileUtils.closeStreamWithoutException(doc.getValue().getDataSource().getInputStream());
+                }
+            } catch (IOException e) {
+                LOG.error("Failed to release file lock.", e);
+            }
+        }
+    }
 }

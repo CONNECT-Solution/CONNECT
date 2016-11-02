@@ -96,6 +96,8 @@ public abstract class AbstractNhinX12BatchProxy implements NhinX12BatchProxy {
         } catch (Exception ex) {
             LOG.error("Error calling batchSubmitTransaction: {}", ex.getLocalizedMessage(), ex);
             return X12EntityExceptionBuilder.getInstance().createWebServiceErrorResponse(msg, ex.getMessage());
+        } finally {
+            X12LargePayloadUtils.releaseFileLock(msg);
         }
         return response;
     }
