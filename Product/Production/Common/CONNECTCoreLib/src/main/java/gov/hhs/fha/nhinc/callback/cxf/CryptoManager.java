@@ -240,7 +240,7 @@ public class CryptoManager implements Crypto {
      */
     @Override
     public void verifyDirectTrust(X509Certificate[] certs) throws WSSecurityException {
-        // TODO Auto-generated method stub
+        throw new WSSecurityException(ErrorCode.FAILURE,"verifyDirectTrust");
         
     }
 

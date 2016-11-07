@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import org.opensaml.saml.saml2.core.AuthnStatement;
+
+import org.apache.wss4j.common.saml.OpenSAMLUtil;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -44,22 +48,21 @@ import java.util.UUID;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
 import org.joda.time.DateTime;
-import org.opensaml.Configuration;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.Conditions;
-import org.opensaml.saml2.core.Evidence;
-import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Statement;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallerFactory;
-import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.signature.SignatureException;
-import org.opensaml.xml.signature.Signer;
+import org.opensaml.core.config.Configuration;
+import org.opensaml.core.xml.io.Marshaller;
+import org.opensaml.core.xml.io.MarshallerFactory;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml.saml2.core.Conditions;
+import org.opensaml.saml.saml2.core.Evidence;
+import org.opensaml.saml.saml2.core.Issuer;
+import org.opensaml.saml.saml2.core.Statement;
+import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.xmlsec.signature.Signature;
+import org.opensaml.xmlsec.signature.support.SignatureException;
+import org.opensaml.xmlsec.signature.support.Signer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -151,18 +154,24 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
                 publicKey);
         assertion.setSignature(signature);
+        
+        SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
+        //wrapper.signAssertion(issuerKeyName, issuerKeyPassword, issuerCrypto, sendKeyValue);
 
         // marshall Assertion Java class into XML
-        MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
-        Marshaller marshaller = marshallerFactory.getMarshaller(assertion);
-        Element assertionElement = marshaller.marshall(assertion);
+       
         try {
             Signer.signObject(signature);
         } catch (SignatureException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage(), e);
             throw new Exception(e);
         }
-        return assertionElement;
+        return signature.getDOM();
+       /* Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
+                publicKey);
+        OpenSAMLUtil.toDom(assertion, null, true);*/
+       /* SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
+        wrapper.s*/
     }
 
     protected Issuer createIssuer(CallbackProperties properties) {

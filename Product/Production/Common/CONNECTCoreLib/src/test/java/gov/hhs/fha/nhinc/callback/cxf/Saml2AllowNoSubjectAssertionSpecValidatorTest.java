@@ -31,24 +31,26 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Test;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.Statement;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.xml.validation.ValidationException;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.AttributeStatement;
+import org.opensaml.saml.saml2.core.AuthnStatement;
+import org.opensaml.saml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml.saml2.core.Issuer;
+import org.opensaml.saml.saml2.core.NameID;
+import org.opensaml.saml.saml2.core.Statement;
+import org.opensaml.saml.saml2.core.Subject;
 
 public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
     @Test
-    public void testValidateSubject() throws ValidationException {
+    public void testValidateSubject() throws WSSecurityException {
         Assertion assertion = mock(Assertion.class);
         Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
@@ -79,14 +81,14 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
-
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
+        /*validator.validate(assertion);*/
 
         assertTrue(true);
     }
 
-    @Test(expected = ValidationException.class)
-    public void testValidateSubject_FailOnGetStatemtents() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateSubject_FailOnGetStatemtents() throws WSSecurityException {
         String expectedMessage = "Subject is required when Statements are absent";
         Assertion assertion = mock(Assertion.class);
         Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
@@ -96,15 +98,15 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
         when(assertion.getStatements()).thenReturn(statementList);
 
         try {
-            validator.validate(assertion);
-        } catch (ValidationException e) {
+            validator.validateAssertion(new SamlAssertionWrapper(assertion));
+        } catch (WSSecurityException e) {
             assertEquals(e.getMessage(), expectedMessage);
             throw e;
         }
     }
 
-    @Test(expected = ValidationException.class)
-    public void testValidateSubject_FailOnGetAuthnStatements() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateSubject_FailOnGetAuthnStatements() throws WSSecurityException {
         String expectedMessage = "Assertions containing AuthnStatements require a Subject";
         Assertion assertion = mock(Assertion.class);
         Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
@@ -120,15 +122,15 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
         when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
 
         try {
-            validator.validate(assertion);
-        } catch (ValidationException e) {
+            validator.validateAssertion(new SamlAssertionWrapper(assertion));
+        } catch (WSSecurityException e) {
             assertEquals(e.getMessage(), expectedMessage);
             throw e;
         }
     }
 
-    @Test(expected = ValidationException.class)
-    public void testValidateSubject_FailOnGetAuthzDecisionStatements() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateSubject_FailOnGetAuthzDecisionStatements() throws WSSecurityException {
         String expectedMessage = "Assertions containing AuthzDecisionStatements require a Subject";
         Assertion assertion = mock(Assertion.class);
         Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
@@ -151,8 +153,8 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
         when(assertion.getAuthzDecisionStatements()).thenReturn(authzDecisionStatementList);
 
         try {
-            validator.validate(assertion);
-        } catch (ValidationException e) {
+            validator.validateAssertion(new SamlAssertionWrapper(assertion));
+        } catch (WSSecurityException e) {
             assertEquals(e.getMessage(), expectedMessage);
             throw e;
         }
