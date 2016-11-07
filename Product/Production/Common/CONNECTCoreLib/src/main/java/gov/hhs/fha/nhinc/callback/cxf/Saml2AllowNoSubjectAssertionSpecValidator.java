@@ -26,8 +26,14 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.validation.ValidationException;
+
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance. This validator relaxes the rules by not
@@ -35,12 +41,25 @@ import org.opensaml.xml.validation.ValidationException;
  * interoperability with previous CONNECT gateways.
  */
 public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuthFrameworkValidator {
-
+    private static final Logger LOG = LoggerFactory.getLogger(Saml2AllowNoSubjectAssertionSpecValidator.class);
     /**
      * Instantiates a new saml2 allow no subject assertion spec validator.
      */
     public Saml2AllowNoSubjectAssertionSpecValidator() {
         super();
+    }
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.cxf.Saml2ExchangeAuthFrameworkValidator#validateAssertion(org.apache.wss4j.common.saml.SamlAssertionWrapper)
+     */
+    @Override
+    protected void validateAssertion(SamlAssertionWrapper samlAssertion) throws WSSecurityException {
+        try {
+            validateSubject(samlAssertion.getSaml2());
+        } catch (WSSecurityException e) {
+           LOG.error("Unable to validate Assertion ", e);
+        }
+        
     }
 
     /**
@@ -50,21 +69,21 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      * @param assertion the assertion
      * @throws ValidationException the validation exception
      */
-    @Override
-    protected void validateSubject(Assertion assertion) throws ValidationException {
+    
+    protected void validateSubject(Assertion assertion) throws WSSecurityException {
         if ((assertion.getStatements() == null || assertion.getStatements().isEmpty())
                 && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())
                 && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
                 && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
                 && assertion.getSubject() == null) {
-            throw new ValidationException("Subject is required when Statements are absent");
+            throw new WSSecurityException(ErrorCode.FAILURE,"Subject is required when Statements are absent");
         }
 
         if (assertion.getAuthnStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AuthnStatements require a Subject");
+            throw new WSSecurityException(ErrorCode.FAILURE,"Assertions containing AuthnStatements require a Subject");
         }
         if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AuthzDecisionStatements require a Subject");
+            throw new WSSecurityException(ErrorCode.FAILURE,"Assertions containing AuthzDecisionStatements require a Subject");
         }
 
         if (assertion.getSubject() != null) {

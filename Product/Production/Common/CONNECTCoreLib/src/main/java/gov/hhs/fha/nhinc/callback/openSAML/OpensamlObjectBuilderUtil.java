@@ -26,18 +26,17 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+
 import javax.xml.namespace.QName;
-import org.opensaml.Configuration;
-import org.opensaml.DefaultBootstrap;
-import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilderFactory;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.XMLObjectBuilderFactory;
 
 /**
  * The Class OpensamlObjectBuilderUtil.
  *
  * @author msw
  */
+@Deprecated
 public class OpensamlObjectBuilderUtil {
 
     /** The builder factory. */
@@ -46,12 +45,12 @@ public class OpensamlObjectBuilderUtil {
     /**
      * Instantiates a new opensaml object builder util.
      * 
-     * @throws ConfigurationException
+     * 
      */
-    public OpensamlObjectBuilderUtil() throws ConfigurationException {
-        DefaultBootstrap.bootstrap();
-
-        builderFactory = Configuration.getBuilderFactory();
+    private OpensamlObjectBuilderUtil()  {
+        /*DefaultBootstrap.bootstrap();
+        
+        builderFactory = Configuration.getBuilderFactory();*/
     }
 
     /**
@@ -60,7 +59,10 @@ public class OpensamlObjectBuilderUtil {
      * @param qname the qname
      * @return the xML object
      */
+    @Deprecated
     public XMLObject createOpenSAMLObject(QName qname) {
-        return builderFactory.getBuilder(qname).buildObject(qname);
+        //return builderFactory.getBuilder(qname).buildObject(qname);
+        
+        return null;
     }
 }

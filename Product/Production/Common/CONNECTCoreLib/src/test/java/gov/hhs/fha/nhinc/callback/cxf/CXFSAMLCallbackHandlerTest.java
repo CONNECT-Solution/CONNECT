@@ -31,8 +31,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.apache.wss4j.common.saml.bean.Version;
-
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -45,7 +43,6 @@ import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.opensaml.common.SAMLVersion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

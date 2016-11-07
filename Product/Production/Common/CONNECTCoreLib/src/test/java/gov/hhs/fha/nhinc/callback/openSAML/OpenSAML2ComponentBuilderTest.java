@@ -34,11 +34,11 @@ import java.util.List;
 import java.util.UUID;
 import javax.xml.namespace.QName;
 import org.junit.Test;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.schema.XSAny;
-import org.opensaml.xml.util.AttributeMap;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.schema.XSAny;
+import org.opensaml.core.xml.util.AttributeMap;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
 
 /**
  * @author achidamb
