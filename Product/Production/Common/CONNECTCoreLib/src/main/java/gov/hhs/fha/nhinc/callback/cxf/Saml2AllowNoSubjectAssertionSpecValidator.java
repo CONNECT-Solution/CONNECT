@@ -48,18 +48,19 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
     public Saml2AllowNoSubjectAssertionSpecValidator() {
         super();
     }
-    
+
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.callback.cxf.Saml2ExchangeAuthFrameworkValidator#validateAssertion(org.apache.wss4j.common.saml.SamlAssertionWrapper)
      */
     @Override
-    protected void validateAssertion(SamlAssertionWrapper samlAssertion) throws WSSecurityException {
+    protected void validateAssertion(final SamlAssertionWrapper samlAssertion) throws WSSecurityException {
         try {
             validateSubject(samlAssertion.getSaml2());
-        } catch (WSSecurityException e) {
-           LOG.error("Unable to validate Assertion ", e);
+        } catch (final WSSecurityException e) {
+            LOG.error("Unable to validate Assertion ", e);
+            throw e;
         }
-        
+
     }
 
     /**
@@ -69,8 +70,9 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      * @param assertion the assertion
      * @throws ValidationException the validation exception
      */
-    
-    protected void validateSubject(Assertion assertion) throws WSSecurityException {
+
+    @Override
+    protected void validateSubject(final Assertion assertion) throws WSSecurityException {
         if ((assertion.getStatements() == null || assertion.getStatements().isEmpty())
                 && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())
                 && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
