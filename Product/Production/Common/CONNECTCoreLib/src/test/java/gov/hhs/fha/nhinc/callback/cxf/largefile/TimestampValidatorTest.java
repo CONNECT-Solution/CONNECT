@@ -60,14 +60,14 @@ public class TimestampValidatorTest {
 
     @Test
     public void testValidate_NoProperties() throws Exception {
-        Credential credential = new Credential();
+        final Credential credential = new Credential();
         final String SECRET_KEY = "shhh...it's a secret";
         credential.setSecretKey(SECRET_KEY.getBytes());
-        RequestData data = mock(RequestData.class);
-        WSSConfig wssConfig = mock(WSSConfig.class);
-        Message message = mock(Message.class);
+        final RequestData data = mock(RequestData.class);
+        final WSSConfig wssConfig = WSSConfig.getNewInstance();
+        final Message message = mock(Message.class);
 
-        Timestamp credTimestamp = getTimestamp();
+        final Timestamp credTimestamp = getTimestamp();
         credential.setTimestamp(credTimestamp);
 
         when(data.getWssConfig()).thenReturn(wssConfig);
@@ -77,9 +77,9 @@ public class TimestampValidatorTest {
         when(data.getMsgContext()).thenReturn(message);
         when(message.get(TimestampInterceptor.INVOCATION_TIME_KEY)).thenReturn(getInvocationDate());
 
-        TimestampValidator validator = new TimestampValidator();
+        final TimestampValidator validator = new TimestampValidator();
 
-        Credential resultCredential = validator.validate(credential, data);
+        final Credential resultCredential = validator.validate(credential, data);
 
         assertNotNull(resultCredential);
         assertArrayEquals(resultCredential.getSecretKey(), credential.getSecretKey());
@@ -87,22 +87,22 @@ public class TimestampValidatorTest {
 
     @Test(expected = WSSecurityException.class)
     public void validate_NullCredential() throws WSSecurityException {
-        Credential credential = null;
-        RequestData data = mock(RequestData.class);
+        final Credential credential = null;
+        final RequestData data = mock(RequestData.class);
 
-        TimestampValidator validator = new TimestampValidator();
+        final TimestampValidator validator = new TimestampValidator();
         validator.validate(credential, data);
     }
 
     @Test(expected = WSSecurityException.class)
     public void validate_NullData() throws WSSecurityException {
-        Credential credential = mock(Credential.class);
-        RequestData data = mock(RequestData.class);
-        Timestamp timestamp = mock(Timestamp.class);
+        final Credential credential = mock(Credential.class);
+        final RequestData data = mock(RequestData.class);
+        final Timestamp timestamp = mock(Timestamp.class);
 
         when(credential.getTimestamp()).thenReturn(timestamp);
 
-        TimestampValidator validator = new TimestampValidator();
+        final TimestampValidator validator = new TimestampValidator();
         validator.validate(credential, data);
     }
 
@@ -110,12 +110,12 @@ public class TimestampValidatorTest {
         // yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
         final String CREATE_TIME = "2013-01-01T01:00:00.000Z";
         final String EXPIRE_TIME = "2013-01-01T01:02:00.000Z";
-        Element timestampElement = mock(Element.class);
+        final Element timestampElement = mock(Element.class);
 
-        Element createdTimeElement = mock(Element.class);
-        Element expiresTimeElement = mock(Element.class);
-        Node node = null;
-        Text dateTextNode = mock(Text.class);
+        final Element createdTimeElement = mock(Element.class);
+        final Element expiresTimeElement = mock(Element.class);
+        final Node node = null;
+        final Text dateTextNode = mock(Text.class);
 
         when(timestampElement.getFirstChild()).thenReturn(createdTimeElement);
         when(createdTimeElement.getNodeType()).thenReturn(Node.ELEMENT_NODE);

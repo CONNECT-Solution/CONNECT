@@ -51,24 +51,24 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
     @Test
     public void testValidateSubject() throws WSSecurityException {
-        Assertion assertion = mock(Assertion.class);
-        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+        final Assertion assertion = mock(Assertion.class);
+        final Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-        Statement statement = mock(Statement.class);
-        List<Statement> statementList = new ArrayList<>();
+        final Statement statement = mock(Statement.class);
+        final List<Statement> statementList = new ArrayList<>();
         statementList.add(statement);
-        AuthnStatement authnStatement = mock(AuthnStatement.class);
-        List<AuthnStatement> authnStatementList = new ArrayList<>();
+        final AuthnStatement authnStatement = mock(AuthnStatement.class);
+        final List<AuthnStatement> authnStatementList = new ArrayList<>();
         authnStatementList.add(authnStatement);
-        AttributeStatement attrStatement = mock(AttributeStatement.class);
-        List<AttributeStatement> attrStatementList = new ArrayList<>();
+        final AttributeStatement attrStatement = mock(AttributeStatement.class);
+        final List<AttributeStatement> attrStatementList = new ArrayList<>();
         attrStatementList.add(attrStatement);
-        AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
-        List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
+        final AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
+        final List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
         authzDecisionStatementList.add(authzDecisionStatement);
-        Subject subject = mock(Subject.class);
-        Issuer issuer = mock(Issuer.class);
-        NameID name = mock(NameID.class);
+        final Subject subject = mock(Subject.class);
+        final Issuer issuer = mock(Issuer.class);
+        final NameID name = mock(NameID.class);
 
         when(assertion.getStatements()).thenReturn(statementList);
         when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
@@ -89,33 +89,33 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
     @Test(expected = WSSecurityException.class)
     public void testValidateSubject_FailOnGetStatemtents() throws WSSecurityException {
-        String expectedMessage = "Subject is required when Statements are absent";
-        Assertion assertion = mock(Assertion.class);
-        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+        final String expectedMessage = "Subject is required when Statements are absent";
+        final Assertion assertion = mock(Assertion.class);
+        final Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-        List<Statement> statementList = new ArrayList<>();
+        final List<Statement> statementList = new ArrayList<>();
 
         when(assertion.getStatements()).thenReturn(statementList);
 
         try {
             validator.validateAssertion(new SamlAssertionWrapper(assertion));
-        } catch (WSSecurityException e) {
-            assertEquals(e.getMessage(), expectedMessage);
+        } catch (final WSSecurityException e) {
+            assertEquals(e.getMsgID(), expectedMessage);
             throw e;
         }
     }
 
     @Test(expected = WSSecurityException.class)
     public void testValidateSubject_FailOnGetAuthnStatements() throws WSSecurityException {
-        String expectedMessage = "Assertions containing AuthnStatements require a Subject";
-        Assertion assertion = mock(Assertion.class);
-        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+        final String expectedMessage = "Assertions containing AuthnStatements require a Subject";
+        final Assertion assertion = mock(Assertion.class);
+        final Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-        Statement statement = mock(Statement.class);
-        List<Statement> statementList = new ArrayList<>();
+        final Statement statement = mock(Statement.class);
+        final List<Statement> statementList = new ArrayList<>();
         statementList.add(statement);
-        AuthnStatement authnStatement = mock(AuthnStatement.class);
-        List<AuthnStatement> authnStatementList = new ArrayList<>();
+        final AuthnStatement authnStatement = mock(AuthnStatement.class);
+        final List<AuthnStatement> authnStatementList = new ArrayList<>();
         authnStatementList.add(authnStatement);
 
         when(assertion.getStatements()).thenReturn(statementList);
@@ -123,28 +123,28 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
         try {
             validator.validateAssertion(new SamlAssertionWrapper(assertion));
-        } catch (WSSecurityException e) {
-            assertEquals(e.getMessage(), expectedMessage);
+        } catch (final WSSecurityException e) {
+            assertEquals(e.getMsgID(), expectedMessage);
             throw e;
         }
     }
 
     @Test(expected = WSSecurityException.class)
     public void testValidateSubject_FailOnGetAuthzDecisionStatements() throws WSSecurityException {
-        String expectedMessage = "Assertions containing AuthzDecisionStatements require a Subject";
-        Assertion assertion = mock(Assertion.class);
-        Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
+        final String expectedMessage = "Assertions containing AuthzDecisionStatements require a Subject";
+        final Assertion assertion = mock(Assertion.class);
+        final Saml2AllowNoSubjectAssertionSpecValidator validator = new Saml2AllowNoSubjectAssertionSpecValidator();
 
-        Statement statement = mock(Statement.class);
-        List<Statement> statementList = new ArrayList<>();
+        final Statement statement = mock(Statement.class);
+        final List<Statement> statementList = new ArrayList<>();
         statementList.add(statement);
-        List<AuthnStatement> authnStatementList = new ArrayList<>();
-        AttributeStatement attrStatement = mock(AttributeStatement.class);
-        List<AttributeStatement> attrStatementList = new ArrayList<>();
+        final List<AuthnStatement> authnStatementList = new ArrayList<>();
+        final AttributeStatement attrStatement = mock(AttributeStatement.class);
+        final List<AttributeStatement> attrStatementList = new ArrayList<>();
         attrStatementList.add(attrStatement);
 
-        AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
-        List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
+        final AuthzDecisionStatement authzDecisionStatement = mock(AuthzDecisionStatement.class);
+        final List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<>();
         authzDecisionStatementList.add(authzDecisionStatement);
 
         when(assertion.getStatements()).thenReturn(statementList);
@@ -154,8 +154,8 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 
         try {
             validator.validateAssertion(new SamlAssertionWrapper(assertion));
-        } catch (WSSecurityException e) {
-            assertEquals(e.getMessage(), expectedMessage);
+        } catch (final WSSecurityException e) {
+            assertEquals(e.getMsgID(), expectedMessage);
             throw e;
         }
     }

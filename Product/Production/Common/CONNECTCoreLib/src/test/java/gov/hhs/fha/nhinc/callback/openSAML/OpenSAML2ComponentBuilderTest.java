@@ -48,15 +48,15 @@ public class OpenSAML2ComponentBuilderTest {
 
     @Test
     public void generateEvAssertionWithoutUnderScore() {
-        String uuid = "2345";
-        Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        final String uuid = "2345";
+        final Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
 
     @Test
     public void generateEvAssertionWithUnderScore() {
-        String uuid = "_".concat(String.valueOf(UUID.randomUUID()));
-        Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        final String uuid = "_".concat(String.valueOf(UUID.randomUUID()));
+        final Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
 
@@ -66,19 +66,20 @@ public class OpenSAML2ComponentBuilderTest {
     @Test
     public void testNamespaceUriForPurposeUse() {
         boolean foundType = false;
-        String purposeCode = "purposeCode";
-        String purposeSystem = "purposeSystem";
-        String purposeSystemName = "purposeSystemName";
-        String purposeDisplay = "purposeDisplay";
-        String type = "hl7:CE";
-        Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode,
+        final String purposeCode = "purposeCode";
+        final String purposeSystem = "purposeSystem";
+        final String purposeSystemName = "purposeSystemName";
+        final String purposeDisplay = "purposeDisplay";
+        final String type = "hl7:CE";
+
+        final Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode,
                 purposeSystem, purposeSystemName, purposeDisplay);
-        List<XMLObject> attributeValue = attribute.getAttributeValues();
-        for (XMLObject value : attributeValue) {
-            for (XMLObject valueElement : value.getOrderedChildren()) {
+        final List<XMLObject> attributeValue = attribute.getAttributeValues();
+        for (final XMLObject value : attributeValue) {
+            for (final XMLObject valueElement : value.getOrderedChildren()) {
                 if (valueElement instanceof XSAny) {
-                    XSAny role = (XSAny) valueElement;
-                    AttributeMap map = role.getUnknownAttributes();
+                    final XSAny role = (XSAny) valueElement;
+                    final AttributeMap map = role.getUnknownAttributes();
                     assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
                     assertEquals(type, map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
                     foundType = true;
@@ -94,19 +95,20 @@ public class OpenSAML2ComponentBuilderTest {
     @Test
     public void testNamespaceUriForRole() {
         boolean foundType = false;
-        String userCode = "12345";
-        String userSystem = "1.2.34.56";
-        String userSystemName = "CANCER-Research";
-        String userDisplay = "Public Health";
-        String type = "hl7:CE";
-        Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
+        final String userCode = "12345";
+        final String userSystem = "1.2.34.56";
+        final String userSystemName = "CANCER-Research";
+        final String userDisplay = "Public Health";
+        final String type = "hl7:CE";
+
+        final Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
                 userSystemName, userDisplay);
-        List<XMLObject> attributeValue = attribute.getAttributeValues();
-        for (XMLObject value : attributeValue) {
-            for (XMLObject valueElement : value.getOrderedChildren()) {
+        final List<XMLObject> attributeValue = attribute.getAttributeValues();
+        for (final XMLObject value : attributeValue) {
+            for (final XMLObject valueElement : value.getOrderedChildren()) {
                 if (valueElement instanceof XSAny) {
-                    XSAny role = (XSAny) valueElement;
-                    AttributeMap map = role.getUnknownAttributes();
+                    final XSAny role = (XSAny) valueElement;
+                    final AttributeMap map = role.getUnknownAttributes();
                     assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
                     assertEquals(type, map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
                     foundType = true;
