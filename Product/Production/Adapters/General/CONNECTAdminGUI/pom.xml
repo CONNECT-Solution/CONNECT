@@ -184,6 +184,7 @@
         </dependency>
 
         <!-- XML -->
+        <!--
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>xmltooling</artifactId>
@@ -211,7 +212,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        -->
         <!-- JSF -->
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
