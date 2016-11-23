@@ -94,7 +94,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     @Override
     public Element build(final CallbackProperties properties) throws Exception {
-        LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin");
+        LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin Minh version 33333");
         Element signedAssertion;
         try {
             Assertion assertion;
