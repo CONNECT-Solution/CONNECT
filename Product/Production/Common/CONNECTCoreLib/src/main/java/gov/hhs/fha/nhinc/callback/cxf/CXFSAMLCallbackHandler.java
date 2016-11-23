@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import org.apache.wss4j.common.saml.bean.Version;
-
+import org.apache.wss4j.policy.SPConstants;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
@@ -41,8 +40,10 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
+import org.apache.wss4j.common.crypto.Crypto;
+import org.apache.wss4j.common.crypto.CryptoFactory;
 import org.apache.wss4j.common.saml.SAMLCallback;
-import org.opensaml.saml.common.SAMLVersion;
+import org.apache.wss4j.common.saml.bean.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,11 +57,12 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+    private Crypto issuerCrypto = null;
 
     public CXFSAMLCallbackHandler() {
     }
 
-    public CXFSAMLCallbackHandler(HOKSAMLAssertionBuilder builder) {
+    public CXFSAMLCallbackHandler(final HOKSAMLAssertionBuilder builder) {
         this.builder = builder;
     }
 
@@ -70,42 +72,49 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      * @see javax.security.auth.callback.CallbackHandler#handle(javax.security.auth.callback.Callback[])
      */
     @Override
-    public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        LOG.trace("CXFSAMLCallbackHandler.handle begin");
-        for (Callback callback : callbacks) {
+    public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
+        LOG.debug("CXFSAMLCallbackHandler.handle begin-Minh version 4");
+        for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
                 try {
 
-                    Message message = getCurrentMessage();
+                    final Message message = getCurrentMessage();
 
-                    Object obj = message.get("assertion");
+                    final Object obj = message.get("assertion");
 
                     AssertionType custAssertion = null;
                     if (obj != null) {
                         custAssertion = (AssertionType) obj;
                     }
 
-                    SAMLCallback oSAMLCallback = (SAMLCallback) callback;
+                    final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
+                    // TODO: need to convert into external properties similar like saml.properties
                     oSAMLCallback.setIssuerKeyName("gateway");
                     oSAMLCallback.setIssuerKeyPassword("changeit");
                     oSAMLCallback.setSignAssertion(true);
                     oSAMLCallback.setSendKeyValue(true);
-                    
+                    issuerCrypto = CryptoFactory.getInstance("signature.properties");
+                    oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
+                    oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA256);
+                    oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA256);
 
-                    SamlTokenCreator creator = new SamlTokenCreator();
 
-                    CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
+
+
+                    final SamlTokenCreator creator = new SamlTokenCreator();
+
+                    final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                             creator.createRequestContext(custAssertion, getResource(message), null), message));
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                 }
             }
         }
-        LOG.trace("CXFSAMLCallbackHandler.handle end");
+        LOG.debug("CXFSAMLCallbackHandler.handle end");
     }
 
     /**
@@ -115,7 +124,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      * @param message source of additional properties.
      * @return map containing assertion data and additional properties.
      */
-    private Map<String, Object> addMessageProperties(Map<String, Object> propertiesMap, Message message) {
+    private Map<String, Object> addMessageProperties(final Map<String, Object> propertiesMap, final Message message) {
 
         addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
         addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
@@ -124,7 +133,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         return propertiesMap;
     }
 
-    private void addPropertyFromMessage(Map<String, Object> propertiesMap, Message message, String key) {
+    private void addPropertyFromMessage(final Map<String, Object> propertiesMap, final Message message, final String key) {
         propertiesMap.put(key, message.get(key));
     }
 
@@ -132,14 +141,14 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         return PhaseInterceptorChain.getCurrentMessage();
     }
 
-    protected String getResource(Message message) {
+    protected String getResource(final Message message) {
         String resource = null;
         try {
-            boolean isInbound = (Boolean) message.get(Message.INBOUND_MESSAGE);
+            final boolean isInbound = (Boolean) message.get(Message.INBOUND_MESSAGE);
             if (!isInbound) {
                 resource = (String) message.get(Message.ENDPOINT_ADDRESS);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.warn("Unable to get resource: {}", e.getLocalizedMessage());
             LOG.trace("Get resource exception: {}", e.getLocalizedMessage(), e);
         }

@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import org.opensaml.saml.common.SAMLObjectBuilder;
+import org.apache.wss4j.common.saml.builder.SAML1ComponentBuilder;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -59,6 +60,7 @@ import org.opensaml.core.xml.XMLObjectBuilderFactory;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.schema.XSAny;
 import org.opensaml.core.xml.schema.impl.XSAnyBuilder;
+import org.opensaml.saml.common.SAMLObjectBuilder;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
 import org.opensaml.saml.saml2.core.AttributeStatement;
@@ -75,7 +77,6 @@ import org.opensaml.saml.saml2.core.SubjectConfirmationData;
 import org.opensaml.security.x509.BasicX509Credential;
 import org.opensaml.xmlsec.signature.KeyInfo;
 import org.opensaml.xmlsec.signature.Signature;
-import org.opensaml.xmlsec.signature.impl.KeyInfoBuilder;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -259,6 +260,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final AuthenticationStatementBean authenticationBean = new AuthenticationStatementBean();
         authenticationBean.setAuthenticationInstant(authInstant);
         authenticationBean.setSessionIndex(sessionIndex);
+        authenticationBean.setAuthenticationMethod(cntxCls);
         final SubjectLocalityBean subjectLocalityBean = new SubjectLocalityBean();
         subjectLocalityBean.setDnsAddress(dnsName);
         subjectLocalityBean.setIpAddress(inetAddr);
@@ -464,7 +466,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final SubjectBean subjectBean = new SubjectBean();
         final Subject subject = SAML2ComponentBuilder.createSaml2Subject(subjectBean);
         subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-
+        subject.getSubjectConfirmations().remove(0);// remove send-vouches
         final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(certificate, publicKey);
         final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
         subject.getSubjectConfirmations().add(subjectConfirmation);
@@ -505,8 +507,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         return subjectConfirmationData;*/
         final SubjectConfirmationDataBean subjectConfirmationDataBean = new SubjectConfirmationDataBean();
         final KeyInfoBean keyInforBean = new KeyInfoBean();
-        keyInforBean.setCertificate(certificate);
+        // keyInforBean.setCertificate(certificate);
         keyInforBean.setPublicKey(publicKey);
+
         final SubjectConfirmationData subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean, keyInforBean);
 
         /*subjectConfirmationData.getUnknownXMLObjects().add(getKeyInfo(certificate, publicKey));
@@ -532,11 +535,15 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         KeyInfoHelper.addPublicKey(ki, publicKey);
         // KeyInfoHelper.addCertificate(ki, certificate);
         return ki;*/
-
-        final KeyInfoBuilder keyInforBuilder = new KeyInfoBuilder();
-        final KeyInfo ki = keyInforBuilder.buildObject();
-        return ki;
-    }
+        final KeyInfoBean keyInfoBean = new KeyInfoBean();
+        keyInfoBean.setPublicKey(publicKey);
+        return SAML1ComponentBuilder.createKeyInfo(keyInfoBean);
+        /*
+         * final KeyInfoBuilder keyInforBuilder = new KeyInfoBuilder(); final KeyInfo ki =
+         * keyInforBuilder.buildObject();
+         *
+         * return ki;
+         */}
 
     /**
      * Gets the public key.
@@ -928,6 +935,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         signature.setSigningCredential(credential);
 
         signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        // signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA256);
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
         signature.setKeyInfo(getKeyInfo(certificate, publicKey));
         return signature;
