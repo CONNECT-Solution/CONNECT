@@ -85,7 +85,7 @@ public class WsSecurityConfigFactory {
     }
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
-        LOG.debug("New Version in Minh 777");
+        LOG.debug("New Version in Minh 1111");
         final HashMap<String, Object> outProps = new HashMap<>();
 
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
@@ -98,10 +98,10 @@ public class WsSecurityConfigFactory {
 
         outProps.put("cryptoProperties", getSignatureProperties());
         outProps.put(WSHandlerConstants.SIG_PROP_REF_ID, "cryptoProperties");
-        outProps.put(WSHandlerConstants.SIG_ALGO, SPConstants.RSA_SHA256);
+        outProps.put(WSHandlerConstants.SIG_ALGO, SPConstants.RSA_SHA1);
         // outProps.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
         // outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, "http://www.w3.org/2000/09/xmldsig#sha1");
-        outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, SPConstants.SHA256);
+        outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, SPConstants.SHA1);
 
         outProps.put(WSHandlerConstants.SIGNATURE_PARTS,
                 "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");
