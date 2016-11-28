@@ -73,7 +73,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        LOG.debug("CXFSAMLCallbackHandler.handle begin-Minh version 4");
+        LOG.debug("CXFSAMLCallbackHandler.handle begin-Minh version 111111");
         for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
@@ -97,8 +97,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     issuerCrypto = CryptoFactory.getInstance("signature.properties");
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
-                    oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA256);
-                    oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA256);
+                    oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA1);
+                    oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA1);
 
 
 
