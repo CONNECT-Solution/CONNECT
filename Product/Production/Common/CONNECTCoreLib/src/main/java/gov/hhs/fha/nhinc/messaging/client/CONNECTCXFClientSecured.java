@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.messaging.service.decorator.KeepAliveServiceEndpointDecorator;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
@@ -43,16 +45,16 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientSecured.class);
 
-    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
-            String wsAddressingTo, String SoapHeader) {
+    CONNECTCXFClientSecured(final ServicePortDescriptor<T> portDescriptor, final String url, final AssertionType assertion,
+            final String wsAddressingTo, final String SoapHeader) {
         super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor));
         decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader, null, null);
 
         serviceEndpoint.configure();
     }
 
-    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion, String url,
-            String targetHomeCommunityId, String serviceName) {
+    CONNECTCXFClientSecured(final ServicePortDescriptor<T> portDescriptor, final AssertionType assertion, final String url,
+            final String targetHomeCommunityId, final String serviceName) {
         super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor));
         decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, targetHomeCommunityId,
                 serviceName);
@@ -65,8 +67,9 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
         return serviceEndpoint.getPort();
     }
 
-    private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
-            String subscriptionId, String targetHomeCommunityId, String serviceName) {
+    private void decorateEndpoint(final AssertionType assertion, final String wsAddressingTo, final String wsAddressingActionId,
+            final String subscriptionId, final String targetHomeCommunityId, final String serviceName) {
+        serviceEndpoint = new KeepAliveServiceEndpointDecorator<>(serviceEndpoint, assertion, serviceName);
         serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion, targetHomeCommunityId,
                 serviceName);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
@@ -76,13 +79,13 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType,
      * java.lang.String, java.lang.String)
      */
     @Override
-    public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+    public void enableWSA(final AssertionType assertion, final String wsAddressingTo, final String wsAddressingActionId) {
         LOG.warn("Web Service Addressing is already enabled on secure clients - No action taken.");
     }
 }
