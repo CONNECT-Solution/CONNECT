@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import org.opensaml.core.xml.io.Marshaller;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 
+import org.opensaml.core.xml.io.Marshaller;
 import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -152,16 +153,19 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             throws Exception {
         final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
                 publicKey);
-        assertion.setSignature(signature);
+        // assertion.setSignature(signature);
         // OpenSAMLUtil.initSamlEngine();
         final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
+
+        wrapper.setSignature(signature, SignatureConstants.ALGO_ID_DIGEST_SHA1);
         //wrapper.signAssertion(issuerKeyName, issuerKeyPassword, issuerCrypto, sendKeyValue);
         final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
-        final Marshaller marshaller = marshallerFactory.getMarshaller(assertion);
-        final Element assertionElement = marshaller.marshall(assertion);
+        final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
+        final Element assertionElement = marshaller.marshall(wrapper.getSamlObject());
         // marshall Assertion Java class into XML
 
         try {
+
             Signer.signObject(signature);
         } catch (final SignatureException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage(), e);
