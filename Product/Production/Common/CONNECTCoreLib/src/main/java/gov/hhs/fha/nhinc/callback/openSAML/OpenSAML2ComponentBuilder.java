@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import org.apache.wss4j.common.saml.builder.SAML1ComponentBuilder;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -930,11 +929,16 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
                 .buildObject(Signature.DEFAULT_ELEMENT_NAME);*/
         final BasicX509Credential credential = new BasicX509Credential(certificate, privateKey);
         credential.setEntityCertificate(certificate);
+        credential.setPrivateKey(privateKey);
+
+
         // credential.setPublicKey(publicKey);
         final Signature signature = OpenSAMLUtil.buildSignature();
         signature.setSigningCredential(credential);
 
         signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+
+        // signature.setSignatureAlgorithm(XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256);
         // signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA256);
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
         signature.setKeyInfo(getKeyInfo(certificate, publicKey));
