@@ -204,9 +204,9 @@ public class UDDIUpdateManagerHelper {
                 businessDetail.setUddiUpdatetime(getTimestamp());
             }
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to access property: " + UDDI_UPDATE_TIME, ex);
+            LOG.error("Unable to access property: {}", UDDI_UPDATE_TIME, ex);
         } catch (DatatypeConfigurationException ex) {
-            LOG.error("Unable to create timestamp for: " + UDDI_UPDATE_TIME, ex);
+            LOG.error("Unable to create timestamp for: {}", UDDI_UPDATE_TIME, ex);
         }
     }
     
