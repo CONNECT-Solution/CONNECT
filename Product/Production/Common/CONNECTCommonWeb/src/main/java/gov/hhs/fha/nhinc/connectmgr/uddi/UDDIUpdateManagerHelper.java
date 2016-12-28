@@ -30,11 +30,17 @@ import gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -50,6 +56,7 @@ public class UDDIUpdateManagerHelper {
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
     private static final String UDDI_MAX_NUM_BACKUPS_PROPERTY = "UDDIMaxNumBackups";
+    private static final String UDDI_UPDATE_TIME = "UDDILastUpdate";
     private static final int MAX_NUM_BACKUP = 10;
     private static final ArrayList<String> backupFileList = new ArrayList<>();
 
@@ -135,6 +142,7 @@ public class UDDIUpdateManagerHelper {
 
     private void saveUddiResultsToFile(BusinessDetail businessDetail) {
         UddiConnectionInfoDAOFileImpl uddiDao = UddiConnectionInfoDAOFileImpl.getInstance();
+        addLastUpdateTime(businessDetail);
         uddiDao.saveBusinessDetail(businessDetail);
     }
 
@@ -189,6 +197,25 @@ public class UDDIUpdateManagerHelper {
         }
 
         return oResponse;
+    }
+    
+    private void addLastUpdateTime(BusinessDetail businessDetail) {
+        try {
+            if(PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_UPDATE_TIME)) {
+                businessDetail.setUddiUpdatetime(getTimestamp());
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to access property: " + UDDI_UPDATE_TIME, ex);
+        } catch (DatatypeConfigurationException ex) {
+            LOG.error("Unable to create timestamp for: " + UDDI_UPDATE_TIME, ex);
+        }
+    }
+    
+    private XMLGregorianCalendar getTimestamp() throws DatatypeConfigurationException {
+        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTimeInMillis(System.currentTimeMillis());
+        return datatypeFactory.newXMLGregorianCalendar(gc);
     }
 
     /**
