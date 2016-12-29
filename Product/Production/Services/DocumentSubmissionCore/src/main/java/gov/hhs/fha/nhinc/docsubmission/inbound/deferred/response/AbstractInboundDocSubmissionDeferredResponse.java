@@ -37,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public abstract class AbstractInboundDocSubmissionDeferredResponse implements InboundDocSubmissionDeferredResponse {
 
-    abstract XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion);
+    public abstract XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion);
 
     private DSDeferredResponseAuditLogger auditLogger = null;
     private AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory = null;

@@ -43,9 +43,9 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
         adapterFactory = factory;
     }
 
-    abstract MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion);
+    public abstract MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion);
 
-    abstract PatientDiscoveryDeferredRequestAuditLogger getAuditLogger();
+    public abstract PatientDiscoveryDeferredRequestAuditLogger getAuditLogger();
 
     /**
      * Processes the PD Deferred request message. This call will audit the message and send it to the Nhin.

@@ -72,7 +72,7 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
     }
 
     @Override
-    XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
+    public XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
 
         XDRAcknowledgementType response;

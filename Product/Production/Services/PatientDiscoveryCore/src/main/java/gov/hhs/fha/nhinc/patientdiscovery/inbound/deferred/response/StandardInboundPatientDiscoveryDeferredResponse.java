@@ -113,7 +113,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * process(org.hl7.v3.PRPAIN201306UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
+    public MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         String ackMsg;
 
@@ -144,7 +144,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * getAuditLogger()
      */
     @Override
-    PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
+    public PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
         return auditLogger;
     }
 

@@ -81,7 +81,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
     }
 
     @Override
-    PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger() {
+    public PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger() {
         return auditLogger;
     }
 
