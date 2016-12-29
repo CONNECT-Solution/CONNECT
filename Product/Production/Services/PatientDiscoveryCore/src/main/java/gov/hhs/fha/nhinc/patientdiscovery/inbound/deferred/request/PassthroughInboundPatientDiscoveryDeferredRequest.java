@@ -62,13 +62,13 @@ public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractI
     }
 
     @Override
-    MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
+    public MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
 
         return sendToAdapter(request, assertion);
     }
 
     @Override
-    PatientDiscoveryDeferredRequestAuditLogger getAuditLogger() {
+    public PatientDiscoveryDeferredRequestAuditLogger getAuditLogger() {
         return auditLogger;
     }
 

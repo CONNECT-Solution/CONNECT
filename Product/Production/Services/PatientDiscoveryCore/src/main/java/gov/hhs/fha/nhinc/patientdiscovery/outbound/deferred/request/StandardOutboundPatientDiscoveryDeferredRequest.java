@@ -151,7 +151,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     }
 
     @Override
-    PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger() {
+    public PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger() {
         return auditLogger;
     }
 

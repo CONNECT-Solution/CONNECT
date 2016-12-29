@@ -72,7 +72,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
     }
 
     @Override
-    void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
+    public void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
         if (isPolicyValid(body, assertion)) {
             auditRequestToAdapter(body, assertion);
             sendToAdapter(body, assertion, adminUtils, adapterFactory);

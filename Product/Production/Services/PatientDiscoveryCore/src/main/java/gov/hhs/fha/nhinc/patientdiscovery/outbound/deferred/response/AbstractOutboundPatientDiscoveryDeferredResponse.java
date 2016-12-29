@@ -44,9 +44,9 @@ import org.hl7.v3.PRPAIN201306UV02;
 public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implements
     OutboundPatientDiscoveryDeferredResponse {
 
-    abstract PatientDiscoveryDeferredResponseAuditLogger getAuditLogger();
+    public abstract PatientDiscoveryDeferredResponseAuditLogger getAuditLogger();
 
-    abstract MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion,
+    public abstract MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target);
 
     /*

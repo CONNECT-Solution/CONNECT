@@ -48,7 +48,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
      *
      * @return orchestrator instance
      */
-    abstract CONNECTInboundOrchestrator getOrchestrator();
+    public abstract CONNECTInboundOrchestrator getOrchestrator();
 
     public BaseInboundDocRetrieve() {
         docRetrieveAuditLogger = new DocRetrieveAuditLogger();
@@ -91,5 +91,5 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
         return orchResponse.getResponse();
     }
 
-    abstract DocRetrieveAuditLogger getAuditLogger();
+    public abstract DocRetrieveAuditLogger getAuditLogger();
 }
