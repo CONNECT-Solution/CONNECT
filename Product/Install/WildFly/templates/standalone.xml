@@ -687,8 +687,5 @@
     </socket-binding-group>
 
     <deployments>
-        <deployment name="CONNECT-JB7-4.7.0.ear" runtime-name="CONNECT-JB7-4.7.0.ear" enabled="true">
-            <content sha1="f8dd4d9bf4ed362cfb02219f04e1442301d1d03a"/>
-        </deployment>
     </deployments>
 </server>

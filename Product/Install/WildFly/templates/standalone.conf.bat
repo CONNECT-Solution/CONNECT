@@ -82,4 +82,3 @@ set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore=${JBOSS_HOME}/modules/syst
 set "JAVA_OPTS=%JAVA_OPTS% -DCLIENT_KEY_ALIAS=gateway"
 set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true"
 set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true"
-set "JAVA_OPTS=%JAVA_OPTS% -Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties"
