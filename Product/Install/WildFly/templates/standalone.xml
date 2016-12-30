@@ -43,11 +43,11 @@
             <security-realm name="ApplicationRealm">
                 <server-identities>
                     <ssl>
-                        <keystore path="modules/org/connectopensource/configuration/main/gateway.jks" relative-to="jboss.home.dir" keystore-password="changeit" alias="gateway"/>
+                        <keystore path="modules/system/layers/base/org/connectopensource/configuration/main/gateway.jks" relative-to="jboss.home.dir" keystore-password="changeit" alias="gateway"/>
                     </ssl>
                 </server-identities>
                 <authentication>
-                    <truststore path="modules/org/connectopensource/configuration/main/cacerts.jks" relative-to="jboss.home.dir" keystore-password="changeit"/>
+                    <truststore path="modules/system/layers/base/org/connectopensource/configuration/main/cacerts.jks" relative-to="jboss.home.dir" keystore-password="changeit"/>
                     <local default-user="$local" allowed-users="*" skip-group-loading="true"/>
                     <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
