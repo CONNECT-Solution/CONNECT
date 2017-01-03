@@ -98,8 +98,8 @@ public class WsSecurityConfigFactoryTest {
          * assertEquals("http://www.w3.org/2000/09/xmldsig#rsa-sha1", properties.get(WSHandlerConstants.SIG_ALGO));
          * assertEquals("http://www.w3.org/2000/09/xmldsig#sha1", properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
          */
-        assertEquals(SPConstants.RSA_SHA256, properties.get(WSHandlerConstants.SIG_ALGO));
-        assertEquals(SPConstants.RSA_SHA256, properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
+        assertEquals(SPConstants.RSA_SHA1, properties.get(WSHandlerConstants.SIG_ALGO));
+        assertEquals(SPConstants.SHA1, properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
 
         assertEquals(
                 "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
