@@ -128,10 +128,26 @@
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>agent</artifactId>
+            <exclusions>
+                    <exclusion>
+                        <groupId>bouncycastle</groupId>
+                        <artifactId>bcprov-jdk15</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>bouncycastle</groupId>
+                        <artifactId>bcmail-jdk15</artifactId>
+                    </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>direct-policy</artifactId>
+            <exclusions>
+                    <exclusion>
+                        <groupId>bouncycastle</groupId>
+                        <artifactId>bcprov-jdk15</artifactId>
+                    </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
@@ -142,7 +158,7 @@
         <!-- Security -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15</artifactId>
+            <artifactId>bcprov-jdk15on</artifactId>
         </dependency>
 
         <!-- XML -->
@@ -176,8 +192,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>bouncycastle</groupId>
-            <artifactId>bcmail-jdk15</artifactId>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcmail-jdk15on</artifactId>
         </dependency>
 
         <!-- DNS -->
