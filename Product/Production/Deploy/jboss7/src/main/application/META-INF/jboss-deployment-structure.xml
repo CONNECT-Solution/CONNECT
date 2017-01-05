@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
     <deployment>
+        <exclude-subsystems>
+            <subsystem name="webservices" />
+        </exclude-subsystems>
         <exclusions>
             <module name="org.jboss.logging"/>
         </exclusions>
