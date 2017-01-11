@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import gov.hhs.fha.nhinc.messaging.client.interceptor.HeaderRequestOutInterceptor;
+
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
      *
      * @param decoratoredEndpoint - endpoint instance where this decorator will be applied
      */
-    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+    public WsSecurityServiceEndpointDecorator(final ServiceEndpoint<T> decoratoredEndpoint) {
         this(decoratoredEndpoint, WsSecurityConfigFactory.getInstance());
     }
 
@@ -58,8 +60,8 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
      * @param decoratoredEndpoint - endpoint instance where this decorator will be applied
      * @param configFactory - factory that produce a config map
      */
-    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
-            WsSecurityConfigFactory configFactory) {
+    public WsSecurityServiceEndpointDecorator(final ServiceEndpoint<T> decoratoredEndpoint,
+            final WsSecurityConfigFactory configFactory) {
         super(decoratoredEndpoint);
         this.configFactory = configFactory;
     }
@@ -72,17 +74,17 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
     public void configure() {
         super.configure();
 
-        Client client = ClientProxy.getClient(getPort());
-        Map<String, Object> outProps = configFactory.getConfiguration();
+        final Client client = ClientProxy.getClient(getPort());
+        final Map<String, Object> outProps = configFactory.getConfiguration();
 
         configureWSSecurityOnClient(client, outProps);
     }
 
-    private void configureWSSecurityOnClient(Client client, Map<String, Object> outProps) {
-        WSS4JOutInterceptor outInterceptor = new WSS4JOutInterceptor(outProps);
+    private void configureWSSecurityOnClient(final Client client, final Map<String, Object> outProps) {
+        final WSS4JOutInterceptor outInterceptor = new WSS4JOutInterceptor(outProps);
         outInterceptor.setAllowMTOM(true);
 
-        for (Interceptor<? extends Message> interceptor : client.getOutInterceptors()) {
+        for (final Interceptor<? extends Message> interceptor : client.getOutInterceptors()) {
             if (interceptor instanceof WSS4JOutInterceptor) {
                 ((WSS4JOutInterceptor) interceptor).setProperties(outProps);
                 return;
@@ -90,6 +92,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         }
 
         client.getOutInterceptors().add(outInterceptor);
+        client.getOutInterceptors().add(new HeaderRequestOutInterceptor());
     }
 
 }
