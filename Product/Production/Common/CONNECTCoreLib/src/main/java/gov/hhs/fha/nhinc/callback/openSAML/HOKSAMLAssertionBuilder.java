@@ -95,7 +95,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     @Override
     public Element build(final CallbackProperties properties) throws Exception {
-        LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- Begin Minh version 33333");
+        LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20()");
         Element signedAssertion;
         try {
             Assertion assertion;
@@ -107,7 +107,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             // given from 2011 specification set was to prepend with and
             // underscore.
             final String aID = createAssertionId();
-            LOG.debug("Assertion ID: " + aID);
+            LOG.debug("Assertion ID: {}", aID);
 
             // set assertion Id
             assertion.setID(aID);
@@ -153,31 +153,20 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             throws Exception {
         final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
                 publicKey);
-        // assertion.setSignature(signature);
-        // OpenSAMLUtil.initSamlEngine();
         final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
 
         wrapper.setSignature(signature, SignatureConstants.ALGO_ID_DIGEST_SHA1);
-        //wrapper.signAssertion(issuerKeyName, issuerKeyPassword, issuerCrypto, sendKeyValue);
         final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
         final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
         final Element assertionElement = marshaller.marshall(wrapper.getSamlObject());
-        // marshall Assertion Java class into XML
-
         try {
-
             Signer.signObject(signature);
         } catch (final SignatureException e) {
-            LOG.error("Unable to sign: {}", e.getLocalizedMessage(), e);
+            LOG.error("Unable to sign: {}", e.getLocalizedMessage());
             throw new Exception(e);
         }
-        // return signature.getDOM();
         return assertionElement;
-        /* Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
-                publicKey);
-        OpenSAMLUtil.toDom(assertion, null, true);*/
-        /* SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
-        wrapper.s*/
+
     }
 
     protected Issuer createIssuer(final CallbackProperties properties) {
@@ -185,10 +174,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         final String format = properties.getAssertionIssuerFormat();
         if (format != null) {
-            LOG.debug("Setting Assertion Issuer format to: " + format);
+            LOG.debug("Setting Assertion Issuer format to: {}", format);
             final String sIssuer = properties.getIssuer();
 
-            LOG.debug("Setting Assertion Issuer to: " + sIssuer);
+            LOG.debug("Setting Assertion Issuer to: {}", sIssuer);
 
             if (isValidNameidFormat(format)) {
                 issuer = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
@@ -317,7 +306,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
         final String sessionIndex = properties.getAuthenticationSessionIndex();
 
-        LOG.debug("Setting Authentication session index to: " + sessionIndex);
+        LOG.debug("Setting Authentication session index to: {}", sessionIndex);
 
         DateTime authInstant = properties.getAuthenticationInstant();
         if (authInstant == null) {
@@ -533,7 +522,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final String nameConstruct = properties.getUserFullName();
 
         if (nameConstruct.length() > 0) {
-            LOG.debug("UserName: " + nameConstruct);
+            LOG.debug("UserName: {}", nameConstruct);
 
             userNameValues.add(nameConstruct);
 

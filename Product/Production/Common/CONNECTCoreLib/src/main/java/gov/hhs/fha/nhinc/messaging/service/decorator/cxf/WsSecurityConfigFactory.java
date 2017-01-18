@@ -85,7 +85,6 @@ public class WsSecurityConfigFactory {
     }
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
-        LOG.debug("New Version in Minh 1111");
         final HashMap<String, Object> outProps = new HashMap<>();
 
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
@@ -93,14 +92,10 @@ public class WsSecurityConfigFactory {
         outProps.put(WSHandlerConstants.USER, getIssuerKeyAlias());
         outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler");
         outProps.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
-        //outProps.put(WSHandlerConstants.SAML_PROP_FILE, "saml.properties");
         outProps.put(WSHandlerConstants.SAML_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler");
-
         outProps.put("cryptoProperties", getSignatureProperties());
         outProps.put(WSHandlerConstants.SIG_PROP_REF_ID, "cryptoProperties");
         outProps.put(WSHandlerConstants.SIG_ALGO, SPConstants.RSA_SHA1);
-        // outProps.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-        // outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, "http://www.w3.org/2000/09/xmldsig#sha1");
         outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, SPConstants.SHA1);
 
         outProps.put(WSHandlerConstants.SIGNATURE_PARTS,

@@ -67,18 +67,16 @@ public class TimestampValidator implements Validator {
         if (credential == null || credential.getTimestamp() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "noCredential");
         }
-        if (data.getWssConfig() == null) {
+        WSSConfig wssConfig = data.getWssConfig();
+        if (wssConfig == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "WSSConfig cannot be null");
         }
-        WSSConfig wssConfig = data.getWssConfig();
-        boolean timeStampStrict;
-        int timeStampTTL = 300;
-        int futureTimeToLive = 60;
-        if (wssConfig != null) {
-            timeStampTTL = data.getTimeStampTTL();
-            futureTimeToLive = data.getTimeStampFutureTTL();
-        }
 
+        boolean timeStampStrict;
+        // The default is 300 seconds (5 minutes)
+        int timeStampTTL = data.getTimeStampTTL();
+        // The default is 60 seconds.
+        int futureTimeToLive = data.getTimeStampFutureTTL();
         long timeStampTTLProperty = getTimeStampTTL();
         if (timeStampTTLProperty >= 0) {
             timeStampTTL = (int) timeStampTTLProperty;
