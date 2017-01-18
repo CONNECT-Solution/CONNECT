@@ -73,7 +73,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        LOG.debug("CXFSAMLCallbackHandler.handle begin-Minh version 111111");
+        LOG.trace("CXFSAMLCallbackHandler.handle begin");
         for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
@@ -114,7 +114,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 }
             }
         }
-        LOG.debug("CXFSAMLCallbackHandler.handle end");
+        LOG.trace("CXFSAMLCallbackHandler.handle end");
     }
 
     /**

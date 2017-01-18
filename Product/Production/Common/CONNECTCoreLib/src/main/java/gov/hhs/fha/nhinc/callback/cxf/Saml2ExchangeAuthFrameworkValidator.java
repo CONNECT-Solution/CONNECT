@@ -60,25 +60,6 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
     /** The Constant invalidUserNameChars. */
     private static final char[] invalidUserNameChars = { ';', ':', '\"', '<', '>', '*', '+', '=', '\\', '|', '?', ',' };
 
-    /**
-     * (non-Javadoc).
-     *
-     * @param assertion the assertion
-     * @throws ValidationException the validation exception
-     * @see org.opensaml.saml2.core.validator.AssertionSpecValidator#validate(org.opensaml.saml2.core.Assertion)
-     */
-    /*@Override
-    public void validate(Assertion assertion) throws ValidationException {
-        super.validate(assertion);
-
-        validateSubject(assertion);
-        validateIssuer(assertion.getIssuer());
-    }*/
-
-
-
-
-
     /* (non-Javadoc)
      * @see org.apache.wss4j.dom.validate.SamlAssertionValidator#validateAssertion(org.apache.wss4j.common.saml.SamlAssertionWrapper)
      */
@@ -91,16 +72,11 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
             validateIssuer(samlAssertion.getSaml2().getIssuer());
 
         } catch (WSSecurityException | SAMLException  e) {
-            LOG.error("Validation Fail", e);
+            LOG.error("Validation Fail {}", e.getLocalizedMessage());
             throw new WSSecurityException(ErrorCode.FAILURE, "Validation fail");
         }
 
     }
-
-
-
-
-
     /*
      * (non-Javadoc)
      *
@@ -109,8 +85,6 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
 
     protected void validateSubject(final Assertion assertion) throws SAMLException, WSSecurityException {
         validateSubject(assertion.getSubject());
-
-        //super.validateSubject(assertion);
     }
 
     /**
@@ -123,7 +97,6 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
         if (issuer == null || StringUtils.isBlank(issuer.getFormat())) {
             throw new WSSecurityException(ErrorCode.FAILURE,"Issuer format cannot be blank.");
         }
-
         validateNameIdFormatValue(issuer.getFormat(), issuer.getValue());
     }
 
@@ -138,14 +111,12 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
         if (subject == null || subject.getNameID() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE,"Subject is empty or invalid.");
         }
-
         final NameID name = subject.getNameID();
         final String format = name.getFormat();
         if (!NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)
                 && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             throw new WSSecurityException(ErrorCode.FAILURE,"Subject Name Id format must be x509 or Email.");
         }
-
         validateNameIdFormatValue(format, name.getValue());
     }
 
@@ -166,7 +137,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
             try {
                 final Name name = new LdapName(value);
             } catch (final Exception e) {
-                LOG.info("Validation of X509 Subject Name failed:", e);
+                LOG.info("Validation of X509 Subject Name failed: {}", e.getLocalizedMessage());
                 throw new WSSecurityException(ErrorCode.FAILURE,"Not a valid X509 Subject Name.");
             }
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME.equals(format)) {

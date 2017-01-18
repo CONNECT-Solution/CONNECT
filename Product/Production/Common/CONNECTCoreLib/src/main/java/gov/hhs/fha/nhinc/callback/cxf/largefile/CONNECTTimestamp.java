@@ -46,7 +46,6 @@ public class CONNECTTimestamp extends Timestamp {
      * {@inheritDoc}
      */
     public CONNECTTimestamp(Element timestampElement) throws WSSecurityException {
-        //super(timestampElement);
         super(timestampElement, new BSPEnforcer());
         
     }
