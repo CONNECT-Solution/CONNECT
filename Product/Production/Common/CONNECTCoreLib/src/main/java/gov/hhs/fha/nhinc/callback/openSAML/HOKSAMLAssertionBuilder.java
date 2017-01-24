@@ -94,9 +94,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     @Override
-    public Element build(final CallbackProperties properties) throws Exception {
+    public Element build(final CallbackProperties properties) throws SAMLAssertionBuilderException {
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20()");
-        Element signedAssertion;
+        Element signedAssertion = null;
         try {
             Assertion assertion;
             assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
@@ -133,9 +133,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
             // sign the message
             signedAssertion = sign(assertion, certificate, privateKey, publicKey);
-        } catch (final Exception ex) {
+        } catch (final SAMLAssertionBuilderException ex) {
             LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
             throw ex;
+        } catch (final Exception ex) {
+            LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
         }
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
         return signedAssertion;
