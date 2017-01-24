@@ -54,8 +54,12 @@
         </dependency>
         <dependency>
             <!-- Used for EnumType -->
-            <groupId>org.hibernate.common</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
+			<!--
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+			-->
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>			
             <scope>runtime</scope>
         </dependency>
 
@@ -70,7 +74,14 @@
             <artifactId>antlr</artifactId>
             <scope>runtime</scope>
         </dependency>
-       
+
+        <!-- XML -->
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Apache Commons -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -116,26 +127,10 @@
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>agent</artifactId>
-            <exclusions>
-                    <exclusion>
-                        <groupId>bouncycastle</groupId>
-                        <artifactId>bcprov-jdk15</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>bouncycastle</groupId>
-                        <artifactId>bcmail-jdk15</artifactId>
-                    </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>direct-policy</artifactId>
-            <exclusions>
-                    <exclusion>
-                        <groupId>bouncycastle</groupId>
-                        <artifactId>bcprov-jdk15</artifactId>
-                    </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
@@ -146,7 +141,7 @@
         <!-- Security -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
+            <artifactId>bcprov-jdk15</artifactId>
         </dependency>
 
         <!-- XML -->
@@ -180,8 +175,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcmail-jdk15on</artifactId>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcmail-jdk15</artifactId>
         </dependency>
 
         <!-- DNS -->
