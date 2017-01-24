@@ -40,9 +40,9 @@ public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFact
     @Override
     public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
         SAMLAssertionBuilder builder = null;
-        if (confirmationMethod.equals(HOK_ASSERTION_TYPE)) {
+        if (SAMLAssertionBuilderConstants.HOK_ASSERTION_TYPE.equals(confirmationMethod)) {
             builder = new HOKSAMLAssertionBuilder();
-        } else if (confirmationMethod.equals(SV_ASSERTION_TYPE)) {
+        } else if (SAMLAssertionBuilderConstants.SV_ASSERTION_TYPE.equals(confirmationMethod)) {
             builder = new SVSAMLAssertionBuilder();
         }
         return builder;
