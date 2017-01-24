@@ -44,10 +44,10 @@
         </dependency>
 
         <!-- CXF -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-api</artifactId>
-        </dependency>
+        </dependency> -->
 
         <!-- Spring Framework -->
         <dependency>

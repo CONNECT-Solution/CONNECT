@@ -110,7 +110,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      * gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType)
      */
     @Override
-    MCCIIN000002UV01 process(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType targets) {
+    public MCCIIN000002UV01 process(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType targets) {
         auditRequest(body, assertion, targets);
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
@@ -143,7 +143,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      * #getAuditLogger()
      */
     @Override
-    PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
+    public PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
         return auditLogger;
     }
 

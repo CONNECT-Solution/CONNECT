@@ -91,5 +91,5 @@ public abstract class AbstractOutboundDocRetrieve {
 
     }
 
-    abstract DocRetrieveAuditLogger getAuditLogger();
+    public abstract DocRetrieveAuditLogger getAuditLogger();
 }

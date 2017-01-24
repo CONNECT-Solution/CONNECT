@@ -55,7 +55,7 @@ public class PassthroughInboundDocSubmissionDeferredResponse extends AbstractInb
     }
 
     @Override
-    XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
+    public XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
         return sendToAdapter(body, assertion);
     }
 }
