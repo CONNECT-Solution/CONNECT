@@ -44,7 +44,7 @@ public class SVSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilder#build()
      */
     @Override
-    public Element build(CallbackProperties properties) throws Exception {
+    public Element build(CallbackProperties properties) throws SAMLAssertionBuilderException {
 
         return null;
     }
