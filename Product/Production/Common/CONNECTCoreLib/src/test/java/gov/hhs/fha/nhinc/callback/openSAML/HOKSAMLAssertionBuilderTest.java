@@ -114,7 +114,7 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public PrivateKey getDefaultPrivateKey() throws Exception {
+            public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
                 return privateKey;
             }
 
@@ -129,7 +129,7 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public X509Certificate getDefaultCertificate() throws Exception {
+            public X509Certificate getDefaultCertificate() throws CertificateManagerException {
                 return new X509Certificate() {
                     @Override
                     public boolean hasUnsupportedCriticalExtension() {

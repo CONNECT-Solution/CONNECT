@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 /**
  * @author bhumphrey
  *
@@ -40,9 +42,9 @@ public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFact
     @Override
     public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
         SAMLAssertionBuilder builder = null;
-        if (confirmationMethod.equals(HOK_ASSERTION_TYPE)) {
+        if (NhincConstants.HOK_ASSERTION_TYPE.equals(confirmationMethod)) {
             builder = new HOKSAMLAssertionBuilder();
-        } else if (confirmationMethod.equals(SV_ASSERTION_TYPE)) {
+        } else if (NhincConstants.SV_ASSERTION_TYPE.equals(confirmationMethod)) {
             builder = new SVSAMLAssertionBuilder();
         }
         return builder;

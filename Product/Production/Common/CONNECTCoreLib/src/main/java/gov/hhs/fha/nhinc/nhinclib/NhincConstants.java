@@ -524,6 +524,9 @@ public class NhincConstants {
     public static final String KEEP_ALIVE_PROP = "connectionKeepAlive";
     public static final String READ_HTTP_HEADERS = "readHttpHeaders";
 
+    public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
+    public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+
     private NhincConstants() {
     }
 }

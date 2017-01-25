@@ -66,6 +66,8 @@ import org.opensaml.xmlsec.signature.support.Signer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.opensaml.core.xml.io.MarshallingException;
 
 /**
  * @author bhumphrey
@@ -94,9 +96,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     @Override
-    public Element build(final CallbackProperties properties) throws Exception {
+    public Element build(final CallbackProperties properties) throws SAMLAssertionBuilderException {
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20()");
-        Element signedAssertion;
+        Element signedAssertion = null;
         try {
             Assertion assertion;
             assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
@@ -133,9 +135,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
             // sign the message
             signedAssertion = sign(assertion, certificate, privateKey, publicKey);
-        } catch (final Exception ex) {
+        } catch (final SAMLComponentBuilderException ex) {
             LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
-            throw ex;
+        	throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
+        } catch (final CertificateManagerException ex) {
+        	LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
+        	throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
         }
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20() -- End");
         return signedAssertion;
@@ -150,20 +155,21 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     protected Element sign(final Assertion assertion, final X509Certificate certificate, final PrivateKey privateKey, final PublicKey publicKey)
-            throws Exception {
-        final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
-                publicKey);
-        final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
-
-        wrapper.setSignature(signature, SignatureConstants.ALGO_ID_DIGEST_SHA1);
-        final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
-        final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
-        final Element assertionElement = marshaller.marshall(wrapper.getSamlObject());
+            throws SAMLAssertionBuilderException {
+    	Element assertionElement = null;
         try {
+    	    final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
+                publicKey);
+            final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
+
+            wrapper.setSignature(signature, SignatureConstants.ALGO_ID_DIGEST_SHA1);
+            final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
+            final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
+            assertionElement = marshaller.marshall(wrapper.getSamlObject());
             Signer.signObject(signature);
-        } catch (final SignatureException e) {
+        } catch (final SignatureException | org.apache.wss4j.common.ext.WSSecurityException | org.opensaml.core.xml.io.MarshallingException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage());
-            throw new Exception(e);
+            throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
         }
         return assertionElement;
 
@@ -199,7 +205,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     protected Subject createSubject(final CallbackProperties properties, final X509Certificate certificate, final PublicKey publicKey)
-            throws Exception {
+            throws SAMLComponentBuilderException {
         String x509Name = properties.getUsername();
 
         if (NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) {
@@ -228,7 +234,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     protected Subject createEvidenceSubject(final CallbackProperties properties, final X509Certificate certificate,
-            final PublicKey publicKey) throws Exception {
+            final PublicKey publicKey) throws SAMLComponentBuilderException {
 
         final String evidenceSubject = properties.getEvidenceSubject();
         String x509Name;
@@ -248,7 +254,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     protected Subject createSubject(final String x509Name, final X509Certificate certificate, final PublicKey publicKey)
-            throws Exception {
+            throws SAMLComponentBuilderException {
 
         return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, certificate, publicKey);
     }
