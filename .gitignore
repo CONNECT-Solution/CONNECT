@@ -55,5 +55,3 @@ nbactions.xml
 .idea/
 *.iml
 *.iws
-gateway.properties
-Product/Production/Common/Properties/localhost.cer
