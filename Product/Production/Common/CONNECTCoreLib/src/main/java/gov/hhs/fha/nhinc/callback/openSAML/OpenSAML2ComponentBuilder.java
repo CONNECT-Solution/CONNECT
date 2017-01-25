@@ -458,17 +458,22 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param certificate the certificate
      * @param publicKey the public key
      * @return the subject
-     * @throws Exception the exception
+     * @throws SAMLComponentBuilderException the exception
      */
-    public Subject createSubject(final String x509Name, final X509Certificate certificate, final PublicKey publicKey) throws Exception {
-        //Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
-        final SubjectBean subjectBean = new SubjectBean();
-        final Subject subject = SAML2ComponentBuilder.createSaml2Subject(subjectBean);
-        subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-        subject.getSubjectConfirmations().remove(0);// remove send-vouches
-        final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(certificate, publicKey);
-        final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
-        subject.getSubjectConfirmations().add(subjectConfirmation);
+    public Subject createSubject(final String x509Name, final X509Certificate certificate, final PublicKey publicKey) throws SAMLComponentBuilderException {
+    	Subject subject = null;
+    	try {
+            final SubjectBean subjectBean = new SubjectBean();
+            subject = SAML2ComponentBuilder.createSaml2Subject(subjectBean);
+            subject.setNameID(createNameID(X509_NAME_ID, x509Name));
+            subject.getSubjectConfirmations().remove(0);// remove send-vouches
+            final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(certificate, publicKey);
+            final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
+            subject.getSubjectConfirmations().add(subjectConfirmation);
+    	} catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
+    		LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
+    		throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
+    	}
         return subject;
     }
 
@@ -477,18 +482,12 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      *
      * @param subjectConfirmationData the subject confirmation data
      * @return the subject confirmation
-     * @throws Exception the exception
+     * @throws SAMLComponentBuilderException the exception
      */
     private SubjectConfirmation createHoKConfirmation(final SubjectConfirmationData subjectConfirmationData)
-            throws Exception {
-        /*SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(
-                SubjectConfirmation.DEFAULT_ELEMENT_NAME);*/
+            throws SAMLComponentBuilderException {
         return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_HOLDER_OF_KEY, subjectConfirmationData);
-        /*subjectConfirmation.setMethod(org.opensaml.saml2.core.SubjectConfirmation.METHOD_HOLDER_OF_KEY);
-        subjectConfirmation.setSubjectConfirmationData(subjectConfirmationData);
-
-        return subjectConfirmation;
-         */    }
+    }
 
     /**
      * Creates the subject confirmation data.
@@ -496,23 +495,22 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param certificate the certificate
      * @param publicKey the public key
      * @return the subject confirmation data
-     * @throws Exception the exception
+     * @throws SAMLComponentBuilderException the exception
      */
     private SubjectConfirmationData createSubjectConfirmationData(final X509Certificate certificate, final PublicKey publicKey)
-            throws Exception {
-        /* SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(
-                SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
-        subjectConfirmationData.getUnknownXMLObjects().add(getKeyInfo(certificate, publicKey));
-        return subjectConfirmationData;*/
-        final SubjectConfirmationDataBean subjectConfirmationDataBean = new SubjectConfirmationDataBean();
-        final KeyInfoBean keyInforBean = new KeyInfoBean();
-        // keyInforBean.setCertificate(certificate);
-        keyInforBean.setPublicKey(publicKey);
+            throws SAMLComponentBuilderException {
+    	SubjectConfirmationData subjectConfirmationData = null;
+    	try {
+    	    final SubjectConfirmationDataBean subjectConfirmationDataBean = new SubjectConfirmationDataBean();
+            final KeyInfoBean keyInforBean = new KeyInfoBean();
+            keyInforBean.setPublicKey(publicKey);
 
-        final SubjectConfirmationData subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean, keyInforBean);
+            subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean, keyInforBean);
+    	} catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
+    		LOG.error(e.getLocalizedMessage());
+    		throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
+    	}
 
-        /*subjectConfirmationData.getUnknownXMLObjects().add(getKeyInfo(certificate, publicKey));
-        return subjectConfirmationData;*/
         return subjectConfirmationData;
     }
 
@@ -522,38 +520,39 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param certificate the certificate
      * @param publicKey the public key
      * @return the key info
-     * @throws Exception the exception
+     * @throws SAMLComponentBuilderException the exception
      */
 
-    public KeyInfo getKeyInfo(final X509Certificate certificate, final PublicKey publicKey) throws Exception {
-        /*KeyInfo ki = (KeyInfo) createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
-
-        BasicX509Credential credential = new BasicX509Credential();
-        credential.setEntityCertificate(certificate);
-
-        KeyInfoHelper.addPublicKey(ki, publicKey);
-        // KeyInfoHelper.addCertificate(ki, certificate);
-        return ki;*/
+    public KeyInfo getKeyInfo(final X509Certificate certificate, final PublicKey publicKey) throws SAMLComponentBuilderException {
         final KeyInfoBean keyInfoBean = new KeyInfoBean();
+        KeyInfo keyInfo = null;
         keyInfoBean.setPublicKey(publicKey);
-        return SAML1ComponentBuilder.createKeyInfo(keyInfoBean);
-        /*
-         * final KeyInfoBuilder keyInforBuilder = new KeyInfoBuilder(); final KeyInfo ki =
-         * keyInforBuilder.buildObject();
-         *
-         * return ki;
-         */}
+        try {
+          keyInfo = SAML1ComponentBuilder.createKeyInfo(keyInfoBean);
+        } catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
+        	LOG.error(e.getLocalizedMessage(), e);
+        	throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
+        }
+
+        return keyInfo;
+    }
 
     /**
      * Gets the public key.
      *
      * @return the public key
-     * @throws Exception the exception
+     * @throws SAMLComponentBuilderException the exception
      */
-    public PublicKey getPublicKey() throws Exception {
+    public PublicKey getPublicKey() throws SAMLComponentBuilderException {
         final CertificateManager cm = CertificateManagerImpl.getInstance();
+        X509Certificate certificate = null;
 
-        final X509Certificate certificate = cm.getDefaultCertificate();
+        try {
+          certificate = cm.getDefaultCertificate();
+        } catch (CertificateManagerException e) {
+        	LOG.error(e.getLocalizedMessage(), e);
+        	throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
+        }
         return certificate.getPublicKey();
     }
 
@@ -908,25 +907,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param privateKey the private key
      * @param publicKey the public key
      * @return the signature
-     * @throws Exception the exception
+     * @throws SAMLComponentBuilderException the exception
      */
     public Signature createSignature(final X509Certificate certificate, final PrivateKey privateKey, final PublicKey publicKey)
-            throws Exception {
-        /*BasicX509Credential credential = new BasicX509Credential();
-
-        credential.setEntityCertificate(certificate);
-        credential.setPrivateKey(privateKey);
-        Signature signature = (Signature) createOpenSAMLObject(Signature.DEFAULT_ELEMENT_NAME);
-        signature.setSigningCredential(credential);
-        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
-        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-        signature.setKeyInfo(getKeyInfo(certificate, publicKey));
-        return signature;*/
-        //SAML2ComponentBuilder.createProxyRestriction(proxyRestrictionBean)
-        /*XMLObjectProviderRegistry xmlObjectRegistry = ConfigurationService.get(XMLObjectProviderRegistry.class);
-        XMLObjectBuilderFactory builderFactory = xmlObjectRegistry.getBuilderFactory();*/
-        /*signature = (Signature) Configuration.getBuilderFactory().getBuilder(Signature.DEFAULT_ELEMENT_NAME)
-                .buildObject(Signature.DEFAULT_ELEMENT_NAME);*/
+            throws SAMLAssertionBuilderException {
         final BasicX509Credential credential = new BasicX509Credential(certificate, privateKey);
         credential.setEntityCertificate(certificate);
         credential.setPrivateKey(privateKey);
@@ -938,10 +922,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
 
-        // signature.setSignatureAlgorithm(XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256);
-        // signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA256);
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-        signature.setKeyInfo(getKeyInfo(certificate, publicKey));
+        try {
+            signature.setKeyInfo(getKeyInfo(certificate, publicKey));
+        } catch (Exception ex) {
+        	LOG.error("Get HL7 Prefix Property exception: {}", ex.getLocalizedMessage(), ex);
+        	throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
+        }
         return signature;
 
 
