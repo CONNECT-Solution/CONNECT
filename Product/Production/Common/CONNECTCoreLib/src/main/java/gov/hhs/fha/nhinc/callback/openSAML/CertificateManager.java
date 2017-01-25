@@ -55,9 +55,9 @@ public interface CertificateManager {
      * @param request The SignatureKeyCallback request object
      * @throws Exception
      */
-    public abstract X509Certificate getDefaultCertificate() throws Exception;
+    public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
 
-    public abstract PrivateKey getDefaultPrivateKey() throws Exception;
+    public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
 
     /**
      * @return
