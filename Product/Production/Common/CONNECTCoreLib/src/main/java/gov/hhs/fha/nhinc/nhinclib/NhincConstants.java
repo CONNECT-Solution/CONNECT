@@ -520,6 +520,9 @@ public class NhincConstants {
     public static final String MSG_MONITOR_HIBERNATE_BEAN = "msgMonitorHibernateUtil";
     public static final String DIRECT_CONFIG_HIBERNATE_BEAN = "directConfigHibernateUtil";
 
+    public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
+    public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+
     private NhincConstants() {
     }
 }
