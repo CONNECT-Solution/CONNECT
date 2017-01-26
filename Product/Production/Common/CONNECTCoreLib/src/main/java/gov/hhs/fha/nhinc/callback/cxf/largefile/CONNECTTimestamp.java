@@ -47,7 +47,7 @@ public class CONNECTTimestamp extends Timestamp {
      */
     public CONNECTTimestamp(Element timestampElement) throws WSSecurityException {
         super(timestampElement, new BSPEnforcer());
-        
+
     }
 
     /**
@@ -69,11 +69,8 @@ public class CONNECTTimestamp extends Timestamp {
      */
     public boolean isExpired(Date invocationDate) {
         if (getExpires() != null) {
-            if (invocationDate == null) {
-                invocationDate = new Date();
-            }
-
-            return getExpires().before(invocationDate);
+            Date date = invocationDate == null ? new Date() : invocationDate;
+            return getExpires().before(date);
         }
         return false;
     }
@@ -89,38 +86,61 @@ public class CONNECTTimestamp extends Timestamp {
      * @return true if the timestamp is before (now-timeToLive), false otherwise
      */
     public boolean verifyCreated(int timeToLive, int futureTimeToLive, Date invocationDate) {
-        if (invocationDate == null) {
-            invocationDate = new Date();
+        Date date = invocationDate == null ? new Date() : invocationDate;
+
+        long invocationTime = date.getTime();
+        if (futureTimeToLive > 0) {
+            date.setTime(invocationTime + futureTimeToLive * 1000);
         }
 
-        long invocationTime = invocationDate.getTime();
-        if (futureTimeToLive > 0) {
-            invocationDate.setTime(invocationTime + futureTimeToLive * 1000);
-        }
         // Check to see if the created time is in the future
-        if (getCreated() != null && getCreated().after(invocationDate)) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Validation of Timestamp: The message was created in the future!");
-            }
+        if (! verifyCreatedAfter(date)) {
             return false;
         }
 
         // Calculate the time that is allowed for the message to travel
         invocationTime -= timeToLive * 1000;
-        invocationDate.setTime(invocationTime);
+        date.setTime(invocationTime);
 
         // Validate the time it took the message to travel
-        if (getCreated() != null && getCreated().before(invocationDate)) {
+        if (! verifyCreatedBefore(date)) {
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Validation of Timestamp: The message was created too long ago");
+                LOG.debug("Validation of Timestamp: Everything is ok");
             }
             return false;
         }
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Validation of Timestamp: Everything is ok");
-        }
         return true;
+    }
+
+    /**
+     * Checks if created time is in the future
+     */
+    private boolean verifyCreatedAfter(Date date) {
+        // Check to see if the created time is in the future
+        if (getCreated() != null && getCreated().after(date)) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Validation of Timestamp: The message was created in the future!");
+            }
+           return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Checks if created time is in the past
+     */
+    private boolean verifyCreatedBefore(Date date) {
+        // Validate the time it took the message to travel
+        if (getCreated() != null && getCreated().before(date)) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Validation of Timestamp: The message was created too long ago");
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
