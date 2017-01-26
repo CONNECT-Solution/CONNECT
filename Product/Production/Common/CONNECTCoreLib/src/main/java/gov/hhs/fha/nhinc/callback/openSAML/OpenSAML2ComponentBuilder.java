@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -36,9 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.xml.namespace.QName;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.saml.OpenSAMLUtil;
 import org.apache.wss4j.common.saml.bean.ActionBean;
@@ -78,11 +80,6 @@ import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 /**
  * The Class OpenSAML2ComponentBuilder.
  *
@@ -90,28 +87,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
-	/**
-	 * The authn statement builder.
-	 */
-
-	/**
-	 * The authn context builder.
-	 */
-
-	/**
-	 * The authn context class ref builder.
-	 */
-	// private final SAMLObjectBuilder<AuthnContextClassRef>
-	// authnContextClassRefBuilder;
-
-	/**
-	 * The attribute statement builder.
-	 */
 	private final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
-
-	/**
-	 * The attribute builder.
-	 */
 
 	/**
 	 * The Constant X509_NAME_ID.
@@ -724,7 +700,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 			return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
 					NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
 		} catch (final PropertyAccessException ex) {
-			LOG.warn(ex.getLocalizedMessage());
 			LOG.trace("Get HL7 Prefix Property exception: {}", ex.getLocalizedMessage(), ex);
 		}
 		return false;

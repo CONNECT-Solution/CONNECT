@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -35,10 +41,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
@@ -62,13 +67,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
-import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
-import gov.hhs.fha.nhinc.callback.SamlConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 /**
  * @author bhumphrey
  *
@@ -78,8 +76,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 	private static final Logger LOG = LoggerFactory.getLogger(HOKSAMLAssertionBuilder.class);
 	private final CertificateManager certificateManager;
 
-	/**
-	 */
 	public HOKSAMLAssertionBuilder() {
 		certificateManager = CertificateManagerImpl.getInstance();
 	}
@@ -135,10 +131,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			final PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
 			// sign the message
 			signedAssertion = sign(assertion, certificate, privateKey, publicKey);
-		} catch (final SAMLComponentBuilderException ex) {
-			LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
-			throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
-		} catch (final CertificateManagerException ex) {
+		} catch (final SAMLComponentBuilderException | CertificateManagerException ex) {
 			LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
 			throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
 		}
@@ -183,9 +176,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		if (format != null) {
 			LOG.debug("Setting Assertion Issuer format to: {}", format);
 			final String sIssuer = properties.getIssuer();
-
 			LOG.debug("Setting Assertion Issuer to: {}", sIssuer);
-
 			if (isValidNameidFormat(format)) {
 				issuer = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
 			} else {
@@ -215,10 +206,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			x509Name = certificate.getSubjectDN().getName();
 
 		}
-		return createSubject(x509Name,  publicKey);
+		return createSubject(x509Name, publicKey);
 	}
 
 	/**
+	 * Checks Distinguished Name, method have to be static, since it's private
+	 * and no Instance variables are used, as per Sonar.
 	 *
 	 * @param userName
 	 * @return boolean
@@ -252,7 +245,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		} else {
 			x509Name = evidenceSubject;
 		}
-		return createSubject(x509Name, publicKey);
+		return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
 	}
 
 	protected Subject createSubject(final String x509Name, final PublicKey publicKey)
@@ -261,9 +254,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
 	}
 
-	/**
-	 * @return
-	 */
 	@SuppressWarnings("unchecked")
 	public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject) {
 		final List<Statement> statements = new ArrayList<>();
@@ -278,14 +268,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		statements.addAll(createPurposeOfUseStatements(properties));
 		statements.addAll(createNPIAttributeStatements(properties));
 		statements.addAll(createAuthenicationDecsionStatements(properties, subject));
-
 		return statements;
 	}
 
-	/**
-	 * @param properties
-	 * @return
-	 */
 	protected Collection<AttributeStatement> createOrganizationIdAttributeStatements(
 			final CallbackProperties properties) {
 		LOG.debug("SamlCallbackHandler.createOrganizationIdAttributeStatements() -- Begin");
@@ -294,12 +279,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		// Set the Organization ID Attribute
 		final String organizationId = properties.getUserOrganizationId();
 		if (organizationId != null) {
-
 			statements = OpenSAML2ComponentBuilder.getInstance().createOrganizationIdAttributeStatement(organizationId);
 		} else {
 			LOG.debug("Home Community ID is missing");
 		}
-
 		return statements;
 	}
 
@@ -539,7 +522,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		final List<String> userNameValues = new ArrayList<>();
 		final String nameConstruct = properties.getUserFullName();
 
-		if (nameConstruct.length() > 0) {
+		if (StringUtils.length(nameConstruct) > 0) {
 			LOG.debug("UserName: {}", nameConstruct);
 
 			userNameValues.add(nameConstruct);
