@@ -289,8 +289,7 @@ public class HOKSAMLAssertionBuilderTest {
         final AttributeStatement e = mock(AttributeStatement.class);
         final List<AttributeStatement> statements = new ArrayList<>();
         statements.add(0, e);
-        final Evidence evidence1 = builder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime,
-                issuer, statements, subject);
+        final Evidence evidence1 = builder.buildEvidence(new BuildEvidenceParameter(evAssertionID, issueInstant, format, beginValidTime, endValidTime, issuer, statements, subject));
         assertTrue(evidence1.getAssertions().get(0).getID().startsWith("_"));
     }
 
