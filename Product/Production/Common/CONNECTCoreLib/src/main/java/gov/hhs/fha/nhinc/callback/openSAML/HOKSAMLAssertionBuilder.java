@@ -168,10 +168,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		return assertionElement;
 
 	}
-
 	protected Issuer createIssuer(final CallbackProperties properties) {
 		Issuer issuer;
-
 		final String format = properties.getAssertionIssuerFormat();
 		if (format != null) {
 			LOG.debug("Setting Assertion Issuer format to: {}", format);
