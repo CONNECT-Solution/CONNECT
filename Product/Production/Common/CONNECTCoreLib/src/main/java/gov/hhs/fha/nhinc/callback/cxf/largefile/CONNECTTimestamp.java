@@ -93,7 +93,8 @@ public class CONNECTTimestamp extends Timestamp {
             date.setTime(invocationTime + futureTimeToLive * 1000);
         }
 
-        if (isCreatedTimeInFuture(date)) {
+        // Check to see if the created time is in the future
+        if (! verifyCreatedAfter(date)) {
             return false;
         }
 
@@ -101,46 +102,45 @@ public class CONNECTTimestamp extends Timestamp {
         invocationTime -= timeToLive * 1000;
         date.setTime(invocationTime);
 
-        if (validateMessageTravelTime(date)) {
+        // Validate the time it took the message to travel
+        if (! verifyCreatedBefore(date)) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Validation of Timestamp: Everything is ok");
+            }
             return false;
         }
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Validation of Timestamp: Everything is ok");
-        }
         return true;
     }
 
     /**
-     * 
+     * Checks if created time is in the future
      */
-    private boolean isCreatedTimeInFuture(Date date) {
-        boolean bool = true;
+    private boolean verifyCreatedAfter(Date date) {
         // Check to see if the created time is in the future
         if (getCreated() != null && getCreated().after(date)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Validation of Timestamp: The message was created in the future!");
             }
-            bool = false;
+           return false;
+        } else {
+            return true;
         }
-
-        return bool;
     }
 
     /**
-     * 
+     * Checks if created time is in the past
      */
-    private boolean validateMessageTravelTime(Date date) {
-        boolean bool = true;
+    private boolean verifyCreatedBefore(Date date) {
         // Validate the time it took the message to travel
         if (getCreated() != null && getCreated().before(date)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Validation of Timestamp: The message was created too long ago");
             }
-            bool = false;
+            return false;
+        } else {
+            return true;
         }
-
-        return bool;
     }
 
 }
