@@ -27,7 +27,7 @@ By advancing the adoption of interoperable health IT systems and health informat
         <!-- CONNECT Dependency Versions -->
         <connect.webservices.version>4.4.0-SNAPSHOT</connect.webservices.version>
         <connect.commontypes.version>4.4.0-SNAPSHOT</connect.commontypes.version>
-        <cxf.version>3.1.8</cxf.version>
+        <cxf.version>3.1.9</cxf.version>
         <spring.version>4.1.9.RELEASE</spring.version>
         <slf4j.version>1.7.13</slf4j.version>
         <openam.version>10.0.1</openam.version>
@@ -36,8 +36,8 @@ By advancing the adoption of interoperable health IT systems and health informat
 		<hibernate.version>5.1.0.Final</hibernate.version>
 
         <!-- SCA and Reporting Plugin Versions -->
-        <surefire.version>2.13</surefire.version>
-        <surefire.report.version>2.12.4</surefire.report.version>
+        <surefire.version>2.19.1</surefire.version>
+        <surefire.report.version>2.19.1</surefire.report.version>
         <checkstyle.version>2.16</checkstyle.version>
         <findbugs.version>3.0.1</findbugs.version>
         <findsecbugs.version>1.4.1</findsecbugs.version>

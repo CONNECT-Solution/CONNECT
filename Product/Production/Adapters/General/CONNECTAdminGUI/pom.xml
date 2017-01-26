@@ -11,10 +11,6 @@
     <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <cxf.version>3.1.8</cxf.version>
-    </properties>
-
     <dependencies>
         <!-- Java EE APIs -->
         <dependency>
