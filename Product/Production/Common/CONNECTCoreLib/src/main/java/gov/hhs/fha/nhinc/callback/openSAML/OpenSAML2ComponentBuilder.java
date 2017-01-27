@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.xml.namespace.QName;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.saml.OpenSAMLUtil;
 import org.apache.wss4j.common.saml.bean.ActionBean;
@@ -87,6 +88,9 @@ import org.slf4j.LoggerFactory;
  */
 public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
+    /**
+     * The Constant attributeStatementBuilder.
+     */
     private final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
 
     /**
@@ -100,34 +104,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     private static final String DEFAULT_ISSUER_VALUE = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
 
     /**
-     * The assertion builder.
-     */
-
-    /**
-     * The name id builder.
-     */
-
-    /**
-     * The conditions builder.
-     */
-
-    /**
-     * The action element builder.
-     */
-
-    /**
-     * The authorization decision statement builder.
-     */
-
-    /**
-     * The string builder.
-     */
-
-    /**
      * The evidence builder.
      */
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
 
+    /**
+     * The xsAnyBuilder.
+     */
     private final XSAnyBuilder xsAnyBuilder;
 
     /**
@@ -146,8 +129,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     /**
      * Instantiates a new open sam l2 component builder.
-     *
-     *
      */
     private OpenSAML2ComponentBuilder() {
         OpenSAMLUtil.initSamlEngine();
@@ -225,8 +206,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         final AuthDecisionStatementBean authzBean = new AuthDecisionStatementBean();
         final ActionBean actionBean = new ActionBean();
-        final String ActionNamespaceString = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
-        actionBean.setActionNamespace(ActionNamespaceString);
+        actionBean.setActionNamespace(NhincConstants.ACTION_NAMESPACE_STRING);
         actionBean.setContents(action);
         authzBean.setActions(Collections.singletonList(actionBean));
         authzBean.setResource(resource);
@@ -239,9 +219,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     /**
      * Creates the assertion.
-     *
      * @param uuid
-     *            the uuid
      * @return the assertion
      */
     public Assertion createAssertion(final String uuid) {
@@ -254,12 +232,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the name id.
      *
-     * @param qualifier
-     *            the qualifier
-     * @param format
-     *            the format
-     * @param value
-     *            the value
+     * @param qualifier the qualifier
+     * @param format the format
+     * @param value the value
      * @return the name id
      */
     @SuppressWarnings("unchecked")
@@ -325,12 +300,22 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
             subject.getSubjectConfirmations().add(subjectConfirmation);
         } catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
-            LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
+            LOG.error(getMessage(), e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
         return subject;
     }
 
+    /**
+     * Returns error message for createSubject method above
+     */
+    private static String getMessage() {
+        return "Unable to create Saml2Subject ";
+    }
+
+    /**
+     * Returns subject Confirmation Data
+     */
     private static SubjectConfirmation createHoKConfirmation(final SubjectConfirmationData subjectConfirmationData)
         throws SAMLComponentBuilderException {
         return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_HOLDER_OF_KEY,
@@ -565,7 +550,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     List<AttributeStatement> createAttributeStatement(final List<Attribute> attributes) {
         final List<AttributeStatement> attributeStatements = new ArrayList<>();
-        if (!attributes.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(attributes)) {
 
             final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
             for (final Attribute attribute : attributes) {
@@ -610,14 +595,15 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         List<AttributeStatement> statements = new ArrayList<>();
 
         final List<Attribute> attributes = new ArrayList<>();
-        final String accessConsentPolicyString = "AccessConsentPolicy";
-        final String instantAccessConsentPolicyString = "InstanceAccessConsentPolicy";
+
         if (accessConstentValues != null) {
-            attributes.add(createAttribute(null, accessConsentPolicyString, namespace, accessConstentValues));
+            attributes
+            .add(createAttribute(null, NhincConstants.ACCESS_CONSENT_POLICY_STRING, namespace,
+                accessConstentValues));
         }
 
         if (evidenceInstanceAccessConsentValues != null) {
-            attributes.add(createAttribute(null, instantAccessConsentPolicyString, namespace,
+            attributes.add(createAttribute(null, NhincConstants.INSTANCE_ACCESS_CONSENT_POLICY_STRING, namespace,
                 evidenceInstanceAccessConsentValues));
         }
         if (!attributes.isEmpty()) {
