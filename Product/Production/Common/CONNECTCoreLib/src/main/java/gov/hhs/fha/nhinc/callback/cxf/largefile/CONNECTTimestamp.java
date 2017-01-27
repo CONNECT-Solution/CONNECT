@@ -94,7 +94,7 @@ public class CONNECTTimestamp extends Timestamp {
         }
 
         // Check to see if the created time is in the future
-        if (! verifyCreatedAfter(date)) {
+        if (!verifyCreatedAfter(date)) {
             return false;
         }
 
@@ -103,7 +103,7 @@ public class CONNECTTimestamp extends Timestamp {
         date.setTime(invocationTime);
 
         // Validate the time it took the message to travel
-        if (! verifyCreatedBefore(date)) {
+        if (!verifyCreatedBefore(date)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Validation of Timestamp: Everything is ok");
             }
@@ -122,7 +122,7 @@ public class CONNECTTimestamp extends Timestamp {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Validation of Timestamp: The message was created in the future!");
             }
-           return false;
+            return false;
         } else {
             return true;
         }
