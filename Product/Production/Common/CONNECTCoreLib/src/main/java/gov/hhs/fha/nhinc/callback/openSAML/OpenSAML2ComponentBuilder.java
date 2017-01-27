@@ -161,16 +161,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Create Authentication Statements.
      *
-     * @param cntxCls
-     *            the cntx cls
-     * @param sessionIndex
-     *            the session index
-     * @param authInstant
-     *            the auth instant
-     * @param inetAddr
-     *            the inet addr
-     * @param dnsName
-     *            the dns name
+     * @param cntxCls the cntx cls
+     * @param sessionIndex the session index
+     * @param authInstant the auth instant
+     * @param inetAddr the inet addr
+     * @param dnsName the dns name
      * @return an Authn Statement
      */
     @Override
@@ -191,14 +186,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the authz decision statement.
      *
-     * @param resource
-     *            the resource
-     * @param decisionTxt
-     *            the decision txt
-     * @param action
-     *            the action
-     * @param evidence
-     *            the evidence
+     * @param resource the resource
+     * @param decisionTxt the decision txt
+     * @param action the action
+     * @param evidence the evidence
      * @return the authz decision statement
      */
     public AuthzDecisionStatement createAuthzDecisionStatement(final String resource, final String decisionTxt,
@@ -219,6 +210,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     /**
      * Creates the assertion.
+     *
      * @param uuid
      * @return the assertion
      */
@@ -251,10 +243,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the name id.
      *
-     * @param format
-     *            the format
-     * @param value
-     *            the value
+     * @param format the format
+     * @param value the value
      * @return the name id
      */
     private NameID createNameID(final String format, final String value) {
@@ -264,10 +254,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the issuer.
      *
-     * @param format
-     *            the format
-     * @param sIssuer
-     *            the s issuer
+     * @param format the format
+     * @param sIssuer the s issuer
      * @return the issuer
      */
     public Issuer createIssuer(final String format, final String sIssuer) {
@@ -325,13 +313,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the subject confirmation data.
      *
-     * @param certificate
-     *            the certificate
-     * @param publicKey
-     *            the public key
+     * @param certificate the certificate
+     * @param publicKey the public key
      * @return the subject confirmation data
-     * @throws SAMLComponentBuilderException
-     *             the exception
+     * @throws SAMLComponentBuilderException the exception
      */
     private static SubjectConfirmationData createSubjectConfirmationData(final PublicKey publicKey)
         throws SAMLComponentBuilderException {
@@ -354,13 +339,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Gets the key info.
      *
-     * @param certificate
-     *            the certificate
-     * @param publicKey
-     *            the public key
+     * @param certificate the certificate
+     * @param publicKey the public key
      * @return the key info
-     * @throws SAMLComponentBuilderException
-     *             the exception
+     * @throws SAMLComponentBuilderException the exception
      */
 
     public KeyInfo getKeyInfo(final PublicKey publicKey) throws SAMLComponentBuilderException {
@@ -381,8 +363,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * Gets the public key.
      *
      * @return the public key
-     * @throws SAMLComponentBuilderException
-     *             the exception
+     * @throws SAMLComponentBuilderException the exception
      */
     public PublicKey getPublicKey() throws SAMLComponentBuilderException {
         final CertificateManager cm = CertificateManagerImpl.getInstance();
@@ -410,12 +391,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the conditions.
      *
-     * @param notBefore
-     *            the not before
-     * @param notAfter
-     *            the not after
-     * @param audienceURI
-     *            the audience uri
+     * @param notBefore the not before
+     * @param notAfter the not after
+     * @param audienceURI the audience uri
      * @return the conditions
      */
     public Conditions createConditions(final DateTime notBefore, final DateTime notAfter) {
@@ -429,12 +407,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the attribute.
      *
-     * @param friendlyName
-     *            the friendly name
-     * @param name
-     *            the name
-     * @param nameFormat
-     *            the name format
+     * @param friendlyName the friendly name
+     * @param name the name
+     * @param nameFormat the name format
      * @return the attribute
      */
     Attribute createAttribute(final String friendlyName, final String name, final String nameFormat) {
@@ -446,14 +421,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the attribute.
      *
-     * @param friendlyName
-     *            the friendly name
-     * @param name
-     *            the name
-     * @param nameFormat
-     *            the name format
-     * @param values
-     *            the values
+     * @param friendlyName the friendly name
+     * @param name the name
+     * @param nameFormat the name format
+     * @param values the values
      * @return the attribute
      */
     Attribute createAttribute(final String friendlyName, final String name, final String nameFormat,
@@ -464,12 +435,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the any.
      *
-     * @param namespace
-     *            the namespace
-     * @param name
-     *            the name
-     * @param prefix
-     *            the prefix
+     * @param namespace the namespace
+     * @param name the name
+     * @param prefix the prefix
      * @return the xS any
      */
 
@@ -481,14 +449,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the any.
      *
-     * @param namespace
-     *            the namespace
-     * @param name
-     *            the name
-     * @param prefix
-     *            the prefix
-     * @param attributes
-     *            the attributes
+     * @param namespace the namespace
+     * @param name the name
+     * @param prefix the prefix
+     * @param attributes the attributes
      * @return the xS any
      */
     XSAny createAny(final String namespace, final String name, final String prefix,
@@ -506,14 +470,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the attribute value.
      *
-     * @param namespace
-     *            the namespace
-     * @param name
-     *            the name
-     * @param prefix
-     *            the prefix
-     * @param attributes
-     *            the attributes
+     * @param namespace the namespace
+     * @param name the name
+     * @param prefix the prefix
+     * @param attributes the attributes
      * @return the xS any
      */
     XSAny createAttributeValue(final String namespace, final String name, final String prefix,
@@ -526,8 +486,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the attribute value.
      *
-     * @param values
-     *            the values
+     * @param values the values
      * @return the xS any
      */
 
@@ -543,8 +502,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the attribute statement.
      *
-     * @param attributes
-     *            the attributes
+     * @param attributes the attributes
      * @return the list
      */
 
@@ -567,8 +525,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the evidence.
      *
-     * @param assertions
-     *            the assertions
+     * @param assertions the assertions
      * @return the evidence
      */
 
@@ -582,12 +539,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the evidence statements.
      *
-     * @param accessConstentValues
-     *            the access constent values
-     * @param evidenceInstanceAccessConsentValues
-     *            the evidence instance access consent values
-     * @param namespace
-     *            the namespace
+     * @param accessConstentValues the access constent values
+     * @param evidenceInstanceAccessConsentValues the evidence instance access consent values
+     * @param namespace the namespace
      * @return the list
      */
     public List<AttributeStatement> createEvidenceStatements(final List accessConstentValues,
@@ -597,13 +551,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final List<Attribute> attributes = new ArrayList<>();
 
         if (accessConstentValues != null) {
-            attributes
-            .add(createAttribute(null, NhincConstants.ACCESS_CONSENT_POLICY_STRING, namespace,
-                accessConstentValues));
+            attributes.add(createAttribute(null, NhincConstants.ACCESS_CONSENT_ATTR, namespace, accessConstentValues));
         }
 
         if (evidenceInstanceAccessConsentValues != null) {
-            attributes.add(createAttribute(null, NhincConstants.INSTANCE_ACCESS_CONSENT_POLICY_STRING, namespace,
+            attributes.add(createAttribute(null, NhincConstants.INST_ACCESS_CONSENT_ATTR, namespace,
                 evidenceInstanceAccessConsentValues));
         }
         if (!attributes.isEmpty()) {
@@ -616,14 +568,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the user role attribute.
      *
-     * @param userCode
-     *            the user code
-     * @param userSystem
-     *            the user system
-     * @param userSystemName
-     *            the user system name
-     * @param userDisplay
-     *            the user display
+     * @param userCode the user code
+     * @param userSystem the user system
+     * @param userSystemName the user system name
+     * @param userDisplay the user display
      * @return the attribute
      */
     public Attribute createUserRoleAttribute(final String userCode, final String userSystem,
@@ -637,16 +585,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the h l7 attribute.
      *
-     * @param name
-     *            the name
-     * @param code
-     *            the code
-     * @param codeSystem
-     *            the code system
-     * @param codeSystemName
-     *            the code system name
-     * @param displayName
-     *            the display name
+     * @param name the name
+     * @param code the code
+     * @param codeSystem the code system
+     * @param codeSystemName the code system name
+     * @param displayName the display name
      * @return the xS any
      */
     public XSAny createHL7Attribute(final String name, final String code, final String codeSystem,
@@ -696,8 +639,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the patient id attribute.
      *
-     * @param patientId
-     *            the patient id
+     * @param patientId the patient id
      * @return the attribute
      */
     public Attribute createPatientIDAttribute(final String patientId) {
@@ -707,8 +649,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the npi attribute.
      *
-     * @param npi
-     *            the npi
+     * @param npi the npi
      * @return the attribute
      */
     public Attribute createNPIAttribute(final String npi) {
@@ -718,8 +659,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the home communit attribute statement.
      *
-     * @param communityId
-     *            the community id
+     * @param communityId the community id
      * @return the list
      */
     public List<AttributeStatement> createHomeCommunitAttributeStatement(final String communityId) {
@@ -734,8 +674,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the home community attribute.
      *
-     * @param communityId
-     *            the community id
+     * @param communityId the community id
      * @return the attribute
      */
     Attribute createHomeCommunityAttribute(final String communityId) {
@@ -745,15 +684,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the signature.
      *
-     * @param certificate
-     *            the certificate
-     * @param privateKey
-     *            the private key
-     * @param publicKey
-     *            the public key
+     * @param certificate the certificate
+     * @param privateKey the private key
+     * @param publicKey the public key
      * @return the signature
-     * @throws SAMLComponentBuilderException
-     *             the exception
+     * @throws SAMLComponentBuilderException the exception
      */
     public Signature createSignature(final X509Certificate certificate, final PrivateKey privateKey,
         final PublicKey publicKey) throws SAMLAssertionBuilderException {
@@ -780,14 +715,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * PurposeOfUse attribute statements.
      *
-     * @param purposeCode
-     *            the purpose code
-     * @param purposeSystem
-     *            the purpose system
-     * @param purposeSystemName
-     *            the purpose system name
-     * @param purposeDisplay
-     *            the purpose display
+     * @param purposeCode the purpose code
+     * @param purposeSystem the purpose system
+     * @param purposeSystemName the purpose system name
+     * @param purposeDisplay the purpose display
      * @return the list
      */
     public List<AttributeStatement> createPurposeOfUseAttributeStatements(final String purposeCode,
@@ -803,14 +734,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * PurposeForUse attribute statements.
      *
-     * @param purposeCode
-     *            the purpose code
-     * @param purposeSystem
-     *            the purpose system
-     * @param purposeSystemName
-     *            the purpose system name
-     * @param purposeDisplay
-     *            the purpose display
+     * @param purposeCode the purpose code
+     * @param purposeSystem the purpose system
+     * @param purposeSystemName the purpose system name
+     * @param purposeDisplay the purpose display
      * @return the list
      */
     public List<AttributeStatement> createPurposeForUseAttributeStatements(final String purposeCode,
@@ -825,14 +752,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the purpose of use attribute.
      *
-     * @param purposeCode
-     *            the purpose code
-     * @param purposeSystem
-     *            the purpose system
-     * @param purposeSystemName
-     *            the purpose system name
-     * @param purposeDisplay
-     *            the purpose display
+     * @param purposeCode the purpose code
+     * @param purposeSystem the purpose system
+     * @param purposeSystemName the purpose system name
+     * @param purposeDisplay the purpose display
      * @return the attribute
      */
     public Attribute createPurposeOfUseAttribute(final String purposeCode, final String purposeSystem,
@@ -846,14 +769,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the purpose for use attribute.
      *
-     * @param purposeCode
-     *            the purpose code
-     * @param purposeSystem
-     *            the purpose system
-     * @param purposeSystemName
-     *            the purpose system name
-     * @param purposeDisplay
-     *            the purpose display
+     * @param purposeCode the purpose code
+     * @param purposeSystem the purpose system
+     * @param purposeSystemName the purpose system name
+     * @param purposeDisplay the purpose display
      * @return the attribute
      */
     Attribute createPurposeForUseAttribute(final String purposeCode, final String purposeSystem,
@@ -868,8 +787,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Creates the organization id attribute statement.
      *
-     * @param organizationId
-     *            the organization id
+     * @param organizationId the organization id
      * @return the list
      */
     public List<AttributeStatement> createOrganizationIdAttributeStatement(final String organizationId) {

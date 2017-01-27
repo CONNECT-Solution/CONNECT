@@ -126,8 +126,6 @@ public class NhincConstants {
     public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
     // SAML constants
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
-    public static final String ACCESS_CONSENT_POLICY_STRING = "AccessConsentPolicy";
-    public static final String INSTANCE_ACCESS_CONSENT_POLICY_STRING = "InstanceAccessConsentPolicy";
     public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
     // Initiating multispec errors
     public static final String INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE = "Unsupported guidance for API level.";
