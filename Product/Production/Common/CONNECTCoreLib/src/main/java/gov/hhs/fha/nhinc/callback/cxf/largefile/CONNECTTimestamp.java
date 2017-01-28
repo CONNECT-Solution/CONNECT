@@ -104,12 +104,10 @@ public class CONNECTTimestamp extends Timestamp {
 
         // Validate the time it took the message to travel
         if (!verifyCreatedBefore(date)) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Validation of Timestamp: Everything is ok");
-            }
             return false;
         }
 
+        LOG.info("Validation of Timestamp: Everything is ok");
         return true;
     }
 
@@ -119,9 +117,7 @@ public class CONNECTTimestamp extends Timestamp {
     private boolean verifyCreatedAfter(Date date) {
         // Check to see if the created time is in the future
         if (getCreated() != null && getCreated().after(date)) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Validation of Timestamp: The message was created in the future!");
-            }
+                LOG.info("Validation of Timestamp: The message was created in the future!");
             return false;
         } else {
             return true;
@@ -134,9 +130,7 @@ public class CONNECTTimestamp extends Timestamp {
     private boolean verifyCreatedBefore(Date date) {
         // Validate the time it took the message to travel
         if (getCreated() != null && getCreated().before(date)) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Validation of Timestamp: The message was created too long ago");
-            }
+                LOG.info("Validation of Timestamp: The message was created too long ago");
             return false;
         } else {
             return true;

@@ -67,7 +67,6 @@ public class TimestampValidator implements Validator {
         if (credential == null || credential.getTimestamp() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "noCredential");
         }
-
         WSSConfig wssConfig = data.getWssConfig();
         if (wssConfig == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "WSSConfig cannot be null");
@@ -80,6 +79,9 @@ public class TimestampValidator implements Validator {
         return credential;
     }
 
+    /**
+     * Validate whether the security semantics have expired
+     */
     private void validate(CONNECTTimestamp timeStamp, RequestData data) throws WSSecurityException {
         boolean timeStampStrict = getTimeStampStrict();
 
@@ -113,7 +115,6 @@ public class TimestampValidator implements Validator {
         } catch (PropertyAccessException pae) {
             LOG.warn("Failed to determine timestamp time to live in gateway.properties, will use default values: {}",
                 pae.getLocalizedMessage());
-            LOG.trace("Get Timestamp TTL exception: {}", pae.getLocalizedMessage(), pae);
         }
 
         return INVALID_LONG_VALUE;
@@ -126,7 +127,6 @@ public class TimestampValidator implements Validator {
         } catch (PropertyAccessException pae) {
             LOG.warn("Failed to determine timestamp future TTL in gateway.properties, will use default value: {}",
                 pae.getLocalizedMessage());
-            LOG.trace("Get Timestamp future TTL exception: {}", pae.getLocalizedMessage(), pae);
         }
 
         return INVALID_LONG_VALUE;
@@ -139,7 +139,6 @@ public class TimestampValidator implements Validator {
         } catch (PropertyAccessException pae) {
             LOG.warn("Failed to determine timestamp strict in gateway.properties, will use default value: {}",
                 pae.getLocalizedMessage());
-            LOG.trace("Get Timestamp strict exception: {}", pae.getLocalizedMessage(), pae);
         }
 
         return true;
