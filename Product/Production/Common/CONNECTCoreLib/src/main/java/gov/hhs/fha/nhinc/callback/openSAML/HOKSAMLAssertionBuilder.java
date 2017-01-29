@@ -365,16 +365,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     public Evidence createEvidence(final CallbackProperties properties, final Subject subject) {
         LOG.debug("SamlCallbackHandler.createEvidence() -- Begin");
         final String evAssertionID = properties.getEvidenceID();
-        final DateTime issueInstant = properties.getEvidenceInstant();
-        final String format = properties.getEvidenceIssuerFormat();
-        final DateTime beginValidTime = properties.getEvidenceConditionNotBefore();
-        final DateTime endValidTime = properties.getEvidenceConditionNotAfter();
         final List<AttributeStatement> statements = createEvidenceStatements(properties);
-
         final String issuer = properties.getEvidenceIssuer();
-
-        return buildEvidence(new BuildEvidenceParameter(evAssertionID, issueInstant, format, beginValidTime,
-            endValidTime, issuer, statements, subject));
+        return buildEvidence(new BuildEvidenceParameter(evAssertionID, issuer, properties, statements, subject));
     }
 
     /**
@@ -406,6 +399,24 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (!isValidIssuerFormat(format)) {
             format = X509_NAME_ID;
         }
+        return buildEvidenceMethodExtension(endValidTime, beginValidTime, format, issueInstant, evAssertionID,
+            evidenceAssertions, parameterObject);
+    }
+
+    /**
+     * Method gets called from buildEvidence to reduce the complexity of buildEvidence method
+     */
+    public Evidence buildEvidenceMethodExtension(DateTime endValidTimeParameter, DateTime beginValidTimeParameter,
+        String formatParameter, DateTime issueInstantParameter, String evAssertionIDparameter,
+        List<Assertion> evidenceAssertionsParameter, BuildEvidenceParameter parameterObjectParameter) {
+
+        DateTime endValidTime = endValidTimeParameter;
+        DateTime beginValidTime = beginValidTimeParameter;
+        String format = formatParameter;
+        DateTime issueInstant = issueInstantParameter;
+        String evAssertionID = evAssertionIDparameter;
+        List<Assertion> evidenceAssertions = evidenceAssertionsParameter;
+        BuildEvidenceParameter parameterObject = parameterObjectParameter;
 
         final Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format,
             parameterObject.getIssuer());
@@ -446,6 +457,17 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             }
         }
 
+        return buildEvidenceMethod2Extension(endValidTime, beginValidTime, evidenceAssertion, issueInstant, evIssuerId,
+            evidenceAssertions, parameterObject);
+    }
+
+    /**
+     * Method gets called from buildEvidenceMethodExtension to reduce the complexity of buildEvidence and
+     * buildEvidenceMethodExtension method
+     */
+    public Evidence buildEvidenceMethod2Extension(DateTime endValidTime, DateTime beginValidTime,
+        Assertion evidenceAssertion, DateTime issueInstant, Issuer evIssuerId, List<Assertion> evidenceAssertions,
+        BuildEvidenceParameter parameterObject) {
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is
         // present
         if (beginValidTime != null || endValidTime != null) {
