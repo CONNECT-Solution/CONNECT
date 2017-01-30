@@ -113,8 +113,8 @@ public class TimestampValidator implements Validator {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.TIMESTAMP_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
-            LOG.warn("Failed to determine timestamp time to live in gateway.properties, will use default values: {}",
-                pae.getLocalizedMessage());
+            LOG.error("Failed to determine timestamp time to live in gateway.properties, will use default values: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return INVALID_LONG_VALUE;
@@ -125,8 +125,8 @@ public class TimestampValidator implements Validator {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.TIMESTAMP_FUTURE_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
-            LOG.warn("Failed to determine timestamp future TTL in gateway.properties, will use default value: {}",
-                pae.getLocalizedMessage());
+            LOG.error("Failed to determine timestamp future TTL in gateway.properties, will use default value: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return INVALID_LONG_VALUE;
@@ -137,8 +137,8 @@ public class TimestampValidator implements Validator {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.TIMESTAMP_STRICT);
         } catch (PropertyAccessException pae) {
-            LOG.warn("Failed to determine timestamp strict in gateway.properties, will use default value: {}",
-                pae.getLocalizedMessage());
+            LOG.error("Failed to determine timestamp strict in gateway.properties, will use default value: {}",
+                pae.getLocalizedMessage(), pae);
         }
 
         return true;
