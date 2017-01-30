@@ -169,7 +169,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return an Authn Statement
      */
     @Override
-    public AuthnStatement createAuthenicationStatements(final String cntxCls, final String sessionIndex,
+    public AuthnStatement createAuthenticationStatements(final String cntxCls, final String sessionIndex,
         final DateTime authInstant, final String inetAddr, final String dnsName) {
         final AuthenticationStatementBean authenticationBean = new AuthenticationStatementBean();
         authenticationBean.setAuthenticationInstant(authInstant);
@@ -288,17 +288,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
             subject.getSubjectConfirmations().add(subjectConfirmation);
         } catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
-            LOG.error(getMessage(), e.getLocalizedMessage());
+            LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
         return subject;
-    }
-
-    /**
-     * Returns error message for createSubject method above
-     */
-    private static String getMessage() {
-        return "Unable to create Saml2Subject ";
     }
 
     /**

@@ -308,7 +308,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final String dnsName = properties.getSubjectLocality();
 
         final AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance()
-            .createAuthenicationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
+            .createAuthenticationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
 
         authnStatements.add(authnStatement);
 
@@ -535,7 +535,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final List<String> userNameValues = new ArrayList<>();
         final String nameConstruct = properties.getUserFullName();
 
-        if (StringUtils.length(nameConstruct) > 0) {
+        if (StringUtils.isNotEmpty(nameConstruct)) {
             LOG.debug("UserName: {}", nameConstruct);
 
             userNameValues.add(nameConstruct);
