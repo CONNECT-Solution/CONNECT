@@ -116,7 +116,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * The instance.
      */
-    private static OpenSAML2ComponentBuilder iNSTANCE;
+    private static OpenSAML2ComponentBuilder openSamlInstance;
 
     /**
      * The subject locality builder.
@@ -146,16 +146,16 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return single instance of OpenSAML2ComponentBuilder
      */
     public static OpenSAML2ComponentBuilder getInstance() {
-        if (iNSTANCE == null) {
+        if (openSamlInstance == null) {
             try {
-                iNSTANCE = new OpenSAML2ComponentBuilder();
+                openSamlInstance = new OpenSAML2ComponentBuilder();
             } catch (final Exception e) {
                 LOG.error("Unable to get instance: {}", e.getLocalizedMessage(), e);
-                iNSTANCE = null;
+                openSamlInstance = null;
             }
 
         }
-        return iNSTANCE;
+        return openSamlInstance;
     }
 
     /**
@@ -698,7 +698,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         try {
             signature.setKeyInfo(getKeyInfo(publicKey));
         } catch (final Exception ex) {
-            LOG.error("Get HL7 Prefix Property exception: {}", ex.getLocalizedMessage(), ex);
             throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
         }
         return signature;

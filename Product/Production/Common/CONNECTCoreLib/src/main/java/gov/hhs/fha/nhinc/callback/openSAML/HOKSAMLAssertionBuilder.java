@@ -44,6 +44,7 @@ import java.util.UUID;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
 import org.apache.commons.lang.StringUtils;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
@@ -160,7 +161,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());
             Signer.signObject(signature);
-        } catch (final SignatureException | org.apache.wss4j.common.ext.WSSecurityException
+        } catch (final SignatureException | WSSecurityException
             | org.opensaml.core.xml.io.MarshallingException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
