@@ -65,8 +65,7 @@ public class SecurityConfigInInterceptor extends AbstractPhaseInterceptor<Messag
             config = WSSConfig.getNewInstance();
         }
         config.setProcessor(new QName(SamlConstants.XML_SIGNATURE_NS, SamlConstants.SIGNATURE_TAG),
-                new CONNECTSignatureProcessor());
-        //msg.setContextualProperty(WSSConfig.class.getName(), config);
+            new CONNECTSignatureProcessor());
         msg.put(WSSConfig.class.getName(), config);
     }
 
