@@ -43,6 +43,7 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.OpenSAMLUtil;
 import org.apache.wss4j.common.saml.bean.ActionBean;
 import org.apache.wss4j.common.saml.bean.AuthDecisionStatementBean;
@@ -74,6 +75,7 @@ import org.opensaml.saml.saml2.core.NameID;
 import org.opensaml.saml.saml2.core.Subject;
 import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.opensaml.saml.saml2.core.SubjectConfirmationData;
+import org.opensaml.security.SecurityException;
 import org.opensaml.security.x509.BasicX509Credential;
 import org.opensaml.xmlsec.signature.KeyInfo;
 import org.opensaml.xmlsec.signature.Signature;
@@ -97,6 +99,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * The Constant X509_NAME_ID.
      */
     private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
+
+    /**
+     * The Constant NAME_FORMAT_STRING.
+     */
+    private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
 
     /**
      * The Constant DEFAULT_ISSUER_VALUE.
@@ -287,7 +294,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(publicKey);
             final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
             subject.getSubjectConfirmations().add(subjectConfirmation);
-        } catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
+        } catch (SecurityException | WSSecurityException e) {
             LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
@@ -321,7 +328,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
             subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean,
                 keyInforBean);
-        } catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
+        } catch (SecurityException | WSSecurityException e) {
             LOG.error(e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
@@ -344,7 +351,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         keyInfoBean.setPublicKey(publicKey);
         try {
             keyInfo = SAML1ComponentBuilder.createKeyInfo(keyInfoBean);
-        } catch (org.opensaml.security.SecurityException | org.apache.wss4j.common.ext.WSSecurityException e) {
+        } catch (SecurityException | WSSecurityException e) {
             LOG.error(e.getLocalizedMessage(), e);
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
@@ -406,9 +413,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the attribute
      */
     Attribute createAttribute(final String friendlyName, final String name, final String nameFormat) {
-        final String nameFormatString = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
         return SAML2ComponentBuilder.createAttribute(friendlyName, name,
-            StringUtils.defaultIfBlank(nameFormat, nameFormatString));
+            StringUtils.defaultIfBlank(nameFormat, NAME_FORMAT_STRING));
     }
 
     /**

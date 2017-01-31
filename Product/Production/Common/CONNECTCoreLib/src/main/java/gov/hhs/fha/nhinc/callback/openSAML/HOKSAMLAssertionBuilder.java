@@ -50,6 +50,7 @@ import org.joda.time.DateTime;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.Marshaller;
 import org.opensaml.core.xml.io.MarshallerFactory;
+import org.opensaml.core.xml.io.MarshallingException;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
 import org.opensaml.saml.saml2.core.AttributeStatement;
@@ -162,7 +163,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertionElement = marshaller.marshall(wrapper.getSamlObject());
             Signer.signObject(signature);
         } catch (final SignatureException | WSSecurityException
-            | org.opensaml.core.xml.io.MarshallingException e) {
+            | MarshallingException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
         }
@@ -202,11 +203,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         if ((NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) && null != certificate
             && null != certificate.getSubjectDN()) {
-
             x509Name = certificate.getSubjectDN().getName();
-
         }
-        return createSubject(x509Name, publicKey);
+        return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
     }
 
     /**
@@ -221,7 +220,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         try {
             name = new LdapName(userName);
         } catch (final Exception e) {
-            LOG.warn("Not a Valid Distinguished Name, setting the value from Certificate: {}", e.getLocalizedMessage());
             LOG.trace("Exception checking DN: {}", e.getLocalizedMessage(), e);
         }
         return name == null ? false : true;
@@ -237,20 +235,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             if ((NullChecker.isNullish(userName) || !checkDistinguishedName(userName)) && null != certificate
                 && null != certificate.getSubjectDN()) {
-
                 userName = certificate.getSubjectDN().getName();
-
             }
             x509Name = userName;
         } else {
             x509Name = evidenceSubject;
         }
-        return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
-    }
-
-    protected Subject createSubject(final String x509Name, final PublicKey publicKey)
-        throws SAMLComponentBuilderException {
-
         return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
     }
 
@@ -368,7 +358,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final String evAssertionID = properties.getEvidenceID();
         final List<AttributeStatement> statements = createEvidenceStatements(properties);
         final String issuer = properties.getEvidenceIssuer();
-        return buildEvidence(new BuildEvidenceParameter(evAssertionID, issuer, properties, statements, subject));
+        return wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, issuer, properties, statements, subject));
     }
 
     /**
@@ -377,15 +367,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      *
      * @return
      */
-    public Evidence buildEvidence(BuildEvidenceParameter parameterObject) {
+    public Evidence wrapperEvidence(WrapperEvidenceParameter parameterObject) {
 
-        DateTime endValidTime = parameterObject.getEndValidTime();
-        DateTime beginValidTime = parameterObject.getBeginValidTime();
-        String format = parameterObject.getFormat();
-        DateTime issueInstant = parameterObject.getIssueInstant();
+        String format = parameterObject.getProperties().getEvidenceIssuerFormat();
+        DateTime issueInstant = parameterObject.getProperties().getEvidenceInstant();
         String evAssertionID = parameterObject.getEvAssertionID();
         final List<Assertion> evidenceAssertions = new ArrayList<>();
-        if (evAssertionID == null) {
+
+        if (NullChecker.isNullish(parameterObject.getEvAssertionID())) {
             evAssertionID = createAssertionId();
         } else {
             if (!evAssertionID.startsWith("_")) {
@@ -400,28 +389,21 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (!isValidIssuerFormat(format)) {
             format = X509_NAME_ID;
         }
-        return buildEvidenceMethodExtension(endValidTime, beginValidTime, format, issueInstant, evAssertionID,
+        return wrapperEvidenceMethodExtension(format, issueInstant, evAssertionID,
             evidenceAssertions, parameterObject);
     }
 
     /**
      * Method gets called from buildEvidence to reduce the complexity of buildEvidence method
      */
-    public Evidence buildEvidenceMethodExtension(DateTime endValidTimeParameter, DateTime beginValidTimeParameter,
-        String formatParameter, DateTime issueInstantParameter, String evAssertionIDparameter,
-        List<Assertion> evidenceAssertionsParameter, BuildEvidenceParameter parameterObjectParameter) {
+    public Evidence wrapperEvidenceMethodExtension(
+        String format, DateTime issueInstant, String evAssertionID, List<Assertion> evidenceAssertions,
+        WrapperEvidenceParameter parameterObject) {
 
-        DateTime endValidTime = endValidTimeParameter;
-        DateTime beginValidTime = beginValidTimeParameter;
-        String format = formatParameter;
-        DateTime issueInstant = issueInstantParameter;
-        String evAssertionID = evAssertionIDparameter;
-        List<Assertion> evidenceAssertions = evidenceAssertionsParameter;
-        BuildEvidenceParameter parameterObject = parameterObjectParameter;
-
+        DateTime endValidTime = parameterObject.getProperties().getEvidenceConditionNotAfter();
+        DateTime beginValidTime = parameterObject.getProperties().getEvidenceConditionNotBefore();
         final Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format,
             parameterObject.getIssuer());
-
         final Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(evAssertionID);
 
         evidenceAssertion.getAttributeStatements().addAll(parameterObject.getStatements());
@@ -458,7 +440,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             }
         }
 
-        return buildEvidenceMethod2Extension(endValidTime, beginValidTime, evidenceAssertion, issueInstant, evIssuerId,
+        return wrapperEvidenceMethod2Extension(endValidTime, beginValidTime, evidenceAssertion, issueInstant,
+            evIssuerId,
             evidenceAssertions, parameterObject);
     }
 
@@ -466,9 +449,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * Method gets called from buildEvidenceMethodExtension to reduce the complexity of buildEvidence and
      * buildEvidenceMethodExtension method
      */
-    public Evidence buildEvidenceMethod2Extension(DateTime endValidTime, DateTime beginValidTime,
+    public Evidence wrapperEvidenceMethod2Extension(DateTime endValidTime, DateTime beginValidTime,
         Assertion evidenceAssertion, DateTime issueInstant, Issuer evIssuerId, List<Assertion> evidenceAssertions,
-        BuildEvidenceParameter parameterObject) {
+        WrapperEvidenceParameter parameterObject) {
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is
         // present
         if (beginValidTime != null || endValidTime != null) {
@@ -519,7 +502,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements = OpenSAML2ComponentBuilder.getInstance().createEvidenceStatements(accessConstentValues,
             evidenceInstanceAccessConsentValues, NHIN_NS);
 
-        LOG.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
+        LOG.trace("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;
     }
 
