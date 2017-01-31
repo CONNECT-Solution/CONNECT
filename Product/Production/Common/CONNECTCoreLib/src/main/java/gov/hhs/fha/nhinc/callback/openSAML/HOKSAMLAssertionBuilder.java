@@ -162,8 +162,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());
             Signer.signObject(signature);
-        } catch (final SignatureException | WSSecurityException
-            | MarshallingException e) {
+        } catch (final SignatureException | WSSecurityException | MarshallingException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
         }
@@ -357,8 +356,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         LOG.debug("SamlCallbackHandler.createEvidence() -- Begin");
         final String evAssertionID = properties.getEvidenceID();
         final List<AttributeStatement> statements = createEvidenceStatements(properties);
-        final String issuer = properties.getEvidenceIssuer();
-        return wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, issuer, properties, statements, subject));
+        return wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, properties, statements, subject));
     }
 
     /**
@@ -372,7 +370,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         String format = parameterObject.getProperties().getEvidenceIssuerFormat();
         DateTime issueInstant = parameterObject.getProperties().getEvidenceInstant();
         String evAssertionID = parameterObject.getEvAssertionID();
-        final List<Assertion> evidenceAssertions = new ArrayList<>();
 
         if (NullChecker.isNullish(parameterObject.getEvAssertionID())) {
             evAssertionID = createAssertionId();
@@ -389,21 +386,20 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (!isValidIssuerFormat(format)) {
             format = X509_NAME_ID;
         }
-        return wrapperEvidenceMethodExtension(format, issueInstant, evAssertionID,
-            evidenceAssertions, parameterObject);
+        return wrapperEvidenceMethodExtension(format, issueInstant, evAssertionID, parameterObject);
     }
 
     /**
      * Method gets called from buildEvidence to reduce the complexity of buildEvidence method
      */
-    public Evidence wrapperEvidenceMethodExtension(
-        String format, DateTime issueInstant, String evAssertionID, List<Assertion> evidenceAssertions,
+    public Evidence wrapperEvidenceMethodExtension(String format, DateTime issueInstant, String evAssertionID,
         WrapperEvidenceParameter parameterObject) {
 
         DateTime endValidTime = parameterObject.getProperties().getEvidenceConditionNotAfter();
         DateTime beginValidTime = parameterObject.getProperties().getEvidenceConditionNotBefore();
+        final List<Assertion> evidenceAssertions = new ArrayList<>();
         final Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format,
-            parameterObject.getIssuer());
+            parameterObject.getProperties().getEvidenceIssuer());
         final Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(evAssertionID);
 
         evidenceAssertion.getAttributeStatements().addAll(parameterObject.getStatements());
@@ -441,8 +437,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
 
         return wrapperEvidenceMethod2Extension(endValidTime, beginValidTime, evidenceAssertion, issueInstant,
-            evIssuerId,
-            evidenceAssertions, parameterObject);
+            evIssuerId, evidenceAssertions, parameterObject);
     }
 
     /**

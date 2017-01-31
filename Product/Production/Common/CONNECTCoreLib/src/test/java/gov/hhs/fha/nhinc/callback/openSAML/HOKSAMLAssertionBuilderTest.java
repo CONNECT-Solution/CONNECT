@@ -291,7 +291,7 @@ public class HOKSAMLAssertionBuilderTest {
         final List<AttributeStatement> statements = new ArrayList<>();
         statements.add(0, e);
         final Evidence evidence1 = builder
-            .wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, issuer, properties, statements, subject));
+            .wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, properties, statements, subject));
         assertTrue(evidence1.getAssertions().get(0).getID().startsWith("_"));
     }
 

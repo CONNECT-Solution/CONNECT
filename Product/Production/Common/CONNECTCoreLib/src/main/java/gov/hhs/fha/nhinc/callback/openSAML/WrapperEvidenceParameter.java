@@ -34,17 +34,15 @@ public class WrapperEvidenceParameter {
 
     private CallbackProperties properties;
     private String evAssertionID;
-    private String issuer = null;
     private List<AttributeStatement> statements;
     private Subject subject;
 
-    public WrapperEvidenceParameter(String evAssertionID, String issuer, CallbackProperties properties,
+    public WrapperEvidenceParameter(String evAssertionID, CallbackProperties properties,
         List<AttributeStatement> statements, Subject subject) {
         this.evAssertionID = evAssertionID;
         this.properties = properties;
         this.statements = statements;
         this.subject = subject;
-        this.issuer = issuer;
     }
 
     public CallbackProperties getProperties() {
@@ -53,10 +51,6 @@ public class WrapperEvidenceParameter {
 
     public String getEvAssertionID() {
         return evAssertionID;
-    }
-
-    public String getIssuer() {
-        return issuer;
     }
 
     public List<AttributeStatement> getStatements() {
