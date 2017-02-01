@@ -84,7 +84,7 @@ public class HttpHeaderServiceEndpointDecorator<T> extends ServiceEndpointDecora
         }
 
         return NullChecker.isNotNullish(keepAlive)
-                && (keepAlive.equalsIgnoreCase("TRUE") || keepAlive.equalsIgnoreCase("T"));
+                && ("TRUE".equalsIgnoreCase(keepAlive) || "T".equalsIgnoreCase(keepAlive));
     }
 
     private String getKeepAliveProperty() {
@@ -102,15 +102,7 @@ public class HttpHeaderServiceEndpointDecorator<T> extends ServiceEndpointDecora
             Set<String> allPropNames = getPropertyAccessor().getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE);
 
             if (NullChecker.isNotNullish(allPropNames)) {
-                for (String propName : allPropNames) {
-                    if (NullChecker.isNotNullish(propName) && propName.startsWith(NhincConstants.CUSTOM_HTTP_HEADERS)) {
-                        String propValue = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propName);
-                        propName = trimPropertyName(propName);
-                        if (NullChecker.isNotNullish(propValue) && NullChecker.isNotNullish(propName)) {
-                            customHeaders.put(propName, propValue);
-                        }
-                    }
-                }
+                addPropertiesToCustomHeaders(allPropNames, customHeaders);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to access properties for custom http headers.", ex);
@@ -125,11 +117,23 @@ public class HttpHeaderServiceEndpointDecorator<T> extends ServiceEndpointDecora
         return customHeaders;
     }
 
+    private void addPropertiesToCustomHeaders(Set<String> allPropNames, HashMap<String, String> customHeaders) throws PropertyAccessException {
+        for (String propName : allPropNames) {
+            if (NullChecker.isNotNullish(propName) && propName.startsWith(NhincConstants.CUSTOM_HTTP_HEADERS)) {
+                String propValue = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propName);
+                propName = trimPropertyName(propName);
+                if (NullChecker.isNotNullish(propValue) && NullChecker.isNotNullish(propName)) {
+                    customHeaders.put(propName, propValue);
+                }
+            }
+        }
+    }
+
     protected PropertyAccessor getPropertyAccessor() {
         return PropertyAccessor.getInstance();
     }
 
-    private String trimPropertyName(String propName) {
+    private static String trimPropertyName(String propName) {
         if ((propName.length()) > (NhincConstants.CUSTOM_HTTP_HEADERS.length() + 1)) {
             return propName.substring(NhincConstants.CUSTOM_HTTP_HEADERS.length() + 1).trim();
         } else {

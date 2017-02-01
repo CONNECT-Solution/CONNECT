@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.cxf.interceptor.Fault;
+import java.util.Map.Entry;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
@@ -53,7 +53,7 @@ public class HttpHeaderRequestOutInterceptor extends AbstractPhaseInterceptor<Me
     }
 
     @Override
-    public void handleMessage(Message message) throws Fault {
+    public void handleMessage(Message message) {
         LOG.trace("Begin HttpHeaderRequestOutInterceptor");
         Map<String, List> headers = (Map<String, List>) message.get(Message.PROTOCOL_HEADERS);
         
@@ -64,10 +64,9 @@ public class HttpHeaderRequestOutInterceptor extends AbstractPhaseInterceptor<Me
         final Map<String, String> customHttpHeaders = getCustomHttpHeaders(message);
         
         if(customHttpHeaders != null && !customHttpHeaders.isEmpty()) {
-            for(String key : customHttpHeaders.keySet()) {
-                String value = customHttpHeaders.get(key);
-                headers.put(key, Collections.singletonList(value));
-                LOG.debug("Adding custom CONNECT HTTP header: " , key, ", ", value);
+            for(Entry<String,String> entry : customHttpHeaders.entrySet()) {
+                headers.put(entry.getKey(), Collections.singletonList(entry.getValue()));
+                LOG.debug("Adding custom CONNECT HTTP header: {}, {}" , entry.getKey(), entry.getValue());
             }
         }
         
