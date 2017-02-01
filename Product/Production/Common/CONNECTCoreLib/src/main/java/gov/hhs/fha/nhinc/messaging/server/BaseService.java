@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,15 +28,27 @@ package gov.hhs.fha.nhinc.messaging.server;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CONNECTCustomHttpHeadersType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+import org.apache.cxf.helpers.CastUtils;
+import org.apache.cxf.jaxws.context.WrappedMessageContext;
+import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
+import org.apache.cxf.ws.addressing.AddressingProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -44,26 +56,52 @@ import org.apache.cxf.transport.http.AbstractHTTPDestination;
  */
 public abstract class BaseService {
 
-    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    private final AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    private static final Logger LOG = LoggerFactory.getLogger(BaseService.class);
+    private static HttpHeaderHelper headerHelper = new HttpHeaderHelper();
 
-    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
+    protected AssertionType getAssertion(WebServiceContext context) {
+        return getAssertion(context, null);
+    }
+
+    protected AssertionType getAssertion(WebServiceContext context, AssertionType assertionIn) {
+        AssertionType assertion;
+        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
+
+        if (assertionIn == null) {
             assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
-            assertion = oAssertionIn;
+            assertion = assertionIn;
         }
+
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+            if (NullChecker.isNullish(assertion.getMessageId())) {
+                assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+            } else {
+                // Message ID prefix should be added here to the assertion's original messageID if it is missing.
+                assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
+            }
         }
 
         // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
             List<String> relatesToList = extractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(extractor.getAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().add(relatesToList.get(0));
             }
+        }
+
+        try {
+            if (assertion != null && getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
+                MessageContext messageContext = getMessageContext(context);
+
+                if (messageContext != null || (messageContext instanceof WrappedMessageContext)) {
+                    readHttpHeaders(messageContext, assertion);
+                }
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access property for reading HTTP headers.", ex);
         }
 
         return assertion;
@@ -83,12 +121,17 @@ public abstract class BaseService {
      * @param context
      * @return
      */
-    private String getRemoteAddress(WebServiceContext context) {
+    protected String getRemoteAddress(WebServiceContext context) {
         String remoteAddress = null;
-        if (context != null && context.getMessageContext() != null && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST);
+
+        if (context != null && context.getMessageContext() != null
+                && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+
+            HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext()
+                    .get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
+
         return remoteAddress;
     }
 
@@ -98,12 +141,26 @@ public abstract class BaseService {
      * @param context
      * @return
      */
-    private String getWebServiceRequestUrl(WebServiceContext context) {
+    protected String getWebServiceRequestUrl(WebServiceContext context) {
         String requestWebServiceUrl = null;
+
         if (context != null && context.getMessageContext() != null) {
             requestWebServiceUrl = (String) context.getMessageContext().get(org.apache.cxf.message.Message.REQUEST_URL);
         }
+
         return requestWebServiceUrl;
+    }
+
+    private String getInboundReplyToHeader(WebServiceContext context) {
+        MessageContext messageContext = context.getMessageContext();
+
+        if (messageContext == null || !(messageContext instanceof WrappedMessageContext)) {
+            return null;
+        }
+
+        Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
+        AddressingProperties maps = (AddressingProperties) message.get(NhincConstants.INBOUND_REPLY_TO_HEADER);
+        return maps.getReplyTo().getAddress().getValue();
     }
 
     /**
@@ -115,10 +172,44 @@ public abstract class BaseService {
      */
     public Properties getWebContextProperties(WebServiceContext context) {
         Properties webContextProperties = new Properties();
-        //add Web Service Request URL
-        webContextProperties.put(NhincConstants.WEB_SERVICE_REQUEST_URL, getWebServiceRequestUrl(context));
-        //add Remote Server address or Host
-        webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
+
+        if (context != null && context.getMessageContext() != null) {
+            // Add Web Service Request URL
+            webContextProperties.put(NhincConstants.WEB_SERVICE_REQUEST_URL, getWebServiceRequestUrl(context));
+
+            // Add Remote Server address or Host
+            webContextProperties.put(NhincConstants.REMOTE_HOST_ADDRESS, getRemoteAddress(context));
+
+            // Get Inbound Message ReplyTo Header
+            webContextProperties.put(NhincConstants.INBOUND_REPLY_TO, getInboundReplyToHeader(context));
+        }
+
         return webContextProperties;
     }
+    
+    private void readHttpHeaders(MessageContext messageContext, AssertionType assertion) {
+        Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
+        if (message != null && message.get(Message.PROTOCOL_HEADERS) != null) {
+            Map<String, List<String>> headers = CastUtils.cast((Map) message.get(Message.PROTOCOL_HEADERS));
+            if (headers != null && headers.keySet() != null && !headers.keySet().isEmpty()) {
+                for (String headerName : headers.keySet()) {
+                    if (!headerHelper.isStandardHeader(headerName) && !headers.get(headerName).isEmpty()) {
+                        CONNECTCustomHttpHeadersType assertionHeader = new CONNECTCustomHttpHeadersType();
+                        assertionHeader.setHeaderName(headerName);
+                        assertionHeader.setHeaderValue(headers.get(headerName).get(0));
+                        assertion.getCONNECTCustomHttpHeaders().add(assertionHeader);
+                    }
+                }
+            }
+        }
+    }
+
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
+    }
+    
+    protected MessageContext getMessageContext(WebServiceContext context){
+        return context.getMessageContext();
+    }
+
 }
