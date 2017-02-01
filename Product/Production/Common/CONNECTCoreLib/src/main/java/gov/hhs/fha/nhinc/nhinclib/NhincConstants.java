@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.nhinclib;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,6 +42,7 @@ public class NhincConstants {
 
         LEVEL_g0, LEVEL_g1
     }
+
     public static final String HCID_PREFIX = "urn:oid:";
 
     public static enum ADAPTER_API_LEVEL {
@@ -71,29 +74,30 @@ public class NhincConstants {
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
-    };
+    }
 
     public static enum NHIN_SERVICE_NAMES {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
-        PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-        PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
-        DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
-        DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
-        DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
-        NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
-        ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
-        CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME),
-        CORE_X12DS_GENERICBATCH_REQUEST(CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
-        CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+                PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
+                        PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
+                                DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
+                                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
+                                                NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
+                                                        NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
+                                                                NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
+                                                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
+                                                                                CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
+                                                                                        CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
+                                                                                                CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(String value) {
-            this.UDDIServiceName = value;
+            UDDIServiceName = value;
         }
 
         public String getUDDIServiceName() {
-            return this.UDDIServiceName;
+            return UDDIServiceName;
         }
 
         public static NHIN_SERVICE_NAMES fromValueString(String valueString) {
@@ -106,7 +110,16 @@ public class NhincConstants {
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
-    };
+
+        public static List<String> getEnumServiceNamesList() {
+            List<String> enumServiceNames = new ArrayList<>();
+            for (NHIN_SERVICE_NAMES m : values()) {
+                enumServiceNames.add(m.toString());
+            }
+            return enumServiceNames;
+        }
+    }
+
     // Authorization Framework
     public static final String AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
     public static final String AUTH_FRWK_NAME_ID_FORMAT_X509 = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
@@ -142,7 +155,7 @@ public class NhincConstants {
     public static final String TIMESTAMP_TIME_TO_LIVE = "TimeStampTimeToLive";
     public static final String TIMESTAMP_STRICT = "TimeStampStrict";
     public static final String TIMESTAMP_FUTURE_TIME_TO_LIVE = "FutureTimeToLive";
-    //X12 Generic Batch Specific Timestamp validator values
+    // X12 Generic Batch Specific Timestamp validator values
     public static final String X12_GENERIC_BATCH_TIMESTAMP_TIME_TO_LIVE = "CoreX12GenericBatchTimeStampTimeToLive";
     public static final String X12_GENERIC_BATCH_TIMESTAMP_STRICT = "CoreX12GenericBatchTimeStampStrict";
     public static final String X12_GENERIC_BATCH_TIMESTAMP_FUTURE_TIME_TO_LIVE = "CoreX12GenericBatchFutureTimeToLive";
@@ -281,6 +294,7 @@ public class NhincConstants {
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
     public static final String WEB_SERVICE_REQUEST_URL = "webservicerequesturl";
     public static final String REMOTE_HOST_ADDRESS = "remotehostaddress";
+    public static final String LOCAL_HOST_ADDRESS = "localhostaddress";
     // Policy Engine Constants
     public static final String POLICYENGINE_DTE_SERVICE_NAME = "policyenginedte";
     public static final String POLICYENGINE_SERVICE_NAME = "policyengineservice";
@@ -300,6 +314,8 @@ public class NhincConstants {
     // Adapter Component MPI constants
     public static final String ADAPTER_COMPONENT_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
     public static final String ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
+    // Adapter Audit Query Service Name
+    public static final String ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME = "auditquerylog";
     // SOAP Headers
     public static final String HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE = "SoapMessage";
     public static final String WS_SOAP_ENV_URL = "http://www.w3.org/2003/05/soap-envelope";
@@ -405,6 +421,7 @@ public class NhincConstants {
     public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
+
     // CORE X12 Document Submission RealTime Constants
     public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";
     public static final String NHIN_CORE_X12DS_REALTIME_SERVICE_NAME = "nhincore_x12dsrealtime";
@@ -412,28 +429,42 @@ public class NhincConstants {
     public static final String ADAPTER_CORE_X12DS_REALTIME_SERVICE_NAME = "adaptercore_x12dsrealtime";
     public static final String ADAPTER_CORE_X12DS_REALTIME_SECURED_SERVICE_NAME = "adaptercore_x12dsrealtimesecured";
     public static final String CORE_X12DS_REALTIME_PROXY_CONFIG_FILE_NAME = "CORE_X12DSRealTimeProxyConfig.xml";
+
     // CORE X12 Document Submission Generic Batch Constants
     public static final String CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "CORE_X12DSGenericBatchRequest";
     public static final String CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "CORE_X12DSGenericBatchResponse";
+
     public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "nhincore_x12dsgenericbatchrequest";
     public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchrequestwssecured";
     public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "entitycore_x12dsgenericbatchrequest";
     public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "entitycore_x12dsgenericbatchrequestsecured";
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequest";
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestsecured";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_NOOP_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestnoop";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_JAVA_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestjava";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_PROXY_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestproxybean";
+
     public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "nhincore_x12dsgenericbatchresponse";
     public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchresponsewssecured";
     public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "entitycore_x12dsgenericbatchresponse";
     public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "entitycore_x12dsgenericbatchresponsesecured";
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponse";
     public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsesecured";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_NOOP_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsenoop";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_JAVA_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsejava";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_PROXY_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponseproxybean";
+
     public static final String CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME = "CORE_X12DSGenericBatchProxyConfig.xml";
-    public static final String ADMIN_GUI_PROXY_CONFIG_FILE_NAME = "AdminGUIProxyConfig.xml";
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
     public static final String CORE_X12DS_ACK_ERROR_CODE = null;
-    //Adapter properties for retrieving X12 RealTime payload
+
+    // AdminGUI constants
+    public static final String ADMIN_GUI_PROXY_CONFIG_FILE_NAME = "AdminGUIProxyConfig.xml";
+
+    // Adapter properties for retrieving X12 RealTime payload
     public static final String CORE_X12DS_RT_DYNAMIC_DOC_FILE = "x12.realtime.doc.file";
-    //DocumentQueryTransform Constants
+
+    // DocumentQueryTransform Constants
     public static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
@@ -446,6 +477,7 @@ public class NhincConstants {
     public static final String HIBERNATE_EVENT_REPOSITORY = "event.hibernate.cfg.xml";
     public static final String HIBERNATE_DIRECTCONFIG_REPOSITORY = "configdb.hibernate.cfg.xml";
     public static final String HIBERNATE_MESSAGE_MONITORING_REPOSITORY = "messagemonitoringdb.hibernate.cfg.xml";
+    public static final String HIBERNATE_ADMINGUI_REPOSITORY = "admingui.hibernate.cfg.xml";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
     public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";
@@ -457,10 +489,41 @@ public class NhincConstants {
     public static final String JMX_PATIENT_DISCOVERY_10_BEAN_NAME = "org.connectopensource.mbeans:type=PatientDiscovery10WebServices";
     // Standard Format for parsing String into Date
     public static final String DATE_PARSE_FORMAT = "yyyyMMddHHmmss";
-    //Document Type property for UClient
+    // Document Type property for UClient
     public static final String DOCUMENT_TYPE_PROPERTY_FILE = "documentTypes";
 
+    // AuditRepository EJB Core Module name
+    public static final String EJB_CORE_MODULE_NAME = "AuditRepositoryCore";
+    // AuditRepository EJB Bean name
+    public static final String AUDIT_LOGGER_EJB_BEAN_NAME = "AuditEJBLoggerImpl";
     /* -- End Document Retrieve deferred Service Name -- */
+
+    // ReplyTo Header value for Nwhin Outbound messages
+    public static final String WSA_REPLY_TO = "http://www.w3.org/2005/08/addressing/anonymous";
+    // ReplyTo key value to be retrieved from cxf message Inbound Headers
+    public static final String INBOUND_REPLY_TO = "ReplyTo";
+    // ReplyTo Header to be retrieved from cxf Inbound messages
+    public static final String INBOUND_REPLY_TO_HEADER = "javax.xml.ws.addressing.context.inbound";
+
+    // audit logging properties file name
+    public static final String AUDIT_LOGGING_PROPERTY_FILE = "audit";
+    public static final String LOG_TO_DATABASE = "LogToDatabase";
+    public static final String LOG_TO_FILE = "LogToFile";
+
+    // Hibernate bean names
+    public static final String TRANSACTION_HIBERNATE_BEAN = "txHibernateUtil";
+    public static final String EVENT_HIBERNATE_BEAN = "eventHibernateUtil";
+    public static final String ASYNC_MSG_HIBERNATE_BEAN = "asyncmsgsHibernateUtil";
+    public static final String CONNECTION_HIBERNATE_BEAN = "connManHibernateUtil";
+    public static final String DOCREPO_HIBERNATE_BEAN = "docRepoHibernateUtil";
+    public static final String PATIENT_CORR_HIBERNATE_BEAN = "patientCorrHibernateUtil";
+    public static final String MSG_MONITOR_HIBERNATE_BEAN = "msgMonitorHibernateUtil";
+    public static final String DIRECT_CONFIG_HIBERNATE_BEAN = "directConfigHibernateUtil";
+    
+    public static final String CUSTOM_HTTP_HEADERS = "customHttpHeaders";
+    public static final String KEEP_ALIVE_PROP = "connectionKeepAlive";
+    public static final String READ_HTTP_HEADERS = "readHttpHeaders";
+
     private NhincConstants() {
     }
 }
