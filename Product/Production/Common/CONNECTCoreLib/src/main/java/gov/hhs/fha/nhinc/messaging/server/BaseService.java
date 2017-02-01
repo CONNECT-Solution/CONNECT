@@ -75,26 +75,19 @@ public abstract class BaseService {
             assertion = assertionIn;
         }
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            if (NullChecker.isNullish(assertion.getMessageId())) {
-                assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
-            } else {
-                // Message ID prefix should be added here to the assertion's original messageID if it is missing.
-                assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
-            }
+            handleMessageId(assertion, context, wsaHelper);
+            handleRelatesTo(context, assertion);
+            handleHttpHeaders(assertion, context);
         }
+        
+        return assertion;
+    }
 
-        // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            List<String> relatesToList = extractor.getAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(relatesToList.get(0));
-            }
-        }
-
+    //Extract custom http headers from message context.
+    private void handleHttpHeaders(AssertionType assertion, WebServiceContext context) {
         try {
-            if (assertion != null && getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
+            if (getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
                 MessageContext messageContext = getMessageContext(context);
 
                 if (messageContext != null && (messageContext instanceof WrappedMessageContext)) {
@@ -104,8 +97,24 @@ public abstract class BaseService {
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to access property for reading HTTP headers.", ex);
         }
+    }
 
-        return assertion;
+    // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
+    private void handleRelatesTo(WebServiceContext context, AssertionType assertion) {
+        List<String> relatesToList = extractor.getAsyncRelatesTo(context);
+        if (NullChecker.isNotNullish(relatesToList)) {
+            assertion.getRelatesToList().add(relatesToList.get(0));
+        }
+    }
+
+    // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+    private void handleMessageId(AssertionType assertion, WebServiceContext context, WSAHeaderHelper wsaHelper) {
+        if (NullChecker.isNullish(assertion.getMessageId())) {
+            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+        } else {
+            // Message ID prefix should be added here to the assertion's original messageID if it is missing.
+            assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
+        }
     }
 
     protected String getLocalHomeCommunityId() {
@@ -187,7 +196,7 @@ public abstract class BaseService {
 
         return webContextProperties;
     }
-    
+
     private static void readHttpHeaders(MessageContext messageContext, AssertionType assertion) {
         Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
         if (message != null && message.get(Message.PROTOCOL_HEADERS) != null) {
@@ -199,7 +208,7 @@ public abstract class BaseService {
     }
 
     private static void addHeadersToAssertion(Map<String, List<String>> headers, AssertionType assertion) {
-        for (Entry<String,List<String>> entry : headers.entrySet()) {
+        for (Entry<String, List<String>> entry : headers.entrySet()) {
             if (!headerHelper.isStandardHeader(entry.getKey()) && !headers.get(entry.getKey()).isEmpty()) {
                 CONNECTCustomHttpHeadersType assertionHeader = new CONNECTCustomHttpHeadersType();
                 assertionHeader.setHeaderName(entry.getKey());
@@ -212,8 +221,8 @@ public abstract class BaseService {
     protected PropertyAccessor getPropertyAccessor() {
         return PropertyAccessor.getInstance();
     }
-    
-    protected MessageContext getMessageContext(WebServiceContext context){
+
+    protected MessageContext getMessageContext(WebServiceContext context) {
         return context.getMessageContext();
     }
 
