@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author akong
@@ -42,27 +41,14 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
-        return getCONNECTClientSecured(portDescriptor, url, assertion, null, null);
+
+        return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion);
     }
 
     /**
-     * Returns a CONNECTClient configured for secured invocation. This method allows Ws-Addressing parameters to be
-     * passed for HIEM use.
-     */
-    @Override
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion, String wsAddressingTo, String subscriptionId) {
-        String wsAddressingToValue = wsAddressingTo;
-        // use the url if the wsaddressing is null or blank
-        if (StringUtils.isBlank(wsAddressingToValue)) {
-            wsAddressingToValue = url;
-        }
-        return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion, wsAddressingToValue, subscriptionId);
-    }
-
-    /**
-     * Returns a CONNECTClient configured for secured invocation. This method allows the target hcid and service name to
-     * be passed to be used for purpose of/purpose for logic.
+     * Returns a CONNECTClient configured for secured invocation. This method
+     * allows the target hcid and service name to be passed to be used for
+     * purpose of/purpose for logic.
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,

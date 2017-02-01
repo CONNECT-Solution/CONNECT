@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import gov.hhs.fha.nhinc.messaging.client.interceptor.HttpHeaderRequestOutInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 import java.util.Map;
@@ -90,6 +91,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         }
 
         client.getOutInterceptors().add(outInterceptor);
+        client.getOutInterceptors().add(new HttpHeaderRequestOutInterceptor());
     }
 
 }
