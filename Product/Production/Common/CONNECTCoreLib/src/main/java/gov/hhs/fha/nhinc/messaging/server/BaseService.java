@@ -28,20 +28,27 @@ package gov.hhs.fha.nhinc.messaging.server;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CONNECTCustomHttpHeadersType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.apache.cxf.ws.addressing.AddressingProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -50,6 +57,8 @@ import org.apache.cxf.ws.addressing.AddressingProperties;
 public abstract class BaseService {
 
     private final AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    private static final Logger LOG = LoggerFactory.getLogger(BaseService.class);
+    private static HttpHeaderHelper headerHelper = new HttpHeaderHelper();
 
     protected AssertionType getAssertion(WebServiceContext context) {
         return getAssertion(context, null);
@@ -81,6 +90,18 @@ public abstract class BaseService {
             if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().add(relatesToList.get(0));
             }
+        }
+
+        try {
+            if (assertion != null && getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
+                MessageContext messageContext = getMessageContext(context);
+
+                if (messageContext != null || (messageContext instanceof WrappedMessageContext)) {
+                    readHttpHeaders(messageContext, assertion);
+                }
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access property for reading HTTP headers.", ex);
         }
 
         return assertion;
@@ -143,8 +164,8 @@ public abstract class BaseService {
     }
 
     /**
-     * Returns a Web Service Context properties object with the following properties: 1. Web Service Request URL 2.
-     * Remote Host Address
+     * Returns a Web Service Context properties object with the following
+     * properties: 1. Web Service Request URL 2. Remote Host Address
      *
      * @param context
      * @return
@@ -165,4 +186,30 @@ public abstract class BaseService {
 
         return webContextProperties;
     }
+    
+    private void readHttpHeaders(MessageContext messageContext, AssertionType assertion) {
+        Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
+        if (message != null && message.get(Message.PROTOCOL_HEADERS) != null) {
+            Map<String, List<String>> headers = CastUtils.cast((Map) message.get(Message.PROTOCOL_HEADERS));
+            if (headers != null && headers.keySet() != null && !headers.keySet().isEmpty()) {
+                for (String headerName : headers.keySet()) {
+                    if (!headerHelper.isStandardHeader(headerName) && !headers.get(headerName).isEmpty()) {
+                        CONNECTCustomHttpHeadersType assertionHeader = new CONNECTCustomHttpHeadersType();
+                        assertionHeader.setHeaderName(headerName);
+                        assertionHeader.setHeaderValue(headers.get(headerName).get(0));
+                        assertion.getCONNECTCustomHttpHeaders().add(assertionHeader);
+                    }
+                }
+            }
+        }
+    }
+
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
+    }
+    
+    protected MessageContext getMessageContext(WebServiceContext context){
+        return context.getMessageContext();
+    }
+
 }
