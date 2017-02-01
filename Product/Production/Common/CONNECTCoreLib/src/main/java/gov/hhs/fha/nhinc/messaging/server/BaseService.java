@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -187,19 +188,23 @@ public abstract class BaseService {
         return webContextProperties;
     }
     
-    private void readHttpHeaders(MessageContext messageContext, AssertionType assertion) {
+    private static void readHttpHeaders(MessageContext messageContext, AssertionType assertion) {
         Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
         if (message != null && message.get(Message.PROTOCOL_HEADERS) != null) {
             Map<String, List<String>> headers = CastUtils.cast((Map) message.get(Message.PROTOCOL_HEADERS));
             if (headers != null && headers.keySet() != null && !headers.keySet().isEmpty()) {
-                for (String headerName : headers.keySet()) {
-                    if (!headerHelper.isStandardHeader(headerName) && !headers.get(headerName).isEmpty()) {
-                        CONNECTCustomHttpHeadersType assertionHeader = new CONNECTCustomHttpHeadersType();
-                        assertionHeader.setHeaderName(headerName);
-                        assertionHeader.setHeaderValue(headers.get(headerName).get(0));
-                        assertion.getCONNECTCustomHttpHeaders().add(assertionHeader);
-                    }
-                }
+                addHeadersToAssertion(headers, assertion);
+            }
+        }
+    }
+
+    private static void addHeadersToAssertion(Map<String, List<String>> headers, AssertionType assertion) {
+        for (Entry<String,List<String>> entry : headers.entrySet()) {
+            if (!headerHelper.isStandardHeader(entry.getKey()) && !headers.get(entry.getKey()).isEmpty()) {
+                CONNECTCustomHttpHeadersType assertionHeader = new CONNECTCustomHttpHeadersType();
+                assertionHeader.setHeaderName(entry.getKey());
+                assertionHeader.setHeaderValue(entry.getValue().get(0));
+                assertion.getCONNECTCustomHttpHeaders().add(assertionHeader);
             }
         }
     }
