@@ -161,7 +161,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @return An enumeration of property keys in the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
-    public synchronized final Set<String> getPropertyNames(String propertyFile) throws PropertyAccessException {
+    public synchronized Set<String> getPropertyNames(String propertyFile) throws PropertyAccessException {
         validateInput(propertyFile);
         loadPropertyFile(propertyFile);
 

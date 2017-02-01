@@ -519,6 +519,10 @@ public class NhincConstants {
     public static final String PATIENT_CORR_HIBERNATE_BEAN = "patientCorrHibernateUtil";
     public static final String MSG_MONITOR_HIBERNATE_BEAN = "msgMonitorHibernateUtil";
     public static final String DIRECT_CONFIG_HIBERNATE_BEAN = "directConfigHibernateUtil";
+    
+    public static final String CUSTOM_HTTP_HEADERS = "customHttpHeaders";
+    public static final String KEEP_ALIVE_PROP = "connectionKeepAlive";
+    public static final String READ_HTTP_HEADERS = "readHttpHeaders";
 
     private NhincConstants() {
     }
