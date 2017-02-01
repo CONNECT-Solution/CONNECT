@@ -92,14 +92,14 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
         }
     }
 
-    private void inlineDigestValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
+    private static void inlineDigestValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
         NodeList digestNodes = element.getElementsByTagNameNS(SamlConstants.XML_SIGNATURE_NS,
             SamlConstants.DIGEST_VALUE_TAG);
 
         inlineIncludes(digestNodes, attachments);
     }
 
-    private void inlineSignatureValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
+    private static void inlineSignatureValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
         NodeList signatureNodes = element.getElementsByTagNameNS(SamlConstants.XML_SIGNATURE_NS,
             SamlConstants.SIGNATURE_VALUE_TAG);
 
@@ -121,7 +121,7 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
                     sigElement.setTextContent(attachmentValue);
                 } else {
                     LOG.warn(
-                        "Failed to inline signature/digest element to the header.  Cannot find reference id: " + refId);
+                        "Failed to inline signature/digest element to the header.  Cannot find reference id: {}", refId);
                 }
             }
         }
