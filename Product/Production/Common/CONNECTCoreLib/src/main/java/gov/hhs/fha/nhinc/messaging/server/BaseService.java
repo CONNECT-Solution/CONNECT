@@ -96,7 +96,7 @@ public abstract class BaseService {
             if (assertion != null && getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
                 MessageContext messageContext = getMessageContext(context);
 
-                if (messageContext != null || (messageContext instanceof WrappedMessageContext)) {
+                if (messageContext != null && (messageContext instanceof WrappedMessageContext)) {
                     readHttpHeaders(messageContext, assertion);
                 }
             }
