@@ -162,7 +162,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());
             Signer.signObject(signature);
-        } catch (final SignatureException | WSSecurityException | MarshallingException e) {
+        } catch (final SignatureException | WSSecurityException
+            | MarshallingException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
         }
@@ -354,24 +355,32 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     public Evidence createEvidence(final CallbackProperties properties, final Subject subject) {
         LOG.debug("SamlCallbackHandler.createEvidence() -- Begin");
-        final String evAssertionID = properties.getEvidenceID();
         final List<AttributeStatement> statements = createEvidenceStatements(properties);
-        return wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, properties, statements, subject));
+        return buildEvidence(properties, statements, subject);
     }
 
     /**
      *
-     * @param parameterObject
-     *
+     * @param evAssertionID
+     * @param issueInstant
+     * @param format
+     * @param beginValidTime
+     * @param endValidTime
+     * @param issuer
+     * @param statements
+     * @param subject
      * @return
      */
-    public Evidence wrapperEvidence(WrapperEvidenceParameter parameterObject) {
+    public Evidence buildEvidence(CallbackProperties properties, List<AttributeStatement> statements, Subject subject) {
 
-        String format = parameterObject.getProperties().getEvidenceIssuerFormat();
-        DateTime issueInstant = parameterObject.getProperties().getEvidenceInstant();
-        String evAssertionID = parameterObject.getEvAssertionID();
+        DateTime issueInstant = properties.getEvidenceInstant();
+        String format = properties.getEvidenceIssuerFormat();
+        String evAssertionID = properties.getEvidenceID();
+        DateTime beginValidTime = properties.getEvidenceConditionNotBefore();
+        DateTime endValidTime = properties.getEvidenceConditionNotAfter();
 
-        if (NullChecker.isNullish(parameterObject.getEvAssertionID())) {
+        final List<Assertion> evidenceAssertions = new ArrayList<>();
+        if (evAssertionID == null) {
             evAssertionID = createAssertionId();
         } else {
             if (!evAssertionID.startsWith("_")) {
@@ -386,69 +395,25 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (!isValidIssuerFormat(format)) {
             format = X509_NAME_ID;
         }
-        return wrapperEvidenceMethodExtension(format, issueInstant, evAssertionID, parameterObject);
-    }
 
-    /**
-     * Method gets called from buildEvidence to reduce the complexity of buildEvidence method
-     */
-    public Evidence wrapperEvidenceMethodExtension(String format, DateTime issueInstant, String evAssertionID,
-        WrapperEvidenceParameter parameterObject) {
-
-        DateTime endValidTime = parameterObject.getProperties().getEvidenceConditionNotAfter();
-        DateTime beginValidTime = parameterObject.getProperties().getEvidenceConditionNotBefore();
-        final List<Assertion> evidenceAssertions = new ArrayList<>();
         final Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format,
-            parameterObject.getProperties().getEvidenceIssuer());
+            properties.getEvidenceIssuer());
+
         final Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(evAssertionID);
 
-        evidenceAssertion.getAttributeStatements().addAll(parameterObject.getStatements());
+        evidenceAssertion.getAttributeStatements().addAll(statements);
 
+        // Following two methods
         // Only set the default value for
-        // AuthzDecisionStatement->Evidence->Assertion->Conditions--> notBefore
-        // and notOnOrAfter
+        // AuthzDecisionStatement->Evidence->Assertion->Conditions--> notBefore(setBeginValidTime)
+        // and notOnOrAfter(setEndValidTime)
         // attributes if the enableAuthDecEvidenceConditionsDefaultValue flag
-        // enabled or not provided in gateway proeprties
+        // enabled or not provided in gateway properties
         if (isAuthDEvidenceConditionsDefaultValueEnabled()) {
-            final DateTime now = new DateTime();
-
-            if (beginValidTime == null || beginValidTime.isAfter(now)) {
-                beginValidTime = now;
-            }
-            // If provided time is after the given issue instant,
-            // modify it to include the issue instant
-            if (beginValidTime.isAfter(issueInstant)) {
-                if (issueInstant.isAfter(now)) {
-                    beginValidTime = now;
-                }
-            } else {
-                beginValidTime = issueInstant;
-            }
-
-            // Make end datetime at a minimum 5 minutes from now
-            if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
-                endValidTime = now.plusMinutes(5);
-            }
-
-            // Ensure issueInstant is contained within valid times
-            if (endValidTime.isBefore(issueInstant)) {
-                endValidTime = issueInstant.plusMinutes(5);
-            }
+            beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
+            endValidTime = setEndValidTime(endValidTime, issueInstant);
         }
-
-        return wrapperEvidenceMethod2Extension(endValidTime, beginValidTime, evidenceAssertion, issueInstant,
-            evIssuerId, evidenceAssertions, parameterObject);
-    }
-
-    /**
-     * Method gets called from buildEvidenceMethodExtension to reduce the complexity of buildEvidence and
-     * buildEvidenceMethodExtension method
-     */
-    public Evidence wrapperEvidenceMethod2Extension(DateTime endValidTime, DateTime beginValidTime,
-        Assertion evidenceAssertion, DateTime issueInstant, Issuer evIssuerId, List<Assertion> evidenceAssertions,
-        WrapperEvidenceParameter parameterObject) {
-        // Only create the Conditions if NotBefore and/or NotOnOrAfter is
-        // present
+        // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (beginValidTime != null || endValidTime != null) {
             final Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime,
                 endValidTime);
@@ -456,7 +421,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
         evidenceAssertion.setIssueInstant(issueInstant);
         evidenceAssertion.setIssuer(evIssuerId);
-        evidenceAssertion.setSubject(parameterObject.getSubject());
+        evidenceAssertion.setSubject(subject);
 
         evidenceAssertions.add(evidenceAssertion);
 
@@ -464,6 +429,56 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         LOG.debug("SamlCallbackHandler.createEvidence() -- End");
         return evidence;
+    }
+
+    /**
+     *
+     * @param beginValidTimeArg
+     * @param issueInstant
+     * @return beginValidTime
+     */
+    public static DateTime setBeginValidTime(DateTime beginValidTimeArg, DateTime issueInstant) {
+
+        DateTime beginValidTime = beginValidTimeArg;
+        final DateTime now = new DateTime();
+
+        if (beginValidTime == null || beginValidTime.isAfter(now)) {
+            beginValidTime = now;
+        }
+        // If provided time is after the given issue instant,
+        // modify it to include the issue instant
+        if (beginValidTime.isAfter(issueInstant)) {
+            if (issueInstant.isAfter(now)) {
+                beginValidTime = now;
+            }
+        } else {
+            beginValidTime = issueInstant;
+        }
+
+        return beginValidTime;
+    }
+
+    /**
+     *
+     * @param endValidTimeArg
+     * @param issueInstant
+     * @return endValidTime
+     */
+    public static DateTime setEndValidTime(DateTime endValidTimeArg, DateTime issueInstant) {
+        DateTime endValidTime = endValidTimeArg;
+        final DateTime now = new DateTime();
+
+        // Make end datetime at a minimum 5 minutes from now
+        if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
+            endValidTime = now.plusMinutes(5);
+        }
+
+        // Ensure issueInstant is contained within valid times
+        if (endValidTime.isBefore(issueInstant)) {
+            endValidTime = issueInstant.plusMinutes(5);
+        }
+
+        return endValidTime;
     }
 
     /**

@@ -33,6 +33,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -55,7 +56,9 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -278,20 +281,15 @@ public class HOKSAMLAssertionBuilderTest {
 
     @Test
     public void testBuildEvidence() {
-        final CallbackProperties properties = mock(CallbackProperties.class);
+        Map<Object, Object> propertiesMap = new HashMap<Object, Object>();
+        propertiesMap.put(SamlConstants.EVIDENCE_ID_PROP, "_45678fdgrt543sweqt");
+        CallbackProperties properties = new CallbackMapProperties(propertiesMap);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-        final String evAssertionID = "_45678fdgrt543sweqt";
-        final String format = null;
-        final DateTime beginValidTime = null;
-        final DateTime endValidTime = null;
-        final DateTime issueInstant = null;
-        final String issuer = null;
         final Subject subject = mock(Subject.class);
         final AttributeStatement e = mock(AttributeStatement.class);
         final List<AttributeStatement> statements = new ArrayList<>();
         statements.add(0, e);
-        final Evidence evidence1 = builder
-            .wrapperEvidence(new WrapperEvidenceParameter(evAssertionID, properties, statements, subject));
+        final Evidence evidence1 = builder.buildEvidence(properties, statements, subject);
         assertTrue(evidence1.getAssertions().get(0).getID().startsWith("_"));
     }
 
