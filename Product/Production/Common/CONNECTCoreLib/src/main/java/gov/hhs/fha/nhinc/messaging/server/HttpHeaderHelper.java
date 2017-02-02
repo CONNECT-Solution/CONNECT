@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.server;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,6 +58,6 @@ public class HttpHeaderHelper {
     }
     
     public boolean isStandardHeader(String value) {
-        return STANDARD_HEADERS.contains(value.toUpperCase());
+        return NullChecker.isNotNullish(value) ? STANDARD_HEADERS.contains(value.toUpperCase()) : false;
     }
 }

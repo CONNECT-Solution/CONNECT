@@ -43,6 +43,7 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.apache.commons.collections.MapUtils;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
@@ -90,7 +91,7 @@ public abstract class BaseService {
             if (getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
                 MessageContext messageContext = getMessageContext(context);
 
-                if (messageContext != null && (messageContext instanceof WrappedMessageContext)) {
+                if (messageContext instanceof WrappedMessageContext) {
                     readHttpHeaders(messageContext, assertion);
                 }
             }
@@ -201,7 +202,7 @@ public abstract class BaseService {
         Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
         if (message != null && message.get(Message.PROTOCOL_HEADERS) != null) {
             Map<String, List<String>> headers = CastUtils.cast((Map) message.get(Message.PROTOCOL_HEADERS));
-            if (headers != null && headers.keySet() != null && !headers.keySet().isEmpty()) {
+            if (MapUtils.isNotEmpty(headers)) {
                 addHeadersToAssertion(headers, assertion);
             }
         }
