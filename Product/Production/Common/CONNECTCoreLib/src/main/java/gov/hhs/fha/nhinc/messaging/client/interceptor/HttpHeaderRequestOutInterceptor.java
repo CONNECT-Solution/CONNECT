@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.apache.commons.collections.MapUtils;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
@@ -63,7 +64,7 @@ public class HttpHeaderRequestOutInterceptor extends AbstractPhaseInterceptor<Me
         
         final Map<String, String> customHttpHeaders = getCustomHttpHeaders(message);
         
-        if(customHttpHeaders != null && !customHttpHeaders.isEmpty()) {
+        if(MapUtils.isNotEmpty(customHttpHeaders)) {
             for(Entry<String,String> entry : customHttpHeaders.entrySet()) {
                 headers.put(entry.getKey(), Collections.singletonList(entry.getValue()));
                 LOG.debug("Adding custom CONNECT HTTP header: {}, {}" , entry.getKey(), entry.getValue());
