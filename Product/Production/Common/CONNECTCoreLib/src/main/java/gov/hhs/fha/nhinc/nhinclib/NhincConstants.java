@@ -79,17 +79,17 @@ public class NhincConstants {
     public static enum NHIN_SERVICE_NAMES {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
-                PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                        PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
-                                DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
-                                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
-                                                NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
-                                                        NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
-                                                                NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
-                                                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
-                                                                                CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
-                                                                                        CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
-                                                                                                CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+            PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
+                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
+                    DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
+                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
+                            NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
+                                NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
+                                    NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
+                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
+                                            CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
+                                                CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
+                                                    CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(String value) {
@@ -126,6 +126,7 @@ public class NhincConstants {
     public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
     // SAML constants
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
+    public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
     // Initiating multispec errors
     public static final String INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE = "Unsupported guidance for API level.";
     public static final String INIT_MULTISPEC_ERROR_NO_MATCHING_ENDPOINT = "No matching target endpoint for guidance: ";
