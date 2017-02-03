@@ -222,7 +222,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         } catch (final Exception e) {
             LOG.trace("Exception checking DN: {}", e.getLocalizedMessage(), e);
         }
-        return name == null ? false : true;
+        return name != null;
     }
 
     protected Subject createEvidenceSubject(final CallbackProperties properties, final X509Certificate certificate,
@@ -437,7 +437,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param issueInstant
      * @return beginValidTime
      */
-    public static DateTime setBeginValidTime(DateTime beginValidTimeArg, DateTime issueInstant) {
+    private static DateTime setBeginValidTime(DateTime beginValidTimeArg, DateTime issueInstant) {
 
         DateTime beginValidTime = beginValidTimeArg;
         final DateTime now = new DateTime();
@@ -464,7 +464,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param issueInstant
      * @return endValidTime
      */
-    public static DateTime setEndValidTime(DateTime endValidTimeArg, DateTime issueInstant) {
+    private static DateTime setEndValidTime(DateTime endValidTimeArg, DateTime issueInstant) {
         DateTime endValidTime = endValidTimeArg;
         final DateTime now = new DateTime();
 
