@@ -33,6 +33,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -55,7 +56,9 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -253,7 +256,7 @@ public class HOKSAMLAssertionBuilderTest {
 
                     @Override
                     public void checkValidity(final Date date)
-                            throws CertificateExpiredException, CertificateNotYetValidException {
+                        throws CertificateExpiredException, CertificateNotYetValidException {
                     }
 
                     @Override
@@ -270,7 +273,7 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testCreateAuthenicationStatement() {
         final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
-        .createAuthenicationStatements(getProperties());
+            .createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -278,19 +281,15 @@ public class HOKSAMLAssertionBuilderTest {
 
     @Test
     public void testBuildEvidence() {
+        Map<Object, Object> propertiesMap = new HashMap<Object, Object>();
+        propertiesMap.put(SamlConstants.EVIDENCE_ID_PROP, "_45678fdgrt543sweqt");
+        CallbackProperties properties = new CallbackMapProperties(propertiesMap);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-        final String evAssertionID = "_45678fdgrt543sweqt";
-        final String format = null;
-        final DateTime beginValidTime = null;
-        final DateTime endValidTime = null;
-        final DateTime issueInstant = null;
-        final String issuer = null;
         final Subject subject = mock(Subject.class);
         final AttributeStatement e = mock(AttributeStatement.class);
         final List<AttributeStatement> statements = new ArrayList<>();
         statements.add(0, e);
-        final Evidence evidence1 = builder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime,
-                issuer, statements, subject);
+        final Evidence evidence1 = builder.buildEvidence(properties, statements, subject);
         assertTrue(evidence1.getAssertions().get(0).getID().startsWith("_"));
     }
 
@@ -302,7 +301,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
 
         final List<AuthzDecisionStatement> statementList = new HOKSAMLAssertionBuilder()
-        .createAuthenicationDecsionStatements(callbackProps, subject);
+            .createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
@@ -316,16 +315,16 @@ public class HOKSAMLAssertionBuilderTest {
         assertTrue(assertion.getID().startsWith("_"));
 
         assertTrue(beforeCreation.isBefore(assertion.getIssueInstant())
-                || beforeCreation.isEqual(assertion.getIssueInstant()));
+            || beforeCreation.isEqual(assertion.getIssueInstant()));
 
         final Issuer issuer = assertion.getIssuer();
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         final Conditions conditions = assertion.getConditions();
         assertTrue(beforeCreation.isBefore(conditions.getNotBefore())
-                || beforeCreation.isEqual(conditions.getNotBefore()));
+            || beforeCreation.isEqual(conditions.getNotBefore()));
         assertTrue(beforeCreation.isBefore(conditions.getNotOnOrAfter())
-                || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
+            || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
@@ -351,7 +350,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
 
         final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
-                .createAuthenicationDecsionStatements(callbackProps, subject);
+            .createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
@@ -377,7 +376,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(null);
         final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
-                .createAuthenicationDecsionStatements(callbackProps, subject);
+            .createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
@@ -407,7 +406,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(null);
 
         final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
-                .createAuthenicationDecsionStatements(callbackProps, subject);
+            .createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);

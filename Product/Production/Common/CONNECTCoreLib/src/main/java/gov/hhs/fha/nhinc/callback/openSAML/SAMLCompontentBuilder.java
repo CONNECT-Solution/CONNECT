@@ -35,7 +35,7 @@ import org.opensaml.saml.saml2.core.AuthnStatement;
  */
 interface SAMLCompontentBuilder {
 
-    AuthnStatement createAuthenicationStatements(String cntxCls, String sessionIndex, DateTime authInstant,
-            String inetAddr, String dnsName);
+    AuthnStatement createAuthenticationStatements(String cntxCls, String sessionIndex, DateTime authInstant,
+        String inetAddr, String dnsName);
 
 }

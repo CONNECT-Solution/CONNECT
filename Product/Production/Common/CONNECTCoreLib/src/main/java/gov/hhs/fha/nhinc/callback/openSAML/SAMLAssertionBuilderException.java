@@ -38,10 +38,10 @@ public class SAMLAssertionBuilderException extends Exception {
     }
 
     public SAMLAssertionBuilderException(Throwable throwable) {
-    	super(throwable);
+        super(throwable);
     }
 
     public SAMLAssertionBuilderException(String message, Throwable throwable) {
-    	super(message, throwable);
+        super(message, throwable);
     }
 }
