@@ -28,20 +28,29 @@ package gov.hhs.fha.nhinc.messaging.server;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CONNECTCustomHttpHeadersType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import org.apache.commons.collections.MapUtils;
+import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.apache.cxf.ws.addressing.AddressingProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -50,6 +59,8 @@ import org.apache.cxf.ws.addressing.AddressingProperties;
 public abstract class BaseService {
 
     private final AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    private static final Logger LOG = LoggerFactory.getLogger(BaseService.class);
+    private static HttpHeaderHelper headerHelper = new HttpHeaderHelper();
 
     protected AssertionType getAssertion(WebServiceContext context) {
         return getAssertion(context, null);
@@ -65,25 +76,46 @@ public abstract class BaseService {
             assertion = assertionIn;
         }
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            if (NullChecker.isNullish(assertion.getMessageId())) {
-                assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
-            } else {
-                // Message ID prefix should be added here to the assertion's original messageID if it is missing.
-                assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
-            }
+            handleMessageId(assertion, context, wsaHelper);
+            handleRelatesTo(context, assertion);
+            handleHttpHeaders(assertion, context);
         }
-
-        // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            List<String> relatesToList = extractor.getAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(relatesToList.get(0));
-            }
-        }
-
+        
         return assertion;
+    }
+
+    //Extract custom http headers from message context.
+    private void handleHttpHeaders(AssertionType assertion, WebServiceContext context) {
+        try {
+            if (getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.READ_HTTP_HEADERS)) {
+                MessageContext messageContext = getMessageContext(context);
+
+                if (messageContext instanceof WrappedMessageContext) {
+                    readHttpHeaders(messageContext, assertion);
+                }
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access property for reading HTTP headers.", ex);
+        }
+    }
+
+    // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
+    private void handleRelatesTo(WebServiceContext context, AssertionType assertion) {
+        List<String> relatesToList = extractor.getAsyncRelatesTo(context);
+        if (NullChecker.isNotNullish(relatesToList)) {
+            assertion.getRelatesToList().add(relatesToList.get(0));
+        }
+    }
+
+    // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+    private void handleMessageId(AssertionType assertion, WebServiceContext context, WSAHeaderHelper wsaHelper) {
+        if (NullChecker.isNullish(assertion.getMessageId())) {
+            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+        } else {
+            // Message ID prefix should be added here to the assertion's original messageID if it is missing.
+            assertion.setMessageId(wsaHelper.fixMessageIDPrefix(assertion.getMessageId()));
+        }
     }
 
     protected String getLocalHomeCommunityId() {
@@ -143,8 +175,8 @@ public abstract class BaseService {
     }
 
     /**
-     * Returns a Web Service Context properties object with the following properties: 1. Web Service Request URL 2.
-     * Remote Host Address
+     * Returns a Web Service Context properties object with the following
+     * properties: 1. Web Service Request URL 2. Remote Host Address
      *
      * @param context
      * @return
@@ -165,4 +197,34 @@ public abstract class BaseService {
 
         return webContextProperties;
     }
+
+    private static void readHttpHeaders(MessageContext messageContext, AssertionType assertion) {
+        Message message = ((WrappedMessageContext) messageContext).getWrappedMessage();
+        if (message != null && message.get(Message.PROTOCOL_HEADERS) != null) {
+            Map<String, List<String>> headers = CastUtils.cast((Map) message.get(Message.PROTOCOL_HEADERS));
+            if (MapUtils.isNotEmpty(headers)) {
+                addHeadersToAssertion(headers, assertion);
+            }
+        }
+    }
+
+    private static void addHeadersToAssertion(Map<String, List<String>> headers, AssertionType assertion) {
+        for (Entry<String, List<String>> entry : headers.entrySet()) {
+            if (!headerHelper.isStandardHeader(entry.getKey()) && !headers.get(entry.getKey()).isEmpty()) {
+                CONNECTCustomHttpHeadersType assertionHeader = new CONNECTCustomHttpHeadersType();
+                assertionHeader.setHeaderName(entry.getKey());
+                assertionHeader.setHeaderValue(entry.getValue().get(0));
+                assertion.getCONNECTCustomHttpHeaders().add(assertionHeader);
+            }
+        }
+    }
+
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
+    }
+
+    protected MessageContext getMessageContext(WebServiceContext context) {
+        return context.getMessageContext();
+    }
+
 }

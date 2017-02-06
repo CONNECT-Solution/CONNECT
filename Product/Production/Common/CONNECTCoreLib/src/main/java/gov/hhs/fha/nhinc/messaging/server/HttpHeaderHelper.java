@@ -24,44 +24,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.messaging.client;
+package gov.hhs.fha.nhinc.messaging.server;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * @author akong
  *
+ * @author jassmit
  */
-public class CONNECTCXFClientFactory extends CONNECTClientFactory {
-
-    /**
-     * Returns a CONNECTClient configured for secured invocation.
-     */
-    @Override
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
-
-        return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion);
+public class HttpHeaderHelper {
+    
+    private static final Set<String> STANDARD_HEADERS = new HashSet<>();
+    
+    static {
+        STANDARD_HEADERS.add("Accept-Encoding".toUpperCase());
+        STANDARD_HEADERS.add("Accept-Language".toUpperCase());
+        STANDARD_HEADERS.add("Cookie".toUpperCase());
+        STANDARD_HEADERS.add("Host".toUpperCase());
+        STANDARD_HEADERS.add("User-Agent".toUpperCase());
+        STANDARD_HEADERS.add("Referer".toUpperCase());
+        STANDARD_HEADERS.add("Cache-Control".toUpperCase());
+        STANDARD_HEADERS.add("Content-Encoding".toUpperCase());
+        STANDARD_HEADERS.add("Content-Type".toUpperCase());
+        STANDARD_HEADERS.add("Content-Location".toUpperCase());
+        STANDARD_HEADERS.add("Transfer-Encoding".toUpperCase()); 
+        STANDARD_HEADERS.add("Connection".toUpperCase());
+        STANDARD_HEADERS.add("accept".toUpperCase());
+        STANDARD_HEADERS.add("server".toUpperCase());
+        STANDARD_HEADERS.add("keep-alive".toUpperCase());
+        STANDARD_HEADERS.add("pragma".toUpperCase());
     }
-
-    /**
-     * Returns a CONNECTClient configured for secured invocation. This method
-     * allows the target hcid and service name to be passed to be used for
-     * purpose of/purpose for logic.
-     */
-    @Override
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-            AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
-        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
-    }
-
-    /**
-     * Returns a CONNECTClient configured for unsecured invocation.
-     */
-    @Override
-    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
-        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
+    
+    public boolean isStandardHeader(String value) {
+        return NullChecker.isNotNullish(value) ? STANDARD_HEADERS.contains(value.toUpperCase()) : false;
     }
 }
