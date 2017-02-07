@@ -45,7 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author akong and young weezy
+ * @author akong
  *
  */
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
@@ -57,7 +57,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     private AssertionType assertion;
 
     public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
-            String wsAddressingAction, AssertionType assertion) {
+        String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
 
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
@@ -130,7 +130,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         httpClientPolicy.setContentType(contentType);
     }
 
-    private String removeActionFromContentType(String contentType) {
+    private static String removeActionFromContentType(String contentType) {
         String[] contentTypeValues = contentType.split("(?<=;)");
 
         String newContentType = "";
@@ -159,7 +159,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         if (NullChecker.isNullish(messageId)) {
             messageId = wsaHelper.generateMessageID();
-            LOG.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
+            LOG.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = {}", messageId);
         } else {
             messageId = wsaHelper.fixMessageIDPrefix(messageId);
         }
