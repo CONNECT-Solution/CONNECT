@@ -26,16 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.wss4j.policy.SPConstants;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
-
+import org.apache.wss4j.policy.SPConstants;
 
 /**
  * @author akong
@@ -44,8 +41,8 @@ import org.apache.wss4j.dom.handler.WSHandlerConstants;
 public class WsSecurityConfigFactory {
 
     private static final String SIGNATURE_PROPERTIES_FILENAME = "signature";
-    private static final Logger LOG = LoggerFactory.getLogger(WsSecurityConfigFactory.class);
-    private static WsSecurityConfigFactory INSTANCE = null;
+    private static WsSecurityConfigFactory instance = null;
+    private static final String CRYPTO_PROPERTIES = "cryptoProperties";
 
     private PropertyAccessorFileUtilities propFileUtil = null;
     private StoreUtil cryptoStoreUtil = null;
@@ -67,11 +64,11 @@ public class WsSecurityConfigFactory {
      * @return a singleton instance of this factory.
      */
     public static WsSecurityConfigFactory getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new WsSecurityConfigFactory();
+        if (instance == null) {
+            instance = new WsSecurityConfigFactory();
         }
 
-        return INSTANCE;
+        return instance;
     }
 
     /**
@@ -93,13 +90,13 @@ public class WsSecurityConfigFactory {
         outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler");
         outProps.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
         outProps.put(WSHandlerConstants.SAML_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler");
-        outProps.put("cryptoProperties", getSignatureProperties());
-        outProps.put(WSHandlerConstants.SIG_PROP_REF_ID, "cryptoProperties");
+        outProps.put(CRYPTO_PROPERTIES, getSignatureProperties());
+        outProps.put(WSHandlerConstants.SIG_PROP_REF_ID, CRYPTO_PROPERTIES);
         outProps.put(WSHandlerConstants.SIG_ALGO, SPConstants.RSA_SHA1);
         outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, SPConstants.SHA1);
 
         outProps.put(WSHandlerConstants.SIGNATURE_PARTS,
-                "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");
+            "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");
 
         return outProps;
     }
@@ -112,11 +109,11 @@ public class WsSecurityConfigFactory {
         return propFileUtil.loadPropertyFile(SIGNATURE_PROPERTIES_FILENAME);
     }
 
-    private Map<String, Object> deepCopy(final HashMap<String, Object> configMap) {
+    private static Map<String, Object> deepCopy(final HashMap<String, Object> configMap) {
         final HashMap<String, Object> clonedMap = new HashMap<>(configMap);
 
-        final Properties cryptoProperties = (Properties) clonedMap.get("cryptoProperties");
-        clonedMap.put("cryptoProperties", cryptoProperties.clone());
+        final Properties cryptoProperties = (Properties) clonedMap.get(CRYPTO_PROPERTIES);
+        clonedMap.put(CRYPTO_PROPERTIES, cryptoProperties.clone());
 
         return clonedMap;
     }
