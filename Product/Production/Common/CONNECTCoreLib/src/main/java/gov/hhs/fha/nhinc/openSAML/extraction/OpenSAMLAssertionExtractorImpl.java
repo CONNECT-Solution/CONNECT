@@ -120,9 +120,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param element the xml element to extract the assertion from
      * @return The first encountered Assertion object in the element
      */
-    private Assertion extractSaml2Assertion(final Element element) {
+    private static Assertion extractSaml2Assertion(final Element element) {
         if (element.getNamespaceURI().equals(SamlConstants.SAML2_ASSERTION_NS)
-                && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
+            && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
 
             return convertToAssertion(element);
         }
@@ -130,9 +130,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         return extractSaml2AssertionFromDescendants(element);
     }
 
-    private Assertion extractSaml2AssertionFromDescendants(final Element element) {
+    private static Assertion extractSaml2AssertionFromDescendants(final Element element) {
         NodeList assertionNodes = element.getElementsByTagNameNS(SamlConstants.SAML2_ASSERTION_NS,
-                SamlConstants.SAML2_ASSERTION_TAG);
+            SamlConstants.SAML2_ASSERTION_TAG);
 
         if (assertionNodes.getLength() > 0) {
             Node assertionNode = assertionNodes.item(0);
@@ -144,7 +144,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         return null;
     }
 
-    private Assertion convertToAssertion(final Element element) {
+    private static Assertion convertToAssertion(final Element element) {
         try {
             org.opensaml.core.xml.XMLObject xmlObject = OpenSAMLUtil.fromDom(element);
             if (xmlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
@@ -157,7 +157,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         return null;
     }
 
-    private void populateIssuer(final Assertion saml2Assertion, final AssertionType target) {
+    private static void populateIssuer(final Assertion saml2Assertion, final AssertionType target) {
         target.setSamlIssuer(new SamlIssuerType());
         target.getSamlIssuer().setIssuer(saml2Assertion.getIssuer().getValue());
         target.getSamlIssuer().setIssuerFormat(saml2Assertion.getIssuer().getFormat());
@@ -176,66 +176,88 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         for (AttributeStatement attributeStatement : saml2Assertion.getAttributeStatements()) {
             for (Attribute attribute : attributeStatement.getAttributes()) {
-
-                if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE)) {
-                    LOG.debug("Extracting Assertion.userInfo.roleCoded:");
-                    populateSubjectRole(attribute, target);
-
-                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
-                    LOG.debug("Extracting Assertion.purposeOfDisclosure:");
-                    populatePurposeOfUseAttribute(attribute, target);
-
-                } else if (attribute.getName().equals(NhincConstants.USERNAME_ATTR)) {
-                    helper.extractNameParts(attribute, target);
-
-                } else if (attribute.getName().equals(NhincConstants.USER_ORG_ATTR)) {
-                    String orgAttribute = getAttributeValue(attribute);
-                    target.getUserInfo().getOrg().setName(orgAttribute);
-                    LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
-
-                } else if (attribute.getName().equals(NhincConstants.USER_ORG_ID_ATTR)) {
-                    String orgIDAttribute = getAttributeValue(attribute);
-                    target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
-                    LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
-
-                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
-                    String homeCommunityId = getAttributeValue(attribute);
-                    target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
-                    LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
-
-                } else if (attribute.getName().equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
-                    List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                            .addAll(accessConsentId);
-                    LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
-                            + accessConsentId);
-
-                } else if (attribute.getName().equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
-                    List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
-                            .addAll(instAccessConsentId);
-                    LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
-                            + instAccessConsentId);
-
-                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID)) {
-                    if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
-                        String patientId = getAttributeValue(attribute);
-                        target.getUniquePatientId().add(patientId);
-                        LOG.debug("Assertion.uniquePatientId = " + patientId);
-                    }
-
-                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_NPI)) {
-                    String nationalProviderId = getAttributeValue(attribute);
-                    target.setNationalProviderId(nationalProviderId);
-                    LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
-
-                } else {
-                    LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
-
-                }
+                compareAttribute(attribute, target, helper);
             }
         }
         LOG.debug("end populateAttributeStatement()");
+    }
+
+    /**
+     * @param attribute
+     * @param target
+     * @param attrName
+     */
+    private void compareAttribute(Attribute attribute, AssertionType target, AttributeHelper helper) {
+
+        if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE)) {
+            LOG.debug("Extracting Assertion.userInfo.roleCoded:");
+            populateSubjectRole(attribute, target);
+
+        } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
+            LOG.debug("Extracting Assertion.purposeOfDisclosure:");
+            populatePurposeOfUseAttribute(attribute, target);
+
+        } else if (attribute.getName().equals(NhincConstants.USERNAME_ATTR)) {
+            helper.extractNameParts(attribute, target);
+
+        } else if (attribute.getName().equals(NhincConstants.USER_ORG_ATTR)) {
+            String orgAttribute = getAttributeValue(attribute);
+            target.getUserInfo().getOrg().setName(orgAttribute);
+            LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
+
+        } else if (attribute.getName().equals(NhincConstants.USER_ORG_ID_ATTR)) {
+            String orgIDAttribute = getAttributeValue(attribute);
+            target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
+            LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
+
+        } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
+            String homeCommunityId = getAttributeValue(attribute);
+            target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
+            LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
+
+        } else if (attribute.getName().equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
+            List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
+            target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
+            .addAll(accessConsentId);
+            LOG.debug(
+                "Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = " + accessConsentId);
+
+        } else if (attribute.getName().equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
+            List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
+            target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
+            .addAll(instAccessConsentId);
+            LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
+                + instAccessConsentId);
+
+        } else if (!addProviderPatientID(attribute, target)) {
+            LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
+
+        }
+    }
+
+    /**
+     * @param target
+     * @param attribute
+     * @return
+     */
+    private static boolean addProviderPatientID(Attribute attribute, AssertionType target) {
+        if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID)) {
+            if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
+                String patientId = getAttributeValue(attribute);
+                target.getUniquePatientId().add(patientId);
+                LOG.debug("Assertion.uniquePatientId = " + patientId);
+            }
+            return true;
+
+        } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_NPI)) {
+            String nationalProviderId = getAttributeValue(attribute);
+            target.setNationalProviderId(nationalProviderId);
+            LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -250,7 +272,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         return stringList;
     }
 
-    private String getAttributeValue(Attribute attribute) {
+    private static String getAttributeValue(Attribute attribute) {
         return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
     }
 
@@ -260,7 +282,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
-    private void populateAuthenticationStatement(final Assertion saml2Assertion, final AssertionType target) {
+    private static void populateAuthenticationStatement(final Assertion saml2Assertion, final AssertionType target) {
 
         LOG.debug("Executing Saml2AssertionExtractor.populateAuthenticationStatement()...");
         SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
@@ -271,7 +293,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
         samlAuthnStatement
-                .setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef().getAuthnContextClassRef());
+        .setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef().getAuthnContextClassRef());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());
@@ -288,7 +310,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
-    private void populateSubject(final Assertion saml2Assertion, final AssertionType target) {
+    private static void populateSubject(final Assertion saml2Assertion, final AssertionType target) {
         LOG.debug("Executing Saml2AssertionExtractor.populateSubject()...");
 
         Subject subject = saml2Assertion.getSubject();
@@ -314,7 +336,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
-    private void populateAuthzDecisionStatement(final Assertion saml2Assertion, final AssertionType target) {
+    private static void populateAuthzDecisionStatement(final Assertion saml2Assertion, final AssertionType target) {
 
         LOG.debug("Executing Saml2AssertionExtractor.populateAuthzDecisionStatement()...");
 
@@ -346,8 +368,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.debug("end populateAuthzDecisionStatement()");
     }
 
-    private void translateEvidenceAssertions(SamlAuthzDecisionStatementEvidenceType targetEvidence,
-            List<Assertion> saml2EvidenceAssertions) {
+    private static void translateEvidenceAssertions(SamlAuthzDecisionStatementEvidenceType targetEvidence,
+        List<Assertion> saml2EvidenceAssertions) {
 
         if (CollectionUtils.isEmpty(saml2EvidenceAssertions)) {
             LOG.trace("Empty/null assertion list");
@@ -365,29 +387,12 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         targetEvidenceAssertion.setVersion(saml2EvidenceAssertion.getVersion().toString());
 
         // Translate Evidence Attribute Statement
-        for (AttributeStatement saml2EvidenceAttributeStatement : saml2EvidenceAssertion.getAttributeStatements()) {
-            List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
+        addConsent(saml2EvidenceAssertion, targetEvidenceAssertion);
 
-            for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
-                if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                        && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
-                    XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
-                    String accessConsent = xmlObject.getDOM().getTextContent();
-
-                    targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
-                } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                        && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
-                    XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
-                    String instanceAccessConsent = xmlObject.getDOM().getTextContent();
-
-                    targetEvidenceAssertion.getInstanceAccessConsentPolicy().add(instanceAccessConsent);
-                }
-            }
-        }
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (saml2EvidenceAssertion.getConditions() != null
-                && (saml2EvidenceAssertion.getConditions().getNotBefore() != null
-                        || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
+            && (saml2EvidenceAssertion.getConditions().getNotBefore() != null
+            || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
             // Translate Evidence Conditions
             Conditions saml2EvidenceCondition = saml2EvidenceAssertion.getConditions();
             SamlAuthzDecisionStatementEvidenceConditionsType targetConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
@@ -408,12 +413,41 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
+     * @param targetEvidenceAssertion
+     * @param saml2EvidenceAssertion
+     *
+     */
+    private static void addConsent(Assertion saml2EvidenceAssertion,
+        SamlAuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion) {
+        for (AttributeStatement saml2EvidenceAttributeStatement : saml2EvidenceAssertion.getAttributeStatements()) {
+            List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
+
+            for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
+                if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                    && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
+                    XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
+                    String accessConsent = xmlObject.getDOM().getTextContent();
+
+                    targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
+                } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                    && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
+                    XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
+                    String instanceAccessConsent = xmlObject.getDOM().getTextContent();
+
+                    targetEvidenceAssertion.getInstanceAccessConsentPolicy().add(instanceAccessConsent);
+                }
+            }
+        }
+
+    }
+
+    /**
      * This method is used to construct HL7 PurposeOfUse Attribute, and adds it to the Assertion.
      *
      * @param attribute attribute
      * @param target target assertion
      */
-    private void populatePurposeOfUseAttribute(final Attribute attribute, final AssertionType target) {
+    private static void populatePurposeOfUseAttribute(final Attribute attribute, final AssertionType target) {
 
         LOG.debug("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
@@ -434,7 +468,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      *
      * @param assertOut The Assertion element being written to
      */
-    private AssertionType initializeAssertion() {
+    private static AssertionType initializeAssertion() {
 
         LOG.debug("Initializing Assertion to Default: " + EMPTY_STRING);
         AssertionType assertOut = new AssertionType();
@@ -530,7 +564,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param attribute attribute
      * @param target target assertion
      */
-    private void populateSubjectRole(final Attribute attribute, final AssertionType target) {
+    private static void populateSubjectRole(final Attribute attribute, final AssertionType target) {
 
         LOG.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
@@ -542,7 +576,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.debug("end populateSubjectRole()");
     }
 
-    private void populateCeType(XSAny samlAttrValElement, CeType ceType) {
+    private static void populateCeType(XSAny samlAttrValElement, CeType ceType) {
 
         ceType.setCode("");
         ceType.setCodeSystem("");
