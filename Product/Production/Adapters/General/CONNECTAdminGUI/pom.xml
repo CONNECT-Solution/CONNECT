@@ -17,6 +17,7 @@
 
     <dependencies>
         <!-- Java EE APIs -->
+        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -79,6 +80,11 @@
             <artifactId>cxf-rt-databinding-aegis</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
 
         <!-- CONNECT Modules / Web Services -->
         <dependency>
@@ -88,6 +94,7 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
+            <version>4.4.0-PDMP</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -268,11 +275,10 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- xalan dependency required for XSL transformation -->
         <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <scope>runtime</scope>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>9.7.0-14</version>
         </dependency>
 
 
@@ -299,19 +305,26 @@
             </exclusions>
         </dependency>
         <!--  AntiSamy -->
-         <dependency>
+        <dependency>
             <groupId>org.owasp.antisamy</groupId>
             <artifactId>antisamy</artifactId>
             <version>1.5.3</version>
         </dependency>
-   </dependencies>
-  <repositories>
-    <repository>
-      <id>prime-repo</id>
-      <name>PrimeFaces Maven Repository</name>
-      <url>http://repository.primefaces.org</url>
-      <layout>default</layout>
-      </repository>
+        
+        <!-- HTML Parser -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.2</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
 
     <build>

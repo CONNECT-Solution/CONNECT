@@ -57,7 +57,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Singleton Interface class between UI and the backend services. provides high level APIs for calling PD, DQ, RD etc.
+ * Singleton Interface class between UI and the backend services. provides high
+ * level APIs for calling PD, DQ, RD etc.
  *
  *
  * @author Naresh Subramanyan
@@ -128,7 +129,7 @@ public class GatewayService {
             // Call the entity/gateway Patient Discovery service
             final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
             LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
-                patientDiscoveryResults.getPatientList().size());
+                    patientDiscoveryResults.getPatientList().size());
 
             // Return false if no patient found
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
@@ -145,7 +146,8 @@ public class GatewayService {
     }
 
     /**
-     * Calls the NwHIN Query Document service and returns requested documents for the given patient
+     * Calls the NwHIN Query Document service and returns requested documents
+     * for the given patient
      *
      * @param patientQuerySearch
      *
@@ -170,7 +172,7 @@ public class GatewayService {
 
         try {
             final DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(
-                new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
+                    new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
             final DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
 
             // Check the number of documents
@@ -187,8 +189,8 @@ public class GatewayService {
     }
 
     /**
-     * Calls the NwHIN Retrieve Document service and updates the patient bean with the document binary, content type
-     * etc.
+     * Calls the NwHIN Retrieve Document service and updates the patient bean
+     * with the document binary, content type etc.
      *
      * @param patientQuerySearch
      *
@@ -205,22 +207,15 @@ public class GatewayService {
         final DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve);
         // set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
+            patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(response.getDocument());
             if (response.getContentType() != null && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
-                || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
-                final InputStream xsl = FacesContext.getCurrentInstance().getExternalContext()
-                    .getResourceAsStream(DEFAULT_XSL_FILE);
-                final InputStream xml = new ByteArrayInputStream(response.getDocument());
-                byte[] convertXmlToHtml = null;
-                if (xsl != null) {
-                    convertXmlToHtml = transformer.convertXMLToHTML(xml, xsl);
-                    closeStreamSilently(xsl);
-                }
-                patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(convertXmlToHtml);
-            } else {
-                patientQuerySearch.getSelectedCurrentDocument().setDocumentContent(response.getDocument());
+                    || response.getContentType().equals(CONTENT_TYPE_TEXT_HTML)
+                    || response.getContentType().equals(CONTENT_TYPE_TEXT_PLAIN)
+                    || response.getContentType().equals(CONTENT_TYPE_TEXT_XML))) {
+                
+                patientQuerySearch.getSelectedCurrentDocument().setFormattedDocument(convertXmlToHtml(response.getDocument()));
             }
+            
             patientQuerySearch.getSelectedCurrentDocument().setDocumentRetrieved(true);
             LOG.debug("Successfully retrieved the content of document with documentid: {}", response.getContentType());
             return true;
@@ -228,18 +223,31 @@ public class GatewayService {
         return false;
     }
 
+    public byte[] convertXmlToHtml(byte[] originalDocument) {
+        final InputStream xsl = FacesContext.getCurrentInstance().getExternalContext()
+                .getResourceAsStream(DEFAULT_XSL_FILE);
+        final InputStream xml = new ByteArrayInputStream(originalDocument);
+        byte[] convertXmlToHtml = null;
+        if (xsl != null) {
+            convertXmlToHtml = transformer.convertXMLToHTML(xml, xsl);
+            closeStreamSilently(xsl);
+        }
+        return convertXmlToHtml;
+    }
+
     /**
-     * Internal method to populate the patient data to the Patient bean used in the UI.
+     * Internal method to populate the patient data to the Patient bean used in
+     * the UI.
      *
      */
     private void populatePatientBean(final PatientSearchResults patientQueryResults,
-        final PatientSearchBean patientQuerySearch) {
+            final PatientSearchBean patientQuerySearch) {
         final int patientIndex = 0;
         // start with a clean slate
         patientQuerySearch.getPatientList().clear();
         // loop through Patient Discovery results and set the UI patient bean
         for (final gov.hhs.fha.nhinc.patientdiscovery.model.Patient retrievedPatient : patientQueryResults
-            .getPatientList()) {
+                .getPatientList()) {
             final Patient patient = new Patient();
             // Patient personal Information
             patient.setDateOfBirth(patientQuerySearch.getDateOfBirth());
@@ -270,11 +278,12 @@ public class GatewayService {
     }
 
     /**
-     * Internal method to populate the patient data to the Patient bean used in the UI.
+     * Internal method to populate the patient data to the Patient bean used in
+     * the UI.
      *
      */
     private void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
-        final PatientSearchBean patientQuerySearch) {
+            final PatientSearchBean patientQuerySearch) {
         int documentIndex = 0;
         // start with a clean slate
         patientQuerySearch.getSelectedCurrentPatient().getDocumentList().clear();
@@ -299,7 +308,7 @@ public class GatewayService {
             // this logic needs to be revisited after the demo
             if (patientDocument.getDocumentType() != null) {
                 patientDocument.setDocumentTypeName(
-                    patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
+                        patientQuerySearch.getDocumentTypeNameFromTheStaticList(patientDocument.getDocumentType()));
             }
             // for the demo set the value from the patient
             patientDocument.setSourcePatientId(patientQuerySearch.getSelectedCurrentPatient().getPatientId());

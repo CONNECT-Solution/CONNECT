@@ -11,8 +11,8 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
-   <h:body>
+
+    <h:body>
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
             <ui:define name="content">
@@ -24,58 +24,76 @@ and open the template in the editor.
                         <!-- BEGIN:  PDMP SEARCH TAB -->
                         <p:tab title="Prescription Drug Search" closable="false">
                             <h:form class="form-horizontal" role="form" id="pdmpForm">
-                                <div class="tab-pane active" id="patient">
+                                <div class="tab-pane active" id="pdmpPatient">
                                     <div class="content-block">
                                         <h2 class="subsection-header">Search</h2>
                                         <div class="content" >
 
                                             <!-- BEGIN:  PDMP SEARCH FORM -->
                                             <div class="form-block center-block">
-                                                
+
                                                 <!-- Jason Last edit -->
-                                                
+
                                                 <p:messages id="PatientPDMPCriteria" autoUpdate="true" closable="true" severity="error" redisplay="false" />
-                                                <div class="form-group">
-                                                    <h:outputLabel for="organization" class="col-sm-3 control-label" id="labelOraganization" value="Organization:" />
-                                                    <div class="col-sm-9">
-                                                        <h:selectOneMenu class="form-control" id="organization" value="#{patientSearchBean.organization}" required="true" requiredMessage="Organization required.">
-                                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
-                                                            <f:selectItems value="#{patientSearchBean.organizationList}"/>
-                                                        </h:selectOneMenu>
-                                                    </div>
-                                                </div>
+
                                                 <div class="form-group">
                                                     <h:outputLabel for="inputFirstName" class="col-sm-3 control-label" id="labelFirstName" value="First Name:" />
                                                     <div class="col-sm-9">
-                                                        <p:inputText styleClass="form-control" value="#{patientSearchBean.firstName}" id="inputFirstName" maxlength="20" required="true" requiredMessage="First Name required."/>
+                                                        <p:inputText styleClass="form-control" value="#{pdmpBean.patientFirstName}" id="inputFirstName" maxlength="20" required="true" requiredMessage="First Name required."/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputLabel for="inputLastName" class="col-sm-3 control-label" id="labelLastName" value="Last Name:" />
                                                     <div class="col-sm-9">
-                                                        <p:inputText styleClass="form-control" value="#{patientSearchBean.lastName}" id="inputLastName" maxlength="20" required="true" requiredMessage="Last Name required." />
+                                                        <p:inputText styleClass="form-control" value="#{pdmpBean.patientLastName}" id="inputLastName" maxlength="20" required="true" requiredMessage="Last Name required." />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputLabel for="inputDateOfBirth" class="col-sm-3 control-label" id="labelDateOfBirth" value="Date Of Birth:" />
                                                     <div class="col-sm-9">
-                                                        <p:calendar id="inputDateOfBirth" value="#{patientSearchBean.dateOfBirth}" showOn="button" pattern="MM/dd/yyyy" required="true" requiredMessage="Date Of Birth Required"/>
+                                                        <p:calendar id="inputDateOfBirth" value="#{pdmpBean.birthDate}" showOn="button" pattern="MM/dd/yyyy" required="true" requiredMessage="Date Of Birth Required"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputPhone" class="col-sm-3 control-label" id="labelPhone" value="Phone:" />
+                                                    <div class="col-sm-9">
+                                                        <p:inputMask styleClass="form-control" value="#{pdmpBean.phone}" id="inputPhone" maxlength="10" required="true" requiredMessage="Phone required." mask="9999999999"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputZip" class="col-sm-3 control-label" id="labelZip" value="ZipCode:" />
+                                                    <div class="col-sm-9">
+                                                        <p:inputMask styleClass="form-control" value="#{pdmpBean.zip}" id="inputZip" maxlength="5" required="true" requiredMessage="ZipCode required." mask="99999"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <h:outputLabel for="inputGender" class="col-sm-3 control-label" id="labelGender" value="Gender"/>
                                                     <div class="col-sm-9">
-                                                        <h:selectOneMenu class="form-control" id="inputGender" value="#{patientSearchBean.gender}" required="true" requiredMessage="Gender required." >
+                                                        <h:selectOneMenu class="form-control" id="inputGender" value="#{pdmpBean.gender}" required="true" requiredMessage="Gender required." >
                                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
-                                                            <f:selectItems value="#{patientSearchBean.genderList}"/>
+                                                            <f:selectItems value="#{pdmpBean.genderList}"/>
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputBeginDateRange" class="col-sm-3 control-label" id="labelBeginRange" value="Prescription Range Begin:" />
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputBeginRange" value="#{pdmpBean.beginRange}" showOn="button" pattern="MM/dd/yyyy"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputEndDateRange" class="col-sm-3 control-label" id="labelEndRange" value="Prescription Range End:" />
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputEndRange" value="#{pdmpBean.endRange}" showOn="button" pattern="MM/dd/yyyy"/>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
                                                         <div class="form-button-row">
-                                                            <p:commandButton id="ResetPatientTab" value="Clear" styleClass="btn btn-default" action="#{patientSearchBean.clearPatientTab()}" immediate="true" update=":patientSearchTabView"/>
-                                                            <p:commandButton id="searchPatient" update=":patientSearchTabView, patientResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{patientSearchBean.searchPatient()}"/>
+                                                            <p:commandButton id="ResetPdmpTab" value="Clear" styleClass="btn btn-default" action="#{pdmpBean.clearValues()}" immediate="true" update=":pdmpSearchTabView"/>
+                                                            <p:commandButton id="searchPdmpPatient" update=":pdmpSearchTabView, pdmpPatientResult" value="Search" styleClass="btn btn-primary" icon="ui-icon-search" action="#{pdmpBean.searchForPatient()}"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -83,9 +101,9 @@ and open the template in the editor.
                                                 <!-- BEGIN:  PATIENT SEARCH RESULTS -->
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
-                                                        <p:outputLabel value="#{patientSearchBean.patientMessage}" styleClass="uc-search-result-title" />
+                                                        <!--<p:outputLabel value="#{patientSearchBean.patientMessage}" styleClass="uc-search-result-title" />-->
                                                         <div class="table-responsive table-props">
-                                                            <h:dataTable id="patientResult" value="#{patientSearchBean.patientList}" var="patient" styleClass="table table-striped table-domains" rendered="#{patientSearchBean.patientFound}">
+                                                            <h:dataTable id="pdmpPatientResult" value="#{pdmpBean.resultPatients}" var="patient" styleClass="table table-striped table-domains" rendered="#{pdmpBean.patientFound}">
                                                                 <h:column>
                                                                     <!-- column header -->
                                                                     <f:facet name="header">Name</f:facet>
@@ -93,26 +111,40 @@ and open the template in the editor.
                                                                     #{patient.name}
                                                                 </h:column>
                                                                 <h:column>
-                                                                    <f:facet name="header">Patient ID</f:facet>
-                                                                        #{patient.patientId}
-                                                                </h:column>
-                                                                <h:column>
-                                                                    <f:facet name="header">Organization</f:facet>
-                                                                        #{patient.organizationName}
-                                                                </h:column>
-                                                                <h:column>
-                                                                    <f:facet name="header"></f:facet>
-                                                                    <p:commandButton id="viewDetails1" value="View Details" styleClass="btn btn-continue pull-right" icon="ui-icon-carat-1-e" iconPos="right" action="#{patientSearchBean.switchTab()}" update=":patientSearchTabView"/>
+                                                                    <f:facet name="header">Report URL</f:facet>
+                                                                        #{patient.reportUrl}
                                                                 </h:column>
                                                             </h:dataTable>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- END:  PATIENT SEARCH RESULTS -->
+
+
+                                                <div class="table-responsive table-props">
+                                                    <p:dataTable id="pdmpPrescResult" value="#{pdmpBean.prescriptionList}" var="drug" styleClass="table table-striped table-domains" rendered="#{pdmpBean.prescriptionsFound}" scrollable="true" scrollHeight="500" widgetVar="drugWidget">
+                                                        <p:column headerText="Name" sortBy="drugName">
+                                                            <h:outputText value="#{drug.drugName}" />
+                                                        </p:column>
+                                                        <p:column headerText="Date">
+                                                            <h:outputText value="#{drug.fileStrDate}" />
+                                                        </p:column>
+                                                        <p:column headerText="Count">
+                                                            <h:outputText value="#{drug.drugCount}" />
+                                                        </p:column>
+                                                        <p:column headerText="Duration">
+                                                            <h:outputText value="#{drug.drugDuration}" />
+                                                        </p:column>
+                                                        <p:column headerText="State" sortBy="pmpState">
+                                                            <h:outputText value="#{drug.pmpState}" />
+                                                        </p:column>
+
+                                                    </p:dataTable>
+                                                </div>
                                             </div>
-                                            <!-- END:  PATIENT SEARCH FORM -->
                                         </div>
+                                        <!-- END:  PDMP SEARCH RESULTS -->
                                     </div>
+                                    <!-- END:  PDMP SEARCH FORM -->
                                 </div>
                             </h:form>
                         </p:tab>
@@ -120,5 +152,5 @@ and open the template in the editor.
                 </p:tabView>
             </ui:define>
         </ui:composition>
-   </h:body>
+    </h:body>
 </html>

@@ -27,14 +27,28 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
+import gov.hhs.fha.nhinc.admingui.event.model.CDADoc;
 import gov.hhs.fha.nhinc.admingui.event.model.Document;
 import gov.hhs.fha.nhinc.admingui.event.model.Patient;
+import gov.hhs.fha.nhinc.admingui.event.model.PdmpPatient;
+import gov.hhs.fha.nhinc.admingui.event.model.PrescriptionInfo;
+import gov.hhs.fha.nhinc.admingui.services.CDAParserService;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
+import gov.hhs.fha.nhinc.admingui.services.HtmlParserService;
+import gov.hhs.fha.nhinc.admingui.services.PdmpService;
+import gov.hhs.fha.nhinc.admingui.services.PrescriptionClassSearch;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.pdmp.AddressRequiredZipType;
+import gov.hhs.fha.nhinc.pdmp.PatientType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +65,8 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Managed bean to capture/render the data from/to the UI.
@@ -60,9 +75,19 @@ import org.uddi.api_v3.BusinessEntity;
  */
 @ManagedBean
 @SessionScoped
+@Component
 public class PatientSearchBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientSearchBean.class);
+
+    @Autowired
+    private PdmpService pdmpService;
+    @Autowired
+    private PrescriptionClassSearch drugClassService;
+    @Autowired
+    private HtmlParserService htmlParser;
+    @Autowired
+    private CDAParserService cdaParser;
 
     // Generic Variables, can be moved to a constant file
     private static final String PATIENT_FOUND = "Patient Record Found:";
@@ -85,6 +110,8 @@ public class PatientSearchBean {
     private String lastName;
     private Date dateOfBirth;
     private String gender;
+    private String phone;
+    private String zip;
     private String organization;
     private List<Patient> patientList;
     private int selectedPatient;
@@ -99,6 +126,18 @@ public class PatientSearchBean {
     // TODO: Temporary should be removed, should use the patient object documentList
     private List<Document> documentList;
 
+    private Date beginDrugRange;
+    private Date endDrugRange;
+    private boolean drugsFound;
+    private List<PrescriptionInfo> prescriptionList;
+    private String drugsResultUrl;
+    private String prescriptionMessage;
+    private boolean opioidsOnly;
+    private List<PrescriptionInfo> opioidList;
+    private List<PrescriptionInfo> fullPrescriptionList;
+    
+    private List<PrescriptionInfo> selectedDrugs;
+
     /**
      * Instantiate all the variables and load the lookup Data
      */
@@ -107,6 +146,12 @@ public class PatientSearchBean {
         querySelectedDocuments = new ArrayList<>();
         patientList = new ArrayList<>();
         documentTypeList = new ArrayList<>();
+        prescriptionList = new ArrayList<>();
+        fullPrescriptionList = new ArrayList<>();
+        opioidList = new ArrayList<>();
+        drugsFound = false;
+        opioidsOnly = false;
+        prescriptionMessage = "";
 
         // Populate Organization List from UDDI
         organizationList = populateOrganizationFromConnectManagerCache();
@@ -153,9 +198,66 @@ public class PatientSearchBean {
         documentFound = GatewayService.getInstance().retrieveDocument(this);
     }
 
+    public void searchForPrescriptions() {
+        PatientType patient = new PatientType();
+        PatientType.Name name = new PatientType.Name();
+        name.setFirst(firstName);
+        name.setLast(lastName);
+
+        gov.hhs.fha.nhinc.pdmp.ObjectFactory of = new gov.hhs.fha.nhinc.pdmp.ObjectFactory();
+        patient.getContent().add(of.createPatientTypeName(name));
+        patient.getContent().add(of.createPatientTypeBirthdate(pdmpService.getGregorianCalendar(dateOfBirth)));
+        patient.getContent().add(of.createPatientTypeSexCode(pdmpService.getSexCodeType(gender)));
+        AddressRequiredZipType address = new AddressRequiredZipType();
+        address.setZipCode(zip);
+        patient.getContent().add(of.createPatientTypeAddress(address));
+        patient.getContent().add(of.createPatientTypePhone(new BigInteger(phone)));
+
+        PdmpPatient patientResult = pdmpService.searchForPdmpInfo(patient, pdmpService.buildDateRange(beginDrugRange, endDrugRange));
+
+        if (patientResult != null && NullChecker.isNotNullish(patientResult.getReportUrl())) {
+            try {
+                drugsResultUrl = patientResult.getReportUrl();
+                prescriptionList = htmlParser.getAllPrescriptions(patientResult.getReportUrl());
+                fullPrescriptionList = prescriptionList;
+                for (PrescriptionInfo drug : prescriptionList) {
+                    String namePart = parseDrugName(drug.getDrugName());
+                    if (NullChecker.isNotNullish(namePart)) {
+                        drug.setDrugClass(drugClassService.searchForDrugClass(namePart));
+                    }
+                    if (NullChecker.isNotNullish(drug.getDrugClass())
+                            && (drug.getDrugClass().contains("opioid")
+                            || drug.getDrugClass().contains("Opioid")
+                            || drug.getDrugClass().contains("OPIOID"))) {
+                        drug.setIsOpioid(true);
+                        opioidList.add(drug);
+                    } else {
+                        drug.setIsOpioid(false);
+                    }
+                }
+                prescriptionMessage = "Prescription Report URL: " + patientResult.getReportUrl();
+                drugsFound = true;
+            } catch (IOException ex) {
+                LOG.warn("Unable to get prescriptions from report {}", patientResult.getReportUrl(), ex);
+            }
+        }
+    }
+    
+    public void addPrescriptionsToDoc() {
+        retrieveDocument();
+        InputStream stream = new ByteArrayInputStream(getDocumentList().get(getSelectedDocument()).getDocumentContent());
+        
+        String updatedDoc = cdaParser.addMedicationSection(stream, selectedDrugs);
+        if(NullChecker.isNotNullish(updatedDoc)) {
+            Document document = getDocumentList().get(getSelectedDocument());
+            document.setDocumentContent(updatedDoc.getBytes());
+            document.setFormattedDocument(GatewayService.getInstance().convertXmlToHtml(updatedDoc.getBytes()));
+        }
+    }
+
     /**
-     * Action method called when user clicks the Start Over method. This will clear all the information stored in the
-     * session.
+     * Action method called when user clicks the Start Over method. This will
+     * clear all the information stored in the session.
      *
      * @return
      */
@@ -185,6 +287,8 @@ public class PatientSearchBean {
         lastName = null;
         organization = "";
         gender = null;
+        phone = null;
+        zip = null;
         patientFound = false;
         patientMessage = "";
         patientList.clear();
@@ -199,12 +303,21 @@ public class PatientSearchBean {
      */
     public String clearDocumentQueryTab() {
         documentFound = false;
+        drugsFound = false;
         documentRangeFrom = null;
         documentRangeTo = null;
+        beginDrugRange = null;
+        endDrugRange = null;
         querySelectedDocuments.clear();
         documentMessage = "";
+        prescriptionMessage = "";
+        opioidsOnly = false;
+
         // Reset the list
         documentList.clear();
+        prescriptionList.clear();
+        fullPrescriptionList.clear();
+        opioidList.clear();
         getSelectedCurrentPatient().getDocumentList().clear();
         setSelectedDocument(0);
         return NavigationConstant.PATIENT_SEARCH_PAGE;
@@ -264,6 +377,86 @@ public class PatientSearchBean {
      */
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public Date getBeginDrugRange() {
+        return beginDrugRange;
+    }
+
+    public void setBeginDrugRange(Date beginDrugRange) {
+        this.beginDrugRange = beginDrugRange;
+    }
+
+    public Date getEndDrugRange() {
+        return endDrugRange;
+    }
+
+    public void setEndDrugRange(Date endDrugRange) {
+        this.endDrugRange = endDrugRange;
+    }
+
+    public boolean isDrugsFound() {
+        return drugsFound;
+    }
+
+    public void setDrugsFound(boolean drugsFound) {
+        this.drugsFound = drugsFound;
+    }
+
+    public List<PrescriptionInfo> getPrescriptionList() {
+        return prescriptionList;
+    }
+
+    public void setPrescriptionList(List<PrescriptionInfo> prescriptionList) {
+        this.prescriptionList = prescriptionList;
+    }
+
+    public String getDrugsResultUrl() {
+        return drugsResultUrl;
+    }
+
+    public void setDrugsResultUrl(String drugsResultUrl) {
+        this.drugsResultUrl = drugsResultUrl;
+    }
+
+    public boolean isOpioidsOnly() {
+        return opioidsOnly;
+    }
+
+    public void setOpioidsOnly(boolean opioidsOnly) {
+        this.opioidsOnly = opioidsOnly;
+    }
+    
+    public void changeTableForOpioidValues() {
+        if(opioidsOnly) {
+            prescriptionList = opioidList;
+        } else {
+            prescriptionList = fullPrescriptionList;
+        }
+    }
+
+    public List<PrescriptionInfo> getSelectedDrugs() {
+        return selectedDrugs;
+    }
+
+    public void setSelectedDrugs(List<PrescriptionInfo> selectedDrugs) {
+        this.selectedDrugs = selectedDrugs;
     }
 
     /**
@@ -434,9 +627,17 @@ public class PatientSearchBean {
         this.selectedDocument = selectedDocument;
     }
 
+    public String getPrescriptionMessage() {
+        return prescriptionMessage;
+    }
+
+    public void setPrescriptionMessage(String prescriptionMessage) {
+        this.prescriptionMessage = prescriptionMessage;
+    }
+
     /**
-     * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
-     * application bean.
+     * Populate the Organization lookup data list from the UDDI. This logic
+     * needs to be moved to a Utility or to the application bean.
      *
      */
     private Map<String, String> populateOrganizationFromConnectManagerCache() {
@@ -444,20 +645,22 @@ public class PatientSearchBean {
     }
 
     /**
-     * Populate the gender lookup data list. This logic needs to be moved to a Utility or to the application bean.
+     * Populate the gender lookup data list. This logic needs to be moved to a
+     * Utility or to the application bean.
      *
      */
     private Map<String, String> populteGenderList() {
         Map<String, String> localGenderList = new HashMap<>();
         localGenderList.put("Male", "M");
         localGenderList.put("Female", "F");
-        localGenderList.put("Undifferentiated", "UN");
+        localGenderList.put("Undifferentiated", "U");
         return localGenderList;
     }
 
     /**
-     * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
-     * moved to a Utility or to the application bean.
+     * Populate the Document Types List from the property file
+     * documentType.properties file. This logic needs to be moved to a Utility
+     * or to the application bean.
      *
      */
     private List<SelectItem> populateDocumentTypes() {
@@ -466,7 +669,7 @@ public class PatientSearchBean {
         try {
             // Load the documentType.properties file
             Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
-                .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
+                    .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
             Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
             while (it.hasNext()) {
                 Entry<Object, Object> property = it.next();
@@ -536,12 +739,12 @@ public class PatientSearchBean {
     public StreamedContent getDocumentImage() {
         // return the content only if its an image file
         if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-            .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
+                .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
             return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
-                getSelectedCurrentDocument().getContentType());
+                    getSelectedCurrentDocument().getContentType());
         }
         return null;
     }
@@ -551,9 +754,9 @@ public class PatientSearchBean {
      */
     public boolean isRenderDocumentimage() {
         return getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-            .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
+                .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
     }
 
     /**
@@ -561,7 +764,7 @@ public class PatientSearchBean {
      */
     public boolean isRenderDocumentPdf() {
         return getSelectedCurrentDocument().getContentType() != null
-            && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
+                && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
     }
 
     /**
@@ -569,10 +772,10 @@ public class PatientSearchBean {
      */
     public boolean isRenderDocumentText() {
         return getSelectedCurrentDocument().getContentType() != null
-            && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+                && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
     /**
@@ -581,10 +784,10 @@ public class PatientSearchBean {
     public StreamedContent getDocumentPdf() {
         // return the content only if its an pdf file
         if (getSelectedCurrentDocument().getContentType() != null
-            && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
+                && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
             byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
             return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
-                getSelectedCurrentDocument().getContentType());
+                    getSelectedCurrentDocument().getContentType());
         }
         return null;
     }
@@ -595,11 +798,11 @@ public class PatientSearchBean {
     public String getDocumentXml() {
         // return the content only if its an pdf file
         if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-            .equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
-            return new String(getSelectedCurrentDocument().getDocumentContent());
+                .equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
+            return new String(getSelectedCurrentDocument().getFormattedDocument());
         }
         return null;
     }
@@ -651,5 +854,13 @@ public class PatientSearchBean {
      */
     public String getDocumentInfoModalWindowHeader() {
         return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
+    }
+
+    private String parseDrugName(String drugName) {
+        String arr[] = drugName.split(" ");
+        if (arr != null && arr.length > 0) {
+            return arr[0];
+        }
+        return null;
     }
 }
