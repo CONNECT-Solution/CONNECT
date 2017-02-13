@@ -204,7 +204,7 @@ public class AttributeHelper {
         // Assumption is that before the 1st space reflects the first name,
         // after the last space is the last name, anything between is the middle name
         List<XMLObject> attrVals = attrib.getAttributeValues();
-        if (!attrVals.isEmpty()) {
+        if (attrVals != null && !attrVals.isEmpty()) {
 
             PersonNameType personName = assertOut.getUserInfo().getPersonName();
 
