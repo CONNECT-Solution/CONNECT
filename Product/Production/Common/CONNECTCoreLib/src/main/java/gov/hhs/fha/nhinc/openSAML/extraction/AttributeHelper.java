@@ -71,9 +71,7 @@ public class AttributeHelper {
         List<XMLObject> attrVals = attrib.getAttributeValues();
 
         if (!attrVals.isEmpty()) {
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("AttributeValue is: " + attrVals.get(0).getClass());
-            }
+            LOG.trace("AttributeValue is: " + attrVals.get(0).getClass());
             // According to the NHIN specifications - there should be exactly one value.
             // If there is more than one. We will take only the first one.
             // ---------------------------------------------------------------------------
@@ -83,23 +81,19 @@ public class AttributeHelper {
 
                 nodelist = elem.getDOM().getChildNodes();
             } else {
-                LOG.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass()
-                    + " expected an XSAnyImpl");
+                LOG.error("The value for the {} attribute is a: {} expected an XSAnyImpl", codeId,
+                    attrVals.get(0).getClass());
             }
             if (nodelist != null && nodelist.getLength() > 0) {
                 int numNodes = nodelist.getLength();
                 for (int idx = 0; idx < numNodes; idx++) {
-
                     compareAttrMap(nodelist, ce, codeId, idx);
-
                 }
             } else {
-                LOG.error("The AttributeValue for " + codeId + " should have a Child Node");
+                LOG.error("The AttributeValue for {} should have a Child Node", codeId);
             }
-        } else
-
-        {
-            LOG.error("Attributes for " + codeId + " are invalid: " + attrVals);
+        } else {
+            LOG.error("Attributes for {} are invalid: {} ", codeId, attrVals);
         }
 
         LOG.debug("Exiting AttributeHelper.extractNhinCodedElement...");
@@ -127,7 +121,6 @@ public class AttributeHelper {
         } else {
             LOG.debug("Expected AttributeValue to have a Node child");
         }
-
     }
 
     private static void compareAttrNode(Node attrNode, CeType ce, String codeId) {
@@ -144,29 +137,22 @@ public class AttributeHelper {
      * @param codeId
      */
     private static void setCode(Node attrNode, CeType ce, String codeId) {
-        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
+        String nodeName = attrNode.getNodeName();
+        if (NhincConstants.CE_CODE_ID.equalsIgnoreCase(nodeName)) {
             ce.setCode(attrNode.getNodeValue());
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(codeId + ": ce.Code = " + ce.getCode());
-            }
+            LOG.trace("{}: ce.Code = {}", codeId, ce.getCode());
         }
-        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) {
+        if (NhincConstants.CE_CODESYS_ID.equalsIgnoreCase(nodeName)) {
             ce.setCodeSystem(attrNode.getNodeValue());
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
-            }
+            LOG.trace("{}: ce.CodeSystem = {}", codeId, ce.getCodeSystem());
         }
-        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) {
+        if (NhincConstants.CE_CODESYSNAME_ID.equalsIgnoreCase(nodeName)) {
             ce.setCodeSystemName(attrNode.getNodeValue());
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
-            }
+            LOG.trace("{}: ce.CodeSystemName = {}", codeId, ce.getCodeSystemName());
         }
-        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) {
+        if (NhincConstants.CE_DISPLAYNAME_ID.equalsIgnoreCase(nodeName)) {
             ce.setDisplayName(attrNode.getNodeValue());
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(codeId + ": ce.DisplayName = " + ce.getDisplayName());
-            }
+            LOG.trace("{}: ce.DisplayName = {}", codeId, ce.getDisplayName());
         }
     }
 
@@ -191,7 +177,7 @@ public class AttributeHelper {
                     // we break here because per the nhin specification, there should only be one attribute value.
                     break;
                 } else if (o instanceof String) {
-                    strBuilder.append(o + " ");
+                    strBuilder.append(o).append(" ");
 
                     // we DO NOT break here despite the nhin specification because the previous algorithm for handling
                     // these Strings handled multiple values. Until I understand
@@ -229,11 +215,7 @@ public class AttributeHelper {
             // -----------------------------------------------------------------------------
             String completeName = extractAttributeValueString(attrib);
             personName.setFullName(completeName);
-
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("Assertion.userInfo.personName.FullName = " + completeName);
-            }
-
+            LOG.trace("Assertion.userInfo.personName.FullName = {}", completeName);
             String[] nameTokens = completeName.split("\\s");
             ArrayList<String> nameParts = new ArrayList<>();
 
@@ -246,7 +228,7 @@ public class AttributeHelper {
             removeTokens(nameParts, personName);
 
         } else {
-            LOG.error("User Name attribute is empty: " + attrVals);
+            LOG.error("User Name attribute is empty: {}", attrVals);
         }
 
         LOG.debug("AttributeHelper.extractNameParts() -- End");
@@ -262,17 +244,13 @@ public class AttributeHelper {
         if (!nameParts.isEmpty() && !nameParts.get(0).isEmpty()) {
             personName.setGivenName(nameParts.get(0));
             nameParts.remove(0);
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("Assertion.userInfo.personName.givenName = " + personName.getGivenName());
-            }
+            LOG.trace("Assertion.userInfo.personName.givenName = {}", personName.getGivenName());
         }
 
         if (!nameParts.isEmpty() && !nameParts.get(nameParts.size() - 1).isEmpty()) {
             personName.setFamilyName(nameParts.get(nameParts.size() - 1));
             nameParts.remove(nameParts.size() - 1);
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("Assertion.userInfo.personName.familyName = " + personName.getFamilyName());
-            }
+            LOG.trace("Assertion.userInfo.personName.familyName = {}", personName.getFamilyName());
         }
 
         if (!nameParts.isEmpty()) {
@@ -283,10 +261,7 @@ public class AttributeHelper {
             // take off last blank character
             midName.setLength(midName.length() - 1);
             personName.setSecondNameOrInitials(midName.toString());
-            if (LOG.isTraceEnabled()) {
-                LOG.trace(
-                    "Assertion.userInfo.personName.secondNameOrInitials = " + personName.getSecondNameOrInitials());
-            }
+            LOG.trace("Assertion.userInfo.personName.secondNameOrInitials = {}", personName.getSecondNameOrInitials());
         }
     }
 }
