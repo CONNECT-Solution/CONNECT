@@ -203,31 +203,31 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         } else if (attribute.getName().equals(NhincConstants.USER_ORG_ATTR)) {
             String orgAttribute = getAttributeValue(attribute);
             target.getUserInfo().getOrg().setName(orgAttribute);
-            LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
+            LOG.debug("Assertion.userInfo.org.Name = {}", orgAttribute);
 
         } else if (attribute.getName().equals(NhincConstants.USER_ORG_ID_ATTR)) {
             String orgIDAttribute = getAttributeValue(attribute);
             target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
-            LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
+            LOG.debug("Assertion.userInfo.org.homeCommunityId = {}", orgIDAttribute);
 
         } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
             String homeCommunityId = getAttributeValue(attribute);
             target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
-            LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
+            LOG.debug("Assertion.homeCommunity.homeCommunityId = {}", homeCommunityId);
 
         } else if (attribute.getName().equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
             List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
             .addAll(accessConsentId);
             LOG.debug(
-                "Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = " + accessConsentId);
+                "Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = {}", accessConsentId);
 
         } else if (attribute.getName().equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
             List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
             .addAll(instAccessConsentId);
-            LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
-                + instAccessConsentId);
+            LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = {}",
+                instAccessConsentId);
 
         } else if (!addProviderPatientID(attribute, target)) {
             LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
