@@ -1,7 +1,6 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.CDAParserService;
-import gov.hhs.fha.nhinc.admingui.event.model.CDADoc;
 import gov.hhs.fha.nhinc.admingui.event.model.PrescriptionInfo;
 import gov.hhs.fha.nhinc.admingui.util.CDAParserUtil;
 import org.w3c.dom.Node;
@@ -73,9 +72,9 @@ public class CDAParserServiceImpl implements CDAParserService {
             substanceAdmin.setConsumable(consumable);
             medicationSection.setSubstanceAdministration(substanceAdmin);
             // Add to ccda
-            addToCda(cdaDocument, medicationSection, drug.getDrugName(), quantity);
+            addToCda(cdaDocument, medicationSection, drug);
         }
-        
+
         return displayContent(cdaDocument);
     }
 
@@ -129,10 +128,9 @@ public class CDAParserServiceImpl implements CDAParserService {
         Element tHeadElement = (Element) createElement(document, "thead", null);
         Element tHeadRowElement = (Element) createElement(document, "tr", null);
         tHeadRowElement.appendChild(createElement(document, "th", "Product Display Name"));
-        tHeadRowElement.appendChild(createElement(document, "th", "Free Text Brand Name"));
-        tHeadRowElement.appendChild(createElement(document, "th", "Ordered Value"));
-        tHeadRowElement.appendChild(createElement(document, "th", "Ordered Unit"));
-        tHeadRowElement.appendChild(createElement(document, "th", "Expiration Time"));
+        tHeadRowElement.appendChild(createElement(document, "th", "Drug Class"));
+        tHeadRowElement.appendChild(createElement(document, "th", "Quantities"));
+        tHeadRowElement.appendChild(createElement(document, "th", "Fill Date"));
         tHeadElement.appendChild(tHeadRowElement);
         tableElement.appendChild(tHeadElement);
         tableElement.appendChild(createElement(document, "tbody", null));
@@ -151,7 +149,8 @@ public class CDAParserServiceImpl implements CDAParserService {
         return element;
     }
 
-    private void addToCda(POCDMT000040ClinicalDocument cdaDocument, POCDMT000040Entry medicationSection, String drugName, String drugQuantity) {
+    private void addToCda(POCDMT000040ClinicalDocument cdaDocument, POCDMT000040Entry medicationSection,
+            PrescriptionInfo drugInfo) {
         List<POCDMT000040Component3> components = cdaDocument.getComponent().getStructuredBody().getComponent();
         for (POCDMT000040Component3 component : components) {
             String templateDrugId = component.getSection().getTemplateId().get(0).getRoot();
@@ -160,6 +159,10 @@ public class CDAParserServiceImpl implements CDAParserService {
             // flag if medication section is found
             if (MEDICATION_SECTION_ID.equalsIgnoreCase(templateDrugId)) {
                 logger.debug("Preparing to add medication history ");
+                final String drugName = drugInfo.getDrugName();
+                final String drugClass = drugInfo.getDrugClass();
+                final String drugCount = String.valueOf(drugInfo.getDrugCount());
+                final String drugFillDate = drugInfo.getFileStrDate();
                 component.getSection().getEntry().add(medicationSection);
                 Element drugElementText = component.getSection().getText();
                 Document document = null;
@@ -179,7 +182,9 @@ public class CDAParserServiceImpl implements CDAParserService {
 
                 // create new td
                 tr.appendChild(createTDElement(document, drugName));
-                tr.appendChild(createTDElement(document, String.valueOf(drugQuantity)));
+                tr.appendChild(createTDElement(document, drugClass));
+                tr.appendChild(createTDElement(document, drugCount));
+                tr.appendChild(createTDElement(document, String.valueOf(drugFillDate)));
                 tableBody.appendChild(tr);
                 component.getSection().setText(drugElementText);
             }
