@@ -91,6 +91,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
+                                                    <h:outputLabel for="inputPhone" class="col-sm-3 control-label" id="labelPhone" value="Phone:" />
+                                                    <div class="col-sm-9">
+                                                        <p:inputMask styleClass="form-control" value="#{patientSearchBean.phone}" id="inputPhone" maxlength="10" required="true" requiredMessage="Phone required." mask="9999999999"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputZip" class="col-sm-3 control-label" id="labelZip" value="ZipCode:" />
+                                                    <div class="col-sm-9">
+                                                        <p:inputMask styleClass="form-control" value="#{patientSearchBean.zip}" id="inputZip" maxlength="5" required="true" requiredMessage="ZipCode required." mask="99999"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
                                                     <h:outputLabel for="inputGender" class="col-sm-3 control-label" id="labelGender" value="Gender"/>
                                                     <div class="col-sm-9">
                                                         <h:selectOneMenu class="form-control" id="inputGender" value="#{patientSearchBean.gender}" required="true" requiredMessage="Gender required." >
@@ -266,6 +278,60 @@
                                                 </div>
                                             </div>
                                             <!-- END:  DOCUMENT SEARCH RESULTS -->
+                                            <div class="form-block center-block">
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputBeginDateRange" class="col-sm-3 control-label" id="labelBeginRange" value="Prescription Range Begin:" />
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputBeginRange" value="#{patientSearchBean.beginDrugRange}" showOn="button" pattern="MM/dd/yyyy"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel for="inputEndDateRange" class="col-sm-3 control-label" id="labelEndRange" value="Prescription Range End:" />
+                                                    <div class="col-sm-9">
+                                                        <p:calendar id="inputEndRange" value="#{patientSearchBean.endDrugRange}" showOn="button" pattern="MM/dd/yyyy"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-button-row">
+                                                            <p:commandButton id="drugSearch" update=":patientSearchTabView, pdmpPrescResult" value="Search Meds" styleClass="btn btn-primary" icon="ui-icon-search" action="#{patientSearchBean.searchForPrescriptions()}"/>
+                                                            <p:commandButton id="addDrugBtn" value="Add Med" styleClass="btn btn-primary" icon="ui-icon-search" action="#{patientSearchBean.addPrescriptionsToDoc()}" oncomplete="PF('documentContent').show();" update=":documentDialog"/>                                                       
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <p:outputLabel id="prescriptionMessage" value="#{patientSearchBean.prescriptionMessage}" styleClass="uc-search-result-title" />
+                                                <div class="table-responsive table-props">
+                                                    <p:dataTable id="pdmpPrescResult" value="#{patientSearchBean.prescriptionList}" var="drug" styleClass="table table-striped table-domains" rendered="#{patientSearchBean.drugsFound}" scrollable="true" scrollHeight="300" widgetVar="drugWidget" selection="#{patientSearchBean.selectedDrugs}" rowKey="#{drug.drugName}">
+                                                        <p:column headerText="Add" selectionMode="multiple" style="width:16px;text-align:center"/>
+                                                        <p:column headerText="Name" sortBy="drugName">
+                                                            <h:outputText value="#{drug.drugName}" />
+                                                        </p:column>
+                                                        <p:column headerText="Name" sortBy="drugClass">
+                                                            <h:outputText value="#{drug.drugClass}" />
+                                                        </p:column>
+                                                        <p:column headerText="Date">
+                                                            <h:outputText value="#{drug.fileStrDate}" />
+                                                        </p:column>
+                                                        <p:column headerText="Count">
+                                                            <h:outputText value="#{drug.drugCount}" />
+                                                        </p:column>
+                                                        <p:column headerText="Duration">
+                                                            <h:outputText value="#{drug.drugDuration}" />
+                                                        </p:column>
+                                                        <p:column headerText="State" sortBy="pmpState">
+                                                            <h:outputText value="#{drug.pmpState}" />
+                                                        </p:column>
+                                                        <f:facet name="footer">
+                                                            <h:outputLabel for="opioidsOnlyChkBox" class="col-sm-3 control-label" id="labelOpioidsOnly" value="Opioids Only:" />
+                                                            <p:selectBooleanCheckbox value="#{patientSearchBean.opioidsOnly}">
+                                                                <p:ajax update="pdmpPrescResult" listener="#{patientSearchBean.changeTableForOpioidValues()}" />
+                                                            </p:selectBooleanCheckbox>
+                                                        </f:facet>
+                                                    </p:dataTable>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

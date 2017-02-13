@@ -67,6 +67,7 @@ public class Document {
     private String patientId;
 
     private byte[] documentContent;
+    private byte[] formattedDocument;
     private boolean documentRetrieved;
 
     private String contentType;
@@ -584,5 +585,15 @@ public class Document {
     public void setDocumentTypeName(String documentTypeName) {
         this.documentTypeName = documentTypeName;
     }
+
+    public byte[] getFormattedDocument() {
+        return formattedDocument;
+    }
+
+    public void setFormattedDocument(byte[] formattedDocument) {
+        this.formattedDocument = formattedDocument;
+    }
+    
+    
 
 }
