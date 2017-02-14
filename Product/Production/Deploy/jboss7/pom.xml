@@ -92,9 +92,23 @@
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
                     <packagingExcludes>
-                        lib/Properties-*.jar
+                        lib/Properties-*.jar,
+                        lib/asm*,lib/activation*,
+                        lib/cglib*,lib/commons-dbcp*,
+                        lib/commons-net*,lib/commons-pool*,
+                        lib/cxf-rt-databinding-aegis*,lib/cxf-tools-common*,
+                        lib/cxf-tools-validator*,lib/cxf-tools-wsdlto-core*.jar,
+                        lib/cxf-tools-wsdlto-frontend-jaxws*.jar,
+                        lib/esapi*,lib/enun*,
+                        lib/Fast*,
+                        lib/geronimo*,
+                        lib/javax.servlet-api*,lib/json*,lib/jul*,lib/jsr311*,lib/jsr250*,lib/jackson*,
+                        lib/jandex*,lib/javassist-3.4*,lib/jcip*,lib/jsr173*,
+                        lib/not-yet*,
+                        lib/servlet-api*,lib/stax-api*,lib/spring-webmvc*,lib/spring-jms*,lib/spring-messaging*,
+                        lib/velocity*,
+                        lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xml-resolver*,lib/xmltooling*,lib/xpp3*,lib/xstream*
                     </packagingExcludes>
-
                     <!-- Explode all archives on server (extremely time-consuming) -->
                     <!--includeLibInApplicationXml>true</includeLibInApplicationXml-->
                 </configuration>
