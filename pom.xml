@@ -26,7 +26,7 @@ By advancing the adoption of interoperable health IT systems and health informat
 
         <!-- CONNECT Dependency Versions -->
         <connect.webservices.version>4.4.0-SNAPSHOT</connect.webservices.version>
-        <connect.commontypes.version>4.4.0-SNAPSHOT</connect.commontypes.version>
+        <connect.commontypes.version>4.4.0-PDMP</connect.commontypes.version>
         <cxf.version>2.7.3</cxf.version>
         <spring.version>3.0.7.RELEASE</spring.version>
         <slf4j.version>1.7.13</slf4j.version>
