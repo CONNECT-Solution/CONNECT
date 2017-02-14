@@ -450,8 +450,9 @@ public class PatientSearchBean {
         this.opioidsOnly = opioidsOnly;
     }
 
+    
     public void changeTableForOpioidValues() {
-        if (opioidsOnly) {
+        if(opioidsOnly) {
             prescriptionList = opioidList;
         } else {
             prescriptionList = fullPrescriptionList;
