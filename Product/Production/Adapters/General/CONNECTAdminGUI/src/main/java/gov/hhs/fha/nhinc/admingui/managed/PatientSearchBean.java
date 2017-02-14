@@ -135,7 +135,7 @@ public class PatientSearchBean {
     private boolean opioidsOnly;
     private List<PrescriptionInfo> opioidList;
     private List<PrescriptionInfo> fullPrescriptionList;
-    
+
     private List<PrescriptionInfo> selectedDrugs;
 
     /**
@@ -242,13 +242,13 @@ public class PatientSearchBean {
             }
         }
     }
-    
+
     public void addPrescriptionsToDoc() {
         retrieveDocument();
         InputStream stream = new ByteArrayInputStream(getDocumentList().get(getSelectedDocument()).getDocumentContent());
-        
+
         String updatedDoc = cdaParser.addMedicationSection(stream, selectedDrugs);
-        if(NullChecker.isNotNullish(updatedDoc)) {
+        if (NullChecker.isNotNullish(updatedDoc)) {
             Document document = getDocumentList().get(getSelectedDocument());
             document.setDocumentContent(updatedDoc.getBytes());
             document.setFormattedDocument(GatewayService.getInstance().convertXmlToHtml(updatedDoc.getBytes()));
@@ -273,7 +273,8 @@ public class PatientSearchBean {
         genderList = populteGenderList();
         // populate document types
         documentTypeList = populateDocumentTypes();
-        return clearPatientTab();
+        clearPatientTab();
+        return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
 
     /**
@@ -281,7 +282,7 @@ public class PatientSearchBean {
      *
      * @return
      */
-    public String clearPatientTab() {
+    public void clearPatientTab() {
         dateOfBirth = null;
         firstName = null;
         lastName = null;
@@ -293,7 +294,8 @@ public class PatientSearchBean {
         patientMessage = "";
         patientList.clear();
         setSelectedPatient(0);
-        return clearDocumentQueryTab();
+        clearDocumentQueryTab();
+        clearPrescriptions();
     }
 
     /**
@@ -301,26 +303,31 @@ public class PatientSearchBean {
      *
      * @return
      */
-    public String clearDocumentQueryTab() {
+    public void clearDocumentQueryTab() {
         documentFound = false;
         drugsFound = false;
         documentRangeFrom = null;
         documentRangeTo = null;
-        beginDrugRange = null;
-        endDrugRange = null;
+
         querySelectedDocuments.clear();
         documentMessage = "";
-        prescriptionMessage = "";
-        opioidsOnly = false;
 
         // Reset the list
         documentList.clear();
+
+        getSelectedCurrentPatient().getDocumentList().clear();
+        setSelectedDocument(0);
+    }
+
+    public void clearPrescriptions() {
+        drugsFound = false;
+        beginDrugRange = null;
+        endDrugRange = null;
+        prescriptionMessage = "";
+        opioidsOnly = false;
         prescriptionList.clear();
         fullPrescriptionList.clear();
         opioidList.clear();
-        getSelectedCurrentPatient().getDocumentList().clear();
-        setSelectedDocument(0);
-        return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
 
     /**
@@ -442,6 +449,7 @@ public class PatientSearchBean {
     public void setOpioidsOnly(boolean opioidsOnly) {
         this.opioidsOnly = opioidsOnly;
     }
+
     
     public void changeTableForOpioidValues() {
         if(opioidsOnly) {
