@@ -27,7 +27,7 @@
                 <!--module>CONN-560</module>
                 <module>ValidateConnectionManagerForAllServices</module>
                 <module>X12ErrorHandlingTest</module-->
-				<module>KeepAliveHeader</module>
+                <module>KeepAliveHeader</module>
             </modules>
         </profile>
     </profiles>
