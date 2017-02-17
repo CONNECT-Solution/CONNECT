@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import org.apache.wss4j.policy.SPConstants;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
@@ -44,6 +43,7 @@ import org.apache.wss4j.common.crypto.Crypto;
 import org.apache.wss4j.common.crypto.CryptoFactory;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.apache.wss4j.common.saml.bean.Version;
+import org.apache.wss4j.policy.SPConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +60,9 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     private Crypto issuerCrypto = null;
 
     public CXFSAMLCallbackHandler() {
+        /*
+         * This method is empty, in case constructor is called without arguments.
+         */
     }
 
     public CXFSAMLCallbackHandler(final HOKSAMLAssertionBuilder builder) {
@@ -83,13 +86,10 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     final Object obj = message.get("assertion");
 
-                    AssertionType custAssertion = null;
-                    if (obj != null) {
-                        custAssertion = (AssertionType) obj;
-                    }
+                    AssertionType custAssertion;
+                    custAssertion = getCustAssertion(obj);
 
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
-                    // TODO: need to convert into external properties similar like saml.properties
                     oSAMLCallback.setIssuerKeyName("gateway");
                     oSAMLCallback.setIssuerKeyPassword("changeit");
                     oSAMLCallback.setSignAssertion(true);
@@ -100,13 +100,10 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA1);
                     oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA1);
 
-
-
-
                     final SamlTokenCreator creator = new SamlTokenCreator();
 
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
-                            creator.createRequestContext(custAssertion, getResource(message), null), message));
+                        creator.createRequestContext(custAssertion, getResource(message), null), message));
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (final Exception e) {
@@ -118,13 +115,28 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     }
 
     /**
+     * Return custAssertion
+     *
+     * @param obj
+     * @return
+     */
+    protected static AssertionType getCustAssertion(Object obj) {
+        AssertionType custAssertion = null;
+        if (obj != null) {
+            custAssertion = (AssertionType) obj;
+        }
+        return custAssertion;
+    }
+
+    /**
      * Populate Callback Properties with additional properties set on the message.
      *
      * @param propertiesMap to be appended.
      * @param message source of additional properties.
      * @return map containing assertion data and additional properties.
      */
-    private Map<String, Object> addMessageProperties(final Map<String, Object> propertiesMap, final Message message) {
+    private static Map<String, Object> addMessageProperties(final Map<String, Object> propertiesMap,
+        final Message message) {
 
         addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
         addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
@@ -133,7 +145,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         return propertiesMap;
     }
 
-    private void addPropertyFromMessage(final Map<String, Object> propertiesMap, final Message message, final String key) {
+    private static void addPropertyFromMessage(final Map<String, Object> propertiesMap, final Message message,
+        final String key) {
         propertiesMap.put(key, message.get(key));
     }
 
