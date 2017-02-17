@@ -310,11 +310,6 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     protected Issuer generateIssuer(String format, String value) {
         return OpenSAML2ComponentBuilder.getInstance().createIssuer(format, value);
 
-        /*
-         * Issuer issuer = (Issuer) util.createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-         *
-         * issuer.setFormat(format); issuer.setValue(value); return issuer;
-         */
     }
 
 }

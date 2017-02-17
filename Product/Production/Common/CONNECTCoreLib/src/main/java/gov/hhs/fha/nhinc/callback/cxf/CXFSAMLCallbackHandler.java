@@ -86,8 +86,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     final Object obj = message.get("assertion");
 
-                    AssertionType custAssertion;
-                    custAssertion = getCustAssertion(obj);
+                    AssertionType custAssertion = getCustAssertion(obj);
 
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
                     oSAMLCallback.setIssuerKeyName("gateway");
