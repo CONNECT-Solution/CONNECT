@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
@@ -77,14 +78,13 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
     @Override
     protected void validateSubject(final Assertion assertion) throws WSSecurityException {
 
-        if (assertion.getStatements() == null || assertion.getStatements().isEmpty()) {
+        if (CollectionUtils.isEmpty(assertion.getStatements())) {
             assertAttAuthzStatements(assertion);
         }
-
-        if (!assertion.getAuthnStatements().isEmpty() && assertion.getSubject() == null) {
+        if (CollectionUtils.isNotEmpty(assertion.getAuthnStatements()) && assertion.getSubject() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "Assertions containing AuthnStatements require a Subject");
         }
-        if (!assertion.getAuthzDecisionStatements().isEmpty() && assertion.getSubject() == null) {
+        if (CollectionUtils.isNotEmpty(assertion.getAuthzDecisionStatements()) && assertion.getSubject() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE,
                 "Assertions containing AuthzDecisionStatements require a Subject");
         }
@@ -95,7 +95,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
     }
 
     protected static void assertAttAuthzStatements(final Assertion assertion) throws WSSecurityException {
-        if ((assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
+        if (CollectionUtils.isEmpty(assertion.getAttributeStatements())
             && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())) {
             assertAuthzDecisionStatements(assertion);
         }
@@ -104,7 +104,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
 
     protected static void assertAuthzDecisionStatements(final Assertion assertion) throws WSSecurityException {
 
-        if ((assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
+        if (CollectionUtils.isEmpty(assertion.getAuthzDecisionStatements())
             && assertion.getSubject() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "Subject is required when Statements are absent");
         }
