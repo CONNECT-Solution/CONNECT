@@ -166,7 +166,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
         } catch (final Exception e) {
             LOG.warn("Failed to get SAML 2 assertion validator. " + e.getMessage(), e);
-            return null;
+            return CollectionUtils.EMPTY_COLLECTION;
         }
     }
 
