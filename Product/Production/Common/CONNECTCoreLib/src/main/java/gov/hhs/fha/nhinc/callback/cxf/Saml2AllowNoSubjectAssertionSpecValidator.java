@@ -96,7 +96,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
 
     protected static void assertAttAuthzStatements(final Assertion assertion) throws WSSecurityException {
         if (CollectionUtils.isEmpty(assertion.getAttributeStatements())
-            && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())) {
+            && CollectionUtils.isEmpty(assertion.getAuthnStatements())) {
             assertAuthzDecisionStatements(assertion);
         }
 
