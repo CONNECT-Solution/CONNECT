@@ -133,18 +133,18 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
     protected static void validateNameIdFormatValue(final String format, final String value)
         throws WSSecurityException {
         if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)) {
-            emailValidator(value);
+            validateEmail(value);
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
-            nameValidator(value);
+            validateName(value);
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME.equals(format)) {
-            partsValidator(value);
+            validateParts(value);
         }
     }
 
     /**
      * @param value throws WSSecurityException
      */
-    private static void partsValidator(String value) throws WSSecurityException {
+    private static void validateParts(String value) throws WSSecurityException {
         final String[] parts = StringUtils.split(value, "\\");
 
         if (parts.length > 2) {
@@ -177,7 +177,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @param value throws WSSecurityException
      * @throws InvalidNameException
      */
-    private static boolean nameValidator(String value) throws WSSecurityException {
+    private static boolean validateName(String value) throws WSSecurityException {
         Name name;
         try {
             name = new LdapName(value);
@@ -192,7 +192,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
     /**
      * @param value throws WSSecurityException
      */
-    private static void emailValidator(String value) throws WSSecurityException {
+    private static void validateEmail(String value) throws WSSecurityException {
         final EmailValidator validator = EmailValidator.getInstance();
         if (!validator.isValid(value)) {
             throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid email address.");

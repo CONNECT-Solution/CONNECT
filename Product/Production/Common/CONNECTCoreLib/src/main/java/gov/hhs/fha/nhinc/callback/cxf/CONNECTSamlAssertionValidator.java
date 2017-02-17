@@ -118,18 +118,18 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      */
     private static void validateIssuer(Issuer issuer) throws WSSecurityException {
         if (SamlConstants.URN_OASIS_NAMES.equals(issuer.getFormat())) {
-            if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
+            if (StringUtils.isNotBlank(issuer.getSPProvidedID())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
                     SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
                         + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
             }
-            if (!StringUtils.isBlank(issuer.getNameQualifier())) {
+            if (StringUtils.isNotBlank(issuer.getNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
                     SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
                         + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
             }
 
-            if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
+            if (StringUtils.isNotBlank(issuer.getSPNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
                     SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
                         + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
