@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
-
-import org.opensaml.saml.common.SAMLException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import javax.naming.InvalidNameException;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.apache.wss4j.dom.validate.SamlAssertionValidator;
 import org.opensaml.saml.saml2.core.Assertion;
@@ -60,8 +59,11 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
     /** The Constant invalidUserNameChars. */
     private static final char[] invalidUserNameChars = { ';', ':', '\"', '<', '>', '*', '+', '=', '\\', '|', '?', ',' };
 
-    /* (non-Javadoc)
-     * @see org.apache.wss4j.dom.validate.SamlAssertionValidator#validateAssertion(org.apache.wss4j.common.saml.SamlAssertionWrapper)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.apache.wss4j.dom.validate.SamlAssertionValidator#validateAssertion(org.apache.wss4j.common.saml.
+     * SamlAssertionWrapper)
      */
     @Override
     protected void validateAssertion(final SamlAssertionWrapper samlAssertion) throws WSSecurityException {
@@ -71,19 +73,20 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
             validateSubject(samlAssertion.getSaml2());
             validateIssuer(samlAssertion.getSaml2().getIssuer());
 
-        } catch (WSSecurityException | SAMLException  e) {
-            LOG.error("Validation Fail {}", e.getLocalizedMessage());
+        } catch (WSSecurityException e) {
+            LOG.error("Validation Fail {}", e.getLocalizedMessage(), e);
             throw new WSSecurityException(ErrorCode.FAILURE, "Validation fail");
         }
 
     }
+
     /*
      * (non-Javadoc)
      *
      * @see org.opensaml.saml2.core.validator.AssertionSpecValidator#validateSubject(org.opensaml.saml2.core.Assertion)
      */
 
-    protected void validateSubject(final Assertion assertion) throws SAMLException, WSSecurityException {
+    protected void validateSubject(final Assertion assertion) throws WSSecurityException {
         validateSubject(assertion.getSubject());
     }
 
@@ -93,9 +96,9 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @param issuer the issuer
      * @throws ValidationException the validation exception
      */
-    protected void validateIssuer(final Issuer issuer) throws WSSecurityException {
+    protected static void validateIssuer(final Issuer issuer) throws WSSecurityException {
         if (issuer == null || StringUtils.isBlank(issuer.getFormat())) {
-            throw new WSSecurityException(ErrorCode.FAILURE,"Issuer format cannot be blank.");
+            throw new WSSecurityException(ErrorCode.FAILURE, "Issuer format cannot be blank.");
         }
         validateNameIdFormatValue(issuer.getFormat(), issuer.getValue());
     }
@@ -107,15 +110,15 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @return true if Subject is valid, false otherwise.
      * @throws ValidationException the validation exception
      */
-    protected void validateSubject(final Subject subject) throws WSSecurityException {
+    protected static void validateSubject(final Subject subject) throws WSSecurityException {
         if (subject == null || subject.getNameID() == null) {
-            throw new WSSecurityException(ErrorCode.FAILURE,"Subject is empty or invalid.");
+            throw new WSSecurityException(ErrorCode.FAILURE, "Subject is empty or invalid.");
         }
         final NameID name = subject.getNameID();
         final String format = name.getFormat();
         if (!NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)
-                && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
-            throw new WSSecurityException(ErrorCode.FAILURE,"Subject Name Id format must be x509 or Email.");
+            && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Subject Name Id format must be x509 or Email.");
         }
         validateNameIdFormatValue(format, name.getValue());
     }
@@ -127,44 +130,73 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @param value the value
      * @throws ValidationException the validation exception
      */
-    protected void validateNameIdFormatValue(final String format, final String value) throws WSSecurityException {
+    protected static void validateNameIdFormatValue(final String format, final String value)
+        throws WSSecurityException {
         if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)) {
-            final EmailValidator validator = EmailValidator.getInstance();
-            if (!validator.isValid(value)) {
-                throw new WSSecurityException(ErrorCode.FAILURE,"Not a valid email address.");
-            }
+            emailValidator(value);
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
-            try {
-                final Name name = new LdapName(value);
-            } catch (final Exception e) {
-                LOG.info("Validation of X509 Subject Name failed: {}", e.getLocalizedMessage());
-                throw new WSSecurityException(ErrorCode.FAILURE,"Not a valid X509 Subject Name.");
-            }
+            nameValidator(value);
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME.equals(format)) {
-            final String[] parts = StringUtils.split(value, "\\");
-
-            if (parts.length > 2) {
-                throw new WSSecurityException(ErrorCode.FAILURE,"Invalid Windows Domain Name format: multiple backslashes.");
-            }
-
-            String domainName = null;
-            String userName;
-            if (parts.length == 1) {
-                userName = parts[0];
-            } else {
-                domainName = parts[0];
-                userName = parts[1];
-            }
-
-            if (StringUtils.containsAny(domainName, invalidDomainNameChars)) {
-                throw new WSSecurityException(ErrorCode.FAILURE,
-                        "Invalid Windows Domain Name format: domain name contains invalid characters.");
-            }
-
-            if (StringUtils.containsAny(userName, invalidUserNameChars)) {
-                throw new WSSecurityException(ErrorCode.FAILURE,
-                        "Invalid Windows Domain Name format: user name contains invalid characters.");
-            }
+            partsValidator(value);
         }
+    }
+
+    /**
+     * @param value throws WSSecurityException
+     */
+    private static void partsValidator(String value) throws WSSecurityException {
+        final String[] parts = StringUtils.split(value, "\\");
+
+        if (parts.length > 2) {
+            throw new WSSecurityException(ErrorCode.FAILURE,
+                "Invalid Windows Domain Name format: multiple backslashes.");
+        }
+
+        String domainName = null;
+        String userName;
+        if (parts.length == 1) {
+            userName = parts[0];
+        } else {
+            domainName = parts[0];
+            userName = parts[1];
+        }
+
+        if (StringUtils.containsAny(domainName, invalidDomainNameChars)) {
+            throw new WSSecurityException(ErrorCode.FAILURE,
+                "Invalid Windows Domain Name format: domain name contains invalid characters.");
+        }
+
+        if (StringUtils.containsAny(userName, invalidUserNameChars)) {
+            throw new WSSecurityException(ErrorCode.FAILURE,
+                "Invalid Windows Domain Name format: user name contains invalid characters.");
+        }
+
+    }
+
+    /**
+     * @param value throws WSSecurityException
+     * @throws InvalidNameException
+     */
+    private static boolean nameValidator(String value) throws WSSecurityException {
+        Name name;
+        try {
+            name = new LdapName(value);
+        } catch (Exception e) {
+            LOG.info("Validation of X509 Subject Name failed: {}", e.getLocalizedMessage(), e);
+            throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
+
+        }
+        return name != null;
+    }
+
+    /**
+     * @param value throws WSSecurityException
+     */
+    private static void emailValidator(String value) throws WSSecurityException {
+        final EmailValidator validator = EmailValidator.getInstance();
+        if (!validator.isValid(value)) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid email address.");
+        }
+
     }
 }

@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
@@ -119,18 +120,18 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         if (SamlConstants.URN_OASIS_NAMES.equals(issuer.getFormat())) {
             if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + "" + SamlConstants.URN_OASIS_NAMES + "" + "and"
+                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
                         + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
             }
             if (!StringUtils.isBlank(issuer.getNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + "" + SamlConstants.URN_OASIS_NAMES + "" + "and"
+                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
                         + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
             }
 
             if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + "" + SamlConstants.URN_OASIS_NAMES + "" + "and"
+                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
                         + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
 
             }
@@ -165,17 +166,8 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
         } catch (final Exception e) {
             LOG.warn("Failed to get SAML 2 assertion validator. " + e.getMessage(), e);
-            return getNullSaml2ExchangeValidator();
+            return null;
         }
-    }
-
-    /**
-     * @return saml2SpecValidator
-     */
-    private static Collection<Saml2ExchangeAuthFrameworkValidator> getNullSaml2ExchangeValidator() {
-        Collection<Saml2ExchangeAuthFrameworkValidator> saml2SpecValidator;
-        saml2SpecValidator = null;
-        return saml2SpecValidator;
     }
 
     /**
@@ -224,7 +216,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         // Check HOK requirements
         String confirmMethod = null;
         final List<String> methods = assertion.getConfirmationMethods();
-        if (!methods.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(methods)) {
             confirmMethod = methods.get(0);
         }
         // Check assertion
