@@ -51,6 +51,9 @@ public class SamlConstants {
     public static final String USER_SYST_PROP = "userRoleCodeSystem";
     public static final String USER_SYST_NAME_PROP = "userRoleCodeSystemName";
     public static final String USER_DISPLAY_PROP = "userRoleCodeDisplayName";
+    public static final String URN_OASIS_NAMES = "urn:oasis:names:tc:SAML:1.1:nameid-format:entity";
+    public static final String SECURITY_ASSERTION_ISSUER = "Security/Assertion/Issuer/@SPProvidedID";
+    public static final String SECURITY_ASSERTION_ISSUER_FORMAT = "SOAP header element Security/Assertion/Issuer/@Format  =";
     public static final String AUTHN_INSTANT_PROP = "authnInstant";
     public static final String AUTHN_SESSION_INDEX_PROP = "authnSessionIndex";
     public static final String AUTHN_CONTEXT_CLASS_PROP = "authnContextClass";
