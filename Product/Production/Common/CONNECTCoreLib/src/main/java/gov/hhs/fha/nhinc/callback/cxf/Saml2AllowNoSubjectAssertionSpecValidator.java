@@ -26,10 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-
-import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
-
 import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.slf4j.Logger;
@@ -42,6 +40,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuthFrameworkValidator {
     private static final Logger LOG = LoggerFactory.getLogger(Saml2AllowNoSubjectAssertionSpecValidator.class);
+
     /**
      * Instantiates a new saml2 allow no subject assertion spec validator.
      */
@@ -49,8 +48,12 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
         super();
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.callback.cxf.Saml2ExchangeAuthFrameworkValidator#validateAssertion(org.apache.wss4j.common.saml.SamlAssertionWrapper)
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.callback.cxf.Saml2ExchangeAuthFrameworkValidator#validateAssertion(org.apache.wss4j.common.saml
+     * .SamlAssertionWrapper)
      */
     @Override
     protected void validateAssertion(final SamlAssertionWrapper samlAssertion) throws WSSecurityException {
@@ -73,23 +76,38 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
 
     @Override
     protected void validateSubject(final Assertion assertion) throws WSSecurityException {
-        if ((assertion.getStatements() == null || assertion.getStatements().isEmpty())
-                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())
-                && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
-                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
-                && assertion.getSubject() == null) {
-            throw new WSSecurityException(ErrorCode.FAILURE,"Subject is required when Statements are absent");
+
+        if (assertion.getStatements() == null || assertion.getStatements().isEmpty()) {
+            assertAttAuthzStatements(assertion);
         }
 
-        if (assertion.getAuthnStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new WSSecurityException(ErrorCode.FAILURE,"Assertions containing AuthnStatements require a Subject");
+        if (!assertion.getAuthnStatements().isEmpty() && assertion.getSubject() == null) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Assertions containing AuthnStatements require a Subject");
         }
-        if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new WSSecurityException(ErrorCode.FAILURE,"Assertions containing AuthzDecisionStatements require a Subject");
+        if (!assertion.getAuthzDecisionStatements().isEmpty() && assertion.getSubject() == null) {
+            throw new WSSecurityException(ErrorCode.FAILURE,
+                "Assertions containing AuthzDecisionStatements require a Subject");
         }
 
         if (assertion.getSubject() != null) {
             validateSubject(assertion.getSubject());
         }
     }
+
+    protected static void assertAttAuthzStatements(final Assertion assertion) throws WSSecurityException {
+        if ((assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
+            && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())) {
+            assertAuthzDecisionStatements(assertion);
+        }
+
+    }
+
+    protected static void assertAuthzDecisionStatements(final Assertion assertion) throws WSSecurityException {
+
+        if ((assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
+            && assertion.getSubject() == null) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Subject is required when Statements are absent");
+        }
+    }
+
 }
