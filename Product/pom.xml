@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>CONNECTSolution</artifactId>
-        <version>4.5.1-RC1</version>
+        <version>4.5.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>Product</artifactId>
@@ -12,8 +12,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <connect.webservices.version>4.2.0</connect.webservices.version>
-        <connect.commontypes.version>4.2.0</connect.commontypes.version>
+        <connect.webservices.version>4.2.1</connect.webservices.version>
+        <connect.commontypes.version>4.2.1</connect.commontypes.version>
         <cxf.version>2.7.3</cxf.version>
         <spring.version>3.0.7.RELEASE</spring.version>
         <slf4j.version>1.7.0</slf4j.version>
@@ -1117,7 +1117,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>4.5.1-RC1</version>
+                            <version>4.5.2-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
