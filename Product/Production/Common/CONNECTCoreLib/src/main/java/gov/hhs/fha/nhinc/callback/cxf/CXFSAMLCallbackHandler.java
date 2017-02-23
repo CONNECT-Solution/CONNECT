@@ -76,7 +76,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        accessor = PropertyAccessor.getInstance();
         LOG.trace("CXFSAMLCallbackHandler.handle begin");
         for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
@@ -85,8 +84,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     final Message message = getCurrentMessage();
                     final Object obj = message.get("assertion");
-                    AssertionType custAssertion;
-                    custAssertion = getCustAssertion(obj);
+                    AssertionType custAssertion = getCustAssertion(obj);
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
                     oSAMLCallback.setIssuerKeyName(
