@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import javax.security.auth.callback.Callback;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -73,7 +72,6 @@ public class CXFSAMLCallbackHandlerTest {
         final Message message = mock(Message.class);
         AssertionType assertionType = mock(AssertionType.class);
         HOKSAMLAssertionBuilder builder = mock(HOKSAMLAssertionBuilder.class);
-        PropertyAccessor accessor = mock(PropertyAccessor.class);
 
         CXFSAMLCallbackHandler callbackHandler = new CXFSAMLCallbackHandler(builder) {
             @Override
