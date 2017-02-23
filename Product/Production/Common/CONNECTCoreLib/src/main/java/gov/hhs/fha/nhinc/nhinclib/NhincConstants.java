@@ -127,6 +127,11 @@ public class NhincConstants {
     // SAML constants
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
     public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
+    public static final String ISSUER_KEY_STRING = "org.apache.ws.security.saml.issuer.key.name";
+    public static final String ISSUER_KEY_PASSWORD = "org.apache.ws.security.saml.issuer.key.password";
+    public static final String SIGNATURE_PROPERTIES_STRING = "org.apache.ws.security.saml.issuer.cryptoProp.file";
+    public static final String SIGN_ASSERTION_BOOL = "org.apache.ws.security.saml.issuer.signAssertion";
+    public static final String SEND_KEYVALUE_BOOL = "org.apache.ws.security.saml.issuer.sendKeyValue";
     // Initiating multispec errors
     public static final String INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE = "Unsupported guidance for API level.";
     public static final String INIT_MULTISPEC_ERROR_NO_MATCHING_ENDPOINT = "No matching target endpoint for guidance: ";
@@ -136,6 +141,7 @@ public class NhincConstants {
     public static final String SERVICE_NAME = "serviceName";
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
+    public static final String SAML_PROPERTY_FILE = "saml";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String INTERNAL_CONNECTION_INFO = "InternalConnectionInfo2.xml";
     public static final String DIRECTTESTING_FLAG = "DirectTesting";

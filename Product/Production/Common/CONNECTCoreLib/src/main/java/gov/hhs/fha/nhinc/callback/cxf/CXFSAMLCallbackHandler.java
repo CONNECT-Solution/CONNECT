@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.io.IOException;
 import java.util.Map;
@@ -54,19 +55,18 @@ import org.slf4j.LoggerFactory;
 public class CXFSAMLCallbackHandler implements CallbackHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(CXFSAMLCallbackHandler.class);
-
+    private PropertyAccessor accessor;
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
     private Crypto issuerCrypto = null;
 
     public CXFSAMLCallbackHandler() {
-        /*
-         * This method is empty, in case constructor is called without arguments.
-         */
+        accessor = PropertyAccessor.getInstance();
     }
 
     public CXFSAMLCallbackHandler(final HOKSAMLAssertionBuilder builder) {
         this.builder = builder;
+        accessor = PropertyAccessor.getInstance();
     }
 
     /*
@@ -76,6 +76,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
+        accessor = PropertyAccessor.getInstance();
         LOG.trace("CXFSAMLCallbackHandler.handle begin");
         for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
@@ -83,28 +84,31 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 try {
 
                     final Message message = getCurrentMessage();
-
                     final Object obj = message.get("assertion");
-
-                    AssertionType custAssertion = getCustAssertion(obj);
-
+                    AssertionType custAssertion;
+                    custAssertion = getCustAssertion(obj);
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
-                    oSAMLCallback.setIssuerKeyName("gateway");
-                    oSAMLCallback.setIssuerKeyPassword("changeit");
-                    oSAMLCallback.setSignAssertion(true);
-                    oSAMLCallback.setSendKeyValue(true);
-                    issuerCrypto = CryptoFactory.getInstance("signature.properties");
+
+                    oSAMLCallback.setIssuerKeyName(
+                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_STRING));
+                    oSAMLCallback.setIssuerKeyPassword(
+                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_PASSWORD));
+                    oSAMLCallback.setSignAssertion(accessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
+                        NhincConstants.SIGN_ASSERTION_BOOL));
+                    oSAMLCallback.setSendKeyValue(accessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
+                        NhincConstants.SEND_KEYVALUE_BOOL));
+                    issuerCrypto = CryptoFactory.getInstance(accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE,
+                        NhincConstants.SIGNATURE_PROPERTIES_STRING));
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
                     oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA1);
                     oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA1);
 
                     final SamlTokenCreator creator = new SamlTokenCreator();
-
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
-
                     oSAMLCallback.setAssertionElement(builder.build(properties));
+
                 } catch (final Exception e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                 }
@@ -140,7 +144,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
         addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
         addPropertyFromMessage(propertiesMap, message, NhincConstants.ACTION_PROP);
-
         return propertiesMap;
     }
 
