@@ -128,7 +128,7 @@ public class NhincConstants {
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
     public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
     public static final String ISSUER_KEY_STRING = "org.apache.ws.security.saml.issuer.key.name";
-    public static final String ISSUER_KEY_PASSWORD = "org.apache.ws.security.saml.issuer.key.password";
+    public static final String ISSUER_KEY_VALUE = "org.apache.ws.security.saml.issuer.key.password";
     public static final String SIGNATURE_PROPERTIES_STRING = "org.apache.ws.security.saml.issuer.cryptoProp.file";
     public static final String SIGN_ASSERTION_BOOL = "org.apache.ws.security.saml.issuer.signAssertion";
     public static final String SEND_KEYVALUE_BOOL = "org.apache.ws.security.saml.issuer.sendKeyValue";
