@@ -90,7 +90,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     oSAMLCallback.setIssuerKeyName(
                         accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_STRING));
                     oSAMLCallback.setIssuerKeyPassword(
-                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_PASSWORD));
+                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_VALUE));
                     oSAMLCallback.setSignAssertion(accessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
                         NhincConstants.SIGN_ASSERTION_BOOL));
                     oSAMLCallback.setSendKeyValue(accessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
