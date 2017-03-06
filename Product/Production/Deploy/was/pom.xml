@@ -117,7 +117,7 @@
             lib/mimepull*,
             lib/not-yet-commons-ssl-0.3.9.jar,
             lib/servlet-api-2.5.jar,
-						lib/javax.servlet-api-3.0.1.jar,
+            lib/javax.servlet-api-3.0.1.jar,
             lib/saaj-impl*,
             lib/saaj-api*,
             lib/serializer-2.7.2.jar,
