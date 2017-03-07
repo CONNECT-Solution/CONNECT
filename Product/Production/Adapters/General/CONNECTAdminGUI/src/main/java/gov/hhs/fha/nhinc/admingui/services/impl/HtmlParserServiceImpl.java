@@ -3,8 +3,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import java.io.File;
+import gov.hhs.fha.nhinc.admingui.event.model.PrescriptionInfo;
+import gov.hhs.fha.nhinc.admingui.services.HtmlParserService;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.jsoup.Jsoup;
@@ -13,9 +16,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import gov.hhs.fha.nhinc.admingui.services.HtmlParserService;
-import gov.hhs.fha.nhinc.admingui.event.model.PrescriptionInfo;
-import java.net.MalformedURLException;
 import org.springframework.stereotype.Service;
 
 /**
