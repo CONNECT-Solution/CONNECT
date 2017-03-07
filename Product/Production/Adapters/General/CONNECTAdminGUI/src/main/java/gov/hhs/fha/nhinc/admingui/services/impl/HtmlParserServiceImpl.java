@@ -3,8 +3,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import gov.hhs.fha.nhinc.admingui.event.model.PrescriptionInfo;
+import gov.hhs.fha.nhinc.admingui.services.HtmlParserService;
 import java.io.IOException;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.jsoup.Jsoup;
@@ -13,10 +16,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import gov.hhs.fha.nhinc.admingui.services.HtmlParserService;
-import gov.hhs.fha.nhinc.admingui.event.model.PrescriptionInfo;
-import java.net.MalformedURLException;
-import java.net.URL;
 import org.springframework.stereotype.Service;
 
 /**
@@ -56,16 +55,12 @@ public class HtmlParserServiceImpl implements HtmlParserService {
         // retrieve TD tag Cell as lists
         Elements tDCells = row.select("td");
         prescriptionInfo.setFileStrDate(tDCells.get(0).ownText());
-        prescriptionInfo.setDrugName(tDCells.get(2).ownText());
-        prescriptionInfo.setDrugCount(Integer.parseInt(tDCells.get(3).ownText()));
-        prescriptionInfo.setDrugDuration(Integer.parseInt(tDCells.get(4).ownText()));
-        prescriptionInfo.setPrescriber(tDCells.get(5).ownText());
-        prescriptionInfo.setPharmacyName(tDCells.get(6).ownText());
-        //prescriptionInfo.setRefill(tDCells.get(7).ownText());
-        //prescriptionInfo.setMgEq(Double.parseDouble(tDCells.get(8).ownText()));
-        //prescriptionInfo.setMgEdPerDay(tDCells.get(9).ownText());
-        //prescriptionInfo.setPaymentType(tDCells.get(10).ownText());
-        prescriptionInfo.setPmpState(tDCells.get(11).ownText());
+        prescriptionInfo.setDrugName(tDCells.get(3).ownText());
+        prescriptionInfo.setDrugCount(Integer.parseInt(tDCells.get(4).ownText()));
+        prescriptionInfo.setDrugDuration(Integer.parseInt(tDCells.get(5).ownText()));
+        prescriptionInfo.setPrescriber(tDCells.get(6).ownText());
+        prescriptionInfo.setPharmacyName(tDCells.get(7).ownText());
+        prescriptionInfo.setPmpState(tDCells.get(12).ownText());
         return prescriptionInfo;
     }
 
