@@ -115,7 +115,7 @@
             lib/not-yet*,
             lib/servlet-api*,lib/stax-api*,lib/spring-webmvc*,lib/spring-jms*,lib/spring-messaging*,
             lib/velocity*,
-            lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xml-resolver*,lib/xmltooling*,lib/xpp3*,lib/xstream*
+            lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xmltooling*,lib/xpp3*,lib/xstream*
           </packagingExcludes>
         </configuration>
       </plugin>
