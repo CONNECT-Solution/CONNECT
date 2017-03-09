@@ -17,43 +17,42 @@
       <groupId>org.apache.servicemix.bundles</groupId>
       <artifactId>org.apache.servicemix.bundles.saaj-impl</artifactId>
     </dependency>
-<dependency>
-<groupId>commons-discovery</groupId>
-<artifactId>commons-discovery</artifactId>
-<version>0.4</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>javax.jws</groupId>
-<artifactId>jsr181-api</artifactId>
-<version>1.0-MR1</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.jvnet.mimepull</groupId>
-<artifactId>mimepull</artifactId>
-<version>1.7</version>
-<scope>provided</scope>
-</dependency>
-
-<dependency>
-<groupId>xalan</groupId>
-<artifactId>serializer</artifactId>
-<version>2.7.2</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>javax.xml.soap</groupId>
-<artifactId>saaj-api</artifactId>
-<version>1.3.4</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>javax.validation</groupId>
-<artifactId>validation-api</artifactId>
-<version>1.0.0.GA</version>
-<scope>provided</scope>
-</dependency>
+    <dependency>
+      <groupId>commons-discovery</groupId>
+      <artifactId>commons-discovery</artifactId>
+      <version>0.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.jws</groupId>
+      <artifactId>jsr181-api</artifactId>
+      <version>1.0-MR1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jvnet.mimepull</groupId>
+      <artifactId>mimepull</artifactId>
+      <version>1.7</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>serializer</artifactId>
+      <version>2.7.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.soap</groupId>
+      <artifactId>saaj-api</artifactId>
+      <version>1.3.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.0.0.GA</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.connectopensource</groupId>
       <artifactId>CONNECTCommonWeb</artifactId>
@@ -127,48 +126,7 @@
             </webModule>
           </modules>
           <packagingExcludes>
-            lib/Properties-*.jar,
-            libminh/activation-*.jar,
-            libminh/asm*,
-            libminh/commons-dbcp-1.4.jar,
-            libminh/commons-discovery-0.4.jar,
-            libminh/commons-net-2.0.jar,
-            libminh/commons-pool-1.5.4.jar,
-            libminh/cglib-nodep-2.2.jar,
-            libminh/cxf-rt-databinding-aegis*,libminh/cxf-tools-common*,
-            libminh/cxf-tools-validator*,libminh/cxf-tools-wsdlto-core*.jar,
-            libminh/cxf-tools-wsdlto-frontend-jaxws*.jar,
-            libminh/enunciate-core-annotations-1.23.jar,
-            libminh/esapi*,
-            libminh/Fast*,
-            libminh/geronimo*,
-            libminh/jackson*,
-            libminh/jandex-2.0.0.Final.jar,
-            libminh/jcip-annotations-1.0.jar,
-            libminh/jetty*,
-            libminh/log4j-over-slf4j*.jar,
-            libminh/javassist-3.4.GA.jar,
-            libminh/js*,
-            libminh/jul-to-slf4j*,
-            libminh/mimepull*,
-            libminh/not-yet-commons-ssl-0.3.9.jar,
-            libminh/servlet-api-2.5.jar,
-            libminh/javax.servlet-api-3.0.1.jar,
-            libminh/saaj-impl*,
-            libminh/saaj-api*,
-            libminh/serializer-2.7.2.jar,
-            libminh/spring-jms-4.1.9.RELEASE.jar,
-            libminh/spring-messaging-4.1.9.RELEASE.jar,
-            libminh/spring-webmvc-4.1.9.RELEASE.jar,
-            libminh/stax-api-1.0-2.jar,
-            libminh/validation-api-1.0.0.GA.jar,
-            libminh/velocity*,
-            libminh/xercesImpl-2.10.0.jar,
-            libminh/xml-apis-*,
-            libminh/xmlbeans-2.6.0.jar,
-            libminh/xmlpull-1.1.3.1.jar,
-            libminh/xpp3_min-1.1.4c.jar,
-            libminh/xstream-1.4.3.jar
+            lib/Properties-*.jar
           </packagingExcludes>
         </configuration>
       </plugin>

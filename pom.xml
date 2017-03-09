@@ -33,7 +33,7 @@ By advancing the adoption of interoperable health IT systems and health informat
         <openam.version>10.0.1</openam.version>
         <opensaml.xmltool.version>1.4.6</opensaml.xmltool.version>
         <!--<opensaml.version>2.6.6</opensaml.version>-->
-		<hibernate.version>5.1.0.Final</hibernate.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
 
         <!-- SCA and Reporting Plugin Versions -->
         <surefire.version>2.19.1</surefire.version>
