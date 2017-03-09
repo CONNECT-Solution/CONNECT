@@ -92,7 +92,11 @@
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
                     <packagingExcludes>
-                        lib/Properties-*.jar,
+                        lib/Properties-*.jar
+                    </packagingExcludes>
+                    <!-- Explode all archives on server (extremely time-consuming) -->
+                    <!--includeLibInApplicationXml>true</includeLibInApplicationXml-->
+                    <!--minh ,
                         lib/asm*,lib/activation*,
                         lib/cglib*,lib/commons-dbcp*,
                         lib/commons-net*,lib/commons-pool*,
@@ -107,10 +111,7 @@
                         lib/not-yet*,
                         lib/servlet-api*,lib/stax-api*,lib/spring-webmvc*,lib/spring-jms*,lib/spring-messaging*,
                         lib/velocity*,
-                        lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xmltooling*,lib/xpp3*,lib/xstream*
-                    </packagingExcludes>
-                    <!-- Explode all archives on server (extremely time-consuming) -->
-                    <!--includeLibInApplicationXml>true</includeLibInApplicationXml-->
+                        lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xmltooling*,lib/xpp3*,lib/xstream* -->
                 </configuration>
             </plugin>
         </plugins>

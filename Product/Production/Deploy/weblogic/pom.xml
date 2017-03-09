@@ -99,23 +99,23 @@
           <version>6</version>
           <packagingExcludes>
             lib/Properties-*.jar,
-            lib/jcl-over-slf4j-1.7.13.jar,
-            lib/mimepull-1.7.jar,
-            lib/asm*,lib/activation*,
-            lib/cglib*,lib/commons-dbcp*,
-            lib/commons-net*,lib/commons-pool*,
-            lib/cxf-rt-databinding-aegis*,lib/cxf-tools-common*,
-            lib/cxf-tools-validator*,lib/cxf-tools-wsdlto-core*.jar,
-            lib/cxf-tools-wsdlto-frontend-jaxws*.jar,
-            lib/esapi*,lib/enun*,
-            lib/Fast*,
-            lib/geronimo*,
-            lib/javax.servlet-api*,lib/json*,lib/jul*,lib/jsr311*,lib/jsr250*,lib/jackson*,
-            lib/jandex*,lib/javassist-3.4*,lib/jcip*,lib/jsr173*,
-            lib/not-yet*,
-            lib/servlet-api*,lib/stax-api*,lib/spring-webmvc*,lib/spring-jms*,lib/spring-messaging*,
-            lib/velocity*,
-            lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xmltooling*,lib/xpp3*,lib/xstream*
+            libminh/jcl-over-slf4j-1.7.13.jar,
+            libminh/mimepull-1.7.jar,
+            libminh/asm*,libminh/activation*,
+            libminh/cglib*,libminh/commons-dbcp*,
+            libminh/commons-net*,libminh/commons-pool*,
+            libminh/cxf-rt-databinding-aegis*,libminh/cxf-tools-common*,
+            libminh/cxf-tools-validator*,libminh/cxf-tools-wsdlto-core*.jar,
+            libminh/cxf-tools-wsdlto-frontend-jaxws*.jar,
+            libminh/esapi*,libminh/enun*,
+            libminh/Fast*,
+            libminh/geronimo*,
+            libminh/javax.servlet-api*,libminh/json*,libminh/jul*,libminh/jsr311*,libminh/jsr250*,libminh/jackson*,
+            libminh/jandex*,libminh/javassist-3.4*,libminh/jcip*,libminh/jsr173*,
+            libminh/not-yet*,
+            libminh/servlet-api*,libminh/stax-api*,libminh/spring-webmvc*,libminh/spring-jms*,libminh/spring-messaging*,
+            libminh/velocity*,
+            libminh/xml-apis*,libminh/xmlbeans*,libminh/xmlpull*,libminh/xmltooling*,libminh/xpp3*,libminh/xstream*
           </packagingExcludes>
         </configuration>
       </plugin>
