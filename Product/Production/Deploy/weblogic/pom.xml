@@ -16,6 +16,12 @@
     <dependency>
       <groupId>com.sun.xml.messaging.saaj</groupId>
       <artifactId>saaj-impl</artifactId>
+<exclusions>
+<exclusion>
+<groupId>org.jvnet.mimepull</groupId>
+<artifactId>mimepull</artifactId>
+</exclusion>
+</exclusions>
     </dependency>
 
         <!-- Logging -->
