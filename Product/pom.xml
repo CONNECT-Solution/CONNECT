@@ -26,56 +26,8 @@
 <scope>provided</scope>
 </dependency>
 <dependency>
-<groupId>asm</groupId>
-<artifactId>asm-attrs</artifactId>
-<version>[1.5.3,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>javax.activation</groupId>
-<artifactId>activation</artifactId>
-<version>[1.1.1,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>cglib</groupId>
-<artifactId>cglib-nodep</artifactId>
-<version>[2.2,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>commons-dbcp</groupId>
-<artifactId>commons-dbcp</artifactId>
-<version>1.4</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>commons-net</groupId>
-<artifactId>commons-net</artifactId>
-<version>[2.0,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>commons-pool</groupId>
-<artifactId>commons-pool</artifactId>
-<version>[1.5.4,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.apache.cxf</groupId>
-<artifactId>cxf-rt-databinding-aegis</artifactId>
-<version>${cxf.version}</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
 <groupId>org.apache.cxf</groupId>
 <artifactId>cxf-tools-common</artifactId>
-<version>${cxf.version}</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.apache.cxf</groupId>
-<artifactId>cxf-tools-validator</artifactId>
 <version>${cxf.version}</version>
 <scope>provided</scope>
 </dependency>
@@ -85,28 +37,11 @@
 <version>${cxf.version}</version>
 <scope>provided</scope>
 </dependency>
-<dependency>
-<groupId>org.apache.cxf</groupId>
-<artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
-<version>${cxf.version}</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.owasp.esapi</groupId>
-<artifactId>esapi</artifactId>
-<version>[2.0.1,)</version>
-<scope>provided</scope>
-</dependency>
+
 <dependency>
 <groupId>org.codehaus.enunciate</groupId>
 <artifactId>enunciate-core-annotations</artifactId>
 <version>[1.23,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>com.sun.xml.fastinfoset</groupId>
-<artifactId>FastInfoset</artifactId>
-<version>[1.2.12,)</version>
 <scope>provided</scope>
 </dependency>
 <dependency>
@@ -122,29 +57,12 @@
 <scope>provided</scope>
 </dependency>
 <dependency>
-<groupId>org.json</groupId>
-<artifactId>json</artifactId>
-<version>[20090211,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.slf4j</groupId>
-<artifactId>jul-to-slf4j</artifactId>
-<version>[1.7.13,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
 <groupId>javax.ws.rs</groupId>
 <artifactId>jsr311-api</artifactId>
 <version>1.1.1</version>
 <scope>provided</scope>
 </dependency>
-<dependency>
-<groupId>javax.annotation</groupId>
-<artifactId>jsr250-api</artifactId>
-<version>[1.0,)</version>
-<scope>provided</scope>
-</dependency>
+
 <dependency>
 <groupId>org.codehaus.jackson</groupId>
 <artifactId>jackson-jaxrs</artifactId>
@@ -170,27 +88,9 @@
 <scope>provided</scope>
 </dependency>
 <dependency>
-<groupId>javassist</groupId>
-<artifactId>javassist</artifactId>
-<version>[3.4.GA,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>net.jcip</groupId>
-<artifactId>jcip-annotations</artifactId>
-<version>1.0</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
 <groupId>javax.xml.bind</groupId>
 <artifactId>jsr173_api</artifactId>
 <version>[1.0,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>ca.juliusdavies</groupId>
-<artifactId>not-yet-commons-ssl</artifactId>
-<version>[0.3.9,)</version>
 <scope>provided</scope>
 </dependency>
 <dependency>
@@ -201,38 +101,14 @@
 </dependency>
 <dependency>
 <groupId>org.springframework</groupId>
-<artifactId>spring-webmvc</artifactId>
-<version>[4.1.9.RELEASE,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.springframework</groupId>
-<artifactId>spring-jms</artifactId>
-<version>[4.1.9.RELEASE,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.springframework</groupId>
 <artifactId>spring-messaging</artifactId>
 <version>[4.1.9.RELEASE,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.apache.velocity</groupId>
-<artifactId>velocity</artifactId>
-<version>[1.7,)</version>
 <scope>provided</scope>
 </dependency>
 <dependency>
 <groupId>xml-apis</groupId>
 <artifactId>xml-apis</artifactId>
 <version>[1.0.b2,)</version>
-<scope>provided</scope>
-</dependency>
-<dependency>
-<groupId>org.apache.xmlbeans</groupId>
-<artifactId>xmlbeans</artifactId>
-<version>[2.6.0,)</version>
 <scope>provided</scope>
 </dependency>
 <dependency>
@@ -247,12 +123,26 @@
 <version>1.1.4c</version>
 <scope>provided</scope>
 </dependency>
-<dependency>
-<groupId>com.thoughtworks.xstream</groupId>
-<artifactId>xstream</artifactId>
-<version>1.4.3</version>
-<scope>provided</scope>
-</dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <!-- Java EE APIs -->
             <dependency>
@@ -344,6 +234,7 @@
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-databinding-aegis</artifactId>
                 <version>${cxf.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -386,12 +277,13 @@
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-tools-validator</artifactId>
                 <version>${cxf.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
                 <version>${cxf.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -507,11 +399,13 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jms</artifactId>
                 <version>${spring.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- XML -->
@@ -525,6 +419,7 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>1.4.3</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
@@ -555,6 +450,7 @@
                 <groupId>com.sun.xml.fastinfoset</groupId>
                 <artifactId>FastInfoset</artifactId>
                 <version>1.2.12</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>xalan</groupId>
@@ -586,6 +482,7 @@
                 <groupId>org.apache.xmlbeans</groupId>
                 <artifactId>xmlbeans</artifactId>
                 <version>2.6.0</version>
+                <scope>provided</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>stax</groupId>
@@ -663,6 +560,7 @@
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
                 <version>2.2</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>antlr</groupId>
@@ -678,11 +576,13 @@
                 <groupId>asm</groupId>
                 <artifactId>asm-attrs</artifactId>
                 <version>1.5.3</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>3.4.GA</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- Logging -->
@@ -707,7 +607,7 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
-                <scope>runtime</scope>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -751,6 +651,7 @@
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity</artifactId>
                 <version>1.7</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- Security -->
@@ -758,6 +659,7 @@
                 <groupId>org.owasp.esapi</groupId>
                 <artifactId>esapi</artifactId>
                 <version>2.0.1</version>
+                <scope>provided</scope>
                 <exclusions>
                     <!-- The following list should be changed to a single transitive
                     dependency exclude upon upgrade to Maven 3.2.x -->
@@ -848,16 +750,19 @@
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
                 <version>1.4</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
                 <version>2.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-pool</groupId>
                 <artifactId>commons-pool</artifactId>
                 <version>1.5.4</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>commons-digester</groupId>
@@ -918,6 +823,7 @@
                 <groupId>javax.activation</groupId>
                 <artifactId>activation</artifactId>
                 <version>1.1.1</version>
+                <scope>provided</scope>
             </dependency>
 
 			<dependency>
@@ -980,6 +886,7 @@
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>20090211</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- Legacy JSF -->
@@ -1036,11 +943,13 @@
                 <groupId>net.jcip</groupId>
                 <artifactId>jcip-annotations</artifactId>
                 <version>1.0</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>${slf4j.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -1051,6 +960,7 @@
                 <groupId>ca.juliusdavies</groupId>
                 <artifactId>not-yet-commons-ssl</artifactId>
                 <version>0.3.9</version>
+                <scope>provided</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-httpclient</groupId>
