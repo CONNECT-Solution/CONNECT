@@ -294,12 +294,12 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
             <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -307,7 +307,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -645,12 +645,12 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
             <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -658,7 +658,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1006,12 +1006,12 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
             <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -1019,7 +1019,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1362,12 +1362,12 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
             <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -1375,7 +1375,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1731,12 +1731,12 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
             <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -1744,7 +1744,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>

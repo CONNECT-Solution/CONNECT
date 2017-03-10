@@ -243,12 +243,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -256,7 +256,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -590,12 +590,12 @@ log.info("Gateway Property Directory = " + context.findProperty('GatewayPropDir'
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -603,7 +603,7 @@ log.info("Gateway Property Directory = " + context.findProperty('GatewayPropDir'
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -926,12 +926,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -939,7 +939,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -1275,12 +1275,12 @@ context.setGatewayStandard(true);</con:tearDownScript>
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -1288,7 +1288,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>

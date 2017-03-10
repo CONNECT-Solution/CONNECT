@@ -307,12 +307,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -320,7 +320,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -842,12 +842,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -856,7 +856,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -1173,12 +1173,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -1186,7 +1186,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -1700,12 +1700,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -1713,7 +1713,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -2350,12 +2350,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -2363,7 +2363,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -2684,12 +2684,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -2697,7 +2697,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -3061,12 +3061,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -3074,7 +3074,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -3370,12 +3370,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -3383,7 +3383,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -4126,12 +4126,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -4139,7 +4139,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -4664,12 +4664,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -4678,7 +4678,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -4995,12 +4995,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -5008,7 +5008,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -5522,12 +5522,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -5535,7 +5535,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -6172,12 +6172,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -6185,7 +6185,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -6766,12 +6766,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -6779,7 +6779,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -7143,12 +7143,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -7156,7 +7156,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -7442,12 +7442,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -7455,7 +7455,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -8209,12 +8209,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -8222,7 +8222,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -8744,12 +8744,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -8758,7 +8758,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -9075,12 +9075,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -9088,7 +9088,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -9608,12 +9608,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -9621,7 +9621,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -10258,12 +10258,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -10271,7 +10271,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -10852,12 +10852,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -10865,7 +10865,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -11229,12 +11229,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -11242,7 +11242,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -11528,12 +11528,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -11541,7 +11541,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -12284,12 +12284,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -12297,7 +12297,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -12822,12 +12822,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -12836,7 +12836,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -13153,12 +13153,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -13166,7 +13166,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -13676,12 +13676,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -13689,7 +13689,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -14326,12 +14326,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -14339,7 +14339,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -14920,12 +14920,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -14933,7 +14933,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -15297,12 +15297,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -15310,7 +15310,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -15596,12 +15596,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -15609,7 +15609,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -16363,12 +16363,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -16376,7 +16376,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -16898,12 +16898,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -16912,7 +16912,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -17239,12 +17239,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -17252,7 +17252,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -17762,12 +17762,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -17775,7 +17775,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -18412,12 +18412,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -18425,7 +18425,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -19006,12 +19006,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -19019,7 +19019,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -19383,12 +19383,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -19396,7 +19396,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -19682,12 +19682,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -19695,7 +19695,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -20438,12 +20438,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -20451,7 +20451,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -20986,12 +20986,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -21000,7 +21000,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -21317,12 +21317,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -21330,7 +21330,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -21840,12 +21840,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -21853,7 +21853,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -22490,12 +22490,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -22503,7 +22503,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -23084,12 +23084,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -23097,7 +23097,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -23461,12 +23461,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -23474,7 +23474,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -23760,12 +23760,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -23773,7 +23773,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -24517,12 +24517,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -24530,7 +24530,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -25052,12 +25052,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -25066,7 +25066,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -25383,12 +25383,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -25396,7 +25396,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -25906,12 +25906,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -25919,7 +25919,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -26566,12 +26566,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -26579,7 +26579,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -27160,12 +27160,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -27173,7 +27173,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -27537,12 +27537,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -27550,7 +27550,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -27836,12 +27836,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -27849,7 +27849,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -28592,12 +28592,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -28605,7 +28605,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -29130,12 +29130,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -29144,7 +29144,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -29461,12 +29461,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -29474,7 +29474,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -29984,12 +29984,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -29997,7 +29997,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -30634,12 +30634,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -30647,7 +30647,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -31228,12 +31228,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -31241,7 +31241,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -31615,12 +31615,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
                <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
-               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
-               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
          <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
-               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
                <urn3:evidence>
                   <urn3:assertion>
@@ -31628,7 +31628,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -31914,12 +31914,12 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
                <urn2:sessionIndex>987</urn2:sessionIndex>
                <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
-               <urn2:subjectLocalityAddress>158.147.185.168</urn2:subjectLocalityAddress>
-               <urn2:subjectLocalityDNSName>cs.myharris.net</urn2:subjectLocalityDNSName>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
             </urn2:samlAuthnStatement>
             <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:decision>Permit</urn2:decision>
-               <urn2:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
                <urn2:action>TestSaml</urn2:action>
                <urn2:evidence>
                   <urn2:assertion>
@@ -31927,7 +31927,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>

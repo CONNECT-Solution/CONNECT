@@ -398,7 +398,7 @@ public class SamlTokenCreatorTest {
         authz.setAction("TestSaml");
         authz.setDecision("Permit");
         authz.setEvidence(createSamlAuthzDecisionStatemnetEvidenceType());
-        authz.setResource("https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS");
+        authz.setResource("https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS");
         return authz;
     }
 

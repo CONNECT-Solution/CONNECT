@@ -252,12 +252,12 @@ AdapterMpiConfig.xml.</con:description>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
                <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
                <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
@@ -265,7 +265,7 @@ AdapterMpiConfig.xml.</con:description>
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
