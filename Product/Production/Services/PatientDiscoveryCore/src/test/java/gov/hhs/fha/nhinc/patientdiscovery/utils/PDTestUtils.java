@@ -183,8 +183,8 @@ public class PDTestUtils {
         samlAuthnStatement.setAuthInstant("2009-04-16T13:15:39Z");
         samlAuthnStatement.setAuthInstant("987");
         samlAuthnStatement.setAuthContextClassRef("urn:oasis:names:tc:SAML:2.0:ac:classes:X509");
-        samlAuthnStatement.setSubjectLocalityAddress("158.147.158.168");
-        samlAuthnStatement.setSubjectLocalityDNSName("cs.dunder.com");
+        samlAuthnStatement.setSubjectLocalityAddress("1.1.1.1");
+        samlAuthnStatement.setSubjectLocalityDNSName("connectopensource.org");
         return samlAuthnStatement;
     }
 
