@@ -68,7 +68,7 @@
                     </saml2:SubjectConfirmation>
                 </saml2:Subject>
                 <saml2:AuthnStatement AuthnInstant="2009-04-16T13:15:39.000Z" SessionIndex="987">
-                    <saml2:SubjectLocality Address="158.147.185.168" DNSName="cs.myharris.net" />
+                    <saml2:SubjectLocality Address="1.1.1.1" DNSName="connectopensource.org" />
                     <saml2:AuthnContext>
                         <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509
                         </saml2:AuthnContextClassRef>
@@ -118,7 +118,7 @@
                     <saml2:Evidence>
                         <saml2:Assertion ID="40df7c0a-ff3e-4b26-baeb-f2910f6d05a9" IssueInstant="2009-04-16T13:10:39.093Z"
                             Version="2.0">
-                            <saml2:Issuer Format="urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName">CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US
+                            <saml2:Issuer Format="urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName">CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US
                             </saml2:Issuer>
                             <saml2:Conditions NotBefore="2009-04-16T13:10:39.093Z" NotOnOrAfter="2012-12-12T01:41:18.565Z" />
                             <saml2:AttributeStatement>

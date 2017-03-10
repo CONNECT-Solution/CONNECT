@@ -152,7 +152,7 @@ public class PDTestUtils {
     private SamlAuthzDecisionStatementType createValidSamlAuthzDecisionStatement() {
         SamlAuthzDecisionStatementType samlAuthzDecision = new SamlAuthzDecisionStatementType();
         samlAuthzDecision.setDecision("Permit");
-        samlAuthzDecision.setResource("https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS");
+        samlAuthzDecision.setResource("https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS");
         samlAuthzDecision.setAction("TestSaml");
 
         SamlAuthzDecisionStatementEvidenceType evidence = new SamlAuthzDecisionStatementEvidenceType();
@@ -161,7 +161,7 @@ public class PDTestUtils {
         assertion.setIssueInstant("009-04-16T13:10:39.093Z");
         assertion.setVersion("2.0");
         assertion.setIssuerFormat("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
-        assertion.setIssuer("CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US");
+        assertion.setIssuer("CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US");
 
         SamlAuthzDecisionStatementEvidenceConditionsType conditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
         conditions.setNotBefore("2009-04-16T13:10:39.093Z");
