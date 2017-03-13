@@ -17,7 +17,42 @@
       <groupId>org.apache.servicemix.bundles</groupId>
       <artifactId>org.apache.servicemix.bundles.saaj-impl</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>commons-discovery</groupId>
+      <artifactId>commons-discovery</artifactId>
+      <version>0.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.jws</groupId>
+      <artifactId>jsr181-api</artifactId>
+      <version>1.0-MR1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jvnet.mimepull</groupId>
+      <artifactId>mimepull</artifactId>
+      <version>1.7</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>serializer</artifactId>
+      <version>2.7.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.soap</groupId>
+      <artifactId>saaj-api</artifactId>
+      <version>1.3.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.0.0.GA</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.connectopensource</groupId>
       <artifactId>CONNECTCommonWeb</artifactId>
@@ -90,50 +125,6 @@
               <contextRoot>/CONNECTAdapter</contextRoot>
             </webModule>
           </modules>
-          <packagingExcludes>
-            lib/Properties-*.jar,
-            lib/activation-*.jar,
-            lib/asm*,
-            lib/commons-dbcp-1.4.jar,
-            lib/commons-discovery-0.4.jar,
-            lib/commons-net-2.0.jar,
-            lib/commons-pool-1.5.4.jar,
-            lib/cglib-nodep-2.2.jar,
-            lib/cxf-rt-databinding-aegis*,lib/cxf-tools-common*,
-            lib/cxf-tools-validator*,lib/cxf-tools-wsdlto-core*.jar,
-            lib/cxf-tools-wsdlto-frontend-jaxws*.jar,
-            lib/enunciate-core-annotations-1.23.jar,
-            lib/esapi*,
-            lib/Fast*,
-            lib/geronimo*,
-            lib/jackson*,
-            lib/jandex-2.0.0.Final.jar,
-            lib/jcip-annotations-1.0.jar,
-            lib/jetty*,
-            lib/log4j-over-slf4j*.jar,
-            lib/javassist-3.4.GA.jar,
-            lib/js*,
-            lib/jul-to-slf4j*,
-            lib/mimepull*,
-            lib/not-yet-commons-ssl-0.3.9.jar,
-            lib/servlet-api-2.5.jar,
-            lib/javax.servlet-api-3.0.1.jar,
-            lib/saaj-impl*,
-            lib/saaj-api*,
-            lib/serializer-2.7.2.jar,
-            lib/spring-jms-4.1.9.RELEASE.jar,
-            lib/spring-messaging-4.1.9.RELEASE.jar,
-            lib/spring-webmvc-4.1.9.RELEASE.jar,
-            lib/stax-api-1.0-2.jar,
-            lib/validation-api-1.0.0.GA.jar,
-            lib/velocity*,
-            lib/xercesImpl-2.10.0.jar,
-            lib/xml-apis-*,
-            lib/xmlbeans-2.6.0.jar,
-            lib/xmlpull-1.1.3.1.jar,
-            lib/xpp3_min-1.1.4c.jar,
-            lib/xstream-1.4.3.jar
-          </packagingExcludes>
         </configuration>
       </plugin>
     </plugins>

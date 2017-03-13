@@ -16,6 +16,12 @@
     <dependency>
       <groupId>com.sun.xml.messaging.saaj</groupId>
       <artifactId>saaj-impl</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jvnet.mimepull</groupId>
+            <artifactId>mimepull</artifactId>
+          </exclusion>
+        </exclusions>
     </dependency>
 
         <!-- Logging -->
@@ -97,26 +103,6 @@
             </webModule>
           </modules>
           <version>6</version>
-          <packagingExcludes>
-            lib/Properties-*.jar,
-            lib/jcl-over-slf4j-1.7.13.jar,
-            lib/mimepull-1.7.jar,
-            lib/asm*,lib/activation*,
-            lib/cglib*,lib/commons-dbcp*,
-            lib/commons-net*,lib/commons-pool*,
-            lib/cxf-rt-databinding-aegis*,lib/cxf-tools-common*,
-            lib/cxf-tools-validator*,lib/cxf-tools-wsdlto-core*.jar,
-            lib/cxf-tools-wsdlto-frontend-jaxws*.jar,
-            lib/esapi*,lib/enun*,
-            lib/Fast*,
-            lib/geronimo*,
-            lib/javax.servlet-api*,lib/json*,lib/jul*,lib/jsr311*,lib/jsr250*,lib/jackson*,
-            lib/jandex*,lib/javassist-3.4*,lib/jcip*,lib/jsr173*,
-            lib/not-yet*,
-            lib/servlet-api*,lib/stax-api*,lib/spring-webmvc*,lib/spring-jms*,lib/spring-messaging*,
-            lib/velocity*,
-            lib/xml-apis*,lib/xmlbeans*,lib/xmlpull*,lib/xmltooling*,lib/xpp3*,lib/xstream*
-          </packagingExcludes>
         </configuration>
       </plugin>
     </plugins>
