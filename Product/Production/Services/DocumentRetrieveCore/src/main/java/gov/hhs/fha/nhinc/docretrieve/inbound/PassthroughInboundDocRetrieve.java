@@ -93,12 +93,12 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
      * @see gov.hhs.fha.nhinc.docretrieve.inbound.BaseInboundDocRetrieve#getOrchestrator()
      */
     @Override
-    CONNECTInboundOrchestrator getOrchestrator() {
+    public CONNECTInboundOrchestrator getOrchestrator() {
         return orch;
     }
 
     @Override
-    DocRetrieveAuditLogger getAuditLogger() {
+    public DocRetrieveAuditLogger getAuditLogger() {
         return auditLogger;
     }
 }

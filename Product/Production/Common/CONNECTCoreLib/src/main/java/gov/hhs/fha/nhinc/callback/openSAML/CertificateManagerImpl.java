@@ -122,9 +122,9 @@ public class CertificateManagerImpl implements CertificateManager {
      * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
      * javax.net.ssl.keyStorePassword
      *
-     * @throws Exception
+     * @throws CertificateManagerException
      */
-    private void initKeyStore() throws Exception {
+    private void initKeyStore() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
 
         InputStream is = null;
@@ -149,9 +149,9 @@ public class CertificateManagerImpl implements CertificateManager {
                         is = new FileInputStream(storeLoc);
                     }
                     keyStore.load(is, password.toCharArray());
-                } catch (final NoSuchAlgorithmException|CertificateException|KeyStoreException ex) {
+                } catch (final IOException|NoSuchAlgorithmException|CertificateException|KeyStoreException ex) {
                     LOG.error(KEYSTORE_ERROR_MSG, ex.getLocalizedMessage(), ex);
-                    throw new Exception(ex.getMessage());
+                    throw new CertificateManagerException(ex.getMessage(), ex);
                 } finally {
                     try {
                         if (is != null) {
@@ -172,9 +172,9 @@ public class CertificateManagerImpl implements CertificateManager {
      * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
      * and javax.net.ssl.trustStorePassword
      *
-     * @throws Exception
+     * @throws CertificateManagerException
      */
-    private void initTrustStore() throws Exception {
+    private void initTrustStore() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
 
         InputStream is = null;
@@ -199,15 +199,9 @@ public class CertificateManagerImpl implements CertificateManager {
                         is = new FileInputStream(storeLoc);
                     }
                     trustStore.load(is, password.toCharArray());
-                } catch (final NoSuchAlgorithmException ex) {
+                } catch (final NoSuchAlgorithmException|CertificateException|IOException|KeyStoreException ex) {
                     LOG.error("Error initializing TrustStore: {}", ex.getLocalizedMessage(), ex);
-                    throw new Exception(ex.getMessage());
-                } catch (final CertificateException ex) {
-                    LOG.error("Error initializing TrustStore: {}", ex.getLocalizedMessage(), ex);
-                    throw new IOException(ex.getMessage());
-                } catch (final KeyStoreException ex) {
-                    LOG.error("Error initializing TrustStore: {}", ex.getLocalizedMessage(), ex);
-                    throw new IOException(ex.getMessage());
+                    throw new CertificateManagerException(ex.getMessage(), ex);
                 } finally {
                     try {
                         if (is != null) {
@@ -230,7 +224,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultCertificate()
      */
     @Override
-    public X509Certificate getDefaultCertificate() throws Exception {
+    public X509Certificate getDefaultCertificate() throws CertificateManagerException {
         return (X509Certificate) getPrivateKeyEntry().getCertificate();
     }
 
@@ -240,11 +234,11 @@ public class CertificateManagerImpl implements CertificateManager {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPrivateKey()
      */
     @Override
-    public PrivateKey getDefaultPrivateKey() throws Exception {
+    public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
         return getPrivateKeyEntry().getPrivateKey();
     }
 
-    private PrivateKeyEntry getPrivateKeyEntry() throws Exception {
+    private PrivateKeyEntry getPrivateKeyEntry() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         KeyStore.PrivateKeyEntry pkEntry = null;
 
@@ -256,15 +250,9 @@ public class CertificateManagerImpl implements CertificateManager {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(client_key_alias,
                             new KeyStore.PasswordProtection(password.toCharArray()));
 
-                } catch (final NoSuchAlgorithmException ex) {
+                } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
                     LOG.error("Error initializing Private Key: " + ex);
-                    throw new Exception(ex.getMessage());
-                } catch (final KeyStoreException ex) {
-                    LOG.error("Error initializing Private Key: " + ex);
-                    throw new Exception(ex.getMessage());
-                } catch (final UnrecoverableEntryException ex) {
-                    LOG.error("Error initializing Private Key: " + ex);
-                    throw new Exception(ex.getMessage());
+                    throw new CertificateManagerException(ex.getMessage(), ex);
                 }
 
             } else {

@@ -24,29 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import org.w3c.dom.Element;
-
 /**
- * @author bhumphrey
+ * @author madun
  *
  */
-public class SVSAMLAssertionBuilder extends SAMLAssertionBuilder {
+public class SAMLComponentBuilderException extends Exception {
 
-    SVSAMLAssertionBuilder() {
-
+    public SAMLComponentBuilderException(String message) {
+        super(message);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilder#build()
-     */
-    @Override
-    public Element build(CallbackProperties properties) throws SAMLAssertionBuilderException {
-
-        return null;
+    public SAMLComponentBuilderException(Throwable throwable) {
+    	super(throwable);
     }
 
+    public SAMLComponentBuilderException(String message, Throwable throwable) {
+    	super(message, throwable);
+    }
 }

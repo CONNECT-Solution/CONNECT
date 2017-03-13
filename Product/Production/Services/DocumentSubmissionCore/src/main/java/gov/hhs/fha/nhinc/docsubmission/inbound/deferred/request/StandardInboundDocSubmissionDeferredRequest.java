@@ -103,7 +103,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
     }
 
     @Override
-    XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
+    public XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
 
         XDRAcknowledgementType response;
