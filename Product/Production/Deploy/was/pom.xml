@@ -125,9 +125,6 @@
               <contextRoot>/CONNECTAdapter</contextRoot>
             </webModule>
           </modules>
-          <packagingExcludes>
-            lib/Properties-*.jar
-          </packagingExcludes>
         </configuration>
       </plugin>
     </plugins>

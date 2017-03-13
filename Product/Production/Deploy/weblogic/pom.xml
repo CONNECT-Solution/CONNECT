@@ -103,9 +103,6 @@
             </webModule>
           </modules>
           <version>6</version>
-          <packagingExcludes>
-            lib/Properties-*.jar
-          </packagingExcludes>
         </configuration>
       </plugin>
     </plugins>
