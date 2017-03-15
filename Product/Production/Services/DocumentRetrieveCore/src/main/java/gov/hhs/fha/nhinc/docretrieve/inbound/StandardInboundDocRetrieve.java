@@ -96,7 +96,7 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
      * @see gov.hhs.fha.nhinc.docretrieve.inbound.BaseInboundDocRetrieve#getOrchestrator()
      */
     @Override
-    CONNECTInboundOrchestrator getOrchestrator() {
+    public CONNECTInboundOrchestrator getOrchestrator() {
         return orch;
     }
 
@@ -117,7 +117,7 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
     }
 
     @Override
-    DocRetrieveAuditLogger getAuditLogger() {
+    public DocRetrieveAuditLogger getAuditLogger() {
         return auditLogger;
     }
 }

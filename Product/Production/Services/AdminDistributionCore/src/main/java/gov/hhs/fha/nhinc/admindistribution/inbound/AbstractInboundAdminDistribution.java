@@ -44,7 +44,7 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
     protected AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
     protected AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();
 
-    abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
+    public abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
 
     /**
      * This method sends sendAlertMessage to agency/agencies.

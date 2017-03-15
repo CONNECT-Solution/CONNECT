@@ -37,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public abstract class AbstractInboundDocSubmission implements InboundDocSubmission {
 
-    abstract RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body,
+    public abstract RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties);
 
     private DocSubmissionAuditLogger auditLogger = null;

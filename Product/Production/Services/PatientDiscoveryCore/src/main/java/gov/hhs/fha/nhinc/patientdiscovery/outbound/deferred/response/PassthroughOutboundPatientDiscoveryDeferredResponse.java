@@ -71,7 +71,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      * gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType)
      */
     @Override
-    MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetCommunitiesType target) {
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(target);
         auditRequest(request, assertion, target);
         return sendToNhin(delegate, request, assertion, targetSystem);
@@ -85,7 +85,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      * #getAuditLogger()
      */
     @Override
-    PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
+    public PatientDiscoveryDeferredResponseAuditLogger getAuditLogger() {
         return auditLogger;
     }
 }

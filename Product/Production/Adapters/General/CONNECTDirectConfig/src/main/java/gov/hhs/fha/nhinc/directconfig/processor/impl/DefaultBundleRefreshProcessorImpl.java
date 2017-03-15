@@ -87,7 +87,8 @@ import org.apache.commons.logging.LogFactory;
 import org.bouncycastle.cms.CMSProcessableByteArray;
 import org.bouncycastle.cms.CMSSignedData;
 import org.bouncycastle.cms.SignerInformation;
-import org.nhindirect.stagent.CryptoExtensions;
+import org.bouncycastle.cms.SignerInformationVerifier;
+import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
 import org.nhindirect.stagent.options.OptionsManager;
 import org.nhindirect.stagent.options.OptionsParameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +117,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      * gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL
      */
     public final static String BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED
-        = "BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED";
+    = "BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED";
 
     protected static final int DEFAULT_URL_CONNECTION_TIMEOUT = 10000; // 10 seconds
     protected static final int DEFAULT_URL_READ_TIMEOUT = 10000; // 10 hour seconds
@@ -145,7 +146,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
         final Map<String, String> JVM_PARAMS = new HashMap<>();
         JVM_PARAMS.put(BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED,
-            "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");
+                "gov.hhs.fha.nhinc.directconfig.processor.impl.bundlerefresh.AllowNonVerifiedSSL");
 
         OptionsManager.addInitParameters(JVM_PARAMS);
     }
@@ -155,7 +156,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      */
     public DefaultBundleRefreshProcessorImpl() {
         OptionsParameter allowNonVerSSLParam = OptionsManager.getInstance().getParameter(
-            BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED);
+                BUNDLE_REFRESH_PROCESSOR_ALLOW_DOWNLOAD_FROM_UNTRUSTED);
         if (OptionsParameter.getParamValueAsBoolean(allowNonVerSSLParam, false)) {
             try {
                 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
@@ -238,7 +239,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
         }
 
         final Collection<X509Certificate> bundleCerts = convertRawBundleToAnchorCollection(rawBundle, bundle,
-            processAttemptStart);
+                processAttemptStart);
 
         if (bundleCerts == null) {
             LOG.warn("No bundle certs found.");
@@ -288,7 +289,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
      */
     @SuppressWarnings("unchecked")
     protected Collection<X509Certificate> convertRawBundleToAnchorCollection(byte[] rawBundle,
-        final TrustBundle existingBundle, final Calendar processAttemptStart) {
+            final TrustBundle existingBundle, final Calendar processAttemptStart) {
         Collection<? extends Certificate> bundleCerts = null;
         InputStream inStream = null;
 
@@ -320,11 +321,14 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
                     boolean sigVerified = false;
 
                     final X509Certificate signingCert = existingBundle.toSigningCertificate();
-                    for (SignerInformation sigInfo : (Collection<SignerInformation>) signed.getSignerInfos()
-                        .getSigners()) {
+                    for (SignerInformation sigInfo : signed.getSignerInfos()
+                            .getSigners()) {
 
                         try {
-                            if (sigInfo.verify(signingCert, CryptoExtensions.getJCEProviderName())) {
+                            JcaSimpleSignerInfoVerifierBuilder verifyBuilder = new JcaSimpleSignerInfoVerifierBuilder();
+                            SignerInformationVerifier verifier = verifyBuilder.build(signingCert);
+
+                            if (sigInfo.verify(verifier)) {
                                 sigVerified = true;
                                 break;
                             }
@@ -337,7 +341,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
 
                     if (!sigVerified) {
                         dao.updateLastUpdateError(existingBundle.getId(), processAttemptStart,
-                            BundleRefreshError.UNMATCHED_SIGNATURE);
+                                BundleRefreshError.UNMATCHED_SIGNATURE);
                         LOG.warn("Downloaded bundle signature did not match configured signing certificate.");
                         return null;
                     }
@@ -350,7 +354,7 @@ public class DefaultBundleRefreshProcessorImpl implements BundleRefreshProcessor
                 bundleCerts = CertificateFactory.getInstance("X.509").generateCertificates(inStream);
             } catch (Exception e) {
                 dao.updateLastUpdateError(existingBundle.getId(), processAttemptStart,
-                    BundleRefreshError.INVALID_BUNDLE_FORMAT);
+                        BundleRefreshError.INVALID_BUNDLE_FORMAT);
                 LOG.warn("Failed to extract anchors from downloaded bundle.");
                 LOG.trace("Extract anchors from bundle exception: " + e.getLocalizedMessage(), e);
             } finally {

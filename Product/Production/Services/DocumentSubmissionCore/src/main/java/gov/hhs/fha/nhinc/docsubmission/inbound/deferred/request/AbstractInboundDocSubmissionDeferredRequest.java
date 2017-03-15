@@ -37,7 +37,7 @@ import java.util.Properties;
 
 public abstract class AbstractInboundDocSubmissionDeferredRequest implements InboundDocSubmissionDeferredRequest {
 
-    abstract XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
+    public abstract XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion);
 
     private DocSubmissionDeferredRequestAuditLogger auditLogger = null;

@@ -35,12 +35,12 @@ import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.Names;
 import org.apache.cxf.ws.addressing.RelatesToType;
-import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +53,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     private static final Logger LOG = LoggerFactory.getLogger(WsAddressingServiceEndpointDecorator.class);
 
     private BindingProvider bindingProviderPort;
-    private AddressingPropertiesImpl maps;
+    private AddressingProperties maps;
     private AssertionType assertion;
 
     public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
@@ -65,7 +65,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
             this.assertion = assertion;
         }
 
-        maps = new AddressingPropertiesImpl();
+        maps = new AddressingProperties();
 
         AttributedURIType to = new AttributedURIType();
         to.setValue(wsAddressingTo);

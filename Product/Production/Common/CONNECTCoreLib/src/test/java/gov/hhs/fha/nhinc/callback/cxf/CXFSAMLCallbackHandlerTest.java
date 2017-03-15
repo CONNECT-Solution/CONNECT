@@ -40,10 +40,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.saml.ext.SAMLCallback;
+import org.apache.wss4j.common.saml.SAMLCallback;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.opensaml.common.SAMLVersion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -90,7 +89,7 @@ public class CXFSAMLCallbackHandlerTest {
 
         callbackHandler.handle(callbackList);
 
-        assertEquals(samlCallback.getSamlVersion(), SAMLVersion.VERSION_20);
+        assertEquals(samlCallback.getSamlVersion(), org.opensaml.saml.common.SAMLVersion.VERSION_20);
         assertEquals(samlCallback.getAssertionElement().getTextContent(), ASSERTION);
     }
 

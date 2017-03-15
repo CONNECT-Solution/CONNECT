@@ -39,7 +39,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 public abstract class AbstractOutboundPatientDiscoveryDeferredRequest implements
     OutboundPatientDiscoveryDeferredRequest {
 
-    abstract PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger();
+    public abstract PatientDiscoveryDeferredRequestAuditLogger getPatientDiscoveryDeferredAuditLogger();
 
     protected void auditRequest(PRPAIN201305UV02 request, AssertionType assertion, NhinTargetSystemType target) {
 

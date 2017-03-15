@@ -94,7 +94,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
     }
 
     @Override
-    XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
+    public XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
 
         XDRAcknowledgementType response;
         String localHCID = getLocalHCID();

@@ -114,7 +114,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
     }
 
     @Override
-    DocRetrieveAuditLogger getAuditLogger() {
+    public DocRetrieveAuditLogger getAuditLogger() {
         return auditLogger;
     }
 }
