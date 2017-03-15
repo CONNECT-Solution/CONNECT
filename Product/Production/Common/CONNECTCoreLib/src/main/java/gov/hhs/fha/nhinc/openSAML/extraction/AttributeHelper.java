@@ -24,7 +24,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.openSAML.extraction;
+package gov.hhs.fha.nhinc.opensaml.extraction;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
@@ -70,8 +72,8 @@ public class AttributeHelper {
 
         List<XMLObject> attrVals = attrib.getAttributeValues();
 
-        if (!attrVals.isEmpty()) {
-            LOG.trace("AttributeValue is: " + attrVals.get(0).getClass());
+        if (CollectionUtils.isNotEmpty(attrVals)) {
+            LOG.trace("AttributeValue is: {}", attrVals.get(0).getClass());
             // According to the NHIN specifications - there should be exactly one value.
             // If there is more than one. We will take only the first one.
             // ---------------------------------------------------------------------------
@@ -204,7 +206,7 @@ public class AttributeHelper {
         // Assumption is that before the 1st space reflects the first name,
         // after the last space is the last name, anything between is the middle name
         List<XMLObject> attrVals = attrib.getAttributeValues();
-        if (attrVals != null && !attrVals.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(attrVals)) {
 
             PersonNameType personName = assertOut.getUserInfo().getPersonName();
 

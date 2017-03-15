@@ -26,30 +26,34 @@
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
 
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.callback.openSAML.OpenSAML2ComponentBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.opensaml.extraction.AttributeHelper;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.schema.impl.XSStringImpl;
 import org.opensaml.saml.saml2.core.Attribute;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * @author sjarral
  *
  */
 public class AttributeHelperTest {
+    private AttributeHelper helper;
+
+    @Before
+    public void setup() {
+        helper = new AttributeHelper();
+    }
 
     /**
      * Test method for
@@ -58,13 +62,20 @@ public class AttributeHelperTest {
     @Test
     public final void testExtractNameParts() {
 
-        // Test for exception when Attribute value passed in Attribute is Null
-        AttributeHelper helper = new AttributeHelper();
         Attribute attrib = mock(Attribute.class);
         List<XMLObject> attrVals = new ArrayList<>();
+        XSStringImpl mockStringValue = mock(XSStringImpl.class);
+        when(mockStringValue.getValue()).thenReturn("ONC Team");
+        attrVals.add(mockStringValue);
         when(attrib.getAttributeValues()).thenReturn(attrVals);
         AssertionType assertOut = mock(AssertionType.class);
+        PersonNameType mockPersonNameType = new PersonNameType();
+        UserType userType = new UserType();
+        userType.setPersonName(mockPersonNameType);
+        when(assertOut.getUserInfo()).thenReturn(userType);
         helper.extractNameParts(attrib, assertOut);
+        PersonNameType result = assertOut.getUserInfo().getPersonName();
+        Assert.assertEquals("ONC Team", result.getFullName());
 
     }
 
@@ -76,9 +87,14 @@ public class AttributeHelperTest {
     public final void testExtractAttributeValueString() {
 
         // Test for exceptions if attribute is Null
-        AttributeHelper helper = new AttributeHelper();
         Attribute attrib = mock(Attribute.class);
-        helper.extractAttributeValueString(attrib);
+        List<XMLObject> attrVals = new ArrayList<>();
+        XSStringImpl mockStringValue = mock(XSStringImpl.class);
+        when(mockStringValue.getValue()).thenReturn("ONC Team");
+        attrVals.add(mockStringValue);
+        when(attrib.getAttributeValues()).thenReturn(attrVals);
+        String result = helper.extractAttributeValueString(attrib);
+        Assert.assertEquals("ONC Team", result);
 
     }
 
@@ -86,71 +102,17 @@ public class AttributeHelperTest {
     public final void testExtractNhinCodedElement() {
 
         // Test for exception when Attrib value passed in Attribute is Null
-        AttributeHelper helper = new AttributeHelper();
+
         Attribute attrib = mock(Attribute.class);
         List<XMLObject> attrVals = new ArrayList<>();
+
         when(attrib.getAttributeValues()).thenReturn(attrVals);
         String CodeId = null;
-        helper.extractNhinCodedElement(attrib, CodeId);
+        CeType ceTypeResult = helper.extractNhinCodedElement(attrib, CodeId);
+        Assert.assertEquals("", ceTypeResult.getCode());
 
-        // Test for exception when Attrib value is not null and child node of Attrib value is set
-        final String purposeCode2 = "purposeCode";
-        final String purposeSystem2 = "purposeSystem";
-        final String purposeSystemName2 = "purposeSystemName";
-        final String purposeDisplay2 = "purposeDisplay";
-        final Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode2,
-            purposeSystem2, purposeSystemName2, purposeDisplay2);
-        try {
-            attribute.getAttributeValues().get(0).setDOM(getElementForSamlFile(getTestFilePath("complete_saml.xml")));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        helper.extractNhinCodedElement(attribute, CodeId);
 
     }
 
-    /**
-     * Gets Saml File.
-     *
-     * @param filename the name of the file to retrieve
-     * @return
-     */
-
-    private File getSamlFile(String samlFileName) {
-        URI uri = null;
-        try {
-            uri = this.getClass().getResource(samlFileName).toURI();
-        } catch (URISyntaxException e) {
-            fail("Could not build URI for filepath. " + e.getMessage());
-        }
-        return new File(uri);
-    }
-
-    /**
-     * Gets the Element for Saml File.
-     *
-     * @param filename the name of the file to retrieve
-     * @return
-     */
-    private Element getElementForSamlFile(String samlFileName) throws Exception {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        documentBuilderFactory.setNamespaceAware(true);
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(getSamlFile(samlFileName));
-        return document.getDocumentElement();
-    }
-
-    /**
-     * Gets the file path to the test resource.
-     *
-     * @param filename the name of the file to retrieve
-     * @return
-     */
-    private String getTestFilePath(String filename) {
-        // the first "/" is intentionally not using File.separator due to differences in how windows and unix based
-        // operating systems handle the class.getResource method. Please see GATEWAY-2873 for more details.
-        return "/" + "testing_saml" + File.separator + filename;
-    }
 
 }

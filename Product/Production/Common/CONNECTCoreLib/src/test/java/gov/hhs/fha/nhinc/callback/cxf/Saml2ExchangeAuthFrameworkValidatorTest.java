@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.callback.cxf;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.callback.openSAML.OpenSAML2ComponentBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
@@ -146,6 +147,12 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     public void testValidateNameX509validValue() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
         validator.validateNameIdFormatValue(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "org/emailAddress");
+    }
+
+    @Test(expected = WSSecurityException.class)
+    public void testValidateNameX509InValidValue() throws WSSecurityException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+        validator.validateNameIdFormatValue(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "test\\test2\\test3");
     }
 
     /**

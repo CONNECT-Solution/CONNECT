@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
+
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;

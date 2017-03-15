@@ -36,7 +36,6 @@ import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.apache.wss4j.dom.validate.SamlAssertionValidator;
-import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.NameID;
 import org.opensaml.saml.saml2.core.Subject;
@@ -70,24 +69,14 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
 
         try {
             super.validateAssertion(samlAssertion);
-            validateSubject(samlAssertion.getSaml2());
+            validateSubject(samlAssertion.getSaml2().getSubject());
             validateIssuer(samlAssertion.getSaml2().getIssuer());
 
         } catch (WSSecurityException e) {
             LOG.error("Validation Fail {}", e.getLocalizedMessage(), e);
-            throw new WSSecurityException(ErrorCode.FAILURE, "Validation fail");
+            throw new WSSecurityException(ErrorCode.FAILURE, e);
         }
 
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.opensaml.saml2.core.validator.AssertionSpecValidator#validateSubject(org.opensaml.saml2.core.Assertion)
-     */
-
-    protected void validateSubject(final Assertion assertion) throws WSSecurityException {
-        validateSubject(assertion.getSubject());
     }
 
     /**
@@ -177,24 +166,21 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @param value throws WSSecurityException
      * @throws InvalidNameException
      */
-    private static boolean validateName(String value) throws WSSecurityException {
+    private static void validateName(String value) throws WSSecurityException {
         Name name;
         try {
             name = new LdapName(value);
         } catch (Exception e) {
             LOG.info("Validation of X509 Subject Name failed: {}", e.getLocalizedMessage(), e);
             throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
-
         }
-        return name != null;
     }
 
     /**
      * @param value throws WSSecurityException
      */
     private static void validateEmail(String value) throws WSSecurityException {
-        final EmailValidator validator = EmailValidator.getInstance();
-        if (!validator.isValid(value)) {
+        if (!EmailValidator.getInstance().isValid(value)) {
             throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid email address.");
         }
 

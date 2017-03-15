@@ -24,30 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
+import static org.junit.Assert.assertTrue;
+
+import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderFactoryImpl;
+import gov.hhs.fha.nhinc.callback.opensaml.SVSAMLAssertionBuilder;
+
+import org.junit.Test;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-/**
- * @author bhumphrey
- *
- */
-public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFactory {
+public class SAMLAssertionBuilderFactoryImplTest {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilderFactory#getBuilder(java.lang.String)
-     */
-    @Override
-    public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
-        SAMLAssertionBuilder builder = null;
-        if (NhincConstants.HOK_ASSERTION_TYPE.equals(confirmationMethod)) {
-            builder = new HOKSAMLAssertionBuilder();
-        } else if (NhincConstants.SV_ASSERTION_TYPE.equals(confirmationMethod)) {
-            builder = new SVSAMLAssertionBuilder();
-        }
-        return builder;
+    @Test
+    public void getBuilderTest() {
+        SAMLAssertionBuilderFactoryImpl builderFactory = new SAMLAssertionBuilderFactoryImpl();
+        SAMLAssertionBuilder hokBuilder = builderFactory.getBuilder(NhincConstants.HOK_ASSERTION_TYPE);
+        assertTrue(hokBuilder instanceof HOKSAMLAssertionBuilder);
+        SAMLAssertionBuilder svBuilder = builderFactory.getBuilder(NhincConstants.SV_ASSERTION_TYPE);
+        assertTrue(svBuilder instanceof SVSAMLAssertionBuilder);
     }
-
 }

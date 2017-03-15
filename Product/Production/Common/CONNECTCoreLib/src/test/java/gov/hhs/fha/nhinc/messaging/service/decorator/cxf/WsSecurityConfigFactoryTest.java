@@ -67,7 +67,6 @@ public class WsSecurityConfigFactoryTest {
         final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil, cryptoStoreUtil);
 
         final Map<String, Object> configMap = configFactory.getConfiguration();
-
         verifyWsSecurityProperties(configMap);
     }
 
@@ -89,21 +88,15 @@ public class WsSecurityConfigFactoryTest {
         assertEquals("3600", properties.get(WSHandlerConstants.TTL_TIMESTAMP));
         assertEquals("gateway", properties.get(WSHandlerConstants.USER));
         assertEquals("gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler",
-                properties.get(WSHandlerConstants.PW_CALLBACK_CLASS));
+            properties.get(WSHandlerConstants.PW_CALLBACK_CLASS));
         assertEquals("PasswordDigest", properties.get(WSHandlerConstants.PASSWORD_TYPE));
-        //assertEquals("saml.properties", properties.get(WSHandlerConstants.SAML_PROP_FILE));
         assertNotNull("cryptoProperties", properties.get("cryptoProperties"));
         assertEquals("cryptoProperties", properties.get(WSHandlerConstants.SIG_PROP_REF_ID));
-        /*
-         * assertEquals("http://www.w3.org/2000/09/xmldsig#rsa-sha1", properties.get(WSHandlerConstants.SIG_ALGO));
-         * assertEquals("http://www.w3.org/2000/09/xmldsig#sha1", properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
-         */
         assertEquals(SPConstants.RSA_SHA1, properties.get(WSHandlerConstants.SIG_ALGO));
         assertEquals(SPConstants.SHA1, properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
-
         assertEquals(
-                "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
-                properties.get(WSHandlerConstants.SIGNATURE_PARTS));
+            "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
+            properties.get(WSHandlerConstants.SIGNATURE_PARTS));
     }
 
 }

@@ -31,8 +31,6 @@ import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.opensaml.saml.saml2.core.Assertion;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance. This validator relaxes the rules by not
@@ -40,7 +38,6 @@ import org.slf4j.LoggerFactory;
  * interoperability with previous CONNECT gateways.
  */
 public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuthFrameworkValidator {
-    private static final Logger LOG = LoggerFactory.getLogger(Saml2AllowNoSubjectAssertionSpecValidator.class);
 
     /**
      * Instantiates a new saml2 allow no subject assertion spec validator.
@@ -58,13 +55,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      */
     @Override
     protected void validateAssertion(final SamlAssertionWrapper samlAssertion) throws WSSecurityException {
-        try {
-            validateSubject(samlAssertion.getSaml2());
-        } catch (final WSSecurityException e) {
-            LOG.error("Unable to validate Assertion ", e);
-            throw e;
-        }
-
+        validateSubject(samlAssertion.getSaml2());
     }
 
     /**
@@ -75,9 +66,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      * @throws ValidationException the validation exception
      */
 
-    @Override
     protected void validateSubject(final Assertion assertion) throws WSSecurityException {
-
         if (CollectionUtils.isEmpty(assertion.getStatements())) {
             assertAttAuthzStatements(assertion);
         }
@@ -89,9 +78,8 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
                 "Assertions containing AuthzDecisionStatements require a Subject");
         }
 
-        if (assertion.getSubject() != null) {
-            validateSubject(assertion.getSubject());
-        }
+        validateSubject(assertion.getSubject());
+
     }
 
     protected static void assertAttAuthzStatements(final Assertion assertion) throws WSSecurityException {
@@ -99,11 +87,9 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
             && CollectionUtils.isEmpty(assertion.getAuthnStatements())) {
             assertAuthzDecisionStatements(assertion);
         }
-
     }
 
     protected static void assertAuthzDecisionStatements(final Assertion assertion) throws WSSecurityException {
-
         if (CollectionUtils.isEmpty(assertion.getAuthzDecisionStatements())
             && assertion.getSubject() == null) {
             throw new WSSecurityException(ErrorCode.FAILURE, "Subject is required when Statements are absent");

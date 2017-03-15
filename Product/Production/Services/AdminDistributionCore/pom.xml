@@ -37,14 +37,6 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminDistributionWebservices</artifactId>
         </dependency>
-
-        <!-- CXF -->
-        <!--
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-api</artifactId>
-        </dependency>
-        -->
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>

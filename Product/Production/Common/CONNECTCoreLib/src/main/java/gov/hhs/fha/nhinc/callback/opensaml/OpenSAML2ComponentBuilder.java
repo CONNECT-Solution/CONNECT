@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -106,11 +106,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
 
     /**
-     * The Constant DEFAULT_ISSUER_VALUE.
-     */
-    private static final String DEFAULT_ISSUER_VALUE = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
-
-    /**
      * The evidence builder.
      */
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
@@ -144,7 +139,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
             .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
         evidenceBuilder = (SAMLObjectBuilder<Evidence>) builderFactory.getBuilder(Evidence.DEFAULT_ELEMENT_NAME);
-
     }
 
     /**
@@ -160,7 +154,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
                 LOG.error("Unable to get instance: {}", e.getLocalizedMessage(), e);
                 openSamlInstance = null;
             }
-
         }
         return openSamlInstance;
     }
@@ -187,7 +180,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         subjectLocalityBean.setIpAddress(inetAddr);
         authenticationBean.setSubjectLocality(subjectLocalityBean);
         return SAML2ComponentBuilder.createAuthnStatement(Collections.singletonList(authenticationBean)).get(0);
-
     }
 
     /**
@@ -201,17 +193,14 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public AuthzDecisionStatement createAuthzDecisionStatement(final String resource, final String decisionTxt,
         final String action, final Evidence evidence) {
-
         final AuthDecisionStatementBean authzBean = new AuthDecisionStatementBean();
         final ActionBean actionBean = new ActionBean();
         actionBean.setActionNamespace(NhincConstants.ACTION_NAMESPACE_STRING);
         actionBean.setContents(action);
         authzBean.setActions(Collections.singletonList(actionBean));
         authzBean.setResource(resource);
-
         authzBean.setDecision(AuthDecisionStatementBean.Decision.valueOf(decisionTxt.toUpperCase()));
         authzBean.setEvidence(evidence);
-
         return SAML2ComponentBuilder.createAuthorizationDecisionStatement(Collections.singletonList(authzBean)).get(0);
     }
 
@@ -222,7 +211,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the assertion
      */
     public Assertion createAssertion(final String uuid) {
-
         final Assertion assertion = SAML2ComponentBuilder.createAssertion();
         assertion.setID(uuid);
         return assertion;
@@ -238,13 +226,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     @SuppressWarnings("unchecked")
     public NameID createNameID(final String qualifier, final String format, final String value) {
-
         final NameIDBean nameIDBean = new NameIDBean();
         nameIDBean.setNameQualifier(qualifier);
         nameIDBean.setNameIDFormat(format);
         nameIDBean.setNameValue(value);
         return SAML2ComponentBuilder.createNameID(nameIDBean);
-
     }
 
     /**
@@ -266,9 +252,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the issuer
      */
     public Issuer createIssuer(final String format, final String sIssuer) {
-
         return SAML2ComponentBuilder.createIssuer(sIssuer, format, null);
-
     }
 
     /**
@@ -277,7 +261,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the issuer
      */
     protected Issuer createDefaultIssuer() {
-        return createIssuer(X509_NAME_ID, DEFAULT_ISSUER_VALUE);
+        return createIssuer(X509_NAME_ID, NhincConstants.SAML_DEFAULT_ISSUER_NAME);
     }
 
     /**
@@ -368,11 +352,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public PublicKey getPublicKey() throws SAMLComponentBuilderException {
         final CertificateManager cm = CertificateManagerImpl.getInstance();
         X509Certificate certificate = null;
-
         try {
             certificate = cm.getDefaultCertificate();
         } catch (final CertificateManagerException e) {
-            LOG.error(e.getLocalizedMessage(), e);
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
         return certificate.getPublicKey();
@@ -384,7 +366,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the assertion
      */
     public Assertion createAssertion() {
-
         return SAML2ComponentBuilder.createAssertion();
     }
 
@@ -397,7 +378,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the conditions
      */
     public Conditions createConditions(final DateTime notBefore, final DateTime notAfter) {
-
         final ConditionsBean conditionsBean = new ConditionsBean();
         conditionsBean.setNotAfter(notAfter);
         conditionsBean.setNotBefore(notBefore);
@@ -456,9 +436,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     XSAny createAny(final String namespace, final String name, final String prefix,
         final Map<QName, String> attributes) {
-
         final XSAny any = createAny(namespace, name, prefix);
-
         for (final Entry<QName, String> keyValue : attributes.entrySet()) {
             any.getUnknownAttributes().put(keyValue.getKey(), keyValue.getValue());
         }
@@ -477,7 +455,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     XSAny createAttributeValue(final String namespace, final String name, final String prefix,
         final Map<QName, String> attributes) {
-
         final XSAny attribute = createAny(namespace, name, prefix, attributes);
         return createAttributeValue(Arrays.asList(attribute));
     }
@@ -490,12 +467,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
 
     XSAny createAttributeValue(final List<XSAny> values) {
-
         final XSAny attributeValue = xsAnyBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME);
         attributeValue.getUnknownXMLObjects().addAll(values);
-
         return attributeValue;
-
     }
 
     /**
@@ -508,16 +482,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     List<AttributeStatement> createAttributeStatement(final List<Attribute> attributes) {
         final List<AttributeStatement> attributeStatements = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(attributes)) {
-
             final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
             for (final Attribute attribute : attributes) {
                 attributeStatement.getAttributes().add(attribute);
-
             }
             // Add the completed attribute statementBean to the collection
             attributeStatements.add(attributeStatement);
         }
-
         return attributeStatements;
     }
 
@@ -546,18 +517,15 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public List<AttributeStatement> createEvidenceStatements(final List accessConstentValues,
         final List evidenceInstanceAccessConsentValues, final String namespace) {
         List<AttributeStatement> statements = new ArrayList<>();
-
         final List<Attribute> attributes = new ArrayList<>();
-
         if (accessConstentValues != null) {
             attributes.add(createAttribute(null, NhincConstants.ACCESS_CONSENT_ATTR, namespace, accessConstentValues));
         }
-
         if (evidenceInstanceAccessConsentValues != null) {
             attributes.add(createAttribute(null, NhincConstants.INST_ACCESS_CONSENT_ATTR, namespace,
                 evidenceInstanceAccessConsentValues));
         }
-        if (!attributes.isEmpty()) {
+        if (CollectionUtils.isNotEmpty(attributes)) {
             statements = createAttributeStatement(attributes);
         }
 
@@ -792,9 +760,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final List<AttributeStatement> statements = new ArrayList<>();
         final Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null,
             Arrays.asList(organizationId));
-
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
-
         return statements;
     }
 }

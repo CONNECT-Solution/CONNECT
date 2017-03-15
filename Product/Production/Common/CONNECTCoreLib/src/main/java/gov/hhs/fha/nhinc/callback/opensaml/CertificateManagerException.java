@@ -24,18 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
 
-import org.joda.time.DateTime;
-import org.opensaml.saml.saml2.core.AuthnStatement;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 /**
- * @author bhumphrey
+ * @author madun
  *
  */
-interface SAMLCompontentBuilder {
+public class CertificateManagerException extends Exception {
 
-    AuthnStatement createAuthenticationStatements(String cntxCls, String sessionIndex, DateTime authInstant,
-        String inetAddr, String dnsName);
+    public CertificateManagerException(String message) {
+        super(message);
+    }
 
+    public CertificateManagerException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public CertificateManagerException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 }

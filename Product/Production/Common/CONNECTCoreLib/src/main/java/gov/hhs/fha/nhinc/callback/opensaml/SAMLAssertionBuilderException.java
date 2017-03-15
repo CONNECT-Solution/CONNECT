@@ -25,23 +25,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 /**
- * @author madun
+ * @author mikhelamdex
  *
  */
-public class CertificateManagerException extends Exception {
+public class SAMLAssertionBuilderException extends Exception {
 
-    public CertificateManagerException(String message) {
+    public SAMLAssertionBuilderException(String message) {
         super(message);
     }
 
-    public CertificateManagerException(Throwable throwable) {
-    	super(throwable);
+    public SAMLAssertionBuilderException(Throwable throwable) {
+        super(throwable);
     }
 
-    public CertificateManagerException(String message, Throwable throwable) {
-    	super(message, throwable);
+    public SAMLAssertionBuilderException(String message, Throwable throwable) {
+        super(message, throwable);
     }
 }

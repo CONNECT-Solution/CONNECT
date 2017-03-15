@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.openSAML.extraction;
+package gov.hhs.fha.nhinc.opensaml.extraction;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -171,7 +171,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      */
     private void populateAttributeStatement(final Assertion saml2Assertion, final AssertionType target) {
 
-        LOG.debug("Executing Saml2AssertionExtractor.populateAttributeStatement()...");
+        LOG.trace("Executing Saml2AssertionExtractor.populateAttributeStatement()...");
         AttributeHelper helper = new AttributeHelper();
 
         for (AttributeStatement attributeStatement : saml2Assertion.getAttributeStatements()) {
@@ -179,7 +179,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                 compareAttribute(attribute, target, helper);
             }
         }
-        LOG.debug("end populateAttributeStatement()");
+        LOG.trace("end populateAttributeStatement()");
     }
 
     /**
@@ -230,7 +230,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                 instAccessConsentId);
 
         } else if (!addProviderPatientID(attribute, target)) {
-            LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
+            LOG.warn("Unrecognized Name Attribute: {}", attribute.getName());
 
         }
     }
@@ -245,16 +245,15 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
                 String patientId = getAttributeValue(attribute);
                 target.getUniquePatientId().add(patientId);
-                LOG.debug("Assertion.uniquePatientId = " + patientId);
+                LOG.debug("Assertion.uniquePatientId = {}", patientId);
             }
             return true;
 
         } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_NPI)) {
             String nationalProviderId = getAttributeValue(attribute);
             target.setNationalProviderId(nationalProviderId);
-            LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
+            LOG.debug("Assertion.nationalProviderId = {}", nationalProviderId);
             return true;
-
         } else {
             return false;
         }
@@ -470,7 +469,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      */
     private static AssertionType initializeAssertion() {
 
-        LOG.debug("Initializing Assertion to Default: " + EMPTY_STRING);
+        LOG.debug("Initializing Assertion to Default: ");
         AssertionType assertOut = new AssertionType();
 
         CeType purposeCoded = new CeType();
@@ -565,7 +564,6 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param target target assertion
      */
     private static void populateSubjectRole(final Attribute attribute, final AssertionType target) {
-
         LOG.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
         XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
@@ -577,7 +575,6 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private static void populateCeType(XSAny samlAttrValElement, CeType ceType) {
-
         ceType.setCode("");
         ceType.setCodeSystem("");
         ceType.setCodeSystemName("");

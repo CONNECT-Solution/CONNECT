@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.cryptostore;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
+
 import org.apache.commons.lang.StringUtils;
 
 /**

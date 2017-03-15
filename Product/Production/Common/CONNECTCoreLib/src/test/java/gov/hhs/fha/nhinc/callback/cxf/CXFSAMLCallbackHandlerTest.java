@@ -31,8 +31,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.security.auth.callback.Callback;

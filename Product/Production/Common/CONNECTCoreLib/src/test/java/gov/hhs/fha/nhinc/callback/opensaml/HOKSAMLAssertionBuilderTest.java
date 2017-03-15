@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,6 +32,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
+import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilder;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -98,12 +105,6 @@ public class HOKSAMLAssertionBuilderTest {
 
     }
 
-    /*
-     * KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType()); 54 InputStream is = null; 55 try { 56 is =
-     * new ClassPathResource( "/org/springframework/ws/soap/security/xwss/test-keystore.jks" ).getInputStream(); 57
-     * keyStore.load(is, "password".toCharArray()); 58 } 59 finally { 60 if (is != null) { 61 is.close(); 62 } 63 } 64
-     * certificate = (X509Certificate) keyStore.getCertificate("alias");
-     */
     /**
      *
      * @throws Exception
@@ -273,7 +274,7 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testCreateAuthenicationStatement() {
         final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
-            .createAuthenicationStatements(getProperties());
+        .createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -301,7 +302,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
 
         final List<AuthzDecisionStatement> statementList = new HOKSAMLAssertionBuilder()
-            .createAuthenicationDecsionStatements(callbackProps, subject);
+        .createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
@@ -385,10 +386,6 @@ public class HOKSAMLAssertionBuilderTest {
         final Assertion assertion = evidence.getAssertions().get(0);
 
         final Conditions conditions = assertion.getConditions();
-        /*
-         * assertEquals(conditions.getNotBefore(), null); assertEquals(conditions.getNotOnOrAfter(),
-         * conditionNotAfter.withZone(DateTimeZone.UTC));
-         */
         assertNotNull(conditions);
     }
 
@@ -415,10 +412,6 @@ public class HOKSAMLAssertionBuilderTest {
         final Assertion assertion = evidence.getAssertions().get(0);
 
         final Conditions conditions = assertion.getConditions();
-        /*
-         * assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
-         * assertEquals(conditions.getNotOnOrAfter(), null);
-         */
         assertNotNull(conditions);
     }
 
@@ -621,7 +614,6 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public String getUserOrganizationId() {
-                // TODO Auto-generated method stub
                 return "orgId";
             }
         };

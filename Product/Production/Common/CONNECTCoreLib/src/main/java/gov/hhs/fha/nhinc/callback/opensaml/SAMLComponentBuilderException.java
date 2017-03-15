@@ -24,54 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
 
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 /**
- * @author bhumphrey
+ * @author madun
  *
  */
-public interface CertificateManager {
+public class SAMLComponentBuilderException extends Exception {
 
-    /**
-     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
-     * endorsing supporting token.
-     */
-    public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
+    public SAMLComponentBuilderException(String message) {
+        super(message);
+    }
 
-    /**
-     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
-     */
-    public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
+    public SAMLComponentBuilderException(Throwable throwable) {
+        super(throwable);
+    }
 
-    /**
-     * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-     * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-     *
-     * @param request The SignatureKeyCallback request object
-     * @throws Exception
-     */
-    public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
-
-    public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
-
-    /**
-     * @return
-     */
-    public abstract RSAPublicKey getDefaultPublicKey();
-
-    /**
-     * @return the keyStore
-     */
-    public abstract KeyStore getKeyStore();
-
-    /**
-     * @return the trustStore
-     */
-    public abstract KeyStore getTrustStore();
-
+    public SAMLComponentBuilderException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 }

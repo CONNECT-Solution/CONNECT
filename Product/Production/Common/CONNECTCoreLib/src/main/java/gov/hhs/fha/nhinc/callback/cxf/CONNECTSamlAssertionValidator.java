@@ -106,7 +106,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                     validator.validateAssertion(assertion);
                 }
             } catch (final WSSecurityException e) {
-                LOG.error("Saml Validation error: " + e.getMessage(), e);
+                LOG.error("Saml Validation error: {}", e.getLocalizedMessage(), e);
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK, "invalidSAMLsecurity");
             }
         }
@@ -120,22 +120,35 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         if (SamlConstants.URN_OASIS_NAMES.equals(issuer.getFormat())) {
             if (StringUtils.isNotBlank(issuer.getSPProvidedID())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
-                        + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
+                    getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_SPPROVIDEDID));
             }
             if (StringUtils.isNotBlank(issuer.getNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
-                        + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
+                    getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_NAME_QUALIFIER));
             }
-
             if (StringUtils.isNotBlank(issuer.getSPNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT + " " + SamlConstants.URN_OASIS_NAMES + " " + "and"
-                        + SamlConstants.SECURITY_ASSERTION_ISSUER + " " + IS_PRESENT);
-
+                    getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_SPNAME_QUALIFIER));
             }
         }
+    }
+
+    /**
+     * Generate custom error msg based on template for validating assertion issuer
+     *
+     * @param errorType error type
+     * @return custom error msg
+     */
+    private static String getCustomErrorMsg(final String errorType) {
+        StringBuilder errorBuilder = new StringBuilder();
+        errorBuilder.append(SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT);
+        errorBuilder.append(" ");
+        errorBuilder.append(SamlConstants.URN_OASIS_NAMES);
+        errorBuilder.append(" and ");
+        errorBuilder.append(errorType);
+        errorBuilder.append(" ");
+        errorBuilder.append(IS_PRESENT);
+        return errorBuilder.toString();
 
     }
 
@@ -242,12 +255,12 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         throws WSSecurityException {
         if (OpenSAMLUtil.isMethodHolderOfKey(confirmMethod)) {
             if (assertion.getSubjectKeyInfo() == null) {
-                LOG.debug("There is no Subject KeyInfo to match the holder-of-key subject conf method");
+                LOG.info("There is no Subject KeyInfo to match the holder-of-key subject conf method");
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK, "noKeyInSAMLToken");
             }
             // The assertion must have been signed for HOK
             if (!assertion.isSigned()) {
-                LOG.debug("A holder-of-key assertion must be signed");
+                LOG.info("A holder-of-key assertion must be signed");
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK, "invalidSAMLsecurity");
             }
         }

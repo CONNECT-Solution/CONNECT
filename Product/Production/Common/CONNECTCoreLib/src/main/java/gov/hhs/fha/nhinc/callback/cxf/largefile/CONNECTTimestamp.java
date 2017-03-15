@@ -69,8 +69,7 @@ public class CONNECTTimestamp extends Timestamp {
      */
     public boolean isExpired(Date invocationDate) {
         if (getExpires() != null) {
-            Date currentInvocationDate = invocationDate == null ? new Date() : invocationDate;
-            return getExpires().before(currentInvocationDate);
+            return getExpires().before(invocationDate == null ? new Date() : invocationDate);
         }
         return false;
     }

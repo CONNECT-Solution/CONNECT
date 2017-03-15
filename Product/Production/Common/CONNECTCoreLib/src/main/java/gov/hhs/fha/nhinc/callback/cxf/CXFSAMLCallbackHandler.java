@@ -26,9 +26,10 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -65,8 +66,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     }
 
     public CXFSAMLCallbackHandler(final HOKSAMLAssertionBuilder builder) {
+        this();
         this.builder = builder;
-        accessor = PropertyAccessor.getInstance();
     }
 
     /*
@@ -122,11 +123,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      * @return
      */
     protected static AssertionType getCustAssertion(Object obj) {
-        AssertionType custAssertion = null;
-        if (obj != null) {
-            custAssertion = (AssertionType) obj;
-        }
-        return custAssertion;
+        return obj != null ? (AssertionType) obj : null;
     }
 
     /**

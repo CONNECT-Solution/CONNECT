@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 
 /**
  *

@@ -24,24 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package gov.hhs.fha.nhinc.callback.opensaml;
 
-package gov.hhs.fha.nhinc.callback.openSAML;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * @author bhumphrey
  *
  */
-public class SAMLAssertionBuilderException extends Exception {
+public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFactory {
 
-    public SAMLAssertionBuilderException(String message) {
-        super(message);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilderFactory#getBuilder(java.lang.String)
+     */
+    @Override
+    public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
+        SAMLAssertionBuilder builder = null;
+        if (NhincConstants.HOK_ASSERTION_TYPE.equals(confirmationMethod)) {
+            builder = new HOKSAMLAssertionBuilder();
+        } else if (NhincConstants.SV_ASSERTION_TYPE.equals(confirmationMethod)) {
+            builder = new SVSAMLAssertionBuilder();
+        }
+        return builder;
     }
 
-    public SAMLAssertionBuilderException(Throwable throwable) {
-        super(throwable);
-    }
-
-    public SAMLAssertionBuilderException(String message, Throwable throwable) {
-        super(message, throwable);
-    }
 }

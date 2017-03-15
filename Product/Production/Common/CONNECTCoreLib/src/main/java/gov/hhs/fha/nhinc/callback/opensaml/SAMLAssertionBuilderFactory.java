@@ -24,20 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+/**
+ * @author bhumphrey
+ *
+ */
+public interface SAMLAssertionBuilderFactory {
+    /**
+     * @param confirmationMethod the confirmation method
+     * @return the SAML Assertion Builder
+     */
+    SAMLAssertionBuilder getBuilder(final String confirmationMethod);
 
-public class SAMLAssertionBuilderFactoryImplTest {
-
-    @Test
-    public void getBuilderTest() {
-        SAMLAssertionBuilderFactoryImpl builderFactory = new SAMLAssertionBuilderFactoryImpl();
-        SAMLAssertionBuilder hokBuilder = builderFactory.getBuilder(NhincConstants.HOK_ASSERTION_TYPE);
-        assertTrue(hokBuilder instanceof HOKSAMLAssertionBuilder);
-        SAMLAssertionBuilder svBuilder = builderFactory.getBuilder(NhincConstants.SV_ASSERTION_TYPE);
-        assertTrue(svBuilder instanceof SVSAMLAssertionBuilder);
-    }
 }

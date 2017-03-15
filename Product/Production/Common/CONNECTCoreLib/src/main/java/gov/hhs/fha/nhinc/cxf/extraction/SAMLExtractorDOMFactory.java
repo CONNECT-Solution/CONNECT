@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.cxf.extraction;
 
-import gov.hhs.fha.nhinc.openSAML.extraction.OpenSAMLAssertionExtractorImpl;
+import gov.hhs.fha.nhinc.opensaml.extraction.OpenSAMLAssertionExtractorImpl;
 
 /**
  * @author mweaver

@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
@@ -162,8 +162,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());
             Signer.signObject(signature);
-        } catch (final SignatureException | WSSecurityException
-            | MarshallingException e) {
+        } catch (final SignatureException | WSSecurityException | MarshallingException e) {
             LOG.error("Unable to sign: {}", e.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
         }
@@ -331,15 +330,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 decision = AUTHZ_DECISION_PERMIT;
             }
 
-            // As of Authorization Framework Spec 2.2 Action is a hard-coded
-            // value
-            // Therefore the value of the ACTION_PROP is no longer used
-            final String action = AUTHZ_DECISION_ACTION_EXECUTE;
-
             final Evidence evidence = createEvidence(properties, subject);
 
             authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance().createAuthzDecisionStatement(resource,
-                decision, action, evidence));
+                decision, AUTHZ_DECISION_ACTION_EXECUTE, evidence));
         }
 
         return authDecisionStatements;
