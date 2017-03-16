@@ -55,12 +55,12 @@ public class CertificateManagerImplTest {
     public void setUp() {
         final HashMap<String, String> keyStoreMap = new HashMap<>();
         keyStoreMap.put(CertificateManagerImpl.KEY_STORE_KEY, KEY_STORE_PATH);
-        keyStoreMap.put(CertificateManagerImpl.KEY_STORE_SECRET_KEY, "changeit");
+        keyStoreMap.put(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY, "changeit");
         keyStoreMap.put(CertificateManagerImpl.KEY_STORE_TYPE_KEY, "JKS");
 
         final HashMap<String, String> trustStoreMap = new HashMap<>();
         trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_KEY, TRUST_STORE_PATH);
-        trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_SECRET_KEY, "changeit");
+        trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY, "changeit");
         trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_TYPE_KEY, "JKS");
 
         certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance(keyStoreMap, trustStoreMap);

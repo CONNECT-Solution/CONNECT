@@ -57,10 +57,10 @@ public class CertificateManagerImpl implements CertificateManager {
     private KeyStore trustStore = null;
 
     public static final String TRUST_STORE_TYPE_KEY = "javax.net.ssl.trustStoreType";
-    public static final String TRUST_STORE_SECRET_KEY = "javax.net.ssl.trustStorePassword";
+    public static final String TRUST_STORE_PASSWORD_KEY = "javax.net.ssl.trustStorePassword";
     public static final String TRUST_STORE_KEY = "javax.net.ssl.trustStore";
     public static final String KEY_STORE_TYPE_KEY = "javax.net.ssl.keyStoreType";
-    public static final String KEY_STORE_SECRET_KEY = "javax.net.ssl.keyStorePassword";
+    public static final String KEY_STORE_PASSWORD_KEY = "javax.net.ssl.keyStorePassword";
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
     public static final String JKS_TYPE = "JKS";
     public static final String PKCS11_TYPE = "PKCS11";
@@ -130,7 +130,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
         final HashMap<String, String> keyStoreProperties = getKeyStoreSystemProperties();
         String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
-        final String password = keyStoreProperties.get(KEY_STORE_SECRET_KEY);
+        final String password = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
         final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
 
         if (storeType == null) {
@@ -144,7 +144,7 @@ public class CertificateManagerImpl implements CertificateManager {
                 keyStore = loadKeyStore(storeType, password, storeLoc);
             }
         }else{
-            LOG.error("Please define {}", KEY_STORE_SECRET_KEY);
+            LOG.error("Please define {}", KEY_STORE_PASSWORD_KEY);
         }
         LOG.debug("SamlCallbackHandler.initKeyStore() -- End");
     }
@@ -192,7 +192,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
         final HashMap<String, String> trustStoreProperties = getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
-        final String password = trustStoreProperties.get(TRUST_STORE_SECRET_KEY);
+        final String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
         if (storeType == null) {
@@ -206,7 +206,7 @@ public class CertificateManagerImpl implements CertificateManager {
                 trustStore = loadKeyStore(storeType, password, storeLoc);
             }
         } else {
-            LOG.error("{} is not defined. ", TRUST_STORE_SECRET_KEY);
+            LOG.error("{} is not defined. ", TRUST_STORE_PASSWORD_KEY);
         }
         LOG.debug("SamlCallbackHandler.initTrustStore() -- End");
     }
@@ -237,7 +237,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
         final String clientkeyAlias = StoreUtil.getInstance().getPrivateKeyAlias();
         if (clientkeyAlias != null) {
-            final String password = getKeyStoreSystemProperties().get(KEY_STORE_SECRET_KEY);
+            final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
@@ -249,7 +249,7 @@ public class CertificateManagerImpl implements CertificateManager {
                 }
 
             } else {
-                LOG.error("{} is not a defined system property.", KEY_STORE_SECRET_KEY);
+                LOG.error("{} is not a defined system property.", KEY_STORE_PASSWORD_KEY);
             }
 
         } else {
@@ -279,7 +279,7 @@ public class CertificateManagerImpl implements CertificateManager {
     protected HashMap<String, String> getTrustStoreSystemProperties() {
         final HashMap<String, String> map = new HashMap<>();
         map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
-        map.put(TRUST_STORE_SECRET_KEY, System.getProperty(TRUST_STORE_SECRET_KEY));
+        map.put(TRUST_STORE_PASSWORD_KEY, System.getProperty(TRUST_STORE_PASSWORD_KEY));
         map.put(TRUST_STORE_TYPE_KEY, System.getProperty(TRUST_STORE_TYPE_KEY));
         return map;
     }
@@ -288,7 +288,7 @@ public class CertificateManagerImpl implements CertificateManager {
         final HashMap<String, String> map = new HashMap<>();
         map.put(KEY_STORE_KEY, System.getProperty(KEY_STORE_KEY));
         map.put(KEY_STORE_TYPE_KEY, System.getProperty(KEY_STORE_TYPE_KEY));
-        map.put(KEY_STORE_SECRET_KEY, System.getProperty(KEY_STORE_SECRET_KEY));
+        map.put(KEY_STORE_PASSWORD_KEY, System.getProperty(KEY_STORE_PASSWORD_KEY));
         return map;
     }
 
