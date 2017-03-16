@@ -27,22 +27,24 @@ By advancing the adoption of interoperable health IT systems and health informat
         <!-- CONNECT Dependency Versions -->
         <connect.webservices.version>4.4.0-SNAPSHOT</connect.webservices.version>
         <connect.commontypes.version>4.4.0-SNAPSHOT</connect.commontypes.version>
-        <cxf.version>2.7.3</cxf.version>
-        <spring.version>3.0.7.RELEASE</spring.version>
+        <cxf.version>3.1.9</cxf.version>
+        <spring.version>4.1.9.RELEASE</spring.version>
         <slf4j.version>1.7.13</slf4j.version>
         <openam.version>10.0.1</openam.version>
-		<hibernate.version>5.1.0.Final</hibernate.version>
+        <opensaml.xmltool.version>1.4.6</opensaml.xmltool.version>
+        <!--<opensaml.version>2.6.6</opensaml.version>-->
+        <hibernate.version>5.1.0.Final</hibernate.version>
 
         <!-- SCA and Reporting Plugin Versions -->
-        <surefire.version>2.13</surefire.version>
-        <surefire.report.version>2.12.4</surefire.report.version>
+        <surefire.version>2.19.1</surefire.version>
+        <surefire.report.version>2.19.1</surefire.report.version>
         <checkstyle.version>2.16</checkstyle.version>
         <findbugs.version>3.0.1</findbugs.version>
         <findsecbugs.version>1.4.1</findsecbugs.version>
         <pmd.version>3.5</pmd.version>
         <!-- Cobertura version must be left at 2.5.2 due to issues with JSF + JUnit -->
         <cobertura.version>2.5.2</cobertura.version>
-        <dependency.check.version>1.2.11</dependency.check.version>
+        <dependency.check.version>1.4.5</dependency.check.version>
         <!-- Note: Sonar Plugin version is different than SonarQube version -->
         <sonar.plugin.version>2.6</sonar.plugin.version>
 
@@ -170,7 +172,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>3.0.0</version>
                 </plugin>
 
                 <!-- Test Execution Plugins -->

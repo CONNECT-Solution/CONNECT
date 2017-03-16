@@ -24,28 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
+
+import org.w3c.dom.Element;
 
 /**
  * @author bhumphrey
  *
  */
-public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFactory {
+public class SVSAMLAssertionBuilder extends SAMLAssertionBuilder {
+
+    SVSAMLAssertionBuilder() {
+
+    }
 
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilderFactory#getBuilder(java.lang.String)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilder#build()
      */
     @Override
-    public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
-        SAMLAssertionBuilder builder = null;
-        if (confirmationMethod.equals(HOK_ASSERTION_TYPE)) {
-            builder = new HOKSAMLAssertionBuilder();
-        } else if (confirmationMethod.equals(SV_ASSERTION_TYPE)) {
-            builder = new SVSAMLAssertionBuilder();
-        }
-        return builder;
+    public Element build(CallbackProperties properties) throws SAMLAssertionBuilderException {
+
+        return null;
     }
 
 }

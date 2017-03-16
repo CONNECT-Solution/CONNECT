@@ -111,7 +111,7 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     }
 
     @Override
-    DocRetrieveAuditLogger getAuditLogger() {
+    public DocRetrieveAuditLogger getAuditLogger() {
         return auditLogger;
     }
 }

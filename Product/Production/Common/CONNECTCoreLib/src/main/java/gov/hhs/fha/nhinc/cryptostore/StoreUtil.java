@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.cryptostore;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -61,8 +61,8 @@ public class StoreUtil {
      * @return String containing the private key alias.
      */
     public String getPrivateKeyAlias() {
-        String alias = System.getProperty(CertificateManager.CLIENT_KEY_ALIAS);
-        return StringUtils.isBlank(alias) ? CertificateManager.DEFAULT_CLIENT_KEY_ALIAS : alias;
+        String alias = System.getProperty(NhincConstants.CLIENT_KEY_ALIAS);
+        return StringUtils.isBlank(alias) ? NhincConstants.DEFAULT_CLIENT_KEY_ALIAS : alias;
     }
 
 }

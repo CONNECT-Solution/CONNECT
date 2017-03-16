@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.validation.ValidationException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.opensaml.saml.saml2.core.Assertion;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance. This validator relaxes the rules by not
@@ -43,6 +46,18 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
         super();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.callback.cxf.Saml2ExchangeAuthFrameworkValidator#validateAssertion(org.apache.wss4j.common.saml
+     * .SamlAssertionWrapper)
+     */
+    @Override
+    protected void validateAssertion(final SamlAssertionWrapper samlAssertion) throws WSSecurityException {
+        validateSubject(samlAssertion.getSaml2());
+    }
+
     /**
      * Checks that the Subject element is present when required, but does not check for the existence of Subject when
      * the Assertion contains AttributeStatements.
@@ -50,25 +65,35 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
      * @param assertion the assertion
      * @throws ValidationException the validation exception
      */
-    @Override
-    protected void validateSubject(Assertion assertion) throws ValidationException {
-        if ((assertion.getStatements() == null || assertion.getStatements().isEmpty())
-                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().isEmpty())
-                && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().isEmpty())
-                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().isEmpty())
-                && assertion.getSubject() == null) {
-            throw new ValidationException("Subject is required when Statements are absent");
+
+    protected void validateSubject(final Assertion assertion) throws WSSecurityException {
+        if (CollectionUtils.isEmpty(assertion.getStatements())) {
+            assertAttAuthzStatements(assertion);
+        }
+        if (CollectionUtils.isNotEmpty(assertion.getAuthnStatements()) && assertion.getSubject() == null) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Assertions containing AuthnStatements require a Subject");
+        }
+        if (CollectionUtils.isNotEmpty(assertion.getAuthzDecisionStatements()) && assertion.getSubject() == null) {
+            throw new WSSecurityException(ErrorCode.FAILURE,
+                "Assertions containing AuthzDecisionStatements require a Subject");
         }
 
-        if (assertion.getAuthnStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AuthnStatements require a Subject");
-        }
-        if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AuthzDecisionStatements require a Subject");
-        }
+        validateSubject(assertion.getSubject());
 
-        if (assertion.getSubject() != null) {
-            validateSubject(assertion.getSubject());
+    }
+
+    protected static void assertAttAuthzStatements(final Assertion assertion) throws WSSecurityException {
+        if (CollectionUtils.isEmpty(assertion.getAttributeStatements())
+            && CollectionUtils.isEmpty(assertion.getAuthnStatements())) {
+            assertAuthzDecisionStatements(assertion);
         }
     }
+
+    protected static void assertAuthzDecisionStatements(final Assertion assertion) throws WSSecurityException {
+        if (CollectionUtils.isEmpty(assertion.getAuthzDecisionStatements())
+            && assertion.getSubject() == null) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Subject is required when Statements are absent");
+        }
+    }
+
 }

@@ -37,19 +37,19 @@ public abstract class BaseAdapterDocQueryProxy implements AdapterDocQueryProxy {
     private AdapterHelper helper = new AdapterHelper();
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    final WebServiceProxyHelper getWebServiceProxyHelper() {
+    public WebServiceProxyHelper getWebServiceProxyHelper() {
         return oProxyHelper;
     }
 
-    final void setWebServiceProxyHelper(WebServiceProxyHelper helper) {
+    public void setWebServiceProxyHelper(WebServiceProxyHelper helper) {
         oProxyHelper = helper;
     }
 
-    final AdapterHelper getAdapterHelper() {
+    public AdapterHelper getAdapterHelper() {
         return this.helper;
     }
 
-    final void setAdapterHelper(AdapterHelper helper) {
+    public void setAdapterHelper(AdapterHelper helper) {
         this.helper = helper;
     }
 
@@ -61,7 +61,7 @@ public abstract class BaseAdapterDocQueryProxy implements AdapterDocQueryProxy {
      * @return The endpoint URL.
      * @throws ConnectionManagerException A ConnectionManagerException if one occurs.
      */
-    String getEndPointFromConnectionManagerByAdapterAPILevel(AssertionType assertion, String serviceName) throws ConnectionManagerException {
+    public String getEndPointFromConnectionManagerByAdapterAPILevel(AssertionType assertion, String serviceName) throws ConnectionManagerException {
         String url = null;
         //get the Implments Spec version from the assertion
         if ((assertion != null) && (assertion.getImplementsSpecVersion() != null)) {

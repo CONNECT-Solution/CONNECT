@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;

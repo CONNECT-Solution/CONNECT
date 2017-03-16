@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.callback.purposeuse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;

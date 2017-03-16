@@ -43,12 +43,6 @@
             <artifactId>DocumentRetrieveWebservices</artifactId>
         </dependency>
 
-        <!-- CXF -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-api</artifactId>
-        </dependency>
-
         <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>

@@ -65,22 +65,11 @@
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
-            <!-- Used for EnumType -->
-		<!--
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
             <scope>runtime</scope>
-		-->
-			<groupId>org.hibernate.common</groupId>
-			<artifactId>hibernate-commons-annotations</artifactId>
-			<scope>runtime</scope>
         </dependency>
-
         <!-- CXF -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-api</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>

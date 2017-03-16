@@ -91,12 +91,6 @@
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
-                    <packagingExcludes>
-                        lib/Properties-*.jar
-                    </packagingExcludes>
-
-                    <!-- Explode all archives on server (extremely time-consuming) -->
-                    <!--includeLibInApplicationXml>true</includeLibInApplicationXml-->
                 </configuration>
             </plugin>
         </plugins>

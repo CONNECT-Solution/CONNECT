@@ -24,21 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 /**
- * @author bhumphrey
+ * @author madun
  *
  */
-public interface SAMLAssertionBuilderFactory {
+public class SAMLComponentBuilderException extends Exception {
 
-    public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
-    public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+    public SAMLComponentBuilderException(String message) {
+        super(message);
+    }
 
-    /**
-     * @param confirmationMethod the confirmation method
-     * @return the SAML Assertion Builder
-     */
-    SAMLAssertionBuilder getBuilder(final String confirmationMethod);
+    public SAMLComponentBuilderException(Throwable throwable) {
+        super(throwable);
+    }
 
+    public SAMLComponentBuilderException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 }

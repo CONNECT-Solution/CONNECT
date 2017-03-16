@@ -29,15 +29,16 @@ package gov.hhs.fha.nhinc.callback.cxf;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.callback.openSAML.OpensamlObjectBuilderUtil;
+import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Test;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.validation.ValidationException;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Issuer;
+import org.opensaml.saml.saml2.core.NameID;
+import org.opensaml.saml.saml2.core.Subject;
 
 /**
  * The Class Saml2ExchangeAuthFrameworkValidatorTest.
@@ -49,10 +50,10 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     /**
      * Test validate happy path.
      *
-     * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
     @Test
-    public void testValidate() throws ValidationException {
+    public void testValidate() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -68,16 +69,17 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
      * Test validate a different happy path.
      *
      * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
     @Test
-    public void testValidate2() throws ValidationException {
+    public void testValidate2() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -93,16 +95,17 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(issuer.getValue()).thenReturn("example@example.org");
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
      * Test validate no name subject. This tests DIL test case 3.421.
      *
      * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateNoNameSubject() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateNoNameSubject() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -110,16 +113,17 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         when(assertion.getSubject()).thenReturn(subject);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
      * Test validate subject name format is not valid. This tests DIL test case 3.422.
      *
      * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateSubjectWrongFormat() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateSubjectWrongFormat() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -130,16 +134,35 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn("wrong value");
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
+    }
+
+    /**
+     * Test validate when subject is in X509 format, should not cause exception
+     *
+     * @throws ValidationException the validation exception
+     * @throws WSSecurityException
+     */
+    @Test
+    public void testValidateNameX509validValue() throws WSSecurityException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+        validator.validateNameIdFormatValue(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "org/emailAddress");
+    }
+
+    @Test(expected = WSSecurityException.class)
+    public void testValidateNameX509InValidValue() throws WSSecurityException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+        validator.validateNameIdFormatValue(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "test\\test2\\test3");
     }
 
     /**
      * Test validate no name issuer format. This tests DIL test case 3.410.
      *
      * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateIssuerNoFormat() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateIssuerNoFormat() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -153,7 +176,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(null);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
@@ -161,23 +184,24 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
      *
      * @throws ValidationException the validation exception
      * @throws ConfigurationException the configuration exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateIssuerNotEmailAddress() throws ValidationException, ConfigurationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateIssuerNotEmailAddress() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
         Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS,
-                "this is obviously not an email address....okkk?");
+            "this is obviously not an email address....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(assertion.getIssuer()).thenReturn(issuer);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
@@ -185,23 +209,24 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
      *
      * @throws ValidationException the validation exception
      * @throws ConfigurationException the configuration exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateIssuerNotX509SubjectName() throws ValidationException, ConfigurationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateIssuerNotX509SubjectName() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
         Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509,
-                "this is obviously not an x509 subject name....okkk?");
+            "this is obviously not an x509 subject name....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(assertion.getIssuer()).thenReturn(issuer);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
@@ -209,32 +234,34 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
      *
      * @throws ValidationException the validation exception
      * @throws ConfigurationException the configuration exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateIssuerNotWindowsDomainName() throws ValidationException, ConfigurationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateIssuerNotWindowsDomainName() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
         Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME,
-                "this is obviously not an windows domain name....okkk?");
+            "this is obviously not an windows domain name....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(assertion.getIssuer()).thenReturn(issuer);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
      * Test validate happy path.
      *
      * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateSubjectX509InvalidValue() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateSubjectX509InvalidValue() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -250,16 +277,17 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
      * Test validate happy path.
      *
      * @throws ValidationException the validation exception
+     * @throws WSSecurityException
      */
-    @Test(expected = ValidationException.class)
-    public void testValidateSubjectEmailInvalidValue() throws ValidationException {
+    @Test(expected = WSSecurityException.class)
+    public void testValidateSubjectEmailInvalidValue() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
         Assertion assertion = mock(Assertion.class);
@@ -275,7 +303,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
-        validator.validate(assertion);
+        validator.validateAssertion(new SamlAssertionWrapper(assertion));
     }
 
     /**
@@ -286,14 +314,9 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
      * @return the issuer
      * @throws ConfigurationException the configuration exception
      */
-    protected Issuer generateIssuer(String format, String value) throws ConfigurationException {
-        OpensamlObjectBuilderUtil util = new OpensamlObjectBuilderUtil();
+    protected Issuer generateIssuer(String format, String value) {
+        return OpenSAML2ComponentBuilder.getInstance().createIssuer(format, value);
 
-        Issuer issuer = (Issuer) util.createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-
-        issuer.setFormat(format);
-        issuer.setValue(value);
-        return issuer;
     }
 
 }

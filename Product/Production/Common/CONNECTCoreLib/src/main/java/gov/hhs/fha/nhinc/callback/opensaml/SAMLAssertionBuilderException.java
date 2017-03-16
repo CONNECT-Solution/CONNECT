@@ -24,43 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
 
-import javax.xml.namespace.QName;
-import org.opensaml.Configuration;
-import org.opensaml.DefaultBootstrap;
-import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilderFactory;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 /**
- * The Class OpensamlObjectBuilderUtil.
+ * @author mikhelamdex
  *
- * @author msw
  */
-public class OpensamlObjectBuilderUtil {
+public class SAMLAssertionBuilderException extends Exception {
 
-    /** The builder factory. */
-    private XMLObjectBuilderFactory builderFactory;
-
-    /**
-     * Instantiates a new opensaml object builder util.
-     * 
-     * @throws ConfigurationException
-     */
-    public OpensamlObjectBuilderUtil() throws ConfigurationException {
-        DefaultBootstrap.bootstrap();
-
-        builderFactory = Configuration.getBuilderFactory();
+    public SAMLAssertionBuilderException(String message) {
+        super(message);
     }
 
-    /**
-     * Creates the open saml object.
-     *
-     * @param qname the qname
-     * @return the xML object
-     */
-    public XMLObject createOpenSAMLObject(QName qname) {
-        return builderFactory.getBuilder(qname).buildObject(qname);
+    public SAMLAssertionBuilderException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public SAMLAssertionBuilderException(String message, Throwable throwable) {
+        super(message, throwable);
     }
 }

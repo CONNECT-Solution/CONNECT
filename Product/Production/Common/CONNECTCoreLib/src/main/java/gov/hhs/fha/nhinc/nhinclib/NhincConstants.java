@@ -79,17 +79,17 @@ public class NhincConstants {
     public static enum NHIN_SERVICE_NAMES {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
-                PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                        PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
-                                DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
-                                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
-                                                NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
-                                                        NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
-                                                                NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
-                                                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
-                                                                                CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
-                                                                                        CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
-                                                                                                CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+            PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
+                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
+                    DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
+                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
+                            NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
+                                NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
+                                    NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
+                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
+                                            CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
+                                                CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
+                                                    CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(String value) {
@@ -126,6 +126,12 @@ public class NhincConstants {
     public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
     // SAML constants
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
+    public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
+    public static final String ISSUER_KEY_STRING = "org.apache.ws.security.saml.issuer.key.name";
+    public static final String ISSUER_KEY_VALUE = "org.apache.ws.security.saml.issuer.key.password";
+    public static final String SIGNATURE_PROPERTIES_STRING = "org.apache.ws.security.saml.issuer.cryptoProp.file";
+    public static final String SIGN_ASSERTION_BOOL = "org.apache.ws.security.saml.issuer.signAssertion";
+    public static final String SEND_KEYVALUE_BOOL = "org.apache.ws.security.saml.issuer.sendKeyValue";
     // Initiating multispec errors
     public static final String INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE = "Unsupported guidance for API level.";
     public static final String INIT_MULTISPEC_ERROR_NO_MATCHING_ENDPOINT = "No matching target endpoint for guidance: ";
@@ -135,6 +141,7 @@ public class NhincConstants {
     public static final String SERVICE_NAME = "serviceName";
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
+    public static final String SAML_PROPERTY_FILE = "saml";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String INTERNAL_CONNECTION_INFO = "InternalConnectionInfo2.xml";
     public static final String DIRECTTESTING_FLAG = "DirectTesting";
@@ -523,6 +530,18 @@ public class NhincConstants {
     public static final String CUSTOM_HTTP_HEADERS = "customHttpHeaders";
     public static final String KEEP_ALIVE_PROP = "connectionKeepAlive";
     public static final String READ_HTTP_HEADERS = "readHttpHeaders";
+
+    public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
+    public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+    /**
+     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
+     * endorsing supporting token.
+     */
+    public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
+    /**
+     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
+     */
+    public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
 
     private NhincConstants() {
     }

@@ -36,11 +36,6 @@
 
         <!-- Security -->
         <dependency>
-            <groupId>org.opensaml</groupId>
-            <artifactId>opensaml</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>org.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>
             <scope>provided</scope>

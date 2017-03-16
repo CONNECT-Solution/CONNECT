@@ -24,20 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
 
-import static org.junit.Assert.assertTrue;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
-import org.junit.Test;
+/**
+ * @author madun
+ *
+ */
+public class CertificateManagerException extends Exception {
 
-public class SAMLAssertionBuilderFactoryImplTest {
+    public CertificateManagerException(String message) {
+        super(message);
+    }
 
-    @Test
-    public void getBuilderTest() {
-        SAMLAssertionBuilderFactoryImpl builderFactory = new SAMLAssertionBuilderFactoryImpl();
-        SAMLAssertionBuilder hokBuilder = builderFactory.getBuilder(SAMLAssertionBuilderFactory.HOK_ASSERTION_TYPE);
-        assertTrue(hokBuilder instanceof HOKSAMLAssertionBuilder);
-        SAMLAssertionBuilder svBuilder = builderFactory.getBuilder(SAMLAssertionBuilderFactory.SV_ASSERTION_TYPE);
-        assertTrue(svBuilder instanceof SVSAMLAssertionBuilder);
+    public CertificateManagerException(Throwable throwable) {
+        super(throwable);
+    }
+
+    public CertificateManagerException(String message, Throwable throwable) {
+        super(message, throwable);
     }
 }

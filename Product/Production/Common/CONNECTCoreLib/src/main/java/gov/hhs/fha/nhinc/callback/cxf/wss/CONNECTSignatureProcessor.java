@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+
 import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
@@ -36,11 +38,11 @@ import java.util.List;
 import javax.activation.DataHandler;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
-import org.apache.ws.security.WSDocInfo;
-import org.apache.ws.security.WSSecurityEngineResult;
-import org.apache.ws.security.WSSecurityException;
-import org.apache.ws.security.handler.RequestData;
-import org.apache.ws.security.processor.SignatureProcessor;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.dom.WSDocInfo;
+import org.apache.wss4j.dom.engine.WSSecurityEngineResult;
+import org.apache.wss4j.dom.handler.RequestData;
+import org.apache.wss4j.dom.processor.SignatureProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -62,7 +64,7 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
 
     @Override
     public List<WSSecurityEngineResult> handleToken(Element signatureElem, RequestData data, WSDocInfo wsDocInfo)
-            throws WSSecurityException {
+        throws WSSecurityException {
 
         inlineSignatureAttachments((SoapMessage) data.getMsgContext(), signatureElem);
 
@@ -86,25 +88,25 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
             inlineSignatureValueIncludes(signatureElem, attachments);
 
         } catch (IOException ioe) {
-            throw new WSSecurityException("Failed to inline attachments to signature.", ioe);
+            throw new WSSecurityException(ErrorCode.FAILURE, ioe, "Failed to inline attachments to signature.");
         }
     }
 
-    private void inlineDigestValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
+    private static void inlineDigestValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
         NodeList digestNodes = element.getElementsByTagNameNS(SamlConstants.XML_SIGNATURE_NS,
-                SamlConstants.DIGEST_VALUE_TAG);
+            SamlConstants.DIGEST_VALUE_TAG);
 
         inlineIncludes(digestNodes, attachments);
     }
 
-    private void inlineSignatureValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
+    private static void inlineSignatureValueIncludes(Element element, Collection<Attachment> attachments) throws IOException {
         NodeList signatureNodes = element.getElementsByTagNameNS(SamlConstants.XML_SIGNATURE_NS,
-                SamlConstants.SIGNATURE_VALUE_TAG);
+            SamlConstants.SIGNATURE_VALUE_TAG);
 
         inlineIncludes(signatureNodes, attachments);
     }
 
-    private void inlineIncludes(NodeList signatureNodes, Collection<Attachment> attachments) throws IOException {
+    private static void inlineIncludes(NodeList signatureNodes, Collection<Attachment> attachments) throws IOException {
         for (int i = 0; i < signatureNodes.getLength(); ++i) {
             Element sigElement = (Element) signatureNodes.item(i);
 
@@ -118,14 +120,14 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
                     String attachmentValue = convertToBase64Data(attachment.get().getDataHandler());
                     sigElement.setTextContent(attachmentValue);
                 } else {
-                    LOG.warn("Failed to inline signature/digest element to the header.  Cannot find reference id: "
-                            + refId);
+                    LOG.warn(
+                        "Failed to inline signature/digest element to the header.  Cannot find reference id: {}", refId);
                 }
             }
         }
     }
 
-    private Optional<Attachment> getAttachment(Collection<Attachment> attachments, String id) {
+    private static Optional<Attachment> getAttachment(Collection<Attachment> attachments, String id) {
         for (Attachment attachment : attachments) {
             if (attachment.getId().equals(id)) {
                 return Optional.of(attachment);
@@ -135,7 +137,7 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
         return Optional.absent();
     }
 
-    private boolean isIncludeElement(Element elem) {
+    private static boolean isIncludeElement(Element elem) {
         String namespace = elem.getNamespaceURI();
         String elemName = elem.getLocalName();
 
@@ -146,7 +148,7 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
         return false;
     }
 
-    private String convertToBase64Data(DataHandler dh) throws IOException {
+    private static String convertToBase64Data(DataHandler dh) throws IOException {
         byte[] attachmentBinaryData = FILE_UTILS.convertToBytes(dh);
         char[] attachmentBase64Data = Base64Coder.encode(attachmentBinaryData);
 

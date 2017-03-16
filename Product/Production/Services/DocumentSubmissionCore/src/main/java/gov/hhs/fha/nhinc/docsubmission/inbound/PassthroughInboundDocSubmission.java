@@ -71,7 +71,7 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
     }
 
     @Override
-    RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
+    public RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
         Properties webContextProperties) {
 
         RegistryResponseType response;

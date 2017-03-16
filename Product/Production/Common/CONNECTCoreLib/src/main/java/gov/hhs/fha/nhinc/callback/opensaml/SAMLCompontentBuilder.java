@@ -24,10 +24,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
 import org.joda.time.DateTime;
-import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.saml.saml2.core.AuthnStatement;
 
 /**
  * @author bhumphrey
@@ -35,7 +35,7 @@ import org.opensaml.saml2.core.AuthnStatement;
  */
 interface SAMLCompontentBuilder {
 
-    AuthnStatement createAuthenicationStatements(String cntxCls, String sessionIndex, DateTime authInstant,
-            String inetAddr, String dnsName);
+    AuthnStatement createAuthenticationStatements(String cntxCls, String sessionIndex, DateTime authInstant,
+        String inetAddr, String dnsName);
 
 }

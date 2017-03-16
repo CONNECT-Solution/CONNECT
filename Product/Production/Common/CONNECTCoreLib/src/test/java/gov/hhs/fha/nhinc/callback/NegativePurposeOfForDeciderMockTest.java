@@ -28,8 +28,9 @@ package gov.hhs.fha.nhinc.callback;
 
 import static org.junit.Assert.assertTrue;
 
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.HashMap;
 import java.util.Map;
