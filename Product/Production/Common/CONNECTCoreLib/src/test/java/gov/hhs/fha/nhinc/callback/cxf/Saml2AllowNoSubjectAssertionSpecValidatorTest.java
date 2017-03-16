@@ -82,8 +82,6 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
-        /*validator.validate(assertion);*/
-
         assertTrue(true);
     }
 

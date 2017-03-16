@@ -533,6 +533,15 @@ public class NhincConstants {
 
     public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
     public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+    /**
+     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
+     * endorsing supporting token.
+     */
+    public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
+    /**
+     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
+     */
+    public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
 
     private NhincConstants() {
     }

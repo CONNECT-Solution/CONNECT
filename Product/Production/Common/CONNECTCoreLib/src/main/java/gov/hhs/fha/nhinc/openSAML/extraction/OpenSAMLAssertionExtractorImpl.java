@@ -219,8 +219,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
             .addAll(accessConsentId);
-            LOG.debug(
-                "Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = {}", accessConsentId);
+            LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = {}",
+                accessConsentId);
 
         } else if (attribute.getName().equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
             List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
@@ -291,8 +291,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         AuthnStatement source = saml2Assertion.getAuthnStatements().get(0);
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
-        samlAuthnStatement
-        .setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef().getAuthnContextClassRef());
+        samlAuthnStatement.setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef()
+            .getAuthnContextClassRef());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());
@@ -390,8 +390,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (saml2EvidenceAssertion.getConditions() != null
-            && (saml2EvidenceAssertion.getConditions().getNotBefore() != null
-            || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
+            && (saml2EvidenceAssertion.getConditions().getNotBefore() != null || saml2EvidenceAssertion.getConditions()
+            .getNotOnOrAfter() != null)) {
             // Translate Evidence Conditions
             Conditions saml2EvidenceCondition = saml2EvidenceAssertion.getConditions();
             SamlAuthzDecisionStatementEvidenceConditionsType targetConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();

@@ -38,17 +38,6 @@ import java.security.interfaces.RSAPublicKey;
 public interface CertificateManager {
 
     /**
-     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
-     * endorsing supporting token.
-     */
-    public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
-
-    /**
-     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
-     */
-    public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
-
-    /**
      * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
      * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
      *
