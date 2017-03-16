@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.openSAML.extraction;
+package gov.hhs.fha.nhinc.opensaml.extraction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

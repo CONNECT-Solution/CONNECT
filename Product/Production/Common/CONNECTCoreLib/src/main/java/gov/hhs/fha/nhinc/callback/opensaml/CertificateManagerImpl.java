@@ -134,17 +134,17 @@ public class CertificateManagerImpl implements CertificateManager {
         final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
 
         if (storeType == null) {
-            LOG.warn("javax.net.ssl.keyStoreType is not defined.  Switch to use JKS by default");
+            LOG.warn("{} is not defined. Switch to use JKS by default", KEY_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
         if (password !=null){
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
-                LOG.error("javax.net.ssl.keyStore is not defined");
+                LOG.error("{} is not defined", KEY_STORE_TYPE_KEY);
             } else {
                 keyStore = loadKeyStore(storeType, password, storeLoc);
             }
         }else{
-            LOG.error("Please define javax.net.ssl.keyStorePassword");
+            LOG.error("Please define {}", KEY_STORE_SECRET_KEY);
         }
         LOG.debug("SamlCallbackHandler.initKeyStore() -- End");
     }
@@ -196,17 +196,17 @@ public class CertificateManagerImpl implements CertificateManager {
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
         if (storeType == null) {
-            LOG.warn("javax.net.ssl.trustStoreType is not defined. Switch to use JKS by default");
+            LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
         if (password != null) {
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
-                LOG.error("javax.net.ssl.trustStore is not defined in domain.xml");
+                LOG.error("{} is not defined.", TRUST_STORE_KEY);
             } else {
                 trustStore = loadKeyStore(storeType, password, storeLoc);
             }
         } else {
-            LOG.error("javax.net.ssl.trustStorePassword is not defined.");
+            LOG.error("{} is not defined. ", TRUST_STORE_SECRET_KEY);
         }
         LOG.debug("SamlCallbackHandler.initTrustStore() -- End");
     }
@@ -249,11 +249,11 @@ public class CertificateManagerImpl implements CertificateManager {
                 }
 
             } else {
-                LOG.error("javax.net.ssl.keyStorePassword is not a defined system property.");
+                LOG.error("{} is not a defined system property.", KEY_STORE_SECRET_KEY);
             }
 
         } else {
-            LOG.error(NhincConstants.CLIENT_KEY_ALIAS + " is not a defined system property.");
+            LOG.error("{} is not a defined system property.", NhincConstants.CLIENT_KEY_ALIAS);
         }
 
         LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");

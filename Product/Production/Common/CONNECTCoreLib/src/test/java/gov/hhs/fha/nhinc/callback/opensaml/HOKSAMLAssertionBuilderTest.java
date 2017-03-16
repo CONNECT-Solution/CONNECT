@@ -272,7 +272,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testCreateAuthenicationStatement() {
+    public void testCreateAuthenticationStatement() {
         final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
         .createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);

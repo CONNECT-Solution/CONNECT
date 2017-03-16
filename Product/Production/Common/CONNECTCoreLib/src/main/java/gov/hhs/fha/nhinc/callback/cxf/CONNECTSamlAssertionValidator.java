@@ -140,16 +140,9 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @return custom error msg
      */
     private static String getCustomErrorMsg(final String errorType) {
-        StringBuilder errorBuilder = new StringBuilder();
-        errorBuilder.append(SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT);
-        errorBuilder.append(" ");
-        errorBuilder.append(SamlConstants.URN_OASIS_NAMES);
-        errorBuilder.append(" and ");
-        errorBuilder.append(errorType);
-        errorBuilder.append(" ");
-        errorBuilder.append(IS_PRESENT);
-        return errorBuilder.toString();
-
+        return new StringBuilder(SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT).append("").append(" ")
+            .append(SamlConstants.URN_OASIS_NAMES).append(" and ").append(errorType).append(" ").append(IS_PRESENT)
+            .toString();
     }
 
     /**
