@@ -46,14 +46,15 @@ public class TabBean {
     private int directTabIndex = 0;
     private int propIndex = 0;
 
-    private final String gatewayPropTab = "gatewayTab";
-    private final String adapterPropTab = "adapterTab";
-    private final String directDomainTab = "directDomainTab";
-    private final String directAgentTab = "directAgentTab";
-    private final String directCertTab = "directCertTab";
-    private final String directTbTab = "directTbTab";
-    private final String acctUsersTab = "acctUsersTab";
-    private final String acctRolesTab = "acctRolesTab";
+    private static final String GATEWAYPROPTAB = "gatewayTab";
+    private static final String ADAPTERPROPTAB = "adapterTab";
+    private static final String DIRECTDOMAINTAB = "directDomainTab";
+    private static final String DIRECTAGENTTAB = "directAgentTab";
+    private static final String DIRECTCERTTAB = "directCertTab";
+    private static final String DIRECTTBTAB = "directTbTab";
+    private static final String ACCTUSERSTAB = "acctUsersTab";
+    private static final String ACCTROLESTAB = "acctRolesTab";
+    private static final String AUDITPROPTAB = "auditTab";
 
     /**
      *
@@ -167,11 +168,11 @@ public class TabBean {
      */
     public void onDirectTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if (selectedTab.getId().equalsIgnoreCase(directDomainTab)) {
+        if (selectedTab.getId().equalsIgnoreCase(DIRECTDOMAINTAB)) {
             directTabIndex = 0;
-        } else if (selectedTab.getId().equalsIgnoreCase(directAgentTab)) {
+        } else if (selectedTab.getId().equalsIgnoreCase(DIRECTAGENTTAB)) {
             directTabIndex = 1;
-        } else if (selectedTab.getId().equalsIgnoreCase(directCertTab)) {
+        } else if (selectedTab.getId().equalsIgnoreCase(DIRECTCERTTAB)) {
             directTabIndex = 2;
         } else {
             directTabIndex = 3;
@@ -180,16 +181,18 @@ public class TabBean {
 
     public void onPropertyTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if (selectedTab.getId().equalsIgnoreCase(gatewayPropTab)) {
+        if (selectedTab.getId().equalsIgnoreCase(GATEWAYPROPTAB)) {
             propIndex = 0;
-        } else {
+        } else if (selectedTab.getId().equalsIgnoreCase(ADAPTERPROPTAB)) {
             propIndex = 1;
+        } else {
+            propIndex = 2;
         }
     }
 
     public void onAcctTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if (selectedTab.getId().equalsIgnoreCase(acctUsersTab)) {
+        if (selectedTab.getId().equalsIgnoreCase(ACCTUSERSTAB)) {
             adminTabIndex = 0;
         } else {
             adminTabIndex = 1;
@@ -254,6 +257,10 @@ public class TabBean {
         return setGatewayPropertyTabAndNavigate(1);
     }
 
+    public String navigateToAuditPropTab() {
+        return setGatewayPropertyTabAndNavigate(2);
+    }
+
     public String navigateToFhir() {
         return NavigationConstant.FHIR_PAGE;
     }
@@ -313,36 +320,40 @@ public class TabBean {
         this.propIndex = propIndex;
     }
 
-    public String getGatewayPropTab() {
-        return gatewayPropTab;
+    public String getGATEWAYPROPTAB() {
+        return GATEWAYPROPTAB;
     }
 
-    public String getAdapterPropTab() {
-        return adapterPropTab;
+    public String getADAPTERPROPTAB() {
+        return ADAPTERPROPTAB;
     }
 
-    public String getDirectDomainTab() {
-        return directDomainTab;
+    public String getAUDITPROPTAB() {
+        return AUDITPROPTAB;
     }
 
-    public String getDirectAgentTab() {
-        return directAgentTab;
+    public String getDIRECTDOMAINTAB() {
+        return DIRECTDOMAINTAB;
     }
 
-    public String getDirectCertTab() {
-        return directCertTab;
+    public String getDIRECTAGENTTAB() {
+        return DIRECTAGENTTAB;
     }
 
-    public String getDirectTbTab() {
-        return directTbTab;
+    public String getDIRECTCERTTAB() {
+        return DIRECTCERTTAB;
     }
 
-    public String getAcctUsersTab() {
-        return acctUsersTab;
+    public String getDIRECTTBTAB() {
+        return DIRECTTBTAB;
     }
 
-    public String getAcctRolesTab() {
-        return acctRolesTab;
+    public String getACCTUSERSTAB() {
+        return ACCTUSERSTAB;
+    }
+
+    public String getACCTROLESTAB() {
+        return ACCTROLESTAB;
     }
 
 }

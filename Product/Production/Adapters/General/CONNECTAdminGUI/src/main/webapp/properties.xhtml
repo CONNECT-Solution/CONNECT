@@ -46,88 +46,127 @@
                 <p:tabView id="propsTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.propIndex}" styleClass="tabs-override tabs-ovr-green" >
                     <p:ajax event="tabChange" listener="#{tabBean.onPropertyTabChange}" />
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-                    <p:tab id="#{tabBean.gatewayPropTab}" title="Gateway Properties" closable="false">
-                            <div class="tab-pane active" id="external">
-                                <div class="content-block">
-                                    <h2 class="subsection-header header-no-text"/>
+                    <p:tab id="#{tabBean.GATEWAYPROPTAB}" title="Gateway Properties" closable="false">
+                        <div class="tab-pane active" id="external">
+                            <div class="content-block">
+                                <h2 class="subsection-header header-no-text"/>
 
-                                    <div class="content">
-                                        <p>Click on each value in the Values column to edit it. Right-click on the value for other options.</p>
-                                        <hr noshade="noshade" class="hr-divider" />
-                                        <div class="form-block center-block" style="padding:0px;">
-                                            <h:form id="gatewayPropForm" >
-                                                <p:messages for="#{propertyBean.gatewayPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                                <p:contextMenu for="gatewayProps" widgetVar="pMenu">
-                                                    <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>
-                                                    <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>
-                                                </p:contextMenu>
+                                <div class="content">
+                                    <p>Click on each value in the Values column to edit it. Right-click on the value for other options.</p>
+                                    <hr style="height:2px;border-width:0;color:gray;background-color:gray" class="hr-divider" />
+                                    <div class="form-block center-block" style="padding:0px;">
+                                        <h:form id="gatewayPropForm" >
+                                            <p:messages for="#{propertyBean.gatewayPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
+                                            <p:contextMenu for="gatewayProps" widgetVar="pMenu">
+                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>
+                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>
+                                            </p:contextMenu>
 
-                                                <div class="table-responsive table-props">
-                                                    <p:dataTable id="gatewayProps" value="#{propertyBean.gatewayProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
-                                                        <p:ajax event="cellEdit" listener="#{propertyBean.onGatewayValueEdit}" update=":propsTabview:gatewayPropForm:gatewayProps" />
-                                                        <p:column headerText="Key" sortBy="key">
-                                                            <h:outputText value="#{prop.key}" />
-                                                        </p:column>
-                                                        <p:column headerText="Description">
-                                                            <h:outputText value="#{prop.text}" />
-                                                        </p:column>
-                                                        <p:column headerText="Value">
-                                                            <p:cellEditor>
-                                                                <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
-                                                                <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
-                                                            </p:cellEditor>
-                                                        </p:column>
-                                                    </p:dataTable>
-                                                </div>
-                                            </h:form>
-                                        </div>
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="gatewayProps" value="#{propertyBean.gatewayProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                    <p:ajax event="cellEdit" listener="#{propertyBean.onGatewayValueEdit}" update=":propsTabview:gatewayPropForm:gatewayProps" />
+                                                    <p:column headerText="Key" sortBy="key">
+                                                        <h:outputText value="#{prop.key}" />
+                                                    </p:column>
+                                                    <p:column headerText="Description">
+                                                        <h:outputText value="#{prop.text}" />
+                                                    </p:column>
+                                                    <p:column headerText="Value">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
+                                                            <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </h:form>
                                     </div>
                                 </div>
                             </div>
-                        </p:tab>
-                    <p:tab id="#{tabBean.adapterPropTab}" title="Adapter Properties" closable="false">
-                            <div class="tab-pane active" id="external">
-                                <div class="content-block">
-                                    <h2 class="subsection-header header-no-text"/>
+                        </div>
+                    </p:tab>
+                    <p:tab id="#{tabBean.ADAPTERPROPTAB}" title="Adapter Properties" closable="false">
+                        <div class="tab-pane active" id="external">
+                            <div class="content-block">
+                                <h2 class="subsection-header header-no-text"/>
 
-                                    <div class="content">
-                                        <p>Click on each value in the Values column to edit it. Right-click on the value for other options.</p>
-                                        <hr noshade="noshade" class="hr-divider" />
-                                        <div class="form-block center-block" style="padding:0px;">
-                                            <h:form id="adapterPropForm" >
-                                                <p:messages for="#{propertyBean.adapterPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                                <p:contextMenu for="adapterProps" widgetVar="apMenu">
-                                                    <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>
-                                                    <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>
-                                                </p:contextMenu>
+                                <div class="content">
+                                    <p>Click on each value in the Values column to edit it. Right-click on the value for other options.</p>
+                                    <hr style="height:2px;border-width:0;color:gray;background-color:gray" class="hr-divider" />
+                                    <div class="form-block center-block" style="padding:0px;">
+                                        <h:form id="adapterPropForm" >
+                                            <p:messages for="#{propertyBean.adapterPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
+                                            <p:contextMenu for="adapterProps" widgetVar="apMenu">
+                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>
+                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>
+                                            </p:contextMenu>
 
-                                                <div class="table-responsive table-props">
-                                                    <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="aCellProps" sortMode="Single" styleClass="table table-striped table-domains">
-                                                        <p:ajax event="cellEdit" listener="#{propertyBean.onAdapterValueEdit}" update=":propsTabview:adapterPropForm:adapterProps" />
-                                                        <p:column headerText="Key" sortBy="key">
-                                                            <h:outputText value="#{prop.key}" />
-                                                        </p:column>
-                                                        <p:column headerText="Description">
-                                                            <h:outputText value="#{prop.text}" />
-                                                        </p:column>
-                                                        <p:column headerText="Value">
-                                                            <p:cellEditor>
-                                                                <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
-                                                                <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
-                                                            </p:cellEditor>
-                                                        </p:column>
-                                                    </p:dataTable>
-                                                </div>
-                                            </h:form>
-                                        </div>
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="aCellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                    <p:ajax event="cellEdit" listener="#{propertyBean.onAdapterValueEdit}" update=":propsTabview:adapterPropForm:adapterProps" />
+                                                    <p:column headerText="Key" sortBy="key">
+                                                        <h:outputText value="#{prop.key}" />
+                                                    </p:column>
+                                                    <p:column headerText="Description">
+                                                        <h:outputText value="#{prop.text}" />
+                                                    </p:column>
+                                                    <p:column headerText="Value">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
+                                                            <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </h:form>
                                     </div>
                                 </div>
                             </div>
-                        </p:tab>
-                        <!-- END: TAB PANE - ADAPTER PROPERTIES -->
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - ADAPTER PROPERTIES -->
+                    <p:tab id="#{tabBean.AUDITPROPTAB}" title="Audit Properties" closable="false">
+                        <div class="tab-pane active" id="external">
+                            <div class="content-block">
+                                <h2 class="subsection-header header-no-text"/>
+
+                                <div class="content">
+                                    <p>Click on each value in the Values column to edit it. Right-click on the value for other options.</p>
+                                    <hr style="height:2px;border-width:0;color:gray;background-color:gray" class="hr-divider" />
+                                    <div class="form-block center-block" style="padding:0px;">
+                                        <h:form id="auditPropForm" >
+                                            <p:messages for="#{propertyBean.auditPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
+                                            <p:contextMenu for="auditProps" widgetVar="auditMenu">
+                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>
+                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>
+                                            </p:contextMenu>
+
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="auditProps" value="#{propertyBean.auditProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="auditCellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                    <p:ajax event="cellEdit" listener="#{propertyBean.onAuditValueEdit}" update=":propsTabview:auditPropForm:auditProps" />
+                                                    <p:column headerText="Key" sortBy="key">
+                                                        <h:outputText value="#{prop.key}" />
+                                                    </p:column>
+                                                    <p:column headerText="Description">
+                                                        <h:outputText value="#{prop.text}" />
+                                                    </p:column>
+                                                    <p:column headerText="Value">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output"><h:outputText value="#{prop.value}" /></f:facet>
+                                                            <f:facet name="input"><p:inputText id="propValueInput" value="#{prop.value}" style="width:100%"/></f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - AUDIT PROPERTIES -->
                 </p:tabView>
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
-
             </ui:define>
         </ui:composition>
     </h:body>
