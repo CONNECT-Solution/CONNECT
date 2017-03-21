@@ -249,7 +249,7 @@
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -1196,7 +1196,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -1745,7 +1745,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
@@ -2689,7 +2689,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
                      <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
