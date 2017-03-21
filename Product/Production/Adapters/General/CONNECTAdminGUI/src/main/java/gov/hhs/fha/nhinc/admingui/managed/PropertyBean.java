@@ -200,13 +200,7 @@ public class PropertyBean {
 
     private static String getPropertiesUpdateMessage(String msg, String key, String oldValue, String newValue) {
         StringBuilder buffer = new StringBuilder();
-        buffer.append(msg);
-        buffer.append(key);
-        buffer.append(" from ");
-        buffer.append(oldValue);
-        buffer.append(" to ");
-        buffer.append(newValue);
-        buffer.append(".");
+        buffer.append(msg).append(key).append(" from ").append(oldValue).append(" to ").append(newValue).append(".");
         return buffer.toString();
     }
 }
