@@ -30,10 +30,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:body>
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
@@ -44,7 +44,7 @@
                 <p:messages id="directErrors" closable="true" globalOnly="true" autoUpdate="true" />
                 <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.directTabIndex}" styleClass="tabs-override tabs-ovr-purple">
                     <p:ajax event="tabChange" listener="#{tabBean.onDirectTabChange}" />
-                    <p:tab id="${tabBean.directDomainTab}" title="Domains" closable="false">
+                    <p:tab id="${tabBean.DIRECTDOMAINTAB}" title="Domains" closable="false">
                         <div class="content-block">
                             <h2 class="subsection-header">Domain List</h2>
                             <div class="table-responsive">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </p:tab>
-                    <p:tab id="${tabBean.directAgentTab}" title="Agent Settings" closable="false">
+                    <p:tab id="${tabBean.DIRECTAGENTTAB}" title="Agent Settings" closable="false">
                         <div class="content-block">
                             <h2 class="subsection-header">Agent Settings</h2>
                             <div class="table-responsive">
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </p:tab>
-                    <p:tab id="${tabBean.directCertTab}" title="Certificates" closable="false">
+                    <p:tab id="${tabBean.DIRECTCERTTAB}" title="Certificates" closable="false">
                         <div class="content-block">
                             <h2 class="subsection-header">Certificates</h2>
                             <div class="table-responsive">
@@ -151,7 +151,7 @@
                             </div>
                         </div>
                     </p:tab>
-                    <p:tab id="${tabBean.directTbTab}" title="Trust Bundles" closable="false">
+                    <p:tab id="${tabBean.DIRECTTBTAB}" title="Trust Bundles" closable="false">
                         <div class="content-block">
                             <h2 class="subsection-header">Trust Bundles</h2>
                             <div class="table-responsive">
@@ -203,7 +203,7 @@
                                 </h:form>
                             </div>
                         </div>
-                        <p:blockUI block="${tabBean.directTbTab}" widgetVar="tbTabBlock">
+                        <p:blockUI block="${tabBean.DIRECTTBTAB}" widgetVar="tbTabBlock">
                             REFRESHING TRUST BUNDLE<br/>
                             <p:graphicImage library="images" name="loading-bar-gif.gif" />
                         </p:blockUI>
