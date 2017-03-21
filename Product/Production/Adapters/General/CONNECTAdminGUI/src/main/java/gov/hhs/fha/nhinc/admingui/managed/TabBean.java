@@ -168,11 +168,11 @@ public class TabBean {
      */
     public void onDirectTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if (selectedTab.getId().equalsIgnoreCase(DIRECTDOMAINTAB)) {
+        if (DIRECTDOMAINTAB.equalsIgnoreCase(selectedTab.getId())) {
             directTabIndex = 0;
-        } else if (selectedTab.getId().equalsIgnoreCase(DIRECTAGENTTAB)) {
+        } else if (DIRECTAGENTTAB.equalsIgnoreCase(selectedTab.getId())) {
             directTabIndex = 1;
-        } else if (selectedTab.getId().equalsIgnoreCase(DIRECTCERTTAB)) {
+        } else if (DIRECTCERTTAB.equalsIgnoreCase(selectedTab.getId())) {
             directTabIndex = 2;
         } else {
             directTabIndex = 3;
@@ -181,9 +181,9 @@ public class TabBean {
 
     public void onPropertyTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if (selectedTab.getId().equalsIgnoreCase(GATEWAYPROPTAB)) {
+        if (GATEWAYPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
             propIndex = 0;
-        } else if (selectedTab.getId().equalsIgnoreCase(ADAPTERPROPTAB)) {
+        } else if (ADAPTERPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
             propIndex = 1;
         } else {
             propIndex = 2;
@@ -192,7 +192,7 @@ public class TabBean {
 
     public void onAcctTabChange(TabChangeEvent tEvent) {
         Tab selectedTab = tEvent.getTab();
-        if (selectedTab.getId().equalsIgnoreCase(ACCTUSERSTAB)) {
+        if (ACCTUSERSTAB.equalsIgnoreCase(selectedTab.getId())) {
             adminTabIndex = 0;
         } else {
             adminTabIndex = 1;
