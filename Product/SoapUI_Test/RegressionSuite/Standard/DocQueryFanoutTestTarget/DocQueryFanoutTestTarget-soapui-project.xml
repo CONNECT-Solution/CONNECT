@@ -330,7 +330,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -723,7 +723,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1111,7 +1111,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1494,7 +1494,7 @@ nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1886,7 +1886,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -2280,7 +2280,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -2672,7 +2672,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -3060,7 +3060,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>

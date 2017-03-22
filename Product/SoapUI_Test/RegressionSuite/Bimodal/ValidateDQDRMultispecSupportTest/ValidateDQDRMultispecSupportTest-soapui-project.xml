@@ -305,7 +305,7 @@
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -671,7 +671,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1039,7 +1039,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -1356,7 +1356,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -1681,7 +1681,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -2007,7 +2007,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -2391,7 +2391,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -2771,7 +2771,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -3138,7 +3138,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -3455,7 +3455,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -3780,7 +3780,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -4106,7 +4106,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -4504,7 +4504,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -4884,7 +4884,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -5258,7 +5258,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -5568,7 +5568,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -5893,7 +5893,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -6226,7 +6226,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -6617,7 +6617,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -6991,7 +6991,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -7357,7 +7357,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -7667,7 +7667,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -7992,7 +7992,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -8325,7 +8325,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -8694,7 +8694,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -9043,7 +9043,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -9390,7 +9390,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -9727,7 +9727,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -10072,7 +10072,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -10418,7 +10418,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -10782,7 +10782,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -11142,7 +11142,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -11490,7 +11490,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -11827,7 +11827,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -12172,7 +12172,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -12518,7 +12518,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -12896,7 +12896,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -13256,7 +13256,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -13610,7 +13610,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -13941,7 +13941,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -14286,7 +14286,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -14639,7 +14639,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -15010,7 +15010,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -15364,7 +15364,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -15713,7 +15713,7 @@ testRunner.gotoStepByName("Document Query");</script>
                      <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
                      <urn3:version>2.0</urn3:version>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
-                     <urn3:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
                      <urn3:conditions>
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
@@ -16044,7 +16044,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -16389,7 +16389,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -16742,7 +16742,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>

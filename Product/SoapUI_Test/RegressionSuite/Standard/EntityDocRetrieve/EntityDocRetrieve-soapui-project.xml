@@ -485,7 +485,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
@@ -811,7 +811,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                      <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
                      <urn2:version>2.0</urn2:version>
                      <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
-                     <urn2:issuer>CN=SAML User,OU=connect,O=HITS,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
                      <urn2:conditions>
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
