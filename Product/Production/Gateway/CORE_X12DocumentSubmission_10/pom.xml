@@ -3,7 +3,7 @@
     <parent>
         <artifactId>Gateway</artifactId>
         <groupId>org.connectopensource</groupId>
-        <version>4.8.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>CORE_X12DocumentSubmission_10</artifactId>

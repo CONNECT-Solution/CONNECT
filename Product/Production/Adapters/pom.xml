@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Production</artifactId>
-        <version>4.8.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>Adapters</artifactId>

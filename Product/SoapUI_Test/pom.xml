@@ -2,7 +2,7 @@
  <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
-        <version>4.8.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>SoapUI_Test</artifactId>
