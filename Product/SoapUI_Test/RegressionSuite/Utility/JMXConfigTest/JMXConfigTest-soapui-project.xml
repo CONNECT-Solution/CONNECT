@@ -893,7 +893,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
@@ -4563,7 +4563,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
-                     <urn1:issuer>CN=SAML User,OU=connect,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <!--Optional:-->
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <!--Optional:-->
