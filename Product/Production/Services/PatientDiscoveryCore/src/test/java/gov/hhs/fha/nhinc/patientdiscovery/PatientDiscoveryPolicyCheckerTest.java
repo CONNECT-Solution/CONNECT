@@ -181,8 +181,8 @@ public class PatientDiscoveryPolicyCheckerTest {
 
         context.checking(new Expectations() {
             {
-                oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
-                        with(any(AssertionType.class)));
+                oneOf(mockPolicyEngineProxy).checkPolicy(with(aNull(CheckPolicyRequestType.class)),
+                        with(aNull(AssertionType.class)));
                 will(returnValue(response));
             }
         });
@@ -215,8 +215,8 @@ public class PatientDiscoveryPolicyCheckerTest {
 
         context.checking(new Expectations() {
             {
-                oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
-                        with(any(AssertionType.class)));
+                oneOf(mockPolicyEngineProxy).checkPolicy(with(aNull(CheckPolicyRequestType.class)),
+                        with(aNull(AssertionType.class)));
                 will(returnValue(response));
             }
         });

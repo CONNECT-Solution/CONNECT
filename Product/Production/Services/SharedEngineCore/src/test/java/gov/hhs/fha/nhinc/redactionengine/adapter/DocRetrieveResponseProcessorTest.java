@@ -77,8 +77,8 @@ public class DocRetrieveResponseProcessorTest {
             RetrieveDocumentSetResponseType retrieveResponse = new RetrieveDocumentSetResponseType();
             context.checking(new Expectations() {
                 {
-                    allowing(mockPatientConsentHelper).retrievePatientConsentbyDocumentId(with(any(String.class)),
-                            with(any(String.class)), with(any(String.class)));
+                    allowing(mockPatientConsentHelper).retrievePatientConsentbyDocumentId(with(aNull(String.class)),
+                        with(aNull(String.class)), with(aNull(String.class)));
                 }
             });
 

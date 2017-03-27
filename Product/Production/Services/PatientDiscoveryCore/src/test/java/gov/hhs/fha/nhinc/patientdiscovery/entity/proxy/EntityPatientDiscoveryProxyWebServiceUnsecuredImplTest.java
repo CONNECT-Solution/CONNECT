@@ -187,8 +187,9 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                     .mock(RespondingGatewayPRPAIN201306UV02ResponseType.class);
             context.checking(new Expectations() {
                 {
+                    // TODO: Using "anything()" to match "Object..." due to JMock upgrade
                     atLeast(1).of(mockCONNECTClient).invokePort(with(any(Class.class)), with(any(String.class)),
-                            with(any(EntityPatientDiscoveryPortType.class)));
+                            with(anything()));
                     will(returnValue(mockResponse));
                 }
             });

@@ -104,9 +104,10 @@ public class EntityDocSubmissionProxyWebServiceSecuredImplTest {
     private void expectMockCONNECTClient() throws Exception {
         context.checking(new Expectations() {
             {
+                // TODO: Using "anything()" to match "Object..." due to JMock upgrade
                 oneOf(mockCONNECTClient).invokePort(with(any(Class.class)),
                         with(any(String.class)),
-                        with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)));
+                        with(anything()));
                 will(returnValue(createValidRegistryResponse()));
             }
         });

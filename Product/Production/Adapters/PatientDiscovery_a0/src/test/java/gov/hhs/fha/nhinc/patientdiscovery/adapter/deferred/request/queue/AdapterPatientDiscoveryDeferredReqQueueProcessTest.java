@@ -71,8 +71,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockImpl).processPatientDiscoveryDeferredReqQueue(
-                        with(any(PatientDiscoveryDeferredReqQueueProcessRequestType.class)),
-                        with(any(javax.xml.ws.WebServiceContext.class)));
+                        with(aNull(PatientDiscoveryDeferredReqQueueProcessRequestType.class)),
+                        with(aNull(javax.xml.ws.WebServiceContext.class)));
                 will(returnValue(new PatientDiscoveryDeferredReqQueueProcessResponseType()));
             }
         });

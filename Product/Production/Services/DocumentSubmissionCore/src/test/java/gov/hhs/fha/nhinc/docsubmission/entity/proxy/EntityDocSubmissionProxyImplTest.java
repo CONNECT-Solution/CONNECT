@@ -79,8 +79,9 @@ public class EntityDocSubmissionProxyImplTest {
     private void setEntityOrchJavaImplExpectations() {
         context.checking(new Expectations() {
             {
-                oneOf(mockOutboundDS).provideAndRegisterDocumentSetB(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
-                        with(any(NhinTargetCommunitiesType.class)), with(any(UrlInfoType.class)));
+                oneOf(mockOutboundDS).provideAndRegisterDocumentSetB(
+                    with(aNull(ProvideAndRegisterDocumentSetRequestType.class)), with(aNull(AssertionType.class)),
+                    with(aNull(NhinTargetCommunitiesType.class)), with(aNull(UrlInfoType.class)));
                 will(returnValue(createRegistryResponseType()));
             }
         });

@@ -174,8 +174,8 @@ public class VerifyModeTest {
 
         context.checking(new Expectations() {
             {
-                exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
-                    with(any(AssertionType.class)), with(any(II.class)));
+                exactly(1).of(mockTrustMode).processResponse(with(aNull(PRPAIN201306UV02.class)),
+                    with(aNull(AssertionType.class)), with(any(II.class)));
             }
         });
 

@@ -121,7 +121,7 @@ public class StandardOutboundAdminDistributionTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockPolicyCheck).checkOutgoingPolicy(with(any(RespondingGatewaySendAlertMessageType.class)),
-                        with(any(String.class)));
+                        with(aNull(String.class)));
                 will(returnValue(allow));
             }
         });

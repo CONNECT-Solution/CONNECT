@@ -89,8 +89,8 @@ public class OutboundDocSubmissionStrategyTest {
     private void expectMockProxyInvokeWithG0() {
         context.checking(new Expectations() {
             {
-                oneOf(mockProxy).provideAndRegisterDocumentSetB(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
-                        with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)), with(equal(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)));
+                oneOf(mockProxy).provideAndRegisterDocumentSetB(with(aNull(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(aNull(AssertionType.class)), with(aNull(NhinTargetSystemType.class)), with(equal(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)));
                 will(returnValue(createRegistryResponseType()));
             }
         });
@@ -99,8 +99,8 @@ public class OutboundDocSubmissionStrategyTest {
     private void expectMockProxyInvokeWithG1() {
         context.checking(new Expectations() {
             {
-                oneOf(mockProxy).provideAndRegisterDocumentSetB(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
-                        with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)), with(equal(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1)));
+                oneOf(mockProxy).provideAndRegisterDocumentSetB(with(aNull(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(aNull(AssertionType.class)), with(aNull(NhinTargetSystemType.class)), with(equal(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1)));
                 will(returnValue(createRegistryResponseType()));
             }
         });

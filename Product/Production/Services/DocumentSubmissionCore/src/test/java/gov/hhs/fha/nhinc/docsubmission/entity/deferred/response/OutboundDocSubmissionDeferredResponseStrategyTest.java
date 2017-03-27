@@ -100,8 +100,8 @@ public class OutboundDocSubmissionDeferredResponseStrategyTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockProxy11).provideAndRegisterDocumentSetBDeferredResponse11(
-                        with(any(RegistryResponseType.class)), with(any(AssertionType.class)),
-                        with(any(NhinTargetSystemType.class)));
+                        with(aNull(RegistryResponseType.class)), with(aNull(AssertionType.class)),
+                        with(aNull(NhinTargetSystemType.class)));
                 will(returnValue(createXDRAcknowledgementType()));
             }
         });
@@ -111,8 +111,8 @@ public class OutboundDocSubmissionDeferredResponseStrategyTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockProxy20).provideAndRegisterDocumentSetBDeferredResponse20(
-                        with(any(RegistryResponseType.class)), with(any(AssertionType.class)),
-                        with(any(NhinTargetSystemType.class)));
+                        with(aNull(RegistryResponseType.class)), with(aNull(AssertionType.class)),
+                        with(aNull(NhinTargetSystemType.class)));
                 will(returnValue(createRegistryResponseType()));
             }
         });

@@ -10,10 +10,11 @@
   <name>CONNECT Deployment</name>
   <packaging>pom</packaging>
   <modelVersion>4.0.0</modelVersion>
+  
   <modules>
     <module>jboss7</module>
-    </modules>
-  
+  </modules>
+
   <reporting>
     <plugins>
       <plugin>
@@ -28,7 +29,6 @@
   </reporting>
 
   <dependencies>
-
     <!-- Security -->
     <dependency>
       <groupId>org.owasp.esapi</groupId>
@@ -694,7 +694,7 @@
           <artifactId>asm-attrs</artifactId>
         </dependency>
         <dependency>
-          <groupId>javassist</groupId>
+          <groupId>org.javassist</groupId>
           <artifactId>javassist</artifactId>
         </dependency>
       </dependencies>
@@ -811,22 +811,24 @@
         <module>weblogic</module>
       </modules>
     </profile>
-  <!-- JBOSS7 -->
+
+    <!-- JBoss 7 -->
     <profile>
       <id>jboss7</id>
-    <activation>
+      <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-    <modules>
-    <module>jboss7</module>
-    </modules>
-  </profile>
-    <!-- Glassfish -->
+      <modules>
+        <module>jboss7</module>
+      </modules>
+    </profile>
+
+    <!-- GlassFish -->
     <profile>
       <id>glassfish</id>
-    <modules>
-    <module>glassfish</module>
-    </modules>
-  </profile>
+      <modules>
+        <module>glassfish</module>
+      </modules>
+    </profile>
   </profiles>
 </project>
