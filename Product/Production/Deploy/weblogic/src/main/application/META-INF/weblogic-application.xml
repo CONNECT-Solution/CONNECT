@@ -35,6 +35,7 @@
         <package-name>schemaorg_apache_xmlbeans.system.sXMLTOOLS.*</package-name>
     </prefer-application-packages>
     <prefer-application-resources>
+        <resource-name>*.xml</resource-name>
         <resource-name>javax.faces.*</resource-name>
         <resource-name>com.sun.faces.*</resource-name>
         <resource-name>com.bea.faces.*</resource-name>
@@ -43,4 +44,3 @@
         <resource-name>org/slf4j/impl/StaticLoggerBinder.class</resource-name>
     </prefer-application-resources>
 </weblogic-application>
-
