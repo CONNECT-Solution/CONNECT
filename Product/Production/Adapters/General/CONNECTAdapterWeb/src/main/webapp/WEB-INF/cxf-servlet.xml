@@ -63,14 +63,6 @@
         implementor="gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService" wsdlLocation="classpath:wsdl/AdapterComponentDocRepository.wsdl">
     </jaxws:endpoint>
 
-    <!-- Adapter Redaction Engine -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentredaction" id="AdapterComponentRedactionEngine"
-        address="/AdapterComponentRedactionService" serviceName="tns:AdapterComponentRedactionEngineService"
-        endpointName="tns:AdapterComponentRedactionEnginePortTypeBindingPort" implementor="gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine"
-        wsdlLocation="classpath:wsdl/AdapterComponentRedactionEngine.wsdl">
-    </jaxws:endpoint>
-
     <!-- Deferred Queue Manager -->
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:deferredqueuemanager" id="DeferredQueueManager"
