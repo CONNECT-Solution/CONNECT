@@ -24,11 +24,6 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>AdapterAuthenticationCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>PatientDiscoveryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

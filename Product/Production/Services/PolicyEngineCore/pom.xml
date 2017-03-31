@@ -28,10 +28,10 @@
         </dependency>
 
         <!-- Security -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- Logging -->
         <dependency>

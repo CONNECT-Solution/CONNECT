@@ -17,15 +17,12 @@
     </properties>
 
     <modules>
-        <module>AdapterAuthenticationCore</module>
         <module>AuditRepositoryCore</module>
         <module>AuditRepositoryEJB</module>
         <module>ConnectionManagerCore</module>
-        <module>RedactionEngineCore</module>
         <module>DocRepositoryCore</module>
         <module>PatientCorrelationCore</module>
         <module>PolicyEngineCore</module>
-        <module>SharedEngineCore</module>
         <module>DocumentQueryCore</module>
         <module>DocRegistryCore</module>
         <module>PatientDiscoveryCore</module>

@@ -198,11 +198,6 @@
             <artifactId>esapi</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.forgerock.openam</groupId>
-            <artifactId>clientsdk</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- AOP -->
         <dependency>

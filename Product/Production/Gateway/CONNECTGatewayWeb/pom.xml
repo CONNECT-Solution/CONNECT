@@ -57,13 +57,6 @@
             <artifactId>PolicyEngineWebservices</artifactId>
         </dependency>
 
-        <!-- Security -->
-        <dependency>
-            <groupId>org.forgerock.openam</groupId>
-            <artifactId>clientsdk</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- Persistence -->
         <dependency>
             <groupId>org.hibernate</groupId>
