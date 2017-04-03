@@ -35,7 +35,12 @@
         <package-name>schemaorg_apache_xmlbeans.system.sXMLTOOLS.*</package-name>
     </prefer-application-packages>
     <prefer-application-resources>
-        <resource-name>*.xml</resource-name>
+        <resource-name>saml2-assertion-config.xml</resource-name>
+        <resource-name>saml2-metadata-config.xml</resource-name>
+        <resource-name>saml2-protocol-config.xml</resource-name>
+        <resource-name>saml1-assertion-config.xml</resource-name>
+        <resource-name>saml1-metadata-config.xml</resource-name>
+        <resource-name>saml1-protocol-config.xml</resource-name>
         <resource-name>javax.faces.*</resource-name>
         <resource-name>com.sun.faces.*</resource-name>
         <resource-name>com.bea.faces.*</resource-name>
