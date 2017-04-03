@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.client.fhir;
 
+import org.apache.http.impl.client.HttpClientBuilder;
+
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +42,6 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.hl7.fhir.instance.client.EFhirClientException;
 import org.hl7.fhir.instance.client.FeedFormat;
 import org.hl7.fhir.instance.client.ResourceAddress;
@@ -73,7 +74,7 @@ public class ConformanceClient {
     public Conformance getConformanceStatement(String baseServiceUrl) throws URISyntaxException {
         ResourceAddress resourceAddress = new ResourceAddress(baseServiceUrl);
         return (Conformance) issueGetResourceRequest(resourceAddress.resolveMetadataUri(),
-                ResourceFormat.RESOURCE_XML.getHeader()).getResource();
+            ResourceFormat.RESOURCE_XML.getHeader()).getResource();
     }
 
     protected static <T extends Resource> ResourceRequest<T> issueGetResourceRequest(URI resourceUri, String format) {
@@ -82,7 +83,7 @@ public class ConformanceClient {
     }
 
     protected static <T extends Resource> ResourceRequest<T> issueResourceRequest(String format,
-            HttpUriRequest request) {
+        HttpUriRequest request) {
 
         configureFhirRequest(format, request);
         HttpResponse response = sendRequest(request);
@@ -105,9 +106,10 @@ public class ConformanceClient {
 
     protected static HttpResponse sendRequest(HttpUriRequest request) {
         HttpResponse response;
-        LOG.info("Conformance request method: " + request.getURI().getQuery());
+        LOG.info("Conformance request method: {}", request.getURI().getQuery());
         try {
-            response = new DefaultHttpClient().execute(request);
+
+            response = HttpClientBuilder.create().build().execute(request);
         } catch (IOException ioe) {
             throw new EFhirClientException("Error sending Http Request", ioe);
         }
@@ -149,11 +151,11 @@ public class ConformanceClient {
             format = ResourceFormat.RESOURCE_XML.getHeader();
         }
         if (format.equalsIgnoreCase("json") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_JSON.getHeader())
-                || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
+            || format.equalsIgnoreCase(FeedFormat.FEED_JSON.getHeader())) {
 
             return new JsonParser();
         } else if (format.equalsIgnoreCase("xml") || format.equalsIgnoreCase(ResourceFormat.RESOURCE_XML.getHeader())
-                || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
+            || format.equalsIgnoreCase(FeedFormat.FEED_XML.getHeader())) {
 
             return new XmlParser();
         } else {

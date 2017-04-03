@@ -67,7 +67,7 @@ public class HibernateUtil {
             // Create the SessionFactory from hibernate.cfg.xml
             if (sessionFactory == null || sessionFactory.isClosed()) {
                 sessionFactory = new Configuration().configure()
-                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
             }
         } catch (ExceptionInInitializerError he) {
             // Make sure you log the exception, as it might be swallowed
@@ -96,17 +96,18 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_EVENT_REPOSITORY);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_EVENT_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load {} {}", NhincConstants.HIBERNATE_EVENT_REPOSITORY, ex.getMessage(), ex);
         }
 
         return result;
     }
 
     public static HibernateUtil getHibernateUtil() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
-        if (hibernateUtil == null) {
-            hibernateUtil = context.getBean("eventHibernateUtil", HibernateUtil.class);
+        try(ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+            new String[] { "classpath:CONNECT-context.xml" });) {
+            if (hibernateUtil == null) {
+                hibernateUtil = context.getBean("eventHibernateUtil", HibernateUtil.class);
+            }
         }
         return hibernateUtil;
     }
