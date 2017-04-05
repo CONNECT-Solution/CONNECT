@@ -45,7 +45,7 @@ public class PolicyEngineUtilTest {
     @Test
     public void testEmtpy() {
         AssertionType assertion = new AssertionType();
-        policyEngineUtil util = new policyEngineUtil();
+        PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
         assertDeny(resp);
     }
@@ -89,7 +89,7 @@ public class PolicyEngineUtilTest {
         assertion.getUniquePatientId().add("unique patient Id");
 
         assertion.setNationalProviderId("npi");
-        policyEngineUtil util = new policyEngineUtil();
+        PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
         assertPermit(resp);
     }
@@ -131,7 +131,7 @@ public class PolicyEngineUtilTest {
         assertion.getUniquePatientId().add("unique patient Id");
 
         assertion.setNationalProviderId("npi");
-        policyEngineUtil util = new policyEngineUtil();
+        PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
         assertDeny(resp);
     }
@@ -173,7 +173,7 @@ public class PolicyEngineUtilTest {
         assertion.getUniquePatientId().add("unique patient Id");
 
         assertion.setNationalProviderId("npi");
-        policyEngineUtil util = new policyEngineUtil();
+        PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
         assertDeny(resp);
     }

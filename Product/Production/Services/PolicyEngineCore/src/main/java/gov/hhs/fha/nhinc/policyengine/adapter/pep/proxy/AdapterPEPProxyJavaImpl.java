@@ -29,14 +29,11 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterPEP.
  */
 public class AdapterPEPProxyJavaImpl implements AdapterPEPProxy {
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterPEPProxyJavaImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the PDP to determine if access is to
@@ -47,6 +44,7 @@ public class AdapterPEPProxyJavaImpl implements AdapterPEPProxy {
      */
     @Override
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
+        
         //Insert custom logic for consent management such as CONNECT PEP plugin
         //Default is noop permit.
 

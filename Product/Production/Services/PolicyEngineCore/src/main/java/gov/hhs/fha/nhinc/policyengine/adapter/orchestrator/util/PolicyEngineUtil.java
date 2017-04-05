@@ -40,9 +40,9 @@ import org.slf4j.LoggerFactory;
  * @author achidambaram
  *
  */
-public class policyEngineUtil {
+public class PolicyEngineUtil {
 
-    private static final Logger LOG = LoggerFactory.getLogger(policyEngineUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineUtil.class);
 
     public CheckPolicyResponseType checkAssertionAttributeStatement(AssertionType assertion) {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();

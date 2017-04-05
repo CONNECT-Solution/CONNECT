@@ -65,25 +65,7 @@
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl" id="adapterpolicyengineorchestratorwsunsecured" name="adapterpolicyengineorchestratorwsunsecured">
         <meta key="impltype" value="wsunsecured"/>
     </bean>
-
-    <!--
-        Beans defined for adapterpdp
-    -->
-    <alias alias="adapterpdp" name="adapterpdpnoop" />
-
-    <!-- No-op Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyNoopImpl" id="adapterpdpnoop" name="adapterpdpnoop">
-        <meta key="impltype" value="noop"/>
-    </bean>
-
-    <!-- Java Implementation of policyengine as per XACML specification-->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyJavaImpl" id="adapterpdpjava" name="adapterpdpjava">
-        <meta key="impltype" value="java"/>
-    </bean>
-
-    <!-- OpenSSO Client Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyOpenSSOClientImpl" id="adapterpdpopenssoclient" name="adapterpdpopenssoclient" />
-
+	
     <!--
         Beans defined for adapterpep
     -->
@@ -109,28 +91,4 @@
         <meta key="impltype" value="wsunsecured"/>
     </bean>
 
-    <!--
-        Beans defined for adapterpip
-    -->
-    <alias alias="adapterpip" name="adapterpipnoop" />
-
-    <!-- No-op Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyOptInNoOpImpl" id="adapterpipnoop" name="adapterpipnoop">
-        <meta key="impltype" value="noop"/>
-        <meta key="default" value="true"/>
-    </bean>
-
-    <!-- No-op deny Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyNoOpImpl" id="adapterpipnoopdeny" name="adapterpipnoopdeny">
-    </bean>
-
-    <!-- Java Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyJavaImpl" id="adapterpipjava" name="adapterpipjava">
-        <meta key="impltype" value="java"/>
-    </bean>
-
-    <!-- Unsecured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyWebServiceUnsecuredImpl" id="adapterpipwsunsecured" name="adapterpipwsunsecured">
-        <meta key="impltype" value="wsunsecured"/>
-    </bean>
 </beans>
