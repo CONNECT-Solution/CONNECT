@@ -70,15 +70,15 @@ rem # Increase memory allocation
 set "JAVA_OPTS=%JAVA_OPTS% -Xmx5000m -XX:MaxPermSize=1024m -XX:PermSize=1024m"
  
 rem # configuration directory
-set "JAVA_OPTS=%JAVA_OPTS% -Dnhinc.properties.dir=${JBOSS_HOME}/modules/system/layers/base/org/connectopensource/configuration/main"
+set "JAVA_OPTS=%JAVA_OPTS% -Dnhinc.properties.dir=%JBOSS_HOME%/modules/system/layers/base/org/connectopensource/configuration/main"
  
 rem # keystore and truststore
 set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.keyStorePassword=changeit"
 set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStorePassword=changeit"
-set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.keyStore=${JBOSS_HOME}/modules/system/layers/base/org/connectopensource/configuration/main/gateway.jks"
+set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.keyStore=%JBOSS_HOME%/modules/system/layers/base/org/connectopensource/configuration/main/gateway.jks"
 set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.keyStoreType=JKS"
 set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStoreType=JKS"
-set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore=${JBOSS_HOME}/modules/system/layers/base/org/connectopensource/configuration/main/cacerts.jks"
+set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore=%JBOSS_HOME%/modules/system/layers/base/org/connectopensource/configuration/main/cacerts.jks"
 set "JAVA_OPTS=%JAVA_OPTS% -DCLIENT_KEY_ALIAS=gateway"
 set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true"
 set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true"
