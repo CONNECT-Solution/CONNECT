@@ -75,7 +75,7 @@ References:
 Setting up CONNECT as a Direct HISP
 ===================================
 
-###Security Policy Files
+### Security Policy Files
 
 This is now a CONNECT prerequisite -- see main [README](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT/README.md)
 
@@ -92,7 +92,7 @@ Mail Servers
 
 For this step two mail servers are needed. 
 
-###Internal Mail Server
+### Internal Mail Server
 
 The internal mail server can be used by users at the gateway to initiate Direct messages by sending an email. Routing rules are put in place to drop outgoing messages which need to be processed by Direct into the Inbox of the CONNECT Gateway mail account. These rules typically match the domain of the recipient against a list of HISP domains with which the Gateway is allowed to exchange messages.
 
@@ -100,7 +100,7 @@ This internal mail server can also be used as an SMTP edge client when the CONNE
 
 __Note__: The internal mail server can be omitted if the CONNECT Gateway Direct HISP is configured to initiate and receive Direct messages using SOAP/XDR edge clients exclusively. (See "Edge Client Configuration")  
 
-###External Mail Server
+### External Mail Server
 
 The external mail server is used by the CONNECT Gateway to send outbound direct messages and receive inbound direct messages. Inbound messages must be dropped into the Inbox of the CONNECT Gateway mail account.
 
@@ -109,7 +109,7 @@ Both mail servers must support SMTP/TLS and IMAPS.
 DNS (RFC4398)
 -------------
 
-###Prerequisites
+### Prerequisites
 * DNS Solution which supports editing the Zone File.  
 * PKIX Certificates signed by a CA.
 
@@ -143,7 +143,7 @@ Installing the CONNECT Direct feature
 
 The Direct feature is included in CONNECT as a "selectable service", however it is currently not enabled by default.
 
-###Building CONNECT with the Direct Feature
+### Building CONNECT with the Direct Feature
 
 __Note:__ All of the commands referenced here are explained in more detail in the `<CONNECT git root>/README.md` file.
 
@@ -155,11 +155,11 @@ This command also interacts with other profiles, for example to build CONNECT wi
 
 	mvn clean install -P Direct,PD,DQ,RD,was
 	
-###Deploying CONNECT from a Direct perspective
+### Deploying CONNECT from a Direct perspective
     
 When running `ant install` to create a local Glassfish instance, only the default domain "direct.example.org" is configured in the agent settings by default. To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
 
-####Configuring the SMTP Agent settings
+#### Configuring the SMTP Agent settings
 Agent configuration consists of setting the runtime parameters for security and trust agents. As part of CONNECT, configuration of SMTP Agent Settings are no longer supported through the smtp.agent.config.xml configuration file. All the Config agent settings are stored in the ConfigDB database and are configured through the CONNECT AdminGUI. The CONNECT AdminGUI allows system users to configure the following entities which are used by the Direct code integrated with the CONNECT Gateway Direct HISP:
 
       1. Domains
@@ -171,7 +171,7 @@ Agent configuration consists of setting the runtime parameters for security and 
 By default, CONNECT comes with a domain direct.example.org and additional domains can be created or configured using the CONNECT AdminGUI.
 Please refer to the [CONNECT AdminGUI user guide](https://connectopensource.atlassian.net/wiki/x/EQD9), for more information.
 
-#####Configure local HISP Private Key
+##### Configure local HISP Private Key
 The Local HISP private/public key pair can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the local HISP private key:
 
 1. WS  -- the key pair stored in the ConfigDB database and this is the default value
@@ -201,7 +201,7 @@ For Storage Type KEYSTORE, the following properties should be added from CONNECT
 
 The PrivateStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
-#####Configure Public Certificates of trusted HISPs
+##### Configure Public Certificates of trusted HISPs
 The  Public Certificate can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports four ways to discover the public certificate of the Destination HISP:
 
 1. DNS -- the public certificate of the Destination HISP is located through DNS lookup and this is the default value. 
@@ -228,7 +228,7 @@ For the Type KEYSTORE, the following properties should be added from CONNECT Adm
 
 The PublicStoreType property can also have more than one type value, the values are delimited by comma (example, PublicStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
-#####Configure Trust Anchors of trusted HISPs
+##### Configure Trust Anchors of trusted HISPs
 The trust anchors are the CA signing certs for the HISP domains that we wish to exchange messages with. The Trust anchors can be configured in the Agent Settings using the CONNECT AdminGUI. CONNECT Direct supports three Storage Types for holding the Destination HISPs anchor certificates:
 
 1. WS  -- the key pair stored in the ConfigDB database and this is the default value
@@ -255,10 +255,10 @@ For Storage Type KEYSTORE, the following properties should be added from CONNECT
 
 The AnchorStoreType property can also have more than one type value, the values are delimited by comma (example, AnchorStoreType="KEYSTORE, WS"), but make sure the respective properties are also configured.
 
-#####Configure Trust Bundles
+##### Configure Trust Bundles
 Trust Bundles are a collection of trust anchor certificates. Trust bundles are packaged into a single file using the PKCS7 standard and distributed via a known URL (the location is discovered out of band). Trust bundles are configured from the Trust Bundles tab through CONNECT AdminGUI. In order to use a Trust Bundle, it has to be associated to the domain through Domain Trust Bundle association page(From CONNECT AdminGUI --> Domains tab (Edit Domain) --> Trust Bundles tab).
 
-###Configure Direct Pollers
+### Configure Direct Pollers
 Once the application configuration has been completed and the application deploys successfully, regardless of the target application server, the "pollers" will need to be enabled. The pollers are disabled by default because there is no feasable way at this point to deploy and configure all of the necessary Direct HISP components automatically. Update `<nhinc.properties.dir>/direct.appcontext.xml` from:
 
     <!-- task:scheduled-tasks scheduler="directScheduler">
@@ -286,7 +286,7 @@ Gateway Configuration
 
 The configuration files can be found under the file path specified by `-Dproperties.dir=` in the startup script for the application server.
 
-###Configure Mail Server Properties
+### Configure Mail Server Properties
 
 --> direct.mail.internal.properties : _defines properties for the internal mail server._   
 --> direct.mail.external.properties : _defines properties for the internal mail server._
@@ -322,14 +322,14 @@ __Links:__
 [http://wiki.directproject.org/smtp+gateway+configuration](http://wiki.directproject.org/smtp+gateway+configuration)  
 [http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/](http://api.nhindirect.org/java/site/gateway/3.0.1/users-guide/)
 
-###Configuring the SMTP Agent Cache
+### Configuring the SMTP Agent Cache
 CONNECT Direct caches all the SMTP agent settings during the server startup. The cache can be configured to refresh every 'n' milli seconds using the property "AgentSettingsCacheRefreshTime" which is defined in gateway.properties. The default value is 5 minutes. Whenever a Agent Setting Entity is changed/added/removed, the Direct Gateway will take 'AgentSettingsCacheRefreshTime' milli seconds to take effect. The cache refresh can be enabled or disabled using the property AgentSettingsCacheRefreshActive, by default the cache refresh is enabled. Please note setting the AgentSettingsCacheRefreshTime very low may hamper the performance of the Direct Gateway.
 
     # Agent Settings Cache Refresh time in milli seconds, 60000=1 minute 300000=5 minutes
     AgentSettingsCacheRefreshTime=300000
     AgentSettingsCacheRefreshActive=true
 
-###Configuring QOS settings
+### Configuring QOS settings
 CONNECT Direct Quality Of Service (QOS) enhancement supports tracking and monitoring of outgoing Direct messages. The outgoing Message monitoring and tracking can be configured throguh different properties defined in the gateway.properties. The Message monitoring and tracking can be enabled or disabled through the "MessageMonitoringEnabled" property and by default its enabled. Currently Quality of Service (QOS) is not supported for SOAP/XDR based edge client systems and the property "MessageMonitoringEnabled" should be set to false in this case. 
 
 The time limit before the Processed and Dispatched MDNs should be received from the Destination HISP can be configured through "ProcessedMessageReceiveTimeLimit" and "DispatchedMessageReceiveTimeLimit" properties. The default values are 1 hour and 24 hours respectively. The properties "OutboundFailedMessageRetryCount", "InboundFailedMessageRetryCount" and "NotifyOutboundSecurityFailureImmediate" are for future use and currently not used.
@@ -346,7 +346,7 @@ The time limit before the Processed and Dispatched MDNs should be received from 
     # 24 hours
     DispatchedMessageReceiveTimeLimit=86400000
 
-###Configuring Mail Pollers
+### Configuring Mail Pollers
 direct.appcontext.xml : _used to schedule the mail pollers._
 
 Both internal and external mail servers must be polled for messages as a scheduled task. CONNECT Gateway Direct HISP uses spring task scheduling to achieve this. The polling task will run as often as you like, according to the format specified in the cron attribute. Note that values of `connect.max.msgs.in.batch` along with the cron entry can be tweaked to even out load and improve performance depending on hardware and infrastructure requirements.
@@ -370,7 +370,7 @@ __Links:__
 [http://static.springsource.org/spring/docs/3.0.x/reference/scheduling.html](http://static.springsource.org/spring/docs/3.0.x/reference/scheduling.html)  
 [http://blog.springsource.org/2010/01/05/task-scheduling-simplifications-in-spring-3-0/](http://blog.springsource.org/2010/01/05/task-scheduling-simplifications-in-spring-3-0/)
 
-###Edge Client Configuration
+### Edge Client Configuration
 
 The following section is used to configure how inbound direct messages are handled (SMTP/soap/java) after an inbound direct message is processed. 
 
@@ -388,11 +388,11 @@ or:
 
 	<alias alias="directedgeclient" name="directedgeclientsoap" />
 	
-####directedgeclientsmtp
+#### directedgeclientsmtp
 
 When SMTP is specified, processed direct messages and MDN messages are sent to the recipient on the internal mail server.	
 
-####directedgeclientjava
+#### directedgeclientjava
 
 When java is specified, processed direct messages are handled by the Java class configured. A stub class is included by default which can be replaced with a real implementation:
 
@@ -402,7 +402,7 @@ When java is specified, processed direct messages are handled by the Java class 
 
 MDN messages are logged.
 
-####directedgeclientsoap
+#### directedgeclientsoap
 
 When SOAP is specified, the endpoint adapter is invoked as specified in internalConnectionInfo.xml.
 
@@ -428,7 +428,7 @@ Register the adapter endpoint in _businessService/bindingTemplates/bindingTempla
 
 MDN messages are logged.
 
-###Initiating a message using SOAP+XDR
+### Initiating a message using SOAP+XDR
 
 CONNECT adopters can initiate direct messages using a SOAP web services endpoint modeled after IHE's XDR specification. Use of this service assumes items in the previous sections have been configured appropriately, however there is no technical dependency on the edge client configuration to receive messages from CONNECT. In other words it is a valid use case to use this SOAP+XDR edge service regardless of the Edge Client Configuration.
 
