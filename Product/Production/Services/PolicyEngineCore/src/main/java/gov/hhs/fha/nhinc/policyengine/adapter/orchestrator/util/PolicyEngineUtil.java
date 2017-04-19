@@ -27,7 +27,10 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.util;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
@@ -45,132 +48,108 @@ public class PolicyEngineUtil {
     private static final Logger LOG = LoggerFactory.getLogger(PolicyEngineUtil.class);
 
     public CheckPolicyResponseType checkAssertionAttributeStatement(AssertionType assertion) {
-        CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
+        StringBuilder sBuilder = new StringBuilder();
+        boolean passesPolicyCheck = true;
         if (assertion != null) {
-            if (assertion.getUserInfo() != null) {
-                PersonNameType personType = assertion.getUserInfo().getPersonName();
-                if (personType != null) {
-                    if (StringUtils.isBlank(personType.getFamilyName())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("FamilyName Check Failed");
-                        return oResponse;
-                    }
-                    if (StringUtils.isBlank(personType.getSecondNameOrInitials())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("SecondNameOrInitials Check Failed");
-                        return oResponse;
-                    }
-                    if (StringUtils.isBlank(personType.getGivenName())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("Given Name Check Failed");
-                        return oResponse;
-                    }
-                    LOG.debug("Person Type Check Passed");
-                } else {
-                    oResponse = createResponseWithDENY(oResponse);
-                    LOG.debug("Person Type Check Failed");
-                    return oResponse;
-                }
-                if (assertion.getUserInfo().getOrg() != null) {
-                    if (StringUtils.isBlank(assertion.getUserInfo().getOrg().getName())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("assertion.getUserInfo().getOrg().getName() Check Failed");
-                        return oResponse;
-                    }
-                    if (StringUtils.isBlank(assertion.getUserInfo().getOrg().getHomeCommunityId())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("assertion.getUserInfo().getOrg().getHomeCommunityId() Check Failed");
-                        return oResponse;
-                    }
-                }
-                if (assertion.getUserInfo().getRoleCoded() != null) {
-                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCode())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("assertion.getUserInfo().getRoleCoded().getCode() Check Failed");
-                        return oResponse;
-                    }
-                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystem())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("assertion.getUserInfo().getRoleCoded().getCodeSystem() Check Failed");
-                        return oResponse;
-                    }
-                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystemName())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("assertion.getUserInfo().getRoleCoded().getCodeSystemName() Check Failed");
-                        return oResponse;
-                    }
-                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getDisplayName())) {
-                        oResponse = createResponseWithDENY(oResponse);
-                        LOG.debug("assertion.getUserInfo().getRoleCoded().getDisplayName() Check Failed");
-                        return oResponse;
-                    }
-                }
-            } else {
-                oResponse = createResponseWithDENY(oResponse);
-                LOG.debug("User Info Check Failed");
-                return oResponse;
-            }
-            if (assertion.getPurposeOfDisclosureCoded() != null) {
-                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getCode())) {
-                    oResponse = createResponseWithDENY(oResponse);
-                    LOG.debug("getPurposeOfDisclosureCoded().getCode() Check Failed");
-
-                    return oResponse;
-                }
-                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getCodeSystem())) {
-                    oResponse = createResponseWithDENY(oResponse);
-                    LOG.debug("getPurposeOfDisclosureCoded().getCodeSystem() Check Failed");
-
-                    return oResponse;
-                }
-                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getCodeSystemName())) {
-                    oResponse = createResponseWithDENY(oResponse);
-                    LOG.debug("getPurposeOfDisclosureCoded().getCodeSystemName() Check Failed");
-
-                    return oResponse;
-                }
-                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getDisplayName())) {
-                    oResponse = createResponseWithDENY(oResponse);
-                    LOG.debug("getPurposeOfDisclosureCoded().getDisplayName() Check Failed");
-
-                    return oResponse;
-                }
-            } else {
-                oResponse = createResponseWithDENY(oResponse);
-                LOG.debug("PurposeOfDisclosureCoded Check Failed");
-                return oResponse;
-            }
-            if (assertion.getHomeCommunity() != null) {
-                if (StringUtils.isBlank(assertion.getHomeCommunity().getHomeCommunityId())) {
-                    oResponse = createResponseWithDENY(oResponse);
-                    LOG.debug("HomeCommunityId Check Failed");
-                    return oResponse;
-                }
-            } else {
-                oResponse = createResponseWithDENY(oResponse);
-                LOG.debug("HomeCommunity Check Failed");
-                return oResponse;
-            }
+            passesPolicyCheck = checkUserInfo(assertion.getUserInfo(), sBuilder)
+                    && checkPurposeOfDisclosure(assertion.getPurposeOfDisclosureCoded(), sBuilder)
+                    && checkHomeCommunity(assertion.getHomeCommunity(), sBuilder);
         } else {
-            oResponse = createResponseWithDENY(oResponse);
-            LOG.debug("assertion check failed");
-            return oResponse;
+            sBuilder.append("| Assertion check failed. |");
+            passesPolicyCheck = false;
         }
-        ResponseType Response = new ResponseType();
-        ResultType oResult = new ResultType();
-        oResult.setDecision(DecisionType.PERMIT);
-        Response.getResult().add(oResult);
-        oResponse.setResponse(Response);
-        LOG.debug("Exiting out from CheckPolicyResponseType without any error");
+
+        DecisionType decision;
+        if(passesPolicyCheck) {
+            decision = DecisionType.PERMIT;
+            sBuilder.append("Exiting out from CheckPolicyResponseType without any error");
+        } else {
+            decision = DecisionType.DENY;
+        }
+        return createPolicyResponse(decision, sBuilder.toString());
+    }
+
+    private CheckPolicyResponseType createPolicyResponse(DecisionType dType, String message) {
+        LOG.info(message);
+        ResultType result = new ResultType();
+        result.setDecision(dType);
+        CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
+        ResponseType respType = new ResponseType();
+        respType.getResult().add(result);
+        oResponse.setResponse(respType);
         return oResponse;
     }
 
-    private CheckPolicyResponseType createResponseWithDENY(CheckPolicyResponseType response) {
-        ResponseType Response = new ResponseType();
-        ResultType oResult = new ResultType();
-        oResult.setDecision(DecisionType.DENY);
-        Response.getResult().add(oResult);
-        response.setResponse(Response);
-        return response;
+    private boolean checkUserInfo(UserType userInfo, StringBuilder sBuilder) {
+        if (userInfo == null) {
+            sBuilder.append("| User Info Check Failed |");
+            return false;
+        } else {
+            return checkPersonName(userInfo.getPersonName(), sBuilder)
+                    && checkOrg(userInfo.getOrg(), sBuilder)
+                    && checkRoleCoded(userInfo.getRoleCoded(), sBuilder);
+        }
+    }
+
+    private boolean checkPersonName(PersonNameType personName, StringBuilder sBuilder) {
+        if (personName == null) {
+            sBuilder.append("| Person Type Check Failed |");
+            return false;
+        } else {
+            return checkString(personName.getFamilyName(), sBuilder, "| FamilyName Check Failed |")
+                    && checkString(personName.getSecondNameOrInitials(), sBuilder, "| SecondNameOrInitials Check Failed |")
+                    && checkString(personName.getGivenName(), sBuilder, "| Given Name Check Failed |");
+        }
+    }
+
+    private boolean checkOrg(HomeCommunityType org, StringBuilder sBuilder) {
+        if (org == null) {
+            sBuilder.append("| Org Info Check Failed |");
+            return false;
+        } else {
+            return checkString(org.getName(), sBuilder, "| HomeCommunity Name Check Failed |")
+                    && checkString(org.getHomeCommunityId(), sBuilder, "| HomeCommunityId Check Failed |");
+        }
+    }
+
+    private boolean checkRoleCoded(CeType roleCoded, StringBuilder sBuilder) {
+        if (roleCoded == null) {
+            sBuilder.append("| RoleCode Check Failed |");
+            return false;
+        } else {
+            return checkString(roleCoded.getCode(), sBuilder, "| RoleCoded Code Check Failed |")
+                    && checkString(roleCoded.getCodeSystem(), sBuilder, "| RoleCoded CodeSystem Check Failed |")
+                    && checkString(roleCoded.getCodeSystemName(), sBuilder, "| RoleCoded CodeSystemName Check Failed |")
+                    && checkString(roleCoded.getDisplayName(), sBuilder, "| RoleCoded DisplayName Check Failed |");
+        }
+    }
+
+    private boolean checkPurposeOfDisclosure(CeType purposeOfDisclosureCoded, StringBuilder sBuilder) {
+        if (purposeOfDisclosureCoded == null) {
+            sBuilder.append("| PurposeOfDisclosureCoded Check Failed |");
+            return false;
+        } else {
+            return checkString(purposeOfDisclosureCoded.getCode(), sBuilder, "| PurposeOf Code Check Failed |")
+                    && checkString(purposeOfDisclosureCoded.getCodeSystem(), sBuilder, "| PurposeOf CodeSystem Check Failed |")
+                    && checkString(purposeOfDisclosureCoded.getCodeSystemName(), sBuilder, "| PurposeOf CodeSystemName Check Failed |")
+                    && checkString(purposeOfDisclosureCoded.getDisplayName(), sBuilder, "| PurposeOf DisplayName Check Failed |");
+        }
+    }
+
+    private boolean checkHomeCommunity(HomeCommunityType homeCommunity, StringBuilder sBuilder) {
+        if (homeCommunity == null) {
+            sBuilder.append("| HomeCommunity Check Failed. |");
+            return false;
+        } else {
+            return checkString(homeCommunity.getHomeCommunityId(), sBuilder, "| HomeCommunity Id Check Failed |");
+        }
+    }
+
+    private boolean checkString(String checkedString, StringBuilder sBuilder, String message) {
+        if (StringUtils.isBlank(checkedString)) {
+            sBuilder.append(message);
+            return false;
+        }
+        return true;
     }
 }
