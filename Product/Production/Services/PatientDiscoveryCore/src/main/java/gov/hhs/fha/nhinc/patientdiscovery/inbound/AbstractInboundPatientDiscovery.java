@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -36,7 +37,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 public abstract class AbstractInboundPatientDiscovery implements InboundPatientDiscovery {
 
-    public abstract PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
+    public abstract PatientDiscoveryResponseWrapper process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
         throws PatientDiscoveryException;
 
     public abstract PatientDiscoveryAuditLogger getAuditLogger();
@@ -51,12 +52,12 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
      * @throws gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException
      */
     @Override
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion,
+    public PatientDiscoveryResponseWrapper respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion,
         Properties webContextProperties) throws PatientDiscoveryException {
 
-        PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
-        auditResponse(body, response, assertion, webContextProperties);
-        return response;
+        PatientDiscoveryResponseWrapper wrapperResponse = process(body, assertion, webContextProperties);
+        auditResponse(body, wrapperResponse.getResponseMessage(), assertion, webContextProperties);
+        return wrapperResponse;
     }
 
     protected void auditResponse(PRPAIN201305UV02 request, PRPAIN201306UV02 response, AssertionType assertion,

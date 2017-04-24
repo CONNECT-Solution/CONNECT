@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
@@ -100,7 +101,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         PatientDiscoveryProcessor msgProcessor = new PatientDiscovery201305Processor();
         PRPAIN201306UV02 resp;
         try {
-            resp = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
+            PatientDiscoveryResponseWrapper responseWrapper = msgProcessor.process201305(request.getPRPAIN201305UV02(), request.getAssertion());
+            resp = responseWrapper.getResponseMessage();
 
             // Generate a new response assertion
             AsyncMessageProcessHelper asyncProcess = createAsyncProcesser();

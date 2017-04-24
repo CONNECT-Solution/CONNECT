@@ -329,6 +329,7 @@ public class NhincConstants {
     public static final String WS_SOAP_ENV_PREFIX = "soap";
     public static final String WS_ADDRESSING_URL = "http://www.w3.org/2005/08/addressing";
     public static final String WS_ADDRESSING_URL_ANONYMOUS = "http://www.w3.org/2005/08/addressing/anonymous";
+    public static final String WS_CQ_NAMESPACE = "urn:carequality";
     public static final String WS_SOAP_HEADER_ACTION = "Action";
     public static final String WS_RETRIEVE_DOCUMENT_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
     public static final String WS_PROVIDE_AND_REGISTER_DOCUMENT_ACTION = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
@@ -337,6 +338,7 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_REPLYTO = "ReplyTo";
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
+    public static final String WS_SOAP_HEADER_ACCESS_DENIAL = "AccessDenial";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
     public static final String WS_SOAP_TARGET_HOME_COMMUNITY_ID = "TargetHomeCommunityID";
     // Document Query Constants

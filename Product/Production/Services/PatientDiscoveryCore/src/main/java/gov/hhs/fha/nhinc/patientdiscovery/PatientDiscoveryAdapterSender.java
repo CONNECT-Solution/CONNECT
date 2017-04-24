@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.Adapte
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import org.hl7.v3.AsyncAdapterPatientDiscoveryErrorRequestType;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -56,10 +57,11 @@ public class PatientDiscoveryAdapterSender {
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
-        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(),
+        
+        PatientDiscoveryResponseWrapper respWrapper = proxy.respondingGatewayPRPAIN201305UV02(adapterReq.getPRPAIN201305UV02(),
                 adapterReq.getAssertion());
 
-        return adapterResp;
+        return respWrapper.getResponseMessage();
     }
 
     public MCCIIN000002UV01 sendDeferredReqErrorToAgency(PRPAIN201305UV02 request, AssertionType assertion,

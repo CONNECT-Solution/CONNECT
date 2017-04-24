@@ -24,35 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.adapter;
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
+import java.util.List;
+import org.apache.cxf.headers.Header;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * This is the orchestration code for the patient discovery.
  *
- * @author westberg
+ * @author jassmit
  */
-public class AdapterPatientDiscoveryOrchImpl {
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryOrchImpl.class);
+public class PatientDiscoveryResponseWrapper {
+    
+    private PRPAIN201306UV02 responseMessage;
+    private List<Header> responseHeaders;
 
-    /**
-     * Since this method is for pass through mode. There is nothing we do with it. It is intended that this class and
-     * the web services are completely overridden by the customer. We are just returning an empty result.
-     *
-     * @param request The patient discovery message that came into the gateway.
-     * @param assertion The assertion information.
-     * @return An emtpy response
-     */
-    public PatientDiscoveryResponseWrapper respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request,
-            AssertionType assertion) {
-        LOG.debug("Entering AdapterPatientDiscoveryOrchImpl.respondingGatewayPRPAIN201305UV02");
-        return new PatientDiscoveryResponseWrapper(new PRPAIN201306UV02());
+    public PatientDiscoveryResponseWrapper() {
+        
+    }
+    
+    public PatientDiscoveryResponseWrapper(PRPAIN201306UV02 responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+    
+    public PRPAIN201306UV02 getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(PRPAIN201306UV02 responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public List<Header> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    public void setResponseHeaders(List<Header> responseHeaders) {
+        this.responseHeaders = responseHeaders;
     }
 
 }

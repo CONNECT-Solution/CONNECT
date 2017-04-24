@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -63,10 +64,10 @@ public class AdapterPatientDiscoveryImpl extends BaseService {
         }
 
         AdapterPatientDiscoveryOrchImpl oOrchestrator = new AdapterPatientDiscoveryOrchImpl();
-        PRPAIN201306UV02 response = oOrchestrator.respondingGatewayPRPAIN201305UV02(request, assertion);
-
+        PatientDiscoveryResponseWrapper respWrapper = oOrchestrator.respondingGatewayPRPAIN201305UV02(request, assertion);
+        // TODO: Add ability to send back any included soapHeaders
         // Send response back to the initiating Gateway
         LOG.debug("Exiting AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
-        return response;
+        return respWrapper.getResponseMessage();
     }
 }

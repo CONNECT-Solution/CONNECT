@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -116,8 +117,9 @@ public class PatientDiscovery201305ProcessorTest {
 
         PRPAIN201306UV02 result = null;
 		try {
-			result = instance.process201305(request, assertion);
-		} catch (PatientDiscoveryException e) {
+			PatientDiscoveryResponseWrapper respWrapper = instance.process201305(request, assertion);
+                        result = respWrapper.getResponseMessage();
+                } catch (PatientDiscoveryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -168,8 +170,9 @@ public class PatientDiscovery201305ProcessorTest {
 
         PRPAIN201306UV02 result = null;
 		try {
-			result = instance.process201305(request, assertion);
-		} catch (PatientDiscoveryException e) {
+			PatientDiscoveryResponseWrapper respWrapper = instance.process201305(request, assertion);
+                        result = respWrapper.getResponseMessage();
+                } catch (PatientDiscoveryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -219,8 +222,9 @@ public class PatientDiscovery201305ProcessorTest {
 
         PRPAIN201306UV02 result = null;
 		try {
-			result = instance.process201305(request, assertion);
-		} catch (PatientDiscoveryException e) {
+			PatientDiscoveryResponseWrapper respWrapper = instance.process201305(request, assertion);
+                        result = respWrapper.getResponseMessage();
+                } catch (PatientDiscoveryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
@@ -71,20 +72,18 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
      * @throws PRPAIN201305UV02Fault a fault if there's an exception
      */
     @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-        afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
-        serviceType = "Patient Discovery", version = "1.0")
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            serviceType = "Patient Discovery", version = "1.0")
     @Override
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
         try {
             AssertionType assertion = getAssertion(context, null);
-            return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion, getWebContextProperties(context));
+            PatientDiscoveryResponseWrapper responseWrapper = inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion, getWebContextProperties(context));
+            addSoapHeaders("patientDiscovery", responseWrapper.getResponseHeaders(), context);
+            return responseWrapper.getResponseMessage();
         } catch (PatientDiscoveryException e) {
             LOG.trace("Nhin PD exception: {}", e.getLocalizedMessage(), e);
-            PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
-            type.setErrorCode("920");
-            type.setMessage(e.getLocalizedMessage());
-            PRPAIN201305UV02Fault fault = new PRPAIN201305UV02Fault(e.getMessage(), type);
-            throw fault;
+            throw createFault(e, "920");
         }
     }
 
@@ -104,5 +103,13 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
      */
     public InboundPatientDiscovery getInboundPatientDiscovery() {
         return this.inboundPatientDiscovery;
+    }
+
+    private PRPAIN201305UV02Fault createFault(PatientDiscoveryException e, String errorCode) {
+        PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
+        type.setErrorCode(errorCode);
+        type.setMessage(e.getLocalizedMessage());
+        PRPAIN201305UV02Fault fault = new PRPAIN201305UV02Fault(e.getMessage(), type);
+        return fault;
     }
 }

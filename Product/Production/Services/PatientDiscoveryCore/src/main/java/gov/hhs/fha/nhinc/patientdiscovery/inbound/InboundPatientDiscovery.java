@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -42,7 +43,7 @@ public interface InboundPatientDiscovery {
      * @return
      * @throws PatientDiscoveryException
      */
-    public abstract PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, 
+    public abstract PatientDiscoveryResponseWrapper respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, 
         Properties webContextProperties) throws PatientDiscoveryException;
 
 }

@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
@@ -68,21 +69,21 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
 
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
+    public PatientDiscoveryResponseWrapper respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
         throws PatientDiscoveryException {
 
-        PRPAIN201306UV02 response = process(body, assertion, webContextProperties);
+        PatientDiscoveryResponseWrapper responseWrapper = process(body, assertion, webContextProperties);
 
-        auditResponse(body, response, assertion, webContextProperties);
+        auditResponse(body, responseWrapper.getResponseMessage(), assertion, webContextProperties);
 
-        return response;
+        return responseWrapper;
     }
 
     @Override
-    public PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
+    public PatientDiscoveryResponseWrapper process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties)
         throws PatientDiscoveryException {
 
-        PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
+        PatientDiscoveryResponseWrapper response = patientDiscoveryProcessor.process201305(body, assertion);
         return response;
     }
 

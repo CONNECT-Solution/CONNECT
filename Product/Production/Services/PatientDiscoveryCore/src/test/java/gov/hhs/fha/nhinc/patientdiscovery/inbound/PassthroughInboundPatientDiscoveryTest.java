@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryAuditTransforms;
 import java.util.Properties;
@@ -63,21 +64,21 @@ public class PassthroughInboundPatientDiscoveryTest {
     public void passthroughInboundPatientDiscovery() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         AssertionType assertion = new AssertionType();
-        PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
+        PatientDiscoveryResponseWrapper expectedRespWrapper = new PatientDiscoveryResponseWrapper(new PRPAIN201306UV02());
         Properties webContextProperties = new Properties();
 
         PatientDiscoveryAuditLogger auditLogger = getAuditLogger(true);
 
         when(adapterFactory.create()).thenReturn(adapterProxy);
-        when(adapterProxy.respondingGatewayPRPAIN201305UV02(request, assertion)).thenReturn(expectedResponse);
+        when(adapterProxy.respondingGatewayPRPAIN201305UV02(request, assertion)).thenReturn(expectedRespWrapper);
 
         PassthroughInboundPatientDiscovery passthroughPatientDiscovery = new PassthroughInboundPatientDiscovery(
             adapterFactory, auditLogger);
 
-        PRPAIN201306UV02 actualResponse = passthroughPatientDiscovery.respondingGatewayPRPAIN201305UV02(request,
+        PatientDiscoveryResponseWrapper actualResponse = passthroughPatientDiscovery.respondingGatewayPRPAIN201305UV02(request,
             assertion, webContextProperties);
 
-        assertSame(expectedResponse, actualResponse);
+        assertSame(expectedRespWrapper.getResponseMessage(), actualResponse.getResponseMessage());
 
         verify(mockEJBLogger).auditResponseMessage(any(PRPAIN201305UV02.class), any(PRPAIN201306UV02.class),
             any(AssertionType.class), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
@@ -89,21 +90,21 @@ public class PassthroughInboundPatientDiscoveryTest {
     public void passthroughInboundPDWithAuditLoggingOff() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         AssertionType assertion = new AssertionType();
-        PRPAIN201306UV02 expectedResponse = new PRPAIN201306UV02();
+        PatientDiscoveryResponseWrapper expectedRespWrapper = new PatientDiscoveryResponseWrapper(new PRPAIN201306UV02());
         Properties webContextProperties = new Properties();
 
         PatientDiscoveryAuditLogger auditLogger = getAuditLogger(false);
 
         when(adapterFactory.create()).thenReturn(adapterProxy);
-        when(adapterProxy.respondingGatewayPRPAIN201305UV02(request, assertion)).thenReturn(expectedResponse);
+        when(adapterProxy.respondingGatewayPRPAIN201305UV02(request, assertion)).thenReturn(expectedRespWrapper);
 
         PassthroughInboundPatientDiscovery passthroughPatientDiscovery = new PassthroughInboundPatientDiscovery(
             adapterFactory, auditLogger);
 
-        PRPAIN201306UV02 actualResponse = passthroughPatientDiscovery.respondingGatewayPRPAIN201305UV02(request,
+        PatientDiscoveryResponseWrapper actualResponse = passthroughPatientDiscovery.respondingGatewayPRPAIN201305UV02(request,
             assertion, webContextProperties);
 
-        assertSame(expectedResponse, actualResponse);
+        assertSame(expectedRespWrapper.getResponseMessage(), actualResponse.getResponseMessage());
 
         verify(mockEJBLogger, never()).auditResponseMessage(any(PRPAIN201305UV02.class), any(PRPAIN201306UV02.class),
             any(AssertionType.class), isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),

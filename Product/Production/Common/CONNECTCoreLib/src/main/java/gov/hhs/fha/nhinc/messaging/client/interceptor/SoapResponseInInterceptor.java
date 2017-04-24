@@ -86,10 +86,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
     @SuppressWarnings("unchecked")
     public static void addResponseMessageIdToContext(Object port, Message currentMessage) {
         try {
-            Client clientProxy = ClientProxy.getClient(port);
-
-            Map<String, Object> responseContext = clientProxy.getResponseContext();
-            String responseMsgId = (String) responseContext.get(NhincConstants.RESPONSE_MESSAGE_ID_KEY);
+            String responseMsgId = (String) getResponseContext(port).get(NhincConstants.RESPONSE_MESSAGE_ID_KEY);
 
             if (responseMsgId != null && currentMessage != null) {
 
@@ -106,5 +103,14 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
             // Do nothing, but write it to the log.
             LOG.warn("Exception ", e);
         }
+    }
+    
+    public static List<Header> getResponseHeaders(Object port) {
+        return (List<Header>) getResponseContext(port).get(Header.HEADER_LIST);
+    }
+    
+    private static Map<String, Object> getResponseContext(Object port) {
+        Client clientProxy = ClientProxy.getClient(port);
+        return clientProxy.getResponseContext();
     }
 }

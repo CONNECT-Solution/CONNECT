@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -64,7 +65,7 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
     }
 
     @Override
-    public PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) 
+    public PatientDiscoveryResponseWrapper process(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) 
         throws PatientDiscoveryException {
 
         return sendToAdapter(body, assertion);
@@ -80,7 +81,7 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
         return auditLogger;
     }
 
-    private PRPAIN201306UV02 sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion)
+    private PatientDiscoveryResponseWrapper sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion)
         throws PatientDiscoveryException {
 
         return adapterFactory.create().respondingGatewayPRPAIN201305UV02(request, assertion);

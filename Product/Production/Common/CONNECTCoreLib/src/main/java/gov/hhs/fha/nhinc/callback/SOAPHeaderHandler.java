@@ -45,8 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Handles various soap header values including adding mustUnderstand to action if missing and adding messageId if
- * missing and modifying it with appropriate prefix.
+ * Handles various soap header values including adding mustUnderstand to action
+ * if missing and adding messageId if missing and modifying it with appropriate
+ * prefix.
  *
  * @author rayj / jsmith
  */
@@ -86,7 +87,10 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             }
 
             if (isOutboundMessage) {
-                addMustUnderstandAttribute(oHeader);
+                addMustUnderstandAttribute(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION, Boolean.TRUE.toString(),
+                        NhincConstants.WS_ADDRESSING_URL);
+                addMustUnderstandAttribute(oHeader, NhincConstants.WS_SOAP_HEADER_ACCESS_DENIAL, Boolean.FALSE.toString(),
+                        NhincConstants.WS_CQ_NAMESPACE);
             }
         } catch (SOAPException e) {
             LOG.error("Unable to handle message: {}", e.getLocalizedMessage());
@@ -138,7 +142,8 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      * @param header The header object from the message
      * @param name The local name of the element being searched for
      * @param ns The namespace of the object being searched for
-     * @return The first instance that matches the localname and namespace or return null
+     * @return The first instance that matches the localname and namespace or
+     * return null
      */
     private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
         SOAPElement result = null;
@@ -191,7 +196,8 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPHeader oHeader = oMessage.getSOAPHeader();
 
             if (isOutboundMessage) {
-                addMustUnderstandAttribute(oHeader);
+                addMustUnderstandAttribute(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION, Boolean.TRUE.toString(),
+                        NhincConstants.WS_ADDRESSING_URL);
             }
         } catch (SOAPException ex) {
             LOG.warn("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage());
@@ -214,14 +220,13 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         return AddressingHeaderCreator.generateMessageId();
     }
 
-    private void addMustUnderstandAttribute(SOAPHeader oHeader) throws SOAPException {
-        SOAPElement action = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION,
-                NhincConstants.WS_ADDRESSING_URL);
+    private void addMustUnderstandAttribute(SOAPHeader oHeader, String elementName, String muValue, String ns) throws SOAPException {
+        SOAPElement element = getFirstChild(oHeader, elementName, ns);
 
-        if (action != null && !action.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)) {
+        if (element != null && !element.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)) {
             QName mustUnderstandQ = new QName(NhincConstants.WS_SOAP_ENV_URL,
                     NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, NhincConstants.WS_SOAP_ENV_PREFIX);
-            action.addAttribute(mustUnderstandQ, Boolean.TRUE.toString());
+            element.addAttribute(mustUnderstandQ, muValue);
         }
     }
 }

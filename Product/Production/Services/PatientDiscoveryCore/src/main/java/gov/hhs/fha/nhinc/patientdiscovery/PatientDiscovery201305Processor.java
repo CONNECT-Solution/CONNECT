@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
@@ -75,8 +76,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
      * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion)
+    public PatientDiscoveryResponseWrapper process201305(PRPAIN201305UV02 request, AssertionType assertion)
             throws PatientDiscoveryException {
+        PatientDiscoveryResponseWrapper responseWrapper = new PatientDiscoveryResponseWrapper();
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         // Set the sender and receiver OID for the response
@@ -116,7 +118,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             response = createEmpty201306(senderOID, receiverOID, request);
             response = addValidationReasonOf(response);
         }
-        return response;
+        responseWrapper.setResponseMessage(response);
+        //TODO: Add Header returns to adapter MPI
+        return responseWrapper;
     }
 
     protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {

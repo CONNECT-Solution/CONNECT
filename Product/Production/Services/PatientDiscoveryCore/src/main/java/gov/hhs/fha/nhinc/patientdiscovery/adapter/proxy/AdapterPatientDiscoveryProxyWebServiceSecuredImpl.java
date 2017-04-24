@@ -31,11 +31,13 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.service.AdapterPatientDiscoverySecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -67,9 +69,10 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
             afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
             version = "1.0")
     @Override
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+    public PatientDiscoveryResponseWrapper respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
         String url;
+        PatientDiscoveryResponseWrapper responseWrapper = new PatientDiscoveryResponseWrapper();
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         String sServiceName = NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
 
@@ -93,6 +96,8 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
 
                     response = (PRPAIN201306UV02) client.invokePort(AdapterPatientDiscoverySecuredPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
+                    
+                    responseWrapper.setResponseHeaders(SoapResponseInInterceptor.getResponseHeaders(client.getPort()));
                 } else {
                     throw new PatientDiscoveryException("Failed to call the adapter web service (" + sServiceName
                             + ").  The URL is null.");
@@ -107,7 +112,8 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
             throw new PatientDiscoveryException(e.fillInStackTrace());
         }
 
-        return response;
+        responseWrapper.setResponseMessage(response);        
+        return responseWrapper;
     }
 
 }
