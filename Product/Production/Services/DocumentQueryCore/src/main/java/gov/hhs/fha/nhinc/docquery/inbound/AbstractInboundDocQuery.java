@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -36,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 public abstract class AbstractInboundDocQuery implements InboundDocQuery {
 
-    public abstract AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid,
+    public abstract DocQueryResponseWrapper processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid,
         Properties webContextProperties);
     protected DocQueryAuditLogger auditLogger;
 
@@ -56,7 +57,7 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
      * @return <code>AdhocQueryResponse</code>
      */
     @Override
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+    public DocQueryResponseWrapper respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
         Properties webContextProperties) {
         String senderHcid = null;
 
@@ -64,12 +65,12 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
-        AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId(),
+        DocQueryResponseWrapper rWrapper = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId(),
             webContextProperties);
 
-        auditResponseToNhin(msg, resp, assertion, senderHcid, webContextProperties);
+        auditResponseToNhin(msg, rWrapper.getResponseMessage(), assertion, senderHcid, webContextProperties);
 
-        return resp;
+        return rWrapper;
     }
 
     protected void auditResponseToNhin(AdhocQueryRequest request, AdhocQueryResponse msg, AssertionType assertion,

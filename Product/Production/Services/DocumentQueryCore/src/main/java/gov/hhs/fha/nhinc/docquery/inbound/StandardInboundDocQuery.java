@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
@@ -71,7 +72,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
     @InboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
         afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
         version = "")
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+    public DocQueryResponseWrapper respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
         Properties webContextProperties) {
 
         String senderHcid = null;
@@ -80,11 +81,11 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
             senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
-        AdhocQueryResponse resp = processDocQuery(msg, assertion, getLocalHomeCommunityId(), webContextProperties);
+        DocQueryResponseWrapper rWrapper = processDocQuery(msg, assertion, getLocalHomeCommunityId(), webContextProperties);
 
-        auditResponseToNhin(msg, resp, assertion, senderHcid, webContextProperties);
+        auditResponseToNhin(msg, rWrapper.getResponseMessage(), assertion, senderHcid, webContextProperties);
 
-        return resp;
+        return rWrapper;
     }
 
     /**
@@ -95,25 +96,25 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
      * @return
      */
     @Override
-    public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID,
+    public DocQueryResponseWrapper processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID,
         Properties webContextProperties) {
 
-        AdhocQueryResponse resp;
+        DocQueryResponseWrapper rWrapper;
 
         if (isPolicyValid(msg, assertion)) {
-            resp = sendToAdapter(msg, assertion);
+            rWrapper = sendToAdapter(msg, assertion);
         } else {
-            resp = MessageGeneratorUtils.getInstance().createPolicyErrorResponse();
+            rWrapper = new DocQueryResponseWrapper(MessageGeneratorUtils.getInstance().createPolicyErrorResponse());
         }
 
-        return resp;
+        return rWrapper;
     }
 
     private boolean isPolicyValid(AdhocQueryRequest msg, AssertionType assertion) {
         return policyChecker.checkIncomingPolicy(msg, assertion);
     }
 
-    private AdhocQueryResponse sendToAdapter(AdhocQueryRequest msg, AssertionType assertion) {
+    private DocQueryResponseWrapper sendToAdapter(AdhocQueryRequest msg, AssertionType assertion) {
         return adapterFactory.getAdapterDocQueryProxy().respondingGatewayCrossGatewayQuery(msg, assertion);
     }
 

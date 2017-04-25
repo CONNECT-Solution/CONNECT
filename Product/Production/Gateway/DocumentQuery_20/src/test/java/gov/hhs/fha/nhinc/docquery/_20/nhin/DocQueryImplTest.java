@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
@@ -40,6 +41,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -53,6 +55,7 @@ public class DocQueryImplTest {
     @Test
     public void testImplementsSpecVersion() {
         final AssertionType assertion = new AssertionType();
+        final DocQueryResponseWrapper rWrapper = new DocQueryResponseWrapper();
         InboundDocQuery service = mock(InboundDocQuery.class);
         DocQueryImpl docQuery = new DocQueryImpl(service) {
 
@@ -67,11 +70,16 @@ public class DocQueryImplTest {
                 return assertion;
             }
         };
-
+        
+        
         AdhocQueryRequest body = mock(AdhocQueryRequest.class);
         WebServiceContext context = mock(WebServiceContext.class);
-        docQuery.respondingGatewayCrossGatewayQuery(body, context);
         Properties webContextProperties = new Properties();
+        
+        when(service.respondingGatewayCrossGatewayQuery(body, assertion, webContextProperties)).thenReturn(rWrapper);
+        
+        docQuery.respondingGatewayCrossGatewayQuery(body, context);
+        
         verify(service).respondingGatewayCrossGatewayQuery(same(body), any(AssertionType.class),
             eq(webContextProperties));
         assertTrue(!StringUtils.isBlank(assertion.getImplementsSpecVersion()));

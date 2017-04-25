@@ -71,7 +71,7 @@ public class AdapterDocQueryOrchImplTest {
     @Test
     public void errorResponseHasRegistryObjectList() throws Exception {
         AdapterDocQueryOrchImpl impl = new AdapterDocQueryOrchImpl();
-        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
+        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null).getResponseMessage();
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 

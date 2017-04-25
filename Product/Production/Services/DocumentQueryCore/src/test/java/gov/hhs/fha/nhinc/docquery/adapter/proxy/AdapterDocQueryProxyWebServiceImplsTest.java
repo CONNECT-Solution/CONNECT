@@ -65,7 +65,7 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
             impl.setWebServiceProxyHelper(proxyMock);
             AdapterHelper helper = mock(AdapterHelper.class);
             impl.setAdapterHelper(helper);
-            AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
+            AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null).getResponseMessage();
             assertEquals(response, helper.createErrorResponse());
         }
     }

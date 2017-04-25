@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
@@ -63,7 +64,7 @@ public class AdapterDocQueryOrchImpl {
      * @param assertion Assertion received.
      * @return AdhocQueryResponse The AdhocQuery response received.
      */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
+    public DocQueryResponseWrapper respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
         LOG.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         AdhocQueryResponse response = null;
         try {
@@ -100,7 +101,7 @@ public class AdapterDocQueryOrchImpl {
             LOG.error(e.getLocalizedMessage(), e);
         }
         LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
-        return response;
+        return new DocQueryResponseWrapper(response);
 
     }
 

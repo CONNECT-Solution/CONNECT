@@ -61,7 +61,7 @@ public class DocQuery implements RespondingGatewayQueryPortType {
         version = "3.0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
-        return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
+        return getDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
 
     @Resource
@@ -80,5 +80,9 @@ public class DocQuery implements RespondingGatewayQueryPortType {
      */
     public InboundDocQuery getInboundDocQuery() {
         return this.inboundDocQuery;
+    }
+    
+    protected DocQueryImpl getDocQueryImpl() {
+        return new DocQueryImpl(inboundDocQuery);
     }
 }

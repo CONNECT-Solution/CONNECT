@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  * @author akong
@@ -37,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  */
 public interface InboundDocQuery {
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+    public DocQueryResponseWrapper respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
         Properties webServiceContext);
 
 }

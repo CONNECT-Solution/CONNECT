@@ -34,8 +34,10 @@ import gov.hhs.fha.nhinc.patientdiscovery.inbound.StandardInboundPatientDiscover
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.PassthroughOutboundPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
+import java.util.List;
 import java.util.Properties;
 import javax.xml.ws.WebServiceContext;
+import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -69,9 +71,6 @@ public class PatientDiscoverySpringContextTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Autowired
-    NhinPatientDiscovery inboundPatientDiscoveryEndpoint;
-
-    @Autowired
     EntityPatientDiscoveryUnsecured outboundPatientDiscoveryUnsecuredEndpoint;
 
     @Autowired
@@ -91,10 +90,17 @@ public class PatientDiscoverySpringContextTest {
 
     @Test
     public void inbound() throws PRPAIN201305UV02Fault {
-        assertNotNull(inboundPatientDiscoveryEndpoint);
+        NhinPatientDiscovery inboundPatientDiscoveryEndpoint = new NhinPatientDiscovery() {
+            @Override
+            protected void addSoapHeaders(String service, List<Header> addHeaders, WebServiceContext context) {
+                //Do nothing
+            }
+        };
+
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         WebServiceContext context = new WebServiceContextImpl();
         inboundPatientDiscoveryEndpoint.setContext(context);
+        inboundPatientDiscoveryEndpoint.setInboundPatientDiscovery(new TestInboundPatientDiscovery());
         PRPAIN201306UV02 response = inboundPatientDiscoveryEndpoint.respondingGatewayPRPAIN201305UV02(request);
         assertNotNull(response);
     }

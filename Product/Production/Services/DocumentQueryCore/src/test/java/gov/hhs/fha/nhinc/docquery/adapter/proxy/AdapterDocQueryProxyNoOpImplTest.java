@@ -35,7 +35,7 @@ public class AdapterDocQueryProxyNoOpImplTest {
     @Test
     public void errorResponseHasRegistryObjectList() throws Exception {
         AdapterDocQueryProxyNoOpImpl impl = new AdapterDocQueryProxyNoOpImpl();
-        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
+        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null).getResponseMessage();
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 }

@@ -31,10 +31,12 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.description.AdapterDocQueryServicePortDescriptor;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -71,9 +73,9 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
     afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
     version = "")
     @Override
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+    public DocQueryResponseWrapper respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");
-        AdhocQueryResponse response = null;
+        DocQueryResponseWrapper rWrapper = new DocQueryResponseWrapper();
         String url;
         try {
             //get the Adopter Endpoint URL
@@ -94,8 +96,9 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
                     CONNECTClient<AdapterDocQueryPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                    response = (AdhocQueryResponse) client.invokePort(AdapterDocQueryPortType.class,
-                        "respondingGatewayCrossGatewayQuery", request);
+                    rWrapper.setResponseMessage((AdhocQueryResponse) client.invokePort(AdapterDocQueryPortType.class,
+                        "respondingGatewayCrossGatewayQuery", request));
+                    rWrapper.setResponseHeaders(SoapResponseInInterceptor.getResponseHeaders(client.getPort()));
                 }
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
@@ -103,10 +106,10 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
-            return getAdapterHelper().createErrorResponse();
+            rWrapper.setResponseMessage(getAdapterHelper().createErrorResponse());
         }
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");
-        return response;
+        return rWrapper;
     }
 }

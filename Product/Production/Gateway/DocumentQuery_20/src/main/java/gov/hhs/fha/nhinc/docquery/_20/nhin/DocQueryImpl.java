@@ -48,6 +48,6 @@ public class DocQueryImpl extends BaseService {
             assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_2_0.toString());
         }
 
-        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, getWebContextProperties(context));
+        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, getWebContextProperties(context)).getResponseMessage();
     }
 }

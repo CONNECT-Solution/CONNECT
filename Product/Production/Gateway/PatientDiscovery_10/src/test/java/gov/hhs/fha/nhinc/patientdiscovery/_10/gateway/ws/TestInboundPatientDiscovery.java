@@ -24,34 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery._30.nhin;
+package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.wrapper.PatientDiscoveryResponseWrapper;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
+import java.util.Properties;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
-public class DocQueryImpl extends BaseService {
+/**
+ *
+ * @author jassmit
+ */
+public class TestInboundPatientDiscovery implements InboundPatientDiscovery {
 
-    private InboundDocQuery inboundDocQuery;
-
-    public DocQueryImpl(InboundDocQuery inboundDocQuery) {
-        this.inboundDocQuery = inboundDocQuery;
+    @Override
+    public PatientDiscoveryResponseWrapper respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion, Properties webContextProperties) throws PatientDiscoveryException {
+        return new PatientDiscoveryResponseWrapper(new PRPAIN201306UV02());
     }
-
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-        if (assertion != null) {
-            assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_3_0.toString());
-        }
-
-        DocQueryResponseWrapper rWrapper = inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, getWebContextProperties(context));
-        addSoapHeaders("documentQuery", rWrapper.getResponseHeaders(), context);
-        return rWrapper.getResponseMessage();
-    }
-
+    
 }

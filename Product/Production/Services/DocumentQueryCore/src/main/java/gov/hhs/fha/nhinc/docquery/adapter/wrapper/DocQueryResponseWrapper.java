@@ -24,34 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery._30.nhin;
+package gov.hhs.fha.nhinc.docquery.adapter.wrapper;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 
-public class DocQueryImpl extends BaseService {
+/**
+ *
+ * @author jassmit
+ */
+public class DocQueryResponseWrapper {
+    
+    private AdhocQueryResponse responseMessage;
+    private List<Header> responseHeaders;
 
-    private InboundDocQuery inboundDocQuery;
-
-    public DocQueryImpl(InboundDocQuery inboundDocQuery) {
-        this.inboundDocQuery = inboundDocQuery;
+    public DocQueryResponseWrapper() {
+        
+    }
+    
+    public DocQueryResponseWrapper(AdhocQueryResponse responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-        if (assertion != null) {
-            assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_3_0.toString());
-        }
-
-        DocQueryResponseWrapper rWrapper = inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, getWebContextProperties(context));
-        addSoapHeaders("documentQuery", rWrapper.getResponseHeaders(), context);
-        return rWrapper.getResponseMessage();
+    public AdhocQueryResponse getResponseMessage() {
+        return responseMessage;
     }
 
+    public void setResponseMessage(AdhocQueryResponse responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public List<Header> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    public void setResponseHeaders(List<Header> responseHeaders) {
+        this.responseHeaders = responseHeaders;
+    }
+    
 }

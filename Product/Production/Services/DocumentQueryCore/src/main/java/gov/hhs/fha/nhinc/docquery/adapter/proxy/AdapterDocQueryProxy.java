@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  * @author achidamb
@@ -40,5 +40,5 @@ public interface AdapterDocQueryProxy {
      * @param assertion Assertion received.
      * @return AdhocQueryResponse.
      */
-     AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion);
+     DocQueryResponseWrapper respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion);
 }

@@ -32,10 +32,14 @@ import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQuerySecured;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecured;
 import gov.hhs.fha.nhinc.docquery.inbound.PassthroughInboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery;
+import gov.hhs.fha.nhinc.docquery.inbound.TestInboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery;
+import java.util.List;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,9 +54,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/docquery/_30/applicationContext.xml" })
 public class DocQuerySpringContextTest {
-
-    @Autowired
-    DocQuery inboundDocQuery;
 
     @Autowired
     EntityDocQueryUnsecured outboundDocQueryUnsecured;
@@ -74,6 +75,17 @@ public class DocQuerySpringContextTest {
 
     @Test
     public void inbound() {
+        DocQuery inboundDocQuery = new DocQuery() {
+            @Override
+            protected DocQueryImpl getDocQueryImpl() {
+                return new DocQueryImpl(new TestInboundDocQuery()) {
+                    @Override
+                    protected void addSoapHeaders(String service, List<Header> addHeaders, WebServiceContext context) {
+                        //Do nothing
+                    }
+                };
+            }
+        };
         assertNotNull(inboundDocQuery);
 
         AdhocQueryRequest request = new AdhocQueryRequest();

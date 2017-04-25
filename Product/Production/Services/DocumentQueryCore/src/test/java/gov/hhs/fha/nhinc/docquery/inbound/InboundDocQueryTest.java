@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.adapter.wrapper.DocQueryResponseWrapper;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
@@ -71,7 +72,7 @@ public class InboundDocQueryTest {
     protected static final String SENDING_HCID_HOME = "urn:oid:7.3";
     protected static final String SENDING_HCID_HOME_FORMATTED = "7.3";
     protected static final AdhocQueryRequest request = new AdhocQueryRequest();
-    protected static final AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
+    protected static final DocQueryResponseWrapper expectedResponse = new DocQueryResponseWrapper(new AdhocQueryResponse());
     protected static final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
     protected AuditEJBLogger mockEJBLogger;
 
@@ -95,12 +96,12 @@ public class InboundDocQueryTest {
         InboundDocQuery inboundDocQuery, int adapterAuditInvocations) {
         Properties webContextProperties = new Properties();
         NhinTargetSystemType target = null;
-        AdhocQueryResponse actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
+        DocQueryResponseWrapper actualResponse = inboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
             webContextProperties);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), eq(target),
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse.getResponseMessage()), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
             eq(Boolean.FALSE), eq(webContextProperties), eq(NhincConstants.DOC_QUERY_SERVICE_NAME),
             any(DocQueryAuditTransforms.class));
