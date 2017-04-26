@@ -41,14 +41,34 @@ public class AdhocQueryTransformHelperTest {
         CheckPolicyRequestType result = instance.transformAdhocQueryToCheckPolicy(eventA);
         assertNotNull(result);
     }
+    
+    @Test
+    public void testTransformAdhocQueryToCheckPolicy_outbound() {
+    	AdhocQueryTransformHelper instance = new AdhocQueryTransformHelper();
+        AdhocQueryRequestEventType eventA = new AdhocQueryRequestEventType();
+     //   eventA.getDirection()= "inbound";
+        eventA.setDirection("outbound");
+        CheckPolicyRequestType result = instance.transformAdhocQueryToCheckPolicy(eventA);
+        assertNotNull(result);
+    }
 
     @Test
-    public void testTransformAdhocQueryToCheckPolicy_OutBound() {
+    public void testTransformAdhocQueryResponseToCheckPolicy_OutBound() {
     	AdhocQueryTransformHelper instance = new AdhocQueryTransformHelper();
-        AdhocQueryRequestEventType eventB = new AdhocQueryRequestEventType();
+    	AdhocQueryResultEventType eventB = new AdhocQueryResultEventType();
      //   eventA.getDirection()= "inbound";
         eventB.setDirection("outbound");
-        CheckPolicyRequestType result = instance.transformAdhocQueryToCheckPolicy(eventB);
+        CheckPolicyRequestType result = instance.transformAdhocQueryResponseToCheckPolicy(eventB);
+        assertNotNull(result);
+    }
+    
+    @Test
+    public void testTransformAdhocQueryResponseToCheckPolicy_InBound() {
+    	AdhocQueryTransformHelper instance = new AdhocQueryTransformHelper();
+    	AdhocQueryResultEventType eventB = new AdhocQueryResultEventType();
+     //   eventA.getDirection()= "inbound";
+        eventB.setDirection("inbound");
+        CheckPolicyRequestType result = instance.transformAdhocQueryResponseToCheckPolicy(eventB);
         assertNotNull(result);
     }
 
