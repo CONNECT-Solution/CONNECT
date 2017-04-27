@@ -27,6 +27,7 @@
                 <module>TransactionTimeout</module>
                 <module>ValidateWSA-ActionSoapMustUnderstandTest</module>
                 <module>ValidateWSAToFieldInSoapHeaderTest</module>
+				<module>SoapHeaderResponse</module>
             </modules>
         </profile>
     </profiles>
