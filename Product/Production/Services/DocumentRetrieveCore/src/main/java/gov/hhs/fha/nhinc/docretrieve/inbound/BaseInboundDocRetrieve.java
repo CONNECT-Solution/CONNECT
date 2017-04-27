@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -78,7 +79,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
     }
 
     @Override
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+    public DocRetrieveResponseWrapper respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 
         InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion,
@@ -86,7 +87,7 @@ public abstract class BaseInboundDocRetrieve implements InboundDocRetrieve {
 
         InboundDocRetrieveOrchestratable orchResponse = (InboundDocRetrieveOrchestratable) getOrchestrator().process(
             inboundOrchestrable);
-        auditResponse(body, orchResponse.getResponse(), assertion, webContextProperties);
+        auditResponse(body, orchResponse.getResponse().getResponseMessage(), assertion, webContextProperties);
 
         return orchResponse.getResponse();
     }

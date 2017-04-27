@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.orchestration.AbstractStandardOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Delegate;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
 
 /**
@@ -46,7 +46,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     private InboundDelegate inboundDelegate;
     private final String serviceName = "NhinDocumentRetrieve_g0";
     private RetrieveDocumentSetRequestType request;
-    private RetrieveDocumentSetResponseType response;
+    private DocRetrieveResponseWrapper response;
     private AssertionType assertion;
     private Properties webContextProperties;
 
@@ -100,7 +100,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
     }
 
     @Override
-    public RetrieveDocumentSetResponseType getResponse() {
+    public DocRetrieveResponseWrapper getResponse() {
         return response;
     }
 
@@ -132,7 +132,7 @@ public class InboundStandardDocRetrieveOrchestratable extends AbstractStandardOr
      * @param response the response to set
      */
     @Override
-    public void setResponse(RetrieveDocumentSetResponseType response) {
+    public void setResponse(DocRetrieveResponseWrapper response) {
         this.response = response;
     }
 

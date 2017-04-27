@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -83,7 +84,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
             RetrieveDocumentSetResponseType response = MessageGenerator.getInstance()
                     .createRegistryResponseError(error);
 
-            ((InboundDocRetrieveOrchestratable) message).setResponse(response);
+            ((InboundDocRetrieveOrchestratable) message).setResponse(new DocRetrieveResponseWrapper(response));
         }
     }
 }

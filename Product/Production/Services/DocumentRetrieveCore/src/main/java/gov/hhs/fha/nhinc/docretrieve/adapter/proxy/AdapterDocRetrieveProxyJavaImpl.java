@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.adapter.proxy;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveOrchImpl;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -56,7 +57,7 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy 
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
             serviceType = "Retrieve Document", version = "")
     @Override
-    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
+    public DocRetrieveResponseWrapper retrieveDocumentSet(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         LOG.trace("Entering AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
 
@@ -66,6 +67,6 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy 
 
         LOG.trace("Leaving AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
 
-        return oResponse;
+        return new DocRetrieveResponseWrapper(oResponse);
     }
 }

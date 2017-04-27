@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.audit.transform.DocRetrieveAuditTransforms;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
@@ -74,7 +75,7 @@ public class PassthroughInboundDocRetrieveTest {
     public void invoke() {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
-        RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
+        DocRetrieveResponseWrapper expectedResponse = new DocRetrieveResponseWrapper(new RetrieveDocumentSetResponseType());
         Properties webContextProperties = new Properties();
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
@@ -93,13 +94,13 @@ public class PassthroughInboundDocRetrieveTest {
         // Actual Invocation
         PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch,
             getAuditLogger(true));
-        RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
+        DocRetrieveResponseWrapper actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);
 
         // Verify response is expected
-        assertSame(expectedResponse, actualResponse);
+        assertSame(expectedResponse.getResponseMessage(), actualResponse.getResponseMessage());
 
-        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse.getResponseMessage()), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.DOC_RETRIEVE_SERVICE_NAME), any(DocRetrieveAuditTransforms.class));
@@ -118,7 +119,7 @@ public class PassthroughInboundDocRetrieveTest {
     public void auditLoggingOffForInboundDR() {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
-        RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
+        DocRetrieveResponseWrapper expectedResponse = new DocRetrieveResponseWrapper(new RetrieveDocumentSetResponseType());
         Properties webContextProperties = new Properties();
 
         InboundDocRetrievePolicyTransformer_g0 pt = new InboundDocRetrievePolicyTransformer_g0();
@@ -137,11 +138,11 @@ public class PassthroughInboundDocRetrieveTest {
         // Actual Invocation
         PassthroughInboundDocRetrieve inboundDocRetrieve = new PassthroughInboundDocRetrieve(pt, ad, orch,
             getAuditLogger(false));
-        RetrieveDocumentSetResponseType actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
+        DocRetrieveResponseWrapper actualResponse = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
             request, assertion, webContextProperties);
 
         // Verify response is expected
-        assertSame(expectedResponse, actualResponse);
+        assertSame(expectedResponse.getResponseMessage(), actualResponse.getResponseMessage());
 
         verify(mockEJBLogger, never()).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
             isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),

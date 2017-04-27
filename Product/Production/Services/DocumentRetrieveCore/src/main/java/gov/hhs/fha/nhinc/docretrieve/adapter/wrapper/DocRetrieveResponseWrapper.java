@@ -24,37 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.adapter.proxy;
+package gov.hhs.fha.nhinc.docretrieve.adapter.wrapper;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.List;
+import org.apache.cxf.headers.Header;
 
 /**
- * This is the No Op implementation of the Adapter Doc Retrieve component proxy.
  *
- * @author Neil Webb
+ * @author jassmit
  */
-public class AdapterDocRetrieveProxyNoOpImpl implements AdapterDocRetrieveProxy {
+public class DocRetrieveResponseWrapper {
+    
+    private RetrieveDocumentSetResponseType responseMessage;
+    private List<Header> responseHeaders;
 
-    /**
-     * Retrieve the specified document.
-     *
-     * @param request The identifier(s) if the document(s) to be retrieved.
-     * @param assertion The assertion information.
-     * @return The retrieved documents.
-     */
-    @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
-            serviceType = "Retrieve Document", version = "")
-    @Override
-    public DocRetrieveResponseWrapper retrieveDocumentSet(RetrieveDocumentSetRequestType request,
-            AssertionType assertion) {
-        return new DocRetrieveResponseWrapper(new RetrieveDocumentSetResponseType());
+    public DocRetrieveResponseWrapper() {
+
+    }
+    
+    public DocRetrieveResponseWrapper(RetrieveDocumentSetResponseType responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
+    public RetrieveDocumentSetResponseType getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(RetrieveDocumentSetResponseType responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public List<Header> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    public void setResponseHeaders(List<Header> responseHeaders) {
+        this.responseHeaders = responseHeaders;
+    }
+    
 }

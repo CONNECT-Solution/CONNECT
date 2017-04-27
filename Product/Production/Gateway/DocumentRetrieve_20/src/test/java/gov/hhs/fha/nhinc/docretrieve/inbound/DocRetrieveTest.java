@@ -30,19 +30,25 @@ import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Properties;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.headers.Header;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author bhumphrey
@@ -52,12 +58,20 @@ public class DocRetrieveTest {
 
     @Test
     public void respondingGatewayCrossGatewayRetrieve() {
-        DocRetrieve docRetrieve = new DocRetrieve();
+        DocRetrieve docRetrieve = new DocRetrieve() {
+            @Override
+            protected void addSoapHeaders(String service, List<Header> addHeaders, WebServiceContext context) {
+                //Do nothing
+            }
+        };
 
+        final DocRetrieveResponseWrapper rWrapper = new DocRetrieveResponseWrapper(new RetrieveDocumentSetResponseType());
         InboundDocRetrieve service = mock(InboundDocRetrieve.class);
         docRetrieve.setInboundDocRetrieve(service);
-
         RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
+        
+        when(service.respondingGatewayCrossGatewayRetrieve(any(RetrieveDocumentSetRequestType.class), any(AssertionType.class), any(Properties.class))).thenReturn(rWrapper);
+               
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
 
     }
@@ -67,21 +81,24 @@ public class DocRetrieveTest {
         final AssertionType assertion = new AssertionType();
         DocRetrieve docRetrieve = new DocRetrieve() {
 
-            /*
-             * (non-Javadoc)
-             *
-             * @see gov.hhs.fha.nhinc.messaging.server.BaseService#getAssertion(javax.xml.ws.WebServiceContext,
-             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
-             */
+            @Override
+            protected void addSoapHeaders(String service, List<Header> addHeaders, WebServiceContext context) {
+                //Do nothing
+            }
+            
             @Override
             protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
                 return assertion;
             }
         };
+        
+        final DocRetrieveResponseWrapper rWrapper = new DocRetrieveResponseWrapper(new RetrieveDocumentSetResponseType());
         RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
         InboundDocRetrieve service = mock(InboundDocRetrieve.class);
         docRetrieve.setInboundDocRetrieve(service);
 
+        when(service.respondingGatewayCrossGatewayRetrieve(any(RetrieveDocumentSetRequestType.class), any(AssertionType.class), any(Properties.class))).thenReturn(rWrapper);
+        
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
 
         assertTrue(!StringUtils.isBlank(assertion.getImplementsSpecVersion()));

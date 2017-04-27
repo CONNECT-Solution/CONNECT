@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -74,7 +75,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             return;
         }
 
-        RetrieveDocumentSetResponseType adapterResponse = sendToAdapter(message);
+        DocRetrieveResponseWrapper adapterResponse = sendToAdapter(message);
 
         message.setResponse(adapterResponse);
 
@@ -85,18 +86,18 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
      * @param message
      * @return
      */
-    public RetrieveDocumentSetResponseType sendToAdapter(InboundDocRetrieveOrchestratable message) {
-        RetrieveDocumentSetResponseType adapterResponse = proxy.retrieveDocumentSet(message.getRequest(),
+    public DocRetrieveResponseWrapper sendToAdapter(InboundDocRetrieveOrchestratable message) {
+        DocRetrieveResponseWrapper rWrapper = proxy.retrieveDocumentSet(message.getRequest(),
             message.getAssertion());
 
         try {
-            DocRetrieveFileUtils.getInstance().convertFileLocationToDataIfEnabled(adapterResponse);
+            DocRetrieveFileUtils.getInstance().convertFileLocationToDataIfEnabled(rWrapper.getResponseMessage());
         } catch (Exception e) {
             LOG.error("Failed to retrieve data from the file uri in the payload." + e.getLocalizedMessage(), e);
-            adapterResponse = MessageGenerator.getInstance().createRegistryResponseError(
-                "Adapter Document Retrieve Processing");
+            rWrapper.setResponseMessage(MessageGenerator.getInstance().createRegistryResponseError(
+                "Adapter Document Retrieve Processing"));
         }
-        return adapterResponse;
+        return rWrapper;
     }
 
     @Override

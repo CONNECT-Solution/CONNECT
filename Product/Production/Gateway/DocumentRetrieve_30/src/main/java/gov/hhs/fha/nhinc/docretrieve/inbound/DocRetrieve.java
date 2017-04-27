@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
@@ -65,8 +66,10 @@ public class DocRetrieve extends BaseService implements RespondingGatewayRetriev
         if (assertion != null) {
             assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString());
         }
-
-        return service.respondingGatewayCrossGatewayRetrieve(body, assertion, getWebContextProperties(context));
+        
+        DocRetrieveResponseWrapper rWrapper = service.respondingGatewayCrossGatewayRetrieve(body, assertion, getWebContextProperties(context));
+        addSoapHeaders("documentRetrieve", rWrapper.getResponseHeaders(), context);
+        return rWrapper.getResponseMessage();
     }
 
     /**

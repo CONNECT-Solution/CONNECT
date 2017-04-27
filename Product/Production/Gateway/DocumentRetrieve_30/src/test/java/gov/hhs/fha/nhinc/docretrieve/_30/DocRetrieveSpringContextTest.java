@@ -32,11 +32,15 @@ import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.inbound.PassthroughInboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.inbound.StandardInboundDocRetrieve;
+import gov.hhs.fha.nhinc.docretrieve.inbound.TestInboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.List;
+import javax.xml.ws.WebServiceContext;
+import org.apache.cxf.headers.Header;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,10 +53,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/docretrieve/_30/applicationContext.xml" })
+@ContextConfiguration(locations = {"/docretrieve/_30/applicationContext.xml"})
 public class DocRetrieveSpringContextTest {
 
-	@Autowired
+    @Autowired
     StandardOutboundDocRetrieve standardOutboundOrchImpl;
 
     @Autowired
@@ -65,9 +69,6 @@ public class DocRetrieveSpringContextTest {
     PassthroughOutboundDocRetrieve passthroughOutboundOrchImpl;
 
     @Autowired
-    DocRetrieve inboundDocRetrieve;
-
-    @Autowired
     EntityDocRetrieve outboundDocRetrieveUnsecured;
 
     @Autowired
@@ -75,7 +76,14 @@ public class DocRetrieveSpringContextTest {
 
     @Test
     public void inbound() {
+        DocRetrieve inboundDocRetrieve = new DocRetrieve() {
+            protected void addSoapHeaders(String service, List<Header> addHeaders, WebServiceContext context) {
+                //Do nothing
+            }
+        };
         assertNotNull(inboundDocRetrieve);
+        
+        inboundDocRetrieve.setInboundDocRetrieve(new TestInboundDocRetrieve());
 
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         RetrieveDocumentSetResponseType response = inboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(request);

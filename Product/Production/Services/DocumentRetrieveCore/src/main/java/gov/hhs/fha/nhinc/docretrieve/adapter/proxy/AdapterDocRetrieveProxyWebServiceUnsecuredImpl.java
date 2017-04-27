@@ -31,10 +31,12 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -63,10 +65,10 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
     afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
     serviceType = "Retrieve Document", version = "")
     @Override
-    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
+    public DocRetrieveResponseWrapper retrieveDocumentSet(RetrieveDocumentSetRequestType request,
         AssertionType assertion) {
         String url;
-        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+        DocRetrieveResponseWrapper rWrapper = new DocRetrieveResponseWrapper();
 
         try {
             if (request != null) {
@@ -88,8 +90,9 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
                     CONNECTClient<AdapterDocRetrievePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
                         assertion);
                     client.enableMtom();
-                    response = (RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrievePortType.class,
-                        "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest);
+                    rWrapper.setResponseMessage((RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrievePortType.class,
+                        "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest));
+                    rWrapper.setResponseHeaders(SoapResponseInInterceptor.getResponseHeaders(client.getPort()));
 
                 } else {
                     LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  The URL is null.");
@@ -102,7 +105,7 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
                 + "Exception: " + e.getMessage(), e);
         }
 
-        return response;
+        return rWrapper;
     }
 
     protected CONNECTClient<AdapterDocRetrievePortType> getCONNECTClientUnsecured(

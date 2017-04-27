@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
 
 /**
@@ -48,9 +48,9 @@ public interface InboundDocRetrieveOrchestratable extends InboundOrchestratable 
      * Get the response.
      * @return RetrieveDocumentSetResponseType
      */
-    public RetrieveDocumentSetResponseType getResponse();
+    public DocRetrieveResponseWrapper getResponse();
 
-    public void setResponse(RetrieveDocumentSetResponseType response);
+    public void setResponse(DocRetrieveResponseWrapper response);
 
     public void setRequest(RetrieveDocumentSetRequestType request);
 

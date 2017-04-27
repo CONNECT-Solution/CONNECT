@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import gov.hhs.fha.nhinc.orchestration.AbstractPassthroughOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Delegate;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
@@ -46,7 +47,7 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
     private InboundDelegate inboundDelegate;
     private final String serviceName = "NhinDocumentRetrieve_g0";
     private RetrieveDocumentSetRequestType request;
-    private RetrieveDocumentSetResponseType response;
+    private DocRetrieveResponseWrapper response;
     private AssertionType assertion;
     private Properties webContextProperties;
 
@@ -99,7 +100,7 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
     }
 
     @Override
-    public RetrieveDocumentSetResponseType getResponse() {
+    public DocRetrieveResponseWrapper getResponse() {
         return response;
     }
 
@@ -131,7 +132,7 @@ public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthr
      * @param response the response to set
      */
     @Override
-    public void setResponse(RetrieveDocumentSetResponseType response) {
+    public void setResponse(DocRetrieveResponseWrapper response) {
         this.response = response;
     }
 

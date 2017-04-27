@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.wrapper.DocRetrieveResponseWrapper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
@@ -38,9 +39,9 @@ import java.util.Properties;
 public class TestInboundDocRetrieve implements InboundDocRetrieve {
 
     @Override
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+    public DocRetrieveResponseWrapper respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, Properties webContextProperties) {
-        return new RetrieveDocumentSetResponseType();
+        return new DocRetrieveResponseWrapper(new RetrieveDocumentSetResponseType());
     }
 
 
