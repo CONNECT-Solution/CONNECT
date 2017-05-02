@@ -84,7 +84,7 @@ public class HttpHeaderServiceEndpointDecorator<T> extends ServiceEndpointDecora
             keepAlive = getKeepAliveProperty();
         }
 
-        return ("TRUE".equalsIgnoreCase(keepAlive) || "T".equalsIgnoreCase(keepAlive));
+        return "TRUE".equalsIgnoreCase(keepAlive) || "T".equalsIgnoreCase(keepAlive);
     }
 
     private String getKeepAliveProperty() {
