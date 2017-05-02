@@ -101,6 +101,40 @@ public class HttpHeaderServiceEndpointDecoratorTest {
     }
     
     @Test
+    public void testConfigure_WithoutValues() throws PropertyAccessException {
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
+                new TestServicePortDescriptor());
+
+        ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
+        
+        final PropertyAccessor mockPropAccessor = mock(PropertyAccessor.class);
+
+        AssertionType assertion = new AssertionType();
+        assertion.setKeepAlive("true");
+        
+        CONNECTCustomHttpHeadersType assertionHeaders = new CONNECTCustomHttpHeadersType();
+        assertionHeaders.setHeaderName("headerName");
+        assertionHeaders.setHeaderValue("headerValue");
+        
+        assertion.getCONNECTCustomHttpHeaders().add(assertionHeaders);
+
+       HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint, assertion) {
+            
+  /*         @Override
+   *         protected PropertyAccessor getPropertyAccessor() {
+   *            return mockPropAccessor;
+   *         }
+      
+ */     };
+        
+   /*     when(mockPropAccessor.getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE)).thenReturn(new HashSet<String>());
+        */       
+        headerDecorator.configure();
+        
+        validateConfiguration(headerDecorator); 
+    }
+    
+    @Test
     public void testConfigure_WithPropertyValues() throws PropertyAccessException {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
                 new TestServicePortDescriptor());
