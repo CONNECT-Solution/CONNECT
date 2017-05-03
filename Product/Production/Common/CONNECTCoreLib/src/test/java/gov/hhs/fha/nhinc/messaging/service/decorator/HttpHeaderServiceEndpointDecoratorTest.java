@@ -118,18 +118,9 @@ public class HttpHeaderServiceEndpointDecoratorTest {
         
         assertion.getCONNECTCustomHttpHeaders().add(assertionHeaders);
 
-       HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint, assertion) {
-            
-  /*         @Override
-   *         protected PropertyAccessor getPropertyAccessor() {
-   *            return mockPropAccessor;
-   *         }
-      
- */     };
-        
-   /*     when(mockPropAccessor.getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE)).thenReturn(new HashSet<String>());
-        */       
-        headerDecorator.configure();
+        HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint, assertion); 
+
+    	headerDecorator.configure();
         
         validateConfiguration(headerDecorator); 
     }
@@ -172,7 +163,7 @@ public class HttpHeaderServiceEndpointDecoratorTest {
     
     private void validateConfiguration(HttpHeaderServiceEndpointDecorator headerDecorator) {
         assertEquals(headerDecorator.getHTTPClientPolicy().getConnection(), ConnectionType.KEEP_ALIVE);
-        
+
         BindingProvider bp = (BindingProvider) headerDecorator.getPort();
         Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext().get(NhincConstants.CUSTOM_HTTP_HEADERS);
         assertNotNull(bpMap);
