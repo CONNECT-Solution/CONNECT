@@ -112,11 +112,6 @@ public class HttpHeaderServiceEndpointDecoratorTest {
 		HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint,
 				assertion);
 
-		final String customHeaderName = "customName";
-		final String customHeaderValue = "customValue";
-		Set<String> headerNames = new HashSet<>();
-		headerNames.add(NhincConstants.CUSTOM_HTTP_HEADERS + "." + customHeaderName);
-
 		headerDecorator.configure();
 
 		BindingProvider bp = (BindingProvider) headerDecorator.getPort();
