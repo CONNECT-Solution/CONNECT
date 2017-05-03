@@ -47,10 +47,6 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>RedactionEngineWebservices</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>PolicyEngineWebservices</artifactId>
         </dependency>
         <dependency>

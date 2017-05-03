@@ -27,12 +27,6 @@
             <artifactId>PolicyEngineWebservices</artifactId>
         </dependency>
 
-        <!-- Security -->
-<!--        <dependency>
-            <groupId>org.forgerock.openam</groupId>
-            <artifactId>clientsdk</artifactId>
-        </dependency>-->
-
         <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>

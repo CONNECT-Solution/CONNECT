@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery.adapter;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;

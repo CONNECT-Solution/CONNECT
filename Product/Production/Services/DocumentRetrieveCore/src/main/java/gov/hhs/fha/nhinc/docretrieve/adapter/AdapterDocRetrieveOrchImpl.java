@@ -50,16 +50,15 @@ public class AdapterDocRetrieveOrchImpl {
      * @return RetrieveDocumentSetResponseType
      */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-        AssertionType assertion) {
+            AssertionType assertion) {
         LOG.trace("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         RetrieveDocumentSetResponseType response;
 
         try {
             AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory()
-                .getAdapterDocumentRepositoryProxy();
+                    .getAdapterDocumentRepositoryProxy();
 
             response = proxy.retrieveDocument(body, assertion);
-            response = callRedactionEngine(body, response, assertion);
         } catch (Exception e) {
             String errorMsg = "Error processing an adapter document retrieve message: " + e.getMessage();
             LOG.error(errorMsg, e);
@@ -69,11 +68,4 @@ public class AdapterDocRetrieveOrchImpl {
         return response;
     }
 
-    protected RetrieveDocumentSetResponseType callRedactionEngine(RetrieveDocumentSetRequestType retrieveRequest,
-        RetrieveDocumentSetResponseType retrieveResponse, AssertionType assertion) {
-        
-        //Stub for inserting redaction proxy/logic.
-        return retrieveResponse;
-    }
-    
 }

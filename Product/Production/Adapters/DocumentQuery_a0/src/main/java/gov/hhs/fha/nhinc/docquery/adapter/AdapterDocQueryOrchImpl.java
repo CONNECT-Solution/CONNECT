@@ -72,7 +72,6 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setRequestSlotList(request.getRequestSlotList());
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(request, assertion);
-                response = callRedactionEngine(request, response, assertion);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
@@ -90,13 +89,6 @@ public class AdapterDocQueryOrchImpl {
         LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;
 
-    }
-
-    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
-        AssertionType assertion) {
-        
-       //Stub for inserting redaction proxy/logic.
-       return queryResponse;
     }
 
 }
