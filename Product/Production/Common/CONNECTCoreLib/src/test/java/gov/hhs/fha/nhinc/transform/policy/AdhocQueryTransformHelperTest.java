@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
-
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
