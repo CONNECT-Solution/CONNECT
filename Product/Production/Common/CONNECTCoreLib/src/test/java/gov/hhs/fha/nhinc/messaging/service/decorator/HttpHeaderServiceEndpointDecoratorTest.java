@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -56,116 +57,119 @@ import org.junit.Test;
  */
 public class HttpHeaderServiceEndpointDecoratorTest {
 
-	public HttpHeaderServiceEndpointDecoratorTest() {
-	}
+    public HttpHeaderServiceEndpointDecoratorTest() {
+    }
 
-	@Before
-	public void setUp() {
+    @Before
+    public void setUp() {
 
-	}
+    }
 
-	@After
-	public void tearDown() {
-	}
+    @After
+    public void tearDown() {
+    }
 
-	@Test
-	public void testConfigure_WithAssertionValues() throws PropertyAccessException {
-		CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(new TestServicePortDescriptor());
+    @Test
+    public void testConfigure_WithAssertionValues() throws PropertyAccessException {
+        final CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
+            new TestServicePortDescriptor());
 
-		ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
+        final ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
 
-		final PropertyAccessor mockPropAccessor = mock(PropertyAccessor.class);
+        final PropertyAccessor mockPropAccessor = mock(PropertyAccessor.class);
 
-		AssertionType assertion = new AssertionType();
-		assertion.setKeepAlive("true");
+        final AssertionType assertion = new AssertionType();
+        assertion.setKeepAlive("true");
 
-		CONNECTCustomHttpHeadersType assertionHeaders = new CONNECTCustomHttpHeadersType();
-		assertionHeaders.setHeaderName("headerName");
-		assertionHeaders.setHeaderValue("headerValue");
+        final CONNECTCustomHttpHeadersType assertionHeaders = new CONNECTCustomHttpHeadersType();
+        assertionHeaders.setHeaderName("headerName");
+        assertionHeaders.setHeaderValue("headerValue");
 
-		assertion.getCONNECTCustomHttpHeaders().add(assertionHeaders);
+        assertion.getCONNECTCustomHttpHeaders().add(assertionHeaders);
 
-		HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint,
-				assertion) {
+        final HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(
+            serviceEndpoint, assertion) {
 
-			@Override
-			protected PropertyAccessor getPropertyAccessor() {
-				return mockPropAccessor;
-			}
-		};
+            @Override
+            protected PropertyAccessor getPropertyAccessor() {
+                return mockPropAccessor;
+            }
+        };
 
-		when(mockPropAccessor.getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE)).thenReturn(new HashSet<String>());
+        when(mockPropAccessor.getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE)).thenReturn(new HashSet<String>());
 
-		headerDecorator.configure();
+        headerDecorator.configure();
 
-		validateConfiguration(headerDecorator);
-	}
+        validateConfiguration(headerDecorator);
+    }
 
-	@Test
-	public void testConfigure_WithoutValues() throws PropertyAccessException {
-		CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(new TestServicePortDescriptor());
+    @Test
+    public void testConfigure_WithoutValues() throws PropertyAccessException {
+        final CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
+            new TestServicePortDescriptor());
 
-		ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
+        final ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
 
-		AssertionType assertion = new AssertionType();
+        final AssertionType assertion = new AssertionType();
 
-		HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint,
-				assertion);
+        final HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(
+            serviceEndpoint, assertion);
 
-		headerDecorator.configure();
+        headerDecorator.configure();
 
-		BindingProvider bp = (BindingProvider) headerDecorator.getPort();
-		Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
-				.get(NhincConstants.CUSTOM_HTTP_HEADERS);
-		assert bpMap.containsKey("customName");
-	}
+        final BindingProvider bp = (BindingProvider) headerDecorator.getPort();
+        final Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
+            .get(NhincConstants.CUSTOM_HTTP_HEADERS);
+        assertNull(bpMap);
+    }
 
-	@Test
-	public void testConfigure_WithPropertyValues() throws PropertyAccessException {
-		CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(new TestServicePortDescriptor());
+    @Test
+    public void testConfigure_WithPropertyValues() throws PropertyAccessException {
+        final CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(
+            new TestServicePortDescriptor());
 
-		ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
+        final ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
 
-		final PropertyAccessor mockPropAccessor = mock(PropertyAccessor.class);
+        final PropertyAccessor mockPropAccessor = mock(PropertyAccessor.class);
 
-		AssertionType assertion = new AssertionType();
+        final AssertionType assertion = new AssertionType();
 
-		HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(serviceEndpoint,
-				assertion) {
+        final HttpHeaderServiceEndpointDecorator headerDecorator = new HttpHeaderServiceEndpointDecorator(
+            serviceEndpoint, assertion) {
 
-			@Override
-			protected PropertyAccessor getPropertyAccessor() {
-				return mockPropAccessor;
-			}
-		};
+            @Override
+            protected PropertyAccessor getPropertyAccessor() {
+                return mockPropAccessor;
+            }
+        };
 
-		final String customHeaderName = "customName";
-		final String customHeaderValue = "customValue";
-		Set<String> headerNames = new HashSet<>();
-		headerNames.add(NhincConstants.CUSTOM_HTTP_HEADERS + "." + customHeaderName);
+        final String customHeaderName = "customName";
+        final String customHeaderValue = "customValue";
+        final Set<String> headerNames = new HashSet<>();
+        headerNames.add(NhincConstants.CUSTOM_HTTP_HEADERS + "." + customHeaderName);
 
-		when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.KEEP_ALIVE_PROP))
-				.thenReturn("True");
-		when(mockPropAccessor.getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE)).thenReturn(headerNames);
-		when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-				NhincConstants.CUSTOM_HTTP_HEADERS + "." + customHeaderName)).thenReturn(customHeaderValue);
+        when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.KEEP_ALIVE_PROP))
+            .thenReturn("True");
+        when(mockPropAccessor.getPropertyNames(NhincConstants.GATEWAY_PROPERTY_FILE)).thenReturn(headerNames);
+        when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            NhincConstants.CUSTOM_HTTP_HEADERS + "." + customHeaderName)).thenReturn(customHeaderValue);
 
-		headerDecorator.configure();
+        headerDecorator.configure();
 
-		validateConfiguration(headerDecorator);
-		BindingProvider bp = (BindingProvider) headerDecorator.getPort();
-		Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
-				.get(NhincConstants.CUSTOM_HTTP_HEADERS);
-		assert bpMap.containsKey("customName");
-	}
+        validateConfiguration(headerDecorator);
+        final BindingProvider bp = (BindingProvider) headerDecorator.getPort();
+        final Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
+            .get(NhincConstants.CUSTOM_HTTP_HEADERS);
+        assert bpMap.containsKey("customName");
+    }
 
-	private void validateConfiguration(HttpHeaderServiceEndpointDecorator headerDecorator) {
-		assertEquals(headerDecorator.getHTTPClientPolicy().getConnection(), ConnectionType.KEEP_ALIVE);
+    private void validateConfiguration(final HttpHeaderServiceEndpointDecorator headerDecorator) {
+        assertEquals(headerDecorator.getHTTPClientPolicy().getConnection(), ConnectionType.KEEP_ALIVE);
 
-		BindingProvider bp = (BindingProvider) headerDecorator.getPort();
-		Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
-				.get(NhincConstants.CUSTOM_HTTP_HEADERS);
-		assertNotNull(bpMap);
-		assertEquals(bpMap.size(), 1);
-	}
+        final BindingProvider bp = (BindingProvider) headerDecorator.getPort();
+        final Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
+            .get(NhincConstants.CUSTOM_HTTP_HEADERS);
+        assertNotNull(bpMap);
+        assertEquals(bpMap.size(), 1);
+    }
 }
