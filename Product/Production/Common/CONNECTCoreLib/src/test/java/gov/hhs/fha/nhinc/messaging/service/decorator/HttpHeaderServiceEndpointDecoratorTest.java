@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -160,7 +161,7 @@ public class HttpHeaderServiceEndpointDecoratorTest {
         final BindingProvider bp = (BindingProvider) headerDecorator.getPort();
         final Map<String, List<String>> bpMap = (Map<String, List<String>>) bp.getRequestContext()
             .get(NhincConstants.CUSTOM_HTTP_HEADERS);
-        assert bpMap.containsKey("customName");
+        assertTrue(bpMap.containsKey("customName"));
     }
 
     private void validateConfiguration(final HttpHeaderServiceEndpointDecorator headerDecorator) {
