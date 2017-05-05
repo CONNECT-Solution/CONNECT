@@ -248,44 +248,4 @@ public class AdhocQueryTransformHelperTest {
 
 	}
 
-	@Test
-	public void testTransformAdhocQueryToCheckPolicy_DefaultOutBoundRequest() {
-
-		AdhocQueryRequestEventType eventA = new AdhocQueryRequestEventType();
-
-		eventA.setDirection("outbound");
-		CheckPolicyRequestType result = adhocQueryTransformHelp.transformAdhocQueryToCheckPolicy(eventA);
-		assertNotNull(result);
-	}
-
-	@Test
-	public void testTransformAdhocQueryToCheckPolicy_DefaultInBoundRequest() {
-
-		AdhocQueryRequestEventType eventA = new AdhocQueryRequestEventType();
-
-		eventA.setDirection("inbound");
-		CheckPolicyRequestType result = adhocQueryTransformHelp.transformAdhocQueryToCheckPolicy(eventA);
-		assertNotNull(result);
-	}
-
-	@Test
-	public void testTransformAdhocQueryResponseToCheckPolicy_DefaultOutBoundResponse() {
-
-		AdhocQueryResultEventType eventB = new AdhocQueryResultEventType();
-
-		eventB.setDirection("outbound");
-		CheckPolicyRequestType result = adhocQueryTransformHelp.transformAdhocQueryResponseToCheckPolicy(eventB);
-		assertNotNull(result);
-	}
-
-	@Test
-	public void testTransformAdhocQueryResponseToCheckPolicy_DefaultInBoundResponse() {
-
-		AdhocQueryResultEventType eventB = new AdhocQueryResultEventType();
-
-		eventB.setDirection("inbound");
-		CheckPolicyRequestType result = adhocQueryTransformHelp.transformAdhocQueryResponseToCheckPolicy(eventB);
-		assertNotNull(result);
-	}
-
 }
