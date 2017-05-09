@@ -54,12 +54,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-//@RunWith(JMock.class)
-
 public class XDRPolicyTransformHelperTest {
 
 	private static final String MESSAGE_ID = "12345566";
 	private XDRPolicyTransformHelper xdrTransformHelper;
+	private HomeCommunityType hct;
+	private AssertionType assertionType;
+	private SlotType1 slotType1;
+	private ValueListType valueListType;
+	private PersonNameType pnt;
+	private SlotListType rsl;
+	private RegistryObjectListType rolt;
+	private SubmitObjectsRequest sor;
 	private static final String TEST_HC_VAL = "urn:oid:1.1.1.1.1.1.1";
 
 	public XDRPolicyTransformHelperTest() {
@@ -68,6 +74,18 @@ public class XDRPolicyTransformHelperTest {
 	@Before
 	public void setUp() {
 		xdrTransformHelper = new XDRPolicyTransformHelper();
+		hct = new HomeCommunityType();
+		hct.setHomeCommunityId(TEST_HC_VAL);
+		hct.setName("hct_Name");
+		hct.setDescription("hct_description");
+		assertionType = new AssertionType();
+		slotType1 = new SlotType1();
+		valueListType = new ValueListType();
+		pnt = new PersonNameType();
+		rsl = new SlotListType();
+		rolt = new RegistryObjectListType();
+		sor = new SubmitObjectsRequest();
+
 	}
 
 	@After
@@ -80,27 +98,18 @@ public class XDRPolicyTransformHelperTest {
 
 		XDREventType eventA = new XDREventType();
 
-		HomeCommunityType hct = new HomeCommunityType();
-		hct.setHomeCommunityId(TEST_HC_VAL);
-		hct.setName("bcd");
-		hct.setDescription("jkl");
-		AssertionType assertionTypeTest = new AssertionType();
-		assertionTypeTest.setMessageId(MESSAGE_ID);
-		SlotType1 slotType1 = new SlotType1();
+		assertionType.setMessageId(MESSAGE_ID);
+
 		slotType1.setName("$XDSDocumentEntryPatientId");
 
-		ValueListType valueListType = new ValueListType();
 		valueListType.getValue().add("1111.4444^^^&amp;26.489.22&amp;ISO");
 		slotType1.setValueList(valueListType);
 
-		PersonNameType pnt = new PersonNameType();
-		pnt.setFullName("abc");
-		assertionTypeTest.setPersonName(pnt);
-		SlotListType rsl = new SlotListType();
+		pnt.setFullName("Minh");
+		assertionType.setPersonName(pnt);
 
 		rsl.getSlot().add(slotType1);
 
-		SubmitObjectsRequest sor = new SubmitObjectsRequest();
 		sor.setId("100");
 		sor.setRequestSlotList(rsl);
 
@@ -110,26 +119,24 @@ public class XDRPolicyTransformHelperTest {
 		prdsrt.getDocument().add(doc);
 		prdsrt.setSubmitObjectsRequest(sor);
 
-		RegistryObjectListType rolt = new RegistryObjectListType();
-
 		sor.setRegistryObjectList(rolt);
 
 		XDRMessageType xmt = new XDRMessageType();
 		eventA.setMessage(xmt);
-		xmt.setAssertion(assertionTypeTest);
+		xmt.setAssertion(assertionType);
 		xmt.setProvideAndRegisterDocumentSetRequest(prdsrt);
 
 		RequestType request = new RequestType();
 		SubjectHelper subjHelp = new SubjectHelper();
-		SubjectType subject = subjHelp.subjectFactory(hct, assertionTypeTest);
+		SubjectType subject = subjHelp.subjectFactory(hct, assertionType);
 		request.getSubject().add(subject);
 
-		assertionTypeTest.setHomeCommunity(hct);
-		assertionTypeTest.setSSN("170112756");
+		assertionType.setHomeCommunity(hct);
+		assertionType.setSSN("170112756");
 		eventA.setSendingHomeCommunity(hct);
 		String direction = "inbound";
 		eventA.setDirection(direction);
-		eventA.getMessage().setAssertion(assertionTypeTest);
+		eventA.getMessage().setAssertion(assertionType);
 
 		CheckPolicyRequestType result = xdrTransformHelper.transformXDRToCheckPolicy(eventA);
 
@@ -142,27 +149,18 @@ public class XDRPolicyTransformHelperTest {
 
 		XDRResponseEventType eventA = new XDRResponseEventType();
 
-		HomeCommunityType hct = new HomeCommunityType();
-		hct.setHomeCommunityId(TEST_HC_VAL);
-		hct.setName("bcd");
-		hct.setDescription("jkl");
-		AssertionType assertionTypeTest = new AssertionType();
-		assertionTypeTest.setMessageId(MESSAGE_ID);
-		SlotType1 slotType1 = new SlotType1();
+		assertionType.setMessageId(MESSAGE_ID);
+
 		slotType1.setName("$XDSDocumentEntryPatientId");
 
-		ValueListType valueListType = new ValueListType();
 		valueListType.getValue().add("1111.4444^^^&amp;26.489.22&amp;ISO");
 		slotType1.setValueList(valueListType);
 
-		PersonNameType pnt = new PersonNameType();
-		pnt.setFullName("abc");
-		assertionTypeTest.setPersonName(pnt);
-		SlotListType rsl = new SlotListType();
+		pnt.setFullName("Minh");
+		assertionType.setPersonName(pnt);
 
 		rsl.getSlot().add(slotType1);
 
-		SubmitObjectsRequest sor = new SubmitObjectsRequest();
 		sor.setId("100");
 		sor.setRequestSlotList(rsl);
 
@@ -170,25 +168,24 @@ public class XDRPolicyTransformHelperTest {
 
 		prdsrt.setResponseSlotList(rsl);
 		prdsrt.setRequestId("1235");
-		RegistryObjectListType rolt = new RegistryObjectListType();
 
 		sor.setRegistryObjectList(rolt);
 
 		XDRResponseMessageType xmt = new XDRResponseMessageType();
 		eventA.setMessage(xmt);
-		xmt.setAssertion(assertionTypeTest);
+		xmt.setAssertion(assertionType);
 		xmt.setRegistryResponse(prdsrt);
 
-		assertionTypeTest.setHomeCommunity(hct);
-		assertionTypeTest.setSSN("170112756");
+		assertionType.setHomeCommunity(hct);
+		assertionType.setSSN("170112756");
 		eventA.setSendingHomeCommunity(hct);
 		String direction = "inbound";
 		eventA.setDirection(direction);
-		eventA.getMessage().setAssertion(assertionTypeTest);
+		eventA.getMessage().setAssertion(assertionType);
 
 		RequestType request = new RequestType();
 		SubjectHelper subjHelp = new SubjectHelper();
-		SubjectType subject = subjHelp.subjectFactory(hct, assertionTypeTest);
+		SubjectType subject = subjHelp.subjectFactory(hct, assertionType);
 		request.getSubject().add(subject);
 		CheckPolicyRequestType result = xdrTransformHelper.transformXDRResponseToCheckPolicy(eventA);
 
@@ -214,13 +211,8 @@ public class XDRPolicyTransformHelperTest {
 	@Test
 	public void testNull_Event() {
 
-		XDRResponseEventType eventA = new XDRResponseEventType();
-		XDREventType eventB = new XDREventType();
-
-		eventA = null;
-		eventB = null;
-		assertNull(xdrTransformHelper.transformXDRResponseToCheckPolicy(eventA));
-		assertNull(xdrTransformHelper.transformXDRToCheckPolicy(eventB));
+		assertNull(xdrTransformHelper.transformXDRResponseToCheckPolicy(null));
+		assertNull(xdrTransformHelper.transformXDRToCheckPolicy(null));
 
 	}
 
