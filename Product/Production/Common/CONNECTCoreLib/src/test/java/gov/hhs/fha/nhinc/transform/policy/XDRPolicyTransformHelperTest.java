@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.transform.policy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;
@@ -207,5 +208,20 @@ public class XDRPolicyTransformHelperTest {
 		assertEquals("http://www.hhs.gov/healthit/nhin#HomeCommunityId", attributeType.getAttributeId());
 		assertEquals("http://www.w3.org/2001/XMLSchema#anyURI", attributeType.getDataType());
 		assertEquals(TEST_HC_VAL, attributeType.getAttributeValue().get(0).getContent().get(0));
+
 	}
+
+	@Test
+	public void testNull_Event() {
+
+		XDRResponseEventType eventA = new XDRResponseEventType();
+		XDREventType eventB = new XDREventType();
+
+		eventA = null;
+		eventB = null;
+		assertNull(xdrTransformHelper.transformXDRResponseToCheckPolicy(eventA));
+		assertNull(xdrTransformHelper.transformXDRToCheckPolicy(eventB));
+
+	}
+
 }
