@@ -85,6 +85,10 @@ public class XDRPolicyTransformHelperTest {
 		rsl = new SlotListType();
 		rolt = new RegistryObjectListType();
 		sor = new SubmitObjectsRequest();
+		slotType1.setName("$XDSDocumentEntryPatientId");
+
+		valueListType.getValue().add("1111.4444^^^&amp;26.489.22&amp;ISO");
+		slotType1.setValueList(valueListType);
 
 	}
 
@@ -99,11 +103,6 @@ public class XDRPolicyTransformHelperTest {
 		XDREventType eventA = new XDREventType();
 
 		assertionType.setMessageId(MESSAGE_ID);
-
-		slotType1.setName("$XDSDocumentEntryPatientId");
-
-		valueListType.getValue().add("1111.4444^^^&amp;26.489.22&amp;ISO");
-		slotType1.setValueList(valueListType);
 
 		pnt.setFullName("Minh");
 		assertionType.setPersonName(pnt);
@@ -140,7 +139,7 @@ public class XDRPolicyTransformHelperTest {
 
 		CheckPolicyRequestType result = xdrTransformHelper.transformXDRToCheckPolicy(eventA);
 
-		verifycheckPolicy_Request(result, direction);
+		verifycheckPolicy_Request(result);
 
 	}
 
@@ -150,11 +149,6 @@ public class XDRPolicyTransformHelperTest {
 		XDRResponseEventType eventA = new XDRResponseEventType();
 
 		assertionType.setMessageId(MESSAGE_ID);
-
-		slotType1.setName("$XDSDocumentEntryPatientId");
-
-		valueListType.getValue().add("1111.4444^^^&amp;26.489.22&amp;ISO");
-		slotType1.setValueList(valueListType);
 
 		pnt.setFullName("Minh");
 		assertionType.setPersonName(pnt);
@@ -189,11 +183,11 @@ public class XDRPolicyTransformHelperTest {
 		request.getSubject().add(subject);
 		CheckPolicyRequestType result = xdrTransformHelper.transformXDRResponseToCheckPolicy(eventA);
 
-		verifycheckPolicy_Request(result, direction);
+		verifycheckPolicy_Request(result);
 
 	}
 
-	private void verifycheckPolicy_Request(CheckPolicyRequestType actualCheckPolicy, String direction) {
+	private void verifycheckPolicy_Request(CheckPolicyRequestType actualCheckPolicy) {
 
 		assertNotNull(actualCheckPolicy);
 
