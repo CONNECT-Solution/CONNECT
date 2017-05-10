@@ -105,6 +105,7 @@ public class ConfigurationManager {
             final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
             dbf.setFeature(feature2, true);
 
+            dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             Document doc = db.parse(file);

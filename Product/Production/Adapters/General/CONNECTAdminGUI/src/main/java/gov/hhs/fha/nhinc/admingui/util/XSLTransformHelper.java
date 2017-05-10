@@ -53,7 +53,10 @@ public class XSLTransformHelper {
         try {
             TransformerFactory tFactory = TransformerFactory.newInstance();
             tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            Templates template = tFactory.newTemplates(new StreamSource(xsl));
+            tFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            tFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+	    tFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+	    Templates template = tFactory.newTemplates(new StreamSource(xsl));
             Transformer transformer = template.newTransformer();
             transformer.transform(new StreamSource(xml), new StreamResult(output));
 

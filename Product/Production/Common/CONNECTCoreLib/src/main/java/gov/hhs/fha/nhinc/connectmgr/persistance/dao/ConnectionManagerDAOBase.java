@@ -37,7 +37,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
-
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 /**
  *
  * @author mweaver
@@ -63,13 +65,19 @@ public class ConnectionManagerDAOBase {
             synchronized (file) {
                 JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
                 ObjectFactory factory = new ObjectFactory();
-                Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();        
+		Marshaller marshaller = context.createMarshaller();
+                dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+	        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
                 marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
             }
         } catch (JAXBException ex) {
             throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
-        }
+        } catch(ParserConfigurationException e) {
+            LOG.error("unable to load XDRConfiguration file", e);
+	}
 
         LOG.info("Connection info saved to " + file.getName());
     }
