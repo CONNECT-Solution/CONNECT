@@ -143,7 +143,7 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         String id = event.getComponent().getId();
 
         for (DashboardPanel panel : panels) {
-            if (panel.getType().replace(" ", "_").toLowerCase().equals(id)) {
+            if (id.equalsIgnoreCase(panel.getType().replace(" ", "_"))) {
                 panel.close();
                 break;
             }
@@ -205,7 +205,7 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
             FacesContext fc = FacesContext.getCurrentInstance();
             ExpressionFactory ef = fc.getApplication().getExpressionFactory();
             closeExpp = ef.createMethodExpression(fc.getELContext(), CLOSE_EXPRESSION_VALUE, null,
-                    new Class<?>[] { CloseEvent.class });
+                new Class<?>[] { CloseEvent.class });
         }
         return closeExpp;
     }
