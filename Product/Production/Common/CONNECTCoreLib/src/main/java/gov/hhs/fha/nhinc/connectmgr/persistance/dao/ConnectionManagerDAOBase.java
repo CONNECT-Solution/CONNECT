@@ -54,63 +54,59 @@ import java.io.FileNotFoundException;
  */
 public class ConnectionManagerDAOBase {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
 
-	protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
-		BusinessDetail resp = null;
-		try {
+    protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
+        BusinessDetail resp = null;
+        try {
 
-			synchronized (file) {
+            synchronized (file) {
 
-				SAXParserFactory spf = SAXParserFactory.newInstance();
-				spf.setNamespaceAware(true);
-				spf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
-				spf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
-				spf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+                SAXParserFactory spf = SAXParserFactory.newInstance();
+                spf.setNamespaceAware(true);
+                spf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+                spf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+                spf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
 
-				XMLReader xmlReader = spf.newSAXParser().getXMLReader();
-				InputSource inputSource = new InputSource(new FileReader(file));
-				SAXSource source = new SAXSource(xmlReader, inputSource);
+                XMLReader xmlReader = spf.newSAXParser().getXMLReader();
+                InputSource inputSource = new InputSource(new FileReader(file));
+                SAXSource source = new SAXSource(xmlReader, inputSource);
 
-				JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-				Unmarshaller unmarshaller = context.createUnmarshaller();
+                JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
 
-				InputSource stream = source.getInputSource();
+                InputSource stream = source.getInputSource();
 
-				Reader reader = stream.getCharacterStream();
+                Reader reader = stream.getCharacterStream();
 
-				JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
-						BusinessDetail.class);
+                JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
+                        BusinessDetail.class);
 
-				resp = jaxbElement.getValue();
+                resp = jaxbElement.getValue();
 
-			}
-		} catch (ParserConfigurationException e) {
-			LOG.error("unable to load XDRConfiguration file", e);
-		} catch (SAXException e) {
-			LOG.error("SAX Exception", e);
-		} catch (FileNotFoundException e) {
-			LOG.error("File Not Found", e);
-		}
+            }
+        } catch (ParserConfigurationException | SAXException | FileNotFoundException e) {
+            LOG.error("Exception in reading/parsing XDRConfiguration file: {}",e.getLocalizedMessage(),e);
+        }
 
-		return resp;
+        return resp;
 
-	}
+    }
 
-	protected void saveBusinessDetail(BusinessDetail BusinessDetail, File file) {
-		try {
-			synchronized (file) {
-				JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-				ObjectFactory factory = new ObjectFactory();
-				Marshaller marshaller = context.createMarshaller();
-				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
-			}
-		} catch (JAXBException ex) {
-			throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
-		}
+    protected void saveBusinessDetail(BusinessDetail BusinessDetail, File file) {
+        try {
+            synchronized (file) {
+                JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
+                ObjectFactory factory = new ObjectFactory();
+                Marshaller marshaller = context.createMarshaller();
+                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
+            }
+        } catch (JAXBException ex) {
+            throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
+        }
 
-		LOG.info("Connection info saved to " + file.getName());
-	}
+        LOG.info("Connection info saved to " + file.getName());
+    }
 
 }
