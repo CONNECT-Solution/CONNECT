@@ -37,6 +37,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  *
@@ -44,27 +45,27 @@ import org.slf4j.LoggerFactory;
  */
 public class XSLTransformHelper {
 
-    private static final Logger LOG = LoggerFactory.getLogger(XSLTransformHelper.class);
+	private static final Logger LOG = LoggerFactory.getLogger(XSLTransformHelper.class);
 
-    public byte[] convertXMLToHTML(InputStream xml, InputStream xsl) {
+	public byte[] convertXMLToHTML(InputStream xml, InputStream xsl) {
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        try {
-            TransformerFactory tFactory = TransformerFactory.newInstance();
-            tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            tFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-            tFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-	    tFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-	    Templates template = tFactory.newTemplates(new StreamSource(xsl));
-            Transformer transformer = template.newTransformer();
-            transformer.transform(new StreamSource(xml), new StreamResult(output));
+		try {
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			tFactory.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+			tFactory.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+			tFactory.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+			Templates template = tFactory.newTemplates(new StreamSource(xsl));
+			Transformer transformer = template.newTransformer();
+			transformer.transform(new StreamSource(xml), new StreamResult(output));
 
-        } catch (TransformerException e) {
-            LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
-        }
+		} catch (TransformerException e) {
+			LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
+		}
 
-        return output.toByteArray();
-    }
+		return output.toByteArray();
+	}
 
 }

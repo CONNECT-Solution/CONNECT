@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import java.io.File;
+import java.lang.Object;
+import java.io.FileReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -36,50 +38,82 @@ import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
+import javax.xml.transform.Source;
 import org.uddi.api_v3.ObjectFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.SAXException;
+import javax.xml.transform.sax.SAXSource;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import javax.xml.transform.stream.StreamSource;
+import java.io.Reader;
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author mweaver
  */
 public class ConnectionManagerDAOBase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
 
-    protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
-        BusinessDetail resp;
-        synchronized (file) {
-            JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(file),
-                    BusinessDetail.class);
-            resp = jaxbElement.getValue();
-        }
-        return resp;
-    }
+	protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
+		BusinessDetail resp = null;
+		try {
 
-    protected void saveBusinessDetail(BusinessDetail BusinessDetail, File file) {
-        try {
-            synchronized (file) {
-                JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-                ObjectFactory factory = new ObjectFactory();
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();        
-		Marshaller marshaller = context.createMarshaller();
-                dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-                dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-	        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
-            }
-        } catch (JAXBException ex) {
-            throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
-        } catch(ParserConfigurationException e) {
-            LOG.error("unable to load XDRConfiguration file", e);
+			synchronized (file) {
+
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				spf.setNamespaceAware(true);
+				spf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+				spf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+				spf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+
+				XMLReader xmlReader = spf.newSAXParser().getXMLReader();
+				InputSource inputSource = new InputSource(new FileReader(file));
+				SAXSource source = new SAXSource(xmlReader, inputSource);
+
+				JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
+				Unmarshaller unmarshaller = context.createUnmarshaller();
+
+				InputSource stream = ((SAXSource) source).getInputSource();
+
+				Reader reader = stream.getCharacterStream();
+
+				JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
+						BusinessDetail.class);
+
+				resp = jaxbElement.getValue();
+
+			}
+		} catch (ParserConfigurationException e) {
+			LOG.error("unable to load XDRConfiguration file", e);
+		} catch (SAXException e) {
+			LOG.error("SAX Exception", e);
+		} catch (FileNotFoundException e) {
+			LOG.error("File Not Found", e);
+		}
+
+		return resp;
+
 	}
 
-        LOG.info("Connection info saved to " + file.getName());
-    }
+	protected void saveBusinessDetail(BusinessDetail BusinessDetail, File file) {
+		try {
+			synchronized (file) {
+				JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
+				ObjectFactory factory = new ObjectFactory();
+				Marshaller marshaller = context.createMarshaller();
+				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+				marshaller.marshal(factory.createBusinessDetail(BusinessDetail), file);
+			}
+		} catch (JAXBException ex) {
+			throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
+		}
+
+		LOG.info("Connection info saved to " + file.getName());
+	}
 
 }

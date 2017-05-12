@@ -533,6 +533,11 @@ public class NhincConstants {
 
     public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
     public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+	
+	// XML Eternal Entity Injection Features
+	public static final String FEATURE_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+	public static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
+	public static final String FEATURE_DISALLOW_DOCTYPE = "http://apache.org/xml/features/disallow-doctype-decl";
     /**
      * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
      * endorsing supporting token.

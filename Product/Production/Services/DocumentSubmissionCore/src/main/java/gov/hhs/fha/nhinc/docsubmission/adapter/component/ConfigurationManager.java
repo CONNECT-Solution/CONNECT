@@ -42,6 +42,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  *
@@ -83,14 +84,10 @@ public class ConfigurationManager {
 
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             
-            final String feature = "http://xml.org/sax/features/external-general-entities";
-            dbf.setFeature(feature, false);
-
-            // For Xerces 2
-            final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
-            dbf.setFeature(feature2, true);
-
-            dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            dbf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+            dbf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+            dbf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+			
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
