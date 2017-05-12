@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import java.io.File;
-import java.lang.Object;
 import java.io.FileReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -38,7 +37,6 @@ import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
-import javax.xml.transform.Source;
 import org.uddi.api_v3.ObjectFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -47,7 +45,6 @@ import org.xml.sax.SAXException;
 import javax.xml.transform.sax.SAXSource;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
-import javax.xml.transform.stream.StreamSource;
 import java.io.Reader;
 import java.io.FileNotFoundException;
 
@@ -78,7 +75,7 @@ public class ConnectionManagerDAOBase {
 				JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
 				Unmarshaller unmarshaller = context.createUnmarshaller();
 
-				InputSource stream = ((SAXSource) source).getInputSource();
+				InputSource stream = source.getInputSource();
 
 				Reader reader = stream.getCharacterStream();
 
