@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class ConfigurationManager {
     public ExpirationConfiguration loadExpirationConfiguration() {
         ExpirationConfiguration result;
         LOG.debug("begin loadExpirationConfiguration()");
-        String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
+        final String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         LOG.debug("Property Directory: " + propertyDir);
         result = loadExpirationConfiguration(propertyDir, FTA_CONFIG_FILE);
@@ -62,60 +63,59 @@ public class ConfigurationManager {
         return result;
     }
 
-    public ExpirationConfiguration loadExpirationConfiguration(String dir, String fileName) {
+    public ExpirationConfiguration loadExpirationConfiguration(final String dir, final String fileName) {
         ExpirationConfiguration result = null;
         LOG.debug("loadExpirationConfiguration");
         LOG.debug("fileName = " + fileName);
         try {
-            File file = new File(dir, fileName);
+            final File file = new File(dir, fileName);
             result = loadExpirationConfiguration(file);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("unable to load PCConfiguration file: " + e.getLocalizedMessage(), e);
         }
         return result;
     }
 
-    public ExpirationConfiguration loadExpirationConfiguration(String fileName) {
+    public ExpirationConfiguration loadExpirationConfiguration(final String fileName) {
         ExpirationConfiguration result = null;
         LOG.debug("loadExpirationConfiguration");
         LOG.debug("fileName = " + fileName);
         try {
-            File file = new File(fileName);
+            final File file = new File(fileName);
             result = loadExpirationConfiguration(file);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error("unable to load PCConfiguration file: " + e.getLocalizedMessage(), e);
         }
         return result;
     }
 
-    public ExpirationConfiguration loadExpirationConfiguration(File file) {
+    public ExpirationConfiguration loadExpirationConfiguration(final File file) {
         LOG.debug("loadExpirationConfiguration(File)");
         ExpirationConfiguration result = null;
         int defaultConfiguration = -1;
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            
-            final String feature = "http://xml.org/sax/features/external-general-entities";
-            dbf.setFeature(feature, false);
 
-            // For Xerces 2
-            final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
-            dbf.setFeature(feature2, true);
+            dbf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
 
-            DocumentBuilder db = dbf.newDocumentBuilder();
+            dbf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
 
-            Document doc = db.parse(file);
+            dbf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+
+            final DocumentBuilder db = dbf.newDocumentBuilder();
+
+            final Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
 
             LOG.debug("Root element " + doc.getDocumentElement().getNodeName());
 
             String defaultUnits = "";
-            Node defaultDurationNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
+            final Node defaultDurationNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
                     .getNamedItem("defaultDuration");
-            Node defaultUnitNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
+            final Node defaultUnitNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
                     .getNamedItem("defaultUnits");
 
             if (defaultDurationNode != null) {
@@ -127,38 +127,38 @@ public class ConfigurationManager {
 
             result = new ExpirationConfiguration(defaultConfiguration, defaultUnits);
 
-            NodeList nodeLst = doc.getElementsByTagName("expiration");
+            final NodeList nodeLst = doc.getElementsByTagName("expiration");
 
             for (int x = 0; x < nodeLst.getLength(); x++) {
-                Node item = nodeLst.item(x);
-                String aa = item.getAttributes().getNamedItem("assigningAuthority").getTextContent();
-                String units = item.getAttributes().getNamedItem("unit").getTextContent();
-                String duration = item.getTextContent();
+                final Node item = nodeLst.item(x);
+                final String aa = item.getAttributes().getNamedItem("assigningAuthority").getTextContent();
+                final String units = item.getAttributes().getNamedItem("unit").getTextContent();
+                final String duration = item.getTextContent();
 
-                Expiration expItem = new Expiration(aa, units, Integer.parseInt(duration));
+                final Expiration expItem = new Expiration(aa, units, Integer.parseInt(duration));
 
                 result.getExpirations().add(expItem);
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             LOG.error("unable to load PCConfiguration file", e);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             LOG.error("unable to load PCConfiguration file", e);
-        } catch (ParserConfigurationException e) {
+        } catch (final ParserConfigurationException e) {
             LOG.error("unable to load PCConfiguration file", e);
-        } catch (DOMException e) {
+        } catch (final DOMException e) {
             LOG.error("unable to load PCConfiguration file", e);
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             LOG.error("unable to load PCConfiguration file", e);
         }
 
         return result;
     }
 
-    public Expiration loadConfiguration(ExpirationConfiguration config, String assigningAuthority) {
+    public Expiration loadConfiguration(final ExpirationConfiguration config, final String assigningAuthority) {
         Expiration result = null;
 
         if (config != null) {
-            for (Expiration item : config.getExpirations()) {
+            for (final Expiration item : config.getExpirations()) {
                 if (item.getAssigningAuthority().equalsIgnoreCase(assigningAuthority)) {
                     result = item;
                 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import javax.xml.XMLConstants;
@@ -46,18 +47,21 @@ public class XSLTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(XSLTransformHelper.class);
 
-    public byte[] convertXMLToHTML(InputStream xml, InputStream xsl) {
+    public byte[] convertXMLToHTML(final InputStream xml, final InputStream xsl) {
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         try {
-            TransformerFactory tFactory = TransformerFactory.newInstance();
+            final TransformerFactory tFactory = TransformerFactory.newInstance();
             tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            Templates template = tFactory.newTemplates(new StreamSource(xsl));
-            Transformer transformer = template.newTransformer();
+            tFactory.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+            tFactory.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+            tFactory.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+            final Templates template = tFactory.newTemplates(new StreamSource(xsl));
+            final Transformer transformer = template.newTransformer();
             transformer.transform(new StreamSource(xml), new StreamResult(output));
 
-        } catch (TransformerException e) {
+        } catch (final TransformerException e) {
             LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
         }
 

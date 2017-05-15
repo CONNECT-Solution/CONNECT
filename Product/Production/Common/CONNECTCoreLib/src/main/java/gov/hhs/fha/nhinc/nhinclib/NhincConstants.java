@@ -55,7 +55,7 @@ public class NhincConstants {
         SPEC_1_0("1.0"), SPEC_1_1("1.1"), SPEC_2_0("2.0"), SPEC_3_0("3.0");
         private String value = null;
 
-        UDDI_SPEC_VERSION(String value) {
+        UDDI_SPEC_VERSION(final String value) {
             this.value = value;
         }
 
@@ -64,9 +64,9 @@ public class NhincConstants {
             return value;
         }
 
-        public static UDDI_SPEC_VERSION fromString(String valueString) {
+        public static UDDI_SPEC_VERSION fromString(final String valueString) {
             if (valueString != null) {
-                for (UDDI_SPEC_VERSION enumValue : UDDI_SPEC_VERSION.values()) {
+                for (final UDDI_SPEC_VERSION enumValue : UDDI_SPEC_VERSION.values()) {
                     if (valueString.equals(enumValue.toString())) {
                         return enumValue;
                     }
@@ -79,20 +79,20 @@ public class NhincConstants {
     public static enum NHIN_SERVICE_NAMES {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
-            PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
-                    DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
-                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
-                            NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
-                                NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
-                                    NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
-                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
-                                            CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
-                                                CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
-                                                    CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+                PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
+                        PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
+                                DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
+                                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
+                                                NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
+                                                        NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
+                                                                NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
+                                                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
+                                                                                CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
+                                                                                        CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
+                                                                                                CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
         private String UDDIServiceName = null;
 
-        NHIN_SERVICE_NAMES(String value) {
+        NHIN_SERVICE_NAMES(final String value) {
             UDDIServiceName = value;
         }
 
@@ -100,9 +100,9 @@ public class NhincConstants {
             return UDDIServiceName;
         }
 
-        public static NHIN_SERVICE_NAMES fromValueString(String valueString) {
+        public static NHIN_SERVICE_NAMES fromValueString(final String valueString) {
             if (valueString != null) {
-                for (NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
+                for (final NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
                     if (valueString.equals(enumValue.UDDIServiceName)) {
                         return enumValue;
                     }
@@ -112,8 +112,8 @@ public class NhincConstants {
         }
 
         public static List<String> getEnumServiceNamesList() {
-            List<String> enumServiceNames = new ArrayList<>();
-            for (NHIN_SERVICE_NAMES m : values()) {
+            final List<String> enumServiceNames = new ArrayList<>();
+            for (final NHIN_SERVICE_NAMES m : values()) {
                 enumServiceNames.add(m.toString());
             }
             return enumServiceNames;
@@ -150,7 +150,8 @@ public class NhincConstants {
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
     public static final String MAX_UDDI_RESULTS_PROPERTY = "UDDIMaxResults";
-    // Concurrent Executor Service Constants (used to retrieve values from gateway.properties)
+    // Concurrent Executor Service Constants (used to retrieve values from
+    // gateway.properties)
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
@@ -170,7 +171,9 @@ public class NhincConstants {
     public static final String RESPONSE_MESSAGE_ID_KEY = "RESPONSE_MESSAGE_ID";
     public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";
 
-    // Flag to enable SAML AuthzDecisionStatement->Evidence->Assertion->Conditions element default value
+    // Flag to enable SAML
+    // AuthzDecisionStatement->Evidence->Assertion->Conditions element default
+    // value
     public static final String ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE = "enableAuthDecEvidenceConditionsDefaultValue";
 
     // these 6 not used anymore
@@ -526,20 +529,26 @@ public class NhincConstants {
     public static final String PATIENT_CORR_HIBERNATE_BEAN = "patientCorrHibernateUtil";
     public static final String MSG_MONITOR_HIBERNATE_BEAN = "msgMonitorHibernateUtil";
     public static final String DIRECT_CONFIG_HIBERNATE_BEAN = "directConfigHibernateUtil";
-    
+
     public static final String CUSTOM_HTTP_HEADERS = "customHttpHeaders";
     public static final String KEEP_ALIVE_PROP = "connectionKeepAlive";
     public static final String READ_HTTP_HEADERS = "readHttpHeaders";
 
     public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
     public static final String SV_ASSERTION_TYPE = "SV-Assertion";
+
+    // XML Eternal Entity Injection Features
+    public static final String FEATURE_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+    public static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
+    public static final String FEATURE_DISALLOW_DOCTYPE = "http://apache.org/xml/features/disallow-doctype-decl";
     /**
-     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
-     * endorsing supporting token.
+     * System property which controls the alias used to retrieve the private key
+     * to sign the SAML assertion and endorsing supporting token.
      */
     public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
     /**
-     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
+     * Default alias used to retrieve the private key to sign the SAML assertion
+     * and endorsing supporting token.
      */
     public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
 

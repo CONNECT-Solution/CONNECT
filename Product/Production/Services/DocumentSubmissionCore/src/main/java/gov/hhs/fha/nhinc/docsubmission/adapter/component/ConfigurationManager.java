@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
 import java.io.IOException;
@@ -55,75 +56,72 @@ public class ConfigurationManager {
     public Config loadConfiguration() {
         Config result;
 
-        String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
+        final String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
         result = loadConfiguration(propertyDir, XDR_CONFIG_FILE);
 
         return result;
     }
 
-    public Config loadConfiguration(String path, String fileName) {
+    public Config loadConfiguration(final String path, final String fileName) {
         Config result = null;
 
         try {
-            File file = new File(path, fileName);
+            final File file = new File(path, fileName);
             result = loadConfiguration(file);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             LOG.error(e.getLocalizedMessage(), e);
         }
 
         return result;
     }
 
-    public Config loadConfiguration(File file) {
-        Config result = new Config();
+    public Config loadConfiguration(final File file) {
+        final Config result = new Config();
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            
-            final String feature = "http://xml.org/sax/features/external-general-entities";
-            dbf.setFeature(feature, false);
 
-            // For Xerces 2
-            final String feature2 = "http://apache.org/xml/features/disallow-doctype-decl";
-            dbf.setFeature(feature2, true);
+            dbf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+            dbf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+            dbf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
 
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(file);
+            final DocumentBuilder db = dbf.newDocumentBuilder();
+            final Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
 
-            NodeList nodeLst = doc.getElementsByTagName("RoutingInformation");
+            final NodeList nodeLst = doc.getElementsByTagName("RoutingInformation");
             result.setRoutingInfo(loadRoutingInfo(nodeLst));
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             LOG.error("unable to load XDRConfiguration file", e);
-        } catch (ParserConfigurationException e) {
+        } catch (final ParserConfigurationException e) {
             LOG.error("unable to load XDRConfiguration file", e);
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             LOG.error("unable to load XDRConfiguration file", e);
         }
 
         return result;
     }
 
-    private List<RoutingConfig> loadRoutingInfo(NodeList list) {
-        ArrayList<RoutingConfig> result = new ArrayList<>();
-        Node channels = list.item(0);
+    private List<RoutingConfig> loadRoutingInfo(final NodeList list) {
+        final ArrayList<RoutingConfig> result = new ArrayList<>();
+        final Node channels = list.item(0);
 
         LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");
 
         for (int s = 0; s < channels.getChildNodes().getLength(); s++) {
-            Node node = channels.getChildNodes().item(s);
+            final Node node = channels.getChildNodes().item(s);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
+                final Element element = (Element) node;
 
                 if ("RoutingConfig".equalsIgnoreCase(element.getNodeName())) {
-                    RoutingConfig item = new RoutingConfig();
+                    final RoutingConfig item = new RoutingConfig();
                     for (int x = 0; x < element.getChildNodes().getLength(); x++) {
-                        String nodeName = element.getChildNodes().item(x).getNodeName();
-                        String nodeValue = element.getChildNodes().item(x).getTextContent();
+                        final String nodeName = element.getChildNodes().item(x).getNodeName();
+                        final String nodeValue = element.getChildNodes().item(x).getTextContent();
 
                         if ("Recipient".equalsIgnoreCase(nodeName)) {
                             item.setRecepient(nodeValue);
