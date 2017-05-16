@@ -231,7 +231,7 @@
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-       <scope>runtime</scope>
+      <scope>runtime</scope>
     </dependency>
 
         <!-- xalan dependency required for XSL transformation -->
