@@ -142,7 +142,7 @@ public class XDRPolicyTransformHelper {
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
-                LOG.debug(registryPackage.getSlot().size());
+                LOG.debug("Slot(s) in registry Package is {}",registryPackage.getSlot().size());
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)

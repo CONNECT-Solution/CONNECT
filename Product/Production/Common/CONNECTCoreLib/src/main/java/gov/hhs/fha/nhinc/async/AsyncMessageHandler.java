@@ -76,7 +76,7 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                         if (messageContext.containsKey(NhincConstants.ASYNC_MESSAGE_ID_PROP) == true) {
                             messageId = (String) messageContext.get(NhincConstants.ASYNC_MESSAGE_ID_PROP);
 
-                            LOG.debug("Setting message ID to " + messageId);
+                            LOG.debug("Setting message ID to {}" + messageId);
 
                             // Steps that need to be performed
                             SOAPElement oMessageIdElem = getFirstChild(oHeader, "MessageID", WSA_NS);
@@ -92,7 +92,7 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                         if (messageContext.containsKey(NhincConstants.ASYNC_RELATES_TO_PROP) == true) {
                             relatesToId = (String) messageContext.get(NhincConstants.ASYNC_RELATES_TO_PROP);
 
-                            LOG.debug("Setting relates to ID to " + relatesToId);
+                            LOG.debug("Setting relates to ID to {}" + relatesToId);
 
                             // Steps that need to be performed
                             SOAPElement relatesToElem = oHeader.addChildElement("RelatesTo", WSA_PREFIX, WSA_NS);
