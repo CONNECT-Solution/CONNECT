@@ -49,7 +49,7 @@ public class PolicyEngineUtil {
 
     public CheckPolicyResponseType checkAssertionAttributeStatement(AssertionType assertion) {
         StringBuilder sBuilder = new StringBuilder();
-        boolean passesPolicyCheck = true;
+        boolean passesPolicyCheck;
         if (assertion != null) {
             passesPolicyCheck = checkUserInfo(assertion.getUserInfo(), sBuilder)
                     && checkPurposeOfDisclosure(assertion.getPurposeOfDisclosureCoded(), sBuilder)
@@ -69,7 +69,7 @@ public class PolicyEngineUtil {
         return createPolicyResponse(decision, sBuilder.toString());
     }
 
-    private CheckPolicyResponseType createPolicyResponse(DecisionType dType, String message) {
+    private static CheckPolicyResponseType createPolicyResponse(DecisionType dType, String message) {
         LOG.info(message);
         ResultType result = new ResultType();
         result.setDecision(dType);
