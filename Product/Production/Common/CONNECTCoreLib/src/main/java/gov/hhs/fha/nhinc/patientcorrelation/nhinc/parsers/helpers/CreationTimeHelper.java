@@ -46,7 +46,7 @@ public class CreationTimeHelper {
             formattedTime = sdf.format(new Date());
             time.setValue(formattedTime);
         } catch (Exception ex) {
-            System.out.print(ex);
+            LOG.error(e.getLocalizedMessage(), e);
         }
 
         return time;

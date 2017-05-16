@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author JHOPPESC
+ * @author JHOPPESC- EDITED by sjarral
  */
 public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
 
@@ -69,14 +69,14 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                     String msgType = (String) messageContext.get(NhincConstants.ASYNC_MSG_TYPE_PROP);
 
                     if (msgType.contentEquals(NhincConstants.ASYNC_REQUEST_MSG_TYPE_VAL)) {
-                        System.out.println("Detected an asynchronous request message");
+                        LOG.debug("Detected an asynchronous request message");
                         // Override the Message Id field
                         String messageId = null;
 
                         if (messageContext.containsKey(NhincConstants.ASYNC_MESSAGE_ID_PROP) == true) {
                             messageId = (String) messageContext.get(NhincConstants.ASYNC_MESSAGE_ID_PROP);
 
-                            System.out.println("Setting message ID to " + messageId);
+                            LOG.debug("Setting message ID to " + messageId);
 
                             // Steps that need to be performed
                             SOAPElement oMessageIdElem = getFirstChild(oHeader, "MessageID", WSA_NS);
@@ -85,24 +85,24 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                             }
                         }
                     } else if (msgType.contentEquals(NhincConstants.ASYNC_RESPONSE_MSG_TYPE_VAL)) {
-                        System.out.println("Detected an asynchronous response message");
+                        LOG.debug("Detected an asynchronous response message");
                         // Override the Relates To Id field
                         String relatesToId = null;
 
                         if (messageContext.containsKey(NhincConstants.ASYNC_RELATES_TO_PROP) == true) {
                             relatesToId = (String) messageContext.get(NhincConstants.ASYNC_RELATES_TO_PROP);
 
-                            System.out.println("Setting relates to ID to " + relatesToId);
+                            LOG.debug("Setting relates to ID to " + relatesToId);
 
                             // Steps that need to be performed
                             SOAPElement relatesToElem = oHeader.addChildElement("RelatesTo", WSA_PREFIX, WSA_NS);
                             relatesToElem.setTextContent(relatesToId);
                         }
                     } else {
-                        System.out.println("Detected an synchronous request message");
+                        LOG.debug("Detected an synchronous request message");
                     }
                 } else {
-                    System.out.println("Detected an synchronous request message");
+                    LOG.debug("Detected an synchronous request message");
                 }
 
             } else {

@@ -274,8 +274,8 @@ public class XDRHelper {
         String[] mimeArray = getSupportedMimeTypes();
         boolean result = false;
 
-        for (int x = 0; x < mimeArray.length; x++) {
-            if (mimeArray[x].equalsIgnoreCase(mimeType)) {
+        for (String element : mimeArray) {
+            if (element.equalsIgnoreCase(mimeType)) {
                 result = true;
                 break;
             }
@@ -326,12 +326,12 @@ public class XDRHelper {
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
+            LOG.debug(object.getIdentifiable().get(x).getName());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(registryPackage.getSlot().size());
+                LOG.debug(registryPackage.getSlot().size());
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
@@ -354,12 +354,12 @@ public class XDRHelper {
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
+            LOG.debug(object.getIdentifiable().get(x).getName());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class)) {
                 ExtrinsicObjectType extObj = (ExtrinsicObjectType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(extObj.getSlot().size());
+                LOG.debug(extObj.getSlot().size());
 
                 SlotType1 slot = getNamedSlotItem(extObj.getSlot(), "sourcePatientId");
 
