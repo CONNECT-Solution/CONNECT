@@ -662,8 +662,7 @@
           </exclusion>
           <exclusion>
             <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-           
+            <artifactId>commons-fileupload</artifactId>          
           </exclusion>
         </exclusions>
       </dependency>
@@ -752,11 +751,6 @@
             <artifactId>commons-beanutils</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>1.3.1</version>
       </dependency>
 
       <!-- Utility Libraries -->
@@ -1134,13 +1128,13 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-          <groupId>common-fileupload</groupId>
-          <artifactId>common-fileupload</artifactId>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
           <version>1.3.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
+  
   <build>
     <plugins>
       <plugin>
