@@ -281,7 +281,7 @@ public class HL7Extractors {
                     } else {
                         nameString = strValue;
                     }
-                    System.out.println("Here is the contents of the string: " + strValue);
+                    LOG.debug("Here is the contents of the string: {}" , strValue);
                 } else if (contentItem instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
                     LOG.debug("Found JAXBElement");
@@ -352,7 +352,7 @@ public class HL7Extractors {
                     } else {
                         nameString = strValue;
                     }
-                    System.out.println("Here is the contents of the string: " + strValue);
+                    LOG.debug("Here is the contents of the string: {}" , strValue);
                 } else if (contentItem instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
 

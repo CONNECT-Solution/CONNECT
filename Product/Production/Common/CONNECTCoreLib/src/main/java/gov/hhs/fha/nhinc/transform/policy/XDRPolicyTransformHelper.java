@@ -56,7 +56,8 @@ public class XDRPolicyTransformHelper {
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
 
     /**
-     * Transform method to create a CheckPolicyRequest object from a 201306 message
+     * Transform method to create a CheckPolicyRequest object from a 201306
+     * message
      *
      * @param request
      * @return CheckPolicyRequestType
@@ -91,9 +92,9 @@ public class XDRPolicyTransformHelper {
             resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId,
                     Constants.DataTypeString, assigningAuthorityId));
 
-            LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = " + patId);
+            LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = {}", patId);
             resource.getAttribute()
-                    .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
+            .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
 
             request.getResource().add(resource);
         }
@@ -133,16 +134,18 @@ public class XDRPolicyTransformHelper {
             return null;
         }
 
-        System.out.println(request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
+        LOG.debug("List of All Identifiable Registry Object(s) on Identifiers Form Request {}",
+                request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
         RegistryObjectListType object = request.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
+            LOG.debug("Name of Identifiable Registry Object on Identifiers Form Request {}",
+                    object.getIdentifiable().get(x).getName());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(registryPackage.getSlot().size());
+                LOG.debug("Slot(s) in registry Package is {}", registryPackage.getSlot().size());
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)

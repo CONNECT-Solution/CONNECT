@@ -128,7 +128,7 @@ public class FindAndReplaceFile {
                 try {
                     boolean bCopied = copy(fFileName, fDirToLook);
                     if (bCopied) {
-                        System.out.println("Replaced file: " + fDirToLook.getCanonicalPath());
+                       LOG.debug("Replaced file: {}" , fDirToLook.getCanonicalPath());
                         return 1;
                     } else {
                         return 0;
