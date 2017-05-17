@@ -91,7 +91,7 @@ public class PolicyEngineUtil {
         }
     }
 
-    private boolean checkPersonName(PersonNameType personName, StringBuilder sBuilder) {
+    private static boolean checkPersonName(PersonNameType personName, StringBuilder sBuilder) {
         if (personName == null) {
             sBuilder.append("| Person Type Check Failed |");
             return false;
@@ -102,7 +102,7 @@ public class PolicyEngineUtil {
         }
     }
 
-    private boolean checkOrg(HomeCommunityType org, StringBuilder sBuilder) {
+    private static boolean checkOrg(HomeCommunityType org, StringBuilder sBuilder) {
         if (org == null) {
             sBuilder.append("| Org Info Check Failed |");
             return false;
@@ -112,7 +112,7 @@ public class PolicyEngineUtil {
         }
     }
 
-    private boolean checkRoleCoded(CeType roleCoded, StringBuilder sBuilder) {
+    private static boolean checkRoleCoded(CeType roleCoded, StringBuilder sBuilder) {
         if (roleCoded == null) {
             sBuilder.append("| RoleCode Check Failed |");
             return false;
@@ -124,7 +124,7 @@ public class PolicyEngineUtil {
         }
     }
 
-    private boolean checkPurposeOfDisclosure(CeType purposeOfDisclosureCoded, StringBuilder sBuilder) {
+    private static boolean checkPurposeOfDisclosure(CeType purposeOfDisclosureCoded, StringBuilder sBuilder) {
         if (purposeOfDisclosureCoded == null) {
             sBuilder.append("| PurposeOfDisclosureCoded Check Failed |");
             return false;
@@ -136,7 +136,7 @@ public class PolicyEngineUtil {
         }
     }
 
-    private boolean checkHomeCommunity(HomeCommunityType homeCommunity, StringBuilder sBuilder) {
+    private static boolean checkHomeCommunity(HomeCommunityType homeCommunity, StringBuilder sBuilder) {
         if (homeCommunity == null) {
             sBuilder.append("| HomeCommunity Check Failed. |");
             return false;
