@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSUDDIClientEndpointDecorator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
@@ -55,7 +54,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
         serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort());
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
-        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint);
+
         serviceEndpoint.configure();
 
     }
@@ -72,7 +71,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
      */
     @Override
@@ -82,7 +81,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType,
      * java.lang.String, java.lang.String)
@@ -90,7 +89,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
-            wsAddressingActionId, assertion);
+                wsAddressingActionId, assertion);
     }
 
 }

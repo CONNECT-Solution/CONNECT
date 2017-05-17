@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.commons.lang.StringUtils;
+
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 /**
  * @author mpnguyen
@@ -70,14 +71,12 @@ public class TLSUDDIClientEndpointDecorator<T> extends TLSClientServiceEndpointD
             secureProtocol = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.UDDI_TLS);
             LOG.debug("Retrieve UDDI {} from {} property",secureProtocol, NhincConstants.GATEWAY_PROPERTY_FILE);
-            // convert test1;test2 into test1,test2
-            secureProtocol = StringUtils.replace(secureProtocol, ";", ",");
         } catch (final PropertyAccessException e) {
             LOG.warn("Unable to retrieve {} {}",NhincConstants.UDDI_TLS, e.getLocalizedMessage(), e);
         }
-        return secureProtocol;
-
+        return StringUtils.isBlank(secureProtocol)? null : secureProtocol;
     }
+
     protected PropertyAccessor getPropertyAccessor() {
         return PropertyAccessor.getInstance();
     }
