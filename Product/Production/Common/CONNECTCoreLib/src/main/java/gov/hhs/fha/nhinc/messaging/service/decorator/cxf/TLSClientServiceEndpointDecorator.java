@@ -60,7 +60,7 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
      * @param paramFactory
      */
     public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
-            TLSClientParametersFactory tlsClientFactory) {
+        TLSClientParametersFactory tlsClientFactory) {
         super(decoratoredEndpoint);
         this.tlsClientFactory = tlsClientFactory;
     }
@@ -71,11 +71,22 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
     @Override
     public void configure() {
         super.configure();
-        Client client = ClientProxy.getClient(getPort());
-        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+        HTTPConduit conduit = getHttpConduit();
         TLSClientParameters tlsCP = tlsClientFactory.getTLSClientParameters();
-
         conduit.setTlsClientParameters(tlsCP);
     }
+    protected HTTPConduit getHttpConduit(){
+        Client client = ClientProxy.getClient(getPort());
+        return (HTTPConduit) client.getConduit();
+    }
+
+    /**
+     * @return the tlsClientFactory
+     */
+    public TLSClientParametersFactory getTlsClientFactory() {
+        return tlsClientFactory;
+    }
+
+
 
 }

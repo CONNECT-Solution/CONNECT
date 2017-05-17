@@ -26,9 +26,10 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import java.security.GeneralSecurityException;
+
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
-
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
@@ -37,6 +38,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.transport.https.SSLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +50,7 @@ public class TLSClientParametersFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(TLSClientParametersFactory.class);
 
-    private static TLSClientParametersFactory INSTANCE = null;
+    private static TLSClientParametersFactory tlsCPFactory = null;
     private KeyManagerFactory keyFactory;
     private TrustManagerFactory trustFactory;
 
@@ -64,36 +66,48 @@ public class TLSClientParametersFactory {
             trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustFactory.init(cm.getTrustStore());
         } catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
-            LOG.error("Could not initialize key and trust managers: " + e.getLocalizedMessage(), e);
+            LOG.error("Could not initialize key and trust managers: {} ", e.getLocalizedMessage(), e);
         }
 
     }
 
     public static TLSClientParametersFactory getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new TLSClientParametersFactory();
+        if (tlsCPFactory == null) {
+            tlsCPFactory = new TLSClientParametersFactory();
         }
-        return INSTANCE;
+        return tlsCPFactory;
+    }
+    /**
+     * Construct TLSClientParameter based on protocol version.
+     * @param protocols either TLS or SSLv3
+     * @return
+     */
+    public TLSClientParameters getTLSClientParameters(final String protocols){
+        TLSClientParameters tlsCP = new TLSClientParameters();
+        tlsCP.setSecureSocketProtocol(protocols);
+        return constructTLSClient(tlsCP);
+
+
+    }
+    public TLSClientParameters getTLSClientParameters() {
+        return constructTLSClient(new TLSClientParameters());
     }
 
-    public TLSClientParameters getTLSClientParameters() {
-        TLSClientParameters tlsCP = new TLSClientParameters();
-
+    private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters) {
         try {
-            SSLContext context = SSLContext.getDefault();
+            SSLContext context = SSLUtils.getSSLContext(tlsClientParameters);
             SSLSocketFactory factory = context.getSocketFactory();
             if (factory != null) {
-                tlsCP.setSSLSocketFactory(factory);
+                tlsClientParameters.setSSLSocketFactory(factory);
             } else {
                 throw new RuntimeException("Couldn't get the SSLSocketFactory.");
             }
-            tlsCP.setDisableCNCheck(true);
-        } catch (NoSuchAlgorithmException e) {
-            LOG.error("Could not get TLS client parameters: " + e.getLocalizedMessage(), e);
+            tlsClientParameters.setDisableCNCheck(true);
+        } catch (GeneralSecurityException | IllegalStateException e) {
+            LOG.error("Could not get TLS client parameters: {} ", e.getLocalizedMessage(), e);
             throw new RuntimeException("Could not create SSL Context.", e);
         }
-
-        return tlsCP;
+        return tlsClientParameters;
     }
 
     private char[] getKeystorePassword() throws UnrecoverableKeyException {

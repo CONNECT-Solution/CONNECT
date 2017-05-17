@@ -551,6 +551,8 @@ public class NhincConstants {
      * and endorsing supporting token.
      */
     public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
+    //UDDI TLS version
+    public static final String UDDI_TLS = "UDDI.TLS";
 
     private NhincConstants() {
     }
