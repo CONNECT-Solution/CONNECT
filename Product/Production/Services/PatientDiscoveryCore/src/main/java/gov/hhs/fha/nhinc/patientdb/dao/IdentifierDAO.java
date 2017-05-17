@@ -41,314 +41,315 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * IdentifierDAO Class provides methods to query and update Identifier Data to/from MySQL Database using Hibernate
+ * IdentifierDAO Class provides methods to query and update Identifier Data
+ * to/from MySQL Database using Hibernate
  *
  * @author richard.ettema
  */
 public class IdentifierDAO {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IdentifierDAO.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IdentifierDAO.class);
 
-    private static IdentifierDAO identifierDAO = new IdentifierDAO();
+	private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
-    /**
-     *
-     * Constructor
-     */
-    private IdentifierDAO() {
+	/**
+	 *
+	 * Constructor
+	 */
+	private IdentifierDAO() {
 
-        LOG.info("IdentifierDAO - Initialized");
+		LOG.info("IdentifierDAO - Initialized");
 
-    }
+	}
 
-    /**
-     *
-     * Singleton instance returned...
-     *
-     * @return IdentifierDAO
-     */
-    public static IdentifierDAO getIdentifierDAOInstance() {
+	/**
+	 *
+	 * Singleton instance returned...
+	 *
+	 * @return IdentifierDAO
+	 */
+	public static IdentifierDAO getIdentifierDAOInstance() {
 
-        LOG.debug("getIdentifierDAOInstance()..");
+		LOG.debug("getIdentifierDAOInstance()..");
 
-        return identifierDAO;
+		return identifierDAO;
 
-    }
+	}
 
-    // =========================
-    // Standard CRUD DML Methods
-    // =========================
-    /**
-     *
-     * Create a single <code>Identifier</code> record. The generated id
-     *
-     * will be available in the identifierRecord.
-     *
-     * @param identifierRecord
-     *
-     * @return boolean
-     */
-    public boolean create(Identifier identifierRecord) {
+	// =========================
+	// Standard CRUD DML Methods
+	// =========================
+	/**
+	 *
+	 * Create a single <code>Identifier</code> record. The generated id
+	 *
+	 * will be available in the identifierRecord.
+	 *
+	 * @param identifierRecord
+	 *
+	 * @return boolean
+	 */
+	public boolean create(Identifier identifierRecord) {
 
-        LOG.debug("IdentifierDAO.create() - Begin");
+		LOG.debug("IdentifierDAO.create() - Begin");
 
-        Session session = null;
+		Session session = null;
 
-        Transaction tx = null;
+		Transaction tx = null;
 
-        boolean result = true;
+		boolean result = true;
 
-        if (identifierRecord != null) {
+		if (identifierRecord != null) {
 
-            try {
+			try {
 
-                SessionFactory sessionFactory = getSessionFactory();
+				SessionFactory sessionFactory = getSessionFactory();
 
-                session = sessionFactory.openSession();
+				session = sessionFactory.openSession();
 
-                tx = session.beginTransaction();
+				tx = session.beginTransaction();
 
-                LOG.info("Inserting Record...");
+				LOG.info("Inserting Record...");
 
-                session.persist(identifierRecord);
+				session.persist(identifierRecord);
 
-                LOG.info("Identifier Inserted seccussfully...");
+				LOG.info("Identifier Inserted seccussfully...");
 
-                tx.commit();
+				tx.commit();
 
-            } catch (Exception e) {
+			} catch (Exception e) {
 
-                result = false;
+				result = false;
 
-                if (tx != null) {
+				if (tx != null) {
 
-                    tx.rollback();
+					tx.rollback();
 
-                }
+				}
 
-                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
+				LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
 
-            } finally {
+			} finally {
 
-                // Actual Identifier insertion will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
-                    }
-                }
+				// Actual Identifier insertion will happen at this step
+				if (session != null) {
+					try {
+						session.close();
+					} catch (HibernateException e) {
+						LOG.error("Exception while closing the session: {}", e.getMessage(), e);
+					}
+				}
 
-            }
+			}
 
-        }
+		}
 
-        LOG.debug("IdentifierDAO.create() - End");
+		LOG.debug("IdentifierDAO.create() - End");
 
-        return result;
+		return result;
 
-    }
+	}
 
-    /**
-     *
-     * Read (Query) the database to get a <code>Identifier</code> record based
-     *
-     * on a known id.
-     *
-     * @param id
-     *
-     * @return Identifier
-     */
-    public Identifier read(Long id) {
+	/**
+	 *
+	 * Read (Query) the database to get a <code>Identifier</code> record based
+	 *
+	 * on a known id.
+	 *
+	 * @param id
+	 *
+	 * @return Identifier
+	 */
+	public Identifier read(Long id) {
 
-        LOG.debug("IdentifierDAO.read() - Begin");
+		LOG.debug("IdentifierDAO.read() - Begin");
 
-        if (id == null) {
+		if (id == null) {
 
-            LOG.info("-- id Parameter is required for Identifier Query --");
+			LOG.info("-- id Parameter is required for Identifier Query --");
 
-            LOG.debug("IdentifierDAO.read() - End");
+			LOG.debug("IdentifierDAO.read() - End");
 
-            return null;
+			return null;
 
-        }
+		}
 
-        Session session = null;
+		Session session = null;
 
-        List<Identifier> queryList;
+		List<Identifier> queryList;
 
-        Identifier foundRecord = null;
+		Identifier foundRecord = null;
 
-        try {
+		try {
 
-            SessionFactory sessionFactory = getSessionFactory();
+			SessionFactory sessionFactory = getSessionFactory();
 
-            session = sessionFactory.openSession();
+			session = sessionFactory.openSession();
 
-            LOG.info("Reading Record...");
+			LOG.info("Reading Record...");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Identifier.class);
+			// Build the criteria
+			Criteria aCriteria = session.createCriteria(Identifier.class);
 
-            aCriteria.add(Expression.eq("id", id));
+			aCriteria.add(Expression.eq("id", id));
 
-            queryList = aCriteria.list();
+			queryList = aCriteria.list();
 
-            if (queryList != null && !queryList.isEmpty()) {
+			if (queryList != null && !queryList.isEmpty()) {
 
-                foundRecord = queryList.get(0);
+				foundRecord = queryList.get(0);
 
-            }
+			}
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
+			LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
-        } finally {
+		} finally {
+			if (session != null) {
+				try {
+					session.flush();
+					session.close();
+				} catch (HibernateException he) {
+					LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
+				}
+			}
+			// Flush and close session
 
-            // Flush and close session
-            if (session != null) {
+		}
 
-                session.flush();
+		LOG.debug("IdentifierDAO.read() - End");
 
-                session.close();
+		return foundRecord;
 
-            }
+	}
 
-        }
+	/**
+	 *
+	 * Update a single <code>Identifier</code> record.
+	 *
+	 * @param identifierRecord
+	 *
+	 * @return boolean
+	 */
+	public boolean update(Identifier identifierRecord) {
 
-        LOG.debug("IdentifierDAO.read() - End");
+		LOG.debug("IdentifierDAO.update() - Begin");
 
-        return foundRecord;
+		Session session = null;
 
-    }
+		Transaction tx = null;
 
-    /**
-     *
-     * Update a single <code>Identifier</code> record.
-     *
-     * @param identifierRecord
-     *
-     * @return boolean
-     */
-    public boolean update(Identifier identifierRecord) {
+		boolean result = true;
 
-        LOG.debug("IdentifierDAO.update() - Begin");
+		if (identifierRecord != null) {
 
-        Session session = null;
+			try {
 
-        Transaction tx = null;
+				SessionFactory sessionFactory = getSessionFactory();
 
-        boolean result = true;
+				session = sessionFactory.openSession();
 
-        if (identifierRecord != null) {
+				tx = session.beginTransaction();
 
-            try {
+				LOG.info("Updating Record...");
 
-                SessionFactory sessionFactory = getSessionFactory();
+				session.saveOrUpdate(identifierRecord);
 
-                session = sessionFactory.openSession();
+				LOG.info("Identifier Updated seccussfully...");
 
-                tx = session.beginTransaction();
+				tx.commit();
 
-                LOG.info("Updating Record...");
+			} catch (Exception e) {
 
-                session.saveOrUpdate(identifierRecord);
+				result = false;
 
-                LOG.info("Identifier Updated seccussfully...");
+				if (tx != null) {
 
-                tx.commit();
+					tx.rollback();
 
-            } catch (Exception e) {
+				}
 
-                result = false;
+				LOG.error("Exception during update caused by : {}", e.getMessage(), e);
 
-                if (tx != null) {
+			} finally {
 
-                    tx.rollback();
+				// Actual Identifier update will happen at this step
+				if (session != null) {
+					try {
+						session.close();
+					} catch (HibernateException e) {
+						LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
+					}
+				}
 
-                }
+			}
 
-                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
+		}
 
-            } finally {
+		LOG.debug("IdentifierDAO.update() - End");
 
-                // Actual Identifier update will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
-                    }
-                }
+		return result;
 
-            }
+	}
 
-        }
+	/**
+	 *
+	 * Delete a <code>Identifier</code> record from the database
+	 *
+	 * @param identifierRecord
+	 */
+	public void delete(Identifier identifierRecord) {
 
-        LOG.debug("IdentifierDAO.update() - End");
+		LOG.debug("IdentifierDAO.delete() - Begin");
 
-        return result;
+		Session session = null;
 
-    }
+		try {
 
-    /**
-     *
-     * Delete a <code>Identifier</code> record from the database
-     *
-     * @param identifierRecord
-     */
-    public void delete(Identifier identifierRecord) {
+			SessionFactory sessionFactory = getSessionFactory();
 
-        LOG.debug("IdentifierDAO.delete() - Begin");
+			session = sessionFactory.openSession();
 
-        Session session = null;
+			LOG.info("Deleting Record...");
 
-        try {
+			// Delete the Identifier record
+			session.delete(identifierRecord);
 
-            SessionFactory sessionFactory = getSessionFactory();
+		} catch (Exception e) {
 
-            session = sessionFactory.openSession();
+			LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
 
-            LOG.info("Deleting Record...");
+		} finally {
 
-            // Delete the Identifier record
-            session.delete(identifierRecord);
+			// Flush and close session
+			if (session != null) {
+				try {
+					session.flush();
+					session.close();
+				} catch (HibernateException e) {
+					LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
+				}
+			}
 
-        } catch (Exception e) {
+		}
 
-            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
+		LOG.debug("IdentifierDAO.delete() - End");
 
-        } finally {
+	}
 
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
-                }
-            }
-
-        }
-
-        LOG.debug("IdentifierDAO.delete() - End");
-
-    }
-
-    /**
-     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
-     *
-     * @return
-     */
-    protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
-        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
-        if (util != null) {
-            fact = util.getSessionFactory();
-        }
-        return fact;
-    }
+	/**
+	 * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+	 *
+	 * @return
+	 */
+	protected SessionFactory getSessionFactory() {
+		SessionFactory fact = null;
+		HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
+		if (util != null) {
+			fact = util.getSessionFactory();
+		}
+		return fact;
+	}
 
 }
