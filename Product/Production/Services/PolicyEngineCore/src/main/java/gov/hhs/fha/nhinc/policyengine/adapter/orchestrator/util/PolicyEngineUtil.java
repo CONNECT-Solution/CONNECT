@@ -80,7 +80,7 @@ public class PolicyEngineUtil {
         return oResponse;
     }
 
-    private boolean checkUserInfo(UserType userInfo, StringBuilder sBuilder) {
+    private static boolean checkUserInfo(UserType userInfo, StringBuilder sBuilder) {
         if (userInfo == null) {
             sBuilder.append("| User Info Check Failed |");
             return false;
