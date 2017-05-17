@@ -27,14 +27,12 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import java.security.GeneralSecurityException;
-
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
@@ -50,7 +48,7 @@ public class TLSClientParametersFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(TLSClientParametersFactory.class);
 
-    private static TLSClientParametersFactory tlsCPFactory = null;
+    private static TLSClientParametersFactory tlsCPFactory = new TLSClientParametersFactory();
     private KeyManagerFactory keyFactory;
     private TrustManagerFactory trustFactory;
 
@@ -58,7 +56,7 @@ public class TLSClientParametersFactory {
         this(CertificateManagerImpl.getInstance());
     }
 
-    TLSClientParametersFactory(CertificateManager cm) {
+    private TLSClientParametersFactory(CertificateManager cm) {
         try {
             keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             keyFactory.init(cm.getKeyStore(), getKeystorePassword());
@@ -72,9 +70,6 @@ public class TLSClientParametersFactory {
     }
 
     public static TLSClientParametersFactory getInstance() {
-        if (tlsCPFactory == null) {
-            tlsCPFactory = new TLSClientParametersFactory();
-        }
         return tlsCPFactory;
     }
     /**
@@ -95,17 +90,16 @@ public class TLSClientParametersFactory {
 
     private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters) {
         try {
-            SSLContext context = SSLUtils.getSSLContext(tlsClientParameters);
-            SSLSocketFactory factory = context.getSocketFactory();
+            SSLSocketFactory factory = SSLUtils.getSSLContext(tlsClientParameters).getSocketFactory();
             if (factory != null) {
                 tlsClientParameters.setSSLSocketFactory(factory);
             } else {
-                throw new RuntimeException("Couldn't get the SSLSocketFactory.");
+                throw new SecurityException("Couldn't get the SSLSocketFactory.");
             }
             tlsClientParameters.setDisableCNCheck(true);
         } catch (GeneralSecurityException | IllegalStateException e) {
             LOG.error("Could not get TLS client parameters: {} ", e.getLocalizedMessage(), e);
-            throw new RuntimeException("Could not create SSL Context.", e);
+            throw new SecurityException("Could not create SSL Context.", e);
         }
         return tlsClientParameters;
     }

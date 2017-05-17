@@ -55,3 +55,5 @@ nbactions.xml
 .idea/
 *.iml
 *.iws
+#Fortify scan
+*.fpr

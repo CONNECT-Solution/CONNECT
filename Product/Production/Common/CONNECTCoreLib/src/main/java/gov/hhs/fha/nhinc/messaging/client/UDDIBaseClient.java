@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSUddiClientEndpointDecorator;
-
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSUDDIClientEndpointDecorator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
@@ -56,8 +55,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
         serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort());
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
-        serviceEndpoint = new TLSUddiClientEndpointDecorator<>(serviceEndpoint);
-
+        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
 
     }
