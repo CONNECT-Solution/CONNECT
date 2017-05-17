@@ -152,7 +152,7 @@ public class MailUtils {
 			if (transport != null) {
 				try {
 					transport.close();
-				} catch (Exception e) {
+				} catch (MessagingException e) {
 					LOG.error("Exception while closing the transport: {}", e.getMessage(), e);
 				}
 

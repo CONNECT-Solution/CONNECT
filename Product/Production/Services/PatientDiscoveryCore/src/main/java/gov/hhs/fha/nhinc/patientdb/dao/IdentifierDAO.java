@@ -206,7 +206,6 @@ public class IdentifierDAO {
 			LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
 
 		} finally {
-			// Flush and close session
 			if (session != null) {
 				try {
 					session.flush();
@@ -215,6 +214,7 @@ public class IdentifierDAO {
 					LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
 				}
 			}
+			// Flush and close session
 
 		}
 
