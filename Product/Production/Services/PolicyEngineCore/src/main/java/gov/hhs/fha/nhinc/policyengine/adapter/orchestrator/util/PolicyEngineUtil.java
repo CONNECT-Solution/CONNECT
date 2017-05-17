@@ -145,7 +145,7 @@ public class PolicyEngineUtil {
         }
     }
 
-    private boolean checkString(String checkedString, StringBuilder sBuilder, String message) {
+    private static boolean checkString(String checkedString, StringBuilder sBuilder, String message) {
         if (StringUtils.isBlank(checkedString)) {
             sBuilder.append(message);
             return false;
