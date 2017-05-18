@@ -4,7 +4,7 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
