@@ -3,7 +3,7 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
 
         <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin" />
         <mapping class="gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole" />
