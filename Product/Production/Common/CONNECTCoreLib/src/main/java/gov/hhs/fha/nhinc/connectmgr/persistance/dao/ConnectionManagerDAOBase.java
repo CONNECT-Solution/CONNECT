@@ -64,13 +64,15 @@ public class ConnectionManagerDAOBase {
 
                 final SAXParserFactory spf = SAXParserFactory.newInstance();
                 spf.setNamespaceAware(true);
-                spf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
-                spf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
-                spf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
-
                 final XMLReader xmlReader = spf.newSAXParser().getXMLReader();
+
+                xmlReader.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+                xmlReader.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+                xmlReader.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+
                 final InputSource inputSource = new InputSource(new FileReader(file));
                 final SAXSource source = new SAXSource(xmlReader, inputSource);
+
 
                 final JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
                 final Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -80,7 +82,7 @@ public class ConnectionManagerDAOBase {
                 final Reader reader = stream.getCharacterStream();
 
                 final JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
-                        BusinessDetail.class);
+                    BusinessDetail.class);
 
                 resp = jaxbElement.getValue();
 
