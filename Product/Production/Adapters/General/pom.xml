@@ -13,8 +13,6 @@
 
     <modules>
         <module>CONNECTAdapterWeb</module>
-        <module>CONNECTAdapterPDPOpenSSO</module>
-        <module>CONNECTConsumerPreferencesProfileGUI</module>
         <module>CONNECTDeferredQueueManagerGUI</module>        
         <module>CONNECTAdminGUI</module>
         <module>CONNECTDirectConfig</module>

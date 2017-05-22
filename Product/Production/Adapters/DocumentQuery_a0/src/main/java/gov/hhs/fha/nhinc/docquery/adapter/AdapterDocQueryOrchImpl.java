@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.docquery.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
-import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
-import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
@@ -74,7 +72,6 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setRequestSlotList(request.getRequestSlotList());
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(request, assertion);
-                response = callRedactionEngine(request, response, assertion);
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
@@ -92,22 +89,6 @@ public class AdapterDocQueryOrchImpl {
         LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;
 
-    }
-
-    protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
-        AssertionType assertion) {
-        AdhocQueryResponse response = null;
-        if (queryResponse == null) {
-            LOG.warn("Did not call redaction engine because the query response was null.");
-        } else {
-            LOG.debug("Calling Redaction Engine");
-            response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse, assertion);
-        }
-        return response;
-    }
-
-    protected AdapterRedactionEngineProxy getRedactionEngineProxy() {
-        return new AdapterRedactionEngineProxyObjectFactory().getRedactionEngineProxy();
     }
 
 }

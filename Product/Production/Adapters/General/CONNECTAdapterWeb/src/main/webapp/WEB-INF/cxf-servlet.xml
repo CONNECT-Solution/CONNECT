@@ -49,20 +49,6 @@
         implementor="gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator" wsdlLocation="classpath:wsdl/AdapterPolicyEngineOrchestrator.wsdl">
     </jaxws:endpoint>
 
-    <!-- Adapter PEP -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpep" id="AdapterPEPService" address="/AdapterPEP"
-        serviceName="tns:AdapterPEP" endpointName="tns:AdapterPEPPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService"
-        wsdlLocation="classpath:wsdl/AdapterPEP.wsdl">
-    </jaxws:endpoint>
-
-    <!-- Adapter PIP -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpip" id="AdapterPIPService" address="/AdapterPIP"
-        serviceName="tns:AdapterPIP" endpointName="tns:AdapterPIPPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPService"
-        wsdlLocation="classpath:wsdl/AdapterPIP.wsdl">
-    </jaxws:endpoint>
-
     <!-- Adapter Document Registry -->
 
     <jaxws:endpoint xmlns:adreg="urn:ihe:iti:xds-b:2007" id="AdapterDocumentRegistry" address="/DocumentRegistry_Service"
@@ -77,14 +63,6 @@
         implementor="gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService" wsdlLocation="classpath:wsdl/AdapterComponentDocRepository.wsdl">
     </jaxws:endpoint>
 
-    <!-- Adapter Redaction Engine -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentredaction" id="AdapterComponentRedactionEngine"
-        address="/AdapterComponentRedactionService" serviceName="tns:AdapterComponentRedactionEngineService"
-        endpointName="tns:AdapterComponentRedactionEnginePortTypeBindingPort" implementor="gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine"
-        wsdlLocation="classpath:wsdl/AdapterComponentRedactionEngine.wsdl">
-    </jaxws:endpoint>
-
     <!-- Deferred Queue Manager -->
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:deferredqueuemanager" id="DeferredQueueManager"
@@ -92,10 +70,4 @@
         implementor="gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager" wsdlLocation="classpath:wsdl/DeferredQueueManager.wsdl">
     </jaxws:endpoint>
 
-    <!-- Adapter Authentication Service -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauthentication" id="AdapterAuthenticationService"
-        address="/AdapterAuthentication" serviceName="tns:AdapterAuthentication" endpointName="tns:AdapterAuthenticationPortSoap"
-        implementor="gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService" wsdlLocation="classpath:wsdl/AdapterAuthentication.wsdl">
-    </jaxws:endpoint>
 </beans>
