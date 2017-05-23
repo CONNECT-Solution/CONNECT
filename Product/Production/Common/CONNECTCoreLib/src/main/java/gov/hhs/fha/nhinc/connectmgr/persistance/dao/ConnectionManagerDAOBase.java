@@ -30,23 +30,31 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
-import org.xml.sax.InputSource;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.Transformer;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -56,39 +64,49 @@ public class ConnectionManagerDAOBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
 
-    protected BusinessDetail loadBusinessDetail(final File file) throws JAXBException {
+    protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;
         try {
-
             synchronized (file) {
 
-                final SAXParserFactory spf = SAXParserFactory.newInstance();
-                spf.setNamespaceAware(true);
-                final XMLReader xmlReader = spf.newSAXParser().getXMLReader();
+                JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
+                final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-                xmlReader.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
-                xmlReader.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
-                xmlReader.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+                dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                dbf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+                dbf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+                dbf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+                dbf.setExpandEntityReferences(false);
 
-                final InputSource inputSource = new InputSource(new FileReader(file));
-                final SAXSource source = new SAXSource(xmlReader, inputSource);
+                // Convert File to Document
+                final DocumentBuilder db = dbf.newDocumentBuilder();
+                final Document doc = db.parse(file);
+                doc.getDocumentElement().normalize();
+                DOMSource source = new DOMSource(doc);
 
+                // Convert Document to StreamSource
+                TransformerFactory factory = TransformerFactory.newInstance();
+                Transformer transformer = factory.newTransformer();
+                StreamResult result = new StreamResult();
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                result.setOutputStream(out);
+                transformer.transform(source, result);
+                ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 
-                final JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-                final Unmarshaller unmarshaller = context.createUnmarshaller();
-
-                final InputSource stream = source.getInputSource();
-
-                final Reader reader = stream.getCharacterStream();
-
-                final JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
+                // Unmarshal
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(in),
                     BusinessDetail.class);
-
                 resp = jaxbElement.getValue();
-
             }
-        } catch (ParserConfigurationException | SAXException | FileNotFoundException e) {
-            LOG.error("Exception in reading/parsing XDRConfiguration file: {}", e.getLocalizedMessage(), e);
+        } catch (final IOException e) {
+            LOG.error("unable to load XDRConfiguration file", e);
+        } catch (final ParserConfigurationException e) {
+            LOG.error("unable to load XDRConfiguration file", e);
+        } catch (final TransformerException e) {
+            LOG.error("unable to load XDRConfiguration file", e);
+        } catch (final SAXException e) {
+            LOG.error("unable to load XDRConfiguration file", e);
         }
 
         return resp;
