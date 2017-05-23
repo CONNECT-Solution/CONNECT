@@ -85,18 +85,18 @@ public class ConnectionManagerDAOBase {
                 TransformerFactory factory = TransformerFactory.newInstance();
                 Transformer transformer = factory.newTransformer();
                 StreamResult result = new StreamResult();
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                result.setOutputStream(out);
+                ByteArrayOutputStream writer = new ByteArrayOutputStream();
+                result.setOutputStream(writer);
                 transformer.transform(source, result);
-                ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+                ByteArrayInputStream reader = new ByteArrayInputStream(writer.toByteArray());
 
                 // Unmarshal
                 Unmarshaller unmarshaller = context.createUnmarshaller();
-                JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(in),
+                JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
                         BusinessDetail.class);
                 resp = jaxbElement.getValue();
-                in.close();
-                out.close();
+                reader.close();
+                writer.close();
             }
         } catch (final IOException | ParserConfigurationException | TransformerException | SAXException e) {
             LOG.error("Exception in reading/parsing XDRConfiguration file: {}", e.getLocalizedMessage(), e);
