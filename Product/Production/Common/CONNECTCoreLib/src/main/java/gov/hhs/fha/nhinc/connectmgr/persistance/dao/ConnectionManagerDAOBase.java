@@ -63,6 +63,9 @@ public class ConnectionManagerDAOBase {
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;
+        ByteArrayOutputStream writer = null;
+        ByteArrayInputStream reader = null;
+
         try {
             synchronized (file) {
 
@@ -85,21 +88,28 @@ public class ConnectionManagerDAOBase {
                 TransformerFactory factory = TransformerFactory.newInstance();
                 Transformer transformer = factory.newTransformer();
                 StreamResult result = new StreamResult();
-                ByteArrayOutputStream writer = new ByteArrayOutputStream();
+                writer = new ByteArrayOutputStream();
                 result.setOutputStream(writer);
                 transformer.transform(source, result);
-                ByteArrayInputStream reader = new ByteArrayInputStream(writer.toByteArray());
+                reader = new ByteArrayInputStream(writer.toByteArray());
 
                 // Unmarshal
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
-                        BusinessDetail.class);
+                    BusinessDetail.class);
                 resp = jaxbElement.getValue();
-                reader.close();
-                writer.close();
+
             }
         } catch (final IOException | ParserConfigurationException | TransformerException | SAXException e) {
             LOG.error("Exception in reading/parsing XDRConfiguration file: {}", e.getLocalizedMessage(), e);
+        } finally {
+            try {
+            reader.close();
+            writer.close();
+            }
+            catch(final IOException e){
+                LOG.error("Exception in Open/Close file: {}",e.getLocalizedMessage(), e);
+            }
         }
 
         return resp;
