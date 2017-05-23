@@ -55,7 +55,7 @@ public class NhincConstants {
         SPEC_1_0("1.0"), SPEC_1_1("1.1"), SPEC_2_0("2.0"), SPEC_3_0("3.0");
         private String value = null;
 
-        UDDI_SPEC_VERSION(String value) {
+        UDDI_SPEC_VERSION(final String value) {
             this.value = value;
         }
 
@@ -78,18 +78,17 @@ public class NhincConstants {
 
     public static enum NHIN_SERVICE_NAMES {
 
-        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
-            PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
-                    DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
-                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
-                            NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
-                                NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
-                                    NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
-                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
-                                            CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
-                                                CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
-                                                    CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
+        PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
+        PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+        DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
+        DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
+        DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
+        DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
+        ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
+        CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME),
+        CORE_X12DS_GENERICBATCH_REQUEST(CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
+        CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(String value) {
@@ -421,8 +420,8 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String UNABLE_LOAD_XDR_FILE = "Exception in reading/parsing XDRConfiguration file: {}";
-	// Administrative Distribution Constants
+    
+    // Administrative Distribution Constants
     public static final String ADMIN_DIST_SERVICE_NAME = "admindist";
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "AdminDistribution";
     public static final String ENTITY_ADMIN_DIST_SERVICE_NAME = "entityadmindist";
@@ -527,18 +526,18 @@ public class NhincConstants {
     public static final String PATIENT_CORR_HIBERNATE_BEAN = "patientCorrHibernateUtil";
     public static final String MSG_MONITOR_HIBERNATE_BEAN = "msgMonitorHibernateUtil";
     public static final String DIRECT_CONFIG_HIBERNATE_BEAN = "directConfigHibernateUtil";
-    
+
     public static final String CUSTOM_HTTP_HEADERS = "customHttpHeaders";
     public static final String KEEP_ALIVE_PROP = "connectionKeepAlive";
     public static final String READ_HTTP_HEADERS = "readHttpHeaders";
 
     public static final String HOK_ASSERTION_TYPE = "HOK-Assertion";
     public static final String SV_ASSERTION_TYPE = "SV-Assertion";
-	
-	// XML Eternal Entity Injection Features
-	public static final String FEATURE_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
-	public static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
-	public static final String FEATURE_DISALLOW_DOCTYPE = "http://apache.org/xml/features/disallow-doctype-decl";
+
+    // XML Eternal Entity Injection Features
+    public static final String FEATURE_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+    public static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
+    public static final String FEATURE_DISALLOW_DOCTYPE = "http://apache.org/xml/features/disallow-doctype-decl";
     /**
      * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
      * endorsing supporting token.

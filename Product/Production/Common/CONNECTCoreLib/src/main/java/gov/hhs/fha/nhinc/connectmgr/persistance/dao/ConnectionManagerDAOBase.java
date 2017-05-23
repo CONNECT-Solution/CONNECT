@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.XMLConstants;
@@ -38,20 +40,18 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.Transformer;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -93,11 +93,13 @@ public class ConnectionManagerDAOBase {
                 // Unmarshal
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(in),
-                    BusinessDetail.class);
+                        BusinessDetail.class);
                 resp = jaxbElement.getValue();
+                in.close();
+                out.close();
             }
         } catch (final IOException | ParserConfigurationException | TransformerException | SAXException e) {
-            LOG.error(NhincConstants.UNABLE_LOAD_XDR_FILE, e.getLocalizedMessage(), e);
+            LOG.error("Exception in reading/parsing XDRConfiguration file: {}", e.getLocalizedMessage(), e);
         }
 
         return resp;
