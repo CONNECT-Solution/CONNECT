@@ -28,10 +28,7 @@ package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -99,14 +96,8 @@ public class ConnectionManagerDAOBase {
                     BusinessDetail.class);
                 resp = jaxbElement.getValue();
             }
-        } catch (final IOException e) {
-            LOG.error("unable to load XDRConfiguration file", e);
-        } catch (final ParserConfigurationException e) {
-            LOG.error("unable to load XDRConfiguration file", e);
-        } catch (final TransformerException e) {
-            LOG.error("unable to load XDRConfiguration file", e);
-        } catch (final SAXException e) {
-            LOG.error("unable to load XDRConfiguration file", e);
+        } catch (final IOException | ParserConfigurationException | TransformerException | SAXException e) {
+            LOG.error(NhincConstants.UNABLE_LOAD_XDR_FILE, e.getLocalizedMessage(), e);
         }
 
         return resp;
