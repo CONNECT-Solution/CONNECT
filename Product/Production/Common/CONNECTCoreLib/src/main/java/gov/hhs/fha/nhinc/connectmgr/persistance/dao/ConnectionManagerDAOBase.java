@@ -26,33 +26,21 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 import gov.hhs.fha.nhinc.util.StreamUtils;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import javax.xml.XMLConstants;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
+import javax.xml.stream.XMLStreamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -64,51 +52,23 @@ public class ConnectionManagerDAOBase {
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;
-        ByteArrayOutputStream writer = null;
-        ByteArrayInputStream reader = null;
+        FileInputStream inputStream = null;
 
         try {
             synchronized (file) {
-
                 JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-                final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
-                dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-                dbf.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
-                dbf.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
-                dbf.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
-                dbf.setExpandEntityReferences(false);
-
-                // Convert File to Document
-                final DocumentBuilder db = dbf.newDocumentBuilder();
-                final Document doc = db.parse(file);
-                doc.getDocumentElement().normalize();
-                DOMSource source = new DOMSource(doc);
-
-                // Convert Document to StreamSource
-                TransformerFactory factory = TransformerFactory.newInstance();
-                Transformer transformer = factory.newTransformer();
-                StreamResult result = new StreamResult();
-                writer = new ByteArrayOutputStream();
-                result.setOutputStream(writer);
-                transformer.transform(source, result);
-                reader = new ByteArrayInputStream(writer.toByteArray());
-
-                // Unmarshal
                 Unmarshaller unmarshaller = context.createUnmarshaller();
-                JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
-                        BusinessDetail.class);
+                JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
+                inputStream = new FileInputStream(file);
+                JAXBElement<BusinessDetail> jaxbElement = unmarshaller
+                        .unmarshal(util.getSafeStreamReaderFromInputStream(inputStream), BusinessDetail.class);
                 resp = jaxbElement.getValue();
-
             }
-        } catch (final IOException | ParserConfigurationException | TransformerException | SAXException e) {
-            LOG.error("Exception in reading/parsing XDRConfiguration file: {}", e.getLocalizedMessage(), e);
+        } catch (FileNotFoundException | XMLStreamException e) {
+            LOG.error("Exception in reading/parsing Connection Information file: {}", e.getLocalizedMessage(), e);
         } finally {
-            StreamUtils.closeReaderSilently(writer);
-            StreamUtils.closeStreamSilently(reader);
-
+            StreamUtils.closeStreamSilently(inputStream);
         }
-
         return resp;
 
     }
