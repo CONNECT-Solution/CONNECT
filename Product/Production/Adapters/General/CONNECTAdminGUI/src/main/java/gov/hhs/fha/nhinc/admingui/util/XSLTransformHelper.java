@@ -53,6 +53,7 @@ public class XSLTransformHelper {
 
         try {
             final TransformerFactory tFactory = TransformerFactory.newInstance();
+            tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
             tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             tFactory.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
             tFactory.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
