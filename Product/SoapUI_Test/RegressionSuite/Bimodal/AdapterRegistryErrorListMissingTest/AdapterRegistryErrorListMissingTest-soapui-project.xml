@@ -380,7 +380,7 @@ log.info("Gateway Property Directory = " + context.findProperty('GatewayPropDir'
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Redaction Engine Error" searchProperties="true" id="7a2ecd40-8998-45df-9f13-7c00dc0f0b83">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Redaction Engine Error" searchProperties="true" id="7a2ecd40-8998-45df-9f13-7c00dc0f0b83" disabled="true">
       <con:settings/>
       <con:testStep name="Document Retrieve" type="request" id="b1c40abe-a1aa-4201-bf68-7d36bd7c9c5e">
         <con:settings/>
@@ -1065,7 +1065,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Redaction Engine Error" searchProperties="true" id="c68102a1-fd45-49cc-b6c8-7ed4e6d369ee">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Redaction Engine Error" searchProperties="true" id="c68102a1-fd45-49cc-b6c8-7ed4e6d369ee" disabled="true">
       <con:settings/>
       <con:testStep name="Document Retrieve" type="request" id="8ccab828-32ba-4984-acb1-ed115df7fd6e">
         <con:settings/>
