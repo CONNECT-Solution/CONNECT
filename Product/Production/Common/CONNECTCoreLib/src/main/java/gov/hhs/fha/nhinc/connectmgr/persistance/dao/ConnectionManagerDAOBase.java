@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -96,20 +97,16 @@ public class ConnectionManagerDAOBase {
                 // Unmarshal
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(reader),
-                    BusinessDetail.class);
+                        BusinessDetail.class);
                 resp = jaxbElement.getValue();
 
             }
         } catch (final IOException | ParserConfigurationException | TransformerException | SAXException e) {
             LOG.error("Exception in reading/parsing XDRConfiguration file: {}", e.getLocalizedMessage(), e);
         } finally {
-            try {
-            reader.close();
-            writer.close();
-            }
-            catch(final IOException e){
-                LOG.error("Exception in Open/Close file: {}",e.getLocalizedMessage(), e);
-            }
+            StreamUtils.closeReaderSilently(writer);
+            StreamUtils.closeStreamSilently(reader);
+
         }
 
         return resp;
