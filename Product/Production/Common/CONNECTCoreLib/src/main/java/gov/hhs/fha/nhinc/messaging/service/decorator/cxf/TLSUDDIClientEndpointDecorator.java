@@ -26,62 +26,59 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import org.apache.commons.lang.StringUtils;
+
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author bhumphrey
- * @param <T>
+ * @author mpnguyen
  *
  */
-public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
-
-    private TLSClientParametersFactory tlsClientFactory;
-
+public class TLSUDDIClientEndpointDecorator<T> extends TLSClientServiceEndpointDecorator<T> {
+    private static final Logger LOG = LoggerFactory.getLogger(TLSUDDIClientEndpointDecorator.class);
     /**
-     * Constructor.
-     *
-     * @param decoratored
-     * @param assertion
-     * @param url
-     */
-    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
-        this(decoratoredEndpoint, TLSClientParametersFactory.getInstance());
-    }
-
-    /**
-     * Constructor with dependency injection parameters.
-     *
      * @param decoratoredEndpoint
-     * @param paramFactory
      */
-    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
-        TLSClientParametersFactory tlsClientFactory) {
+    public TLSUDDIClientEndpointDecorator(final ServiceEndpoint<T> decoratoredEndpoint) {
         super(decoratoredEndpoint);
-        this.tlsClientFactory = tlsClientFactory;
     }
-
-    /**
-     * This call is not thread safe if the port is a shared instance as it modifies the HTTP Conduit.
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator#configure()
      */
     @Override
     public void configure() {
         super.configure();
-        getHttpConduit().setTlsClientParameters(tlsClientFactory.getTLSClientParameters());
-    }
-    protected HTTPConduit getHttpConduit(){
-        Client client = ClientProxy.getClient(getPort());
-        return (HTTPConduit) client.getConduit();
+        final String protocol = getSecureProtocol();
+        LOG.info("TLS support versions {}", protocol);
+        TLSClientParameters tlsCP = getTlsClientFactory().getTLSClientParameters(protocol);
+        getHttpConduit().setTlsClientParameters(tlsCP);
     }
 
     /**
-     * @return the tlsClientFactory
+     * @return
      */
-    public TLSClientParametersFactory getTlsClientFactory() {
-        return tlsClientFactory;
+    private String getSecureProtocol() {
+        String secureProtocol = null;
+        try {
+            secureProtocol = getPropertyAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.UDDI_TLS);
+            LOG.debug("Retrieve UDDI {} from {} property",secureProtocol, NhincConstants.GATEWAY_PROPERTY_FILE);
+        } catch (final PropertyAccessException e) {
+            LOG.warn("Unable to retrieve {} {}",NhincConstants.UDDI_TLS, e.getLocalizedMessage(), e);
+        }
+        return StringUtils.isBlank(secureProtocol)? null : secureProtocol;
+    }
+
+    protected PropertyAccessor getPropertyAccessor() {
+        return PropertyAccessor.getInstance();
     }
 
 }
