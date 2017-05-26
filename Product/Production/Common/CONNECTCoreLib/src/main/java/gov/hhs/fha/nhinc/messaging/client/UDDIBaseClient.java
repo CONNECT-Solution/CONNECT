@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSUDDIClientEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -54,7 +55,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
         serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort());
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
-
+        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
 
     }
