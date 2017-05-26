@@ -119,25 +119,6 @@ public class XmlUtility {
                 LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
             }
 
-            /*
-             * Transformer transformer = TransformerFactory.newInstance().newTransformer(); transformer.transform(new
-             * DOMSource(element), new StreamResult(output));
-             * 
-             * 
-             * final TransformerFactory tFactory = TransformerFactory.newInstance();
-             * tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-             * tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-             * tFactory.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
-             * tFactory.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
-             * tFactory.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true); final Templates template =
-             * tFactory.newTemplates(new DOMSource(element)); final Transformer transformer = template.newTransformer();
-             * transformer.transform(new DOMSource(element), new StreamResult(output));
-             */
-            /*
-             * Transformer transformer = TransformerFactory.newInstance().newTransformer(); transformer.transform(new
-             * DOMSource(element), new StreamResult(output));
-             */
-
             serializedElement = output.toString();
         }
         return serializedElement;
