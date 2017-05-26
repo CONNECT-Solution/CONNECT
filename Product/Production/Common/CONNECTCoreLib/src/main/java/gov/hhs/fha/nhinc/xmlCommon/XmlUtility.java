@@ -51,6 +51,18 @@ import org.w3c.dom.ls.LSException;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 import org.w3c.dom.ls.LSSerializer;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import javax.xml.XMLConstants;
+import javax.xml.transform.Templates;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.Result;
+import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
+import java.io.StringWriter;
+import java.io.StringReader;
 
 /**
  *
@@ -77,13 +89,54 @@ public class XmlUtility {
     }
 
     public static String serializeElement(Element element)
-            throws TransformerFactoryConfigurationError, TransformerException {
+        throws TransformerFactoryConfigurationError, TransformerException {
         String serializedElement = null;
         if (element != null) {
             StringWriter output = new StringWriter();
 
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.transform(new DOMSource(element), new StreamResult(output));
+            try {
+                XMLReader reader = XMLReaderFactory.createXMLReader();
+                reader.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                reader.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+                reader.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+                reader.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+
+                // Convert Element to StringSource
+                DOMSource source = new DOMSource(element);
+                StringWriter xmlAsWriter = new StringWriter();
+                StreamResult resultWriter = new StreamResult(xmlAsWriter);
+                TransformerFactory.newInstance().newTransformer().transform(source, resultWriter);
+                StringReader xmlReader = new StringReader(xmlAsWriter.toString());
+
+                // Insert in Reader Above then output as SAXSource
+                Source elementSource = new SAXSource(reader, new InputSource(xmlReader));
+
+                Result result = new StreamResult(output);
+                TransformerFactory transFact = TransformerFactory.newInstance();
+                final Transformer transformer = transFact.newTransformer();
+                transformer.transform(elementSource, result);
+            } catch (final TransformerException | SAXException e) {
+                LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
+            }
+
+            /*
+             * Transformer transformer = TransformerFactory.newInstance().newTransformer(); transformer.transform(new
+             * DOMSource(element), new StreamResult(output));
+             * 
+             * 
+             * final TransformerFactory tFactory = TransformerFactory.newInstance();
+             * tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+             * tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+             * tFactory.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+             * tFactory.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+             * tFactory.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true); final Templates template =
+             * tFactory.newTemplates(new DOMSource(element)); final Transformer transformer = template.newTransformer();
+             * transformer.transform(new DOMSource(element), new StreamResult(output));
+             */
+            /*
+             * Transformer transformer = TransformerFactory.newInstance().newTransformer(); transformer.transform(new
+             * DOMSource(element), new StreamResult(output));
+             */
 
             serializedElement = output.toString();
         }
@@ -91,7 +144,7 @@ public class XmlUtility {
     }
 
     public static String serializeNode(Node node) throws LSException, IllegalAccessException, DOMException,
-            InstantiationException, ClassNotFoundException, ClassCastException {
+        InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (node != null) {
             DOMImplementationLS impl = getDOMImplementationLS(node);
@@ -135,7 +188,7 @@ public class XmlUtility {
      */
     @Deprecated
     public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
+        throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceElement, xpathQuery, namespaceContext);
     }
 
