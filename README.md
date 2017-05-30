@@ -51,7 +51,7 @@ To build CONNECT from source run:
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
-####Building an ear
+#### Building an ear
 All services profiles are active by default, if you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
 
         $ mvn clean install -P \!PD
@@ -81,7 +81,7 @@ You can find more details at: [CONNECT Validation Suite](https://connectopensour
 Documentation
 -------------
 
-###Generate & View
+### Generate & View
 You can generate the project's site information by performing the following: 
 
         $ mvn -P\!embedded-testing site:site site:stage -DstagingSiteURL=/tmp/fullsite
