@@ -38,6 +38,14 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
+import java.io.FileInputStream;
+import org.xml.sax.InputSource;
+import javax.xml.transform.Result;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -52,21 +60,26 @@ public class XSLTransformHelper {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         try {
-            final TransformerFactory tFactory = TransformerFactory.newInstance();
-            tFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            tFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            tFactory.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
-            tFactory.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
-            tFactory.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
-            final Templates template = tFactory.newTemplates(new StreamSource(xsl));
-            final Transformer transformer = template.newTransformer();
-            transformer.transform(new StreamSource(xml), new StreamResult(output));
 
-        } catch (final TransformerException e) {
+            XMLReader reader = XMLReaderFactory.createXMLReader();
+            reader.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            reader.setFeature(NhincConstants.FEATURE_GENERAL_ENTITIES, false);
+            reader.setFeature(NhincConstants.FEATURE_PARAMETER_ENTITIES, false);
+            reader.setFeature(NhincConstants.FEATURE_DISALLOW_DOCTYPE, true);
+
+            Source xmlSource = new SAXSource(reader, new InputSource(xml));
+            Source xsltSource = new SAXSource(reader, new InputSource(xsl));
+            Result result = new StreamResult(output);
+            TransformerFactory transFact = TransformerFactory.newInstance();
+            Transformer trans = transFact.newTransformer(xsltSource);
+            trans.transform(xmlSource, result);
+
+        } catch (final TransformerException | SAXException e) {
             LOG.error("Exception in transforming from xml to html: {}", e.getLocalizedMessage(), e);
         }
 
         return output.toByteArray();
+
     }
 
 }
