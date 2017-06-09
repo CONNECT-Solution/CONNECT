@@ -1,3 +1,9 @@
+## CONNECT 5.0 Release
+### Summary
+
+The 5.0 release includes a major web stack upgrade (CXF from 2.7.3 to 3.1.9), adding customizable HTTP headers to outgoing NwHIN requests, adding a time stamp to the eHealth Exchange UDDI, an audit.properties file editor, configurable TLS versions for UDDI updates, and code updates to allow CONNECT to be compiled with JDK 1.8. Support for CONNECT has been extended to JBoss EAP 7 with JBoss AS 7.1.1 no longer being officially supported by the FHA CONNECT team.
+For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/ll4BBw).
+
 ## CONNECT 4.7 Release
 ### Summary
 
