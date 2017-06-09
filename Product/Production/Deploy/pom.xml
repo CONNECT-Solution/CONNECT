@@ -544,69 +544,6 @@
       </build>
     </profile>
 
-    <!-- GUI -->
-    <profile>
-      <id>GUI</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <gui.excluded>true</gui.excluded>
-      </properties>
-
-      <dependencies>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-          <version>${project.parent.version}</version>
-          <type>war</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
-          <version>${project.parent.version}</version>
-          <type>war</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-          <version>${project.parent.version}</version>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
-          <version>${project.parent.version}</version>
-          <type>pom</type>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-ear-plugin</artifactId>
-            <configuration>
-              <modules combine.children="append">
-                <webModule>
-                  <groupId>org.connectopensource</groupId>
-                  <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-                  <contextRoot>/CONNECTConsumerPreferencesProfileGUI</contextRoot>
-                  <excluded>${gui.excluded}</excluded>
-                </webModule>
-                <webModule>
-                  <groupId>org.connectopensource</groupId>
-                  <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
-                  <contextRoot>/CONNECTDeferredQueueManagerGUI</contextRoot>
-                  <excluded>${gui.excluded}</excluded>
-                </webModule>
-              </modules>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
     <!-- Direct -->
     <profile>
       <id>Direct</id>
