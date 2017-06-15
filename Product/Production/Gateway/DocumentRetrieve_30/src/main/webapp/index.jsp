@@ -5,7 +5,7 @@
         <title>CONNECT Gateway Document Retrieve 1.0 Web</title>
     </head>
     <body>
-        <p><b><font size="7">CONNECT Gateway Document Retrieve</font></b></p>
+        <p><strong><font size="7">CONNECT Gateway Document Retrieve</font></strong></p>
         <p><h3>Version 1.0</h3><p>
     </body>
 </html>
