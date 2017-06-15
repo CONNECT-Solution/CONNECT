@@ -60,7 +60,7 @@
                                                 <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
                                                     <p:panelGrid styleClass="ui-panelgrid-domain">
                                                         <p:row>
-                                                            <p:column><p><b>Organizations:</b></p></p:column>
+                                                            <p:column><p><strong>Organizations:</strong></p></p:column>
                                                             <p:column>
                                                                 <p:selectOneMenu id="selectOrg" filter="true" filterMatchMode="startsWith" value="#{connectionManagerBean.selectedEntityName}" effect="fade">
                                                                     <p:ajax event="change" update="entityNameValue, entityHcidValue, entityDescValue, entityContactValue, entityRegionValue, endpointTable" />
@@ -159,3 +159,4 @@
         </ui:composition>
     </h:body>
 </html>
+
