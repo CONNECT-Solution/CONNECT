@@ -6,6 +6,6 @@
         <title>CONNECTGatewayWeb</title>
     </head>
     <body>
-        <p><strong><font size="7">CONNECTGatewayWeb Home Page</font></strong></p>
+        <p><h1> CONNECTGatewayWeb Home Page </h1><p>
     </body>
 </html>
