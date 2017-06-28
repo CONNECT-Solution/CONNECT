@@ -42,9 +42,9 @@
                     <p:panelMenu style="width:100%">
                         <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
                             <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
-                            <ui:remove>
+                            
                            
-                            </ui:remove>
+                           
                             <p:menuitem value="Remote Gateway List" action="#{tabBean.navigateToGatewayRemoteListTab()}" styleClass="glyphicon glyphicon-list" />
                         </p:submenu>
                         <p:submenu rendered="#{applicationBean.isDirectEnabled()}" label="Direct Configuration" styleClass="sidebar-purple">
