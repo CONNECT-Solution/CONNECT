@@ -109,7 +109,7 @@ public abstract class ComponentProxyObjectFactory {
      * @return ApplicationContext
      */
     protected ApplicationContext getContext() {
-        ApplicationContext appContext = null;
+        ApplicationContext appContext;
 
         String configFilePath = getPropertyFileURL() + getConfigFileName();
         if (LOG.isDebugEnabled()) {

@@ -161,9 +161,8 @@ public class AdapterComponentDocRegistryOrchImpl {
      */
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         LOG.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        boolean queryForStableDocs = true;
-        boolean queryForOnDemandDocs = false;
+        AdhocQueryResponse response;
+        
         boolean registryIdPresent = false;
         DocumentQueryParams params = new DocumentQueryParams();
         if (request != null && getRegistryQueryId().contains(request.getAdhocQuery().getId())) {

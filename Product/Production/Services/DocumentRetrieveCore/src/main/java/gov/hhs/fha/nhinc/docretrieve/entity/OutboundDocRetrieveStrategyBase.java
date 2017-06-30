@@ -59,17 +59,15 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
         }
 
         if (message instanceof OutboundDocRetrieveOrchestratable) {
-            OutboundDocRetrieveOrchestratable NhinDRMessage = message;
-            //Append urn:oid to the home community id if its not present
-            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
+            OutboundDocRetrieveOrchestratable nhinDRMessage = message;
 
             //Assign the modified request community id value to the requests
-            if (NhinDRMessage.getRequest() != null && NullChecker.isNotNullish(
-                NhinDRMessage.getRequest().getDocumentRequest())) {
-                List<DocumentRequest> documentRequestList = NhinDRMessage.getRequest().getDocumentRequest();
+            if (nhinDRMessage.getRequest() != null && NullChecker.isNotNullish(
+                nhinDRMessage.getRequest().getDocumentRequest())) {
+                List<DocumentRequest> documentRequestList = nhinDRMessage.getRequest().getDocumentRequest();
                 //loop through the request list and set the HCID
                 for (int i = 0; i < documentRequestList.size(); i++) {
-                    DocumentRequest documentRequest = NhinDRMessage.getRequest().getDocumentRequest().get(i);
+                    DocumentRequest documentRequest = nhinDRMessage.getRequest().getDocumentRequest().get(i);
                     if (documentRequest != null) {
                         documentRequest.setHomeCommunityId(HomeCommunityMap.getHomeCommunityIdWithPrefix(
                             documentRequest.getHomeCommunityId()));
@@ -77,7 +75,7 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
                 }
             }
 
-            NhinDRMessage.setResponse(callProxy(NhinDRMessage));
+            nhinDRMessage.setResponse(callProxy(nhinDRMessage));
 
         } else {
             LOG.error("OutboundDocRetrieveStrategyBase.execute recieved a message which was not"

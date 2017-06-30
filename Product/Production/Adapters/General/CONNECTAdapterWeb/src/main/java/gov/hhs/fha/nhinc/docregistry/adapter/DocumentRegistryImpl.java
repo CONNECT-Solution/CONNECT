@@ -41,7 +41,6 @@ public class DocumentRegistryImpl {
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context);
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(body);
     }
 

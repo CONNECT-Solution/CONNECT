@@ -66,7 +66,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
-        MCCIIN000002UV01 resp = new MCCIIN000002UV01();
+        MCCIIN000002UV01 resp;
         RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         unsecureRequest.setAssertion(assertion);
         unsecureRequest.setNhinTargetCommunities(targets);

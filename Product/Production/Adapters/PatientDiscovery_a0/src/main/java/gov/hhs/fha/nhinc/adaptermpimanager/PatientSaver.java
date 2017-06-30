@@ -63,7 +63,7 @@ public class PatientSaver {
         String senderOID = null;
         String receiverOID = null;
         String ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ACCEPT;
-        String msgText = null;
+        String msgText;
         String localDeviceId;
 
         // Set the senderOID in the Ack message

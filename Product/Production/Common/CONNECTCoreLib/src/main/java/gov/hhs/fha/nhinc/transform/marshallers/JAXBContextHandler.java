@@ -124,8 +124,7 @@ public class JAXBContextHandler {
      */
     public JAXBContext getJAXBContext(final Class oClass) throws javax.xml.bind.JAXBException {
         JAXBContext oContext = null;
-        String sContextName = "";
-        sContextName = oClass.getPackage().getName();
+        String sContextName = oClass.getPackage().getName();
 
         if (sContextName != null && sContextName.length() > 0) {
             oContext = hContexts.get(sContextName);

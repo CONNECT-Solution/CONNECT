@@ -77,14 +77,12 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
     @Override
     public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion)
             throws PatientDiscoveryException {
-        PRPAIN201306UV02 response = new PRPAIN201306UV02();
-
         // Set the sender and receiver OID for the response
         String senderOID = extractSenderOID(request);
         String receiverOID = extractReceiverOID(request);
 
         // Query the MPI to see if we have a match
-        response = queryMpi(request, assertion);
+        PRPAIN201306UV02 response = queryMpi(request, assertion);
 
         // Check to see if the a valid response was returned from the local MPI
         if (response != null && response.getControlActProcess() != null) {
@@ -255,7 +253,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion)
             throws PatientDiscoveryException {
-        PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
+        PRPAIN201306UV02 queryResults;
 
         if (query != null) {
             // Query the MPI to see if the patient is found
@@ -274,7 +272,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, II localPatId, AssertionType assertion,
             PRPAIN201305UV02 query) {
-        PRPAIN201301UV02 request = new PRPAIN201301UV02();
+        PRPAIN201301UV02 request;
         String localAA = null;
 
         if (queryResult != null && localPatId != null && NullChecker.isNotNullish(localPatId.getRoot())
@@ -330,8 +328,8 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     protected void createPatientCorrelation(PRPAIN201306UV02 queryResult, AssertionType assertion,
             PRPAIN201305UV02 query) {
-        PRPAIN201301UV02 request = new PRPAIN201301UV02();
-        II localPatId = new II();
+        PRPAIN201301UV02 request;
+        II localPatId;
         if (queryResult != null && assertion != null) {
             int subjectsSize = 0;
             if (queryResult.getControlActProcess() != null

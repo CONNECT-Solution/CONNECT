@@ -57,9 +57,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImpl {
         sof.setSuccess(Boolean.FALSE);
         response.setSuccessOrFail(sof);
 
-        MCCIIN000002UV01 mCCIIN000002UV01 = new MCCIIN000002UV01();
         AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl entityPatientDiscoveryDeferredReqQueueProcessOrchImpl = getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();
-        mCCIIN000002UV01 = entityPatientDiscoveryDeferredReqQueueProcessOrchImpl
+        MCCIIN000002UV01 mCCIIN000002UV01 = entityPatientDiscoveryDeferredReqQueueProcessOrchImpl
                 .processPatientDiscoveryDeferredReqQueue(request.getMessageId());
 
         if (mCCIIN000002UV01 != null

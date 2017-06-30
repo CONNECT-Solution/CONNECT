@@ -229,9 +229,6 @@ public class HL7PRPA201301Transforms {
         }
 
         PRPAMT201301UV02Patient patient;
-        PRPAMT201306UV02QueryByParameter params;
-
-        params = original.getQueryByParameter().getValue();
 
         if (NullChecker.isNotNullish(original.getSubject()) && original.getSubject().get(0) != null
                 && original.getSubject().get(0).getRegistrationEvent() != null

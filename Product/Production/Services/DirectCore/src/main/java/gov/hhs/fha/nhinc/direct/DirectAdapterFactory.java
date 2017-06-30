@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 import org.nhindirect.gateway.smtp.GatewayState;
 import org.slf4j.Logger;
@@ -52,12 +51,6 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
          * Persistence; initializing both when the Direct Servlet is initialized as a workaround. <br/>
          * DO NOT remove either of the following two lines of code until this issue is resolved.
          */
-
-        gov.hhs.fha.nhinc.event.persistence.HibernateUtil eventHibernateUtil = HibernateUtilFactory
-                .getEventHibernateUtil();
-
-        gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil messageHibernateUtil = HibernateUtilFactory
-                .getMsgMonitorHibernateUtil();
 
         LOG.trace("Registering event Loggers");
         EventLoggerFactory.getInstance().registerLoggers();

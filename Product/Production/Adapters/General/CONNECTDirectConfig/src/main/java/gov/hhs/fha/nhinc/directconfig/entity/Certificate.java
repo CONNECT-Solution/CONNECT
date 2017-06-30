@@ -349,8 +349,7 @@ public class Certificate {
             if (cert == null) {
                 // might be a URL for IPKIX
                 try {
-                    @SuppressWarnings("unused")
-                    final URL url = new URL(new String(data, "ASCII"));
+                    new URL(new String(data, "ASCII"));
                 } catch (UnsupportedEncodingException | MalformedURLException e) {
                     // may not be a URL.. may be an encrypted stream that can't be accessed
                     // set the thumbprint to empty because the cert must be decrtyped

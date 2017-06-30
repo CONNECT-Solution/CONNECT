@@ -44,7 +44,7 @@ public class AdapterPatientDiscoveryDeferredReqOrchImpl {
     }
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        MCCIIN000002UV01 ack;
 
         String ackMsg = "Success";
 

@@ -326,7 +326,7 @@ public class DocRetrieveAuditTransforms
          responder side. And for this service, source is considered who generates the document, meaning that
          destination that generates the document is considered source for RD and vice versa for destination
          details for ActiveParticipant */
-        String hostDetails = null;
+        String hostDetails;
         if (isRequesting) {
             hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
         } else {
@@ -387,7 +387,7 @@ public class DocRetrieveAuditTransforms
     protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
         boolean isRequesting, Properties webContextProperties, String serviceName) {
         ActiveParticipant participant = new ActiveParticipant();
-        String hostAddress = null;
+        String hostAddress;
 
         if (isRequesting) {
             hostAddress = getLocalHostAddress();

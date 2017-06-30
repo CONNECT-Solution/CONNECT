@@ -56,7 +56,7 @@ public class AdapterPatientDiscoveryDeferredReqErrorOrchImpl {
 
         // check for valid queue entry
         if (bIsQueueOk) {
-            bIsQueueOk = asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR,
+            asyncProcess.processAck(assertion.getMessageId(), AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR,
                     AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, ack);
         } else {
             String ackMsg = "Deferred Patient Discovery processing halted; deferred queue repository error encountered; "

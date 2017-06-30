@@ -47,7 +47,7 @@ public class StringUtil {
      * @return String
      */
     public static String extractStringFromTokens(final String tokenString, final String tokens) {
-        String resultString = "";
+        String resultString;
 
         if (StringUtils.isNotEmpty(tokens)) {
             final StringTokenizer tk = new StringTokenizer(tokenString, tokens);

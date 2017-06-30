@@ -69,8 +69,7 @@ public final class ElementBuilder {
      */
     public Element buildElement(final String ns, final String name, final String content) {
 
-        Element theElement = null;
-        theElement = document.createElementNS(ns, name);
+        Element theElement = document.createElementNS(ns, name);
 
         if (content != null) {
             theElement.setTextContent(content);
