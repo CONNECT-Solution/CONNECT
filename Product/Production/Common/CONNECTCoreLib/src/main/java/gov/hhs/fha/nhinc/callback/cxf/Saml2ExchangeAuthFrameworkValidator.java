@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import org.apache.commons.lang.StringUtils;
@@ -166,9 +167,15 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @throws InvalidNameException
      */
     private static void validateName(String value) throws WSSecurityException {
+        if(NullChecker.isNullish(value)) {
+            throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
+        }
         try {
-            new LdapName(value);
-        } catch (Exception e) {
+            LdapName name = new LdapName(value);
+            if(name.isEmpty()) {
+                throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
+            }
+        } catch (InvalidNameException e) {
             LOG.info("Validation of X509 Subject Name failed: {}", e.getLocalizedMessage(), e);
             throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
         }

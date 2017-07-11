@@ -48,13 +48,13 @@ public class DocumentRepositoryService implements ihe.iti.xds_b._2007.DocumentRe
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new DocumentRepositoryServiceImpl().documentRepositoryProvideAndRegisterDocumentSet(body, context);
+        return new DocumentRepositoryServiceImpl().documentRepositoryProvideAndRegisterDocumentSet(body);
     }
 
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        return new DocumentRepositoryServiceImpl().documentRepositoryRetrieveDocumentSet(body, context);
+        return new DocumentRepositoryServiceImpl().documentRepositoryRetrieveDocumentSet(body);
     }
 
 }

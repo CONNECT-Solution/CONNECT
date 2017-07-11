@@ -314,7 +314,7 @@ public class MessageMonitoringAPI {
         return failedMessages;
     }
 
-    public boolean updateMessageMonitoringRetryCount(final MimeMessage message) {
+    public boolean updateMessageMonitoringRetryCount() {
 
         // its already there, just update the
         final String emailId = null;

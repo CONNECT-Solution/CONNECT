@@ -50,7 +50,7 @@ public class DocumentRegistryService implements ihe.iti.xds_b._2007.DocumentRegi
     @Override
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(
             oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        return new DocumentRegistryImpl().documentRegistryRegistryStoredQuery(body, context);
+        return new DocumentRegistryImpl().documentRegistryRegistryStoredQuery(body);
     }
 
     @Override
