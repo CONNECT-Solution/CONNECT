@@ -167,17 +167,18 @@ public class Saml2ExchangeAuthFrameworkValidator extends SamlAssertionValidator 
      * @throws InvalidNameException
      */
     private static void validateName(String value) throws WSSecurityException {
+        final WSSecurityException LDAP_EXCEPTION = new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
         if(NullChecker.isNullish(value)) {
-            throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
+            throw LDAP_EXCEPTION;
         }
         try {
             LdapName name = new LdapName(value);
             if(name.isEmpty()) {
-                throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
+                throw LDAP_EXCEPTION;
             }
         } catch (InvalidNameException e) {
             LOG.info("Validation of X509 Subject Name failed: {}", e.getLocalizedMessage(), e);
-            throw new WSSecurityException(ErrorCode.FAILURE, "Not a valid X509 Subject Name.");
+            throw LDAP_EXCEPTION;
         }
     }
 
