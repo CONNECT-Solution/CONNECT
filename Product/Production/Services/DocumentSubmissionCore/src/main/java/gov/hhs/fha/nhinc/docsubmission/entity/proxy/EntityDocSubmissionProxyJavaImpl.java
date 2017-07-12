@@ -48,10 +48,7 @@ public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProx
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = new RegistryResponseType();
 
-        response = outboundDocSubmission.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
-
-        return response;
+        return outboundDocSubmission.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
     }
 }

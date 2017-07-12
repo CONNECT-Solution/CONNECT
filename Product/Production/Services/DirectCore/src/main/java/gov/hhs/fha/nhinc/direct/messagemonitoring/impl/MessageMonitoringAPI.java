@@ -314,23 +314,17 @@ public class MessageMonitoringAPI {
         return failedMessages;
     }
 
-    public boolean updateMessageMonitoringRetryCount(final MimeMessage message) {
+    public boolean updateMessageMonitoringRetryCount() {
 
-        try {
-            // get the message id
-            final String messageId = message.getMessageID();
+        // its already there, just update the
+        final String emailId = null;
+        final Date updatedTime = new Date();
+        // create the track message notification objects
+        final MonitoredMessageNotification tmn = new MonitoredMessageNotification();
+        tmn.setUpdatetime(updatedTime);
+        tmn.setEmailid(emailId);
+        tmn.setStatus(STATUS_PENDING);
 
-            // its already there, just update the
-            final String emailId = null;
-            final Date updatedTime = new Date();
-            // create the track message notification objects
-            final MonitoredMessageNotification tmn = new MonitoredMessageNotification();
-            tmn.setUpdatetime(updatedTime);
-            tmn.setEmailid(emailId);
-            tmn.setStatus(STATUS_PENDING);
-        } catch (final MessagingException ex) {
-            LOG.error(ex.getLocalizedMessage(),ex);
-        }
         return false;
     }
 

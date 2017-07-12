@@ -40,8 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 public class DocumentRegistryImpl {
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
-    public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context);
+    public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body) {
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(body);
     }
 

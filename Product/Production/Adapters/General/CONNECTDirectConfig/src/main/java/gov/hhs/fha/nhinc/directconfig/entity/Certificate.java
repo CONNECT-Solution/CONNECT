@@ -51,9 +51,6 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.Thumbprint;
 import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.Key;
 import java.security.KeyStore;
 import java.security.PrivateKey;
@@ -347,16 +344,6 @@ public class Certificate {
             }
 
             if (cert == null) {
-                // might be a URL for IPKIX
-                try {
-                    @SuppressWarnings("unused")
-                    final URL url = new URL(new String(data, "ASCII"));
-                } catch (UnsupportedEncodingException | MalformedURLException e) {
-                    // may not be a URL.. may be an encrypted stream that can't be accessed
-                    // set the thumbprint to empty because the cert must be decrtyped
-                    LOG.warn("Not an IPKIX URL: " + e.getLocalizedMessage(), e);
-                }
-
                 setThumbprint("");
             } else {
                 setThumbprint(Thumbprint.toThumbprint(cert).toString());

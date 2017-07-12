@@ -71,10 +71,9 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                     if (msgType.contentEquals(NhincConstants.ASYNC_REQUEST_MSG_TYPE_VAL)) {
                         LOG.debug("Detected an asynchronous request message");
                         // Override the Message Id field
-                        String messageId = null;
 
                         if (messageContext.containsKey(NhincConstants.ASYNC_MESSAGE_ID_PROP) == true) {
-                            messageId = (String) messageContext.get(NhincConstants.ASYNC_MESSAGE_ID_PROP);
+                            String messageId = (String) messageContext.get(NhincConstants.ASYNC_MESSAGE_ID_PROP);
 
                             LOG.debug("Setting message ID to {}", messageId);
 
@@ -87,10 +86,9 @@ public class AsyncMessageHandler implements SOAPHandler<SOAPMessageContext> {
                     } else if (msgType.contentEquals(NhincConstants.ASYNC_RESPONSE_MSG_TYPE_VAL)) {
                         LOG.debug("Detected an asynchronous response message");
                         // Override the Relates To Id field
-                        String relatesToId = null;
 
                         if (messageContext.containsKey(NhincConstants.ASYNC_RELATES_TO_PROP) == true) {
-                            relatesToId = (String) messageContext.get(NhincConstants.ASYNC_RELATES_TO_PROP);
+                            String relatesToId = (String) messageContext.get(NhincConstants.ASYNC_RELATES_TO_PROP);
 
                             LOG.debug("Setting relates to ID to {}", relatesToId);
 

@@ -37,12 +37,8 @@ public class EntityPatientDiscoveryDeferredRequestProxyJavaImpl implements Entit
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
-
         StandardOutboundPatientDiscoveryDeferredRequest outboundPatientDiscovery
             = new StandardOutboundPatientDiscoveryDeferredRequest();
-        response = outboundPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion, targets);
-
-        return response;
+        return outboundPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion, targets);
     }
 }

@@ -39,14 +39,12 @@ public class DocumentRepositoryServiceImpl {
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context);
+            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(body);
     }
 
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSet(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context);
+            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryProvideAndRegisterDocumentSet(body);
     }
 

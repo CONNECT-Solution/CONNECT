@@ -185,13 +185,12 @@ public class TrustMode implements ResponseMode {
 
     protected void sendToPatientCorrelationComponent(II localPatId, II remotePatId, AssertionType assertion,
             PRPAIN201306UV02 response) {
-        PRPAIN201301UV02 request = new PRPAIN201301UV02();
 
         if (localPatId != null && NullChecker.isNotNullish(localPatId.getRoot())
                 && NullChecker.isNotNullish(localPatId.getExtension()) && remotePatId != null
                 && NullChecker.isNotNullish(remotePatId.getRoot())
                 && NullChecker.isNotNullish(remotePatId.getExtension())) {
-            request = HL7PRPA201301Transforms.createPRPA201301(response, localPatId.getRoot());
+            PRPAIN201301UV02 request = HL7PRPA201301Transforms.createPRPA201301(response, localPatId.getRoot());
 
             if (request != null
                     && request.getControlActProcess() != null
