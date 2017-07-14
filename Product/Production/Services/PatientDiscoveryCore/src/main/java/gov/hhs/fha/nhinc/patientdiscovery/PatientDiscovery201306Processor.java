@@ -52,8 +52,7 @@ public class PatientDiscovery201306Processor {
      * @return
      */
     public PRPAIN201306UV02 createNewRequest(PRPAIN201306UV02 request, String targetCommunityId) {
-        PRPAIN201306UV02 newRequest = new PRPAIN201306UV02();
-        newRequest = request;
+        PRPAIN201306UV02 newRequest = request;
 
         if (request != null && NullChecker.isNotNullish(targetCommunityId)) {
             newRequest.getReceiver().clear();
