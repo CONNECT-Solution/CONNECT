@@ -313,7 +313,6 @@ public class HL7Parser201305 {
                         if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine) {
                             addressLineCounter++;
                             if (addressLineCounter == 1) {
-                                addressLine1 = new AdxpExplicitStreetAddressLine();
                                 addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 LOG.info("found addressLine1 element; content=" + addressLine1.getContent());
                                 if (address == null) {
