@@ -472,9 +472,7 @@ public class HL7DbParser201306 {
         String prefix = personname.getPrefix();
         String suffix = personname.getSuffix();
 
-        PNExplicit name = name = HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
-
-        return name;
+        return HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
     }
 
     private static CE createGender(Patient patient) {
