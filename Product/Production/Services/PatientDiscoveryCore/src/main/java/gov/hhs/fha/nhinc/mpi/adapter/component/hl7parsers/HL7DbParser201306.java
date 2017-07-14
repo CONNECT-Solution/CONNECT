@@ -464,8 +464,6 @@ public class HL7DbParser201306 {
     }
 
     private static PNExplicit createSubjectName(Personname personname) {
-        org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        
         String lastName = personname.getLastName();
         String firstName = personname.getFirstName();
         String middleName = personname.getMiddleName();
