@@ -81,10 +81,10 @@ public class HL7Parser201305 {
 
         // Extract the gender from the query parameters - Assume only one was specified
         if (params.getLivingSubjectAdministrativeGender() != null
-                && params.getLivingSubjectAdministrativeGender().size() > 0
-                && params.getLivingSubjectAdministrativeGender().get(0) != null) {
+            && params.getLivingSubjectAdministrativeGender().size() > 0
+            && params.getLivingSubjectAdministrativeGender().get(0) != null) {
             PRPAMT201306UV02LivingSubjectAdministrativeGender gender =
-                    params.getLivingSubjectAdministrativeGender().get(0);
+                params.getLivingSubjectAdministrativeGender().get(0);
 
             if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
@@ -115,11 +115,11 @@ public class HL7Parser201305 {
 
         // Extract the birth time from the query parameters - Assume only one was specified
         if (params.getLivingSubjectBirthTime() != null && params.getLivingSubjectBirthTime().size() > 0
-                && params.getLivingSubjectBirthTime().get(0) != null) {
+            && params.getLivingSubjectBirthTime().get(0) != null) {
             PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
             if (birthTime.getValue() != null && birthTime.getValue().size() > 0
-                    && birthTime.getValue().get(0) != null) {
+                && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
                 LOG.info("Found birthTime in query parameters = " + birthday.getValue());
                 birthDate = birthday.getValue();
@@ -146,7 +146,7 @@ public class HL7Parser201305 {
 
         // Extract the name from the query parameters - Assume only one was specified
         if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
-                && params.getLivingSubjectName().get(0) != null) {
+            && params.getLivingSubjectName().get(0) != null) {
             PRPAMT201306UV02LivingSubjectName name = params.getLivingSubjectName().get(0);
 
             if (name.getValue() != null && name.getValue().size() > 0 && name.getValue().get(0) != null) {
@@ -241,19 +241,19 @@ public class HL7Parser201305 {
         Identifier id = new Identifier();
 
         if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
-                && params.getLivingSubjectId().get(0) != null) {
+            && params.getLivingSubjectId().get(0) != null) {
             PRPAMT201306UV02LivingSubjectId livingSubjectId = params.getLivingSubjectId().get(0);
 
             if (livingSubjectId.getValue() != null && livingSubjectId.getValue().size() > 0
-                    && livingSubjectId.getValue().get(0) != null) {
+                && livingSubjectId.getValue().get(0) != null) {
                 II subjectId = livingSubjectId.getValue().get(0);
 
                 if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
-                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
+                    && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
                     id.setId(subjectId.getExtension());
                     id.setOrganizationId(subjectId.getRoot());
                     LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
-                            + id.getId() + "]");
+                        + id.getId() + "]");
                     ids.add(id);
                 } else {
                     LOG.info("message does not contain an id");
@@ -280,11 +280,11 @@ public class HL7Parser201305 {
         Address address = null;
 
         if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
-                && params.getPatientAddress().get(0) != null) {
+            && params.getPatientAddress().get(0) != null) {
             PRPAMT201306UV02PatientAddress patientAddress = params.getPatientAddress().get(0);
 
             if (patientAddress.getValue() != null && patientAddress.getValue().size() > 0
-                    && patientAddress.getValue().get(0) != null) {
+                && patientAddress.getValue().get(0) != null) {
                 ADExplicit adExplicit = patientAddress.getValue().get(0);
 
                 List<Serializable> choice = adExplicit.getContent();
@@ -375,11 +375,11 @@ public class HL7Parser201305 {
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
         if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
-                && params.getPatientTelecom().get(0) != null) {
+            && params.getPatientTelecom().get(0) != null) {
             PRPAMT201306UV02PatientTelecom patientTelecom = params.getPatientTelecom().get(0);
 
             if (patientTelecom.getValue() != null && patientTelecom.getValue().size() > 0
-                    && patientTelecom.getValue().get(0) != null) {
+                && patientTelecom.getValue().get(0) != null) {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
                 LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                 telecom = telecomValue.getValue();
@@ -422,7 +422,7 @@ public class HL7Parser201305 {
         }
 
         if (controlActProcess.getQueryByParameter() != null
-                && controlActProcess.getQueryByParameter().getValue() != null) {
+            && controlActProcess.getQueryByParameter().getValue() != null) {
             PRPAMT201306UV02QueryByParameter queryParams = controlActProcess.getQueryByParameter().getValue();
 
             if (queryParams.getParameterList() != null) {
@@ -462,7 +462,6 @@ public class HL7Parser201305 {
 
         if (params != null) {
 
-            // mpiPatient.setName(ExtractPersonName(params));
             mpiPatient.getNames().add(extractPersonName(params));
             mpiPatient.setGender(extractGender(params));
 

@@ -55,7 +55,6 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
             // shouldn't get here
             LOG.error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
             // throw new
-            // Exception("NhinPatientDiscoveryStrategy input message was not an EntityPatientDiscoveryOrchestratable!!!");
         }
     }
 

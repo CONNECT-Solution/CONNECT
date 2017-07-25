@@ -45,11 +45,9 @@ public class EntityDocQueryProxyJavaImpl implements EntityDocQueryProxy {
      */
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+        NhinTargetCommunitiesType targets) {
 
         // @TODO......paul fix this......need references or executors on EntityDocQueryOrchImpl construction
-        // EntityDocQueryOrchImpl orchImpl = new EntityDocQueryOrchImpl();
-        // response = orchImpl.respondingGatewayCrossGatewayQuery(msg, assertion, targets);
 
         return null;
     }

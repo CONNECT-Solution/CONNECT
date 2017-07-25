@@ -121,7 +121,6 @@ public class HL7DbParser201306 {
                 "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
                 e);
             // CONNECT environment corrupt; return error response
-            // return BuildMessageForError(<ERROR_CODE>, query);
         }
         id.setExtension(MessageIdGenerator.generateMessageId());
         msg.setId(id);
@@ -139,12 +138,10 @@ public class HL7DbParser201306 {
         msg.setProcessingCode(processingCode);
 
         CS processingModeCode = new CS();
-        // processingModeCode.setCode("R");
         processingModeCode.setCode("T");
         msg.setProcessingModeCode(processingModeCode);
 
         CS ackCode = new CS();
-        // ackCode.setCode("AL");
         ackCode.setCode("NE");
         msg.setAcceptAckCode(ackCode);
 
@@ -177,7 +174,7 @@ public class HL7DbParser201306 {
         controlActProcess.setCode(code);
 
         // Add a subject for each value unique patient
-        if ((patients != null) && (patients.size() > 0)) {
+        if (patients != null && patients.size() > 0) {
             for (Patient patient : patients) {
                 controlActProcess.getSubject().add(createSubject(patient));
             }
@@ -514,11 +511,11 @@ public class HL7DbParser201306 {
             && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
             && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
-            .getRepresentedOrganization().getValue().getId())
+                .getRepresentedOrganization().getValue().getId())
             && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(
-            0) != null
-            && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
-            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                0) != null
+                && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
+                    .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid =
                 querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
                 .get(0).getRoot();
@@ -574,11 +571,11 @@ public class HL7DbParser201306 {
             && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
             && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
-            .getRepresentedOrganization().getValue().getId())
+                .getRepresentedOrganization().getValue().getId())
             && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
             .get(0) != null
             && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
-            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid =
                 queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
                 .get(0).getRoot();
@@ -617,7 +614,7 @@ public class HL7DbParser201306 {
 
     private static ADExplicit createAddress(Address add) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        ADExplicit result = (factory.createADExplicit());
+        ADExplicit result = factory.createADExplicit();
         List addrlist = result.getContent();
 
         if (add != null) {

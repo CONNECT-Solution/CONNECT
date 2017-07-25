@@ -57,10 +57,10 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
 
     @Override
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         String serviceName = NhincConstants.ENTITY_DOC_RETRIEVE_SECURED_SERVICE_NAME;
-        String url = this.getUrl(serviceName);
+        String url = getUrl(serviceName);
 
         RetrieveDocumentSetResponseType response = null;
 
@@ -69,12 +69,7 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
             message.setNhinTargetCommunities(targets);
             message.setRetrieveDocumentSetRequest(body);
 
-            /* TODO: WTH is this?
-             *
-             * SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.DOC_QUERY_ACTION);
-
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);*/
+            /* TODO: WTH is this? */
 
             ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor = new EntityDocRetrieveSecuredServicePortDescriptor();
             CONNECTClient<EntityDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
@@ -84,7 +79,7 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
                 response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", message.getRetrieveDocumentSetRequest());
             } catch (Exception ex) {
                 LOG.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
-                        + "Exception: " + ex.getMessage(), ex);
+                    + "Exception: " + ex.getMessage(), ex);
             }
         }
 
@@ -94,7 +89,7 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
     protected String getUrl(String serviceName) {
         String result = "";
         try {
-            result = this.getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
+            result = getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
         } catch (Exception ex) {
             LOG.warn("Unable to retreive url for service: " + serviceName);
             LOG.warn("Error: " + ex.getMessage(), ex);
@@ -108,7 +103,7 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
     }
 
     protected CONNECTClient<EntityDocRetrieveSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor, String url, AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }

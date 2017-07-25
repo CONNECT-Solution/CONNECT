@@ -111,7 +111,7 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureOutboundStdImpl()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
@@ -124,7 +124,7 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureOutboundPtImpl()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure Inbound Standard implementation. This method is abstract because subclass implementations must use
@@ -137,7 +137,7 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureInboundStdImpl()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Configure Inbound Passthrough implementation. This method is abstract because subclass implementations must use
@@ -150,7 +150,7 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
      */
     @Override
     public abstract void configureInboundPtImpl()
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Instantiates a new abstract admin distribution web services mx bean.
@@ -160,30 +160,5 @@ public abstract class AbstractAdminDistributionWebServicesMXBean extends Abstrac
     public AbstractAdminDistributionWebServicesMXBean(ServletContext sc) {
         super(sc);
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
-     */
-    /*
-     * @Override protected String getNhinBeanName() { return NHIN_AD_BEAN_NAME; }
-     */
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
-     */
-    /*
-     * @Override protected String getEntityUnsecuredBeanName() { return ENTITY_UNSECURED_AD_BEAN_NAME; }
-     */
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
-     */
-    /*
-     * @Override protected String getEntitySecuredBeanName() { return ENTITY_SECURED_AD_BEAN_NAME; }
-     */
 
 }

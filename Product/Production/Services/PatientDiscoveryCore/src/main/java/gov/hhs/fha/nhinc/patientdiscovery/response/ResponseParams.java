@@ -37,6 +37,5 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 public class ResponseParams {
     public ProxyPRPAIN201305UVProxySecuredRequestType origRequest;
     public PRPAIN201306UV02 response;
-    // public WebServiceContext context;
     public AssertionType assertion;
 }

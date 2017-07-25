@@ -144,7 +144,7 @@ public class ConnectionManagerCacheHelper {
      * replaces it with this one. If it does not find it, then it adds this one to the list.
      *
      * @param oEntities The entities to search.
-     * 
+     *
      * @param oEntity The entity to replace...
      */
     public void replaceBusinessEntity(List<BusinessEntity> oEntities, BusinessEntity oEntity) {
@@ -163,18 +163,18 @@ public class ConnectionManagerCacheHelper {
                 BusinessEntity oLocalEntity = oEntities.get(i);
                 String localHomeCommunityId = getCommunityId(oLocalEntity);
                 if (localHomeCommunityId != null && homeCommunityId != null
-                        && localHomeCommunityId.equals(homeCommunityId)) {
+                    && localHomeCommunityId.equals(homeCommunityId)) {
                     oEntities.set(i, oEntity);
                     return; // We are done
                 }
-            } // for (int i = 0; i < iCnt; i++)
+            }
 
             oEntities.add(oEntity);
         }
     }
 
     public List<UDDI_SPEC_VERSION> getSpecVersionsFromBusinessEntity(BusinessEntity businessEntity,
-            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
         if (businessEntity == null) {
             return specVersionList;
@@ -219,13 +219,13 @@ public class ConnectionManagerCacheHelper {
     public List<UDDI_SPEC_VERSION> getSpecVersions(BusinessService businessService) {
         List<UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
         if (businessService == null || businessService.getBindingTemplates() == null
-                || businessService.getBindingTemplates().getBindingTemplate() == null) {
+            || businessService.getBindingTemplates().getBindingTemplate() == null) {
             return specVersionList;
         }
 
         for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {
             if (bindingTemplate.getCategoryBag() != null
-                    && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
+                && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
                 for (KeyedReference reference : bindingTemplate.getCategoryBag().getKeyedReference()) {
                     String keyName = reference.getTModelKey();
                     String specVersionValue = reference.getKeyValue();
@@ -256,10 +256,10 @@ public class ConnectionManagerCacheHelper {
     }
 
     public BindingTemplate findBindingTemplateByCategoryBagNameValue(BusinessEntity businessEntity, String serviceName,
-            String key, String value) {
+        String key, String value) {
         BindingTemplate bindingTemplate;
         if (businessEntity != null && businessEntity.getBusinessServices() != null
-                && businessEntity.getBusinessKey() != null) {
+            && businessEntity.getBusinessKey() != null) {
             for (BusinessService service : businessEntity.getBusinessServices().getBusinessService()) {
                 if (!isServiceNameEquals(service, serviceName)) {
                     continue;
@@ -293,11 +293,11 @@ public class ConnectionManagerCacheHelper {
     }
 
     public BusinessService getBusinessServiceByServiceName(BusinessEntity entity, String sUniformServiceName)
-            throws ConnectionManagerException {
+        throws ConnectionManagerException {
 
         // Validation
         if (entity == null || entity.getBusinessServices() == null || sUniformServiceName == null
-                || sUniformServiceName.length() <= 0) {
+            || sUniformServiceName.length() <= 0) {
             return null;
         }
 

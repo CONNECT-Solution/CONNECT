@@ -51,7 +51,6 @@ public class DocRetrieveTransformHelper {
     public static CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         // TODO: Need to handle DocumentSet
-        // DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
 
         if (InboundOutboundChecker.isInbound(event.getDirection())) {
@@ -63,7 +62,7 @@ public class DocRetrieveTransformHelper {
 
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
-                event.getMessage().getAssertion());
+            event.getMessage().getAssertion());
         request.getSubject().add(subject);
         DocRetrieveMessageType docMessage = event.getMessage();
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = docMessage.getRetrieveDocumentSetRequest();
@@ -93,11 +92,11 @@ public class DocRetrieveTransformHelper {
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
         resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId,
-                Constants.DataTypeString, homeCommunityId));
+            Constants.DataTypeString, homeCommunityId));
         resource.getAttribute().add(attrHelper.attributeFactory(Constants.RespositoryAttributeId,
-                Constants.DataTypeString, repositoryUniqueId));
+            Constants.DataTypeString, repositoryUniqueId));
         resource.getAttribute()
-                .add(attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
+        .add(attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
         return resource;
     }
 }
