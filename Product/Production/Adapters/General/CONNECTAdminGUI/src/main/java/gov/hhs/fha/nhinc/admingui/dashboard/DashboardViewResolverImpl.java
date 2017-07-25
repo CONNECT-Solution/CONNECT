@@ -166,7 +166,6 @@ public class DashboardViewResolverImpl implements DashboardViewResolver {
         panel.setId(panelData.getType().replace(" ", "_").toLowerCase());
         panel.setHeader(panelData.getType().toUpperCase());
         panel.setClosable(true);
-        // panel.setToggleable(true);
 
         addTitle(panel, panelData);
         addDescription(panel, panelData);

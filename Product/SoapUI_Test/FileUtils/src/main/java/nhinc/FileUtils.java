@@ -501,7 +501,6 @@ public class FileUtils {
             try (FileOutputStream fileOutput = new FileOutputStream(fullPath)) {
                 StreamResult stream = new StreamResult(fileOutput);
                 transformer.transform(source, stream);
-                // fileOutput.finalize();
             }
             log.info("Done createorupdate: " + fileName);
         } catch (IllegalArgumentException | TransformerException | IOException e) {
@@ -663,7 +662,6 @@ public class FileUtils {
             try (FileOutputStream fileOutput = new FileOutputStream(fullPath)) {
                 StreamResult stream = new StreamResult(fileOutput);
                 transformer.transform(source, stream);
-                // fileOutput.finalize();
             }
             log.info("Done createorupdate: " + fileName);
         } catch (IllegalArgumentException | TransformerException | IOException e) {

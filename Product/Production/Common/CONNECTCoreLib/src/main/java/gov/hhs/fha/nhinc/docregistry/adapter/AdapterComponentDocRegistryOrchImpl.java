@@ -162,7 +162,7 @@ public class AdapterComponentDocRegistryOrchImpl {
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         LOG.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         AdhocQueryResponse response;
-        
+
         boolean registryIdPresent = false;
         DocumentQueryParams params = new DocumentQueryParams();
         if (request != null && getRegistryQueryId().contains(request.getAdhocQuery().getId())) {
@@ -183,7 +183,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 }
                 if (patientIdSlotCount > 1) {
                     response = createErrorResponse(EBXML_DOCQUERY_MULTIPLE_PATIENTID_SLOTS_ERROR,
-                            "Multiple $XDSDocumentEntryPatientId Present in the Request");
+                        "Multiple $XDSDocumentEntryPatientId Present in the Request");
                     return response;
                 } else {
 
@@ -195,14 +195,14 @@ public class AdapterComponentDocRegistryOrchImpl {
                                 slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
                                 if (slotValues == null || slotValues.isEmpty()) {
                                     response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM,
-                                            "Required parameter XDSDocumentEntryPatientId, not present in query request");
+                                        "Required parameter XDSDocumentEntryPatientId, not present in query request");
                                     return response;
                                 }
                             }
                         }
                         if (!patientIdSlotPresent) {
                             response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM,
-                                    "Required parameter XDSDocumentEntryPatientId, not present in query request");
+                                "Required parameter XDSDocumentEntryPatientId, not present in query request");
                             return response;
                         }
                     }
@@ -231,7 +231,7 @@ public class AdapterComponentDocRegistryOrchImpl {
             LOG.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         } else {
             response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_ERROR,
-                    "Unknown Stored Query query id =" + request.getAdhocQuery().getId());
+                "Unknown Stored Query query id =" + request.getAdhocQuery().getId());
         }
         return response;
     }
@@ -341,12 +341,12 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     private List<EventCodeParam> createEventCodeParameters(List<String> eventCodeValues,
-            List<String> eventCodeSchemeValues) {
+        List<String> eventCodeSchemeValues) {
         List<EventCodeParam> eventCodeParams = null;
         if (NullChecker.isNotNullish(eventCodeValues)) {
             eventCodeParams = new ArrayList<>();
             boolean hasMatchingSchemes = NullChecker.isNotNullish(eventCodeSchemeValues)
-                    && eventCodeValues.size() == eventCodeSchemeValues.size();
+                && eventCodeValues.size() == eventCodeSchemeValues.size();
             for (int i = 0; i < eventCodeValues.size(); i++) {
                 String eventCode = eventCodeValues.get(i);
                 EventCodeParam eventCodeParam = new EventCodeParam();
@@ -367,7 +367,6 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
         if (slotValues != null && !slotValues.isEmpty()) {
             String formattedPatientId = slotValues.get(0);
-            // patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
             patientId = PatientIdFormatUtil.stripQuotesFromPatientId(formattedPatientId);
             LOG.debug("extractPatientIdentifier - patientId: " + patientId);
         }
@@ -510,7 +509,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @param docs - Documents i/p Parameter.
      */
     public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
-            List<Document> docs) {
+        List<Document> docs) {
         RegistryObjectListType regObjList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjList);
 
@@ -577,7 +576,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // -------------
                 if (NullChecker.isNotNullish(doc.getAuthorPerson())) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
-                            doc.getAuthorPerson());
+                        doc.getAuthorPerson());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
@@ -585,7 +584,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // ------------------
                 if (NullChecker.isNotNullish(doc.getAuthorInstitution())) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
-                            doc.getAuthorInstitution());
+                        doc.getAuthorInstitution());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
@@ -602,7 +601,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // ----------------
                 if (NullChecker.isNotNullish(doc.getAuthorSpecialty())) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
-                            doc.getAuthorSpecialty());
+                        doc.getAuthorSpecialty());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
@@ -622,8 +621,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Class Code
                 // ------------
                 ClassificationType classCodeClassification = createClassificationFromCodedData(doc.getClassCode(),
-                        doc.getClassCodeScheme(), doc.getClassCodeDisplayName(), EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME,
-                        sDocumentUUID);
+                    doc.getClassCodeScheme(), doc.getClassCodeDisplayName(), EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME,
+                    sDocumentUUID);
                 if (classCodeClassification != null) {
                     olClassifications.add(classCodeClassification);
                     bHaveData = true;
@@ -640,9 +639,9 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Confidentiality Code
                 // ---------------------
                 ClassificationType confidentialityCodeClassification = createClassificationFromCodedData(
-                        doc.getConfidentialityCode(), doc.getConfidentialityCodeScheme(),
-                        doc.getConfidentialityCodeDisplayName(), EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME,
-                        sDocumentUUID);
+                    doc.getConfidentialityCode(), doc.getConfidentialityCodeScheme(),
+                    doc.getConfidentialityCodeDisplayName(), EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME,
+                    sDocumentUUID);
                 if (confidentialityCodeClassification != null) {
                     olClassifications.add(confidentialityCodeClassification);
                     bHaveData = true;
@@ -652,7 +651,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // --------------
                 if (doc.getCreationTime() != null) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
-                            utcDateUtil.formatUTCDate(doc.getCreationTime()));
+                        utcDateUtil.formatUTCDate(doc.getCreationTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -662,9 +661,9 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (doc.getEventCodes() != null && !doc.getEventCodes().isEmpty()) {
                     for (EventCode eventCode : doc.getEventCodes()) {
                         ClassificationType eventCodeClassification = createClassificationFromCodedData(
-                                eventCode.getEventCode(), eventCode.getEventCodeScheme(),
-                                eventCode.getEventCodeDisplayName(), EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME,
-                                sDocumentUUID);
+                            eventCode.getEventCode(), eventCode.getEventCodeScheme(),
+                            eventCode.getEventCodeDisplayName(), EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME,
+                            sDocumentUUID);
                         if (eventCodeClassification != null) {
                             olClassifications.add(eventCodeClassification);
                             bHaveData = true;
@@ -675,8 +674,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Format Code
                 // -------------
                 ClassificationType formatCodeClassification = createClassificationFromCodedData(doc.getFormatCode(),
-                        doc.getFormatCodeScheme(), doc.getFormatCodeDisplayName(),
-                        EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME, sDocumentUUID);
+                    doc.getFormatCodeScheme(), doc.getFormatCodeDisplayName(),
+                    EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME, sDocumentUUID);
                 if (formatCodeClassification != null) {
                     olClassifications.add(formatCodeClassification);
                     bHaveData = true;
@@ -693,8 +692,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Healthcare Facility Type Code
                 // ------------------------------
                 ClassificationType healthcareFacilityTypeCodeClassification = createClassificationFromCodedData(
-                        doc.getFacilityCode(), doc.getFacilityCodeScheme(), doc.getFacilityCodeDisplayName(),
-                        EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME, sDocumentUUID);
+                    doc.getFacilityCode(), doc.getFacilityCodeScheme(), doc.getFacilityCodeDisplayName(),
+                    EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME, sDocumentUUID);
                 if (healthcareFacilityTypeCodeClassification != null) {
                     olClassifications.add(healthcareFacilityTypeCodeClassification);
                     bHaveData = true;
@@ -712,7 +711,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (!intendedRecipients.isEmpty()) {
                     String[] intendedRecipientArray = intendedRecipients.toArray(new String[intendedRecipients.size()]);
                     SlotType1 oSlot = createMultiValueSlot(EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME,
-                            intendedRecipientArray);
+                        intendedRecipientArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -721,7 +720,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // ---------------
                 if (NullChecker.isNotNullish(doc.getLanguageCode())) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME,
-                            doc.getLanguageCode());
+                        doc.getLanguageCode());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -730,7 +729,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // ------------------------
                 if (NullChecker.isNotNullish(doc.getLegalAuthenticator())) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
-                            doc.getLegalAuthenticator());
+                        doc.getLegalAuthenticator());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -747,14 +746,12 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (NullChecker.isNotNullish(doc.getPatientId())) {
                     // Commented call to apply HL7 Encoding to the patient id as Doc Repo now stores the patient id in
                     // HL7 Encoded format
-                    // String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(doc.getPatientId(),
-                    // homeCommunityId);
                     String formattedPatientId = doc.getPatientId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
                     oExtId.setId("");
                     oExtId.setIdentificationScheme(EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME);
                     InternationalStringType oPatIdName = createSingleValueInternationalStringType(
-                            EBXML_RESPONSE_PATIENTID_NAME);
+                        EBXML_RESPONSE_PATIENTID_NAME);
                     oExtId.setName(oPatIdName);
                     oExtId.setRegistryObject(sDocumentUUID);
                     oExtId.setValue(formattedPatientId);
@@ -765,8 +762,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Practice Setting Code
                 // ----------------------
                 ClassificationType practiceSettingCodeClassification = createClassificationFromCodedData(
-                        doc.getPracticeSetting(), doc.getPracticeSettingScheme(), doc.getPracticeSettingDisplayName(),
-                        EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME, sDocumentUUID);
+                    doc.getPracticeSetting(), doc.getPracticeSettingScheme(), doc.getPracticeSettingDisplayName(),
+                    EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME, sDocumentUUID);
                 if (practiceSettingCodeClassification != null) {
                     olClassifications.add(practiceSettingCodeClassification);
                     bHaveData = true;
@@ -776,7 +773,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // -------------------
                 if (doc.getServiceStartTime() != null) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
-                            utcDateUtil.formatUTCDate(doc.getServiceStartTime()));
+                        utcDateUtil.formatUTCDate(doc.getServiceStartTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -785,7 +782,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // ------------------
                 if (doc.getServiceStopTime() != null) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
-                            utcDateUtil.formatUTCDate(doc.getServiceStopTime()));
+                        utcDateUtil.formatUTCDate(doc.getServiceStopTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -802,7 +799,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // ------------------
                 if (NullChecker.isNotNullish(doc.getSourcePatientId())) {
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
-                            doc.getSourcePatientId());
+                        doc.getSourcePatientId());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -828,9 +825,9 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 if (!sourcePatientInfoValues.isEmpty()) {
                     String[] sourcePatientInfoValuesArray = sourcePatientInfoValues
-                            .toArray(new String[sourcePatientInfoValues.size()]);
+                        .toArray(new String[sourcePatientInfoValues.size()]);
                     SlotType1 oSlot = createMultiValueSlot(EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME,
-                            sourcePatientInfoValuesArray);
+                        sourcePatientInfoValuesArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -846,8 +843,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Type Code
                 // ----------
                 ClassificationType typeCodeClassification = createClassificationFromCodedData(doc.getTypeCode(),
-                        doc.getTypeCodeScheme(), doc.getTypeCodeDisplayName(), EBXML_RESPONSE_TYPECODE_CLASS_SCHEME,
-                        sDocumentUUID);
+                    doc.getTypeCodeScheme(), doc.getTypeCodeDisplayName(), EBXML_RESPONSE_TYPECODE_CLASS_SCHEME,
+                    sDocumentUUID);
                 if (typeCodeClassification != null) {
                     olClassifications.add(typeCodeClassification);
                     bHaveData = true;
@@ -877,7 +874,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                                 iStart = iTotalLen;
                             } else {
                                 saURIPart[iIndex - 1] = iIndex + "|"
-                                        + documentUri.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
+                                    + documentUri.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
                                 iStart += EBXML_RESPONSE_URI_LINE_LENGTH;
                             }
                             iIndex++;
@@ -900,7 +897,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                     // Repository Unique ID
                     // ---------------------
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME,
-                            REPOSITORY_UNIQUE_ID);
+                        REPOSITORY_UNIQUE_ID);
                     olSlot.add(oSlot);
 
                     olRegObjs.add(oJAXBExtObj);
@@ -932,7 +929,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return The classification created based on the information in the coded.
      */
     private ClassificationType createClassificationFromCodedData(String code, String codeScheme, String codeDisplayName,
-            String sClassificationScheme, String sDocumentId) {
+        String sClassificationScheme, String sDocumentId) {
         LOG.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
         ClassificationType oClassification = new ClassificationType();
         oClassification.setId("");
@@ -980,7 +977,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         String homeCommunityId = null;
         try {
             homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
-                    PROPERTY_FILE_KEY_HOME_COMMUNITY);
+                PROPERTY_FILE_KEY_HOME_COMMUNITY);
             if (homeCommunityId != null && !homeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
                 homeCommunityId = NhincConstants.HCID_PREFIX + homeCommunityId;
             }
@@ -996,7 +993,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         if (slots != null) {
             for (SlotType1 slot : slots) {
                 if (slot.getName() != null && slot.getName().length() > 0 && slot.getValueList() != null
-                        && slot.getValueList().getValue() != null && slot.getValueList().getValue().size() > 0) {
+                    && slot.getValueList().getValue() != null && slot.getValueList().getValue().size() > 0) {
 
                     if (slot.getName().equals(slotName)) {
                         ValueListType valueListType = slot.getValueList();
@@ -1107,7 +1104,7 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     private oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse createErrorResponse(String errorCode,
-            String codeContext) {
+        String codeContext) {
         AdhocQueryResponse response = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
         response.setRegistryErrorList(regErrList);
