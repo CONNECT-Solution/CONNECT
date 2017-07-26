@@ -54,7 +54,6 @@ public class SubjectHelper {
     public SubjectType subjectFactoryReident(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectCategory);
-        // removed as this causes the user-role-code to show up twice
         AttributeHelper attrHelper = new AttributeHelper();
         subject.getAttribute().add(attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString,
             determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));

@@ -52,9 +52,7 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
         if (message instanceof OutboundPatientDiscoveryOrchestratable) {
             execute((OutboundPatientDiscoveryOrchestratable) message);
         } else {
-            // shouldn't get here
             LOG.error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
-            // throw new
         }
     }
 
