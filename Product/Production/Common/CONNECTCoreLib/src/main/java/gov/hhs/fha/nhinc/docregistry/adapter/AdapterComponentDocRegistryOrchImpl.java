@@ -744,8 +744,6 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Patient ID
                 // -----------
                 if (NullChecker.isNotNullish(doc.getPatientId())) {
-                    // Commented call to apply HL7 Encoding to the patient id as Doc Repo now stores the patient id in
-                    // HL7 Encoded format
                     String formattedPatientId = doc.getPatientId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
                     oExtId.setId("");

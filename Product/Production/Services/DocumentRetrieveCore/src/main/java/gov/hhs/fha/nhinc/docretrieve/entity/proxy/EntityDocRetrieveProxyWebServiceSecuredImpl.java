@@ -69,8 +69,6 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
             message.setNhinTargetCommunities(targets);
             message.setRetrieveDocumentSetRequest(body);
 
-            /* TODO: WTH is this? */
-
             ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor = new EntityDocRetrieveSecuredServicePortDescriptor();
             CONNECTClient<EntityDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
 

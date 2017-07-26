@@ -120,7 +120,6 @@ public class HL7DbParser201306 {
             LOG.error(
                 "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
                 e);
-            // CONNECT environment corrupt; return error response
         }
         id.setExtension(MessageIdGenerator.generateMessageId());
         msg.setId(id);
