@@ -122,7 +122,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
                         // now get the owner info from the cert
                         String theOwner = getOwner(cont.getCert());
 
-                        if (StringUtils.isEmpty(theOwner)) {
+                        if (StringUtils.isNotEmpty(theOwner)) {
                             cert.setOwner(theOwner);
                         }
                     }
