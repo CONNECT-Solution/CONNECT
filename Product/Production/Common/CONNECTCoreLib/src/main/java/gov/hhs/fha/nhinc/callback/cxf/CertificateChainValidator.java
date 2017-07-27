@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import org.apache.commons.lang.StringUtils;
-
-import org.apache.ws.security.WSSecurityException;
 import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
 import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -46,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang.StringUtils;
+import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.components.crypto.DERDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +57,7 @@ import org.slf4j.LoggerFactory;
 public class CertificateChainValidator {
     private static final Logger LOG = LoggerFactory.getLogger(CertificateChainValidator.class);
     private final CertificateManager certificateManager;
-    private PropertyAccessor accessor;
+
     // http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Extension.html#getExtensionValue(java.lang.String)
     private static final String AUTHORITY_KEY_ID = "2.5.29.35";
     private static final String SUBJECT_KEY_ID = "2.5.29.14";
@@ -67,9 +65,8 @@ public class CertificateChainValidator {
     /**
      *
      */
-    CertificateChainValidator() {
+    private CertificateChainValidator() {
         certificateManager = CertificateManagerImpl.getInstance();
-        accessor = PropertyAccessor.getInstance();
     }
 
     /**
@@ -77,6 +74,9 @@ public class CertificateChainValidator {
      */
     CertificateChainValidator(CertificateManager certificateManager) {
         this.certificateManager = certificateManager;
+    }
+    public static CertificateChainValidator getInstance() {
+        return new CertificateChainValidator();
     }
 
     /**
