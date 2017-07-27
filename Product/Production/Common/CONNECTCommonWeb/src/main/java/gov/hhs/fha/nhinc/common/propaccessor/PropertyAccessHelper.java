@@ -73,8 +73,8 @@ public class PropertyAccessHelper {
     public static GetPropertyResponseType getProperty(GetPropertyRequestType input) throws PropertyAccessException {
         GetPropertyResponseType oOutput = new GetPropertyResponseType();
 
-        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0
-            && input.getPropertyName() != null && input.getPropertyName().length() > 0) {
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())
+            && StringUtils.isNotEmpty(input.getPropertyName())) {
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
@@ -98,8 +98,8 @@ public class PropertyAccessHelper {
         throws PropertyAccessException {
         GetPropertyBooleanResponseType oOutput = new GetPropertyBooleanResponseType();
 
-        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0
-            && input.getPropertyName() != null && input.getPropertyName().length() > 0) {
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())
+            && StringUtils.isNotEmpty(input.getPropertyName())) {
             String sPropertyFile = input.getPropertyFile();
             String sPropertyName = input.getPropertyName();
 
@@ -120,7 +120,7 @@ public class PropertyAccessHelper {
         throws PropertyAccessException {
         GetPropertyNamesResponseType oOutput = new GetPropertyNamesResponseType();
 
-        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0) {
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())) {
             String sPropertyFile = input.getPropertyFile();
 
             Set<String> setKeys = PropertyAccessor.getInstance().getPropertyNames(sPropertyFile);
@@ -213,7 +213,7 @@ public class PropertyAccessHelper {
         throws PropertyAccessException {
         DumpPropsToLogResponseType oOutput = new DumpPropsToLogResponseType();
 
-        if (input != null && input.getPropertyFile() != null && input.getPropertyFile().length() > 0) {
+        if (input != null && StringUtils.isNotEmpty(input.getPropertyFile())) {
             String sPropertyFile = input.getPropertyFile();
 
             PropertyAccessor.getInstance().dumpPropsToLog(sPropertyFile);
