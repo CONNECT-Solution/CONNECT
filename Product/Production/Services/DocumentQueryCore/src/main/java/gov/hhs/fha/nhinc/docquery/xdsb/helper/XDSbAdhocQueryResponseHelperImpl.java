@@ -42,6 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -83,9 +84,9 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
     public String getTitle(final ExtrinsicObjectType extrinsicObject) {
         String title = null;
         if (extrinsicObject != null && extrinsicObject.getName() != null
-                && extrinsicObject.getName().getLocalizedString() != null) {
+            && extrinsicObject.getName().getLocalizedString() != null) {
             final List<LocalizedStringType> names = extrinsicObject.getName().getLocalizedString();
-            if (names.size() >= 1 && extrinsicObject.getName().getLocalizedString().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(names) && names.get(0) != null) {
                 title = extrinsicObject.getName().getLocalizedString().get(0).getValue();
             }
 
@@ -95,7 +96,7 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
 
     @Override
     public String getClassificationValue(final ClassificationScheme classification,
-            final ExtrinsicObjectType extrinsicObject) {
+        final ExtrinsicObjectType extrinsicObject) {
         final RegistryObjectType registryObjectType = getClassification(classification, extrinsicObject);
         if (registryObjectType != null && registryObjectType instanceof ClassificationType) {
             return ((ClassificationType) registryObjectType).getNodeRepresentation();
@@ -105,7 +106,7 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
 
     @Override
     public String getExternalIdentifierValue(final IdentificationScheme idScheme,
-            final ExtrinsicObjectType extrinsicObject) {
+        final ExtrinsicObjectType extrinsicObject) {
         String value = null;
         final List<ExternalIdentifierType> externalIds = extrinsicObject.getExternalIdentifier();
         for (final ExternalIdentifierType id : externalIds) {
@@ -118,7 +119,7 @@ public class XDSbAdhocQueryResponseHelperImpl implements XDSbAdhocQueryResponseH
 
     @Override
     public RegistryObjectType getClassification(final ClassificationScheme classification,
-            final ExtrinsicObjectType extrinsicObject) {
+        final ExtrinsicObjectType extrinsicObject) {
         RegistryObjectType registryObject = null;
         if (extrinsicObject != null) {
             final List<ClassificationType> classifications = extrinsicObject.getClassification();

@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,10 +100,10 @@ class DocumentMetadataResultModelBuilderImpl implements DocumentMetadataResultMo
         result.setObjectType(extrinsicObject.getObjectType());
 
         result.setStatus(extrinsicObject.getStatus());
-        if ((extrinsicObject.getName() != null) && (extrinsicObject.getName().getLocalizedString().size() > 0)) {
+        if (extrinsicObject.getName() != null && CollectionUtils.isNotEmpty(extrinsicObject.getName().getLocalizedString())) {
             result.setName(extrinsicObject.getName().getLocalizedString().get(0).getValue());
         }
-        if ((extrinsicObject.getDescription() != null) && (extrinsicObject.getDescription().getLocalizedString().size() > 0)) {
+        if (extrinsicObject.getDescription() != null && CollectionUtils.isNotEmpty(extrinsicObject.getDescription().getLocalizedString())) {
             result.setDescription(extrinsicObject.getDescription().getLocalizedString().get(0).getValue());
         }
 

@@ -51,6 +51,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -123,7 +124,7 @@ public class DirectDomainBean {
             refreshDomains();
         } else {
             FacesContext.getCurrentInstance().addMessage("domainDeleteError", new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.", ""));
+                FacesMessage.SEVERITY_ERROR, "Delete Denied. Must always have one active domain.", ""));
         }
         selectedDomain = null;
     }
@@ -146,7 +147,7 @@ public class DirectDomainBean {
         } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("domainAddErrors", new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "Cannot add domain: " + domainException.getLocalizedMessage(), ""));
+                FacesMessage.SEVERITY_ERROR, "Cannot add domain: " + domainException.getLocalizedMessage(), ""));
             LOG.error("Error creating domain: {}", domainException.getLocalizedMessage(), domainException);
         }
 
@@ -178,7 +179,7 @@ public class DirectDomainBean {
         } catch (DomainException domainException) {
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("domainEditErrors", new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "Cannot update domain: " + domainException.getLocalizedMessage(), ""));
+                FacesMessage.SEVERITY_ERROR, "Cannot update domain: " + domainException.getLocalizedMessage(), ""));
             LOG.error("Error updating domain: {}", domainException.getLocalizedMessage(), domainException);
         }
     }
@@ -495,11 +496,11 @@ public class DirectDomainBean {
      *
      */
     public void addTrustBundles() {
-        if (namesOfBundlesToAdd != null && namesOfBundlesToAdd.size() > 0) {
+        if (CollectionUtils.isNotEmpty(namesOfBundlesToAdd)) {
             for (String bundleName : namesOfBundlesToAdd) {
                 TrustBundle tb = directService.getTrustBundleByName(bundleName);
                 directService.associateTrustBundleToDomain(selectedDomain.getId(), tb.getId(), bundleIncoming,
-                        bundleOutgoing);
+                    bundleOutgoing);
             }
 
             namesOfBundlesToAdd.clear();
@@ -549,7 +550,7 @@ public class DirectDomainBean {
             if (bundleRelations != null) {
                 for (TrustBundleDomainReltn tbdr : bundleRelations) {
                     DirectTrustBundle dtb = new DirectTrustBundle(tbdr.getTrustBundle(), tbdr.isIncoming(),
-                            tbdr.isOutgoing());
+                        tbdr.isOutgoing());
                     associatedTrustBundles.add(dtb);
                 }
             }

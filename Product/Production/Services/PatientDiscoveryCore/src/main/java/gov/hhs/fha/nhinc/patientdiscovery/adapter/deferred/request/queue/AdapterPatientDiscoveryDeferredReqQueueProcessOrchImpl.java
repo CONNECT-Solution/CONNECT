@@ -44,6 +44,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -80,10 +81,10 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
             AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
             LOG.info("messageId: " + messageId);
-            if ((messageId != null)) {
+            if (messageId != null) {
                 List<AsyncMsgRecord> msgList;
                 msgList = instance.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-                if ((msgList != null) && (msgList.size() > 0)) {
+                if (CollectionUtils.isNotEmpty(msgList)) {
                     LOG.info("msgList: " + msgList.size());
                     asyncMsgRecord = msgList.get(0);
 

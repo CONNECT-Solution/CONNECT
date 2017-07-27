@@ -30,6 +30,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
@@ -193,13 +194,13 @@ public class Patient implements Serializable {
 
     public List<Address> getAddresses() {
 
-        if (this.addresses == null) {
+        if (addresses == null) {
 
-            this.addresses = new ArrayList<>();
+            addresses = new ArrayList<>();
 
         }
 
-        return this.addresses;
+        return addresses;
 
     }
 
@@ -221,13 +222,13 @@ public class Patient implements Serializable {
 
     public List<Identifier> getIdentifiers() {
 
-        if (this.identifiers == null) {
+        if (identifiers == null) {
 
-            this.identifiers = new ArrayList<>();
+            identifiers = new ArrayList<>();
 
         }
 
-        return this.identifiers;
+        return identifiers;
 
     }
 
@@ -249,13 +250,13 @@ public class Patient implements Serializable {
 
     public List<Personname> getPersonnames() {
 
-        if (this.personnames == null) {
+        if (personnames == null) {
 
-            this.personnames = new ArrayList<>();
+            personnames = new ArrayList<>();
 
         }
 
-        return this.personnames;
+        return personnames;
 
     }
 
@@ -277,13 +278,13 @@ public class Patient implements Serializable {
 
     public List<Phonenumber> getPhonenumbers() {
 
-        if (this.phonenumbers == null) {
+        if (phonenumbers == null) {
 
-            this.phonenumbers = new ArrayList<>();
+            phonenumbers = new ArrayList<>();
 
         }
 
-        return this.phonenumbers;
+        return phonenumbers;
 
     }
 
@@ -305,23 +306,23 @@ public class Patient implements Serializable {
 
         int counter = 0;
 
-        for (Identifier identifier : this.getIdentifiers()) {
+        for (Identifier identifier : getIdentifiers()) {
 
             output.append("Identifer[").append(counter).append("] = '").append(identifier.getId()).append("^^^&")
-                    .append(identifier.getOrganizationId()).append("&ISO'; ");
+            .append(identifier.getOrganizationId()).append("&ISO'; ");
 
         }
 
-        if (this.getPersonnames().size() > 0) {
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
 
-            output.append("Personname = '").append(this.getPersonnames().get(0).getLastName()).append(", ")
-                    .append(this.getPersonnames().get(0).getFirstName()).append("'; ");
+            output.append("Personname = '").append(getPersonnames().get(0).getLastName()).append(", ")
+            .append(getPersonnames().get(0).getFirstName()).append("'; ");
 
         }
 
-        output.append("Gender = '").append(this.gender).append("'; ");
+        output.append("Gender = '").append(gender).append("'; ");
 
-        output.append("DateOfBirth = '").append(this.dateOfBirth);
+        output.append("DateOfBirth = '").append(dateOfBirth);
 
         return output.toString();
 

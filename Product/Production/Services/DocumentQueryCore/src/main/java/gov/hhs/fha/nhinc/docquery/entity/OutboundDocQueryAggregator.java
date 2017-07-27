@@ -35,6 +35,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * @author bhumphrey
@@ -48,7 +49,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      */
     protected void aggregateRegistryErrors(AdhocQueryResponse aggregatedResponse, AdhocQueryResponse individualResponse) {
         RegistryErrorList registryErrorList = individualResponse.getRegistryErrorList();
-        if (registryErrorList != null && registryErrorList.getRegistryError().size() > 0) {
+        if (registryErrorList != null && CollectionUtils.isNotEmpty(registryErrorList.getRegistryError())) {
 
             if (aggregatedResponse.getRegistryErrorList() == null) {
                 aggregatedResponse.setRegistryErrorList(new RegistryErrorList());
@@ -63,9 +64,9 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      * @param aggregatedResponse
      */
     protected void aggregateSlotlistResponse(AdhocQueryResponse aggregatedResponse,
-            AdhocQueryResponse individualResponse) {
+        AdhocQueryResponse individualResponse) {
         SlotListType individualResponseSlotList = individualResponse.getResponseSlotList();
-        if (individualResponseSlotList != null && individualResponseSlotList.getSlot().size() > 0) {
+        if (individualResponseSlotList != null && CollectionUtils.isNotEmpty(individualResponseSlotList.getSlot())) {
             aggregatedResponse.getResponseSlotList().getSlot().addAll(individualResponseSlotList.getSlot());
         }
     }
@@ -75,7 +76,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      * @param aggregatedResponse
      */
     protected void collectRegistryObjectResponses(AdhocQueryResponse aggregatedResponse,
-            RegistryObjectListType singleRegistryObjectList) {
+        RegistryObjectListType singleRegistryObjectList) {
         RegistryObjectListType registryObjectList = aggregatedResponse.getRegistryObjectList();
         registryObjectList.getIdentifiable().addAll(singleRegistryObjectList.getIdentifiable());
     }
@@ -85,7 +86,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      * @param aggregatedResponse
      */
     protected void aggregateRegistryObjectList(AdhocQueryResponse aggregatedResponse,
-            AdhocQueryResponse individualResponse) {
+        AdhocQueryResponse individualResponse) {
         RegistryObjectListType registryObjectList = individualResponse.getRegistryObjectList();
         if (registryObjectList != null) {
             collectRegistryObjectResponses(aggregatedResponse, registryObjectList);
@@ -99,7 +100,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      */
     protected boolean isEitherParitalSuccess(final String aggregateStatus, final String individualStatus) {
         return aggregateStatus.equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)
-                || individualStatus.equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+            || individualStatus.equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
     }
 
     /**
@@ -137,7 +138,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      */
     protected void aggregateStatus(AdhocQueryResponse aggregatedResponse, AdhocQueryResponse individualResponse) {
         aggregatedResponse.setStatus(determineAggregateStatus(aggregatedResponse.getStatus(),
-                individualResponse.getStatus()));
+            individualResponse.getStatus()));
     }
 
     /**
@@ -170,8 +171,8 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
         AdhocQueryResponse singleResponse = from.getResponse();
         if (singleResponse == null) {
             singleResponse = MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse("Null response.",
-                    DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
-                    DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+                DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         }
         aggregate(to.getResponse(), singleResponse);
     }
