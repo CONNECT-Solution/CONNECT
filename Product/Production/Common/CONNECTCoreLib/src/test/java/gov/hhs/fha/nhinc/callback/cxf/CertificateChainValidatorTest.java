@@ -43,26 +43,35 @@ import org.junit.Test;
  * @author mpnguyen
  *
  */
-public class CertificateValidatorTest {
+public class CertificateChainValidatorTest {
     private CertificateChainValidator certValidator;
+    private CertificateManagerImpl certManager ;
+
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        System.setProperty(CertificateManagerImpl.KEY_STORE_KEY, getFilePath("/gateway_self_sign.jks"));
+        prepareSystemProperties("/gateway_self_sign.jks","/cacerts.jks");
+        certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance();
+        certValidator = new CertificateChainValidator(certManager);
+    }
+
+
+    /**
+     *
+     */
+
+    private void prepareSystemProperties(String keyStoreName, String trustStoreName) {
+        System.setProperty(CertificateManagerImpl.KEY_STORE_KEY, getFilePath(keyStoreName));
         System.setProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY, "changeit");
         System.setProperty(CertificateManagerImpl.KEY_STORE_TYPE_KEY, "JKS");
 
 
-        System.setProperty(CertificateManagerImpl.TRUST_STORE_KEY, getFilePath("/cacerts.jks"));
+        System.setProperty(CertificateManagerImpl.TRUST_STORE_KEY, getFilePath(trustStoreName));
         System.setProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY, "changeit");
         System.setProperty(CertificateManagerImpl.TRUST_STORE_TYPE_KEY, "JKS");
-
-        CertificateManagerImpl certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance();
-
-        certValidator = new CertificateChainValidator(certManager);
     }
 
 
@@ -72,6 +81,8 @@ public class CertificateValidatorTest {
     @After
     public void tearDown() throws Exception {
         certValidator = null;
+        certManager = null;
+
     }
 
     @Test
@@ -88,15 +99,41 @@ public class CertificateValidatorTest {
     public final void testValidateCert(){
         X509Certificate certToCheck = getTestCert("/epic.cer");
         Assert.assertTrue("Our truststore should contain this cert",certValidator.validateCert(certToCheck));
-
-
+    }
+    @Test
+    public final void testValidRoot(){
+        /*certValidator = null;
+        certManager = null;
+        prepareSystemProperties("/gateway_self_sign.jks", "");*/
+        X509Certificate certToCheck = getTestCert("/entrust_root_old.cer");
+        Assert.assertTrue("Our truststore should contain root cert",certValidator.validateCert(certToCheck));
+    }
+    @Test
+    public final void testInvalidCert(){
+        X509Certificate certToCheck = getTestCert("/HOST1.cer");
+        Assert.assertFalse("Our truststore should not contain",certValidator.validateCert(certToCheck));
+    }
+    @Test
+    public final void testValidOnlyInterAndRootCert(){
+        //This test cert that only has intermediate and root.
+        X509Certificate certToCheck = getTestCert("/entrust_intermediate_old.cer");
+        Assert.assertTrue("Our truststore should this chain of trust",certValidator.validateCert(certToCheck));
+    }
+    @Test
+    public final void testMissingRoot(){
+        certValidator = null;
+        certManager = null;
+        prepareSystemProperties("/gateway_self_sign.jks", "/cacerts_missing_root.jks");
+        certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance();
+        certValidator = new CertificateChainValidator(certManager);
+        X509Certificate certToCheck = getTestCert("/epic.cer");
+        Assert.assertFalse("Our truststore doesn't contain the root to validate this",certValidator.validateCert(certToCheck));
     }
     private X509Certificate getTestCert(String certName){
         CertificateFactory certificateFactory;
         X509Certificate certificateToCheck = null;
         try {
             certificateFactory = CertificateFactory.getInstance("X.509");
-
             FileInputStream inputStream = new FileInputStream(getFilePath(certName));
             certificateToCheck = (X509Certificate) certificateFactory.generateCertificate(new ByteArrayInputStream(IOUtils.readBytesFromStream(inputStream)));
             Assert.assertNotNull(certificateToCheck);
@@ -107,9 +144,7 @@ public class CertificateValidatorTest {
 
     }
     private String getFilePath(String filename){
-        String filePath =  this.getClass().getResource(filename).getFile();
-        System.out.println(filePath);
-        return filePath;
+        return this.getClass().getResource(filename).getFile();
     }
 
 }
