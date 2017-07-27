@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.client.fhir;
 
-import org.apache.http.impl.client.HttpClientBuilder;
-
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +33,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -42,6 +41,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.hl7.fhir.instance.client.EFhirClientException;
 import org.hl7.fhir.instance.client.FeedFormat;
 import org.hl7.fhir.instance.client.ResourceAddress;
@@ -136,7 +136,7 @@ public class ConformanceClient {
         }
 
         if (resource instanceof OperationOutcome) {
-            if (((OperationOutcome) resource).getIssue().size() > 0) {
+            if (CollectionUtils.isNotEmpty(((OperationOutcome) resource).getIssue())) {
                 throw new EFhirClientException((OperationOutcome) resource);
             } else {
                 LOG.debug(((OperationOutcome) resource).getText().getDiv().allText());

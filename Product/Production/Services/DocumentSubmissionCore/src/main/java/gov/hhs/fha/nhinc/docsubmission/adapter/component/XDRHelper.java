@@ -39,6 +39,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,7 +151,7 @@ public class XDRHelper {
             result.getRegistryError().add(error);
         }
 
-        if (result.getRegistryError().size() > 0) {
+        if (CollectionUtils.isNotEmpty(result.getRegistryError())) {
             return processErrorList(result);
         }
 

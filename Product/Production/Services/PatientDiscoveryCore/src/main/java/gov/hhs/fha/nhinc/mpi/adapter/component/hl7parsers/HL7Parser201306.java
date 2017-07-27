@@ -42,6 +42,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
@@ -187,7 +188,7 @@ public class HL7Parser201306 {
         code.setCodeSystem("2.16.840.1.113883.1.6");
         controlActProcess.setCode(code);
 
-        if (patients != null && patients.size() > 0) {
+        if (CollectionUtils.isNotEmpty(patients)) {
             for (Patient patient : patients) {
                 controlActProcess.getSubject().add(createSubject(patient, query));
             }
@@ -341,9 +342,8 @@ public class HL7Parser201306 {
         org.setClassCode("ORG");
         II id = new II();
 
-        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-            && patient.getIdentifiers().get(0).getOrganizationId() != null
-            && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getIdentifiers())
+            && StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
             id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
         }
         org.getId().add(id);
@@ -358,17 +358,15 @@ public class HL7Parser201306 {
     private static II createSubjectId(Patient patient) {
         II id = new II();
 
-        if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
+        if (CollectionUtils.isNotEmpty(patient.getIdentifiers())
             && patient.getIdentifiers().get(0) != null) {
 
-            if (patient.getIdentifiers().get(0).getOrganizationId() != null
-                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
                 LOG.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
                 id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
             }
 
-            if (patient.getIdentifiers().get(0).getId() != null
-                && patient.getIdentifiers().get(0).getId().length() > 0) {
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getId())) {
                 LOG.info("Setting Patient Id extension in 201306: " + patient.getIdentifiers().get(0).getId());
                 id.setExtension(patient.getIdentifiers().get(0).getId());
             }
@@ -387,12 +385,12 @@ public class HL7Parser201306 {
         person.setDeterminerCode("INSTANCE");
 
         // Set the Subject Gender
-        if (patient.getGender() != null && patient.getGender().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getGender())) {
             person.setAdministrativeGenderCode(createGender(patient));
         }
 
         // Set the Subject Name
-        if (patient.getNames().size() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getNames())) {
             for (PersonName name : patient.getNames()) {
                 person.getName().add(createSubjectName(name));
             }
@@ -401,19 +399,19 @@ public class HL7Parser201306 {
         }
 
         // Set the Birth Time
-        if (patient.getDateOfBirth() != null && patient.getDateOfBirth().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getDateOfBirth())) {
             person.setBirthTime(createBirthTime(patient));
         }
 
         // Set the Address
-        if (patient.getAddresses().size() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getAddresses())) {
             for (Address add : patient.getAddresses()) {
                 person.getAddr().add(createAddress(add));
             }
         }
 
         // Set the phone Numbers
-        if (patient.getPhoneNumbers().size() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getPhoneNumbers())) {
             for (PhoneNumber number : patient.getPhoneNumbers()) {
                 TELExplicit tele = HL7DataTransformHelper.createTELExplicit(number.getPhoneNumber());
 
@@ -422,7 +420,7 @@ public class HL7Parser201306 {
         }
 
         // Set the SSN
-        if (patient.getSSN() != null && patient.getSSN().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getSSN())) {
             person.getAsOtherIDs().add(createOtherIds(patient));
         }
 
@@ -437,7 +435,7 @@ public class HL7Parser201306 {
         otherIds.getClassCode().add("SD");
 
         // Set the SSN
-        if (patient.getSSN() != null && patient.getSSN().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getSSN())) {
             II ssn = new II();
             ssn.setExtension(patient.getSSN());
             ssn.setRoot("2.16.840.1.113883.4.1");
@@ -459,7 +457,7 @@ public class HL7Parser201306 {
     private static TSExplicit createBirthTime(Patient patient) {
         TSExplicit birthTime = new TSExplicit();
 
-        if (patient.getDateOfBirth() != null && patient.getDateOfBirth().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getDateOfBirth())) {
             LOG.info("Setting Patient Birthday in 201306: " + patient.getDateOfBirth());
             birthTime.setValue(patient.getDateOfBirth());
         }
@@ -468,7 +466,7 @@ public class HL7Parser201306 {
     }
 
     private static PNExplicit createSubjectName(Patient patient) {
-        if (patient.getNames().size() > 0) {
+        if (CollectionUtils.isNotEmpty(patient.getNames())) {
             return createSubjectName(patient.getNames().get(0));
         }
 

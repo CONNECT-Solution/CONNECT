@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientD
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import javax.xml.ws.WebServiceContext;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.MCCIIN000002UV01;
 
 /**
@@ -50,7 +51,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImpl {
      * @return response
      */
     public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(
-            PatientDiscoveryDeferredReqQueueProcessRequestType request, WebServiceContext context) {
+        PatientDiscoveryDeferredReqQueueProcessRequestType request, WebServiceContext context) {
 
         PatientDiscoveryDeferredReqQueueProcessResponseType response = new PatientDiscoveryDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
@@ -59,16 +60,15 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessImpl {
 
         AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl entityPatientDiscoveryDeferredReqQueueProcessOrchImpl = getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();
         MCCIIN000002UV01 mCCIIN000002UV01 = entityPatientDiscoveryDeferredReqQueueProcessOrchImpl
-                .processPatientDiscoveryDeferredReqQueue(request.getMessageId());
+            .processPatientDiscoveryDeferredReqQueue(request.getMessageId());
 
         if (mCCIIN000002UV01 != null
-                && mCCIIN000002UV01.getAcknowledgement() != null
-                && mCCIIN000002UV01.getAcknowledgement().size() > 0
-                && mCCIIN000002UV01.getAcknowledgement().get(0) != null
-                && mCCIIN000002UV01.getAcknowledgement().get(0).getTypeCode() != null
-                && mCCIIN000002UV01.getAcknowledgement().get(0).getTypeCode().getCode() != null
-                && mCCIIN000002UV01.getAcknowledgement().get(0).getTypeCode().getCode()
-                        .equals(HL7AckTransforms.ACK_TYPE_CODE_ACCEPT)) {
+            && CollectionUtils.isNotEmpty(mCCIIN000002UV01.getAcknowledgement())
+            && mCCIIN000002UV01.getAcknowledgement().get(0) != null
+            && mCCIIN000002UV01.getAcknowledgement().get(0).getTypeCode() != null
+            && mCCIIN000002UV01.getAcknowledgement().get(0).getTypeCode().getCode() != null
+            && mCCIIN000002UV01.getAcknowledgement().get(0).getTypeCode().getCode()
+            .equals(HL7AckTransforms.ACK_TYPE_CODE_ACCEPT)) {
             sof.setSuccess(Boolean.TRUE);
         }
 

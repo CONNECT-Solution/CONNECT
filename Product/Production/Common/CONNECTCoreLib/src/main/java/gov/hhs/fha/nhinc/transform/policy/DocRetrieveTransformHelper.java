@@ -35,6 +35,7 @@ import java.util.List;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +68,7 @@ public class DocRetrieveTransformHelper {
         DocRetrieveMessageType docMessage = event.getMessage();
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = docMessage.getRetrieveDocumentSetRequest();
         List<DocumentRequest> docRequestList = retrieveDocumentSetRequest.getDocumentRequest();
-        if (docRequestList != null && docRequestList.size() > 0) {
+        if (CollectionUtils.isNotEmpty(docRequestList)) {
             for (DocumentRequest docReq : docRequestList) {
                 request.getResource().add(getResource(docReq));
             }

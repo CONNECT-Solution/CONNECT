@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
@@ -243,13 +244,13 @@ public class HL7Extractors {
         LOG.debug("HL7Extractor.translatePNListtoPersonNameType() -- Begin");
         PersonNameType personName = new PersonNameType();
         // NameType
-        if (names.get(0).getUse().size() > 0) {
+        if (CollectionUtils.isNotEmpty(names.get(0).getUse())) {
             CeType nameType = new CeType();
             nameType.setCode(names.get(0).getUse().get(0));
             personName.setNameType(nameType);
         }
         // Name parts
-        if (names.size() > 0 && !names.get(0).getContent().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(names) && CollectionUtils.isNotEmpty(names.get(0).getContent())) {
             List<Serializable> choice = names.get(0).getContent();
             Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -316,12 +317,12 @@ public class HL7Extractors {
         LOG.debug("HL7Extractor.translateENListtoPersonNameType() -- Begin");
         PersonNameType personName = new PersonNameType();
         // NameType
-        if (names.size() > 0 && names.get(0).getUse().size() > 0) {
+        if (CollectionUtils.isNotEmpty(names) && CollectionUtils.isNotEmpty(names.get(0).getUse())) {
             CeType nameType = new CeType();
             nameType.setCode(names.get(0).getUse().get(0));
             personName.setNameType(nameType);
         }
-        if (names.size() > 0 && names.get(0).getContent() != null) {
+        if (CollectionUtils.isNotEmpty(names) && names.get(0).getContent() != null) {
             List<Serializable> choice = names.get(0).getContent();
             Iterator<Serializable> iterSerialObjects = choice.iterator();
 

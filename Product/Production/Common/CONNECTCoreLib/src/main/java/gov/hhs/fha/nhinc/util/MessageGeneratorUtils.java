@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.Marshaller;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 import javax.xml.namespace.QName;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.w3c.dom.Element;
 
@@ -76,8 +77,8 @@ public class MessageGeneratorUtils {
     public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
 
-        if (targets != null && targets.getNhinTargetCommunity() != null
-                && targets.getNhinTargetCommunity().size() > 0) {
+        if (targets != null
+            && CollectionUtils.isNotEmpty(targets.getNhinTargetCommunity())) {
             nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
             nhinTargetSystem.setUseSpecVersion(targets.getUseSpecVersion());
         }

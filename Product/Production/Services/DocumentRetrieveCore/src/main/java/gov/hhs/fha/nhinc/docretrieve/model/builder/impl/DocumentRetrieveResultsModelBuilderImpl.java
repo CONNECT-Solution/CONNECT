@@ -35,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.activation.DataHandler;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,7 +76,7 @@ public class DocumentRetrieveResultsModelBuilderImpl implements DocumentRetrieve
 
     private DocumentResponse getRetrieveDocumentResponse(RetrieveDocumentSetResponseType response) {
         DocumentResponse documentResponse = null;
-        if (response != null && response.getDocumentResponse().size() > 0) {
+        if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())) {
             documentResponse = response.getDocumentResponse().get(0);
         }
         return documentResponse;

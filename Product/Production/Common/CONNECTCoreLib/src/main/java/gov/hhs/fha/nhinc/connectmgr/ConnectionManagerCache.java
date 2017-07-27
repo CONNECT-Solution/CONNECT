@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,13 +136,13 @@ public class ConnectionManagerCache implements ConnectionManager {
                         if (sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
                             m_hUDDIConnectInfo.put(sHomeCommunityId, oEntity);
                         }
-                    }
-                }
+                    } // for (CMBusinessEntity oEntity : oConnInfo.getBusinessEntities().getBusinessEntity())
+                } // if ((oConnInfo.getBusinessEntities() != null) && ...
 
                 m_bUDDILoaded = true;
                 m_lUDDIFileLastModified = getUddiConnectionManagerDAO().getLastModified();
-            }
-        }
+            } // synchronized (m_ohUDDIConnectInfo)
+        } // if (oConnInfo != null)
         else {
             LOG.warn("No UDDI information was found");
         }
@@ -199,14 +200,14 @@ public class ConnectionManagerCache implements ConnectionManager {
                         if (sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
                             m_hInternalConnectInfo.put(sHomeCommunityId, businessEntity);
                         }
-                    }
-                }
+                    } // for (CMInternalConnectionInfo oConnInfo : oConnInfos.getInternalConnectionInfo())
+                } // if ((oConnInfos.getInternalConnectionInfo() != null) &&...
 
                 m_bInternalLoaded = true;
                 m_lInternalFileLastModified = getInternalConnectionManagerDAO().getLastModified();
 
-            }
-        }
+            } // synchronized (m_hInternalConnectInfo)
+        } // if (oConnInfos != null)
         else {
             LOG.warn("No UDDI information was found in");
         }
@@ -374,7 +375,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
         checkLoaded();
 
-        if (saHomeCommunityId == null || saHomeCommunityId.size() <= 0) {
+        if (CollectionUtils.isEmpty(saHomeCommunityId)) {
             return null;
         }
 
@@ -387,7 +388,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             }
         }
 
-        if (oEntities.size() > 0) {
+        if (CollectionUtils.isNotEmpty(oEntities)) {
             return oEntities;
         } else {
             return null;
@@ -610,7 +611,7 @@ public class ConnectionManagerCache implements ConnectionManager {
                 oEntities.add(oEntity);
             }
         }
-        return oEntities.size() > 0 ? oEntities : null;
+        return CollectionUtils.isNotEmpty(oEntities) ? oEntities : null;
     }
 
     /*
@@ -636,7 +637,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         ArrayList<String> saHomeCommunityIds = new ArrayList<>(hKeys);
         oEntities = getBusinessEntitySetByServiceName(saHomeCommunityIds, sUniformServiceName);
 
-        return oEntities != null && oEntities.size() > 0 ? oEntities : null;
+        return CollectionUtils.isNotEmpty(oEntities) ? oEntities : null;
     }
 
     /*
