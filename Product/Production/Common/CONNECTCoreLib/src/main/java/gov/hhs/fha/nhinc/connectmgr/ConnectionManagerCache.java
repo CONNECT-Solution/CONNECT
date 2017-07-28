@@ -136,13 +136,13 @@ public class ConnectionManagerCache implements ConnectionManager {
                         if (sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
                             m_hUDDIConnectInfo.put(sHomeCommunityId, oEntity);
                         }
-                    } // for (CMBusinessEntity oEntity : oConnInfo.getBusinessEntities().getBusinessEntity())
-                } // if ((oConnInfo.getBusinessEntities() != null) && ...
+                    }
+                }
 
                 m_bUDDILoaded = true;
                 m_lUDDIFileLastModified = getUddiConnectionManagerDAO().getLastModified();
-            } // synchronized (m_ohUDDIConnectInfo)
-        } // if (oConnInfo != null)
+            }
+        }
         else {
             LOG.warn("No UDDI information was found");
         }
@@ -200,14 +200,14 @@ public class ConnectionManagerCache implements ConnectionManager {
                         if (sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
                             m_hInternalConnectInfo.put(sHomeCommunityId, businessEntity);
                         }
-                    } // for (CMInternalConnectionInfo oConnInfo : oConnInfos.getInternalConnectionInfo())
-                } // if ((oConnInfos.getInternalConnectionInfo() != null) &&...
+                    }
+                }
 
                 m_bInternalLoaded = true;
                 m_lInternalFileLastModified = getInternalConnectionManagerDAO().getLastModified();
 
-            } // synchronized (m_hInternalConnectInfo)
-        } // if (oConnInfos != null)
+            }
+        }
         else {
             LOG.warn("No UDDI information was found in");
         }
