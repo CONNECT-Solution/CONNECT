@@ -35,7 +35,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PublicKey;
 import java.security.SignatureException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -61,6 +60,7 @@ public class CertificateChainValidator {
     // http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Extension.html#getExtensionValue(java.lang.String)
     private static final String AUTHORITY_KEY_ID = "2.5.29.35";
     private static final String SUBJECT_KEY_ID = "2.5.29.14";
+    private static final int AUTHORITY_KEY_POSITION = 6;
 
     /**
      *
@@ -75,6 +75,7 @@ public class CertificateChainValidator {
     CertificateChainValidator(CertificateManager certificateManager) {
         this.certificateManager = certificateManager;
     }
+
     public static CertificateChainValidator getInstance() {
         return new CertificateChainValidator();
     }
@@ -93,7 +94,7 @@ public class CertificateChainValidator {
             return false;
         } catch (SignatureException | InvalidKeyException | CertificateException | NoSuchAlgorithmException
             | NoSuchProviderException sigEx) {
-            // LOG.warn(sigEx.getLocalizedMessage(),sigEx);
+            LOG.warn("The cert is self-signed or CA cert {}", sigEx.getLocalizedMessage(), sigEx);
             return true;
         }
 
@@ -106,39 +107,24 @@ public class CertificateChainValidator {
      * @return
      */
     public boolean validateCert(X509Certificate certToCheck) {
-        List<X509Certificate> allCerts = getAllCertInKeyStore(certificateManager.getTrustStore());
+        String leafIssuerString = certToCheck.getIssuerX500Principal().getName();
+        LOG.debug("Issue Name for validated Cert {}", leafIssuerString);
+        // find all intermediate in truststore if exist
+        List<X509Certificate> allCerts = getAllCertByIssuer(certificateManager.getTrustStore(), leafIssuerString);
         // check if cert is chain of trust
         if (isPartChainOfTrust(certToCheck)) {
-            // extract intermediate/root out and compare with trust store
-            // extract intermediate
-            try {
-                // ---------
-                LOG.debug("Cert serial number to verify against our trustStore {}", certToCheck.getSerialNumber()
-                    .toString(16));
-                String leafIssuerString = certToCheck.getIssuerX500Principal().getName();
-                LOG.debug("Issuer for parent {} ", leafIssuerString);
-
-                String authorityKeyIdentifier = getAuthorityKeyIdentify(certToCheck.getExtensionValue(AUTHORITY_KEY_ID));
-                for (X509Certificate cert : allCerts) {
-                    String name = cert.getSubjectX500Principal().getName();
-                    if (leafIssuerString.equalsIgnoreCase(name)) {
-                        String subjectKeyId = getSubjectKeyID(cert.getExtensionValue(SUBJECT_KEY_ID));
-                        if (StringUtils.isNotBlank(subjectKeyId) && StringUtils.isNotBlank(authorityKeyIdentifier)
-                            && subjectKeyId.equalsIgnoreCase(authorityKeyIdentifier)) {
-                            LOG.debug("Found the match with cert serial number{} ", cert.getSerialNumber().toString(16));
-                            // check again if intermediate don't have root
-                            if (isPartChainOfTrust(cert)) {
-                                return validateCert(cert);
-                            } else {
-                                // we should return true since we don't have any parent cert.
-                                return true;
-                            }
-                        }
-                    }
+            LOG.debug("Cert serial number to verify against our trustStore {}",
+                certToCheck.getSerialNumber().toString(16));
+            String authorityKeyIdentifier = getAuthorityKeyIdentify(certToCheck.getExtensionValue(AUTHORITY_KEY_ID));
+            for (X509Certificate cert : allCerts) {
+                String subjectKeyId = getSubjectKeyID(cert.getExtensionValue(SUBJECT_KEY_ID));
+                if (StringUtils.isNotBlank(subjectKeyId) && StringUtils.isNotBlank(authorityKeyIdentifier)
+                    && subjectKeyId.equalsIgnoreCase(authorityKeyIdentifier)) {
+                    LOG.debug("Found the match with cert serial number{} ", cert.getSerialNumber().toString(16));
+                    return validateCert(cert);
                 }
-            } catch (Exception e) {
-                LOG.error(e.getLocalizedMessage(), e);
             }
+
         } else {
             // handle self-sign cert
             LOG.debug("This cert is either self-sign cert or root CA");
@@ -155,14 +141,12 @@ public class CertificateChainValidator {
         return false;// by default
     }
 
-    private List<X509Certificate> getAllCertInKeyStore(KeyStore store) {
+    private static List<X509Certificate> getAllCertInKeyStore(KeyStore store) {
         List<X509Certificate> cerList = new ArrayList<>();
         try {
             for (Enumeration<String> e = store.aliases(); e.hasMoreElements();) {
                 String alias = e.nextElement();
-                // LOG.debug("Alias {}",alias);
                 X509Certificate cert = (X509Certificate) store.getCertificate(alias);
-                Certificate[] certs = store.getCertificateChain(alias);
                 cerList.add(cert);
             }
         } catch (KeyStoreException e) {
@@ -171,43 +155,55 @@ public class CertificateChainValidator {
         return cerList;
     }
 
+    private static List<X509Certificate> getAllCertByIssuer(KeyStore store, String issuerName) {
+        List<X509Certificate> allCerts = getAllCertInKeyStore(store);
+        List<X509Certificate> allIssuerCerts = new ArrayList<>();
+        for (X509Certificate cert : allCerts) {
+            String name = cert.getSubjectX500Principal().getName();
+            if (issuerName.equalsIgnoreCase(name)) {
+                allIssuerCerts.add(cert);
+            }
+        }
+        return allIssuerCerts;
+    }
+
     /**
      * Return Authority Key Identify (AIK)
      *
      * @param authorityKeyId
      * @return
      */
-    private String getSubjectKeyID(byte[] subjectKeyID) {
-        String SKI = null;
+    private static String getSubjectKeyID(byte[] subjectKeyID) {
+        String ski = null;
         try {
             if (subjectKeyID != null) {
                 // this logic extracts from CryptoBase class inside wss4j
                 DERDecoder extVal = new DERDecoder(subjectKeyID);
                 extVal.expect(DERDecoder.TYPE_OCTET_STRING); // ExtensionValue OCTET STRING
-                int Length = extVal.getLength(); // leave this method alone. getlength modify array position.
+                extVal.getLength(); // leave this method alone. getlength modify array position.
                 extVal.expect(DERDecoder.TYPE_OCTET_STRING); // KeyIdentifier OCTET STRING
                 int keyIDLen = extVal.getLength();
-                byte[] hexValue = extVal.getBytes(keyIDLen);
-                SKI = Hex.encodeHexString(hexValue);
+                ski = Hex.encodeHexString(extVal.getBytes(keyIDLen));
             }
         } catch (WSSecurityException e) {
             LOG.error("Unable to convert SKI into human readable {}", e.getLocalizedMessage(), e);
         }
-        return SKI;
+        return ski;
     }
 
-    private String getAuthorityKeyIdentify(byte[] authorityKey) {
-        String AIK = null;
+    private static String getAuthorityKeyIdentify(byte[] authorityKey) {
+        String aik = null;
         try {
             if (authorityKey != null) {
                 DERDecoder extValA = new DERDecoder(authorityKey);
-                extValA.skip(6);
-                AIK = Hex.encodeHexString(extValA.getBytes(20));
+                extValA.skip(AUTHORITY_KEY_POSITION);
+                int length = authorityKey.length - AUTHORITY_KEY_POSITION;
+                aik = Hex.encodeHexString(extValA.getBytes(length));
             }
         } catch (WSSecurityException e) {
             LOG.error("Unable to convert AIK into human readable {}", e.getLocalizedMessage(), e);
         }
-        return AIK;
+        return aik;
 
     }
 }
