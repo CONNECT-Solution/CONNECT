@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2016, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2017, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -97,7 +97,7 @@ public class CertificateChainValidatorTest {
     }
     @Test
     public final void testValidateCert(){
-        X509Certificate certToCheck = getTestCert("/epic.cer");
+        X509Certificate certToCheck = getTestCert("/client.cer");
         Assert.assertTrue("Our truststore should contain this cert",certValidator.validateCert(certToCheck));
     }
     @Test
@@ -126,7 +126,7 @@ public class CertificateChainValidatorTest {
         prepareSystemProperties("/gateway_self_sign.jks", "/cacerts_missing_root.jks");
         certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance();
         certValidator = new CertificateChainValidator(certManager);
-        X509Certificate certToCheck = getTestCert("/epic.cer");
+        X509Certificate certToCheck = getTestCert("/client.cer");
         Assert.assertFalse("Our truststore doesn't contain the root to validate this",certValidator.validateCert(certToCheck));
     }
     private X509Certificate getTestCert(String certName){
