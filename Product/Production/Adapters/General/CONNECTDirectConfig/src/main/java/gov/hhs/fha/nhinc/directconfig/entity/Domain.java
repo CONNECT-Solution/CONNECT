@@ -55,6 +55,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * The JPA Domain class
@@ -207,7 +208,7 @@ public class Domain {
     public String getPostMasterEmail() {
         String result = null;
         // return the address that matched the ID
-        if ((getAddresses().size() > 0) && (getPostmasterAddressId() != null) && (getPostmasterAddressId() > 0)) {
+        if (CollectionUtils.isNotEmpty(getAddresses()) && getPostmasterAddressId() != null && getPostmasterAddressId() > 0) {
             for (Address address : getAddresses()) {
                 if (address.getId().equals(getPostmasterAddressId())) {
                     result = address.getEmailAddress();
@@ -317,10 +318,10 @@ public class Domain {
      */
     public boolean isValid() {
         boolean result = false;
-        if ((getDomainName() != null)
-                && (getDomainName().length() > 0)
-                && ((getStatus().equals(EntityStatus.ENABLED)) || (getStatus().equals(EntityStatus.DISABLED)) || ((getStatus()
-                        .equals(EntityStatus.NEW)) && (getId() == 0L)))) {
+        if (getDomainName() != null
+            && getDomainName().length() > 0
+            && (getStatus().equals(EntityStatus.ENABLED) || getStatus().equals(EntityStatus.DISABLED) || getStatus()
+                .equals(EntityStatus.NEW) && getId() == 0L)) {
 
             result = true;
         }
@@ -336,6 +337,6 @@ public class Domain {
     @Override
     public String toString() {
         return "[ID: " + getId() + " | Domain: " + getDomainName() + " | Status: " + getStatus().toString()
-                + " | Addresses: " + getAddresses().size() + "]";
+            + " | Addresses: " + getAddresses().size() + "]";
     }
 }

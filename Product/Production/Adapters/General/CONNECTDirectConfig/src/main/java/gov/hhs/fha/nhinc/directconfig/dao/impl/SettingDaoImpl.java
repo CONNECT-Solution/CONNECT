@@ -63,7 +63,7 @@ public class SettingDaoImpl implements SettingDao {
             Transaction tx = null;
 
             // make sure this setting doesn't already exist
-            if (getByNames(Arrays.asList(name)).size() > 0) {
+            if (CollectionUtils.isNotEmpty(getByNames(Arrays.asList(name)))) {
                 throw new ConfigurationStoreException("Setting " + name + " already exists.");
             }
 
@@ -97,7 +97,7 @@ public class SettingDaoImpl implements SettingDao {
      */
     @Override
     public void delete(Collection<String> names) {
-        if (names != null && names.size() > 0) {
+        if (CollectionUtils.isNotEmpty(names)) {
             Session session = null;
             Transaction tx = null;
             Query query;

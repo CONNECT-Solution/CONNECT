@@ -36,6 +36,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -80,13 +81,12 @@ public class HL7Parser201305 {
         String genderCode = null;
 
         // Extract the gender from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectAdministrativeGender() != null
-            && params.getLivingSubjectAdministrativeGender().size() > 0
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectAdministrativeGender())
             && params.getLivingSubjectAdministrativeGender().get(0) != null) {
             PRPAMT201306UV02LivingSubjectAdministrativeGender gender =
                 params.getLivingSubjectAdministrativeGender().get(0);
 
-            if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(gender.getValue()) && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
 
                 LOG.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
@@ -114,11 +114,11 @@ public class HL7Parser201305 {
         String birthDate = null;
 
         // Extract the birth time from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectBirthTime() != null && params.getLivingSubjectBirthTime().size() > 0
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectBirthTime())
             && params.getLivingSubjectBirthTime().get(0) != null) {
             PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
-            if (birthTime.getValue() != null && birthTime.getValue().size() > 0
+            if (CollectionUtils.isNotEmpty(birthTime.getValue())
                 && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
                 LOG.info("Found birthTime in query parameters = " + birthday.getValue());
@@ -145,11 +145,11 @@ public class HL7Parser201305 {
         PersonName personname = new PersonName();
 
         // Extract the name from the query parameters - Assume only one was specified
-        if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectName())
             && params.getLivingSubjectName().get(0) != null) {
             PRPAMT201306UV02LivingSubjectName name = params.getLivingSubjectName().get(0);
 
-            if (name.getValue() != null && name.getValue().size() > 0 && name.getValue().get(0) != null) {
+            if (CollectionUtils.isNotEmpty(name.getValue()) && name.getValue().get(0) != null) {
                 List<Serializable> choice = name.getValue().get(0).getContent();
 
                 LOG.info("choice.size()=" + choice.size());
@@ -240,11 +240,11 @@ public class HL7Parser201305 {
         Identifiers ids = new Identifiers();
         Identifier id = new Identifier();
 
-        if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectId())
             && params.getLivingSubjectId().get(0) != null) {
             PRPAMT201306UV02LivingSubjectId livingSubjectId = params.getLivingSubjectId().get(0);
 
-            if (livingSubjectId.getValue() != null && livingSubjectId.getValue().size() > 0
+            if (CollectionUtils.isNotEmpty(livingSubjectId.getValue())
                 && livingSubjectId.getValue().get(0) != null) {
                 II subjectId = livingSubjectId.getValue().get(0);
 
@@ -279,11 +279,11 @@ public class HL7Parser201305 {
 
         Address address = null;
 
-        if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
+        if (CollectionUtils.isNotEmpty(params.getPatientAddress())
             && params.getPatientAddress().get(0) != null) {
             PRPAMT201306UV02PatientAddress patientAddress = params.getPatientAddress().get(0);
 
-            if (patientAddress.getValue() != null && patientAddress.getValue().size() > 0
+            if (CollectionUtils.isNotEmpty(patientAddress.getValue())
                 && patientAddress.getValue().get(0) != null) {
                 ADExplicit adExplicit = patientAddress.getValue().get(0);
 
@@ -374,11 +374,11 @@ public class HL7Parser201305 {
         String telecom = null;
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
-        if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
+        if (CollectionUtils.isNotEmpty(params.getPatientTelecom())
             && params.getPatientTelecom().get(0) != null) {
             PRPAMT201306UV02PatientTelecom patientTelecom = params.getPatientTelecom().get(0);
 
-            if (patientTelecom.getValue() != null && patientTelecom.getValue().size() > 0
+            if (CollectionUtils.isNotEmpty(patientTelecom.getValue())
                 && patientTelecom.getValue().get(0) != null) {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
                 LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());

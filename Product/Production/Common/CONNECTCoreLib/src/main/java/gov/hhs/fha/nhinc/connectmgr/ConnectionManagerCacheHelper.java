@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
@@ -111,7 +113,7 @@ public class ConnectionManagerCacheHelper {
                 result.add(value);
             }
         }
-        if (result.size() <= 0) {
+        if (CollectionUtils.isEmpty(result)) {
             result = null;
         }
         return result;
@@ -125,7 +127,7 @@ public class ConnectionManagerCacheHelper {
      * @return The business entity for that home community.
      */
     public BusinessEntity extractBusinessEntity(List<BusinessEntity> oEntities, String sHomeCommunityId) {
-        if (oEntities == null || oEntities.size() <= 0 || sHomeCommunityId == null || sHomeCommunityId.length() <= 0) {
+        if (CollectionUtils.isEmpty(oEntities) || StringUtils.isEmpty(sHomeCommunityId)) {
             return null;
         }
 

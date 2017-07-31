@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.util.format;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,7 +101,7 @@ public class DocumentClassCodeParser {
 
     public static String buildDocumentClassCodeItem(List<String> documentClassCodeList) {
         StringBuffer buffer = new StringBuffer();
-        if (documentClassCodeList != null && documentClassCodeList.size() > 0) {
+        if (CollectionUtils.isNotEmpty(documentClassCodeList)) {
             buffer.append("(");
             for (String documentClassCode : documentClassCodeList) {
                 documentClassCode = documentClassCode.trim();

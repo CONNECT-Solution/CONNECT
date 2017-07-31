@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
@@ -60,20 +61,20 @@ public class PRPAIN201309UVParser {
             return null;
         }
         PRPAMT201307UV02ParameterList parameterList = queryByParameter.getValue() != null
-                ? queryByParameter.getValue().getParameterList() : null;
-        if (parameterList == null) {
-            return null;
-        }
-        return parameterList;
+            ? queryByParameter.getValue().getParameterList() : null;
+            if (parameterList == null) {
+                return null;
+            }
+            return parameterList;
     }
 
     public static PRPAMT201307UV02PatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV02 message) {
         LOG.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
-        PRPAMT201307UV02PatientIdentifier patientIdentifier = parameterList.getPatientIdentifier().size() > 0
-                ? parameterList.getPatientIdentifier().get(0) : null;
-        LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
-        return patientIdentifier;
+        PRPAMT201307UV02PatientIdentifier patientIdentifier = CollectionUtils.isNotEmpty(parameterList.getPatientIdentifier())
+            ? parameterList.getPatientIdentifier().get(0) : null;
+            LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
+            return patientIdentifier;
     }
 
     public static List<II> buildAssigningAuthorityInclusionFilterList(PRPAIN201309UV02 message) {

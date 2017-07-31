@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -374,7 +375,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
         checkLoaded();
 
-        if (saHomeCommunityId == null || saHomeCommunityId.size() <= 0) {
+        if (CollectionUtils.isEmpty(saHomeCommunityId)) {
             return null;
         }
 
@@ -387,7 +388,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             }
         }
 
-        if (oEntities.size() > 0) {
+        if (CollectionUtils.isNotEmpty(oEntities)) {
             return oEntities;
         } else {
             return null;
@@ -610,7 +611,7 @@ public class ConnectionManagerCache implements ConnectionManager {
                 oEntities.add(oEntity);
             }
         }
-        return oEntities.size() > 0 ? oEntities : null;
+        return CollectionUtils.isNotEmpty(oEntities) ? oEntities : null;
     }
 
     /*
@@ -636,7 +637,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         ArrayList<String> saHomeCommunityIds = new ArrayList<>(hKeys);
         oEntities = getBusinessEntitySetByServiceName(saHomeCommunityIds, sUniformServiceName);
 
-        return oEntities != null && oEntities.size() > 0 ? oEntities : null;
+        return CollectionUtils.isNotEmpty(oEntities) ? oEntities : null;
     }
 
     /*

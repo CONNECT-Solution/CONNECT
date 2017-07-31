@@ -37,6 +37,7 @@ import java.util.Set;
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.routing.RoutingResolver;
@@ -59,7 +60,7 @@ public class SmtpOnlyToAddresParser implements ToAddressParser {
         List<String> forwards = new ArrayList<>();
         if (null != addresses && StringUtils.isNotBlank(addresses)) {
             try {
-                forwards = Arrays.asList((new URI(addresses).getSchemeSpecificPart()));
+                forwards = Arrays.asList(new URI(addresses).getSchemeSpecificPart());
             } catch (URISyntaxException e) {
                 LOG.error("Unable to parse Direct To header, attempting to parse XDR intended recipients: "
                     + e.getLocalizedMessage(), e);
@@ -68,7 +69,7 @@ public class SmtpOnlyToAddresParser implements ToAddressParser {
             forwards = ParserHL7.parseDirectRecipients(documents);
         }
 
-        if (forwards.size() > 0 && getResolver().hasSmtpEndpoints(forwards)) {
+        if (CollectionUtils.isNotEmpty(forwards) && getResolver().hasSmtpEndpoints(forwards)) {
             for (String recipient : getResolver().getSmtpEndpoints(forwards)) {
                 try {
                     addressTo.add(new InternetAddress(recipient));

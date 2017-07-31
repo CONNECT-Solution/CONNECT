@@ -46,6 +46,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author vimehta
  */
 public class DocRetrieveAuditTransforms
-    extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
+extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveAuditTransforms.class);
 
@@ -65,8 +67,8 @@ public class DocRetrieveAuditTransforms
 
         /* check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification
          object will be created otherwise not*/
-        if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0
-            && assertion.getUniquePatientId().get(0).length() > 0) {
+        if (CollectionUtils.isNotEmpty(assertion.getUniquePatientId())
+            && StringUtils.isNotEmpty(assertion.getUniquePatientId().get(0))) {
             auditMsg = createPatientParticipantObjectIdentification(auditMsg, assertion.getUniquePatientId().get(0));
         }
         try {
@@ -216,8 +218,8 @@ public class DocRetrieveAuditTransforms
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromRequest(request));
 
-        getParticipantObjectDetail((getRepositoryUniqueIdFromRequest(request)).getBytes(),
-            (getHomeCommunityIdFromRequest(request)).getBytes(), participantObject);
+        getParticipantObjectDetail(getRepositoryUniqueIdFromRequest(request).getBytes(),
+            getHomeCommunityIdFromRequest(request).getBytes(), participantObject);
 
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
@@ -231,8 +233,8 @@ public class DocRetrieveAuditTransforms
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromResponse(response));
 
-        getParticipantObjectDetail((getRepositoryUniqueIdFromResponse(response)).getBytes(),
-            (getHomeCommunityIdFromResponse(response)).getBytes(), participantObject);
+        getParticipantObjectDetail(getRepositoryUniqueIdFromResponse(response).getBytes(),
+            getHomeCommunityIdFromResponse(response).getBytes(), participantObject);
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
     }
@@ -364,10 +366,10 @@ public class DocRetrieveAuditTransforms
         }
 
         participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        .add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 
@@ -410,10 +412,10 @@ public class DocRetrieveAuditTransforms
         participant.setUserIsRequestor(Boolean.TRUE);
 
         participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        .add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
 
