@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>CONNECTSolution</artifactId>
-        <version>4.5.0</version>
+        <version>4.5.0-HOTFIX-1</version>
     </parent>
 
     <artifactId>Product</artifactId>
@@ -1113,7 +1113,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>4.5.0</version>
+                            <version>4.5.0-HOTFIX-1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
