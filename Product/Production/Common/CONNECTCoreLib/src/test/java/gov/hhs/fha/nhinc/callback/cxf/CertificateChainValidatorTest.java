@@ -45,19 +45,17 @@ import org.junit.Test;
  */
 public class CertificateChainValidatorTest {
     private CertificateChainValidator certValidator;
-    private CertificateManagerImpl certManager ;
-
+    private CertificateManagerImpl certManager;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        prepareSystemProperties("/gateway_self_sign.jks","/cacerts.jks");
+        prepareSystemProperties("/gateway_self_sign.jks", "/cacerts.jks");
         certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance();
         certValidator = new CertificateChainValidator(certManager);
     }
-
 
     /**
      *
@@ -68,12 +66,10 @@ public class CertificateChainValidatorTest {
         System.setProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY, "changeit");
         System.setProperty(CertificateManagerImpl.KEY_STORE_TYPE_KEY, "JKS");
 
-
         System.setProperty(CertificateManagerImpl.TRUST_STORE_KEY, getFilePath(trustStoreName));
         System.setProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY, "changeit");
         System.setProperty(CertificateManagerImpl.TRUST_STORE_TYPE_KEY, "JKS");
     }
-
 
     /**
      * @throws java.lang.Exception
@@ -90,60 +86,70 @@ public class CertificateChainValidatorTest {
         X509Certificate certToCheck = getTestCert("/cert_test.cer");
         Assert.assertTrue("Cert should be a part chain of trust", certValidator.isPartChainOfTrust(certToCheck));
     }
+
     @Test
-    public final void testSelfSignedCert(){
+    public final void testSelfSignedCert() {
         X509Certificate certToCheck = getTestCert("/self_sign.cer");
         Assert.assertFalse("Cert is self-sign cert", certValidator.isPartChainOfTrust(certToCheck));
     }
+
     @Test
-    public final void testValidateCert(){
+    public final void testValidateCert() {
         X509Certificate certToCheck = getTestCert("/client.cer");
-        Assert.assertTrue("Our truststore should contain this cert",certValidator.validateCert(certToCheck));
+        Assert.assertTrue("Our truststore should contain this cert", certValidator.validateCert(certToCheck));
     }
+
     @Test
-    public final void testValidRoot(){
-        /*certValidator = null;
-        certManager = null;
-        prepareSystemProperties("/gateway_self_sign.jks", "");*/
+    public final void testValidRoot() {
         X509Certificate certToCheck = getTestCert("/entrust_root_old.cer");
-        Assert.assertTrue("Our truststore should contain root cert",certValidator.validateCert(certToCheck));
+        Assert.assertTrue("Our truststore should contain root cert", certValidator.validateCert(certToCheck));
     }
+
     @Test
-    public final void testInvalidCert(){
+    public final void testInvalidCert() {
         X509Certificate certToCheck = getTestCert("/HOST1.cer");
-        Assert.assertFalse("Our truststore should not contain",certValidator.validateCert(certToCheck));
+        Assert.assertFalse("Our truststore should not contain", certValidator.validateCert(certToCheck));
     }
+
     @Test
-    public final void testValidOnlyInterAndRootCert(){
-        //This test cert that only has intermediate and root.
+    public final void testValidOnlyInterAndRootCert() {
+        // This test cert that only has intermediate and root.
         X509Certificate certToCheck = getTestCert("/entrust_intermediate_old.cer");
-        Assert.assertTrue("Our truststore should this chain of trust",certValidator.validateCert(certToCheck));
+        Assert.assertTrue("Our truststore should contain only intermediate and root cert",
+            certValidator.validateCert(certToCheck));
     }
+
     @Test
-    public final void testMissingRoot(){
+    public final void testMissingRoot() {
         certValidator = null;
         certManager = null;
         prepareSystemProperties("/gateway_self_sign.jks", "/cacerts_missing_root.jks");
         certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance();
         certValidator = new CertificateChainValidator(certManager);
         X509Certificate certToCheck = getTestCert("/client.cer");
-        Assert.assertFalse("Our truststore doesn't contain the root to validate this",certValidator.validateCert(certToCheck));
+        Assert.assertFalse("Our truststore doesn't contain the root to validate this",
+            certValidator.validateCert(certToCheck));
     }
-    private X509Certificate getTestCert(String certName){
+
+    private X509Certificate getTestCert(String certName) {
         CertificateFactory certificateFactory;
         X509Certificate certificateToCheck = null;
         try {
             certificateFactory = CertificateFactory.getInstance("X.509");
             FileInputStream inputStream = new FileInputStream(getFilePath(certName));
-            certificateToCheck = (X509Certificate) certificateFactory.generateCertificate(new ByteArrayInputStream(IOUtils.readBytesFromStream(inputStream)));
+            certificateToCheck = (X509Certificate) certificateFactory.generateCertificate(new ByteArrayInputStream(
+                IOUtils.readBytesFromStream(inputStream)));
             Assert.assertNotNull(certificateToCheck);
-        } catch (CertificateException | IOException e) {
+        } catch (CertificateException e) {
             Assert.fail(e.getLocalizedMessage());
+        }catch (IOException ioEx){
+            Assert.fail(ioEx.getLocalizedMessage());
         }
         return certificateToCheck;
 
     }
-    private String getFilePath(String filename){
+
+    private String getFilePath(String filename) {
         return this.getClass().getResource(filename).getFile();
     }
 
