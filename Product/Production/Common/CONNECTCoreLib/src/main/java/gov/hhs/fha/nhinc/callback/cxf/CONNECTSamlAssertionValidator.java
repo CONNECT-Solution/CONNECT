@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2017, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2015, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import java.security.PublicKey;
 import java.security.cert.CertPathValidatorException;
@@ -43,6 +43,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.saml.SAMLKeyInfo;
@@ -54,8 +55,6 @@ import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Class CONNECTSamlAssertionValidator.
@@ -68,7 +67,7 @@ import org.slf4j.LoggerFactory;
 public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /** The Constant LOG. */
-    private static final Logger LOG = LoggerFactory.getLogger(CONNECTSamlAssertionValidator.class);
+    private static final Logger LOG = Logger.getLogger(CONNECTSamlAssertionValidator.class);
 
     /** The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP. */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
@@ -120,7 +119,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                 throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
             }
         } else if (assertion.getSaml2() != null) {
-            List<ValidatorSuite> validators = new LinkedList<>();
+            List<ValidatorSuite> validators = new LinkedList<ValidatorSuite>();
             validators.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-schema-validator"));
             validators.addAll(getSaml2SpecValidators());
 
@@ -134,19 +133,19 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             if (issuer.getFormat().equals("urn:oasis:names:tc:SAML:1.1:nameid-format:entity")) {
                 if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
-                        + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                        + "Security/Assertion/Issuer/@SPProvidedID" + " " + "is present.");
+                            + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                            + "Security/Assertion/Issuer/@SPProvidedID" + " " + "is present.");
                 }
                 if (!StringUtils.isBlank(issuer.getNameQualifier())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
-                        + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                        + "Security/Assertion/Issuer/@NameQualifier" + " " + "is present.");
+                            + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                            + "Security/Assertion/Issuer/@NameQualifier" + " " + "is present.");
                 }
 
                 if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
-                        + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                        + "Security/Assertion/Issuer/@SPNameQualifier" + " " + "is present.");
+                            + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                            + "Security/Assertion/Issuer/@SPNameQualifier" + " " + "is present.");
 
                 }
             }
@@ -194,7 +193,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
     protected Collection<ValidatorSuite> getSaml2SpecValidators() {
         try {
             Boolean allowNoSubjectAssertion = propertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                ALLOW_NO_SUBJECT_ASSERTION_PROP);
+                    ALLOW_NO_SUBJECT_ASSERTION_PROP);
 
             if (allowNoSubjectAssertion) {
                 return getSaml2AllowNoSubjectAssertionSpecValidators();
@@ -241,7 +240,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @return the saml2 assertion spec validator
      */
     protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
-        Collection<ValidatorSuite> suites = new HashSet<>();
+        Collection<ValidatorSuite> suites = new HashSet<ValidatorSuite>();
         suites.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-spec-validator"));
         suites.add(getExchangeAuthFrameworkValidatorSuite());
         return suites;
@@ -307,40 +306,36 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         } catch (WSSecurityException e) {
             if (certs == null && publicKey != null) {
                 LOG.warn("Could not establish trust of the signature's public key because no matching public key "
-                    + "exists in the truststore. Please see GATEWAY-3146 for more details.");
+                        + "exists in the truststore. Please see GATEWAY-3146 for more details.");
             } else {
                 if (isValidateChainOfTrust() && e.getCause() instanceof CertPathValidatorException){
                     //handle a special case.  Remove this once all partner upgrade to new chain of trust
                     CertificateChainValidator chainValidator = CertificateChainValidator.getInstance();
                     List<X509Certificate> certList = Arrays.asList(certs);
-                    LOG.debug("Detect number of certs in saml {}", certList.size());
+                    LOG.debug("Detect number of certs in saml " + certList.size());
                     for (X509Certificate cert: certList){
-                        String serialNumber = cert.getSerialNumber().toString(16);
+                        String serialNumber = chainValidator.getCertSerialNumber(cert);
                         if (chainValidator.validateCert(cert)){
-                            LOG.info("A certs serial number in saml already in the truststore {}",serialNumber);
+                            LOG.info("A certs serial number in saml already in the truststore " + serialNumber);
                         }else{
-                            LOG.error("Unable to find cert serial number in the truststore {}",serialNumber);
+                            LOG.error("Unable to find cert serial number in the truststore " + serialNumber);
                             throw e;
                         }
                     }
-
-
-                }else{
+                } else {
                     throw e;
                 }
-
             }
         }
     }
 
     protected boolean isValidateChainOfTrust() {
         try {
-            return propertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "ValiateChainOfTrust");
+            return propertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "ValidateChainOfTrust");
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to read the Validate Chain of Trust logging property: {}", ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to read the Validate Chain of Trust logging property " + ex.getLocalizedMessage(), ex);
         }
         return false;
     }
-
 
 }
