@@ -250,7 +250,7 @@ public class PropertyAccessHelper {
             java.util.Properties oPropsToStore = new java.util.Properties();
 
             for (PropertyType oInputProp : part1.getProperties().getProperty()) {
-                if (oInputProp.getPropertyName() == null || oInputProp.getPropertyName().length() <= 0) {
+                if (StringUtils.isEmpty(oInputProp.getPropertyName())) {
                     throw new PropertyAccessException(
                         "Found a property without a name.  All properties must have a name.");
                 }
@@ -290,7 +290,7 @@ public class PropertyAccessHelper {
         throws PropertyAccessException {
         DeletePropertyFileResponseType oOutput = new DeletePropertyFileResponseType();
 
-        if (part1 != null && part1.getPropertyFile() != null && part1.getPropertyFile().length() > 0) {
+        if (part1 != null && StringUtils.isNotEmpty(part1.getPropertyFile())) {
             String sPropertyFile = part1.getPropertyFile();
             PropertyFileManager.deletePropertyFile(sPropertyFile);
         }

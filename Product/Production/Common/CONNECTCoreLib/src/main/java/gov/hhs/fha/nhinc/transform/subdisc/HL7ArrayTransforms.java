@@ -298,9 +298,7 @@ public class HL7ArrayTransforms {
             org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
             if (orig.getDevice() != null && orig.getDevice().getAsAgent() != null
                 && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null
-                && !orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                .isEmpty()) {
+                && CollectionUtils.isNotEmpty(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId())) {
                 org.getId().add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
                     .get(0));
             }

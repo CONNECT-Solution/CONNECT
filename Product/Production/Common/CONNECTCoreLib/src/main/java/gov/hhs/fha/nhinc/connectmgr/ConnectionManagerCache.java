@@ -44,7 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.cxf.common.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BindingTemplate;
@@ -133,16 +133,16 @@ public class ConnectionManagerCache implements ConnectionManager {
                     for (BusinessEntity oEntity : businessDetail.getBusinessEntity()) {
                         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
                         String sHomeCommunityId = helper.getCommunityId(oEntity);
-                        if (sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
+                        if (StringUtils.isNotEmpty(sHomeCommunityId)) {
                             m_hUDDIConnectInfo.put(sHomeCommunityId, oEntity);
                         }
-                    } // for (CMBusinessEntity oEntity : oConnInfo.getBusinessEntities().getBusinessEntity())
-                } // if ((oConnInfo.getBusinessEntities() != null) && ...
+                    }
+                }
 
                 m_bUDDILoaded = true;
                 m_lUDDIFileLastModified = getUddiConnectionManagerDAO().getLastModified();
-            } // synchronized (m_ohUDDIConnectInfo)
-        } // if (oConnInfo != null)
+            }
+        }
         else {
             LOG.warn("No UDDI information was found");
         }
@@ -193,21 +193,21 @@ public class ConnectionManagerCache implements ConnectionManager {
             synchronized (m_hInternalConnectInfo) {
                 m_hInternalConnectInfo.clear();
 
-                if (businessDetail.getBusinessEntity() != null && !businessDetail.getBusinessEntity().isEmpty()) {
+                if (CollectionUtils.isNotEmpty(businessDetail.getBusinessEntity())) {
                     for (BusinessEntity businessEntity : businessDetail.getBusinessEntity()) {
                         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
                         String sHomeCommunityId = helper.getCommunityId(businessEntity);
-                        if (sHomeCommunityId != null && sHomeCommunityId.length() > 0) {
+                        if (StringUtils.isNotEmpty(sHomeCommunityId)) {
                             m_hInternalConnectInfo.put(sHomeCommunityId, businessEntity);
                         }
-                    } // for (CMInternalConnectionInfo oConnInfo : oConnInfos.getInternalConnectionInfo())
-                } // if ((oConnInfos.getInternalConnectionInfo() != null) &&...
+                    }
+                }
 
                 m_bInternalLoaded = true;
                 m_lInternalFileLastModified = getInternalConnectionManagerDAO().getLastModified();
 
-            } // synchronized (m_hInternalConnectInfo)
-        } // if (oConnInfos != null)
+            }
+        }
         else {
             LOG.warn("No UDDI information was found in");
         }
