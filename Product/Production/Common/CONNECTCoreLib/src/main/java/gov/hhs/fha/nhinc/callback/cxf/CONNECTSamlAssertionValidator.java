@@ -27,11 +27,13 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import java.security.PublicKey;
+import java.security.cert.CertPathValidatorException;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -306,9 +308,34 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                 LOG.warn("Could not establish trust of the signature's public key because no matching public key "
                         + "exists in the truststore. Please see GATEWAY-3146 for more details.");
             } else {
-                throw e;
+                if (isValidateChainOfTrust() && e.getCause() instanceof CertPathValidatorException){
+                    //handle a special case.  Remove this once all partner upgrade to new chain of trust
+                    CertificateChainValidator chainValidator = CertificateChainValidator.getInstance();
+                    List<X509Certificate> certList = Arrays.asList(certs);
+                    LOG.debug("Detect number of certs in saml " + certList.size());
+                    for (X509Certificate cert: certList){
+                        String serialNumber = chainValidator.getCertSerialNumber(cert);
+                        if (chainValidator.validateCert(cert)){
+                            LOG.info("A certs serial number in saml already in the truststore " + serialNumber);
+                        }else{
+                            LOG.error("Unable to find cert serial number in the truststore " + serialNumber);
+                            throw e;
+                        }
+                    }
+                } else {
+                    throw e;
+                }
             }
         }
+    }
+
+    protected boolean isValidateChainOfTrust() {
+        try {
+            return propertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "ValidateChainOfTrust");
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to read the Validate Chain of Trust logging property " + ex.getLocalizedMessage(), ex);
+        }
+        return false;
     }
 
 }
