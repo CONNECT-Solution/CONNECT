@@ -126,6 +126,21 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final Subject subject = createSubject(properties, certificate, publicKey);
             assertion.setSubject(subject);
 
+            // add conditions statement
+            DateTime beginValidTime = new DateTime();
+            DateTime endValidTime = new DateTime();
+            if (isConditionsDefaultValueEnabled()) {
+                beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
+                endValidTime = setEndValidTime(endValidTime, issueInstant);
+            }
+
+            // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
+            if (beginValidTime != null || endValidTime != null) {
+                final Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime,
+                    endValidTime);
+                assertion.setConditions(conditions);
+            }
+
             // add attribute statements
             final Subject evidenceSubject = createEvidenceSubject(properties, certificate, publicKey);
             assertion.getStatements().addAll(createAttributeStatements(properties, evidenceSubject));
@@ -668,7 +683,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             attribute = OpenSAML2ComponentBuilder.getInstance().createPatientIDAttribute(patientId);
 
             statements
-            .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+                .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("patient id is missing");
         }
@@ -693,7 +708,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             attribute = OpenSAML2ComponentBuilder.getInstance().createNPIAttribute(npi);
 
             statements
-            .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+                .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("npi is missing");
         }
@@ -703,6 +718,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     private static String createAssertionId() {
         return ID_PREFIX.concat(String.valueOf(UUID.randomUUID())).replaceAll("-", "");
+    }
+
+    protected boolean isConditionsDefaultValueEnabled() {
+        // if not provided or invalid return true else false
+        try {
+            final String ConditionsDefaultValueEnabled = PropertyAccessor.getInstance()
+                .getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
+            if (ConditionsDefaultValueEnabled != null) {
+                return !ConditionsDefaultValueEnabled.equals(Boolean.FALSE.toString());
+            }
+        } catch (final PropertyAccessException pae) {
+            LOG.warn("Property {} not found: {}", NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE,
+                pae.getLocalizedMessage());
+            LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
+        }
+        return Boolean.TRUE;
     }
 
     protected boolean isAuthDEvidenceConditionsDefaultValueEnabled() {

@@ -78,18 +78,17 @@ public class NhincConstants {
 
     public static enum NHIN_SERVICE_NAMES {
 
-        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
-                PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
-                        PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME), DOCUMENT_QUERY(
-                                DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(
-                                        DOC_RETRIEVE_SERVICE_NAME), DOCUMENT_SUBMISSION(
-                                                NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
-                                                        NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(
-                                                                NHINC_XDR_RESPONSE_SERVICE_NAME), ADMINISTRATIVE_DISTRIBUTION(
-                                                                        NHIN_ADMIN_DIST_SERVICE_NAME), CORE_X12DS_REALTIME(
-                                                                                CORE_X12DS_REALTIME_SERVICE_NAME), CORE_X12DS_GENERICBATCH_REQUEST(
-                                                                                        CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME), CORE_X12DS_GENERICBATCH_RESPONSE(
-                                                                                                CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
+        PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
+        PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+        DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME), DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
+        DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
+        DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
+        DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
+        ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
+        CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME),
+        CORE_X12DS_GENERICBATCH_REQUEST(CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
+        CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(final String value) {
@@ -172,10 +171,13 @@ public class NhincConstants {
     public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";
 
     // Flag to enable SAML
+    // Conditions element default value
+
+    public static final String ENABLE_CONDITIONS_DEFAULT_VALUE = "enableConditionsDefaultValue";
+    // Flag to enable SAML
     // AuthzDecisionStatement->Evidence->Assertion->Conditions element default
     // value
     public static final String ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE = "enableAuthDecEvidenceConditionsDefaultValue";
-
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";
     public static final String PATIENT_DISCOVERY_REQUEST_TIMEOUT = "PDRequestTimeout";
@@ -542,16 +544,15 @@ public class NhincConstants {
     public static final String FEATURE_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
     public static final String FEATURE_DISALLOW_DOCTYPE = "http://apache.org/xml/features/disallow-doctype-decl";
     /**
-     * System property which controls the alias used to retrieve the private key
-     * to sign the SAML assertion and endorsing supporting token.
+     * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
+     * endorsing supporting token.
      */
     public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
     /**
-     * Default alias used to retrieve the private key to sign the SAML assertion
-     * and endorsing supporting token.
+     * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
      */
     public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
-    //UDDI TLS version
+    // UDDI TLS version
     public static final String UDDI_TLS = "UDDI.TLS";
 
     private NhincConstants() {
