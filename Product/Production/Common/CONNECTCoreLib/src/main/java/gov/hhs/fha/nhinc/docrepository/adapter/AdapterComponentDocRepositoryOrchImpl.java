@@ -59,6 +59,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -258,7 +259,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 regErrList.getRegistryError().add(regErr);
             }
             if (response.getRegistryResponse().getStatus().equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE)
-                && response.getDocumentResponse().size() > 0) {
+                && CollectionUtils.isNotEmpty(response.getDocumentResponse())) {
                 response.getRegistryResponse().setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS);
             } else if (response.getRegistryResponse().getStatus()
                 .equals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)

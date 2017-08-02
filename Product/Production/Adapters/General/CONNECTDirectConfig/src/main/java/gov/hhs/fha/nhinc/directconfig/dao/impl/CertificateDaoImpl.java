@@ -318,7 +318,7 @@ public class CertificateDaoImpl implements CertificateDao {
      */
     @Override
     public void delete(List<Long> idList) {
-        if (idList != null && idList.size() > 0) {
+        if (CollectionUtils.isNotEmpty(idList)) {
             Session session = null;
             Transaction tx = null;
             Query query;

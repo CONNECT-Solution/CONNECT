@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
+import org.apache.commons.collections.CollectionUtils;
+
 /**
  *
  * @author rayj
@@ -56,7 +58,7 @@ public class Patient implements java.io.Serializable {
 
     /**
      * Method sets the optedIn parameter for the Patient.
-     * 
+     *
      * @param optedIn true if the patient is opted in, false otherwise
      */
     public void setOptedIn(final boolean optedIn) {
@@ -165,7 +167,7 @@ public class Patient implements java.io.Serializable {
     public String toString() {
         final StringBuilder result = new StringBuilder();
 
-        if (names.size() > 0) {
+        if (CollectionUtils.isNotEmpty(names)) {
 
             for (int i = 0; i < names.size(); i++) {
                 final PersonName personName = names.get(i);

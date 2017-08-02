@@ -71,6 +71,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 import javax.security.auth.x500.X500Principal;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,9 +112,9 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
      */
     @Override
     public void addCertificates(Collection<Certificate> certs) throws ConfigurationServiceException {
-        if (certs != null && certs.size() > 0) {
+        if (CollectionUtils.isNotEmpty(certs)) {
             for (Certificate cert : certs) {
-                if ((cert.getOwner() == null || cert.getOwner().isEmpty()) && cert.getData() != null) {
+                if (StringUtils.isEmpty(cert.getOwner()) && cert.getData() != null) {
                     // get the owner from the certificate information
                     // first transform into a certificate
                     CertContainer cont = toCertContainer(cert.getData());
@@ -120,7 +122,7 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
                         // now get the owner info from the cert
                         String theOwner = getOwner(cont.getCert());
 
-                        if (theOwner != null && !theOwner.isEmpty()) {
+                        if (StringUtils.isNotEmpty(theOwner)) {
                             cert.setOwner(theOwner);
                         }
                     }
@@ -268,8 +270,8 @@ public class CertificateServiceImpl extends SpringBeanAutowiringSupport implemen
         private final Key key;
 
         public CertContainer() {
-            this.cert = null;
-            this.key = null;
+            cert = null;
+            key = null;
         }
 
         public CertContainer(X509Certificate cert, Key key) {

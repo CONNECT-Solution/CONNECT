@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.CS;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.II;
@@ -86,7 +87,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01InformationRecipient copyNullFlavors(final MFMIMT700711UV01InformationRecipient from,
-            final MFMIMT700701UV01InformationRecipient to) {
+        final MFMIMT700701UV01InformationRecipient to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -120,7 +121,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MCCIMT000100UV01AttentionLine copyNullFlavors(final MCCIMT000300UV01AttentionLine from,
-            final MCCIMT000100UV01AttentionLine to) {
+        final MCCIMT000100UV01AttentionLine to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -132,7 +133,7 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAMT201301UV02Person copyNullFlavors(final PRPAMT201306UV02ParameterList from,
-            final PRPAMT201301UV02Person to) {
+        final PRPAMT201301UV02Person to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -144,7 +145,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01DataEnterer copyNullFlavors(final MFMIMT700711UV01DataEnterer from,
-            final MFMIMT700701UV01DataEnterer to) {
+        final MFMIMT700701UV01DataEnterer to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -156,7 +157,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01DataEnterer copyNullFlavors(final QUQIMT021001UV01DataEnterer from,
-            final MFMIMT700701UV01DataEnterer to) {
+        final MFMIMT700701UV01DataEnterer to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -168,8 +169,8 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyNullFlavors(
-            final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from,
-            final PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from,
+        final PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -181,8 +182,8 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyNullFlavors(
-            final PRPAIN201305UV02QUQIMT021001UV01ControlActProcess from,
-            final PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+        final PRPAIN201305UV02QUQIMT021001UV01ControlActProcess from,
+        final PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -194,7 +195,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01AuthorOrPerformer copyNullFlavors(final MFMIMT700711UV01AuthorOrPerformer from,
-            final MFMIMT700701UV01AuthorOrPerformer to) {
+        final MFMIMT700701UV01AuthorOrPerformer to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -206,7 +207,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01AuthorOrPerformer copyNullFlavors(final QUQIMT021001UV01AuthorOrPerformer from,
-            final MFMIMT700701UV01AuthorOrPerformer to) {
+        final MFMIMT700701UV01AuthorOrPerformer to) {
         if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (final String item : from.getNullFlavor()) {
@@ -296,27 +297,25 @@ public class HL7ArrayTransforms {
             org.setClassCode(HL7Constants.ORG_CLASS_CODE);
             org.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
             if (orig.getDevice() != null && orig.getDevice().getAsAgent() != null
-                    && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId() != null
-                    && !orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                            .isEmpty()) {
+                && orig.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && CollectionUtils.isNotEmpty(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId())) {
                 org.getId().add(orig.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                        .get(0));
+                    .get(0));
             }
 
             final javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3",
-                    "representedOrganization");
+                "representedOrganization");
             final JAXBElement<MCCIMT000100UV01Organization> orgElem = new JAXBElement<>(xmlqnameorg,
-                    MCCIMT000100UV01Organization.class, org);
+                MCCIMT000100UV01Organization.class, org);
             agent.setRepresentedOrganization(orgElem);
             agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
             final javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
             final JAXBElement<MCCIMT000100UV01Agent> agentElem = new JAXBElement<>(xmlqnameagent,
-                    MCCIMT000100UV01Agent.class, agent);
+                MCCIMT000100UV01Agent.class, agent);
             newDevice.setAsAgent(agentElem);
 
-            if (orig.getDevice() != null && orig.getDevice().getId().size() > 0) {
+            if (orig.getDevice() != null && CollectionUtils.isNotEmpty(orig.getDevice().getId())) {
                 final II deviceId = orig.getDevice().getId().get(0);
                 newDevice.getId().add(deviceId);
             }
@@ -367,7 +366,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MCCIMT000100UV01AttentionLine copyRealmCodes(final MCCIMT000300UV01AttentionLine from,
-            final MCCIMT000100UV01AttentionLine to) {
+        final MCCIMT000100UV01AttentionLine to) {
         if (from != null) {
             to.getRealmCode().clear();
 
@@ -380,7 +379,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01InformationRecipient copyRealmCodes(final MFMIMT700711UV01InformationRecipient from,
-            final MFMIMT700701UV01InformationRecipient to) {
+        final MFMIMT700701UV01InformationRecipient to) {
         if (from != null) {
             to.getRealmCode().clear();
 
@@ -393,7 +392,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01AuthorOrPerformer copyRealmCodes(final QUQIMT021001UV01AuthorOrPerformer from,
-            final MFMIMT700701UV01AuthorOrPerformer to) {
+        final MFMIMT700701UV01AuthorOrPerformer to) {
 
         if (from != null) {
             to.getRealmCode().clear();
@@ -407,8 +406,8 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyRealmCodes(
-            final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from,
-            final PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from,
+        final PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
 
         if (from != null) {
             to.getRealmCode().clear();
@@ -422,7 +421,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MFMIMT700701UV01InformationRecipient copyTemplateIds(final MFMIMT700711UV01InformationRecipient from,
-            final MFMIMT700701UV01InformationRecipient to) {
+        final MFMIMT700701UV01InformationRecipient to) {
         if (from != null) {
             to.getTemplateId().clear();
 
@@ -435,7 +434,7 @@ public class HL7ArrayTransforms {
     }
 
     public static MCCIMT000100UV01AttentionLine copyTemplateIds(final MCCIMT000300UV01AttentionLine from,
-            final MCCIMT000100UV01AttentionLine to) {
+        final MCCIMT000100UV01AttentionLine to) {
         if (from != null) {
             to.getTemplateId().clear();
 
@@ -448,7 +447,7 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAMT201301UV02Patient copyIIs(final PRPAMT201310UV02Patient from,
-            final PRPAMT201301UV02Patient to) {
+        final PRPAMT201301UV02Patient to) {
         if (from != null) {
             to.getId().clear();
 

@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactor
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.HashSet;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -65,7 +66,7 @@ public class UDDIAccessor {
         if (!m_bPropsLoaded) {
             try {
                 String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME,
-                        UDDI_BUSINESSES_TO_IGNORE);
+                    UDDI_BUSINESSES_TO_IGNORE);
                 if (sValue != null && sValue.length() > 0) {
                     String saBusiness[] = sValue.split(";");
                     if (saBusiness != null && saBusiness.length > 0) {
@@ -79,7 +80,7 @@ public class UDDIAccessor {
 
             } catch (Exception e) {
                 String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
-                        + ".properties file.  Error: " + e.getMessage();
+                    + ".properties file.  Error: " + e.getMessage();
                 LOG.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
@@ -106,8 +107,7 @@ public class UDDIAccessor {
     private void removeIgnoredBusinesses(BusinessList businessList) {
         ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<>();
         if (businessList != null && businessList.getBusinessInfos() != null
-                && businessList.getBusinessInfos().getBusinessInfo() != null
-                && businessList.getBusinessInfos().getBusinessInfo().size() > 0) {
+            && CollectionUtils.isNotEmpty(businessList.getBusinessInfos().getBusinessInfo())) {
             for (BusinessInfo oBusInfo : businessList.getBusinessInfos().getBusinessInfo()) {
                 String sKey = extractBusinessKey(oBusInfo);
 
@@ -157,7 +157,7 @@ public class UDDIAccessor {
             removeIgnoredBusinesses(businessList);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
-                    + e.getMessage();
+                + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
@@ -181,7 +181,7 @@ public class UDDIAccessor {
             businessDetail = uddiProxy.getBusinessDetail(searchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
-                    + e.getMessage();
+                + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }

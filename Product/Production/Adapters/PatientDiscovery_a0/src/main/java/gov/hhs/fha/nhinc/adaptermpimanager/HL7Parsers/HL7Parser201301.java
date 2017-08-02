@@ -35,8 +35,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.CE;
-import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.II;
@@ -104,7 +104,7 @@ public class HL7Parser201301 {
         PersonName personname = new PersonName();
 
         LOG.info("patientPerson.getName().size() " + person.getName().size());
-        if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
+        if (CollectionUtils.isNotEmpty(person.getName()) && person.getName().get(0) != null
             && person.getName().get(0).getContent() != null) {
 
             List<Serializable> choice = person.getName().get(0).getContent();
@@ -143,7 +143,7 @@ public class HL7Parser201301 {
                         firstname = (EnExplicitGiven) oJAXBElement.getValue();
                         LOG.info("found firstname element; content=" + firstname.getContent());
                     } else {
-                        LOG.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
+                        LOG.info("other name part=" + oJAXBElement.getValue());
                     }
                 } else {
                     LOG.info("contentItem is other");
@@ -192,19 +192,19 @@ public class HL7Parser201301 {
             id.setId(personid.getExtension());
             id.setOrganizationId(personid.getRoot());
             LOG.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId()
-                + "]");
+            + "]");
             ids.add(id);
         }
 
         List<PRPAMT201301UV02OtherIDs> OtherIds = person.getAsOtherIDs();
         for (PRPAMT201301UV02OtherIDs otherPersonIds : OtherIds) {
             for (II otherPersonId : otherPersonIds.getId()) {
-                if (!(otherPersonId.getRoot().contentEquals(HL7Parser.SSN_OID))) {
+                if (!otherPersonId.getRoot().contentEquals(HL7Parser.SSN_OID)) {
                     Identifier id = new Identifier();
                     id.setId(otherPersonId.getExtension());
                     id.setOrganizationId(otherPersonId.getRoot());
                     LOG.info("Created id from person other identifier [organization=" + id.getOrganizationId()
-                        + "][id=" + id.getId() + "]");
+                    + "][id=" + id.getId() + "]");
                     ids.add(id);
                 }
             }
@@ -256,7 +256,7 @@ public class HL7Parser201301 {
         HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
-        if ((subjects == null) || (subjects.isEmpty())) {
+        if (CollectionUtils.isEmpty(subjects)) {
             LOG.info("subjects is blank/null - no patient");
             return null;
         }
@@ -345,11 +345,11 @@ public class HL7Parser201301 {
         //
         // Name.
         //
-        PNExplicit name = (PNExplicit) (factory.createPNExplicit());
+        PNExplicit name = factory.createPNExplicit();
         List namelist = name.getContent();
 
         PersonName mpiPatientName = null;
-        if (mpiPatient.getNames().size() > 0) {
+        if (CollectionUtils.isNotEmpty(mpiPatient.getNames())) {
             mpiPatientName = mpiPatient.getNames().get(0);
         }
 

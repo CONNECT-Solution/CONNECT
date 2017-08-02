@@ -38,12 +38,11 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.AbstractPatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
-
 import java.io.Serializable;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
@@ -58,10 +57,9 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchResultsModelBuilder
-        implements PatientSearchResultsModelBuilder {
+implements PatientSearchResultsModelBuilder {
 
     private PatientSearchResults results;
     private PRPAIN201306UV02 message;
@@ -95,7 +93,7 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
 
     private void extractAndAddPatient(PRPAMT201310UV02Patient msgPatient) {
         if (msgPatient != null && msgPatient.getPatientPerson() != null
-                && msgPatient.getPatientPerson().getValue() != null) {
+            && msgPatient.getPatientPerson().getValue() != null) {
 
             PRPAMT201310UV02Person person = msgPatient.getPatientPerson().getValue();
             Patient patient = new Patient();
@@ -112,8 +110,8 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
     }
 
     private void extractNames(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
-                && person.getName().get(0).getContent() != null && person.getName().get(0).getContent().size() > 0) {
+        if (CollectionUtils.isNotEmpty(person.getName()) && person.getName().get(0) != null
+            && CollectionUtils.isNotEmpty(person.getName().get(0).getContent())) {
             for (Serializable object : person.getName().get(0).getContent()) {
                 if (object instanceof JAXBElement<?>) {
                     Object nameValue = ((JAXBElement<?>) object).getValue();
@@ -123,7 +121,7 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
                     } else if (nameValue instanceof EnExplicitGiven) {
                         //the first given name is first name, following by middle name
                         String givenName = ((EnExplicitGiven) nameValue).getContent();
-                        if (StringUtils.hasText(patient.getFirstName())){
+                        if (StringUtils.isNotBlank(patient.getFirstName())){
                             patient.setMiddleName(givenName);
                         }else{
                             patient.setFirstName(givenName);
@@ -149,8 +147,8 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
     }
 
     private void extractAddress(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getAddr() != null && person.getAddr().size() > 0 && person.getAddr().get(0) != null
-                && person.getAddr().get(0).getContent() != null && person.getAddr().get(0).getContent().size() > 0) {
+        if (CollectionUtils.isNotEmpty(person.getAddr()) && person.getAddr().get(0) != null
+            && CollectionUtils.isNotEmpty(person.getAddr().get(0).getContent())) {
 
             for (Serializable object : person.getAddr().get(0).getContent()) {
                 if (object instanceof JAXBElement<?>) {
@@ -186,8 +184,8 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
     }
 
     private void extractTelephone(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getTelecom() != null && person.getTelecom().size() > 0 && person.getTelecom().get(0) != null
-                && person.getTelecom().get(0).getValue() != null && !person.getTelecom().get(0).getValue().isEmpty()) {
+        if (CollectionUtils.isNotEmpty(person.getTelecom()) && person.getTelecom().get(0) != null
+            && StringUtils.isNotEmpty(person.getTelecom().get(0).getValue())) {
 
             patient.setPhone(person.getTelecom().get(0).getValue());
         }
@@ -195,15 +193,15 @@ public class PatientSearchResultsModelBuilderImpl extends AbstractPatientSearchR
 
     private void extractGender(PRPAMT201310UV02Person person, Patient patient) {
         if (person.getAdministrativeGenderCode() != null && person.getAdministrativeGenderCode().getCode() != null
-                && !person.getAdministrativeGenderCode().getCode().isEmpty()) {
+            && !person.getAdministrativeGenderCode().getCode().isEmpty()) {
 
             patient.setGender(person.getAdministrativeGenderCode().getCode());
         }
     }
 
     private void extractDob(PRPAMT201310UV02Person person, Patient patient) {
-        if (person.getBirthTime() != null && person.getBirthTime().getValue() != null
-                && !person.getBirthTime().getValue().isEmpty()) {
+        if (person.getBirthTime() != null
+            && StringUtils.isNotEmpty(person.getBirthTime().getValue())) {
             patient.setBirthDate(person.getBirthTime().getValue());
         }
     }
