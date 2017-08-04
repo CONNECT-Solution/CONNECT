@@ -127,17 +127,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertion.setSubject(subject);
 
             // add conditions statement
-            DateTime beginValidTime = new DateTime();
-            DateTime endValidTime = new DateTime();
             if (isConditionsDefaultValueEnabled()) {
-                beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
-                endValidTime = setEndValidTime(endValidTime, issueInstant);
-            }
-
-            // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
-            if (beginValidTime != null || endValidTime != null) {
-                final Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime,
-                    endValidTime);
+                final Conditions conditions = createConditions(properties);
                 assertion.setConditions(conditions);
             }
 
@@ -256,6 +247,23 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             x509Name = evidenceSubject;
         }
         return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
+    }
+
+    protected Conditions createConditions(final CallbackProperties properties) {
+        DateTime issueInstant = properties.getIssueInstant();
+        DateTime beginValidTime = properties.getSamlConditionsNotBefore();
+        DateTime endValidTime = properties.getSamlConditionsNotAfter();
+
+        if (issueInstant == null) {
+            issueInstant = new DateTime();
+        }
+
+        beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
+        endValidTime = setEndValidTime(endValidTime, issueInstant);
+        // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
+        // if (beginValidTime != null || endValidTime != null) {
+        return OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime);
+        // }
     }
 
     @SuppressWarnings("unchecked")
@@ -380,6 +388,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param subject
      * @return
      */
+
     public Evidence buildEvidence(CallbackProperties properties, List<AttributeStatement> statements, Subject subject) {
 
         DateTime issueInstant = properties.getEvidenceInstant();
@@ -418,7 +427,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // and notOnOrAfter(setEndValidTime)
         // attributes if the enableAuthDecEvidenceConditionsDefaultValue flag
         // enabled or not provided in gateway properties
-        if (isAuthDEvidenceConditionsDefaultValueEnabled()) {
+        if (isConditionsDefaultValueEnabled()) {
             beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
             endValidTime = setEndValidTime(endValidTime, issueInstant);
         }
@@ -723,30 +732,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected boolean isConditionsDefaultValueEnabled() {
         // if not provided or invalid return true else false
         try {
-            final String ConditionsDefaultValueEnabled = PropertyAccessor.getInstance()
-                .getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
-            if (ConditionsDefaultValueEnabled != null) {
-                return !ConditionsDefaultValueEnabled.equals(Boolean.FALSE.toString());
-            }
+            final Boolean conditionsDefaultValueEnabled = PropertyAccessor.getInstance().getPropertyBoolean(
+                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
+            return !conditionsDefaultValueEnabled.equals(Boolean.FALSE);
         } catch (final PropertyAccessException pae) {
-            LOG.warn("Property {} not found: {}", NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE,
-                pae.getLocalizedMessage());
-            LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
-        }
-        return Boolean.TRUE;
-    }
-
-    protected boolean isAuthDEvidenceConditionsDefaultValueEnabled() {
-        // if not provided or invalid return true else false
-        try {
-            final String authDEvidenceConditionsDefaultValueEnabled = PropertyAccessor.getInstance().getProperty(
-                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE);
-            if (authDEvidenceConditionsDefaultValueEnabled != null) {
-                return !authDEvidenceConditionsDefaultValueEnabled.equals(Boolean.FALSE.toString());
-            }
-        } catch (final PropertyAccessException pae) {
-            LOG.warn("Property {} not found: {}", NhincConstants.ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE,
-                pae.getLocalizedMessage());
             LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
