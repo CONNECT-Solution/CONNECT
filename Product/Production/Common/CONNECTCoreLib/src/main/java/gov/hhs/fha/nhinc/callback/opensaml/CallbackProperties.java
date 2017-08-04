@@ -42,6 +42,11 @@ public interface CallbackProperties {
     public String getAssertionIssuerFormat();
 
     /**
+     * @return Issue Instant
+     */
+    public DateTime getIssueInstant();
+
+    /**
      * @return The Issuer
      */
     public String getIssuer();
@@ -75,6 +80,16 @@ public interface CallbackProperties {
      * @return Subject DNS
      */
     public String getSubjectDNS();
+
+    /**
+     * @return Saml Conditions Not Before
+     */
+    public DateTime getSamlConditionsNotBefore();
+
+    /**
+     * @return Saml Conditions Not After
+     */
+    public DateTime getSamlConditionsNotAfter();
 
     /**
      * @return Authenication Statement Exists

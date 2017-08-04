@@ -33,13 +33,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
-import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
-import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
-import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilder;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -157,12 +150,12 @@ public class HOKSAMLAssertionBuilderTest {
 
                     @Override
                     public void verify(final PublicKey key, final String sigProvider) throws CertificateException,
-                    NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
+                        NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
                     }
 
                     @Override
                     public void verify(final PublicKey key) throws CertificateException, NoSuchAlgorithmException,
-                    InvalidKeyException, NoSuchProviderException, SignatureException {
+                        InvalidKeyException, NoSuchProviderException, SignatureException {
                     }
 
                     @Override
@@ -274,7 +267,7 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testCreateAuthenticationStatement() {
         final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
-        .createAuthenicationStatements(getProperties());
+            .createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -302,7 +295,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
 
         final List<AuthzDecisionStatement> statementList = new HOKSAMLAssertionBuilder()
-        .createAuthenicationDecsionStatements(callbackProps, subject);
+            .createAuthenicationDecsionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
@@ -322,8 +315,8 @@ public class HOKSAMLAssertionBuilderTest {
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         final Conditions conditions = assertion.getConditions();
-        assertTrue(beforeCreation.isBefore(conditions.getNotBefore())
-            || beforeCreation.isEqual(conditions.getNotBefore()));
+        assertTrue(
+            beforeCreation.isBefore(conditions.getNotBefore()) || beforeCreation.isEqual(conditions.getNotBefore()));
         assertTrue(beforeCreation.isBefore(conditions.getNotOnOrAfter())
             || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
 
@@ -344,7 +337,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotAfter = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-        .thenReturn(Boolean.TRUE.toString());
+            .thenReturn(Boolean.TRUE.toString());
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
@@ -371,7 +364,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotAfter = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-        .thenReturn(Boolean.FALSE.toString());
+            .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
@@ -396,7 +389,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotBefore = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-        .thenReturn(Boolean.FALSE.toString());
+            .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
@@ -419,7 +412,7 @@ public class HOKSAMLAssertionBuilderTest {
         // return authDEvidenceConditionsDefaultValueEnabled flag to false
         return new HOKSAMLAssertionBuilder() {
             @Override
-            protected boolean isAuthDEvidenceConditionsDefaultValueEnabled() {
+            protected boolean isConditionsDefaultValueEnabled() {
                 return false;
             }
         };
@@ -473,6 +466,11 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
+            public DateTime getIssueInstant() {
+                return new DateTime();
+            }
+
+            @Override
             public String getPurposeSystemName() {
                 return "systemname";
             }
@@ -505,6 +503,16 @@ public class HOKSAMLAssertionBuilderTest {
             @Override
             public String getHomeCommunity() {
                 return "hci";
+            }
+
+            @Override
+            public DateTime getSamlConditionsNotBefore() {
+                return new DateTime();
+            }
+
+            @Override
+            public DateTime getSamlConditionsNotAfter() {
+                return new DateTime();
             }
 
             @Override
