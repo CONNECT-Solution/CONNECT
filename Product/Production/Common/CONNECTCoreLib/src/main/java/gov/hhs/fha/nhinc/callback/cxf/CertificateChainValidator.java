@@ -43,10 +43,10 @@ import java.util.Enumeration;
 import java.util.List;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.components.crypto.DERDecoder;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * Validate chain of trust
  *
@@ -54,7 +54,7 @@ import org.apache.ws.security.components.crypto.DERDecoder;
  *
  */
 public class CertificateChainValidator {
-    private static final Logger LOG = Logger.getLogger(CertificateChainValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CertificateChainValidator.class);
     private final CertificateManager certificateManager;
 
     // http://docs.oracle.com/javase/7/docs/api/java/security/cert/X509Extension.html#getExtensionValue(java.lang.String)
