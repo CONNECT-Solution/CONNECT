@@ -295,7 +295,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
 
         final String inetAddr = properties.getSubjectLocality();
-        final String dnsName = properties.getSubjectLocality();
+        final String dnsName = properties.getSubjectDNS();
 
         final AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance()
             .createAuthenticationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
