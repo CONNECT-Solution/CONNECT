@@ -91,16 +91,6 @@ public class CallbackMapProperties implements CallbackProperties {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationContextClass()
      */
     @Override
-    public DateTime getIssueInstant() {
-        return getNullSafeDateTime(SamlConstants.SAMLCONDITIONS_NOT_BEFORE_PROP, null);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationContextClass()
-     */
-    @Override
     public String getAuthenticationContextClass() {
         return getNullSafeString(SamlConstants.AUTHN_CONTEXT_CLASS_PROP);
     }

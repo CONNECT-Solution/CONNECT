@@ -61,7 +61,6 @@ public class SamlConstants {
     public static final String AUTHN_CONTEXT_CLASS_PROP = "authnContextClass";
     public static final String SUBJECT_LOCALITY_ADDR_PROP = "subjectLocalityAddress";
     public static final String SUBJECT_LOCALITY_DNS_PROP = "subjectLocalityDNS";
-    public static final String ISSUE_INSTANT_PROP = "issueInstant";
     public static final String SAMLCONDITIONS_NOT_BEFORE_PROP = "samlConditionsNotBefore";
     public static final String SAMLCONDITIONS_NOT_AFTER_PROP = "samlConditionsNotAfter";
     public static final String AUTHZ_DECISION_PROP = "authzDecision";

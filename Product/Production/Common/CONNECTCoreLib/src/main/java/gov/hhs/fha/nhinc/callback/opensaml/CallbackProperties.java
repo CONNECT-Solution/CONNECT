@@ -42,11 +42,6 @@ public interface CallbackProperties {
     public String getAssertionIssuerFormat();
 
     /**
-     * @return Issue Instant
-     */
-    public DateTime getIssueInstant();
-
-    /**
      * @return The Issuer
      */
     public String getIssuer();

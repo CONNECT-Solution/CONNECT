@@ -127,10 +127,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertion.setSubject(subject);
 
             // add conditions statement
-            if (isConditionsDefaultValueEnabled()) {
-                final Conditions conditions = createConditions(properties);
-                assertion.setConditions(conditions);
-            }
+            final Conditions conditions = createConditions(properties);
+            assertion.setConditions(conditions);
 
             // add attribute statements
             final Subject evidenceSubject = createEvidenceSubject(properties, certificate, publicKey);
@@ -250,20 +248,17 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     protected Conditions createConditions(final CallbackProperties properties) {
-        DateTime issueInstant = properties.getIssueInstant();
+        DateTime issueInstant = new DateTime();
         DateTime beginValidTime = properties.getSamlConditionsNotBefore();
         DateTime endValidTime = properties.getSamlConditionsNotAfter();
 
-        if (issueInstant == null) {
-            issueInstant = new DateTime();
-        }
-
-        beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
-        endValidTime = setEndValidTime(endValidTime, issueInstant);
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
-        // if (beginValidTime != null || endValidTime != null) {
-        return OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime);
-        // }
+        if (beginValidTime != null || endValidTime != null) {
+            beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
+            endValidTime = setEndValidTime(endValidTime, issueInstant);
+            return OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime);
+        }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
