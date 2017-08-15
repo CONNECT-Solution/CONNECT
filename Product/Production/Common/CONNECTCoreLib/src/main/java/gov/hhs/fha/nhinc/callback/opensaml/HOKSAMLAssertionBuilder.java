@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -660,8 +661,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // Set the Home Community ID Attribute
         final String communityId = properties.getHomeCommunity();
         if (communityId != null) {
-
-            statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(communityId);
+            statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(
+                appendPrefixHomeCommunityID(communityId));
         } else {
             LOG.debug("Home Community ID is missing");
         }
@@ -734,5 +735,19 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
+    }
+
+    public static String appendPrefixHomeCommunityID(final String homeCommunityId) {
+        return checkPrefixBeforeAppend(homeCommunityId, "urn:oid:");
+    }
+
+    public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
+        final String tempValue = checkValue.toLowerCase();
+        final String tempPrefix = checkPrefix.toLowerCase();
+        if(tempValue.indexOf(tempPrefix) == -1){
+            return MessageFormat.format("{0}{1}", checkPrefix, checkValue);
+        } else {
+            return checkValue;
+        }
     }
 }
