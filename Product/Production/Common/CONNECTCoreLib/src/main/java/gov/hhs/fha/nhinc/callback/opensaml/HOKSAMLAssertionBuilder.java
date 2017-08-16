@@ -738,7 +738,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     public static String appendPrefixHomeCommunityID(final String homeCommunityId) {
-        return checkPrefixBeforeAppend(homeCommunityId, "urn:oid:");
+        return checkPrefixBeforeAppend(homeCommunityId, NhincConstants.HCID_PREFIX);
     }
 
     public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
