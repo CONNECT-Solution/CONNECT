@@ -744,7 +744,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
         final String tempValue = checkValue.trim().toLowerCase();
         final String tempPrefix = checkPrefix.toLowerCase();
-        if(tempValue.startsWith(tempPrefix) == false){
+        if(!tempValue.startsWith(tempPrefix)){
             return MessageFormat.format("{0}{1}", checkPrefix, checkValue);
         } else {
             return checkValue;
