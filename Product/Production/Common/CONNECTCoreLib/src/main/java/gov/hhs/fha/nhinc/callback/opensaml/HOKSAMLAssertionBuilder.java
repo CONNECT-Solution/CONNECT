@@ -275,7 +275,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.addAll(createUserRoleStatements(properties));
         statements.addAll(createPurposeOfUseStatements(properties));
         statements.addAll(createNPIAttributeStatements(properties));
-        statements.addAll(createAuthenicationDecsionStatements(properties, subject));
+        statements.addAll(createAuthorizationDecisionStatements(properties, subject));
         return statements;
     }
 
@@ -329,18 +329,18 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param subject
      * @return
      */
-    public List<AuthzDecisionStatement> createAuthenicationDecsionStatements(final CallbackProperties properties,
+    public List<AuthzDecisionStatement> createAuthorizationDecisionStatements(final CallbackProperties properties,
         final Subject subject) {
         final List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
 
-        final Boolean hasAuthzStmt = properties.getAuthenicationStatementExists();
+        final Boolean hasAuthzStmt = properties.getAuthorizationStatementExists();
         // The authorization Decision Statement is optional
         if (hasAuthzStmt) {
             // Create resource for Authentication Decision Statement
             final String resource = properties.getAuthnicationResource();
 
             // Options are Permit, Deny and Indeterminate
-            String decision = properties.getAuthenicationDecision();
+            String decision = properties.getAuthorizationDecision();
             if (decision == null) {
                 decision = AUTHZ_DECISION_PERMIT;
             }
