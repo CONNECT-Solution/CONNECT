@@ -660,7 +660,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         // Set the Home Community ID Attribute
         final String communityId = properties.getHomeCommunity();
-        if (communityId != null) {
+        if (StringUtils.isNotBlank(communityId)) {
             statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(
                 appendPrefixHomeCommunityID(communityId));
         } else {
@@ -688,7 +688,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             attribute = OpenSAML2ComponentBuilder.getInstance().createPatientIDAttribute(patientId);
 
             statements
-                .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+            .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("patient id is missing");
         }
@@ -713,7 +713,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             attribute = OpenSAML2ComponentBuilder.getInstance().createNPIAttribute(npi);
 
             statements
-                .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+            .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("npi is missing");
         }
@@ -742,9 +742,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
-        final String tempValue = checkValue.toLowerCase();
+        final String tempValue = checkValue.trim().toLowerCase();
         final String tempPrefix = checkPrefix.toLowerCase();
-        if(tempValue.indexOf(tempPrefix) == -1){
+        if(tempValue.startsWith(tempPrefix) == false){
             return MessageFormat.format("{0}{1}", checkPrefix, checkValue);
         } else {
             return checkValue;
