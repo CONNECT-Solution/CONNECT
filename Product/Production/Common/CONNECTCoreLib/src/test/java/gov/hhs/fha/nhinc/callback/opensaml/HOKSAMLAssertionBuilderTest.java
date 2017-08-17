@@ -610,7 +610,7 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public String getAuthnicationResource() {
+            public String getAuthorizationResource() {
                 return "resource";
             }
 

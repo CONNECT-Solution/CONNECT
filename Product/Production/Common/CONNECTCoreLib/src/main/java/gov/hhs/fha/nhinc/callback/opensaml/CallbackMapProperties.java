@@ -171,7 +171,7 @@ public class CallbackMapProperties implements CallbackProperties {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthnicationResource()
      */
     @Override
-    public String getAuthnicationResource() {
+    public String getAuthorizationResource() {
         return getNullSafeString(SamlConstants.RESOURCE_PROP);
     }
 
