@@ -111,7 +111,7 @@ public class CallbackMapPropertiesTest {
         assertTrue(callbackProperties.getAuthorizationStatementExists());
         assertEquals(callbackProperties.getAuthenticationContextClass(), TEST_VALUE);
         assertEquals(callbackProperties.getAuthenticationSessionIndex(), TEST_VALUE);
-        assertEquals(callbackProperties.getAuthnicationResource(), TEST_VALUE);
+        assertEquals(callbackProperties.getAuthorizationResource(), TEST_VALUE);
         assertEquals(callbackProperties.getEvidenceID(), TEST_VALUE);
         assertEquals(callbackProperties.getEvidenceIssuer(), TEST_VALUE);
         assertEquals(callbackProperties.getEvidenceIssuerFormat(), TEST_VALUE);

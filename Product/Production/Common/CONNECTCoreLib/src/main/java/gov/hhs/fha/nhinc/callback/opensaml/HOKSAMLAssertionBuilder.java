@@ -337,7 +337,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // The authorization Decision Statement is optional
         if (hasAuthzStmt) {
             // Create resource for Authentication Decision Statement
-            final String resource = properties.getAuthnicationResource();
+            final String resource = properties.getAuthorizationResource();
 
             // Options are Permit, Deny and Indeterminate
             String decision = properties.getAuthorizationDecision();
@@ -345,7 +345,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 decision = AUTHZ_DECISION_PERMIT;
             }
 
-            if (!isValidAuthenicationDescision(decision)) {
+            if (!isValidAuthorizationDecision(decision)) {
                 decision = AUTHZ_DECISION_PERMIT;
             }
 

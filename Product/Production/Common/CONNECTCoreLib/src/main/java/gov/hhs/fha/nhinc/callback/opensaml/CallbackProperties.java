@@ -92,9 +92,9 @@ public interface CallbackProperties {
     public Boolean getAuthorizationStatementExists();
 
     /**
-     * @return Authnication Resource
+     * @return Authorization Resource
      */
-    public String getAuthnicationResource();
+    public String getAuthorizationResource();
 
     /**
      * @return Authorization Decision

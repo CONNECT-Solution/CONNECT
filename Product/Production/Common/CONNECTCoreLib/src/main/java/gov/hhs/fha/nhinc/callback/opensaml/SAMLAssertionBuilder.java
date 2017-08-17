@@ -57,7 +57,7 @@ public abstract class SAMLAssertionBuilder {
     private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
             AUTHZ_DECISION_INDETERMINATE };
     private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections
-            .unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
+        .unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
 
     // Valid Name Identification values
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
@@ -71,7 +71,7 @@ public abstract class SAMLAssertionBuilder {
     private static final String[] VALID_NAME_ID_ARRAY = { UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
             WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID };
     private static final List<String> VALID_NAME_LIST = Collections
-            .unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
+        .unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
 
     // Valid Context Class references
     private static final String INTERNET_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocol";
@@ -91,7 +91,7 @@ public abstract class SAMLAssertionBuilder {
             X509_AUTHN_CNTX_CLS, PGP_AUTHN_CNTX_CLS, SPKI_AUTHN_CNTX_CLS, DIG_SIGN_AUTHN_CNTX_CLS,
             UNSPECIFIED_AUTHN_CNTX_CLS };
     private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections
-            .unmodifiableList(Arrays.asList(VALID_AUTHN_CNTX_CLS_ARRAY));
+        .unmodifiableList(Arrays.asList(VALID_AUTHN_CNTX_CLS_ARRAY));
 
     static boolean isValidNameidFormat(final String format) {
         return VALID_NAME_LIST.contains(format.trim());
@@ -101,7 +101,7 @@ public abstract class SAMLAssertionBuilder {
         return VALID_AUTHN_CNTX_CLS_LIST.contains(value.trim());
     }
 
-    static boolean isValidAuthenicationDescision(String decision) {
+    static boolean isValidAuthorizationDecision(String decision) {
         return VALID_AUTHZ_DECISION_LIST.contains(decision.trim());
 
     }
