@@ -339,15 +339,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             // Create resource for Authentication Decision Statement
             final String resource = properties.getAuthorizationResource();
 
-            // Options are Permit, Deny and Indeterminate
-            String decision = properties.getAuthorizationDecision();
-            if (decision == null) {
-                decision = AUTHZ_DECISION_PERMIT;
-            }
-
-            if (!isValidAuthorizationDecision(decision)) {
-                decision = AUTHZ_DECISION_PERMIT;
-            }
+            //"Decision.  The Decision attribute of the Authorization Decision Statement must be Permit" &CONN-1758
+            String decision = AUTHZ_DECISION_PERMIT;
 
             final Evidence evidence = createEvidence(properties, subject);
 
