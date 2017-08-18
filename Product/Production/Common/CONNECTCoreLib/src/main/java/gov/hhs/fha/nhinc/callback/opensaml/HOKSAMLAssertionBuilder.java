@@ -339,13 +339,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             // Create resource for Authentication Decision Statement
             final String resource = properties.getAuthorizationResource();
 
-            //"Decision.  The Decision attribute of the Authorization Decision Statement must be Permit" &CONN-1758
-            String decision = AUTHZ_DECISION_PERMIT;
-
             final Evidence evidence = createEvidence(properties, subject);
 
             authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance().createAuthzDecisionStatement(resource,
-                decision, AUTHZ_DECISION_ACTION_EXECUTE, evidence));
+                AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_ACTION_EXECUTE, evidence));
         }
 
         return authDecisionStatements;
