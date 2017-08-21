@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -109,11 +107,11 @@ public class CallbackMapPropertiesTest {
     @Test
     public void testCallbackMapPropertiesGetters() {
         assertEquals(callbackProperties.getAssertionIssuerFormat(), TEST_VALUE);
-        assertEquals(callbackProperties.getAuthenicationDecision(), TEST_VALUE);
-        assertTrue(callbackProperties.getAuthenicationStatementExists());
+        assertEquals(callbackProperties.getAuthorizationDecision(), TEST_VALUE);
+        assertTrue(callbackProperties.getAuthorizationStatementExists());
         assertEquals(callbackProperties.getAuthenticationContextClass(), TEST_VALUE);
         assertEquals(callbackProperties.getAuthenticationSessionIndex(), TEST_VALUE);
-        assertEquals(callbackProperties.getAuthnicationResource(), TEST_VALUE);
+        assertEquals(callbackProperties.getAuthorizationResource(), TEST_VALUE);
         assertEquals(callbackProperties.getEvidenceID(), TEST_VALUE);
         assertEquals(callbackProperties.getEvidenceIssuer(), TEST_VALUE);
         assertEquals(callbackProperties.getEvidenceIssuerFormat(), TEST_VALUE);
@@ -154,10 +152,10 @@ public class CallbackMapPropertiesTest {
 
         DateTime evidenceConditionNotBefore = callbackProperties.getEvidenceConditionNotBefore();
         assertTrue(StringUtils.lowerCase(evidenceConditionNotBefore.toString())
-                .contains(StringUtils.lowerCase(TEST_DATE)));
+            .contains(StringUtils.lowerCase(TEST_DATE)));
 
         DateTime evidenceConditionNotAfter = callbackProperties.getEvidenceConditionNotAfter();
         assertTrue(
-                StringUtils.lowerCase(evidenceConditionNotAfter.toString()).contains(StringUtils.lowerCase(TEST_DATE)));
+            StringUtils.lowerCase(evidenceConditionNotAfter.toString()).contains(StringUtils.lowerCase(TEST_DATE)));
     }
 }

@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -278,7 +279,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.addAll(createUserRoleStatements(properties));
         statements.addAll(createPurposeOfUseStatements(properties));
         statements.addAll(createNPIAttributeStatements(properties));
-        statements.addAll(createAuthenicationDecsionStatements(properties, subject));
+        statements.addAll(createAuthorizationDecisionStatements(properties, subject));
         return statements;
     }
 
@@ -332,23 +333,23 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param subject
      * @return
      */
-    public List<AuthzDecisionStatement> createAuthenicationDecsionStatements(final CallbackProperties properties,
-            final Subject subject) {
+    public List<AuthzDecisionStatement> createAuthorizationDecisionStatements(final CallbackProperties properties,
+        final Subject subject) {
         final List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
 
-        final Boolean hasAuthzStmt = properties.getAuthenicationStatementExists();
+        final Boolean hasAuthzStmt = properties.getAuthorizationStatementExists();
         // The authorization Decision Statement is optional
         if (hasAuthzStmt) {
             // Create resource for Authentication Decision Statement
-            final String resource = properties.getAuthnicationResource();
+            final String resource = properties.getAuthorizationResource();
 
             // Options are Permit, Deny and Indeterminate
-            String decision = properties.getAuthenicationDecision();
+            String decision = properties.getAuthorizationDecision();
             if (decision == null) {
                 decision = AUTHZ_DECISION_PERMIT;
             }
 
-            if (!isValidAuthenicationDescision(decision)) {
+            if (!isValidAuthorizationDecision(decision)) {
                 decision = AUTHZ_DECISION_PERMIT;
             }
 
@@ -674,9 +675,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         // Set the Home Community ID Attribute
         final String communityId = properties.getHomeCommunity();
-        if (communityId != null) {
-
-            statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(communityId);
+        if (StringUtils.isNotBlank(communityId)) {
+            statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(
+                appendPrefixHomeCommunityID(communityId));
         } else {
             LOG.debug("Home Community ID is missing");
         }
@@ -703,8 +704,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (patientId != null) {
             attribute = OpenSAML2ComponentBuilder.getInstance().createPatientIDAttribute(patientId);
 
-            statements
-                    .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("patient id is missing");
         }
@@ -729,8 +729,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (npi != null) {
             attribute = OpenSAML2ComponentBuilder.getInstance().createNPIAttribute(npi);
 
-            statements
-                    .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("npi is missing");
         }
@@ -752,5 +751,19 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
+    }
+
+    public static String appendPrefixHomeCommunityID(final String homeCommunityId) {
+        return checkPrefixBeforeAppend(homeCommunityId, NhincConstants.HCID_PREFIX);
+    }
+
+    public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
+        final String tempValue = checkValue.trim().toLowerCase();
+        final String tempPrefix = checkPrefix.toLowerCase();
+        if(!tempValue.startsWith(tempPrefix)){
+            return MessageFormat.format("{0}{1}", checkPrefix, checkValue);
+        } else {
+            return checkValue;
+        }
     }
 }

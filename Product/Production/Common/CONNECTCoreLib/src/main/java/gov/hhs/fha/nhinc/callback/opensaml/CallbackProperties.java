@@ -87,19 +87,19 @@ public interface CallbackProperties {
     public DateTime getSamlConditionsNotAfter();
 
     /**
-     * @return Authenication Statement Exists
+     * @return Authorization Statement Exists
      */
-    public Boolean getAuthenicationStatementExists();
+    public Boolean getAuthorizationStatementExists();
 
     /**
-     * @return Authnication Resource
+     * @return Authorization Resource
      */
-    public String getAuthnicationResource();
+    public String getAuthorizationResource();
 
     /**
-     * @return Authenication Decision
+     * @return Authorization Decision
      */
-    public String getAuthenicationDecision();
+    public String getAuthorizationDecision();
 
     /**
      * @return Evidence ID

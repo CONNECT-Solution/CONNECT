@@ -161,7 +161,7 @@ public class CallbackMapProperties implements CallbackProperties {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationStatementExists()
      */
     @Override
-    public Boolean getAuthenicationStatementExists() {
+    public Boolean getAuthorizationStatementExists() {
         return getNullSafeBoolean(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, Boolean.FALSE);
     }
 
@@ -171,7 +171,7 @@ public class CallbackMapProperties implements CallbackProperties {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthnicationResource()
      */
     @Override
-    public String getAuthnicationResource() {
+    public String getAuthorizationResource() {
         return getNullSafeString(SamlConstants.RESOURCE_PROP);
     }
 
@@ -181,7 +181,7 @@ public class CallbackMapProperties implements CallbackProperties {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationDecision()
      */
     @Override
-    public String getAuthenicationDecision() {
+    public String getAuthorizationDecision() {
         return getNullSafeString(SamlConstants.AUTHZ_DECISION_PROP);
     }
 
