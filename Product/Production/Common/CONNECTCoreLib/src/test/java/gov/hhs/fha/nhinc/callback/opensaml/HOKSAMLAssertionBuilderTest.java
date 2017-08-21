@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -369,10 +370,7 @@ public class HOKSAMLAssertionBuilderTest {
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         final Conditions conditions = assertion.getConditions();
-        assertTrue(
-            beforeCreation.isBefore(conditions.getNotBefore()) || beforeCreation.isEqual(conditions.getNotBefore()));
-        assertTrue(beforeCreation.isBefore(conditions.getNotOnOrAfter())
-            || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
+        assertNull(conditions);
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
