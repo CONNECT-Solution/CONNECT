@@ -170,14 +170,9 @@ public class NhincConstants {
     public static final String RESPONSE_MESSAGE_ID_KEY = "RESPONSE_MESSAGE_ID";
     public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";
 
-    // Flag to enable SAML
-    // Conditions element default value
-
+    // Flag to enable SAML Conditions element default value
     public static final String ENABLE_CONDITIONS_DEFAULT_VALUE = "enableConditionsDefaultValue";
-    // Flag to enable SAML
-    // AuthzDecisionStatement->Evidence->Assertion->Conditions element default
-    // value
-    public static final String ENABLE_AUTH_DEC_EVIDENCE_CONDITIONS_DEFAULT_VALUE = "enableAuthDecEvidenceConditionsDefaultValue";
+    
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";
     public static final String PATIENT_DISCOVERY_REQUEST_TIMEOUT = "PDRequestTimeout";
