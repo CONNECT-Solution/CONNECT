@@ -101,6 +101,8 @@ public class SamlConstants {
     public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String PURPOSE_SYSTEM_ATTR = "2.16.840.1.113883.3.18.7.1";
+    public static final String PURPOSE_SYSTEMNAME_ATTR = "nhin-purpose";
     public static final String HL7_NAMESPACE_URI = "urn:hl7-org:v3";
     public static final String HL7_PREFIX = "hl7";
     public static final String HL7_TYPE_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
