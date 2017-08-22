@@ -223,8 +223,6 @@ public class NhincConstants {
     public static final String EVIDENCE_ISSUER_PROP = "evidenceAssertionIssuer";
     public static final String EVIDENCE_ISSUER_FORMAT_PROP = "evidenceAssertionIssuerFormat";
     public static final String EVIDENCE_SUBJECT_PROP = "evidenceSubject";
-    public static final String EVIDENCE_CONDITION_NOT_BEFORE_PROP = "evidenceConditionNotBefore";
-    public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
     public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
     public static final String EVIDENCE_INST_ACCESS_CONSENT_PROP = "evidenceInstanceAccessConsent";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
