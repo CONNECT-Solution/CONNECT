@@ -255,13 +255,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (beginValidTime != null && endValidTime != null) {
-            if (isConditionsDefaultValueEnabled()) {
+            // Correct the conditions if property is set or validity times are out of order
+            if (isConditionsDefaultValueEnabled() || beginValidTime.isAfter(endValidTime)) {
                 beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
-                endValidTime = setEndValidTime(endValidTime, issueInstant);                
+                endValidTime = setEndValidTime(endValidTime, issueInstant);                               
             }
-            if(beginValidTime.isBefore(endValidTime)) {
-                return OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime);
-            }
+            
+            return OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime);
         }
         return null;
     }
