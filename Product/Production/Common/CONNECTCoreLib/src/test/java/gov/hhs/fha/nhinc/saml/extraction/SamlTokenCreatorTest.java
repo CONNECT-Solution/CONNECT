@@ -286,7 +286,7 @@ public class SamlTokenCreatorTest {
         String purposeOfUseCodeSystemName = "purposeOfUseCodeSystemName";
         assertEquals(testHashmapValues(expectedrequestContext, purposeOfUseCodeSystemName),
             SamlConstants.PURPOSE_SYSTEMNAME_ATTR);
-    } // SamlConstants.PURPOSE_SYSTEMNAME_ATTR
+    }
 
     private void testPurposeOfUseCodeSystem(Map<String, Object> expectedrequestContext) {
         String purposeOfUseCodeSystem = "purposeOfUseCodeSystem";
