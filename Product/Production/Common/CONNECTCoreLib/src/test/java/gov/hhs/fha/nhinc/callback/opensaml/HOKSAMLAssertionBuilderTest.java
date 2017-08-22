@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -347,9 +346,14 @@ public class HOKSAMLAssertionBuilderTest {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime beforeCreation = new DateTime();
+        final DateTime conditionNotBefore = new DateTime();
+        final DateTime conditionNotAfter = conditionNotBefore.plusMinutes(5);
+
+        when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
+        when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
 
-        final List<AuthzDecisionStatement> statementList = new HOKSAMLAssertionBuilder()
+        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
@@ -370,7 +374,8 @@ public class HOKSAMLAssertionBuilderTest {
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         final Conditions conditions = assertion.getConditions();
-        assertNull(conditions);
+        assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
+        assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
@@ -407,6 +412,7 @@ public class HOKSAMLAssertionBuilderTest {
         final Conditions conditions = assertion.getConditions();
         assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
         assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
+
     }
 
     @Test
