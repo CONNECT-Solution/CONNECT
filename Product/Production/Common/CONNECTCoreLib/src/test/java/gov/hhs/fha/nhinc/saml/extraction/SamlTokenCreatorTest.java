@@ -107,12 +107,6 @@ public class SamlTokenCreatorTest {
         SamlTokenCreator token = new SamlTokenCreator();
 
         Map<String, Object> requestContext = token.createRequestContext(assertion, url, action);
-        /*
-         * ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
-         * verify(appenderMock).doAppend((LoggingEvent) arguments.capture()); LoggingEvent loggingEvent = (LoggingEvent)
-         * arguments.getValue(); assertThat(loggingEvent.getRenderedMessage().toString(),
-         * is("Error: samlSendOperation input assertion is null"));
-         */
         assertEquals("requestContext created with null params should have exactly one entry", requestContext.size(), 1);
     }
 
