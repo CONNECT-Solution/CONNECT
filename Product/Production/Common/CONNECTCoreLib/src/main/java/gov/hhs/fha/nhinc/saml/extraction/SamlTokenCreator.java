@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
@@ -264,13 +265,13 @@ public class SamlTokenCreator {
                         .getConditions() != null) {
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
                             .getAssertion().getConditions().getNotBefore())) {
-                            requestContext.put(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
+                            requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
                                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
                                 .getConditions().getNotBefore());
                         }
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
                             .getAssertion().getConditions().getNotOnOrAfter())) {
-                            requestContext.put(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP,
+                            requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP,
                                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
                                 .getConditions().getNotOnOrAfter());
                         }
