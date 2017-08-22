@@ -52,13 +52,6 @@ public abstract class SAMLAssertionBuilder {
     static final String X509_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:X509";
     static final String UNSPECIFIED_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified";
 
-    private static final String AUTHZ_DECISION_DENY = "Deny";
-    private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
-    private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
-            AUTHZ_DECISION_INDETERMINATE };
-    private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections
-        .unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
-
     // Valid Name Identification values
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
     private static final String EMAIL_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
@@ -99,11 +92,6 @@ public abstract class SAMLAssertionBuilder {
 
     static boolean isValidAuthnCntxCls(final String value) {
         return VALID_AUTHN_CNTX_CLS_LIST.contains(value.trim());
-    }
-
-    static boolean isValidAuthorizationDecision(String decision) {
-        return VALID_AUTHZ_DECISION_LIST.contains(decision.trim());
-
     }
 
     static boolean isValidIssuerFormat(String format) {
