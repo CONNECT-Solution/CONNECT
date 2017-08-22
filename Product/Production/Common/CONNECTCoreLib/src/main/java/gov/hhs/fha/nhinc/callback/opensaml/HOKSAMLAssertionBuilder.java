@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
@@ -279,7 +280,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.addAll(createUserRoleStatements(properties));
         statements.addAll(createPurposeOfUseStatements(properties));
         statements.addAll(createNPIAttributeStatements(properties));
-        statements.addAll(createAuthorizationDecisionStatements(properties, subject));
+        if(isAcpOrIacpExists(properties)){
+            statements.addAll(createAuthorizationDecisionStatements(properties, subject));
+        }
+
         return statements;
     }
 
@@ -505,8 +509,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected List<AttributeStatement> createEvidenceStatements(final CallbackProperties properties) {
         LOG.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
 
-        final List accessConstentValues = properties.getEvidenceAccessConstent();
-        final List evidenceInstanceAccessConsentValues = properties.getEvidenceInstantAccessConsent();
+        final List accessConstentValues = checkHcidPrefixInList(properties.getEvidenceAccessConstent());
+        final List evidenceInstanceAccessConsentValues = checkHcidPrefixInList(properties.getEvidenceInstantAccessConsent());
 
         return createEvidenceStatements(accessConstentValues, evidenceInstanceAccessConsentValues);
     }
@@ -514,12 +518,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     public List<AttributeStatement> createEvidenceStatements(final List accessConstentValues,
             final List evidenceInstanceAccessConsentValues) {
         List<AttributeStatement> statements;
-        if (accessConstentValues == null) {
+        if (CollectionUtils.isEmpty(accessConstentValues)) {
             LOG.debug("No Access Consent found for Evidence");
         }
 
         // Set the Instance Access Consent
-        if (evidenceInstanceAccessConsentValues == null) {
+        if (CollectionUtils.isEmpty(evidenceInstanceAccessConsentValues)) {
             LOG.debug("No Instance Access Consent found for Evidence");
         }
 
@@ -756,5 +760,29 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         } else {
             return checkValue;
         }
+    }
+
+    public static List<Object> checkPrefixInList(final List<Object> valueList, final String checkPrefix){
+        List<Object> tempList = new ArrayList<>();
+        for(Object eachValue : valueList){
+            tempList.add(checkPrefixBeforeAppend(eachValue.toString(), checkPrefix));
+        }
+        return tempList;
+    }
+
+    protected List<Object> checkHcidPrefixInList(final List<Object> valueList){
+        return checkPrefixInList(valueList, NhincConstants.HCID_PREFIX);
+    }
+
+    protected boolean isAcpOrIacpExists(final CallbackProperties properties) {
+        final List accessConstentValues = properties.getEvidenceAccessConstent();
+        final List evidenceInstanceAccessConsentValues = properties.getEvidenceInstantAccessConsent();
+
+        //return false if ACP/IACP does not exist
+        //only created the AuthzDecisionStatement if true
+        if(CollectionUtils.isEmpty(accessConstentValues) && CollectionUtils.isEmpty(evidenceInstanceAccessConsentValues)){
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 }

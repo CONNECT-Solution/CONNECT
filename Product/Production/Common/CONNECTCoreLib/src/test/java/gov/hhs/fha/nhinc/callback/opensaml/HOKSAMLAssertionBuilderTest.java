@@ -440,10 +440,16 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime beforeCreation = new DateTime();
         final DateTime conditionNotBefore = new DateTime();
         final DateTime conditionNotAfter = conditionNotBefore.plusMinutes(5);
+        final List<Object> evidenceAccessConstent = new ArrayList<>();
+        final List<Object> evidenceInstantAccessConsent = new ArrayList<>();
+        evidenceAccessConstent.add("urn:oid:1.2.3.4");
+        evidenceInstantAccessConsent.add("urn:oid:1.2.3.4.123456789");
 
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
+        when(callbackProps.getEvidenceAccessConstent()).thenReturn(evidenceAccessConstent);
+        when(callbackProps.getEvidenceInstantAccessConsent()).thenReturn(evidenceInstantAccessConsent);
 
         final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
