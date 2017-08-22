@@ -121,23 +121,19 @@ public class SamlTokenCreator {
             }
 
             if (assertion.getPurposeOfDisclosureCoded() != null) {
-                if (assertion.getPurposeOfDisclosureCoded() != null) {
-                    if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCode())) {
-                        requestContext.put(NhincConstants.PURPOSE_CODE_PROP,
-                            assertion.getPurposeOfDisclosureCoded().getCode());
-                    }
+                if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCode())) {
+                    requestContext.put(NhincConstants.PURPOSE_CODE_PROP,
+                        assertion.getPurposeOfDisclosureCoded().getCode());
+                }
 
-                    requestContext.put(NhincConstants.PURPOSE_SYST_PROP, SamlConstants.PURPOSE_SYSTEM_ATTR);
-                    requestContext.put(NhincConstants.PURPOSE_SYST_NAME_PROP, SamlConstants.PURPOSE_SYSTEMNAME_ATTR);
-                    if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getDisplayName())) {
-                        requestContext.put(NhincConstants.PURPOSE_DISPLAY_PROP,
-                            assertion.getPurposeOfDisclosureCoded().getDisplayName());
-                    }
-                } else {
-                    LOG.error("Error: samlSendOperation input assertion purpose coded is null");
+                requestContext.put(NhincConstants.PURPOSE_SYST_PROP, SamlConstants.PURPOSE_SYSTEM_ATTR);
+                requestContext.put(NhincConstants.PURPOSE_SYST_NAME_PROP, SamlConstants.PURPOSE_SYSTEMNAME_ATTR);
+                if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getDisplayName())) {
+                    requestContext.put(NhincConstants.PURPOSE_DISPLAY_PROP,
+                        assertion.getPurposeOfDisclosureCoded().getDisplayName());
                 }
             } else {
-                LOG.error("Error: samlSendOperation input assertion purpose is null");
+                LOG.error("Error: samlSendOperation input assertion purpose coded is null");
             }
             if (assertion.getHomeCommunity() != null) {
                 if (NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
