@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
-import gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import java.util.concurrent.ExecutorService;
@@ -42,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * Main ExecutorService creates a new thread pool of size specified on construction, independent/in addition to
  * glassfish thread pool(s) set in domain.xml. 2. ExecutorService automatically handles any thread death condition and
  * creates a new thread in this case
- *
+ * <p>
  * 3. Also creates a second largeJobExecutor with a fixed size thread pool (largeJobExecutor is used for TaskExecutors
  * that get a callable list of size comparable to the size of the main ExecutorService)
  *
@@ -50,52 +49,48 @@ import org.slf4j.LoggerFactory;
  */
 public class InitServlet extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
-    private static ExecutorService executor = null;
-    private static ExecutorService largeJobExecutor = null;
+  private static ExecutorService executor = null;
+  private static ExecutorService largeJobExecutor = null;
 
-    @Override
-    @SuppressWarnings("static-access")
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
-        largeJobExecutor = Executors
-                .newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
-        // Initialize HibernateUtil when CONNECTGatewayWeb is initialized required for AuditRepo JavaImpl EJB calls.
-        // Do not Remove this ...
+  @Override
+  @SuppressWarnings("static-access")
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
+    largeJobExecutor = Executors
+        .newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
 
-        HibernateUtil hibernateUtil = new HibernateUtil();
-        hibernateUtil.buildSessionFactory();
-        // register event loggers as observers...
-        EventLoggerFactory.getInstance().registerLoggers();
+    // register event loggers as observers...
+    EventLoggerFactory.getInstance().registerLoggers();
+  }
+
+  public static ExecutorService getExecutorService() {
+    return executor;
+  }
+
+  public static ExecutorService getLargeJobExecutorService() {
+    return largeJobExecutor;
+  }
+
+  @Override
+  public void destroy() {
+    LOG.debug("InitServlet shutdown stopping executor(s)....");
+    if (executor != null) {
+      try {
+        executor.shutdown();
+      } catch (Exception e) {
+        LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
+      }
     }
-
-    public static ExecutorService getExecutorService() {
-        return executor;
+    if (largeJobExecutor != null) {
+      try {
+        largeJobExecutor.shutdown();
+      } catch (Exception e) {
+        LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
+      }
     }
-
-    public static ExecutorService getLargeJobExecutorService() {
-        return largeJobExecutor;
-    }
-
-    @Override
-    public void destroy() {
-        LOG.debug("InitServlet shutdown stopping executor(s)....");
-        if (executor != null) {
-            try {
-                executor.shutdown();
-            } catch (Exception e) {
-                LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
-            }
-        }
-        if (largeJobExecutor != null) {
-            try {
-                largeJobExecutor.shutdown();
-            } catch (Exception e) {
-                LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
-            }
-        }
-    }
+  }
 
 }

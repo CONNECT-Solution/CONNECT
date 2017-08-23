@@ -14,8 +14,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:CONNECT-interceptor-beans.xml 
-            classpath:CONNECT-context.xml      
+            classpath:CONNECT-interceptor-beans.xml
+            classpath:CONNECT-context.xml
             classpath:/x12docsubmission/_10/applicationContext.xml
             classpath:/x12docsubmission/_10/webservices.xml
         </param-value>
@@ -38,11 +38,4 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
-    <resource-ref>
-        <res-ref-name>jdbc/transrepo_datasource</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>
 </web-app>
