@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.callback.cxf;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
-
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -138,7 +138,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
         addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
-        addPropertyFromMessage(propertiesMap, message, NhincConstants.ACTION_PROP);
+        addPropertyFromMessage(propertiesMap, message, SamlConstants.ACTION_PROP);
         return propertiesMap;
     }
 

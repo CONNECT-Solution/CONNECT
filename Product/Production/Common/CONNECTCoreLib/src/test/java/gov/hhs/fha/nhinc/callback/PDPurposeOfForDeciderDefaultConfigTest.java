@@ -30,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.HashMap;
 import org.junit.Test;
@@ -63,7 +62,7 @@ public class PDPurposeOfForDeciderDefaultConfigTest {
     public void testIsPurposeForNoApiProvided() {
         HashMap<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        tokenVals.put(SamlConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         CallbackProperties properties = new CallbackMapProperties(tokenVals);
         PurposeOfForDecider decider = new PurposeOfForDecider();
@@ -78,7 +77,7 @@ public class PDPurposeOfForDeciderDefaultConfigTest {
         HashMap<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        tokenVals.put(SamlConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
         CallbackProperties properties = new CallbackMapProperties(tokenVals);
         PurposeOfForDecider decider = new PurposeOfForDecider();

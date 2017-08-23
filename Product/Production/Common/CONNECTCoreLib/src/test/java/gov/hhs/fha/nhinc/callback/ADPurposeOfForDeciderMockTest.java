@@ -42,7 +42,7 @@ public class ADPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMo
     protected Map<String, Object> createTokenValues() {
         Map<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        tokenVals.put(SamlConstants.ACTION_PROP, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
         return tokenVals;
     }
 }

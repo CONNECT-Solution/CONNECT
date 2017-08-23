@@ -518,14 +518,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     public List<AttributeStatement> createEvidenceStatements(final List accessConstentValues,
             final List evidenceInstanceAccessConsentValues) {
         List<AttributeStatement> statements;
-        if (CollectionUtils.isEmpty(accessConstentValues)) {
-            LOG.debug("No Access Consent found for Evidence");
-        }
-
-        // Set the Instance Access Consent
-        if (CollectionUtils.isEmpty(evidenceInstanceAccessConsentValues)) {
-            LOG.debug("No Instance Access Consent found for Evidence");
-        }
 
         statements = OpenSAML2ComponentBuilder.getInstance().createEvidenceStatements(accessConstentValues,
                 evidenceInstanceAccessConsentValues, NHIN_NS);

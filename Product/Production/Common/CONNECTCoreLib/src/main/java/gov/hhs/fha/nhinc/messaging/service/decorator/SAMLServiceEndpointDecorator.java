@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -51,7 +52,7 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
      * @param decoratored
      */
     public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion,
-            String targetHomeCommunityId, String serviceName) {
+        String targetHomeCommunityId, String serviceName) {
         super(decoratoredEndpoint);
         this.assertion = assertion;
         this.targetHomeCommunityId = targetHomeCommunityId;
@@ -67,7 +68,7 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
             requestContext.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, targetHomeCommunityId);
         }
         if (serviceName != null) {
-            requestContext.put(NhincConstants.ACTION_PROP, serviceName);
+            requestContext.put(SamlConstants.ACTION_PROP, serviceName);
         }
     }
 

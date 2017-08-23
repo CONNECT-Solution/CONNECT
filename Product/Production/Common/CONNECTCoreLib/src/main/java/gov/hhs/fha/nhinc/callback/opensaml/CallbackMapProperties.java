@@ -444,7 +444,7 @@ public class CallbackMapProperties implements CallbackProperties {
      */
     @Override
     public String getAction() {
-        return getNullSafeString(NhincConstants.ACTION_PROP);
+        return getNullSafeString(SamlConstants.ACTION_PROP);
     }
 
     @Override
