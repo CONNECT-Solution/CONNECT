@@ -13,6 +13,6 @@
 
    <!-- Definition for HibernateUtil bean-->
    <bean id="auditRepoHibernateUtil" class="gov.hhs.fha.nhinc.auditrepository.hibernate.util.HibernateUtil"
-            init-method="buildSessionFactory" destroy-method="closeSessionFactory"/>            
-                        
+            init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
+
 </beans>
