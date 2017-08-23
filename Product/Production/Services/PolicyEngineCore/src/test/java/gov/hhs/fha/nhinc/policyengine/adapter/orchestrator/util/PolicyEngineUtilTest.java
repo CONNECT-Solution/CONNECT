@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.util;
 
+import static org.junit.Assert.assertEquals;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -33,7 +35,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -62,7 +63,7 @@ public class PolicyEngineUtilTest {
     @Test
     public void testNoOrgId() {
         AssertionType assertion = getFullAssertion();
-        
+
         assertion.getUserInfo().getOrg().setHomeCommunityId(null);
         PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
@@ -72,21 +73,21 @@ public class PolicyEngineUtilTest {
     @Test
     public void testNoRoleCodeSystemName() {
         AssertionType assertion = getFullAssertion();
-        
+
         assertion.getUserInfo().getRoleCoded().setCodeSystemName(null);
         PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
-        assertDeny(resp);
+        assertPermit(resp);
     }
-    
+
     @Test
     public void testMissingMultiple() {
         AssertionType assertion = getFullAssertion();
-        
+
         assertion.getPurposeOfDisclosureCoded().setCodeSystem(null);
         assertion.getUserInfo().getPersonName().setSecondNameOrInitials(null);
         assertion.getHomeCommunity().setHomeCommunityId(null);
-        
+
         PolicyEngineUtil util = new PolicyEngineUtil();
         CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
         assertDeny(resp);
