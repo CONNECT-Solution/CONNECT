@@ -162,6 +162,7 @@ public class SamlTokenCreator {
                         assertion.getSamlIssuer().getIssuerFormat());
                 }
             }
+            
             if (assertion.getSamlConditions() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlConditions().getNotBefore())) {
                     requestContext.put(NhincConstants.SAMLCONDITIONS_NOT_BEFORE_PROP,
@@ -171,9 +172,8 @@ public class SamlTokenCreator {
                     requestContext.put(NhincConstants.SAMLCONDITIONS_NOT_AFTER_PROP,
                         assertion.getSamlConditions().getNotOnOrAfter());
                 }
-            } else {
-                LOG.error("Error: samlSendOperation input assertion Saml Conditions is null");
             }
+            
             if (assertion.getSamlAuthnStatement() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
                     requestContext.put(NhincConstants.AUTHN_INSTANT_PROP,
