@@ -438,10 +438,15 @@ public class HOKSAMLAssertionBuilderTest {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime beforeCreation = new DateTime();
+        final DateTime conditionNotBefore = new DateTime();
+        final DateTime conditionNotAfter = conditionNotBefore.plusMinutes(5);
+
+        when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
+        when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
 
-        final List<AuthzDecisionStatement> statementList = new HOKSAMLAssertionBuilder()
-                .createAuthorizationDecisionStatements(callbackProps, subject);
+        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+            .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
@@ -461,10 +466,9 @@ public class HOKSAMLAssertionBuilderTest {
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         final Conditions conditions = assertion.getConditions();
-        assertTrue(
-                beforeCreation.isBefore(conditions.getNotBefore()) || beforeCreation.isEqual(conditions.getNotBefore()));
-        assertTrue(beforeCreation.isBefore(conditions.getNotOnOrAfter())
-                || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
+
+        assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
+        assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
@@ -476,7 +480,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testEvidanceConditionsNotBeforeAndNotAfterPresent() throws PropertyAccessException {
+    public void testEvidenceConditionsNotBeforeAndNotAfterPresent() throws PropertyAccessException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime conditionNotBefore = new DateTime();
@@ -501,6 +505,7 @@ public class HOKSAMLAssertionBuilderTest {
         final Conditions conditions = assertion.getConditions();
         assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
         assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
+
     }
 
     @Test
@@ -525,7 +530,7 @@ public class HOKSAMLAssertionBuilderTest {
         final Assertion assertion = evidence.getAssertions().get(0);
 
         final Conditions conditions = assertion.getConditions();
-        assertNotNull(conditions);
+        assertNull(conditions);
     }
 
     @Test
@@ -551,7 +556,7 @@ public class HOKSAMLAssertionBuilderTest {
         final Assertion assertion = evidence.getAssertions().get(0);
 
         final Conditions conditions = assertion.getConditions();
-        assertNotNull(conditions);
+        assertNull(conditions);
     }
 
     HOKSAMLAssertionBuilder getHOKSAMLAssertionBuilder() {

@@ -52,15 +52,15 @@ public class PolicyEngineUtil {
         boolean passesPolicyCheck;
         if (assertion != null) {
             passesPolicyCheck = checkUserInfo(assertion.getUserInfo(), sBuilder)
-                    && checkPurposeOfDisclosure(assertion.getPurposeOfDisclosureCoded(), sBuilder)
-                    && checkHomeCommunity(assertion.getHomeCommunity(), sBuilder);
+                && checkPurposeOfDisclosure(assertion.getPurposeOfDisclosureCoded(), sBuilder)
+                && checkHomeCommunity(assertion.getHomeCommunity(), sBuilder);
         } else {
             sBuilder.append("| Assertion check failed. |");
             passesPolicyCheck = false;
         }
 
         DecisionType decision;
-        if(passesPolicyCheck) {
+        if (passesPolicyCheck) {
             decision = DecisionType.PERMIT;
             sBuilder.append("Exiting out from CheckPolicyResponseType without any error");
         } else {
@@ -85,9 +85,8 @@ public class PolicyEngineUtil {
             sBuilder.append("| User Info Check Failed |");
             return false;
         } else {
-            return checkPersonName(userInfo.getPersonName(), sBuilder)
-                    && checkOrg(userInfo.getOrg(), sBuilder)
-                    && checkRoleCoded(userInfo.getRoleCoded(), sBuilder);
+            return checkPersonName(userInfo.getPersonName(), sBuilder) && checkOrg(userInfo.getOrg(), sBuilder)
+                && checkRoleCoded(userInfo.getRoleCoded(), sBuilder);
         }
     }
 
@@ -97,8 +96,8 @@ public class PolicyEngineUtil {
             return false;
         } else {
             return checkString(personName.getFamilyName(), sBuilder, "| FamilyName Check Failed |")
-                    && checkString(personName.getSecondNameOrInitials(), sBuilder, "| SecondNameOrInitials Check Failed |")
-                    && checkString(personName.getGivenName(), sBuilder, "| Given Name Check Failed |");
+                && checkString(personName.getSecondNameOrInitials(), sBuilder, "| SecondNameOrInitials Check Failed |")
+                && checkString(personName.getGivenName(), sBuilder, "| Given Name Check Failed |");
         }
     }
 
@@ -108,7 +107,7 @@ public class PolicyEngineUtil {
             return false;
         } else {
             return checkString(org.getName(), sBuilder, "| HomeCommunity Name Check Failed |")
-                    && checkString(org.getHomeCommunityId(), sBuilder, "| HomeCommunityId Check Failed |");
+                && checkString(org.getHomeCommunityId(), sBuilder, "| HomeCommunityId Check Failed |");
         }
     }
 
@@ -118,9 +117,9 @@ public class PolicyEngineUtil {
             return false;
         } else {
             return checkString(roleCoded.getCode(), sBuilder, "| RoleCoded Code Check Failed |")
-                    && checkString(roleCoded.getCodeSystem(), sBuilder, "| RoleCoded CodeSystem Check Failed |")
-                    && checkString(roleCoded.getCodeSystemName(), sBuilder, "| RoleCoded CodeSystemName Check Failed |")
-                    && checkString(roleCoded.getDisplayName(), sBuilder, "| RoleCoded DisplayName Check Failed |");
+                && checkString(roleCoded.getCodeSystem(), sBuilder, "| RoleCoded CodeSystem Check Failed |")
+                && checkString(roleCoded.getCodeSystemName(), sBuilder, "| RoleCoded CodeSystemName Check Failed |")
+                && checkString(roleCoded.getDisplayName(), sBuilder, "| RoleCoded DisplayName Check Failed |");
         }
     }
 
@@ -130,9 +129,8 @@ public class PolicyEngineUtil {
             return false;
         } else {
             return checkString(purposeOfDisclosureCoded.getCode(), sBuilder, "| PurposeOf Code Check Failed |")
-                    && checkString(purposeOfDisclosureCoded.getCodeSystem(), sBuilder, "| PurposeOf CodeSystem Check Failed |")
-                    && checkString(purposeOfDisclosureCoded.getCodeSystemName(), sBuilder, "| PurposeOf CodeSystemName Check Failed |")
-                    && checkString(purposeOfDisclosureCoded.getDisplayName(), sBuilder, "| PurposeOf DisplayName Check Failed |");
+                && checkString(purposeOfDisclosureCoded.getDisplayName(), sBuilder,
+                    "| PurposeOf DisplayName Check Failed |");
         }
     }
 

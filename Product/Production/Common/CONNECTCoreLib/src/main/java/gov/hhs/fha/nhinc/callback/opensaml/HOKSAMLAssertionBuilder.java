@@ -414,18 +414,19 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         evidenceAssertion.getAttributeStatements().addAll(statements);
 
-        // Following two methods
-        // Only set the default value for
-        // AuthzDecisionStatement->Evidence->Assertion->Conditions--> notBefore(setBeginValidTime)
-        // and notOnOrAfter(setEndValidTime)
-        // attributes if the enableConditionsDefaultValue flag
-        // enabled or not provided in gateway properties
-        if (isConditionsDefaultValueEnabled()) {
-            beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
-            endValidTime = setEndValidTime(endValidTime, issueInstant);
-        }
-        // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
-        if (beginValidTime != null || endValidTime != null) {
+        // Only create the Conditions if NotBefore and NotOnOrAfter is present
+        if (beginValidTime != null && endValidTime != null) {
+            // Following two methods
+            // Only set the default value for
+            // AuthzDecisionStatement->Evidence->Assertion->Conditions--> notBefore(setBeginValidTime)
+            // and notOnOrAfter(setEndValidTime)
+            // attributes if the enableAuthDecEvidenceConditionsDefaultValue flag
+            // enabled or not provided in gateway properties
+            if (isConditionsDefaultValueEnabled() || beginValidTime.isAfter(endValidTime)) {
+                beginValidTime = setBeginValidTime(beginValidTime, issueInstant);
+                endValidTime = setEndValidTime(endValidTime, issueInstant);
+            }
+
             final Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime,
                     endValidTime);
             evidenceAssertion.setConditions(conditions);

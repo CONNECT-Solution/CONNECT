@@ -341,8 +341,6 @@
             <!--Optional:-->
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>?</urn1:code>
-               <urn1:codeSystem>?</urn1:codeSystem>
-               <urn1:codeSystemName>?</urn1:codeSystemName>
                <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
                <urn1:displayName>?</urn1:displayName>
                <urn1:originalText>?</urn1:originalText>
@@ -693,8 +691,6 @@
             <!--Optional:-->
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>?</urn1:code>
-               <urn1:codeSystem>?</urn1:codeSystem>
-               <urn1:codeSystemName>?</urn1:codeSystemName>
                <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
                <urn1:displayName>?</urn1:displayName>
                <urn1:originalText>?</urn1:originalText>
@@ -1027,8 +1023,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -1607,8 +1601,6 @@ if(passthruValue != null){
             <!--Optional:-->
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy notes</urn1:originalText>
@@ -1978,8 +1970,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -2536,8 +2526,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -2964,8 +2952,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -3389,9 +3375,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>PUBLICHEALTH</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
-               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
@@ -3952,8 +3935,6 @@ if(passthruValue != null){
             <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
             <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:code>PUBLICHEALTH</urn3:code>
-               <urn3:codeSystem>2.16.840.1.113883.3.18.7.1</urn3:codeSystem>
-               <urn3:codeSystemName>nhin-purpose</urn3:codeSystemName>
                <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
                <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
                <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
@@ -4296,8 +4277,6 @@ if(passthruValue != null){
             <urn2:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn2:authorized>
             <urn2:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:code>PUBLICHEALTH</urn2:code>
-               <urn2:codeSystem>2.16.840.1.113883.3.18.7.1</urn2:codeSystem>
-               <urn2:codeSystemName>nhin-purpose</urn2:codeSystemName>
                <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
                <urn2:displayName>Use or disclosure of Psychotherapy Notes</urn2:displayName>
                <urn2:originalText>Use or disclosure of Psychotherapy Notes</urn2:originalText>
@@ -4643,8 +4622,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>PSYCHOTHERAPY</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
@@ -5069,8 +5046,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -5647,8 +5622,6 @@ if(passthruValue != null){
             <!--Optional:-->
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy notes</urn1:originalText>
@@ -6017,8 +5990,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -6575,8 +6546,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -7003,8 +6972,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -7428,8 +7395,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>PUBLICHEALTH</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -7991,8 +7956,6 @@ if(passthruValue != null){
             <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
             <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:code>PUBLICHEALTH</urn3:code>
-               <urn3:codeSystem>2.16.840.1.113883.3.18.7.1</urn3:codeSystem>
-               <urn3:codeSystemName>nhin-purpose</urn3:codeSystemName>
                <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
                <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
                <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
@@ -8335,8 +8298,6 @@ if(passthruValue != null){
             <urn2:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn2:authorized>
             <urn2:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:code>PUBLICHEALTH</urn2:code>
-               <urn2:codeSystem>2.16.840.1.113883.3.18.7.1</urn2:codeSystem>
-               <urn2:codeSystemName>nhin-purpose</urn2:codeSystemName>
                <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
                <urn2:displayName>Use or disclosure of Psychotherapy Notes</urn2:displayName>
                <urn2:originalText>Use or disclosure of Psychotherapy Notes</urn2:originalText>
@@ -8682,8 +8643,6 @@ if(passthruValue != null){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>PSYCHOTHERAPY</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
@@ -9084,8 +9043,6 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -9368,8 +9325,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
@@ -9667,8 +9622,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>TREATMENT</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
