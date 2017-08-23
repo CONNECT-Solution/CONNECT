@@ -89,8 +89,8 @@ public class SamlTokenCreator {
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getCode())) {
                         requestContext.put(NhincConstants.USER_CODE_PROP, userInfo.getRoleCoded().getCode());
                     }
-                    requestContext.put(NhincConstants.USER_SYST_PROP, SamlConstants.USER_SYST_ATT);
-                    requestContext.put(NhincConstants.USER_SYST_NAME_PROP, SamlConstants.USER_SYST_NAME_ATT);
+                    requestContext.put(NhincConstants.USER_SYST_PROP, SamlConstants.USER_SYST_ATTR);
+                    requestContext.put(NhincConstants.USER_SYST_NAME_PROP, SamlConstants.USER_SYST_NAME_ATTR);
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getDisplayName())) {
                         requestContext.put(NhincConstants.USER_DISPLAY_PROP, userInfo.getRoleCoded().getDisplayName());
                     }

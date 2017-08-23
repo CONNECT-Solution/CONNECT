@@ -71,16 +71,6 @@ public class PolicyEngineUtilTest {
     }
 
     @Test
-    public void testNoRoleCodeSystemName() {
-        AssertionType assertion = getFullAssertion();
-
-        assertion.getUserInfo().getRoleCoded().setCodeSystemName(null);
-        PolicyEngineUtil util = new PolicyEngineUtil();
-        CheckPolicyResponseType resp = util.checkAssertionAttributeStatement(assertion);
-        assertPermit(resp);
-    }
-
-    @Test
     public void testMissingMultiple() {
         AssertionType assertion = getFullAssertion();
 

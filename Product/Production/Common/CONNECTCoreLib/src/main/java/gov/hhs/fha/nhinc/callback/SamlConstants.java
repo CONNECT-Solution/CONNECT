@@ -100,8 +100,8 @@ public class SamlConstants {
     public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
     public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
-    public static final String USER_SYST_ATT = "2.16.840.1.113883.6.96";
-    public static final String USER_SYST_NAME_ATT = "SNOMED_CT";
+    public static final String USER_SYST_ATTR = "2.16.840.1.113883.6.96";
+    public static final String USER_SYST_NAME_ATTR = "SNOMED_CT";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PURPOSE_SYSTEM_ATTR = "2.16.840.1.113883.3.18.7.1";
     public static final String PURPOSE_SYSTEMNAME_ATTR = "nhin-purpose";
