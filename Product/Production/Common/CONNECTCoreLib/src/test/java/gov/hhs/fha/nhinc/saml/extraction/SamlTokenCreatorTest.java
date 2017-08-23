@@ -321,13 +321,12 @@ public class SamlTokenCreatorTest {
     private void testUserInfoCodeSystemName(Map<String, Object> expectedrequestContext) {
         String userRoleCodeSystemName = "userRoleCodeSystemName";
         assertEquals(testHashmapValues(expectedrequestContext, userRoleCodeSystemName),
-            createAssertionInfo().getUserInfo().getRoleCoded().getCodeSystemName());
+            SamlConstants.USER_SYST_NAME_ATTR);
     }
 
     private void testUserInfoCodeSystem(Map<String, Object> expectedrequestContext) {
         String userRoleCodeSystem = "userRoleCodeSystem";
-        assertEquals(testHashmapValues(expectedrequestContext, userRoleCodeSystem),
-            createAssertionInfo().getUserInfo().getRoleCoded().getCodeSystem());
+        assertEquals(testHashmapValues(expectedrequestContext, userRoleCodeSystem), SamlConstants.USER_SYST_ATTR);
     }
 
     private void testUserInfoCode(Map<String, Object> expectedrequestContext) {

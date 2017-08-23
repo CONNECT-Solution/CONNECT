@@ -117,8 +117,6 @@ public class PolicyEngineUtil {
             return false;
         } else {
             return checkString(roleCoded.getCode(), sBuilder, "| RoleCoded Code Check Failed |")
-                && checkString(roleCoded.getCodeSystem(), sBuilder, "| RoleCoded CodeSystem Check Failed |")
-                && checkString(roleCoded.getCodeSystemName(), sBuilder, "| RoleCoded CodeSystemName Check Failed |")
                 && checkString(roleCoded.getDisplayName(), sBuilder, "| RoleCoded DisplayName Check Failed |");
         }
     }
