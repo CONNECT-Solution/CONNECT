@@ -172,7 +172,7 @@ public class NhincConstants {
 
     // Flag to enable SAML Conditions element default value
     public static final String ENABLE_CONDITIONS_DEFAULT_VALUE = "enableConditionsDefaultValue";
-    
+
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";
     public static final String PATIENT_DISCOVERY_REQUEST_TIMEOUT = "PDRequestTimeout";
@@ -183,20 +183,7 @@ public class NhincConstants {
     // SAML Constants
     public static final String TARGET_API_LEVEL = "targetAPILevel";
     public static final String ISSUE_INSTANT_PROP = "issueInstant";
-    public static final String DOC_QUERY_ACTION = "queryDocuments";
-    public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
-    public static final String PAT_CORR_ACTION = "patientcorrelation";
-    public static final String XDR_REQUEST_ACTION = "xdrrequest";
-    public static final String XDR_RESPONSE_ACTION = "xdrresponse";
-    public static final String USERNAME_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
-    public static final String USER_ORG_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization";
-    public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
-    public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
-    public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
-    public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
-    public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
-    public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
     // Attribute NameID Constants
     public static final String ATTRIBUTE_NAME_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
     public static final String ATTRIBUTE_NAME_SUBJECT_ID_XSPA = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";

@@ -519,10 +519,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         List<AttributeStatement> statements = new ArrayList<>();
         final List<Attribute> attributes = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(accessConstentValues)) {
-            attributes.add(createAttribute(null, NhincConstants.ACCESS_CONSENT_ATTR, namespace, accessConstentValues));
+            attributes.add(createAttribute(null, SamlConstants.ACCESS_CONSENT_ATTR, namespace, accessConstentValues));
         }
         if (CollectionUtils.isNotEmpty(evidenceInstanceAccessConsentValues)) {
-            attributes.add(createAttribute(null, NhincConstants.INST_ACCESS_CONSENT_ATTR, namespace,
+            attributes.add(createAttribute(null, SamlConstants.INST_ACCESS_CONSENT_ATTR, namespace,
                 evidenceInstanceAccessConsentValues));
         }
         if (CollectionUtils.isNotEmpty(attributes)) {

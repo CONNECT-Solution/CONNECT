@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -63,7 +64,7 @@ import org.slf4j.LoggerFactory;
  * @param <Response>
  */
 public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends ResponseWrapper>
-    implements WebServiceClient<Target, Request, Response> {
+implements WebServiceClient<Target, Request, Response> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDClient.class);
     private static RespondingGatewayService serviceInstance = null;
@@ -76,7 +77,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
      * @param assertionType is of type AssertionType
      */
     public PDClient(AssertionType assertionType) {
-        this.assertion = assertionType;
+        assertion = assertionType;
     }
 
     // implement singleton pattern using double null check pattern
@@ -134,8 +135,8 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
                 Map requestContext = ((BindingProvider) servicePort).getRequestContext();
                 requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, serviceAddress);
                 Map samlMap
-                    = (new SamlTokenCreator()).createRequestContext(assertion, serviceAddress,
-                        NhincConstants.PATIENT_DISCOVERY_ACTION);
+                = new SamlTokenCreator().createRequestContext(assertion, serviceAddress,
+                    SamlConstants.PATIENT_DISCOVERY_ACTION);
                 requestContext.putAll(samlMap);
 
                 // ensure target hcid is set on request
@@ -157,8 +158,8 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
             } else {
                 LOG.debug(Thread.currentThread().getName() + " has validPolicy=false");
                 discoveryResponse
-                    = (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(newRequest.getPRPAIN201305UV02(),
-                        NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
+                = new HL7PRPA201306Transforms().createPRPA201306ForErrors(newRequest.getPRPAIN201305UV02(),
+                    NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
             }
         } catch (Exception e) {
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
@@ -197,8 +198,8 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         PRPAIN201305UV02 new201305
-            = new PatientDiscovery201305Processor().createNewRequest(cloneRequest(request.getPRPAIN201305UV02()),
-                urlInfo.getHcid());
+        = new PatientDiscovery201305Processor().createNewRequest(cloneRequest(request.getPRPAIN201305UV02()),
+            urlInfo.getHcid());
 
         newRequest.setAssertion(assertion);
         newRequest.setPRPAIN201305UV02(new201305);
