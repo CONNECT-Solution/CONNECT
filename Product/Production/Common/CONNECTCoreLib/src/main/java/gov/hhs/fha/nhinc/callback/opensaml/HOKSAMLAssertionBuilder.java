@@ -763,14 +763,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     protected boolean isAcpOrIacpExists(final CallbackProperties properties) {
-        final List accessConstentValues = properties.getEvidenceAccessConstent();
-        final List evidenceInstanceAccessConsentValues = properties.getEvidenceInstantAccessConsent();
-
-        //return false if ACP/IACP does not exist
-        //only created the AuthzDecisionStatement if true
-        if(CollectionUtils.isEmpty(accessConstentValues) && CollectionUtils.isEmpty(evidenceInstanceAccessConsentValues)){
-            return Boolean.FALSE;
-        }
-        return Boolean.TRUE;
+        return CollectionUtils.isNotEmpty(properties.getEvidenceAccessConstent())
+            && CollectionUtils.isNotEmpty(properties.getEvidenceInstantAccessConsent());
     }
 }
