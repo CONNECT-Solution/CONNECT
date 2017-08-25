@@ -31,9 +31,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.security.auth.callback.Callback;
@@ -85,7 +85,7 @@ public class CXFSAMLCallbackHandlerTest {
         when(message.get(Message.INBOUND_MESSAGE)).thenReturn(false);
         when(message.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID)).thenReturn("1.1");
         when(message.get(NhincConstants.TARGET_API_LEVEL)).thenReturn("G0");
-        when(message.get(NhincConstants.ACTION_PROP)).thenReturn("Soap Action");
+        when(message.get(SamlConstants.ACTION_PROP)).thenReturn("Soap Action");
         when(builder.build(any(CallbackProperties.class))).thenReturn(assertionElement);
 
         callbackHandler.handle(callbackList);

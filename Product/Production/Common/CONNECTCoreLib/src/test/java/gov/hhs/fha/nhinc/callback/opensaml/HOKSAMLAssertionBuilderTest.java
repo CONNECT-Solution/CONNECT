@@ -60,6 +60,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import static org.junit.Assert.assertNotEquals;
@@ -440,10 +441,16 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime beforeCreation = new DateTime();
         final DateTime conditionNotBefore = new DateTime();
         final DateTime conditionNotAfter = conditionNotBefore.plusMinutes(5);
+        final List<Object> evidenceAccessConstent = new ArrayList<>();
+        final List<Object> evidenceInstantAccessConsent = new ArrayList<>();
+        evidenceAccessConstent.add("urn:oid:1.2.3.4");
+        evidenceInstantAccessConsent.add("urn:oid:1.2.3.4.123456789");
 
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
+        when(callbackProps.getEvidenceAccessConstent()).thenReturn(evidenceAccessConstent);
+        when(callbackProps.getEvidenceInstantAccessConsent()).thenReturn(evidenceInstantAccessConsent);
 
         final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
@@ -772,4 +779,48 @@ public class HOKSAMLAssertionBuilderTest {
             }
         };
     }
+
+    @Test
+    public void testCreateAuthenticationDecisionStatementsWithoutACPorIACP() throws PropertyAccessException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final Subject subject = mock(Subject.class);
+        final DateTime beforeCreation = new DateTime();
+        final DateTime conditionNotBefore = new DateTime();
+        final DateTime conditionNotAfter = conditionNotBefore.plusMinutes(5);
+
+        when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
+        when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
+        when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
+
+        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+            .createAuthorizationDecisionStatements(callbackProps, subject);
+
+        assertFalse(statementList.isEmpty());
+        final AuthzDecisionStatement statement = statementList.get(0);
+        assertEquals(statement.getDecision(), DecisionTypeEnumeration.PERMIT);
+
+        final Action action = statement.getActions().get(0);
+        assertEquals(action.getAction(), SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE);
+
+        final Evidence evidence = statement.getEvidence();
+        final Assertion assertion = evidence.getAssertions().get(0);
+        assertTrue(assertion.getID().startsWith("_"));
+
+        assertTrue(beforeCreation.isBefore(assertion.getIssueInstant())
+            || beforeCreation.isEqual(assertion.getIssueInstant()));
+
+        final Issuer issuer = assertion.getIssuer();
+        assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
+
+        final Conditions conditions = assertion.getConditions();
+        assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
+        assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
+
+        final List<AuthzDecisionStatement> authzDecisionStatements = assertion.getAuthzDecisionStatements();
+        assertTrue(CollectionUtils.isEmpty(authzDecisionStatements));
+
+        final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
+        assertTrue(CollectionUtils.isEmpty(attributeStatement));
+    }
+
 }

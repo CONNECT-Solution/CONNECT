@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class PDDRespPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeci
     protected Map<String, Object> createTokenValues() {
         HashMap<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+        tokenVals.put(SamlConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         return tokenVals;
     }
 }

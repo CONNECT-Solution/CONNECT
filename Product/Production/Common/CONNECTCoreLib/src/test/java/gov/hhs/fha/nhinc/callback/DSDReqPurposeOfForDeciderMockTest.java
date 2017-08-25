@@ -42,7 +42,7 @@ public class DSDReqPurposeOfForDeciderMockTest extends AbstractPurposeOfForDecid
     protected Map<String, Object> createTokenValues() {
         HashMap<String, Object> tokenVals = new HashMap<>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+        tokenVals.put(SamlConstants.ACTION_PROP, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
         return tokenVals;
     }
 }

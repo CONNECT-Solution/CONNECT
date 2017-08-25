@@ -97,7 +97,7 @@ public class CallbackMapPropertiesTest {
         properties.put(SamlConstants.USER_MIDDLE_PROP, MIDDLE_NAME);
         properties.put(SamlConstants.USER_LAST_PROP, LAST_NAME);
         properties.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, TARGET_HCID);
-        properties.put(NhincConstants.ACTION_PROP, ACTION);
+        properties.put(SamlConstants.ACTION_PROP, ACTION);
         properties.put(NhincConstants.SERVICE_NAME, SERVICE);
         properties.put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g1);
         properties.put(SamlConstants.ATTRIBUTE_NAME_NPI, TEST_NPI);

@@ -71,42 +71,42 @@ public class SamlTokenCreator {
             UserType userInfo = assertion.getUserInfo();
             if (userInfo != null) {
                 if (NullChecker.isNotNullish(userInfo.getUserName())) {
-                    requestContext.put(NhincConstants.USER_NAME_PROP, userInfo.getUserName());
+                    requestContext.put(SamlConstants.USER_NAME_PROP, userInfo.getUserName());
                 }
                 HomeCommunityType org = userInfo.getOrg();
                 if (org != null) {
                     String name = org.getName();
                     if (NullChecker.isNotNullish(name)) {
-                        requestContext.put(NhincConstants.USER_ORG_PROP, name);
+                        requestContext.put(SamlConstants.USER_ORG_PROP, name);
                     }
                     if (NullChecker.isNotNullish(org.getHomeCommunityId())) {
-                        requestContext.put(NhincConstants.USER_ORG_ID_PROP, org.getHomeCommunityId());
+                        requestContext.put(SamlConstants.USER_ORG_ID_PROP, org.getHomeCommunityId());
                     }
                 } else {
                     LOG.error("Error: samlSendOperation input assertion user org is null");
                 }
                 if (userInfo.getRoleCoded() != null) {
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getCode())) {
-                        requestContext.put(NhincConstants.USER_CODE_PROP, userInfo.getRoleCoded().getCode());
+                        requestContext.put(SamlConstants.USER_CODE_PROP, userInfo.getRoleCoded().getCode());
                     }
-                    requestContext.put(NhincConstants.USER_SYST_PROP, SamlConstants.USER_SYST_ATTR);
-                    requestContext.put(NhincConstants.USER_SYST_NAME_PROP, SamlConstants.USER_SYST_NAME_ATTR);
+                    requestContext.put(SamlConstants.USER_SYST_PROP, SamlConstants.USER_SYST_ATTR);
+                    requestContext.put(SamlConstants.USER_SYST_NAME_PROP, SamlConstants.USER_SYST_NAME_ATTR);
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getDisplayName())) {
-                        requestContext.put(NhincConstants.USER_DISPLAY_PROP, userInfo.getRoleCoded().getDisplayName());
+                        requestContext.put(SamlConstants.USER_DISPLAY_PROP, userInfo.getRoleCoded().getDisplayName());
                     }
                 } else {
                     LOG.error("Error: samlSendOperation input assertion user info role is null");
                 }
                 if (userInfo.getPersonName() != null) {
                     if (NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())) {
-                        requestContext.put(NhincConstants.USER_FIRST_PROP, userInfo.getPersonName().getGivenName());
+                        requestContext.put(SamlConstants.USER_FIRST_PROP, userInfo.getPersonName().getGivenName());
                     }
                     if (NullChecker.isNotNullish(userInfo.getPersonName().getSecondNameOrInitials())) {
-                        requestContext.put(NhincConstants.USER_MIDDLE_PROP,
+                        requestContext.put(SamlConstants.USER_MIDDLE_PROP,
                             userInfo.getPersonName().getSecondNameOrInitials());
                     }
                     if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
-                        requestContext.put(NhincConstants.USER_LAST_PROP, userInfo.getPersonName().getFamilyName());
+                        requestContext.put(SamlConstants.USER_LAST_PROP, userInfo.getPersonName().getFamilyName());
                     }
                 } else {
                     LOG.error("Error: samlSendOperation input assertion user person name is null");
@@ -117,14 +117,14 @@ public class SamlTokenCreator {
 
             if (assertion.getPurposeOfDisclosureCoded() != null) {
                 if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCode())) {
-                    requestContext.put(NhincConstants.PURPOSE_CODE_PROP,
+                    requestContext.put(SamlConstants.PURPOSE_CODE_PROP,
                         assertion.getPurposeOfDisclosureCoded().getCode());
                 }
 
-                requestContext.put(NhincConstants.PURPOSE_SYST_PROP, SamlConstants.PURPOSE_SYSTEM_ATTR);
-                requestContext.put(NhincConstants.PURPOSE_SYST_NAME_PROP, SamlConstants.PURPOSE_SYSTEMNAME_ATTR);
+                requestContext.put(SamlConstants.PURPOSE_SYST_PROP, SamlConstants.PURPOSE_SYSTEM_ATTR);
+                requestContext.put(SamlConstants.PURPOSE_SYST_NAME_PROP, SamlConstants.PURPOSE_SYSTEMNAME_ATTR);
                 if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getDisplayName())) {
-                    requestContext.put(NhincConstants.PURPOSE_DISPLAY_PROP,
+                    requestContext.put(SamlConstants.PURPOSE_DISPLAY_PROP,
                         assertion.getPurposeOfDisclosureCoded().getDisplayName());
                 }
             } else {
@@ -132,7 +132,7 @@ public class SamlTokenCreator {
             }
             if (assertion.getHomeCommunity() != null) {
                 if (NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
-                    requestContext.put(NhincConstants.HOME_COM_PROP, assertion.getHomeCommunity().getHomeCommunityId());
+                    requestContext.put(SamlConstants.HOME_COM_PROP, assertion.getHomeCommunity().getHomeCommunityId());
                 }
 
             } else {
@@ -142,7 +142,7 @@ public class SamlTokenCreator {
                 // take first non-null item in the List as the identifier
                 for (String patId : assertion.getUniquePatientId()) {
                     if (NullChecker.isNotNullish(patId)) {
-                        requestContext.put(NhincConstants.PATIENT_ID_PROP, patId);
+                        requestContext.put(SamlConstants.PATIENT_ID_PROP, patId);
                         break;
                     }
                 }
@@ -150,101 +150,101 @@ public class SamlTokenCreator {
 
             if (assertion.getSamlIssuer() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
-                    requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
+                    requestContext.put(SamlConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
-                    requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP,
+                    requestContext.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP,
                         assertion.getSamlIssuer().getIssuerFormat());
                 }
             }
-            
+
             if (assertion.getSamlConditions() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlConditions().getNotBefore())) {
-                    requestContext.put(NhincConstants.SAMLCONDITIONS_NOT_BEFORE_PROP,
+                    requestContext.put(SamlConstants.SAMLCONDITIONS_NOT_BEFORE_PROP,
                         assertion.getSamlConditions().getNotBefore());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlConditions().getNotOnOrAfter())) {
-                    requestContext.put(NhincConstants.SAMLCONDITIONS_NOT_AFTER_PROP,
+                    requestContext.put(SamlConstants.SAMLCONDITIONS_NOT_AFTER_PROP,
                         assertion.getSamlConditions().getNotOnOrAfter());
                 }
             }
-            
+
             if (assertion.getSamlAuthnStatement() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
-                    requestContext.put(NhincConstants.AUTHN_INSTANT_PROP,
+                    requestContext.put(SamlConstants.AUTHN_INSTANT_PROP,
                         assertion.getSamlAuthnStatement().getAuthInstant());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getSessionIndex())) {
-                    requestContext.put(NhincConstants.AUTHN_SESSION_INDEX_PROP,
+                    requestContext.put(SamlConstants.AUTHN_SESSION_INDEX_PROP,
                         assertion.getSamlAuthnStatement().getSessionIndex());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthContextClassRef())) {
-                    requestContext.put(NhincConstants.AUTHN_CONTEXT_CLASS_PROP,
+                    requestContext.put(SamlConstants.AUTHN_CONTEXT_CLASS_PROP,
                         assertion.getSamlAuthnStatement().getAuthContextClassRef());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getSubjectLocalityAddress())) {
-                    requestContext.put(NhincConstants.SUBJECT_LOCALITY_ADDR_PROP,
+                    requestContext.put(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP,
                         assertion.getSamlAuthnStatement().getSubjectLocalityAddress());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getSubjectLocalityDNSName())) {
-                    requestContext.put(NhincConstants.SUBJECT_LOCALITY_DNS_PROP,
+                    requestContext.put(SamlConstants.SUBJECT_LOCALITY_DNS_PROP,
                         assertion.getSamlAuthnStatement().getSubjectLocalityDNSName());
                 }
             } else {
                 LOG.error("Error: samlSendOperation input assertion AuthnStatement is null");
             }
             if (assertion.getSamlAuthzDecisionStatement() != null) {
-                requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "true");
+                requestContext.put(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, "true");
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getAction())) {
-                    requestContext.put(NhincConstants.ACTION_PROP,
+                    requestContext.put(SamlConstants.ACTION_PROP,
                         assertion.getSamlAuthzDecisionStatement().getAction());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getDecision())) {
-                    requestContext.put(NhincConstants.AUTHZ_DECISION_PROP,
+                    requestContext.put(SamlConstants.AUTHZ_DECISION_PROP,
                         assertion.getSamlAuthzDecisionStatement().getDecision());
                 }
                 if (assertion.getSamlAuthzDecisionStatement().getEvidence() != null
                     && assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null) {
                     if (NullChecker
                         .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId())) {
-                        requestContext.put(NhincConstants.EVIDENCE_ID_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_ID_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId());
                     }
                     if (NullChecker.isNotNullish(
                         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant())) {
-                        requestContext.put(NhincConstants.EVIDENCE_INSTANT_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_INSTANT_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
                     }
                     if (NullChecker.isNotNullish(
                         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion())) {
-                        requestContext.put(NhincConstants.EVIDENCE_VERSION_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_VERSION_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
                     }
                     if (NullChecker.isNotNullish(
                         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer())) {
-                        requestContext.put(NhincConstants.EVIDENCE_ISSUER_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_ISSUER_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
                     }
                     if (NullChecker.isNotNullish(
                         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat())) {
-                        requestContext.put(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
                     }
                     if (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
                         .isEmpty()) {
-                        requestContext.put(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP, assertion
+                        requestContext.put(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP, assertion
                             .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
                     }
                     if (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
                         .getInstanceAccessConsentPolicy().isEmpty()) {
-                        requestContext.put(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                                .getInstanceAccessConsentPolicy());
+                            .getInstanceAccessConsentPolicy());
                     }
 
                     if (NullChecker.isNotNullish(
                         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject())) {
-                        requestContext.put(NhincConstants.EVIDENCE_SUBJECT_PROP,
+                        requestContext.put(SamlConstants.EVIDENCE_SUBJECT_PROP,
                             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
                     }
 
@@ -254,13 +254,13 @@ public class SamlTokenCreator {
                             .getAssertion().getConditions().getNotBefore())) {
                             requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
                                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                                    .getNotBefore());
+                                .getNotBefore());
                         }
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
                             .getAssertion().getConditions().getNotOnOrAfter())) {
                             requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP,
                                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                                    .getNotOnOrAfter());
+                                .getNotOnOrAfter());
                         }
                     } else {
                         LOG.error(
@@ -270,16 +270,16 @@ public class SamlTokenCreator {
                     LOG.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
                 }
             } else {
-                requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "false");
+                requestContext.put(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, "false");
                 LOG.info("AuthzDecisionStatement is null.  It will not be part of the SAML Assertion");
             }
 
             if (assertion.getSamlIssuer() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
-                    requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
+                    requestContext.put(SamlConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
-                    requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP,
+                    requestContext.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP,
                         assertion.getSamlIssuer().getIssuerFormat());
                 }
             } else {
@@ -291,12 +291,12 @@ public class SamlTokenCreator {
 
         // This will be overwrite any value that is available in
         // assertion.getSamlAuthzDecisionStatement().getResource()
-        requestContext.put(NhincConstants.RESOURCE_PROP, url);
+        requestContext.put(SamlConstants.RESOURCE_PROP, url);
 
         // This will be overwrite any value that is available in
         // assertion.getSamlAuthzDecisionStatement().getAction()
         if (NullChecker.isNotNullish(action)) {
-            requestContext.put(NhincConstants.ACTION_PROP, action);
+            requestContext.put(SamlConstants.ACTION_PROP, action);
         }
 
         if (LOG.isTraceEnabled()) {
