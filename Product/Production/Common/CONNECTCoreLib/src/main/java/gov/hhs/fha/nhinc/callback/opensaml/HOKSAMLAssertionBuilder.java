@@ -756,14 +756,16 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     public static List<Object> checkHcidPrefixInList(final List<Object> valueList){
         List<Object> tempList = new ArrayList<>();
-        for(Object eachValue : valueList){
-            tempList.add(checkPrefixBeforeAppend(eachValue.toString(), NhincConstants.HCID_PREFIX));
+        if (CollectionUtils.isNotEmpty(valueList)) {
+            for (Object eachValue : valueList) {
+                tempList.add(checkPrefixBeforeAppend(eachValue.toString(), NhincConstants.HCID_PREFIX));
+            }
         }
         return tempList;
     }
 
     protected boolean isAcpOrIacpExists(final CallbackProperties properties) {
         return CollectionUtils.isNotEmpty(properties.getEvidenceAccessConstent())
-            && CollectionUtils.isNotEmpty(properties.getEvidenceInstantAccessConsent());
+            || CollectionUtils.isNotEmpty(properties.getEvidenceInstantAccessConsent());
     }
 }
