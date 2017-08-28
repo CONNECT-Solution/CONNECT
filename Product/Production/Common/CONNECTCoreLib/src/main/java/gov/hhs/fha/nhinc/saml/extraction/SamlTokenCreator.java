@@ -262,9 +262,6 @@ public class SamlTokenCreator {
                                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
                                 .getNotOnOrAfter());
                         }
-                    } else {
-                        LOG.error(
-                            "Error: samlSendOperation input assertion AuthzDecisionStatement Evidence Conditions is null");
                     }
                 } else {
                     LOG.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
