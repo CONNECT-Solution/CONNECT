@@ -7043,14 +7043,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:value>19630804</con:value>
     </con:property>
     <con:property>
-      <con:name>City</con:name>
-      <con:value>Melbourne</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Country</con:name>
-      <con:value>US</con:value>
-    </con:property>
-    <con:property>
       <con:name>DateOfSignature</con:name>
       <con:value>20080520</con:value>
     </con:property>
@@ -7139,18 +7131,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:value>D123401</con:value>
     </con:property>
     <con:property>
-      <con:name>NotificationEndpoint</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotifySubscriptionID</con:name>
-      <con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-    </con:property>
-    <con:property>
       <con:name>PatientCorrelationDB</con:name>
       <con:value>patientcorrelationdb</con:value>
     </con:property>
@@ -7187,10 +7167,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:value>123456789</con:value>
     </con:property>
     <con:property>
-      <con:name>State</con:name>
-      <con:value>FL</con:value>
-    </con:property>
-    <con:property>
       <con:name>StreetAddress</con:name>
       <con:value>123 Johnson Rd</con:value>
     </con:property>
@@ -7199,28 +7175,8 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:value>D123401</con:value>
     </con:property>
     <con:property>
-      <con:name>SubscribePatientID</con:name>
-      <con:value>D123401</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionDB</con:name>
-      <con:value>subscriptionrepository</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionManagerEndpointAddress</con:name>
-      <con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-    </con:property>
-    <con:property>
-      <con:name>SubscriptionTable</con:name>
-      <con:value>subscription</con:value>
-    </con:property>
-    <con:property>
       <con:name>UniquePatientId</con:name>
       <con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-    </con:property>
-    <con:property>
-      <con:name>UnSubscriptionID</con:name>
-      <con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value>
     </con:property>
     <con:property>
       <con:name>ZipCode</con:name>
