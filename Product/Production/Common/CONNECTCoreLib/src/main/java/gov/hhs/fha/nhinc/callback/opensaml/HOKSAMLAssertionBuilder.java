@@ -182,7 +182,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         if (!(StringUtils.isNotBlank(sIssuer) && checkDistinguishedName(sIssuer))) {
             if (certificate != null) {
-                sIssuer = certificate.getSubjectDN().getName();
+                sIssuer = certificate.getSubjectX500Principal().getName();
             } else {
                 sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
             }
