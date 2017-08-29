@@ -126,6 +126,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * The builder factory.
      */
+    private static final String PROPERTY_FILE_NAME = "assertioninfo";
 
     private static final Logger LOG = LoggerFactory.getLogger(OpenSAML2ComponentBuilder.class);
 
@@ -275,8 +276,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             subject = SAML2ComponentBuilder.createSaml2Subject(subjectBean);
             subject.setNameID(createNameID(X509_NAME_ID, x509Name));
             subject.getSubjectConfirmations().remove(0);// remove send-vouches
+            String subjectConfMethod = setSubjectConfMethod();
             final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(publicKey);
-            final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
+            final SubjectConfirmation subjectConfirmation = createSubjConfMethod(subjectConfirmationData,
+                subjectConfMethod);
             subject.getSubjectConfirmations().add(subjectConfirmation);
         } catch (SecurityException | WSSecurityException e) {
             LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
@@ -286,10 +289,20 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     }
 
     /**
-     * Returns subject Confirmation Data
+     * Returns subject Confirmation
      */
-    private static SubjectConfirmation createHoKConfirmation(final SubjectConfirmationData subjectConfirmationData)
-        throws SAMLComponentBuilderException {
+    private static SubjectConfirmation createSubjConfMethod(final SubjectConfirmationData subjectConfirmationData,
+        String subjConfMethod) throws SAMLComponentBuilderException {
+        if (subjConfMethod == "holderofkey") {
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_HOLDER_OF_KEY,
+                subjectConfirmationData);
+        } else if (subjConfMethod == "sender-vouches") {
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_SENDER_VOUCHES,
+                subjectConfirmationData);
+        } else if (subjConfMethod == "bearer") {
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_BEARER,
+                subjectConfirmationData);
+        }
         return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_HOLDER_OF_KEY,
             subjectConfirmationData);
     }
@@ -762,5 +775,17 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             Arrays.asList(organizationId));
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         return statements;
+    }
+
+    private static String setSubjectConfMethod() {
+        PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+        String result = null;
+        try {
+            result = propertyAccessor.getProperty(PROPERTY_FILE_NAME, "SubjectConfirmationMethod");
+        } catch (PropertyAccessException ex) {
+            LOG.error("Can not access assertioninfo property file: {}", ex.getLocalizedMessage(), ex);
+            // result = "ho;
+        }
+        return result;
     }
 }
