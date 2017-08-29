@@ -100,8 +100,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         LOG.debug("SamlCallbackHandler.createHOKSAMLAssertion20()");
         Element signedAssertion = null;
         try {
-            Assertion assertion;
-            assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
+            final X509Certificate certificate = certificateManager.getDefaultCertificate();
+            final PublicKey publicKey = certificateManager.getDefaultPublicKey();
+            final PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
+            Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -119,24 +121,18 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertion.setIssueInstant(issueInstant);
 
             // set issuer
-            assertion.setIssuer(createIssuer(properties));
-
-            final X509Certificate certificate = certificateManager.getDefaultCertificate();
-            final PublicKey publicKey = certificateManager.getDefaultPublicKey();
+            assertion.setIssuer(createIssuer(properties, certificate));
 
             // set subject
-            final Subject subject = createSubject(properties, certificate, publicKey);
-            assertion.setSubject(subject);
+            assertion.setSubject(createSubject(properties, certificate, publicKey));
 
             // add conditions statement
-            final Conditions conditions = createConditions(properties);
-            assertion.setConditions(conditions);
+            assertion.setConditions(createConditions(properties));
 
             // add attribute statements
-            final Subject evidenceSubject = createEvidenceSubject(properties, certificate, publicKey);
-            assertion.getStatements().addAll(createAttributeStatements(properties, evidenceSubject));
+            assertion.getStatements().addAll(
+                createAttributeStatements(properties, createEvidenceSubject(properties, certificate, publicKey)));
 
-            final PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
             // sign the message
             signedAssertion = sign(assertion, certificate, privateKey, publicKey);
         } catch (final SAMLComponentBuilderException | CertificateManagerException ex) {
@@ -176,24 +172,26 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     }
 
-    protected Issuer createIssuer(final CallbackProperties properties) {
-        Issuer issuer;
-        final String format = properties.getAssertionIssuerFormat();
-        if (format != null) {
-            LOG.debug("Setting Assertion Issuer format to: {}", format);
-            final String sIssuer = properties.getIssuer();
-            LOG.debug("Setting Assertion Issuer to: {}", sIssuer);
-            if (isValidNameidFormat(format)) {
-                issuer = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
-            } else {
-                LOG.debug("Not in valid listing of formats: Using default issuer");
-                issuer = OpenSAML2ComponentBuilder.getInstance().createDefaultIssuer();
-            }
-        } else {
-            LOG.debug("Assertion issuer not defined: Using default issuer");
-            issuer = OpenSAML2ComponentBuilder.getInstance().createDefaultIssuer();
+    protected Issuer createIssuer(final CallbackProperties properties, final X509Certificate certificate) {
+        String format = properties.getAssertionIssuerFormat();
+        String sIssuer = properties.getIssuer();
+
+        if (!(StringUtils.isNotBlank(format) && isValidNameidFormat(format))) {
+            format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
         }
-        return issuer;
+
+        if (!(StringUtils.isNotBlank(sIssuer) && checkDistinguishedName(sIssuer))) {
+            if (certificate != null) {
+                sIssuer = certificate.getSubjectX500Principal().getName();
+            } else {
+                sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+            }
+        }
+
+        LOG.debug("Setting Assertion Issuer format to: {}", format);
+        LOG.debug("Setting Assertion Issuer to: {}", sIssuer);
+
+        return OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
     }
 
     /**
