@@ -103,8 +103,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final X509Certificate certificate = certificateManager.getDefaultCertificate();
             final PublicKey publicKey = certificateManager.getDefaultPublicKey();
             final PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
-            Assertion assertion;
-            assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
+            Assertion assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -183,7 +182,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         if (!(StringUtils.isNotBlank(sIssuer) && checkDistinguishedName(sIssuer))) {
             if (certificate != null) {
-                sIssuer = certificate.getIssuerDN().getName();
+                sIssuer = certificate.getSubjectDN().getName();
             } else {
                 sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
             }
