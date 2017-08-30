@@ -276,7 +276,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             subject = SAML2ComponentBuilder.createSaml2Subject(subjectBean);
             subject.setNameID(createNameID(X509_NAME_ID, x509Name));
             subject.getSubjectConfirmations().remove(0);// remove send-vouches
-            String subjectConfMethod = setSubjectConfMethod();
+            final String subjectConfMethod = setSubjectConfMethod();
+            LOG.info("SubjectConfirmationMethod: {}", subjectConfMethod);
             final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(publicKey);
             final SubjectConfirmation subjectConfirmation = createSubjConfMethod(subjectConfirmationData,
                 subjectConfMethod);
@@ -784,8 +785,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             result = propertyAccessor.getProperty(PROPERTY_FILE_NAME, "SubjectConfirmationMethod");
         } catch (PropertyAccessException ex) {
             LOG.error("Can not access assertioninfo property file: {}", ex.getLocalizedMessage(), ex);
-            // result = "ho;
         }
+        LOG.info("SubjectConfirmationMethod: {}", result);
         return result;
     }
 }
