@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -85,6 +86,10 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP.
      */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
+    
+    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
+            NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
+            NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
 
     /**
      * The property accessor.
@@ -296,7 +301,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             }
         }
 
-        Set<String> missingAttrs = new HashSet<>(NhincConstants.VALIDATED_ATTRIBUTES);
+        Set<String> missingAttrs = new HashSet<>(VALIDATED_ATTRIBUTES);
         missingAttrs.removeAll(foundAttr);
 
         if (CollectionUtils.isNotEmpty(missingAttrs)) {
@@ -322,9 +327,9 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         return true;
     }
     
-    private boolean containsCodeQName(AttributeMap unknownAttributes) {
+    private static boolean containsCodeQName(AttributeMap unknownAttributes) {
         for(QName qName : unknownAttributes.keySet()) {
-            if(qName.getLocalPart().equals(NhincConstants.CE_CODE_ID)) {
+            if(NhincConstants.CE_CODE.equals(qName.getLocalPart())) {
                 return true;
             }
         }
@@ -362,7 +367,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         try {
             validate = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.VALIDATE_ATTRIBUTES_PROP);
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to access property for validating SAML attributes due to: {}", ex.getLocalizedMessage());
+            LOG.warn("Unable to access property for validating SAML attributes due to: {}", ex.getLocalizedMessage(), ex);
         }
 
         return validate;

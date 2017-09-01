@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -68,8 +67,6 @@ import org.junit.Test;
 import org.opensaml.core.xml.XMLObjectBuilderFactory;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.UnmarshallingException;
-import org.opensaml.core.xml.schema.XSAny;
-import org.opensaml.core.xml.schema.impl.XSAnyBuilder;
 import org.opensaml.saml.common.SAMLObjectBuilder;
 import org.opensaml.saml.common.SAMLObjectContentReference;
 import org.opensaml.saml.common.SAMLVersion;
@@ -88,6 +85,10 @@ import org.w3c.dom.Element;
 
 public class CONNECTSamlAssertionValidatorTest {
 
+    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
+            NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
+            NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
+    
     @Test
     public void testValidateAssertionSaml1() throws WSSecurityException {
         final org.opensaml.saml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml.saml1.core.Assertion.class);
@@ -445,7 +446,7 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Object> values = new ArrayList<>();
         values.add("value");
         List<Attribute> attributes = new ArrayList<>();
-        for (String name : NhincConstants.VALIDATED_ATTRIBUTES) {
+        for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
             attributes.add(attr);
         }
@@ -501,7 +502,7 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Object> values = new ArrayList<>();
         values.add("value");
         List<Attribute> attributes = new ArrayList<>();
-        for (String name : NhincConstants.VALIDATED_ATTRIBUTES) {
+        for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr;
             if (name.equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
                 attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", new ArrayList<>());
@@ -533,7 +534,7 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Object> values = new ArrayList<>();
         values.add("value");
         List<Attribute> attributes = new ArrayList<>();
-        for (String name : NhincConstants.VALIDATED_ATTRIBUTES) {
+        for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr;
             if (name.equals(NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
                 attr = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(null, null, null, null);
