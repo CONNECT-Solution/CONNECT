@@ -310,7 +310,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         }
     }
 
-    private boolean isAttributeValueValid(XMLObject value, String name) {
+    private static boolean isAttributeValueValid(XMLObject value, String name) {
         if (value instanceof XSStringImpl) {
             return NullChecker.isNotNullish(((XSStringImpl) value).getValue());
         } else if (value instanceof XSAnyImpl) {
