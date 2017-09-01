@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -46,8 +48,11 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.InputStream;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.xml.namespace.QName;
 import net.shibboleth.utilities.java.support.xml.BasicParserPool;
 import net.shibboleth.utilities.java.support.xml.XMLParserException;
@@ -55,14 +60,22 @@ import org.apache.wss4j.common.crypto.Crypto;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SAMLKeyInfo;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
 import org.apache.wss4j.dom.handler.RequestData;
 import org.apache.wss4j.dom.validate.Credential;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.opensaml.core.xml.XMLObjectBuilderFactory;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.UnmarshallingException;
+import org.opensaml.core.xml.schema.XSAny;
+import org.opensaml.core.xml.schema.impl.XSAnyBuilder;
+import org.opensaml.saml.common.SAMLObjectBuilder;
 import org.opensaml.saml.common.SAMLObjectContentReference;
 import org.opensaml.saml.common.SAMLVersion;
 import org.opensaml.saml.saml1.core.Statement;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.NameID;
 import org.opensaml.saml.saml2.core.Subject;
@@ -72,7 +85,6 @@ import org.opensaml.xmlsec.signature.support.ContentReference;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 
 public class CONNECTSamlAssertionValidatorTest {
 
@@ -94,14 +106,20 @@ public class CONNECTSamlAssertionValidatorTest {
         final List<Statement> statementList = new ArrayList<>();
         statementList.add(statement);
         when(saml1Assertion.getStatements()).thenReturn(statementList);
-        final Signature signature = mock(Signature.class,RETURNS_DEEP_STUBS);
+        final Signature signature = mock(Signature.class, RETURNS_DEEP_STUBS);
         final List<ContentReference> content = mock(List.class);
-        final SAMLObjectContentReference b = mock (SAMLObjectContentReference.class);
+        final SAMLObjectContentReference b = mock(SAMLObjectContentReference.class);
         b.setDigestAlgorithm(SignatureConstants.ALGO_ID_DIGEST_SHA1);
         when(signature.getContentReferences()).thenReturn(content);
-        when((SAMLObjectContentReference)content.get(0)).thenReturn(b);
+        when((SAMLObjectContentReference) content.get(0)).thenReturn(b);
         assertion.setSignature(signature);
-        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
+        };
 
         validator.validateAssertion(assertion);
         verify(assertion).validateSignatureAgainstProfile();
@@ -120,7 +138,12 @@ public class CONNECTSamlAssertionValidatorTest {
         when(saml1Assertion.getID()).thenReturn(null);
         final Signature signature = new SignatureBuilder().buildObject();
         when(assertion.getSignature()).thenReturn(signature);
-        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
+        };
         validator.validateAssertion(assertion);
     }
 
@@ -157,6 +180,11 @@ public class CONNECTSamlAssertionValidatorTest {
                 return getSaml2DefaultAssertionSpecValidators();
             }
 
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
+
         };
 
         validator.validateAssertion(assertion);
@@ -166,8 +194,8 @@ public class CONNECTSamlAssertionValidatorTest {
 
     @Test
     public void testValidateAssertionSaml2_blankResource()
-        throws WSSecurityException, XMLParserException,
-        UnmarshallingException, XMLConfigurationException, ComponentInitializationException {
+            throws WSSecurityException, XMLParserException,
+            UnmarshallingException, XMLConfigurationException, ComponentInitializationException {
         final String inCommonMDFile = "authFrameworkAssertion.xml";
         // Get parser pool manager
         final BasicParserPool ppMgr = new BasicParserPool();
@@ -187,13 +215,18 @@ public class CONNECTSamlAssertionValidatorTest {
             protected Collection<Saml2ExchangeAuthFrameworkValidator> getSaml2SpecValidators() {
                 return getSaml2DefaultAssertionSpecValidators();
             }
+
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
         };
 
         validator.validateAssertion(assertion);
     }
 
     @Test(expected = WSSecurityException.class)
-    public void testValidateAssertionSaml2_ValidationFails() throws WSSecurityException{
+    public void testValidateAssertionSaml2_ValidationFails() throws WSSecurityException {
         final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
         final SamlAssertionWrapper assertion = new SamlAssertionWrapper(saml2Assertion);
         final org.opensaml.saml.saml2.core.Issuer issuer = mock(org.opensaml.saml.saml2.core.Issuer.class);
@@ -202,12 +235,17 @@ public class CONNECTSamlAssertionValidatorTest {
         when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
         when(saml2Assertion.getIssuer()).thenReturn(issuer);
         when(saml2Assertion.getIssuer().getFormat())
-        .thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
+                .thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
 
         final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
             protected Collection<Saml2ExchangeAuthFrameworkValidator> getSaml2SpecValidators() {
                 return getSaml2DefaultAssertionSpecValidators();
+            }
+
+            @Override
+            protected boolean validateAttributes() {
+                return false;
             }
         };
 
@@ -232,6 +270,11 @@ public class CONNECTSamlAssertionValidatorTest {
             protected Collection<Saml2ExchangeAuthFrameworkValidator> getSaml2SpecValidators() {
                 return getSaml2DefaultAssertionSpecValidators();
             }
+
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
         };
 
         validator.validateAssertion(assertion);
@@ -245,15 +288,20 @@ public class CONNECTSamlAssertionValidatorTest {
             protected Collection<Saml2ExchangeAuthFrameworkValidator> getSaml2DefaultAssertionSpecValidators() {
                 return null;
             }
+
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
         };
 
         when(propAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "allowNoSubjectAssertion"))
-        .thenReturn(true, false);
+                .thenReturn(true, false);
 
         Collection<Saml2ExchangeAuthFrameworkValidator> validators = connectValidator.getSaml2SpecValidators();
         Saml2ExchangeAuthFrameworkValidator validator = null;
         for (final Saml2ExchangeAuthFrameworkValidator v : validators) {
-            if (v instanceof Saml2ExchangeAuthFrameworkValidator){
+            if (v instanceof Saml2ExchangeAuthFrameworkValidator) {
                 validator = v;
             }
         }
@@ -296,8 +344,13 @@ public class CONNECTSamlAssertionValidatorTest {
         final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
             protected void checkSignedAssertion(final SamlAssertionWrapper assertion, final RequestData data)
-                throws WSSecurityException {
+                    throws WSSecurityException {
                 checkedSignedAssertion.add(true);
+            }
+
+            @Override
+            protected boolean validateAttributes() {
+                return false;
             }
         };
 
@@ -323,7 +376,12 @@ public class CONNECTSamlAssertionValidatorTest {
         when(keyInfo.getPublicKey()).thenReturn(publicKey);
         when(data.getDecCrypto()).thenReturn(crypto);
 
-        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
+        };
 
         validator.checkSignedAssertion(assertion, data);
 
@@ -344,7 +402,12 @@ public class CONNECTSamlAssertionValidatorTest {
         when(keyInfo.getPublicKey()).thenReturn(publicKey);
         when(data.getSigVerCrypto()).thenReturn(crypto);
 
-        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
+        };
 
         validator.checkSignedAssertion(assertion, data);
 
@@ -361,9 +424,134 @@ public class CONNECTSamlAssertionValidatorTest {
 
         when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
 
-        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected boolean validateAttributes() {
+                return false;
+            }
+        };
 
         validator.checkSignedAssertion(assertion, data);
+    }
+
+    @Test
+    public void testValidateAttributes() throws WSSecurityException {
+        final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
+        final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
+        final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
+        final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
+                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+
+        List<Object> values = new ArrayList<>();
+        values.add("value");
+        List<Attribute> attributes = new ArrayList<>();
+        for (String name : NhincConstants.VALIDATED_ATTRIBUTES) {
+            Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
+            attributes.add(attr);
+        }
+
+        final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
+        attributeStatement.getAttributes().addAll(attributes);
+        List<AttributeStatement> statements = new ArrayList<>();
+        statements.add(attributeStatement);
+
+        when(saml2Assertion.getAttributeStatements()).thenReturn(statements);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        validator.checkAttributes(assertionWrapper);
+    }
+
+    @Test(expected = WSSecurityException.class)
+    public void testValidateMissingAttributesFail() throws WSSecurityException {
+        final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
+        final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
+        final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
+        final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
+                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+
+        List<Object> values = new ArrayList<>();
+        values.add("value");
+
+        Set<String> partialList = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID));
+        List<Attribute> attributes = new ArrayList<>();
+        for (String name : partialList) {
+            Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
+            attributes.add(attr);
+        }
+
+        final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
+        attributeStatement.getAttributes().addAll(attributes);
+        List<AttributeStatement> statements = new ArrayList<>();
+        statements.add(attributeStatement);
+
+        when(saml2Assertion.getAttributeStatements()).thenReturn(statements);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        validator.checkAttributes(assertionWrapper);
+    }
+
+    @Test(expected = WSSecurityException.class)
+    public void testValidateAttributes_AttributeMissingStringValue() throws WSSecurityException {
+        final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
+        final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
+        final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
+        final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
+                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+
+        List<Object> values = new ArrayList<>();
+        values.add("value");
+        List<Attribute> attributes = new ArrayList<>();
+        for (String name : NhincConstants.VALIDATED_ATTRIBUTES) {
+            Attribute attr;
+            if (name.equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
+                attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", new ArrayList<>());
+            } else {
+                attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
+            }
+            attributes.add(attr);
+        }
+
+        final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
+        attributeStatement.getAttributes().addAll(attributes);
+        List<AttributeStatement> statements = new ArrayList<>();
+        statements.add(attributeStatement);
+
+        when(saml2Assertion.getAttributeStatements()).thenReturn(statements);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        validator.checkAttributes(assertionWrapper);
+    }
+    
+    @Test(expected = WSSecurityException.class)
+    public void testValidateAttributes_AttributeMissingXMLObjectValue() throws WSSecurityException {
+        final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
+        final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
+        final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
+        final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
+                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+
+        List<Object> values = new ArrayList<>();
+        values.add("value");
+        List<Attribute> attributes = new ArrayList<>();
+        for (String name : NhincConstants.VALIDATED_ATTRIBUTES) {
+            Attribute attr;
+            if (name.equals(NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
+                attr = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(null, null, null, null);
+            } else {
+                attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
+            }
+            attributes.add(attr);
+        }
+
+        final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
+        attributeStatement.getAttributes().addAll(attributes);
+        List<AttributeStatement> statements = new ArrayList<>();
+        statements.add(attributeStatement);
+
+        when(saml2Assertion.getAttributeStatements()).thenReturn(statements);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        validator.checkAttributes(assertionWrapper);
     }
 
 }
