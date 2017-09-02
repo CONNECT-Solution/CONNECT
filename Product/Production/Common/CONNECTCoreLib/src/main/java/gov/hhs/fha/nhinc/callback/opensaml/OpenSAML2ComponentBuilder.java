@@ -107,6 +107,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
 
     /**
+     * Property file for subject element.
+     */
+    private static final String PROPERTY_FILE_NAME = "assertioninfo";
+    /**
      * The evidence builder.
      */
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
@@ -357,7 +361,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         try {
             final SubjectConfirmationDataBean subjectConfirmationDataBean = new SubjectConfirmationDataBean();
             final KeyInfoBean keyInforBean = null;
-            subjectConfirmationDataBean.setAddress("127.0.0.1");
+            String subjConfSvAddress = new String("127.0.0.1");
+            subjectConfirmationDataBean.setAddress(subjConfSvAddress);
             subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean,
                 keyInforBean);
         } catch (SecurityException | WSSecurityException e) {
@@ -838,7 +843,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     private static String setSubjectConfMethod() {
         PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
         String result = null;
-        String PROPERTY_FILE_NAME = "assertioninfo";
+        // String PROPERTY_FILE_NAME = "assertioninfo";
         try {
             result = propertyAccessor.getProperty(PROPERTY_FILE_NAME, "SubjectConfirmationMethod");
         } catch (PropertyAccessException ex) {
