@@ -383,12 +383,10 @@ public class HL7Parser201305 {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
                 LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                 telecom = telecomValue.getValue();
-                if (telecom != null) {
-                    if (!telecom.startsWith("tel:")) {
-                        // telecom is not valid without tel: prefix
-                        telecom = null;
-                        LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
-                    }
+                if (telecom != null && !telecom.startsWith("tel:")) {
+                    // telecom is not valid without tel: prefix
+                    telecom = null;
+                    LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
                 }
             } else {
                 LOG.info("message does not contain a patientTelecom");
