@@ -28,13 +28,18 @@ package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
@@ -45,6 +50,13 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.apache.wss4j.dom.handler.RequestData;
 import org.apache.wss4j.dom.validate.Credential;
 import org.apache.wss4j.dom.validate.SamlAssertionValidator;
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.schema.impl.XSAnyImpl;
+import org.opensaml.core.xml.schema.impl.XSStringImpl;
+import org.opensaml.core.xml.util.AttributeMap;
+import org.opensaml.saml.saml2.core.Assertion;
+import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.core.AttributeStatement;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,21 +66,34 @@ import org.slf4j.LoggerFactory;
  *
  * {@inheritDoc}
  *
- * In addition, this class can be configured to allow Assertions with No Subjects. This is required for interoperability
- * with previous CONNECT gateways.
+ * In addition, this class can be configured to allow Assertions with No
+ * Subjects. This is required for interoperability with previous CONNECT
+ * gateways.
  */
 public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
-    /** The Constant LOG. */
+    /**
+     * The Constant LOG.
+     */
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTSamlAssertionValidator.class);
 
-    /** The Constant String literal */
+    /**
+     * The Constant String literal
+     */
     private static final String IS_PRESENT = "is present.";
 
-    /** The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP. */
+    /**
+     * The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP.
+     */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
+    
+    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
+            NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
+            NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
 
-    /** The property accessor. */
+    /**
+     * The property accessor.
+     */
     private final PropertyAccessor propertyAccessor;
 
     /**
@@ -120,29 +145,30 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         if (SamlConstants.URN_OASIS_NAMES.equals(issuer.getFormat())) {
             if (StringUtils.isNotBlank(issuer.getSPProvidedID())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_SPPROVIDEDID));
+                        getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_SPPROVIDEDID));
             }
             if (StringUtils.isNotBlank(issuer.getNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_NAME_QUALIFIER));
+                        getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_NAME_QUALIFIER));
             }
             if (StringUtils.isNotBlank(issuer.getSPNameQualifier())) {
                 throw new WSSecurityException(ErrorCode.FAILED_CHECK,
-                    getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_SPNAME_QUALIFIER));
+                        getCustomErrorMsg(SamlConstants.SECURITY_ASSERTION_SPNAME_QUALIFIER));
             }
         }
     }
 
     /**
-     * Generate custom error msg based on template for validating assertion issuer
+     * Generate custom error msg based on template for validating assertion
+     * issuer
      *
      * @param errorType error type
      * @return custom error msg
      */
     private static String getCustomErrorMsg(final String errorType) {
         return new StringBuilder(SamlConstants.SECURITY_ASSERTION_ISSUER_FORMAT).append("").append(" ")
-            .append(SamlConstants.URN_OASIS_NAMES).append(" and ").append(errorType).append(" ").append(IS_PRESENT)
-            .toString();
+                .append(SamlConstants.URN_OASIS_NAMES).append(" and ").append(errorType).append(" ").append(IS_PRESENT)
+                .toString();
     }
 
     /**
@@ -162,7 +188,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
     protected Collection<Saml2ExchangeAuthFrameworkValidator> getSaml2SpecValidators() {
         try {
             final Boolean allowNoSubjectAssertion = propertyAccessor
-                .getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, ALLOW_NO_SUBJECT_ASSERTION_PROP);
+                    .getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, ALLOW_NO_SUBJECT_ASSERTION_PROP);
 
             if (allowNoSubjectAssertion) {
                 return getSaml2AllowNoSubjectAssertionSpecValidators();
@@ -190,7 +216,6 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      *
      * @return the saml2 allow no subject assertion spec validator
      */
-
     protected Saml2ExchangeAuthFrameworkValidator getSaml2AllowNoSubjectAssertionSpecValidator() {
         return new Saml2AllowNoSubjectAssertionSpecValidator();
     }
@@ -244,8 +269,8 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @param confirmMethod
      * @throws WSSecurityException
      */
-    private static void checkAssertion(SamlAssertionWrapper assertion, String confirmMethod)
-        throws WSSecurityException {
+    private void checkAssertion(SamlAssertionWrapper assertion, String confirmMethod)
+            throws WSSecurityException {
         if (OpenSAMLUtil.isMethodHolderOfKey(confirmMethod)) {
             if (assertion.getSubjectKeyInfo() == null) {
                 LOG.info("There is no Subject KeyInfo to match the holder-of-key subject conf method");
@@ -258,6 +283,57 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             }
         }
 
+        if (validateAttributes()) {
+            checkAttributes(assertion);
+        }
+    }
+
+    public void checkAttributes(SamlAssertionWrapper assertion) throws WSSecurityException {
+        Assertion saml2Assertion = assertion.getSaml2();
+        Set<String> foundAttr = new HashSet<>();
+
+        for (AttributeStatement statement : saml2Assertion.getAttributeStatements()) {
+            for (Attribute attribute : statement.getAttributes()) {
+                if (CollectionUtils.isNotEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
+                        && isAttributeValueValid(attribute.getAttributeValues().get(0), attribute.getName())) {
+                    foundAttr.add(attribute.getName());
+                }
+            }
+        }
+
+        Set<String> missingAttrs = new HashSet<>(VALIDATED_ATTRIBUTES);
+        missingAttrs.removeAll(foundAttr);
+
+        if (CollectionUtils.isNotEmpty(missingAttrs)) {
+            LOG.error("Missing Required Attributes: {}", missingAttrs);
+            throw new WSSecurityException(ErrorCode.FAILED_CHECK, "missingRequiredSAMLAttribute");
+        }
+    }
+
+    private static boolean isAttributeValueValid(XMLObject value, String name) {
+        if (value instanceof XSStringImpl) {
+            return NullChecker.isNotNullish(((XSStringImpl) value).getValue());
+        } else if (value instanceof XSAnyImpl) {
+            if (CollectionUtils.isNotEmpty(((XSAnyImpl) value).getUnknownXMLObjects())
+                    && ((XSAnyImpl) value).getUnknownXMLObjects().get(0) instanceof XSAnyImpl) {
+                XSAnyImpl attributeValues = (XSAnyImpl) ((XSAnyImpl) value).getUnknownXMLObjects().get(0);
+                if (!attributeValues.getUnknownAttributes().isEmpty()) {
+                    return containsCodeQName(attributeValues.getUnknownAttributes());
+                } 
+            }
+            return false;
+        }
+        LOG.warn("Unknown type of Attribute object for name: {}, default to add to found list.", name);
+        return true;
+    }
+    
+    private static boolean containsCodeQName(AttributeMap unknownAttributes) {
+        for(QName qName : unknownAttributes.keySet()) {
+            if(NhincConstants.CE_CODE.equals(qName.getLocalPart())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -268,7 +344,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * @throws WSSecurityException the wS security exception
      */
     protected void checkSignedAssertion(final SamlAssertionWrapper assertion, final RequestData data)
-        throws WSSecurityException {
+            throws WSSecurityException {
 
         final SAMLKeyInfo samlKeyInfo = assertion.getSignatureKeyInfo();
         final X509Certificate[] certs = samlKeyInfo.getCerts();
@@ -279,11 +355,22 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         } catch (final WSSecurityException e) {
             if (certs == null && publicKey != null) {
                 LOG.warn("Could not establish trust of the signature's public key because no matching public key "
-                    + "exists in the truststore. Please see GATEWAY-3146 for more details.");
+                        + "exists in the truststore. Please see GATEWAY-3146 for more details.");
             } else {
                 throw e;
             }
         }
+    }
+
+    protected boolean validateAttributes() {
+        boolean validate = false;
+        try {
+            validate = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.VALIDATE_ATTRIBUTES_PROP);
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access property for validating SAML attributes due to: {}", ex.getLocalizedMessage(), ex);
+        }
+
+        return validate;
     }
 
 }

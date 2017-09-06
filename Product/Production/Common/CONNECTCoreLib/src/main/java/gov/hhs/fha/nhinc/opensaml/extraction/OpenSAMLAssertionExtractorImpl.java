@@ -272,7 +272,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private static String getAttributeValue(Attribute attribute) {
-        return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
+        if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
+                && attribute.getAttributeValues().get(0).getDOM() != null
+                && attribute.getAttributeValues().get(0).getDOM().getTextContent() != null) {
+            return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -448,17 +454,20 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      */
     private static void populatePurposeOfUseAttribute(final Attribute attribute, final AssertionType target) {
 
-        LOG.debug("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
+        LOG.trace("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
-        CeType purposeOfUse = new CeType();
+        if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
+                && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
 
-        XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
-        XMLObject purposeOfUseElement = purposeOfUseAttribute.getOrderedChildren().get(0);
+            CeType purposeOfUse = new CeType();
+            XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
+            XMLObject purposeOfUseElement = purposeOfUseAttribute.getOrderedChildren().get(0);
 
-        populateCeType((XSAny) purposeOfUseElement, purposeOfUse);
-        target.setPurposeOfDisclosureCoded(purposeOfUse);
+            populateCeType((XSAny) purposeOfUseElement, purposeOfUse);
+            target.setPurposeOfDisclosureCoded(purposeOfUse);
+        }
 
-        LOG.debug("end populatePurposeOfUseAttribute()");
+        LOG.trace("end populatePurposeOfUseAttribute()");
     }
 
     /**
@@ -564,14 +573,17 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param target target assertion
      */
     private static void populateSubjectRole(final Attribute attribute, final AssertionType target) {
-        LOG.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
+        LOG.trace("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
-        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
-        XMLObject roleElement = subjRoleAttribute.getOrderedChildren().get(0);
+        if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
+                && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
+            XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
+            XMLObject roleElement = subjRoleAttribute.getOrderedChildren().get(0);
 
-        populateCeType((XSAny) roleElement, target.getUserInfo().getRoleCoded());
+            populateCeType((XSAny) roleElement, target.getUserInfo().getRoleCoded());
 
-        LOG.debug("end populateSubjectRole()");
+        }
+        LOG.trace("end populateSubjectRole()");
     }
 
     private static void populateCeType(XSAny samlAttrValElement, CeType ceType) {

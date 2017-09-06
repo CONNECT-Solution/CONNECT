@@ -31,8 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import gov.hhs.fha.nhinc.opensaml.extraction.OpenSAMLAssertionExtractorImpl;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -65,7 +63,10 @@ import org.w3c.dom.Element;
  */
 public class OpenSAMLAssertionExtractorImplTest {
 
+    private static final String EMPTY_STRING = "";
+
     private final OpenSAMLAssertionExtractorImpl openSAMLAssertionExtractorImpl = new OpenSAMLAssertionExtractorImpl();
+
     static {
         OpenSAMLUtil.initSamlEngine();
     }
@@ -73,8 +74,7 @@ public class OpenSAMLAssertionExtractorImplTest {
     /**
      * When the SAML file is null, assertion extracted will be null.
      *
-     * @throws Exception
-     *             on error.
+     * @throws Exception on error.
      */
     @Test
     public void testNullAssertionElement() throws Exception {
@@ -82,16 +82,16 @@ public class OpenSAMLAssertionExtractorImplTest {
     }
 
     /**
-     * Tests SAML Assertion populated with all possible Assertion elements and attributes, verify they are populated.
+     * Tests SAML Assertion populated with all possible Assertion elements and
+     * attributes, verify they are populated.
      *
-     * @throws Exception
-     *             on error.
+     * @throws Exception on error.
      */
     @Test
     public void testCompleteSamlAssertion() throws Exception {
 
         AssertionType assertionType = openSAMLAssertionExtractorImpl
-            .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("complete_saml.xml")));
+                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("complete_saml.xml")));
         assertNotNull(assertionType);
 
         verifyHomeCommunity(assertionType.getHomeCommunity(), "2.16.840.1.113883.3.424", null);
@@ -101,28 +101,28 @@ public class OpenSAMLAssertionExtractorImplTest {
         verifyAuthnStatement(assertionType.getSamlAuthnStatement());
         verifyUniquePatientId(assertionType.getUniquePatientId());
         verifyCeType(assertionType.getPurposeOfDisclosureCoded(), "OPERATIONS", "2.16.840.1.113883.3.18.7.1",
-            "nhin-purpose", "Healthcare Operations");
+                "nhin-purpose", "Healthcare Operations");
         verifySignature(assertionType.getSamlSignature());
     }
 
     /**
-     * Tests the SAML Assertion extraction ensuring that the correct assertion is retrieved even if the element is not
-     * first in the security element and even if there are descendants that have assertions.
+     * Tests the SAML Assertion extraction ensuring that the correct assertion
+     * is retrieved even if the element is not first in the security element and
+     * even if there are descendants that have assertions.
      *
-     * @throws Exception
-     *             on error
+     * @throws Exception on error
      */
     @Test
     public void testDifferentOrderedAssertion() throws Exception {
 
         AssertionType assertionType = openSAMLAssertionExtractorImpl
-            .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_header_diff_order.xml")));
+                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_header_diff_order.xml")));
         assertNotNull(assertionType);
 
         assertEquals("CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US", assertionType.getSamlIssuer()
-            .getIssuer());
+                .getIssuer());
         assertEquals("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName", assertionType.getSamlIssuer()
-            .getIssuerFormat());
+                .getIssuerFormat());
     }
 
     @Test
@@ -130,9 +130,26 @@ public class OpenSAMLAssertionExtractorImplTest {
         Element element = getElementWitoutEvidenceAssertions();
         AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(element);
         SamlAuthzDecisionStatementEvidenceType extractedEvidence = assertionType.getSamlAuthzDecisionStatement()
-            .getEvidence();
+                .getEvidence();
         assertNotNull(extractedEvidence);
         assertNull(extractedEvidence.getAssertion());
+    }
+
+    @Test
+    public void testSamlAssertionValuesMissing() throws Exception {
+
+        AssertionType assertionType = openSAMLAssertionExtractorImpl
+                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_missingValues.xml")));
+        assertNotNull(assertionType);
+
+        verifyHomeCommunity(assertionType.getHomeCommunity(), EMPTY_STRING, null);
+        verifyIssuer(assertionType.getSamlIssuer());
+        verifyDecisionStatement(assertionType.getSamlAuthzDecisionStatement());
+        assertEquals(assertionType.getUserInfo().getPersonName().getFamilyName(), EMPTY_STRING);
+        assertEquals(assertionType.getUserInfo().getRoleCoded().getCode(), EMPTY_STRING);
+        verifyAuthnStatement(assertionType.getSamlAuthnStatement());
+        assertEquals(assertionType.getPurposeOfDisclosureCoded().getCode(), EMPTY_STRING);
+        verifySignature(assertionType.getSamlSignature());
     }
 
     private Element getElementWitoutEvidenceAssertions() throws Exception {
@@ -147,8 +164,7 @@ public class OpenSAMLAssertionExtractorImplTest {
     /**
      * Gets the file path to the test resource.
      *
-     * @param filename
-     *            the name of the file to retrieve
+     * @param filename the name of the file to retrieve
      * @return
      */
     private String getTestFilePath(String filename) {
@@ -187,7 +203,7 @@ public class OpenSAMLAssertionExtractorImplTest {
         // verify decision statement
         assertEquals("Permit", decisionStatement.getDecision());
         assertEquals("https://nhinri1c23.aegis.net:8181/NhinConnect/EntityPatientDiscoverySecured",
-            decisionStatement.getResource());
+                decisionStatement.getResource());
         assertEquals("Execute", decisionStatement.getAction());
 
         // verify decision statement evidence

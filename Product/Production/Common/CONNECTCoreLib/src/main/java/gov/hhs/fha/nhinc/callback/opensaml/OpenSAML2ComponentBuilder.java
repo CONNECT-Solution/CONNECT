@@ -479,7 +479,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
 
-    List<AttributeStatement> createAttributeStatement(final List<Attribute> attributes) {
+    public List<AttributeStatement> createAttributeStatement(final List<Attribute> attributes) {
         final List<AttributeStatement> attributeStatements = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(attributes)) {
             final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
