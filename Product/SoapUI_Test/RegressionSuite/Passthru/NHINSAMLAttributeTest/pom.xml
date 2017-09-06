@@ -6,8 +6,8 @@
         <version>5.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>NHINSAMLAttributesTest</artifactId>
-    <name>Maven 3 soapUI NHINSAMLAttributesTest</name>
+    <artifactId>NHINSAMLAttributeTest</artifactId>
+    <name>Maven 3 soapUI NHINSAMLAttributeTest</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
@@ -49,13 +49,13 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>NHINSAMLAttributesTest-soapui-project</id>
+                        <id>NHINSAMLAttributeTest-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${project.basedir}/NHINSAMLAttributesTest-soapui-project.xml</projectFile>
+                            <projectFile>${project.basedir}/NHINSAMLAttributeTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
