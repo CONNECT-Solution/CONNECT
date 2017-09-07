@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
@@ -383,7 +384,7 @@ public class HL7Parser201305 {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
                 LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                 telecom = telecomValue.getValue();
-                if (telecom != null && !telecom.startsWith("tel:")) {
+                if (NullChecker.isNotNullish(telecom) && !telecom.startsWith("tel:")) {
                     // telecom is not valid without tel: prefix
                     telecom = null;
                     LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
