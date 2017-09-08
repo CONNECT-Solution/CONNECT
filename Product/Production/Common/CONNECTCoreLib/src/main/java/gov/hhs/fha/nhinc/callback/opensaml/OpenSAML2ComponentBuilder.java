@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.PrivateKey;
@@ -106,6 +107,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
 
     /**
+     * Property file for subject element.
+     */
+    private static final String PROPERTY_FILE_NAME = "assertioninfo";
+    /**
      * The evidence builder.
      */
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
@@ -119,13 +124,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * The instance.
      */
     private static OpenSAML2ComponentBuilder openSamlInstance;
-
-    /**
-     * The subject locality builder.
-     */
-    /**
-     * The builder factory.
-     */
 
     private static final Logger LOG = LoggerFactory.getLogger(OpenSAML2ComponentBuilder.class);
 
@@ -270,14 +268,29 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public Subject createSubject(final String x509Name, final PublicKey publicKey)
         throws SAMLComponentBuilderException {
         Subject subject = null;
+        String strSenderVouches = new String("sender-vouches");
+        String strBearer = new String("bearer");
         try {
             final SubjectBean subjectBean = new SubjectBean();
             subject = SAML2ComponentBuilder.createSaml2Subject(subjectBean);
             subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-            subject.getSubjectConfirmations().remove(0);// remove send-vouches
-            final SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(publicKey);
+            final String subjectConfMethod = setSubjectConfMethod();
+            int intSendVouches = subjectConfMethod.indexOf(strSenderVouches);
+            int intBearer = subjectConfMethod.indexOf(strBearer);
+            subject.getSubjectConfirmations().remove(0);// remove sender-vouches
+            final SubjectConfirmationData subjectConfirmationData = createHokSubjectConfirmationData(publicKey);
             final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
             subject.getSubjectConfirmations().add(subjectConfirmation);
+            if (intSendVouches > -1) {
+                final SubjectConfirmationData subjectSvConfirmationData = createSvSubjectConfirmationData();
+                final SubjectConfirmation svSubjectConfirmation = createSvConfirmation(subjectSvConfirmationData);
+                subject.getSubjectConfirmations().add(svSubjectConfirmation);
+            }
+            if (intBearer > -1) {
+                final SubjectConfirmationData subjectBrConfirmationData = createBrSubjectConfirmationData();
+                final SubjectConfirmation brSubjectConfirmation = createBrConfirmation(subjectBrConfirmationData);
+                subject.getSubjectConfirmations().add(brSubjectConfirmation);
+            }
         } catch (SecurityException | WSSecurityException e) {
             LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
@@ -286,7 +299,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     }
 
     /**
-     * Returns subject Confirmation Data
+     * Returns subject Confirmation Holder of Key
      */
     private static SubjectConfirmation createHoKConfirmation(final SubjectConfirmationData subjectConfirmationData)
         throws SAMLComponentBuilderException {
@@ -295,14 +308,29 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     }
 
     /**
-     * Creates the subject confirmation data.
+     * Returns subject Confirmation Sender Vouches
+     */
+    private static SubjectConfirmation createSvConfirmation(final SubjectConfirmationData subjectConfirmationData)
+        throws SAMLComponentBuilderException {
+        return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_SENDER_VOUCHES,
+            subjectConfirmationData);
+    }
+
+    private static SubjectConfirmation createBrConfirmation(final SubjectConfirmationData subjectConfirmationData)
+        throws SAMLComponentBuilderException {
+        return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_BEARER,
+            subjectConfirmationData);
+    }
+
+    /**
+     * Creates the subject confirmation Bearer.
      *
      * @param certificate the certificate
      * @param publicKey the public key
      * @return the subject confirmation data
      * @throws SAMLComponentBuilderException the exception
      */
-    private static SubjectConfirmationData createSubjectConfirmationData(final PublicKey publicKey)
+    private static SubjectConfirmationData createHokSubjectConfirmationData(final PublicKey publicKey)
         throws SAMLComponentBuilderException {
         SubjectConfirmationData subjectConfirmationData = null;
         try {
@@ -310,6 +338,54 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             final KeyInfoBean keyInforBean = new KeyInfoBean();
             keyInforBean.setPublicKey(publicKey);
 
+            subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean,
+                keyInforBean);
+        } catch (SecurityException | WSSecurityException e) {
+            LOG.error(e.getLocalizedMessage());
+            throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
+        }
+
+        return subjectConfirmationData;
+    }
+
+    /**
+     * Creates the subject confirmation data sender-vouches.
+     *
+     * @param certificate the certificate
+     * @param publicKey the public key
+     * @return the subject confirmation data
+     * @throws SAMLComponentBuilderException the exception
+     */
+    private static SubjectConfirmationData createSvSubjectConfirmationData() throws SAMLComponentBuilderException {
+        SubjectConfirmationData subjectConfirmationData = null;
+        try {
+            final SubjectConfirmationDataBean subjectConfirmationDataBean = new SubjectConfirmationDataBean();
+            final KeyInfoBean keyInforBean = null;
+            String subjConfSvAddress = new String("127.0.0.1");
+            subjectConfirmationDataBean.setAddress(subjConfSvAddress);
+            subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean,
+                keyInforBean);
+        } catch (SecurityException | WSSecurityException e) {
+            LOG.error(e.getLocalizedMessage());
+            throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
+        }
+
+        return subjectConfirmationData;
+    }
+
+    /**
+     * Creates the subject confirmation data sender-vouches.
+     *
+     * @param certificate the certificate
+     * @param publicKey the public key
+     * @return the subject confirmation data
+     * @throws SAMLComponentBuilderException the exception
+     */
+    private static SubjectConfirmationData createBrSubjectConfirmationData() throws SAMLComponentBuilderException {
+        SubjectConfirmationData subjectConfirmationData = null;
+        try {
+            final SubjectConfirmationDataBean subjectConfirmationDataBean = null;
+            final KeyInfoBean keyInforBean = null;
             subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean,
                 keyInforBean);
         } catch (SecurityException | WSSecurityException e) {
@@ -763,4 +839,21 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         return statements;
     }
+
+    private static String setSubjectConfMethod() {
+        PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+        String result = null;
+        // String PROPERTY_FILE_NAME = "assertioninfo";
+        try {
+            result = propertyAccessor.getProperty(PROPERTY_FILE_NAME, "SubjectConfirmationMethod");
+        } catch (PropertyAccessException ex) {
+            LOG.error("Can not access assertioninfo property file: {}", ex.getLocalizedMessage(), ex);
+            result = "holderofkey";
+        }
+        if (NullChecker.isNullish(result)) {
+            result = "holderofkey";
+        }
+        return result;
+    }
+
 }
