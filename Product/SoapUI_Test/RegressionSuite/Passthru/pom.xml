@@ -31,7 +31,7 @@
                 <module>DocQueryXDSErrors</module>
                 <module>EventLogging-Passthrough</module>
                 <module>X12ErrorHandlingTest</module>
-				<module>NHINSAMLAttributesTest</module>
+                <module>NHINSAMLAttributeTest</module>
             </modules>
         </profile>
     </profiles>
