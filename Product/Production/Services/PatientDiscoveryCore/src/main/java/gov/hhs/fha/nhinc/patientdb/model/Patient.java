@@ -328,4 +328,19 @@ public class Patient implements Serializable {
 
     }
 
+    // READ-ONLY PROPERITES
+    public String getFirstName(){
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(0).getFirstName();
+        }
+        return "";
+    }
+
+    public String getLastName(){
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(0).getLastName();
+        }
+        return "";
+    }
+
 }

@@ -562,6 +562,9 @@ VALUES
 ("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 1),
 ("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 2),
 ("patientDiscovery.xhtml", "Cross-Query Gateway Client", 0, 3),
+("loadTestData.xhtml", "Load Test Data", 0, 1),
+("loadTestData.xhtml", "Load Test Data", 0, 2),
+("loadTestData.xhtml", "Load Test Data", 0, 3),
 ("auditLog.xhtml", "AuditSearch", 0, 1),
 ("auditLog.xhtml", "AuditSearch", 0, 2),
 ("auditLog.xhtml", "AuditSearch", 0, 3);

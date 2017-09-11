@@ -30,17 +30,17 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
@@ -56,6 +56,7 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
     /**
      * Constructor
@@ -91,8 +92,8 @@ public class PatientDAO {
 
         if (patientRecord != null) {
             try {
-                SessionFactory sessionFactory = getSessionFactory();
-                session = sessionFactory.openSession();
+                session = hibernateUtil.getSessionFactory().openSession();
+
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
 
@@ -140,8 +141,7 @@ public class PatientDAO {
         List<Patient> queryList;
         Patient foundRecord = null;
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             LOG.info("Reading Record...");
 
             // Build the criteria
@@ -185,8 +185,7 @@ public class PatientDAO {
 
         if (patientRecord != null) {
             try {
-                SessionFactory sessionFactory = getSessionFactory();
-                session = sessionFactory.openSession();
+                session = hibernateUtil.getSessionFactory().openSession();
                 tx = session.beginTransaction();
                 LOG.info("Updating Record...");
 
@@ -225,8 +224,7 @@ public class PatientDAO {
 
         Session session = null;
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             LOG.info("Deleting Record...");
 
             // Delete the Patient record
@@ -263,8 +261,7 @@ public class PatientDAO {
         List<Patient> patientsList = new ArrayList<>();
 
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
 
             LOG.info("Reading Records...");
 
@@ -290,7 +287,7 @@ public class PatientDAO {
 
             // Build the select with query criteria
             StringBuilder sqlSelect = new StringBuilder(
-                    "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
+                "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
             sqlSelect.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
@@ -419,10 +416,10 @@ public class PatientDAO {
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
             SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString())
-                    .addScalar("patientId", StandardBasicTypes.LONG)
-                    .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
-                    .addScalar("gender", StandardBasicTypes.STRING).addScalar("ssn", StandardBasicTypes.STRING)
-                    .addScalar("id", StandardBasicTypes.STRING).addScalar("organizationid", StandardBasicTypes.STRING);
+                .addScalar("patientId", StandardBasicTypes.LONG)
+                .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
+                .addScalar("gender", StandardBasicTypes.STRING).addScalar("ssn", StandardBasicTypes.STRING)
+                .addScalar("id", StandardBasicTypes.STRING).addScalar("organizationid", StandardBasicTypes.STRING);
 
             int iParam = 0;
             if (NullChecker.isNotNullish(gender)) {
@@ -521,11 +518,11 @@ public class PatientDAO {
 
                     // Populate demographic data
                     patientData
-                            .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                    .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
                     patientData.setPersonnames(
-                            PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
+                        PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
                     patientData.setPhonenumbers(
-                            PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
+                        PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
 
                     patientsList.add(patientData);
                 }
@@ -549,17 +546,96 @@ public class PatientDAO {
     }
 
     /**
-     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     * Returns get all patients list
      *
      * @return
      */
-    protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
+    public List<Patient> getAll() {
+
+        Session session = null;
+        List<Patient> patients = new ArrayList<>();
+
+        try {
+            session = hibernateUtil.getSessionFactory().openSession();
+
+            // BUILD-SELECT-PATIENT AND PERSONNAME
+            StringBuilder sSQL = new StringBuilder("SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn");
+            sSQL.append(" , n.firstname, n.lastname, n.personnameid, n.prefix, n.middlename, n.suffix");
+            sSQL.append(" FROM patientdb.patient p");
+            sSQL.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
+            sSQL.append(" ORDER BY n.lastname, n.firstname");
+
+            SQLQuery sqlQuery = session.createSQLQuery(sSQL.toString()).addScalar("patientId", StandardBasicTypes.LONG)
+                .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP).addScalar("gender", StandardBasicTypes.STRING)
+                .addScalar("ssn", StandardBasicTypes.STRING).addScalar("firstname", StandardBasicTypes.STRING)
+                .addScalar("lastname", StandardBasicTypes.STRING).addScalar("personnameid", StandardBasicTypes.LONG)
+                .addScalar("prefix", StandardBasicTypes.STRING).addScalar("middlename", StandardBasicTypes.STRING)
+                .addScalar("suffix", StandardBasicTypes.STRING);
+
+            LOG.debug("Final SQL Query is " + sqlQuery.getQueryString());
+
+            List<Object[]> result = sqlQuery.list();
+
+            if (CollectionUtils.isNotEmpty(result)) {
+                Long[] patientIdArray = new Long[result.size()];
+                Timestamp[] dateOfBirthArray = new Timestamp[result.size()];
+                String[] genderArray = new String[result.size()];
+                String[] ssnArray = new String[result.size()];
+                String[] firstNameArray = new String[result.size()];
+                String[] lastNameArray = new String[result.size()];
+                Long[] personnameidArray = new Long[result.size()];
+                String[] prefixArray = new String[result.size()];
+                String[] middlenameArray = new String[result.size()];
+                String[] suffixArray = new String[result.size()];
+
+                int counter = 0;
+                for (Object[] row : result) {
+                    // COMMON
+                    patientIdArray[counter] = (Long) row[0];
+
+                    // PATIENT
+                    dateOfBirthArray[counter] = (Timestamp) row[1];
+                    genderArray[counter] = (String) row[2];
+                    ssnArray[counter] = (String) row[3];
+
+                    // PERSONNAME
+                    firstNameArray[counter] = (String) row[4];
+                    lastNameArray[counter] = (String) row[5];
+                    personnameidArray[counter] = (Long) row[6];
+                    prefixArray[counter] = (String) row[7];
+                    middlenameArray[counter] = (String) row[8];
+                    suffixArray[counter] = (String) row[9];
+                    counter++;
+                }
+
+                for (int i = 0; i < patientIdArray.length; i++) {
+                    Patient patientData = new Patient();
+                    patientData.setPatientId(patientIdArray[i]);
+                    patientData.setDateOfBirth(dateOfBirthArray[i]);
+                    patientData.setGender(genderArray[i]);
+                    patientData.setSsn(ssnArray[i]);
+
+                    Personname personnameData = new Personname();
+                    personnameData.setFirstName(firstNameArray[i]);
+                    personnameData.setLastName(lastNameArray[i]);
+                    personnameData.setPersonnameId(personnameidArray[i]);
+                    personnameData.setPrefix(prefixArray[i]);
+                    personnameData.setMiddleName(middlenameArray[i]);
+                    personnameData.setSuffix(suffixArray[i]);
+
+                    patientData.getPersonnames().add(personnameData);
+
+                    patients.add(patientData);
+                }
+            }
+
+        } catch (HibernateException e) {
+            LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
+        } finally {
+            HibernateUtil.closeSession(session, false);
         }
-        return fact;
+
+        return patients;
     }
 
 }
