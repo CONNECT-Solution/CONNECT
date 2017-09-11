@@ -57,6 +57,13 @@ public class NavigationConstant {
 
     public static final int GATEWAY_DASHBOARD_TAB = 0;
     public static final int GATEWAY_REMOTELIST_TAB = 1;
+
+    // LOAD-TEST-DATA
+    public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
+    public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
+    public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
+    // public static final int LOAD_TEST_DATA_PATIENT_TAB = 1;
+
     /**
      * Use this class to hold constant variables
      */

@@ -28,12 +28,10 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
@@ -50,6 +48,8 @@ public class PersonnameDAO {
     private static final Logger LOG = LoggerFactory.getLogger(PersonnameDAO.class);
 
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
+
+    private HibernateUtil hibernateUtil = new HibernateUtil();
 
     /**
      *
@@ -102,9 +102,7 @@ public class PersonnameDAO {
 
             try {
 
-                SessionFactory sessionFactory = getSessionFactory();
-
-                session = sessionFactory.openSession();
+                session = hibernateUtil.getSessionFactory().openSession();
 
                 tx = session.beginTransaction();
 
@@ -180,9 +178,7 @@ public class PersonnameDAO {
 
         try {
 
-            SessionFactory sessionFactory = getSessionFactory();
-
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
 
             LOG.info("Reading Record...");
 
@@ -245,9 +241,7 @@ public class PersonnameDAO {
 
             try {
 
-                SessionFactory sessionFactory = getSessionFactory();
-
-                session = sessionFactory.openSession();
+                session = hibernateUtil.getSessionFactory().openSession();
 
                 tx = session.beginTransaction();
 
@@ -305,9 +299,7 @@ public class PersonnameDAO {
 
         try {
 
-            SessionFactory sessionFactory = getSessionFactory();
-
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
 
             LOG.info("Deleting Record...");
 
@@ -369,9 +361,7 @@ public class PersonnameDAO {
 
         try {
 
-            SessionFactory sessionFactory = getSessionFactory();
-
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
 
             LOG.info("Reading Record...");
 
@@ -395,7 +385,7 @@ public class PersonnameDAO {
                     session.close();
                 } catch (HibernateException e) {
                     LOG.error("Exception while closing the session after looking for patients' names: {}",
-                            e.getMessage(), e);
+                        e.getMessage(), e);
                 }
             }
         }
@@ -404,20 +394,6 @@ public class PersonnameDAO {
 
         return queryList;
 
-    }
-
-    /**
-     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
-     *
-     * @return
-     */
-    protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
-        }
-        return fact;
     }
 
 }

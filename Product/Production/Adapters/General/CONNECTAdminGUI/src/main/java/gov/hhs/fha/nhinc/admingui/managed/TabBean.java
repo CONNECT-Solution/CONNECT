@@ -45,6 +45,7 @@ public class TabBean {
     private int adminTabIndex = 0;
     private int directTabIndex = 0;
     private int propIndex = 0;
+    private int loadTestDataTabIndex = 0;
 
     private static final String GATEWAYPROPTAB = "gatewayTab";
     private static final String ADAPTERPROPTAB = "adapterTab";
@@ -55,6 +56,8 @@ public class TabBean {
     private static final String ACCTUSERSTAB = "acctUsersTab";
     private static final String ACCTROLESTAB = "acctRolesTab";
     private static final String AUDITPROPTAB = "auditTab";
+    // LOAD-TEST-DATA
+    private static final String LTDPATIENTTAB = "ltdPatientTab";
 
     /**
      *
@@ -355,5 +358,42 @@ public class TabBean {
     public String getACCTROLESTAB() {
         return ACCTROLESTAB;
     }
+
+    // region LOAD-TEST-DATA
+    public String getLTDPATIENTTAB() {
+        return LTDPATIENTTAB;
+    }
+
+    // TAB-INDEX
+    public int getLoadTestDataTabIndex() {
+        return loadTestDataTabIndex;
+    }
+
+    public void setLoadTestDataTabIndex(int ltdIndexValue) {
+        loadTestDataTabIndex = ltdIndexValue;
+    }
+
+    // TAB-CHANGE
+    public void onLoadTestDataTabChange(TabChangeEvent tEvent) {
+        Tab selectedTab = tEvent.getTab();
+        if (LTDPATIENTTAB.equalsIgnoreCase(selectedTab.getId())) {
+            loadTestDataTabIndex = 0;
+        } else {
+            loadTestDataTabIndex = 1;
+        }
+    }
+
+    // TAB-NAVIGATE
+    public String setLoadTestDataTabIndexNavigate(int loadTestDataTabIndex) {
+        this.loadTestDataTabIndex = loadTestDataTabIndex;
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    public String navigateToLTDPatientTab() {
+        return setLoadTestDataTabIndexNavigate(NavigationConstant.LOAD_TEST_DATA_PATIENT_TAB);
+    }
+
+
+    // endRegion LOAD-TEST-DATA
 
 }
