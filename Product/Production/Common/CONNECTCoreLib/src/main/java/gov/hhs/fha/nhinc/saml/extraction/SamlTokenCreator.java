@@ -29,14 +29,22 @@ package gov.hhs.fha.nhinc.saml.extraction;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +66,7 @@ public class SamlTokenCreator {
      * @return A Map containing all of the information needed for creation of the SAML Token.
      */
     public Map<String, Object> createRequestContext(AssertionType assertion, String url, String action) {
-        LOG.debug("Entering SamlTokenCreator.CreateRequestContext...");
+        LOG.debug("Entering SamlTokenCreator.CreateRequestContext... version 1234");
 
         Map<String, Object> requestContext = new HashMap<>();
 
@@ -67,7 +75,7 @@ public class SamlTokenCreator {
             if (NullChecker.isNotNullish(NPI)) {
                 requestContext.put(NhincConstants.ATTRIBUTE_NAME_NPI, NPI);
             }
-
+            extractSubjectConfirmation(requestContext, assertion);
             UserType userInfo = assertion.getUserInfo();
             if (userInfo != null) {
                 if (NullChecker.isNotNullish(userInfo.getUserName())) {
@@ -307,6 +315,34 @@ public class SamlTokenCreator {
         LOG.debug("Exiting SamlTokenCreator.CreateRequestContext...");
         return requestContext;
 
+    }
+
+    private void extractSubjectConfirmation(Map<String, Object> requestContext, AssertionType assertion) {
+        List<SubjectConfirmationDataBean> senderBeans = new ArrayList<>();
+        List<SubjectConfirmationDataBean> bearBeans = new ArrayList<>();
+        DateTimeFormatter dateFormat = ISODateTimeFormat.dateTimeParser();
+        for (SamlSubjectsType samlSubject : assertion.getSamlSubjects()){
+            String method = samlSubject.getMethod();
+            SubjectConfirmationDataBean bean = new SubjectConfirmationDataBean();
+            bean.setAddress(samlSubject.getAddress());
+            bean.setInResponseTo(samlSubject.getInResponseTo());
+            bean.setRecipient(samlSubject.getRecipient());
+            SamlConditionsType subjectCondition = samlSubject.getSubjectCondition();
+            if (subjectCondition != null) {
+                bean.setNotAfter(dateFormat.parseDateTime(subjectCondition.getNotOnOrAfter()));
+                bean.setNotBefore(dateFormat.parseDateTime(subjectCondition.getNotBefore()));
+            }
+            if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(method)){
+                //create sender voches
+                senderBeans.add(bean);
+            }
+            if (SubjectConfirmation.METHOD_BEARER.equalsIgnoreCase(method)){
+                //create bear voches
+                bearBeans.add(bean);
+            }
+        }
+        requestContext.put(SamlConstants.SUBJECT_SENDER_VOUCHES, senderBeans);
+        requestContext.put(SamlConstants.SUBJECT_BEARER, bearBeans);
     }
 
 }
