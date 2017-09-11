@@ -48,6 +48,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.Marshaller;
@@ -63,6 +64,7 @@ import org.opensaml.saml.saml2.core.Evidence;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.Statement;
 import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.opensaml.xmlsec.signature.Signature;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.opensaml.xmlsec.signature.support.SignatureException;
@@ -203,12 +205,29 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected Subject createSubject(final CallbackProperties properties, final X509Certificate certificate,
         final PublicKey publicKey) throws SAMLComponentBuilderException {
         String x509Name = properties.getUsername();
-
+        OpenSAML2ComponentBuilder openSamlBuilder = OpenSAML2ComponentBuilder.getInstance();
         if ((NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) && null != certificate
             && null != certificate.getSubjectDN()) {
             x509Name = certificate.getSubjectDN().getName();
         }
-        return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
+        Subject subject = openSamlBuilder.createSubject(x509Name, publicKey);
+        // create bearer if exist
+        List<SubjectConfirmationDataBean> bearBeans = properties.getBearerBeans();
+        if (CollectionUtils.isNotEmpty(bearBeans)) {
+            for (SubjectConfirmationDataBean bear : bearBeans) {
+                SubjectConfirmation bearConfirmation = openSamlBuilder.createBearConfirmation(bear);
+                subject.getSubjectConfirmations().add(bearConfirmation);
+            }
+        }
+        // create voucher if exist
+        List<SubjectConfirmationDataBean> senderVouchesBeans = properties.getSenderVouchesBeans();
+        if (CollectionUtils.isNotEmpty(senderVouchesBeans)) {
+            for (SubjectConfirmationDataBean sender : senderVouchesBeans) {
+                SubjectConfirmation bearConfirmation = openSamlBuilder.createSenderVouchesConfirmation(sender);
+                subject.getSubjectConfirmations().add(bearConfirmation);
+            }
+        }
+        return subject;
     }
 
     /**

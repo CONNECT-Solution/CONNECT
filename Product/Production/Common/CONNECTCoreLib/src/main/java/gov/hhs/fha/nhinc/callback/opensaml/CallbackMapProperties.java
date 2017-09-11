@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
+import org.apache.cxf.helpers.CastUtils;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -519,5 +522,36 @@ public class CallbackMapProperties implements CallbackProperties {
     @Override
     public String getNPI() {
         return getNullSafeString(SamlConstants.ATTRIBUTE_NAME_NPI);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSenderVouchesBean()
+     */
+    @Override
+    public List<SubjectConfirmationDataBean> getSenderVouchesBeans() {
+        List<Object> senderObj = getNullSafeList(SamlConstants.SUBJECT_SENDER_VOUCHES);
+        if (senderObj != null) {
+            return CastUtils.cast(senderObj, SubjectConfirmationDataBean.class);
+        } else {
+            return new ArrayList<SubjectConfirmationDataBean>();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getBearerBean()
+     */
+    @Override
+    public List<SubjectConfirmationDataBean> getBearerBeans() {
+
+        List<Object> bearObjects = getNullSafeList(SamlConstants.SUBJECT_BEARER);
+        if (bearObjects != null) {
+            return CastUtils.cast(bearObjects, SubjectConfirmationDataBean.class);
+        } else {
+            return new ArrayList<SubjectConfirmationDataBean>();
+        }
     }
 }

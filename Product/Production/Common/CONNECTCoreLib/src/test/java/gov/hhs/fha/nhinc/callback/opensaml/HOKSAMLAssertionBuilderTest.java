@@ -35,6 +35,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -63,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.BeforeClass;
@@ -271,7 +274,7 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testCreateAuthenticationStatement() {
         final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
-            .createAuthenicationStatements(getProperties());
+        .createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -777,6 +780,18 @@ public class HOKSAMLAssertionBuilderTest {
             public String getUserOrganizationId() {
                 return "orgId";
             }
+
+            @Override
+            public List<SubjectConfirmationDataBean> getSenderVouchesBeans() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public List<SubjectConfirmationDataBean> getBearerBeans() {
+                // TODO Auto-generated method stub
+                return null;
+            }
         };
     }
 
@@ -821,6 +836,32 @@ public class HOKSAMLAssertionBuilderTest {
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertTrue(CollectionUtils.isEmpty(attributeStatement));
+    }
+    @Test
+    public void testCreateMultipleSubjectConfirmation() throws SAMLComponentBuilderException{
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        X509Certificate certificate = mock(X509Certificate.class);
+        // Create subject bear
+        List<SubjectConfirmationDataBean> subjectBears = new ArrayList<>();
+        subjectBears.add(createSubjectConfirmationBean());
+        // Create sender-vouches bean
+        List<SubjectConfirmationDataBean> subjectSV = new ArrayList<>();
+        subjectSV.add(createSubjectConfirmationBean());
+
+        when(callbackProps.getUsername()).thenReturn("junittest");
+        when(callbackProps.getBearerBeans()).thenReturn(subjectBears);
+        when(callbackProps.getSenderVouchesBeans()).thenReturn(subjectSV);
+
+        Subject subject = builder.createSubject(callbackProps, certificate, publicKey);
+
+        List<SubjectConfirmation> subjectConfirmations = subject.getSubjectConfirmations();
+        assertTrue(subjectConfirmations.size() == 3);
+    }
+    private SubjectConfirmationDataBean createSubjectConfirmationBean(){
+        SubjectConfirmationDataBean subjectConfirmationBean = new SubjectConfirmationDataBean();
+        subjectConfirmationBean.setAddress("localhost");
+        return subjectConfirmationBean;
     }
 
 }

@@ -36,9 +36,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAs
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlConditionsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -65,6 +67,8 @@ import org.opensaml.saml.saml2.core.Evidence;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.NameID;
 import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml.saml2.core.SubjectConfirmationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -112,6 +116,38 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.debug("end extractSamlAssertion()");
 
         return target;
+    }
+
+    /**
+     * Extract subject multiple confirmation into assertionType
+     *
+     * @param saml2Assertion
+     * @param target
+     */
+    private static void populdateSubjectConfirmation(Assertion saml2Assertion, AssertionType target) {
+        List<SamlSubjectsType> samlTargetSubjects = target.getSamlSubjects();
+        List<SubjectConfirmation> subjectConfirmations = saml2Assertion.getSubject().getSubjectConfirmations();
+        for (SubjectConfirmation subConfirmation : subjectConfirmations) {
+            SamlSubjectsType samlSubjectTypeTarget = new SamlSubjectsType();
+            samlSubjectTypeTarget.setMethod(subConfirmation.getMethod());
+            SubjectConfirmationData subjectConfirmationData = subConfirmation.getSubjectConfirmationData();
+            if (subjectConfirmationData != null) {
+                samlSubjectTypeTarget.setAddress(subjectConfirmationData.getAddress());
+                samlSubjectTypeTarget.setInResponseTo(subjectConfirmationData.getInResponseTo());
+                samlSubjectTypeTarget.setRecipient(subjectConfirmationData.getRecipient());
+                if (subjectConfirmationData.getNotBefore() != null || subjectConfirmationData.getNotOnOrAfter() != null) {
+                    SamlConditionsType samlConditionTarget = new SamlConditionsType();
+                    if (subjectConfirmationData.getNotBefore() != null) {
+                        samlConditionTarget.setNotBefore(subjectConfirmationData.getNotBefore().toString());
+                    }
+                    if (subjectConfirmationData.getNotOnOrAfter() != null) {
+                        samlConditionTarget.setNotOnOrAfter(subjectConfirmationData.getNotOnOrAfter().toString());
+                    }
+                    samlSubjectTypeTarget.setSubjectCondition(samlConditionTarget);
+                }
+            }
+            samlTargetSubjects.add(samlSubjectTypeTarget);
+        }
     }
 
     /**
@@ -273,8 +309,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     private static String getAttributeValue(Attribute attribute) {
         if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
-                && attribute.getAttributeValues().get(0).getDOM() != null
-                && attribute.getAttributeValues().get(0).getDOM().getTextContent() != null) {
+            && attribute.getAttributeValues().get(0).getDOM() != null
+            && attribute.getAttributeValues().get(0).getDOM().getTextContent() != null) {
             return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
         } else {
             return null;
@@ -331,7 +367,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             }
             target.getUserInfo().setUserName(name.getValue());
         }
-
+        populdateSubjectConfirmation(saml2Assertion,target);
         LOG.debug("end populateSubject()");
     }
 
@@ -457,7 +493,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.trace("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
         if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
-                && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
+            && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
 
             CeType purposeOfUse = new CeType();
             XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
@@ -576,7 +612,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.trace("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
         if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
-                && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
+            && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
             XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
             XMLObject roleElement = subjRoleAttribute.getOrderedChildren().get(0);
 
