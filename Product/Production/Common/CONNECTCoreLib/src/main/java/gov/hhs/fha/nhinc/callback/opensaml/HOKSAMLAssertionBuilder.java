@@ -48,7 +48,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
-import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.Marshaller;
@@ -211,22 +210,17 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             x509Name = certificate.getSubjectDN().getName();
         }
         Subject subject = openSamlBuilder.createSubject(x509Name, publicKey);
-        // create bearer if exist
-        List<SubjectConfirmationDataBean> bearBeans = properties.getBearerBeans();
-        if (CollectionUtils.isNotEmpty(bearBeans)) {
-            for (SubjectConfirmationDataBean bear : bearBeans) {
-                SubjectConfirmation bearConfirmation = openSamlBuilder.createBearConfirmation(bear);
-                subject.getSubjectConfirmations().add(bearConfirmation);
+        //Add additional subject confirmation if exist
+        List<SAMLSubjectConfirmation> subjectConfirmations = properties.getSubjectConfirmations();
+        if (CollectionUtils.isNotEmpty(subjectConfirmations)) {
+            for (SAMLSubjectConfirmation confirmation : subjectConfirmations) {
+                SubjectConfirmation subjectConfirmation = openSamlBuilder.createSubjectConfirmation(confirmation);
+                if (subjectConfirmation != null) {
+                    subject.getSubjectConfirmations().add(openSamlBuilder.createSubjectConfirmation(confirmation));
+                }
             }
         }
-        // create voucher if exist
-        List<SubjectConfirmationDataBean> senderVouchesBeans = properties.getSenderVouchesBeans();
-        if (CollectionUtils.isNotEmpty(senderVouchesBeans)) {
-            for (SubjectConfirmationDataBean sender : senderVouchesBeans) {
-                SubjectConfirmation bearConfirmation = openSamlBuilder.createSenderVouchesConfirmation(sender);
-                subject.getSubjectConfirmations().add(bearConfirmation);
-            }
-        }
+
         return subject;
     }
 

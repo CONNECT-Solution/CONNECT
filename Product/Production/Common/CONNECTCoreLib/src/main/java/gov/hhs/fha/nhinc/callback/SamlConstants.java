@@ -125,6 +125,5 @@ public class SamlConstants {
     public static final String DIGEST_VALUE_TAG = "DigestValue";
     public static final String SIGNATURE_TAG = "Signature";
     public static final String SIGNATURE_VALUE_TAG = "SignatureValue";
-    public static final String SUBJECT_SENDER_VOUCHES = "senderVouches";
-    public static final String SUBJECT_BEARER = "bearer";
+    public static final String SUBJECT_CONFIRMATION = "SubjectConfirmation";
 }

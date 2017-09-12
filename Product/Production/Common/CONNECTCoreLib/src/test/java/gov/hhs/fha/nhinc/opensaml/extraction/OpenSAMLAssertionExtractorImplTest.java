@@ -31,9 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import org.opensaml.saml.saml2.core.SubjectConfirmation;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -46,6 +43,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectConfirmationType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import java.io.File;
 import java.net.URI;
@@ -57,6 +55,7 @@ import org.apache.wss4j.common.saml.OpenSAMLUtil;
 import org.junit.Test;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Evidence;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -106,15 +105,15 @@ public class OpenSAMLAssertionExtractorImplTest {
         verifyCeType(assertionType.getPurposeOfDisclosureCoded(), "OPERATIONS", "2.16.840.1.113883.3.18.7.1",
             "nhin-purpose", "Healthcare Operations");
         verifySignature(assertionType.getSamlSignature());
-        verifySubject(assertionType.getSamlSubjects());
+        verifySubject(assertionType.getSamlSubjectConfirmations());
     }
 
     /**
      * @param samlSubjects
      */
-    private void verifySubject(List<SamlSubjectsType> samlSubjects) {
+    private void verifySubject(List<SamlSubjectConfirmationType> samlSubjects) {
         assertEquals("subject should have HOK,SV,Bearer methods", 3, samlSubjects.size());
-        for (SamlSubjectsType subject : samlSubjects) {
+        for (SamlSubjectConfirmationType subject : samlSubjects) {
             if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(subject.getMethod())) {
                 assertEquals("tester", subject.getInResponseTo());
                 assertEquals("127.0.0.1", subject.getAddress());
