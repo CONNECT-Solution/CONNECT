@@ -99,6 +99,21 @@ public class Patient implements Serializable {
 
     private List<Phonenumber> phonenumbers = null;
 
+    public Patient() {
+        // default-constructor
+    }
+
+    public Patient(Patient patient, Personname personname) {
+        patient.getPersonnames().add(personname);
+        setPatient(patient);
+    }
+
+    // PATIENT-CONSTRUCTOR WITH LAZY INITUALIZE
+    public Patient(Patient patient) {
+        setPatient(patient);
+        initualizeLazyObject();
+    }
+
     /**
      *
      * @return patientId
@@ -341,21 +356,6 @@ public class Patient implements Serializable {
             return getPersonnames().get(0).getLastName();
         }
         return "";
-    }
-
-    // constructor
-    public Patient() {
-    }
-
-    public Patient(Patient patient, Personname personname) {
-        patient.getPersonnames().add(personname);
-        setPatient(patient);
-    }
-
-    // PATIENT-CONSTRUCTOR WITH LAZY INITUALIZE
-    public Patient(Patient patient) {
-        setPatient(patient);
-        initualizeLazyObject();
     }
 
     public void setPatient(Patient patient) {
