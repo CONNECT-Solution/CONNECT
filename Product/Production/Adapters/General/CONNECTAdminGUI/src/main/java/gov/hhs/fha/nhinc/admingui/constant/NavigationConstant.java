@@ -62,7 +62,6 @@ public class NavigationConstant {
     public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
     public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
     public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
-    // TODO: add-tab-index for address, identifier, phonenumber
 
     /**
      * Use this class to hold constant variables

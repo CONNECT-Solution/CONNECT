@@ -57,7 +57,6 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
     @Override
     public void deletePatient(Patient patient) {
         LOG.info("Service-delete-patient");
-        // TODO: before patient can be deleted: ALL-PATIENT-RECORDS need to be deleted
     }
 
     @Override
