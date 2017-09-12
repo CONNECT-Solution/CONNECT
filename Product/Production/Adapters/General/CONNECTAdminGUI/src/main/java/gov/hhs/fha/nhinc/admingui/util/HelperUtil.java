@@ -38,6 +38,12 @@ import java.util.Map;
  */
 public class HelperUtil {
 
+    /*
+     * Utility class-private constructor
+     */
+    private HelperUtil() {
+    }
+
     /**
      * Populate the gender lookup data list. This logic needs to be moved to a Utility or to the application bean.
      *

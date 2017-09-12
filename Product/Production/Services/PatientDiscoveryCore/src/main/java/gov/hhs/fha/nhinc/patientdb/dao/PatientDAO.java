@@ -30,15 +30,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
-import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -56,7 +56,7 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
-    private HibernateUtil hibernateUtil = new HibernateUtil();
+    private HibernateUtil hibernateUtil = HibernateUtilFactory.getHibernateUtilInstance();
 
     /**
      * Constructor
@@ -557,77 +557,10 @@ public class PatientDAO {
 
         try {
             session = hibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("select new Patient(p) from Patient p");
+            patients = query.list();
 
-            // BUILD-SELECT-PATIENT AND PERSONNAME
-            StringBuilder sSQL = new StringBuilder("SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn");
-            sSQL.append(" , n.firstname, n.lastname, n.personnameid, n.prefix, n.middlename, n.suffix");
-            sSQL.append(" FROM patientdb.patient p");
-            sSQL.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
-            sSQL.append(" ORDER BY n.lastname, n.firstname");
-
-            SQLQuery sqlQuery = session.createSQLQuery(sSQL.toString()).addScalar("patientId", StandardBasicTypes.LONG)
-                .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP).addScalar("gender", StandardBasicTypes.STRING)
-                .addScalar("ssn", StandardBasicTypes.STRING).addScalar("firstname", StandardBasicTypes.STRING)
-                .addScalar("lastname", StandardBasicTypes.STRING).addScalar("personnameid", StandardBasicTypes.LONG)
-                .addScalar("prefix", StandardBasicTypes.STRING).addScalar("middlename", StandardBasicTypes.STRING)
-                .addScalar("suffix", StandardBasicTypes.STRING);
-
-            LOG.debug("Final SQL Query is " + sqlQuery.getQueryString());
-
-            List<Object[]> result = sqlQuery.list();
-
-            if (CollectionUtils.isNotEmpty(result)) {
-                Long[] patientIdArray = new Long[result.size()];
-                Timestamp[] dateOfBirthArray = new Timestamp[result.size()];
-                String[] genderArray = new String[result.size()];
-                String[] ssnArray = new String[result.size()];
-                String[] firstNameArray = new String[result.size()];
-                String[] lastNameArray = new String[result.size()];
-                Long[] personnameidArray = new Long[result.size()];
-                String[] prefixArray = new String[result.size()];
-                String[] middlenameArray = new String[result.size()];
-                String[] suffixArray = new String[result.size()];
-
-                int counter = 0;
-                for (Object[] row : result) {
-                    // COMMON
-                    patientIdArray[counter] = (Long) row[0];
-
-                    // PATIENT
-                    dateOfBirthArray[counter] = (Timestamp) row[1];
-                    genderArray[counter] = (String) row[2];
-                    ssnArray[counter] = (String) row[3];
-
-                    // PERSONNAME
-                    firstNameArray[counter] = (String) row[4];
-                    lastNameArray[counter] = (String) row[5];
-                    personnameidArray[counter] = (Long) row[6];
-                    prefixArray[counter] = (String) row[7];
-                    middlenameArray[counter] = (String) row[8];
-                    suffixArray[counter] = (String) row[9];
-                    counter++;
-                }
-
-                for (int i = 0; i < patientIdArray.length; i++) {
-                    Patient patientData = new Patient();
-                    patientData.setPatientId(patientIdArray[i]);
-                    patientData.setDateOfBirth(dateOfBirthArray[i]);
-                    patientData.setGender(genderArray[i]);
-                    patientData.setSsn(ssnArray[i]);
-
-                    Personname personnameData = new Personname();
-                    personnameData.setFirstName(firstNameArray[i]);
-                    personnameData.setLastName(lastNameArray[i]);
-                    personnameData.setPersonnameId(personnameidArray[i]);
-                    personnameData.setPrefix(prefixArray[i]);
-                    personnameData.setMiddleName(middlenameArray[i]);
-                    personnameData.setSuffix(suffixArray[i]);
-
-                    patientData.getPersonnames().add(personnameData);
-
-                    patients.add(patientData);
-                }
-            }
+            LOG.debug("DAO-getAll-patients-count: " + patients.size());
 
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);

@@ -48,28 +48,27 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
     private PatientDAO patientDAO = PatientDAO.getPatientDAOInstance();
     private PersonnameDAO personnameDAO = PersonnameDAO.getPersonnameDAOInstance();
 
-    public LoadTestDataServiceImpl() {
-    }
-
     @Override
     public List<Patient> getAllPatients() {
+        LOG.info("Service-getAll-patients");
         return patientDAO.getAll();
     }
 
     @Override
     public void deletePatient(Patient patient) {
-        LOG.error("TODO: DELETE Patient Error: PatientDB-DAOs-are required.");
-        // TODO: Delete all other Records before; patientDAO.delete(patient);
+        LOG.info("Service-delete-patient");
+        // TODO: before patient can be deleted: ALL-PATIENT-RECORDS need to be deleted
     }
 
     @Override
     public Patient getPatientById(Long id) {
+        LOG.info("Service-getPatient-byID");
         return patientDAO.read(id);
     }
 
     @Override
     public Patient savePatient(Patient patient) {
-        LOG.info("save-patient");
+        LOG.info("Service-save-patient");
 
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
             LOG.debug("Personname-set-patient");
@@ -86,7 +85,7 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
             }
 
             //patient and personname is a 1-to-1
-            LOG.debug("Personname-Patient-patientId: " + personnameRecord.getPatient().getPatientId());
+            LOG.debug("Personname-Patient-patientId: {} ", personnameRecord.getPatient().getPatientId());
             if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
                 LOG.debug("update-personname-byID");
                 personnameDAO.update(personnameRecord);
@@ -96,7 +95,7 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
             }
         }
         else {
-            LOG.info("save-patient: fail personname does not exist");
+            LOG.info("save-patient-fail: personname does not exist");
         }
         return patient;
     }
