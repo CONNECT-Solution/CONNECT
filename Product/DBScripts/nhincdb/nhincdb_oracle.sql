@@ -1223,4 +1223,49 @@ VALUES (
 	,3
 	);
 
+INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
+    PREFID
+    ,PAGENAME
+    ,PAGEDESC
+    ,ACCESSPAGE
+    ,PREFROLEID
+    )
+VALUES (
+    25
+    ,'loadTestData.xhtml'
+    ,'Load Test Data'
+    ,0
+    ,1
+    );
+
+INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
+    PREFID
+    ,PAGENAME
+    ,PAGEDESC
+    ,ACCESSPAGE
+    ,PREFROLEID
+    )
+VALUES (
+    26
+    ,'loadTestData.xhtml'
+    ,'Load Test Data'
+    ,0
+    ,2
+    );
+
+INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
+    PREFID
+    ,PAGENAME
+    ,PAGEDESC
+    ,ACCESSPAGE
+    ,PREFROLEID
+    )
+VALUES (
+    27
+    ,'loadTestData.xhtml'
+    ,'Load Test Data'
+    ,0
+    ,3
+    );
+
 COMMIT;
