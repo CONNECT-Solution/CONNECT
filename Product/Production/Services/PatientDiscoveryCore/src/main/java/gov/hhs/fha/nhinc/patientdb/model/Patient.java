@@ -343,4 +343,40 @@ public class Patient implements Serializable {
         return "";
     }
 
+    // constructor
+    public Patient() {
+    }
+
+    public Patient(Patient patient, Personname personname) {
+        patient.getPersonnames().add(personname);
+        setPatient(patient);
+    }
+
+    // PATIENT-CONSTRUCTOR WITH LAZY INITUALIZE
+    public Patient(Patient patient) {
+        setPatient(patient);
+        initualizeLazyObject();
+    }
+
+    public void setPatient(Patient patient) {
+        addresses = patient.addresses;
+        dateOfBirth = patient.dateOfBirth;
+        gender = patient.gender;
+        identifiers = patient.identifiers;
+        patientId = patient.patientId;
+        personnames = patient.personnames;
+        phonenumbers = patient.phonenumbers;
+        ssn = patient.ssn;
+    }
+
+    public long[] initualizeLazyObject(){
+        return new long[] {
+                patientId,
+                addresses != null ? (long) addresses.size() : 0,
+                    identifiers != null ? (long) identifiers.size() : 0,
+                        personnames != null ? (long)personnames.size() : 0,
+                            phonenumbers != null ? (long)phonenumbers.size() : 0
+        };
+    }
+
 }

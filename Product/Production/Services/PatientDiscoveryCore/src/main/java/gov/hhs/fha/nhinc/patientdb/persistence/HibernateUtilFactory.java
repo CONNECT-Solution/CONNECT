@@ -33,7 +33,7 @@ public class HibernateUtilFactory {
     private static class ClassPathSingleton {
 
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:spring-pd-beans.xml" });
+            new String[] { "classpath:spring-pd-beans.xml" });
 
         private ClassPathSingleton() {
         }
@@ -56,4 +56,10 @@ public class HibernateUtilFactory {
         return hibernateUtil;
     }
 
+    public static HibernateUtil getHibernateUtilInstance() {
+        if (hibernateUtil == null) {
+            hibernateUtil = new HibernateUtil();
+        }
+        return hibernateUtil;
+    }
 }

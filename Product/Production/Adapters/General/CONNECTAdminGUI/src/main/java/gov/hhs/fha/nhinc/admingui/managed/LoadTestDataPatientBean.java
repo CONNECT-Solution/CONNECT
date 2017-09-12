@@ -31,13 +31,11 @@ import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +53,6 @@ public class LoadTestDataPatientBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataPatientBean.class);
     private Patient selectedPatient;
 
-    private List<Patient> patients = new ArrayList<>();
     private Map<String, String> genderList;
 
     private String firstName;
@@ -83,7 +80,7 @@ public class LoadTestDataPatientBean {
         return loadTestDataService.getAllPatients();
     }
 
-    public void deletePatient(ActionEvent event) {
+    public void deletePatient() {
         if (selectedPatient != null) {
             LOG.debug("deletePatient() - selectedPatient-ID: " + selectedPatient.getPatientId());
             loadTestDataService.deletePatient(selectedPatient);
