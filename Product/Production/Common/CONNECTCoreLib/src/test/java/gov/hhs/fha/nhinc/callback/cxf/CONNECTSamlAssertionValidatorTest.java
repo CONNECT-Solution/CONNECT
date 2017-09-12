@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -34,13 +33,8 @@ import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Statement;
-import org.opensaml.saml2.core.Action;
-import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.DecisionTypeEnumeration;
-import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
@@ -161,8 +155,8 @@ public class CONNECTSamlAssertionValidatorTest {
         String inCommonMDFile = "authFrameworkAssertion.xml";
 
         // Initialize the library
-        DefaultBootstrap.bootstrap(); 
-        
+        DefaultBootstrap.bootstrap();
+
         // Get parser pool manager
         BasicParserPool ppMgr = new BasicParserPool();
         ppMgr.setNamespaceAware(true);
@@ -178,7 +172,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
         // Unmarshall using the document root element, an EntitiesDescriptor in this case
         org.opensaml.saml2.core.Assertion saml2Assertion = (org.opensaml.saml2.core.Assertion) unmarshaller.unmarshall(metadataRoot);
-        
+
         AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
 
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
@@ -195,10 +189,13 @@ public class CONNECTSamlAssertionValidatorTest {
     public void testValidateAssertionSaml2_ValidationFails() throws WSSecurityException {
         org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
         AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
+        org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
         QName assertionQName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
 
         when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
-        when(saml2Assertion.getIssuer()).thenReturn(null);
+        when(saml2Assertion.getIssuer()).thenReturn(issuer);
+        when(saml2Assertion.getIssuer().getFormat()).thenReturn(
+            "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
 
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
@@ -233,7 +230,7 @@ public class CONNECTSamlAssertionValidatorTest {
         };
 
         when(propAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "allowNoSubjectAssertion"))
-                .thenReturn(true, false);
+        .thenReturn(true, false);
 
         Collection<ValidatorSuite> validators = connectValidator.getSaml2SpecValidators();
         ValidatorSuite validator = null;
@@ -280,7 +277,7 @@ public class CONNECTSamlAssertionValidatorTest {
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
             protected void checkSignedAssertion(AssertionWrapper assertion, RequestData data)
-                    throws WSSecurityException {
+                throws WSSecurityException {
                 checkedSignedAssertion.add(true);
             }
         };
