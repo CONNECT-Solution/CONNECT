@@ -40,7 +40,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlConditionsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectConfirmationType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -121,32 +121,30 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     /**
      * Extract subject multiple confirmation into assertionType
      *
-     * @param saml2Assertion
+     * @param saml2Assertion source
      * @param target
      */
-    private static void populdateSubjectConfirmation(Assertion saml2Assertion, AssertionType target) {
-        List<SamlSubjectsType> samlTargetSubjects = target.getSamlSubjects();
+    private static void populateSubjectConfirmation(Assertion saml2Assertion, AssertionType target) {
+        List<SamlSubjectConfirmationType> samlTargetSubjects = target.getSamlSubjectConfirmations();
         List<SubjectConfirmation> subjectConfirmations = saml2Assertion.getSubject().getSubjectConfirmations();
         for (SubjectConfirmation subConfirmation : subjectConfirmations) {
-            SamlSubjectsType samlSubjectTypeTarget = new SamlSubjectsType();
-            samlSubjectTypeTarget.setMethod(subConfirmation.getMethod());
+            SamlSubjectConfirmationType samlSubjConfTypeTarget = new SamlSubjectConfirmationType();
+            samlSubjConfTypeTarget.setMethod(subConfirmation.getMethod());
             SubjectConfirmationData subjectConfirmationData = subConfirmation.getSubjectConfirmationData();
             if (subjectConfirmationData != null) {
-                samlSubjectTypeTarget.setAddress(subjectConfirmationData.getAddress());
-                samlSubjectTypeTarget.setInResponseTo(subjectConfirmationData.getInResponseTo());
-                samlSubjectTypeTarget.setRecipient(subjectConfirmationData.getRecipient());
-                if (subjectConfirmationData.getNotBefore() != null || subjectConfirmationData.getNotOnOrAfter() != null) {
-                    SamlConditionsType samlConditionTarget = new SamlConditionsType();
-                    if (subjectConfirmationData.getNotBefore() != null) {
-                        samlConditionTarget.setNotBefore(subjectConfirmationData.getNotBefore().toString());
-                    }
-                    if (subjectConfirmationData.getNotOnOrAfter() != null) {
-                        samlConditionTarget.setNotOnOrAfter(subjectConfirmationData.getNotOnOrAfter().toString());
-                    }
-                    samlSubjectTypeTarget.setSubjectCondition(samlConditionTarget);
+                samlSubjConfTypeTarget.setAddress(subjectConfirmationData.getAddress());
+                samlSubjConfTypeTarget.setInResponseTo(subjectConfirmationData.getInResponseTo());
+                samlSubjConfTypeTarget.setRecipient(subjectConfirmationData.getRecipient());
+                SamlConditionsType samlConditionTarget = new SamlConditionsType();
+                if (subjectConfirmationData.getNotBefore() != null) {
+                    samlConditionTarget.setNotBefore(subjectConfirmationData.getNotBefore().toString());
                 }
+                if (subjectConfirmationData.getNotOnOrAfter() != null) {
+                    samlConditionTarget.setNotOnOrAfter(subjectConfirmationData.getNotOnOrAfter().toString());
+                }
+                samlSubjConfTypeTarget.setSubjectCondition(samlConditionTarget);
             }
-            samlTargetSubjects.add(samlSubjectTypeTarget);
+            samlTargetSubjects.add(samlSubjConfTypeTarget);
         }
     }
 
@@ -367,7 +365,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             }
             target.getUserInfo().setUserName(name.getValue());
         }
-        populdateSubjectConfirmation(saml2Assertion,target);
+        populateSubjectConfirmation(saml2Assertion,target);
         LOG.debug("end populateSubject()");
     }
 

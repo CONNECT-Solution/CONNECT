@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -527,31 +526,16 @@ public class CallbackMapProperties implements CallbackProperties {
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSenderVouchesBean()
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSubjectConfirmations()
      */
     @Override
-    public List<SubjectConfirmationDataBean> getSenderVouchesBeans() {
-        List<Object> senderObj = getNullSafeList(SamlConstants.SUBJECT_SENDER_VOUCHES);
+    public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
+        List<Object> senderObj = getNullSafeList(SamlConstants.SUBJECT_CONFIRMATION);
         if (senderObj != null) {
-            return CastUtils.cast(senderObj, SubjectConfirmationDataBean.class);
+            return CastUtils.cast(senderObj, SAMLSubjectConfirmation.class);
         } else {
-            return new ArrayList<SubjectConfirmationDataBean>();
+            return new ArrayList<SAMLSubjectConfirmation>();
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getBearerBean()
-     */
-    @Override
-    public List<SubjectConfirmationDataBean> getBearerBeans() {
-
-        List<Object> bearObjects = getNullSafeList(SamlConstants.SUBJECT_BEARER);
-        if (bearObjects != null) {
-            return CastUtils.cast(bearObjects, SubjectConfirmationDataBean.class);
-        } else {
-            return new ArrayList<SubjectConfirmationDataBean>();
-        }
-    }
 }

@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
-import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -158,9 +157,7 @@ public class CallbackMapPropertiesTest {
         DateTime evidenceConditionNotAfter = callbackProperties.getEvidenceConditionNotAfter();
         assertTrue(
             StringUtils.lowerCase(evidenceConditionNotAfter.toString()).contains(StringUtils.lowerCase(TEST_DATE)));
-        List<SubjectConfirmationDataBean> senderVouchesBeans = callbackProperties.getSenderVouchesBeans();
-        assertTrue(senderVouchesBeans != null);
-        List<SubjectConfirmationDataBean> bearBeans = callbackProperties.getBearerBeans();
-        assertTrue(bearBeans != null);
+        List<SAMLSubjectConfirmation> subjectConfirmations = callbackProperties.getSubjectConfirmations();
+        assertTrue(subjectConfirmations != null);
     }
 }

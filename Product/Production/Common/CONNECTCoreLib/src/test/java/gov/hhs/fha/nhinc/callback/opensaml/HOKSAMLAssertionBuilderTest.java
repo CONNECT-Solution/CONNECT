@@ -65,7 +65,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.BeforeClass;
@@ -782,14 +781,7 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public List<SubjectConfirmationDataBean> getSenderVouchesBeans() {
-                // TODO Auto-generated method stub
-                return null;
-            }
-
-            @Override
-            public List<SubjectConfirmationDataBean> getBearerBeans() {
-                // TODO Auto-generated method stub
+            public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
                 return null;
             }
         };
@@ -843,24 +835,23 @@ public class HOKSAMLAssertionBuilderTest {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         X509Certificate certificate = mock(X509Certificate.class);
         // Create subject bear
-        List<SubjectConfirmationDataBean> subjectBears = new ArrayList<>();
-        subjectBears.add(createSubjectConfirmationBean());
+        List<SAMLSubjectConfirmation> samlSubjectConfirmations = new ArrayList<>();
+        samlSubjectConfirmations.add(createSubjectConfirmationBean(SubjectConfirmation.METHOD_BEARER));
         // Create sender-vouches bean
-        List<SubjectConfirmationDataBean> subjectSV = new ArrayList<>();
-        subjectSV.add(createSubjectConfirmationBean());
+        samlSubjectConfirmations.add(createSubjectConfirmationBean(SubjectConfirmation.METHOD_SENDER_VOUCHES));
 
         when(callbackProps.getUsername()).thenReturn("junittest");
-        when(callbackProps.getBearerBeans()).thenReturn(subjectBears);
-        when(callbackProps.getSenderVouchesBeans()).thenReturn(subjectSV);
+        when(callbackProps.getSubjectConfirmations()).thenReturn(samlSubjectConfirmations);
 
         Subject subject = builder.createSubject(callbackProps, certificate, publicKey);
 
         List<SubjectConfirmation> subjectConfirmations = subject.getSubjectConfirmations();
         assertTrue(subjectConfirmations.size() == 3);
     }
-    private SubjectConfirmationDataBean createSubjectConfirmationBean(){
-        SubjectConfirmationDataBean subjectConfirmationBean = new SubjectConfirmationDataBean();
+    private SAMLSubjectConfirmation createSubjectConfirmationBean(String method){
+        SAMLSubjectConfirmation subjectConfirmationBean = new SAMLSubjectConfirmation();
         subjectConfirmationBean.setAddress("localhost");
+        subjectConfirmationBean.setMethod(method);
         return subjectConfirmationBean;
     }
 

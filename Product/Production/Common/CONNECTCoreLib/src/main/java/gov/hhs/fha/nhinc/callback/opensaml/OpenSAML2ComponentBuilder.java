@@ -293,17 +293,27 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             subjectConfirmationData);
     }
 
-    public static SubjectConfirmation createSenderVouchesConfirmation(SubjectConfirmationDataBean dataBean)
+    /**
+     * Construct additional subject Confirmation for saml assertion. Since HOK(holder of key) is supported by default,
+     * we support additional sender-vouches/bearer subject confirmation
+     * @param samlSubjectConfirmation
+     * @return
+     * @throws SAMLComponentBuilderException
+     */
+    public SubjectConfirmation createSubjectConfirmation(SAMLSubjectConfirmation samlSubjectConfirmation)
         throws SAMLComponentBuilderException {
-        SubjectConfirmationData subjectConfirmData = createSubjectConfirmationData(null, dataBean);
-        return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_SENDER_VOUCHES,
-            subjectConfirmData);
-    }
-
-    public static SubjectConfirmation createBearConfirmation(SubjectConfirmationDataBean dataBean)
-        throws SAMLComponentBuilderException {
-        SubjectConfirmationData subjectConfirmData = createSubjectConfirmationData(null, dataBean);
-        return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_BEARER, subjectConfirmData);
+        SubjectConfirmationData subjectConfirmData = createSubjectConfirmationData(null, samlSubjectConfirmation);
+        String method = samlSubjectConfirmation.getMethod();
+        LOG.debug("Prepare to construct method {} for subject confirmation", method);
+        if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(method)){
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_SENDER_VOUCHES,
+                subjectConfirmData);
+        }
+        if (SubjectConfirmation.METHOD_BEARER.equalsIgnoreCase(method)){
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_BEARER,
+                subjectConfirmData);
+        }
+        return null;
     }
 
     /**

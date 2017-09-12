@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
-import org.apache.wss4j.common.saml.bean.SubjectConfirmationDataBean;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import java.util.List;
 import org.joda.time.DateTime;
@@ -240,14 +238,10 @@ public interface CallbackProperties {
 
     /**
      *
-     * @return senderVouchesBean
+     * @return List of subject confirmation
      */
-    List<SubjectConfirmationDataBean> getSenderVouchesBeans();
+    List<SAMLSubjectConfirmation> getSubjectConfirmations();
 
-    /**
-     *
-     * @return bearer Bean
-     */
-    List<SubjectConfirmationDataBean> getBearerBeans();
+
 
 }
