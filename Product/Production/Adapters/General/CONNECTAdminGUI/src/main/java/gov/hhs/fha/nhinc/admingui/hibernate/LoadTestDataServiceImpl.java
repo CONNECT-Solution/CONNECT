@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.hibernate;
 
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
+import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.patientdb.dao.PatientDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.PersonnameDAO;
@@ -66,15 +67,10 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public Patient savePatient(Patient patient) {
+    public Patient savePatient(Patient patient) throws LoadTestDataException {
         LOG.info("Service-save-patient");
 
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
-            LOG.debug("Personname-set-patient");
-
-            Personname personnameRecord = patient.getPersonnames().get(0);
-            personnameRecord.setPatient(patient);
-
             if (HelperUtil.isId(patient.getPatientId())) {
                 LOG.debug("update-patient-byID");
                 patientDAO.update(patient);
@@ -83,18 +79,22 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
                 patientDAO.create(patient);
             }
 
-            //patient and personname is a 1-to-1
-            LOG.debug("Personname-Patient-patientId: {} ", personnameRecord.getPatient().getPatientId());
-            if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
-                LOG.debug("update-personname-byID");
-                personnameDAO.update(personnameRecord);
-            } else {
-                LOG.debug("create-personname-new-record");
-                personnameDAO.create(personnameRecord);
+            for (Personname personnameRecord : patient.getPersonnames()) {
+                LOG.debug("Personname-Patient-patientId: {} ", personnameRecord.getPatient().getPatientId());
+
+                personnameRecord.setPatient(patient);
+
+                if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
+                    LOG.debug("update-personname-byID");
+                    personnameDAO.update(personnameRecord);
+                } else {
+                    LOG.debug("create-personname-new-record");
+                    personnameDAO.create(personnameRecord);
+                }
             }
         }
         else {
-            LOG.info("save-patient-fail: personname does not exist");
+            throw new LoadTestDataException("Patient-Personname is required when trying to save-patient");
         }
         return patient;
     }

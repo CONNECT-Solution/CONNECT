@@ -111,7 +111,7 @@ public class Patient implements Serializable {
     // PATIENT-CONSTRUCTOR WITH LAZY INITUALIZE
     public Patient(Patient patient) {
         setPatient(patient);
-        initualizeLazyObject();
+        initializeLazyObject();
     }
 
     /**
@@ -369,7 +369,7 @@ public class Patient implements Serializable {
         ssn = patient.ssn;
     }
 
-    public long[] initualizeLazyObject(){
+    public long[] initializeLazyObject() {
         return new long[] {
                 patientId,
                 addresses != null ? (long) addresses.size() : 0,

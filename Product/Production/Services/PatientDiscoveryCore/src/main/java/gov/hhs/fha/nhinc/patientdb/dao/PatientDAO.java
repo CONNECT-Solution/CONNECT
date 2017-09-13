@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -151,7 +152,7 @@ public class PatientDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && !queryList.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(queryList)) {
                 foundRecord = queryList.get(0);
             }
         } catch (HibernateException | NullPointerException e) {
@@ -570,5 +571,4 @@ public class PatientDAO {
 
         return patients;
     }
-
 }

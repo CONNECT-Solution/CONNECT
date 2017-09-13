@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.util.List;
 
@@ -40,6 +41,6 @@ public interface LoadTestDataService {
 
     public Patient getPatientById(Long id);
 
-    public Patient savePatient(Patient patient);
+    public Patient savePatient(Patient patient) throws LoadTestDataException;
 
 }
