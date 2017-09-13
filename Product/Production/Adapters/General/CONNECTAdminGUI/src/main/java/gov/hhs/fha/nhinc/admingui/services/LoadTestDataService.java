@@ -41,6 +41,6 @@ public interface LoadTestDataService {
 
     public Patient getPatientById(Long id);
 
-    public Patient savePatient(Patient patient) throws LoadTestDataException;
+    public boolean savePatient(Patient patient) throws LoadTestDataException;
 
 }

@@ -92,7 +92,8 @@ public class LoadTestDataPatientBean {
         }
     }
 
-    public void savePatient() {
+    public boolean savePatient() {
+        boolean actionResult = true;
 
         try {
             Patient patient;
@@ -108,13 +109,15 @@ public class LoadTestDataPatientBean {
                 patient = updatePatientToBean(new Patient());
             }
 
-            loadTestDataService.savePatient(patient);
+            actionResult = loadTestDataService.savePatient(patient);
         } catch (LoadTestDataException e) {
+            actionResult = false;
             FacesContext.getCurrentInstance().validationFailed();
             FacesContext.getCurrentInstance().addMessage("patientAddMessages",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not save patient: " + e.getLocalizedMessage(), ""));
             LOG.error("Error save-patient: {}", e.getLocalizedMessage(), e);
         }
+        return actionResult;
     }
 
     // CLEAR-TAB-FORM

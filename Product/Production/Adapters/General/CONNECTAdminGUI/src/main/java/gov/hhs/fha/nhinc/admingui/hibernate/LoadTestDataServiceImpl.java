@@ -67,16 +67,17 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public Patient savePatient(Patient patient) throws LoadTestDataException {
+    public boolean savePatient(Patient patient) throws LoadTestDataException {
+        boolean actionResult;
         LOG.info("Service-save-patient");
 
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
             if (HelperUtil.isId(patient.getPatientId())) {
                 LOG.debug("update-patient-byID");
-                patientDAO.update(patient);
+                actionResult = patientDAO.update(patient);
             } else {
                 LOG.debug("create-patient-new-record");
-                patientDAO.create(patient);
+                actionResult = patientDAO.create(patient);
             }
 
             for (Personname personnameRecord : patient.getPersonnames()) {
@@ -86,17 +87,20 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
 
                 if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
                     LOG.debug("update-personname-byID");
-                    personnameDAO.update(personnameRecord);
+                    actionResult = personnameDAO.update(personnameRecord);
                 } else {
                     LOG.debug("create-personname-new-record");
-                    personnameDAO.create(personnameRecord);
+                    actionResult = personnameDAO.create(personnameRecord);
                 }
             }
+
         }
         else {
             throw new LoadTestDataException("Patient-Personname is required when trying to save-patient");
         }
-        return patient;
+
+        LOG.info("save-patient: Action-result: {} ", actionResult);
+        return actionResult;
     }
 
 }
