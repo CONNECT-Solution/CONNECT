@@ -34,14 +34,15 @@
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="Attribute Check On - Happy DQ" searchProperties="true">
       <con:settings/>
       
+      
+      
+      
       <con:testStep name="update config" type="groovy" id="02e8cce9-a642-48e3-ac08-797a19a95226">
         <con:settings/>
         <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "validateSAMLAttributes", "true", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.properties", "QueryForDocuments", "false", log);</script></con:config>
       </con:testStep>
-      
-      
       <con:testStep name="Document Query" type="request" id="c282e88a-1b08-4dd1-b2cc-ca0fe2904472">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -197,10 +198,14 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.pr
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(dir, log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -384,9 +389,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(dir, log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -567,9 +577,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(dir, log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -750,9 +765,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(dir, log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -786,9 +806,14 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
+def beforeRead = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "validateSAMLAttributes", log);
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "validateSAMLAttributes", "false", log);
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.properties", "QueryForDocuments", "false", log);</script></con:config>
-      </con:testStep>
+def afterRead = nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "validateSAMLAttributes", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.properties", "QueryForDocuments", "false", log);
+
+log.info "Before validateSamlAttribute update: " + beforeRead;
+log.info "After validateSamlAttribute update: " + afterRead;</script></con:config>
+      </con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>2000</delay></con:config></con:testStep>
       
       
       <con:testStep name="Document Query" type="request">
@@ -947,9 +972,16 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.pr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+def gatewayProp = context.findProperty('GatewayPropDir');
+log.info gatewayProp;
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(dir, log);
+def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
+context.setGatewayStandard(isStandardMode);
+log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1163,38 +1195,39 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     
     
     
-  <con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property></con:properties>
+  <con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>9990</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
-	props.load(new FileInputStream(propertiesFile))
+	props.load(new FileReader(propertiesFile))
 	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
 
+
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-afterRun: { testRunner, runContext -> },
-afterStep: { testRunner, runContext, result -> },
-beforeStep: { testRunner, runContext -> },
-beforeStep: { testRunner, runContext, testStep -> },
-beforeRun: { testRunner, runContext -> 
-use (org.codehaus.groovy.runtime.TimeCategory) {
-def startDate = 5.minutes.ago
-def endDate = 5.minutes.from.now
-def expireDate = 30.days.from.now
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
+    use (org.codehaus.groovy.runtime.TimeCategory) {
+      def startDate = 5.minutes.ago
+      def endDate = 5.minutes.from.now
+      def expireDate = 30.days.from.now
 
-def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+      def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+      def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
 
-runContext.testCase.setPropertyValue("startDate", startDate.format(df))
-runContext.testCase.setPropertyValue("endDate", endDate.format(df))
-runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
-runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
-}
-}   
+      runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+      runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+      runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+      runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+    }
+  }   
 ] as com.eviware.soapui.model.testsuite.TestRunListener
 
 project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
@@ -1202,27 +1235,113 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
-return delegate.getProperty(propertyName) ?:
-delegate.testCase.getPropertyValue(propertyName) ?:
-delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
-delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
-com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
+    return delegate.getProperty(propertyName) ?:
+                delegate.testCase.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+                delegate.testCase.testSuite.project.getPropertyValue(propertyName) ?:
+                com.eviware.soapui.SoapUI.globalProperties.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
-def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
-def host = delegate.findProperty('DBHost')
-def port = delegate.findProperty('DBPort')
-def user = delegate.findProperty('DBUser')
-def pass = delegate.findProperty('DBPass')
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
 
-def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
-def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
-try {
-block(sql)
-} finally {
-sql.close()
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ]
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+  return config;
 }
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  }
+  else{
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:http-remoting-jmx://'+jmxHost+ ':' + jmxPort;
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  }
+  else{
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
+}
+/*
+ Return true if gateway.properties have standard mode set up
+*/
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayMode = {passthruProp, context ->
+  log.info "calling checkGatewayMode for ${passthruProp}";
+  def dir = context.findProperty('GatewayPropDir');
+  def file = "gateway.properties";
+  log.info "PassthruPro ${passthruProp} ";
+  def passthruValue = nhinc.FileUtils.readProperty(dir, file, passthruProp, log);
+  log.info "Passthrough property value = ${passthruValue} for key ${passthruProp}";
+  if(passthruValue == null){
+    return true;
+  }else{
+    return false;
+   }
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
