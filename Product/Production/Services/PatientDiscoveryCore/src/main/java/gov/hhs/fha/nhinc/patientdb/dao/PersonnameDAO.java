@@ -32,7 +32,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +42,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class PersonnameDAO {
+public class PersonnameDAO extends GenericDAOImpl<Personname> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonnameDAO.class);
-
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
 
     private HibernateUtil hibernateUtil = new HibernateUtil();
@@ -56,9 +54,7 @@ public class PersonnameDAO {
      * Constructor
      */
     private PersonnameDAO() {
-
         LOG.info("PersonnameDAO - Initialized");
-
     }
 
     /**
@@ -68,11 +64,8 @@ public class PersonnameDAO {
      * @return PersonnameDAO
      */
     public static PersonnameDAO getPersonnameDAOInstance() {
-
         LOG.debug("getPersonnameDAOInstance()..");
-
         return personnameDAO;
-
     }
 
     // =========================
@@ -88,62 +81,15 @@ public class PersonnameDAO {
      *
      * @return boolean
      */
+    @Override
     public boolean create(Personname personnameRecord) {
-
         LOG.debug("PersonnameDAO.create() - Begin");
-
-        Session session = null;
-
-        Transaction tx = null;
-
         boolean result = true;
-
         if (personnameRecord != null) {
-
-            try {
-
-                session = hibernateUtil.getSessionFactory().openSession();
-
-                tx = session.beginTransaction();
-
-                LOG.info("Inserting Record...");
-
-                session.persist(personnameRecord);
-
-                LOG.info("Personname Inserted seccussfully...");
-
-                tx.commit();
-
-            } catch (HibernateException | NullPointerException e) {
-
-                result = false;
-
-                if (tx != null) {
-
-                    tx.rollback();
-
-                }
-
-                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
-
-            } finally {
-
-                // Actual Personname insertion will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
-                    }
-                }
-            }
-
+            result = super.create(personnameRecord);
         }
-
         LOG.debug("PersonnameDAO.create() - End");
-
         return result;
-
     }
 
     /**
@@ -157,66 +103,15 @@ public class PersonnameDAO {
      * @return Personname
      */
     public Personname read(Long id) {
-
         LOG.debug("PersonnameDAO.read() - Begin");
-
         if (id == null) {
-
             LOG.info("-- id Parameter is required for Personname Query --");
-
             LOG.debug("PersonnameDAO.read() - End");
-
             return null;
-
         }
-
-        Session session = null;
-
-        List<Personname> queryList;
-
-        Personname foundRecord = null;
-
-        try {
-
-            session = hibernateUtil.getSessionFactory().openSession();
-
-            LOG.info("Reading Record...");
-
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Personname.class);
-
-            aCriteria.add(Expression.eq("id", id));
-
-            queryList = aCriteria.list();
-
-            if (queryList != null && !queryList.isEmpty()) {
-
-                foundRecord = queryList.get(0);
-
-            }
-
-        } catch (HibernateException | NullPointerException e) {
-
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
-
-        } finally {
-
-            // Flush and close session
-            if (session != null) {
-
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
-                }
-            }
-        }
-
+        Personname foundRecord = super.read(id, Personname.class);
         LOG.debug("PersonnameDAO.read() - End");
-
         return foundRecord;
-
     }
 
     /**
@@ -227,62 +122,15 @@ public class PersonnameDAO {
      *
      * @return boolean
      */
+    @Override
     public boolean update(Personname personnameRecord) {
-
         LOG.debug("PersonnameDAO.update() - Begin");
-
-        Session session = null;
-
-        Transaction tx = null;
-
         boolean result = true;
-
         if (personnameRecord != null) {
-
-            try {
-
-                session = hibernateUtil.getSessionFactory().openSession();
-
-                tx = session.beginTransaction();
-
-                LOG.info("Updating Record...");
-
-                session.saveOrUpdate(personnameRecord);
-
-                LOG.info("Personname Updated seccussfully...");
-
-                tx.commit();
-
-            } catch (HibernateException | NullPointerException e) {
-
-                result = false;
-
-                if (tx != null) {
-
-                    tx.rollback();
-
-                }
-
-                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
-
-            } finally {
-
-                // Actual Personname update will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
-                    }
-                }
-            }
-
+            result = super.update(personnameRecord);
         }
-
         LOG.debug("PersonnameDAO.update() - End");
-
         return result;
-
     }
 
     /**
@@ -291,41 +139,13 @@ public class PersonnameDAO {
      *
      * @param personnameRecord
      */
+    @Override
     public void delete(Personname personnameRecord) {
-
         LOG.debug("PersonnameDAO.delete() - Begin");
-
-        Session session = null;
-
-        try {
-
-            session = hibernateUtil.getSessionFactory().openSession();
-
-            LOG.info("Deleting Record...");
-
-            // Delete the Personname record
-            session.delete(personnameRecord);
-
-        } catch (HibernateException | NullPointerException e) {
-
-            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
-
-        } finally {
-
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
-                }
-
-            }
+        if (personnameRecord != null) {
+            super.delete(personnameRecord);
         }
-
         LOG.debug("PersonnameDAO.delete() - End");
-
     }
 
     // =========================
@@ -342,34 +162,21 @@ public class PersonnameDAO {
      * @return List<Personname>
      */
     public List<Personname> findPatientPersonnames(Long patientId) {
-
         LOG.debug("PersonnameDAO.findPatientPersonnames() - Begin");
-
         if (patientId == null) {
-
             LOG.info("-- patientId Parameter is required for Personname Query --");
-
             LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
-
             return null;
-
         }
 
         Session session = null;
-
         List<Personname> queryList = null;
-
         try {
-
             session = hibernateUtil.getSessionFactory().openSession();
-
             LOG.info("Reading Record...");
-
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Personname.class);
-
             aCriteria.add(Expression.eq("patient.patientId", patientId));
-
             queryList = aCriteria.list();
 
         } catch (HibernateException | NullPointerException e) {
@@ -389,11 +196,8 @@ public class PersonnameDAO {
                 }
             }
         }
-
         LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
-
         return queryList;
-
     }
 
 }
