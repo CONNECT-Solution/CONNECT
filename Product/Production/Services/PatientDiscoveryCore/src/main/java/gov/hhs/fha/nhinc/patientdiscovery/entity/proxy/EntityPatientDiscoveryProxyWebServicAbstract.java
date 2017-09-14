@@ -72,7 +72,7 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
     }
 
     String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        String connectionManager = ConnectionManagerCache.getInstance()
+        connectionManager = ConnectionManagerCache.getInstance()
             .getInternalEndpointURLByServiceName(serviceName);
         setConnectionManager(connectionManager);
         return connectionManager;

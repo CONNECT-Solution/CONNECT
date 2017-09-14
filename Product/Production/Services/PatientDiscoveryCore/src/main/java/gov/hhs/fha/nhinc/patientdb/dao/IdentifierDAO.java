@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class IdentifierDAO extends GenericDaoJpaImpl<Identifier, Long> {
+public class IdentifierDAO extends GenericDAOImpl<Identifier> {
 
     private static final Logger LOG = LoggerFactory.getLogger(IdentifierDAO.class);
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
