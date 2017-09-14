@@ -28,14 +28,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service.EntityPatientDiscoveryServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -47,8 +43,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy {
-
+public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl extends EntityPatientDiscoveryProxyWebServicAbstract
+implements EntityPatientDiscoveryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -57,26 +53,17 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
+        return super.getoProxyHelper();
     }
 
+    @Override
     protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
+        return super.invokeConnectionManager(serviceName);
     }
 
     protected String getEndpointURL() {
-        String endpointURL = null;
         String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME;
-        try {
-            endpointURL = invokeConnectionManager(serviceName);
-            LOG.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        } catch (ConnectionManagerException ex) {
-            LOG.error(
-                    "Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(),
-                    ex);
-        }
-
-        return endpointURL;
+        return super.getEndpointURLForService(serviceName);
     }
 
     /**
@@ -87,7 +74,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
 
     @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
+        AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
@@ -105,7 +92,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targetCommunities);
                 response = (RespondingGatewayPRPAIN201306UV02ResponseType) getClient(url, assertion).invokePort(
-                        EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+                    EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
             }
         } catch (Exception ex) {
             LOG.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
@@ -121,8 +108,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements Entit
      * @return
      */
     protected CONNECTClient<EntityPatientDiscoveryPortType> getClient(final String url, final AssertionType assertion) {
-        ServicePortDescriptor<EntityPatientDiscoveryPortType> portDescriptor = new EntityPatientDiscoveryServicePortDescriptor();
-        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        return super.getDiscoveryPortClient(url, assertion);
     }
 
 }

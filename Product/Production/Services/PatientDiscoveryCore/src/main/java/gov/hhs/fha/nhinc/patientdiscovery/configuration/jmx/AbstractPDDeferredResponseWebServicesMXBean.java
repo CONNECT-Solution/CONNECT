@@ -38,17 +38,17 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
     /**
      * The Constant NHIN_PD_BEAN_NAME.
      */
-    private static final String NHIN_PD_BEAN_NAME = "nhinPDResp";
+    private static final String NHIN_PD_BEAN_NAME_RESP = "nhinPDResp";
 
     /**
      * The Constant ENTITY_UNSECURED_PD_BEAN_NAME.
      */
-    private static final String ENTITY_UNSECURED_PD_BEAN_NAME = "entityPDRespUnsecured";
+    private static final String ENTITY_UNSECURED_PD_BEAN_NAME_RESP = "entityPDRespUnsecured";
 
     /**
      * The Constant ENTITY_SECURED_PD_BEAN_NAME.
      */
-    private static final String ENTITY_SECURED_PD_BEAN_NAME = "entityPDRespSecured";
+    private static final String ENTITY_SECURED_PD_BEAN_NAME_RESP = "entityPDRespSecured";
 
     /**
      * The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.
@@ -73,22 +73,22 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
     /**
      * The Constant Standard_OutboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String StdOutbound_PD_Bean_Name = "stdPDRespOutbound";
+    private static final String StdOutbound_PD_Bean_Name_Resp = "stdPDRespOutbound";
 
     /**
      * The Constant Passthrough_OutboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String PtOutbound_PD_Bean_Name = "ptPDRespOutbound";
+    private static final String PtOutbound_PD_Bean_Name_Resp = "ptPDRespOutbound";
 
     /**
      * The Constant Standard_InboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String StdInbound_PD_Bean_Name = "stdPDRespInbound";
+    private static final String StdInbound_PD_Bean_Name_Resp = "stdPDRespInbound";
 
     /**
      * The Constant Passthrough_InboundOrch_PDDeferredResponse_BEAN_NAME.
      */
-    private static final String PtInbound_PD_Bean_Name = "ptPDRespInbound";
+    private static final String PtInbound_PD_Bean_Name_Resp = "ptPDRespInbound";
 
     /**
      * Constructor for AbstractPDWebServicesMXBean.
@@ -106,7 +106,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getNhinBeanName() {
-        return NHIN_PD_BEAN_NAME;
+        return NHIN_PD_BEAN_NAME_RESP;
     }
 
     /*
@@ -116,7 +116,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_PD_Bean_Name;
+        return StdOutbound_PD_Bean_Name_Resp;
     }
 
     /*
@@ -126,7 +126,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_PD_Bean_Name;
+        return PtOutbound_PD_Bean_Name_Resp;
     }
 
     /*
@@ -136,7 +136,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_PD_Bean_Name;
+        return StdInbound_PD_Bean_Name_Resp;
     }
 
     /*
@@ -146,7 +146,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_PD_Bean_Name;
+        return PtInbound_PD_Bean_Name_Resp;
     }
 
     /*
@@ -156,7 +156,7 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getEntityUnsecuredBeanName() {
-        return ENTITY_UNSECURED_PD_BEAN_NAME;
+        return ENTITY_UNSECURED_PD_BEAN_NAME_RESP;
     }
 
     /*
@@ -166,75 +166,6 @@ public abstract class AbstractPDDeferredResponseWebServicesMXBean extends Abstra
      */
     @Override
     protected String getEntitySecuredBeanName() {
-        return ENTITY_SECURED_PD_BEAN_NAME;
+        return ENTITY_SECURED_PD_BEAN_NAME_RESP;
     }
-
-    /**
-     * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureOutboundStdImpl() throws InstantiationException, IllegalAccessException,
-        ClassNotFoundException;
-
-    /**
-     * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureOutboundPtImpl() throws InstantiationException, IllegalAccessException,
-        ClassNotFoundException;
-
-    /**
-     * Configure Inbound Standard implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureInboundStdImpl() throws InstantiationException, IllegalAccessException,
-        ClassNotFoundException;
-
-    /**
-     * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureInboundPtImpl() throws InstantiationException, IllegalAccessException,
-        ClassNotFoundException;
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundPassthru()
-     */
-    @Override
-    public abstract boolean isInboundPassthru();
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundPassthru()
-     */
-    @Override
-    public abstract boolean isOutboundPassthru();
-
 }
