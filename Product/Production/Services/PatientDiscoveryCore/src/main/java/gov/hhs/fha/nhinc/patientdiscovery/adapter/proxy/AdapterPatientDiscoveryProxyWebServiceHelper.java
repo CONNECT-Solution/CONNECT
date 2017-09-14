@@ -24,14 +24,14 @@ import org.slf4j.LoggerFactory;
  */
 public class AdapterPatientDiscoveryProxyWebServiceHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryProxyWebServiceHelper.class);
-    private static AdapterPatientDiscoveryProxyWebServiceHelper INSTANCE = new AdapterPatientDiscoveryProxyWebServiceHelper();
+    private static AdapterPatientDiscoveryProxyWebServiceHelper instance = new AdapterPatientDiscoveryProxyWebServiceHelper();
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     AdapterPatientDiscoveryProxyWebServiceHelper() {
     }
 
     public static AdapterPatientDiscoveryProxyWebServiceHelper getInstance() {
-        return INSTANCE;
+        return instance;
     }
 
     public PRPAIN201306UV02 formatGatewayResponsePRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion,

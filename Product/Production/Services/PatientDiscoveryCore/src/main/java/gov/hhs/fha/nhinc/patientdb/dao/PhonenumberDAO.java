@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class PhonenumberDAO extends GenericDaoJpaImpl<Phonenumber, Long> {
+public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PhonenumberDAO.class);
     private static PhonenumberDAO phonenumberDAO = new PhonenumberDAO();

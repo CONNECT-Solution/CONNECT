@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class AddressDAO extends GenericDaoJpaImpl<Address, Long> {
+public class AddressDAO extends GenericDAOImpl<Address> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();

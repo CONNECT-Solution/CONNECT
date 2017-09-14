@@ -5,7 +5,6 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
-import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -20,17 +19,13 @@ import org.slf4j.LoggerFactory;
  * @author PVenkatakrishnan
  *
  */
-public class GenericDaoJpaImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
+public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     protected Class<T> entityClass;
     private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
 
     Session session = null;
     Transaction tx = null;
-
-    public GenericDaoJpaImpl() {
-
-    }
 
     @Override
     public boolean create(T t) {
@@ -64,7 +59,7 @@ public class GenericDaoJpaImpl<T, PK extends Serializable> implements GenericDao
     }
 
     @Override
-    public T read(PK id, Class<T> objectType) {
+    public T read(Object id, Class<T> objectType) {
         List<T> queryList = null;
         T foundRecord = null;
         try {

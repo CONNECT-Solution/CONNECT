@@ -85,7 +85,7 @@ AbstractPatientDiscoveryPolicyChecker<RespondingGatewayPRPAIN201306UV02RequestTy
         return invokePolicyEngine(policyCheckReq);
     }
 
-    private boolean checkMessageReceiverForRepresentedOrg(PRPAIN201306UV02 message) {
+    private static boolean checkMessageReceiverForRepresentedOrg(PRPAIN201306UV02 message) {
         return NullChecker.isNotNullish(message.getReceiver()) && message.getReceiver().get(0) != null
             && message.getReceiver().get(0).getDevice() != null
             && message.getReceiver().get(0).getDevice().getAsAgent() != null
@@ -101,7 +101,7 @@ AbstractPatientDiscoveryPolicyChecker<RespondingGatewayPRPAIN201306UV02RequestTy
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot());
     }
 
-    private boolean checkMessageSenderForRepresentedOrg(PRPAIN201306UV02 message) {
+    private static boolean checkMessageSenderForRepresentedOrg(PRPAIN201306UV02 message) {
         return message.getSender().getDevice() != null
             && message.getSender().getDevice().getAsAgent() != null
             && message.getSender().getDevice().getAsAgent().getValue() != null

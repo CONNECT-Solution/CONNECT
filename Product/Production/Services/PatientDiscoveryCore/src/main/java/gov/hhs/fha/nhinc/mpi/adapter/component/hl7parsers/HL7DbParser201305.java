@@ -128,20 +128,22 @@ public class HL7DbParser201305 {
      */
     private static Timestamp formatBirthDate(Timestamp birthDate, final int dateOnlyLength,
         PRPAMT201306UV02LivingSubjectBirthTime birthTime) {
+        Timestamp parseBirthDate = birthDate;
         IVLTSExplicit birthday = birthTime.getValue().get(0);
         LOG.info("Found birthTime in query parameters = " + birthday.getValue());
         UTCDateUtil utcDateUtil = new UTCDateUtil();
         // Check date string length
         if (birthday.getValue().length() == dateOnlyLength) {
-            birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
+            parseBirthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
                 UTCDateUtil.DATE_ONLY_FORMAT, null).getTime());
         } else if (birthday.getValue().length() > dateOnlyLength) {
-            birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
-                UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
+            parseBirthDate = new Timestamp(
+                utcDateUtil.parseDate(birthday.getValue(),
+                    UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
         } else {
             LOG.info("message does not contain a valid formatted birthtime");
         }
-        return birthDate;
+        return parseBirthDate;
     }
 
     /**
@@ -250,8 +252,46 @@ public class HL7DbParser201305 {
      */
     private static Personname formatPatientName(String nameString, EnExplicitFamily lastname, EnExplicitGiven firstname,
         EnExplicitGiven middlename, EnExplicitPrefix prefix, EnExplicitSuffix suffix) {
-        boolean namefound = false;
+        boolean namefound;
         Personname personNameDBModel = new Personname();
+        namefound = checkNameContents(lastname, firstname, middlename, prefix, suffix, personNameDBModel);
+
+        if (!namefound && !nameString.trim().contentEquals("")) {
+            LOG.info("setting name by nameString " + nameString);
+            personNameDBModel.setLastName(nameString);
+
+        }
+        return personNameDBModel;
+    }
+
+    /**
+     * @param lastname
+     * @param firstname
+     * @param middlename
+     * @param prefix
+     * @param suffix
+     * @param namefound
+     * @param personNameDBModel
+     * @return
+     */
+    private static boolean checkNameContents(EnExplicitFamily lastname, EnExplicitGiven firstname,
+        EnExplicitGiven middlename, EnExplicitPrefix prefix, EnExplicitSuffix suffix,
+        Personname personNameDBModel) {
+        boolean namefound;
+        namefound = checkFirstMiddleLastNameContents(lastname, firstname, middlename, personNameDBModel)
+            || checkSuffixNameContents(prefix, suffix, personNameDBModel);
+        return namefound;
+    }
+
+    /**
+     * @param lastname
+     * @param firstname
+     * @param middlename
+     * @param personNameDBModel
+     */
+    private static boolean checkFirstMiddleLastNameContents(EnExplicitFamily lastname, EnExplicitGiven firstname,
+        EnExplicitGiven middlename, Personname personNameDBModel) {
+        boolean namefound = false;
         if (lastname != null && lastname.getContent() != null) {
             personNameDBModel.setLastName(lastname.getContent());
             LOG.info("FamilyName : " + personNameDBModel.getLastName());
@@ -269,7 +309,19 @@ public class HL7DbParser201305 {
             LOG.info("GivenName(middle) : " + personNameDBModel.getMiddleName());
             namefound = true;
         }
+        return namefound;
+    }
 
+    /**
+     * @param prefix
+     * @param suffix
+     * @param personNameDBModel
+     * @param namefound
+     * @return
+     */
+    private static boolean checkSuffixNameContents(EnExplicitPrefix prefix, EnExplicitSuffix suffix,
+        Personname personNameDBModel) {
+        boolean namefound = false;
         if (prefix != null && prefix.getContent() != null) {
             personNameDBModel.setPrefix(prefix.getContent());
             LOG.info("Prefix : " + personNameDBModel.getPrefix());
@@ -281,13 +333,7 @@ public class HL7DbParser201305 {
             LOG.info("Suffix : " + personNameDBModel.getSuffix());
             namefound = true;
         }
-
-        if (!namefound && !nameString.trim().contentEquals("")) {
-            LOG.info("setting name by nameString " + nameString);
-            personNameDBModel.setLastName(nameString);
-
-        }
-        return personNameDBModel;
+        return namefound;
     }
 
     /**
@@ -497,8 +543,6 @@ public class HL7DbParser201305 {
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
         if (CollectionUtils.isNotEmpty(params.getPatientTelecom())
             && params.getPatientTelecom().get(0) != null) {
-
-            int count = 0;
             for (PRPAMT201306UV02PatientTelecom patientTelecom : params.getPatientTelecom()) {
                 String telecom = hl7ParserUtils.extractTelecom(patientTelecom);
                 if (hl7ParserUtils.extractTelecom(patientTelecom) != null) {
@@ -506,7 +550,6 @@ public class HL7DbParser201305 {
                     phonenumber.setValue(telecom);
                     phonenumbers.add(phonenumber);
                 }
-                count++;
             }
         } else {
             LOG.info("message does not contain a patientTelecom");

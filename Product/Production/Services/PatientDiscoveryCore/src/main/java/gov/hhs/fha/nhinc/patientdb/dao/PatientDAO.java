@@ -38,7 +38,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,8 +118,6 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
     @Override
     public boolean update(Patient patientRecord) {
         LOG.debug("PatientDAO.update() - Begin");
-        Session session = null;
-        Transaction tx = null;
         boolean result = true;
 
         if (patientRecord != null) {

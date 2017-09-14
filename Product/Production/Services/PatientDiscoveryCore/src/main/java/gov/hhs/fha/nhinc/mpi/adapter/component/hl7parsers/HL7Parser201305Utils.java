@@ -23,13 +23,13 @@ import org.slf4j.LoggerFactory;
 public class HL7Parser201305Utils {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201305Utils.class);
-    private static HL7Parser201305Utils INSTANCE = new HL7Parser201305Utils();
+    private static HL7Parser201305Utils instance = new HL7Parser201305Utils();
 
     HL7Parser201305Utils() {
     }
 
     public static HL7Parser201305Utils getInstance() {
-        return INSTANCE;
+        return instance;
     }
 
     /**
