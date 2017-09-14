@@ -85,35 +85,6 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
     abstract RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
         AssertionType assertion, NhinTargetCommunitiesType targetCommunities);
 
-    // RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
-    // AssertionType assertion, NhinTargetCommunitiesType targetCommunities, String serviceName, Class classType) {
-    // LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
-    // RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-    //
-    // try {
-    // String url = getEndpointURLForService(serviceName);
-    // if (pdRequest == null) {
-    // LOG.error("PRPAIN201305UV02 was null");
-    // } else if (assertion == null) {
-    // LOG.error("AssertionType was null");
-    // } else if (targetCommunities == null) {
-    // LOG.error("NhinTargetCommunitiesType was null");
-    // } else {
-    // RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-    // request.setPRPAIN201305UV02(pdRequest);
-    // request.setAssertion(assertion);
-    // request.setNhinTargetCommunities(targetCommunities);
-    // response = (RespondingGatewayPRPAIN201306UV02ResponseType) getDiscoveryPortClient(url, assertion)
-    // .invokePort(classType, "respondingGatewayPRPAIN201305UV02", request);
-    // }
-    // } catch (Exception ex) {
-    // LOG.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
-    // }
-    //
-    // LOG.debug("End respondingGatewayPRPAIN201305UV02");
-    // return response;
-    // }
-
     /**
      * @param url
      * @param assertion
