@@ -42,9 +42,9 @@
                     <p:panelMenu style="width:100%">
                         <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
                             <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
-                            
-                           
-                           
+
+
+
                             <p:menuitem value="Remote Gateway List" action="#{tabBean.navigateToGatewayRemoteListTab()}" styleClass="glyphicon glyphicon-list" />
                         </p:submenu>
                         <p:submenu rendered="#{applicationBean.isDirectEnabled()}" label="Direct Configuration" styleClass="sidebar-purple">
@@ -60,7 +60,11 @@
                         <p:submenu label="Connection Management" styleClass="sidebar-red" >
                             <p:menuitem value="View External Connections" action="#{tabBean.navigateToConnectionManagement()}" styleClass="glyphicon glyphicon-eye-open" />
                         </p:submenu>
-                        <p:submenu label="Properties" styleClass="sidebar-green" >
+                        <p:submenu label="Certificate Management" styleClass="sidebar-red" >
+                            <p:menuitem value="KeyStore" action="#{tabBean.navigateToKeyStoreCertManagement()}" styleClass="glyphicon glyphicons-keys" />
+                            <p:menuitem value="TrustStore" action="#{tabBean.navigateToTrustStoreCertManagement()}" styleClass="glyphicon glyphicons-group" />
+                        </p:submenu>
+                      <p:submenu label="Properties" styleClass="sidebar-green" >
                             <p:menuitem value="Gateway" action="#{tabBean.navigateToGatewayPropTab()}" styleClass="glyphicon glyphicon-list" />
                             <p:menuitem value="Adapter" action="#{tabBean.navigateToAdapterPropTab()}" styleClass="glyphicon glyphicon-list-alt" />
                             <p:menuitem value="Audit" action="#{tabBean.navigateToAuditPropTab()}" styleClass="glyphicon glyphicon-list-alt" />

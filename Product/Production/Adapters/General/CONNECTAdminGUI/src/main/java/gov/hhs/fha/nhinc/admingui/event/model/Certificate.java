@@ -24,57 +24,87 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.opensaml;
+package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
+import java.math.BigInteger;
+import java.util.Date;
 
 /**
- * @author bhumphrey
  *
+ * @author tjafri
  */
-public interface CertificateManager {
+public class Certificate {
 
-  /**
-   * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-   * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-   *
-   * @return X509Certificate
-   * @throws CertificateManagerException
-   */
-  public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
+  private String alias;
+  private String algorithm;
+  private long keySize;
+  private Date expirationDate;
+  private BigInteger serialNumber;
+  private int version;
+  private String subjectKeyID;
+  private String authorityKeyID;
 
-  public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
+  public String getAlias() {
+    return alias;
+  }
 
-  /**
-   * @return
-   */
-  public abstract RSAPublicKey getDefaultPublicKey();
+  public void setAlias(String alias) {
+    this.alias = alias;
+  }
 
-  /**
-   * @return the keyStore
-   */
-  public abstract KeyStore getKeyStore();
+  public String getAlgorithm() {
+    return algorithm;
+  }
 
-  /**
-   * @return the trustStore
-   */
-  public abstract KeyStore getTrustStore();
+  public void setAlgorithm(String algorithm) {
+    this.algorithm = algorithm;
+  }
 
-  /**
-   * refreshes the underline keyStore
-   */
-  public KeyStore refreshKeyStore();
+  public long getKeySize() {
+    return keySize;
+  }
 
-  /**
-   * @return keyStore location
-   */
-  public String getKeyStoreLocation();
+  public void setKeySize(long keySize) {
+    this.keySize = keySize;
+  }
 
-  /**
-   * @return TrustStore location
-   */
-  public String getTrustStoreLocation();
+  public Date getExpirationDate() {
+    return expirationDate;
+  }
+
+  public void setExpirationDate(Date expirationDate) {
+    this.expirationDate = expirationDate;
+  }
+
+  public BigInteger getSerialNumber() {
+    return serialNumber;
+  }
+
+  public void setSerialNumber(BigInteger serialNumber) {
+    this.serialNumber = serialNumber;
+  }
+
+  public int getVersion() {
+    return version;
+  }
+
+  public void setVersion(int version) {
+    this.version = version;
+  }
+
+  public String getSubjectKeyID() {
+    return subjectKeyID;
+  }
+
+  public void setSubjectKeyID(String subjectKeyID) {
+    this.subjectKeyID = subjectKeyID;
+  }
+
+  public String getAuthorityKeyID() {
+    return authorityKeyID;
+  }
+
+  public void setAuthorityKeyID(String authorityKeyID) {
+    this.authorityKeyID = authorityKeyID;
+  }
 }

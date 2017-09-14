@@ -24,57 +24,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.opensaml;
+package gov.hhs.fha.nhinc.admingui.managed;
 
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
+import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
+import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
+import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
- * @author bhumphrey
  *
+ * @author tjafri
  */
-public interface CertificateManager {
+@ManagedBean(name = "certificateBean")
+@ViewScoped
+public class CertficateBean {
 
-  /**
-   * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-   * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-   *
-   * @return X509Certificate
-   * @throws CertificateManagerException
-   */
-  public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
+  private List<Certificate> keystores;
+  private CertificateManagerService service;
+  private Certificate selectedCertificate;
+  private String keyStoreLocation;
 
-  public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
+  public CertficateBean() {
+    service = new CertificateManagerServiceImpl();
+    fetchKeyStore();
+  }
 
-  /**
-   * @return
-   */
-  public abstract RSAPublicKey getDefaultPublicKey();
+  public String getKeyStoreLocation() {
+    keyStoreLocation = service.getKeyStoreLocation();
+    return keyStoreLocation;
+  }
 
-  /**
-   * @return the keyStore
-   */
-  public abstract KeyStore getKeyStore();
+  public List<Certificate> getKeystores() {
+    return keystores;
+  }
 
-  /**
-   * @return the trustStore
-   */
-  public abstract KeyStore getTrustStore();
+  public Certificate getSelectedCertificate() {
+    return selectedCertificate;
+  }
 
-  /**
-   * refreshes the underline keyStore
-   */
-  public KeyStore refreshKeyStore();
+  public void setSelectedCertificate(Certificate selectedCertificate) {
+    this.selectedCertificate = selectedCertificate;
+  }
 
-  /**
-   * @return keyStore location
-   */
-  public String getKeyStoreLocation();
+  public void refreshKeyStore() {
+    keystores = service.refreshKeyStores();
+  }
 
-  /**
-   * @return TrustStore location
-   */
-  public String getTrustStoreLocation();
+  public void deleteCertificate() {
+
+  }
+
+  private void fetchKeyStore() {
+    keystores = service.fetchKeyStores();
+  }
 }

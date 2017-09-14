@@ -73,7 +73,10 @@ VALUES
 ("loadTestData.xhtml", "Test Data", 0, 3),
 ("auditLog.xhtml", "AuditSearch", 0, 1),
 ("auditLog.xhtml", "AuditSearch", 0, 2),
-("auditLog.xhtml", "AuditSearch", 0, 3);
+("auditLog.xhtml", "AuditSearch", 0, 3),
+("certificateManager.xhtml", "Certificate Management", 0, 1),
+("certificateManager.xhtml", "Certificate Management", -1, 2),
+("certificateManager.xhtml", "Certificate Management", -1, 3);
 
 INSERT INTO adminguidb.UserLogin
 (id, salt, sha2, userName, userRole)

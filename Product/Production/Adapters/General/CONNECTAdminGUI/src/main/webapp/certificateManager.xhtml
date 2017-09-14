@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /*
+   * Copyright (c) 2009-2017, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved.
+   *
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions are met:
+   *     * Redistributions of source code must retain the above
+   *       copyright notice, this list of conditions and the following disclaimer.
+   *     * Redistributions in binary form must reproduce the above copyright
+   *       notice, this list of conditions and the following disclaimer in the documentation
+   *       and/or other materials provided with the distribution.
+   *     * Neither the name of the United States Government nor the
+   *       names of its contributors may be used to endorse or promote products
+   *       derived from this software without specific prior written permission.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <head>
+        <title>Admin GUI Certificate Management</title>
+    </head>
+
+    <h:body>
+        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+
+            <ui:define name="metatag"></ui:define>
+            <ui:define name="content">
+                <h1 class="section-header">Certificate Management</h1>
+                <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+                <p:tabView id="certTabView" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.certTabIndex}" styleClass="tabs-override tabs-ovr-blue">
+                    <p:ajax event="tabChange" listener="#{tabBean.onCertTabChange}" />
+                    <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                    <div class="tab-content">
+                        <!-- BEGIN: TAB PANE - KEYSTORE -->
+                        <p:tab id="#{tabBean.KEYSTORETAB}" title="Manage KeyStore"  closable="false">
+                            <div class="tab-pane active" id="keystores">
+                                <div class="content-block">
+                                    <h2 class="subsection-header">KeyStore List</h2>
+                                    <div class="content">
+                                      <div class="form-block center-block" style="padding:0px;">
+                                        <h:form class="form-horizontal" role="form" id="keyStoreForm" >
+                                          <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
+                                            <p:panelGrid styleClass="ui-panelgrid-domain">
+                                              <p:row>
+                                                <p:column>
+                                                  <h:outputLabel class="col-lg-1 control-label" value="KeyStore"/>
+                                                </p:column>
+                                                <p:column>
+                                                  <h:outputText value="#{certificateBean.keyStoreLocation}"/>
+                                                </p:column>
+                                              </p:row>
+                                              <p:row>
+                                                <p:column styleClass="ui-button-rightmost">
+                                                  <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
+                                                </p:column>
+                                                <p:column styleClass="ui-button-rightmost">
+                                                  <p:commandButton id="importCert" value="Import Certificate" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
+                                                </p:column>
+                                              </p:row>
+                                            </p:panelGrid>
+                                          </p:panel>
+                                          <div class="table-responsive table-props">
+                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                  <p:column selectionMode="single" />
+                                                  <p:column>
+                                                    <f:facet name="header">Alias</f:facet>
+                                                      #{cert.alias}
+                                                  </p:column>
+                                                  <p:column>
+                                                    <f:facet name="header">Algorithm</f:facet>
+                                                      #{cert.algorithm}
+                                                  </p:column>
+                                                  <p:column>
+                                                    <f:facet name="header">Key Size</f:facet>
+                                                      #{cert.keySize}
+                                                  </p:column>
+                                                  <p:column>
+                                                    <f:facet name="header">Expiration Date</f:facet>
+                                                      #{cert.expirationDate}
+                                                  </p:column>
+                                                  <p:column>
+                                                    <f:facet name="header">Subject Key Identifier</f:facet>
+                                                      #{cert.subjectKeyID}
+                                                  </p:column>
+                                                  <p:column>
+                                                    <f:facet name="header">Authority Key Identifier</f:facet>
+                                                      #{cert.authorityKeyID}
+                                                  </p:column>
+                                                </p:dataTable>
+
+                                            <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                              <p:row>
+                                                <p:column styleClass="ui-button-rightmost">
+                                                  <p:commandButton id="deleteCert" value="Delete Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                                </p:column>
+                                                <p:column styleClass="ui-button-rightmost">
+                                                  <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                                </p:column>
+                                              </p:row>
+                                            </p:panelGrid>
+                                          </div>
+                                        </h:form>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </p:tab>
+                        <!-- END: TAB PANE - KEYSTORE -->
+
+                        <!-- BEGIN: TAB PANE - TRUSTSTORE -->
+                        <p:tab id="#{tabBean.TRUSTSTORETAB}" title="Manage TrustStore" closable="false">
+                            <div class="content-block">
+                                <h2 class="subsection-header">TrustStore List</h2>
+
+                            </div>
+                        </p:tab>
+                        <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
+                    </div>
+                    <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
+                </p:tabView>
+                <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
