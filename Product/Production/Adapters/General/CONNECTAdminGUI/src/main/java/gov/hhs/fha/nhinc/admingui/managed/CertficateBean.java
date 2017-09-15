@@ -42,18 +42,26 @@ import javax.faces.bean.ViewScoped;
 public class CertficateBean {
 
   private List<Certificate> keystores;
+  private List<Certificate> truststores;
   private CertificateManagerService service;
   private Certificate selectedCertificate;
   private String keyStoreLocation;
+  private String trustStoreLocation;
 
   public CertficateBean() {
     service = new CertificateManagerServiceImpl();
     fetchKeyStore();
+    fetchTrustStore();
   }
 
   public String getKeyStoreLocation() {
     keyStoreLocation = service.getKeyStoreLocation();
     return keyStoreLocation;
+  }
+
+  public String getTrustStoreLocation() {
+    trustStoreLocation = service.getTrustStoreLocation();
+    return trustStoreLocation;
   }
 
   public List<Certificate> getKeystores() {
@@ -73,10 +81,18 @@ public class CertficateBean {
   }
 
   public void deleteCertificate() {
+    throw new UnsupportedOperationException();
+  }
 
+  public List<Certificate> getTruststores() {
+    return truststores;
   }
 
   private void fetchKeyStore() {
     keystores = service.fetchKeyStores();
+  }
+
+  private void fetchTrustStore() {
+    truststores = service.fetchTrustStores();
   }
 }

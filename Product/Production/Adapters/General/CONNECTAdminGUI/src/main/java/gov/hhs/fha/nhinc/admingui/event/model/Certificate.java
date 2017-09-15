@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -35,76 +34,77 @@ import java.util.Date;
  */
 public class Certificate {
 
-  private String alias;
-  private String algorithm;
-  private long keySize;
-  private Date expirationDate;
-  private BigInteger serialNumber;
-  private int version;
-  private String subjectKeyID;
-  private String authorityKeyID;
+    private String alias;
+    private String algorithm;
+    private int keySize;
+    private Date expirationDate;
+    private String serialNumber;
+    private int version;
+    private String subjectKeyID;
+    private String authorityKeyID;
 
-  public String getAlias() {
-    return alias;
-  }
+    public String getAlias() {
+        return alias;
+    }
 
-  public void setAlias(String alias) {
-    this.alias = alias;
-  }
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
-  public String getAlgorithm() {
-    return algorithm;
-  }
+    public String getAlgorithm() {
+        return algorithm;
+    }
 
-  public void setAlgorithm(String algorithm) {
-    this.algorithm = algorithm;
-  }
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
 
-  public long getKeySize() {
-    return keySize;
-  }
+    public int getKeySize() {
+        return keySize;
+    }
 
-  public void setKeySize(long keySize) {
-    this.keySize = keySize;
-  }
+    public void setKeySize(int keySize) {
+        this.keySize = keySize;
+    }
 
-  public Date getExpirationDate() {
-    return expirationDate;
-  }
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
 
-  public void setExpirationDate(Date expirationDate) {
-    this.expirationDate = expirationDate;
-  }
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 
-  public BigInteger getSerialNumber() {
-    return serialNumber;
-  }
 
-  public void setSerialNumber(BigInteger serialNumber) {
-    this.serialNumber = serialNumber;
-  }
+    public String getSerialNumber() {
+        return serialNumber;
+    }
 
-  public int getVersion() {
-    return version;
-  }
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
-  public void setVersion(int version) {
-    this.version = version;
-  }
+    public int getVersion() {
+        return version;
+    }
 
-  public String getSubjectKeyID() {
-    return subjectKeyID;
-  }
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
-  public void setSubjectKeyID(String subjectKeyID) {
-    this.subjectKeyID = subjectKeyID;
-  }
+    public String getSubjectKeyID() {
+        return subjectKeyID;
+    }
 
-  public String getAuthorityKeyID() {
-    return authorityKeyID;
-  }
+    public void setSubjectKeyID(String subjectKeyID) {
+        this.subjectKeyID = subjectKeyID;
+    }
 
-  public void setAuthorityKeyID(String authorityKeyID) {
-    this.authorityKeyID = authorityKeyID;
-  }
+    public String getAuthorityKeyID() {
+        return authorityKeyID;
+    }
+
+    public void setAuthorityKeyID(String authorityKeyID) {
+        this.authorityKeyID = authorityKeyID;
+    }
 }

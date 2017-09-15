@@ -32,10 +32,15 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.wss4j.common.crypto.DERDecoder;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +52,11 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
   private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
   private CertificateManager cmHelper = CertificateManagerImpl.getInstance();
+  //NOSONAR
+  private static final String AUTHORITY_KEY_ID = "2.5.29.35";
+  //NOSONAR
+  private static final String SUBJECT_KEY_ID = "2.5.29.14";
+  private static final int AUTHORITY_KEY_POSITION = 6;
 
   @Override
   public List<Certificate> fetchKeyStores() {
@@ -55,7 +65,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
   @Override
   public List<Certificate> fetchTrustStores() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return buildCertificateList(cmHelper.getTrustStore());
   }
 
   @Override
@@ -78,23 +88,20 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     try {
       Enumeration<String> aliases = keystore.aliases();
       if (aliases != null) {
-        Certificate obj = null;
         certs = new ArrayList<>();
         while (aliases.hasMoreElements()) {
           String alias = aliases.nextElement();
           java.security.cert.Certificate jCert = keystore.getCertificate(alias);
-          X509Certificate x509 = ((X509Certificate) jCert);
-          obj = new Certificate();
+          X509Certificate x509 = (X509Certificate) jCert;
+          Certificate obj = new Certificate();
           obj.setAlias(alias);
           obj.setAlgorithm(jCert.getPublicKey().getAlgorithm());
           obj.setExpirationDate(x509.getNotAfter());
-          obj.setSerialNumber(x509.getSerialNumber());
+          obj.setSerialNumber(getCertSerialNumber(x509));
           obj.setVersion(x509.getVersion());
-          boolean[] subjectID = x509.getSubjectUniqueID();
-          if (subjectID != null) {
-            obj.setSubjectKeyID(x509.getSubjectUniqueID() != null ? x509.getSubjectUniqueID().toString() : null);
-          }
-          obj.setAuthorityKeyID(x509.getIssuerUniqueID() != null ? x509.getIssuerUniqueID().toString() : null);
+          obj.setAuthorityKeyID(getAuthorityKeyIdentify(x509.getExtensionValue(AUTHORITY_KEY_ID)));
+          obj.setSubjectKeyID(getSubjectKeyID(x509.getExtensionValue(SUBJECT_KEY_ID)));
+          obj.setKeySize(getKeySize(x509));
           certs.add(obj);
         }
       }
@@ -102,5 +109,49 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
       LOG.error("Unable to fetch keystore: {}", ex);
     }
     return certs;
+  }
+
+  private static String getSubjectKeyID(byte[] subjectKeyID) {
+    String ski = null;
+    try {
+      if (subjectKeyID != null) {
+        // this logic extracts from CryptoBase class inside wss4j
+        DERDecoder extVal = new DERDecoder(subjectKeyID);
+        extVal.expect(DERDecoder.TYPE_OCTET_STRING); // ExtensionValue OCTET STRING
+        extVal.getLength(); // leave this method alone. getlength modify array position.
+        extVal.expect(DERDecoder.TYPE_OCTET_STRING); // KeyIdentifier OCTET STRING
+        int keyIDLen = extVal.getLength();
+        ski = Hex.encodeHexString(extVal.getBytes(keyIDLen));
+      }
+    } catch (WSSecurityException e) {
+      LOG.error("Unable to convert SKI into human readable {}", e.getLocalizedMessage(), e);
+    }
+    return ski;
+  }
+
+  private static String getAuthorityKeyIdentify(byte[] authorityKey) {
+    String aik = null;
+    try {
+      if (authorityKey != null) {
+        DERDecoder extValA = new DERDecoder(authorityKey);
+        extValA.skip(AUTHORITY_KEY_POSITION);
+        int length = authorityKey.length - AUTHORITY_KEY_POSITION;
+        aik = Hex.encodeHexString(extValA.getBytes(length));
+      }
+    } catch (WSSecurityException e) {
+      LOG.error("Unable to convert AIK into human readable {} ", e.getLocalizedMessage(), e);
+    }
+    return aik;
+  }
+
+  private static String getCertSerialNumber(X509Certificate cert) {
+    return new String(Hex.encodeHex(cert.getSerialNumber().toByteArray()));
+  }
+  private int getKeySize(X509Certificate cert){
+    PublicKey publicKey = cert.getPublicKey();
+    if (publicKey instanceof RSAPublicKey){
+      return ((RSAPublicKey)publicKey).getModulus().bitLength();
+    }
+    return -1;
   }
 }

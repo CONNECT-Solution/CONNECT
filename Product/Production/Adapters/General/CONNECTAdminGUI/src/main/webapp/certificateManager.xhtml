@@ -46,7 +46,7 @@
             <ui:define name="content">
                 <h1 class="section-header">Certificate Management</h1>
                 <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-                <p:tabView id="certTabView" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.certTabIndex}" styleClass="tabs-override tabs-ovr-blue">
+                <p:tabView id="certTabView" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.certTabIndex}" styleClass="tabs-override tabs-ovr-yellow">
                     <p:ajax event="tabChange" listener="#{tabBean.onCertTabChange}" />
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                     <div class="tab-content">
@@ -68,12 +68,11 @@
                                                   <h:outputText value="#{certificateBean.keyStoreLocation}"/>
                                                 </p:column>
                                               </p:row>
+                                              <p:row/>
                                               <p:row>
                                                 <p:column styleClass="ui-button-rightmost">
                                                   <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
-                                                </p:column>
-                                                <p:column styleClass="ui-button-rightmost">
-                                                  <p:commandButton id="importCert" value="Import Certificate" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
+                                                  <p:commandButton id="importCert" value="Import Certificate" onclick="PF('certCreateDlg').show();" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
                                                 </p:column>
                                               </p:row>
                                             </p:panelGrid>
@@ -128,15 +127,82 @@
 
                         <!-- BEGIN: TAB PANE - TRUSTSTORE -->
                         <p:tab id="#{tabBean.TRUSTSTORETAB}" title="Manage TrustStore" closable="false">
+                          <div class="tab-pane active" id="truststores">
                             <div class="content-block">
-                                <h2 class="subsection-header">TrustStore List</h2>
-
+                              <h2 class="subsection-header">TrustStore List</h2>
+                              <div class="content">
+                                <div class="form-block center-block" style="padding:0px;">
+                                  <h:form class="form-horizontal" role="form" id="trustStoreForm" >
+                                    <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
+                                      <p:panelGrid styleClass="ui-panelgrid-domain">
+                                        <p:row>
+                                          <p:column>
+                                            <h:outputLabel class="col-lg-1 control-label" value="TrustStore"/>
+                                          </p:column>
+                                          <p:column>
+                                            <h:outputText value="#{certificateBean.trustStoreLocation}"/>
+                                          </p:column>
+                                        </p:row>
+                                        <p:row>
+                                          <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton id="refreshKeyStore" value="Refresh TrustStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
+                                            <p:commandButton id="importCert" value="Import Certificate" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
+                                          </p:column>                                          
+                                        </p:row>
+                                      </p:panelGrid>
+                                    </p:panel>
+                                    <div class="table-responsive table-props">
+                                      <p:dataTable id="keystoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                        <p:column selectionMode="single" />
+                                        <p:column>
+                                          <f:facet name="header">Alias</f:facet>
+                                                                              #{cert.alias}
+                                        </p:column>
+                                        <p:column>
+                                          <f:facet name="header">Algorithm</f:facet>
+                                                                              #{cert.algorithm}
+                                        </p:column>
+                                        <p:column>
+                                          <f:facet name="header">Key Size</f:facet>
+                                                                              #{cert.keySize}
+                                        </p:column>
+                                        <p:column>
+                                          <f:facet name="header">Expiration Date</f:facet>
+                                                                              #{cert.expirationDate}
+                                        </p:column>
+                                        <p:column>
+                                          <f:facet name="header">Subject Key Identifier</f:facet>
+                                                                              #{cert.subjectKeyID}
+                                        </p:column>
+                                        <p:column>
+                                          <f:facet name="header">Authority Key Identifier</f:facet>
+                                                                              #{cert.authorityKeyID}
+                                        </p:column>
+                                      </p:dataTable>
+                        
+                                      <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                        <p:row>
+                                          <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton id="deleteCert" value="Delete Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                          </p:column>
+                                          <p:column styleClass="ui-button-rightmost">
+                                            <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                          </p:column>
+                                        </p:row>
+                                      </p:panelGrid>
+                                    </div>
+                                  </h:form>
+                                </div>
+                              </div>
                             </div>
+                          </div>
                         </p:tab>
                         <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
                     </div>
                     <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
                 </p:tabView>
+                <!-- include link for import cert -->
+                <ui:include src="certManagementCreateDialog.xhtml" />
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
             </ui:define>
         </ui:composition>
