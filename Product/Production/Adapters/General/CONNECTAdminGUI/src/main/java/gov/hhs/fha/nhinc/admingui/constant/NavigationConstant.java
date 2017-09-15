@@ -55,8 +55,6 @@ public class NavigationConstant {
     public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
     public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
 
-    public static final int GATEWAY_DASHBOARD_TAB = 0;
-    public static final int GATEWAY_REMOTELIST_TAB = 1;
     /**
      * Use this class to hold constant variables
      */

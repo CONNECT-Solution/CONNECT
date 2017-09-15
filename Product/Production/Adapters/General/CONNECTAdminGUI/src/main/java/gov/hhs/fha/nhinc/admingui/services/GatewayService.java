@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.admingui.services;
 
 import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Document;
-import gov.hhs.fha.nhinc.admingui.event.model.Patient;
+import gov.hhs.fha.nhinc.admingui.model.Document;
+import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;

@@ -24,94 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.dashboard.impl;
+package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.dashboard.DashboardObserver;
-import gov.hhs.fha.nhinc.admingui.dashboard.DashboardPanel;
+import java.util.HashMap;
 
 /**
  *
- * @author jasonasmith
+ * @author jassmit
  */
-public class DashboardJava extends DashboardPanelAbstract implements DashboardPanel {
+public interface StatusEvent {
 
-    private final String type = "JAVA VERSION";
-    private String title;
-    private String description;
+    public void setCounts();
 
-    private static final String JAVA_VERSION_KEY = "java.version";
-    private static final String JAVA_VENDOR_KEY = "java.vm.vendor";
+    public HashMap<String, Integer> getInboundEventCounts();
 
-    /**
-     *
-     */
-    public DashboardJava() {
+    public HashMap<String, Integer> getOutboundEventCounts();
 
-    }
+    public long getTotalInboundRequests();
 
-    /**
-     *
-     * @param observer
-     * @param closed
-     */
-    public DashboardJava(DashboardObserver observer, boolean closed) {
-        setObserver(observer);
-        setClosed(closed);
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String getType() {
-        return type;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public DashboardPanel setData() {
-        title = System.getProperty(JAVA_VERSION_KEY);
-        description = System.getProperty(JAVA_VENDOR_KEY);
-        return this;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void close() {
-        setClosed(true);
-        getObserver().closePanel(DashboardJava.class);
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void open() {
-        setClosed(false);
-        getObserver().openPanel(DashboardJava.class);
-    }
+    public long getTotatOutboundRequests();
+    
+    public HashMap<String, Integer> getServiceList();
 }

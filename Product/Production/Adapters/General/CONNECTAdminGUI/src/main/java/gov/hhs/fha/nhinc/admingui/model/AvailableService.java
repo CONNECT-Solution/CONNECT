@@ -24,59 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.dashboard;
+package gov.hhs.fha.nhinc.admingui.model;
 
 /**
  *
- * @author jasonasmith
+ * @author jassmit
  */
+public class AvailableService {
 
-public interface DashboardPanel {
+    private String serviceName;
+    private boolean available;
 
-    /**
-     *
-     * @return
-     */
-    public String getType();
+    public String getServiceName() {
+        return serviceName;
+    }
 
-    /**
-     *
-     * @return
-     */
-    public String getTitle();
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
-    /**
-     *
-     * @return
-     */
-    public String getDescription();
+    public boolean isAvailable() {
+        return available;
+    }
 
-    /**
-     *
-     * @return
-     */
-    public DashboardPanel setData();
-
-    /**
-     *
-     * @return
-     */
-    public boolean isClosed();
-
-    /**
-     *
-     */
-    public void close();
-
-    /**
-     *
-     */
-    public void open();
-
-    /**
-     *
-     * @param observer
-     */
-    public void setObserver(DashboardObserver observer);
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 
 }

@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Audit;
+import gov.hhs.fha.nhinc.admingui.model.Audit;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
-import gov.hhs.fha.nhinc.admingui.event.model.Audit;
+import gov.hhs.fha.nhinc.admingui.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.services.impl.AuditServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
