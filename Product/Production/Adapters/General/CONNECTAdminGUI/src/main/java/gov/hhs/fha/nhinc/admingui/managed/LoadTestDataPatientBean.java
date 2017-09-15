@@ -87,9 +87,13 @@ public class LoadTestDataPatientBean {
 
     public void deletePatient() {
         if (selectedPatient != null) {
-            LOG.debug("deletePatient() - selectedPatient-ID: " + selectedPatient.getPatientId());
+            LOG.debug("deletePatient() - selectedPatient-ID: {} ", selectedPatient.getPatientId());
             loadTestDataService.deletePatient(selectedPatient);
         }
+    }
+
+    public void editPatient() {
+        LOG.info("selected-patient-for-edit");
     }
 
     public boolean savePatient() {

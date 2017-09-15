@@ -1233,7 +1233,7 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 VALUES (
     25
     ,'loadTestData.xhtml'
-    ,'Load Test Data'
+    ,'Test Data'
     ,0
     ,1
     );
@@ -1248,7 +1248,7 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 VALUES (
     26
     ,'loadTestData.xhtml'
-    ,'Load Test Data'
+    ,'Test Data'
     ,0
     ,2
     );
@@ -1263,7 +1263,7 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 VALUES (
     27
     ,'loadTestData.xhtml'
-    ,'Load Test Data'
+    ,'Test Data'
     ,0
     ,3
     );
