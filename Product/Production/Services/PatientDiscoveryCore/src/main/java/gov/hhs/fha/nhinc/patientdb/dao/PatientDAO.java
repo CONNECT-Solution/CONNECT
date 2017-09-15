@@ -36,11 +36,12 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
@@ -56,6 +57,7 @@ public class PatientDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
+    private HibernateUtil hibernateUtil = HibernateUtilFactory.getHibernateUtilInstance();
 
     /**
      * Constructor
@@ -91,8 +93,8 @@ public class PatientDAO {
 
         if (patientRecord != null) {
             try {
-                SessionFactory sessionFactory = getSessionFactory();
-                session = sessionFactory.openSession();
+                session = hibernateUtil.getSessionFactory().openSession();
+
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
 
@@ -140,8 +142,7 @@ public class PatientDAO {
         List<Patient> queryList;
         Patient foundRecord = null;
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             LOG.info("Reading Record...");
 
             // Build the criteria
@@ -151,7 +152,7 @@ public class PatientDAO {
 
             queryList = aCriteria.list();
 
-            if (queryList != null && !queryList.isEmpty()) {
+            if (CollectionUtils.isNotEmpty(queryList)) {
                 foundRecord = queryList.get(0);
             }
         } catch (HibernateException | NullPointerException e) {
@@ -185,8 +186,7 @@ public class PatientDAO {
 
         if (patientRecord != null) {
             try {
-                SessionFactory sessionFactory = getSessionFactory();
-                session = sessionFactory.openSession();
+                session = hibernateUtil.getSessionFactory().openSession();
                 tx = session.beginTransaction();
                 LOG.info("Updating Record...");
 
@@ -225,8 +225,7 @@ public class PatientDAO {
 
         Session session = null;
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
             LOG.info("Deleting Record...");
 
             // Delete the Patient record
@@ -263,8 +262,7 @@ public class PatientDAO {
         List<Patient> patientsList = new ArrayList<>();
 
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = hibernateUtil.getSessionFactory().openSession();
 
             LOG.info("Reading Records...");
 
@@ -290,7 +288,7 @@ public class PatientDAO {
 
             // Build the select with query criteria
             StringBuilder sqlSelect = new StringBuilder(
-                    "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
+                "SELECT DISTINCT p.patientId, p.dateOfBirth, p.gender, p.ssn, i.id, i.organizationid");
             sqlSelect.append(" FROM patientdb.patient p");
             sqlSelect.append(" INNER JOIN patientdb.identifier i ON p.patientId = i.patientId");
             sqlSelect.append(" INNER JOIN patientdb.personname n ON p.patientId = n.patientId");
@@ -419,10 +417,10 @@ public class PatientDAO {
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
             SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString())
-                    .addScalar("patientId", StandardBasicTypes.LONG)
-                    .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
-                    .addScalar("gender", StandardBasicTypes.STRING).addScalar("ssn", StandardBasicTypes.STRING)
-                    .addScalar("id", StandardBasicTypes.STRING).addScalar("organizationid", StandardBasicTypes.STRING);
+                .addScalar("patientId", StandardBasicTypes.LONG)
+                .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
+                .addScalar("gender", StandardBasicTypes.STRING).addScalar("ssn", StandardBasicTypes.STRING)
+                .addScalar("id", StandardBasicTypes.STRING).addScalar("organizationid", StandardBasicTypes.STRING);
 
             int iParam = 0;
             if (NullChecker.isNotNullish(gender)) {
@@ -521,11 +519,11 @@ public class PatientDAO {
 
                     // Populate demographic data
                     patientData
-                            .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                    .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
                     patientData.setPersonnames(
-                            PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
+                        PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
                     patientData.setPhonenumbers(
-                            PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
+                        PhonenumberDAO.getPhonenumberDAOInstance().findPatientPhonenumbers(patientIdArray[i]));
 
                     patientsList.add(patientData);
                 }
@@ -549,17 +547,28 @@ public class PatientDAO {
     }
 
     /**
-     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
+     * Returns get all patients list
      *
      * @return
      */
-    protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
-        HibernateUtil hibernateUtil = HibernateUtilFactory.getPatientDiscHibernateUtil();
-        if (hibernateUtil != null) {
-            fact = hibernateUtil.getSessionFactory();
-        }
-        return fact;
-    }
+    public List<Patient> getAll() {
 
+        Session session = null;
+        List<Patient> patients = new ArrayList<>();
+
+        try {
+            session = hibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("select new Patient(p) from Patient p");
+            patients = query.list();
+
+            LOG.debug("DAO-getAll-patients-count: " + patients.size());
+
+        } catch (HibernateException e) {
+            LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
+        } finally {
+            HibernateUtil.closeSession(session, false);
+        }
+
+        return patients;
+    }
 }

@@ -157,5 +157,7 @@ public class CallbackMapPropertiesTest {
         DateTime evidenceConditionNotAfter = callbackProperties.getEvidenceConditionNotAfter();
         assertTrue(
             StringUtils.lowerCase(evidenceConditionNotAfter.toString()).contains(StringUtils.lowerCase(TEST_DATE)));
+        List<SAMLSubjectConfirmation> subjectConfirmations = callbackProperties.getSubjectConfirmations();
+        assertTrue(subjectConfirmations != null);
     }
 }

@@ -20,6 +20,12 @@
                 </ds:KeyInfo>
             </saml2:SubjectConfirmationData>
         </saml2:SubjectConfirmation>
+         <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:sender-vouches">
+               <saml2:SubjectConfirmationData Address="127.0.0.1" InResponseTo="tester"/>
+          </saml2:SubjectConfirmation>
+          <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+               <saml2:SubjectConfirmationData/>
+          </saml2:SubjectConfirmation>
     </saml2:Subject>
     <saml2:AuthnStatement AuthnInstant="2010-05-01T02:09:01.089Z"
         SessionIndex="123456">

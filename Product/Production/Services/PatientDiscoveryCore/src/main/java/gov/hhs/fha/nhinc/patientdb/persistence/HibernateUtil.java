@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.File;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -54,7 +55,7 @@ public class HibernateUtil {
             // Create the SessionFactory from hibernate.cfg.xml
             if (sessionFactory == null || sessionFactory.isClosed()) {
                 sessionFactory = new Configuration().configure()
-                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
             }
         } catch (HibernateException he) {
             // Make sure you log the exception, as it might be swallowed
@@ -83,6 +84,9 @@ public class HibernateUtil {
      * @return SessionFactory
      */
     public SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            buildSessionFactory();
+        }
         return sessionFactory;
     }
 
@@ -96,6 +100,15 @@ public class HibernateUtil {
         }
 
         return result;
+    }
+
+    public static void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
     }
 
 }

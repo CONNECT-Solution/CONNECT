@@ -419,32 +419,25 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             if (request != null && request.getControlActProcess() != null) {
                 aaId = extractAAOID(request);
 
-                if (NullChecker.isNotNullish(aaId)) {
-                    if (request.getControlActProcess().getQueryByParameter() != null
-                        && request.getControlActProcess().getQueryByParameter().getValue() != null
-                        && request.getControlActProcess().getQueryByParameter().getValue()
-                        .getParameterList() != null
-                        && NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue()
-                            .getParameterList().getLivingSubjectId())) {
-                        for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess()
-                            .getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
-                            for (II id : livingSubId.getValue()) {
-                                if (id != null && NullChecker.isNotNullish(id.getRoot())
-                                    && NullChecker.isNotNullish(id.getExtension())
-                                    && aaId.contentEquals(id.getRoot())) {
-                                    patId = new II();
-                                    patId.setRoot(id.getRoot());
-                                    patId.setExtension(id.getExtension());
+                if (NullChecker.isNotNullish(aaId) && requestHasLivingId(request)) {
+                    for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess()
+                        .getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+                        for (II id : livingSubId.getValue()) {
+                            if (id != null && NullChecker.isNotNullish(id.getRoot())
+                                && NullChecker.isNotNullish(id.getExtension())
+                                && aaId.contentEquals(id.getRoot())) {
+                                patId = new II();
+                                patId.setRoot(id.getRoot());
+                                patId.setExtension(id.getExtension());
 
-                                    // break out of inner loop
-                                    break;
-                                }
-                            }
-
-                            // If the patient id was found then break out of outer loop
-                            if (patId != null) {
+                                // break out of inner loop
                                 break;
                             }
+                        }
+
+                        // If the patient id was found then break out of outer loop
+                        if (patId != null) {
+                            break;
                         }
                     }
                 }
@@ -455,6 +448,14 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         }
 
         return patId;
+    }
+
+    private static boolean requestHasLivingId(PRPAIN201305UV02 request) {
+        return request.getControlActProcess().getQueryByParameter() != null
+            && request.getControlActProcess().getQueryByParameter().getValue() != null
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
+            && NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue()
+                .getParameterList().getLivingSubjectId());
     }
 
     public PRPAIN201305UV02 createNewRequest(PRPAIN201305UV02 request, String targetCommunityId) {
@@ -480,36 +481,31 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         II patId = null;
         String aaId;
 
-        if (request != null && request.getControlActProcess() != null) {
+        if (request == null || request.getControlActProcess() == null) {
+            return patId;
+        }
 
-            aaId = extractAAOID(request);
+        aaId = extractAAOID(request);
 
-            if (NullChecker.isNotNullish(aaId)) {
-                if (request.getControlActProcess().getQueryByParameter() != null
-                    && request.getControlActProcess().getQueryByParameter().getValue() != null
-                    && request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
-                    && NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue()
-                        .getParameterList().getLivingSubjectId())) {
-                    for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess()
-                        .getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
-                        for (II id : livingSubId.getValue()) {
-                            if (id != null && NullChecker.isNotNullish(id.getRoot())
-                                && NullChecker.isNotNullish(id.getExtension())
-                                && aaId.contentEquals(id.getRoot())) {
-                                patId = new II();
-                                patId.setRoot(id.getRoot());
-                                patId.setExtension(id.getExtension());
+        if (NullChecker.isNotNullish(aaId) && requestHasLivingId(request)) {
+            for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess()
+                .getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+                for (II id : livingSubId.getValue()) {
+                    if (id != null && NullChecker.isNotNullish(id.getRoot())
+                        && NullChecker.isNotNullish(id.getExtension())
+                        && aaId.contentEquals(id.getRoot())) {
+                        patId = new II();
+                        patId.setRoot(id.getRoot());
+                        patId.setExtension(id.getExtension());
 
-                                // break out of inner loop
-                                break;
-                            }
-                        }
-
-                        // If the patient id was found then break out of outer loop
-                        if (patId != null) {
-                            break;
-                        }
+                        // break out of inner loop
+                        break;
                     }
+                }
+
+                // If the patient id was found then break out of outer loop
+                if (patId != null) {
+                    break;
                 }
             }
         }

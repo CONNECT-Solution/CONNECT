@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -383,12 +384,10 @@ public class HL7Parser201305 {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
                 LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                 telecom = telecomValue.getValue();
-                if (telecom != null) {
-                    if (!telecom.startsWith("tel:")) {
-                        // telecom is not valid without tel: prefix
-                        telecom = null;
-                        LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
-                    }
+                if (!StringUtils.startsWith(telecom, "tel:")) {
+                    // telecom is not valid without tel: prefix
+                    telecom = null;
+                    LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
                 }
             } else {
                 LOG.info("message does not contain a patientTelecom");

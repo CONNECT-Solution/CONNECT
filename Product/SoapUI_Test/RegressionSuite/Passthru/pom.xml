@@ -26,12 +26,13 @@
             <modules>
                 <module>Admin-Distribution-Passthrough</module>
                 <!--module>AuditLogging-Passthrough</module-->
+                <module>NHINSAMLSubjectConfirmationTest</module>
                 <module>DocQueryAdditionalStoredQueries</module>
                 <module>DocQueryRetrieveSelfTest</module>
                 <module>DocQueryXDSErrors</module>
                 <module>EventLogging-Passthrough</module>
                 <module>X12ErrorHandlingTest</module>
-				<module>NHINSAMLAttributesTest</module>
+                <module>NHINSAMLAttributeTest</module>
             </modules>
         </profile>
     </profiles>

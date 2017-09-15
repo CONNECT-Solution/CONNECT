@@ -115,9 +115,9 @@ public class Personname implements Serializable {
 
     public Patient getPatient() {
 
-        if (this.patient == null) {
+        if (patient == null) {
 
-            this.patient = new Patient();
+            patient = new Patient();
 
         }
 
@@ -245,5 +245,6 @@ public class Personname implements Serializable {
         this.suffix = suffix;
 
     }
+
 
 }

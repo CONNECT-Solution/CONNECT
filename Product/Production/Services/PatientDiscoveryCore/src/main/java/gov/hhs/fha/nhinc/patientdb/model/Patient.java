@@ -99,6 +99,21 @@ public class Patient implements Serializable {
 
     private List<Phonenumber> phonenumbers = null;
 
+    public Patient() {
+        // default-constructor
+    }
+
+    public Patient(Patient patient, Personname personname) {
+        patient.getPersonnames().add(personname);
+        setPatient(patient);
+    }
+
+    // PATIENT-CONSTRUCTOR WITH LAZY INITUALIZE
+    public Patient(Patient patient) {
+        setPatient(patient);
+        initializeLazyObject();
+    }
+
     /**
      *
      * @return patientId
@@ -326,6 +341,42 @@ public class Patient implements Serializable {
 
         return output.toString();
 
+    }
+
+    // READ-ONLY PROPERITES
+    public String getFirstName(){
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(0).getFirstName();
+        }
+        return "";
+    }
+
+    public String getLastName(){
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(0).getLastName();
+        }
+        return "";
+    }
+
+    public void setPatient(Patient patient) {
+        addresses = patient.addresses;
+        dateOfBirth = patient.dateOfBirth;
+        gender = patient.gender;
+        identifiers = patient.identifiers;
+        patientId = patient.patientId;
+        personnames = patient.personnames;
+        phonenumbers = patient.phonenumbers;
+        ssn = patient.ssn;
+    }
+
+    public long[] initializeLazyObject() {
+        return new long[] {
+                patientId,
+                addresses != null ? (long) addresses.size() : 0,
+                    identifiers != null ? (long) identifiers.size() : 0,
+                        personnames != null ? (long)personnames.size() : 0,
+                            phonenumbers != null ? (long)phonenumbers.size() : 0
+        };
     }
 
 }

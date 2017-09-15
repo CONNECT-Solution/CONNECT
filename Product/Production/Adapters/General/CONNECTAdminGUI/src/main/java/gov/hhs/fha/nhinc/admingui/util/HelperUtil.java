@@ -24,46 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.constant;
+package gov.hhs.fha.nhinc.admingui.util;
+
+import com.google.gson.Gson;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @author sadusumilli
+ * @author Tran Tang
  *
  */
-public class NavigationConstant {
+public class HelperUtil {
 
-    public static final String STATUS_PAGE = "status";
-    public static final String LOGIN_PAGE = "login";
-    public static final String LOGIN_XHTML = "/login.xhtml";
-    public static final String ACCT_MGMT_PAGE = "acctmanage";
-    public static final String DIRECT_PAGE = "direct";
-    public static final String DIRECT_XHTML = "direct.xhtml";
-    public static final String FHIR_PAGE = "fhir";
-    public static final String FHIR_XHTML = "fhir.xhtml";
-    public static final String CM_PAGE = "connectionManager";
-    public static final String PROPERTIES_PAGE = "properties";
-    public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
-    public static final String CUSTOM_ERROR_PAGE = "customerror";
-    public static final String CUSTOM_ERROR_XHTML = "/customerror.xhtml";
-
-    public static final int DIRECT_DOMAIN_TAB = 0;
-    public static final int DIRECT_SETTING_TAB = 1;
-    public static final int DIRECT_CERTIFICATE_TAB = 2;
-    public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
-
-    public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
-    public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
-
-    // LOAD-TEST-DATA
-    public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
-    public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
-    public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
+    /*
+     * Utility class-private constructor
+     */
+    private HelperUtil() {
+    }
 
     /**
-     * Use this class to hold constant variables
+     * Populate the gender lookup data list. This logic needs to be moved to a Utility or to the application bean.
+     *
      */
-    private NavigationConstant() {
+    public static Map<String, String> populteGenderList() {
+        Map<String, String> localGenderList = new HashMap<>();
+        localGenderList.put("Male", "M");
+        localGenderList.put("Female", "F");
+        localGenderList.put("Undifferentiated", "UN");
+        return localGenderList;
+    }
+
+    public static boolean isId(Long id) {
+        return id != null && id.longValue() > 0L;
+    }
+
+    // CONVERT-METHODS
+    public static Timestamp toTimestamp(Date date){
+        return new Timestamp(date.getTime());
+    }
+
+    public static String toJsonString(Object object) {
+        return new Gson().toJson(object);
     }
 
 }

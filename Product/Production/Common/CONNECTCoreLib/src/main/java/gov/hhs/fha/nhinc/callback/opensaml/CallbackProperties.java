@@ -235,4 +235,13 @@ public interface CallbackProperties {
      * @return
      */
     String getUserOrganizationId();
+
+    /**
+     *
+     * @return List of subject confirmation
+     */
+    List<SAMLSubjectConfirmation> getSubjectConfirmations();
+
+
+
 }

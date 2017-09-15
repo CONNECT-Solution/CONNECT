@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectConfirmationType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import java.io.File;
 import java.net.URI;
@@ -54,6 +55,7 @@ import org.apache.wss4j.common.saml.OpenSAMLUtil;
 import org.junit.Test;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Evidence;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -91,7 +93,7 @@ public class OpenSAMLAssertionExtractorImplTest {
     public void testCompleteSamlAssertion() throws Exception {
 
         AssertionType assertionType = openSAMLAssertionExtractorImpl
-                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("complete_saml.xml")));
+            .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("complete_saml.xml")));
         assertNotNull(assertionType);
 
         verifyHomeCommunity(assertionType.getHomeCommunity(), "2.16.840.1.113883.3.424", null);
@@ -101,8 +103,22 @@ public class OpenSAMLAssertionExtractorImplTest {
         verifyAuthnStatement(assertionType.getSamlAuthnStatement());
         verifyUniquePatientId(assertionType.getUniquePatientId());
         verifyCeType(assertionType.getPurposeOfDisclosureCoded(), "OPERATIONS", "2.16.840.1.113883.3.18.7.1",
-                "nhin-purpose", "Healthcare Operations");
+            "nhin-purpose", "Healthcare Operations");
         verifySignature(assertionType.getSamlSignature());
+        verifySubject(assertionType.getSamlSubjectConfirmations());
+    }
+
+    /**
+     * @param samlSubjects
+     */
+    private void verifySubject(List<SamlSubjectConfirmationType> samlSubjects) {
+        assertEquals("subject should have HOK,SV,Bearer methods", 3, samlSubjects.size());
+        for (SamlSubjectConfirmationType subject : samlSubjects) {
+            if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(subject.getMethod())) {
+                assertEquals("tester", subject.getInResponseTo());
+                assertEquals("127.0.0.1", subject.getAddress());
+            }
+        }
     }
 
     /**
@@ -116,13 +132,13 @@ public class OpenSAMLAssertionExtractorImplTest {
     public void testDifferentOrderedAssertion() throws Exception {
 
         AssertionType assertionType = openSAMLAssertionExtractorImpl
-                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_header_diff_order.xml")));
+            .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_header_diff_order.xml")));
         assertNotNull(assertionType);
 
         assertEquals("CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US", assertionType.getSamlIssuer()
-                .getIssuer());
+            .getIssuer());
         assertEquals("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName", assertionType.getSamlIssuer()
-                .getIssuerFormat());
+            .getIssuerFormat());
     }
 
     @Test
@@ -130,7 +146,7 @@ public class OpenSAMLAssertionExtractorImplTest {
         Element element = getElementWitoutEvidenceAssertions();
         AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(element);
         SamlAuthzDecisionStatementEvidenceType extractedEvidence = assertionType.getSamlAuthzDecisionStatement()
-                .getEvidence();
+            .getEvidence();
         assertNotNull(extractedEvidence);
         assertNull(extractedEvidence.getAssertion());
     }
@@ -139,7 +155,7 @@ public class OpenSAMLAssertionExtractorImplTest {
     public void testSamlAssertionValuesMissing() throws Exception {
 
         AssertionType assertionType = openSAMLAssertionExtractorImpl
-                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_missingValues.xml")));
+            .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_missingValues.xml")));
         assertNotNull(assertionType);
 
         verifyHomeCommunity(assertionType.getHomeCommunity(), EMPTY_STRING, null);
@@ -203,7 +219,7 @@ public class OpenSAMLAssertionExtractorImplTest {
         // verify decision statement
         assertEquals("Permit", decisionStatement.getDecision());
         assertEquals("https://nhinri1c23.aegis.net:8181/NhinConnect/EntityPatientDiscoverySecured",
-                decisionStatement.getResource());
+            decisionStatement.getResource());
         assertEquals("Execute", decisionStatement.getAction());
 
         // verify decision statement evidence

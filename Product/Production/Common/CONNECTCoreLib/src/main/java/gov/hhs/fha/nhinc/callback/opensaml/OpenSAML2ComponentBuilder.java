@@ -288,10 +288,32 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Returns subject Confirmation Data
      */
-    private static SubjectConfirmation createHoKConfirmation(final SubjectConfirmationData subjectConfirmationData)
-        throws SAMLComponentBuilderException {
+    private static SubjectConfirmation createHoKConfirmation(final SubjectConfirmationData subjectConfirmationData) {
         return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_HOLDER_OF_KEY,
             subjectConfirmationData);
+    }
+
+    /**
+     * Construct additional subject Confirmation for saml assertion. Since HOK(holder of key) is supported by default,
+     * we support additional sender-vouches/bearer subject confirmation
+     * @param samlSubjectConfirmation
+     * @return
+     * @throws SAMLComponentBuilderException
+     */
+    public SubjectConfirmation createSubjectConfirmation(SAMLSubjectConfirmation samlSubjectConfirmation)
+        throws SAMLComponentBuilderException {
+        SubjectConfirmationData subjectConfirmData = createSubjectConfirmationData(null, samlSubjectConfirmation);
+        String method = samlSubjectConfirmation.getMethod();
+        LOG.debug("Prepare to construct method {} for subject confirmation", method);
+        if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(method)){
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_SENDER_VOUCHES,
+                subjectConfirmData);
+        }
+        if (SubjectConfirmation.METHOD_BEARER.equalsIgnoreCase(method)){
+            return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_BEARER,
+                subjectConfirmData);
+        }
+        return null;
     }
 
     /**
@@ -304,20 +326,19 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     private static SubjectConfirmationData createSubjectConfirmationData(final PublicKey publicKey)
         throws SAMLComponentBuilderException {
-        SubjectConfirmationData subjectConfirmationData = null;
-        try {
-            final SubjectConfirmationDataBean subjectConfirmationDataBean = new SubjectConfirmationDataBean();
-            final KeyInfoBean keyInforBean = new KeyInfoBean();
-            keyInforBean.setPublicKey(publicKey);
+        final KeyInfoBean keyInforBean = new KeyInfoBean();
+        keyInforBean.setPublicKey(publicKey);
+        return createSubjectConfirmationData(keyInforBean, new SubjectConfirmationDataBean());
+    }
 
-            subjectConfirmationData = SAML2ComponentBuilder.createSubjectConfirmationData(subjectConfirmationDataBean,
-                keyInforBean);
+    private static SubjectConfirmationData createSubjectConfirmationData(final KeyInfoBean keyInforBean,
+        final SubjectConfirmationDataBean confirDataBean) throws SAMLComponentBuilderException {
+        try {
+            return SAML2ComponentBuilder.createSubjectConfirmationData(confirDataBean, keyInforBean);
         } catch (SecurityException | WSSecurityException e) {
             LOG.error(e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
-
-        return subjectConfirmationData;
     }
 
     /**

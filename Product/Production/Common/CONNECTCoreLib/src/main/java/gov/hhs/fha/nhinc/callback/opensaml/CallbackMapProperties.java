@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
+import org.apache.cxf.helpers.CastUtils;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -520,4 +522,20 @@ public class CallbackMapProperties implements CallbackProperties {
     public String getNPI() {
         return getNullSafeString(SamlConstants.ATTRIBUTE_NAME_NPI);
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSubjectConfirmations()
+     */
+    @Override
+    public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
+        List<Object> senderObj = getNullSafeList(SamlConstants.SUBJECT_CONFIRMATION);
+        if (senderObj != null) {
+            return CastUtils.cast(senderObj, SAMLSubjectConfirmation.class);
+        } else {
+            return new ArrayList<SAMLSubjectConfirmation>();
+        }
+    }
+
 }

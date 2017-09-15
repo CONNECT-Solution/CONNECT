@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.parser;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
@@ -99,14 +100,11 @@ public class PRPAIN201306UV02Parser {
                 .getValue().getId().get(0).getRoot();
         }
         //If representedOrganization Id root is null get id from device
-        if (NullChecker.isNullish(id)) {
-            if (response != null && response.getSender() != null
-                && response.getSender().getDevice() != null && response.getSender().getDevice().getId() != null
-                && response.getSender().getDevice().getId().get(0) != null
-                && response.getSender().getDevice().getId().get(0).getRoot() != null
-                && !response.getSender().getDevice().getId().get(0).getRoot().isEmpty()) {
-                id = response.getSender().getDevice().getId().get(0).getRoot();
-            }
+        if (NullChecker.isNullish(id) && response != null && response.getSender() != null
+            && response.getSender().getDevice() != null && response.getSender().getDevice().getId() != null
+            && response.getSender().getDevice().getId().get(0) != null
+            && StringUtils.isNotEmpty(response.getSender().getDevice().getId().get(0).getRoot())) {
+            id = response.getSender().getDevice().getId().get(0).getRoot();
         }
         return id;
     }
@@ -132,15 +130,13 @@ public class PRPAIN201306UV02Parser {
                 .getValue().getId().get(0).getRoot();
         }
         //If representedOrganization Id root is null get id from device
-        if (NullChecker.isNullish(id)) {
-            if (response != null && response.getReceiver() != null && response.getReceiver().get(0) != null
-                && response.getReceiver().get(0).getDevice() != null
-                && response.getReceiver().get(0).getDevice().getId() != null
-                && response.getReceiver().get(0).getDevice().getId().get(0) != null
-                && response.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null
-                && !response.getReceiver().get(0).getDevice().getId().get(0).getRoot().isEmpty()) {
-                id = response.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-            }
+        if (NullChecker.isNullish(id) && response != null && response.getReceiver() != null
+            && response.getReceiver().get(0) != null
+            && response.getReceiver().get(0).getDevice() != null
+            && response.getReceiver().get(0).getDevice().getId() != null
+            && response.getReceiver().get(0).getDevice().getId().get(0) != null
+            && StringUtils.isNotEmpty(response.getSender().getDevice().getId().get(0).getRoot())) {
+            id = response.getReceiver().get(0).getDevice().getId().get(0).getRoot();
         }
         return id;
     }

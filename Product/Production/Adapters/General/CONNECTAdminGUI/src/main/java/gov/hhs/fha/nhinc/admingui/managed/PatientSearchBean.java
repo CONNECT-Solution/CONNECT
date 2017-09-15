@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -38,7 +39,6 @@ import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +51,6 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessEntity;
 
 /**
  * Managed bean to capture/render the data from/to the UI.
@@ -111,7 +110,7 @@ public class PatientSearchBean {
         // Populate Organization List from UDDI
         organizationList = populateOrganizationFromConnectManagerCache();
         // populate Gender List
-        genderList = populteGenderList();
+        genderList = HelperUtil.populteGenderList();
         // populate document types
         documentTypeList = populateDocumentTypes();
     }
@@ -168,7 +167,7 @@ public class PatientSearchBean {
         // Populate Organization List from UDDI
         organizationList = populateOrganizationFromConnectManagerCache();
         // populate Gender List
-        genderList = populteGenderList();
+        genderList = HelperUtil.populteGenderList();
         // populate document types
         documentTypeList = populateDocumentTypes();
         return clearPatientTab();
@@ -444,18 +443,6 @@ public class PatientSearchBean {
     }
 
     /**
-     * Populate the gender lookup data list. This logic needs to be moved to a Utility or to the application bean.
-     *
-     */
-    private Map<String, String> populteGenderList() {
-        Map<String, String> localGenderList = new HashMap<>();
-        localGenderList.put("Male", "M");
-        localGenderList.put("Female", "F");
-        localGenderList.put("Undifferentiated", "UN");
-        return localGenderList;
-    }
-
-    /**
      * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
      * moved to a Utility or to the application bean.
      *
@@ -570,9 +557,9 @@ public class PatientSearchBean {
     public boolean isRenderDocumentText() {
         return getSelectedCurrentDocument().getContentType() != null
             && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
     /**

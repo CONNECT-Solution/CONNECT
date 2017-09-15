@@ -35,6 +35,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -271,7 +273,7 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testCreateAuthenticationStatement() {
         final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
-            .createAuthenicationStatements(getProperties());
+        .createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
@@ -777,6 +779,11 @@ public class HOKSAMLAssertionBuilderTest {
             public String getUserOrganizationId() {
                 return "orgId";
             }
+
+            @Override
+            public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
+                return null;
+            }
         };
     }
 
@@ -821,6 +828,31 @@ public class HOKSAMLAssertionBuilderTest {
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertTrue(CollectionUtils.isEmpty(attributeStatement));
+    }
+    @Test
+    public void testCreateMultipleSubjectConfirmation() throws SAMLComponentBuilderException{
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        X509Certificate certificate = mock(X509Certificate.class);
+        // Create subject bear
+        List<SAMLSubjectConfirmation> samlSubjectConfirmations = new ArrayList<>();
+        samlSubjectConfirmations.add(createSubjectConfirmationBean(SubjectConfirmation.METHOD_BEARER));
+        // Create sender-vouches bean
+        samlSubjectConfirmations.add(createSubjectConfirmationBean(SubjectConfirmation.METHOD_SENDER_VOUCHES));
+
+        when(callbackProps.getUsername()).thenReturn("junittest");
+        when(callbackProps.getSubjectConfirmations()).thenReturn(samlSubjectConfirmations);
+
+        Subject subject = builder.createSubject(callbackProps, certificate, publicKey);
+
+        List<SubjectConfirmation> subjectConfirmations = subject.getSubjectConfirmations();
+        assertTrue(subjectConfirmations.size() == 3);
+    }
+    private SAMLSubjectConfirmation createSubjectConfirmationBean(String method){
+        SAMLSubjectConfirmation subjectConfirmationBean = new SAMLSubjectConfirmation();
+        subjectConfirmationBean.setAddress("localhost");
+        subjectConfirmationBean.setMethod(method);
+        return subjectConfirmationBean;
     }
 
 }

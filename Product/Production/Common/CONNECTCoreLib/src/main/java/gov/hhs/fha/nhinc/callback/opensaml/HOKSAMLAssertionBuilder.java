@@ -63,6 +63,7 @@ import org.opensaml.saml.saml2.core.Evidence;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.Statement;
 import org.opensaml.saml.saml2.core.Subject;
+import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.opensaml.xmlsec.signature.Signature;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.opensaml.xmlsec.signature.support.SignatureException;
@@ -203,12 +204,24 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected Subject createSubject(final CallbackProperties properties, final X509Certificate certificate,
         final PublicKey publicKey) throws SAMLComponentBuilderException {
         String x509Name = properties.getUsername();
-
+        OpenSAML2ComponentBuilder openSamlBuilder = OpenSAML2ComponentBuilder.getInstance();
         if ((NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) && null != certificate
             && null != certificate.getSubjectDN()) {
             x509Name = certificate.getSubjectDN().getName();
         }
-        return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
+        Subject subject = openSamlBuilder.createSubject(x509Name, publicKey);
+        //Add additional subject confirmation if exist
+        List<SAMLSubjectConfirmation> subjectConfirmations = properties.getSubjectConfirmations();
+        if (CollectionUtils.isNotEmpty(subjectConfirmations)) {
+            for (SAMLSubjectConfirmation confirmation : subjectConfirmations) {
+                SubjectConfirmation subjectConfirmation = openSamlBuilder.createSubjectConfirmation(confirmation);
+                if (subjectConfirmation != null) {
+                    subject.getSubjectConfirmations().add(openSamlBuilder.createSubjectConfirmation(confirmation));
+                }
+            }
+        }
+
+        return subject;
     }
 
     /**
