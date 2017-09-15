@@ -52,7 +52,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * Constructor.
      */
     private AddressDAO() {
-        LOG.info("AddressDAO - Initialized");
+        LOG.trace("AddressDAO - Initialized");
     }
 
     /**
@@ -61,7 +61,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * @return AddressDAO
      */
     public static AddressDAO getAddressDAOInstance() {
-        LOG.debug("getAddressDAOInstance()..");
+        LOG.trace("getAddressDAOInstance()..");
         return addressDAO;
     }
 
@@ -76,12 +76,12 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      */
     @Override
     public boolean create(Address addressRecord) {
-        LOG.debug("AddressDAO.create() - Begin");
+        LOG.trace("AddressDAO.create() - Begin");
         boolean result = true;
         if (addressRecord != null) {
             result = super.create(addressRecord);
         }
-        LOG.debug("AddressDAO.create() - End");
+        LOG.trace("AddressDAO.create() - End");
         return result;
     }
 
@@ -96,14 +96,14 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * @return Address
      */
     public Address read(Long id) {
-        LOG.debug("AddressDAO.read() - Begin");
+        LOG.trace("AddressDAO.read() - Begin");
         if (id == null) {
-            LOG.info("-- id Parameter is required for Address Query --");
-            LOG.debug("AddressDAO.read() - End");
+            LOG.trace("-- id Parameter is required for Address Query --");
+            LOG.trace("AddressDAO.read() - End");
             return null;
         }
         Address foundRecord = super.read(id, Address.class);
-        LOG.debug("AddressDAO.read() - End");
+        LOG.trace("AddressDAO.read() - End");
         return foundRecord;
     }
 
@@ -117,12 +117,12 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      */
     @Override
     public boolean update(Address addressRecord) {
-        LOG.debug("AddressDAO.update() - Begin");
+        LOG.trace("AddressDAO.update() - Begin");
         boolean result = true;
         if (addressRecord != null) {
             result = super.update(addressRecord);
         }
-        LOG.debug("AddressDAO.update() - End");
+        LOG.trace("AddressDAO.update() - End");
         return result;
 
     }
@@ -136,11 +136,11 @@ public class AddressDAO extends GenericDAOImpl<Address> {
     @Override
     public void delete(Address addressRecord) {
 
-        LOG.debug("AddressDAO.delete() - Begin");
+        LOG.trace("AddressDAO.delete() - Begin");
         if (addressRecord != null) {
             super.delete(addressRecord);
         }
-        LOG.debug("AddressDAO.delete() - End");
+        LOG.trace("AddressDAO.delete() - End");
     }
 
     // =========================
@@ -157,19 +157,19 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * @return List<Address>
      */
     public List<Address> findPatientAddresses(Long patientId) {
-        LOG.debug("AddressDAO.readPatientAddresses() - Begin");
+        LOG.trace("AddressDAO.readPatientAddresses() - Begin");
         List<Address> queryList = new ArrayList<>();
         Session session = null;
         if (patientId == null) {
-            LOG.info("-- patientId Parameter is required for Address Query --");
-            LOG.debug("AddressDAO.readPatientAddresses() - End");
+            LOG.trace("-- patientId Parameter is required for Address Query --");
+            LOG.trace("AddressDAO.readPatientAddresses() - End");
             return queryList;
         }
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
-            LOG.info("Reading Record...");
+            LOG.trace("Reading Record...");
 
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Address.class);
@@ -189,7 +189,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
                 }
             }
         }
-        LOG.debug("readPatientAddresses.read() - End");
+        LOG.trace("readPatientAddresses.read() - End");
         return queryList;
     }
 

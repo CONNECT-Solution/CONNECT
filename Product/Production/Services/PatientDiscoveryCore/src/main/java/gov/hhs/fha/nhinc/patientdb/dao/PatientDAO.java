@@ -59,7 +59,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      * Constructor
      */
     private PatientDAO() {
-        LOG.info("PatientDAO - Initialized");
+        LOG.trace("PatientDAO - Initialized");
     }
 
     /**
@@ -68,7 +68,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      * @return PatientDAO
      */
     public static PatientDAO getPatientDAOInstance() {
-        LOG.debug("getPatientDAOInstance()..");
+        LOG.trace("getPatientDAOInstance()..");
         return patientDAO;
     }
 
@@ -83,12 +83,12 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      */
     @Override
     public boolean create(Patient patientRecord) {
-        LOG.debug("PatientDAO.create() - Begin");
+        LOG.trace("PatientDAO.create() - Begin");
         boolean result = true;
         if (patientRecord != null) {
             result = super.create(patientRecord);
         }
-        LOG.debug("PatientDAO.create() - End");
+        LOG.trace("PatientDAO.create() - End");
         return result;
     }
 
@@ -99,15 +99,15 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      * @return Patient
      */
     public Patient read(Long id) {
-        LOG.debug("PatientDAO.read() - Begin");
+        LOG.trace("PatientDAO.read() - Begin");
 
         if (id == null) {
-            LOG.info("-- id Parameter is required for Patient Query --");
-            LOG.debug("PatientDAO.read() - End");
+            LOG.trace("-- id Parameter is required for Patient Query --");
+            LOG.trace("PatientDAO.read() - End");
             return null;
         }
         Patient foundRecord = super.read(id, Patient.class);
-        LOG.debug("PatientDAO.read() - End");
+        LOG.trace("PatientDAO.read() - End");
         return foundRecord;
     }
 
@@ -119,13 +119,13 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      */
     @Override
     public boolean update(Patient patientRecord) {
-        LOG.debug("PatientDAO.update() - Begin");
+        LOG.trace("PatientDAO.update() - Begin");
         boolean result = true;
 
         if (patientRecord != null) {
             result = super.update(patientRecord);
         }
-        LOG.debug("PatientDAO.update() - End");
+        LOG.trace("PatientDAO.update() - End");
         return result;
     }
 
@@ -136,11 +136,11 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      */
     @Override
     public void delete(Patient patientRecord) {
-        LOG.debug("PatientDAO.delete() - Begin");
+        LOG.trace("PatientDAO.delete() - Begin");
         if (patientRecord != null) {
             super.delete(patientRecord);
         }
-        LOG.debug("PatientDAO.delete() - End");
+        LOG.trace("PatientDAO.delete() - End");
     }
 
     // ===============================
@@ -153,7 +153,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      * @return Patient
      */
     public List<Patient> findPatients(Patient patient) {
-        LOG.debug("PatientDAO.findAllPatients() - Begin");
+        LOG.trace("PatientDAO.findAllPatients() - Begin");
 
         Session session = null;
         List<Patient> patientsList = new ArrayList<>();
@@ -161,7 +161,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         try {
             session = hibernateUtil.getSessionFactory().openSession();
 
-            LOG.info("Reading Records...");
+            LOG.trace("Reading Records...");
 
             // NHIN required query parameters
             String gender = patient.getGender();
@@ -377,7 +377,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 iParam++;
             }
 
-            LOG.debug("Final SQL Query is " + sqlQuery.getQueryString());
+            LOG.trace("Final SQL Query is " + sqlQuery.getQueryString());
 
             List<Object[]> result = sqlQuery.list();
 
@@ -439,7 +439,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 }
             }
         }
-        LOG.debug("PatientDAO.findPatients() - End");
+        LOG.trace("PatientDAO.findPatients() - End");
         return patientsList;
     }
 
@@ -458,7 +458,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             Query query = session.createQuery("select new Patient(p) from Patient p");
             patients = query.list();
 
-            LOG.debug("DAO-getAll-patients-count: " + patients.size());
+            LOG.trace("DAO-getAll-patients-count: " + patients.size());
 
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);

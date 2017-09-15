@@ -1,5 +1,28 @@
-/**
+/*
+ * Copyright (c) 2009-2017, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
@@ -25,7 +48,7 @@ public class HL7Parser201305Utils {
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201305Utils.class);
     private static HL7Parser201305Utils instance = new HL7Parser201305Utils();
 
-    HL7Parser201305Utils() {
+    private HL7Parser201305Utils() {
     }
 
     public static HL7Parser201305Utils getInstance() {
@@ -44,15 +67,14 @@ public class HL7Parser201305Utils {
         String genderCode = null;
 
         // Extract the gender from the query parameters - Assume only one was specified
-        if (CollectionUtils.isNotEmpty(params.getLivingSubjectAdministrativeGender())
-            && params.getLivingSubjectAdministrativeGender().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(params.getLivingSubjectAdministrativeGender())) {
             PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender()
                 .get(0);
 
             if (CollectionUtils.isNotEmpty(gender.getValue()) && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
 
-                LOG.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
+                LOG.info("Found gender in query parameters = ", administrativeGenderCode.getCode());
                 genderCode = administrativeGenderCode.getCode();
             } else {
                 LOG.info("query does not contain a gender code");
@@ -75,9 +97,9 @@ public class HL7Parser201305Utils {
         LOG.trace("Entering HL7Parser201305Utils.ExtractTelecom method...");
 
         String telecom = null;
-        if (CollectionUtils.isNotEmpty(patientTelecom.getValue()) && patientTelecom.getValue().get(0) != null) {
+        if (CollectionUtils.isNotEmpty(patientTelecom.getValue())) {
             TELExplicit telecomValue = patientTelecom.getValue().get(0);
-            LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
+            LOG.info("Found patientTelecom in query parameters = ", telecomValue.getValue());
             telecom = telecomValue.getValue();
             if (!StringUtils.startsWith(telecom, "tel:")) {
                 // telecom is not valid without tel: prefix
