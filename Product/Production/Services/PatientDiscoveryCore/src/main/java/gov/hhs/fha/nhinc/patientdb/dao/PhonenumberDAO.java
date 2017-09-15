@@ -52,7 +52,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * Constructor
      */
     private PhonenumberDAO() {
-        LOG.info("PhonenumberDAO - Initialized");
+        LOG.trace("PhonenumberDAO - Initialized");
     }
 
     /**
@@ -62,7 +62,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * @return PhonenumberDAO
      */
     public static PhonenumberDAO getPhonenumberDAOInstance() {
-        LOG.debug("getPhonenumberDAOInstance()..");
+        LOG.trace("getPhonenumberDAOInstance()..");
         return phonenumberDAO;
     }
 
@@ -81,12 +81,12 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      */
     @Override
     public boolean create(Phonenumber phonenumberRecord) {
-        LOG.debug("PhonenumberDAO.create() - Begin");
+        LOG.trace("PhonenumberDAO.create() - Begin");
         boolean result = true;
         if (phonenumberRecord != null) {
             result = super.create(phonenumberRecord);
         }
-        LOG.debug("PhonenumberDAO.create() - End");
+        LOG.trace("PhonenumberDAO.create() - End");
         return result;
     }
 
@@ -101,14 +101,14 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * @return Phonenumber
      */
     public Phonenumber read(Long id) {
-        LOG.debug("PhonenumberDAO.read() - Begin");
+        LOG.trace("PhonenumberDAO.read() - Begin");
         if (id == null) {
-            LOG.info("-- id Parameter is required for Phonenumber Query --");
-            LOG.debug("PhonenumberDAO.read() - End");
+            LOG.trace("-- id Parameter is required for Phonenumber Query --");
+            LOG.trace("PhonenumberDAO.read() - End");
             return null;
         }
         Phonenumber foundRecord = super.read(id, Phonenumber.class);
-        LOG.debug("PhonenumberDAO.read() - End");
+        LOG.trace("PhonenumberDAO.read() - End");
         return foundRecord;
     }
 
@@ -122,12 +122,12 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      */
     @Override
     public boolean update(Phonenumber phonenumberRecord) {
-        LOG.debug("PhonenumberDAO.update() - Begin");
+        LOG.trace("PhonenumberDAO.update() - Begin");
         boolean result = true;
         if (phonenumberRecord != null) {
             result = super.update(phonenumberRecord);
         }
-        LOG.debug("PhonenumberDAO.update() - End");
+        LOG.trace("PhonenumberDAO.update() - End");
         return result;
     }
 
@@ -139,11 +139,11 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      */
     @Override
     public void delete(Phonenumber phonenumberRecord) {
-        LOG.debug("PhonenumberDAO.delete() - Begin");
+        LOG.trace("PhonenumberDAO.delete() - Begin");
         if (phonenumberRecord != null) {
             super.delete(phonenumberRecord);
         }
-        LOG.debug("PhonenumberDAO.delete() - End");
+        LOG.trace("PhonenumberDAO.delete() - End");
     }
 
     // =========================
@@ -161,13 +161,13 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      */
     public List<Phonenumber> findPatientPhonenumbers(Long patientId) {
 
-        LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - Begin");
+        LOG.trace("PhonenumberDAO.findPatientPhonenumbers() - Begin");
 
         if (patientId == null) {
 
-            LOG.info("-- patientId Parameter is required for Phonenumber Query --");
+            LOG.trace("-- patientId Parameter is required for Phonenumber Query --");
 
-            LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
+            LOG.trace("PhonenumberDAO.findPatientPhonenumbers() - End");
 
             return null;
 
@@ -178,7 +178,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
             SessionFactory sessionFactory = getSessionFactory();
             if (sessionFactory != null) {
                 session = sessionFactory.openSession();
-                LOG.info("Reading Record...");
+                LOG.trace("Reading Record...");
                 // Build the criteria
                 Criteria aCriteria = session.createCriteria(Phonenumber.class);
                 aCriteria.add(Expression.eq("patient.patientId", patientId));
@@ -198,7 +198,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
                 }
             }
         }
-        LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
+        LOG.trace("PhonenumberDAO.findPatientPhonenumbers() - End");
         return queryList;
     }
 

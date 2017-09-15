@@ -46,7 +46,7 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      * Constructor
      */
     private IdentifierDAO() {
-        LOG.info("IdentifierDAO - Initialized");
+        LOG.trace("IdentifierDAO - Initialized");
     }
 
     /**
@@ -57,7 +57,7 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      */
     public static IdentifierDAO getIdentifierDAOInstance() {
 
-        LOG.debug("getIdentifierDAOInstance()..");
+        LOG.trace("getIdentifierDAOInstance()..");
         return identifierDAO;
 
     }
@@ -77,12 +77,12 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      */
     @Override
     public boolean create(Identifier identifierRecord) {
-        LOG.debug("IdentifierDAO.create() - Begin");
+        LOG.trace("IdentifierDAO.create() - Begin");
         boolean result = true;
         if (identifierRecord != null) {
             result = super.create(identifierRecord);
         }
-        LOG.debug("IdentifierDAO.create() - End");
+        LOG.trace("IdentifierDAO.create() - End");
         return result;
     }
 
@@ -97,14 +97,14 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      * @return Identifier
      */
     public Identifier read(Long id) {
-        LOG.debug("IdentifierDAO.read() - Begin");
+        LOG.trace("IdentifierDAO.read() - Begin");
         if (id == null) {
-            LOG.info("-- id Parameter is required for Identifier Query --");
-            LOG.debug("IdentifierDAO.read() - End");
+            LOG.trace("-- id Parameter is required for Identifier Query --");
+            LOG.trace("IdentifierDAO.read() - End");
             return null;
         }
         Identifier foundRecord = super.read(id, Identifier.class);
-        LOG.debug("IdentifierDAO.read() - End");
+        LOG.trace("IdentifierDAO.read() - End");
         return foundRecord;
     }
 
@@ -118,12 +118,12 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      */
     @Override
     public boolean update(Identifier identifierRecord) {
-        LOG.debug("IdentifierDAO.update() - Begin");
+        LOG.trace("IdentifierDAO.update() - Begin");
         boolean result = true;
         if (identifierRecord != null) {
             result = super.update(identifierRecord);
         }
-        LOG.debug("IdentifierDAO.update() - End");
+        LOG.trace("IdentifierDAO.update() - End");
         return result;
 
     }
@@ -136,11 +136,11 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      */
     @Override
     public void delete(Identifier identifierRecord) {
-        LOG.debug("IdentifierDAO.delete() - Begin");
+        LOG.trace("IdentifierDAO.delete() - Begin");
         if (identifierRecord != null) {
             super.delete(identifierRecord);
         }
-        LOG.debug("IdentifierDAO.delete() - End");
+        LOG.trace("IdentifierDAO.delete() - End");
     }
 
 }

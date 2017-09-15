@@ -54,7 +54,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * Constructor
      */
     private PersonnameDAO() {
-        LOG.info("PersonnameDAO - Initialized");
+        LOG.trace("PersonnameDAO - Initialized");
     }
 
     /**
@@ -64,7 +64,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * @return PersonnameDAO
      */
     public static PersonnameDAO getPersonnameDAOInstance() {
-        LOG.debug("getPersonnameDAOInstance()..");
+        LOG.trace("getPersonnameDAOInstance()..");
         return personnameDAO;
     }
 
@@ -83,12 +83,12 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      */
     @Override
     public boolean create(Personname personnameRecord) {
-        LOG.debug("PersonnameDAO.create() - Begin");
+        LOG.trace("PersonnameDAO.create() - Begin");
         boolean result = true;
         if (personnameRecord != null) {
             result = super.create(personnameRecord);
         }
-        LOG.debug("PersonnameDAO.create() - End");
+        LOG.trace("PersonnameDAO.create() - End");
         return result;
     }
 
@@ -103,14 +103,14 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * @return Personname
      */
     public Personname read(Long id) {
-        LOG.debug("PersonnameDAO.read() - Begin");
+        LOG.trace("PersonnameDAO.read() - Begin");
         if (id == null) {
-            LOG.info("-- id Parameter is required for Personname Query --");
-            LOG.debug("PersonnameDAO.read() - End");
+            LOG.trace("-- id Parameter is required for Personname Query --");
+            LOG.trace("PersonnameDAO.read() - End");
             return null;
         }
         Personname foundRecord = super.read(id, Personname.class);
-        LOG.debug("PersonnameDAO.read() - End");
+        LOG.trace("PersonnameDAO.read() - End");
         return foundRecord;
     }
 
@@ -124,12 +124,12 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      */
     @Override
     public boolean update(Personname personnameRecord) {
-        LOG.debug("PersonnameDAO.update() - Begin");
+        LOG.trace("PersonnameDAO.update() - Begin");
         boolean result = true;
         if (personnameRecord != null) {
             result = super.update(personnameRecord);
         }
-        LOG.debug("PersonnameDAO.update() - End");
+        LOG.trace("PersonnameDAO.update() - End");
         return result;
     }
 
@@ -141,11 +141,11 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      */
     @Override
     public void delete(Personname personnameRecord) {
-        LOG.debug("PersonnameDAO.delete() - Begin");
+        LOG.trace("PersonnameDAO.delete() - Begin");
         if (personnameRecord != null) {
             super.delete(personnameRecord);
         }
-        LOG.debug("PersonnameDAO.delete() - End");
+        LOG.trace("PersonnameDAO.delete() - End");
     }
 
     // =========================
@@ -162,10 +162,10 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * @return List<Personname>
      */
     public List<Personname> findPatientPersonnames(Long patientId) {
-        LOG.debug("PersonnameDAO.findPatientPersonnames() - Begin");
+        LOG.trace("PersonnameDAO.findPatientPersonnames() - Begin");
         if (patientId == null) {
-            LOG.info("-- patientId Parameter is required for Personname Query --");
-            LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
+            LOG.trace("-- patientId Parameter is required for Personname Query --");
+            LOG.trace("PersonnameDAO.findPatientPersonnames() - End");
             return null;
         }
 
@@ -173,7 +173,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
         List<Personname> queryList = null;
         try {
             session = hibernateUtil.getSessionFactory().openSession();
-            LOG.info("Reading Record...");
+            LOG.trace("Reading Record...");
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Personname.class);
             aCriteria.add(Expression.eq("patient.patientId", patientId));
@@ -196,7 +196,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
                 }
             }
         }
-        LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
+        LOG.trace("PersonnameDAO.findPatientPersonnames() - End");
         return queryList;
     }
 

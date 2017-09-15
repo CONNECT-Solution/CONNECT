@@ -455,11 +455,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
             aaId = extractAAOID(request);
 
-            if (NullChecker.isNotNullish(aaId) && request.getControlActProcess().getQueryByParameter() != null
-                && request.getControlActProcess().getQueryByParameter().getValue() != null
-                && request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
-                && NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue()
-                    .getParameterList().getLivingSubjectId())) {
+            if (NullChecker.isNotNullish(aaId) && requestHasLivingId(request)) {
                 for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess()
                     .getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
                     for (II id : livingSubId.getValue()) {
@@ -484,6 +480,14 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         }
 
         return patId;
+    }
+
+    private static boolean requestHasLivingId(PRPAIN201305UV02 request) {
+        return request.getControlActProcess().getQueryByParameter() != null
+            && request.getControlActProcess().getQueryByParameter().getValue() != null
+            && request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null
+            && NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue()
+                .getParameterList().getLivingSubjectId());
     }
 
     public PRPAIN201305UV02 createNewRequest(PRPAIN201305UV02 request, String targetCommunityId) {
