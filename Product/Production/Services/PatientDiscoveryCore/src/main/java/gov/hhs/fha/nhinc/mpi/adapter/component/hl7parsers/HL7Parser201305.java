@@ -96,7 +96,7 @@ public class HL7Parser201305 {
             if (CollectionUtils.isNotEmpty(birthTime.getValue())
                 && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
-                LOG.info("Found birthTime in query parameters = ", birthday.getValue());
+                LOG.info("Found birthTime in query parameters{} ", birthday.getValue());
                 birthDate = birthday.getValue();
             } else {
                 LOG.info("message does not contain a birthtime");
@@ -127,7 +127,7 @@ public class HL7Parser201305 {
             if (CollectionUtils.isNotEmpty(name.getValue()) && name.getValue().get(0) != null) {
                 List<Serializable> choice = name.getValue().get(0).getContent();
 
-                LOG.info("choice.size()=", choice.size());
+                LOG.info("choice.size()", choice.size());
 
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -149,7 +149,7 @@ public class HL7Parser201305 {
                         } else {
                             nameString = strValue;
                         }
-                        LOG.info("nameString=" + nameString);
+                        LOG.info("nameString{}" + nameString);
                     } else if (contentItem instanceof JAXBElement) {
                         LOG.info("contentItem is JAXBElement");
 
@@ -166,7 +166,7 @@ public class HL7Parser201305 {
                                 // this would be where to add handle for middlename
                             }
                         } else {
-                            LOG.info("other name part=", oJAXBElement.getValue());
+                            LOG.info("other name part{}", oJAXBElement.getValue());
                         }
                     } else {
                         LOG.info("contentItem is other");
@@ -289,7 +289,7 @@ public class HL7Parser201305 {
                             addressLineCounter++;
                             if (addressLineCounter == 1) {
                                 addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                LOG.info("found addressLine1 element; content=", addressLine1.getContent());
+                                LOG.info("found addressLine1 element; content{}", addressLine1.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
@@ -297,7 +297,7 @@ public class HL7Parser201305 {
                             }
                             if (addressLineCounter == 2) {
                                 addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                LOG.info("found addressLine2 element; content=", addressLine2.getContent());
+                                LOG.info("found addressLine2 element; content{}", addressLine2.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
@@ -305,27 +305,27 @@ public class HL7Parser201305 {
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                             city = (AdxpExplicitCity) oJAXBElement.getValue();
-                            LOG.info("found city element; content=", city.getContent());
+                            LOG.info("found city element; content{}", city.getContent());
                             if (address == null) {
                                 address = new Address();
                             }
                             address.setCity(city.getContent());
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                             state = (AdxpExplicitState) oJAXBElement.getValue();
-                            LOG.info("found state element; content=", state.getContent());
+                            LOG.info("found state element; content{}", state.getContent());
                             if (address == null) {
                                 address = new Address();
                             }
                             address.setState(state.getContent());
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                             postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
-                            LOG.info("found postalCode element; content=", postalCode.getContent());
+                            LOG.info("found postalCode element; content{}", postalCode.getContent());
                             if (address == null) {
                                 address = new Address();
                             }
                             address.setZip(postalCode.getContent());
                         } else {
-                            LOG.info("other address part=", oJAXBElement.getValue());
+                            LOG.info("other address part{}", oJAXBElement.getValue());
                         }
                     } else {
                         LOG.info("contentItem is other");

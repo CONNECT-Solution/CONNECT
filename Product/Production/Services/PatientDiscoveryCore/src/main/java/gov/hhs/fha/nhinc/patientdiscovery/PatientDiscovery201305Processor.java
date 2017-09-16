@@ -161,7 +161,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
             // Extract patient for current subject and perform policy check
             patId = msgUtils.extractPatientIdFromSubject(pRPAINSubject);
-            if (policyChecker.check201305Policy(response, patId, assertion)) {
+            if (policyChecker.check201305Policy(response, assertion)) {
                 LOG.debug("checkPolicy -policy returns permit for patient: {}", pRPAINSubjectInd);
             } else {
                 LOG.debug("checkPolicy -policy returns deny for patient: {}", pRPAINSubjectInd);

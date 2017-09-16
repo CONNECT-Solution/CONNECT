@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AdapterPatientDiscoveryProxyWebServiceHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryProxyWebServiceHelper.class);
-    private static AdapterPatientDiscoveryProxyWebServiceHelper instance = new AdapterPatientDiscoveryProxyWebServiceHelper();
+    private static final AdapterPatientDiscoveryProxyWebServiceHelper instance = new AdapterPatientDiscoveryProxyWebServiceHelper();
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     private AdapterPatientDiscoveryProxyWebServiceHelper() {
