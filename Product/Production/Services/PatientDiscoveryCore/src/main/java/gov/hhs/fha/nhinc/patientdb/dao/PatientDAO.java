@@ -36,14 +36,10 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +49,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class PatientDAO {
+public class PatientDAO extends GenericDAOImpl<Patient> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
@@ -63,7 +59,7 @@ public class PatientDAO {
      * Constructor
      */
     private PatientDAO() {
-        LOG.info("PatientDAO - Initialized");
+        LOG.trace("PatientDAO - Initialized");
     }
 
     /**
@@ -72,7 +68,7 @@ public class PatientDAO {
      * @return PatientDAO
      */
     public static PatientDAO getPatientDAOInstance() {
-        LOG.debug("getPatientDAOInstance()..");
+        LOG.trace("getPatientDAOInstance()..");
         return patientDAO;
     }
 
@@ -85,41 +81,14 @@ public class PatientDAO {
      * @param patientRecord
      * @return boolean
      */
+    @Override
     public boolean create(Patient patientRecord) {
-        LOG.debug("PatientDAO.create() - Begin");
-        Session session = null;
-        Transaction tx = null;
+        LOG.trace("PatientDAO.create() - Begin");
         boolean result = true;
-
         if (patientRecord != null) {
-            try {
-                session = hibernateUtil.getSessionFactory().openSession();
-
-                tx = session.beginTransaction();
-                LOG.info("Inserting Record...");
-
-                session.persist(patientRecord);
-
-                LOG.info("Patient Inserted seccussfully...");
-                tx.commit();
-            } catch (HibernateException | NullPointerException e) {
-                result = false;
-                if (tx != null) {
-                    tx.rollback();
-                }
-                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
-            } finally {
-                // Actual Patient insertion will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
-                    }
-                }
-            }
+            result = super.create(patientRecord);
         }
-        LOG.debug("PatientDAO.create() - End");
+        LOG.trace("PatientDAO.create() - End");
         return result;
     }
 
@@ -130,45 +99,15 @@ public class PatientDAO {
      * @return Patient
      */
     public Patient read(Long id) {
-        LOG.debug("PatientDAO.read() - Begin");
+        LOG.trace("PatientDAO.read() - Begin");
 
         if (id == null) {
-            LOG.info("-- id Parameter is required for Patient Query --");
-            LOG.debug("PatientDAO.read() - End");
+            LOG.trace("-- id Parameter is required for Patient Query --");
+            LOG.trace("PatientDAO.read() - End");
             return null;
         }
-
-        Session session = null;
-        List<Patient> queryList;
-        Patient foundRecord = null;
-        try {
-            session = hibernateUtil.getSessionFactory().openSession();
-            LOG.info("Reading Record...");
-
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Patient.class);
-
-            aCriteria.add(Expression.eq("id", id));
-
-            queryList = aCriteria.list();
-
-            if (CollectionUtils.isNotEmpty(queryList)) {
-                foundRecord = queryList.get(0);
-            }
-        } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
-        } finally {
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
-                }
-            }
-        }
-        LOG.debug("PatientDAO.read() - End");
+        Patient foundRecord = super.read(id, Patient.class);
+        LOG.trace("PatientDAO.read() - End");
         return foundRecord;
     }
 
@@ -178,40 +117,15 @@ public class PatientDAO {
      * @param patientRecord
      * @return boolean
      */
+    @Override
     public boolean update(Patient patientRecord) {
-        LOG.debug("PatientDAO.update() - Begin");
-        Session session = null;
-        Transaction tx = null;
+        LOG.trace("PatientDAO.update() - Begin");
         boolean result = true;
 
         if (patientRecord != null) {
-            try {
-                session = hibernateUtil.getSessionFactory().openSession();
-                tx = session.beginTransaction();
-                LOG.info("Updating Record...");
-
-                session.saveOrUpdate(patientRecord);
-
-                LOG.info("Patient Updated seccussfully...");
-                tx.commit();
-            } catch (HibernateException | NullPointerException e) {
-                result = false;
-                if (tx != null) {
-                    tx.rollback();
-                }
-                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
-            } finally {
-                // Actual Patient update will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
-                    }
-                }
-            }
+            result = super.update(patientRecord);
         }
-        LOG.debug("PatientDAO.update() - End");
+        LOG.trace("PatientDAO.update() - End");
         return result;
     }
 
@@ -220,30 +134,13 @@ public class PatientDAO {
      *
      * @param patientRecord
      */
+    @Override
     public void delete(Patient patientRecord) {
-        LOG.debug("PatientDAO.delete() - Begin");
-
-        Session session = null;
-        try {
-            session = hibernateUtil.getSessionFactory().openSession();
-            LOG.info("Deleting Record...");
-
-            // Delete the Patient record
-            session.delete(patientRecord);
-        } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
-        } finally {
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
-                }
-            }
+        LOG.trace("PatientDAO.delete() - Begin");
+        if (patientRecord != null) {
+            super.delete(patientRecord);
         }
-        LOG.debug("PatientDAO.delete() - End");
+        LOG.trace("PatientDAO.delete() - End");
     }
 
     // ===============================
@@ -256,7 +153,7 @@ public class PatientDAO {
      * @return Patient
      */
     public List<Patient> findPatients(Patient patient) {
-        LOG.debug("PatientDAO.findAllPatients() - Begin");
+        LOG.trace("PatientDAO.findAllPatients() - Begin");
 
         Session session = null;
         List<Patient> patientsList = new ArrayList<>();
@@ -264,7 +161,7 @@ public class PatientDAO {
         try {
             session = hibernateUtil.getSessionFactory().openSession();
 
-            LOG.info("Reading Records...");
+            LOG.trace("Reading Records...");
 
             // NHIN required query parameters
             String gender = patient.getGender();
@@ -480,7 +377,7 @@ public class PatientDAO {
                 iParam++;
             }
 
-            LOG.debug("Final SQL Query is " + sqlQuery.getQueryString());
+            LOG.trace("Final SQL Query is " + sqlQuery.getQueryString());
 
             List<Object[]> result = sqlQuery.list();
 
@@ -542,7 +439,7 @@ public class PatientDAO {
                 }
             }
         }
-        LOG.debug("PatientDAO.findPatients() - End");
+        LOG.trace("PatientDAO.findPatients() - End");
         return patientsList;
     }
 
@@ -561,7 +458,7 @@ public class PatientDAO {
             Query query = session.createQuery("select new Patient(p) from Patient p");
             patients = query.list();
 
-            LOG.debug("DAO-getAll-patients-count: " + patients.size());
+            LOG.trace("DAO-getAll-patients-count: " + patients.size());
 
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
@@ -571,4 +468,5 @@ public class PatientDAO {
 
         return patients;
     }
+
 }
