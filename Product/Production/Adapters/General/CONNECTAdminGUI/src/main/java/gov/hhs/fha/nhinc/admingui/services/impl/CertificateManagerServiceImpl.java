@@ -147,7 +147,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
   private static String getCertSerialNumber(X509Certificate cert) {
     return new String(Hex.encodeHex(cert.getSerialNumber().toByteArray()));
   }
-  private int getKeySize(X509Certificate cert){
+  private static int getKeySize(X509Certificate cert){
     PublicKey publicKey = cert.getPublicKey();
     if (publicKey instanceof RSAPublicKey){
       return ((RSAPublicKey)publicKey).getModulus().bitLength();
