@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 public class HL7Parser201305Utils {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201305Utils.class);
-    private static HL7Parser201305Utils instance = new HL7Parser201305Utils();
+    private static final HL7Parser201305Utils instance = new HL7Parser201305Utils();
 
     private HL7Parser201305Utils() {
     }

@@ -39,7 +39,6 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,7 +154,6 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
     public List<Patient> findPatients(Patient patient) {
         LOG.trace("PatientDAO.findAllPatients() - Begin");
 
-        Session session = null;
         List<Patient> patientsList = new ArrayList<>();
 
         try {
@@ -450,7 +448,6 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      */
     public List<Patient> getAll() {
 
-        Session session = null;
         List<Patient> patients = new ArrayList<>();
 
         try {

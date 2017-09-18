@@ -57,9 +57,9 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         try{
             session = getSessionFactory().openSession();
             tx = session.beginTransaction();
-            LOG.info("Inserting Record...");
+            LOG.trace("Inserting Record...");
             session.persist(t);
-            LOG.info("Address Inserted seccussfully...");
+            LOG.trace("Address Inserted seccussfully...");
             tx.commit();
         } catch (HibernateException | NullPointerException e) {
             result = false;
@@ -89,7 +89,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         try {
             session = getSessionFactory().openSession();
             tx = session.beginTransaction();
-            LOG.info("Reading Record...");
+            LOG.trace("Reading Record...");
             Criteria aCriteria = session.createCriteria(objectType);
             aCriteria.add(Expression.eq("id", id));
             queryList = aCriteria.list();
@@ -122,9 +122,9 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
-            LOG.info("Updating Record...");
+            LOG.trace("Updating Record...");
             session.saveOrUpdate(t);
-            LOG.info("Patient Updated seccussfully...");
+            LOG.trace("Patient Updated seccussfully...");
             tx.commit();
         } catch (HibernateException | NullPointerException e) {
             result = false;
@@ -151,7 +151,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public void delete(T t) {
         try {
             session = getSessionFactory().openSession();
-            LOG.info("Deleting Record...");
+            LOG.trace("Deleting Record...");
 
             // Delete the Patient record
             session.delete(t);

@@ -131,7 +131,7 @@ public class HL7DbParser201305 {
         PRPAMT201306UV02LivingSubjectBirthTime birthTime) {
         Timestamp parseBirthDate = birthDate;
         IVLTSExplicit birthday = birthTime.getValue().get(0);
-        LOG.info("Found birthTime in query parameters = ", birthday.getValue());
+        LOG.info("Found birthTime in query parameters {} ", birthday.getValue());
         UTCDateUtil utcDateUtil = new UTCDateUtil();
         // Check date string length
         if (birthday.getValue().length() == dateOnlyLength) {
@@ -166,7 +166,7 @@ public class HL7DbParser201305 {
                 if (CollectionUtils.isNotEmpty(name.getValue()) && name.getValue().get(0) != null) {
                     List<Serializable> choice = name.getValue().get(0).getContent();
 
-                    LOG.info("choice.size()=", choice.size());
+                    LOG.info("choice.size(){}", choice.size());
 
                     Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -191,7 +191,7 @@ public class HL7DbParser201305 {
                             } else {
                                 nameString = strValue;
                             }
-                            LOG.info("nameString=", nameString);
+                            LOG.info("nameString{}", nameString);
                         } else if (contentItem instanceof JAXBElement) {
                             LOG.info("contentItem is JAXBElement");
 
@@ -199,25 +199,25 @@ public class HL7DbParser201305 {
 
                             if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                                 lastname = (EnExplicitFamily) oJAXBElement.getValue();
-                                LOG.info("found lastname element; content=", lastname.getContent());
+                                LOG.info("found lastname element; content{}", lastname.getContent());
                             } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                                 if (firstname == null) {
                                     firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                                    LOG.info("found firstname element; content=", firstname.getContent());
+                                    LOG.info("found firstname element; content{}", firstname.getContent());
                                 } else if (middlename == null) {
                                     middlename = (EnExplicitGiven) oJAXBElement.getValue();
-                                    LOG.info("found middlename element; content=", middlename.getContent());
+                                    LOG.info("found middlename element; content{}", middlename.getContent());
                                 } else {
                                     // ignore all other given values
                                 }
                             } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                                 prefix = (EnExplicitPrefix) oJAXBElement.getValue();
-                                LOG.info("found prefix element; content=", prefix.getContent());
+                                LOG.info("found prefix element; content{}", prefix.getContent());
                             } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                                 suffix = (EnExplicitSuffix) oJAXBElement.getValue();
-                                LOG.info("found suffix element; content=", suffix.getContent());
+                                LOG.info("found suffix element; content{}", suffix.getContent());
                             } else {
-                                LOG.info("other name part=", oJAXBElement.getValue());
+                                LOG.info("other name part{}", oJAXBElement.getValue());
                             }
                         } else {
                             LOG.info("contentItem is other");
@@ -450,7 +450,7 @@ public class HL7DbParser201305 {
 
                     List<Serializable> choice = adExplicit.getContent();
 
-                    LOG.info("choice.size()=", choice.size());
+                    LOG.info("choice.size(){}", choice.size());
 
                     Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -477,7 +477,7 @@ public class HL7DbParser201305 {
                                 addressLineCounter++;
                                 if (addressLineCounter == 1) {
                                     addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                    LOG.info("found addressLine1 element; content=", addressLine1.getContent());
+                                    LOG.info("found addressLine1 element; content{}", addressLine1.getContent());
                                     if (address == null) {
                                         address = new Address();
                                     }
@@ -485,7 +485,7 @@ public class HL7DbParser201305 {
                                 }
                                 if (addressLineCounter == 2) {
                                     addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                    LOG.info("found addressLine2 element; content=", addressLine2.getContent());
+                                    LOG.info("found addressLine2 element; content{}", addressLine2.getContent());
                                     if (address == null) {
                                         address = new Address();
                                     }
@@ -493,27 +493,27 @@ public class HL7DbParser201305 {
                                 }
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                                 city = (AdxpExplicitCity) oJAXBElement.getValue();
-                                LOG.info("found city element; content=", city.getContent());
+                                LOG.info("found city element; content{}", city.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
                                 address.setCity(city.getContent());
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                                 state = (AdxpExplicitState) oJAXBElement.getValue();
-                                LOG.info("found state element; content=", state.getContent());
+                                LOG.info("found state element; content{}", state.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
                                 address.setState(state.getContent());
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                                 postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
-                                LOG.info("found postalCode element; content=", postalCode.getContent());
+                                LOG.info("found postalCode element; content{}", postalCode.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
                                 address.setPostal(postalCode.getContent());
                             } else {
-                                LOG.info("other address part=", oJAXBElement.getValue());
+                                LOG.info("other address part{}", oJAXBElement.getValue());
                             }
                         } else {
                             LOG.info("contentItem is other");

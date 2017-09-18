@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AdapterPatientDiscoveryProxyWebServiceHelper {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryProxyWebServiceHelper.class);
-    private static AdapterPatientDiscoveryProxyWebServiceHelper instance = new AdapterPatientDiscoveryProxyWebServiceHelper();
+    private static final AdapterPatientDiscoveryProxyWebServiceHelper instance = new AdapterPatientDiscoveryProxyWebServiceHelper();
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     private AdapterPatientDiscoveryProxyWebServiceHelper() {
@@ -66,7 +66,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
             if (body != null) {
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service= ", sServiceName, "and url= ", url);
+                LOG.debug("After target system URL look up. URL for service{} ", sServiceName, "and url= ", url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
