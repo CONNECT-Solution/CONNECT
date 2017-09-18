@@ -54,7 +54,7 @@
                         <p:tab id="#{tabBean.KEYSTORETAB}" title="Manage KeyStore"  closable="false">
                             <div class="tab-pane active" id="keystores">
                                 <div class="content-block">
-                                    <h2 class="subsection-header">KeyStore List</h2>
+                                    <h2 class="subsection-header">KeyStore List sss</h2>
                                     <div class="content">
                                       <div class="form-block center-block" style="padding:0px;">
                                         <h:form class="form-horizontal" role="form" id="keyStoreForm" >
@@ -70,8 +70,9 @@
                                               </p:row>
                                               <p:row/>
                                               <p:row>
-                                                <p:column styleClass="ui-button-rightmost">
+                                                <p:column styleClass="ui-button-rightmost" colspan="2">
                                                   <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
+                                                  <p:spacer/>
                                                   <p:commandButton id="importCert" value="Import Certificate" onclick="PF('certCreateDlg').show();" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
                                                 </p:column>
                                               </p:row>
