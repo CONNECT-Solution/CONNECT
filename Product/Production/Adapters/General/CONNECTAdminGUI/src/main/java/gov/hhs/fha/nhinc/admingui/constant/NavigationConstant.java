@@ -32,41 +32,45 @@ package gov.hhs.fha.nhinc.admingui.constant;
  */
 public class NavigationConstant {
 
-    public static final String STATUS_PAGE = "status";
-    public static final String LOGIN_PAGE = "login";
-    public static final String LOGIN_XHTML = "/login.xhtml";
-    public static final String ACCT_MGMT_PAGE = "acctmanage";
-    public static final String DIRECT_PAGE = "direct";
-    public static final String DIRECT_XHTML = "direct.xhtml";
-    public static final String FHIR_PAGE = "fhir";
-    public static final String FHIR_XHTML = "fhir.xhtml";
-    public static final String CM_PAGE = "connectionManager";
-    public static final String PROPERTIES_PAGE = "properties";
-    public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
-    public static final String CUSTOM_ERROR_PAGE = "customerror";
-    public static final String CUSTOM_ERROR_XHTML = "/customerror.xhtml";
+  public static final String STATUS_PAGE = "status";
+  public static final String LOGIN_PAGE = "login";
+  public static final String LOGIN_XHTML = "/login.xhtml";
+  public static final String ACCT_MGMT_PAGE = "acctmanage";
+  public static final String DIRECT_PAGE = "direct";
+  public static final String DIRECT_XHTML = "direct.xhtml";
+  public static final String FHIR_PAGE = "fhir";
+  public static final String FHIR_XHTML = "fhir.xhtml";
+  public static final String CM_PAGE = "connectionManager";
+  public static final String PROPERTIES_PAGE = "properties";
+  public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
+  public static final String AUDIT_SEARCH_PAGE = "auditLog";
+  public static final String CUSTOM_ERROR_PAGE = "customerror";
+  public static final String CUSTOM_ERROR_XHTML = "/customerror.xhtml";
+  public static final String CERTIFICATE_MGMT_PAGE = "certificateManager";
+  public static final String CERTIFICATE_MGMT_XHTML = "/certificateManager.xhtml";
 
-    public static final int DIRECT_DOMAIN_TAB = 0;
-    public static final int DIRECT_SETTING_TAB = 1;
-    public static final int DIRECT_CERTIFICATE_TAB = 2;
-    public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
+  public static final int DIRECT_DOMAIN_TAB = 0;
+  public static final int DIRECT_SETTING_TAB = 1;
+  public static final int DIRECT_CERTIFICATE_TAB = 2;
+  public static final int DIRECT_TRUSTBUNDLE_TAB = 3;
 
-    public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
-    public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
+  public static final int ACCOUNT_MGMT_USERACC_TAB = 0;
+  public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
 
-    public static final int GATEWAY_DASHBOARD_TAB = 0;
-    public static final int GATEWAY_REMOTELIST_TAB = 1;
+  public static final int GATEWAY_DASHBOARD_TAB = 0;
+  public static final int GATEWAY_REMOTELIST_TAB = 1;
 
-    // LOAD-TEST-DATA
-    public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
-    public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
-    public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
+  public static final int KEYSTORE_MGMT_TAB = 0;
+  public static final int TRUSTSTORE_MGMT_TAB = 0;
+  // LOAD-TEST-DATA
+  public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
+  public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
+  public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
 
-    /**
-     * Use this class to hold constant variables
-     */
-    private NavigationConstant() {
-    }
+  /**
+   * Use this class to hold constant variables
+   */
+  private NavigationConstant() {
+  }
 
 }

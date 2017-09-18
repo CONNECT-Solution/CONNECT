@@ -40,360 +40,399 @@ import org.primefaces.event.TabChangeEvent;
 @SessionScoped
 public class TabBean {
 
-    private int dashboardTabIndex = 0;
-    private int logsTabIndex = 0;
-    private int adminTabIndex = 0;
-    private int directTabIndex = 0;
-    private int propIndex = 0;
-    private int loadTestDataTabIndex = 0;
+  private int dashboardTabIndex = 0;
+  private int logsTabIndex = 0;
+  private int adminTabIndex = 0;
+  private int directTabIndex = 0;
+  private int propIndex = 0;
+  private int certTabIndex = 0;
+  private int loadTestDataTabIndex = 0;
 
-    private static final String GATEWAYPROPTAB = "gatewayTab";
-    private static final String ADAPTERPROPTAB = "adapterTab";
-    private static final String DIRECTDOMAINTAB = "directDomainTab";
-    private static final String DIRECTAGENTTAB = "directAgentTab";
-    private static final String DIRECTCERTTAB = "directCertTab";
-    private static final String DIRECTTBTAB = "directTbTab";
-    private static final String ACCTUSERSTAB = "acctUsersTab";
-    private static final String ACCTROLESTAB = "acctRolesTab";
-    private static final String AUDITPROPTAB = "auditTab";
-    // LOAD-TEST-DATA
-    private static final String LTDPATIENTTAB = "ltdPatientTab";
+  private static final String GATEWAYPROPTAB = "gatewayTab";
+  private static final String ADAPTERPROPTAB = "adapterTab";
+  private static final String DIRECTDOMAINTAB = "directDomainTab";
+  private static final String DIRECTAGENTTAB = "directAgentTab";
+  private static final String DIRECTCERTTAB = "directCertTab";
+  private static final String DIRECTTBTAB = "directTbTab";
+  private static final String ACCTUSERSTAB = "acctUsersTab";
+  private static final String ACCTROLESTAB = "acctRolesTab";
+  private static final String AUDITPROPTAB = "auditTab";
+  private static final String KEYSTORETAB = "keyStoreTab";
+  private static final String TRUSTSTORETAB = "trustStoreTab";
+  // LOAD-TEST-DATA
+  private static final String LTDPATIENTTAB = "ltdPatientTab";
 
-    /**
-     *
-     * @return
-     */
-    public int getDirectTabIndex() {
-        return directTabIndex;
+  /**
+   *
+   * @return
+   */
+  public int getDirectTabIndex() {
+    return directTabIndex;
+  }
+
+  /**
+   *
+   * @param directTabIndex
+   */
+  public void setDirectTabIndex(int directTabIndex) {
+    this.directTabIndex = directTabIndex;
+  }
+
+  /**
+   *
+   * @return
+   */
+  public int getDashboardTabIndex() {
+    return dashboardTabIndex;
+  }
+
+  /**
+   *
+   * @param dashboardTabIndex
+   */
+  public void setDashboardTabIndex(int dashboardTabIndex) {
+    this.dashboardTabIndex = dashboardTabIndex;
+  }
+
+  /**
+   *
+   * @return
+   */
+  public int getLogsTabIndex() {
+    return logsTabIndex;
+  }
+
+  /**
+   *
+   * @param logsTabIndex
+   */
+  public void setLogsTabIndex(int logsTabIndex) {
+    this.logsTabIndex = logsTabIndex;
+  }
+
+  /**
+   *
+   * @return
+   */
+  public int getAdminTabIndex() {
+    return adminTabIndex;
+  }
+
+  /**
+   *
+   * @param adminTabIndex
+   */
+  public void setAdminTabIndex(int adminTabIndex) {
+    this.adminTabIndex = adminTabIndex;
+  }
+
+  /**
+   *
+   * @param dashboardTabIndex
+   * @return
+   */
+  public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
+    this.dashboardTabIndex = dashboardTabIndex;
+    return NavigationConstant.STATUS_PAGE;
+  }
+
+  /**
+   *
+   * @param logsTabIndex
+   * @return
+   */
+  public String setLogsTabIndexNavigate(int logsTabIndex) {
+    this.logsTabIndex = logsTabIndex;
+    return "logs";
+  }
+
+  /**
+   *
+   * @param adminTabIndex
+   * @return
+   */
+  public String setAdminTabIndexNavigate(int adminTabIndex) {
+    this.adminTabIndex = adminTabIndex;
+    return NavigationConstant.ACCT_MGMT_PAGE;
+  }
+
+  /**
+   *
+   * @param directTabIndex
+   * @return
+   */
+  public String setDirectTabIndexNavigate(int directTabIndex) {
+    this.directTabIndex = directTabIndex;
+    return NavigationConstant.DIRECT_PAGE;
+  }
+
+  /**
+   * Event listener for tab change to set current active index of the direct tab view. Needed since active index is set
+   * by menu links as well.
+   *
+   * @param tEvent
+   */
+  public void onDirectTabChange(TabChangeEvent tEvent) {
+    Tab selectedTab = tEvent.getTab();
+    if (DIRECTDOMAINTAB.equalsIgnoreCase(selectedTab.getId())) {
+      directTabIndex = 0;
+    } else if (DIRECTAGENTTAB.equalsIgnoreCase(selectedTab.getId())) {
+      directTabIndex = 1;
+    } else if (DIRECTCERTTAB.equalsIgnoreCase(selectedTab.getId())) {
+      directTabIndex = 2;
+    } else {
+      directTabIndex = 3;
     }
+  }
 
-    /**
-     *
-     * @param directTabIndex
-     */
-    public void setDirectTabIndex(int directTabIndex) {
-        this.directTabIndex = directTabIndex;
+  public void onPropertyTabChange(TabChangeEvent tEvent) {
+    Tab selectedTab = tEvent.getTab();
+    if (GATEWAYPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
+      propIndex = 0;
+    } else if (ADAPTERPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
+      propIndex = 1;
+    } else {
+      propIndex = 2;
     }
+  }
 
-    /**
-     *
-     * @return
-     */
-    public int getDashboardTabIndex() {
-        return dashboardTabIndex;
+  public void onAcctTabChange(TabChangeEvent tEvent) {
+    Tab selectedTab = tEvent.getTab();
+    if (ACCTUSERSTAB.equalsIgnoreCase(selectedTab.getId())) {
+      adminTabIndex = 0;
+    } else {
+      adminTabIndex = 1;
     }
+  }
 
-    /**
-     *
-     * @param dashboardTabIndex
-     */
-    public void setDashboardTabIndex(int dashboardTabIndex) {
-        this.dashboardTabIndex = dashboardTabIndex;
+  // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
+  // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)
+  /**
+   *
+   * @return
+   */
+  public String navigateToDirectDomainTab() {
+    return setDirectTabIndexNavigate(NavigationConstant.DIRECT_DOMAIN_TAB);
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToDirectSettingTab() {
+    return setDirectTabIndexNavigate(NavigationConstant.DIRECT_SETTING_TAB);
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToDirectCertificateTab() {
+    return setDirectTabIndexNavigate(NavigationConstant.DIRECT_CERTIFICATE_TAB);
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToDirectTrustbundleTab() {
+    return setDirectTabIndexNavigate(NavigationConstant.DIRECT_TRUSTBUNDLE_TAB);
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToAccountMgmtUserAccountTab() {
+    return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_USERACC_TAB);
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToAccountMgmtManageRoleTab() {
+    return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
+  }
+
+  public String navigateToGatewayPropTab() {
+    return setGatewayPropertyTabAndNavigate(0);
+  }
+
+  public String navigateToAdapterPropTab() {
+    return setGatewayPropertyTabAndNavigate(1);
+  }
+
+  public String navigateToAuditPropTab() {
+    return setGatewayPropertyTabAndNavigate(2);
+  }
+
+  public String navigateToFhir() {
+    return NavigationConstant.FHIR_PAGE;
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToGatewayDashboardTab() {
+    return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_DASHBOARD_TAB);
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToGatewayRemoteListTab() {
+    return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
+  }
+
+  public String navigateToConnectionManagement() {
+    return NavigationConstant.CM_PAGE;
+  }
+
+  /**
+   *
+   * @return
+   */
+  public String navigateToPatientDiscoveryTab() {
+    return setPatientSearchTabAndNavigate(0);
+  }
+
+  public String navigateToAuditSearchTab() {
+    return setAuditSearchTabAndNavigate(0);
+  }
+
+  public String setGatewayPropertyTabAndNavigate(int i) {
+    propIndex = i;
+    return NavigationConstant.PROPERTIES_PAGE;
+  }
+
+  public String setPatientSearchTabAndNavigate(int i) {
+    propIndex = i;
+    return NavigationConstant.PATIENT_SEARCH_PAGE;
+  }
+
+  public String setAuditSearchTabAndNavigate(int i) {
+    propIndex = i;
+    return NavigationConstant.AUDIT_SEARCH_PAGE;
+  }
+
+  public int getPropIndex() {
+    return propIndex;
+  }
+
+  public void setPropIndex(int propIndex) {
+    this.propIndex = propIndex;
+  }
+
+  public String getGATEWAYPROPTAB() {
+    return GATEWAYPROPTAB;
+  }
+
+  public String getADAPTERPROPTAB() {
+    return ADAPTERPROPTAB;
+  }
+
+  public String getAUDITPROPTAB() {
+    return AUDITPROPTAB;
+  }
+
+  public String getDIRECTDOMAINTAB() {
+    return DIRECTDOMAINTAB;
+  }
+
+  public String getDIRECTAGENTTAB() {
+    return DIRECTAGENTTAB;
+  }
+
+  public String getDIRECTCERTTAB() {
+    return DIRECTCERTTAB;
+  }
+
+  public String getDIRECTTBTAB() {
+    return DIRECTTBTAB;
+  }
+
+  public String getACCTUSERSTAB() {
+    return ACCTUSERSTAB;
+  }
+
+  public String getACCTROLESTAB() {
+    return ACCTROLESTAB;
+  }
+
+  // region LOAD-TEST-DATA
+  public String getLTDPATIENTTAB() {
+    return LTDPATIENTTAB;
+  }
+
+  // TAB-INDEX
+  public int getLoadTestDataTabIndex() {
+    return loadTestDataTabIndex;
+  }
+
+  public void setLoadTestDataTabIndex(int ltdIndexValue) {
+    loadTestDataTabIndex = ltdIndexValue;
+  }
+
+  // TAB-CHANGE
+  public void onLoadTestDataTabChange(TabChangeEvent tEvent) {
+    Tab selectedTab = tEvent.getTab();
+    if (LTDPATIENTTAB.equalsIgnoreCase(selectedTab.getId())) {
+      loadTestDataTabIndex = 0;
+    } else {
+      loadTestDataTabIndex = 1;
     }
+  }
 
-    /**
-     *
-     * @return
-     */
-    public int getLogsTabIndex() {
-        return logsTabIndex;
+  // TAB-NAVIGATE
+  public String setLoadTestDataTabIndexNavigate(int loadTestDataTabIndex) {
+    this.loadTestDataTabIndex = loadTestDataTabIndex;
+    return NavigationConstant.LOAD_TEST_DATA_PAGE;
+  }
+
+  public String navigateToLTDPatientTab() {
+    return setLoadTestDataTabIndexNavigate(NavigationConstant.LOAD_TEST_DATA_PATIENT_TAB);
+  }
+
+  // endRegion LOAD-TEST-DATA
+  public String navigateToKeyStoreCertManagement() {
+    return setCertTabIndexNavigate(NavigationConstant.KEYSTORE_MGMT_TAB);
+  }
+
+  public String navigateToTrustStoreCertManagement() {
+    return setCertTabIndexNavigate(NavigationConstant.TRUSTSTORE_MGMT_TAB);
+  }
+
+  public String getKEYSTORETAB() {
+    return KEYSTORETAB;
+  }
+
+  public String getTRUSTSTORETAB() {
+    return TRUSTSTORETAB;
+  }
+
+  public void onCertTabChange(TabChangeEvent tEvent) {
+    Tab selectedTab = tEvent.getTab();
+    if (KEYSTORETAB.equalsIgnoreCase(selectedTab.getId())) {
+      certTabIndex = 0;
+    } else {
+      certTabIndex = 1;
     }
+  }
 
-    /**
-     *
-     * @param logsTabIndex
-     */
-    public void setLogsTabIndex(int logsTabIndex) {
-        this.logsTabIndex = logsTabIndex;
-    }
+  public int getCertTabIndex() {
+    return certTabIndex;
+  }
 
-    /**
-     *
-     * @return
-     */
-    public int getAdminTabIndex() {
-        return adminTabIndex;
-    }
+  public void setCertTabIndex(int certTabIndex) {
+    this.certTabIndex = certTabIndex;
+  }
 
-    /**
-     *
-     * @param adminTabIndex
-     */
-    public void setAdminTabIndex(int adminTabIndex) {
-        this.adminTabIndex = adminTabIndex;
-    }
-
-    /**
-     *
-     * @param dashboardTabIndex
-     * @return
-     */
-    public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
-        this.dashboardTabIndex = dashboardTabIndex;
-        return NavigationConstant.STATUS_PAGE;
-    }
-
-    /**
-     *
-     * @param logsTabIndex
-     * @return
-     */
-    public String setLogsTabIndexNavigate(int logsTabIndex) {
-        this.logsTabIndex = logsTabIndex;
-        return "logs";
-    }
-
-    /**
-     *
-     * @param adminTabIndex
-     * @return
-     */
-    public String setAdminTabIndexNavigate(int adminTabIndex) {
-        this.adminTabIndex = adminTabIndex;
-        return NavigationConstant.ACCT_MGMT_PAGE;
-    }
-
-    /**
-     *
-     * @param directTabIndex
-     * @return
-     */
-    public String setDirectTabIndexNavigate(int directTabIndex) {
-        this.directTabIndex = directTabIndex;
-        return NavigationConstant.DIRECT_PAGE;
-    }
-
-    /**
-     * Event listener for tab change to set current active index of the direct tab view. Needed since active index is
-     * set by menu links as well.
-     *
-     * @param tEvent
-     */
-    public void onDirectTabChange(TabChangeEvent tEvent) {
-        Tab selectedTab = tEvent.getTab();
-        if (DIRECTDOMAINTAB.equalsIgnoreCase(selectedTab.getId())) {
-            directTabIndex = 0;
-        } else if (DIRECTAGENTTAB.equalsIgnoreCase(selectedTab.getId())) {
-            directTabIndex = 1;
-        } else if (DIRECTCERTTAB.equalsIgnoreCase(selectedTab.getId())) {
-            directTabIndex = 2;
-        } else {
-            directTabIndex = 3;
-        }
-    }
-
-    public void onPropertyTabChange(TabChangeEvent tEvent) {
-        Tab selectedTab = tEvent.getTab();
-        if (GATEWAYPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
-            propIndex = 0;
-        } else if (ADAPTERPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
-            propIndex = 1;
-        } else {
-            propIndex = 2;
-        }
-    }
-
-    public void onAcctTabChange(TabChangeEvent tEvent) {
-        Tab selectedTab = tEvent.getTab();
-        if (ACCTUSERSTAB.equalsIgnoreCase(selectedTab.getId())) {
-            adminTabIndex = 0;
-        } else {
-            adminTabIndex = 1;
-        }
-    }
-
-    // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
-    // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)
-    /**
-     *
-     * @return
-     */
-    public String navigateToDirectDomainTab() {
-        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_DOMAIN_TAB);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToDirectSettingTab() {
-        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_SETTING_TAB);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToDirectCertificateTab() {
-        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_CERTIFICATE_TAB);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToDirectTrustbundleTab() {
-        return setDirectTabIndexNavigate(NavigationConstant.DIRECT_TRUSTBUNDLE_TAB);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToAccountMgmtUserAccountTab() {
-        return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_USERACC_TAB);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToAccountMgmtManageRoleTab() {
-        return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
-    }
-
-    public String navigateToGatewayPropTab() {
-        return setGatewayPropertyTabAndNavigate(0);
-    }
-
-    public String navigateToAdapterPropTab() {
-        return setGatewayPropertyTabAndNavigate(1);
-    }
-
-    public String navigateToAuditPropTab() {
-        return setGatewayPropertyTabAndNavigate(2);
-    }
-
-    public String navigateToFhir() {
-        return NavigationConstant.FHIR_PAGE;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToGatewayDashboardTab() {
-        return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_DASHBOARD_TAB);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToGatewayRemoteListTab() {
-        return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
-    }
-
-    public String navigateToConnectionManagement() {
-        return NavigationConstant.CM_PAGE;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String navigateToPatientDiscoveryTab() {
-        return setPatientSearchTabAndNavigate(0);
-    }
-
-    public String navigateToAuditSearchTab() {
-        return setAuditSearchTabAndNavigate(0);
-    }
-
-    public String setGatewayPropertyTabAndNavigate(int i) {
-        propIndex = i;
-        return NavigationConstant.PROPERTIES_PAGE;
-    }
-
-    public String setPatientSearchTabAndNavigate(int i) {
-        propIndex = i;
-        return NavigationConstant.PATIENT_SEARCH_PAGE;
-    }
-
-    public String setAuditSearchTabAndNavigate(int i) {
-        propIndex = i;
-        return NavigationConstant.AUDIT_SEARCH_PAGE;
-    }
-
-    public int getPropIndex() {
-        return propIndex;
-    }
-
-    public void setPropIndex(int propIndex) {
-        this.propIndex = propIndex;
-    }
-
-    public String getGATEWAYPROPTAB() {
-        return GATEWAYPROPTAB;
-    }
-
-    public String getADAPTERPROPTAB() {
-        return ADAPTERPROPTAB;
-    }
-
-    public String getAUDITPROPTAB() {
-        return AUDITPROPTAB;
-    }
-
-    public String getDIRECTDOMAINTAB() {
-        return DIRECTDOMAINTAB;
-    }
-
-    public String getDIRECTAGENTTAB() {
-        return DIRECTAGENTTAB;
-    }
-
-    public String getDIRECTCERTTAB() {
-        return DIRECTCERTTAB;
-    }
-
-    public String getDIRECTTBTAB() {
-        return DIRECTTBTAB;
-    }
-
-    public String getACCTUSERSTAB() {
-        return ACCTUSERSTAB;
-    }
-
-    public String getACCTROLESTAB() {
-        return ACCTROLESTAB;
-    }
-
-    // region LOAD-TEST-DATA
-    public String getLTDPATIENTTAB() {
-        return LTDPATIENTTAB;
-    }
-
-    // TAB-INDEX
-    public int getLoadTestDataTabIndex() {
-        return loadTestDataTabIndex;
-    }
-
-    public void setLoadTestDataTabIndex(int ltdIndexValue) {
-        loadTestDataTabIndex = ltdIndexValue;
-    }
-
-    // TAB-CHANGE
-    public void onLoadTestDataTabChange(TabChangeEvent tEvent) {
-        Tab selectedTab = tEvent.getTab();
-        if (LTDPATIENTTAB.equalsIgnoreCase(selectedTab.getId())) {
-            loadTestDataTabIndex = 0;
-        } else {
-            loadTestDataTabIndex = 1;
-        }
-    }
-
-    // TAB-NAVIGATE
-    public String setLoadTestDataTabIndexNavigate(int loadTestDataTabIndex) {
-        this.loadTestDataTabIndex = loadTestDataTabIndex;
-        return NavigationConstant.LOAD_TEST_DATA_PAGE;
-    }
-
-    public String navigateToLTDPatientTab() {
-        return setLoadTestDataTabIndexNavigate(NavigationConstant.LOAD_TEST_DATA_PATIENT_TAB);
-    }
-
-
-    // endRegion LOAD-TEST-DATA
+  public String setCertTabIndexNavigate(int certTabIndex) {
+    this.certTabIndex = certTabIndex;
+    return NavigationConstant.CERTIFICATE_MGMT_PAGE;
+  }
 
 }

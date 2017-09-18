@@ -1,0 +1,35 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="certCreateDlg" header="Add New Certificate" widgetVar="certCreateDlg" modal="true" dynamic="true" closeOnEscape="true">
+            <div class="content">
+                <h3>Add New Certificate</h3>
+                <div class="form-block center-block">
+                    <h:form id="certDlgForm" class="form form-horizontal">
+                        <p:messages id="certErrorMessages" closable="true" autoUpdate="true" showDetail="true" />
+                           <div class="form-group">
+                              <h:outputLabel for="alias" class="col-sm-3 control-label" id="aliasLbl" value="Alias:" />
+                                <div class="col-sm-9">
+                                    <p:inputText styleClass="form-control" id="alias" maxlength="20" required="true" value="#{certificateBean.alias}" requiredMessage="Alias is required." />
+                                </div>
+                           </div>
+                        <div class="form-group">
+                            <h:outputLabel for="pick-cert" class="col-sm-3 control-label" id="pick-certLbl" value="Certificate:" />
+                            <div class="col-sm-9">
+                                <p:fileUpload id="pick-cert" fileUploadListener="#{certificateBean.certFileUpload}" allowTypes="/(\.|\/)(der|cer|crt|pem|p12|pfx)$/"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <p:commandButton id="submit" styleClass="btn btn-primary" value="Submit" ajax="true" update=":tabview:cert-form" actionListener="#{certificateBean.addCertificate}" oncomplete="if(!args.validationFailed){PF('certDlg').hide();}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>
