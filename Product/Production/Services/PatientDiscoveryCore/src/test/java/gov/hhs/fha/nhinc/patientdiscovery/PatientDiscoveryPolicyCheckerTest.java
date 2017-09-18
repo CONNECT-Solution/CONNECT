@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery;
 
+import static org.junit.Assert.assertEquals;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
@@ -34,14 +36,12 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -62,7 +62,6 @@ public class PatientDiscoveryPolicyCheckerTest {
     public void testCheck201305Policy() {
         System.out.println("testCheck201305Policy");
         PRPAIN201306UV02 message = new PRPAIN201306UV02();
-        II patIdOverride = new II();
         final AssertionType assertion = new AssertionType();
 
         GenericFactory<PolicyEngineProxy> policyEngineProxyFactory = new GenericFactory<PolicyEngineProxy>() {
@@ -79,14 +78,14 @@ public class PatientDiscoveryPolicyCheckerTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
-                        with(any(AssertionType.class)));
+                    with(any(AssertionType.class)));
                 will(returnValue(response));
             }
         });
 
         PatientDiscovery201306PolicyChecker instance = new PatientDiscovery201306PolicyChecker(policyEngineProxyFactory);
 
-        boolean result = instance.check201305Policy(message, patIdOverride, assertion);
+        boolean result = instance.check201305Policy(message, assertion);
 
         assertEquals(true, result);
     }
@@ -131,7 +130,6 @@ public class PatientDiscoveryPolicyCheckerTest {
     public void testCheck201305PolicyFails() {
         System.out.println("testCheck201305PolicyFails");
         PRPAIN201306UV02 message = new PRPAIN201306UV02();
-        II patIdOverride = new II();
         final AssertionType assertion = new AssertionType();
 
         GenericFactory<PolicyEngineProxy> policyEngineProxyFactory = new GenericFactory<PolicyEngineProxy>() {
@@ -148,14 +146,14 @@ public class PatientDiscoveryPolicyCheckerTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockPolicyEngineProxy).checkPolicy(with(any(CheckPolicyRequestType.class)),
-                        with(any(AssertionType.class)));
+                    with(any(AssertionType.class)));
                 will(returnValue(response));
             }
         });
 
         PatientDiscovery201306PolicyChecker instance = new PatientDiscovery201306PolicyChecker(policyEngineProxyFactory);
 
-        boolean result = instance.check201305Policy(message, patIdOverride, assertion);
+        boolean result = instance.check201305Policy(message, assertion);
 
         assertEquals(false, result);
     }
@@ -182,7 +180,7 @@ public class PatientDiscoveryPolicyCheckerTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockPolicyEngineProxy).checkPolicy(with(aNull(CheckPolicyRequestType.class)),
-                        with(aNull(AssertionType.class)));
+                    with(aNull(AssertionType.class)));
                 will(returnValue(response));
             }
         });
@@ -216,7 +214,7 @@ public class PatientDiscoveryPolicyCheckerTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockPolicyEngineProxy).checkPolicy(with(aNull(CheckPolicyRequestType.class)),
-                        with(aNull(AssertionType.class)));
+                    with(aNull(AssertionType.class)));
                 will(returnValue(response));
             }
         });

@@ -34,7 +34,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
-import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
@@ -52,11 +51,7 @@ AbstractPatientDiscoveryPolicyChecker<RespondingGatewayPRPAIN201306UV02RequestTy
         return INSTANCE;
     }
 
-    public boolean check201305Policy(PRPAIN201306UV02 message, II patIdOverride, AssertionType assertion) {
-        return check201305PolicyIncomingOutgoing(message, assertion);
-    }
-
-    private boolean check201305PolicyIncomingOutgoing(PRPAIN201306UV02 message, AssertionType assertion) {
+    public boolean check201305Policy(PRPAIN201306UV02 message, AssertionType assertion) {
         String roid = null;
         String soid = null;
 
@@ -119,7 +114,7 @@ AbstractPatientDiscoveryPolicyChecker<RespondingGatewayPRPAIN201306UV02RequestTy
     public boolean checkOutgoingPolicy(RespondingGatewayPRPAIN201306UV02RequestType request) {
         PRPAIN201306UV02 message = request.getPRPAIN201306UV02();
         AssertionType assertion = request.getAssertion();
-        return check201305PolicyIncomingOutgoing(message, assertion);
+        return check201305Policy(message, assertion);
     }
 
     @Override

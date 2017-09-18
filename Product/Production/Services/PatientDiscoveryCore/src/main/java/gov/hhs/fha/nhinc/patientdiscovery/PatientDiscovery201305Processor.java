@@ -66,7 +66,6 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDiscovery201305Processor.class);
 
-    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     /*
      * (non-Javadoc)
@@ -134,7 +133,6 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     protected boolean checkPolicy(PRPAIN201306UV02 response, AssertionType assertion) {
         boolean isPermit = false;
-        II patId;
         PatientDiscovery201306PolicyChecker policyChecker = PatientDiscovery201306PolicyChecker.getInstance();
 
         // ************************************************************************************************
@@ -159,9 +157,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 pRPAINSubject);
             response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
-            // Extract patient for current subject and perform policy check
-            patId = msgUtils.extractPatientIdFromSubject(pRPAINSubject);
-            if (policyChecker.check201305Policy(response, patId, assertion)) {
+            if (policyChecker.check201305Policy(response, assertion)) {
                 LOG.debug("checkPolicy -policy returns permit for patient: {}", pRPAINSubjectInd);
             } else {
                 LOG.debug("checkPolicy -policy returns deny for patient: {}", pRPAINSubjectInd);
