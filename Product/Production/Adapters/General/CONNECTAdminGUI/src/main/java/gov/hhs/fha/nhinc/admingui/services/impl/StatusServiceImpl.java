@@ -60,8 +60,8 @@ public class StatusServiceImpl implements StatusService {
 
     private final ConnectionManagerCacheHelper cmHelper = new ConnectionManagerCacheHelper();
     private final PingService pingService = new PingServiceImpl();
-    
-    private static Logger LOG = LoggerFactory.getLogger(StatusServiceImpl.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(StatusServiceImpl.class);
 
     @Override
     public String getOperatingSystem() {
@@ -120,26 +120,31 @@ public class StatusServiceImpl implements StatusService {
     private List<AvailableService> getServicesFromName(String uddiServiceName, BusinessEntity localEntity) {
         List<AvailableService> namedServices = new ArrayList<>();
         try {
-            
+
             BusinessService bService = cmHelper.getBusinessServiceByServiceName(localEntity, uddiServiceName);
             List<NhincConstants.UDDI_SPEC_VERSION> specVersions = cmHelper.getSpecVersions(bService);
 
             if (!CollectionUtils.isEmpty(specVersions)) {
-                for (NhincConstants.UDDI_SPEC_VERSION spec : specVersions) {
-                    AvailableService aService = new AvailableService();
-                    aService.setServiceName(uddiServiceName + " - " + spec.toString());
-                    BindingTemplate bindingTemplate = cmHelper.findBindingTemplateByKey(bService, UDDI_SPEC_VERSION_KEY,
-                            spec.toString());
-                    if(bindingTemplate != null && bindingTemplate.getAccessPoint() != null) {
-                        aService.setAvailable(pingService.ping(bindingTemplate.getAccessPoint().getValue()));
-                        namedServices.add(aService);
-                    }
-                }
+                populateNamedServices(specVersions, uddiServiceName, bService, namedServices);
             }
         } catch (ConnectionManagerException ex) {
-
+            LOG.warn("Error when accessing services for {}", uddiServiceName, ex);
         }
         return namedServices;
+    }
+
+    private void populateNamedServices(List<NhincConstants.UDDI_SPEC_VERSION> specVersions, String uddiServiceName, 
+            BusinessService bService, List<AvailableService> namedServices) {
+        for (NhincConstants.UDDI_SPEC_VERSION spec : specVersions) {
+            AvailableService aService = new AvailableService();
+            aService.setServiceName(uddiServiceName + " - " + spec.toString());
+            BindingTemplate bindingTemplate = cmHelper.findBindingTemplateByKey(bService, UDDI_SPEC_VERSION_KEY,
+                    spec.toString());
+            if (bindingTemplate != null && bindingTemplate.getAccessPoint() != null) {
+                aService.setAvailable(pingService.ping(bindingTemplate.getAccessPoint().getValue()));
+                namedServices.add(aService);
+            }
+        }
     }
 
 }

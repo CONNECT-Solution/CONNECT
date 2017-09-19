@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admingui.services.StatusEvent;
 import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -88,18 +89,18 @@ public class StatusEventImpl implements StatusEvent {
     }
     
     @Override
-    public HashMap<String, Integer> getServiceList() {
+    public Map<String, Integer> getServiceList() {
         List serviceList = getEventLoggerDao().getCounts(null, EVENT_SERVICETYPE_NAME);
         return setEvents(serviceList);
     }
 
     @Override
-    public HashMap<String, Integer> getInboundEventCounts() {
+    public Map<String, Integer> getInboundEventCounts() {
         return inboundCounts;
     }
 
     @Override
-    public HashMap<String, Integer> getOutboundEventCounts() {
+    public Map<String, Integer> getOutboundEventCounts() {
         return outboundCounts;
     }
 
@@ -110,9 +111,8 @@ public class StatusEventImpl implements StatusEvent {
         return eventDao;
     }
 
-    private HashMap<String, Integer> setEvents(List results) {
+    private static HashMap<String, Integer> setEvents(List results) {
         int patientDiscoveryCount = 0;
-        int x12Count = 0;
         int docSubmissionCount = 0;
         int docQueryCount = 0;
         int docRetrieveCount = 0;
@@ -123,15 +123,13 @@ public class StatusEventImpl implements StatusEvent {
                 Long count = (Long) resultArray[0];
                 String serviceType = (String) resultArray[1];
 
-                if (serviceType.equalsIgnoreCase(PD_SERVICE_TYPE) || serviceType.equalsIgnoreCase(PD_DEF_REQ_SERVICE_TYPE)
-                        || serviceType.equalsIgnoreCase(PD_DEF_RESP_SERVICE_TYPE)) {
+                if (isPDServiceType(serviceType)) {
                     patientDiscoveryCount += count;
                 } else if (serviceType.equalsIgnoreCase(DQ_SERVICE_TYPE)) {
                     docQueryCount += count;
                 } else if (serviceType.equalsIgnoreCase(DR_SERVICE_TYPE)) {
                     docRetrieveCount += count;
-                } else if (serviceType.equalsIgnoreCase(DS_SERVICE_TYPE) || serviceType.equalsIgnoreCase(DS_DEF_REQ_SERVICE_TYPE)
-                        || serviceType.equalsIgnoreCase(DS_DEF_RESP_SERVICE_TYPE)) {
+                } else if (isDSServiceType(serviceType)) {
                     docSubmissionCount += count;
                 }
             }
@@ -144,6 +142,16 @@ public class StatusEventImpl implements StatusEvent {
         events.put(DR_SERVICE_TYPE, docRetrieveCount);
         
         return events;
+    }
+    
+    private static boolean isPDServiceType(String serviceType) {
+        return serviceType.equalsIgnoreCase(PD_SERVICE_TYPE) || serviceType.equalsIgnoreCase(PD_DEF_REQ_SERVICE_TYPE)
+                        || serviceType.equalsIgnoreCase(PD_DEF_RESP_SERVICE_TYPE);
+    }
+    
+    private static boolean isDSServiceType(String serviceType) {
+        return serviceType.equalsIgnoreCase(DS_SERVICE_TYPE) || serviceType.equalsIgnoreCase(DS_DEF_REQ_SERVICE_TYPE)
+                        || serviceType.equalsIgnoreCase(DS_DEF_RESP_SERVICE_TYPE);
     }
 
 }

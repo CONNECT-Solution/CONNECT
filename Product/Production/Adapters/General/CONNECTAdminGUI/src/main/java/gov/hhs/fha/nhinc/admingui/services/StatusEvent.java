@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -36,13 +36,13 @@ public interface StatusEvent {
 
     public void setCounts();
 
-    public HashMap<String, Integer> getInboundEventCounts();
+    public Map<String, Integer> getInboundEventCounts();
 
-    public HashMap<String, Integer> getOutboundEventCounts();
+    public Map<String, Integer> getOutboundEventCounts();
 
     public long getTotalInboundRequests();
 
     public long getTotatOutboundRequests();
     
-    public HashMap<String, Integer> getServiceList();
+    public Map<String, Integer> getServiceList();
 }

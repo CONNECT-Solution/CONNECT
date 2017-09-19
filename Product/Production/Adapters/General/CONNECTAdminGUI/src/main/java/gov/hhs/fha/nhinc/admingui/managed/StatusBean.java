@@ -34,6 +34,8 @@ import gov.hhs.fha.nhinc.admingui.services.impl.StatusServiceImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -64,8 +66,7 @@ public class StatusBean {
     }
 
     public String getOs() {
-        String os = sService.getOperatingSystem();
-        return os;
+        return sService.getOperatingSystem();
     }
 
     public String getJava() {
@@ -104,9 +105,9 @@ public class StatusBean {
     }
 
     private void refreshPieChart() {
-        HashMap<String, Integer> serviceMap = eventService.getServiceList();
-        for(String eventType : serviceMap.keySet()) {
-            eventPieChart.getData().put(eventType, serviceMap.get(eventType));
+        Map<String, Integer> serviceMap = eventService.getServiceList();       
+        for(Entry<String, Integer> serviceEntry : serviceMap.entrySet()) {
+            eventPieChart.getData().put(serviceEntry.getKey(), serviceEntry.getValue());
         }
     }
 
@@ -120,21 +121,18 @@ public class StatusBean {
         eventBarChart.addSeries(outboundSeries);
     }
 
-    private ChartSeries createChart(String label, HashMap<String, Integer> eventCounts) {
+    private static ChartSeries createChart(String label, Map<String, Integer> eventCounts) {
         ChartSeries series = new ChartSeries();
         series.setLabel(label);
-        for (String serviceType : eventCounts.keySet()) {
-            series.set(serviceType, eventCounts.get(serviceType));
+        for (Entry<String, Integer> serviceEntry : eventCounts.entrySet()) {
+            series.set(serviceEntry.getKey(), serviceEntry.getValue());
         }
         return series;
     }
     
     private void initPieChart() {
         eventPieChart = new PieChartModel();
-        HashMap<String, Integer> serviceMap = eventService.getServiceList();
-        for(String eventType : serviceMap.keySet()) {
-            eventPieChart.getData().put(eventType, serviceMap.get(eventType));
-        }
+        refreshPieChart();
     }
 
 }
