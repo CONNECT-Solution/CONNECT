@@ -66,7 +66,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
             if (body != null) {
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service: {} ", sServiceName, "and url : {}  ", url);
+                LOG.debug("After target system URL look up. URL for service: {} and url : {}  ", sServiceName, url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();

@@ -239,7 +239,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         LOG.debug("Begin storeLocalMapping");
 
         String hcid = HomeCommunityMap.getLocalHomeCommunityId();
-        LOG.debug("Begin storeLocalMapping: hcid", hcid);
+        LOG.debug("Begin storeLocalMapping hcid : {} ", hcid);
 
         II patId = extractPatientIdFrom201305(request.getPRPAIN201305UV02());
 
