@@ -81,25 +81,33 @@ public class PatientDiscovery201306Processor {
         List<String> assigningAuthorityIds;
         assigningAuthorityIds = extractAAListFrom201306(request);
         for (String assigningAuthority : assigningAuthorityIds) {
-            LOG.debug("storeMapping: assigningAuthority" + assigningAuthority);
-            if (NullChecker.isNullish(hcid)) {
-                LOG.warn("HCID null or empty. Mapping was not stored.");
-            } else if (NullChecker.isNullish(assigningAuthority)) {
-                LOG.warn("Assigning authority null or empty. Mapping was not stored.");
-            } else {
-                AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
-
-                if (mappingDao == null) {
-                    LOG.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
-                } else {
-                    if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
-                        LOG.warn("Failed to store home community - assigning authority mapping");
-                    }
-                }
-            }
+            mapAssigningAuthorityHomeCommunity(hcid, assigningAuthority);
         }
 
         LOG.debug("End storeMapping");
+    }
+
+    /**
+     * @param hcid
+     * @param assigningAuthority
+     */
+    private void mapAssigningAuthorityHomeCommunity(String hcid, String assigningAuthority) {
+        LOG.debug("storeMapping: assigningAuthority" + assigningAuthority);
+        if (NullChecker.isNullish(hcid)) {
+            LOG.warn("HCID null or empty. Mapping was not stored.");
+        } else if (NullChecker.isNullish(assigningAuthority)) {
+            LOG.warn("Assigning authority null or empty. Mapping was not stored.");
+        } else {
+            AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
+
+            if (mappingDao == null) {
+                LOG.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
+            } else {
+                if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
+                    LOG.warn("Failed to store home community - assigning authority mapping");
+                }
+            }
+        }
     }
 
     protected String getHcid(PRPAIN201306UV02 request) {

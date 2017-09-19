@@ -28,14 +28,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service.EntityPatientDiscoverySecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -47,42 +43,33 @@ import org.slf4j.LoggerFactory;
  *
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityPatientDiscoveryProxy {
+public class EntityPatientDiscoveryProxyWebServiceSecuredImpl extends EntityPatientDiscoveryProxyWebServicAbstract
+implements EntityPatientDiscoveryProxy {
+    private String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
     private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryProxyWebServiceSecuredImpl.class);
-    private WebServiceProxyHelper oProxyHelper = null;
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
+        return super.getoProxyHelper();
     }
 
+    @Override
     protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
+        return super.invokeConnectionManager(serviceName);
     }
 
     protected String getEndpointURL() {
-        String endpointURL = null;
-        String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
-        try {
-            endpointURL = invokeConnectionManager(serviceName);
-            LOG.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
-        } catch (ConnectionManagerException ex) {
-            LOG.error(
-                    "Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(),
-                    ex);
-        }
 
-        return endpointURL;
+        return super.getEndpointURLForService(serviceName);
     }
 
     @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
+        AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
+        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
         try {
             String url = getEndpointURL();
-
             if (pdRequest == null) {
                 LOG.error("PRPAIN201305UV02 was null");
             } else if (assertion == null) {
@@ -95,10 +82,10 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targetCommunities);
                 response = (RespondingGatewayPRPAIN201306UV02ResponseType) getClient(url, assertion).invokePort(
-                        EntityPatientDiscoverySecuredPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+                    EntityPatientDiscoverySecuredPortType.class, "respondingGatewayPRPAIN201305UV02", request);
             }
         } catch (Exception ex) {
-            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: {} " , ex.getMessage(), ex);
         }
 
         LOG.debug("End respondingGatewayPRPAIN201305UV02");
@@ -111,9 +98,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
      * @return
      */
     protected CONNECTClient<EntityPatientDiscoverySecuredPortType> getClient(final String url,
-            final AssertionType assertion) {
-        ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> portDescriptor = new EntityPatientDiscoverySecuredServicePortDescriptor();
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        final AssertionType assertion) {
+        return super.getSecuredPortClient(url, assertion);
     }
 
 }

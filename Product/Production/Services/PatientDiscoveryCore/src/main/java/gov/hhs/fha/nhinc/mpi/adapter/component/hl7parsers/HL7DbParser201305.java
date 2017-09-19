@@ -39,12 +39,12 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
 import org.hl7.v3.AdxpExplicitStreetAddressLine;
-import org.hl7.v3.CE;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.EnExplicitPrefix;
@@ -52,16 +52,12 @@ import org.hl7.v3.EnExplicitSuffix;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02PatientAddress;
 import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
-import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
-import org.hl7.v3.TELExplicit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,6 +68,7 @@ import org.slf4j.LoggerFactory;
 public class HL7DbParser201305 {
 
     private static final Logger LOG = LoggerFactory.getLogger(HL7DbParser201305.class);
+    private static HL7Parser201305Utils hl7ParserUtils = HL7Parser201305Utils.getInstance();
     /**
      * Social Security Number Root Identifier.
      */
@@ -85,29 +82,7 @@ public class HL7DbParser201305 {
      */
     public static String extractGender(PRPAMT201306UV02ParameterList params) {
         LOG.trace("Entering HL7DbParser201305.ExtractGender method...");
-
-        String genderCode = null;
-
-        // Extract the gender from the query parameters - Assume only one was specified
-        if (CollectionUtils.isNotEmpty(params.getLivingSubjectAdministrativeGender())
-            && params.getLivingSubjectAdministrativeGender().get(0) != null) {
-            PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender()
-                .get(0);
-
-            if (CollectionUtils.isNotEmpty(gender.getValue()) && gender.getValue().get(0) != null) {
-                CE administrativeGenderCode = gender.getValue().get(0);
-
-                LOG.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
-                genderCode = administrativeGenderCode.getCode();
-            } else {
-                LOG.info("query does not contain a gender code");
-            }
-        } else {
-            LOG.info("query does not contain a gender code");
-        }
-
-        LOG.trace("Exiting HL7DbParser201305.ExtractGender method...");
-        return genderCode;
+        return hl7ParserUtils.extractGender(params);
     }
 
     /**
@@ -130,19 +105,7 @@ public class HL7DbParser201305 {
 
                 if (CollectionUtils.isNotEmpty(birthTime.getValue())
                     && birthTime.getValue().get(0) != null) {
-                    IVLTSExplicit birthday = birthTime.getValue().get(0);
-                    LOG.info("Found birthTime in query parameters = " + birthday.getValue());
-                    UTCDateUtil utcDateUtil = new UTCDateUtil();
-                    // Check date string length
-                    if (birthday.getValue().length() == dateOnlyLength) {
-                        birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
-                            UTCDateUtil.DATE_ONLY_FORMAT, null).getTime());
-                    } else if (birthday.getValue().length() > dateOnlyLength) {
-                        birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
-                            UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
-                    } else {
-                        LOG.info("message does not contain a valid formatted birthtime");
-                    }
+                    birthDate = formatBirthDate(birthDate, dateOnlyLength, birthTime);
                 } else {
                     LOG.info("message does not contain a birthtime");
                 }
@@ -150,12 +113,38 @@ public class HL7DbParser201305 {
                 LOG.info("message does not contain a birthtime");
             }
         } catch (Exception e) {
-            LOG.error("Exception parsing birth date: ", e);
+            LOG.error("Exception parsing birth date: {} ", e);
             return null;
         }
 
         LOG.trace("Exiting HL7DbParser201305.ExtractBirthdate method...");
         return birthDate;
+    }
+
+    /**
+     * @param birthDate
+     * @param dateOnlyLength
+     * @param birthTime
+     * @return
+     */
+    private static Timestamp formatBirthDate(Timestamp birthDate, final int dateOnlyLength,
+        PRPAMT201306UV02LivingSubjectBirthTime birthTime) {
+        Timestamp parseBirthDate = birthDate;
+        IVLTSExplicit birthday = birthTime.getValue().get(0);
+        LOG.info("Found birthTime in query parameters: {} ", birthday.getValue());
+        UTCDateUtil utcDateUtil = new UTCDateUtil();
+        // Check date string length
+        if (birthday.getValue().length() == dateOnlyLength) {
+            parseBirthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
+                UTCDateUtil.DATE_ONLY_FORMAT, null).getTime());
+        } else if (birthday.getValue().length() > dateOnlyLength) {
+            parseBirthDate = new Timestamp(
+                utcDateUtil.parseDate(birthday.getValue(),
+                    UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
+        } else {
+            LOG.info("message does not contain a valid formatted birthtime");
+        }
+        return parseBirthDate;
     }
 
     /**
@@ -177,7 +166,7 @@ public class HL7DbParser201305 {
                 if (CollectionUtils.isNotEmpty(name.getValue()) && name.getValue().get(0) != null) {
                     List<Serializable> choice = name.getValue().get(0).getContent();
 
-                    LOG.info("choice.size()=" + choice.size());
+                    LOG.info("choice.size() : {} ", choice.size());
 
                     Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -202,7 +191,7 @@ public class HL7DbParser201305 {
                             } else {
                                 nameString = strValue;
                             }
-                            LOG.info("nameString=" + nameString);
+                            LOG.info("nameString : {} ", nameString);
                         } else if (contentItem instanceof JAXBElement) {
                             LOG.info("contentItem is JAXBElement");
 
@@ -210,25 +199,25 @@ public class HL7DbParser201305 {
 
                             if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                                 lastname = (EnExplicitFamily) oJAXBElement.getValue();
-                                LOG.info("found lastname element; content=" + lastname.getContent());
+                                LOG.info("found lastname element; content : {} ", lastname.getContent());
                             } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                                 if (firstname == null) {
                                     firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                                    LOG.info("found firstname element; content=" + firstname.getContent());
+                                    LOG.info("found firstname element; content: {} ", firstname.getContent());
                                 } else if (middlename == null) {
                                     middlename = (EnExplicitGiven) oJAXBElement.getValue();
-                                    LOG.info("found middlename element; content=" + middlename.getContent());
+                                    LOG.info("found middlename element; content : {} ", middlename.getContent());
                                 } else {
                                     // ignore all other given values
                                 }
                             } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
                                 prefix = (EnExplicitPrefix) oJAXBElement.getValue();
-                                LOG.info("found prefix element; content=" + prefix.getContent());
+                                LOG.info("found prefix element; content : {} ", prefix.getContent());
                             } else if (oJAXBElement.getValue() instanceof EnExplicitSuffix) {
                                 suffix = (EnExplicitSuffix) oJAXBElement.getValue();
-                                LOG.info("found suffix element; content=" + suffix.getContent());
+                                LOG.info("found suffix element; content : {} ", suffix.getContent());
                             } else {
-                                LOG.info("other name part=" + oJAXBElement.getValue());
+                                LOG.info("other name part : {} ", oJAXBElement.getValue());
                             }
                         } else {
                             LOG.info("contentItem is other");
@@ -237,45 +226,10 @@ public class HL7DbParser201305 {
 
                     // If text string in patient name, then set in name
                     // else set in element.
-                    boolean namefound = false;
-                    Personname personname = new Personname();
-                    if (lastname != null && lastname.getContent() != null) {
-                        personname.setLastName(lastname.getContent());
-                        LOG.info("FamilyName : " + personname.getLastName());
-                        namefound = true;
-                    }
+                    Personname personNameDBModel = formatPatientName(nameString, lastname, firstname, middlename,
+                        prefix, suffix);
 
-                    if (firstname != null && firstname.getContent() != null) {
-                        personname.setFirstName(firstname.getContent());
-                        LOG.info("GivenName(first) : " + personname.getFirstName());
-                        namefound = true;
-                    }
-
-                    if (middlename != null && middlename.getContent() != null) {
-                        personname.setMiddleName(middlename.getContent());
-                        LOG.info("GivenName(middle) : " + personname.getMiddleName());
-                        namefound = true;
-                    }
-
-                    if (prefix != null && prefix.getContent() != null) {
-                        personname.setPrefix(prefix.getContent());
-                        LOG.info("Prefix : " + personname.getPrefix());
-                        namefound = true;
-                    }
-
-                    if (suffix != null && suffix.getContent() != null) {
-                        personname.setSuffix(suffix.getContent());
-                        LOG.info("Suffix : " + personname.getSuffix());
-                        namefound = true;
-                    }
-
-                    if (!namefound && !nameString.trim().contentEquals("")) {
-                        LOG.info("setting name by nameString " + nameString);
-                        personname.setLastName(nameString);
-
-                    }
-
-                    personnames.add(personname);
+                    personnames.add(personNameDBModel);
                 } else {
                     LOG.info("message does not contain a subject name");
                 }
@@ -286,6 +240,101 @@ public class HL7DbParser201305 {
 
         LOG.trace("Exiting HL7DbParser201305.ExtractPersonnames method...");
         return personnames;
+    }
+
+    /**
+     * @param nameString
+     * @param lastname
+     * @param firstname
+     * @param middlename
+     * @param prefix
+     * @param suffix
+     * @return
+     */
+    private static Personname formatPatientName(String nameString, EnExplicitFamily lastname, EnExplicitGiven firstname,
+        EnExplicitGiven middlename, EnExplicitPrefix prefix, EnExplicitSuffix suffix) {
+        boolean namefound;
+        Personname personNameDBModel = new Personname();
+        namefound = checkNameContents(lastname, firstname, middlename, prefix, suffix, personNameDBModel);
+
+        if (!namefound && StringUtils.isNotEmpty(nameString)) {
+            LOG.info("setting name by nameString : {} ", nameString);
+            personNameDBModel.setLastName(nameString);
+
+        }
+        return personNameDBModel;
+    }
+
+    /**
+     * @param lastname
+     * @param firstname
+     * @param middlename
+     * @param prefix
+     * @param suffix
+     * @param namefound
+     * @param personNameDBModel
+     * @return
+     */
+    private static boolean checkNameContents(EnExplicitFamily lastname, EnExplicitGiven firstname,
+        EnExplicitGiven middlename, EnExplicitPrefix prefix, EnExplicitSuffix suffix,
+        Personname personNameDBModel) {
+        boolean namefound;
+        namefound = checkFirstMiddleLastNameContents(lastname, firstname, middlename, personNameDBModel)
+            || checkSuffixNameContents(prefix, suffix, personNameDBModel);
+        return namefound;
+    }
+
+    /**
+     * @param lastname
+     * @param firstname
+     * @param middlename
+     * @param personNameDBModel
+     */
+    private static boolean checkFirstMiddleLastNameContents(EnExplicitFamily lastname, EnExplicitGiven firstname,
+        EnExplicitGiven middlename, Personname personNameDBModel) {
+        boolean namefound = false;
+        if (lastname != null && lastname.getContent() != null) {
+            personNameDBModel.setLastName(lastname.getContent());
+            LOG.info("FamilyName : {} ", personNameDBModel.getLastName());
+            namefound = true;
+        }
+
+        if (firstname != null && firstname.getContent() != null) {
+            personNameDBModel.setFirstName(firstname.getContent());
+            LOG.info("GivenName(first) : {} ", personNameDBModel.getFirstName());
+            namefound = true;
+        }
+
+        if (middlename != null && middlename.getContent() != null) {
+            personNameDBModel.setMiddleName(middlename.getContent());
+            LOG.info("GivenName(middle) : {} ", personNameDBModel.getMiddleName());
+            namefound = true;
+        }
+        return namefound;
+    }
+
+    /**
+     * @param prefix
+     * @param suffix
+     * @param personNameDBModel
+     * @param namefound
+     * @return
+     */
+    private static boolean checkSuffixNameContents(EnExplicitPrefix prefix, EnExplicitSuffix suffix,
+        Personname personNameDBModel) {
+        boolean namefound = false;
+        if (prefix != null && prefix.getContent() != null) {
+            personNameDBModel.setPrefix(prefix.getContent());
+            LOG.info("Prefix : {} ", personNameDBModel.getPrefix());
+            namefound = true;
+        }
+
+        if (suffix != null && suffix.getContent() != null) {
+            personNameDBModel.setSuffix(suffix.getContent());
+            LOG.info("Suffix : {} ", personNameDBModel.getSuffix());
+            namefound = true;
+        }
+        return namefound;
     }
 
     /**
@@ -314,8 +363,8 @@ public class HL7DbParser201305 {
                             Identifier id = new Identifier();
                             id.setId(subjectId.getExtension());
                             id.setOrganizationId(subjectId.getRoot());
-                            LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId()
-                            + "][id=" + id.getId() + "]");
+                            LOG.info("Created id from patient identifier [organization : {}][id : {}] ",
+                                id.getOrganizationId(), id.getId());
                             ids.add(id);
                         }
                     } else {
@@ -359,8 +408,8 @@ public class HL7DbParser201305 {
                             Identifier ssnId = new Identifier();
                             ssnId.setId(subjectId.getExtension());
                             ssnId.setOrganizationId(subjectId.getRoot());
-                            LOG.info("Created id from ssn identifier [organization=" + ssnId.getOrganizationId()
-                            + "][id=" + ssnId.getId() + "]");
+                            LOG.info("Created id from ssn identifier [organization : {}][id : {}] ",
+                                ssnId.getOrganizationId(), ssnId.getId());
                             ssn = ssnId.getId();
                         }
                     } else {
@@ -399,7 +448,7 @@ public class HL7DbParser201305 {
 
                     List<Serializable> choice = adExplicit.getContent();
 
-                    LOG.info("choice.size()=" + choice.size());
+                    LOG.info("choice.size() : {} ", choice.size());
 
                     Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -426,7 +475,7 @@ public class HL7DbParser201305 {
                                 addressLineCounter++;
                                 if (addressLineCounter == 1) {
                                     addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                    LOG.info("found addressLine1 element; content=" + addressLine1.getContent());
+                                    LOG.info("found addressLine1 element; content : {} ", addressLine1.getContent());
                                     if (address == null) {
                                         address = new Address();
                                     }
@@ -434,7 +483,7 @@ public class HL7DbParser201305 {
                                 }
                                 if (addressLineCounter == 2) {
                                     addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                    LOG.info("found addressLine2 element; content=" + addressLine2.getContent());
+                                    LOG.info("found addressLine2 element; content : {} ", addressLine2.getContent());
                                     if (address == null) {
                                         address = new Address();
                                     }
@@ -442,27 +491,27 @@ public class HL7DbParser201305 {
                                 }
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                                 city = (AdxpExplicitCity) oJAXBElement.getValue();
-                                LOG.info("found city element; content=" + city.getContent());
+                                LOG.info("found city element; content : {} ", city.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
                                 address.setCity(city.getContent());
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                                 state = (AdxpExplicitState) oJAXBElement.getValue();
-                                LOG.info("found state element; content=" + state.getContent());
+                                LOG.info("found state element; content : {} ", state.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
                                 address.setState(state.getContent());
                             } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                                 postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
-                                LOG.info("found postalCode element; content=" + postalCode.getContent());
+                                LOG.info("found postalCode element; content : {} ", postalCode.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
                                 address.setPostal(postalCode.getContent());
                             } else {
-                                LOG.info("other address part=" + oJAXBElement.getValue());
+                                LOG.info("other address part : {} ", oJAXBElement.getValue());
                             }
                         } else {
                             LOG.info("contentItem is other");
@@ -495,29 +544,13 @@ public class HL7DbParser201305 {
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
         if (CollectionUtils.isNotEmpty(params.getPatientTelecom())
             && params.getPatientTelecom().get(0) != null) {
-
-            int count = 0;
             for (PRPAMT201306UV02PatientTelecom patientTelecom : params.getPatientTelecom()) {
-                if (CollectionUtils.isNotEmpty(patientTelecom.getValue())
-                    && patientTelecom.getValue().get(0) != null) {
-                    TELExplicit telecomValue = patientTelecom.getValue().get(0);
-                    LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
-                    String telecom = telecomValue.getValue();
-                    if (telecom != null) {
-                        if (!telecom.startsWith("tel:")) {
-                            // telecom is not valid without tel: prefix
-                            LOG.info("Found patientTelecom [" + telecom
-                                + "] in query parameters is not in the correct uri format");
-                        } else {
-                            phonenumber = new Phonenumber();
-                            phonenumber.setValue(telecom);
-                            phonenumbers.add(phonenumber);
-                        }
-                    }
-                } else {
-                    LOG.info("patientTelecom[" + count + "] does not contain a value.");
+                String telecom = hl7ParserUtils.extractTelecom(patientTelecom);
+                if (StringUtils.isNotEmpty(telecom)) {
+                    phonenumber = new Phonenumber();
+                    phonenumber.setValue(telecom);
+                    phonenumbers.add(phonenumber);
                 }
-                count++;
             }
         } else {
             LOG.info("message does not contain a patientTelecom");
@@ -535,32 +568,7 @@ public class HL7DbParser201305 {
      */
     public static PRPAMT201306UV02ParameterList extractHL7QueryParamsFromMessage(PRPAIN201305UV02 message) {
         LOG.trace("Entering HL7DbParser201305.ExtractHL7QueryParamsFromMessage method...");
-        PRPAMT201306UV02ParameterList queryParamList = null;
-
-        if (message == null) {
-            LOG.warn("input message was null, no query parameters present in message");
-            return null;
-        }
-
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = message.getControlActProcess();
-        if (controlActProcess == null) {
-            LOG.info("controlActProcess is null - no query parameters present in message");
-            return null;
-        }
-
-        if (controlActProcess.getQueryByParameter() != null
-            && controlActProcess.getQueryByParameter().getValue() != null) {
-            PRPAMT201306UV02QueryByParameter queryParams = controlActProcess
-                .getQueryByParameter().getValue();
-
-            if (queryParams.getParameterList() != null) {
-                queryParamList = queryParams.getParameterList();
-            }
-
-        }
-
-        LOG.trace("Exiting HL7DbParser201305.ExtractHL7QueryParamsFromMessage method...");
-        return queryParamList;
+        return hl7ParserUtils.extractHL7QueryParamsFromMessage(message);
     }
 
     /**
