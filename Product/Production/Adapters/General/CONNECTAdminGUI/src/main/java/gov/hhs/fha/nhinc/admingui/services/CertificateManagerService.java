@@ -24,57 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.opensaml;
+package gov.hhs.fha.nhinc.admingui.services;
 
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
+import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
+import java.util.List;
 
 /**
- * @author bhumphrey
  *
+ * @author tjafri
  */
-public interface CertificateManager {
+public interface CertificateManagerService {
 
-  /**
-   * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-   * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-   *
-   * @return X509Certificate
-   * @throws CertificateManagerException
-   */
-  public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
+  public List<Certificate> fetchKeyStores();
 
-  public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
+  public List<Certificate> fetchTrustStores();
 
-  /**
-   * @return
-   */
-  public abstract RSAPublicKey getDefaultPublicKey();
-
-  /**
-   * @return the keyStore
-   */
-  public abstract KeyStore getKeyStore();
-
-  /**
-   * @return the trustStore
-   */
-  public abstract KeyStore getTrustStore();
-
-  /**
-   * refreshes the underline keyStore
-   */
-  public KeyStore refreshKeyStore();
-
-  /**
-   * @return keyStore location
-   */
   public String getKeyStoreLocation();
 
-  /**
-   * @return TrustStore location
-   */
   public String getTrustStoreLocation();
+
+  public List<Certificate> refreshKeyStores();
 }

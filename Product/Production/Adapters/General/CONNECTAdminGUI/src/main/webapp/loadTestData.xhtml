@@ -44,7 +44,7 @@
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
             <ui:define name="content">
-                <h1 class="section-header">Load Test Data</h1>
+                <h1 class="section-header">Test Data</h1>
                 <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
                 <p:tabView id="patientTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.loadTestDataTabIndex}" styleClass="tabs-override tabs-ovr-blue">
                     <p:ajax event="tabChange" listener="#{tabBean.onLoadTestDataTabChange}" />
@@ -55,7 +55,7 @@
                             <div class="tab-pane active" id="patients">
                                 <!-- BEGIN: FORM-BLOCK -->
                                 <div class="content-block">
-                                    <h2 class="subsection-header">Create Patient</h2>
+                                    <h2 class="subsection-header">Patient Data</h2>
 
                                     <div class="content">
                                         <p>The following information is required for the Patient:</p>
@@ -114,7 +114,10 @@
                                             <h:form id="patientsList" class="form-horizontal">
                                                 <p:messages id="patientDeleteMessages" redisplay="false" autoUpdate="true" closable="true" severity="warning" />
                                                 <p:dataTable id="patientDataTable" var="patient" value="#{loadTestDataPatientBean.patients}" selection="#{loadTestDataPatientBean.selectedPatient}" rowKey="#{patient.patientId}" styleClass="table table-striped table-domains">
-                                                    <p:column headerText="Delete" selectionMode="single" />
+                                                    <p:column headerText="" selectionMode="single" />
+                                                    <p:column headerText="Patient Id">
+                                                        <h:outputText value="#{patient.patientId}" />
+                                                    </p:column>
                                                     <p:column headerText="Last Name">
                                                         <h:outputText value="#{patient.lastName}" />
                                                     </p:column>
@@ -131,7 +134,7 @@
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
                                                         <div class="form-button-row">
-                                                            <p:commandButton update="patientDataTable,patientDeleteMessages" value="Edit" actionListener="#{loadTestDataPatientBean.editPatient}" styleClass="edit-button" icon="ui-icon-closethick"/>
+                                                            <p:commandButton update="patientDataTable,patientDeleteMessages" value="Edit" actionListener="#{loadTestDataPatientBean.editPatient}" styleClass="edit-button" icon="ui-icon-pencil"/>
                                                             <p:commandButton update="patientDataTable,patientDeleteMessages" value="Delete" actionListener="#{loadTestDataPatientBean.deletePatient}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                                         </div>
                                                     </div>
