@@ -66,7 +66,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
             if (body != null) {
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service{} ", sServiceName, "and url= ", url);
+                LOG.debug("After target system URL look up. URL for service: {} ", sServiceName, "and url : {}  ", url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
@@ -89,8 +89,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
                     "Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                + "Exception: " + e.getMessage(), e);
+            LOG.error("Failed to call the web service : {}. An unexpected exception occurred. Exception: {} " , sServiceName, e.getMessage(), e);
             throw new PatientDiscoveryException(e.fillInStackTrace());
         }
         return response;

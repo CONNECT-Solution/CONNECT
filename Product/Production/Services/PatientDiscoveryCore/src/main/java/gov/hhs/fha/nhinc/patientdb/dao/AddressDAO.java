@@ -76,13 +76,8 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      */
     @Override
     public boolean create(Address addressRecord) {
-        LOG.trace("AddressDAO.create() - Begin");
-        boolean result = true;
-        if (addressRecord != null) {
-            result = super.create(addressRecord);
-        }
-        LOG.trace("AddressDAO.create() - End");
-        return result;
+        LOG.trace("AddressDAO.create()");
+        return addressRecord != null ? super.create(addressRecord) : true;
     }
 
     /**
@@ -117,14 +112,8 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      */
     @Override
     public boolean update(Address addressRecord) {
-        LOG.trace("AddressDAO.update() - Begin");
-        boolean result = true;
-        if (addressRecord != null) {
-            result = super.update(addressRecord);
-        }
-        LOG.trace("AddressDAO.update() - End");
-        return result;
-
+        LOG.trace("AddressDAO.update()");
+        return addressRecord != null ? super.update(addressRecord) : true;
     }
 
     /**
@@ -135,7 +124,6 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      */
     @Override
     public void delete(Address addressRecord) {
-
         LOG.trace("AddressDAO.delete() - Begin");
         if (addressRecord != null) {
             super.delete(addressRecord);

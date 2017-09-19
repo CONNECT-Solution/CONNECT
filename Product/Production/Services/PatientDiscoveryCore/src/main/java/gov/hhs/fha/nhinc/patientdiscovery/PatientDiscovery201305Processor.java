@@ -120,7 +120,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                     createPatientCorrelation(formatResponse, assertion, request);
                 }
             } catch (Exception ex) {
-                LOG.error(ex.getMessage(), ex);
+                LOG.error("Exception found in policy check: {} ", ex.getMessage(), ex);
             }
             formatResponse = addAuthorOrPerformer(formatResponse);
         } else {
@@ -151,7 +151,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             if (!hasEmptySubject) {
                 pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
             }
-            LOG.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
+            LOG.debug("checkPolicy - SubjectIndex: {}" , pRPAINSubjectInd);
 
             PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0,
                 pRPAINSubject);
@@ -169,15 +169,15 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         }
 
         if (!hasEmptySubject && NullChecker.isNotNullish(delPRPAINSubjects)) {
-            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size:"
-                + delPRPAINSubjects.size());
+            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size: {} "
+                , delPRPAINSubjects.size());
 
             response.getControlActProcess().getSubject().removeAll(delPRPAINSubjects);
         }
 
         if (!hasEmptySubject) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
-            LOG.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
+            LOG.debug("checkPolicy - after policy Check-Subjects size: {} ", pRPAINSubjects.size());
             if (!pRPAINSubjects.isEmpty()) {
                 isPermit = true;
             }
@@ -239,7 +239,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         LOG.debug("Begin storeLocalMapping");
 
         String hcid = HomeCommunityMap.getLocalHomeCommunityId();
-        LOG.debug("Begin storeLocalMapping: hcid" + hcid);
+        LOG.debug("Begin storeLocalMapping: hcid", hcid);
 
         II patId = extractPatientIdFrom201305(request.getPRPAIN201305UV02());
 
@@ -407,7 +407,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().add(remotePatient);
                 LOG.debug("Local AA {}: {}, pId: {}", i, localPatId.getRoot(), localPatId.getExtension());
-                LOG.debug("Remote AA: " + remotePatient.getRoot() + ", pId: " + remotePatient.getExtension());
+                LOG.debug("Remote AA: {} ", remotePatient.getRoot(), ", pId: {} ", remotePatient.getExtension());
                 LOG.debug("Remote AA: {}, pId: {}", remotePatient.getRoot(), remotePatient.getExtension());
 
                 if (remotePatient.getRoot() != null

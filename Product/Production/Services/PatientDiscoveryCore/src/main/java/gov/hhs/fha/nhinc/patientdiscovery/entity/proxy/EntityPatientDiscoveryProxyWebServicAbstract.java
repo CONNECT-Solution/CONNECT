@@ -85,10 +85,10 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
         String endpointURL = null;
         try {
             endpointURL = invokeConnectionManager(serviceName);
-            LOG.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
+            LOG.debug("Retrieved endpoint URL: {} for service : {} ", endpointURL, serviceName);
         } catch (ConnectionManagerException ex) {
             LOG.error(
-                "Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(), ex);
+                "Error getting url for : {}  from the connection manager. Error: {}" , serviceName, ex.getMessage(), ex);
         }
 
         return endpointURL;

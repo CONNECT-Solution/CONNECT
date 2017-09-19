@@ -82,12 +82,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
     @Override
     public boolean create(Phonenumber phonenumberRecord) {
         LOG.trace("PhonenumberDAO.create() - Begin");
-        boolean result = true;
-        if (phonenumberRecord != null) {
-            result = super.create(phonenumberRecord);
-        }
-        LOG.trace("PhonenumberDAO.create() - End");
-        return result;
+        return phonenumberRecord != null ? super.create(phonenumberRecord) : true;
     }
 
     /**
@@ -122,13 +117,8 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      */
     @Override
     public boolean update(Phonenumber phonenumberRecord) {
-        LOG.trace("PhonenumberDAO.update() - Begin");
-        boolean result = true;
-        if (phonenumberRecord != null) {
-            result = super.update(phonenumberRecord);
-        }
-        LOG.trace("PhonenumberDAO.update() - End");
-        return result;
+        LOG.trace("PhonenumberDAO.update()");
+        return phonenumberRecord != null ? super.update(phonenumberRecord) : true;
     }
 
     /**

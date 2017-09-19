@@ -84,12 +84,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
     @Override
     public boolean create(Personname personnameRecord) {
         LOG.trace("PersonnameDAO.create() - Begin");
-        boolean result = true;
-        if (personnameRecord != null) {
-            result = super.create(personnameRecord);
-        }
-        LOG.trace("PersonnameDAO.create() - End");
-        return result;
+        return personnameRecord != null ? super.create(personnameRecord) : true;
     }
 
     /**
@@ -124,13 +119,8 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      */
     @Override
     public boolean update(Personname personnameRecord) {
-        LOG.trace("PersonnameDAO.update() - Begin");
-        boolean result = true;
-        if (personnameRecord != null) {
-            result = super.update(personnameRecord);
-        }
-        LOG.trace("PersonnameDAO.update() - End");
-        return result;
+        LOG.trace("PersonnameDAO.update()");
+        return personnameRecord != null ? super.update(personnameRecord) : true;
     }
 
     /**

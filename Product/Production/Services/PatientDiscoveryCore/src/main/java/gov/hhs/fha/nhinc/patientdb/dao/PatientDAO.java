@@ -82,13 +82,8 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      */
     @Override
     public boolean create(Patient patientRecord) {
-        LOG.trace("PatientDAO.create() - Begin");
-        boolean result = true;
-        if (patientRecord != null) {
-            result = super.create(patientRecord);
-        }
-        LOG.trace("PatientDAO.create() - End");
-        return result;
+        LOG.trace("PatientDAO.create()");
+        return patientRecord != null ? super.create(patientRecord) : true;
     }
 
     /**
@@ -118,14 +113,8 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
      */
     @Override
     public boolean update(Patient patientRecord) {
-        LOG.trace("PatientDAO.update() - Begin");
-        boolean result = true;
-
-        if (patientRecord != null) {
-            result = super.update(patientRecord);
-        }
-        LOG.trace("PatientDAO.update() - End");
-        return result;
+        LOG.trace("PatientDAO.update()");
+        return patientRecord != null ? super.update(patientRecord) : true;
     }
 
     /**
@@ -375,7 +364,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 iParam++;
             }
 
-            LOG.trace("Final SQL Query is " + sqlQuery.getQueryString());
+            LOG.trace("Final SQL Query is: {} " , sqlQuery.getQueryString());
 
             List<Object[]> result = sqlQuery.list();
 
@@ -455,7 +444,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             Query query = session.createQuery("select new Patient(p) from Patient p");
             patients = query.list();
 
-            LOG.trace("DAO-getAll-patients-count: " + patients.size());
+            LOG.trace("DAO-getAll-patients-count: {}" , patients.size());
 
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);

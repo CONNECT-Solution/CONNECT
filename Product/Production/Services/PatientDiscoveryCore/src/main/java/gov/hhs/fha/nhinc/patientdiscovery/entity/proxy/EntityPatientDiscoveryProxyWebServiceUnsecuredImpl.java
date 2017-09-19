@@ -95,7 +95,7 @@ implements EntityPatientDiscoveryProxy {
                     EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
             }
         } catch (Exception ex) {
-            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: {} " , ex.getMessage(), ex);
         }
 
         LOG.debug("End respondingGatewayPRPAIN201305UV02");

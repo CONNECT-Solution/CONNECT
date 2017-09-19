@@ -74,7 +74,7 @@ public class HL7Parser201305Utils {
             if (CollectionUtils.isNotEmpty(gender.getValue()) && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
 
-                LOG.info("Found gender in query parameters = ", administrativeGenderCode.getCode());
+                LOG.info("Found gender in query parameters : {} ", administrativeGenderCode.getCode());
                 genderCode = administrativeGenderCode.getCode();
             } else {
                 LOG.info("query does not contain a gender code");
@@ -99,7 +99,7 @@ public class HL7Parser201305Utils {
         String telecom = null;
         if (CollectionUtils.isNotEmpty(patientTelecom.getValue())) {
             TELExplicit telecomValue = patientTelecom.getValue().get(0);
-            LOG.info("Found patientTelecom in query parameters = ", telecomValue.getValue());
+            LOG.info("Found patientTelecom in query parameters : {} ", telecomValue.getValue());
             telecom = telecomValue.getValue();
             if (!StringUtils.startsWith(telecom, "tel:")) {
                 // telecom is not valid without tel: prefix

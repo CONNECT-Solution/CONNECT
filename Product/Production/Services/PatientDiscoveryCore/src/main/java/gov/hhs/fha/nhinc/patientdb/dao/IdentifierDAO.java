@@ -77,13 +77,8 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      */
     @Override
     public boolean create(Identifier identifierRecord) {
-        LOG.trace("IdentifierDAO.create() - Begin");
-        boolean result = true;
-        if (identifierRecord != null) {
-            result = super.create(identifierRecord);
-        }
-        LOG.trace("IdentifierDAO.create() - End");
-        return result;
+        LOG.trace("IdentifierDAO.create()");
+        return identifierRecord != null ? super.create(identifierRecord) : true;
     }
 
     /**
@@ -118,13 +113,8 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      */
     @Override
     public boolean update(Identifier identifierRecord) {
-        LOG.trace("IdentifierDAO.update() - Begin");
-        boolean result = true;
-        if (identifierRecord != null) {
-            result = super.update(identifierRecord);
-        }
-        LOG.trace("IdentifierDAO.update() - End");
-        return result;
+        LOG.trace("IdentifierDAO.update()");
+        return identifierRecord != null ? super.update(identifierRecord) : true;
 
     }
 
