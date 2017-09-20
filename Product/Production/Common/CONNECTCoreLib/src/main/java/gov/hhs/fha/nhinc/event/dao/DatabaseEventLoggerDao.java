@@ -52,7 +52,6 @@ public class DatabaseEventLoggerDao {
     private static final Logger LOG = LoggerFactory.getLogger(DatabaseEventLoggerDao.class);
 
     private static final String EVENT_TYPE_NAME = "eventName";
-    private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
 
     private static class SingletonHolder {

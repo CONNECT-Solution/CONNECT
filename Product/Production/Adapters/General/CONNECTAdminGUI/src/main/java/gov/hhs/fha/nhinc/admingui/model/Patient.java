@@ -45,7 +45,7 @@ public class Patient {
     private String lastName;
     private Date dateOfBirth;
     private String gender;
-    private String SSN;
+    private String ssn;
     private String organization;
     private String organizationName;
     private String patientId;
@@ -127,14 +127,14 @@ public class Patient {
      * @return the SSN
      */
     public String getSSN() {
-        return SSN;
+        return ssn;
     }
 
     /**
-     * @param SSN the SSN to set
+     * @param ssn the SSN to set
      */
-    public void setSSN(String SSN) {
-        this.SSN = SSN;
+    public void setSSN(String ssn) {
+        this.ssn = ssn;
     }
 
     /**

@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.admingui.services.StatusService;
 import gov.hhs.fha.nhinc.admingui.services.impl.StatusEventImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.StatusServiceImpl;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
