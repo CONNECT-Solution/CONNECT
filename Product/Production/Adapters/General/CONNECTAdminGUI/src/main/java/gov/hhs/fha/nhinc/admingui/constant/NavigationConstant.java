@@ -51,6 +51,7 @@ public class NavigationConstant {
     public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
     public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
 
+
     public static final int DIRECT_DOMAIN_TAB = 0;
     public static final int DIRECT_SETTING_TAB = 1;
     public static final int DIRECT_CERTIFICATE_TAB = 2;
@@ -60,7 +61,7 @@ public class NavigationConstant {
     public static final int ACCOUNT_MGMT_MANAGEROLE_TAB = 1;
 
     public static final int KEYSTORE_MGMT_TAB = 0;
-    public static final int TRUSTSTORE_MGMT_TAB = 0;
+    public static final int TRUSTSTORE_MGMT_TAB = 1;
 
     public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
 

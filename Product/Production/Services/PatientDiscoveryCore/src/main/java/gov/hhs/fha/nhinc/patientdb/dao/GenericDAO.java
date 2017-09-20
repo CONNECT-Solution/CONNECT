@@ -24,84 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.event.model;
 
-/**
- *
- * @author tjafri
- */
-public class Certificate {
+package gov.hhs.fha.nhinc.patientdb.dao;
 
-    private String alias;
-    private String algorithm;
-    private int keySize;
-    private String expirationDate;
-    private String serialNumber;
-    private int version;
-    private String subjectKeyID;
-    private String authorityKeyID;
+public interface GenericDAO<T> {
+    boolean create(T t);
 
-    public String getAlias() {
-        return alias;
-    }
+    void delete(T t);
 
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
+    T read(Object id, Class<T> objectType);
 
-    public String getAlgorithm() {
-        return algorithm;
-    }
-
-    public void setAlgorithm(String algorithm) {
-        this.algorithm = algorithm;
-    }
-
-    public int getKeySize() {
-        return keySize;
-    }
-
-    public void setKeySize(int keySize) {
-        this.keySize = keySize;
-    }
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public String getSubjectKeyID() {
-        return subjectKeyID;
-    }
-
-    public void setSubjectKeyID(String subjectKeyID) {
-        this.subjectKeyID = subjectKeyID;
-    }
-
-    public String getAuthorityKeyID() {
-        return authorityKeyID;
-    }
-
-    public void setAuthorityKeyID(String authorityKeyID) {
-        this.authorityKeyID = authorityKeyID;
-    }
+    boolean update(T t);
 }

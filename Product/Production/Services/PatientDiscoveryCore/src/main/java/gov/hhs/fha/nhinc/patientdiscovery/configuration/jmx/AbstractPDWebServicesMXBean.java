@@ -46,16 +46,16 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
     private static final String ENTITY_SECURED_PD_BEAN_NAME = "entityPDSecured";
 
     /** The Constant Standard_OutboundOrch_PD_BEAN_NAME. */
-    private static final String StdOutbound_PD_Bean_Name = "stdPDOutbound";
+    private static final String STDOUTBOUND_PD_BEAN_NAME = "stdPDOutbound";
 
     /** The Constant Passthrough_OutboundOrch_PD_BEAN_NAME. */
-    private static final String PtOutbound_PD_Bean_Name = "ptPDOutbound";
+    private static final String PTOUTBOUND_PD_BEAN_NAME = "ptPDOutbound";
 
     /** The Constant Standard_InboundOrch_PD_BEAN_NAME. */
-    private static final String StdInbound_PD_Bean_Name = "stdPDInbound";
+    private static final String STDINBOUND_PD_BEAN_NAME = "stdPDInbound";
 
     /** The Constant Passthrough_InboundOrch_PD_BEAN_NAME. */
-    private static final String PtInbound_PD_Bean_Name = "ptPDInbound";
+    private static final String PTINBOUND_PD_BEAN_NAME = "ptPDInbound";
 
     /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.inbound.StandardInboundPatientDiscovery";
@@ -95,7 +95,7 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardOutboundBeanName() {
-        return StdOutbound_PD_Bean_Name;
+        return STDOUTBOUND_PD_BEAN_NAME;
     }
 
     /*
@@ -105,7 +105,7 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughOutboundBeanName() {
-        return PtOutbound_PD_Bean_Name;
+        return PTOUTBOUND_PD_BEAN_NAME;
     }
 
     /*
@@ -115,7 +115,7 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getStandardInboundBeanName() {
-        return StdInbound_PD_Bean_Name;
+        return STDINBOUND_PD_BEAN_NAME;
     }
 
     /*
@@ -125,7 +125,7 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
      */
     @Override
     protected String getPassthroughInboundBeanName() {
-        return PtInbound_PD_Bean_Name;
+        return PTINBOUND_PD_BEAN_NAME;
     }
 
     /*

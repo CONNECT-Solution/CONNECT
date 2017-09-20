@@ -30,8 +30,10 @@ import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -41,58 +43,86 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class CertficateBean {
 
-  private List<Certificate> keystores;
-  private List<Certificate> truststores;
-  private CertificateManagerService service;
-  private Certificate selectedCertificate;
-  private String keyStoreLocation;
-  private String trustStoreLocation;
+    private List<Certificate> keystores;
+    private List<Certificate> truststores;
+    private final CertificateManagerService service;
+    private Certificate selectedCertificate;
+    private String keyStoreLocation;
+    private String trustStoreLocation;
+    private String keyStoreMsg;
+    private String trustStoreMsg;
+    private static final String KEYSTORE_REFRESH_MSG = "KeyStore listing refreshed";
+    private static final String TRUSTSTORE_REFRESH_MSG = "TrustStore listing refreshed";
 
-  public CertficateBean() {
-    service = new CertificateManagerServiceImpl();
-    fetchKeyStore();
-    fetchTrustStore();
-  }
+    public CertficateBean() {
+        service = new CertificateManagerServiceImpl();
+        fetchKeyStore();
+        fetchTrustStore();
+    }
 
-  public String getKeyStoreLocation() {
-    keyStoreLocation = service.getKeyStoreLocation();
-    return keyStoreLocation;
-  }
+    public String getKeyStoreLocation() {
+        keyStoreLocation = service.getKeyStoreLocation();
+        return keyStoreLocation;
+    }
 
-  public String getTrustStoreLocation() {
-    trustStoreLocation = service.getTrustStoreLocation();
-    return trustStoreLocation;
-  }
+    public String getTrustStoreLocation() {
+        trustStoreLocation = service.getTrustStoreLocation();
+        return trustStoreLocation;
+    }
 
-  public List<Certificate> getKeystores() {
-    return keystores;
-  }
+    public List<Certificate> getKeystores() {
+        return keystores;
+    }
 
-  public Certificate getSelectedCertificate() {
-    return selectedCertificate;
-  }
+    public Certificate getSelectedCertificate() {
+        return selectedCertificate;
+    }
 
-  public void setSelectedCertificate(Certificate selectedCertificate) {
-    this.selectedCertificate = selectedCertificate;
-  }
+    public void setSelectedCertificate(Certificate selectedCertificate) {
+        this.selectedCertificate = selectedCertificate;
+    }
 
-  public void refreshKeyStore() {
-    keystores = service.refreshKeyStores();
-  }
+    public void refreshKeyStore() {
+        keystores = service.refreshKeyStores();
+        FacesContext.getCurrentInstance().addMessage(keyStoreMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
+            "INFO", KEYSTORE_REFRESH_MSG));
+    }
 
-  public void deleteCertificate() {
-    throw new UnsupportedOperationException();
-  }
+    public void refreshTrustStore() {
+        truststores = service.refreshTrustStores();
+        FacesContext.getCurrentInstance().addMessage(trustStoreMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
+            "INFO", TRUSTSTORE_REFRESH_MSG));
+    }
 
-  public List<Certificate> getTruststores() {
-    return truststores;
-  }
+    public void deleteCertificate() {
+        throw new UnsupportedOperationException();
+    }
 
-  private void fetchKeyStore() {
-    keystores = service.fetchKeyStores();
-  }
+    public List<Certificate> getTruststores() {
+        return truststores;
+    }
 
-  private void fetchTrustStore() {
-    truststores = service.fetchTrustStores();
-  }
+    public String getKeyStoreMsg() {
+        return keyStoreMsg;
+    }
+
+    public void setKeyStoreMsg(String keyStoreMsg) {
+        this.keyStoreMsg = keyStoreMsg;
+    }
+
+    public String getTrustStoreMsg() {
+        return trustStoreMsg;
+    }
+
+    public void setTrustStoreMsg(String trustStoreMsg) {
+        this.trustStoreMsg = trustStoreMsg;
+    }
+
+    private void fetchKeyStore() {
+        keystores = service.fetchKeyStores();
+    }
+
+    private void fetchTrustStore() {
+        truststores = service.fetchTrustStores();
+    }
 }

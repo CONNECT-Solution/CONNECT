@@ -27,15 +27,6 @@
 package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
-import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,10 +36,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class IdentifierDAO {
+public class IdentifierDAO extends GenericDAOImpl<Identifier> {
 
     private static final Logger LOG = LoggerFactory.getLogger(IdentifierDAO.class);
-
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
     /**
@@ -56,9 +46,7 @@ public class IdentifierDAO {
      * Constructor
      */
     private IdentifierDAO() {
-
-        LOG.info("IdentifierDAO - Initialized");
-
+        LOG.trace("IdentifierDAO - Initialized");
     }
 
     /**
@@ -69,8 +57,7 @@ public class IdentifierDAO {
      */
     public static IdentifierDAO getIdentifierDAOInstance() {
 
-        LOG.debug("getIdentifierDAOInstance()..");
-
+        LOG.trace("getIdentifierDAOInstance()..");
         return identifierDAO;
 
     }
@@ -88,65 +75,10 @@ public class IdentifierDAO {
      *
      * @return boolean
      */
+    @Override
     public boolean create(Identifier identifierRecord) {
-
-        LOG.debug("IdentifierDAO.create() - Begin");
-
-        Session session = null;
-
-        Transaction tx = null;
-
-        boolean result = true;
-
-        if (identifierRecord != null) {
-
-            try {
-
-                SessionFactory sessionFactory = getSessionFactory();
-
-                session = sessionFactory.openSession();
-
-                tx = session.beginTransaction();
-
-                LOG.info("Inserting Record...");
-
-                session.persist(identifierRecord);
-
-                LOG.info("Identifier Inserted seccussfully...");
-
-                tx.commit();
-
-            } catch (Exception e) {
-
-                result = false;
-
-                if (tx != null) {
-
-                    tx.rollback();
-
-                }
-
-                LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
-
-            } finally {
-
-                // Actual Identifier insertion will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session: {}", e.getMessage(), e);
-                    }
-                }
-
-            }
-
-        }
-
-        LOG.debug("IdentifierDAO.create() - End");
-
-        return result;
-
+        LOG.trace("IdentifierDAO.create()");
+        return identifierRecord != null ? super.create(identifierRecord) : true;
     }
 
     /**
@@ -160,70 +92,15 @@ public class IdentifierDAO {
      * @return Identifier
      */
     public Identifier read(Long id) {
-
-        LOG.debug("IdentifierDAO.read() - Begin");
-
+        LOG.trace("IdentifierDAO.read() - Begin");
         if (id == null) {
-
-            LOG.info("-- id Parameter is required for Identifier Query --");
-
-            LOG.debug("IdentifierDAO.read() - End");
-
+            LOG.trace("-- id Parameter is required for Identifier Query --");
+            LOG.trace("IdentifierDAO.read() - End");
             return null;
-
         }
-
-        Session session = null;
-
-        List<Identifier> queryList;
-
-        Identifier foundRecord = null;
-
-        try {
-
-            SessionFactory sessionFactory = getSessionFactory();
-
-            session = sessionFactory.openSession();
-
-            LOG.info("Reading Record...");
-
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Identifier.class);
-
-            aCriteria.add(Expression.eq("id", id));
-
-            queryList = aCriteria.list();
-
-            if (queryList != null && !queryList.isEmpty()) {
-
-                foundRecord = queryList.get(0);
-
-            }
-
-        } catch (Exception e) {
-
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
-
-        } finally {
-
-            // Flush and close session
-            if (session != null) {
-
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getLocalizedMessage(), he);
-                }
-
-            }
-
-        }
-
-        LOG.debug("IdentifierDAO.read() - End");
-
+        Identifier foundRecord = super.read(id, Identifier.class);
+        LOG.trace("IdentifierDAO.read() - End");
         return foundRecord;
-
     }
 
     /**
@@ -234,64 +111,10 @@ public class IdentifierDAO {
      *
      * @return boolean
      */
+    @Override
     public boolean update(Identifier identifierRecord) {
-
-        LOG.debug("IdentifierDAO.update() - Begin");
-
-        Session session = null;
-
-        Transaction tx = null;
-
-        boolean result = true;
-
-        if (identifierRecord != null) {
-
-            try {
-
-                SessionFactory sessionFactory = getSessionFactory();
-
-                session = sessionFactory.openSession();
-
-                tx = session.beginTransaction();
-
-                LOG.info("Updating Record...");
-
-                session.saveOrUpdate(identifierRecord);
-
-                LOG.info("Identifier Updated seccussfully...");
-
-                tx.commit();
-
-            } catch (Exception e) {
-
-                result = false;
-
-                if (tx != null) {
-
-                    tx.rollback();
-
-                }
-
-                LOG.error("Exception during update caused by : {}", e.getMessage(), e);
-
-            } finally {
-
-                // Actual Identifier update will happen at this step
-                if (session != null) {
-                    try {
-                        session.close();
-                    } catch (HibernateException e) {
-                        LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
-                    }
-                }
-
-            }
-
-        }
-
-        LOG.debug("IdentifierDAO.update() - End");
-
-        return result;
+        LOG.trace("IdentifierDAO.update()");
+        return identifierRecord != null ? super.update(identifierRecord) : true;
 
     }
 
@@ -301,57 +124,13 @@ public class IdentifierDAO {
      *
      * @param identifierRecord
      */
+    @Override
     public void delete(Identifier identifierRecord) {
-
-        LOG.debug("IdentifierDAO.delete() - Begin");
-
-        Session session = null;
-
-        try {
-
-            SessionFactory sessionFactory = getSessionFactory();
-
-            session = sessionFactory.openSession();
-
-            LOG.info("Deleting Record...");
-
-            // Delete the Identifier record
-            session.delete(identifierRecord);
-
-        } catch (Exception e) {
-
-            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
-
-        } finally {
-
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
-                }
-            }
-
+        LOG.trace("IdentifierDAO.delete() - Begin");
+        if (identifierRecord != null) {
+            super.delete(identifierRecord);
         }
-
-        LOG.debug("IdentifierDAO.delete() - End");
-
-    }
-
-    /**
-     * Returns the sessionFactory belonging to PatientDiscovery HibernateUtil
-     *
-     * @return
-     */
-    protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
-        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
-        if (util != null) {
-            fact = util.getSessionFactory();
-        }
-        return fact;
+        LOG.trace("IdentifierDAO.delete() - End");
     }
 
 }
