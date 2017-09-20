@@ -37,44 +37,54 @@ import java.security.interfaces.RSAPublicKey;
  */
 public interface CertificateManager {
 
-  /**
-   * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-   * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-   *
-   * @return X509Certificate
-   * @throws CertificateManagerException
-   */
-  public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
+    /**
+     * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
+     * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
+     *
+     * @return X509Certificate
+     * @throws CertificateManagerException
+     */
+    public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
 
-  public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
+    public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
 
-  /**
-   * @return
-   */
-  public abstract RSAPublicKey getDefaultPublicKey();
+    /**
+     * @return
+     */
+    public abstract RSAPublicKey getDefaultPublicKey();
 
-  /**
-   * @return the keyStore
-   */
-  public abstract KeyStore getKeyStore();
+    /**
+     * @return the keyStore
+     */
+    public abstract KeyStore getKeyStore();
 
-  /**
-   * @return the trustStore
-   */
-  public abstract KeyStore getTrustStore();
+    /**
+     * @return the trustStore
+     */
+    public abstract KeyStore getTrustStore();
 
-  /**
-   * refreshes the underline keyStore
-   */
-  public KeyStore refreshKeyStore();
+    /**
+     * refreshes the underline KeyStore
+     *
+     * @return
+     */
+    public KeyStore refreshKeyStore();
 
-  /**
-   * @return keyStore location
-   */
-  public String getKeyStoreLocation();
+    /**
+     * @return keyStore location
+     */
+    public String getKeyStoreLocation();
 
-  /**
-   * @return TrustStore location
-   */
-  public String getTrustStoreLocation();
+    /**
+     * @return TrustStore location
+     */
+    public String getTrustStoreLocation();
+
+    /**
+     * refreshes the underline TrustStore
+     *
+     * @return
+     */
+    public KeyStore refreshTrustStore();
+
 }

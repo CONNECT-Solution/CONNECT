@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
-import java.util.Date;
-
 /**
  *
  * @author tjafri
@@ -37,7 +35,7 @@ public class Certificate {
     private String alias;
     private String algorithm;
     private int keySize;
-    private Date expirationDate;
+    private String expirationDate;
     private String serialNumber;
     private int version;
     private String subjectKeyID;
@@ -67,14 +65,13 @@ public class Certificate {
         this.keySize = keySize;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
-
 
     public String getSerialNumber() {
         return serialNumber;
