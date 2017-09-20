@@ -58,25 +58,23 @@
                                     <h2 class="subsection-header">KeyStore List</h2>
                                     <div class="content">
                                       <div class="form-block center-block" style="padding:0px;">
-                                        <h:form class="form-horizontal" role="form" id="keyStoreForm" >
-                                          <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
-                                            <p:panelGrid styleClass="ui-panelgrid-domain">
-                                              <p:row>
-                                                <p:column>
-                                                  <h:outputLabel class="col-lg-1 control-label" value="KeyStore"/>
-                                                </p:column>
-                                                <p:column>
-                                                  <h:outputText value="#{certificateBean.keyStoreLocation}"/>
-                                                </p:column>
-                                              </p:row>
-                                              <p:row/>
-                                              <p:row>
-                                                <p:column styleClass="ui-button-rightmost" colspan="2">
-                                                  <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
-                                                  <p:spacer/>
-                                                  <p:commandButton id="importCert" value="Import Certificate" onclick="PF('certCreateDlg').show();" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
-                                                </p:column>
-                                              </p:row>
+                                        <h:form class="form-horizontal" id="keyStoreForm" >
+                                            <p:messages id="keyStoreMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
+                                            <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin:0;padding:0px;">
+                                            <p:panelGrid styleClass="ui-panelgrid-domain" style="padding: 0px;margin: 0;border:0 none;">
+                                                <p:row>
+                                                    <p:column>
+                                                        <h:outputLabel class="control-label" style="font-weight: bold;" value="KeyStore"/>
+                                                        <p:spacer width="10"/>
+                                                        <h:outputText value="#{certificateBean.keyStoreLocation}"/></p:column>
+                                                </p:row>
+                                                <p:row>
+                                                  <p:column styleClass="pull-right">
+                                                      <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass=" ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
+                                                      <p:spacer  width="10"/>
+                                                      <p:commandButton id="importCert" value="Import Certificate" onclick="PF('certCreateDlg').show();" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
+                                                  </p:column>
+                                                </p:row>
                                             </p:panelGrid>
                                           </p:panel>
                                           <div class="table-responsive table-props">
@@ -107,11 +105,10 @@
                                                       #{cert.authorityKeyID}
                                                   </p:column>
                                                 </p:dataTable>
-
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                               <p:row>
                                                 <p:column styleClass="ui-button-rightmost">
-                                                  <p:commandButton id="deleteCert" value="Delete Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                                    <p:commandButton id="deleteCert" value="Delete Certificate"  styleClass="delete-button pull-right" icon="ui-icon-closethick"/>
                                                 </p:column>
                                                 <p:column styleClass="ui-button-rightmost">
                                                   <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
@@ -134,24 +131,25 @@
                               <h2 class="subsection-header">TrustStore List</h2>
                               <div class="content">
                                 <div class="form-block center-block" style="padding:0px;">
-                                  <h:form class="form-horizontal" role="form" id="trustStoreForm" >
-                                    <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
-                                      <p:panelGrid styleClass="ui-panelgrid-domain">
+                                  <h:form class="form-horizontal"  id="trustStoreForm" >
+                                      <p:messages id="trustStoreMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
+                                      <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
+                                      <p:panelGrid styleClass="ui-panelgrid-domain" style="padding: 0px;margin: 0;border:0 none;">
                                         <p:row>
-                                          <p:column>
-                                            <h:outputLabel class="col-lg-1 control-label" value="TrustStore"/>
-                                          </p:column>
-                                          <p:column>
-                                            <h:outputText value="#{certificateBean.trustStoreLocation}"/>
-                                          </p:column>
+                                            <p:column>
+                                                <h:outputLabel class="control-label" style="font-weight: bold;" value="TrustStore"/>
+                                                <p:spacer width="10"/>
+                                                <h:outputText value="#{certificateBean.trustStoreLocation}"/>
+                                            </p:column>
                                         </p:row>
                                         <p:row>
-                                          <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton id="refreshKeyStore" value="Refresh TrustStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
-                                            <p:commandButton id="importCert" value="Import Certificate" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
-                                          </p:column>                                          
+                                            <p:column styleClass="pull-right">
+                                               <p:commandButton id="refreshKeyStore" value="Refresh TrustStore" action="#{certificateBean.refreshTrustStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
+                                               <p:spacer width="10"/>
+                                               <p:commandButton id="importCert" value="Import Certificate" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
+                                            </p:column>
                                         </p:row>
-                                      </p:panelGrid>
+                                       </p:panelGrid>
                                     </p:panel>
                                     <div class="table-responsive table-props">
                                       <p:dataTable id="keystoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
@@ -181,11 +179,10 @@
                                                                               #{cert.authorityKeyID}
                                         </p:column>
                                       </p:dataTable>
-                        
                                       <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                         <p:row>
                                           <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton id="deleteCert" value="Delete Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                            <p:commandButton id="deleteCert" value="Delete Certificate" styleClass="delete-button pull-right" icon="ui-icon-closethick" />
                                           </p:column>
                                           <p:column styleClass="ui-button-rightmost">
                                             <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />

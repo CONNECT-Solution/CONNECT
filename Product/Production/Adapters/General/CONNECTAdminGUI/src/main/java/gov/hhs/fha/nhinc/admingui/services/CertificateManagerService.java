@@ -35,13 +35,15 @@ import java.util.List;
  */
 public interface CertificateManagerService {
 
-  public List<Certificate> fetchKeyStores();
+    public List<Certificate> fetchKeyStores();
 
-  public List<Certificate> fetchTrustStores();
+    public List<Certificate> fetchTrustStores();
 
-  public String getKeyStoreLocation();
+    public String getKeyStoreLocation();
 
-  public String getTrustStoreLocation();
+    public String getTrustStoreLocation();
 
-  public List<Certificate> refreshKeyStores();
+    public List<Certificate> refreshKeyStores();
+
+    public List<Certificate> refreshTrustStores();
 }
