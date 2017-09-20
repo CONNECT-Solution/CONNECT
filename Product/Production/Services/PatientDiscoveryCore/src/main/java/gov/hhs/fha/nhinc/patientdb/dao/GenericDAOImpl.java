@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
@@ -178,5 +179,41 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             fact = util.getSessionFactory();
         }
         return fact;
+    }
+
+    public List<T> findRecords(Long patientId, Class entity) {
+        LOG.trace("GenericDAO.findRecords() - Begin");
+        List<T> queryList = new ArrayList<T>();
+        if (patientId == null) {
+            LOG.trace("-- patientId Parameter is required for the Query --");
+            LOG.trace("GenericDAO.findRecords() - End");
+            return queryList;
+        }
+
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            LOG.trace("Reading Record...");
+
+            // Build the criteria
+            Criteria aCriteria = session.createCriteria(entity);
+            aCriteria.add(Expression.eq("patient.patientId", patientId));
+            queryList = aCriteria.list();
+        } catch (HibernateException | NullPointerException e) {
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            if (session != null) {
+                try {
+                    session.flush();
+                    session.close();
+                } catch (HibernateException e) {
+                    LOG.error("Exception while closing the session after looking for patient records: {}",
+                        e.getMessage(), e);
+                }
+            }
+        }
+        LOG.trace("GenericDAO.findRecords() - End");
+        return queryList;
     }
 }

@@ -27,12 +27,7 @@
 package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +41,6 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonnameDAO.class);
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
-
-    private HibernateUtil hibernateUtil = new HibernateUtil();
-
     /**
      *
      * Constructor
@@ -152,42 +144,6 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * @return List<Personname>
      */
     public List<Personname> findPatientPersonnames(Long patientId) {
-        LOG.trace("PersonnameDAO.findPatientPersonnames() - Begin");
-        if (patientId == null) {
-            LOG.trace("-- patientId Parameter is required for Personname Query --");
-            LOG.trace("PersonnameDAO.findPatientPersonnames() - End");
-            return null;
-        }
-
-        Session session = null;
-        List<Personname> queryList = null;
-        try {
-            session = hibernateUtil.getSessionFactory().openSession();
-            LOG.trace("Reading Record...");
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Personname.class);
-            aCriteria.add(Expression.eq("patient.patientId", patientId));
-            queryList = aCriteria.list();
-
-        } catch (HibernateException | NullPointerException e) {
-
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
-
-        } finally {
-
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after looking for patients' names: {}",
-                        e.getMessage(), e);
-                }
-            }
-        }
-        LOG.trace("PersonnameDAO.findPatientPersonnames() - End");
-        return queryList;
+        return super.findRecords(patientId, Personname.class);
     }
-
 }

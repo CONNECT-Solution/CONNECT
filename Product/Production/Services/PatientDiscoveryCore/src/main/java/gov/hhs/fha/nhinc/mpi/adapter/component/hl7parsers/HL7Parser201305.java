@@ -66,6 +66,9 @@ public class HL7Parser201305 {
     private static final Logger LOG = LoggerFactory.getLogger(HL7Parser201305.class);
     private static HL7Parser201305Utils hl7ParserUtils = HL7Parser201305Utils.getInstance();
 
+    private HL7Parser201305() {
+
+    }
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
      *
@@ -141,15 +144,7 @@ public class HL7Parser201305 {
                     Serializable contentItem = iterSerialObjects.next();
 
                     if (contentItem instanceof String) {
-                        LOG.info("contentItem is string");
-                        String strValue = (String) contentItem;
-
-                        if (nameString != null) {
-                            nameString += strValue;
-                        } else {
-                            nameString = strValue;
-                        }
-                        LOG.info("nameString : {} " , nameString);
+                        nameString = hl7ParserUtils.formatNameString((String) contentItem, nameString);
                     } else if (contentItem instanceof JAXBElement) {
                         LOG.info("contentItem is JAXBElement");
 
@@ -213,7 +208,7 @@ public class HL7Parser201305 {
         LOG.trace("Entering HL7Parser201305.ExtractPersonIdentifiers method...");
 
         Identifiers ids = new Identifiers();
-        Identifier id = new Identifier();
+
 
         if (CollectionUtils.isNotEmpty(params.getLivingSubjectId())
             && params.getLivingSubjectId().get(0) != null) {
@@ -225,10 +220,7 @@ public class HL7Parser201305 {
 
                 if (StringUtils.isNotEmpty(subjectId.getExtension())
                     && StringUtils.isNotEmpty(subjectId.getRoot())) {
-                    id.setId(subjectId.getExtension());
-                    id.setOrganizationId(subjectId.getRoot());
-                    LOG.info("Created id from patient identifier [organization : {}][id : {}] ",
-                        id.getOrganizationId() , id.getId());
+                    Identifier id = getMPILibIdentifier(subjectId);
                     ids.add(id);
                 } else {
                     LOG.info("message does not contain an id");
@@ -242,6 +234,19 @@ public class HL7Parser201305 {
 
         LOG.trace("Exiting HL7Parser201305.ExtractPersonIdentifiers method...");
         return ids;
+    }
+
+    /**
+     * @param subjectId
+     * @return
+     */
+    private static Identifier getMPILibIdentifier(II subjectId) {
+        Identifier id = new Identifier();
+        id.setId(subjectId.getExtension());
+        id.setOrganizationId(subjectId.getRoot());
+        LOG.info("Created id from patient identifier [organization : {}][id : {}] ", id.getOrganizationId(),
+            id.getId());
+        return id;
     }
 
     /**

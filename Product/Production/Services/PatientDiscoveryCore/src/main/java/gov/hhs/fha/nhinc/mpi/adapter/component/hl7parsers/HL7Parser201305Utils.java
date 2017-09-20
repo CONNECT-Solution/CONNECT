@@ -142,4 +142,15 @@ public class HL7Parser201305Utils {
         return queryParamList;
     }
 
+    public String formatNameString(String strValue, String str) {
+        String nameString = str;
+        LOG.info("contentItem is string");
+        if (nameString != null) {
+            nameString += strValue;
+        } else {
+            nameString = strValue;
+        }
+        LOG.info("nameString : {} ", nameString);
+        return nameString;
+    }
 }

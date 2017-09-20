@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,6 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
-    private HibernateUtil hibernateUtil = HibernateUtilFactory.getHibernateUtilInstance();
 
     /**
      * Constructor
@@ -146,7 +144,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         List<Patient> patientsList = new ArrayList<>();
 
         try {
-            session = hibernateUtil.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
 
             LOG.trace("Reading Records...");
 
@@ -440,7 +438,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         List<Patient> patients = new ArrayList<>();
 
         try {
-            session = hibernateUtil.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             Query query = session.createQuery("select new Patient(p) from Patient p");
             patients = query.list();
 

@@ -27,13 +27,7 @@
 package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Address;
-import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -145,40 +139,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * @return List<Address>
      */
     public List<Address> findPatientAddresses(Long patientId) {
-        LOG.trace("AddressDAO.readPatientAddresses() - Begin");
-        List<Address> queryList = new ArrayList<>();
-        Session session = null;
-        if (patientId == null) {
-            LOG.trace("-- patientId Parameter is required for Address Query --");
-            LOG.trace("AddressDAO.readPatientAddresses() - End");
-            return queryList;
-        }
-
-        try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
-            LOG.trace("Reading Record...");
-
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Address.class);
-            aCriteria.add(Expression.eq("patient.patientId", patientId));
-            queryList = aCriteria.list();
-        } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
-        } finally {
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after looking for patient address: {}",
-                        e.getMessage(), e);
-                }
-            }
-        }
-        LOG.trace("readPatientAddresses.read() - End");
-        return queryList;
+        return super.findRecords(patientId, Address.class);
     }
 
 }
