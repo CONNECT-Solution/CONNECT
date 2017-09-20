@@ -28,14 +28,17 @@ package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -49,10 +52,10 @@ public class DatabaseEventLoggerDao {
     private static final Logger LOG = LoggerFactory.getLogger(DatabaseEventLoggerDao.class);
 
     private static final String EVENT_TYPE_NAME = "eventName";
-    private static final String EVENT_SERVICETYPE_NAME = "serviceType";
     private static final String DATE_NAME = "eventTime";
 
     private static class SingletonHolder {
+
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
 
         private SingletonHolder() {
@@ -105,22 +108,33 @@ public class DatabaseEventLoggerDao {
     }
 
     /**
-     * Hibernate Query for event counts for a given Event type grouping by HCID and service type.
+     * Hibernate Query for event counts for a given Event type grouping by HCID
+     * and service type.
      *
      * @param eventType Location of event call in processing.
-     * @return List of Object[] with [0] the count, [1] the initiating hcid, and [2] the service type.
+     * @return List of Object[] with [0] the count, [1] the initiating hcid, and
+     * [2] the service type.
      */
-    public List getCounts(final String eventType, final String hcidType) {
+    public List getCounts(final String eventType, String... grpProjections) {
         final SessionFactory sessionFactory = getSessionFactory();
         List results = new ArrayList<>();
 
         if (sessionFactory != null) {
             Session session = sessionFactory.openSession();
 
-            results = session.createCriteria(DatabaseEvent.class).add(Restrictions.eq(EVENT_TYPE_NAME, eventType))
-                    .setProjection(Projections.projectionList().add(Projections.rowCount())
-                            .add(Projections.groupProperty(hcidType))
-                            .add(Projections.groupProperty(EVENT_SERVICETYPE_NAME)))
+            ProjectionList projList = Projections.projectionList();
+            projList.add(Projections.rowCount());
+
+            for (String projection : grpProjections) {
+                projList.add(Projections.groupProperty(projection));
+            }
+
+            Criteria criteria = session.createCriteria(DatabaseEvent.class);
+            if (NullChecker.isNotNullish(eventType)) {
+                criteria.add(Restrictions.eq(EVENT_TYPE_NAME, eventType));
+            }
+
+            results = criteria.setProjection(projList)
                     .list();
 
             closeSession(session);

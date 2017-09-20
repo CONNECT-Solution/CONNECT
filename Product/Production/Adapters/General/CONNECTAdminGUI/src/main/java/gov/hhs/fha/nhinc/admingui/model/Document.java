@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.event.model;
+package gov.hhs.fha.nhinc.admingui.model;
 
 import java.util.Date;
 
@@ -35,7 +35,7 @@ import java.util.Date;
  */
 public class Document {
 
-    private final String KILOBYTE_LABEL = "KB";
+    private static final String KILOBYTE_LABEL = "KB";
     private Date creationTime;
     private String hash;
     // used in the UI
@@ -52,8 +52,8 @@ public class Document {
     private String sourcePatientInfo;
     private String uri;
     private String repositoryUniqueId;
-    private String Name;
-    private String Description;
+    private String name;
+    private String description;
     private String authorPerson;
 
     private String authorInstitution;
@@ -257,31 +257,31 @@ public class Document {
     }
 
     /**
-     * @return the Name
+     * @return the name
      */
     public String getName() {
-        return Name;
+        return name;
     }
 
     /**
-     * @param Name the Name to set
+     * @param name the name to set
      */
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @return the Description
+     * @return the description
      */
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     /**
-     * @param Description the Description to set
+     * @param description the description to set
      */
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

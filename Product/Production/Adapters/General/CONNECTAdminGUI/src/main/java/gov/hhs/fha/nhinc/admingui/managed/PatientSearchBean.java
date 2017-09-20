@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
-import gov.hhs.fha.nhinc.admingui.event.model.Document;
-import gov.hhs.fha.nhinc.admingui.event.model.Patient;
+import gov.hhs.fha.nhinc.admingui.model.Document;
+import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;

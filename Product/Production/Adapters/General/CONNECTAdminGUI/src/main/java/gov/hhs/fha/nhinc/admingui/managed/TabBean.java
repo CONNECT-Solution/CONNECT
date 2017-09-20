@@ -40,7 +40,6 @@ import org.primefaces.event.TabChangeEvent;
 @SessionScoped
 public class TabBean {
 
-  private int dashboardTabIndex = 0;
   private int logsTabIndex = 0;
   private int adminTabIndex = 0;
   private int directTabIndex = 0;
@@ -82,22 +81,6 @@ public class TabBean {
    *
    * @return
    */
-  public int getDashboardTabIndex() {
-    return dashboardTabIndex;
-  }
-
-  /**
-   *
-   * @param dashboardTabIndex
-   */
-  public void setDashboardTabIndex(int dashboardTabIndex) {
-    this.dashboardTabIndex = dashboardTabIndex;
-  }
-
-  /**
-   *
-   * @return
-   */
   public int getLogsTabIndex() {
     return logsTabIndex;
   }
@@ -128,11 +111,9 @@ public class TabBean {
 
   /**
    *
-   * @param dashboardTabIndex
    * @return
    */
-  public String setDashboardTabIndexNavigate(int dashboardTabIndex) {
-    this.dashboardTabIndex = dashboardTabIndex;
+  public String navigateToStatusDashBoard() {
     return NavigationConstant.STATUS_PAGE;
   }
 
@@ -269,22 +250,6 @@ public class TabBean {
 
   public String navigateToFhir() {
     return NavigationConstant.FHIR_PAGE;
-  }
-
-  /**
-   *
-   * @return
-   */
-  public String navigateToGatewayDashboardTab() {
-    return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_DASHBOARD_TAB);
-  }
-
-  /**
-   *
-   * @return
-   */
-  public String navigateToGatewayRemoteListTab() {
-    return setDashboardTabIndexNavigate(NavigationConstant.GATEWAY_REMOTELIST_TAB);
   }
 
   public String navigateToConnectionManagement() {

@@ -77,6 +77,22 @@ public class ConnectionHelper {
         }
         return organizationMap;
     }
+    
+    public BusinessEntity getLocalBusinessEntity() {
+        BusinessEntity localEntity = null;
+        HashMap<String, BusinessEntity> organizationMap = getRemoteHcidFromUUID();
+        if (organizationMap != null && !organizationMap.isEmpty()) {
+            Iterator<Map.Entry<String, BusinessEntity>> it = organizationMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, BusinessEntity> entry = it.next();
+                if (checkLocalHcid(
+                    getHcidFromKeyedReference(entry.getValue().getIdentifierBag().getKeyedReference()))) {
+                    localEntity = entry.getValue();
+                }
+            }
+        }
+        return localEntity;
+    }
 
     private boolean checkLocalHcid(String EntityHcid) {
         return formatHcid(EntityHcid).equals(formatHcid(getLocalHcid()));

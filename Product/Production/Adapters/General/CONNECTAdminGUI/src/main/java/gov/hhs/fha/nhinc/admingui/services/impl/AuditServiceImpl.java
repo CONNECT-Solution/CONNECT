@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
-import gov.hhs.fha.nhinc.admingui.event.model.Audit;
+import gov.hhs.fha.nhinc.admingui.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants;
 import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieve;

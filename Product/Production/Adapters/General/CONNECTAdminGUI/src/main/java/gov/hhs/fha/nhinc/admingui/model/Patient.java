@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.event.model;
+package gov.hhs.fha.nhinc.admingui.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class Patient {
     private String lastName;
     private Date dateOfBirth;
     private String gender;
-    private String SSN;
+    private String ssn;
     private String organization;
     private String organizationName;
     private String patientId;
@@ -127,14 +127,14 @@ public class Patient {
      * @return the SSN
      */
     public String getSSN() {
-        return SSN;
+        return ssn;
     }
 
     /**
-     * @param SSN the SSN to set
+     * @param ssn the SSN to set
      */
-    public void setSSN(String SSN) {
-        this.SSN = SSN;
+    public void setSSN(String ssn) {
+        this.ssn = ssn;
     }
 
     /**

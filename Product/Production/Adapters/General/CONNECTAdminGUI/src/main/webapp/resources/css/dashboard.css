@@ -202,7 +202,7 @@ div[id^="modal-"] .form-block {
 }
 .main h1.section-header {
 	margin:0px;
-	padding:40px 40px 30px;
+	padding:25px 25px 20px;
 	background:#ffffff;
 	font-size:24px;
 	font-weight:bold;
@@ -571,6 +571,29 @@ span.enabled {
 	margin-bottom:3px;
 }
 
+.main-content .table-status {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-status th {
+	font-size:14px;
+	white-space:nowrap;
+}
+.main-content .table-status td {
+	font-size:17px;
+}
+.main-content .table-status td {
+	border-left: 1px solid #ddd;
+}
+.main-content .table-status td:first-child {
+	border-left: none;
+	text-align:left;
+}
+.main-content .table-status td button {
+	margin-right:3px;
+	margin-bottom:3px;
+}
+
 .main-content .table-trust {
 	margin-bottom:5px;
 	border-bottom: 2px solid #ddd;
@@ -826,4 +849,8 @@ span.enabled {
 .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
   color: #999 !important;
   background-color: transparent !important;
+}
+
+.gridStatus td {
+    vertical-align: top;
 }

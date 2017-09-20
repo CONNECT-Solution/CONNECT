@@ -42,61 +42,89 @@
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
             <ui:define name="content">
-                <h:form>
-                    <h1 class="section-header">Gateway Status</h1>
-                    <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-                    <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.dashboardTabIndex}" styleClass="tabs-override tabs-ovr-dkblue" >
-                        <p:tab title="Gateway Dashboard" closable="false">
-                            <ui:insert id="dashboard_status">
-                                <ui:include src="Dashboard.xhtml" />
-                            </ui:insert>
-                        </p:tab>
-                        <!-- END: TAB PANE - PERFORMANCE STATISTICS -->
-                        <!-- BEGIN: TAB PANE - REMOTE GATEWAYS -->
-                        <p:tab title="Remote Gateway" closable="false">
-                            <div class="content-block">
-                                <h2 class="subsection-header">Remote Gateway List</h2>
-                                <f:event type="postAddToView" listener="#{eventBean.load}" />
-                                <div class="table-responsive">
-                                    <p:dataTable id="dashboardId" value="#{eventBean.organizations}" var="organization" styleClass="table table-striped table-remotegateways">
-                                        <p:column headerText="Gateway">
-                                            <h:outputText value="#{organization.organizationName}" />
-                                        </p:column>
+                <h1 class="section-header">Gateway Status</h1>
+                <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0" styleClass="tabs-override tabs-ovr-dkblue" >
+                    <p:tab title="Dashboard" closable="false">
+                        <div class="content-block">
+                            <h2 class="subsection-header header-no-text"></h2>
 
-                                        <p:column sortBy="pdCount" headerText="PD">
-                                            <h:outputText value="#{organization.pdCount}" />
-                                        </p:column>
+                            <div class="content">
+                                <div class="form-block center-block" style="padding:0px;">
+                                    <h:form class="form-horizontal" role="form" id="statusForm">
+                                        <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
+                                            <p:panelGrid id="statusGrid" styleClass="ui-panelgrid-domain">
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:outputLabel for="osOutput" value="Operating System: " />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText id="osOutput" value="${statusBean.os}"/>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel for="memoryOutput" value="Memory Used: " />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText id="memoryOutput" value="${statusBean.memory}" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:outputLabel for="javaOutput" value="Java Version: " />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText id="javaOutput" value=" ${statusBean.java}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel for="totalOutbound" value="Total Outbound Messages: " />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText id="totalOutbound" value="${statusBean.totalOutboundRequests}" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:outputLabel for="appOutput" value="Application Server: " />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText id="appOutput" value="${statusBean.appServer}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel for="totalInbound" value="Total Inbound Messages: " />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText id="totalInbound" value="${statusBean.totalInboundRequests}" />
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:panel>
 
-                                        <p:column sortBy="dqCount" headerText="DQ">
-                                            <h:outputText value="#{organization.dqCount}" />
-                                        </p:column>
 
-                                        <p:column sortBy="drCount" headerText="DR">
-                                            <h:outputText value="#{organization.drCount}" />
-                                        </p:column>
-
-                                        <p:column sortBy="dsCount" headerText="DS">
-                                            <h:outputText value="#{organization.dsCount}" />
-                                        </p:column>
-
-                                        <p:column sortBy="adCount" headerText="AD">
-                                            <h:outputText value="#{organization.adCount}" />
-                                        </p:column>
-
-                                        <p:column sortBy="directCount" headerText="Direct">
-                                            <h:outputText value="#{organization.directCount}" />
-                                        </p:column>
-
-                                        <p:column sortBy="totalCount" headerText="Total">
-                                            <h:outputText value="#{organization.totalCount}" />
-                                        </p:column>
-                                    </p:dataTable>
+                                        <h2 class="subsection-header">SERVICES</h2>
+                                        <h:panelGrid columns="2" styleClass="gridStatus" style="width: 1040px;">
+                                            <p:panel style="width: 500px; padding: 10px;">
+                                                <p>Green Available / Red Unavailable</p>
+                                                <div class="table-responsive table-orgs">
+                                                    <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service" value="#{statusBean.services}" scrollable="TRUE" scrollHeight="500"  styleClass="table table-striped table-status">
+                                                        <p:column>
+                                                            <h:outputText rendered="#{service.available}" value="#{service.serviceName}" style="color: green" />
+                                                            <h:outputText rendered="#{!service.available}" value="#{service.serviceName}" style="color: red" />
+                                                        </p:column>
+                                                    </p:dataTable> 
+                                                </div>
+                                            </p:panel>
+                                            <p:panel style="width: 800px; padding: 10px;">
+                                                <p:barChart id="eventBarChart" value="#{statusBean.eventBarChart}" orientation="horizontal" stacked="true" legendPosition="se" seriesColors="10253F, CC0000" /> 
+                                                <p:pieChart id="eventPieChart" value="#{statusBean.eventPieChart}" legendPosition="se" seriesColors="10253F, CC0000, 33D6FF, FFCC00" showDataLabels="TRUE" sliceMargin="5" fill="FALSE"/>
+                                            </p:panel>
+                                        </h:panelGrid>
+                                        <p:poll interval="5" update="statusGrid" />
+                                    </h:form>
                                 </div>
                             </div>
-                        </p:tab>
-                    </p:tabView>
-                    <!-- END: TAB PANE - REMOTE GATEWAYS -->
-                </h:form>
+                        </div>
+                        <!-- END: STATUS PANEL -->
+                    </p:tab>
+                </p:tabView>
             </ui:define>
         </ui:composition>
     </h:body>
