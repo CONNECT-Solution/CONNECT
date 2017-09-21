@@ -56,8 +56,9 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public void deletePatient(Patient patient) {
+    public boolean deletePatient(Patient patient) {
         LOG.info("Service-delete-patient");
+        return patientDAO.deleteTransaction(patient);
     }
 
     @Override
@@ -94,9 +95,13 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
                 }
             }
 
+            if (!actionResult) {
+                throw new LoadTestDataException("Patient cannot be save.");
+            }
+
         }
         else {
-            throw new LoadTestDataException("Patient-Personname is required when trying to save-patient");
+            throw new LoadTestDataException("Patient-Personname is required when trying to save-patient.");
         }
 
         LOG.info("save-patient: Action-result: {} ", actionResult);

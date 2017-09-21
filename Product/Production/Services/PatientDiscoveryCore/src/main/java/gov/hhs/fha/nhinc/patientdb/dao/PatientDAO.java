@@ -453,4 +453,8 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         return patients;
     }
 
+    public boolean deleteTransaction(Patient patient) {
+        return false;
+    }
+
 }

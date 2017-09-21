@@ -1,0 +1,41 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+        <h:form class="form-horizontal" role="form" id="createPatientForm">
+                                <p:dialog id="patientDlg" header="Creating/Editing - #{loadTestDataPatientBean.patientId}"  widgetVar="patientDlg" modal="true" draggable="false" resizable="false" width="500" >
+                                <p:outputPanel id="patientOutputPanel" >
+                                <!-- BEGIN: FORM-BLOCK -->  
+                                    <div class="content-block content form-block center-block"> 
+                                        <p:messages id="patientAddMessages" autoUpdate="true" closable="true" severity="error" redisplay="false" />
+                                        <p:messages id="patientUpdateMessages" autoUpdate="true" closable="true" severity="info" redisplay="false" />
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:outputLabel for="inputFirstName" value="First Name: " />
+                                            <p:inputMask id="inputFirstName" value="#{loadTestDataPatientBean.firstName}"  maxlength="64" required="true" requiredMessage="First Name required."/>
+                                     
+                                            <p:outputLabel for="inputLastName" value="Last Name: " />
+                                            <p:inputMask id="inputLastName" value="#{loadTestDataPatientBean.lastName}"  maxlength="64" required="true" requiredMessage="Last Name required."/>
+                                     
+                                            <p:outputLabel for="inputDateOfBirth" value="Date of Birth: " />
+                                            <p:calendar id="inputDateOfBirth" value="#{loadTestDataPatientBean.dateOfBirth}" showOn="button" pattern="MM/dd/yyyy" required="true" requiredMessage="Date Of Birth Required"/>
+                                     
+                                            <p:outputLabel for="inputGender" value="Gender: " />
+                                            <p:inputMask id="inputGender" value="#{loadTestDataPatientBean.gender}"  maxlength="2" required="true" requiredMessage="Gender required."/>
+                                     
+                                            <p:outputLabel for="inputSsn" value="SSN:" />
+                                            <p:inputMask id="inputSsn" value="#{loadTestDataPatientBean.ssn}" mask="999-99-9999" required="true" requiredMessage="SSN required."/>
+                                        </h:panelGrid> 
+                                         <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="form-button-row">
+                                                    <p:commandButton id="submit" update=":patientTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, inputSsn, patientAddMessages" value="Save" action="#{loadTestDataPatientBean.savePatient()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                                    <p:commandButton id="closePatientDlg" update=":patientTabview:patientsList:patientDataTable" value="Close" oncomplete="PF('patientDlg').hide();"  styleClass="btn btn-default" icon="ui-icon-circle-close"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    <!-- END: FORM-BLOCK -->
+                                </p:outputPanel></p:dialog>
+                                </h:form>
+
+</ui:composition>

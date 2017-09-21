@@ -37,7 +37,7 @@ import java.util.List;
 public interface LoadTestDataService {
     public List<Patient> getAllPatients();
 
-    public void deletePatient(Patient patient);
+    public boolean deletePatient(Patient patient);
 
     public Patient getPatientById(Long id);
 

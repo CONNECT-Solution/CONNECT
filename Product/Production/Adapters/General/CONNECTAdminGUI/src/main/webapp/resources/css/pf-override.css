@@ -240,6 +240,15 @@ body {
 	height:100%;
 	background:#00be96;
 }
+.sidebar .ui-panelmenu-panel.sidebar-amethyst li.active a:after {
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:7px;
+    height:100%;
+    background:#9966cc;
+}
 
 
 

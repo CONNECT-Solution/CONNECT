@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
@@ -34,13 +35,12 @@ import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,21 +55,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoadTestDataPatientBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataPatientBean.class);
+
     private Patient selectedPatient;
-
-    private Map<String, String> genderList;
-
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
     private String gender;
     private long updatePatientId = 0;
+    private String ssn;
 
     @Autowired
     private LoadTestDataService loadTestDataService;
 
     public LoadTestDataPatientBean() {
         LOG.debug("Initualize LoadTestDataPatientBean");
+        selectedPatient = new Patient();
     }
 
     public Patient getSelectedPatient() {
@@ -85,15 +85,31 @@ public class LoadTestDataPatientBean {
         return loadTestDataService.getAllPatients();
     }
 
-    public void deletePatient() {
+    public boolean deletePatient() {
         if (selectedPatient != null) {
             LOG.debug("deletePatient() - selectedPatient-ID: {} ", selectedPatient.getPatientId());
-            loadTestDataService.deletePatient(selectedPatient);
+            return loadTestDataService.deletePatient(selectedPatient);
+        } else {
+            LOG.info("delete-patient required selected-patient");
+            FacesContext.getCurrentInstance().addMessage("patientsListMessages",
+                new FacesMessage(FacesMessage.SEVERITY_WARN, "selecting a patient is required for deleting", ""));
         }
+        return false;
     }
 
     public void editPatient() {
-        LOG.info("selected-patient-for-edit");
+        if (selectedPatient != null) {
+            LOG.info("selected-patient-for-edit: {}", selectedPatient.getPatientId());
+            selectedPatient = loadTestDataService.getPatientById(selectedPatient.getPatientId());
+            updateBeanToPatient(selectedPatient);
+        } else {
+            LOG.info("edit-required a selected-patient.");
+        }
+    }
+
+    public void newPatient() {
+        LOG.info("new-patient clear the form.");
+        clearPatientTab();
     }
 
     public boolean savePatient() {
@@ -105,15 +121,24 @@ public class LoadTestDataPatientBean {
             if (HelperUtil.isId(updatePatientId)) {
                 patient = loadTestDataService.getPatientById(updatePatientId);
                 if(patient != null){
-                    patient = updatePatientToBean(patient);
+                    patient = updatePatientFromBean(patient);
                 }else{
-                    patient = updatePatientToBean(new Patient());
+                    patient = updatePatientFromBean(new Patient());
                 }
             } else {
-                patient = updatePatientToBean(new Patient());
+                patient = updatePatientFromBean(new Patient());
             }
 
             actionResult = loadTestDataService.savePatient(patient);
+
+            if (actionResult) {
+                if (!HelperUtil.isId(updatePatientId)) {
+                    clearPatientTab();
+                } else {
+                    FacesContext.getCurrentInstance().addMessage("patientUpdateMessages", new FacesMessage(
+                        FacesMessage.SEVERITY_INFO, "Save Patient Successful: " + patient.getPatientId(), ""));
+                }
+            }
         } catch (LoadTestDataException e) {
             actionResult = false;
             FacesContext.getCurrentInstance().validationFailed();
@@ -121,17 +146,13 @@ public class LoadTestDataPatientBean {
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not save patient: " + e.getLocalizedMessage(), ""));
             LOG.error("Error save-patient: {}", e.getLocalizedMessage(), e);
         }
+
         return actionResult;
     }
 
     // CLEAR-TAB-FORM
     public String clearPatientTab() {
-        firstName = null;
-        lastName = null;
-        dateOfBirth = null;
-        gender = null;
-        updatePatientId = 0;
-        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+        return updateBeanToPatient(null);
     }
 
     // PROPERTIES
@@ -167,25 +188,27 @@ public class LoadTestDataPatientBean {
         this.gender = gender;
     }
 
-    public Map<String, String> getGenderList() {
-        if (MapUtils.isEmpty(genderList)) {
-            LOG.debug("populteGenderList()");
-            genderList = HelperUtil.populteGenderList();
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        if (StringUtils.isNotBlank(ssn) && ssn.indexOf("-") > -1) {
+            this.ssn = ssn.replace("-", "");
+        } else {
+            this.ssn = ssn;
         }
-        return genderList;
     }
 
     public Long getPatientId() {
         return updatePatientId;
     }
 
-    public void setPatientId(Long patientId) {
-        updatePatientId = patientId;
-    }
-
-    private Patient updatePatientToBean(Patient patient) {
+    // private-methods
+    private Patient updatePatientFromBean(Patient patient) {
         patient.setDateOfBirth(HelperUtil.toTimestamp(dateOfBirth));
         patient.setGender(gender);
+        patient.setSsn(ssn);
 
         if (CollectionUtils.isEmpty(patient.getPersonnames())) {
             patient.getPersonnames().add(new Personname());
@@ -195,5 +218,27 @@ public class LoadTestDataPatientBean {
         personname.setLastName(lastName);
 
         return patient;
+    }
+
+    private String updateBeanToPatient(Patient patientRecord) {
+        if (patientRecord != null && HelperUtil.isId(patientRecord.getPatientId())) {
+            setFirstName(patientRecord.getFirstName());
+            setLastName(patientRecord.getLastName());
+            setDateOfBirth(patientRecord.getDateOfBirth());
+            setGender(patientRecord.getGender());
+            setSsn(patientRecord.getSsn());
+            updatePatientId = patientRecord.getPatientId();
+            LOG.info("set-patient-bean to record: {}, {}, {}, {}, {}", patientRecord.getPatientId(), firstName,
+                lastName, dateOfBirth, gender);
+        } else {
+            LOG.info("set-patient-bean to empty");
+            setFirstName(null);
+            setLastName(null);
+            setDateOfBirth(null);
+            setGender(null);
+            setSsn(null);
+            updatePatientId = 0;
+        }
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
     }
 }
