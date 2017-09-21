@@ -64,7 +64,7 @@ public class LoadTestDataServiceImpl implements LoadTestDataService {
     @Override
     public Patient getPatientById(Long id) {
         LOG.info("Service-getPatient-byID");
-        return patientDAO.read(id);
+        return patientDAO.readTransaction(id, false);
     }
 
     @Override

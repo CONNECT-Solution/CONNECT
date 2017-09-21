@@ -41,8 +41,7 @@
                     <h:inputHidden id="csrfToken" value="#{csrfBean.token}"/>
                     <p:panelMenu style="width:100%">
                         <p:submenu label="Gateway Status" styleClass="sidebar-dkblue">
-                            <p:menuitem value="Dashboard" action="#{tabBean.navigateToGatewayDashboardTab()}" styleClass="glyphicon glyphicon-dashboard" />
-                            <p:menuitem value="Remote Gateway List" action="#{tabBean.navigateToGatewayRemoteListTab()}" styleClass="glyphicon glyphicon-list" />
+                            <p:menuitem value="Dashboard" action="#{tabBean.navigateToStatusDashBoard()}" styleClass="glyphicon glyphicon-dashboard" />
                         </p:submenu>
                         <p:submenu rendered="#{applicationBean.isDirectEnabled()}" label="Direct Configuration" styleClass="sidebar-purple">
                             <p:menuitem value="Domains" action="#{tabBean.navigateToDirectDomainTab()}" styleClass="glyphicon glyphicon-globe" />
