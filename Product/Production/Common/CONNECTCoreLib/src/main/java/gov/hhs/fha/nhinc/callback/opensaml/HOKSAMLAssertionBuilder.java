@@ -80,6 +80,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(HOKSAMLAssertionBuilder.class);
     private final CertificateManager certificateManager;
+    private static final String PROPERTY_FILE_NAME = "assertioninfo";
+    private static final String PROPERTY_SAML_ISSUER_NAME = "SamlIssuerName";
 
     public HOKSAMLAssertionBuilder() {
         certificateManager = CertificateManagerImpl.getInstance();
@@ -185,7 +187,19 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             if (certificate != null) {
                 sIssuer = certificate.getSubjectX500Principal().getName();
             } else {
-                sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+                try {
+                    PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+
+                    sIssuer = propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
+                    if (sIssuer.isEmpty()) {
+                        sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+                    }
+                } catch (PropertyAccessException ex) {
+                    LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
+                        ex.getLocalizedMessage(), ex);
+                    sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+                }
+                sIssuer = sIssuer.replace("%", ",");
             }
         }
 
@@ -210,7 +224,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             x509Name = certificate.getSubjectDN().getName();
         }
         Subject subject = openSamlBuilder.createSubject(x509Name, publicKey);
-        //Add additional subject confirmation if exist
+        // Add additional subject confirmation if exist
         List<SAMLSubjectConfirmation> subjectConfirmations = properties.getSubjectConfirmations();
         if (CollectionUtils.isNotEmpty(subjectConfirmations)) {
             for (SAMLSubjectConfirmation confirmation : subjectConfirmations) {
@@ -225,8 +239,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Checks Distinguished Name, method have to be static, since it's private
-     * and no Instance variables are used, as per Sonar.
+     * Checks Distinguished Name, method have to be static, since it's private and no Instance variables are used, as
+     * per Sonar.
      *
      * @param userName
      * @return boolean
@@ -291,7 +305,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.addAll(createUserRoleStatements(properties));
         statements.addAll(createPurposeOfUseStatements(properties));
         statements.addAll(createNPIAttributeStatements(properties));
-        if(isAcpOrIacpExists(properties)){
+        if (isAcpOrIacpExists(properties)) {
             statements.addAll(createAuthorizationDecisionStatements(properties, subject));
         }
 
@@ -368,15 +382,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Evidence element that encompasses the Assertion defining the
-     * authorization form needed in cases where evidence of authorization to
-     * access the medical records must be provided along with the message
-     * request.
+     * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
+     * evidence of authorization to access the medical records must be provided along with the message request.
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
-     * @param issueInstant The calendar representing the time of Assertion
-     * issuance
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
      */
     public Evidence createEvidence(final CallbackProperties properties, final Subject subject) {
@@ -509,19 +519,18 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Attribute Statements needed for the Evidence element. These
-     * include the Attributes for the Access Consent Policy and the Instance
-     * Access Consent Policy
+     * Creates the Attribute Statements needed for the Evidence element. These include the Attributes for the Access
+     * Consent Policy and the Instance Access Consent Policy
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
      */
     protected List<AttributeStatement> createEvidenceStatements(final CallbackProperties properties) {
         LOG.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
 
         final List accessConstentValues = checkHcidPrefixInList(properties.getEvidenceAccessConstent());
-        final List evidenceInstanceAccessConsentValues = checkHcidPrefixInList(properties.getEvidenceInstantAccessConsent());
+        final List evidenceInstanceAccessConsentValues = checkHcidPrefixInList(
+            properties.getEvidenceInstantAccessConsent());
 
         return createEvidenceStatements(accessConstentValues, evidenceInstanceAccessConsentValues);
     }
@@ -570,8 +579,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute statements UserRole
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createUserRoleStatements(final CallbackProperties properties) {
@@ -598,8 +606,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute statements PurposeOfUse
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createPurposeOfUseStatements(final CallbackProperties properties) {
@@ -629,11 +636,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeOfUse
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createOrganizationAttributeStatements(final CallbackProperties properties) {
@@ -659,11 +664,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeOfUse
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createHomeCommunityIdAttributeStatements(final CallbackProperties properties) {
@@ -674,8 +677,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // Set the Home Community ID Attribute
         final String communityId = properties.getHomeCommunity();
         if (StringUtils.isNotBlank(communityId)) {
-            statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(
-                appendPrefixHomeCommunityID(communityId));
+            statements = OpenSAML2ComponentBuilder.getInstance()
+                .createHomeCommunitAttributeStatement(appendPrefixHomeCommunityID(communityId));
         } else {
             LOG.debug("Home Community ID is missing");
         }
@@ -685,11 +688,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization,
-     * UserRole, and PurposeOfUse
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createPatientIdAttributeStatements(final CallbackProperties properties) {
@@ -702,7 +703,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (patientId != null) {
             attribute = OpenSAML2ComponentBuilder.getInstance().createPatientIDAttribute(patientId);
 
-            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+            statements
+                .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("patient id is missing");
         }
@@ -713,8 +715,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute statements for NPI
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected List<AttributeStatement> createNPIAttributeStatements(final CallbackProperties properties) {
@@ -727,7 +728,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (npi != null) {
             attribute = OpenSAML2ComponentBuilder.getInstance().createNPIAttribute(npi);
 
-            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+            statements
+                .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("npi is missing");
         }
@@ -758,14 +760,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
         final String tempValue = checkValue.trim().toLowerCase();
         final String tempPrefix = checkPrefix.toLowerCase();
-        if(!tempValue.startsWith(tempPrefix)){
+        if (!tempValue.startsWith(tempPrefix)) {
             return MessageFormat.format("{0}{1}", checkPrefix, checkValue);
         } else {
             return checkValue;
         }
     }
 
-    public static List<Object> checkHcidPrefixInList(final List<Object> valueList){
+    public static List<Object> checkHcidPrefixInList(final List<Object> valueList) {
         List<Object> tempList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(valueList)) {
             for (Object eachValue : valueList) {
