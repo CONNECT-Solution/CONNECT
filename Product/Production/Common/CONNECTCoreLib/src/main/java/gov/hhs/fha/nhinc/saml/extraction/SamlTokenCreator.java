@@ -152,13 +152,11 @@ public class SamlTokenCreator {
      * @param assertion
      */
     private static void extractHomeCommunity(Map<String, Object> requestContext, AssertionType assertion) {
-        if (assertion.getHomeCommunity() != null) {
-            if (NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
-                requestContext.put(SamlConstants.HOME_COM_PROP, assertion.getHomeCommunity().getHomeCommunityId());
-            }
-
+        if (assertion.getHomeCommunity() != null
+            && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
+            requestContext.put(SamlConstants.HOME_COM_PROP, assertion.getHomeCommunity().getHomeCommunityId());
         } else {
-            LOG.error("Error: samlSendOperation input assertion Home Community is null");
+            LOG.warn("samlSendOperation input assertion Home Community is null");
         }
     }
 
@@ -194,14 +192,14 @@ public class SamlTokenCreator {
                 requestContext.put(SamlConstants.SAMLCONDITIONS_NOT_BEFORE_PROP,
                     assertion.getSamlConditions().getNotBefore());
             } else {
-                LOG.warn("Error: samlSendOperation input assertion condition notBefore is null");
+                LOG.warn("samlSendOperation input assertion condition notBefore is null");
             }
 
             if (NullChecker.isNotNullish(assertion.getSamlConditions().getNotOnOrAfter())) {
                 requestContext.put(SamlConstants.SAMLCONDITIONS_NOT_AFTER_PROP,
                     assertion.getSamlConditions().getNotOnOrAfter());
             } else {
-                LOG.warn("Error: samlSendOperation input assertion condition notOnOrAfter is null");
+                LOG.warn("samlSendOperation input assertion condition notOnOrAfter is null");
             }
         }
     }
