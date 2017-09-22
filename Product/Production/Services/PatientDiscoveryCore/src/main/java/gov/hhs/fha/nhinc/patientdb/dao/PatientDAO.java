@@ -460,13 +460,13 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
     }
 
     public Patient readTransaction(long patientId, boolean allRecords) {
-        LOG.info("DAO-read-record by Patientid");
+        LOG.trace("PatientDAO.readTransaction() -- begin");
 
         Session session = null;
         List<Patient> queryList;
         Patient foundRecord = null;
         try {
-            session = hibernateUtil.getSessionFactory().openSession();
+            session = getSessionFactory().openSession();
             LOG.info("Reading Record...");
 
             // Build the criteria
@@ -499,11 +499,11 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 }
             }
         }
-        LOG.debug("PatientDAO.read() - End");
+        LOG.trace("PatientDAO.readTransaction() -- end");
         return foundRecord;
     }
     public boolean deleteTransaction(Patient patient) {
-        LOG.debug("DAO-delete-Transaction");
+        LOG.trace("PatientDAO.deleteTransaction() -- begin");
 
         Session session = null;
         Transaction tx = null;
@@ -513,7 +513,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.info("Read patient-records for delete");
             Patient deletePatient = readTransaction(patient.getPatientId(), true);
             if (deletePatient != null) {
-                session = hibernateUtil.getSessionFactory().openSession();
+                session = getSessionFactory().openSession();
                 tx = session.beginTransaction();
                 LOG.info("Deleting Records...");
 
@@ -554,7 +554,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 }
             }
         }
-        LOG.debug("DAO-deleteTransaction - End");
+        LOG.trace("PatientDAO.deleteTransaction() - End");
         return result;
     }
 

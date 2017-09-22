@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdb.dao;
 
+import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            closeSession(session);
+            HibernateUtil.closeSession(session, true);
         }
         LOG.debug("GenericDaoJpaImpl.create() - End");
         return result;
@@ -93,7 +94,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            closeSession(session);
+            HibernateUtil.closeSession(session, true);
         }
         LOG.debug("GenericDaoJpaImpl.read() - End");
         return foundRecord;
@@ -120,7 +121,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during update caused by : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            closeSession(session);
+            HibernateUtil.closeSession(session, true);
         }
 
         LOG.debug("GenericDaoJpaImpl.update() - End");
@@ -139,24 +140,13 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            closeSession(session);
+            HibernateUtil.closeSession(session, true);
         }
         LOG.debug("GenericDaoJpaImpl.delete() - End");
     }
 
     protected SessionFactory getSessionFactory() {
         return HibernateUtilFactory.getHibernateUtilInstance().getSessionFactory();
-    }
-
-    private void closeSession(Session session) {
-        if (session != null && session.isOpen()) {
-            try {
-                session.flush();
-                session.close();
-            } catch (HibernateException e) {
-                LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
-            }
-        }
     }
 
     public List<T> findRecords(Long patientId, Class entity) {

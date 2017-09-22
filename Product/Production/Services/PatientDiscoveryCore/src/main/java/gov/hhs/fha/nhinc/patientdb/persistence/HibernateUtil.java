@@ -107,7 +107,9 @@ public class HibernateUtil {
             if (flush) {
                 session.flush();
             }
-            session.close();
+            if (session.isOpen()) {
+                session.close();
+            }
         }
     }
 
