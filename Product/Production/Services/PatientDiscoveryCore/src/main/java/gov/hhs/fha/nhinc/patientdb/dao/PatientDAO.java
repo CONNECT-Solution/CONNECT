@@ -365,7 +365,6 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             }
             if (phonenumber.getPhonenumberId() != null && NullChecker.isNotNullish(phonenumber.getValue())) {
                 sqlQuery.setString(iParam, phonenumber.getValue());
-                iParam++;
             }
 
             LOG.trace("Final SQL Query is: {} " , sqlQuery.getQueryString());
