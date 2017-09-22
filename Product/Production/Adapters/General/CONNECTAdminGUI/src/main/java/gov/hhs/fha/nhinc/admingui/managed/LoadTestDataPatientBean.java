@@ -204,7 +204,6 @@ public class LoadTestDataPatientBean {
         return updatePatientId;
     }
 
-    // private-methods
     private Patient updatePatientFromBean(Patient patient) {
         patient.setDateOfBirth(HelperUtil.toTimestamp(dateOfBirth));
         patient.setGender(gender);

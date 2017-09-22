@@ -421,14 +421,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after looking for patients: {}", e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.trace("PatientDAO.findPatients() - End");
         return patientsList;
@@ -490,14 +483,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.trace("PatientDAO.readTransaction() -- end");
         return foundRecord;
@@ -545,14 +531,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.trace("PatientDAO.deleteTransaction() - End");
         return result;
