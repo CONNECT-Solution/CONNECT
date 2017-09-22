@@ -919,20 +919,12 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testIssuerName() throws PropertyAccessException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        X509Certificate certificate = mock(X509Certificate.class);
-        certificate = null;
-        // String format = callbackProps.getAssertionIssuerFormat();
         String sIssuer = callbackProps.getIssuer();
-        // format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
 
         // Get value from property file if certificate is null.
-        if (certificate != null) {
-            sIssuer = null;
-        } else {
-            PropertyAccessor propAccessor = createPropertyAccessor();
-            sIssuer = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
-            assertEquals(PROPERTY_VALUE_STRING, sIssuer);
-        }
+        PropertyAccessor propAccessor = createPropertyAccessor();
+        sIssuer = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
+        assertEquals(PROPERTY_VALUE_STRING, sIssuer);
         sIssuer = sIssuer.replace("%", ",");
     }
 

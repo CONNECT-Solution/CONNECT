@@ -189,23 +189,23 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             } else {
                 try {
                     PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-
                     sIssuer = propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
-                    if (sIssuer.isEmpty()) {
-                        sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
-                    }
                 } catch (PropertyAccessException ex) {
                     LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
                         ex.getLocalizedMessage(), ex);
                     sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
                 }
-                sIssuer = sIssuer.replace("%", ",");
             }
+        }
+
+        if (sIssuer.isEmpty()) {
+            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+        } else {
+            sIssuer = sIssuer.replace("%", ",");
         }
 
         LOG.debug("Setting Assertion Issuer format to: {}", format);
         LOG.debug("Setting Assertion Issuer to: {}", sIssuer);
-
         return OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
     }
 
