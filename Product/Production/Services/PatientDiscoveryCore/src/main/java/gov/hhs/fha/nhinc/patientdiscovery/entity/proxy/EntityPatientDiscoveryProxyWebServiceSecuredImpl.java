@@ -34,10 +34,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,7 +43,6 @@ import org.slf4j.LoggerFactory;
 public class EntityPatientDiscoveryProxyWebServiceSecuredImpl extends EntityPatientDiscoveryProxyWebServicAbstract
 implements EntityPatientDiscoveryProxy {
     private String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
-    private static final Logger LOG = LoggerFactory.getLogger(EntityPatientDiscoveryProxyWebServiceSecuredImpl.class);
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return super.getoProxyHelper();
@@ -65,31 +61,8 @@ implements EntityPatientDiscoveryProxy {
     @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
         AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
-        LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
-
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-        try {
-            String url = getEndpointURL();
-            if (pdRequest == null) {
-                LOG.error("PRPAIN201305UV02 was null");
-            } else if (assertion == null) {
-                LOG.error("AssertionType was null");
-            } else if (targetCommunities == null) {
-                LOG.error("NhinTargetCommunitiesType was null");
-            } else {
-                RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
-                request.setPRPAIN201305UV02(pdRequest);
-                request.setAssertion(assertion);
-                request.setNhinTargetCommunities(targetCommunities);
-                response = (RespondingGatewayPRPAIN201306UV02ResponseType) getClient(url, assertion).invokePort(
-                    EntityPatientDiscoverySecuredPortType.class, "respondingGatewayPRPAIN201305UV02", request);
-            }
-        } catch (Exception ex) {
-            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: {} " , ex.getMessage(), ex);
-        }
-
-        LOG.debug("End respondingGatewayPRPAIN201305UV02");
-        return response;
+        return super.respondingGatewayPRPAIN201305UV02(EntityPatientDiscoverySecuredPortType.class, getEndpointURL(),
+            pdRequest, assertion, targetCommunities);
     }
 
     /**

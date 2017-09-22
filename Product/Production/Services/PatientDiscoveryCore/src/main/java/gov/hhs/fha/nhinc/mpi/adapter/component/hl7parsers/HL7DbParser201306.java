@@ -100,6 +100,9 @@ public class HL7DbParser201306 {
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
+    private HL7DbParser201306() {
+
+    }
     /**
      * Method to build a PRPAIN201306UV02 from a given list of Patients and a PRPAIN201305UV02 object.
      *
@@ -348,15 +351,13 @@ public class HL7DbParser201306 {
         if (CollectionUtils.isNotEmpty(patient.getIdentifiers())
             && patient.getIdentifiers().get(0) != null) {
 
-            if (patient.getIdentifiers().get(0).getOrganizationId() != null
-                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getOrganizationId())) {
                 LOG.info(
                     "Setting Patient Id root in 201306 : {} ", patient.getIdentifiers().get(0).getOrganizationId());
                 id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
             }
 
-            if (patient.getIdentifiers().get(0).getId() != null
-                && patient.getIdentifiers().get(0).getId().length() > 0) {
+            if (StringUtils.isNotEmpty(patient.getIdentifiers().get(0).getId())) {
                 LOG.info("Setting Patient Id extension in 201306 : {} ", patient.getIdentifiers().get(0).getId());
                 id.setExtension(patient.getIdentifiers().get(0).getId());
             }
@@ -425,7 +426,7 @@ public class HL7DbParser201306 {
         otherIds.getClassCode().add("SD");
 
         // Set the SSN
-        if (patient.getSsn() != null && patient.getSsn().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getSsn())) {
             II ssn = new II();
             ssn.setExtension(patient.getSsn());
             ssn.setRoot("2.16.840.1.113883.4.1");
@@ -474,7 +475,7 @@ public class HL7DbParser201306 {
     private static CE createGender(Patient patient) {
         CE gender = new CE();
 
-        if (patient.getGender() != null && patient.getGender().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getGender())) {
             LOG.info("Setting Patient Gender in 201306 : {} ", patient.getGender());
             gender.setCode(patient.getGender());
         }
@@ -619,32 +620,32 @@ public class HL7DbParser201306 {
         List addrlist = result.getContent();
 
         if (add != null) {
-            if (add.getStreet1() != null && add.getStreet1().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getStreet1())) {
                 AdxpExplicitStreetAddressLine street = new AdxpExplicitStreetAddressLine();
                 street.setContent(add.getStreet1());
 
                 addrlist.add(factory.createADExplicitStreetAddressLine(street));
             }
 
-            if (add.getStreet2() != null && add.getStreet2().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getStreet2())) {
                 AdxpExplicitStreetAddressLine street = new AdxpExplicitStreetAddressLine();
                 street.setContent(add.getStreet2());
 
                 addrlist.add(factory.createADExplicitStreetAddressLine(street));
             }
-            if (add.getCity() != null && add.getCity().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getCity())) {
                 AdxpExplicitCity city = new AdxpExplicitCity();
                 city.setContent(add.getCity());
 
                 addrlist.add(factory.createADExplicitCity(city));
             }
-            if (add.getState() != null && add.getState().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getState())) {
                 AdxpExplicitState state = new AdxpExplicitState();
                 state.setContent(add.getState());
 
                 addrlist.add(factory.createADExplicitState(state));
             }
-            if (add.getPostal() != null && add.getPostal().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getPostal())) {
                 AdxpExplicitPostalCode zip = new AdxpExplicitPostalCode();
                 zip.setContent(add.getPostal());
 

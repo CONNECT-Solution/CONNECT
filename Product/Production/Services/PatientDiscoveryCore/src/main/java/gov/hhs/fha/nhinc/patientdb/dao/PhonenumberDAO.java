@@ -28,11 +28,6 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,46 +145,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * @return List<Phonenumber>
      */
     public List<Phonenumber> findPatientPhonenumbers(Long patientId) {
-
-        LOG.trace("PhonenumberDAO.findPatientPhonenumbers() - Begin");
-
-        if (patientId == null) {
-
-            LOG.trace("-- patientId Parameter is required for Phonenumber Query --");
-
-            LOG.trace("PhonenumberDAO.findPatientPhonenumbers() - End");
-
-            return null;
-
-        }
-        Session session = null;
-        List<Phonenumber> queryList = null;
-        try {
-            SessionFactory sessionFactory = getSessionFactory();
-            if (sessionFactory != null) {
-                session = sessionFactory.openSession();
-                LOG.trace("Reading Record...");
-                // Build the criteria
-                Criteria aCriteria = session.createCriteria(Phonenumber.class);
-                aCriteria.add(Expression.eq("patient.patientId", patientId));
-                queryList = aCriteria.list();
-            }
-        } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
-        } finally {
-            // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after looking for patient's phone numbers: {}",
-                        e.getMessage(), e);
-                }
-            }
-        }
-        LOG.trace("PhonenumberDAO.findPatientPhonenumbers() - End");
-        return queryList;
+        return super.findRecords(patientId, Phonenumber.class);
     }
 
 

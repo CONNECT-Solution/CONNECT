@@ -487,7 +487,7 @@ public class HL7Parser201306 {
     private static CE createGender(Patient patient) {
         CE gender = new CE();
 
-        if (patient.getGender() != null && patient.getGender().length() > 0) {
+        if (StringUtils.isNotEmpty(patient.getGender())) {
             LOG.info("Setting Patient Gender in 201306 : {} ", patient.getGender());
             gender.setCode(patient.getGender());
         }
@@ -632,32 +632,32 @@ public class HL7Parser201306 {
         List addrlist = result.getContent();
 
         if (add != null) {
-            if (add.getStreet1() != null && add.getStreet1().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getStreet1())) {
                 AdxpExplicitStreetAddressLine street = new AdxpExplicitStreetAddressLine();
                 street.setContent(add.getStreet1());
 
                 addrlist.add(factory.createADExplicitStreetAddressLine(street));
             }
 
-            if (add.getStreet2() != null && add.getStreet2().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getStreet2())) {
                 AdxpExplicitStreetAddressLine street = new AdxpExplicitStreetAddressLine();
                 street.setContent(add.getStreet2());
 
                 addrlist.add(factory.createADExplicitStreetAddressLine(street));
             }
-            if (add.getCity() != null && add.getCity().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getCity())) {
                 AdxpExplicitCity city = new AdxpExplicitCity();
                 city.setContent(add.getCity());
 
                 addrlist.add(factory.createADExplicitCity(city));
             }
-            if (add.getState() != null && add.getState().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getState())) {
                 AdxpExplicitState state = new AdxpExplicitState();
                 state.setContent(add.getState());
 
                 addrlist.add(factory.createADExplicitState(state));
             }
-            if (add.getZip() != null && add.getZip().length() > 0) {
+            if (StringUtils.isNotEmpty(add.getZip())) {
                 AdxpExplicitPostalCode zip = new AdxpExplicitPostalCode();
                 zip.setContent(add.getZip());
 

@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -34,17 +39,12 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.Service;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -89,7 +89,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     public void testInvokeConnectionManagerHappy() {
         try {
             EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
-               @Override
+                @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
@@ -112,7 +112,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test(expected = gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
     public void testInvokeConnectionManagerException() throws ConnectionManagerException {
         EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
-           @Override
+            @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return mockWebServiceProxyHelper;
             }
@@ -180,7 +180,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     public void testRespondingGatewayPRPAIN201305UV02Happy() {
         try {
             final RespondingGatewayPRPAIN201306UV02ResponseType mockResponse = context
-                    .mock(RespondingGatewayPRPAIN201306UV02ResponseType.class);
+                .mock(RespondingGatewayPRPAIN201306UV02ResponseType.class);
             context.checking(new Expectations() {
                 {
                     // TODO: Using "anything()" to match "Object..." due to JMock upgrade
@@ -193,7 +193,7 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
 
                 @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object ... operationInput)
-                        throws Exception {
+                    throws Exception {
                     return null;
                 }
             };
@@ -210,12 +210,19 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
 
                 @Override
                 protected CONNECTClient<EntityPatientDiscoverySecuredPortType> getClient(String url,
-                        AssertionType assertion) {
+                    AssertionType assertion) {
                     return mockCONNECTClient;
                 }
+
+                @Override
+                protected CONNECTClient<EntityPatientDiscoverySecuredPortType> getSecuredPortClient(String url,
+                    AssertionType assertion) {
+                    return mockCONNECTClient;
+                }
+
             };
             RespondingGatewayPRPAIN201306UV02ResponseType response = sut.respondingGatewayPRPAIN201305UV02(
-                    mockPdRequest, mockAssertion, mockTargetCommunities);
+                mockPdRequest, mockAssertion, mockTargetCommunities);
             assertNotNull("RespondingGatewayPRPAIN201306UV02ResponseType was null", response);
         } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02Happy test: " + t.getMessage());
@@ -239,11 +246,11 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
                 }
             };
             RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(null,
-                    mockAssertion, mockTargetCommunities);
+                mockAssertion, mockTargetCommunities);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
         } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02 test: "
-                    + t.getMessage());
+                + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02 test: " + t.getMessage());
         }
@@ -264,11 +271,11 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
                 }
             };
             RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
-                    mockPdRequest, null, mockTargetCommunities);
+                mockPdRequest, null, mockTargetCommunities);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
         } catch (Throwable t) {
             System.out.println("Error running testRespondingGatewayPRPAIN201305UV02NullAssertionType test: "
-                    + t.getMessage());
+                + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullAssertionType test: " + t.getMessage());
         }
@@ -289,15 +296,15 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
                 }
             };
             RespondingGatewayPRPAIN201306UV02ResponseType response = webProxy.respondingGatewayPRPAIN201305UV02(
-                    mockPdRequest, mockAssertion, null);
+                mockPdRequest, mockAssertion, null);
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
         } catch (Throwable t) {
             System.out
-                    .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
-                            + t.getMessage());
+            .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
+                + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
-                    + t.getMessage());
+                + t.getMessage());
         }
     }
 

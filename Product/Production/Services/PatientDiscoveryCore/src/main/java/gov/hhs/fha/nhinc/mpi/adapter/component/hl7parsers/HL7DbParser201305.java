@@ -74,6 +74,10 @@ public class HL7DbParser201305 {
      */
     public static final String SSN_ROOT_IDENTIFIER = "2.16.840.1.113883.4.1";
 
+    private HL7DbParser201305() {
+
+    }
+
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
      *
@@ -183,15 +187,7 @@ public class HL7DbParser201305 {
                         Serializable contentItem = iterSerialObjects.next();
 
                         if (contentItem instanceof String) {
-                            LOG.info("contentItem is string");
-                            String strValue = (String) contentItem;
-
-                            if (nameString != null) {
-                                nameString += strValue;
-                            } else {
-                                nameString = strValue;
-                            }
-                            LOG.info("nameString : {} ", nameString);
+                            nameString = hl7ParserUtils.formatNameString((String) contentItem, nameString);
                         } else if (contentItem instanceof JAXBElement) {
                             LOG.info("contentItem is JAXBElement");
 
@@ -356,16 +352,11 @@ public class HL7DbParser201305 {
                     && livingSubjectId.getValue().get(0) != null) {
                     II subjectId = livingSubjectId.getValue().get(0);
 
-                    if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
-                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
+                    if (StringUtils.isNotEmpty(subjectId.getExtension())
+                        && StringUtils.isNotEmpty(subjectId.getRoot())) {
                         // Ignore SSN identifiers
                         if (!subjectId.getRoot().equals(SSN_ROOT_IDENTIFIER)) {
-                            Identifier id = new Identifier();
-                            id.setId(subjectId.getExtension());
-                            id.setOrganizationId(subjectId.getRoot());
-                            LOG.info("Created id from patient identifier [organization : {}][id : {}] ",
-                                id.getOrganizationId(), id.getId());
-                            ids.add(id);
+                            ids.add(getPatientDbIdentifier(subjectId));
                         }
                     } else {
                         LOG.info("message does not contain an id");
@@ -380,6 +371,19 @@ public class HL7DbParser201305 {
 
         LOG.trace("Exiting HL7DbParser201305.ExtractPersonIdentifiers method...");
         return ids;
+    }
+
+    /**
+     * @param subjectId
+     * @return
+     */
+    private static Identifier getPatientDbIdentifier(II subjectId) {
+        Identifier id = new Identifier();
+        id.setId(subjectId.getExtension());
+        id.setOrganizationId(subjectId.getRoot());
+        LOG.info("Created id from patient identifier [organization : {}][id : {}] ", id.getOrganizationId(),
+            id.getId());
+        return id;
     }
 
     /**
@@ -401,8 +405,8 @@ public class HL7DbParser201305 {
                     && livingSubjectId.getValue().get(0) != null) {
                     II subjectId = livingSubjectId.getValue().get(0);
 
-                    if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
-                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
+                    if (StringUtils.isNotEmpty(subjectId.getExtension())
+                        && StringUtils.isNotEmpty(subjectId.getRoot())) {
                         // Look for first SSN identifier
                         if (subjectId.getRoot().equals(SSN_ROOT_IDENTIFIER)) {
                             Identifier ssnId = new Identifier();
