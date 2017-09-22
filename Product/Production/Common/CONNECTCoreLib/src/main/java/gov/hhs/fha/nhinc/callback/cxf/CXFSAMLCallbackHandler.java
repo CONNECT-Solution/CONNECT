@@ -159,7 +159,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 resource = (String) message.get(Message.ENDPOINT_ADDRESS);
             }
         } catch (final Exception e) {
-            // LOG.warn("Unable to get resource: {}", e.getLocalizedMessage());
             LOG.error("Get resource exception: {}", e.getLocalizedMessage(), e);
         }
         return resource;
