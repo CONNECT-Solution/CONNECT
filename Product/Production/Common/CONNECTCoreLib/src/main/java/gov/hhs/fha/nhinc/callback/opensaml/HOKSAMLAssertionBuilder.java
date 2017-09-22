@@ -236,7 +236,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         try {
             name = new LdapName(userName);
         } catch (final Exception e) {
-            LOG.trace("Exception checking DN: {}", e.getLocalizedMessage(), e);
+            LOG.error("Exception checking DN: {}", e.getLocalizedMessage(), e);
         }
         return name != null;
     }
@@ -533,7 +533,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements = OpenSAML2ComponentBuilder.getInstance().createEvidenceStatements(accessConstentValues,
             evidenceInstanceAccessConsentValues, NHIN_NS);
 
-        LOG.trace("SamlCallbackHandler.createEvidenceStatements() -- End");
+        LOG.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;
     }
 
@@ -677,7 +677,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(
                 appendPrefixHomeCommunityID(communityId));
         } else {
-            LOG.debug("Home Community ID is missing");
+            LOG.warn("Home Community ID is missing");
         }
 
         return statements;
@@ -704,7 +704,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
-            LOG.debug("patient id is missing");
+            LOG.warn("patient id is missing");
         }
         return statements;
 
@@ -729,7 +729,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
         } else {
-            LOG.debug("npi is missing");
+            LOG.warn("npi is missing");
         }
         return statements;
 
@@ -746,7 +746,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
             return !conditionsDefaultValueEnabled.equals(Boolean.FALSE);
         } catch (final PropertyAccessException pae) {
-            LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
+            LOG.error("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
     }

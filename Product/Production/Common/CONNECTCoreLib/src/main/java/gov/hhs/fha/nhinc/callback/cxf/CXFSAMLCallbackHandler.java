@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
-import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -159,8 +159,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 resource = (String) message.get(Message.ENDPOINT_ADDRESS);
             }
         } catch (final Exception e) {
-            LOG.warn("Unable to get resource: {}", e.getLocalizedMessage());
-            LOG.trace("Get resource exception: {}", e.getLocalizedMessage(), e);
+            // LOG.warn("Unable to get resource: {}", e.getLocalizedMessage());
+            LOG.error("Get resource exception: {}", e.getLocalizedMessage(), e);
         }
         return resource;
     }
