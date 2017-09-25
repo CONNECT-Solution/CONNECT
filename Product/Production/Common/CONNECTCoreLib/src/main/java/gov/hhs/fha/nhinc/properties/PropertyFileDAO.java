@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.commons.configuration.ConfigurationException;
@@ -77,6 +78,18 @@ public class PropertyFileDAO {
             String propertyValue = properties.getString(propertyName);
             if (NullChecker.isNotNullish(propertyValue)) {
                 return propertyValue.trim();
+            }
+        }
+
+        return null;
+    }
+
+    public List<Object> getPropertyList(String propertyFileName, String propertyName) throws PropertyAccessException {
+        PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
+        if (properties != null && properties.containsKey(propertyName)) {
+            List<Object> propertyValueList = properties.getList(propertyName);
+            if (NullChecker.isNotNullish(propertyValueList)) {
+                return propertyValueList;
             }
         }
 
@@ -130,7 +143,7 @@ public class PropertyFileDAO {
             }
         }
         throw new PropertyAccessException(
-                "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
 
     public long getPropertyLong(String propertyFileName, String propertyName) throws PropertyAccessException {
@@ -143,7 +156,7 @@ public class PropertyFileDAO {
             }
         }
         throw new PropertyAccessException(
-                "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
 
     public Set<String> getPropertyNames(String propertyFileName) {

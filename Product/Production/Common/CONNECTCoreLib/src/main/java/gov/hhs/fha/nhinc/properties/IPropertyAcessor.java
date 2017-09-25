@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
+import java.util.List;
+
 public interface IPropertyAcessor {
 
     public String getProperty(String propertyFile, String propertyName) throws PropertyAccessException;
@@ -35,5 +37,7 @@ public interface IPropertyAcessor {
     public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException;
 
     public String getPropertyComment(String propertyFileName, String key) throws PropertyAccessException;
+
+    public List<Object> getPropertyList(String propertyFileName, String propertyName) throws PropertyAccessException;
 
 }

@@ -178,7 +178,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected Issuer createIssuer(final CallbackProperties properties, final X509Certificate certificate) {
         String format = properties.getAssertionIssuerFormat();
         String sIssuer = properties.getIssuer();
-
+        List<Object> oIssuer = null;
+        int iSize = 0;
         if (!(StringUtils.isNotBlank(format) && isValidNameidFormat(format))) {
             format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
         }
@@ -189,6 +190,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             } else {
                 try {
                     PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+                    oIssuer = PropertyAccessor.getInstance().getPropertyList(PROPERTY_FILE_NAME,
+                        PROPERTY_SAML_ISSUER_NAME);
                     sIssuer = propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
                 } catch (PropertyAccessException ex) {
                     LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
@@ -198,7 +201,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             }
         }
 
-        if (sIssuer.isEmpty()) {
+        sIssuer = "";
+        iSize = oIssuer.size();
+        if (oIssuer.isEmpty() || iSize != 6) {
             sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
         } else {
             sIssuer = sIssuer.replace("%", ",");
