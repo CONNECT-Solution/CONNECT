@@ -470,12 +470,13 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
             if (CollectionUtils.isNotEmpty(queryList)) {
                 foundRecord = queryList.get(0);
-                LOG.info("Lazy-initialize-Personnames: {}", foundRecord.getPersonnames().size());
 
+                // lazy-initializing Patient: optional: Addresses, Indentifiers and Phonenumbers
+                foundRecord.getPersonnames();
                 if (allRecords) {
-                    LOG.info("Lazy-initialize-Addresses: {}", foundRecord.getAddresses().size());
-                    LOG.info("Lazy-initialize-Identifiers: {}", foundRecord.getIdentifiers().size());
-                    LOG.info("Lazy-initialize-Phonenumbers: {}", foundRecord.getPhonenumbers().size());
+                    foundRecord.getAddresses();
+                    foundRecord.getIdentifiers();
+                    foundRecord.getPhonenumbers();
                 }
             }
         } catch (HibernateException | NullPointerException e) {
