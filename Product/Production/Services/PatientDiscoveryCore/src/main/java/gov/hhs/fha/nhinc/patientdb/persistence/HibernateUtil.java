@@ -107,7 +107,13 @@ public class HibernateUtil {
             if (flush) {
                 session.flush();
             }
-            session.close();
+            if (session.isOpen()) {
+                try {
+                    session.close();
+                } catch (HibernateException ex) {
+                    LOG.error("There an error while closing the hibernate-session: {} ", ex.getMessage(), ex);
+                }
+            }
         }
     }
 

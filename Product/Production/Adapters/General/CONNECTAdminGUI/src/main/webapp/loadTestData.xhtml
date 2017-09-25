@@ -39,7 +39,7 @@
         <title>Admin GUI Load Test Data</title>
         <link rel="icon" type="image/ico" href="/images/favicon-admingui.ico"/>
     </head>
-    
+
     <h:body>
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
@@ -51,68 +51,16 @@
                     <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                     <div class="tab-content">
                         <!-- BEGIN: TAB-PANE-BLOCK -->
-                        <p:tab id="#{tabBean.LTDPATIENTTAB}" title="Patient"  closable="false">
+                        <p:tab id="#{tabBean.LTDPATIENTTAB}" title="Patient" closable="false">
                             <div class="tab-pane active" id="patients">
-                                <!-- BEGIN: FORM-BLOCK -->
-                                <div class="content-block">
-                                    <h2 class="subsection-header">Patient Data</h2>
 
-                                    <div class="content">
-                                        <p>The following information is required for the Patient:</p>
-
-                                        <div class="form-block center-block">
-                                            <h:form class="form-horizontal" role="form" id="createPatientForm">
-                                                <p:messages id="patientAddMessages" autoUpdate="true" closable="true" severity="error" redisplay="false" />
-                                                
-                                                <div class="form-group">
-                                                    <h:outputLabel for="inputFirstName" class="col-sm-3 control-label" id="labelFirstName" value="First Name:" />
-                                                    <div class="col-sm-9">
-                                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.firstName}" id="inputFirstName" maxlength="20" required="true" requiredMessage="First Name required."/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h:outputLabel for="inputLastName" class="col-sm-3 control-label" id="labelLastName" value="Last Name:" />
-                                                    <div class="col-sm-9">
-                                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.lastName}" id="inputLastName" maxlength="20" required="true" requiredMessage="Last Name required." />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h:outputLabel for="inputDateOfBirth" class="col-sm-3 control-label" id="labelDateOfBirth" value="Date Of Birth:" />
-                                                    <div class="col-sm-9">
-                                                        <p:calendar id="inputDateOfBirth" value="#{loadTestDataPatientBean.dateOfBirth}" showOn="button" pattern="MM/dd/yyyy" required="true" requiredMessage="Date Of Birth Required"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <h:outputLabel for="inputGender" class="col-sm-3 control-label" id="labelGender" value="Gender"/>
-                                                    <div class="col-sm-9">
-                                                        <h:selectOneMenu class="form-control" id="inputGender" value="#{loadTestDataPatientBean.gender}" required="true" requiredMessage="Gender required." >
-                                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
-                                                            <f:selectItems value="#{loadTestDataPatientBean.genderList}"/>
-                                                        </h:selectOneMenu>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-button-row">
-                                                            <p:commandButton id="ResetPatientTab" value="Clear" styleClass="btn btn-default" action="#{loadTestDataPatientBean.clearPatientTab()}" immediate="true" update=":patientTabview"/>
-                                                            <p:commandButton id="submit" update=":patientTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, patientAddMessages" value="Save Patient" action="#{loadTestDataPatientBean.savePatient()}" styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </h:form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END: FORM-BLOCK -->
-                                
                                 <!-- BEGIN: LISTING-BLOCK -->
                                 <div class="content-block">
                                     <h2 class="subsection-header">Manage Patients</h2>
                                     <div class="content">
                                         <div class="form-block center-block">
                                             <h:form id="patientsList" class="form-horizontal">
-                                                <p:messages id="patientDeleteMessages" redisplay="false" autoUpdate="true" closable="true" severity="warning" />
+                                                <p:messages id="patientsListMessages" redisplay="false" autoUpdate="true" closable="true" severity="warning" />
                                                 <p:dataTable id="patientDataTable" var="patient" value="#{loadTestDataPatientBean.patients}" selection="#{loadTestDataPatientBean.selectedPatient}" rowKey="#{patient.patientId}" styleClass="table table-striped table-domains">
                                                     <p:column headerText="" selectionMode="single" />
                                                     <p:column headerText="Patient Id">
@@ -125,7 +73,9 @@
                                                         <h:outputText value="#{patient.firstName}" />
                                                     </p:column>
                                                     <p:column headerText="Birth Date">
-                                                        <h:outputText value="#{patient.dateOfBirth}" />
+                                                        <h:outputText value="#{patient.dateOfBirth}">
+                                                            <f:convertDateTime pattern="MM-dd-yyyy" />
+                                                        </h:outputText>
                                                     </p:column>
                                                     <p:column headerText="Gender">
                                                         <h:outputText value="#{patient.gender}" />
@@ -134,8 +84,13 @@
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
                                                         <div class="form-button-row">
-                                                            <p:commandButton update="patientDataTable,patientDeleteMessages" value="Edit" actionListener="#{loadTestDataPatientBean.editPatient}" styleClass="edit-button" icon="ui-icon-pencil"/>
-                                                            <p:commandButton update="patientDataTable,patientDeleteMessages" value="Delete" actionListener="#{loadTestDataPatientBean.deletePatient}" styleClass="delete-button" icon="ui-icon-closethick"/>
+                                                            <p:commandButton id="newPatient" value="New" actionListener="#{loadTestDataPatientBean.newPatient}" update=":patientSaveDlg" oncomplete="PF('patientSaveDlg').show();"  styleClass="btn btn-primary" icon="ui-icon-circle-plus" >
+                                                                <p:resetInput target=":createPatientForm" />
+                                                            </p:commandButton>
+                                                            <p:commandButton id="editPatient" value="Edit" actionListener="#{loadTestDataPatientBean.editPatient}" update=":patientSaveDlg"  oncomplete="PF('patientSaveDlg').show();" styleClass="edit-button" icon="ui-icon-pencil">
+                                                                <p:resetInput target=":createPatientForm" />
+                                                            </p:commandButton>
+                                                            <p:commandButton update="patientDataTable,patientsListMessages" value="Delete" actionListener="#{loadTestDataPatientBean.deletePatient}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,15 +100,19 @@
                                     </div>
                                 </div>
                                 <!-- BEGIN: LISTING-BLOCK -->
+
                             </div>
                         </p:tab>
-                        <!-- END: TAB PANE - USER ACCOUNTS -->
+                        <!-- END: TAB-PANE-BLOCK -->
 
                         <!-- TODO: ADD-MORE-TABS -->
                     </div>
                     <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
                 </p:tabView>
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+
+                <!-- include any dialog -->
+                <ui:include src="ltdPatientSaveDialog.xhtml" />
             </ui:define>
         </ui:composition>
     </h:body>

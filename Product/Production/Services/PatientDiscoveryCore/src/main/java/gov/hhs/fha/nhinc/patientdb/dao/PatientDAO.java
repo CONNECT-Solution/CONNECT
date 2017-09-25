@@ -30,14 +30,20 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -359,7 +365,6 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             }
             if (phonenumber.getPhonenumberId() != null && NullChecker.isNotNullish(phonenumber.getValue())) {
                 sqlQuery.setString(iParam, phonenumber.getValue());
-                iParam++;
             }
 
             LOG.trace("Final SQL Query is: {} " , sqlQuery.getQueryString());
@@ -415,14 +420,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after looking for patients: {}", e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.trace("PatientDAO.findPatients() - End");
         return patientsList;
@@ -451,6 +449,92 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         }
 
         return patients;
+    }
+
+    public Patient readTransaction(long patientId, boolean allRecords) {
+        LOG.trace("PatientDAO.readTransaction() -- begin");
+
+        Session session = null;
+        List<Patient> queryList;
+        Patient foundRecord = null;
+        try {
+            session = getSessionFactory().openSession();
+            LOG.info("Reading Record...");
+
+            // Build the criteria
+            Criteria aCriteria = session.createCriteria(Patient.class);
+
+            aCriteria.add(Expression.eq("id", patientId));
+
+            queryList = aCriteria.list();
+
+            if (CollectionUtils.isNotEmpty(queryList)) {
+                foundRecord = queryList.get(0);
+
+                // lazy-initializing Patient: optional: Addresses, Indentifiers and Phonenumbers
+                foundRecord.getPersonnames();
+                if (allRecords) {
+                    foundRecord.getAddresses();
+                    foundRecord.getIdentifiers();
+                    foundRecord.getPhonenumbers();
+                }
+            }
+        } catch (HibernateException | NullPointerException e) {
+            LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            HibernateUtil.closeSession(session, true);
+        }
+        LOG.trace("PatientDAO.readTransaction() -- end");
+        return foundRecord;
+    }
+    public boolean deleteTransaction(Patient patient) {
+        LOG.trace("PatientDAO.deleteTransaction() -- begin");
+
+        Session session = null;
+        Transaction tx = null;
+        boolean result = true;
+
+        try {
+            LOG.info("Read patient-records for delete");
+            Patient deletePatient = readTransaction(patient.getPatientId(), true);
+            if (deletePatient != null) {
+                session = getSessionFactory().openSession();
+                tx = session.beginTransaction();
+                LOG.info("Deleting Records...");
+
+                for (Address addressRec : deletePatient.getAddresses()) {
+                    session.delete(addressRec);
+                }
+
+                for (Phonenumber phonenumberRec : deletePatient.getPhonenumbers()) {
+                    session.delete(phonenumberRec);
+                }
+
+                for (Identifier identifierRec : deletePatient.getIdentifiers()) {
+                    session.delete(identifierRec);
+                }
+
+                for (Personname personnameRec : deletePatient.getPersonnames()) {
+                    session.delete(personnameRec);
+                }
+
+                session.delete(deletePatient);
+                tx.commit();
+                LOG.debug("Patient had been deleted: {}", deletePatient.getPatientId());
+
+            } else {
+                result = false;
+            }
+        } catch (HibernateException | NullPointerException e) {
+            result = false;
+            LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            HibernateUtil.closeSession(session, true);
+        }
+        LOG.trace("PatientDAO.deleteTransaction() - End");
+        return result;
     }
 
 }

@@ -69,15 +69,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             }
             LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
         } finally {
-            // Actual record insertion will happen at this step
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session: {}", e.getMessage(), e);
-                }
-
-            }
+            // Flush and close session
+            HibernateUtil.closeSession(session, true);
         }
         LOG.debug("GenericDaoJpaImpl.create() - End");
         return result;
@@ -101,14 +94,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a read: {}", e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.debug("GenericDaoJpaImpl.read() - End");
         return foundRecord;
@@ -134,14 +120,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             }
             LOG.error("Exception during update caused by : {}", e.getMessage(), e);
         } finally {
-            // Actual Patient update will happen at this step
-            if (session != null) {
-                try {
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after an update: {}", e.getMessage(), e);
-                }
-            }
+            // Flush and close session
+            HibernateUtil.closeSession(session, true);
         }
 
         LOG.debug("GenericDaoJpaImpl.update() - End");
@@ -160,25 +140,13 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after a delete: {}", e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.debug("GenericDaoJpaImpl.delete() - End");
     }
 
     protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
-        HibernateUtil util = HibernateUtilFactory.getPatientDiscHibernateUtil();
-        if (util != null) {
-            fact = util.getSessionFactory();
-        }
-        return fact;
+        return HibernateUtilFactory.getHibernateUtilInstance().getSessionFactory();
     }
 
     public List<T> findRecords(Long patientId, Class entity) {
