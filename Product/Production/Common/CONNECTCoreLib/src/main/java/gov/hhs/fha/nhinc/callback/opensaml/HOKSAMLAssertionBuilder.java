@@ -206,7 +206,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (oIssuer.isEmpty() || iSize != 6) {
             sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
         } else {
-            sIssuer = sIssuer.replace("%", ",");
+            for (int i = 0; i < iSize; i++) {
+                sIssuer = sIssuer + oIssuer.get(i).toString().trim();
+                if (i < iSize - 1) {
+                    sIssuer = sIssuer + ",";
+                }
+            }
         }
 
         LOG.debug("Setting Assertion Issuer format to: {}", format);
