@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,8 +93,7 @@ public class PropertyFileDAO {
                 return propertyValueList;
             }
         }
-
-        return null;
+        return Collections.emptyList();
     }
 
     /**

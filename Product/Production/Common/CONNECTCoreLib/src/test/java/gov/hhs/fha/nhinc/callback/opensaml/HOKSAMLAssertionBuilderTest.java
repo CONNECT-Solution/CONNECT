@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
 import gov.hhs.fha.nhinc.properties.PropertyFileDAO;
 import java.io.File;
 import java.math.BigInteger;
@@ -59,6 +58,7 @@ import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,12 +100,8 @@ public class HOKSAMLAssertionBuilderTest {
     private static PrivateKey privateKey;
 
     private static final String PROPERTY_FILE_NAME = "mock";
-    private static final String PROPERTY_FILE_LOCATION = "config";
-    private static final String PROPERTY_FILE_LOCATION_WITH_FILE = "/config/mock.properties";
     private static final String PROPERTY_NAME = "propertyName";
-    private static final String PROPERTY_VALUE_STRING = "CN=SAML User1%OU=SU%O=SAML User%L=New York%ST=NY%C=US";
-    private static final boolean PROPERTY_VALUE_BOOLEAN = true;
-    private static final long PROPERTY_VALUE_LONG = 10;
+    private static final String PROPERTY_VALUE_STRING = "CN=SAML User,OU=SU,O=SAML User,L=New York,ST=NY,C=US";
 
     protected Mockery context = new JUnit4Mockery() {
         {
@@ -124,11 +120,8 @@ public class HOKSAMLAssertionBuilderTest {
                 allowing(mockFileDAO).getProperty(with(any(String.class)), with(any(String.class)));
                 will(returnValue(PROPERTY_VALUE_STRING));
 
-                allowing(mockFileDAO).getPropertyBoolean(with(any(String.class)), with(any(String.class)));
-                will(returnValue(PROPERTY_VALUE_BOOLEAN));
-
-                allowing(mockFileDAO).getPropertyLong(with(any(String.class)), with(any(String.class)));
-                will(returnValue(PROPERTY_VALUE_LONG));
+                allowing(mockFileDAO).getPropertyList(with(any(String.class)), with(any(String.class)));
+                will(returnValue(Arrays.asList(PROPERTY_VALUE_STRING.split(","))));
 
                 allowing(mockFileDAO).loadPropertyFile(with(any(File.class)), with(any(String.class)));
 
@@ -920,12 +913,21 @@ public class HOKSAMLAssertionBuilderTest {
     public void testIssuerName() throws PropertyAccessException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         String sIssuer = callbackProps.getIssuer();
+        List<Object> oIssuer = Collections.EMPTY_LIST;
 
-        // Get value from property file if certificate is null.
         PropertyAccessor propAccessor = createPropertyAccessor();
-        sIssuer = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
+        oIssuer = propAccessor.getPropertyList(PROPERTY_FILE_NAME, PROPERTY_NAME);
+        int iSize = oIssuer.size();
+        sIssuer = "";
+        for (int i = 0; i < iSize; i++) {
+            sIssuer = sIssuer + oIssuer.get(i).toString().trim();
+            if (i < iSize - 1) {
+                sIssuer = sIssuer + ",";
+            }
+        }
+
         assertEquals(PROPERTY_VALUE_STRING, sIssuer);
-        sIssuer = sIssuer.replace("%", ",");
+
     }
 
     private PropertyAccessor createPropertyAccessor() {
@@ -935,15 +937,6 @@ public class HOKSAMLAssertionBuilderTest {
                 return mockFileDAO;
             }
 
-            @Override
-            protected PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {
-                return new PropertyAccessorFileUtilities() {
-                    @Override
-                    public String getPropertyFileLocation(String propertyFileName) {
-                        return PROPERTY_FILE_LOCATION_WITH_FILE;
-                    }
-                };
-            }
         };
         propAccessor.setPropertyFile(PROPERTY_FILE_NAME);
 

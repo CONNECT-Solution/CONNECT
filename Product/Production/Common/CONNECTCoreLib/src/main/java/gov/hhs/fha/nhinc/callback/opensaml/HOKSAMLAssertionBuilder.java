@@ -178,8 +178,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected Issuer createIssuer(final CallbackProperties properties, final X509Certificate certificate) {
         String format = properties.getAssertionIssuerFormat();
         String sIssuer = properties.getIssuer();
-        List<Object> oIssuer = null;
-        int iSize = 0;
         if (!(StringUtils.isNotBlank(format) && isValidNameidFormat(format))) {
             format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
         }
@@ -188,29 +186,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             if (certificate != null) {
                 sIssuer = certificate.getSubjectX500Principal().getName();
             } else {
-                try {
-                    PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-                    oIssuer = PropertyAccessor.getInstance().getPropertyList(PROPERTY_FILE_NAME,
-                        PROPERTY_SAML_ISSUER_NAME);
-                    sIssuer = propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
-                } catch (PropertyAccessException ex) {
-                    LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
-                        ex.getLocalizedMessage(), ex);
-                    sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
-                }
-            }
-        }
-
-        sIssuer = "";
-        iSize = oIssuer.size();
-        if (oIssuer.isEmpty() || iSize != 6) {
-            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
-        } else {
-            for (int i = 0; i < iSize; i++) {
-                sIssuer = sIssuer + oIssuer.get(i).toString().trim();
-                if (i < iSize - 1) {
-                    sIssuer = sIssuer + ",";
-                }
+                sIssuer = issuerStringfromList();
             }
         }
 
@@ -761,6 +737,31 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
+    }
+
+    public static String issuerStringfromList() {
+        List<Object> oIssuer = Collections.emptyList();
+        String sIssuer;
+        try {
+            oIssuer = PropertyAccessor.getInstance().getPropertyList(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
+        } catch (PropertyAccessException ex) {
+            LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
+                ex.getLocalizedMessage(), ex);
+        }
+        int iSize = oIssuer.size();
+        if (oIssuer.isEmpty() || iSize != 6) {
+            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+        } else {
+            sIssuer = "";
+            for (int i = 0; i < iSize; i++) {
+                sIssuer = sIssuer + oIssuer.get(i).toString().trim();
+                if (i < iSize - 1) {
+                    sIssuer = sIssuer + ",";
+                }
+            }
+        }
+
+        return sIssuer;
     }
 
     public static String appendPrefixHomeCommunityID(final String homeCommunityId) {
