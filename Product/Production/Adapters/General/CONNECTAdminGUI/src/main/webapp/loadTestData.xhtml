@@ -61,6 +61,17 @@
                                         <div class="form-block center-block">
                                             <h:form id="patientsList" class="form-horizontal">
                                                 <p:messages id="patientsListMessages" redisplay="false" autoUpdate="true" closable="true" severity="warning" />
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-button-row">
+                                                            <p:commandButton id="newPatient" value="New" actionListener="#{loadTestDataPatientBean.newPatient}" update=":patientSaveDlg" oncomplete="PF('patientSaveDlg').show();"  styleClass="btn btn-primary pull-left" icon="ui-icon-circle-plus" >
+                                                                <p:resetInput target=":createPatientForm" />
+                                                            </p:commandButton>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <p:dataTable id="patientDataTable" var="patient" value="#{loadTestDataPatientBean.patients}" selection="#{loadTestDataPatientBean.selectedPatient}" rowKey="#{patient.patientId}" styleClass="table table-striped table-domains">
                                                     <p:column headerText="" selectionMode="single" />
                                                     <p:column headerText="Patient Id">
@@ -81,13 +92,11 @@
                                                         <h:outputText value="#{patient.gender}" />
                                                     </p:column>
                                                 </p:dataTable>
+
                                                 <div class="form-group">
                                                     <div class="col-sm-12">
                                                         <div class="form-button-row">
-                                                            <p:commandButton id="newPatient" value="New" actionListener="#{loadTestDataPatientBean.newPatient}" update=":patientSaveDlg" oncomplete="PF('patientSaveDlg').show();"  styleClass="btn btn-primary" icon="ui-icon-circle-plus" >
-                                                                <p:resetInput target=":createPatientForm" />
-                                                            </p:commandButton>
-                                                            <p:commandButton id="editPatient" value="Edit" actionListener="#{loadTestDataPatientBean.editPatient}" update=":patientSaveDlg"  oncomplete="PF('patientSaveDlg').show();" styleClass="edit-button" icon="ui-icon-pencil">
+                                                            <p:commandButton id="editPatient" value="View/Edit" actionListener="#{loadTestDataPatientBean.editPatient}" update=":patientSaveDlg"  oncomplete="PF('patientSaveDlg').show();" styleClass="edit-button" icon="ui-icon-pencil">
                                                                 <p:resetInput target=":createPatientForm" />
                                                             </p:commandButton>
                                                             <p:commandButton update="patientDataTable,patientsListMessages" value="Delete" actionListener="#{loadTestDataPatientBean.deletePatient}" styleClass="delete-button" icon="ui-icon-closethick"/>

@@ -99,6 +99,8 @@ public class Patient implements Serializable {
 
     private List<Phonenumber> phonenumbers = null;
 
+    private int nameIndex = 0;
+
     public Patient() {
         // default-constructor
     }
@@ -108,10 +110,9 @@ public class Patient implements Serializable {
         setPatient(patient);
     }
 
-    // PATIENT-CONSTRUCTOR WITH LAZY INITUALIZE
     public Patient(Patient patient) {
         setPatient(patient);
-        initializeLazyObject();
+        loadAllLazyObjects(false);
     }
 
     /**
@@ -346,14 +347,35 @@ public class Patient implements Serializable {
     // READ-ONLY PROPERITES
     public String getFirstName(){
         if (CollectionUtils.isNotEmpty(getPersonnames())) {
-            return getPersonnames().get(0).getFirstName();
+            return getPersonnames().get(nameIndex).getFirstName();
         }
         return "";
     }
 
     public String getLastName(){
         if (CollectionUtils.isNotEmpty(getPersonnames())) {
-            return getPersonnames().get(0).getLastName();
+            return getPersonnames().get(nameIndex).getLastName();
+        }
+        return "";
+    }
+
+    public String getMiddleName() {
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(nameIndex).getMiddleName();
+        }
+        return "";
+    }
+
+    public String getPrefix() {
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(nameIndex).getPrefix();
+        }
+        return "";
+    }
+
+    public String getSuffix() {
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(nameIndex).getSuffix();
         }
         return "";
     }
@@ -369,13 +391,13 @@ public class Patient implements Serializable {
         ssn = patient.ssn;
     }
 
-    public long[] initializeLazyObject() {
+    public long[] loadAllLazyObjects(boolean allRecords) {
         return new long[] {
-                patientId,
-                addresses != null ? (long) addresses.size() : 0,
-                    identifiers != null ? (long) identifiers.size() : 0,
-                        personnames != null ? (long)personnames.size() : 0,
-                            phonenumbers != null ? (long)phonenumbers.size() : 0
+                patientId, personnames != null ? (long) personnames.size() : 0,
+                    // Optional
+                    addresses != null && allRecords ? (long) addresses.size() : 0,
+                        identifiers != null && allRecords ? (long) identifiers.size() : 0,
+                            phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0
         };
     }
 

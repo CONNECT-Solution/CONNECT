@@ -470,14 +470,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
             if (CollectionUtils.isNotEmpty(queryList)) {
                 foundRecord = queryList.get(0);
-
-                // lazy-initializing Patient: optional: Addresses, Indentifiers and Phonenumbers
-                foundRecord.getPersonnames();
-                if (allRecords) {
-                    foundRecord.getAddresses();
-                    foundRecord.getIdentifiers();
-                    foundRecord.getPhonenumbers();
-                }
+                foundRecord.loadAllLazyObjects(allRecords);
             }
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);

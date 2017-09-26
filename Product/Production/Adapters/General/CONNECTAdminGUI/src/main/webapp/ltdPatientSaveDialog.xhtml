@@ -3,7 +3,7 @@
 
     <div>
         <p:dialog id="patientSaveDlg" header="Creating/Editing - #{loadTestDataPatientBean.patientId}"
-            widgetVar="patientSaveDlg" modal="true" draggable="false" resizable="false" width="650">
+            widgetVar="patientSaveDlg" modal="true" draggable="false" resizable="false" width="650" height="560" >
             <div class="content-block content">
                 <h:form class="form-horizontal" role="form" id="createPatientForm">
                     <div class=" form-block center-block">
@@ -13,26 +13,50 @@
                             redisplay="false" />
 
                         <div class="form-group">
+                            <h:outputLabel for="inputPrefix" class="col-sm-3 control-label" id="labelPrefix"
+                                value="Prefix:" />
+                            <div class="col-sm-9">
+                                <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.prefix}"
+                                    id="inputPrefix" maxlength="60"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <h:outputLabel for="inputFirstName" class="col-sm-3 control-label" id="labelFirstName"
-                                value="First Name:" />
+                                value="First Name: *" />
                             <div class="col-sm-9">
                                 <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.firstName}"
-                                    id="inputFirstName" maxlength="20" required="true"
+                                    id="inputFirstName" maxlength="60" required="true"
                                     requiredMessage="First Name required." />
                             </div>
                         </div>
                         <div class="form-group">
+                            <h:outputLabel for="inputMiddleName" class="col-sm-3 control-label" id="labelMiddleName"
+                                value="Middle Name:" />
+                            <div class="col-sm-9">
+                                <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.middleName}"
+                                    id="inputMiddleName" maxlength="60"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <h:outputLabel for="inputLastName" class="col-sm-3 control-label" id="labelLastName"
-                                value="Last Name:" />
+                                value="Last Name: *" />
                             <div class="col-sm-9">
                                 <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.lastName}"
-                                    id="inputLastName" maxlength="20" required="true"
+                                    id="inputLastName" maxlength="60" required="true"
                                     requiredMessage="Last Name required." />
                             </div>
                         </div>
                         <div class="form-group">
+                            <h:outputLabel for="inputSuffix" class="col-sm-3 control-label" id="labelSuffix"
+                                value="Suffix:" />
+                            <div class="col-sm-9">
+                                <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.middleName}"
+                                    id="inputSuffix" maxlength="60"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <h:outputLabel for="inputDateOfBirth" class="col-sm-3 control-label" id="labelDateOfBirth"
-                                value="Date Of Birth:" />
+                                value="Date Of Birth: *" />
                             <div class="col-sm-9">
                                 <p:calendar id="inputDateOfBirth" value="#{loadTestDataPatientBean.dateOfBirth}"
                                     showOn="button" pattern="MM/dd/yyyy" required="true"
@@ -41,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <h:outputLabel for="inputGender" class="col-sm-3 control-label" id="labelGender"
-                                value="Gender:" />
+                                value="Gender: *" />
                             <div class="col-sm-9">
                                 <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.gender}"
                                     id="inputGender" maxlength="2" required="true" requiredMessage="Gender required." />
@@ -50,8 +74,7 @@
                         <div class="form-group">
                             <h:outputLabel for="inputSsn" class="col-sm-3 control-label" id="labelSsn" value="SSN:" />
                             <div class="col-sm-9">
-                                <p:inputMask id="inputSsn" value="#{loadTestDataPatientBean.ssn}" mask="999-99-9999"
-                                    required="true" requiredMessage="SSN required." />
+                                <p:inputMask id="inputSsn" value="#{loadTestDataPatientBean.ssn}" mask="999-99-9999" />
                             </div>
                         </div>
 
@@ -59,7 +82,7 @@
                             <div class="col-sm-12">
                                 <div class="form-button-row">
                                     <p:commandButton id="submit"
-                                        update=":patientTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, inputSsn, patientAddMessages"
+                                        update=":patientTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, inputSsn, inputPrefix, inputMiddleName, inputSuffix, patientAddMessages"
                                         value="Save" action="#{loadTestDataPatientBean.savePatient()}"
                                         styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                     <p:commandButton id="closePatientDlg" update=":patientTabview" value="Close"
