@@ -194,6 +194,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 }
             }
         }
+
         if (StringUtils.isBlank(sIssuer)) {
             sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
         }
