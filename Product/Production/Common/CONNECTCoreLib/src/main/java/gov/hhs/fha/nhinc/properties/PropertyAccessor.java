@@ -131,7 +131,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      */
     @Override
     public synchronized boolean getPropertyBoolean(String propertyFile, String propertyName)
-            throws PropertyAccessException {
+        throws PropertyAccessException {
         validateInput(propertyFile, propertyName);
         loadPropertyFile(propertyFile);
 

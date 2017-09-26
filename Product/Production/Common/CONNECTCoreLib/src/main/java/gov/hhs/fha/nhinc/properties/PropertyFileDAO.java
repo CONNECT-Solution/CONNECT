@@ -130,7 +130,7 @@ public class PropertyFileDAO {
             }
         }
         throw new PropertyAccessException(
-                "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
 
     public long getPropertyLong(String propertyFileName, String propertyName) throws PropertyAccessException {
@@ -143,7 +143,7 @@ public class PropertyFileDAO {
             }
         }
         throw new PropertyAccessException(
-                "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
 
     public Set<String> getPropertyNames(String propertyFileName) {

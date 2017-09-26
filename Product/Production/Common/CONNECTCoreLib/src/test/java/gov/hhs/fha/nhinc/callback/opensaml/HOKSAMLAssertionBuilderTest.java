@@ -26,10 +26,21 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyFileDAO;
+import java.io.File;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
@@ -54,19 +65,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.opensaml.saml.saml2.core.Action;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
@@ -89,6 +97,34 @@ public class HOKSAMLAssertionBuilderTest {
 
     private static RSAPublicKey publicKey;
     private static PrivateKey privateKey;
+
+    private static final String PROPERTY_FILE_NAME = "mock";
+    private static final String PROPERTY_NAME = "propertyName";
+    private static final String PROPERTY_VALUE_STRING = "CN=SAML User,OU=SU,O=SAML User,L=New York,ST=NY,C=US";
+
+    protected Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final PropertyFileDAO mockFileDAO = context.mock(PropertyFileDAO.class);
+
+    @Before
+    public void setMockFileDAOExpectations() throws PropertyAccessException {
+        context.checking(new Expectations() {
+            {
+                allowing(mockFileDAO).containsPropFile(with(any(String.class)));
+                will(returnValue(true));
+
+                allowing(mockFileDAO).getProperty(with(any(String.class)), with(any(String.class)));
+                will(returnValue(PROPERTY_VALUE_STRING));
+
+                allowing(mockFileDAO).loadPropertyFile(with(any(File.class)), with(any(String.class)));
+
+                allowing(mockFileDAO).printToLog(with(any(String.class)));
+            }
+        });
+    }
 
     @BeforeClass
     static public void setUp() throws NoSuchAlgorithmException {
@@ -281,7 +317,8 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public KeyStore refreshTrustStore() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
+                                                                               // choose Tools | Templates.
             }
         });
         final Element assertion = builder.build(getProperties());
@@ -866,6 +903,31 @@ public class HOKSAMLAssertionBuilderTest {
 
         List<SubjectConfirmation> subjectConfirmations = subject.getSubjectConfirmations();
         assertTrue(subjectConfirmations.size() == 3);
+    }
+
+    @Test
+    public void testIssuerName() throws PropertyAccessException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        String sIssuer = callbackProps.getIssuer();
+
+        PropertyAccessor propAccessor = createPropertyAccessor();
+        sIssuer = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
+
+        assertEquals(PROPERTY_VALUE_STRING, sIssuer);
+
+    }
+
+    private PropertyAccessor createPropertyAccessor() {
+        PropertyAccessor propAccessor = new PropertyAccessor() {
+            @Override
+            protected PropertyFileDAO createPropertyFileDAO() {
+                return mockFileDAO;
+            }
+
+        };
+        propAccessor.setPropertyFile(PROPERTY_FILE_NAME);
+
+        return propAccessor;
     }
 
     private SAMLSubjectConfirmation createSubjectConfirmationBean(String method) {
