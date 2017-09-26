@@ -141,7 +141,7 @@ public class PropertyFileDAOTest {
         PropertyFileDAO propDAO = loadTestProperties();
 
         Set<String> properties = propDAO.getPropertyNames(TEST_PROPERTIES_NAME);
-        assertEquals(8, properties.size());
+        assertEquals(9, properties.size());
         assertTrue(properties.contains("stringTest"));
 
         properties = propDAO.getPropertyNames("nonexistant");
