@@ -63,6 +63,9 @@ public class LoadTestDataPatientBean {
     private String gender;
     private long updatePatientId = 0;
     private String ssn;
+    private String prefix;
+    private String middleName;
+    private String suffix;
 
     @Autowired
     private LoadTestDataService loadTestDataService;
@@ -101,7 +104,7 @@ public class LoadTestDataPatientBean {
         if (selectedPatient != null) {
             LOG.info("selected-patient-for-edit: {}", selectedPatient.getPatientId());
             selectedPatient = loadTestDataService.getPatientById(selectedPatient.getPatientId());
-            updateBeanToPatient(selectedPatient);
+            updateBeanFromPatient(selectedPatient);
         } else {
             LOG.info("edit-required a selected-patient.");
         }
@@ -152,7 +155,7 @@ public class LoadTestDataPatientBean {
 
     // CLEAR-TAB-FORM
     public String clearPatientTab() {
-        return updateBeanToPatient(null);
+        return updateBeanFromPatient(null);
     }
 
     // PROPERTIES
@@ -200,6 +203,30 @@ public class LoadTestDataPatientBean {
         }
     }
 
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
     public Long getPatientId() {
         return updatePatientId;
     }
@@ -215,17 +242,23 @@ public class LoadTestDataPatientBean {
         Personname personname = patient.getPersonnames().get(0);
         personname.setFirstName(firstName);
         personname.setLastName(lastName);
+        personname.setPrefix(prefix);
+        personname.setMiddleName(middleName);
+        personname.setSuffix(suffix);
 
         return patient;
     }
 
-    private String updateBeanToPatient(Patient patientRecord) {
+    private String updateBeanFromPatient(Patient patientRecord) {
         if (patientRecord != null && HelperUtil.isId(patientRecord.getPatientId())) {
             setFirstName(patientRecord.getFirstName());
             setLastName(patientRecord.getLastName());
             setDateOfBirth(patientRecord.getDateOfBirth());
             setGender(patientRecord.getGender());
             setSsn(patientRecord.getSsn());
+            setPrefix(patientRecord.getPrefix());
+            setMiddleName(patientRecord.getMiddleName());
+            setSuffix(patientRecord.getSuffix());
             updatePatientId = patientRecord.getPatientId();
             LOG.info("set-patient-bean to record: {}, {}, {}, {}, {}", patientRecord.getPatientId(), firstName,
                 lastName, dateOfBirth, gender);
@@ -236,6 +269,9 @@ public class LoadTestDataPatientBean {
             setDateOfBirth(null);
             setGender(null);
             setSsn(null);
+            setPrefix(null);
+            setMiddleName(null);
+            setSuffix(null);
             updatePatientId = 0;
         }
         return NavigationConstant.LOAD_TEST_DATA_PAGE;
