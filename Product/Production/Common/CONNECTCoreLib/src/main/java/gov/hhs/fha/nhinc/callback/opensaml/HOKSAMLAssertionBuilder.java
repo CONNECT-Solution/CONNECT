@@ -186,8 +186,16 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             if (certificate != null) {
                 sIssuer = certificate.getSubjectX500Principal().getName();
             } else {
-                sIssuer = issuerStringfromList();
+                try {
+                    sIssuer = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
+                } catch (PropertyAccessException ex) {
+                    LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
+                        ex.getLocalizedMessage(), ex);
+                }
             }
+        }
+        if (sIssuer.isEmpty()) {
+            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
         }
 
         LOG.debug("Setting Assertion Issuer format to: {}", format);
@@ -737,31 +745,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             LOG.trace("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
         return Boolean.TRUE;
-    }
-
-    public static String issuerStringfromList() {
-        List<Object> oIssuer = Collections.emptyList();
-        String sIssuer;
-        try {
-            oIssuer = PropertyAccessor.getInstance().getPropertyList(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
-        } catch (PropertyAccessException ex) {
-            LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
-                ex.getLocalizedMessage(), ex);
-        }
-        int iSize = oIssuer.size();
-        if (oIssuer.isEmpty() || iSize != 6) {
-            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
-        } else {
-            sIssuer = "";
-            for (int i = 0; i < iSize; i++) {
-                sIssuer = sIssuer + oIssuer.get(i).toString().trim();
-                if (i < iSize - 1) {
-                    sIssuer = sIssuer + ",";
-                }
-            }
-        }
-
-        return sIssuer;
     }
 
     public static String appendPrefixHomeCommunityID(final String homeCommunityId) {

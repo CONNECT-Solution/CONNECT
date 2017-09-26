@@ -58,7 +58,6 @@ import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -119,9 +118,6 @@ public class HOKSAMLAssertionBuilderTest {
 
                 allowing(mockFileDAO).getProperty(with(any(String.class)), with(any(String.class)));
                 will(returnValue(PROPERTY_VALUE_STRING));
-
-                allowing(mockFileDAO).getPropertyList(with(any(String.class)), with(any(String.class)));
-                will(returnValue(Arrays.asList(PROPERTY_VALUE_STRING.split(","))));
 
                 allowing(mockFileDAO).loadPropertyFile(with(any(File.class)), with(any(String.class)));
 
@@ -913,18 +909,9 @@ public class HOKSAMLAssertionBuilderTest {
     public void testIssuerName() throws PropertyAccessException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         String sIssuer = callbackProps.getIssuer();
-        List<Object> oIssuer = Collections.EMPTY_LIST;
 
         PropertyAccessor propAccessor = createPropertyAccessor();
-        oIssuer = propAccessor.getPropertyList(PROPERTY_FILE_NAME, PROPERTY_NAME);
-        int iSize = oIssuer.size();
-        sIssuer = "";
-        for (int i = 0; i < iSize; i++) {
-            sIssuer = sIssuer + oIssuer.get(i).toString().trim();
-            if (i < iSize - 1) {
-                sIssuer = sIssuer + ",";
-            }
-        }
+        sIssuer = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
 
         assertEquals(PROPERTY_VALUE_STRING, sIssuer);
 

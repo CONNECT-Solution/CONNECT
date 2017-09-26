@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -34,10 +39,6 @@ import java.util.Set;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -61,7 +62,7 @@ public class PropertyFileDAOTest {
         assertTrue(propDAO.getProperty(TEST_PROPERTIES_NAME, "booleanTrueTest").equals("true"));
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testLoadPropertyFile_FileDoesNotExists() throws PropertyAccessException {
         File propertyFile = new File("/config/PropertyAccessorTest/doesnotexist");
         PropertyFileDAO propDAO = new PropertyFileDAO();
@@ -77,7 +78,6 @@ public class PropertyFileDAOTest {
         assertNull(propDAO.getProperty("nonexistant", "stringTest"));
     }
 
-
     @Test
     public void testGetPropertyBoolean() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
@@ -88,27 +88,26 @@ public class PropertyFileDAOTest {
         assertFalse(propDAO.getPropertyBoolean(TEST_PROPERTIES_NAME, "booleanFalseTest2"));
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testGetPropertyBoolean_EmptyBooleanValue() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
 
         propDAO.getPropertyBoolean(TEST_PROPERTIES_NAME, "booleanErrorTest");
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testGetPropertyBoolean_MissingField() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
 
         propDAO.getPropertyBoolean(TEST_PROPERTIES_NAME, "nonexistantfield");
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testGetPropertyBoolean_NoPropertyFile() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
 
         propDAO.getPropertyBoolean("nonexistant", "nonexistantfield");
     }
-
 
     @Test
     public void testGetPropertyLong() throws PropertyAccessException {
@@ -117,20 +116,20 @@ public class PropertyFileDAOTest {
         assertEquals(1500, propDAO.getPropertyLong(TEST_PROPERTIES_NAME, "longTest"));
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testGetPropertyLong_BadValue() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
         propDAO.getPropertyLong(TEST_PROPERTIES_NAME, "longErrorTest");
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testGetPropertyLong_MissingField() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
 
         propDAO.getPropertyLong(TEST_PROPERTIES_NAME, "nonexistantfield");
     }
 
-    @Test(expected=PropertyAccessException.class)
+    @Test(expected = PropertyAccessException.class)
     public void testGetPropertyLong_NoPropertyFile() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
 
@@ -169,7 +168,7 @@ public class PropertyFileDAOTest {
         URL url = this.getClass().getResource(filename);
         try {
             return new File(url.toURI());
-        } catch(URISyntaxException e) {
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
@@ -183,4 +182,10 @@ public class PropertyFileDAOTest {
         return propDAO;
     }
 
+    @Test
+    public void testGetPropertyWithComma() throws PropertyAccessException {
+        PropertyFileDAO propDAO = loadTestProperties();
+
+        assertTrue(propDAO.getProperty(TEST_PROPERTIES_NAME, "stringWithCommaTest").equals("test1,test2,test3,test4"));
+    }
 }

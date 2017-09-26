@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -97,15 +96,6 @@ public class PropertyAccessor implements IPropertyAcessor {
         loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getProperty(propertyFile, propertyName);
-    }
-
-    @Override
-    public synchronized List<Object> getPropertyList(String propertyFile, String propertyName)
-        throws PropertyAccessException {
-        validateInput(propertyFile, propertyName);
-        loadPropertyFile(propertyFile);
-
-        return propertyFileDAO.getPropertyList(propertyFile, propertyName);
     }
 
     /**
