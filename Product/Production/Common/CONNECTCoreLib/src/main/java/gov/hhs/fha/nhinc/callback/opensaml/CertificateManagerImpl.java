@@ -95,7 +95,7 @@ public class CertificateManagerImpl implements CertificateManager {
             }
 
             @Override
-            protected HashMap<String, String> getTrustStoreSystemProperties() {
+            public HashMap<String, String> getTrustStoreSystemProperties() {
                 return trustStoreProperties;
             }
         };
@@ -274,7 +274,7 @@ public class CertificateManagerImpl implements CertificateManager {
         return null;
     }
 
-    protected HashMap<String, String> getTrustStoreSystemProperties() {
+    public HashMap<String, String> getTrustStoreSystemProperties() {
         final HashMap<String, String> map = new HashMap<>();
         map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
         map.put(TRUST_STORE_PASSWORD_KEY, System.getProperty(TRUST_STORE_PASSWORD_KEY));

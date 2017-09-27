@@ -1,0 +1,70 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="importCertToTrustStoreDlg" header="Import" widgetVar="importCertDlg" modal="true" dynamic="true" closeOnEscape="true">
+            <div class="content">
+                <h3>Import Certificate</h3>
+                <div class="form-block center-block">
+                    <h:form id="importCertDlgForm" class="form form-horizontal">
+                        <p:messages id="importCertErrorMessages" closable="true" autoUpdate="true" showDetail="true" />
+                        <div class="form-group">
+                            <h:outputLabel for="pick-cert" class="col-sm-3 control-label" id="pickCertLbl" value="Certificate:" />
+                            <div class="col-sm-9">
+                                <p:fileUpload id="pickCertToImport" fileUploadListener="#{certificateBean.importFileUpload}" allowTypes="/(\.|\/)(der|cer|crt|pem)$/" update=":importCertDlgForm:importCertTable"/>
+                            </div>
+                        </div>
+                        <div class="table-responsive table-props">
+                            <p:dataTable id="importCertTable" value="#{certificateBean.importCertificate}" resizableColumns="false" scrollable="true" scrollHeight="300" var="importSelCert" selection="#{certificateBean.selectedCertificateForImport}" rowKey="#{importSelCert.serialNumber}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains" editable="true" editMode="cell">
+                                <p:ajax event="cellEdit" listener="#{certificateBean.onAliasValueEdit}" update=":importCertDlgForm:importCertTable" />
+                                <p:column selectionMode="single" />
+                                <p:column>
+                                    <f:facet name="header">Alias</f:facet>
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText style="font-color:gray;" value="#{importSelCert.alias}"/></f:facet>
+                                        <f:facet name="input"><p:inputText id="aliasInput" value="#{importSelCert.alias}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Algorithm</f:facet>
+                                    #{importSelCert.algorithm}
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Key Size</f:facet>
+                                    #{importSelCert.keySize}
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Serial Number</f:facet>
+                                    #{importSelCert.serialNumber}
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Start Date</f:facet>
+                                    #{importSelCert.validStartDate}
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Expiration Date</f:facet>
+                                    #{importSelCert.expirationDate}
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Subject Key Identifier</f:facet>
+                                    #{importSelCert.subjectKeyID}
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">Authority Key Identifier</f:facet>
+                                    #{importSelCert.authorityKeyID}
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <p:commandButton  id="submit" styleClass="btn btn-primary" value="Import" ajax="true" update=":certTabView:trustStoreForm" actionListener="#{certificateBean.importCertificate}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>

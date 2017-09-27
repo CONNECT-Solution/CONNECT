@@ -71,8 +71,6 @@
                                                 <p:row>
                                                   <p:column styleClass="pull-right">
                                                       <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass=" ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
-                                                      <p:spacer  width="10"/>
-                                                      <p:commandButton id="importCert" value="Import Certificate" onclick="PF('certCreateDlg').show();" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
                                                   </p:column>
                                                 </p:row>
                                             </p:panelGrid>
@@ -146,7 +144,7 @@
                                             <p:column styleClass="pull-right">
                                                <p:commandButton id="refreshKeyStore" value="Refresh TrustStore" action="#{certificateBean.refreshTrustStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
                                                <p:spacer width="10"/>
-                                               <p:commandButton id="importCert" value="Import Certificate" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" />
+                                               <p:commandButton value="Import Certificate" type="button" styleClass="add-button" icon="ui-icon-circle-plus" onclick="PF('importCertDlg').show();" />
                                             </p:column>
                                         </p:row>
                                        </p:panelGrid>
@@ -202,6 +200,7 @@
                 </p:tabView>
                 <!-- include link for import cert -->
                 <ui:include src="certManagementCreateDialog.xhtml" />
+                <ui:include src="importCertDialog.xhtml" />
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
             </ui:define>
         </ui:composition>

@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.util.List;
 
 /**
@@ -46,4 +47,12 @@ public interface CertificateManagerService {
     public List<Certificate> refreshKeyStores();
 
     public List<Certificate> refreshTrustStores();
+
+    public Certificate createCertificate(byte[] data);
+
+    public boolean isAliasInUse(Certificate cert);
+
+    public boolean isLeafOnlyCertificate(Certificate cert);
+
+    public void importCertificate(Certificate cert, String password) throws CertificateManagerException;
 }

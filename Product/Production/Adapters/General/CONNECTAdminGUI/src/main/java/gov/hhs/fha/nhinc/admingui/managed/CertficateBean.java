@@ -29,11 +29,22 @@ package gov.hhs.fha.nhinc.admingui.managed;
 import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,12 +58,19 @@ public class CertficateBean {
     private List<Certificate> truststores;
     private final CertificateManagerService service;
     private Certificate selectedCertificate;
+    private List<Certificate> importCertificate;
     private String keyStoreLocation;
     private String trustStoreLocation;
     private String keyStoreMsg;
     private String trustStoreMsg;
+    private String importCertErrorMessages;
+    private UploadedFile importCertFile;
+    private Certificate selectedCertificateForImport;
+    private boolean isImportSuccessful;
     private static final String KEYSTORE_REFRESH_MSG = "KeyStore listing refreshed";
     private static final String TRUSTSTORE_REFRESH_MSG = "TrustStore listing refreshed";
+
+    private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -80,6 +98,14 @@ public class CertficateBean {
 
     public void setSelectedCertificate(Certificate selectedCertificate) {
         this.selectedCertificate = selectedCertificate;
+    }
+
+    public Certificate getSelectedCertificateForImport() {
+        return selectedCertificateForImport;
+    }
+
+    public void setSelectedCertificateForImport(Certificate selectedCertificateForImport) {
+        this.selectedCertificateForImport = selectedCertificateForImport;
     }
 
     public void refreshKeyStore() {
@@ -116,6 +142,78 @@ public class CertficateBean {
 
     public void setTrustStoreMsg(String trustStoreMsg) {
         this.trustStoreMsg = trustStoreMsg;
+    }
+
+    public String getImportCertErrorMessages() {
+        return importCertErrorMessages;
+    }
+
+    public void setImportCertErrorMessages(String importCertErrorMessages) {
+        this.importCertErrorMessages = importCertErrorMessages;
+    }
+
+    public List<Certificate> getImportCertificate() {
+        return importCertificate;
+    }
+
+    public void setImportCertificate(List<Certificate> importCertificate) {
+        this.importCertificate = importCertificate;
+    }
+
+    public boolean isIsImportSuccessful() {
+        return isImportSuccessful;
+    }
+
+    public void setIsImportSuccessful(boolean isImportSuccessful) {
+        this.isImportSuccessful = isImportSuccessful;
+    }
+
+    public void importFileUpload(FileUploadEvent event) {
+        importCertFile = event.getFile();
+        if (importCertFile != null) {
+            importCertificate = new ArrayList<>();
+            Certificate cert = service.createCertificate(importCertFile.getContents());
+            importCertificate.add(cert);
+            try {
+                cert.getX509Cert().checkValidity();
+            } catch (CertificateExpiredException ex) {
+                LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
+                FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "ERROR", "Expired Certificate"));
+            } catch (CertificateNotYetValidException ex) {
+                LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
+                FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "ERROR", "Certificate not valid yet"));
+            }
+        }
+    }
+
+    public void onAliasValueEdit(CellEditEvent event) {
+        if (CollectionUtils.isNotEmpty(importCertificate)) {
+            importCertificate.get(0).setAlias((String) event.getNewValue());
+        }
+    }
+
+    public void importCertificate() {
+        if (!service.isAliasInUse(selectedCertificateForImport)) { //check if it is a leaf certificate
+            try {
+                service.importCertificate(selectedCertificateForImport, "changeit");
+            } catch (CertificateManagerException ex) {
+                LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
+                isImportSuccessful = false;
+            }
+            truststores = service.refreshTrustStores();
+            isImportSuccessful = true;
+            importCertFile = null;
+            importCertificate = null;
+            RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide()");
+        } else {
+            isImportSuccessful = false;
+            FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Alias already in use in TrustStore"));
+        }
     }
 
     private void fetchKeyStore() {
