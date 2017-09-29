@@ -31,6 +31,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Tran Tang
@@ -67,6 +69,14 @@ public class HelperUtil {
 
     public static String toJsonString(Object object) {
         return new Gson().toJson(object);
+    }
+
+    public static HttpSession getHttpSession(boolean sessionBit) {
+        return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(sessionBit);
+    }
+
+    public static Map<String, Object> getHttpSessionMap() {
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
     }
 
 }

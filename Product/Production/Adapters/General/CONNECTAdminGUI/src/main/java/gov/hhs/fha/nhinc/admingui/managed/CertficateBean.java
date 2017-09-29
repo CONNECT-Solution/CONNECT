@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -39,6 +40,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
@@ -69,7 +71,8 @@ public class CertficateBean {
     private boolean isImportSuccessful;
     private static final String KEYSTORE_REFRESH_MSG = "KeyStore listing refreshed";
     private static final String TRUSTSTORE_REFRESH_MSG = "TrustStore listing refreshed";
-
+    private String trustStorePassword;
+    private static final String TRUSTSTORE_PASSWORD = "trustStorePassword";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
 
     public CertficateBean() {
@@ -168,6 +171,27 @@ public class CertficateBean {
         this.isImportSuccessful = isImportSuccessful;
     }
 
+    public String getTrustStorePassword() {
+        return trustStorePassword;
+    }
+
+    public void setTrustStorePassword(String trustStorePassword) {
+        this.trustStorePassword = trustStorePassword;
+    }
+
+    private void setSessionTrustStorePassword(String trustStorePassword) {
+        HelperUtil.getHttpSession(false).setAttribute(TRUSTSTORE_PASSWORD, trustStorePassword);
+    }
+
+    private String getSessionTrustStorePassword() {
+        return (String) HelperUtil.getHttpSession(false).getAttribute(TRUSTSTORE_PASSWORD);
+    }
+
+    public void updateTrustStorePassword() {
+        setSessionTrustStorePassword(trustStorePassword);
+        trustStorePassword = null;
+    }
+
     public void importFileUpload(FileUploadEvent event) {
         importCertFile = event.getFile();
         if (importCertFile != null) {
@@ -197,22 +221,34 @@ public class CertficateBean {
     }
 
     public void importCertificate() {
-        if (!service.isAliasInUse(selectedCertificateForImport)) { //check if it is a leaf certificate
-            try {
-                service.importCertificate(selectedCertificateForImport, "changeit");
-            } catch (CertificateManagerException ex) {
-                LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
-                isImportSuccessful = false;
+        isImportSuccessful = false;
+
+        if (selectedCertificateForImport != null && StringUtils.isNotBlank(getSessionTrustStorePassword())) {
+            if (!service.isAliasInUse(selectedCertificateForImport)) { //check if it is a leaf certificate
+                try {
+                    service.importCertificate(selectedCertificateForImport, getSessionTrustStorePassword());
+                    isImportSuccessful = true;
+                } catch (CertificateManagerException ex) {
+                    LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
+                    setErrorMessage(ex.getLocalizedMessage());
+                }
+            } else {
+                setErrorMessage("Alias already in use in TrustStore");
             }
+        } else {
+            if(null == selectedCertificateForImport) {
+                setErrorMessage("You need to select a certificate for import");
+            }
+            if (StringUtils.isBlank(getSessionTrustStorePassword())) {
+                setErrorMessage("Your TrustStore password is blank");
+            }
+        }
+
+        if (isImportSuccessful) {
             truststores = service.refreshTrustStores();
-            isImportSuccessful = true;
             importCertFile = null;
             importCertificate = null;
             RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide()");
-        } else {
-            isImportSuccessful = false;
-            FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Alias already in use in TrustStore"));
         }
     }
 
@@ -222,5 +258,10 @@ public class CertficateBean {
 
     private void fetchTrustStore() {
         truststores = service.fetchTrustStores();
+    }
+
+    private void setErrorMessage(String theMessage){
+        FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", theMessage));
     }
 }
