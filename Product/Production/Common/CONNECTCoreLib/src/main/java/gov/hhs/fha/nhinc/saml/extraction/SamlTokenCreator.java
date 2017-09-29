@@ -312,8 +312,9 @@ public class SamlTokenCreator {
      */
     private static void extractSamlAuthnStatement(AssertionType assertion, Map<String, Object> requestContext) {
         if (assertion.getSamlAuthnStatement() != null) {
-            requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "true");
+
             if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
+                requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "true");
                 requestContext.put(SamlConstants.AUTHN_INSTANT_PROP,
                     assertion.getSamlAuthnStatement().getAuthInstant());
             } else {
@@ -328,6 +329,7 @@ public class SamlTokenCreator {
             }
 
             if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthContextClassRef())) {
+                requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "true");
                 requestContext.put(SamlConstants.AUTHN_CONTEXT_CLASS_PROP,
                     assertion.getSamlAuthnStatement().getAuthContextClassRef());
             } else {

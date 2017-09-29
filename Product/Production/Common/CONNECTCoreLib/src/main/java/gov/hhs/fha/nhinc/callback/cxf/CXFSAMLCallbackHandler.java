@@ -110,6 +110,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     oSAMLCallback.setAssertionElement(builder.build(properties));
 
                 } catch (SAMLAssertionBuilderException ex) {
+                    // throw new UnsupportedCallbackException(callback, ex.getLocalizedMessage());
                     throw new RuntimeException(ex.getLocalizedMessage());
                 } catch (final Exception e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
