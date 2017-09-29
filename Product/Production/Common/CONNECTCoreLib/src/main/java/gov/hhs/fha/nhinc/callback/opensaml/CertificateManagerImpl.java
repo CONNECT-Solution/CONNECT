@@ -41,6 +41,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,16 +87,16 @@ public class CertificateManagerImpl implements CertificateManager {
      * @param trustStoreProperties
      * @return
      */
-    static CertificateManager getInstance(final HashMap<String, String> keyStoreProperties,
-        final HashMap<String, String> trustStoreProperties) {
+    static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
+        final Map<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
-            protected HashMap<String, String> getKeyStoreSystemProperties() {
+            protected Map<String, String> getKeyStoreSystemProperties() {
                 return keyStoreProperties;
             }
 
             @Override
-            public HashMap<String, String> getTrustStoreSystemProperties() {
+            public Map<String, String> getTrustStoreSystemProperties() {
                 return trustStoreProperties;
             }
         };
@@ -126,7 +127,7 @@ public class CertificateManagerImpl implements CertificateManager {
     private void initKeyStore() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
 
-        final HashMap<String, String> keyStoreProperties = getKeyStoreSystemProperties();
+        final Map<String, String> keyStoreProperties = getKeyStoreSystemProperties();
         String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
         final String password = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
         final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
@@ -188,7 +189,7 @@ public class CertificateManagerImpl implements CertificateManager {
     private void initTrustStore() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
 
-        final HashMap<String, String> trustStoreProperties = getTrustStoreSystemProperties();
+        final Map<String, String> trustStoreProperties = getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
@@ -274,16 +275,17 @@ public class CertificateManagerImpl implements CertificateManager {
         return null;
     }
 
-    public HashMap<String, String> getTrustStoreSystemProperties() {
-        final HashMap<String, String> map = new HashMap<>();
+    @Override
+    public Map<String, String> getTrustStoreSystemProperties() {
+        final Map<String, String> map = new HashMap<>();
         map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
         map.put(TRUST_STORE_PASSWORD_KEY, System.getProperty(TRUST_STORE_PASSWORD_KEY));
         map.put(TRUST_STORE_TYPE_KEY, System.getProperty(TRUST_STORE_TYPE_KEY));
         return map;
     }
 
-    protected HashMap<String, String> getKeyStoreSystemProperties() {
-        final HashMap<String, String> map = new HashMap<>();
+    protected Map<String, String> getKeyStoreSystemProperties() {
+        final Map<String, String> map = new HashMap<>();
         map.put(KEY_STORE_KEY, System.getProperty(KEY_STORE_KEY));
         map.put(KEY_STORE_TYPE_KEY, System.getProperty(KEY_STORE_TYPE_KEY));
         map.put(KEY_STORE_PASSWORD_KEY, System.getProperty(KEY_STORE_PASSWORD_KEY));

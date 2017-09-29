@@ -30,7 +30,7 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author bhumphrey
@@ -88,5 +88,5 @@ public interface CertificateManager {
      */
     public KeyStore refreshTrustStore();
 
-    public HashMap<String, String> getTrustStoreSystemProperties();
+    public Map<String, String> getTrustStoreSystemProperties();
 }
