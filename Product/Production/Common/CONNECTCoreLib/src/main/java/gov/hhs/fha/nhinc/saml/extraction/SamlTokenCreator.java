@@ -348,7 +348,8 @@ public class SamlTokenCreator {
                 LOG.warn("samlSendOperation input subjectLocalityDNSName is null");
             }
         } else {
-            LOG.warn("samlSendOperation input assertion samlAuthnStatement is null");
+            requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "false");
+            LOG.warn("samlAuthnDecisionStatement is null.  It will not be part of the SAML Assertion");
         }
     }
 

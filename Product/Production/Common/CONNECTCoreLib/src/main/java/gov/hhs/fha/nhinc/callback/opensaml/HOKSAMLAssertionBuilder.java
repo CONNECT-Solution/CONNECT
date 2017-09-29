@@ -345,8 +345,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                     "Assertion Authentication Statement <AuthnInstant> element is null.");
             }
             try {
+                LOG.info("DateTimeChk.");
                 DateTime dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(authInstant.toString());
+                LOG.info("Date is " + dateTime + ".");
             } catch (UnsupportedOperationException | IllegalArgumentException e) {
+                LOG.info("Date Error is " + e.getLocalizedMessage() + ".");
                 throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
             }
 
