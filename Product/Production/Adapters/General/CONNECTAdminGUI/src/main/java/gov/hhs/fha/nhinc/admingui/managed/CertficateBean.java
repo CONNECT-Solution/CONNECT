@@ -35,10 +35,8 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
@@ -72,7 +70,7 @@ public class CertficateBean {
     private static final String KEYSTORE_REFRESH_MSG = "KeyStore listing refreshed";
     private static final String TRUSTSTORE_REFRESH_MSG = "TrustStore listing refreshed";
     private String trustStorePassword;
-    private static final String TRUSTSTORE_PASSWORD = "trustStorePassword";
+    private static final String TRUSTSTORE_SESSIONID = "trustStorePassword";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
 
     public CertficateBean() {
@@ -113,14 +111,12 @@ public class CertficateBean {
 
     public void refreshKeyStore() {
         keystores = service.refreshKeyStores();
-        FacesContext.getCurrentInstance().addMessage(keyStoreMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
-            "INFO", KEYSTORE_REFRESH_MSG));
+        HelperUtil.addMessageInfo(keyStoreMsg, KEYSTORE_REFRESH_MSG);
     }
 
     public void refreshTrustStore() {
         truststores = service.refreshTrustStores();
-        FacesContext.getCurrentInstance().addMessage(trustStoreMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
-            "INFO", TRUSTSTORE_REFRESH_MSG));
+        HelperUtil.addMessageInfo(trustStoreMsg, TRUSTSTORE_REFRESH_MSG);
     }
 
     public void deleteCertificate() {
@@ -179,12 +175,13 @@ public class CertficateBean {
         this.trustStorePassword = trustStorePassword;
     }
 
-    private void setSessionTrustStorePassword(String trustStorePassword) {
-        HelperUtil.getHttpSession(false).setAttribute(TRUSTSTORE_PASSWORD, trustStorePassword);
+    private static void setSessionTrustStorePassword(String trustStorePassword) {
+        HelperUtil.getHttpSession(false).setAttribute(TRUSTSTORE_SESSIONID,
+            HelperUtil.encrypt(trustStorePassword));
     }
 
-    private String getSessionTrustStorePassword() {
-        return (String) HelperUtil.getHttpSession(false).getAttribute(TRUSTSTORE_PASSWORD);
+    private static String getSessionTrustStorePassword() {
+        return HelperUtil.decrypt((String) HelperUtil.getHttpSession(false).getAttribute(TRUSTSTORE_SESSIONID));
     }
 
     public void updateTrustStorePassword() {
@@ -202,14 +199,10 @@ public class CertficateBean {
                 cert.getX509Cert().checkValidity();
             } catch (CertificateExpiredException ex) {
                 LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
-                FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "ERROR", "Expired Certificate"));
+                HelperUtil.addMessageError(importCertErrorMessages, "Expired Certificate");
             } catch (CertificateNotYetValidException ex) {
                 LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
-                FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "ERROR", "Certificate not valid yet"));
+                HelperUtil.addMessageError(importCertErrorMessages, "Certificate not valid yet");
             }
         }
     }
@@ -221,6 +214,7 @@ public class CertficateBean {
     }
 
     public void importCertificate() {
+        LOG.info("importCertificate -- Begin");
         isImportSuccessful = false;
 
         if (selectedCertificateForImport != null && StringUtils.isNotBlank(getSessionTrustStorePassword())) {
@@ -228,19 +222,20 @@ public class CertficateBean {
                 try {
                     service.importCertificate(selectedCertificateForImport, getSessionTrustStorePassword());
                     isImportSuccessful = true;
+                    LOG.info("importCertificate -- successful");
                 } catch (CertificateManagerException ex) {
                     LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
-                    setErrorMessage(ex.getLocalizedMessage());
+                    HelperUtil.addMessageError(importCertErrorMessages, ex.getLocalizedMessage());
                 }
             } else {
-                setErrorMessage("Alias already in use in TrustStore");
+                HelperUtil.addMessageError(importCertErrorMessages, "Alias already in use in TrustStore");
             }
         } else {
             if(null == selectedCertificateForImport) {
-                setErrorMessage("You need to select a certificate for import");
+                HelperUtil.addMessageError(importCertErrorMessages, "You need to select a certificate for import");
             }
             if (StringUtils.isBlank(getSessionTrustStorePassword())) {
-                setErrorMessage("Your TrustStore password is blank");
+                HelperUtil.addMessageError(importCertErrorMessages, "Your TrustStore password is blank");
             }
         }
 
@@ -250,6 +245,7 @@ public class CertficateBean {
             importCertificate = null;
             RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide()");
         }
+        LOG.info("importCertificate -- End");
     }
 
     private void fetchKeyStore() {
@@ -258,10 +254,5 @@ public class CertficateBean {
 
     private void fetchTrustStore() {
         truststores = service.fetchTrustStores();
-    }
-
-    private void setErrorMessage(String theMessage){
-        FacesContext.getCurrentInstance().addMessage(importCertErrorMessages,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", theMessage));
     }
 }

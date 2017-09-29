@@ -26,15 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.PKCS11_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
+
 import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.PKCS11_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -51,8 +52,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.crypto.DERDecoder;
@@ -243,12 +244,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      */
     @Override
     public void importCertificate(Certificate cert, String password) throws CertificateManagerException {
-        importCertificateToTrustStore(cert.getX509Cert(), cert.getAlias(), password);
-    }
-
-    private void importCertificateToTrustStore(X509Certificate cert, String alias, String password) throws
-        CertificateManagerException {
-        final HashMap<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
+        LOG.info("importCertificate -- Begin");
+        final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
@@ -256,40 +253,60 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
-        if (StringUtils.isNotBlank(password)) {
+
+        if (StringUtils.isNotBlank(password) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
+            addCertificateToTrustStore(storeType, storeLoc, password, cert);
+        } else {
+            LOG.info("importCertificate -- validation failed");
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
                 LOG.error("{} is not defined.", TRUST_STORE_KEY);
-            } else {
-                FileInputStream is = null;
-                FileOutputStream os = null;
-                try {
-                    KeyStore secretStore = KeyStore.getInstance(storeType);
-                    if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-                        is = new FileInputStream(storeLoc);
-                    }
-                    secretStore.load(is, password.toCharArray());
-                    secretStore.setCertificateEntry(alias, cert);
-                    os = new FileOutputStream(storeLoc);
-                    secretStore.store(os, password.toCharArray());
-                    os.close();
-                } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-                    LOG.error("Unable to load TrustStore", ex.getLocalizedMessage(), ex);
-                    throw new CertificateManagerException(ex.getMessage(), ex);
-                } finally {
-                    try {
-                        if (is != null) {
-                            is.close();
-                        }
-                        if (os != null) {
-                            os.close();
-                        }
-                    } catch (final IOException ex) {
-                        LOG.error("Unable to close keyStoreStream {}", ex.getLocalizedMessage(), ex);
-                    }
-                }
             }
-        } else {
-            LOG.error("Invlaid Password");
+            if (StringUtils.isBlank(password)) {
+                LOG.error("invalid password");
+            }
+            if (null == cert) {
+                LOG.error("Certificate is null");
+            }
         }
+        LOG.info("importCertificate -- End");
+    }
+
+    private static void closeFiles(FileInputStream is, FileOutputStream os) {
+        try {
+            if (is != null) {
+                is.close();
+            }
+            if (os != null) {
+                os.close();
+            }
+        } catch (final IOException ex) {
+            LOG.error("Unable to close File Stream: {}", ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    private static boolean addCertificateToTrustStore(String storeType, String storeLoc, String password,
+        Certificate cert) throws CertificateManagerException {
+        LOG.info("addCertificateToTrustStore -- Begin");
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        boolean isImportSuccessful = false;
+        try {
+            KeyStore secretStore = KeyStore.getInstance(storeType);
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                is = new FileInputStream(storeLoc);
+            }
+            secretStore.load(is, password.toCharArray());
+            secretStore.setCertificateEntry(cert.getAlias(), cert.getX509Cert());
+            os = new FileOutputStream(storeLoc);
+            secretStore.store(os, password.toCharArray());
+            isImportSuccessful = true;
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            LOG.error("Unable to add the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            closeFiles(is, os);
+        }
+        LOG.info("addCertificateToTrustStore -- end");
+        return isImportSuccessful;
     }
 }
