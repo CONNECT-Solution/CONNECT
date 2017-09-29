@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -108,6 +109,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
                     oSAMLCallback.setAssertionElement(builder.build(properties));
 
+                } catch (SAMLAssertionBuilderException ex) {
+                    throw new RuntimeException(ex.getLocalizedMessage());
                 } catch (final Exception e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                 }

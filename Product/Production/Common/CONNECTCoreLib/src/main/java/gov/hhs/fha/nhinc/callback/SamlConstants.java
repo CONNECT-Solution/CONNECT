@@ -56,6 +56,7 @@ public class SamlConstants {
     public static final String SECURITY_ASSERTION_ISSUER_FORMAT = "SOAP header element Security/Assertion/Issuer/@Format  =";
     public static final String SECURITY_ASSERTION_NAME_QUALIFIER = "Security/Assertion/Issuer/@NameQualifier";
     public static final String SECURITY_ASSERTION_SPNAME_QUALIFIER = "Security/Assertion/Issuer/@SPNameQualifier";
+    public static final String AUTHN_STATEMENT_EXISTS_PROP = "authnStatementExists";
     public static final String AUTHN_INSTANT_PROP = "authnInstant";
     public static final String AUTHN_SESSION_INDEX_PROP = "authnSessionIndex";
     public static final String AUTHN_CONTEXT_CLASS_PROP = "authnContextClass";
