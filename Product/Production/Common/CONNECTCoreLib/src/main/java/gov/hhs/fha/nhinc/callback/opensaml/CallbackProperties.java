@@ -52,6 +52,11 @@ public interface CallbackProperties {
     public String getUsername();
 
     /**
+     * @return The Username
+     */
+    public Boolean getAuthenticationStatementExists();
+
+    /**
      * @return Authentication Context Class
      */
     public String getAuthenticationContextClass();
@@ -241,7 +246,5 @@ public interface CallbackProperties {
      * @return List of subject confirmation
      */
     List<SAMLSubjectConfirmation> getSubjectConfirmations();
-
-
 
 }

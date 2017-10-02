@@ -49,6 +49,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.Marshaller;
 import org.opensaml.core.xml.io.MarshallerFactory;
@@ -269,7 +270,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, publicKey);
     }
 
-    protected Conditions createConditions(final CallbackProperties properties) {
+    protected Conditions createConditions(final CallbackProperties properties) throws SAMLAssertionBuilderException {
         DateTime issueInstant = new DateTime();
         DateTime beginValidTime = properties.getSamlConditionsNotBefore();
         DateTime endValidTime = properties.getSamlConditionsNotAfter();
@@ -288,7 +289,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject) {
+    public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject)
+        throws SAMLAssertionBuilderException {
         final List<Statement> statements = new ArrayList<>();
 
         statements.addAll(createAuthenicationStatements(properties));
@@ -322,43 +324,54 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return statements;
     }
 
-    public List<AuthnStatement> createAuthenicationStatements(final CallbackProperties properties) {
+    public List<AuthnStatement> createAuthenicationStatements(final CallbackProperties properties)
+        throws SAMLAssertionBuilderException {
 
         final List<AuthnStatement> authnStatements = new ArrayList<>();
+        if (properties.getAuthenticationStatementExists()) {
+            String cntxCls = properties.getAuthenticationContextClass();
+            if (cntxCls == null || !isValidAuthnCntxCls(cntxCls)) {
+                LOG.error("Assertion Authentication Statement <AuthnContext> element is null or not valid format.");
+                throw new SAMLAssertionBuilderException(
+                    "Assertion Authentication Statement <AuthnContext> element is null or not valid format.");
+            }
+            final String sessionIndex = properties.getAuthenticationSessionIndex();
 
-        String cntxCls = properties.getAuthenticationContextClass();
-        if (cntxCls == null) {
-            cntxCls = X509_AUTHN_CNTX_CLS;
-        } else if (!isValidAuthnCntxCls(cntxCls)) {
-            cntxCls = UNSPECIFIED_AUTHN_CNTX_CLS;
+            LOG.debug("Setting Authentication session index to: {}", sessionIndex);
+
+            DateTime authInstant = properties.getAuthenticationInstant();
+            if (authInstant == null) {
+                LOG.error("Assertion Authentication Statement <AuthnInstant> element is null.");
+                throw new SAMLAssertionBuilderException(
+                    "Assertion Authentication Statement <AuthnInstant> element is null.");
+            }
+            try {
+                ISODateTimeFormat.dateTimeParser().parseDateTime(authInstant.toString());
+            } catch (UnsupportedOperationException | IllegalArgumentException e) {
+                LOG.error("Date Format is incorrect.");
+                throw new SAMLAssertionBuilderException(e.getLocalizedMessage(), e);
+            }
+
+            final String inetAddr = properties.getSubjectLocality();
+            final String dnsName = properties.getSubjectDNS();
+
+            final AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance()
+                .createAuthenticationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
+
+            authnStatements.add(authnStatement);
         }
-        final String sessionIndex = properties.getAuthenticationSessionIndex();
-
-        LOG.debug("Setting Authentication session index to: {}", sessionIndex);
-
-        DateTime authInstant = properties.getAuthenticationInstant();
-        if (authInstant == null) {
-            authInstant = new DateTime();
-        }
-
-        final String inetAddr = properties.getSubjectLocality();
-        final String dnsName = properties.getSubjectDNS();
-
-        final AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance()
-            .createAuthenticationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
-
-        authnStatements.add(authnStatement);
-
         return authnStatements;
+
     }
 
     /**
      * @param properties
      * @param subject
      * @return
+     * @throws SAMLAssertionBuilderException
      */
     public List<AuthzDecisionStatement> createAuthorizationDecisionStatements(final CallbackProperties properties,
-        final Subject subject) {
+        final Subject subject) throws SAMLAssertionBuilderException {
         final List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
 
         final Boolean hasAuthzStmt = properties.getAuthorizationStatementExists();
@@ -383,8 +396,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
+     * @throws SAMLAssertionBuilderException
      */
-    public Evidence createEvidence(final CallbackProperties properties, final Subject subject) {
+    public Evidence createEvidence(final CallbackProperties properties, final Subject subject)
+        throws SAMLAssertionBuilderException {
         LOG.debug("SamlCallbackHandler.createEvidence() -- Begin");
         final List<AttributeStatement> statements = createEvidenceStatements(properties);
         return buildEvidence(properties, statements, subject);
@@ -401,8 +416,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param statements
      * @param subject
      * @return
+     * @throws SAMLAssertionBuilderException
      */
-    public Evidence buildEvidence(CallbackProperties properties, List<AttributeStatement> statements, Subject subject) {
+    public Evidence buildEvidence(CallbackProperties properties, List<AttributeStatement> statements, Subject subject)
+        throws SAMLAssertionBuilderException {
 
         DateTime issueInstant = properties.getEvidenceInstant();
         String format = properties.getEvidenceIssuerFormat();
@@ -544,8 +561,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute statements for UserName.
      *
+     * @throws SAMLAssertionBuilderException
+     *
      */
-    protected List<AttributeStatement> createUserNameAttributeStatements(final CallbackProperties properties) {
+    protected List<AttributeStatement> createUserNameAttributeStatements(final CallbackProperties properties)
+        throws SAMLAssertionBuilderException {
 
         final List<AttributeStatement> statements = new ArrayList<>();
         final List<Attribute> attributes = new ArrayList<>();
@@ -562,7 +582,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USERNAME_ATTR,
                 null, userNameValues));
         } else {
-            LOG.warn("No information provided to fill in user name attribute");
+            LOG.error("No information provided to fill in user name attribute..");
+            throw new SAMLAssertionBuilderException("No information provided to fill in user name attribute.");
         }
         if (!attributes.isEmpty()) {
             statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));

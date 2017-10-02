@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
-import org.apache.cxf.helpers.CastUtils;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -35,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.cxf.helpers.CastUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -85,6 +84,16 @@ public class CallbackMapProperties implements CallbackProperties {
     @Override
     public String getUsername() {
         return getNullSafeString(SamlConstants.USER_NAME_PROP);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenticationStatementExists()
+     */
+    @Override
+    public Boolean getAuthenticationStatementExists() {
+        return getNullSafeBoolean(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, Boolean.FALSE);
     }
 
     /*

@@ -325,17 +325,71 @@ public class HOKSAMLAssertionBuilderTest {
         assertNotNull(assertion);
     }
 
+    @Test(expected = SAMLAssertionBuilderException.class)
+    public void testCreateAuthenticationStatement() throws SAMLAssertionBuilderException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
+        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
+    }
+
     @Test
-    public void testCreateAuthenticationStatement() {
-        final List<AuthnStatement> authnStatement = new HOKSAMLAssertionBuilder()
-            .createAuthenicationStatements(getProperties());
+    public void testCreateAuthenticationStatementWithContext() throws SAMLAssertionBuilderException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        DateTime AuthIns = new DateTime();
+        when(callbackProps.getAuthenticationContextClass()).thenReturn("urn:oasis:names:tc:SAML:2.0:ac:classes:X509");
+        when(callbackProps.getAuthenticationInstant()).thenReturn(AuthIns);
+        when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
+
+        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
     }
 
+    @Test(expected = SAMLAssertionBuilderException.class)
+    public void testCreateAuthenticationStatementWithDateNull() throws SAMLAssertionBuilderException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+
+        when(callbackProps.getAuthenticationContextClass()).thenReturn("urn:oasis:names:tc:SAML:2.0:ac:classes:X509");
+        when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
+
+        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
+        assertNotNull(authnStatement);
+
+        assertFalse(authnStatement.isEmpty());
+    }
+
+    @Test(expected = SAMLAssertionBuilderException.class)
+    public void testCreateAuthenticationStatementWithNonDate() throws SAMLAssertionBuilderException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+
+        when(callbackProps.getAuthenticationContextClass()).thenReturn("urn:oasis:names:tc:SAML:2.0:ac:classes:X509");
+        when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
+
+        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
+        assertNotNull(authnStatement);
+
+        assertFalse(authnStatement.isEmpty());
+    }
+
+    @Test(expected = SAMLAssertionBuilderException.class)
+    public void testCreateAtributeStatementUserName() throws SAMLAssertionBuilderException {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        final Subject subject = mock(Subject.class);
+        final AttributeStatement e = mock(AttributeStatement.class);
+        final List<AttributeStatement> statements = builder.createUserNameAttributeStatements(callbackProps);
+        when(callbackProps.getUserFullName()).thenReturn(null);
+
+    }
+
     @Test
-    public void testSamlConditionsNotBeforeAndNotAfterPresent() throws PropertyAccessException {
+    public void testSamlConditionsNotBeforeAndNotAfterPresent()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -355,7 +409,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsNotBeforeIsNull() throws PropertyAccessException {
+    public void testSamlConditionsNotBeforeIsNull() throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -374,7 +428,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsNotAfterIsNull() throws PropertyAccessException {
+    public void testSamlConditionsNotAfterIsNull() throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -392,7 +446,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOffBeginInvalid() throws PropertyAccessException {
+    public void testSamlConditionsPropertyOffBeginInvalid()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -414,7 +469,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOffAfterInvalid() throws PropertyAccessException {
+    public void testSamlConditionsPropertyOffAfterInvalid()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -436,7 +492,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOnInvalidBefore() throws PropertyAccessException {
+    public void testSamlConditionsPropertyOnInvalidBefore()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -457,7 +514,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOnInvalidAfter() throws PropertyAccessException {
+    public void testSamlConditionsPropertyOnInvalidAfter()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -478,7 +536,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testBuildEvidence() {
+    public void testBuildEvidence() throws SAMLAssertionBuilderException {
         Map<Object, Object> propertiesMap = new HashMap<Object, Object>();
         propertiesMap.put(SamlConstants.EVIDENCE_ID_PROP, "_45678fdgrt543sweqt");
         CallbackProperties properties = new CallbackMapProperties(propertiesMap);
@@ -492,7 +550,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testCreateAuthenticationDecisionStatements() throws PropertyAccessException {
+    public void testCreateAuthenticationDecisionStatements()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime beforeCreation = new DateTime();
@@ -544,7 +603,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testEvidenceConditionsNotBeforeAndNotAfterPresent() throws PropertyAccessException {
+    public void testEvidenceConditionsNotBeforeAndNotAfterPresent()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime conditionNotBefore = new DateTime();
@@ -573,7 +633,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testEvidanceConditionsNotBeforeIsNull() throws PropertyAccessException {
+    public void testEvidanceConditionsNotBeforeIsNull() throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime conditionNotAfter = new DateTime();
@@ -598,7 +658,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testEvidanceConditionsNotAfterIsNull() throws PropertyAccessException {
+    public void testEvidanceConditionsNotAfterIsNull() throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime conditionNotBefore = new DateTime();
@@ -781,6 +841,11 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
+            public Boolean getAuthenticationStatementExists() {
+                return false;
+            }
+
+            @Override
             public String getAuthenticationSessionIndex() {
                 return "1";
             }
@@ -843,7 +908,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testCreateAuthenticationDecisionStatementsWithoutACPorIACP() throws PropertyAccessException {
+    public void testCreateAuthenticationDecisionStatementsWithoutACPorIACP()
+        throws PropertyAccessException, SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime beforeCreation = new DateTime();

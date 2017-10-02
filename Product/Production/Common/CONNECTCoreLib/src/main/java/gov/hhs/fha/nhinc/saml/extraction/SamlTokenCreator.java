@@ -167,8 +167,7 @@ public class SamlTokenCreator {
     private static void extractPurposeOfDisclosureCoded(AssertionType assertion, Map<String, Object> requestContext) {
         if (assertion.getPurposeOfDisclosureCoded() != null) {
             if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCode())) {
-                requestContext.put(SamlConstants.PURPOSE_CODE_PROP,
-                    assertion.getPurposeOfDisclosureCoded().getCode());
+                requestContext.put(SamlConstants.PURPOSE_CODE_PROP, assertion.getPurposeOfDisclosureCoded().getCode());
             }
 
             requestContext.put(SamlConstants.PURPOSE_SYST_PROP, SamlConstants.PURPOSE_SYSTEM_ATTR);
@@ -230,8 +229,7 @@ public class SamlTokenCreator {
         if (assertion.getSamlAuthzDecisionStatement() != null) {
             requestContext.put(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, "true");
             if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getAction())) {
-                requestContext.put(SamlConstants.ACTION_PROP,
-                    assertion.getSamlAuthzDecisionStatement().getAction());
+                requestContext.put(SamlConstants.ACTION_PROP, assertion.getSamlAuthzDecisionStatement().getAction());
             } else {
                 LOG.warn("samlSendOperation input assertion AuthzDecisionStatement action is null");
             }
@@ -314,7 +312,9 @@ public class SamlTokenCreator {
      */
     private static void extractSamlAuthnStatement(AssertionType assertion, Map<String, Object> requestContext) {
         if (assertion.getSamlAuthnStatement() != null) {
+
             if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
+                requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "true");
                 requestContext.put(SamlConstants.AUTHN_INSTANT_PROP,
                     assertion.getSamlAuthnStatement().getAuthInstant());
             } else {
@@ -329,6 +329,7 @@ public class SamlTokenCreator {
             }
 
             if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthContextClassRef())) {
+                requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "true");
                 requestContext.put(SamlConstants.AUTHN_CONTEXT_CLASS_PROP,
                     assertion.getSamlAuthnStatement().getAuthContextClassRef());
             } else {
@@ -349,7 +350,8 @@ public class SamlTokenCreator {
                 LOG.warn("samlSendOperation input subjectLocalityDNSName is null");
             }
         } else {
-            LOG.warn("samlSendOperation input assertion samlAuthnStatement is null");
+            requestContext.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, "false");
+            LOG.warn("samlAuthnDecisionStatement is null.  It will not be part of the SAML Assertion");
         }
     }
 
@@ -359,40 +361,39 @@ public class SamlTokenCreator {
      */
     private static void extractSamlAuthzDecisionStatementEvidenceAssertion(AssertionType assertion,
         Map<String, Object> requestContext) {
-        if (NullChecker
-            .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId())) {
+        if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId())) {
             requestContext.put(SamlConstants.EVIDENCE_ID_PROP,
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId());
         } else {
             LOG.warn("samlSendOperation input assertion evidence assertion id is null");
         }
 
-        if (NullChecker.isNotNullish(
-            assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant())) {
+        if (NullChecker
+            .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant())) {
             requestContext.put(SamlConstants.EVIDENCE_INSTANT_PROP,
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
         } else {
             LOG.warn("samlSendOperation input assertion evidence assertion issueInstant is null");
         }
 
-        if (NullChecker.isNotNullish(
-            assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion())) {
+        if (NullChecker
+            .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion())) {
             requestContext.put(SamlConstants.EVIDENCE_VERSION_PROP,
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
         } else {
             LOG.warn("samlSendOperation input assertion evidence assertion version is null");
         }
 
-        if (NullChecker.isNotNullish(
-            assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer())) {
+        if (NullChecker
+            .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer())) {
             requestContext.put(SamlConstants.EVIDENCE_ISSUER_PROP,
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
         } else {
             LOG.warn("samlSendOperation input assertion evidence assertion issuer is null");
         }
 
-        if (NullChecker.isNotNullish(
-            assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat())) {
+        if (NullChecker
+            .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat())) {
             requestContext.put(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP,
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
         } else {
@@ -401,24 +402,22 @@ public class SamlTokenCreator {
 
         if (CollectionUtils.isNotEmpty(
             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy())) {
-            requestContext.put(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP, assertion
-                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
+            requestContext.put(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP,
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
         } else {
             LOG.warn("samlSendOperation input assertion evidence assertion accessConsentPolicy is null");
         }
 
         if (CollectionUtils.isNotEmpty(
             assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy())) {
-            requestContext.put(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP,
-                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                .getInstanceAccessConsentPolicy());
+            requestContext.put(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP, assertion
+                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
         } else {
             LOG.warn("samlSendOperation input assertion evidence assertion instanceAccessConsentPolicy is null");
         }
 
-
-        if (NullChecker.isNotNullish(
-            assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject())) {
+        if (NullChecker
+            .isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject())) {
             requestContext.put(SamlConstants.EVIDENCE_SUBJECT_PROP,
                 assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
         } else {
@@ -434,21 +433,18 @@ public class SamlTokenCreator {
      */
     private static void extractEvidenceAssertionConditions(AssertionType assertion,
         Map<String, Object> requestContext) {
-        if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-            .getConditions() != null) {
-            if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
-                .getAssertion().getConditions().getNotBefore())) {
-                requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP,
-                    assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                    .getNotBefore());
+        if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null) {
+            if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                .getConditions().getNotBefore())) {
+                requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP, assertion
+                    .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore());
             } else {
                 LOG.warn("samlSendOperation input assertion evidence assertion notBefore is null");
             }
-            if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
-                .getAssertion().getConditions().getNotOnOrAfter())) {
-                requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP,
-                    assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                    .getNotOnOrAfter());
+            if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                .getConditions().getNotOnOrAfter())) {
+                requestContext.put(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP, assertion
+                    .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter());
             } else {
                 LOG.warn("samlSendOperation input assertion evidence assertion notOnOrAfter is null");
             }
