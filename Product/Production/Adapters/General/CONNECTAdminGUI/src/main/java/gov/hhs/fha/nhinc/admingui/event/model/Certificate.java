@@ -26,13 +26,15 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
+import java.security.cert.X509Certificate;
+
 /**
  *
  * @author tjafri
  */
 public class Certificate {
 
-    private String alias;
+    private String alias = "";
     private String algorithm;
     private int keySize;
     private String expirationDate;
@@ -40,6 +42,8 @@ public class Certificate {
     private int version;
     private String subjectKeyID;
     private String authorityKeyID;
+    private X509Certificate x509Cert;
+    private String validStartDate;
 
     public String getAlias() {
         return alias;
@@ -104,4 +108,21 @@ public class Certificate {
     public void setAuthorityKeyID(String authorityKeyID) {
         this.authorityKeyID = authorityKeyID;
     }
+
+    public X509Certificate getX509Cert() {
+        return x509Cert;
+    }
+
+    public void setX509Cert(X509Certificate x509Cert) {
+        this.x509Cert = x509Cert;
+    }
+
+    public String getValidStartDate() {
+        return validStartDate;
+    }
+
+    public void setValidStartDate(String validStartDate) {
+        this.validStartDate = validStartDate;
+    }
+
 }

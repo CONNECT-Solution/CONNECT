@@ -317,8 +317,12 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public KeyStore refreshTrustStore() {
-                throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods,
-                                                                               // choose Tools | Templates.
+                return null;
+            }
+
+            @Override
+            public HashMap<String, String> getTrustStoreSystemProperties() {
+                return null;
             }
         });
         final Element assertion = builder.build(getProperties());
