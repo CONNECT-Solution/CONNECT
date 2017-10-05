@@ -66,12 +66,8 @@
                                                     <p:column>
                                                         <h:outputLabel class="control-label" style="font-weight: bold;" value="KeyStore"/>
                                                         <p:spacer width="10"/>
-                                                        <h:outputText value="#{certificateBean.keyStoreLocation}"/></p:column>
-                                                </p:row>
-                                                <p:row>
-                                                  <p:column styleClass="pull-right">
-                                                      <p:commandButton id="refreshKeyStore" value="Refresh KeyStore" action="#{certificateBean.refreshKeyStore()}" update=":certTabView" styleClass=" ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
-                                                  </p:column>
+                                                        <h:outputText value="#{certificateBean.keyStoreLocation}"/>
+                                                    </p:column>
                                                 </p:row>
                                             </p:panelGrid>
                                           </p:panel>
@@ -106,9 +102,6 @@
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                               <p:row>
                                                 <p:column styleClass="ui-button-rightmost">
-                                                    <p:commandButton id="deleteCert" value="Delete Certificate"  styleClass="delete-button pull-right" icon="ui-icon-closethick"/>
-                                                </p:column>
-                                                <p:column styleClass="ui-button-rightmost">
                                                   <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
                                                 </p:column>
                                               </p:row>
@@ -139,18 +132,14 @@
                                                 <p:spacer width="10"/>
                                                 <h:outputText value="#{certificateBean.trustStoreLocation}"/>
                                             </p:column>
-                                        </p:row>
-                                        <p:row>
                                             <p:column styleClass="pull-right">
-                                               <p:commandButton id="refreshKeyStore" value="Refresh TrustStore" action="#{certificateBean.refreshTrustStore()}" update=":certTabView" styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button ui-button-text-only" icon="ui-icon-refresh" />
-                                               <p:spacer width="10"/>
                                                <p:commandButton value="Import Certificate" type="button" styleClass="add-button" icon="ui-icon-circle-plus" onclick="PF('importCertDlg').show();" />
                                             </p:column>
                                         </p:row>
                                        </p:panelGrid>
                                     </p:panel>
                                     <div class="table-responsive table-props">
-                                      <p:dataTable id="keystoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                      <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
                                         <p:column selectionMode="single" />
                                         <p:column>
                                           <f:facet name="header">Alias</f:facet>
@@ -179,10 +168,16 @@
                                       </p:dataTable>
                                       <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                         <p:row>
-                                          <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton id="deleteCert" value="Delete Certificate" styleClass="delete-button pull-right" icon="ui-icon-closethick" />
-                                          </p:column>
-                                          <p:column styleClass="ui-button-rightmost">
+                                            <p:column styleClass="ui-button-rightmost">
+                                                <p:commandButton id="deleteCert" action="#{certificateBean.openTrustStorePasskeyDlgForDelete()}" update=":certTabView" value="Delete Certificate"  styleClass="delete-button pull-right" icon="ui-icon-closethick">
+                                                    <p:confirm header="Confirmation" message="Are you sure you want to delete the selected certificate?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                </p:confirmDialog>
+                                            </p:column>
+                                            <p:column styleClass="ui-button-rightmost">
                                             <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
                                           </p:column>
                                         </p:row>
@@ -201,6 +196,8 @@
                 <!-- include link for import cert -->
                 <ui:include src="certManagementCreateDialog.xhtml" />
                 <ui:include src="importCertDialog.xhtml" />
+                <ui:include src="importPassKeyDialog.xhtml"/>
+                <ui:include src="deletePassKeyDialog.xhtml"/>
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
             </ui:define>
         </ui:composition>

@@ -54,5 +54,9 @@ public interface CertificateManagerService {
 
     public boolean isLeafOnlyCertificate(Certificate cert);
 
-    public void importCertificate(Certificate cert, String password) throws CertificateManagerException;
+    public void importCertificate(Certificate cert) throws CertificateManagerException;
+
+    public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
+
+    public boolean validateTrustStorePassKey(String passkey);
 }

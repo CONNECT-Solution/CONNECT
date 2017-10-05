@@ -57,20 +57,19 @@ public class CertficateBean {
     private List<Certificate> keystores;
     private List<Certificate> truststores;
     private final CertificateManagerService service;
-    private Certificate selectedCertificate;
     private List<Certificate> importCertificate;
     private String keyStoreLocation;
     private String trustStoreLocation;
-    private String keyStoreMsg;
-    private String trustStoreMsg;
-    private String importCertErrorMessages;
+    private static final String TRUST_STORE_MSG = "trustStoreMsg";
+    private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
+    private static final String IMPORT_PASS_KEY_ERR_MSG = "importPassKeyErrorMsg";
+    private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMessages";
+    private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private UploadedFile importCertFile;
-    private Certificate selectedCertificateForImport;
+    private Certificate selectedCertificate;
     private boolean isImportSuccessful;
-    private static final String KEYSTORE_REFRESH_MSG = "KeyStore listing refreshed";
-    private static final String TRUSTSTORE_REFRESH_MSG = "TrustStore listing refreshed";
-    private String trustStorePassword;
-    private static final String TRUSTSTORE_SESSIONID = "trustStorePassword";
+    private String trustStorePasskey;
+    private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
 
     public CertficateBean() {
@@ -101,54 +100,16 @@ public class CertficateBean {
         this.selectedCertificate = selectedCertificate;
     }
 
-    public Certificate getSelectedCertificateForImport() {
-        return selectedCertificateForImport;
-    }
-
-    public void setSelectedCertificateForImport(Certificate selectedCertificateForImport) {
-        this.selectedCertificateForImport = selectedCertificateForImport;
-    }
-
-    public void refreshKeyStore() {
-        keystores = service.refreshKeyStores();
-        HelperUtil.addMessageInfo(keyStoreMsg, KEYSTORE_REFRESH_MSG);
-    }
-
-    public void refreshTrustStore() {
-        truststores = service.refreshTrustStores();
-        HelperUtil.addMessageInfo(trustStoreMsg, TRUSTSTORE_REFRESH_MSG);
-    }
-
-    public void deleteCertificate() {
-        throw new UnsupportedOperationException();
-    }
-
     public List<Certificate> getTruststores() {
         return truststores;
     }
 
-    public String getKeyStoreMsg() {
-        return keyStoreMsg;
+    public String getTrustStorePasskey() {
+        return trustStorePasskey;
     }
 
-    public void setKeyStoreMsg(String keyStoreMsg) {
-        this.keyStoreMsg = keyStoreMsg;
-    }
-
-    public String getTrustStoreMsg() {
-        return trustStoreMsg;
-    }
-
-    public void setTrustStoreMsg(String trustStoreMsg) {
-        this.trustStoreMsg = trustStoreMsg;
-    }
-
-    public String getImportCertErrorMessages() {
-        return importCertErrorMessages;
-    }
-
-    public void setImportCertErrorMessages(String importCertErrorMessages) {
-        this.importCertErrorMessages = importCertErrorMessages;
+    public void setTrustStorePasskey(String trustStorePasskey) {
+        this.trustStorePasskey = trustStorePasskey;
     }
 
     public List<Certificate> getImportCertificate() {
@@ -167,26 +128,9 @@ public class CertficateBean {
         this.isImportSuccessful = isImportSuccessful;
     }
 
-    public String getTrustStorePassword() {
-        return trustStorePassword;
-    }
-
-    public void setTrustStorePassword(String trustStorePassword) {
-        this.trustStorePassword = trustStorePassword;
-    }
-
-    private static void setSessionTrustStorePassword(String trustStorePassword) {
-        HelperUtil.getHttpSession(false).setAttribute(TRUSTSTORE_SESSIONID,
-            HelperUtil.encrypt(trustStorePassword));
-    }
-
-    private static String getSessionTrustStorePassword() {
-        return HelperUtil.decrypt((String) HelperUtil.getHttpSession(false).getAttribute(TRUSTSTORE_SESSIONID));
-    }
-
-    public void updateTrustStorePassword() {
-        setSessionTrustStorePassword(trustStorePassword);
-        trustStorePassword = null;
+    private static boolean isVerifiedTrustStoreUser() {
+        Object value = HelperUtil.getHttpSession(false).getAttribute(VERIFIED_TRUSTSTORE_USER);
+        return value != null ? (Boolean) value : false;
     }
 
     public void importFileUpload(FileUploadEvent event) {
@@ -194,15 +138,16 @@ public class CertficateBean {
         if (importCertFile != null) {
             importCertificate = new ArrayList<>();
             Certificate cert = service.createCertificate(importCertFile.getContents());
+            cert.setAlias(ALIAS_PLACEHOLDER);
             importCertificate.add(cert);
             try {
                 cert.getX509Cert().checkValidity();
             } catch (CertificateExpiredException ex) {
                 LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
-                HelperUtil.addMessageError(importCertErrorMessages, "Expired Certificate");
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
             } catch (CertificateNotYetValidException ex) {
                 LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
-                HelperUtil.addMessageError(importCertErrorMessages, "Certificate not valid yet");
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Certificate not valid yet");
             }
         }
     }
@@ -213,39 +158,94 @@ public class CertficateBean {
         }
     }
 
-    public void importCertificate() {
-        LOG.info("importCertificate -- Begin");
+    public void openTrustStorePasskeyDlgForDelete() {
+        if (selectedCertificate == null) {
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to Delete");
+        } else if (!isVerifiedTrustStoreUser()) {
+            RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').show();");
+        } else {
+            deleteCertificate();
+        }
+    }
+
+    public void openTrustStorePasskeyDlgForImport() {
+        if (selectedCertificate == null) {
+            HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Select certificate for import");
+        } else if (StringUtils.isBlank(selectedCertificate.getAlias()) || ALIAS_PLACEHOLDER.equals(selectedCertificate.
+            getAlias())) {
+            HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Enter an alias for the certificate");
+        } else if (!isVerifiedTrustStoreUser()) {
+            RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').show();");
+        } else {
+            importSelectedCertificate();
+        }
+    }
+
+    public void validateAndDeleteCertificate() {
+        if (service.validateTrustStorePassKey(trustStorePasskey)) {
+            HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            trustStorePasskey = null;
+            RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
+            deleteCertificate();
+        } else {
+            HelperUtil.addMessageError(DELETE_PASS_KEY_ERR_MSG, "Invalid Password");
+        }
+    }
+
+    public void validateAndImportCertificate() {
+        if (service.validateTrustStorePassKey(trustStorePasskey)) {
+            HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            trustStorePasskey = null;
+            RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
+            importSelectedCertificate();
+        } else {
+            HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Invalid Password");
+        }
+    }
+
+    private void importSelectedCertificate() {
+        LOG.info("importSelectedCertificate");
         isImportSuccessful = false;
 
-        if (selectedCertificateForImport != null && StringUtils.isNotBlank(getSessionTrustStorePassword())) {
-            if (!service.isAliasInUse(selectedCertificateForImport)) { //check if it is a leaf certificate
+        if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
+            if (!service.isAliasInUse(selectedCertificate)) {
                 try {
-                    service.importCertificate(selectedCertificateForImport, getSessionTrustStorePassword());
+                    service.importCertificate(selectedCertificate);
                     isImportSuccessful = true;
                     LOG.info("importCertificate -- successful");
                 } catch (CertificateManagerException ex) {
                     LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
-                    HelperUtil.addMessageError(importCertErrorMessages, ex.getLocalizedMessage());
+                    HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, ex.getLocalizedMessage());
                 }
             } else {
-                HelperUtil.addMessageError(importCertErrorMessages, "Alias already in use in TrustStore");
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Alias already in use in TrustStore");
             }
         } else {
-            if(null == selectedCertificateForImport) {
-                HelperUtil.addMessageError(importCertErrorMessages, "You need to select a certificate for import");
+            if (null == selectedCertificate) {
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Select a certificate for import");
             }
-            if (StringUtils.isBlank(getSessionTrustStorePassword())) {
-                HelperUtil.addMessageError(importCertErrorMessages, "Your TrustStore password is blank");
+            if (selectedCertificate != null && StringUtils.isBlank(selectedCertificate.getAlias())) {
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Enter an alias for importing certificate");
             }
         }
-
         if (isImportSuccessful) {
             truststores = service.refreshTrustStores();
             importCertFile = null;
             importCertificate = null;
-            RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide()");
+            selectedCertificate = null;
+            RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
         }
-        LOG.info("importCertificate -- End");
+    }
+
+    private void deleteCertificate() {
+        try {
+            service.deleteCertificateFromTrustStore(selectedCertificate.getAlias());
+            truststores = service.refreshTrustStores();
+            selectedCertificate = null;
+        } catch (CertificateManagerException ex) {
+            LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Unable to delete certificate");
+        }
     }
 
     private void fetchKeyStore() {
