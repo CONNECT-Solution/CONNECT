@@ -11,6 +11,14 @@
   <packaging>pom</packaging>
   <modelVersion>4.0.0</modelVersion>
   
+    <properties>
+        <db.host>localhost</db.host>
+        <db.password>nhincpass</db.password>
+        <db.port>3306</db.port>
+        <db.user>nhincuser</db.user>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
+    </properties>
+
   <modules>
     <module>jboss7</module>
   </modules>
@@ -479,7 +487,50 @@
         </plugins>
       </build>
     </profile>
-
+    <profile>
+	     <id>SBScripts</id>
+        <activation>
+          <activeByDefault>false</activeByDefault>
+        </activation>
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>sql-maven-plugin</artifactId>
+              <version>1.5</version>
+            <dependencies>
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.10</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <driver>com.mysql.jdbc.Driver</driver>
+              <url>jdbc:mysql://${db.host}</url>
+              <username>root</username>
+              <password>${mysql.root.password}</password>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>process-test-resources</phase>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+                <configuration>
+                  <autocommit>true</autocommit>
+                  <srcFiles>
+                    <srcFile>../../../DBScripts/nhincdb/dropall.sql</srcFile>
+                    <srcFile>../../../DBScripts/nhincdb/nhincdb.sql</srcFile>
+                    <srcFile>../../../DBScripts/nhincdb/populateTestData.sql</srcFile>
+                  </srcFiles>
+                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <!-- X12 -->
     <profile>
       <id>X12</id>
@@ -544,7 +595,7 @@
       </build>
     </profile>
 
-    <!-- Direct -->
+     <!-- Direct -->
     <profile>
       <id>Direct</id>
       <activation>
