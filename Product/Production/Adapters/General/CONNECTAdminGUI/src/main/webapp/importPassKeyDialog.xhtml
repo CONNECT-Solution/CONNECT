@@ -1,0 +1,30 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="importPassKeyDlg" header="TrustStore Credentials" widgetVar="importPassKeyDlg" modal="true" dynamic="true" closeOnEscape="true">
+            <div class="content">
+                <h3>TrustStore Password</h3>
+                <div class="form-block center-block">
+                    <h:form id="changePassKeyDlgForm" class="form form-horizontal">
+                        <p:messages id="importPassKeyErrorMsg" closable="true" autoUpdate="true" showDetail="true" />
+                        <div class="form-group">
+                            <h:outputLabel for="passKey" class="col-sm-3 control-label" id="inputPassKeyLbl" value="Password:" />
+                            <div class="col-sm-9">
+                                <p:password id="passkey" value="#{certificateBean.trustStorePasskey}" style="width:100%"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="Save" ajax="true" update=":certTabView:trustStoreForm, :importCertDlgForm:importCertTable" actionListener="#{certificateBean.validateAndImportCertificate}" oncomplete="PF('importPassKeyDlg').hide();"/>
+                                </div>
+                            </div>
+                        </div>
+                   </h:form>
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>

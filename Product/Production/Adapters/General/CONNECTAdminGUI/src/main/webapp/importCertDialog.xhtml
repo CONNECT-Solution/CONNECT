@@ -7,7 +7,7 @@
                 <h3>Import Certificate</h3>
                 <div class="form-block center-block">
                     <h:form id="importCertDlgForm" class="form form-horizontal">
-                        <p:messages id="importCertErrorMessages" closable="true" autoUpdate="true" showDetail="true" />
+                        <p:messages id="importCertErrorMsg" closable="true" autoUpdate="true" showDetail="true" />
 
                         <div class="form-group">
                             <h:outputLabel for="pick-cert" class="col-sm-3 control-label" id="pickCertLbl" value="Certificate:" />
@@ -15,21 +15,20 @@
                                 <p:fileUpload id="pickCertToImport" fileUploadListener="#{certificateBean.importFileUpload}" allowTypes="/(\.|\/)(der|cer|crt|pem)$/" update=":importCertDlgForm:importCertTable"/>
                             </div>
                         </div>
-
                         <div class="table-responsive table-props">
-                            <p:dataTable id="importCertTable" value="#{certificateBean.importCertificate}" resizableColumns="false" scrollable="true" scrollHeight="300" var="importSelCert" selection="#{certificateBean.selectedCertificateForImport}" rowKey="#{importSelCert.serialNumber}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains" editable="true" editMode="cell">
+                            <p:dataTable id="importCertTable" value="#{certificateBean.importCertificate}" resizableColumns="false" scrollable="true" scrollHeight="300" var="importSelCert" selection="#{certificateBean.selectedCertificate}" rowKey="#{importSelCert.serialNumber}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains" editable="true" editMode="cell">
                                 <p:ajax event="cellEdit" listener="#{certificateBean.onAliasValueEdit}" update=":importCertDlgForm:importCertTable" />
                                 <p:column selectionMode="single" />
                                 <p:column>
                                     <f:facet name="header">Alias</f:facet>
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText style="font-color:gray;" value="#{importSelCert.alias}"/></f:facet>
-                                        <f:facet name="input"><p:inputText id="aliasInput" value="#{importSelCert.alias}" style="width:100%"/></f:facet>
+                                    <p:cellEditor >
+                                        <f:facet name="output"><h:outputText value="#{importSelCert.alias}"/></f:facet>
+                                        <f:facet name="input"><p:inputText id="aliasInput" value="#{importSelCert.alias}" style="width:100%" required="true"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">Algorithm</f:facet>
-                                    #{importSelCert.algorithm}
+                                    #{importSelCert.signatureAlgorithm}
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">Key Size</f:facet>
@@ -61,38 +60,11 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton value="JKS Password" type="button" styleClass="add-button" icon="ui-icon-gear" onclick="PF('changePasswordDgl').show();" />
-                                    <p:commandButton id="submit" styleClass="btn btn-primary" value="Import" ajax="true" update=":certTabView:trustStoreForm, importCertTable, importCertErrorMessages" actionListener="#{certificateBean.importCertificate}"/>
+                                    <p:commandButton id="import" value="Import" actionListener="#{certificateBean.openTrustStorePasskeyDlgForImport}" update=":certTabView:trustStoreForm, :importCertDlgForm:importCertTable, importCertDlgForm:importCertErrorMsg"/>
                                 </div>
                             </div>
                         </div>
                     </h:form>
-                </div>
-            </div>
-        </p:dialog>
-    </div>
-
-    <div>
-        <p:dialog id="changePasswordDgl" header="TrustStore Password" widgetVar="changePasswordDgl" modal="true" dynamic="true" closeOnEscape="true">
-            <div class="content">
-                <h3>Remember my password</h3>
-                <div class="form-block center-block">
-                    <h:form id="changePasswordDlgForm" class="form form-horizontal">
-                        <div class="form-group">
-                            <h:outputLabel for="changePassword" class="col-sm-3 control-label" id="changePasswordLbl" value="Password:" />
-                            <div class="col-sm-9">
-                                <p:password id="changePassword" value="#{certificateBean.trustStorePassword}" style="width:100%"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="form-button-row">
-                                    <p:commandButton  id="updatePassword" styleClass="btn btn-primary" value="Update" ajax="true" update="changePassword" actionListener="#{certificateBean.updateTrustStorePassword}" oncomplete="PF('changePasswordDgl').hide();"/>
-                                </div>
-                            </div>
-                        </div>
-                   </h:form>
                 </div>
             </div>
         </p:dialog>

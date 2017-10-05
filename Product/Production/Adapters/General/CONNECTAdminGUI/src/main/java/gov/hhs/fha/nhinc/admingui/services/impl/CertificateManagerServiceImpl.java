@@ -26,16 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.PKCS11_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
-
 import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.PKCS11_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -132,8 +132,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                 while (aliases.hasMoreElements()) {
                     String alias = aliases.nextElement();
                     java.security.cert.Certificate jCert = keystore.getCertificate(alias);
-                    X509Certificate x509 = (X509Certificate) jCert;
-                    Certificate obj = buildCertificate(x509);
+                    Certificate obj = buildCertificate((X509Certificate) jCert);
                     obj.setAlias(alias);
                     obj.setAlgorithm(jCert.getPublicKey().getAlgorithm());
                     certs.add(obj);
@@ -155,6 +154,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         obj.setSubjectKeyID(getSubjectKeyID(x509Cert.getExtensionValue(SUBJECT_KEY_ID)));
         obj.setKeySize(getKeySize(x509Cert));
         obj.setX509Cert(x509Cert);
+        obj.setSignatureAlgorithm(x509Cert.getSigAlgName());
         return obj;
     }
 
@@ -243,32 +243,30 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException
      */
     @Override
-    public void importCertificate(Certificate cert, String password) throws CertificateManagerException {
-        LOG.info("importCertificate -- Begin");
+    public void importCertificate(Certificate cert) throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
-
+        final String passkey = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
         if (storeType == null) {
             LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
 
-        if (StringUtils.isNotBlank(password) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
-            addCertificateToTrustStore(storeType, storeLoc, password, cert);
+        if (StringUtils.isNotBlank(passkey) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
+            addCertificateToTrustStore(storeType, storeLoc, passkey, cert);
         } else {
             LOG.info("importCertificate -- validation failed");
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
                 LOG.error("{} is not defined.", TRUST_STORE_KEY);
             }
-            if (StringUtils.isBlank(password)) {
+            if (StringUtils.isBlank(passkey)) {
                 LOG.error("invalid password");
             }
             if (null == cert) {
                 LOG.error("Certificate is null");
             }
         }
-        LOG.info("importCertificate -- End");
     }
 
     private static void closeFiles(FileInputStream is, FileOutputStream os) {
@@ -284,9 +282,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
     }
 
-    private static boolean addCertificateToTrustStore(String storeType, String storeLoc, String password,
+    private static boolean addCertificateToTrustStore(String storeType, String storeLoc, String passkey,
         Certificate cert) throws CertificateManagerException {
-        LOG.info("addCertificateToTrustStore -- Begin");
         FileInputStream is = null;
         FileOutputStream os = null;
         boolean isImportSuccessful = false;
@@ -295,10 +292,10 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
                 is = new FileInputStream(storeLoc);
             }
-            secretStore.load(is, password.toCharArray());
+            secretStore.load(is, passkey.toCharArray());
             secretStore.setCertificateEntry(cert.getAlias(), cert.getX509Cert());
             os = new FileOutputStream(storeLoc);
-            secretStore.store(os, password.toCharArray());
+            secretStore.store(os, passkey.toCharArray());
             isImportSuccessful = true;
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
             LOG.error("Unable to add the Certifiate: ", ex.getLocalizedMessage(), ex);
@@ -306,7 +303,42 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         } finally {
             closeFiles(is, os);
         }
-        LOG.info("addCertificateToTrustStore -- end");
         return isImportSuccessful;
+    }
+
+    @Override
+    public boolean deleteCertificateFromTrustStore(String alias) throws
+        CertificateManagerException {
+        final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
+        String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
+        final String passkey = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        boolean isDeleteSuccessful = false;
+        try {
+            KeyStore tstore = KeyStore.getInstance(storeType);
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                is = new FileInputStream(storeLoc);
+            }
+            tstore.load(is, passkey.toCharArray());
+            if (tstore.containsAlias(alias)) {
+                tstore.deleteEntry(alias);
+                os = new FileOutputStream(storeLoc);
+                tstore.store(os, passkey.toCharArray());
+                isDeleteSuccessful = true;
+            }
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            LOG.error("Unable to delete the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            closeFiles(is, os);
+        }
+        return isDeleteSuccessful;
+    }
+
+    @Override
+    public boolean validateTrustStorePassKey(String passkey) {
+        return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY).equals(passkey);
     }
 }

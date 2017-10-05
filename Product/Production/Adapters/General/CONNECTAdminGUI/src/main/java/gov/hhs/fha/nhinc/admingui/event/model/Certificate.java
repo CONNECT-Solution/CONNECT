@@ -36,6 +36,7 @@ public class Certificate {
 
     private String alias = "";
     private String algorithm;
+    private String signatureAlgorithm;
     private int keySize;
     private String expirationDate;
     private String serialNumber;
@@ -59,6 +60,14 @@ public class Certificate {
 
     public void setAlgorithm(String algorithm) {
         this.algorithm = algorithm;
+    }
+
+    public String getSignatureAlgorithm() {
+        return signatureAlgorithm;
+    }
+
+    public void setSignatureAlgorithm(String signatureAlgorithm) {
+        this.signatureAlgorithm = signatureAlgorithm;
     }
 
     public int getKeySize() {
