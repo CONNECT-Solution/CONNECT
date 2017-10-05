@@ -44,6 +44,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -51,6 +52,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @ManagedBean(name = "loadTestDataPatientBean")
+@ImportResource("file:${nhinc.properties.dir}/LoadTestDataConfig.xml")
 @SessionScoped
 @Component
 public class LoadTestDataPatientBean {
@@ -71,7 +73,7 @@ public class LoadTestDataPatientBean {
     private LoadTestDataService loadTestDataService;
 
     public LoadTestDataPatientBean() {
-        LOG.debug("Initualize LoadTestDataPatientBean");
+        LOG.debug("Initialize LoadTestDataPatientBean");
         selectedPatient = new Patient();
     }
 

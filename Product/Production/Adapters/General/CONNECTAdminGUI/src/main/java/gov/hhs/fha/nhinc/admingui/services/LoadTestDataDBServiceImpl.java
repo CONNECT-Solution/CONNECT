@@ -24,9 +24,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.hibernate;
+package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.patientdb.dao.PatientDAO;
@@ -37,15 +36,14 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Tran Tang
  */
-@Service
-public class LoadTestDataServiceImpl implements LoadTestDataService {
-    private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataServiceImpl.class);
+
+public class LoadTestDataDBServiceImpl implements LoadTestDataService {
+    private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataDBServiceImpl.class);
     private PatientDAO patientDAO = PatientDAO.getPatientDAOInstance();
     private PersonnameDAO personnameDAO = PersonnameDAO.getPersonnameDAOInstance();
 
