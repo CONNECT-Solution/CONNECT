@@ -35,10 +35,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Tran Tang
+ * @author PVenkatakrishnan
  */
-// @Service(value = "loadDataFileService")
-// @Qualifier("loadDataFileService")
+
 public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataFileServiceImpl.class);
 
