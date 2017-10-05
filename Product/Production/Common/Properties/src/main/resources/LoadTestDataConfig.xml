@@ -19,5 +19,10 @@
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.admingui.services.LoadTestDataDBServiceImpl" id="loadtestdatadatabase" name="loadtestdatadatabase">
         <meta key="impltype" value="database"/>
     </bean>
+
+    <!-- File Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.admingui.services.LoadTestDataFileServiceImpl" id="loadtestdatafile" name="loadtestdatafile">
+        <meta key="impltype" value="file"/>
+    </bean>
     
 </beans>
