@@ -49,46 +49,47 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
 
     @Override
     public List<Patient> getAllPatients() {
-        LOG.info("Service-getAll-patients");
+        LOG.info("LoadTestDataDBServiceImpl Service-getAll-patients");
         return patientDAO.getAll();
     }
 
     @Override
     public boolean deletePatient(Patient patient) {
-        LOG.info("Service-delete-patient");
+        LOG.info("LoadTestDataDBServiceImpl Service-delete-patient");
         return patientDAO.deleteTransaction(patient);
     }
 
     @Override
     public Patient getPatientById(Long id) {
-        LOG.info("Service-getPatient-byID");
+        LOG.info("LoadTestDataDBServiceImpl Service-getPatient-byID");
         return patientDAO.readTransaction(id, false);
     }
 
     @Override
     public boolean savePatient(Patient patient) throws LoadTestDataException {
         boolean actionResult;
-        LOG.info("Service-save-patient");
+        LOG.info("LoadTestDataDBServiceImpl Service-save-patient");
 
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
             if (HelperUtil.isId(patient.getPatientId())) {
-                LOG.debug("update-patient-byID");
+                LOG.debug("LoadTestDataDBServiceImpl update-patient-byID");
                 actionResult = patientDAO.update(patient);
             } else {
-                LOG.debug("create-patient-new-record");
+                LOG.debug("LoadTestDataDBServiceImpl create-patient-new-record");
                 actionResult = patientDAO.create(patient);
             }
 
             for (Personname personnameRecord : patient.getPersonnames()) {
-                LOG.debug("Personname-Patient-patientId: {} ", personnameRecord.getPatient().getPatientId());
+                LOG.debug("LoadTestDataDBServiceImpl Personname-Patient-patientId: {} ",
+                    personnameRecord.getPatient().getPatientId());
 
                 personnameRecord.setPatient(patient);
 
                 if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
-                    LOG.debug("update-personname-byID");
+                    LOG.debug("LoadTestDataDBServiceImpl update-personname-byID");
                     actionResult = personnameDAO.update(personnameRecord);
                 } else {
-                    LOG.debug("create-personname-new-record");
+                    LOG.debug("LoadTestDataDBServiceImpl create-personname-new-record");
                     actionResult = personnameDAO.create(personnameRecord);
                 }
             }
@@ -99,10 +100,11 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
 
         }
         else {
-            throw new LoadTestDataException("Patient-Personname is required when trying to save-patient.");
+            throw new LoadTestDataException(
+                "LoadTestDataDBServiceImpl Patient-Personname is required when trying to save-patient.");
         }
 
-        LOG.info("save-patient: Action-result: {} ", actionResult);
+        LOG.info("LoadTestDataDBServiceImpl save-patient: Action-result: {} ", actionResult);
         return actionResult;
     }
 

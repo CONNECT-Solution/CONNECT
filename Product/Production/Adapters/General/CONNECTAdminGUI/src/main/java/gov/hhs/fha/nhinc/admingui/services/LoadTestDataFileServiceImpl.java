@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -37,24 +39,29 @@ import java.util.List;
  */
 
 public class LoadTestDataFileServiceImpl implements LoadTestDataService {
+    private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataFileServiceImpl.class);
 
     @Override
     public List<Patient> getAllPatients() {
+        LOG.info("LoadTestDataFileServiceImpl Service-getAll-patients");
         return new ArrayList<>();
     }
 
     @Override
     public boolean deletePatient(Patient patient) {
+        LOG.info("LoadTestDataFileServiceImpl Service-delete-patients");
         return false;
     }
 
     @Override
     public Patient getPatientById(Long id) {
+        LOG.info("LoadTestDataFileServiceImpl Service-getPatientById");
         return new Patient();
     }
 
     @Override
     public boolean savePatient(Patient patient) throws LoadTestDataException {
+        LOG.info("LoadTestDataFileServiceImpl Service-savepatient");
         return false;
     }
 
