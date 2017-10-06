@@ -31,8 +31,13 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -58,16 +63,41 @@ import org.springframework.stereotype.Component;
 public class LoadTestDataPatientBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataPatientBean.class);
 
-    private Patient selectedPatient;
+    private String dialogTitle;
+
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
-    private String gender;
-    private long updatePatientId = 0;
-    private String ssn;
     private String prefix;
     private String middleName;
     private String suffix;
+    private Date dateOfBirth;
+    private String gender;
+    private String ssn;
+
+    private String identifierPatientID;
+    private String organizationId;
+
+    private String street1;
+    private String street2;
+    private String city;
+    private String state;
+    private String postal;
+
+    private String phonenumberValue;
+
+    private Patient selectedPatient;
+    private Personname selectedPersonname;
+    private Identifier selectedIdentifier;
+    private Address selectedAddress;
+    private Phonenumber selectedPhonenumber;
+
+    private Patient withPatient;
+    private Personname withPersonname;
+    private Identifier withIdentifier;
+    private Address withAddress;
+    private Phonenumber withPhonenumber;
+
+    private List<Personname> personnameList;
 
     @Autowired
     private LoadTestDataService loadTestDataService;
@@ -85,82 +115,246 @@ public class LoadTestDataPatientBean {
         this.selectedPatient = selectedPatient;
     }
 
-    // DATABASE-METHODS-getAll, delete, save
+    // selected-record
+    public Personname getSelectedPersonname() {
+        return selectedPersonname;
+    }
+
+    public void setSelectedPersonname(Personname selectedPersonname) {
+        this.selectedPersonname = selectedPersonname;
+    }
+
+    public Identifier getSelectedIdentifier() {
+        return selectedIdentifier;
+    }
+
+    public void setSelectedIdentifier(Identifier selectedIdentifier) {
+        this.selectedIdentifier = selectedIdentifier;
+    }
+
+    public Address getSelectedAddress() {
+        return selectedAddress;
+    }
+
+    public void setSelectedAddress(Address selectedAddress) {
+        this.selectedAddress = selectedAddress;
+    }
+
+    public Phonenumber getSelectedPhonenumber() {
+        return selectedPhonenumber;
+    }
+
+    public void setSelectedPhonenumber(Phonenumber selectedPhonenumber) {
+        this.selectedPhonenumber = selectedPhonenumber;
+    }
+
+    // database-methods
+    public List<Phonenumber> getPhonenumbers() {
+        if (isValidPatientId()) {
+            return loadTestDataService.getAllPhonenumbersBy(getPatientId());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean deletePhonenumber() {
+        if (selectedPhonenumber != null) {
+            return loadTestDataService.deletePhonenumber(selectedPhonenumber);
+        } else {
+            addPatientErrorMessages("Phonenumber have to be select to be deleted");
+        }
+        return false;
+    }
+
+    public boolean savePhonenumber() {
+        boolean actionResult = false;
+
+        if (isValidPatientId()) {
+            try {
+                Phonenumber phonenumber = readPhonenumber();
+                phonenumber.setPatient(withPatient);
+                actionResult = loadTestDataService.savePhonenumber(phonenumber);
+
+                if (actionResult) {
+                    addPatientInfoMessages("Save Phonenumber Successful: " + phonenumber.getPhonenumberId());
+                    clearInputsPhonenumbers();
+                }
+            } catch (LoadTestDataException e) {
+                logPatientError("Patient Phonenumber", e);
+            }
+        } else {
+            addPatientErrorMessages("Phonenumber cannot be save: patient does not exist.");
+        }
+        return actionResult;
+    }
+
+    public List<Address> getAddresses() {
+        if (isValidPatientId()) {
+            return loadTestDataService.getAllAddressesBy(getPatientId());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean deleteAddress() {
+        if (selectedAddress != null) {
+            return loadTestDataService.deleteAddress(selectedAddress);
+        } else {
+            addPatientErrorMessages("Address have to be select to be deleted");
+        }
+        return false;
+    }
+
+    public boolean saveAddress() {
+        boolean actionResult = false;
+        if (isValidPatientId()) {
+            try {
+                Address address = readAddress();
+                address.setPatient(withPatient);
+                actionResult = loadTestDataService.saveAddress(address);
+
+                if (actionResult) {
+                    addPatientInfoMessages("Save Address Successful: " + address.getAddressId());
+                    clearInputsAddresses();
+                }
+            } catch (LoadTestDataException e) {
+                logPatientError("Patient Address", e);
+            }
+        } else {
+            addPatientErrorMessages("Address cannot be save: patient does not exist.");
+        }
+
+        return actionResult;
+    }
+
+    public List<Identifier> getIdentifiers() {
+        if (isValidPatientId()) {
+            return loadTestDataService.getAllIdentiersBy(getPatientId());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean deleteIdentifier() {
+        if (selectedIdentifier != null) {
+            return loadTestDataService.deleteIdentifier(selectedIdentifier);
+        } else {
+            addPatientErrorMessages("Identifer have to be select to be deleted");
+        }
+        return false;
+    }
+
+    public boolean saveIdentifier() {
+        boolean actionResult = false;
+
+        if (isValidPatientId()) {
+            try {
+                Identifier identifier = readIdentifier();
+                identifier.setPatient(withPatient);
+                actionResult = loadTestDataService.saveIdentifier(identifier);
+
+                if (actionResult) {
+                    addPatientInfoMessages("Save Identifier Successful: " + identifier.getIdentifierId());
+                    clearInputsIdentifiers();
+                }
+            } catch (LoadTestDataException e) {
+                logPatientError("Patient Idenfier", e);
+            }
+        } else {
+            addPatientErrorMessages("Identifier cannot be save: patient does not exist.");
+        }
+
+        return actionResult;
+    }
+
+    public List<Personname> getPersonnames() {
+        if (isValidPatientId()) {
+            personnameList = loadTestDataService.getAllPersonnamesBy(getPatientId());
+        } else {
+            personnameList = new ArrayList<>();
+        }
+        return personnameList;
+    }
+
+    public boolean deletePersonname() {
+        if (selectedPersonname != null) {
+            if (CollectionUtils.isNotEmpty(personnameList) && personnameList.size() > 1) {
+                LOG.info("deleting-Personname");
+                return loadTestDataService.deletePersonname(selectedPersonname);
+            } else {
+                addPatientErrorMessages("Patient-personname cannot be empty: fail to delete the last record");
+            }
+        } else {
+            addPatientErrorMessages("Personname have to be select to be deleted");
+        }
+        return false;
+    }
+
+    public boolean savePersonname() {
+        boolean actionResult = false;
+        if (isValidPatientId()) {
+            try {
+                Personname personname = readPersonname();
+                personname.setPatient(withPatient);
+                actionResult = loadTestDataService.savePersonname(personname);
+
+                if (actionResult) {
+                    addPatientInfoMessages("Save additional-name Successful: " + personname.getPersonnameId());
+                    clearInputsAdditionalNames();
+                }
+            } catch (LoadTestDataException e) {
+                logPatientError("Patient additional-name", e);
+            }
+        } else {
+            addPatientErrorMessages("Additional-name cannot be save: patient does not exist.");
+        }
+        return actionResult;
+    }
+
+
     public List<Patient> getPatients() {
         return loadTestDataService.getAllPatients();
     }
 
     public boolean deletePatient() {
         if (selectedPatient != null) {
-            LOG.debug("deletePatient() - selectedPatient-ID: {} ", selectedPatient.getPatientId());
             return loadTestDataService.deletePatient(selectedPatient);
         } else {
-            LOG.info("delete-patient required selected-patient");
-            FacesContext.getCurrentInstance().addMessage("patientsListMessages",
-                new FacesMessage(FacesMessage.SEVERITY_WARN, "selecting a patient is required for deleting", ""));
+            addPatientsListMessages("selecting a patient is required for deleting");
         }
         return false;
     }
 
     public void editPatient() {
         if (selectedPatient != null) {
-            LOG.info("selected-patient-for-edit: {}", selectedPatient.getPatientId());
-            selectedPatient = loadTestDataService.getPatientById(selectedPatient.getPatientId());
-            updateBeanFromPatient(selectedPatient);
+            selectedPatient = loadTestDataService.getPatientBy(selectedPatient.getPatientId());
+            updateBeanWithPatient(selectedPatient);
         } else {
-            LOG.info("edit-required a selected-patient.");
+            addPatientErrorMessages("Select a patient for edit.");
         }
     }
 
     public void newPatient() {
-        LOG.info("new-patient clear the form.");
-        clearPatientTab();
+        clearInputsAll();
     }
 
     public boolean savePatient() {
-        boolean actionResult = true;
-
+        boolean actionResult = false;
         try {
-            Patient patient;
-
-            if (HelperUtil.isId(updatePatientId)) {
-                patient = loadTestDataService.getPatientById(updatePatientId);
-                if(patient != null){
-                    patient = updatePatientFromBean(patient);
-                }else{
-                    patient = updatePatientFromBean(new Patient());
-                }
-            } else {
-                patient = updatePatientFromBean(new Patient());
-            }
-
+            Patient patient = readPatient();
             actionResult = loadTestDataService.savePatient(patient);
 
             if (actionResult) {
-                if (!HelperUtil.isId(updatePatientId)) {
-                    clearPatientTab();
-                } else {
-                    FacesContext.getCurrentInstance().addMessage("patientUpdateMessages", new FacesMessage(
-                        FacesMessage.SEVERITY_INFO, "Save Patient Successful: " + patient.getPatientId(), ""));
-                }
+                withPatient = patient;
+                addPatientInfoMessages("Save patient basic-info successful: " + patient.getPatientId());
             }
         } catch (LoadTestDataException e) {
-            actionResult = false;
-            FacesContext.getCurrentInstance().validationFailed();
-            FacesContext.getCurrentInstance().addMessage("patientAddMessages",
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Can not save patient: " + e.getLocalizedMessage(), ""));
-            LOG.error("Error save-patient: {}", e.getLocalizedMessage(), e);
+            logPatientError("patient basic-info", e);
         }
-
         return actionResult;
     }
 
-    // CLEAR-TAB-FORM
-    public String clearPatientTab() {
-        return updateBeanFromPatient(null);
-    }
-
-    // PROPERTIES
+    // bean-property
     public String getFirstName() {
         return firstName;
     }
@@ -229,11 +423,208 @@ public class LoadTestDataPatientBean {
         this.suffix = suffix;
     }
 
-    public Long getPatientId() {
-        return updatePatientId;
+    public String getDialogTitle() {
+        return dialogTitle;
     }
 
-    private Patient updatePatientFromBean(Patient patient) {
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setIdentifierPatientID(String identifierPatientID) {
+        this.identifierPatientID = identifierPatientID;
+    }
+
+    public String getIdentifierPatientID() {
+        return identifierPatientID;
+    }
+
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
+
+    public String getStreet1() {
+        return street1;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public String getStreet2() {
+        return street2;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
+    }
+
+    public String getPostal() {
+        return postal;
+    }
+
+    public void setPhonenumberValue(String phonenumberValue) {
+        this.phonenumberValue = phonenumberValue;
+    }
+
+    public String getPhonenumberValue() {
+        return phonenumberValue;
+    }
+
+    // IDs and isValidId
+    private boolean isValidPatientId() {
+        return withPatient != null && HelperUtil.isId(withPatient.getPatientId());
+    }
+
+    public Long getPatientId() {
+        if (isValidPatientId()) {
+            return withPatient.getPatientId();
+        }
+        return 0L;
+    }
+
+    private boolean isValidPersonnameId() {
+        return withPersonname != null && HelperUtil.isId(withPersonname.getPersonnameId());
+    }
+
+    public Long getPersonnameId() {
+        if (isValidPersonnameId()) {
+            return withPersonname.getPersonnameId();
+        }
+        return 0L;
+    }
+
+    private boolean isValidIdentifierId() {
+        return withIdentifier != null && HelperUtil.isId(withIdentifier.getIdentifierId());
+    }
+
+    public Long getIdentifierId() {
+        if (isValidIdentifierId()) {
+            return withIdentifier.getIdentifierId();
+        }
+        return 0L;
+    }
+
+    private boolean isValidAddressId() {
+        return withAddress != null && HelperUtil.isId(withAddress.getAddressId());
+    }
+
+    public Long getAddressId() {
+        if (isValidAddressId()) {
+            return withAddress.getAddressId();
+        }
+        return 0L;
+    }
+
+    private boolean isValidPhonenumberId() {
+        return withPhonenumber != null && HelperUtil.isId(withPhonenumber.getPhonenumberId());
+    }
+
+    public Long getPhonenumberId() {
+        if (isValidPhonenumberId()) {
+            return withPhonenumber.getPhonenumberId();
+        }
+        return 0L;
+    }
+
+    //read-record
+    private Phonenumber readPhonenumber(){
+        Phonenumber phonenumber;
+        if (isValidPhonenumberId()) {
+            phonenumber = loadTestDataService.getPhonenumberBy(getPhonenumberId());
+            if (phonenumber != null) {
+                phonenumber = updateFromBeanToPhonenumber(phonenumber);
+            } else {
+                phonenumber = updateFromBeanToPhonenumber(new Phonenumber());
+            }
+        } else {
+            phonenumber = updateFromBeanToPhonenumber(new Phonenumber());
+        }
+        return phonenumber;
+    }
+
+    private Address readAddress() {
+        Address address;
+        if (isValidAddressId()) {
+            address = loadTestDataService.getAddressBy(getAddressId());
+            if (address != null) {
+                address = updateFromBeanToAddress(address);
+            } else {
+                address = updateFromBeanToAddress(new Address());
+            }
+        } else {
+            address = updateFromBeanToAddress(new Address());
+        }
+        return address;
+    }
+
+    private Identifier readIdentifier() {
+        Identifier identifier;
+        if (isValidIdentifierId()) {
+            identifier = loadTestDataService.getIdentifierBy(getIdentifierId());
+            if (identifier != null) {
+                identifier = updateFromBeanToIdentifier(identifier);
+            } else {
+                identifier = updateFromBeanToIdentifier(new Identifier());
+            }
+        } else {
+            identifier = updateFromBeanToIdentifier(new Identifier());
+        }
+        return identifier;
+    }
+
+    private Patient readPatient() {
+        Patient patient;
+        if (isValidPatientId()) {
+            patient = loadTestDataService.getPatientBy(getPatientId());
+            if (patient != null) {
+                patient = updateFromBeanToPatient(patient);
+            } else {
+                patient = updateFromBeanToPatient(new Patient());
+            }
+        } else {
+            patient = updateFromBeanToPatient(new Patient());
+        }
+        return patient;
+    }
+
+    private Personname readPersonname() {
+        Personname personname;
+        if (isValidPersonnameId()) {
+            personname = loadTestDataService.getPersonnameBy(getPersonnameId());
+            if (personname != null) {
+                personname = updateFromBeanToPersonname(personname);
+            } else {
+                personname = updateFromBeanToPersonname(new Personname());
+            }
+        } else {
+            personname = updateFromBeanToPersonname(new Personname());
+        }
+        return personname;
+    }
+
+    // bean-entity
+    private Patient updateFromBeanToPatient(Patient patient) {
         patient.setDateOfBirth(HelperUtil.toTimestamp(dateOfBirth));
         patient.setGender(gender);
         patient.setSsn(ssn);
@@ -241,41 +632,174 @@ public class LoadTestDataPatientBean {
         if (CollectionUtils.isEmpty(patient.getPersonnames())) {
             patient.getPersonnames().add(new Personname());
         }
-        Personname personname = patient.getPersonnames().get(0);
+        updateFromBeanToPersonname(patient.getLastPersonname());
+
+        return patient;
+    }
+
+    private String updateBeanWithPatient(Patient patientRecord) {
+        if (patientRecord != null && HelperUtil.isId(patientRecord.getPatientId())) {
+            dialogTitle = "Edit Patient";
+            setDateOfBirth(patientRecord.getDateOfBirth());
+            setGender(patientRecord.getGender());
+            setSsn(patientRecord.getSsn());
+            updateBeanWithPersonname(patientRecord.getLastPersonname());
+            withPatient = patientRecord;
+        } else {
+            dialogTitle = "Create Patient";
+            setDateOfBirth(null);
+            setGender(null);
+            setSsn(null);
+            updateBeanWithPersonname(null);
+            withPatient = null;
+        }
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    private Personname updateFromBeanToPersonname(Personname personname) {
         personname.setFirstName(firstName);
         personname.setLastName(lastName);
         personname.setPrefix(prefix);
         personname.setMiddleName(middleName);
         personname.setSuffix(suffix);
 
-        return patient;
+        return personname;
     }
 
-    private String updateBeanFromPatient(Patient patientRecord) {
-        if (patientRecord != null && HelperUtil.isId(patientRecord.getPatientId())) {
-            setFirstName(patientRecord.getFirstName());
-            setLastName(patientRecord.getLastName());
-            setDateOfBirth(patientRecord.getDateOfBirth());
-            setGender(patientRecord.getGender());
-            setSsn(patientRecord.getSsn());
-            setPrefix(patientRecord.getPrefix());
-            setMiddleName(patientRecord.getMiddleName());
-            setSuffix(patientRecord.getSuffix());
-            updatePatientId = patientRecord.getPatientId();
-            LOG.info("set-patient-bean to record: {}, {}, {}, {}, {}", patientRecord.getPatientId(), firstName,
-                lastName, dateOfBirth, gender);
-        } else {
-            LOG.info("set-patient-bean to empty");
+    private String updateBeanWithPersonname(Personname personname){
+        if(personname != null){
+            setFirstName(personname.getFirstName());
+            setLastName(personname.getLastName());
+            setPrefix(personname.getPrefix());
+            setMiddleName(personname.getMiddleName());
+            setSuffix(personname.getSuffix());
+            withPersonname = personname;
+        }else{
             setFirstName(null);
             setLastName(null);
-            setDateOfBirth(null);
-            setGender(null);
-            setSsn(null);
             setPrefix(null);
             setMiddleName(null);
             setSuffix(null);
-            updatePatientId = 0;
+            withPersonname = null;
         }
+
         return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    private String updateBeanWithIdentifier(Identifier identifier) {
+        if (identifier != null) {
+            setIdentifierPatientID(identifier.getId());
+            setOrganizationId(identifier.getOrganizationId());
+            withIdentifier = identifier;
+        } else {
+            setIdentifierPatientID(null);
+            setOrganizationId(null);
+            withIdentifier = null;
+        }
+
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    private Identifier updateFromBeanToIdentifier(Identifier identifier) {
+        identifier.setId(identifierPatientID);
+        identifier.setOrganizationId(organizationId);
+
+        return identifier;
+    }
+
+    private String updateBeanWithAddress(Address address) {
+        if (address != null) {
+            setStreet1(address.getStreet1());
+            setStreet2(address.getStreet2());
+            setCity(address.getCity());
+            setPostal(address.getPostal());
+            setState(address.getState());
+            withAddress = address;
+        } else {
+            setStreet1(null);
+            setStreet2(null);
+            setCity(null);
+            setPostal(null);
+            setState(null);
+            withAddress = null;
+        }
+
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    private Address updateFromBeanToAddress(Address address) {
+        address.setStreet1(street1);
+        address.setStreet2(street2);
+        address.setCity(city);
+        address.setState(state);
+        address.setPostal(postal);
+
+        return address;
+    }
+
+    private String updateBeanWithPhonenumber(Phonenumber phonenumber) {
+        if (phonenumber != null) {
+            setPhonenumberValue(phonenumber.getValue());
+            withPhonenumber = phonenumber;
+        } else {
+            setPhonenumberValue(null);
+            withPhonenumber = null;
+        }
+
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    private Phonenumber updateFromBeanToPhonenumber(Phonenumber phonenumber) {
+        phonenumber.setValue(phonenumberValue);
+
+        return phonenumber;
+    }
+
+    // clear input forms
+    public String clearInputsAll() {
+        clearInputsBasicInfo();
+        clearInputsAdditionalNames();
+        clearInputsIdentifiers();
+        clearInputsAddresses();
+        clearInputsPhonenumbers();
+        return NavigationConstant.LOAD_TEST_DATA_PAGE;
+    }
+
+    public String clearInputsBasicInfo() {
+        return updateBeanWithPatient(null);
+    }
+
+    public String clearInputsAdditionalNames() {
+        return updateBeanWithPersonname(null);
+    }
+
+    public String clearInputsIdentifiers() {
+        return updateBeanWithIdentifier(null);
+    }
+
+    public String clearInputsAddresses() {
+        return updateBeanWithAddress(null);
+    }
+
+    public String clearInputsPhonenumbers() {
+        return updateBeanWithPhonenumber(null);
+    }
+
+    private static void logPatientError(String logOf, LoadTestDataException e) {
+        FacesContext.getCurrentInstance().validationFailed();
+        addPatientErrorMessages(MessageFormat.format("Cannot save {0}: {1}", logOf, e.getLocalizedMessage()));
+        LOG.error("Error save-{0}: {}", logOf, e.getLocalizedMessage(), e);
+    }
+    // manage-FacesMessage
+    private static void addPatientErrorMessages(String messageText) {
+        HelperUtil.addFacesMessageBy("patientErrorMessages", FacesMessage.SEVERITY_ERROR, messageText);
+    }
+
+    private static void addPatientInfoMessages(String messageText) {
+        HelperUtil.addFacesMessageBy("patientInfoMessages", FacesMessage.SEVERITY_INFO, messageText);
+    }
+
+    private static void addPatientsListMessages(String messageText) {
+        HelperUtil.addFacesMessageBy("patientsListMessages", FacesMessage.SEVERITY_WARN, messageText);
     }
 }

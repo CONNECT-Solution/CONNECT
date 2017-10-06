@@ -46,6 +46,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * Constructor
      */
     private PersonnameDAO() {
+        super(Personname.class);
         LOG.trace("PersonnameDAO - Initialized");
     }
 
@@ -96,7 +97,7 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
             LOG.trace("PersonnameDAO.read() - End");
             return null;
         }
-        Personname foundRecord = super.read(id, Personname.class);
+        Personname foundRecord = super.read(id);
         LOG.trace("PersonnameDAO.read() - End");
         return foundRecord;
     }
@@ -122,12 +123,13 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * @param personnameRecord
      */
     @Override
-    public void delete(Personname personnameRecord) {
+    public boolean delete(Personname personnameRecord) {
         LOG.trace("PersonnameDAO.delete() - Begin");
         if (personnameRecord != null) {
-            super.delete(personnameRecord);
+            return super.delete(personnameRecord);
         }
         LOG.trace("PersonnameDAO.delete() - End");
+        return false;
     }
 
     // =========================
@@ -144,6 +146,6 @@ public class PersonnameDAO extends GenericDAOImpl<Personname> {
      * @return List<Personname>
      */
     public List<Personname> findPatientPersonnames(Long patientId) {
-        return super.findRecords(patientId, Personname.class);
+        return super.findRecords(patientId);
     }
 }

@@ -47,19 +47,23 @@ import org.slf4j.LoggerFactory;
 public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     protected Class<T> entityClass;
-    private static final Logger LOG = LoggerFactory.getLogger(AddressDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GenericDAOImpl.class);
 
     Session session = null;
     Transaction tx = null;
 
+    public GenericDAOImpl(Class<T> entityClass) {
+        this.entityClass = entityClass;
+    }
+
     @Override
-    public boolean create(T t) {
+    public boolean create(T record) {
         boolean result = true;
         try{
             session = getSessionFactory().openSession();
             tx = session.beginTransaction();
             LOG.trace("Inserting Record...");
-            session.persist(t);
+            session.persist(record);
             LOG.trace("Address Inserted seccussfully...");
             tx.commit();
         } catch (HibernateException | NullPointerException e) {
@@ -72,19 +76,19 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             // Flush and close session
             HibernateUtil.closeSession(session, true);
         }
-        LOG.debug("GenericDaoJpaImpl.create() - End");
+        LOG.debug("PatientDB-GenericDAOImp.create() - End");
         return result;
     }
 
     @Override
-    public T read(Object id, Class<T> objectType) {
+    public T read(Object id) {
         List<T> queryList = null;
         T foundRecord = null;
         try {
             session = getSessionFactory().openSession();
             tx = session.beginTransaction();
             LOG.trace("Reading Record...");
-            Criteria aCriteria = session.createCriteria(objectType);
+            Criteria aCriteria = session.createCriteria(entityClass);
             aCriteria.add(Expression.eq("id", id));
             queryList = aCriteria.list();
             if (CollectionUtils.isNotEmpty(queryList)) {
@@ -96,21 +100,21 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             // Flush and close session
             HibernateUtil.closeSession(session, true);
         }
-        LOG.debug("GenericDaoJpaImpl.read() - End");
+        LOG.debug("PatientDB-GenericDAOImp.read() - End");
         return foundRecord;
     }
 
     @Override
-    public boolean update(T t) {
+    public boolean update(T record) {
         boolean result = true;
-        LOG.debug("GenericDaoJpaImpl.update() - Begin");
+        LOG.debug("PatientDB-GenericDAOImp.update() - Begin");
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
             LOG.trace("Updating Record...");
-            session.saveOrUpdate(t);
+            session.saveOrUpdate(record);
             LOG.trace("Patient Updated seccussfully...");
             tx.commit();
         } catch (HibernateException | NullPointerException e) {
@@ -124,37 +128,40 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             HibernateUtil.closeSession(session, true);
         }
 
-        LOG.debug("GenericDaoJpaImpl.update() - End");
+        LOG.debug("PatientDB-GenericDAOImp.update() - End");
         return result;
     }
 
     @Override
-    public void delete(T t) {
+    public boolean delete(T record) {
+        boolean result = true;
         try {
             session = getSessionFactory().openSession();
             LOG.trace("Deleting Record...");
 
             // Delete the Patient record
-            session.delete(t);
+            session.delete(record);
         } catch (HibernateException | NullPointerException e) {
+            result = false;
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             HibernateUtil.closeSession(session, true);
         }
-        LOG.debug("GenericDaoJpaImpl.delete() - End");
+        LOG.debug("PatientDB-GenericDAOImp.delete() - End");
+        return result;
     }
 
     protected SessionFactory getSessionFactory() {
         return HibernateUtilFactory.getHibernateUtilInstance().getSessionFactory();
     }
 
-    public List<T> findRecords(Long patientId, Class entity) {
-        LOG.trace("GenericDAO.findRecords() - Begin");
+    public List<T> findRecords(Long patientId) {
+        LOG.trace("PatientDB-GenericDAOImp.findRecords() - Begin");
         List<T> queryList = new ArrayList<T>();
         if (patientId == null) {
             LOG.trace("-- patientId Parameter is required for the Query --");
-            LOG.trace("GenericDAO.findRecords() - End");
+            LOG.trace("PatientDB-GenericDAOImp.findRecords() - End");
             return queryList;
         }
 
@@ -164,7 +171,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.trace("Reading Record...");
 
             // Build the criteria
-            Criteria aCriteria = session.createCriteria(entity);
+            Criteria aCriteria = session.createCriteria(entityClass);
             aCriteria.add(Expression.eq("patient.patientId", patientId));
             queryList = aCriteria.list();
         } catch (HibernateException | NullPointerException e) {
@@ -181,7 +188,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
                 }
             }
         }
-        LOG.trace("GenericDAO.findRecords() - End");
+        LOG.trace("PatientDB-GenericDAOImp.findRecords() - End");
         return queryList;
     }
 }

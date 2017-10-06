@@ -47,6 +47,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * Constructor
      */
     private PhonenumberDAO() {
+        super(Phonenumber.class);
         LOG.trace("PhonenumberDAO - Initialized");
     }
 
@@ -97,7 +98,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
             LOG.trace("PhonenumberDAO.read() - End");
             return null;
         }
-        Phonenumber foundRecord = super.read(id, Phonenumber.class);
+        Phonenumber foundRecord = super.read(id);
         LOG.trace("PhonenumberDAO.read() - End");
         return foundRecord;
     }
@@ -123,12 +124,13 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * @param phonenumberRecord
      */
     @Override
-    public void delete(Phonenumber phonenumberRecord) {
+    public boolean delete(Phonenumber phonenumberRecord) {
         LOG.trace("PhonenumberDAO.delete() - Begin");
         if (phonenumberRecord != null) {
-            super.delete(phonenumberRecord);
+            return super.delete(phonenumberRecord);
         }
         LOG.trace("PhonenumberDAO.delete() - End");
+        return false;
     }
 
     // =========================
@@ -145,7 +147,7 @@ public class PhonenumberDAO extends GenericDAOImpl<Phonenumber> {
      * @return List<Phonenumber>
      */
     public List<Phonenumber> findPatientPhonenumbers(Long patientId) {
-        return super.findRecords(patientId, Phonenumber.class);
+        return super.findRecords(patientId);
     }
 
 

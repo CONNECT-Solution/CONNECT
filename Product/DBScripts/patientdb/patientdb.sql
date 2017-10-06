@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS patientdb.patient;
 CREATE TABLE patientdb.patient (
   patientId BIGINT NOT NULL AUTO_INCREMENT,
   dateOfBirth DATE NULL,
-  gender CHAR(2) NULL,
+  gender CHAR(10) NULL,
   ssn CHAR(9) NULL,
   PRIMARY KEY (patientId),
   UNIQUE INDEX patientId_UNIQUE (patientId ASC) )

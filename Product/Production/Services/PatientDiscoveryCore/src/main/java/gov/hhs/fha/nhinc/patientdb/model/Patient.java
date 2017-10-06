@@ -380,6 +380,13 @@ public class Patient implements Serializable {
         return "";
     }
 
+    public Personname getLastPersonname() {
+        if (CollectionUtils.isNotEmpty(getPersonnames())) {
+            return getPersonnames().get(nameIndex);
+        }
+        return null;
+    }
+
     public void setPatient(Patient patient) {
         addresses = patient.addresses;
         dateOfBirth = patient.dateOfBirth;
@@ -392,6 +399,7 @@ public class Patient implements Serializable {
     }
 
     public long[] loadAllLazyObjects(boolean allRecords) {
+        nameIndex = CollectionUtils.isNotEmpty(getPersonnames()) ? personnames.size() - 1 : 0;
         return new long[] {
                 patientId, personnames != null ? (long) personnames.size() : 0,
                     // Optional
