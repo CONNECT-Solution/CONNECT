@@ -11,14 +11,6 @@
   <packaging>pom</packaging>
   <modelVersion>4.0.0</modelVersion>
   
-    <properties>
-        <db.host>localhost</db.host>
-        <db.password>nhincpass</db.password>
-        <db.port>3306</db.port>
-        <db.user>nhincuser</db.user>
-        <mysql.root.password>NHIE-Gateway</mysql.root.password>
-    </properties>
-
   <modules>
     <module>jboss7</module>
   </modules>
@@ -488,7 +480,7 @@
       </build>
     </profile>
     <profile>
-	     <id>SBScripts</id>
+	     <id>DB</id>
         <activation>
           <activeByDefault>false</activeByDefault>
         </activation>

@@ -57,6 +57,14 @@ By advancing the adoption of interoperable health IT systems and health informat
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
+        
+        <!-- DB Options -->
+        <db.host>localhost</db.host>
+        <db.password>nhincpass</db.password>
+        <db.port>3306</db.port>
+        <db.user>nhincuser</db.user>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
+        
     </properties>
 
     <scm>

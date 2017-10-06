@@ -15,15 +15,10 @@
         <host>localhost</host>
         <secured.port>8181</secured.port>
         <port>8080</port>
-        <db.host>localhost</db.host>
-        <db.password>nhincpass</db.password>
-        <db.port>3306</db.port>
-        <db.user>nhincuser</db.user>
         <as.username>admin</as.username>
         <as.password>adminadmin</as.password>
         <jmx.host>localhost</jmx.host>
         <jmx.port>9990</jmx.port>
-        <mysql.root.password>NHIE-Gateway</mysql.root.password>
         <wildfly.version>8.2.1.Final</wildfly.version>
         <wildfly.properties.dir>ValidationSuite/target/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main</wildfly.properties.dir>
     </properties>
