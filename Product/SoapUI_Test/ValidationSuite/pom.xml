@@ -14,7 +14,7 @@
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
-    </properties>
+     </properties>
 
     <profiles>
     <profile>
@@ -141,7 +141,7 @@
                                         <artifactItem>
                                             <groupId>mysql</groupId>
                                             <artifactId>mysql-connector-java</artifactId>
-                                            <version>5.1.10</version>
+                                            <version>${mysqldriver.version}</version>
                                             <type>jar</type>
                                         </artifactItem>
                                     </artifactItems>
@@ -237,43 +237,7 @@
                                         </resource>
                                     </resources>
                                 </configuration>
-                            </execution>					
-                        </executions>
-                    </plugin>
-                    <!-- run sql script -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>sql-maven-plugin</artifactId>
-                        <version>1.5</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>mysql</groupId>
-                                <artifactId>mysql-connector-java</artifactId>
-                                <version>5.1.10</version>
-                            </dependency>
-                        </dependencies>
-                        <configuration>
-                            <driver>com.mysql.jdbc.Driver</driver>
-                            <url>jdbc:mysql://${db.host}</url>
-                            <username>root</username>
-                            <password>${mysql.root.password}</password>
-
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <!-- <phase>process-test-classes</phase> -->
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <srcFiles>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
-                                    </srcFiles>
-                                </configuration>
-                            </execution>
+                            </execution>              
                         </executions>
                     </plugin>
                     <plugin>
