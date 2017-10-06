@@ -27,7 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -40,28 +44,125 @@ import org.slf4j.LoggerFactory;
 
 public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataFileServiceImpl.class);
+    private static final String LOG_UNSUPPORT_METHOD = "error: this method currently is unsupported";
 
     @Override
     public List<Patient> getAllPatients() {
-        LOG.info("LoadTestDataFileServiceImpl Service-getAll-patients");
+        LOG.info(LOG_UNSUPPORT_METHOD);
         return new ArrayList<>();
     }
 
     @Override
     public boolean deletePatient(Patient patient) {
-        LOG.info("LoadTestDataFileServiceImpl Service-delete-patients");
+        LOG.info(LOG_UNSUPPORT_METHOD);
         return false;
     }
 
     @Override
-    public Patient getPatientById(Long id) {
-        LOG.info("LoadTestDataFileServiceImpl Service-getPatientById");
+    public Patient getPatientBy(Long id) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
         return new Patient();
     }
 
     @Override
     public boolean savePatient(Patient patient) throws LoadTestDataException {
-        LOG.info("LoadTestDataFileServiceImpl Service-savepatient");
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public List<Personname> getAllPersonnamesBy(Long patientId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Address> getAllAddressesBy(Long patientId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Identifier> getAllIdentiersBy(Long patientId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Phonenumber> getAllPhonenumbersBy(Long patientId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean deletePersonname(Personname personname) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean deleteAddress(Address address) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean deleteIdentifier(Identifier identifier) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean deletePhonenumber(Phonenumber phonenumber) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public Personname getPersonnameBy(Long personnameId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Personname();
+    }
+
+    @Override
+    public Address getAddressBy(Long addressId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Address();
+    }
+
+    @Override
+    public Identifier getIdentifierBy(Long identifierId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Identifier();
+    }
+
+    @Override
+    public Phonenumber getPhonenumberBy(Long phonenumberId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Phonenumber();
+    }
+
+    @Override
+    public boolean savePersonname(Personname personname) throws LoadTestDataException {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean saveAddress(Address address) throws LoadTestDataException {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean saveIdentifier(Identifier identifier) throws LoadTestDataException {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException {
+        LOG.info(LOG_UNSUPPORT_METHOD);
         return false;
     }
 
