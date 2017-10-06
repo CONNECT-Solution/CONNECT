@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
-import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.patientdb.dao.AddressDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.IdentifierDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.PatientDAO;
@@ -38,6 +37,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
+import java.text.MessageFormat;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -75,25 +75,15 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     public boolean savePatient(Patient patient) throws LoadTestDataException {
         boolean actionResult;
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
-            if (HelperUtil.isId(patient.getPatientId())) {
-                actionResult = patientDAO.update(patient);
-            } else {
-                actionResult = patientDAO.create(patient);
-            }
+            actionResult = patientDAO.save(patient);
 
             for (Personname personnameRecord : patient.getPersonnames()) {
                 personnameRecord.setPatient(patient);
-
-                if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
-                    actionResult = personnameDAO.update(personnameRecord);
-                } else {
-                    actionResult = personnameDAO.create(personnameRecord);
-                }
+                actionResult = personnameDAO.save(personnameRecord);
             }
 
             if (!actionResult) {
-                LOG.error("DAO fail to save patient basic-info.");
-                throw new LoadTestDataException("Patient basic-info cannot be save.");
+                logPatientError("Patient basic-info");
             }
         }
         else {
@@ -167,14 +157,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     public boolean savePersonname(Personname personname) throws LoadTestDataException {
         boolean actionResult = false;
         if (personname.getPatient() != null) {
-            if (HelperUtil.isId(personname.getPersonnameId())) {
-                actionResult = personnameDAO.update(personname);
-            } else {
-                actionResult = personnameDAO.create(personname);
-            }
+            actionResult = personnameDAO.save(personname);
             if (!actionResult) {
-                LOG.error("DAO fail to save personname.");
-                throw new LoadTestDataException("Personname fail to save to database.");
+                logPatientError("Personname");
             }
         }
         return actionResult;
@@ -184,14 +169,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     public boolean saveAddress(Address address) throws LoadTestDataException {
         boolean actionResult = false;
         if (address.getPatient() != null) {
-            if (HelperUtil.isId(address.getAddressId())) {
-                actionResult = addressDAO.update(address);
-            } else {
-                actionResult = addressDAO.create(address);
-            }
+            actionResult = addressDAO.save(address);
             if (!actionResult) {
-                LOG.error("DAO fail to save Address.");
-                throw new LoadTestDataException("Address fail to save to database.");
+                logPatientError("Address");
             }
         }
         return actionResult;
@@ -201,14 +181,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     public boolean saveIdentifier(Identifier identifier) throws LoadTestDataException {
         boolean actionResult = false;
         if (identifier.getPatient() != null) {
-            if (HelperUtil.isId(identifier.getIdentifierId())) {
-                actionResult = identifierDAO.update(identifier);
-            } else {
-                actionResult = identifierDAO.create(identifier);
-            }
+            actionResult = identifierDAO.save(identifier);
             if (!actionResult) {
-                LOG.error("DAO fail to save Identifier.");
-                throw new LoadTestDataException("Identifier fail to save to database.");
+                logPatientError("Identifier");
             }
         }
         return actionResult;
@@ -218,16 +193,16 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException {
         boolean actionResult = false;
         if (phonenumber.getPatient() != null) {
-            if (HelperUtil.isId(phonenumber.getPhonenumberId())) {
-                actionResult = phonenumberDAO.update(phonenumber);
-            } else {
-                actionResult = phonenumberDAO.create(phonenumber);
-            }
+            actionResult = phonenumberDAO.save(phonenumber);
             if (!actionResult) {
-                LOG.error("DAO fail to save Phonenumber.");
-                throw new LoadTestDataException("Phonenumber fail to save to database.");
+                logPatientError("Phonenumber");
             }
         }
         return actionResult;
+    }
+
+    private static void logPatientError(String logOf) throws LoadTestDataException {
+        LOG.error("DAO fail to save {}.", logOf);
+        throw new LoadTestDataException(MessageFormat.format("{0} fail to save to database.", logOf));
     }
 }

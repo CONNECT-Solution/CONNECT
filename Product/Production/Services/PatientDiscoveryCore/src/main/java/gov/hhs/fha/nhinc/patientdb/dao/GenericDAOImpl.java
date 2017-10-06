@@ -106,8 +106,14 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     @Override
     public boolean update(T record) {
+        LOG.debug("PatientDB-GenericDAOImp.update() calling save() - Begin");
+        return save(record);
+    }
+
+    @Override
+    public boolean save(T record) {
         boolean result = true;
-        LOG.debug("PatientDB-GenericDAOImp.update() - Begin");
+        LOG.debug("PatientDB-GenericDAOImp.save() - Begin");
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -128,7 +134,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             HibernateUtil.closeSession(session, true);
         }
 
-        LOG.debug("PatientDB-GenericDAOImp.update() - End");
+        LOG.debug("PatientDB-GenericDAOImp.save() - End");
         return result;
     }
 

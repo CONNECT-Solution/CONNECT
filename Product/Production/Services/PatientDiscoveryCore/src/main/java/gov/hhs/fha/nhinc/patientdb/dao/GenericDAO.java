@@ -36,4 +36,6 @@ public interface GenericDAO<T> {
 
     boolean update(T record);
 
+    boolean save(T record);
+
 }
