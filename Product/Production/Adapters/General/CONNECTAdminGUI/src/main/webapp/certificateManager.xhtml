@@ -72,31 +72,31 @@
                                             </p:panelGrid>
                                           </p:panel>
                                           <div class="table-responsive table-props">
-                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="kscert" selection="#{certificateBean.selectedKSCertificate}" rowKey="#{kscert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
                                                   <p:column selectionMode="single" />
                                                   <p:column>
                                                     <f:facet name="header">Alias</f:facet>
-                                                      #{cert.alias}
+                                                      #{kscert.alias}
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Algorithm</f:facet>
-                                                      #{cert.algorithm}
+                                                      #{kscert.algorithm}
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Key Size</f:facet>
-                                                      #{cert.keySize}
+                                                      #{kscert.keySize}
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Expiration Date</f:facet>
-                                                      #{cert.expirationDate}
+                                                      #{kscert.expirationDate}
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Subject Key Identifier</f:facet>
-                                                      #{cert.subjectKeyID}
+                                                      #{kscert.subjectKeyID}
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Authority Key Identifier</f:facet>
-                                                      #{cert.authorityKeyID}
+                                                      #{kscert.authorityKeyID}
                                                   </p:column>
                                                 </p:dataTable>
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
@@ -139,42 +139,41 @@
                                        </p:panelGrid>
                                     </p:panel>
                                     <div class="table-responsive table-props">
-                                      <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="cert" selection="#{certificateBean.selectedCertificate}" rowKey="#{cert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
-                                        <p:column selectionMode="single" />
+                                      <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="tscert" selection="#{certificateBean.selectedTSCertificate}" rowKey="#{tscert.id}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                          <p:column selectionMode="single" />
                                         <p:column>
                                           <f:facet name="header">Alias</f:facet>
-                                                                              #{cert.alias}
+                                                                              #{tscert.alias}
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Algorithm</f:facet>
-                                                                              #{cert.algorithm}
+                                                                              #{tscert.algorithm}
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Key Size</f:facet>
-                                                                              #{cert.keySize}
+                                                                              #{tscert.keySize}
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Expiration Date</f:facet>
-                                                                              #{cert.expirationDate}
+                                                                              #{tscert.expirationDate}
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Subject Key Identifier</f:facet>
-                                                                              #{cert.subjectKeyID}
+                                                                              #{tscert.subjectKeyID}
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Authority Key Identifier</f:facet>
-                                                                              #{cert.authorityKeyID}
+                                                                              #{tscert.authorityKeyID}
                                         </p:column>
                                       </p:dataTable>
                                       <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                         <p:row>
                                             <p:column styleClass="ui-button-rightmost">
-                                                <p:commandButton id="deleteCert" action="#{certificateBean.openTrustStorePasskeyDlgForDelete()}" update=":certTabView" value="Delete Certificate"  styleClass="delete-button pull-right" icon="ui-icon-closethick">
-                                                    <p:confirm header="Confirmation" message="Are you sure you want to delete the selected certificate?" icon="ui-icon-alert" />
+                                                <p:commandButton id="deleteCert"  value="Delete Certificate"  styleClass="delete-button pull-right" icon="ui-icon-closethick" onclick="PF('certDeleteConfirm').show();">
                                                 </p:commandButton>
-                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                                <p:confirmDialog header="Confirm Delete" message="Are you sure you want to delete the selected certificate?" showEffect="fade" hideEffect="fade" widgetVar="certDeleteConfirm">
+                                                    <p:commandButton value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{certificateBean.openTrustStorePasskeyDlgForDelete}" update=":certTabView" oncomplete="PF('certDeleteConfirm').hide();"/>
+                                                    <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('certDeleteConfirm').hide();"/>
                                                 </p:confirmDialog>
                                             </p:column>
                                             <p:column styleClass="ui-button-rightmost">
