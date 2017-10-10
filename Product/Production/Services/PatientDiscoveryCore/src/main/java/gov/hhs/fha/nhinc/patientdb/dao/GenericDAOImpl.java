@@ -58,7 +58,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     @Override
     public boolean create(T record) {
-        boolean result = true;
+        boolean result = false;
         try{
             session = getSessionFactory().openSession();
             tx = session.beginTransaction();
@@ -66,8 +66,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             session.persist(record);
             LOG.trace("Address Inserted seccussfully...");
             tx.commit();
+            result = true;
         } catch (HibernateException | NullPointerException e) {
-            result = false;
             if (tx != null) {
                 tx.rollback();
             }
@@ -112,7 +112,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     @Override
     public boolean save(T record) {
-        boolean result = true;
+        boolean result = false;
         LOG.debug("PatientDB-GenericDAOImp.save() - Begin");
 
         try {
@@ -123,8 +123,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             session.saveOrUpdate(record);
             LOG.trace("Patient Updated seccussfully...");
             tx.commit();
+            result = true;
         } catch (HibernateException | NullPointerException e) {
-            result = false;
             if (tx != null) {
                 tx.rollback();
             }
@@ -140,15 +140,15 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     @Override
     public boolean delete(T record) {
-        boolean result = true;
+        boolean result = false;
         try {
             session = getSessionFactory().openSession();
             LOG.trace("Deleting Record...");
 
             // Delete the Patient record
             session.delete(record);
+            result = true;
         } catch (HibernateException | NullPointerException e) {
-            result = false;
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
