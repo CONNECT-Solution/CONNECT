@@ -63,11 +63,12 @@ public class CertficateBean {
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
     private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
     private static final String IMPORT_PASS_KEY_ERR_MSG = "importPassKeyErrorMsg";
-    private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMessages";
+    private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private UploadedFile importCertFile;
     private Certificate selectedCertificate;
-    private boolean isImportSuccessful;
+    private Certificate selectedTSCertificate;
+    private Certificate selectedKSCertificate;
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
@@ -120,17 +121,25 @@ public class CertficateBean {
         this.importCertificate = importCertificate;
     }
 
-    public boolean isIsImportSuccessful() {
-        return isImportSuccessful;
-    }
-
-    public void setIsImportSuccessful(boolean isImportSuccessful) {
-        this.isImportSuccessful = isImportSuccessful;
-    }
-
     private static boolean isVerifiedTrustStoreUser() {
         Object value = HelperUtil.getHttpSession(false).getAttribute(VERIFIED_TRUSTSTORE_USER);
         return value != null ? (Boolean) value : false;
+    }
+
+    public Certificate getSelectedTSCertificate() {
+        return selectedTSCertificate;
+    }
+
+    public void setSelectedTSCertificate(Certificate selectedTSCertificate) {
+        this.selectedTSCertificate = selectedTSCertificate;
+    }
+
+    public Certificate getSelectedKSCertificate() {
+        return selectedKSCertificate;
+    }
+
+    public void setSelectedKSCertificate(Certificate selectedKSCertificate) {
+        this.selectedKSCertificate = selectedKSCertificate;
     }
 
     public void importFileUpload(FileUploadEvent event) {
@@ -159,8 +168,8 @@ public class CertficateBean {
     }
 
     public void openTrustStorePasskeyDlgForDelete() {
-        if (selectedCertificate == null) {
-            HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to Delete");
+        if (selectedTSCertificate == null) {
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to delete");
         } else if (!isVerifiedTrustStoreUser()) {
             RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').show();");
         } else {
@@ -205,13 +214,16 @@ public class CertficateBean {
 
     private void importSelectedCertificate() {
         LOG.info("importSelectedCertificate");
-        isImportSuccessful = false;
 
         if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
             if (!service.isAliasInUse(selectedCertificate)) {
                 try {
                     service.importCertificate(selectedCertificate);
-                    isImportSuccessful = true;
+                    truststores = service.refreshTrustStores();
+                    importCertFile = null;
+                    importCertificate = null;
+                    selectedCertificate = null;
+                    RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
                     LOG.info("importCertificate -- successful");
                 } catch (CertificateManagerException ex) {
                     LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
@@ -228,20 +240,13 @@ public class CertficateBean {
                 HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Enter an alias for importing certificate");
             }
         }
-        if (isImportSuccessful) {
-            truststores = service.refreshTrustStores();
-            importCertFile = null;
-            importCertificate = null;
-            selectedCertificate = null;
-            RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
-        }
     }
 
     private void deleteCertificate() {
         try {
-            service.deleteCertificateFromTrustStore(selectedCertificate.getAlias());
+            service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias());
             truststores = service.refreshTrustStores();
-            selectedCertificate = null;
+            selectedTSCertificate = null;
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Unable to delete certificate");

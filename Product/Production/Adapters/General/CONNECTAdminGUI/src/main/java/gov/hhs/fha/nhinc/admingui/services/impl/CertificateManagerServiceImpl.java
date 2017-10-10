@@ -107,7 +107,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             bais = new ByteArrayInputStream(data);
             X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
-
             return buildCertificate(cert);
         } catch (CertificateException ex) {
             LOG.error("Unable to extract a valid X509 certificate {}", ex.getLocalizedMessage(), ex);
@@ -128,11 +127,13 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             Enumeration<String> aliases = keystore.aliases();
             if (aliases != null) {
+                long i = 1;
                 certs = new ArrayList<>();
                 while (aliases.hasMoreElements()) {
                     String alias = aliases.nextElement();
                     java.security.cert.Certificate jCert = keystore.getCertificate(alias);
                     Certificate obj = buildCertificate((X509Certificate) jCert);
+                    obj.setId(i++);
                     obj.setAlias(alias);
                     obj.setAlgorithm(jCert.getPublicKey().getAlgorithm());
                     certs.add(obj);

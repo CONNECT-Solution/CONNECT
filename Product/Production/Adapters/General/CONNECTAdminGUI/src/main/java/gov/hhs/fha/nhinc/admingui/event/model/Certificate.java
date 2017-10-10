@@ -34,6 +34,7 @@ import java.security.cert.X509Certificate;
  */
 public class Certificate {
 
+    private long id;
     private String alias = "";
     private String algorithm;
     private String signatureAlgorithm;
@@ -45,6 +46,14 @@ public class Certificate {
     private String authorityKeyID;
     private X509Certificate x509Cert;
     private String validStartDate;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getAlias() {
         return alias;
