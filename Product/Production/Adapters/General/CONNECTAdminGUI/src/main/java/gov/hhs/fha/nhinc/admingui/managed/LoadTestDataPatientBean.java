@@ -156,7 +156,7 @@ public class LoadTestDataPatientBean {
         if (selectedPhonenumber != null) {
             result = loadTestDataService.deletePhonenumber(selectedPhonenumber);
         } else {
-            addPatientErrorMessages(msgForSelected("phonenumber", "delete"));
+            addPatientErrorMessages(msgForSelectDelete("phonenumber"));
         }
         return result;
     }
@@ -192,7 +192,7 @@ public class LoadTestDataPatientBean {
         if (selectedAddress != null) {
             result = loadTestDataService.deleteAddress(selectedAddress);
         } else {
-            addPatientErrorMessages(msgForSelected("address", "delete"));
+            addPatientErrorMessages(msgForSelectDelete("address"));
         }
         return result;
     }
@@ -228,7 +228,7 @@ public class LoadTestDataPatientBean {
         if (selectedIdentifier != null) {
             result = loadTestDataService.deleteIdentifier(selectedIdentifier);
         } else {
-            addPatientErrorMessages(msgForSelected("identifer", "delete"));
+            addPatientErrorMessages(msgForSelectDelete("identifer"));
         }
         return result;
     }
@@ -257,7 +257,8 @@ public class LoadTestDataPatientBean {
     }
 
     public List<Personname> getPersonnames() {
-        return loadTestDataService.getAllPersonnamesBy(getPatientId());
+        personnameList = loadTestDataService.getAllPersonnamesBy(getPatientId());
+        return personnameList;
     }
 
     public boolean deletePersonname() {
@@ -270,7 +271,7 @@ public class LoadTestDataPatientBean {
                 addPatientErrorMessages("Patient-personname cannot be empty: fail to delete the last record");
             }
         } else {
-            addPatientErrorMessages(msgForSelected("additional-name", "delete"));
+            addPatientErrorMessages(msgForSelectDelete("additional-name"));
         }
         return result;
     }
@@ -306,7 +307,7 @@ public class LoadTestDataPatientBean {
         if (selectedPatient != null) {
             result = loadTestDataService.deletePatient(selectedPatient);
         } else {
-            addPatientsListMessages(msgForSelected("patient", "delete"));
+            addPatientsListMessages(msgForSelectDelete("patient"));
         }
         return result;
     }
@@ -316,7 +317,7 @@ public class LoadTestDataPatientBean {
             selectedPatient = loadTestDataService.getPatientBy(selectedPatient.getPatientId());
             updateBeanWithPatient(selectedPatient);
         } else {
-            addPatientErrorMessages(msgForSelected("patient", "edit"));
+            addPatientErrorMessages(msgForSelectEdit("patient"));
         }
     }
 
@@ -785,8 +786,12 @@ public class LoadTestDataPatientBean {
         return MessageFormat.format("Save {0} successful: {1}", ofType, ofId);
     }
 
-    private static String msgForSelected(String ofType, String ofAction) {
-        return MessageFormat.format("Select a {0} for {1}.", ofType, ofAction);
+    private static String msgForSelectEdit(String ofType) {
+        return MessageFormat.format("Select a {0} for edit.", ofType);
+    }
+
+    private static String msgForSelectDelete(String ofType) {
+        return MessageFormat.format("Select a {0} for delete.", ofType);
     }
 
     private static String msgForInvalidPatient(String ofType) {
