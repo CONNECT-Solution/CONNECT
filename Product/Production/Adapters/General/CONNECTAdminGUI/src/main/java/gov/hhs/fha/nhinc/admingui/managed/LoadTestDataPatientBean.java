@@ -61,7 +61,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoadTestDataPatientBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataPatientBean.class);
-
+    private static final String ADDITIONAL_NAME = "Additional-name";
+    private static final String ADDRESS = "Address";
+    private static final String IDENTIFIER = "Identifier";
+    private static final String PHONE_NUMBER = "Phonenumber";
     private String dialogTitle;
 
     private String firstName;
@@ -156,7 +159,7 @@ public class LoadTestDataPatientBean {
         if (selectedPhonenumber != null) {
             result = loadTestDataService.deletePhonenumber(selectedPhonenumber);
         } else {
-            addPatientErrorMessages(msgForSelectDelete("phonenumber"));
+            addPatientErrorMessages(msgForSelectDelete(PHONE_NUMBER));
         }
         return result;
     }
@@ -171,16 +174,29 @@ public class LoadTestDataPatientBean {
                 actionResult = loadTestDataService.savePhonenumber(phonenumber);
 
                 if (actionResult) {
-                    addPatientInfoMessages(msgForSaveSuccess("phonenumber", phonenumber.getPhonenumberId()));
+                    addPatientInfoMessages(msgForSaveSuccess(PHONE_NUMBER, phonenumber.getPhonenumberId()));
                     clearInputsPhonenumbers();
                 }
             } catch (LoadTestDataException e) {
-                logPatientError("Patient Phonenumber", e);
+                logPatientError(PHONE_NUMBER, e);
             }
         } else {
-            addPatientErrorMessages(msgForInvalidPatient("Phonenumber"));
+            addPatientErrorMessages(msgForInvalidPatient(PHONE_NUMBER));
         }
         return actionResult;
+    }
+
+    public void editPhonenumber() {
+        if (selectedPhonenumber != null) {
+            selectedPhonenumber = loadTestDataService.getPhonenumberBy(selectedPhonenumber.getPhonenumberId());
+            updateBeanWithPhonenumber(selectedPhonenumber);
+        } else {
+            addPatientErrorMessages(msgForSelectEdit(PHONE_NUMBER));
+        }
+    }
+
+    public void newPhonenumber() {
+        clearInputsPhonenumbers();
     }
 
     public List<Address> getAddresses() {
@@ -192,7 +208,7 @@ public class LoadTestDataPatientBean {
         if (selectedAddress != null) {
             result = loadTestDataService.deleteAddress(selectedAddress);
         } else {
-            addPatientErrorMessages(msgForSelectDelete("address"));
+            addPatientErrorMessages(msgForSelectDelete(ADDRESS));
         }
         return result;
     }
@@ -206,17 +222,30 @@ public class LoadTestDataPatientBean {
                 actionResult = loadTestDataService.saveAddress(address);
 
                 if (actionResult) {
-                    addPatientInfoMessages(msgForSaveSuccess("address", address.getAddressId()));
+                    addPatientInfoMessages(msgForSaveSuccess(ADDRESS, address.getAddressId()));
                     clearInputsAddresses();
                 }
             } catch (LoadTestDataException e) {
-                logPatientError("Patient Address", e);
+                logPatientError(ADDRESS, e);
             }
         } else {
-            addPatientErrorMessages(msgForInvalidPatient("Address"));
+            addPatientErrorMessages(msgForInvalidPatient(ADDRESS));
         }
 
         return actionResult;
+    }
+
+    public void editAddress() {
+        if (selectedAddress != null) {
+            selectedAddress = loadTestDataService.getAddressBy(selectedAddress.getAddressId());
+            updateBeanWithAddress(selectedAddress);
+        } else {
+            addPatientErrorMessages(msgForSelectEdit(ADDRESS));
+        }
+    }
+
+    public void newAddress() {
+        clearInputsAddresses();
     }
 
     public List<Identifier> getIdentifiers() {
@@ -228,7 +257,7 @@ public class LoadTestDataPatientBean {
         if (selectedIdentifier != null) {
             result = loadTestDataService.deleteIdentifier(selectedIdentifier);
         } else {
-            addPatientErrorMessages(msgForSelectDelete("identifer"));
+            addPatientErrorMessages(msgForSelectDelete(IDENTIFIER));
         }
         return result;
     }
@@ -243,17 +272,30 @@ public class LoadTestDataPatientBean {
                 actionResult = loadTestDataService.saveIdentifier(identifier);
 
                 if (actionResult) {
-                    addPatientInfoMessages(msgForSaveSuccess("identifier", identifier.getIdentifierId()));
+                    addPatientInfoMessages(msgForSaveSuccess(IDENTIFIER, identifier.getIdentifierId()));
                     clearInputsIdentifiers();
                 }
             } catch (LoadTestDataException e) {
-                logPatientError("Patient Idenfier", e);
+                logPatientError(IDENTIFIER, e);
             }
         } else {
-            addPatientErrorMessages(msgForInvalidPatient("Identifier"));
+            addPatientErrorMessages(msgForInvalidPatient(IDENTIFIER));
         }
 
         return actionResult;
+    }
+
+    public void editIdentifier() {
+        if (selectedIdentifier != null) {
+            selectedIdentifier = loadTestDataService.getIdentifierBy(selectedIdentifier.getIdentifierId());
+            updateBeanWithIdentifier(selectedIdentifier);
+        } else {
+            addPatientErrorMessages(msgForSelectEdit(IDENTIFIER));
+        }
+    }
+
+    public void newIdentifier() {
+        clearInputsIdentifiers();
     }
 
     public List<Personname> getPersonnames() {
@@ -265,13 +307,12 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedPersonname != null) {
             if (CollectionUtils.isNotEmpty(personnameList) && personnameList.size() > 1) {
-                LOG.info("deleting-Personname");
                 result = loadTestDataService.deletePersonname(selectedPersonname);
             } else {
                 addPatientErrorMessages("Patient-personname cannot be empty: fail to delete the last record");
             }
         } else {
-            addPatientErrorMessages(msgForSelectDelete("additional-name"));
+            addPatientErrorMessages(msgForSelectDelete(ADDITIONAL_NAME));
         }
         return result;
     }
@@ -285,18 +326,30 @@ public class LoadTestDataPatientBean {
                 actionResult = loadTestDataService.savePersonname(personname);
 
                 if (actionResult) {
-                    addPatientInfoMessages(msgForSaveSuccess("additional-name", personname.getPersonnameId()));
+                    addPatientInfoMessages(msgForSaveSuccess(ADDITIONAL_NAME, personname.getPersonnameId()));
                     clearInputsAdditionalNames();
                 }
             } catch (LoadTestDataException e) {
-                logPatientError("Patient additional-name", e);
+                logPatientError("Personname", e);
             }
         } else {
-            addPatientErrorMessages(msgForInvalidPatient("Additional-name"));
+            addPatientErrorMessages(msgForInvalidPatient(ADDITIONAL_NAME));
         }
         return actionResult;
     }
 
+    public void editPersonname() {
+        if (selectedPersonname != null) {
+            selectedPersonname = loadTestDataService.getPersonnameBy(selectedPersonname.getPersonnameId());
+            updateBeanWithPersonname(selectedPersonname);
+        } else {
+            addPatientErrorMessages(msgForSelectEdit(ADDITIONAL_NAME));
+        }
+    }
+
+    public void newPersonname() {
+        clearInputsAdditionalNames();
+    }
 
     public List<Patient> getPatients() {
         return loadTestDataService.getAllPatients();
@@ -336,7 +389,7 @@ public class LoadTestDataPatientBean {
                 addPatientInfoMessages(msgForSaveSuccess("patient basic-info", patient.getPatientId()));
             }
         } catch (LoadTestDataException e) {
-            logPatientError("patient basic-info", e);
+            logPatientError("basic-info", e);
         }
         return actionResult;
     }
@@ -778,20 +831,20 @@ public class LoadTestDataPatientBean {
 
     private static void logPatientError(String logOf, LoadTestDataException e) {
         FacesContext.getCurrentInstance().validationFailed();
-        addPatientErrorMessages(MessageFormat.format("Cannot save {0}: {1}", logOf, e.getLocalizedMessage()));
-        LOG.error("Error save-{0}: {}", logOf, e.getLocalizedMessage(), e);
+        addPatientErrorMessages(MessageFormat.format("Cannot save patient {0}: {1}", logOf.toLowerCase(), e.getLocalizedMessage()));
+        LOG.error("Error save-patient-{0}: {}", logOf.toLowerCase(), e.getLocalizedMessage(), e);
     }
 
     private static String msgForSaveSuccess(String ofType, Long ofId) {
-        return MessageFormat.format("Save {0} successful: {1}", ofType, ofId);
+        return MessageFormat.format("Save {0} successful: {1}", ofType.toLowerCase(), ofId);
     }
 
     private static String msgForSelectEdit(String ofType) {
-        return MessageFormat.format("Select a {0} for edit.", ofType);
+        return MessageFormat.format("Select a/an {0} for edit.", ofType.toLowerCase());
     }
 
     private static String msgForSelectDelete(String ofType) {
-        return MessageFormat.format("Select a {0} for delete.", ofType);
+        return MessageFormat.format("Select a/an {0} for delete.", ofType.toLowerCase());
     }
 
     private static String msgForInvalidPatient(String ofType) {
