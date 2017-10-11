@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataFileServiceImpl.class);
-    private static final String LOG_UNSUPPORT_METHOD = "error: this method currently is unsupported";
+    private static final String LOG_UNSUPPORT_METHOD = "error: this method is currently unsupported";
 
     @Override
     public List<Patient> getAllPatients() {
