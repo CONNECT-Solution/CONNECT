@@ -46,6 +46,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * Constructor.
      */
     private AddressDAO() {
+        super(Address.class);
         LOG.trace("AddressDAO - Initialized");
     }
 
@@ -91,7 +92,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
             LOG.trace("AddressDAO.read() - End");
             return null;
         }
-        Address foundRecord = super.read(id, Address.class);
+        Address foundRecord = super.read(id);
         LOG.trace("AddressDAO.read() - End");
         return foundRecord;
     }
@@ -117,12 +118,13 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * @param addressRecord
      */
     @Override
-    public void delete(Address addressRecord) {
+    public boolean delete(Address addressRecord) {
         LOG.trace("AddressDAO.delete() - Begin");
         if (addressRecord != null) {
-            super.delete(addressRecord);
+            return super.delete(addressRecord);
         }
         LOG.trace("AddressDAO.delete() - End");
+        return false;
     }
 
     // =========================
@@ -139,7 +141,7 @@ public class AddressDAO extends GenericDAOImpl<Address> {
      * @return List<Address>
      */
     public List<Address> findPatientAddresses(Long patientId) {
-        return super.findRecords(patientId, Address.class);
+        return super.findRecords(patientId);
     }
 
 }

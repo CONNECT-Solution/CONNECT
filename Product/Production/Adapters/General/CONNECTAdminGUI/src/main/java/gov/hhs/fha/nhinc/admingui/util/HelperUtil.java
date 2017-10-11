@@ -34,6 +34,7 @@ import java.util.Map;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
@@ -137,6 +138,10 @@ public class HelperUtil {
 
     public static String decrypt(String strEncrypted) {
         return decryptToKey(strEncrypted, ENCRYPTION_KEY);
+    }
+
+    public static void addFacesMessageBy(String messageId, Severity messageSeverity, String messageText) {
+        FacesContext.getCurrentInstance().addMessage(messageId, new FacesMessage(messageSeverity, messageText, ""));
     }
 }
 

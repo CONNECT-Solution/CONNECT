@@ -66,7 +66,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-button-row">
                                                             <p:commandButton id="newPatient" value="New" actionListener="#{loadTestDataPatientBean.newPatient}" update=":patientSaveDlg" oncomplete="PF('patientSaveDlg').show();"  styleClass="btn btn-primary pull-left" icon="ui-icon-circle-plus" >
-                                                                <p:resetInput target=":createPatientForm" />
+                                                                <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
                                                             </p:commandButton>
                                                         </div>
                                                     </div>
@@ -97,7 +97,7 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-button-row">
                                                             <p:commandButton id="editPatient" value="View/Edit" actionListener="#{loadTestDataPatientBean.editPatient}" update=":patientSaveDlg"  oncomplete="PF('patientSaveDlg').show();" styleClass="edit-button" icon="ui-icon-pencil">
-                                                                <p:resetInput target=":createPatientForm" />
+                                                                <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
                                                             </p:commandButton>
                                                             <p:commandButton update="patientDataTable,patientsListMessages" value="Delete" actionListener="#{loadTestDataPatientBean.deletePatient}" styleClass="delete-button" icon="ui-icon-closethick"/>
                                                         </div>

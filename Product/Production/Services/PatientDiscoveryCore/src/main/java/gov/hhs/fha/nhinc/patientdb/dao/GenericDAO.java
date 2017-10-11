@@ -28,11 +28,14 @@
 package gov.hhs.fha.nhinc.patientdb.dao;
 
 public interface GenericDAO<T> {
-    boolean create(T t);
+    boolean create(T record);
 
-    void delete(T t);
+    boolean delete(T record);
 
-    T read(Object id, Class<T> objectType);
+    T read(Object id);
 
-    boolean update(T t);
+    boolean update(T record);
+
+    boolean save(T record);
+
 }

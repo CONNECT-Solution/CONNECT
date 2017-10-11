@@ -46,6 +46,7 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      * Constructor
      */
     private IdentifierDAO() {
+        super(Identifier.class);
         LOG.trace("IdentifierDAO - Initialized");
     }
 
@@ -98,7 +99,7 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
             LOG.trace("IdentifierDAO.read() - End");
             return null;
         }
-        Identifier foundRecord = super.read(id, Identifier.class);
+        Identifier foundRecord = super.read(id);
         LOG.trace("IdentifierDAO.read() - End");
         return foundRecord;
     }
@@ -125,12 +126,13 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      * @param identifierRecord
      */
     @Override
-    public void delete(Identifier identifierRecord) {
+    public boolean delete(Identifier identifierRecord) {
         LOG.trace("IdentifierDAO.delete() - Begin");
         if (identifierRecord != null) {
-            super.delete(identifierRecord);
+            return super.delete(identifierRecord);
         }
         LOG.trace("IdentifierDAO.delete() - End");
+        return false;
     }
 
 }

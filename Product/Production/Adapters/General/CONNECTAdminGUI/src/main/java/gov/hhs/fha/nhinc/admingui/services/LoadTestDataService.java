@@ -27,7 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import java.util.List;
 
 /**
@@ -37,10 +41,42 @@ import java.util.List;
 public interface LoadTestDataService {
     public List<Patient> getAllPatients();
 
+    public List<Personname> getAllPersonnamesBy(Long patientId);
+
+    public List<Address> getAllAddressesBy(Long patientId);
+
+    public List<Identifier> getAllIdentiersBy(Long patientId);
+
+    public List<Phonenumber> getAllPhonenumbersBy(Long patientId);
+
     public boolean deletePatient(Patient patient);
 
-    public Patient getPatientById(Long id);
+    public boolean deletePersonname(Personname personname);
+
+    public boolean deleteAddress(Address address);
+
+    public boolean deleteIdentifier(Identifier identifier);
+
+    public boolean deletePhonenumber(Phonenumber phonenumber);
+
+    public Patient getPatientBy(Long patientId);
+
+    public Personname getPersonnameBy(Long personnameId);
+
+    public Address getAddressBy(Long addressId);
+
+    public Identifier getIdentifierBy(Long identifierId);
+
+    public Phonenumber getPhonenumberBy(Long phonenumberId);
 
     public boolean savePatient(Patient patient) throws LoadTestDataException;
+
+    public boolean savePersonname(Personname personname) throws LoadTestDataException;
+
+    public boolean saveAddress(Address address) throws LoadTestDataException;
+
+    public boolean saveIdentifier(Identifier identifier) throws LoadTestDataException;
+
+    public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException;
 
 }

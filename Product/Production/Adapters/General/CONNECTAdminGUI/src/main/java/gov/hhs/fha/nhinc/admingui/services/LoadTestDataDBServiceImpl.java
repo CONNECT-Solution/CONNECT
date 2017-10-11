@@ -27,11 +27,17 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
-import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.patientdb.dao.AddressDAO;
+import gov.hhs.fha.nhinc.patientdb.dao.IdentifierDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.PatientDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.PersonnameDAO;
+import gov.hhs.fha.nhinc.patientdb.dao.PhonenumberDAO;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
+import java.text.MessageFormat;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -46,66 +52,157 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataDBServiceImpl.class);
     private PatientDAO patientDAO = PatientDAO.getPatientDAOInstance();
     private PersonnameDAO personnameDAO = PersonnameDAO.getPersonnameDAOInstance();
+    private IdentifierDAO identifierDAO = IdentifierDAO.getIdentifierDAOInstance();
+    private AddressDAO addressDAO = AddressDAO.getAddressDAOInstance();
+    private PhonenumberDAO phonenumberDAO = PhonenumberDAO.getPhonenumberDAOInstance();
 
     @Override
     public List<Patient> getAllPatients() {
-        LOG.info("LoadTestDataDBServiceImpl Service-getAll-patients");
         return patientDAO.getAll();
     }
 
     @Override
     public boolean deletePatient(Patient patient) {
-        LOG.info("LoadTestDataDBServiceImpl Service-delete-patient");
         return patientDAO.deleteTransaction(patient);
     }
 
     @Override
-    public Patient getPatientById(Long id) {
-        LOG.info("LoadTestDataDBServiceImpl Service-getPatient-byID");
+    public Patient getPatientBy(Long id) {
         return patientDAO.readTransaction(id, false);
     }
 
     @Override
     public boolean savePatient(Patient patient) throws LoadTestDataException {
         boolean actionResult;
-        LOG.info("LoadTestDataDBServiceImpl Service-save-patient");
-
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
-            if (HelperUtil.isId(patient.getPatientId())) {
-                LOG.debug("LoadTestDataDBServiceImpl update-patient-byID");
-                actionResult = patientDAO.update(patient);
-            } else {
-                LOG.debug("LoadTestDataDBServiceImpl create-patient-new-record");
-                actionResult = patientDAO.create(patient);
-            }
+            actionResult = patientDAO.save(patient);
 
             for (Personname personnameRecord : patient.getPersonnames()) {
-                LOG.debug("LoadTestDataDBServiceImpl Personname-Patient-patientId: {} ",
-                    personnameRecord.getPatient().getPatientId());
-
                 personnameRecord.setPatient(patient);
-
-                if (HelperUtil.isId(personnameRecord.getPersonnameId())) {
-                    LOG.debug("LoadTestDataDBServiceImpl update-personname-byID");
-                    actionResult = personnameDAO.update(personnameRecord);
-                } else {
-                    LOG.debug("LoadTestDataDBServiceImpl create-personname-new-record");
-                    actionResult = personnameDAO.create(personnameRecord);
-                }
+                actionResult = personnameDAO.save(personnameRecord);
             }
 
             if (!actionResult) {
-                throw new LoadTestDataException("Patient cannot be save.");
+                logPatientError("Patient basic-info");
             }
-
         }
         else {
-            throw new LoadTestDataException(
-                "LoadTestDataDBServiceImpl Patient-Personname is required when trying to save-patient.");
+            LOG.info("Patient basic-info is required");
+            throw new LoadTestDataException("Patient basic-info is required when trying to save-patient.");
         }
-
-        LOG.info("LoadTestDataDBServiceImpl save-patient: Action-result: {} ", actionResult);
         return actionResult;
     }
 
+    @Override
+    public List<Personname> getAllPersonnamesBy(Long patientId) {
+        return personnameDAO.findRecords(patientId);
+    }
+
+    @Override
+    public List<Address> getAllAddressesBy(Long patientId) {
+        return addressDAO.findRecords(patientId);
+    }
+
+    @Override
+    public List<Identifier> getAllIdentiersBy(Long patientId) {
+        return identifierDAO.findRecords(patientId);
+    }
+
+    @Override
+    public List<Phonenumber> getAllPhonenumbersBy(Long patientId) {
+        return phonenumberDAO.findRecords(patientId);
+    }
+
+    @Override
+    public boolean deletePersonname(Personname personname) {
+        return personnameDAO.delete(personname);
+    }
+
+    @Override
+    public boolean deleteAddress(Address address) {
+        return addressDAO.delete(address);
+    }
+
+    @Override
+    public boolean deleteIdentifier(Identifier identifier) {
+        return identifierDAO.delete(identifier);
+    }
+
+    @Override
+    public boolean deletePhonenumber(Phonenumber phonenumber) {
+        return phonenumberDAO.delete(phonenumber);
+    }
+
+    @Override
+    public Personname getPersonnameBy(Long personnameId) {
+        return personnameDAO.read(personnameId);
+    }
+
+    @Override
+    public Address getAddressBy(Long addressId) {
+        return addressDAO.read(addressId);
+    }
+
+    @Override
+    public Identifier getIdentifierBy(Long identifierId) {
+        return identifierDAO.read(identifierId);
+    }
+
+    @Override
+    public Phonenumber getPhonenumberBy(Long phonenumberId) {
+        return phonenumberDAO.read(phonenumberId);
+    }
+
+    @Override
+    public boolean savePersonname(Personname personname) throws LoadTestDataException {
+        boolean actionResult = false;
+        if (personname.getPatient() != null) {
+            actionResult = personnameDAO.save(personname);
+            if (!actionResult) {
+                logPatientError("Personname");
+            }
+        }
+        return actionResult;
+    }
+
+    @Override
+    public boolean saveAddress(Address address) throws LoadTestDataException {
+        boolean actionResult = false;
+        if (address.getPatient() != null) {
+            actionResult = addressDAO.save(address);
+            if (!actionResult) {
+                logPatientError("Address");
+            }
+        }
+        return actionResult;
+    }
+
+    @Override
+    public boolean saveIdentifier(Identifier identifier) throws LoadTestDataException {
+        boolean actionResult = false;
+        if (identifier.getPatient() != null) {
+            actionResult = identifierDAO.save(identifier);
+            if (!actionResult) {
+                logPatientError("Identifier");
+            }
+        }
+        return actionResult;
+    }
+
+    @Override
+    public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException {
+        boolean actionResult = false;
+        if (phonenumber.getPatient() != null) {
+            actionResult = phonenumberDAO.save(phonenumber);
+            if (!actionResult) {
+                logPatientError("Phonenumber");
+            }
+        }
+        return actionResult;
+    }
+
+    private static void logPatientError(String logOf) throws LoadTestDataException {
+        LOG.error("DAO fail to save {}.", logOf);
+        throw new LoadTestDataException(MessageFormat.format("{0} fail to save to database.", logOf));
+    }
 }

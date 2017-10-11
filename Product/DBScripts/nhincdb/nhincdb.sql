@@ -385,7 +385,7 @@ CREATE DATABASE IF NOT EXISTS patientdb;
 CREATE TABLE IF NOT EXISTS patientdb.patient (
     patientId BIGINT NOT NULL AUTO_INCREMENT,
     dateOfBirth DATE NULL,
-    gender CHAR(2) NULL,
+    gender CHAR(10) NULL,
     ssn CHAR(9) NULL,
     PRIMARY KEY (patientId),
     UNIQUE INDEX patientId_UNIQUE (patientId ASC)
