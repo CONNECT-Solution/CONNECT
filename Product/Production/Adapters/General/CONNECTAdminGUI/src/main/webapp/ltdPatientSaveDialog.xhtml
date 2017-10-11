@@ -64,7 +64,7 @@
                                     <div class="col-sm-9">
                                         <p:calendar id="inputDateOfBirth" value="#{loadTestDataPatientBean.dateOfBirth}"
                                             showOn="button" pattern="MM/dd/yyyy" required="true"
-                                            requiredMessage="Date Of Birth Required" />
+                                            requiredMessage="Date Of Birth Required." />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -147,6 +147,11 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="newPersonname" value="New" immediate="true"
+                                                actionListener="#{loadTestDataPatientBean.newPersonname}"
+                                                update="createFormAdditionalName" styleClass="edit-button">
+                                                <p:resetInput target=":patientAccordionPanel:createFormAdditionalName" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="inputAddFirstName, inputAddLastName, inputAddPrefix, inputAddMiddleName, inputAddSuffix, :patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :patientTabview:patientsList:patientDataTable"
                                                 value="Save" action="#{loadTestDataPatientBean.savePersonname()}"
@@ -184,6 +189,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="editPersonname" value="Edit"
+                                                actionListener="#{loadTestDataPatientBean.editPersonname}"
+                                                update=":patientAccordionPanel:createFormAdditionalName"
+                                                styleClass="edit-button" icon="ui-icon-pencil">
+                                                <p:resetInput target=":patientAccordionPanel:createFormAdditionalName" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="personnameDataTable, :patientErrorMessages, :patientInfoMessages, :patientTabview:patientsList:patientDataTable"
                                                 actionListener="#{loadTestDataPatientBean.deletePersonname}"
@@ -221,6 +232,11 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="newIdentifier" value="New" immediate="true"
+                                                actionListener="#{loadTestDataPatientBean.newIdentifier}"
+                                                update="createFormIdentifier" styleClass="edit-button">
+                                                <p:resetInput target=":patientAccordionPanel:createFormIdentifier" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="inputAssigningAuthority, inputIdentifierPatientID, :patientAccordionPanel:deleteFormIdentifier:identifiersDataTable"
                                                 value="Save" action="#{loadTestDataPatientBean.saveIdentifier()}"
@@ -249,6 +265,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="editIdentifier" value="Edit"
+                                                actionListener="#{loadTestDataPatientBean.editIdentifier}"
+                                                update=":patientAccordionPanel:createFormIdentifier"
+                                                styleClass="edit-button" icon="ui-icon-pencil">
+                                                <p:resetInput target=":patientAccordionPanel:createFormIdentifier" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="identifiersDataTable :patientErrorMessages, :patientInfoMessages"
                                                 actionListener="#{loadTestDataPatientBean.deleteIdentifier}"
@@ -311,7 +333,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
-                                            <p:commandButton id="submitPersonname"
+                                            <p:commandButton id="newAddress" value="New" immediate="true"
+                                                actionListener="#{loadTestDataPatientBean.newAddress}"
+                                                update="createFormAddress" styleClass="edit-button">
+                                                <p:resetInput target=":patientAccordionPanel:createFormAddress" />
+                                            </p:commandButton>
+                                            <p:commandButton id="submitAddress"
                                                 update="inputStreetOne, inputStreetTwo, inputState, inputCity, inputPostal, :patientAccordionPanel:deleteFormAddress:addressesDataTable"
                                                 value="Save" action="#{loadTestDataPatientBean.saveAddress()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
@@ -345,6 +372,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="editAddress" value="Edit"
+                                                actionListener="#{loadTestDataPatientBean.editAddress}"
+                                                update=":patientAccordionPanel:createFormAddress"
+                                                styleClass="edit-button" icon="ui-icon-pencil">
+                                                <p:resetInput target=":patientAccordionPanel:createFormAddress" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="addressesDataTable :patientErrorMessages, :patientInfoMessages"
                                                 actionListener="#{loadTestDataPatientBean.deleteAddress}" value="Delete"
@@ -372,6 +405,11 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="newPhonenumber" value="New" immediate="true"
+                                                actionListener="#{loadTestDataPatientBean.newPhonenumber}"
+                                                update="inputPhonenumber" styleClass="edit-button">
+                                                <p:resetInput target=":patientAccordionPanel:createFormPhonenumber" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="inputPhonenumber, :patientAccordionPanel:deleteFormPhonenumber:phonenumbersDataTable"
                                                 value="Save" action="#{loadTestDataPatientBean.savePhonenumber()}"
@@ -397,6 +435,12 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
+                                            <p:commandButton id="editPhonenumber" value="Edit"
+                                                actionListener="#{loadTestDataPatientBean.editPhonenumber}"
+                                                update=":patientAccordionPanel:createFormPhonenumber"
+                                                styleClass="edit-button" icon="ui-icon-pencil">
+                                                <p:resetInput target=":patientAccordionPanel:createFormPhonenumber" />
+                                            </p:commandButton>
                                             <p:commandButton
                                                 update="phonenumbersDataTable, :patientErrorMessages, :patientInfoMessages"
                                                 actionListener="#{loadTestDataPatientBean.deletePhonenumber}"
