@@ -74,7 +74,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            HibernateUtil.closeSession(session, false);
         }
         LOG.debug("PatientDB-GenericDAOImp.create() - End");
         return result;
@@ -90,7 +90,6 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         T foundRecord = null;
         try {
             session = getSessionFactory().openSession();
-            tx = session.beginTransaction();
             LOG.trace("Reading Record...");
             Criteria aCriteria = session.createCriteria(entityClass);
             aCriteria.add(Expression.eq(idColumn, id));
@@ -135,7 +134,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during update caused by : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            HibernateUtil.closeSession(session, false);
         }
 
         LOG.debug("PatientDB-GenericDAOImp.save() - End");
@@ -188,15 +187,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            if (session != null) {
-                try {
-                    session.flush();
-                    session.close();
-                } catch (HibernateException e) {
-                    LOG.error("Exception while closing the session after looking for patient records: {}",
-                        e.getMessage(), e);
-                }
-            }
+            HibernateUtil.closeSession(session, true);
         }
         LOG.trace("PatientDB-GenericDAOImp.findRecords() - End");
         return queryList;

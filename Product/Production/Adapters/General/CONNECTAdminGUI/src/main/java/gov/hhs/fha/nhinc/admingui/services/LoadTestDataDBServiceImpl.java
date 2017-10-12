@@ -77,9 +77,11 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
             actionResult = patientDAO.save(patient);
 
-            for (Personname personnameRecord : patient.getPersonnames()) {
-                personnameRecord.setPatient(patient);
-                actionResult = personnameDAO.save(personnameRecord);
+            if (actionResult) {
+                for (Personname personnameRecord : patient.getPersonnames()) {
+                    personnameRecord.setPatient(patient);
+                    actionResult = personnameDAO.save(personnameRecord);
+                }
             }
 
             if (!actionResult) {
