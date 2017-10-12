@@ -82,6 +82,10 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     @Override
     public T read(Object id) {
+        return readBy(id, "id");
+    }
+
+    public T readBy(Object id, String idColumn) {
         List<T> queryList = null;
         T foundRecord = null;
         try {
@@ -89,7 +93,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             tx = session.beginTransaction();
             LOG.trace("Reading Record...");
             Criteria aCriteria = session.createCriteria(entityClass);
-            aCriteria.add(Expression.eq("id", id));
+            aCriteria.add(Expression.eq(idColumn, id));
             queryList = aCriteria.list();
             if (CollectionUtils.isNotEmpty(queryList)) {
                 foundRecord = queryList.get(0);

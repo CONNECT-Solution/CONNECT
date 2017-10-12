@@ -93,14 +93,14 @@ public class IdentifierDAO extends GenericDAOImpl<Identifier> {
      * @return Identifier
      */
     public Identifier read(Long id) {
-        LOG.trace("IdentifierDAO.read() - Begin");
+        LOG.trace("IdentifierDAO.read() - readBy() - Begin");
         if (id == null) {
             LOG.trace("-- id Parameter is required for Identifier Query --");
-            LOG.trace("IdentifierDAO.read() - End");
+            LOG.trace("IdentifierDAO.read() - readBy() - End");
             return null;
         }
-        Identifier foundRecord = super.read(id);
-        LOG.trace("IdentifierDAO.read() - End");
+        Identifier foundRecord = super.readBy(id,"identifierId");
+        LOG.trace("IdentifierDAO.read() - readBy() - End");
         return foundRecord;
     }
 
