@@ -292,7 +292,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
@@ -773,7 +773,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
@@ -1251,7 +1251,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
@@ -1740,7 +1740,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
@@ -2261,7 +2261,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
@@ -2701,7 +2701,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
@@ -3137,7 +3137,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
                <!--Optional:-->
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
                <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <!--Optional:-->
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <!--Optional:-->
