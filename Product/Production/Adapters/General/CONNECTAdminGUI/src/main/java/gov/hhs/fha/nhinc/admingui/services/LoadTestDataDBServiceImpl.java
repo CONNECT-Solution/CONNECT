@@ -75,14 +75,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     public boolean savePatient(Patient patient) throws LoadTestDataException {
         boolean actionResult;
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
-            actionResult = patientDAO.save(patient);
-
-            if (actionResult) {
-                for (Personname personnameRecord : patient.getPersonnames()) {
-                    personnameRecord.setPatient(patient);
-                    actionResult = personnameDAO.save(personnameRecord);
-                }
-            }
+            actionResult = patientDAO.saveTransaction(patient);
 
             if (!actionResult) {
                 logPatientError("Patient basic-info");

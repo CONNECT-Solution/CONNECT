@@ -488,7 +488,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
         Session session = null;
         Transaction tx = null;
-        boolean result = true;
+        boolean result = false;
 
         try {
             LOG.info("Read patient-records for delete");
@@ -516,19 +516,48 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
                 session.delete(deletePatient);
                 tx.commit();
+                result = true;
                 LOG.debug("Patient had been deleted: {}", deletePatient.getPatientId());
 
-            } else {
-                result = false;
             }
         } catch (HibernateException | NullPointerException e) {
-            result = false;
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
             HibernateUtil.closeSession(session, true);
         }
         LOG.trace("PatientDAO.deleteTransaction() - End");
+        return result;
+    }
+
+    public boolean saveTransaction(Patient patient) {
+        LOG.trace("PatientDAO.saveTransaction() -- begin");
+
+        Session session = null;
+        Transaction tx = null;
+        boolean result = false;
+
+        try {
+            if (patient != null) {
+                session = getSessionFactory().openSession();
+                tx = session.beginTransaction();
+                session.saveOrUpdate(patient);
+                session.flush();
+
+                for (Personname personnameRec : patient.getPersonnames()) {
+                    personnameRec.setPatient(patient);
+                    session.saveOrUpdate(personnameRec);
+                }
+                tx.commit();
+                result = true;
+            }
+        } catch (HibernateException | NullPointerException e) {
+            LOG.error("Exception during save patient occured due to : {}", e.getMessage(), e);
+        } finally {
+            // Flush and close session
+            HibernateUtil.closeSession(session, true);
+        }
+        LOG.trace("PatientDAO.saveTransaction() - End");
         return result;
     }
 
