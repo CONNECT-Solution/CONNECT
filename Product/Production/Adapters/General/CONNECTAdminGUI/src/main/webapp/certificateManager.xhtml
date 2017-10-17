@@ -72,7 +72,7 @@
                                             </p:panelGrid>
                                           </p:panel>
                                           <div class="table-responsive table-props">
-                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="kscert" selection="#{certificateBean.selectedKSCertificate}" rowKey="#{kscert.alias}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="kscert" selection="#{certificateBean.selectedKSCertificate}" rowKey="#{kscert.alias}" widgetVar="cellPropsk" sortMode="Single" styleClass="table table-striped table-domains">
                                                   <p:column selectionMode="single" />
                                                   <p:column>
                                                     <f:facet name="header">Alias</f:facet>
@@ -139,7 +139,7 @@
                                        </p:panelGrid>
                                     </p:panel>
                                     <div class="table-responsive table-props">
-                                      <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="tscert" selection="#{certificateBean.selectedTSCertificate}" rowKey="#{tscert.id}" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                      <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="tscert" selection="#{certificateBean.selectedTSCertificate}" rowKey="#{tscert.id}" widgetVar="cellPropst" sortMode="Single" styleClass="table table-striped table-domains">
                                           <p:column selectionMode="single" />
                                         <p:column>
                                           <f:facet name="header">Alias</f:facet>
