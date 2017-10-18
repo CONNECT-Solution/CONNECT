@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
@@ -78,5 +80,21 @@ public interface LoadTestDataService {
     public boolean saveIdentifier(Identifier identifier) throws LoadTestDataException;
 
     public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException;
+
+    public List<Document> getAllDocuments();
+
+    public List<EventCode> getAllEventCodesBy(Long documentId);
+
+    public boolean deleteDocument(Document document);
+
+    public boolean deleteEventCode(EventCode eventCode);
+
+    public Document getDocumentBy(Long documentId);
+
+    public EventCode getEventCodeBy(Long eventCodeId);
+
+    public boolean saveDocument(Document document) throws LoadTestDataException;
+
+    public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException;
 
 }

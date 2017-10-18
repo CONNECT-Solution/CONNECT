@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.admingui.util;
 
 import com.google.gson.Gson;
+import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -142,6 +145,25 @@ public class HelperUtil {
 
     public static void addFacesMessageBy(String messageId, Severity messageSeverity, String messageText) {
         FacesContext.getCurrentInstance().addMessage(messageId, new FacesMessage(messageSeverity, messageText, ""));
+    }
+
+    public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
+        String formatValue = "{0}^^^&{1}&ISO";
+        String formatDisplay = "{0} {1}^^^&{2}&ISO";
+
+        Map<String, String> listPatientId = new HashMap<>();
+        listPatientId.put(formatDisplay, formatValue);
+        for (Patient rec : listPatient) {
+            if(rec.getLastIdentifier() != null){
+                listPatientId.put(
+                    MessageFormat.format(formatDisplay, rec.getFirstName(), rec.getLastName(),
+                        rec.getLastIdentifier().getOrganizationId()),
+                    MessageFormat.format(formatValue, rec.getLastIdentifier().getId(),
+                        rec.getLastIdentifier().getOrganizationId()));
+            }
+        }
+
+        return listPatientId;
     }
 }
 

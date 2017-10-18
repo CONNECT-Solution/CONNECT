@@ -29,100 +29,204 @@
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
 
-    <head>
-        <title>Admin GUI Load Test Data</title>
-        <link rel="icon" type="image/ico" href="/images/favicon-admingui.ico"/>
-    </head>
+<head>
+<title>Admin GUI Load Test Data</title>
+<link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
+</head>
 
-    <h:body>
-        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
-            <ui:define name="metatag"></ui:define>
-            <ui:define name="content">
-                <h1 class="section-header">Test Data</h1>
-                <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-                <p:tabView id="patientTabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.loadTestDataTabIndex}" styleClass="tabs-override tabs-ovr-blue">
-                    <p:ajax event="tabChange" listener="#{tabBean.onLoadTestDataTabChange}" />
-                    <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-                    <div class="tab-content">
-                        <!-- BEGIN: TAB-PANE-BLOCK -->
-                        <p:tab id="#{tabBean.LTDPATIENTTAB}" title="Patient" closable="false">
-                            <div class="tab-pane active" id="patients">
+<h:body>
+    <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+        <ui:define name="metatag"></ui:define>
+        <ui:define name="content">
+            <h1 class="section-header">Test Data</h1>
+            <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+            <p:tabView id="testdataTabview" effect="fade" effectDuration="normal" dynamic="true"
+                activeIndex="#{tabBean.loadTestDataTabIndex}" styleClass="tabs-override tabs-ovr-blue">
+                <p:ajax event="tabChange" listener="#{tabBean.onLoadTestDataTabChange}" />
+                <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                <div class="tab-content">
+                    <!-- BEGIN: TAB-PANE-BLOCK -->
+                    <p:tab id="#{tabBean.LTDPATIENTTAB}" title="Patient" closable="false">
+                        <div class="tab-pane active" id="patients">
 
-                                <!-- BEGIN: LISTING-BLOCK -->
-                                <div class="content-block">
-                                    <h2 class="subsection-header">Manage Patients</h2>
-                                    <div class="content">
-                                        <div class="form-block center-block">
-                                            <h:form id="patientsList" class="form-horizontal">
-                                                <p:messages id="patientsListMessages" redisplay="false" autoUpdate="true" closable="true" severity="warning" />
+                            <!-- BEGIN: LISTING-BLOCK -->
+                            <div class="content-block">
+                                <h2 class="subsection-header">Manage Patients</h2>
+                                <div class="content">
+                                    <div class="form-block center-block">
+                                        <h:form id="patientsList" class="form-horizontal">
+                                            <p:messages id="patientsListMessages" redisplay="false" autoUpdate="true"
+                                                closable="true" severity="warning" />
 
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-button-row">
-                                                            <p:commandButton id="newPatient" value="New" actionListener="#{loadTestDataPatientBean.newPatient}" update=":patientSaveDlg" oncomplete="PF('patientSaveDlg').show();"  styleClass="btn btn-primary pull-left" icon="ui-icon-circle-plus" >
-                                                                <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
-                                                            </p:commandButton>
-                                                        </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <p:commandButton id="newPatient" value="New"
+                                                            actionListener="#{loadTestDataPatientBean.newPatient}"
+                                                            update=":patientSaveDlg"
+                                                            oncomplete="PF('patientSaveDlg').show();"
+                                                            styleClass="btn btn-primary pull-left"
+                                                            icon="ui-icon-circle-plus">
+                                                            <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
+                                                        </p:commandButton>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <p:dataTable id="patientDataTable" var="patient" value="#{loadTestDataPatientBean.patients}" selection="#{loadTestDataPatientBean.selectedPatient}" rowKey="#{patient.patientId}" styleClass="table table-striped table-domains">
-                                                    <p:column headerText="" selectionMode="single" />
-                                                    <p:column headerText="Patient Id">
-                                                        <h:outputText value="#{patient.patientId}" />
-                                                    </p:column>
-                                                    <p:column headerText="Last Name">
-                                                        <h:outputText value="#{patient.lastName}" />
-                                                    </p:column>
-                                                    <p:column headerText="First Name">
-                                                        <h:outputText value="#{patient.firstName}" />
-                                                    </p:column>
-                                                    <p:column headerText="Birth Date">
-                                                        <h:outputText value="#{patient.dateOfBirth}">
-                                                            <f:convertDateTime pattern="MM-dd-yyyy" />
-                                                        </h:outputText>
-                                                    </p:column>
-                                                    <p:column headerText="Gender">
-                                                        <h:outputText value="#{patient.gender}" />
-                                                    </p:column>
-                                                </p:dataTable>
+                                            <p:dataTable id="patientDataTable" var="patient"
+                                                value="#{loadTestDataPatientBean.patients}"
+                                                selection="#{loadTestDataPatientBean.selectedPatient}"
+                                                rowKey="#{patient.patientId}"
+                                                styleClass="table table-striped table-domains">
+                                                <p:column headerText="" selectionMode="single" />
+                                                <p:column headerText="Patient Id">
+                                                    <h:outputText value="#{patient.patientId}" />
+                                                </p:column>
+                                                <p:column headerText="Last Name">
+                                                    <h:outputText value="#{patient.lastName}" />
+                                                </p:column>
+                                                <p:column headerText="First Name">
+                                                    <h:outputText value="#{patient.firstName}" />
+                                                </p:column>
+                                                <p:column headerText="Birth Date">
+                                                    <h:outputText value="#{patient.dateOfBirth}">
+                                                        <f:convertDateTime pattern="MM-dd-yyyy" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Gender">
+                                                    <h:outputText value="#{patient.gender}" />
+                                                </p:column>
+                                            </p:dataTable>
 
-                                                <div class="form-group">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-button-row">
-                                                            <p:commandButton id="editPatient" value="View/Edit" actionListener="#{loadTestDataPatientBean.editPatient}" update=":patientSaveDlg"  oncomplete="PF('patientSaveDlg').show();" styleClass="edit-button" icon="ui-icon-pencil">
-                                                                <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
-                                                            </p:commandButton>
-                                                            <p:commandButton update="patientDataTable,patientsListMessages" value="Delete" actionListener="#{loadTestDataPatientBean.deletePatient}" styleClass="delete-button" icon="ui-icon-closethick"/>
-                                                        </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <p:commandButton id="editPatient" value="View/Edit"
+                                                            actionListener="#{loadTestDataPatientBean.editPatient}"
+                                                            update=":patientSaveDlg"
+                                                            oncomplete="PF('patientSaveDlg').show();"
+                                                            styleClass="edit-button" icon="ui-icon-pencil">
+                                                            <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
+                                                        </p:commandButton>
+                                                        <p:commandButton update="patientDataTable,patientsListMessages"
+                                                            value="Delete"
+                                                            actionListener="#{loadTestDataPatientBean.deletePatient}"
+                                                            styleClass="delete-button" icon="ui-icon-closethick" />
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                            </h:form>
-                                        </div>
+                                        </h:form>
                                     </div>
                                 </div>
-                                <!-- BEGIN: LISTING-BLOCK -->
-
                             </div>
-                        </p:tab>
-                        <!-- END: TAB-PANE-BLOCK -->
+                            <!-- BEGIN: LISTING-BLOCK -->
 
-                        <!-- TODO: ADD-MORE-TABS -->
-                    </div>
-                    <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
-                </p:tabView>
-                <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB-PANE-BLOCK -->
 
-                <!-- include any dialog -->
-                <ui:include src="ltdPatientSaveDialog.xhtml" />
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                    <!-- BEGIN: TAB-PANE-BLOCK -->
+                    <p:tab id="#{tabBean.LTDDOCUMENTTAB}" title="Document" closable="false">
+                        <div class="tab-pane active">
+
+                            <!-- BEGIN: LISTING-BLOCK -->
+                            <div class="content-block">
+                                <h2 class="subsection-header">Manage Documents</h2>
+                                <div class="content">
+                                    <div class="form-block center-block">
+                                        <h:form id="documentsList" class="form-horizontal">
+                                            <p:messages id="documentsListMessages" redisplay="false" autoUpdate="true"
+                                                closable="true" severity="warning" />
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <p:commandButton id="newDocument" value="New"
+                                                            actionListener="#{loadTestDataDocumentBean.newDocument}"
+                                                            update=":documentSaveDlg"
+                                                            oncomplete="PF('documentSaveDlg').show();"
+                                                            styleClass="btn btn-primary pull-left"
+                                                            icon="ui-icon-circle-plus">
+                                                            <p:resetInput target=":documentAccordionPanel:documentForm" />
+                                                        </p:commandButton>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <p:dataTable id="documentDataTable" var="record"
+                                                value="#{loadTestDataDocumentBean.documents}"
+                                                selection="#{loadTestDataDocumentBean.selectedDocument}"
+                                                rowKey="#{record.documentid}"
+                                                styleClass="table table-striped table-domains">
+                                                <p:column headerText="" selectionMode="single" />
+                                                <p:column headerText="Id">
+                                                    <h:outputText value="#{record.documentid}" />
+                                                </p:column>
+                                                <p:column headerText="Document Id">
+                                                    <h:outputText value="#{record.documentUniqueId}" />
+                                                </p:column>
+                                                <p:column headerText="Patient Id">
+                                                    <h:outputText value="#{record.patientId}" />
+                                                </p:column>
+                                                <p:column headerText="Title">
+                                                    <h:outputText value="#{record.documentTitle}" />
+                                                </p:column>
+                                                <p:column headerText="Repository Id">
+                                                    <h:outputText value="#{record.NewRepositoryUniqueId}" />
+                                                </p:column>
+                                                <p:column headerText="Status">
+                                                    <h:outputText value="#{record.status}" />
+                                                </p:column>
+                                                <p:column headerText="Created">
+                                                    <h:outputText value="#{record.creationTime}">
+                                                        <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
+                                                    </h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <div class="form-button-row">
+                                                        <p:commandButton id="editDocument" value="View/Edit"
+                                                            actionListener="#{loadTestDataDocumentBean.editDocument}"
+                                                            update=":documentSaveDlg"
+                                                            oncomplete="PF('documentSaveDlg').show();"
+                                                            styleClass="edit-button" icon="ui-icon-pencil">
+                                                            <p:resetInput target=":documentAccordionPanel:documentForm" />
+                                                        </p:commandButton>
+                                                        <p:commandButton update="documentDataTable,documentsListMessages"
+                                                            value="Delete"
+                                                            actionListener="#{loadTestDataDocumentBean.deleteDocument}"
+                                                            styleClass="delete-button" icon="ui-icon-closethick" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- BEGIN: LISTING-BLOCK -->
+
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB-PANE-BLOCK -->
+
+                    <!-- TODO: ADD-MORE-TABS -->
+                </div>
+                <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
+            </p:tabView>
+            <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+
+            <!-- include any dialog -->
+            <ui:include src="ltdPatientSaveDialog.xhtml" />
+            <ui:include src="ltdDocumentSaveDialog.xhtml" />
+        </ui:define>
+    </ui:composition>
+</h:body>
 </html>

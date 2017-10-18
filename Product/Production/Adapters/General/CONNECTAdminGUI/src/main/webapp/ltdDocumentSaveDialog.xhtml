@@ -1,0 +1,499 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="documentSaveDlg" header="#{loadTestDataDocumentBean.dialogTitle}" widgetVar="documentSaveDlg"
+            modal="true" draggable="false" resizable="false" width="850" height="560">
+            <div class="content-block content">
+                <div class=" form-block center-block">
+                    <p:messages id="documentErrorMessages" autoUpdate="true" closable="true" severity="error"
+                        redisplay="false" />
+                    <p:messages id="documentInfoMessages" autoUpdate="true" closable="true" severity="info"
+                        redisplay="false" />
+
+                    <p:accordionPanel id="documentAccordionPanel">
+                        <p:tab title="Document Info">
+                            <h:form class="form-horizontal" enctype="multipart/form-data" role="form" id="documentForm">
+
+                                <div class="form-group">
+                                    <h:outputLabel for="inputDocumentUniqueId" class="col-sm-3 control-label"
+                                        id="labelDocumentUniqueId" value="Document Id:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputDocumentUniqueId"
+                                            value="#{loadTestDataDocumentBean.documentForm.documentUniqueId}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputPatientId" class="col-sm-3 control-label"
+                                        id="labelPatientId" value="Patient Id:" />
+                                    <div class="col-sm-9">
+                                        <h:selectOneMenu class="form-control" id="inputPatientId"
+                                            value="#{loadTestDataDocumentBean.documentForm.patientId}" required="true"
+                                            requiredMessage="Patient Id required.">
+                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItems value="#{loadTestDataDocumentBean.listPatientId}" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputNewRepositoryUniqueId" class="col-sm-3 control-label"
+                                        id="labelNewRepositoryUniqueId" value="Repository Id:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputNewRepositoryUniqueId"
+                                            value="#{loadTestDataDocumentBean.documentForm.newRepositoryUniqueId}"
+                                            maxlength="128" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputStatus" class="col-sm-3 control-label" id="labelStatus"
+                                        value="Status:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputStatus"
+                                            value="#{loadTestDataDocumentBean.documentForm.status}" maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputAuthorPerson" class="col-sm-3 control-label"
+                                        id="labelAuthorPerson" value="* Author Person:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputAuthorPerson"
+                                            value="#{loadTestDataDocumentBean.documentForm.authorPerson}" maxlength="64"
+                                            required="true" requiredMessage="Author Person required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputDocumentTitle" class="col-sm-3 control-label"
+                                        id="labelDocumentTitle" value="Document Title:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputDocumentTitle"
+                                            value="#{loadTestDataDocumentBean.documentForm.documentTitle}"
+                                            maxlength="128" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputParentDocumentId" class="col-sm-3 control-label"
+                                        id="labelParentDocumentId" value="Parent Document Id:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputParentDocumentId"
+                                            value="#{loadTestDataDocumentBean.documentForm.parentDocumentId}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputRawData" class="col-sm-3 control-label" id="labelRawData"
+                                        value="Document File:" />
+                                    <div class="col-sm-9">
+                                        <p:fileUpload value="#{loadTestDataDocumentBean.documentForm.rawData}"
+                                            mode="simple" skinSimple="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputAuthorInstitution" class="col-sm-3 control-label"
+                                        id="labelAuthorInstitution" value="Author Institution:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputAuthorInstitution"
+                                            value="#{loadTestDataDocumentBean.documentForm.authorInstitution}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputAuthorRole" class="col-sm-3 control-label"
+                                        id="labelAuthorRole" value="Author Role:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputAuthorRole"
+                                            value="#{loadTestDataDocumentBean.documentForm.authorRole}" maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputAuthorSpecialty" class="col-sm-3 control-label"
+                                        id="labelAuthorSpecialty" value="Author Specialty:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputAuthorSpecialty"
+                                            value="#{loadTestDataDocumentBean.documentForm.authorSpecialty}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputAvailablityStatus" class="col-sm-3 control-label"
+                                        id="labelAvailablityStatus" value="Availablity Status:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputAvailablityStatus"
+                                            value="#{loadTestDataDocumentBean.documentForm.availablityStatus}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputClassCode" class="col-sm-3 control-label"
+                                        id="labelClassCode" value="* Class Code:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputClassCode"
+                                            value="#{loadTestDataDocumentBean.documentForm.classCode}" maxlength="64"
+                                            required="true" requiredMessage="Class Code required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputClassCodeScheme" class="col-sm-3 control-label"
+                                        id="labelClassCodeScheme" value="* Class Code Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputClassCodeScheme"
+                                            value="#{loadTestDataDocumentBean.documentForm.classCodeScheme}"
+                                            maxlength="64" required="true" requiredMessage="Class Code Scheme required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputClassCodeDisplayName" class="col-sm-3 control-label"
+                                        id="labelClassCodeDisplayName" value="Class Code Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputClassCodeDisplayName"
+                                            value="#{loadTestDataDocumentBean.documentForm.classCodeDisplayName}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputConfidentialityCode" class="col-sm-3 control-label"
+                                        id="labelConfidentialityCode" value="* Confidentiality Code:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputConfidentialityCode"
+                                            value="#{loadTestDataDocumentBean.documentForm.confidentialityCode}"
+                                            maxlength="64" required="true"
+                                            requiredMessage="Confidentiality Code required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputConfidentialityCodeScheme" class="col-sm-3 control-label"
+                                        id="labelConfidentialityCodeScheme" value="* Confidentiality Code Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputConfidentialityCodeScheme"
+                                            value="#{loadTestDataDocumentBean.documentForm.confidentialityCodeScheme}"
+                                            maxlength="64" required="true"
+                                            requiredMessage="Confidentiality Code Scheme required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputConfidentialityCodeDisplayName"
+                                        class="col-sm-3 control-label" id="labelConfidentialityCodeDisplayName"
+                                        value="Confidentiality Code Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputConfidentialityCodeDisplayName"
+                                            value="#{loadTestDataDocumentBean.documentForm.confidentialityCodeDisplayName}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputFormatCode" class="col-sm-3 control-label"
+                                        id="labelFormatCode" value="* Format Code:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputFormatCode"
+                                            value="#{loadTestDataDocumentBean.documentForm.formatCode}" maxlength="64"
+                                            required="true" requiredMessage="Format Code required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputFormatCodeScheme" class="col-sm-3 control-label"
+                                        id="labelFormatCodeScheme" value="* Format Code Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputFormatCodeScheme"
+                                            value="#{loadTestDataDocumentBean.documentForm.formatCodeScheme}"
+                                            maxlength="64" required="true"
+                                            requiredMessage="Format Code Scheme required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputFormatCodeDisplayName" class="col-sm-3 control-label"
+                                        id="labelFormatCodeDisplayName" value="Format Code Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputFormatCodeDisplayName"
+                                            value="#{loadTestDataDocumentBean.documentForm.formatCodeDisplayName}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputServiceStartTime" class="col-sm-3 control-label"
+                                        id="labelServiceStartTime" value="* Service StartTime:" />
+                                    <div class="col-sm-9">
+                                        <p:calendar id="inputServiceStartTime"
+                                            value="#{loadTestDataDocumentBean.documentForm.serviceStartTime}"
+                                            showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="true"
+                                            requiredMessage="Service StartTime required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputServiceStopTime" class="col-sm-3 control-label"
+                                        id="labelServiceStopTime" value="* Service StopTime:" />
+                                    <div class="col-sm-9">
+                                        <p:calendar id="inputServiceStopTime"
+                                            value="#{loadTestDataDocumentBean.documentForm.serviceStopTime}"
+                                            showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="true"
+                                            requiredMessage="Service StopTime required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputComments" class="col-sm-3 control-label" id="labelComments"
+                                        value="Comments:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputComments"
+                                            value="#{loadTestDataDocumentBean.documentForm.comments}" maxlength="256" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputFacilityCode" class="col-sm-3 control-label"
+                                        id="labelFacilityCode" value="* Facility Code:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputFacilityCode"
+                                            value="#{loadTestDataDocumentBean.documentForm.facilityCode}" maxlength="64"
+                                            required="true" requiredMessage="Facility Code required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputFacilityCodeScheme" class="col-sm-3 control-label"
+                                        id="labelFacilityCodeScheme" value="* Facility Code Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputFacilityCodeScheme"
+                                            value="#{loadTestDataDocumentBean.documentForm.facilityCodeScheme}"
+                                            maxlength="64" required="true"
+                                            requiredMessage="Facility Code Scheme required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputFacilityCodeDisplayName" class="col-sm-3 control-label"
+                                        id="labelFacilityCodeDisplayName" value="Facility Code Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputFacilityCodeDisplayName"
+                                            value="#{loadTestDataDocumentBean.documentForm.facilityCodeDisplayName}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputIntendedRecipientPerson" class="col-sm-3 control-label"
+                                        id="labelIntendedRecipientPerson" value="Intended Recipient Person:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputIntendedRecipientPerson"
+                                            value="#{loadTestDataDocumentBean.documentForm.intendedRecipientPerson}"
+                                            maxlength="128" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputIntendedRecipientOrganization"
+                                        class="col-sm-3 control-label" id="labelIntendedRecipientOrganization"
+                                        value="Intended Recipient Organization:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputIntendedRecipientOrganization"
+                                            value="#{loadTestDataDocumentBean.documentForm.intendedRecipientOrganization}"
+                                            maxlength="128" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputLanguageCode" class="col-sm-3 control-label"
+                                        id="labelLanguageCode" value="Language Code:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputLanguageCode"
+                                            value="#{loadTestDataDocumentBean.documentForm.languageCode}" maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputLegalAuthenticator" class="col-sm-3 control-label"
+                                        id="labelLegalAuthenticator" value="Legal Authenticator:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputLegalAuthenticator"
+                                            value="#{loadTestDataDocumentBean.documentForm.legalAuthenticator}"
+                                            maxlength="128" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputParentDocumentRelationship" class="col-sm-3 control-label"
+                                        id="labelParentDocumentRelationship" value="Parent Document Relationship:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputParentDocumentRelationship"
+                                            value="#{loadTestDataDocumentBean.documentForm.parentDocumentRelationship}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputPracticeSetting" class="col-sm-3 control-label"
+                                        id="labelPracticeSetting" value="* Practice Setting:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputPracticeSetting"
+                                            value="#{loadTestDataDocumentBean.documentForm.practiceSetting}"
+                                            maxlength="64" required="true" requiredMessage="Practice Setting required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputPracticeSettingScheme" class="col-sm-3 control-label"
+                                        id="labelPracticeSettingScheme" value="* Practice Setting Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputPracticeSettingScheme"
+                                            value="#{loadTestDataDocumentBean.documentForm.practiceSettingScheme}"
+                                            maxlength="64" required="true"
+                                            requiredMessage="Practice Setting Scheme required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputPracticeSettingDisplayName" class="col-sm-3 control-label"
+                                        id="labelPracticeSettingDisplayName" value="Practice Setting Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputPracticeSettingDisplayName"
+                                            value="#{loadTestDataDocumentBean.documentForm.practiceSettingDisplayName}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputTypeCode" class="col-sm-3 control-label" id="labelTypeCode"
+                                        value="* Type Code" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputTypeCode"
+                                            value="#{loadTestDataDocumentBean.documentForm.typeCode}" maxlength="64"
+                                            required="true" requiredMessage="Type Code required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputTypeCodeScheme" class="col-sm-3 control-label"
+                                        id="labelTypeCodeScheme" value="* Type Code Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputTypeCodeScheme"
+                                            value="#{loadTestDataDocumentBean.documentForm.typeCodeScheme}"
+                                            maxlength="64" required="true" requiredMessage="Type Code Scheme required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputTypeCodeDisplayName" class="col-sm-3 control-label"
+                                        id="labelTypeCodeDisplayName" value="Type Code Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputTypeCodeDisplayName"
+                                            value="#{loadTestDataDocumentBean.documentForm.typeCodeDisplayName}"
+                                            maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputDocumentUri" class="col-sm-3 control-label"
+                                        id="labelDocumentUri" value="Document Uri:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control" id="inputDocumentUri"
+                                            value="#{loadTestDataDocumentBean.documentForm.documentUri}" maxlength="128" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputOnDemand" class="col-sm-3 control-label" id="labelOnDemand"
+                                        value="On Demand:" />
+                                    <div class="col-sm-9">
+                                        <p:selectBooleanButton id="inputOnDemand"
+                                            value="#{loadTestDataDocumentBean.documentForm.onDemand}" onLabel="Yes"
+                                            offLabel="No" style="width:60px" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="form-button-row">
+                                            <p:commandButton update=":testdataTabview:documentsList:documentDataTable"
+                                                value="Save" action="#{loadTestDataDocumentBean.saveDocument()}"
+                                                styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Event Code" disabled="#{loadTestDataDocumentBean.disableAccordion}">
+                            <h:form class="form-horizontal" role="form" id="createFormEventCode">
+
+                                <div class="form-group">
+                                    <h:outputLabel for="inputEventCode" class="col-sm-3 control-label"
+                                        id="labelEventCode" value="* Code:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control"
+                                            value="#{loadTestDataDocumentBean.eventCode}" id="inputEventCode"
+                                            maxlength="64" required="true" requiredMessage="Code required." />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputEventCodeScheme" class="col-sm-3 control-label"
+                                        id="labelEventCodeScheme" value="Scheme:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control"
+                                            value="#{loadTestDataDocumentBean.eventCodeScheme}"
+                                            id="inputEventCodeScheme" maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="inputEventCodeDisplayName" class="col-sm-3 control-label"
+                                        id="labelEventCodeDisplayName" value="Display Name:" />
+                                    <div class="col-sm-9">
+                                        <p:inputText styleClass="form-control"
+                                            value="#{loadTestDataDocumentBean.eventCodeDisplayName}"
+                                            id="inputEventCodeDisplayName" maxlength="64" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="form-button-row">
+                                            <p:commandButton id="newEventCode" value="New" immediate="true"
+                                                actionListener="#{loadTestDataDocumentBean.newEventCode}"
+                                                update="createFormEventCode" styleClass="edit-button">
+                                                <p:resetInput target=":documentAccordionPanel:createFormEventCode" />
+                                            </p:commandButton>
+                                            <p:commandButton
+                                                update=":documentAccordionPanel:deleteFormEventCode:eventCodeDataTable"
+                                                value="Save Event Code"
+                                                action="#{loadTestDataDocumentBean.saveEventCode()}"
+                                                styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+
+                            <h:form class="form-horizontal" role="form" id="deleteFormEventCode">
+                                <p:dataTable id="eventCodeDataTable" var="record"
+                                    value="#{loadTestDataDocumentBean.eventCodes}"
+                                    selection="#{loadTestDataDocumentBean.selectedEventCode}"
+                                    rowKey="#{record.eventCodeId}" styleClass="table table-striped table-domains">
+                                    <p:column headerText="" selectionMode="single" />
+                                    <p:column headerText="Id">
+                                        <h:outputText value="#{record.eventCodeId}" />
+                                    </p:column>
+                                    <p:column headerText="Code">
+                                        <h:outputText value="#{record.eventCode}" />
+                                    </p:column>
+                                    <p:column headerText="Schema">
+                                        <h:outputText value="#{record.eventCodeSchema}" />
+                                    </p:column>
+                                    <p:column headerText="Display Name">
+                                        <h:outputText value="#{record.eventCodeDisplayName}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="form-button-row">
+                                            <p:commandButton id="editEventCode" value="Edit"
+                                                actionListener="#{loadTestDataDocumentBean.editEventCode}"
+                                                update=":documentAccordionPanel:createFormEventCode"
+                                                styleClass="edit-button" icon="ui-icon-pencil">
+                                                <p:resetInput target=":documentAccordionPanel:createFormEventCode" />
+                                            </p:commandButton>
+                                            <p:commandButton
+                                                update="eventCodeDataTable, :documentErrorMessages, :documentInfoMessages"
+                                                actionListener="#{loadTestDataDocumentBean.deleteEventCode}"
+                                                value="Delete" styleClass="delete-button" icon="ui-icon-closethick" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+
+                        </p:tab>
+                    </p:accordionPanel>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-button-row">
+                                <p:commandButton id="closeDocumentDlg" update=":testdataTabview" value="Close"
+                                    oncomplete="PF('documentSaveDlg').hide();" styleClass="btn btn-default"
+                                    icon="ui-icon-circle-close" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>

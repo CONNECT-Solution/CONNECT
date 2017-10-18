@@ -64,6 +64,7 @@ public class NavigationConstant {
     public static final int TRUSTSTORE_MGMT_TAB = 1;
 
     public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
+    public static final int LOAD_TEST_DATA_DOCUMENT_TAB = 1;
 
     /**
      * Use this class to hold constant variables
