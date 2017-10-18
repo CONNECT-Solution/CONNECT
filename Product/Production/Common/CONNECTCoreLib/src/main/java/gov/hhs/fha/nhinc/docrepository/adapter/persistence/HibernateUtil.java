@@ -88,7 +88,7 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    private static File getConfigFile() {
+    protected static File getConfigFile() {
         File result = null;
 
         try {
@@ -111,8 +111,8 @@ public class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSession() {
-        return HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory();
+    public static Session getSession() {
+        return HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
     }
 
     public static <T> boolean save(T entity) {
@@ -120,7 +120,7 @@ public class HibernateUtil {
         Session session = null;
         Transaction tx = null;
         try {
-            session = getSession().openSession();
+            session = getSession();// .openSession();
             tx = session.beginTransaction();
             session.saveOrUpdate(entity);
             tx.commit();
@@ -141,7 +141,7 @@ public class HibernateUtil {
         Session session = null;
         Transaction tx = null;
         try {
-            session = getSession().openSession();
+            session = getSession();// .openSession();
             tx = session.beginTransaction();
             session.delete(entity);
             tx.commit();
@@ -161,7 +161,7 @@ public class HibernateUtil {
         T entity = null;
         Session sess = null;
         try {
-            sess = getSession().openSession();
+            sess = getSession();// .openSession();
             entity = sess.get(clazz, id);
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read caused by : {}", e.getMessage(), e);
@@ -179,7 +179,7 @@ public class HibernateUtil {
         List<T> queryList = new ArrayList<>();
         Session session = null;
         try {
-            session = getSession().openSession();
+            session = getSession();// .openSession();
             Criteria aCriteria = session.createCriteria(clazz);
             if (criterion != null) {
                 aCriteria.add(criterion);

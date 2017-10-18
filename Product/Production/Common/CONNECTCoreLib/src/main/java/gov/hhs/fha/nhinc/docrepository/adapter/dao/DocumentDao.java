@@ -65,7 +65,7 @@ public class DocumentDao {
     }
 
     protected Session getSession() {
-        return HibernateUtil.getSession().openSession();
+        return HibernateUtil.getSession();// .openSession();
     }
 
     /**

@@ -378,7 +378,7 @@ public class EventCodeDao {
     }
 
     protected Session getSession() {
-        return HibernateUtil.getSession().openSession();
+        return HibernateUtil.getSession();// .openSession();
     }
 
 }
