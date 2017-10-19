@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -166,14 +165,11 @@ public class CertficateBean {
             importCertificate.add(cert);
             checkCertValidity(cert);
 
-            Date CertExpiryDate = cert.getX509Cert().getNotAfter();
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            // Tue Oct 17 06:02:22 AEST 2006
+            Date certExpiryDate = cert.getX509Cert().getNotAfter();
             Date today = new Date();
-            long DateDiff = CertExpiryDate.getTime() - today.getTime();
-            long ExpiresInDays = DateDiff / (24 * 60 * 60 * 1000);
-            if (ExpiresInDays > 30 && ExpiresInDays <= 90) {
-                // HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "This Certificate is expiring soon");
+            long dateDiff = certExpiryDate.getTime() - today.getTime();
+            long expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
+            if (expiresInDays > 30 && expiresInDays <= 90) {
                 FacesContext.getCurrentInstance().addMessage(certWarningMsg,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "This Certificate is expiring soon."));
             }
@@ -183,7 +179,7 @@ public class CertficateBean {
     /**
      * @param cert
      */
-    private void checkCertValidity(Certificate cert) {
+    private static void checkCertValidity(Certificate cert) {
         try {
             cert.getX509Cert().checkValidity();
         } catch (CertificateExpiredException ex) {

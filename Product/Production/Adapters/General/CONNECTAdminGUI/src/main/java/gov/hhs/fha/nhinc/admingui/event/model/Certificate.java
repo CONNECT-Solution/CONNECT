@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.event.model;
 
 import java.security.cert.X509Certificate;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -149,16 +148,14 @@ public class Certificate {
 
     public String getExpiryColorCoding() {
         if (expiryColorCoding == null) {
-            Date CertExpiryDate = x509Cert.getNotAfter();
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date certExpiryDate = x509Cert.getNotAfter();
             // Tue Oct 17 06:02:22 AEST 2006
             Date today = new Date();
-            long DateDiff = CertExpiryDate.getTime() - today.getTime();
-            long ExpiresInDays = DateDiff / (24 * 60 * 60 * 1000);
-            if (ExpiresInDays <= 30) {
+            long dateDiff = certExpiryDate.getTime() - today.getTime();
+            long expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
+            if (expiresInDays <= 30) {
                 setExpiryColorCoding("RED");
-            } else if (ExpiresInDays > 30 && ExpiresInDays <= 90) {
-                // HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "This Certificate is expiring soon");
+            } else if (expiresInDays > 30 && expiresInDays <= 90) {
                 setExpiryColorCoding("YELLOW");
             } else {
                 setExpiryColorCoding("GREEN");
