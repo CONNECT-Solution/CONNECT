@@ -40,6 +40,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +56,7 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
     private ExceptionHandler wrapped;
 
     CustomExceptionHandlerWrapper(ExceptionHandler exception) {
-        this.wrapped = exception;
+        wrapped = exception;
     }
 
     @Override
@@ -68,8 +69,7 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
         final Iterator<ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator();
         while (i.hasNext()) {
             ExceptionQueuedEvent event = i.next();
-            ExceptionQueuedEventContext context
-                = (ExceptionQueuedEventContext) event.getSource();
+            ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
             // get the exception from context
             Throwable t = context.getException();
             LOG.error("An exception occurred while performing user request", t);
@@ -80,8 +80,9 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
             HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
             Object servletEx = request.getAttribute("javax.servlet.error.exception");
             try {
+                RequestContext.getCurrentInstance().execute("dialog.hide()");
                 if (servletEx instanceof SanitizationException) {
-                    //SanitizationFilter has redirected to customerror page
+                    // SanitizationFilter has redirected to customerror page
                     fc.addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         MessageConstant.EXCEPTION_MSG, ""));
                     requestMap.put("exceptionMessage", ((SanitizationException) servletEx).getMessage());
@@ -100,7 +101,7 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
                 }
                 fc.renderResponse();
             } finally {
-                //remove it from queue
+                // remove it from queue
                 i.remove();
             }
         }
