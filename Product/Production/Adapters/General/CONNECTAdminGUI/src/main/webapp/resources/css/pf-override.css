@@ -1829,6 +1829,19 @@ form[id*='auditQueryTabView'] div[id*='auditBlobDlg'].ui-dialog .ui-dialog-conte
 }
 
 
+.highlightGREEN {
+	background-color: #00FF00;
+}
 
+.highlightYELLOW {
+	background-color: yellow;
+}
 
+.highlightRED {
+	background-color: red;
+}
+
+.disable {
+	display : none;
+}
 /* -- RESPONSIVE @MEDIA STYLES -- FROM DASHBOARD.CSS -----------------------------------------------*/

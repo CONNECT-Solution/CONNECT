@@ -33,10 +33,14 @@ import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
@@ -72,6 +76,8 @@ public class CertficateBean {
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
+    private String certWarningMsg = "certWarningMsg";
+    private boolean rememberMe;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -142,6 +148,15 @@ public class CertficateBean {
         this.selectedKSCertificate = selectedKSCertificate;
     }
 
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
     public void importFileUpload(FileUploadEvent event) {
         importCertFile = event.getFile();
         if (importCertFile != null) {
@@ -149,15 +164,34 @@ public class CertficateBean {
             Certificate cert = service.createCertificate(importCertFile.getContents());
             cert.setAlias(ALIAS_PLACEHOLDER);
             importCertificate.add(cert);
-            try {
-                cert.getX509Cert().checkValidity();
-            } catch (CertificateExpiredException ex) {
-                LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
-            } catch (CertificateNotYetValidException ex) {
-                LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Certificate not valid yet");
+            checkCertValidity(cert);
+
+            Date CertExpiryDate = cert.getX509Cert().getNotAfter();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            // Tue Oct 17 06:02:22 AEST 2006
+            Date today = new Date();
+            long DateDiff = CertExpiryDate.getTime() - today.getTime();
+            long ExpiresInDays = DateDiff / (24 * 60 * 60 * 1000);
+            if (ExpiresInDays > 30 && ExpiresInDays <= 90) {
+                // HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "This Certificate is expiring soon");
+                FacesContext.getCurrentInstance().addMessage(certWarningMsg,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "This Certificate is expiring soon."));
             }
+        }
+    }
+
+    /**
+     * @param cert
+     */
+    private void checkCertValidity(Certificate cert) {
+        try {
+            cert.getX509Cert().checkValidity();
+        } catch (CertificateExpiredException ex) {
+            LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
+        } catch (CertificateNotYetValidException ex) {
+            LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Certificate not valid yet");
         }
     }
 
@@ -192,7 +226,11 @@ public class CertficateBean {
 
     public void validateAndDeleteCertificate() {
         if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            if(isRememberMe()){
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            } else {
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
+            }
             trustStorePasskey = null;
             RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
             deleteCertificate();
@@ -203,7 +241,11 @@ public class CertficateBean {
 
     public void validateAndImportCertificate() {
         if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            if (isRememberMe()) {
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            } else {
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
+            }
             trustStorePasskey = null;
             RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
             importSelectedCertificate();

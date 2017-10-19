@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.admingui.event.model;
 
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -46,6 +48,8 @@ public class Certificate {
     private String authorityKeyID;
     private X509Certificate x509Cert;
     private String validStartDate;
+    private String expiryColorCoding;
+
 
     public long getId() {
         return id;
@@ -141,6 +145,30 @@ public class Certificate {
 
     public void setValidStartDate(String validStartDate) {
         this.validStartDate = validStartDate;
+    }
+
+    public String getExpiryColorCoding() {
+        if (expiryColorCoding == null) {
+            Date CertExpiryDate = x509Cert.getNotAfter();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            // Tue Oct 17 06:02:22 AEST 2006
+            Date today = new Date();
+            long DateDiff = CertExpiryDate.getTime() - today.getTime();
+            long ExpiresInDays = DateDiff / (24 * 60 * 60 * 1000);
+            if (ExpiresInDays <= 30) {
+                setExpiryColorCoding("RED");
+            } else if (ExpiresInDays > 30 && ExpiresInDays <= 90) {
+                // HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "This Certificate is expiring soon");
+                setExpiryColorCoding("YELLOW");
+            } else {
+                setExpiryColorCoding("GREEN");
+            }
+        }
+        return expiryColorCoding;
+    }
+
+    public void setExpiryColorCoding(String expiryColorCoding) {
+        this.expiryColorCoding = expiryColorCoding;
     }
 
 }

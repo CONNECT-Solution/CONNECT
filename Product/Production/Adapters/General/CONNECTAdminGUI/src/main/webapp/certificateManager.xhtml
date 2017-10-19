@@ -132,9 +132,6 @@
                                                 <p:spacer width="10"/>
                                                 <h:outputText value="#{certificateBean.trustStoreLocation}"/>
                                             </p:column>
-                                            <p:column styleClass="pull-right">
-                                               <p:commandButton value="Import Certificate" type="button" styleClass="add-button" icon="ui-icon-circle-plus" onclick="PF('importCertDlg').show();" />
-                                            </p:column>
                                         </p:row>
                                        </p:panelGrid>
                                     </p:panel>
@@ -143,27 +140,27 @@
                                           <p:column selectionMode="single" />
                                         <p:column>
                                           <f:facet name="header">Alias</f:facet>
-                                                                              #{tscert.alias}
+                                                                              <h:outputText value="#{tscert.alias}" />
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Algorithm</f:facet>
-                                                                              #{tscert.algorithm}
+                                                                               <h:outputText value="#{tscert.algorithm}" />
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Key Size</f:facet>
-                                                                              #{tscert.keySize}
+                                                                              <h:outputText value="#{tscert.keySize}" />
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Expiration Date</f:facet>
-                                                                              #{tscert.expirationDate}
+                                                                             <h:outputText value="#{tscert.expirationDate}" styleClass="highlight#{tscert.expiryColorCoding}" />
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Subject Key Identifier</f:facet>
-                                                                              #{tscert.subjectKeyID}
+                                                                             <h:outputText value="#{tscert.subjectKeyID}" />
                                         </p:column>
                                         <p:column>
                                           <f:facet name="header">Authority Key Identifier</f:facet>
-                                                                              #{tscert.authorityKeyID}
+                                                                             <h:outputText value="#{tscert.authorityKeyID}" />
                                         </p:column>
                                       </p:dataTable>
                                       <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
@@ -176,8 +173,11 @@
                                                     <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('certDeleteConfirm').hide();"/>
                                                 </p:confirmDialog>
                                             </p:column>
+                                            <p:column styleClass="pull-right">
+                                               <p:commandButton value="Import Certificate" type="button" styleClass="add-button" icon="ui-icon-circle-plus" onclick="PF('importCertDlg').show();" />
+                                            </p:column>
                                             <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                            <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only disable" />
                                           </p:column>
                                         </p:row>
                                       </p:panelGrid>

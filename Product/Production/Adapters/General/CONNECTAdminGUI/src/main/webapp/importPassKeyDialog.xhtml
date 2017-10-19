@@ -4,7 +4,7 @@
     <div>
         <p:dialog id="importPassKeyDlg" header="TrustStore Credentials" widgetVar="importPassKeyDlg" modal="true" dynamic="true" closeOnEscape="true">
             <div class="content">
-                <h3>TrustStore Password</h3>
+                <h4>TrustStore Password</h4>
                 <div class="form-block center-block">
                     <h:form id="changePassKeyDlgForm" class="form form-horizontal">
                         <p:messages id="importPassKeyErrorMsg" closable="true" autoUpdate="true" showDetail="true" />
@@ -14,12 +14,16 @@
                                 <p:password id="passkey" value="#{certificateBean.trustStorePasskey}" style="width:100%"/>
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <h:selectBooleanCheckbox id="rememberPassword" class="col-sm-1" value="#{certificateBean.rememberMe}" /> 
+                            Remember me
+                         </div>
+ 
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="Save" ajax="true" update=":certTabView:trustStoreForm, :importCertDlgForm:importCertTable" actionListener="#{certificateBean.validateAndImportCertificate}" oncomplete="PF('importPassKeyDlg').hide();"/>
-                                    <p:commandButton id="closePassKey" styleClass="btn btn-primary" value="Close" onclick="PF('importPassKeyDlg').hide()"/>
+                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="OK" ajax="true" update=":certTabView:trustStoreForm, :importCertDlgForm:importCertTable" actionListener="#{certificateBean.validateAndImportCertificate}" oncomplete="PF('importPassKeyDlg').hide();"/>
+                                    <p:commandButton id="closePassKey" styleClass="btn btn-primary" value="Cancel" onclick="PF('importPassKeyDlg').hide()"/>
                                 </div>
                             </div>
                         </div>
