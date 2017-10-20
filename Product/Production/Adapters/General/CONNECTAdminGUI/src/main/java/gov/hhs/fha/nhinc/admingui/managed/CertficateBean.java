@@ -61,6 +61,7 @@ public class CertficateBean {
     private String keyStoreLocation;
     private String trustStoreLocation;
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
+    private static final String IMPORT_CERT_EXPIRY_MSG = "importCertInfoMsg";
     private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
     private static final String IMPORT_PASS_KEY_ERR_MSG = "importPassKeyErrorMsg";
     private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMsg";
@@ -72,6 +73,8 @@ public class CertficateBean {
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
+
+    private boolean rememberMe;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -142,6 +145,15 @@ public class CertficateBean {
         this.selectedKSCertificate = selectedKSCertificate;
     }
 
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
     public void importFileUpload(FileUploadEvent event) {
         importCertFile = event.getFile();
         if (importCertFile != null) {
@@ -149,15 +161,25 @@ public class CertficateBean {
             Certificate cert = service.createCertificate(importCertFile.getContents());
             cert.setAlias(ALIAS_PLACEHOLDER);
             importCertificate.add(cert);
-            try {
-                cert.getX509Cert().checkValidity();
-            } catch (CertificateExpiredException ex) {
-                LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
-            } catch (CertificateNotYetValidException ex) {
-                LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Certificate not valid yet");
+            checkCertValidity(cert);
+            if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
+                HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG, "This Certificate is expiring soon.");
             }
+        }
+    }
+
+    /**
+     * @param cert
+     */
+    private static void checkCertValidity(Certificate cert) {
+        try {
+            cert.getX509Cert().checkValidity();
+        } catch (CertificateExpiredException ex) {
+            LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
+        } catch (CertificateNotYetValidException ex) {
+            LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Certificate not valid yet");
         }
     }
 
@@ -192,7 +214,11 @@ public class CertficateBean {
 
     public void validateAndDeleteCertificate() {
         if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            if(isRememberMe()){
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            } else {
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
+            }
             trustStorePasskey = null;
             RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
             deleteCertificate();
@@ -203,7 +229,11 @@ public class CertficateBean {
 
     public void validateAndImportCertificate() {
         if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            if (isRememberMe()) {
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+            } else {
+                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
+            }
             trustStorePasskey = null;
             RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
             importSelectedCertificate();

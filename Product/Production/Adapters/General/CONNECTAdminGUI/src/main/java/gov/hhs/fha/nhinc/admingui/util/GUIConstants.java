@@ -42,11 +42,11 @@ public class GUIConstants {
         public String abbServiceName = null;
 
         EVENT_NAMES(String value) {
-            this.abbServiceName = value;
+            abbServiceName = value;
         }
 
         public String getAbbServiceName() {
-            return this.abbServiceName;
+            return abbServiceName;
         }
 
         public static EVENT_NAMES fromValueString(String valueString) {
@@ -58,6 +58,21 @@ public class GUIConstants {
                 }
             }
             throw new IllegalArgumentException("No enum constant " + valueString);
+        }
+    }
+
+    public enum CERT_EXPIRY_COLOR_CODING {
+        RED("RED"), GREEN("GREEN"), YELLOW("YELLOW");
+
+        private final String colorCodingCertExpiry;
+
+        private CERT_EXPIRY_COLOR_CODING(final String color) {
+            this.colorCodingCertExpiry = color;
+        }
+
+        @Override
+        public String toString(){
+            return colorCodingCertExpiry;
         }
     }
 }

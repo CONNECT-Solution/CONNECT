@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.event.model;
 
+import gov.hhs.fha.nhinc.admingui.util.GUIConstants.CERT_EXPIRY_COLOR_CODING;
 import java.security.cert.X509Certificate;
+import java.util.Date;
 
 /**
  *
@@ -46,6 +48,9 @@ public class Certificate {
     private String authorityKeyID;
     private X509Certificate x509Cert;
     private String validStartDate;
+    private String expiryColorCoding;
+    private long expiresInDays;
+
 
     public long getId() {
         return id;
@@ -141,6 +146,35 @@ public class Certificate {
 
     public void setValidStartDate(String validStartDate) {
         this.validStartDate = validStartDate;
+    }
+
+    public long getExpiresInDays() {
+        return expiresInDays;
+    }
+
+    public void setExpiresInDays(long expiresInDays) {
+        this.expiresInDays = expiresInDays;
+    }
+
+    public String getExpiryColorCoding() {
+        if (expiryColorCoding == null) {
+            Date certExpiryDate = x509Cert.getNotAfter();
+            Date today = new Date();
+            long dateDiff = certExpiryDate.getTime() - today.getTime();
+            expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
+            if (expiresInDays <= 30) {
+                setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.RED.toString());
+            } else if (expiresInDays > 30 && expiresInDays <= 90) {
+                setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.YELLOW.toString());
+            } else {
+                setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.GREEN.toString());
+            }
+        }
+        return expiryColorCoding;
+    }
+
+    public void setExpiryColorCoding(String expiryColorCoding) {
+        this.expiryColorCoding = expiryColorCoding;
     }
 
 }
