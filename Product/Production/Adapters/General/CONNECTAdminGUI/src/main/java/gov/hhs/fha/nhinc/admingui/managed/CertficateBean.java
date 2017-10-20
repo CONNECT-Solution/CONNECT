@@ -73,7 +73,7 @@ public class CertficateBean {
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
-    private static boolean expiredCert;
+    private boolean expiredCert;
     private boolean rememberMe;
 
     public CertficateBean() {
@@ -174,7 +174,7 @@ public class CertficateBean {
     /**
      * @param cert
      */
-    private static void checkCertValidity(Certificate cert) {
+    private void checkCertValidity(Certificate cert) {
         try {
             cert.getX509Cert().checkValidity();
         } catch (CertificateExpiredException ex) {
