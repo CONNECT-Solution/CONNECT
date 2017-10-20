@@ -156,15 +156,16 @@ public class CertficateBean {
 
     public void importFileUpload(FileUploadEvent event) {
         importCertFile = event.getFile();
+        expiredCert = false;
         if (importCertFile != null) {
             importCertificate = new ArrayList<>();
             Certificate cert = service.createCertificate(importCertFile.getContents());
             cert.setAlias(ALIAS_PLACEHOLDER);
             checkCertValidity(cert);
-            if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
-                HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG, "This Certificate is expiring soon.");
-            }
             if (!expiredCert) {
+                if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
+                    HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG, "This Certificate is expiring soon.");
+                }
                 importCertificate.add(cert);
             }
         }
