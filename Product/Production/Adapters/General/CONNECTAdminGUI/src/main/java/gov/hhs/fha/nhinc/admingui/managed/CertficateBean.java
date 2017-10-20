@@ -34,12 +34,9 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
@@ -64,6 +61,7 @@ public class CertficateBean {
     private String keyStoreLocation;
     private String trustStoreLocation;
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
+    private static final String IMPORT_CERT_EXPIRY_MSG = "importCertInfoMsg";
     private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
     private static final String IMPORT_PASS_KEY_ERR_MSG = "importPassKeyErrorMsg";
     private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMsg";
@@ -75,7 +73,7 @@ public class CertficateBean {
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
-    private String certWarningMsg = "certWarningMsg";
+
     private boolean rememberMe;
 
     public CertficateBean() {
@@ -164,14 +162,8 @@ public class CertficateBean {
             cert.setAlias(ALIAS_PLACEHOLDER);
             importCertificate.add(cert);
             checkCertValidity(cert);
-
-            Date certExpiryDate = cert.getX509Cert().getNotAfter();
-            Date today = new Date();
-            long dateDiff = certExpiryDate.getTime() - today.getTime();
-            long expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
-            if (expiresInDays > 30 && expiresInDays <= 90) {
-                FacesContext.getCurrentInstance().addMessage(certWarningMsg,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "This Certificate is expiring soon."));
+            if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
+                HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG, "This Certificate is expiring soon.");
             }
         }
     }
