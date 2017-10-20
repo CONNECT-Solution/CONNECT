@@ -73,7 +73,7 @@ public class CertficateBean {
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
-
+    private static boolean expiredCert;
     private boolean rememberMe;
 
     public CertficateBean() {
@@ -160,10 +160,12 @@ public class CertficateBean {
             importCertificate = new ArrayList<>();
             Certificate cert = service.createCertificate(importCertFile.getContents());
             cert.setAlias(ALIAS_PLACEHOLDER);
-            importCertificate.add(cert);
             checkCertValidity(cert);
             if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
                 HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG, "This Certificate is expiring soon.");
+            }
+            if (!expiredCert) {
+                importCertificate.add(cert);
             }
         }
     }
@@ -176,6 +178,7 @@ public class CertficateBean {
             cert.getX509Cert().checkValidity();
         } catch (CertificateExpiredException ex) {
             LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
+            expiredCert = true;
             HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
         } catch (CertificateNotYetValidException ex) {
             LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
