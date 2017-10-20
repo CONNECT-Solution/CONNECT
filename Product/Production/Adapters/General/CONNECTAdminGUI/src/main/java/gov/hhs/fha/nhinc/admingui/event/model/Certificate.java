@@ -149,6 +149,12 @@ public class Certificate {
     }
 
     public long getExpiresInDays() {
+        if (expiresInDays == 0) {
+            Date certExpiryDate = x509Cert.getNotAfter();
+            Date today = new Date();
+            long dateDiff = certExpiryDate.getTime() - today.getTime();
+            expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
+        }
         return expiresInDays;
     }
 
@@ -158,11 +164,7 @@ public class Certificate {
 
     public String getExpiryColorCoding() {
         if (expiryColorCoding == null) {
-            Date certExpiryDate = x509Cert.getNotAfter();
-            Date today = new Date();
-            long dateDiff = certExpiryDate.getTime() - today.getTime();
-            expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
-            if (expiresInDays <= 30) {
+            if (getExpiresInDays() <= 30) {
                 setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.RED.toString());
             } else if (expiresInDays > 30 && expiresInDays <= 90) {
                 setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.YELLOW.toString());
