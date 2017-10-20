@@ -159,7 +159,6 @@ public class Certificate {
     public String getExpiryColorCoding() {
         if (expiryColorCoding == null) {
             Date certExpiryDate = x509Cert.getNotAfter();
-            // Tue Oct 17 06:02:22 AEST 2006
             Date today = new Date();
             long dateDiff = certExpiryDate.getTime() - today.getTime();
             expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
