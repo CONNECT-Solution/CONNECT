@@ -32,7 +32,6 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 5.0 released June 2017
 * 4.7 released September 2016
 * 4.6 released March 2016
 * 4.5 released July 2015
@@ -53,7 +52,7 @@ To build CONNECT from source run:
         $ mvn clean install
 
 ####Building an ear
-All services profiles are active by default, if you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
+All services profiles except DB (execute database scripts), X12 and Direct are active by default, if you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
 
         $ mvn clean install -P \!PD
 
@@ -61,6 +60,29 @@ You can also specify explicitly what services are included in the ear by passing
 
         $ cd Product/Production/Deploy/
         $ mvn clean install -P PD
+		
+Please note that if at least one profile is explicitly defined in the build command, ALL desired profiles must be specified. Available profiles include:
+
+* PD - Patient Discovery
+* DQ - Document Query
+* DR - Document Retrieve
+* DS - Document Submission
+* AD - Admin Distribution
+* X12 - CAQH Core X12
+* DB - Database scripts (dropall.sql, nhincdb.sql, populateTestData.sql)
+* was - WebSphere CONNECT ear
+* weblogic - WebLogic CONNECT ear
+* Direct - Direct messaging services
+
+If the DB profile is selected, local database parameters must also be defined in the CONNECT/pom.xml file
+
+		<\!-- DB Options -->
+        <db.host>xxxxx</db.host>
+        <db.password>xxxxx</db.password>
+        <db.port>xxxxx</db.port>
+        <db.user>xxxxx</db.user>
+        <mysql.root.password>xxxxx</mysql.root.password>
+        <mysqldriver.version>xxxxx</mysqldriver.version>
 
 For more information on CONNECT supported application servers build and deployment visit: [Installation Instructions](https://connectopensource.atlassian.net/wiki/x/YoAGAQ) page.
        
