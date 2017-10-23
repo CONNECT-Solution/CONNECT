@@ -33,7 +33,6 @@ import static org.mockito.Mockito.when;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,8 +91,6 @@ public class EventCodeDaoTest {
     public void testDelete() {
         EventCode eventCode = new EventCode();
 
-        when(HibernateUtil.getConfigFile()).thenReturn(file);
-        when(HibernateUtil.getSession()).thenReturn(session);
         eventCodeDao.delete(eventCode);
 
         verify(session).delete(eventCode);

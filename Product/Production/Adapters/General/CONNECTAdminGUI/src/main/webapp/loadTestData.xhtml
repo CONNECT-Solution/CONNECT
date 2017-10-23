@@ -43,10 +43,12 @@
         <ui:define name="metatag"></ui:define>
         <ui:define name="content">
             <h1 class="section-header">Test Data</h1>
+
             <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
             <p:tabView id="testdataTabview" effect="fade" effectDuration="normal" dynamic="true"
                 activeIndex="#{tabBean.loadTestDataTabIndex}" styleClass="tabs-override tabs-ovr-blue">
                 <p:ajax event="tabChange" listener="#{tabBean.onLoadTestDataTabChange}" />
+
                 <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                 <div class="tab-content">
                     <!-- BEGIN: TAB-PANE-BLOCK -->
@@ -140,15 +142,13 @@
                                 <div class="content">
                                     <div class="form-block center-block">
                                         <h:form id="documentsList" class="form-horizontal">
-                                            <p:messages id="documentsListMessages" redisplay="false" autoUpdate="true"
-                                                closable="true" severity="warning" />
-
+                                            <p:messages closable="true" autoUpdate="true" severity="warn" />
                                             <div class="form-group">
                                                 <div class="col-sm-12">
                                                     <div class="form-button-row">
                                                         <p:commandButton id="newDocument" value="New"
+                                                            update=":documentSaveDlg, :documentAccordionPanel"
                                                             actionListener="#{loadTestDataDocumentBean.newDocument}"
-                                                            update=":documentSaveDlg"
                                                             oncomplete="PF('documentSaveDlg').show();"
                                                             styleClass="btn btn-primary pull-left"
                                                             icon="ui-icon-circle-plus">
@@ -162,7 +162,9 @@
                                                 value="#{loadTestDataDocumentBean.documents}"
                                                 selection="#{loadTestDataDocumentBean.selectedDocument}"
                                                 rowKey="#{record.documentid}"
-                                                styleClass="table table-striped table-domains">
+                                                styleClass="table table-striped table-domains"
+                                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
                                                 <p:column headerText="" selectionMode="single" />
                                                 <p:column headerText="Id">
                                                     <h:outputText value="#{record.documentid}" />
@@ -177,7 +179,7 @@
                                                     <h:outputText value="#{record.documentTitle}" />
                                                 </p:column>
                                                 <p:column headerText="Repository Id">
-                                                    <h:outputText value="#{record.NewRepositoryUniqueId}" />
+                                                    <h:outputText value="#{record.newRepositoryUniqueId}" />
                                                 </p:column>
                                                 <p:column headerText="Status">
                                                     <h:outputText value="#{record.status}" />
@@ -194,18 +196,21 @@
                                                     <div class="form-button-row">
                                                         <p:commandButton id="editDocument" value="View/Edit"
                                                             actionListener="#{loadTestDataDocumentBean.editDocument}"
-                                                            update=":documentSaveDlg"
                                                             oncomplete="PF('documentSaveDlg').show();"
+                                                            update=":documentSaveDlg, :msgGrowl"
                                                             styleClass="edit-button" icon="ui-icon-pencil">
-                                                            <p:resetInput target=":documentAccordionPanel:documentForm" />
+
                                                         </p:commandButton>
-                                                        <p:commandButton update="documentDataTable,documentsListMessages"
-                                                            value="Delete"
+                                                        <p:commandButton
                                                             actionListener="#{loadTestDataDocumentBean.deleteDocument}"
-                                                            styleClass="delete-button" icon="ui-icon-closethick" />
+                                                            update="documentDataTable, :msgGrowl"
+                                                            value="Delete" styleClass="delete-button"
+                                                            icon="ui-icon-closethick" />
                                                     </div>
                                                 </div>
                                             </div>
+
+
 
                                         </h:form>
                                     </div>
@@ -224,6 +229,7 @@
             <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
 
             <!-- include any dialog -->
+            <p:growl id="msgGrowl" for="msgForGrowl" closable="true" />
             <ui:include src="ltdPatientSaveDialog.xhtml" />
             <ui:include src="ltdDocumentSaveDialog.xhtml" />
         </ui:define>

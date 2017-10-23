@@ -27,20 +27,13 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.persistence;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Criterion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,95 +94,4 @@ public class HibernateUtil {
 
     }
 
-    public static void closeSession(Session session) {
-        if (session != null && session.isOpen()) {
-            try {
-                session.close();
-            } catch (HibernateException ex) {
-                LOG.error("There an error while closing the hibernate-session-close: {} ", ex.getMessage(), ex);
-            }
-        }
-    }
-
-    public static Session getSession() {
-        return HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
-    }
-
-    public static <T> boolean save(T entity) {
-        boolean result = false;
-        Session session = null;
-        Transaction tx = null;
-        try {
-            session = getSession();// .openSession();
-            tx = session.beginTransaction();
-            session.saveOrUpdate(entity);
-            tx.commit();
-            result = true;
-        } catch (HibernateException | NullPointerException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            LOG.error("Exception during save caused by : {}", e.getMessage(), e);
-        } finally {
-            closeSession(session);
-        }
-        return result;
-    }
-
-    public static <T> boolean delete(T entity) {
-        boolean result = false;
-        Session session = null;
-        Transaction tx = null;
-        try {
-            session = getSession();// .openSession();
-            tx = session.beginTransaction();
-            session.delete(entity);
-            tx.commit();
-            result = true;
-        } catch (HibernateException | NullPointerException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            LOG.error("Exception during delete caused by : {}", e.getMessage(), e);
-        } finally {
-            closeSession(session);
-        }
-        return result;
-    }
-
-    public static <T> T readBy(Class<T> clazz, Long id) {
-        T entity = null;
-        Session sess = null;
-        try {
-            sess = getSession();// .openSession();
-            entity = sess.get(clazz, id);
-        } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during read caused by : {}", e.getMessage(), e);
-        } finally {
-            HibernateUtil.closeSession(sess);
-        }
-        return entity;
-    }
-
-    public static <T> List<T> findAll(Class<T> clazz) {
-        return findAllBy(clazz, null);
-    }
-
-    public static <T> List<T> findAllBy(Class<T> clazz, Criterion criterion) {
-        List<T> queryList = new ArrayList<>();
-        Session session = null;
-        try {
-            session = getSession();// .openSession();
-            Criteria aCriteria = session.createCriteria(clazz);
-            if (criterion != null) {
-                aCriteria.add(criterion);
-            }
-            queryList = aCriteria.list();
-        } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during findAllBy occured due to : {}", e.getMessage(), e);
-        } finally {
-            closeSession(session);
-        }
-        return queryList;
-    }
 }

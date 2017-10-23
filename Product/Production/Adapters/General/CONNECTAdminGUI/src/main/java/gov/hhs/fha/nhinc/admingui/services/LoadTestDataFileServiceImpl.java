@@ -215,4 +215,11 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
         LOG.info(LOG_UNSUPPORT_METHOD);
         return false;
     }
+
+    @Override
+    public Patient getPatientBy(String identifierId, String identifierOrg) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Patient();
+    }
+
 }

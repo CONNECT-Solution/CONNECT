@@ -251,6 +251,11 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         return actionResult;
     }
 
+    @Override
+    public Patient getPatientBy(String identifierId, String identifierOrg){
+        return patientDAO.readTransaction(identifierId, identifierOrg);
+    }
+
     private static void logDaoError(String logOf) throws LoadTestDataException {
         LOG.error("DAO fail to save {}.", logOf);
         throw new LoadTestDataException(MessageFormat.format("{0} fail to save to database.", logOf));

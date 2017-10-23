@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS docrepository.document (
     IntendedRecipientOrganization varchar(128) default NULL COMMENT 'Format of HL7 2.x XON',
     LanguageCode varchar(64) default NULL,
     LegalAuthenticator varchar(128) default NULL COMMENT 'Format of HL7 2.x XCN',
-    MimeType varchar(32) default NULL,
+    MimeType varchar(256) default NULL,
     ParentDocumentId varchar(64) default NULL,
     ParentDocumentRelationship varchar(64) default NULL,
     PracticeSetting varchar(64) default NULL,

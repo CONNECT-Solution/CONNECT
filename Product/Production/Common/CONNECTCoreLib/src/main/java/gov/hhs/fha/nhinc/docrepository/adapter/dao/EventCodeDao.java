@@ -27,7 +27,8 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ import java.util.Set;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -168,7 +170,7 @@ public class EventCodeDao {
                 LOG.error("Session was null");
             }
         } finally {
-            HibernateUtil.closeSession(sess);
+            GenericDBUtils.closeSession(sess);
         }
         return eventCodes;
     }
@@ -358,27 +360,34 @@ public class EventCodeDao {
     }
 
     public List<EventCode> findAll() {
-        return HibernateUtil.findAllBy(EventCode.class, null);
+        return GenericDBUtils.findAll(getSession(), EventCode.class);
     }
 
     public List<EventCode> findAllBy(Long documentId) {
-        return HibernateUtil.findAllBy(EventCode.class, Expression.eq("document.documentid", documentId));
+        return GenericDBUtils.findAllBy(getSession(), EventCode.class,
+            Expression.eq("document.documentid", documentId));
     }
 
     public boolean save(EventCode eventCode) {
-        return HibernateUtil.save(eventCode);
+        return GenericDBUtils.save(getSession(), eventCode);
     }
 
     public EventCode findById(Long eventCodeId) {
-        return HibernateUtil.readBy(EventCode.class, eventCodeId);
+        return GenericDBUtils.readBy(getSession(), EventCode.class, eventCodeId);
     }
 
     public boolean delete(EventCode eventCode) {
-        return HibernateUtil.delete(eventCode);
+        return GenericDBUtils.delete(getSession(), eventCode);
     }
 
     protected Session getSession() {
-        return HibernateUtil.getSession();// .openSession();
+        Session session = null;
+        try {
+            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
+        } catch (HibernateException e) {
+            LOG.error("Fail to openSession: {}, {}", e.getMessage(), e);
+        }
+        return session;
     }
 
 }

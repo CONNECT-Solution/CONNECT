@@ -28,11 +28,13 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
@@ -49,23 +51,29 @@ public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
     public boolean save(Document document) {
-        return HibernateUtil.save(document);
+        return GenericDBUtils.save(getSession(), document);
     }
 
     public boolean delete(Document document) {
-        return HibernateUtil.delete(document);
+        return GenericDBUtils.delete(getSession(), document);
     }
 
     public Document findById(Long documentId) {
-        return HibernateUtil.readBy(Document.class, documentId);
+        return GenericDBUtils.readBy(getSession(), Document.class, documentId);
     }
 
     public List<Document> findAll() {
-        return HibernateUtil.findAll(Document.class);
+        return GenericDBUtils.findAll(getSession(), Document.class);
     }
 
     protected Session getSession() {
-        return HibernateUtil.getSession();// .openSession();
+        Session session = null;
+        try {
+            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
+        } catch (HibernateException e) {
+            LOG.error("Fail to openSession: {}, {}", e.getMessage(), e);
+        }
+        return session;
     }
 
     /**
@@ -119,9 +127,8 @@ public class DocumentDao {
                      * The class code and class code scheme combination can come in two different formats:
                      *
                      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
-                     * </ns7:ValueList> </ns7:Slot>
-                     * <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6
-                     * .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
+                     * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList>
+                     * <ns7:Value>2.16.840.1.113883.6 .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
                      *
                      * or
                      *
@@ -185,16 +192,16 @@ public class DocumentDao {
 
                 if (serviceStartTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service start time to: "
-                            + logDateFormatter.format(serviceStartTimeTo));
+                        LOG.debug(
+                            "Document query - service start time to: " + logDateFormatter.format(serviceStartTimeTo));
                     }
                     criteria.add(Expression.le("serviceStartTime", serviceStartTimeTo));
                 }
 
                 if (serviceStopTimeFrom != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service stop time from: "
-                            + logDateFormatter.format(serviceStopTimeFrom));
+                        LOG.debug(
+                            "Document query - service stop time from: " + logDateFormatter.format(serviceStopTimeFrom));
                     }
                     criteria.add(Expression.ge("serviceStopTime", serviceStopTimeFrom));
                 }
@@ -242,7 +249,7 @@ public class DocumentDao {
                     + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
         } finally {
-            HibernateUtil.closeSession(sess);
+            GenericDBUtils.closeSession(sess);
         }
         return documents;
     }

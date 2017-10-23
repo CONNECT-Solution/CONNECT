@@ -97,4 +97,6 @@ public interface LoadTestDataService {
 
     public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException;
 
+    public Patient getPatientBy(String identifierId, String identifierOrg);
+
 }
