@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
+import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import java.util.ArrayList;
@@ -45,11 +46,6 @@ import org.uddi.api_v3.KeyedReference;
 public class ConnectionManagerCacheHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCacheHelper.class);
-
-    public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
-    public static final String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
-    public static final String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
-    public static final String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
 
     /**
      * This method merge the businessServices from the uddiEntity to the internalEntity.
@@ -97,7 +93,7 @@ public class ConnectionManagerCacheHelper {
             return null;
         }
         for (KeyedReference reference : businessEntity.getIdentifierBag().getKeyedReference()) {
-            if (reference.getTModelKey().equals(UDDI_HOME_COMMUNITY_ID_KEY)) {
+            if (reference.getTModelKey().equals(UDDIConstants.UDDI_HOME_COMMUNITY_ID_KEY)) {
                 return reference;
             }
         }
@@ -109,7 +105,7 @@ public class ConnectionManagerCacheHelper {
         for (KeyedReference reference : businessEntity.getCategoryBag().getKeyedReference()) {
             String key = reference.getTModelKey();
             String value = reference.getKeyValue();
-            if (UDDI_STATE_KEY.equals(key)) {
+            if (UDDIConstants.UDDI_STATE_KEY.equals(key)) {
                 result.add(value);
             }
         }
@@ -210,7 +206,7 @@ public class ConnectionManagerCacheHelper {
             for (KeyedReference reference : service.getCategoryBag().getKeyedReference()) {
                 String keyName = reference.getTModelKey();
                 String keyValue = reference.getKeyValue();
-                if (keyName.equals(UDD_SERVICE_NAMES_KEY)) {
+                if (keyName.equals(UDDIConstants.UDD_SERVICE_NAMES_KEY)) {
                     serviceNameList.add(keyValue);
                 }
             }
@@ -231,7 +227,7 @@ public class ConnectionManagerCacheHelper {
                 for (KeyedReference reference : bindingTemplate.getCategoryBag().getKeyedReference()) {
                     String keyName = reference.getTModelKey();
                     String specVersionValue = reference.getKeyValue();
-                    if (keyName.equals(UDDI_SPEC_VERSION_KEY)) {
+                    if (keyName.equals(UDDIConstants.UDDI_SPEC_VERSION_KEY)) {
                         specVersionList.add(UDDI_SPEC_VERSION.fromString(specVersionValue));
                     }
                 }

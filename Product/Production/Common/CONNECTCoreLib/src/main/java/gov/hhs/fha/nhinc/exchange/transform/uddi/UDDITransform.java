@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
+import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
@@ -60,11 +61,6 @@ import org.uddi.api_v3.Phone;
  */
 public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
-    public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
-    public static final String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
-    public static final String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
-    public static final String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
-    public static final String UDDI_EXCHANGE = "UDDI";
     private static final Logger LOG = LoggerFactory.getLogger(UDDITransform.class);
 
     @Override
@@ -95,7 +91,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         if (entity.getIdentifierBag() != null && CollectionUtils.isNotEmpty(entity.getIdentifierBag().
             getKeyedReference())) {
             for (KeyedReference key : entity.getIdentifierBag().getKeyedReference()) {
-                if (key.getTModelKey().equals(UDDI_HOME_COMMUNITY_ID_KEY)) {
+                if (UDDIConstants.UDDI_HOME_COMMUNITY_ID_KEY.equalsIgnoreCase(key.getTModelKey())) {
                     return key.getKeyValue();
                 }
             }
@@ -151,7 +147,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
             LOG.info("building endpoint name(s)");
             serviceNames = new ArrayList<>();
             for (KeyedReference reference : service.getCategoryBag().getKeyedReference()) {
-                if ((UDD_SERVICE_NAMES_KEY).equals(reference.getTModelKey())) {
+                if (UDDIConstants.UDD_SERVICE_NAMES_KEY.equals(reference.getTModelKey())) {
                     serviceNames.add(reference.getKeyValue());
                 }
             }
@@ -181,7 +177,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
             getKeyedReference())) {
             versions = new ArrayList<>();
             for (KeyedReference keyRef : bTemplate.getCategoryBag().getKeyedReference()) {
-                if (UDDI_SPEC_VERSION_KEY.equalsIgnoreCase(keyRef.getTModelKey())) {
+                if (UDDIConstants.UDDI_SPEC_VERSION_KEY.equalsIgnoreCase(keyRef.getTModelKey())) {
                     versions.add(keyRef.getKeyValue());
                 }
             }
@@ -189,7 +185,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         return versions;
     }
 
-    private void buildContacts(BusinessEntity entity, OrganizationType org) {
+    private static void buildContacts(BusinessEntity entity, OrganizationType org) {
         List<ContactType> contacts;
         if (entity.getContacts() != null && CollectionUtils.isNotEmpty(entity.getContacts().getContact())) {
             contacts = new ArrayList<>();
@@ -211,7 +207,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         if (entity.getCategoryBag() != null && CollectionUtils.isNotEmpty(entity.getCategoryBag().getKeyedReference())) {
             regions = new ArrayList<>();
             for (KeyedReference keyRef : entity.getCategoryBag().getKeyedReference()) {
-                if (null != keyRef.getTModelKey() && keyRef.getTModelKey().equalsIgnoreCase(UDDI_STATE_KEY)) {
+                if (UDDIConstants.UDDI_STATE_KEY.equalsIgnoreCase(keyRef.getTModelKey())) {
                     regions.add(keyRef.getKeyValue());
                 }
             }
