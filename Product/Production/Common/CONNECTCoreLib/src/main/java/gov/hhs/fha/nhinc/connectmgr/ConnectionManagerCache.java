@@ -132,6 +132,11 @@ public class ConnectionManagerCache implements ConnectionManager {
         BusinessDetail businessDetail = null;
         try {
             businessDetail = getUddiConnectionManagerDAO().loadBusinessDetail();
+            /*
+             * For the new FHIR schema, work flow will be to read the exchangeInfo.xml and for each exchange element,
+             * read the url and download form the source and update organization list. TODO Call to transformUDDI will
+             * be replaced by the above flow.
+             */
             transformUDDI(businessDetail);
         } catch (Exception ex) {
             LOG.error("Could not load UDDI business details: " + ex.getLocalizedMessage(), ex);
