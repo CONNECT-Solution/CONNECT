@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdb.dao;
 
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Expression;
 import org.slf4j.Logger;
@@ -60,7 +59,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public boolean create(T record) {
         boolean result = false;
         try{
-            session = getSessionFactory().openSession();
+            session = getSession();
             tx = session.beginTransaction();
             LOG.trace("Inserting Record...");
             session.persist(record);
@@ -73,8 +72,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             }
             LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, false);
+            GenericDBUtils.closeSession(session);
         }
         LOG.debug("PatientDB-GenericDAOImp.create() - End");
         return result;
@@ -89,7 +87,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         List<T> queryList = null;
         T foundRecord = null;
         try {
-            session = getSessionFactory().openSession();
+            session = getSession();
             LOG.trace("Reading Record...");
             Criteria aCriteria = session.createCriteria(entityClass);
             aCriteria.add(Expression.eq(idColumn, id));
@@ -100,8 +98,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.debug("PatientDB-GenericDAOImp.read() - End");
         return foundRecord;
@@ -119,8 +116,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         LOG.debug("PatientDB-GenericDAOImp.save() - Begin");
 
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = getSession();
             tx = session.beginTransaction();
             LOG.trace("Updating Record...");
             session.saveOrUpdate(record);
@@ -133,8 +129,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
             }
             LOG.error("Exception during update caused by : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, false);
+            GenericDBUtils.closeSession(session);
         }
 
         LOG.debug("PatientDB-GenericDAOImp.save() - End");
@@ -145,24 +140,31 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     public boolean delete(T record) {
         boolean result = false;
         try {
-            session = getSessionFactory().openSession();
+            session = getSession();
+            tx = session.beginTransaction();
             LOG.trace("Deleting Record...");
 
             // Delete the Patient record
             session.delete(record);
+            tx.commit();
             result = true;
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.debug("PatientDB-GenericDAOImp.delete() - End");
         return result;
     }
 
-    protected SessionFactory getSessionFactory() {
-        return HibernateUtilFactory.getHibernateUtilInstance().getSessionFactory();
+    protected Session getSession() {
+        Session session = null;
+        try{
+            session = HibernateUtilFactory.getHibernateUtilInstance().getSessionFactory().openSession();
+        }catch(HibernateException e){
+            LOG.error("Error getSession, while openSession: {}, {}",e.getMessage(), e);
+        }
+        return session;
     }
 
     public List<T> findRecords(Long patientId) {
@@ -175,8 +177,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         }
 
         try {
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
+            session = getSession();
             LOG.trace("Reading Record...");
 
             // Build the criteria
@@ -186,8 +187,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.trace("PatientDB-GenericDAOImp.findRecords() - End");
         return queryList;

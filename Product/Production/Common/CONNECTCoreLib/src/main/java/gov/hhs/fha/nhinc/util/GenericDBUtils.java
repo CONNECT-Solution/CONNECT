@@ -59,6 +59,7 @@ public class GenericDBUtils
     }
 
     public static <T> boolean save(Session session, T entity) {
+        LOG.trace("GenericDBUtil.save");
         boolean result = false;
         Transaction tx = null;
         try {
@@ -66,6 +67,7 @@ public class GenericDBUtils
             session.saveOrUpdate(entity);
             tx.commit();
             result = true;
+            LOG.trace("GenericDBUtil.save - commit()");
         } catch (HibernateException | NullPointerException e) {
             if (tx != null) {
                 tx.rollback();
@@ -78,6 +80,7 @@ public class GenericDBUtils
     }
 
     public static <T> boolean delete(Session session, T entity) {
+        LOG.trace("GenericDBUtil.delete");
         boolean result = false;
         Transaction tx = null;
         try {
@@ -85,6 +88,7 @@ public class GenericDBUtils
             session.delete(entity);
             tx.commit();
             result = true;
+            LOG.trace("GenericDBUtil.delete - commit()");
         } catch (HibernateException | NullPointerException e) {
             if (tx != null) {
                 tx.rollback();
@@ -97,9 +101,11 @@ public class GenericDBUtils
     }
 
     public static <T> T readBy(Session session, Class<T> clazz, Long id) {
+        LOG.trace("GenericDBUtil.readBy");
         T entity = null;
         try {
             entity = session.get(clazz, id);
+            LOG.trace("GenericDBUtil.readBy - entity = session.get()");
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read caused by : {}", e.getMessage(), e);
         } finally {
@@ -119,6 +125,7 @@ public class GenericDBUtils
     }
 
     public static <T> List<T> findAllBy(Session session, Class<T> clazz, List<Criterion> criterions) {
+        LOG.trace("GenericDBUtil.findAllBy");
         List<T> queryList = new ArrayList<>();
         try {
             Criteria aCriteria = session.createCriteria(clazz);
@@ -128,6 +135,7 @@ public class GenericDBUtils
                 }
             }
             queryList = aCriteria.list();
+            LOG.trace("GenericDBUtil.findAllBy - queryList = aCriteria.list");
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during findAllBy occured due to : {}", e.getMessage(), e);
         } finally {

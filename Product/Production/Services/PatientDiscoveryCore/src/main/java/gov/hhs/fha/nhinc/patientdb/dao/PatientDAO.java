@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
-import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +153,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         List<Patient> patientsList = new ArrayList<>();
 
         try {
-            session = getSessionFactory().openSession();
+            session = getSession();
 
             LOG.trace("Reading Records...");
 
@@ -423,7 +423,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
             // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.trace("PatientDAO.findPatients() - End");
         return patientsList;
@@ -439,7 +439,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         List<Patient> patients = new ArrayList<>();
 
         try {
-            session = getSessionFactory().openSession();
+            session = getSession();
             Query query = session.createQuery("select new Patient(p) from Patient p");
             patients = query.list();
 
@@ -448,7 +448,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
         } finally {
-            HibernateUtil.closeSession(session, false);
+            GenericDBUtils.closeSession(session);
         }
 
         return patients;
@@ -474,7 +474,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         List<Patient> queryList;
         Patient foundRecord = null;
         try {
-            session = getSessionFactory().openSession();
+            session = getSession();
             LOG.info("Reading Record...");
 
             // Build the criteria
@@ -499,8 +499,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read occured due to : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.trace("PatientDAO.readTransaction() -- end");
         return foundRecord;
@@ -516,7 +515,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             LOG.info("Read patient-records for delete");
             Patient deletePatient = readTransaction(patient.getPatientId(), true);
             if (deletePatient != null) {
-                session = getSessionFactory().openSession();
+                session = getSession();
                 tx = session.beginTransaction();
                 LOG.info("Deleting Records...");
 
@@ -545,8 +544,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during delete occured due to : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.trace("PatientDAO.deleteTransaction() - End");
         return result;
@@ -561,7 +559,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
         try {
             if (patient != null) {
-                session = getSessionFactory().openSession();
+                session = getSession();
                 tx = session.beginTransaction();
                 session.saveOrUpdate(patient);
                 session.flush();
@@ -570,14 +568,18 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                     personnameRec.setPatient(patient);
                     session.saveOrUpdate(personnameRec);
                 }
+
+                for (Identifier identifierRec : patient.getIdentifiers()) {
+                    identifierRec.setPatient(patient);
+                    session.saveOrUpdate(identifierRec);
+                }
                 tx.commit();
                 result = true;
             }
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during save patient occured due to : {}", e.getMessage(), e);
         } finally {
-            // Flush and close session
-            HibernateUtil.closeSession(session, true);
+            GenericDBUtils.closeSession(session);
         }
         LOG.trace("PatientDAO.saveTransaction() - End");
         return result;
