@@ -31,9 +31,9 @@ import gov.hhs.fha.nhinc.admingui.model.AvailableService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.StatusService;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
-import static gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache.UDDI_SPEC_VERSION_KEY;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -108,7 +108,7 @@ public class StatusServiceImpl implements StatusService {
         BusinessEntity localEntity = cHelper.getLocalBusinessEntity();
 
         if (localEntity != null && localEntity.getBusinessServices() != null
-                && !CollectionUtils.isEmpty(localEntity.getBusinessServices().getBusinessService())) {
+            && !CollectionUtils.isEmpty(localEntity.getBusinessServices().getBusinessService())) {
 
             for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
                 services.addAll(getServicesFromName(name.getUDDIServiceName(), localEntity));
@@ -133,13 +133,14 @@ public class StatusServiceImpl implements StatusService {
         return namedServices;
     }
 
-    private void populateNamedServices(List<NhincConstants.UDDI_SPEC_VERSION> specVersions, String uddiServiceName, 
-            BusinessService bService, List<AvailableService> namedServices) {
+    private void populateNamedServices(List<NhincConstants.UDDI_SPEC_VERSION> specVersions, String uddiServiceName,
+        BusinessService bService, List<AvailableService> namedServices) {
         for (NhincConstants.UDDI_SPEC_VERSION spec : specVersions) {
             AvailableService aService = new AvailableService();
             aService.setServiceName(uddiServiceName + " - " + spec.toString());
-            BindingTemplate bindingTemplate = cmHelper.findBindingTemplateByKey(bService, UDDI_SPEC_VERSION_KEY,
-                    spec.toString());
+            BindingTemplate bindingTemplate = cmHelper.findBindingTemplateByKey(bService,
+                UDDIConstants.UDDI_SPEC_VERSION_KEY,
+                spec.toString());
             if (bindingTemplate != null && bindingTemplate.getAccessPoint() != null) {
                 aService.setAvailable(pingService.ping(bindingTemplate.getAccessPoint().getValue()));
                 namedServices.add(aService);
