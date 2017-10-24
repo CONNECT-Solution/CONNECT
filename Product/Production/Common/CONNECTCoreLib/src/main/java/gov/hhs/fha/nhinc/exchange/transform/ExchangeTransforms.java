@@ -24,39 +24,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
+package gov.hhs.fha.nhinc.exchange.transform;
 
-import java.io.File;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.ObjectFactory;
+import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 
 /**
  *
- * @author mweaver
+ * @author tjafri
+ * @param <T>
  */
-public class ConnectionManagerDAOBase extends AbstractConnectionManagerDAO<BusinessDetail> {
+public interface ExchangeTransforms<T> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
-
-    @Override
-    public void saveExchangeInfo(final BusinessDetail businessDetail, final File file) {
-        try {
-            synchronized (file) {
-                final JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-                final ObjectFactory factory = new ObjectFactory();
-                final Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(factory.createBusinessDetail(businessDetail), file);
-            }
-        } catch (final JAXBException ex) {
-            throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
-        }
-
-        LOG.info("Connection info saved to " + file.getName());
-    }
+    public OrganizationListType transform(T srcDirectory);
 }

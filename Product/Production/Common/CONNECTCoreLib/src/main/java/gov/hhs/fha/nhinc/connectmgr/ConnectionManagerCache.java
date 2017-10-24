@@ -29,8 +29,14 @@ package gov.hhs.fha.nhinc.connectmgr;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
+import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
+import gov.hhs.fha.nhinc.exchange.ExchangeType;
+import gov.hhs.fha.nhinc.exchange.OrganizationListType;
+import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
+import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
@@ -66,6 +72,8 @@ public class ConnectionManagerCache implements ConnectionManager {
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCache.class);
     private PropertyAccessor accessor;
     public static final String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
+    public static final String UDDI_EXCHANGE_TYPE = "uddi";
+    private ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
     // --------------------------------------------------------------------------------------------
     // Array of connection information
@@ -113,14 +121,19 @@ public class ConnectionManagerCache implements ConnectionManager {
         return InternalConnectionInfoDAOFileImpl.getInstance();
     }
 
+    protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+        return ExchangeInfoDAOFileImpl.getInstance();
+    }
+
     /**
-     * This method is used to load the UDDI Connection Infomration form the uddiConnectionInfo.xml file.
+     * This method is used to load the UDDI Connection Information form the uddiConnectionInfo.xml file.
      */
     private void loadUDDIConnectionInfo() throws ConnectionManagerException {
 
         BusinessDetail businessDetail = null;
         try {
             businessDetail = getUddiConnectionManagerDAO().loadBusinessDetail();
+            transformUDDI();
         } catch (Exception ex) {
             LOG.error("Could not load UDDI business details: " + ex.getLocalizedMessage(), ex);
         }
@@ -142,8 +155,7 @@ public class ConnectionManagerCache implements ConnectionManager {
                 m_bUDDILoaded = true;
                 m_lUDDIFileLastModified = getUddiConnectionManagerDAO().getLastModified();
             }
-        }
-        else {
+        } else {
             LOG.warn("No UDDI information was found");
         }
     }
@@ -207,8 +219,7 @@ public class ConnectionManagerCache implements ConnectionManager {
                 m_lInternalFileLastModified = getInternalConnectionManagerDAO().getLastModified();
 
             }
-        }
-        else {
+        } else {
             LOG.warn("No UDDI information was found in");
         }
     }
@@ -235,7 +246,7 @@ public class ConnectionManagerCache implements ConnectionManager {
 
     /**
      * This method checks to see if either cache has expired and forces a refresh if it has.
-     *
+     * <p>
      */
     private void refreshIfExpired() throws ConnectionManagerException {
         long lUDDILastModified = 0;
@@ -1000,5 +1011,37 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         return null;
+    }
+
+    private void transformUDDI() {
+        try {
+            BusinessDetail bDetail = this.getUddiConnectionManagerDAO().loadBusinessDetail();
+            OrganizationListType orgList = transformer.transform(bDetail);
+            ExchangeInfoType exchangeInfo = this.getExchangeInfoDAO().loadExchangeInfo();
+            removeExistingExchangeInfo(exchangeInfo, UDDI_EXCHANGE_TYPE);
+            exchangeInfo.getExchanges().getExchange().add(buildExchangeInfo(orgList));
+            this.getExchangeInfoDAO().saveExchangeInfo(exchangeInfo);
+        } catch (Exception ex) {
+            LOG.error("Unable to transform UDDI: {}", ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    private static ExchangeType buildExchangeInfo(OrganizationListType orgList) {
+        ExchangeType exType = new ExchangeType();
+        exType.setType(UDDI_EXCHANGE_TYPE);
+        exType.setOrganizationList(orgList);
+        return exType;
+    }
+
+    private static void removeExistingExchangeInfo(ExchangeInfoType exchangeInfo, String type) {
+        List<ExchangeType> exList = exchangeInfo.getExchanges().getExchange();
+        if (exList != null && CollectionUtils.isNotEmpty(exList)) {
+            for (ExchangeType ex : exList) {
+                if (type.equalsIgnoreCase(ex.getType())) {
+                    exList.remove(ex);
+                    break;
+                }
+            }
+        }
     }
 }
