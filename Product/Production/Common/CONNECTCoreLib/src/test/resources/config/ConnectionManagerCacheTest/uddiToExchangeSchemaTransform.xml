@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+    <businessEntity businessKey="uddi:Conformance1HealthSolution:urn:oid:2">
+        <name xml:lang="en">Health Solutions</name>
+        <contacts>
+            <contact useType="">
+                <personName xml:lang="en">Doe, Jhon</personName>
+                <phone>804-571-0458</phone>
+                <email>jdoe@hSolution.com</email>
+                <address xml:lang="en" useType="" sortCode="">
+                    <addressLine>11710 Plaza America Drive Suite 2000</addressLine>
+                    <addressLine>Reston, VA 20190</addressLine>
+                </address>
+            </contact>
+            <contact useType="">
+                <personName xml:lang="en">Dunn, Mike</personName>
+                <phone>415-462-1910</phone>
+                <email>mDunn@hSolution.com</email>
+                <address xml:lang="en" useType="" sortCode="">
+                    <addressLine>11710 Plaza Drive Suite 2000</addressLine>
+                    <addressLine>Reston, VA 20190</addressLine>
+                </address>
+            </contact>
+        </contacts>
+        <businessServices>
+            <businessService serviceKey="uddi:Conformance1:PatientDiscovery" businessKey="uddi:Conformance1HealthSolution:urn:oid:2">
+                <name xml:lang="en">PatientDiscovery</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:c6690370-c35d-11df-a5a6-5b0ea191a5a5" serviceKey="uddi:Conformance1-5AM:PatientDiscovery">
+                        <accessPoint useType="endPoint">https://conformance1.HealthSolutions.com/CONNECTGateway/1_0/NhinService/NhinPatientDiscovery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:Conformance1-5AM:QueryForDocuments" businessKey="uddi:Conformance1-5AM:urn:oid:2.16.840.1.113883.3.596">
+                <name xml:lang="en">QueryForDocuments</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:19e19300-c35e-11df-a5a7-5b0ea191a5a5" serviceKey="uddi:Conformance1:QueryForDocuments">
+                        <accessPoint useType="endPoint">https://conformance1.HealthSolutions.com/CONNECTGateway/2_0/NhinService/DocQuery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                    <bindingTemplate bindingKey="uddi:19e19300-c35e-11df-a5a7-5b0ea191a5a5" serviceKey="uddi:Conformance1:QueryForDocuments">
+                        <accessPoint useType="endPoint">https://conformance1.HealthSolutions.com/CONNECTGateway/3_0/NhinService/DocQuery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocument" keyValue="QueryForDocument"/>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
+                </categoryBag>
+            </businessService>
+        </businessServices>
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:2"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Maryland" keyValue="US-MD"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+    <businessEntity businessKey="uddi:ConformanceHealthExchange"/>
+    <businessEntity businessKey="uddi:ConformanceHealthExchange">
+        <businessServices>
+            <businessService serviceKey="uddi:ConformanceTest:RetrieveDocuments" businessKey="uddi:ConformanceHealthExchange">
+                <description xml:lang="en">This is an implementation of the Nationwide Health Information Network Retrieve Documents specification.</description>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocument" keyValue="RetrieveDocument"/>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
+                </categoryBag>
+            </businessService>
+        </businessServices>
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:3"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+</businessDetail>

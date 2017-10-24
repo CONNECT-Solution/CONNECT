@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
-import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -38,10 +37,10 @@ import org.uddi.api_v3.BusinessDetail;
  *
  * @author kshtabnoy
  *
- *         Implementation of ConnectionManagerDAO that stores connection information in local file
+ * Implementation of ConnectionManagerDAO that stores connection information in local file
  *
  */
-public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase implements ConnectionManagerDAO {
+public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase {
 
     private static UddiConnectionInfoDAOFileImpl instance = null;
     private File file = null;
@@ -82,25 +81,18 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
         return file != null && file.exists();
     }
 
-    @Override
-    public BusinessDetail loadBusinessDetail() throws Exception {
+    public BusinessDetail loadBusinessDetail() throws ConnectionManagerException {
         if (!isFile()) {
             throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
         }
 
         BusinessDetail resp;
-        try {
-            resp = super.loadBusinessDetail(file);
-        } catch (JAXBException ex) {
-            LOG.error("unable to load business entities from " + file.getName(), ex);
-            throw new Exception("unable to load business entities from " + file.getName(), ex);
-        }
+        resp = super.loadExchangeInfo(BusinessDetail.class, file);
         return resp;
     }
 
-    @Override
     public void saveBusinessDetail(BusinessDetail BusinessDetail) {
-        super.saveBusinessDetail(BusinessDetail, file);
+        super.saveExchangeInfo(BusinessDetail, file);
     }
 
     public long getLastModified() {

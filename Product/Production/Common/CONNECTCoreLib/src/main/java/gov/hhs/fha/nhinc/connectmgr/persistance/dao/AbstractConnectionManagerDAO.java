@@ -26,37 +26,50 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLStreamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.ObjectFactory;
 
 /**
  *
- * @author mweaver
+ * @author tjafri
+ * @param <T>
  */
-public class ConnectionManagerDAOBase extends AbstractConnectionManagerDAO<BusinessDetail> {
+public abstract class AbstractConnectionManagerDAO<T> implements ConnectionManagerDAO<T> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerDAOBase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractConnectionManagerDAO.class);
 
     @Override
-    public void saveExchangeInfo(final BusinessDetail businessDetail, final File file) {
+    public T loadExchangeInfo(Class<T> clazz, File file) throws ConnectionManagerException {
+        T resp = null;
+        FileInputStream inputStream = null;
+
         try {
             synchronized (file) {
-                final JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
-                final ObjectFactory factory = new ObjectFactory();
-                final Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(factory.createBusinessDetail(businessDetail), file);
+                JAXBContext context = JAXBContext.newInstance(clazz);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
+                inputStream = new FileInputStream(file);
+                resp = unmarshaller
+                    .unmarshal(util.getSafeStreamReaderFromInputStream(inputStream), clazz).getValue();
             }
-        } catch (final JAXBException ex) {
-            throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
+        } catch (FileNotFoundException | XMLStreamException | JAXBException e) {
+            LOG.error("Exception in reading/parsing Connection Information file: {}", e.getLocalizedMessage(), e);
+        } finally {
+            StreamUtils.closeStreamSilently(inputStream);
         }
-
-        LOG.info("Connection info saved to " + file.getName());
+        return resp;
     }
+
+    @Override
+    public abstract void saveExchangeInfo(T value, File file) throws ConnectionManagerException;
 }

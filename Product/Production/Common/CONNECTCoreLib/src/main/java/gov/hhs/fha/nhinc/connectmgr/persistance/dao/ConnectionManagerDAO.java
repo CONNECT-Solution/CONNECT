@@ -26,18 +26,20 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
-import org.uddi.api_v3.BusinessDetail;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import java.io.File;
 
 /**
  *
  * @author kshtabnoy
  *
- *         Isolates load/save functionality
+ * Isolates load/save functionality
+ * @param <T>
  *
  */
-public interface ConnectionManagerDAO {
+public interface ConnectionManagerDAO<T> {
 
-    public BusinessDetail loadBusinessDetail() throws Exception;
+    public T loadExchangeInfo(Class<T> clazz, File file) throws ConnectionManagerException;
 
-    public void saveBusinessDetail(BusinessDetail businessEntity);
+    public void saveExchangeInfo(T value, File file) throws ConnectionManagerException;
 }
