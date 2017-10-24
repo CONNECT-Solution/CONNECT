@@ -34,6 +34,7 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,7 @@ public final class ExchangeInfoDAOFileImpl extends AbstractConnectionManagerDAO<
     private ExchangeInfoDAOFileImpl() {
         super();
         String fileName = getExchangeFileLocation();
-        LOG.debug("Reading exchangeInfo from file: " + fileName);
+        LOG.debug("Reading exchangeInfo from file: {}", fileName);
         if (fileName != null) {
             file = new File(fileName);
         }
@@ -67,7 +68,7 @@ public final class ExchangeInfoDAOFileImpl extends AbstractConnectionManagerDAO<
     public String getExchangeFileLocation() {
         if (file == null) {
             String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
-            if (sValue != null && sValue.length() > 0) {
+            if (StringUtils.isNotEmpty(sValue)) {
                 if (sValue.endsWith(File.separator)) {
                     setFileName(sValue + EXCHANGE_XML_FILE_NAME);
                 } else {
