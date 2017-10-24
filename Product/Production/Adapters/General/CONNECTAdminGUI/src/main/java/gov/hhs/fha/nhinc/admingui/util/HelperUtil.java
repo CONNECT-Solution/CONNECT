@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.admingui.util;
 
 import com.google.gson.Gson;
+import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -37,6 +40,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,8 +144,75 @@ public class HelperUtil {
         return decryptToKey(strEncrypted, ENCRYPTION_KEY);
     }
 
-    public static void addFacesMessageBy(String messageId, Severity messageSeverity, String messageText) {
-        FacesContext.getCurrentInstance().addMessage(messageId, new FacesMessage(messageSeverity, messageText, ""));
+    public static void addFacesMessageBy(Severity msgSeverity, String msgText) {
+        addFacesMessageBy(null, new FacesMessage(msgSeverity, msgText, ""));
+    }
+
+    public static void addFacesMessageBy(String ofTarget, Severity msgSeverity, String msgText) {
+        addFacesMessageBy(ofTarget, new FacesMessage(msgSeverity, msgText, ""));
+    }
+
+    public static void addFacesMessageBy(FacesMessage theMsg) {
+        addFacesMessageBy(null, theMsg);
+    }
+
+    public static void addFacesMessageBy(String ofTarget, FacesMessage theMsg) {
+        FacesContext.getCurrentInstance().addMessage(ofTarget, theMsg);
+    }
+
+    public static FacesMessage getMsgError(String msgText) {
+        return new FacesMessage(FacesMessage.SEVERITY_ERROR, msgText, "");
+    }
+
+    public static FacesMessage getMsgInfo(String msgText) {
+        return new FacesMessage(FacesMessage.SEVERITY_INFO, msgText, "");
+    }
+
+    public static FacesMessage getMsgWarn(String msgText) {
+        return new FacesMessage(FacesMessage.SEVERITY_WARN, msgText, "");
+    }
+
+    public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
+        String formatValue = "{0}^^^&{1}&ISO";
+        String formatDisplay = "{0} {1}^^^&{2}&ISO";
+
+        Map<String, String> listPatientId = new HashMap<>();
+        for (Patient rec : listPatient) {
+            if(rec.getLastIdentifier() != null){
+                listPatientId.put(
+                    MessageFormat.format(formatDisplay, rec.getFirstName(), rec.getLastName(),
+                        rec.getLastIdentifier().getOrganizationId()),
+                    MessageFormat.format(formatValue, rec.getLastIdentifier().getId(),
+                        rec.getLastIdentifier().getOrganizationId()));
+            }
+        }
+
+        return listPatientId;
+    }
+
+    public static Map<String, String> populateListStatusType() {
+        Map<String, String> popList = new HashMap<>();
+        popList.put("Approved", "urn:oasis:names:tc:ebxml-regrep:StatusType:Approved");
+        popList.put("Deprecated", "urn:oasis:names:tc:ebxml-regrep:StatusType:Deprecated");
+        popList.put("Submitted", "urn:oasis:names:tc:ebxml-regrep:StatusType:Submitted");
+
+        return popList;
+    }
+
+    public static <T> T lastItem(List<T> items) {
+        T item = null;
+        if (CollectionUtils.isNotEmpty(items)) {
+            item = items.get(items.size() - 1);
+        }
+        return item;
+    }
+
+    public static <T> T firstItem(List<T> items) {
+        T item = null;
+        if (CollectionUtils.isNotEmpty(items)) {
+            item = items.get(0);
+        }
+        return item;
     }
 }
 

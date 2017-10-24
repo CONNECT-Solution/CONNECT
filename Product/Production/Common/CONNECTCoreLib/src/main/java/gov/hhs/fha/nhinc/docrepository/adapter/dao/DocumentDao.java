@@ -28,16 +28,14 @@ package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
@@ -52,149 +50,30 @@ import org.slf4j.LoggerFactory;
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
-    /**
-     * Save a document record to the database. Insert if document id is null. Update otherwise.
-     *
-     * @param document Document object to save.
-     */
-    public void save(Document document) {
-        LOG.debug("Performing document save");
-        Session sess = null;
-        Transaction trans = null;
-        try {
-            sess = getSession();
-            if (sess != null) {
-                trans = sess.beginTransaction();
-                sess.saveOrUpdate(document);
-            } else {
-                LOG.error("Failed to obtain a session from the sessionFactory");
-            }
-
-        } finally {
-            if (trans != null) {
-                try {
-                    trans.commit();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
-                }
-            }
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
-        }
-
-        LOG.debug("Completed document save");
+    public boolean save(Document document) {
+        return GenericDBUtils.save(getSession(), document);
     }
 
-    /**
-     * Delete a document
-     *
-     * @param document Document to delete
-     */
-    public void delete(Document document) {
-        LOG.debug("Performing document delete");
-
-        Session sess = null;
-        Transaction trans = null;
-        try {
-            sess = getSession();
-            if (sess != null) {
-                trans = sess.beginTransaction();
-                sess.delete(document);
-            } else {
-                LOG.error("Failed to obtain a session from the sessionFactory");
-            }
-
-        } finally {
-            if (trans != null) {
-                try {
-                    trans.commit();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
-                }
-            }
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
-        }
-        LOG.debug("Completed document delete");
+    public boolean delete(Document document) {
+        return GenericDBUtils.delete(getSession(), document);
     }
 
-    /**
-     * Retrieve a document by identifier
-     *
-     * @param documentId Document identifier
-     * @return Retrieved document
-     */
     public Document findById(Long documentId) {
-        LOG.debug("Performing document retrieve using id: " + documentId);
-        Document document = null;
-        Session sess = null;
-        try {
-            sess = getSession();
-            if (sess != null) {
-                document = sess.get(Document.class, documentId);
-            } else {
-                LOG.error("Failed to obtain a session from the sessionFactory");
-            }
-
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(
-                        "Completed document retrieve by id. Result was " + (document == null ? "not " : "") + "found");
-            }
-        } finally {
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
-        }
-        return document;
+        return GenericDBUtils.readBy(getSession(), Document.class, documentId);
     }
 
-    /**
-     * Retrieves all documents
-     *
-     * @return All document records
-     */
-    @SuppressWarnings("unchecked")
     public List<Document> findAll() {
-        LOG.debug("Performing retrieve of all documents");
-        List<Document> documents = null;
-        Session sess = null;
-        try {
-            sess = getSession();
-            if (sess != null) {
-                Criteria criteria = sess.createCriteria(Document.class);
-                documents = criteria.list();
-            } else {
-                LOG.error("Failed to obtain a session from the sessionFactory");
-            }
+        return GenericDBUtils.findAll(getSession(), Document.class);
+    }
 
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Completed retrieve of all documents. "
-                        + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
-            }
-        } finally {
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
+    protected Session getSession() {
+        Session session = null;
+        try {
+            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
+        } catch (HibernateException e) {
+            LOG.error("Fail to openSession: {}, {}", e.getMessage(), e);
         }
-        return documents;
+        return session;
     }
 
     /**
@@ -248,9 +127,8 @@ public class DocumentDao {
                      * The class code and class code scheme combination can come in two different formats:
                      *
                      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
-                     * </ns7:ValueList> </ns7:Slot>
-                     * <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6
-                     * .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
+                     * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList>
+                     * <ns7:Value>2.16.840.1.113883.6 .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
                      *
                      * or
                      *
@@ -307,23 +185,23 @@ public class DocumentDao {
                 if (serviceStartTimeFrom != null) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("Document query - service start time from: "
-                                + logDateFormatter.format(serviceStartTimeFrom));
+                            + logDateFormatter.format(serviceStartTimeFrom));
                     }
                     criteria.add(Expression.ge("serviceStartTime", serviceStartTimeFrom));
                 }
 
                 if (serviceStartTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service start time to: "
-                                + logDateFormatter.format(serviceStartTimeTo));
+                        LOG.debug(
+                            "Document query - service start time to: " + logDateFormatter.format(serviceStartTimeTo));
                     }
                     criteria.add(Expression.le("serviceStartTime", serviceStartTimeTo));
                 }
 
                 if (serviceStopTimeFrom != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service stop time from: "
-                                + logDateFormatter.format(serviceStopTimeFrom));
+                        LOG.debug(
+                            "Document query - service stop time from: " + logDateFormatter.format(serviceStopTimeFrom));
                     }
                     criteria.add(Expression.ge("serviceStopTime", serviceStopTimeFrom));
                 }
@@ -331,7 +209,7 @@ public class DocumentDao {
                 if (serviceStopTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug(
-                                "Document query - service stop time to: " + logDateFormatter.format(serviceStopTimeTo));
+                            "Document query - service stop time to: " + logDateFormatter.format(serviceStopTimeTo));
                     }
                     criteria.add(Expression.le("serviceStopTime", serviceStopTimeTo));
                 }
@@ -368,31 +246,12 @@ public class DocumentDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed retrieve of document query. "
-                        + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
+                    + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
         } finally {
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
+            GenericDBUtils.closeSession(sess);
         }
         return documents;
-    }
-
-    protected Session getSession() {
-        Session session = null;
-
-        HibernateUtil util = HibernateUtilFactory.getDocRepoHibernateUtil();
-        if (util != null) {
-            SessionFactory fact = util.getSessionFactory();
-            session = fact.openSession();
-        } else {
-            LOG.error("Session is null");
-        }
-        return session;
     }
 
 }

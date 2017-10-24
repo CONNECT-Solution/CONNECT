@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
@@ -164,6 +166,60 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException {
         LOG.info(LOG_UNSUPPORT_METHOD);
         return false;
+    }
+
+    @Override
+    public List<Document> getAllDocuments() {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<EventCode> getAllEventCodesBy(Long documentId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean deleteDocument(Document document) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean deleteEventCode(EventCode eventCode) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public Document getDocumentBy(Long documentId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Document();
+    }
+
+    @Override
+    public EventCode getEventCodeBy(Long eventCodeId) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new EventCode();
+    }
+
+    @Override
+    public boolean saveDocument(Document document) throws LoadTestDataException {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return false;
+    }
+
+    @Override
+    public Patient getPatientBy(String identifierId, String identifierOrg) {
+        LOG.info(LOG_UNSUPPORT_METHOD);
+        return new Patient();
     }
 
 }

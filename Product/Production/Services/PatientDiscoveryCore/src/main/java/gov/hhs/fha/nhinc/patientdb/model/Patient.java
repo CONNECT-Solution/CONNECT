@@ -100,6 +100,7 @@ public class Patient implements Serializable {
     private List<Phonenumber> phonenumbers = null;
 
     private int nameIndex = 0;
+    private int identifierIndex = 0;
 
     public Patient() {
         // default-constructor
@@ -387,6 +388,13 @@ public class Patient implements Serializable {
         return null;
     }
 
+    public Identifier getLastIdentifier() {
+        if (CollectionUtils.isNotEmpty(getIdentifiers())) {
+            return getIdentifiers().get(identifierIndex);
+        }
+        return null;
+    }
+
     public void setPatient(Patient patient) {
         addresses = patient.addresses;
         dateOfBirth = patient.dateOfBirth;
@@ -400,11 +408,13 @@ public class Patient implements Serializable {
 
     public long[] loadAllLazyObjects(boolean allRecords) {
         nameIndex = CollectionUtils.isNotEmpty(getPersonnames()) ? personnames.size() - 1 : 0;
+        identifierIndex = CollectionUtils.isNotEmpty(getIdentifiers()) ? identifiers.size() - 1 : 0;
+
         return new long[] {
                 patientId, personnames != null ? (long) personnames.size() : 0,
-                    // Optional
-                    addresses != null && allRecords ? (long) addresses.size() : 0,
-                        identifiers != null && allRecords ? (long) identifiers.size() : 0,
+                    identifiers != null ? (long) identifiers.size() : 0,
+                        // Optional
+                        addresses != null && allRecords ? (long) addresses.size() : 0,
                             phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0
         };
     }

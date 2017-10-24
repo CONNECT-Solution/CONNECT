@@ -55,7 +55,7 @@ public class HibernateUtil {
             // Create the SessionFactory from hibernate.cfg.xml
             if (sessionFactory == null || sessionFactory.isClosed()) {
                 sessionFactory = new Configuration().configure()
-                        .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
+                    .buildSessionFactory(new StandardServiceRegistryBuilder().configure(getConfigFile()).build());
             }
         } catch (HibernateException he) {
             // Make sure you log the exception, as it might be swallowed
@@ -81,7 +81,7 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    private static File getConfigFile() {
+    protected static File getConfigFile() {
         File result = null;
 
         try {
@@ -93,4 +93,5 @@ public class HibernateUtil {
         return result;
 
     }
+
 }

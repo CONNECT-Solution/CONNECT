@@ -27,6 +27,10 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.dao.AddressDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.IdentifierDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.PatientDAO;
@@ -56,6 +60,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     private AddressDAO addressDAO = AddressDAO.getAddressDAOInstance();
     private PhonenumberDAO phonenumberDAO = PhonenumberDAO.getPhonenumberDAOInstance();
 
+    private DocumentDao documentDAO = new DocumentDao();
+    private EventCodeDao eventCodeDAO = new EventCodeDao();
+
     @Override
     public List<Patient> getAllPatients() {
         return patientDAO.getAll();
@@ -78,7 +85,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
             actionResult = patientDAO.saveTransaction(patient);
 
             if (!actionResult) {
-                logPatientError("Patient basic-info");
+                logDaoError("Patient basic-info");
             }
         }
         else {
@@ -154,7 +161,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         if (personname.getPatient() != null) {
             actionResult = personnameDAO.save(personname);
             if (!actionResult) {
-                logPatientError("Personname");
+                logDaoError("Personname");
             }
         }
         return actionResult;
@@ -166,7 +173,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         if (address.getPatient() != null) {
             actionResult = addressDAO.save(address);
             if (!actionResult) {
-                logPatientError("Address");
+                logDaoError("Address");
             }
         }
         return actionResult;
@@ -178,7 +185,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         if (identifier.getPatient() != null) {
             actionResult = identifierDAO.save(identifier);
             if (!actionResult) {
-                logPatientError("Identifier");
+                logDaoError("Identifier");
             }
         }
         return actionResult;
@@ -190,13 +197,66 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         if (phonenumber.getPatient() != null) {
             actionResult = phonenumberDAO.save(phonenumber);
             if (!actionResult) {
-                logPatientError("Phonenumber");
+                logDaoError("Phonenumber");
             }
         }
         return actionResult;
     }
 
-    private static void logPatientError(String logOf) throws LoadTestDataException {
+    // DocumentRepository
+    @Override
+    public List<Document> getAllDocuments() {
+        return documentDAO.findAll();
+    }
+
+    @Override
+    public List<EventCode> getAllEventCodesBy(Long documentId) {
+        return eventCodeDAO.findAllBy(documentId);
+    }
+
+    @Override
+    public boolean deleteDocument(Document document) {
+        return documentDAO.delete(document);
+    }
+
+    @Override
+    public boolean deleteEventCode(EventCode eventCode) {
+        return eventCodeDAO.delete(eventCode);
+    }
+
+    @Override
+    public Document getDocumentBy(Long documentId) {
+        return documentDAO.findById(documentId);
+    }
+
+    @Override
+    public EventCode getEventCodeBy(Long eventCodeId) {
+        return eventCodeDAO.findById(eventCodeId);
+    }
+
+    @Override
+    public boolean saveDocument(Document document) throws LoadTestDataException {
+        return documentDAO.save(document);
+    }
+
+    @Override
+    public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException {
+        boolean actionResult = false;
+        if (eventCode.getDocument() != null) {
+            actionResult = eventCodeDAO.save(eventCode);
+            if (!actionResult) {
+                logDaoError("EventCode");
+            }
+        }
+        return actionResult;
+    }
+
+    @Override
+    public Patient getPatientBy(String identifierId, String identifierOrg){
+        return patientDAO.readTransaction(identifierId, identifierOrg);
+    }
+
+    private static void logDaoError(String logOf) throws LoadTestDataException {
         LOG.error("DAO fail to save {}.", logOf);
         throw new LoadTestDataException(MessageFormat.format("{0} fail to save to database.", logOf));
     }

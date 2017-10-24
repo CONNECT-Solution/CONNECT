@@ -89,7 +89,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
                                             <p:commandButton
-                                                update=":patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :patientTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, inputSsn, inputPrefix, inputMiddleName, inputSuffix"
+                                                update=":patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :testdataTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, inputSsn, inputPrefix, inputMiddleName, inputSuffix"
                                                 value="Save" action="#{loadTestDataPatientBean.savePatient()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
@@ -153,7 +153,7 @@
                                                 <p:resetInput target=":patientAccordionPanel:createFormAdditionalName" />
                                             </p:commandButton>
                                             <p:commandButton
-                                                update="inputAddFirstName, inputAddLastName, inputAddPrefix, inputAddMiddleName, inputAddSuffix, :patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :patientTabview:patientsList:patientDataTable"
+                                                update="inputAddFirstName, inputAddLastName, inputAddPrefix, inputAddMiddleName, inputAddSuffix, :patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :testdataTabview:patientsList:patientDataTable"
                                                 value="Save" action="#{loadTestDataPatientBean.savePersonname()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
@@ -196,7 +196,7 @@
                                                 <p:resetInput target=":patientAccordionPanel:createFormAdditionalName" />
                                             </p:commandButton>
                                             <p:commandButton
-                                                update="personnameDataTable, :patientErrorMessages, :patientInfoMessages, :patientTabview:patientsList:patientDataTable"
+                                                update="personnameDataTable, :patientErrorMessages, :patientInfoMessages, :testdataTabview:patientsList:patientDataTable"
                                                 actionListener="#{loadTestDataPatientBean.deletePersonname}"
                                                 value="Delete" styleClass="delete-button" icon="ui-icon-closethick" />
                                         </div>
@@ -457,7 +457,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-button-row">
-                                <p:commandButton id="closePatientDlg" update=":patientTabview" value="Close"
+                                <p:commandButton id="closePatientDlg" update=":testdataTabview" value="Close"
                                     oncomplete="PF('patientSaveDlg').hide();" styleClass="btn btn-default"
                                     icon="ui-icon-circle-close" />
                             </div>

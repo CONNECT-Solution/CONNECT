@@ -43,6 +43,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
@@ -453,7 +454,20 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         return patients;
     }
 
-    public Patient readTransaction(long patientId, boolean allRecords) {
+    public Patient readTransaction(Long patientId, boolean allRecords) {
+        List<Criterion> criterions = new ArrayList<>();
+        criterions.add(Expression.eq("id", patientId));
+        return readTransaction(criterions, allRecords, false);
+    }
+
+    public Patient readTransaction(String identifierId, String identifierOrg) {
+        List<Criterion> criterions = new ArrayList<>();
+        criterions.add(Expression.eq("identifier.id", identifierId));
+        criterions.add(Expression.eq("identifier.organizationId", identifierOrg));
+        return readTransaction(criterions, true, true);
+    }
+
+    public Patient readTransaction(List<Criterion> criterions, boolean allRecords, boolean aliasIdentifier) {
         LOG.trace("PatientDAO.readTransaction() -- begin");
 
         Session session = null;
@@ -466,7 +480,15 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Patient.class);
 
-            aCriteria.add(Expression.eq("id", patientId));
+            if (aliasIdentifier) {
+                aCriteria.createAlias("identifiers", "identifier");
+            }
+
+            if(CollectionUtils.isNotEmpty(criterions)){
+                for(Criterion criterion : criterions){
+                    aCriteria.add(criterion);
+                }
+            }
 
             queryList = aCriteria.list();
 
