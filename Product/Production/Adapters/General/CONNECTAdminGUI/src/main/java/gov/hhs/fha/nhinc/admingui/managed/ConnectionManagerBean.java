@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
+import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -104,7 +103,7 @@ public class ConnectionManagerBean {
         String description = NULL_DISPLAY;
 
         if (selectedEntity != null && selectedEntity.getDescription() != null
-                && !selectedEntity.getDescription().isEmpty()) {
+            && !selectedEntity.getDescription().isEmpty()) {
             description = selectedEntity.getDescription().get(0).getValue();
         }
 
@@ -114,12 +113,12 @@ public class ConnectionManagerBean {
     public String getSelectedEntityRegions() {
         String regions = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getCategoryBag() != null
-                && selectedEntity.getCategoryBag().getKeyedReference() != null
-                && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
+            && selectedEntity.getCategoryBag().getKeyedReference() != null
+            && !selectedEntity.getCategoryBag().getKeyedReference().isEmpty()) {
 
             StringBuilder regionBuilder = new StringBuilder();
             for (KeyedReference ref : selectedEntity.getCategoryBag().getKeyedReference()) {
-                if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_STATE_KEY)) {
+                if (ref.getTModelKey().equals(UDDIConstants.UDDI_STATE_KEY)) {
                     regionBuilder.append(ref.getKeyName()).append(", ");
                 }
             }
@@ -134,8 +133,8 @@ public class ConnectionManagerBean {
         String contactValue = NULL_DISPLAY;
 
         if (selectedEntity != null && selectedEntity.getContacts() != null
-                && selectedEntity.getContacts().getContact() != null
-                && !selectedEntity.getContacts().getContact().isEmpty()) {
+            && selectedEntity.getContacts().getContact() != null
+            && !selectedEntity.getContacts().getContact().isEmpty()) {
             Contact contact = selectedEntity.getContacts().getContact().get(0);
 
             if (contact.getPersonName() != null && !contact.getPersonName().isEmpty()) {
@@ -149,10 +148,10 @@ public class ConnectionManagerBean {
     public String getSelectedEntityHcid() {
         String hcid = NULL_DISPLAY;
         if (selectedEntity != null && selectedEntity.getIdentifierBag() != null
-                && selectedEntity.getIdentifierBag().getKeyedReference() != null
-                && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
+            && selectedEntity.getIdentifierBag().getKeyedReference() != null
+            && !selectedEntity.getIdentifierBag().getKeyedReference().isEmpty()) {
             for (KeyedReference ref : selectedEntity.getIdentifierBag().getKeyedReference()) {
-                if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)) {
+                if (ref.getTModelKey().equals(UDDIConstants.UDDI_HOME_COMMUNITY_ID_KEY)) {
                     hcid = ref.getKeyValue();
                 }
             }
@@ -164,23 +163,23 @@ public class ConnectionManagerBean {
         if (selectedEndpoint != null) {
             boolean status = pingService.ping(selectedEndpoint.getServiceUrl());
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(),
-                    status);
+                status);
         }
     }
 
     public List<ConnectionEndpoint> getEndpoints() {
         endpoints = new ArrayList<>();
         if (selectedEntity != null && selectedEntity.getBusinessKey() != null
-                && selectedEntity.getBusinessServices().getBusinessService() != null
-                && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
+            && selectedEntity.getBusinessServices().getBusinessService() != null
+            && !selectedEntity.getBusinessServices().getBusinessService().isEmpty()) {
             for (BusinessService bService : selectedEntity.getBusinessServices().getBusinessService()) {
                 if (bService.getBindingTemplates() != null
-                        && bService.getBindingTemplates().getBindingTemplate() != null) {
+                    && bService.getBindingTemplates().getBindingTemplate() != null) {
                     for (BindingTemplate template : bService.getBindingTemplates().getBindingTemplate()) {
                         String url = template.getAccessPoint().getValue();
                         String version = getSpecVersion(template.getCategoryBag());
                         EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance()
-                                .getEndpointInfo(url);
+                            .getEndpointInfo(url);
 
                         String timestamp = null;
                         String status = "None";
@@ -190,7 +189,7 @@ public class ConnectionManagerBean {
                             status = info.isSuccessfulPing() ? "Pass" : "Fail";
                         }
                         endpoints.add(new ConnectionEndpoint(bService.getName().get(0).getValue(), url, version, status,
-                                timestamp));
+                            timestamp));
                     }
                 }
             }
@@ -221,11 +220,11 @@ public class ConnectionManagerBean {
 
     private String getSpecVersion(CategoryBag categoryBag) {
         if (categoryBag != null && categoryBag.getKeyedReference() != null
-                && !categoryBag.getKeyedReference().isEmpty()) {
+            && !categoryBag.getKeyedReference().isEmpty()) {
 
             for (KeyedReference kRef : categoryBag.getKeyedReference()) {
                 if (kRef.getTModelKey() != null
-                        && kRef.getTModelKey().equals(ConnectionManagerCache.UDDI_SPEC_VERSION_KEY)) {
+                    && kRef.getTModelKey().equals(UDDIConstants.UDDI_SPEC_VERSION_KEY)) {
 
                     return kRef.getKeyValue();
                 }

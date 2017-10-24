@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.admingui.util;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -77,7 +77,7 @@ public class ConnectionHelper {
         }
         return organizationMap;
     }
-    
+
     public BusinessEntity getLocalBusinessEntity() {
         BusinessEntity localEntity = null;
         HashMap<String, BusinessEntity> organizationMap = getRemoteHcidFromUUID();
@@ -101,7 +101,7 @@ public class ConnectionHelper {
     public String getHcidFromKeyedReference(List<KeyedReference> keyedRef) {
         String homeCommunityId = null;
         for (KeyedReference ref : keyedRef) {
-            if (ref.getTModelKey().equals(ConnectionManagerCacheHelper.UDDI_HOME_COMMUNITY_ID_KEY)) {
+            if (ref.getTModelKey().equals(UDDIConstants.UDDI_HOME_COMMUNITY_ID_KEY)) {
                 homeCommunityId = ref.getKeyValue();
                 break;
             }
