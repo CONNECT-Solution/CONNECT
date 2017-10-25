@@ -292,7 +292,7 @@ public class LoadTestDataDocumentBean {
 
         Address address = HelperUtil.lastItem(patient.getAddresses());
         if (address != null) {
-            getDocumentForm().setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^US", address.getStreet1(),
+            getDocumentForm().setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^", address.getStreet1(),
                 address.getCity(), address.getState(), address.getPostal()));
         }
 

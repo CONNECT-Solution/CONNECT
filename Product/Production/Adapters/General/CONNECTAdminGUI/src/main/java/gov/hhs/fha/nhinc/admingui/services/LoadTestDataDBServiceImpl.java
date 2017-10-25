@@ -262,7 +262,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     @Override
     public List<Patient> getCachePatients() {
         if (null == cachePatients) {
-            getAllPatients();
+            cachePatients = getAllPatients();
         }
         return cachePatients;
     }
