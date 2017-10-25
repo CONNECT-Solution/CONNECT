@@ -301,6 +301,7 @@ CREATE TABLE IF NOT EXISTS docrepository.document (
     OnDemand tinyint(1) NOT NULL default 0 COMMENT 'Indicate whether document is dynamic (true or 1) or static (false or 0).',
     NewDocumentUniqueId varchar(128) default NULL,
     NewRepositoryUniqueId varchar(128) default NULL,
+    PatientRecordId int(11) NULL,
     PRIMARY KEY  (documentid)
 );
 

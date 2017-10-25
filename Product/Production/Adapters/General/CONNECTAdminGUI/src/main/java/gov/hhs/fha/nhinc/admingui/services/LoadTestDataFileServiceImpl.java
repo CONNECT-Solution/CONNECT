@@ -222,4 +222,9 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
         return new Patient();
     }
 
+    @Override
+    public List<Patient> getCachePatients() {
+        return getAllPatients();
+    }
+
 }

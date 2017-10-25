@@ -166,23 +166,17 @@
                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                 paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
                                                 <p:column headerText="" selectionMode="single" />
-                                                <p:column headerText="Id">
-                                                    <h:outputText value="#{record.documentid}" />
-                                                </p:column>
                                                 <p:column headerText="Document Id">
                                                     <h:outputText value="#{record.documentUniqueId}" />
                                                 </p:column>
-                                                <p:column headerText="Patient Id">
-                                                    <h:outputText value="#{record.patientId}" />
+                                                <p:column headerText="Patient">
+                                                    <h:outputText value="#{record.patientIdentifier}" />
                                                 </p:column>
                                                 <p:column headerText="Title">
                                                     <h:outputText value="#{record.documentTitle}" />
                                                 </p:column>
-                                                <p:column headerText="Repository Id">
-                                                    <h:outputText value="#{record.newRepositoryUniqueId}" />
-                                                </p:column>
                                                 <p:column headerText="Status">
-                                                    <h:outputText value="#{record.status}" />
+                                                    <h:outputText value="#{record.statusDisplay}" />
                                                 </p:column>
                                                 <p:column headerText="Created">
                                                     <h:outputText value="#{record.creationTime}">
