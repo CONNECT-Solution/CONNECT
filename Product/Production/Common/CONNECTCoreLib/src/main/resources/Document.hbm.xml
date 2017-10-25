@@ -57,6 +57,7 @@
         <property column="NewDocumentUniqueId" length="128" name="NewDocumentUniqueId" not-null="false" type="string"/>
         <property column="NewRepositoryUniqueId" length="128" name="NewRepositoryUniqueId" not-null="false" type="string"/>
         <property column="Persistent" name="persistentCode" not-null="true" type="int"/>
+        <property column="PatientRecordId" name="patientRecordId" type="long"/>
         <set cascade="all-delete-orphan" inverse="true" lazy="false" name="eventCodes">
             <key column="documentid"/>
             <one-to-many class="EventCode"/>

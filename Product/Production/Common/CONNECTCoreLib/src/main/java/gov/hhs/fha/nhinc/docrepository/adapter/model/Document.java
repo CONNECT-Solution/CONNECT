@@ -90,6 +90,8 @@ public class Document {
     private String NewRepositoryUniqueId;
     private boolean persistent;
     private Set<EventCode> eventCodes;
+    private Long patientRecordId;
+    private String patientIdentifier;
 
     public Document() {
         persistent = false;
@@ -578,5 +580,29 @@ public class Document {
 
     public void setEventCodes(Set<EventCode> eventCodes) {
         this.eventCodes = eventCodes;
+    }
+
+    public Long getPatientRecordId() {
+        return patientRecordId;
+    }
+
+    public void setPatientRecordId(Long patientRecordId) {
+        this.patientRecordId = patientRecordId;
+    }
+
+    public String getPatientIdentifier() {
+        return patientIdentifier;
+    }
+
+    public void setPatientIdentifier(String patientIdentifier) {
+        this.patientIdentifier = patientIdentifier;
+    }
+
+    public String getStatusDisplay() {
+        if (status != null) {
+            String[] aStatus = status.split(":");
+            return aStatus[aStatus.length - 1];
+        }
+        return null;
     }
 }

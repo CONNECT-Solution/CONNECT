@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
@@ -395,7 +396,22 @@ public class Patient implements Serializable {
         return null;
     }
 
-    public void setPatient(Patient patient) {
+    public String getPatientIdentifier() {
+        if(CollectionUtils.isNotEmpty(getIdentifiers()) && CollectionUtils.isNotEmpty(getPersonnames())){
+            return MessageFormat.format("{0} {1} - {2}", getFirstName(), getLastName(), getLastIdentifier().getId());
+        }
+        return null;
+    }
+
+    public String getPatientIdentifierIso() {
+        if (CollectionUtils.isNotEmpty(getIdentifiers())) {
+            return MessageFormat.format("{0}^^^&{1}&ISO", getLastIdentifier().getId(),
+                getLastIdentifier().getOrganizationId());
+        }
+        return null;
+    }
+
+    private void setPatient(Patient patient) {
         addresses = patient.addresses;
         dateOfBirth = patient.dateOfBirth;
         gender = patient.gender;

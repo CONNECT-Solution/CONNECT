@@ -63,9 +63,12 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     private DocumentDao documentDAO = new DocumentDao();
     private EventCodeDao eventCodeDAO = new EventCodeDao();
 
+    private List<Patient> cachePatients;
+
     @Override
     public List<Patient> getAllPatients() {
-        return patientDAO.getAll();
+        cachePatients = patientDAO.getAll();
+        return cachePatients;
     }
 
     @Override
@@ -254,6 +257,14 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     @Override
     public Patient getPatientBy(String identifierId, String identifierOrg){
         return patientDAO.readTransaction(identifierId, identifierOrg);
+    }
+
+    @Override
+    public List<Patient> getCachePatients() {
+        if (null == cachePatients) {
+            getAllPatients();
+        }
+        return cachePatients;
     }
 
     private static void logDaoError(String logOf) throws LoadTestDataException {

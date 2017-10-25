@@ -71,22 +71,20 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputServiceStartTime" class="col-sm-3 control-label"
-                                        id="labelServiceStartTime" value="* Service StartTime:" />
+                                        id="labelServiceStartTime" value="Service StartTime:" />
                                     <div class="col-sm-9">
                                         <p:calendar id="inputServiceStartTime"
                                             value="#{loadTestDataDocumentBean.documentForm.serviceStartTime}"
-                                            showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="true"
-                                            requiredMessage="Service StartTime required." />
+                                            showOn="button" pattern="MM/dd/yyyy HH:mm:ss" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputServiceStopTime" class="col-sm-3 control-label"
-                                        id="labelServiceStopTime" value="* Service StopTime:" />
+                                        id="labelServiceStopTime" value="Service StopTime:" />
                                     <div class="col-sm-9">
                                         <p:calendar id="inputServiceStopTime"
                                             value="#{loadTestDataDocumentBean.documentForm.serviceStopTime}"
-                                            showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="true"
-                                            requiredMessage="Service StopTime required." />
+                                            showOn="button" pattern="MM/dd/yyyy HH:mm:ss" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -103,11 +101,10 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputClassCode" class="col-sm-3 control-label"
-                                        id="labelClassCode" value="* Class Code:" />
+                                        id="labelClassCode" value="Class Code:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputClassCode"
-                                            value="#{loadTestDataDocumentBean.documentForm.classCode}" maxlength="64"
-                                            required="true" requiredMessage="Class Code required." />
+                                            value="#{loadTestDataDocumentBean.documentForm.classCode}" maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -132,7 +129,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <h:outputLabel for="inputParentDocumentId" class="col-sm-3 control-label"
                                         id="labelParentDocumentId" value="Parent Document Id:" />
@@ -142,8 +138,6 @@
                                             maxlength="64" />
                                     </div>
                                 </div>
-
-
                                 <div class="form-group">
                                     <h:outputLabel for="inputAuthorInstitution" class="col-sm-3 control-label"
                                         id="labelAuthorInstitution" value="Author Institution:" />
@@ -182,11 +176,11 @@
 
                                 <div class="form-group">
                                     <h:outputLabel for="inputClassCodeScheme" class="col-sm-3 control-label"
-                                        id="labelClassCodeScheme" value="* Class Code Scheme:" />
+                                        id="labelClassCodeScheme" value="Class Code Scheme:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputClassCodeScheme"
                                             value="#{loadTestDataDocumentBean.documentForm.classCodeScheme}"
-                                            maxlength="64" required="true" requiredMessage="Class Code Scheme required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -200,22 +194,20 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputConfidentialityCode" class="col-sm-3 control-label"
-                                        id="labelConfidentialityCode" value="* Confidentiality Code:" />
+                                        id="labelConfidentialityCode" value="Confidentiality Code:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputConfidentialityCode"
                                             value="#{loadTestDataDocumentBean.documentForm.confidentialityCode}"
-                                            maxlength="64" required="true"
-                                            requiredMessage="Confidentiality Code required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputConfidentialityCodeScheme" class="col-sm-3 control-label"
-                                        id="labelConfidentialityCodeScheme" value="* Confidentiality Code Scheme:" />
+                                        id="labelConfidentialityCodeScheme" value="Confidentiality Code Scheme:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputConfidentialityCodeScheme"
                                             value="#{loadTestDataDocumentBean.documentForm.confidentialityCodeScheme}"
-                                            maxlength="64" required="true"
-                                            requiredMessage="Confidentiality Code Scheme required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -230,21 +222,19 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputFormatCode" class="col-sm-3 control-label"
-                                        id="labelFormatCode" value="* Format Code:" />
+                                        id="labelFormatCode" value="Format Code:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputFormatCode"
-                                            value="#{loadTestDataDocumentBean.documentForm.formatCode}" maxlength="64"
-                                            required="true" requiredMessage="Format Code required." />
+                                            value="#{loadTestDataDocumentBean.documentForm.formatCode}" maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputFormatCodeScheme" class="col-sm-3 control-label"
-                                        id="labelFormatCodeScheme" value="* Format Code Scheme:" />
+                                        id="labelFormatCodeScheme" value="Format Code Scheme:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputFormatCodeScheme"
                                             value="#{loadTestDataDocumentBean.documentForm.formatCodeScheme}"
-                                            maxlength="64" required="true"
-                                            requiredMessage="Format Code Scheme required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -267,21 +257,19 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputFacilityCode" class="col-sm-3 control-label"
-                                        id="labelFacilityCode" value="* Facility Code:" />
+                                        id="labelFacilityCode" value="Facility Code:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputFacilityCode"
-                                            value="#{loadTestDataDocumentBean.documentForm.facilityCode}" maxlength="64"
-                                            required="true" requiredMessage="Facility Code required." />
+                                            value="#{loadTestDataDocumentBean.documentForm.facilityCode}" maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputFacilityCodeScheme" class="col-sm-3 control-label"
-                                        id="labelFacilityCodeScheme" value="* Facility Code Scheme:" />
+                                        id="labelFacilityCodeScheme" value="Facility Code Scheme:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputFacilityCodeScheme"
                                             value="#{loadTestDataDocumentBean.documentForm.facilityCodeScheme}"
-                                            maxlength="64" required="true"
-                                            requiredMessage="Facility Code Scheme required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -340,21 +328,20 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputPracticeSetting" class="col-sm-3 control-label"
-                                        id="labelPracticeSetting" value="* Practice Setting:" />
+                                        id="labelPracticeSetting" value="Practice Setting:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputPracticeSetting"
                                             value="#{loadTestDataDocumentBean.documentForm.practiceSetting}"
-                                            maxlength="64" required="true" requiredMessage="Practice Setting required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputPracticeSettingScheme" class="col-sm-3 control-label"
-                                        id="labelPracticeSettingScheme" value="* Practice Setting Scheme:" />
+                                        id="labelPracticeSettingScheme" value="Practice Setting Scheme:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputPracticeSettingScheme"
                                             value="#{loadTestDataDocumentBean.documentForm.practiceSettingScheme}"
-                                            maxlength="64" required="true"
-                                            requiredMessage="Practice Setting Scheme required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -368,20 +355,19 @@
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputTypeCode" class="col-sm-3 control-label" id="labelTypeCode"
-                                        value="* Type Code" />
+                                        value="Type Code" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputTypeCode"
-                                            value="#{loadTestDataDocumentBean.documentForm.typeCode}" maxlength="64"
-                                            required="true" requiredMessage="Type Code required." />
+                                            value="#{loadTestDataDocumentBean.documentForm.typeCode}" maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <h:outputLabel for="inputTypeCodeScheme" class="col-sm-3 control-label"
-                                        id="labelTypeCodeScheme" value="* Type Code Scheme:" />
+                                        id="labelTypeCodeScheme" value="Type Code Scheme:" />
                                     <div class="col-sm-9">
                                         <p:inputText styleClass="form-control" id="inputTypeCodeScheme"
                                             value="#{loadTestDataDocumentBean.documentForm.typeCodeScheme}"
-                                            maxlength="64" required="true" requiredMessage="Type Code Scheme required." />
+                                            maxlength="64" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -419,6 +405,13 @@
                                                 value="Save" action="#{loadTestDataDocumentBean.saveDocument()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <p:messages id="msgDlgDocumentBottom" closable="true" autoUpdate="true"
+                                            severity="info, error" />
                                     </div>
                                 </div>
                             </h:form>

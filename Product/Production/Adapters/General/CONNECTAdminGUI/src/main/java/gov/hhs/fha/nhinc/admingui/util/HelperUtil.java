@@ -29,11 +29,11 @@ package gov.hhs.fha.nhinc.admingui.util;
 import com.google.gson.Gson;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
@@ -173,20 +173,12 @@ public class HelperUtil {
     }
 
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
-        String formatValue = "{0}^^^&{1}&ISO";
-        String formatDisplay = "{0} {1}^^^&{2}&ISO";
-
-        Map<String, String> listPatientId = new HashMap<>();
+        Map<String, String> listPatientId = new TreeMap<>();
         for (Patient rec : listPatient) {
             if(rec.getLastIdentifier() != null){
-                listPatientId.put(
-                    MessageFormat.format(formatDisplay, rec.getFirstName(), rec.getLastName(),
-                        rec.getLastIdentifier().getOrganizationId()),
-                    MessageFormat.format(formatValue, rec.getLastIdentifier().getId(),
-                        rec.getLastIdentifier().getOrganizationId()));
+                listPatientId.put(rec.getPatientIdentifier(), rec.getPatientIdentifierIso());
             }
         }
-
         return listPatientId;
     }
 

@@ -42,6 +42,7 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -77,8 +78,6 @@ public class LoadTestDataDocumentBean {
     private Document selectedDocument;
     private EventCode selectedEventCode;
 
-    private Map<String, String> listPatientId;
-
     @Autowired
     private LoadTestDataService loadTestDataService;
     private Map<String, String> listStatusType;
@@ -106,7 +105,14 @@ public class LoadTestDataDocumentBean {
 
     // database-methods
     public List<Document> getDocuments() {
-        return loadTestDataService.getAllDocuments();
+        List<Document> documents = loadTestDataService.getAllDocuments();
+        Map<Long, Patient> lookupPatient = mapPatientById(loadTestDataService.getCachePatients());
+        for (Document doc : documents) {
+            if (doc.getPatientRecordId() != null) {
+                doc.setPatientIdentifier(lookupPatient.get(doc.getPatientRecordId()).getPatientIdentifier());
+            }
+        }
+        return documents;
     }
 
     public boolean saveDocument() {
@@ -226,10 +232,7 @@ public class LoadTestDataDocumentBean {
     }
 
     public Map<String, String> getListPatientId() {
-        if (null == listPatientId) {
-            listPatientId = HelperUtil.populateListPatientId(loadTestDataService.getAllPatients());
-        }
-        return listPatientId;
+        return HelperUtil.populateListPatientId(loadTestDataService.getCachePatients());
     }
 
     public Map<String, String> getListStatusType() {
@@ -263,6 +266,8 @@ public class LoadTestDataDocumentBean {
 
     public void setPatientId(String patientId){
         getDocumentForm().setPatientId(patientId);
+        getDocumentForm().setSourcePatientId(patientId);
+
         if (StringUtils.isNotBlank(patientId)) {
             String[] identifierValue = patientId.split("&");
             setPIDs(loadTestDataService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
@@ -277,15 +282,22 @@ public class LoadTestDataDocumentBean {
             getDocumentForm()
             .setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
         }
+
         Timestamp dateOfBirth = patient.getDateOfBirth();
         if (dateOfBirth != null) {
             getDocumentForm().setPid7(new SimpleDateFormat("yyyyMMdd").format(dateOfBirth));
         }
+
         getDocumentForm().setPid8(patient.getGender());
+
         Address address = HelperUtil.lastItem(patient.getAddresses());
         if (address != null) {
             getDocumentForm().setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^US", address.getStreet1(),
                 address.getCity(), address.getState(), address.getPostal()));
+        }
+
+        if (HelperUtil.isId(patient.getPatientId())) {
+            getDocumentForm().setPatientRecordId(patient.getPatientId());
         }
     }
 
@@ -300,6 +312,14 @@ public class LoadTestDataDocumentBean {
             localId = withDocument.getDocumentid();
         }
         return localId;
+    }
+
+    private static Map<Long, Patient> mapPatientById(List<Patient> patients) {
+        Map<Long, Patient> lookup = new TreeMap<>();
+        for (Patient rec : patients) {
+            lookup.put(rec.getPatientId(), rec);
+        }
+        return lookup;
     }
 
     // msgs

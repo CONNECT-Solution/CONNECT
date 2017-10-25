@@ -99,4 +99,6 @@ public interface LoadTestDataService {
 
     public Patient getPatientBy(String identifierId, String identifierOrg);
 
+    public List<Patient> getCachePatients();
+
 }
