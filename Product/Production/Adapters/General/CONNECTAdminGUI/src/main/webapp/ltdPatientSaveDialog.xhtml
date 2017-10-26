@@ -14,133 +14,176 @@
                     <p:accordionPanel id="patientAccordionPanel">
                         <p:tab title="Basic Info">
                             <h:form class="form-horizontal" role="form" id="basicInfoForm">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputPrefix" class="col-sm-4 control-label" id="labelPrefix"
+                                            value="Prefix:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientPersonnameForm.prefix}"
+                                                id="inputPrefix" maxlength="60" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputFirstName" class="col-sm-4 control-label"
+                                            id="labelFirstName" value="* First Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientPersonnameForm.firstName}"
+                                                id="inputFirstName" maxlength="60" required="true"
+                                                requiredMessage="First Name required." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputMiddleName" class="col-sm-4 control-label"
+                                            id="labelMiddleName" value="Middle Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientPersonnameForm.middleName}"
+                                                id="inputMiddleName" maxlength="60" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputLastName" class="col-sm-4 control-label"
+                                            id="labelLastName" value="* Last Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientPersonnameForm.lastName}"
+                                                id="inputLastName" maxlength="60" required="true"
+                                                requiredMessage="Last Name required." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputSuffix" class="col-sm-4 control-label" id="labelSuffix"
+                                            value="Suffix:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientPersonnameForm.suffix}"
+                                                id="inputSuffix" maxlength="60" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputDateOfBirth" class="col-sm-4 control-label"
+                                            id="labelDateOfBirth" value="* Date Of Birth:" />
+                                        <div class="col-sm-8">
+                                            <p:calendar id="inputDateOfBirth"
+                                                value="#{loadTestDataPatientBean.dateOfBirth}" showOn="button"
+                                                maxdate="#{loadTestDataPatientBean.dateNow}" pattern="MM/dd/yyyy"
+                                                required="true" requiredMessage="Date Of Birth Required.">
+                                                <f:validator validatorId="NoFutureDateValidator" />
+                                                <f:attribute name="errorMessage"
+                                                    value="Date Of Birth cannot be a future date." />
+                                            </p:calendar>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputGender" class="col-sm-4 control-label" id="labelGender"
+                                            value="* Gender:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientForm.gender}" id="inputGender"
+                                                maxlength="10" required="true" requiredMessage="Gender required." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputSsn" class="col-sm-4 control-label" id="labelSsn"
+                                            value="SSN:" />
+                                        <div class="col-sm-8">
+                                            <p:inputMask id="inputSsn" value="#{loadTestDataPatientBean.ssn}"
+                                                mask="999-99-9999" styleClass="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputIdentifierPatientID" class="col-sm-4 control-label"
+                                            value="* Patient ID:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientIdentifierForm.id}"
+                                                id="inputIdentifierPatientID" maxlength="60" required="true"
+                                                requiredMessage="Patient Id required." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAssigningAuthority" class="col-sm-4 control-label"
+                                            value="* Assigning Authority:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.patientIdentifierForm.organizationId}"
+                                                id="inputAssigningAuthority" maxlength="60" required="true"
+                                                requiredMessage="Assigning Authority required." />
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <div class="form-group">
-                                    <h:outputLabel for="inputPrefix" class="col-sm-3 control-label" id="labelPrefix"
-                                        value="Prefix:" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.prefix}"
-                                            id="inputPrefix" maxlength="60" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputFirstName" class="col-sm-3 control-label"
-                                        id="labelFirstName" value="First Name: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.firstName}" id="inputFirstName"
-                                            maxlength="60" required="true" requiredMessage="First Name required." />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputMiddleName" class="col-sm-3 control-label"
-                                        id="labelMiddleName" value="Middle Name:" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.middleName}" id="inputMiddleName"
-                                            maxlength="60" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputLastName" class="col-sm-3 control-label" id="labelLastName"
-                                        value="Last Name: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.lastName}" id="inputLastName"
-                                            maxlength="60" required="true" requiredMessage="Last Name required." />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputSuffix" class="col-sm-3 control-label" id="labelSuffix"
-                                        value="Suffix:" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.suffix}"
-                                            id="inputSuffix" maxlength="60" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputDateOfBirth" class="col-sm-3 control-label"
-                                        id="labelDateOfBirth" value="Date Of Birth: *" />
-                                    <div class="col-sm-9">
-                                        <p:calendar id="inputDateOfBirth" value="#{loadTestDataPatientBean.dateOfBirth}"
-                                            showOn="button" pattern="MM/dd/yyyy" required="true"
-                                            requiredMessage="Date Of Birth Required." />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputGender" class="col-sm-3 control-label" id="labelGender"
-                                        value="Gender: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.gender}"
-                                            id="inputGender" maxlength="10" required="true"
-                                            requiredMessage="Gender required." />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputSsn" class="col-sm-3 control-label" id="labelSsn"
-                                        value="SSN:" />
-                                    <div class="col-sm-9">
-                                        <p:inputMask id="inputSsn" value="#{loadTestDataPatientBean.ssn}"
-                                            mask="999-99-9999" />
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="form-button-row">
                                             <p:commandButton
-                                                update=":patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :testdataTabview:patientsList:patientDataTable, inputFirstName, inputLastName, inputDateOfBirth, inputGender, inputSsn, inputPrefix, inputMiddleName, inputSuffix"
+                                                update=":patientAccordionPanel, :testdataTabview:patientsList:patientDataTable"
                                                 value="Save" action="#{loadTestDataPatientBean.savePatient()}"
-                                                styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
+                                                styleClass="btn btn-primary" icon="ui-icon-circle-plus">
+                                                <p:resetInput target=":patientAccordionPanel:createFormAdditionalName"></p:resetInput>
+                                            </p:commandButton>
                                         </div>
                                     </div>
                                 </div>
                             </h:form>
                         </p:tab>
-                        <p:tab title="Additional Names">
+                        <p:tab title="Additional Names" disabled="#{loadTestDataPatientBean.disableAccordion}">
                             <h:form class="form-horizontal" role="form" id="createFormAdditionalName">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddPrefix" class="col-sm-4 control-label"
+                                            id="labelAddPrefix" value="Prefix:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.prefix}"
+                                                id="inputAddPrefix" maxlength="60" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddFirstName" class="col-sm-4 control-label"
+                                            id="labelAddFirstName" value="* First Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.firstName}"
+                                                id="inputAddFirstName" maxlength="60" required="true"
+                                                requiredMessage="First Name required." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddMiddleName" class="col-sm-4 control-label"
+                                            id="labelAddMiddleName" value="Middle Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.middleName}"
+                                                id="inputAddMiddleName" maxlength="60" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
 
-                                <div class="form-group">
-                                    <h:outputLabel for="inputAddPrefix" class="col-sm-3 control-label"
-                                        id="labelAddPrefix" value="Prefix:" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.prefix}"
-                                            id="inputAddPrefix" maxlength="60" />
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddLastName" class="col-sm-4 control-label"
+                                            id="labelAddLastName" value="* Last Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.lastName}"
+                                                id="inputAddLastName" maxlength="60" required="true"
+                                                requiredMessage="Last Name required." />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputAddFirstName" class="col-sm-3 control-label"
-                                        id="labelAddFirstName" value="First Name: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.firstName}" id="inputAddFirstName"
-                                            maxlength="60" required="true" requiredMessage="First Name required." />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputAddMiddleName" class="col-sm-3 control-label"
-                                        id="labelAddMiddleName" value="Middle Name:" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.middleName}" id="inputAddMiddleName"
-                                            maxlength="60" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputAddLastName" class="col-sm-3 control-label"
-                                        id="labelAddLastName" value="Last Name: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.lastName}" id="inputAddLastName"
-                                            maxlength="60" required="true" requiredMessage="Last Name required." />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputAddSuffix" class="col-sm-3 control-label"
-                                        id="labelAddSuffix" value="Suffix:" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.suffix}"
-                                            id="inputAddSuffix" maxlength="60" />
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddSuffix" class="col-sm-4 control-label"
+                                            id="labelAddSuffix" value="Suffix:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.suffix}"
+                                                id="inputAddSuffix" maxlength="60" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -153,8 +196,9 @@
                                                 <p:resetInput target=":patientAccordionPanel:createFormAdditionalName" />
                                             </p:commandButton>
                                             <p:commandButton
-                                                update="inputAddFirstName, inputAddLastName, inputAddPrefix, inputAddMiddleName, inputAddSuffix, :patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :testdataTabview:patientsList:patientDataTable"
-                                                value="Save" action="#{loadTestDataPatientBean.savePersonname()}"
+                                                update="createFormAdditionalName, :patientAccordionPanel:deleteFormAdditionalName:personnameDataTable, :testdataTabview:patientsList:patientDataTable"
+                                                value="Save Additional Name"
+                                                action="#{loadTestDataPatientBean.savePersonname()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
                                     </div>
@@ -205,26 +249,25 @@
                             </h:form>
 
                         </p:tab>
-                        <p:tab title="Identifiers">
+                        <p:tab title="Identifiers" disabled="#{loadTestDataPatientBean.disableAccordion}">
                             <h:form class="form-horizontal" role="form" id="createFormIdentifier">
 
                                 <div class="form-group">
-                                    <h:outputLabel for="inputIdentifierPatientID" class="col-sm-3 control-label"
-                                        id="labelIdentifierPatientID" value="Patient ID: *" />
-                                    <div class="col-sm-9">
+                                    <h:outputLabel for="inputAddIdentifierPatientID" class="col-sm-2 control-label"
+                                        value="* Patient ID:" />
+                                    <div class="col-sm-4">
                                         <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.identifierPatientID}"
-                                            id="inputIdentifierPatientID" maxlength="60" required="true"
+                                            value="#{loadTestDataPatientBean.identifierForm.id}"
+                                            id="inputAddIdentifierPatientID" maxlength="60" required="true"
                                             requiredMessage="Patient Id required." />
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputAssigningAuthority" class="col-sm-3 control-label"
-                                        id="labelAssigningAuthority" value="Assigning Authority: *" />
-                                    <div class="col-sm-9">
+
+                                    <h:outputLabel for="inputAddAssigningAuthority" class="col-sm-2 control-label"
+                                        value="* Assigning Authority:" />
+                                    <div class="col-sm-4">
                                         <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.organizationId}"
-                                            id="inputAssigningAuthority" maxlength="60" required="true"
+                                            value="#{loadTestDataPatientBean.identifierForm.organizationId}"
+                                            id="inputAddAssigningAuthority" maxlength="60" required="true"
                                             requiredMessage="Assigning Authority required." />
                                     </div>
                                 </div>
@@ -238,8 +281,9 @@
                                                 <p:resetInput target=":patientAccordionPanel:createFormIdentifier" />
                                             </p:commandButton>
                                             <p:commandButton
-                                                update="inputAssigningAuthority, inputIdentifierPatientID, :patientAccordionPanel:deleteFormIdentifier:identifiersDataTable"
-                                                value="Save" action="#{loadTestDataPatientBean.saveIdentifier()}"
+                                                update="createFormIdentifier, :patientAccordionPanel:deleteFormIdentifier:identifiersDataTable"
+                                                value="Save Identifier"
+                                                action="#{loadTestDataPatientBean.saveIdentifier()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
                                     </div>
@@ -281,52 +325,51 @@
                             </h:form>
 
                         </p:tab>
-                        <p:tab title="Addresses">
+                        <p:tab title="Addresses" disabled="#{loadTestDataPatientBean.disableAccordion}">
                             <h:form class="form-horizontal" role="form" id="createFormAddress">
 
                                 <div class="form-group">
-                                    <h:outputLabel for="inputStreetOne" class="col-sm-3 control-label"
-                                        id="labelStreetOne" value="Street 1: *" />
-                                    <div class="col-sm-9">
+                                    <h:outputLabel for="inputStreetOne" class="col-sm-2 control-label"
+                                        id="labelStreetOne" value="* Street 1:" />
+                                    <div class="col-sm-10">
                                         <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.street1}" id="inputStreetOne"
+                                            value="#{loadTestDataPatientBean.addressForm.street1}" id="inputStreetOne"
                                             maxlength="120" required="true" requiredMessage="Street required." />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel for="inputStreetTwo" class="col-sm-3 control-label"
+                                    <h:outputLabel for="inputStreetTwo" class="col-sm-2 control-label"
                                         id="labelStreetTwo" value="Street 2:" />
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-10">
                                         <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.street2}" id="inputStreetTwo"
+                                            value="#{loadTestDataPatientBean.addressForm.street2}" id="inputStreetTwo"
                                             maxlength="120" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <h:outputLabel for="inputCity" class="col-sm-3 control-label" id="labelCity"
-                                        value="City: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.city}"
-                                            id="inputCity" maxlength="120" required="true"
-                                            requiredMessage="City required." />
+                                    <h:outputLabel for="inputCity" class="col-sm-2 control-label" value="* City:" />
+                                    <div class="col-sm-2">
+                                        <p:inputText styleClass="form-control"
+                                            value="#{loadTestDataPatientBean.addressForm.city}" id="inputCity"
+                                            maxlength="120" required="true" requiredMessage="City required." />
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputState" class="col-sm-3 control-label" id="labelState"
-                                        value="State: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.state}"
-                                            id="inputState" maxlength="120" required="true"
-                                            requiredMessage="State required." />
+
+                                    <h:outputLabel for="inputState" class="col-sm-2 control-label" value="* State:" />
+                                    <div class="col-sm-2">
+                                        <h:selectOneMenu styleClass="form-control" id="inputState"
+                                            value="#{loadTestDataPatientBean.addressForm.state}" required="true"
+                                            requiredMessage="State required.">
+                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItems value="#{loadTestDataPatientBean.listStates}" />
+                                        </h:selectOneMenu>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:outputLabel for="inputPostal" class="col-sm-3 control-label" id="labelPostal"
-                                        value="Zip/Postal: *" />
-                                    <div class="col-sm-9">
-                                        <p:inputText styleClass="form-control" value="#{loadTestDataPatientBean.postal}"
-                                            id="inputPostal" maxlength="40" required="true"
-                                            requiredMessage="Zip/Postal required." />
+
+                                    <h:outputLabel for="inputPostal" class="col-sm-2 control-label"
+                                        value="* Zip/ Postal:" />
+                                    <div class="col-sm-2">
+                                        <p:inputText styleClass="form-control"
+                                            value="#{loadTestDataPatientBean.addressForm.postal}" id="inputPostal"
+                                            maxlength="40" required="true" requiredMessage="Zip/Postal required." />
                                     </div>
                                 </div>
 
@@ -340,7 +383,7 @@
                                             </p:commandButton>
                                             <p:commandButton id="submitAddress"
                                                 update="inputStreetOne, inputStreetTwo, inputState, inputCity, inputPostal, :patientAccordionPanel:deleteFormAddress:addressesDataTable"
-                                                value="Save" action="#{loadTestDataPatientBean.saveAddress()}"
+                                                value="Save Address" action="#{loadTestDataPatientBean.saveAddress()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
                                     </div>
@@ -389,16 +432,17 @@
 
 
                         </p:tab>
-                        <p:tab title="Phone Numbers">
+                        <p:tab title="Phone Numbers" disabled="#{loadTestDataPatientBean.disableAccordion}">
                             <h:form class="form-horizontal" role="form" id="createFormPhonenumber">
 
                                 <div class="form-group">
-                                    <h:outputLabel for="inputPhonenumber" class="col-sm-3 control-label"
-                                        id="labelIdentifierPatientID" value="Phone Number: *" />
-                                    <div class="col-sm-9">
+                                    <h:outputLabel for="inputPhonenumber" class="col-sm-2 control-label"
+                                        id="labelIdentifierPatientID" value="* Phone Number:" />
+                                    <div class="col-sm-10">
                                         <p:inputText styleClass="form-control"
-                                            value="#{loadTestDataPatientBean.phonenumberValue}" id="inputPhonenumber"
-                                            maxlength="60" required="true" requiredMessage="Phone Number required." />
+                                            value="#{loadTestDataPatientBean.phonenumberForm.value}"
+                                            id="inputPhonenumber" maxlength="60" required="true"
+                                            requiredMessage="Phone Number required." />
                                     </div>
                                 </div>
 
@@ -412,7 +456,8 @@
                                             </p:commandButton>
                                             <p:commandButton
                                                 update="inputPhonenumber, :patientAccordionPanel:deleteFormPhonenumber:phonenumbersDataTable"
-                                                value="Save" action="#{loadTestDataPatientBean.savePhonenumber()}"
+                                                value="Save Phone Number"
+                                                action="#{loadTestDataPatientBean.savePhonenumber()}"
                                                 styleClass="btn btn-primary" icon="ui-icon-circle-plus" />
                                         </div>
                                     </div>
@@ -449,7 +494,6 @@
                                     </div>
                                 </div>
                             </h:form>
-
 
                         </p:tab>
                     </p:accordionPanel>

@@ -83,7 +83,9 @@
                                                 value="#{loadTestDataPatientBean.patients}"
                                                 selection="#{loadTestDataPatientBean.selectedPatient}"
                                                 rowKey="#{patient.patientId}"
-                                                styleClass="table table-striped table-domains">
+                                                styleClass="table table-striped table-domains"
+                                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
                                                 <p:column headerText="" selectionMode="single" />
                                                 <p:column headerText="Patient Id">
                                                     <h:outputText value="#{patient.patientId}" />
@@ -197,9 +199,8 @@
                                                         </p:commandButton>
                                                         <p:commandButton
                                                             actionListener="#{loadTestDataDocumentBean.deleteDocument}"
-                                                            update="documentDataTable, :msgGrowl"
-                                                            value="Delete" styleClass="delete-button"
-                                                            icon="ui-icon-closethick" />
+                                                            update="documentDataTable, :msgGrowl" value="Delete"
+                                                            styleClass="delete-button" icon="ui-icon-closethick" />
                                                     </div>
                                                 </div>
                                             </div>

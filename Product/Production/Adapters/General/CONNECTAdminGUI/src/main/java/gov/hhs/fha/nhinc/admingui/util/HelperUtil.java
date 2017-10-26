@@ -29,11 +29,13 @@ package gov.hhs.fha.nhinc.admingui.util;
 import com.google.gson.Gson;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
@@ -60,29 +62,45 @@ public class HelperUtil {
     private HelperUtil() {
     }
 
-    /**
-     * Populate the gender lookup data list. This logic needs to be moved to a Utility or to the application bean.
-     *
-     */
-    public static Map<String, String> populteGenderList() {
-        Map<String, String> localGenderList = new HashMap<>();
-        localGenderList.put("Male", "M");
-        localGenderList.put("Female", "F");
-        localGenderList.put("Undifferentiated", "UN");
-        return localGenderList;
-    }
-
     public static boolean isId(Long id) {
         return id != null && id.longValue() > 0L;
     }
 
     // CONVERT-METHODS
     public static Timestamp toTimestamp(Date date){
-        return new Timestamp(date.getTime());
+        if (date != null) {
+            return new Timestamp(date.getTime());
+        } else {
+            return null;
+        }
+    }
+
+    public static Date toDate(Timestamp timestamp) {
+        if (timestamp != null) {
+            return new Date(timestamp.getTime());
+        } else {
+            return null;
+        }
     }
 
     public static String toJsonString(Object object) {
         return new Gson().toJson(object);
+    }
+
+    public static <T> T lastItem(List<T> items) {
+        T item = null;
+        if (CollectionUtils.isNotEmpty(items)) {
+            item = items.get(items.size() - 1);
+        }
+        return item;
+    }
+
+    public static <T> T firstItem(List<T> items) {
+        T item = null;
+        if (CollectionUtils.isNotEmpty(items)) {
+            item = items.get(0);
+        }
+        return item;
     }
 
     public static HttpSession getHttpSession(boolean sessionBit) {
@@ -91,16 +109,6 @@ public class HelperUtil {
 
     public static Map<String, Object> getHttpSessionMap() {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-    }
-
-    public static void addMessageError(String messageId, String theMessage) {
-        FacesContext.getCurrentInstance().addMessage(messageId,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", theMessage));
-    }
-
-    public static void addMessageInfo(String messageId, String theMessage) {
-        FacesContext.getCurrentInstance().addMessage(messageId,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", theMessage));
     }
 
     public static String encryptToKey(String strClearText, String strKey) {
@@ -144,6 +152,7 @@ public class HelperUtil {
         return decryptToKey(strEncrypted, ENCRYPTION_KEY);
     }
 
+    // facesMessages
     public static void addFacesMessageBy(Severity msgSeverity, String msgText) {
         addFacesMessageBy(null, new FacesMessage(msgSeverity, msgText, ""));
     }
@@ -172,6 +181,17 @@ public class HelperUtil {
         return new FacesMessage(FacesMessage.SEVERITY_WARN, msgText, "");
     }
 
+    public static void addMessageError(String messageId, String theMessage) {
+        FacesContext.getCurrentInstance().addMessage(messageId,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", theMessage));
+    }
+
+    public static void addMessageInfo(String messageId, String theMessage) {
+        FacesContext.getCurrentInstance().addMessage(messageId,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", theMessage));
+    }
+
+    // populateList
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
         Map<String, String> listPatientId = new TreeMap<>();
         for (Patient rec : listPatient) {
@@ -182,8 +202,19 @@ public class HelperUtil {
         return listPatientId;
     }
 
+    public static Map<String, String> populateListGender() {
+        Map<String, String> localGenderList = new HashMap<>();
+
+        localGenderList.put("Male", "M");
+        localGenderList.put("Female", "F");
+        localGenderList.put("Undifferentiated", "UN");
+
+        return localGenderList;
+    }
+
     public static Map<String, String> populateListStatusType() {
         Map<String, String> popList = new HashMap<>();
+
         popList.put("Approved", "urn:oasis:names:tc:ebxml-regrep:StatusType:Approved");
         popList.put("Deprecated", "urn:oasis:names:tc:ebxml-regrep:StatusType:Deprecated");
         popList.put("Submitted", "urn:oasis:names:tc:ebxml-regrep:StatusType:Submitted");
@@ -191,20 +222,93 @@ public class HelperUtil {
         return popList;
     }
 
-    public static <T> T lastItem(List<T> items) {
-        T item = null;
-        if (CollectionUtils.isNotEmpty(items)) {
-            item = items.get(items.size() - 1);
-        }
-        return item;
+    public static Map<String, String> populateListStates() {
+        Map<String, String> popList = new TreeMap<>();
+
+        popList.put("Alabama", "AL");
+        popList.put("Alaska", "AK");
+        popList.put("American Samoa", "AS");
+        popList.put("Arizona", "AZ");
+        popList.put("Arkansas", "AR");
+        popList.put("California", "CA");
+        popList.put("Colorado", "CO");
+        popList.put("Connecticut", "CT");
+        popList.put("Delaware", "DE");
+        popList.put("District Of Columbia", "DC");
+        popList.put("Federated States Of Micronesia", "FM");
+        popList.put("Florida", "FL");
+        popList.put("Georgia", "GA");
+        popList.put("Guam", "GU");
+        popList.put("Hawaii", "HI");
+        popList.put("Idaho", "ID");
+        popList.put("Illinois", "IL");
+        popList.put("Indiana", "IN");
+        popList.put("Iowa", "IA");
+        popList.put("Kansas", "KS");
+        popList.put("Kentucky", "KY");
+        popList.put("Louisiana", "LA");
+        popList.put("Maine", "ME");
+        popList.put("Marshall Islands", "MH");
+        popList.put("Maryland", "MD");
+        popList.put("Massachusetts", "MA");
+        popList.put("Michigan", "MI");
+        popList.put("Minnesota", "MN");
+        popList.put("Mississippi", "MS");
+        popList.put("Missouri", "MO");
+        popList.put("Montana", "MT");
+        popList.put("Nebraska", "NE");
+        popList.put("Nevada", "NV");
+        popList.put("New Hampshire", "NH");
+        popList.put("New Jersey", "NJ");
+        popList.put("New Mexico", "NM");
+        popList.put("New York", "NY");
+        popList.put("North Carolina", "NC");
+        popList.put("North Dakota", "ND");
+        popList.put("Northern Mariana Islands", "MP");
+        popList.put("Ohio", "OH");
+        popList.put("Oklahoma", "OK");
+        popList.put("Oregon", "OR");
+        popList.put("Palau", "PW");
+        popList.put("Pennsylvania", "PA");
+        popList.put("Puerto Rico", "PR");
+        popList.put("Rhode Island", "RI");
+        popList.put("South Carolina", "SC");
+        popList.put("South Dakota", "SD");
+        popList.put("Tennessee", "TN");
+        popList.put("Texas", "TX");
+        popList.put("Utah", "UT");
+        popList.put("Vermont", "VT");
+        popList.put("Virgin Islands", "VI");
+        popList.put("Virginia", "VA");
+        popList.put("Washington", "WA");
+        popList.put("West Virginia", "WV");
+        popList.put("Wisconsin", "WI");
+        popList.put("Wyoming", "WY");
+
+        return popList;
     }
 
-    public static <T> T firstItem(List<T> items) {
-        T item = null;
-        if (CollectionUtils.isNotEmpty(items)) {
-            item = items.get(0);
+    public static Long diffByDays(Date startDate, Date endDate) {
+        if (startDate != null && endDate != null) {
+            return TimeUnit.MILLISECONDS.toDays(startDate.getTime() - endDate.getTime());
         }
-        return item;
+        return null;
+    }
+
+    public static String getDateNow() {
+        return getDateNow("MM/dd/yyyy");
+    }
+
+    public static String getDateTimeNow() {
+        return getDateNow("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    }
+
+    public static String getDateNow(String dateFormat) {
+        return getDate(dateFormat, new Date());
+    }
+
+    public static String getDate(String dateFormat, Date date) {
+        return new SimpleDateFormat(dateFormat).format(date);
     }
 }
 

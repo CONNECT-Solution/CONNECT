@@ -110,7 +110,7 @@ public class PatientSearchBean {
         // Populate Organization List from UDDI
         organizationList = populateOrganizationFromConnectManagerCache();
         // populate Gender List
-        genderList = HelperUtil.populteGenderList();
+        genderList = HelperUtil.populateListGender();
         // populate document types
         documentTypeList = populateDocumentTypes();
     }
@@ -167,7 +167,7 @@ public class PatientSearchBean {
         // Populate Organization List from UDDI
         organizationList = populateOrganizationFromConnectManagerCache();
         // populate Gender List
-        genderList = HelperUtil.populteGenderList();
+        genderList = HelperUtil.populateListGender();
         // populate document types
         documentTypeList = populateDocumentTypes();
         return clearPatientTab();
