@@ -45,16 +45,14 @@ import org.slf4j.LoggerFactory;
 public class NoFutureDateValidator implements Validator {
     private static final Logger LOG = LoggerFactory.getLogger(NoFutureDateValidator.class);
 
-    public NoFutureDateValidator() {
-    }
-
     @Override
-    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-
+    public void validate(FacesContext context, UIComponent component, Object value) {
         Date nowDate = new Date(HelperUtil.getDateNow());
         Date inputDate = (Date) value;
 
         if (HelperUtil.diffByDays(inputDate, nowDate) > 0) {
+            LOG.trace("NoFutureDateValidator fail-validation");
+
             String errorMessage = (String)component.getAttributes().get("errorMessage");
             if(null == errorMessage){
                 errorMessage = MessageFormat.format("'{0}' cannot be after this date: '{1}'.", component.getId(),

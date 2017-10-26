@@ -158,7 +158,6 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
     }
 
     protected Session getSession() {
-        Session session = null;
         try{
             session = HibernateUtilFactory.getHibernateUtilInstance().getSessionFactory().openSession();
         }catch(HibernateException e){

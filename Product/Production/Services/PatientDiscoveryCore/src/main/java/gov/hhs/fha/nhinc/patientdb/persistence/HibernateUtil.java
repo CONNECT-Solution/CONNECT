@@ -100,24 +100,4 @@ public class HibernateUtil {
 
         return result;
     }
-
-    // public static void closeSession(Session session, boolean flush) {
-    // if (session != null) {
-    // if (flush) {
-    // try {
-    // session.flush();
-    // } catch (HibernateException ex) {
-    // LOG.error("There an error while closing the hibernate-session-flush: {} ", ex.getMessage(), ex);
-    // }
-    // }
-    // if (session.isOpen()) {
-    // try {
-    // session.close();
-    // } catch (HibernateException ex) {
-    // LOG.error("There an error while closing the hibernate-session-close: {} ", ex.getMessage(), ex);
-    // }
-    // }
-    // }
-    // }
-
 }

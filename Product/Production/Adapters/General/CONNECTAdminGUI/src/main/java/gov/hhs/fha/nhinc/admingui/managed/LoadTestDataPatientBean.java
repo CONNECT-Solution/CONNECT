@@ -86,9 +86,6 @@ public class LoadTestDataPatientBean {
     @Autowired
     private LoadTestDataService loadTestDataService;
 
-    public LoadTestDataPatientBean() {
-    }
-
     public Patient getSelectedPatient() {
         return selectedPatient;
     }
@@ -233,6 +230,7 @@ public class LoadTestDataPatientBean {
     public boolean deleteIdentifier() {
         boolean result = false;
         if (selectedIdentifier != null) {
+            // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(identifierList) && identifierList.size() > 1) {
                 result = loadTestDataService.deleteIdentifier(selectedIdentifier);
             } else {
@@ -286,6 +284,7 @@ public class LoadTestDataPatientBean {
     public boolean deletePersonname() {
         boolean result = false;
         if (selectedPersonname != null) {
+            // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(personnameList) && personnameList.size() > 1) {
                 result = loadTestDataService.deletePersonname(selectedPersonname);
             } else {
