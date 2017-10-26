@@ -72,7 +72,7 @@
                                             </p:panelGrid>
                                           </p:panel>
                                           <div class="table-responsive table-props">
-                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="kscert" selection="#{certificateBean.selectedKSCertificate}" rowKey="#{kscert.alias}" widgetVar="cellPropsk" sortMode="Single" styleClass="table table-striped table-domains">
+                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="kscert" selection="#{certificateBean.selectedTSCertificate}" rowKey="#{kscert.alias}" widgetVar="cellPropsk" sortMode="Single" styleClass="table table-striped table-domains">
                                                   <p:column selectionMode="single" />
                                                   <p:column>
                                                     <f:facet name="header">Alias</f:facet>
@@ -88,7 +88,7 @@
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Expiration Date</f:facet>
-                                                      #{kscert.expirationDate}
+                                                       <h:outputText value="#{kscert.expirationDate}" styleClass="highlight#{kscert.expiryColorCoding}" />
                                                   </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Subject Key Identifier</f:facet>
@@ -102,7 +102,7 @@
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                               <p:row>
                                                 <p:column styleClass="ui-button-rightmost">
-                                                  <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only" />
+                                                  <p:commandButton id="viewCertKeyStoreButton" value="View Certificate" actionListener="#{certificateBean.getSelectedCertificate}" update=":viewCertDlg"  oncomplete="PF('viewCertDlg').show();" styleClass="add-button pull-right" />
                                                 </p:column>
                                               </p:row>
                                             </p:panelGrid>
@@ -177,7 +177,7 @@
                                                <p:commandButton value="Import Certificate" type="button" styleClass="add-button" icon="ui-icon-circle-plus" onclick="PF('importCertDlg').show();" />
                                             </p:column>
                                             <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton id="ViewCert" value="View Certificate"  styleClass="ui-button ui-widget ui-state-default ui-corner-all add-button pull-right ui-button-text-only disable" />
+                                            <p:commandButton id="viewCertTrustStoreButton" value="View Certificate"  actionListener="#{certificateBean.getSelectedCertificate}" update=":viewCertDlg"  oncomplete="PF('viewCertDlg').show();" styleClass="add-button pull-right" />
                                           </p:column>
                                         </p:row>
                                       </p:panelGrid>
@@ -194,6 +194,7 @@
                 </p:tabView>
                 <!-- include link for import cert -->
                 <ui:include src="certManagementCreateDialog.xhtml" />
+                <ui:include src="viewCertDialog.xhtml" />
                 <ui:include src="importCertDialog.xhtml" />
                 <ui:include src="importPassKeyDialog.xhtml"/>
                 <ui:include src="deletePassKeyDialog.xhtml"/>

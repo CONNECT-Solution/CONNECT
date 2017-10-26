@@ -1844,4 +1844,10 @@ form[id*='auditQueryTabView'] div[id*='auditBlobDlg'].ui-dialog .ui-dialog-conte
 .disable {
 	display : none;
 }
+
+.no-border {
+	border: 0;
+	box-shadow: none;
+}
+
 /* -- RESPONSIVE @MEDIA STYLES -- FROM DASHBOARD.CSS -----------------------------------------------*/

@@ -27,8 +27,17 @@
 package gov.hhs.fha.nhinc.admingui.event.model;
 
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.CERT_EXPIRY_COLOR_CODING;
+import java.math.BigInteger;
 import java.security.cert.X509Certificate;
+import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang.StringUtils;
+import org.apache.wss4j.common.crypto.DERDecoder;
+import org.apache.wss4j.common.ext.WSSecurityException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,9 +57,21 @@ public class Certificate {
     private String authorityKeyID;
     private X509Certificate x509Cert;
     private String validStartDate;
+    private String validEndDate;
     private String expiryColorCoding;
     private long expiresInDays;
-
+    private String issuerName;
+    private String subjectName;
+    private String subjectPublicKeyAlgorithm;
+    private String subjectPublicKey;
+    private String issuerUniqueIdentifier;
+    private String certSignatureAlgorithm;
+    private String certSignature;
+    private static final String AUTHORITY_KEY_ID = "2.5.29.35";
+    private static final String SUBJECT_KEY_ID = "2.5.29.14";
+    private static final String EMPTY_FIELD = "-";
+    private static final int AUTHORITY_KEY_POSITION = 6;
+    private static final Logger LOG = LoggerFactory.getLogger(Certificate.class);
 
     public long getId() {
         return id;
@@ -69,7 +90,7 @@ public class Certificate {
     }
 
     public String getAlgorithm() {
-        return algorithm;
+        return StringUtils.isEmpty(algorithm) ? EMPTY_FIELD : algorithm;
     }
 
     public void setAlgorithm(String algorithm) {
@@ -77,7 +98,7 @@ public class Certificate {
     }
 
     public String getSignatureAlgorithm() {
-        return signatureAlgorithm;
+        return StringUtils.isEmpty(signatureAlgorithm) ? EMPTY_FIELD : signatureAlgorithm;
     }
 
     public void setSignatureAlgorithm(String signatureAlgorithm) {
@@ -117,7 +138,24 @@ public class Certificate {
     }
 
     public String getSubjectKeyID() {
-        return subjectKeyID;
+        if (subjectKeyID == null) {
+            byte[] subjectKeyId = x509Cert.getExtensionValue(SUBJECT_KEY_ID);
+
+            try {
+                if (subjectKeyId != null) {
+                    // this logic extracts from CryptoBase class inside wss4j
+                    DERDecoder extVal = new DERDecoder(subjectKeyId);
+                    extVal.expect(DERDecoder.TYPE_OCTET_STRING); // ExtensionValue OCTET STRING
+                    extVal.getLength(); // leave this method alone. getlength modify array position.
+                    extVal.expect(DERDecoder.TYPE_OCTET_STRING); // KeyIdentifier OCTET STRING
+                    int keyIDLen = extVal.getLength();
+                    subjectKeyID = Hex.encodeHexString(extVal.getBytes(keyIDLen));
+                }
+            } catch (WSSecurityException e) {
+                LOG.error("Unable to convert SKI into human readable {}", e.getLocalizedMessage(), e);
+            }
+        }
+        return StringUtils.isEmpty(subjectKeyID) ? EMPTY_FIELD : subjectKeyID;
     }
 
     public void setSubjectKeyID(String subjectKeyID) {
@@ -125,7 +163,20 @@ public class Certificate {
     }
 
     public String getAuthorityKeyID() {
-        return authorityKeyID;
+        if(authorityKeyID == null){
+            byte[] authorityKey = x509Cert.getExtensionValue(AUTHORITY_KEY_ID);
+            try {
+                if (authorityKey != null) {
+                    DERDecoder extValA = new DERDecoder(authorityKey);
+                    extValA.skip(AUTHORITY_KEY_POSITION);
+                    int length = authorityKey.length - AUTHORITY_KEY_POSITION;
+                    authorityKeyID = Hex.encodeHexString(extValA.getBytes(length));
+                }
+            } catch (WSSecurityException e) {
+                LOG.error("Unable to convert AIK into human readable {} ", e.getLocalizedMessage(), e);
+            }
+        }
+        return StringUtils.isEmpty(authorityKeyID) ? EMPTY_FIELD : authorityKeyID;
     }
 
     public void setAuthorityKeyID(String authorityKeyID) {
@@ -141,11 +192,100 @@ public class Certificate {
     }
 
     public String getValidStartDate() {
+        validStartDate = DateFormat.getDateTimeInstance(
+            DateFormat.LONG, DateFormat.LONG).format(x509Cert.getNotBefore());
         return validStartDate;
     }
 
     public void setValidStartDate(String validStartDate) {
         this.validStartDate = validStartDate;
+    }
+
+    public String getValidEndDate() {
+        validEndDate = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG).format(x509Cert.getNotAfter());
+        return validEndDate;
+    }
+
+    public void setValidEndDate(String validEndDate) {
+        this.validEndDate = validEndDate;
+    }
+
+    public String getIssuerName() {
+        issuerName = StringUtils.isEmpty(x509Cert.getIssuerDN().getName()) ? EMPTY_FIELD
+            : x509Cert.getIssuerDN().getName();
+        return issuerName;
+    }
+
+    public void setIssuerName(String issuerName) {
+        this.issuerName = issuerName;
+    }
+
+    public String getSubjectName() {
+        subjectName = StringUtils.isEmpty(x509Cert.getSubjectDN().getName()) ? EMPTY_FIELD
+            : x509Cert.getSubjectDN().getName();
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getSubjectPublicKeyAlgorithm() {
+        if (subjectPublicKeyAlgorithm == null) {
+            subjectPublicKeyAlgorithm = x509Cert.getPublicKey().getAlgorithm();
+        }
+        return subjectPublicKeyAlgorithm;
+    }
+
+    public void setSubjectPublicKeyAlgorithm(String subjectPublicKeyAlgorithm) {
+        this.subjectPublicKeyAlgorithm = subjectPublicKeyAlgorithm;
+    }
+
+    public String getSubjectPublicKey() {
+        if (subjectPublicKey == null) {
+            subjectPublicKey = x509Cert.getPublicKey().toString();
+        }
+        return subjectPublicKey;
+    }
+
+    public void setSubjectPublicKey(String subjectPublicKey) {
+        this.subjectPublicKey = subjectPublicKey;
+    }
+
+    public String getIssuerUniqueIdentifier() {
+        if (issuerUniqueIdentifier == null) {
+            issuerUniqueIdentifier = x509Cert.getIssuerUniqueID() != null
+                ? Arrays.toString(x509Cert.getIssuerUniqueID())
+                    : EMPTY_FIELD;
+        }
+        return issuerUniqueIdentifier;
+    }
+
+    public void setIssuerUniqueIdentifier(String issuerUniqueIdentifier) {
+        this.issuerUniqueIdentifier = issuerUniqueIdentifier;
+    }
+
+    public String getCertSignatureAlgorithm() {
+        if (certSignatureAlgorithm == null) {
+            certSignatureAlgorithm = StringUtils.isEmpty(x509Cert.getSigAlgName()) ? EMPTY_FIELD
+                : x509Cert.getSigAlgName();
+        }
+        return certSignatureAlgorithm;
+    }
+
+    public void setCertSignatureAlgorithm(String certSignatureAlgorithm) {
+        this.certSignatureAlgorithm = certSignatureAlgorithm;
+    }
+
+    public String getCertSignature() {
+        if (certSignature == null) {
+            certSignature = new BigInteger(x509Cert.getSignature()).toString(16);
+        }
+        return certSignature;
+    }
+
+    public void setCertSignature(String certSignature) {
+        this.certSignature = certSignature;
     }
 
     public long getExpiresInDays() {
