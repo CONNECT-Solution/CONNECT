@@ -29,11 +29,13 @@ package gov.hhs.fha.nhinc.admingui.util;
 import com.google.gson.Gson;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
@@ -221,7 +223,7 @@ public class HelperUtil {
     }
 
     public static Map<String, String> populateListStates() {
-        Map<String, String> popList = new HashMap<>();
+        Map<String, String> popList = new TreeMap<>();
 
         popList.put("Alabama", "AL");
         popList.put("Alaska", "AK");
@@ -284,6 +286,29 @@ public class HelperUtil {
         popList.put("Wyoming", "WY");
 
         return popList;
+    }
+
+    public static Long diffByDays(Date startDate, Date endDate) {
+        if (startDate != null && endDate != null) {
+            return TimeUnit.MILLISECONDS.toDays(startDate.getTime() - endDate.getTime());
+        }
+        return null;
+    }
+
+    public static String getDateNow() {
+        return getDateNow("MM/dd/yyyy");
+    }
+
+    public static String getDateTimeNow() {
+        return getDateNow("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    }
+
+    public static String getDateNow(String dateFormat) {
+        return getDate(dateFormat, new Date());
+    }
+
+    public static String getDate(String dateFormat, Date date) {
+        return new SimpleDateFormat(dateFormat).format(date);
     }
 }
 

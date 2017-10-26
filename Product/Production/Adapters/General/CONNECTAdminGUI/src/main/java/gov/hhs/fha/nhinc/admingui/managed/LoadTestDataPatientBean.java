@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -347,6 +348,7 @@ public class LoadTestDataPatientBean {
             dialogTitle = "Edit Patient";
             withPatient = loadTestDataService.getPatientBy(selectedPatient.getPatientId());
         } else {
+            newPatient();
             addPatientErrorMessages(msgForSelectEdit("patient"));
         }
     }
@@ -454,6 +456,14 @@ public class LoadTestDataPatientBean {
 
     public String getDialogTitle() {
         return dialogTitle;
+    }
+
+    public String getDateNow() {
+        return HelperUtil.getDateNow();
+    }
+
+    public Map<String, String> getListStates() {
+        return HelperUtil.populateListStates();
     }
 
     // IDs and isValidId
