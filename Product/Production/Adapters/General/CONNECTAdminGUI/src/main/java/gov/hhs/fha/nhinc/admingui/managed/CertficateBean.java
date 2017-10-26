@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.admingui.util.X509CertificateHelper;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -69,10 +70,10 @@ public class CertficateBean {
     private UploadedFile importCertFile;
     private Certificate selectedCertificate;
     private Certificate selectedTSCertificate;
-    private Certificate selectedKSCertificate;
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
+    private X509CertificateHelper x509CertificateHelper;
     private boolean expiredCert;
     private boolean rememberMe;
 
@@ -136,15 +137,6 @@ public class CertficateBean {
     public void setSelectedTSCertificate(Certificate selectedTSCertificate) {
         this.selectedTSCertificate = selectedTSCertificate;
     }
-
-    public Certificate getSelectedKSCertificate() {
-        return selectedKSCertificate;
-    }
-
-    public void setSelectedKSCertificate(Certificate selectedKSCertificate) {
-        this.selectedKSCertificate = selectedKSCertificate;
-    }
-
 
     public boolean isRememberMe() {
         return rememberMe;
