@@ -13,14 +13,12 @@
                 </address>
             </contact>
             <contact useType="">
-                <personName xml:lang="en">Dunn, Mike</personName>
-                <phone>415-462-1910</phone>
-                <email>mDunn@hSolution.com</email>
                 <address xml:lang="en" useType="" sortCode="">
                     <addressLine>11710 Plaza Drive Suite 2000</addressLine>
                     <addressLine>Reston, VA 20190</addressLine>
                 </address>
             </contact>
+            <contact />
         </contacts>
         <businessServices>
             <businessService serviceKey="uddi:Conformance1:PatientDiscovery" businessKey="uddi:Conformance1HealthSolution:urn:oid:2">

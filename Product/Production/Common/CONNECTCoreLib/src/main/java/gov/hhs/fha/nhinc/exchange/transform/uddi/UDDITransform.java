@@ -191,10 +191,10 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
             contacts = new ArrayList<>();
             for (Contact contact : entity.getContacts().getContact()) {
                 ContactType cType = new ContactType();
-                cType.getFullName().addAll(buildPersonNames(contact));
-                cType.getEmail().addAll(buildEmails(contact));
-                cType.getPhone().addAll(buildPhones(contact));
-                cType.getAddress().addAll(buildAddresses(contact));
+                buildPersonNames(contact, cType);
+                buildEmails(contact, cType);
+                buildPhones(contact, cType);
+                buildAddresses(contact, cType);
                 cType.setRole(buildRole(contact));
                 contacts.add(cType);
             }
@@ -215,41 +215,41 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         }
     }
 
-    private static List<String> buildEmails(Contact contact) {
-        List<String> emails = null;
+    private static void buildEmails(Contact contact, ContactType cType) {
+        List<String> emails;
         if (contact != null && CollectionUtils.isNotEmpty(contact.getEmail())) {
             emails = new ArrayList<>();
             for (Email obj : contact.getEmail()) {
                 emails.add(obj.getValue());
             }
+            cType.getEmail().addAll(emails);
         }
-        return emails;
     }
 
-    private static List<String> buildPersonNames(Contact contact) {
-        List<String> personNames = null;
+    private static void buildPersonNames(Contact contact, ContactType cType) {
+        List<String> personNames;
         if (contact != null && CollectionUtils.isNotEmpty(contact.getPersonName())) {
             personNames = new ArrayList<>();
             for (PersonName obj : contact.getPersonName()) {
                 personNames.add(obj.getValue());
             }
+            cType.getFullName().addAll(personNames);
         }
-        return personNames;
     }
 
-    private static List<String> buildPhones(Contact contact) {
-        List<String> phones = null;
+    private static void buildPhones(Contact contact, ContactType cType) {
+        List<String> phones;
         if (contact != null && CollectionUtils.isNotEmpty(contact.getPhone())) {
             phones = new ArrayList<>();
             for (Phone obj : contact.getPhone()) {
                 phones.add(obj.getValue());
             }
+            cType.getPhone().addAll(phones);
         }
-        return phones;
     }
 
-    private static List<AddressType> buildAddresses(Contact contact) {
-        List<AddressType> addressList = null;
+    private static void buildAddresses(Contact contact, ContactType cType) {
+        List<AddressType> addressList;
         if (contact != null && CollectionUtils.isNotEmpty(contact.getAddress())) {
             addressList = new ArrayList<>();
             AddressType addressType = new AddressType();
@@ -257,8 +257,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
                 buildAddressLine(obj, addressType);
             }
             addressList.add(addressType);
+            cType.getAddress().addAll(addressList);
         }
-        return addressList;
     }
 
     private static void buildAddressLine(Address addr, AddressType addrType) {
