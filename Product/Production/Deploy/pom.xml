@@ -482,8 +482,12 @@
     <profile>
 	     <id>DB</id>
         <activation>
-          <activeByDefault>false</activeByDefault>
-        </activation>
+                <property>
+                    <name>rundb</name>
+                    <value>true</value>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+                </property>
+            </activation>
         <build>
           <plugins>
             <plugin>
@@ -505,7 +509,7 @@
             </configuration>
             <executions>
               <execution>
-                <phase>prepare-package</phase>
+                <phase>install</phase>
                 <goals>
                   <goal>execute</goal>
                 </goals>
