@@ -44,6 +44,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlSubjectConfirmationType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -149,14 +150,15 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
-     * This method will return the first Assertion encountered in the passed in element.
+     * This method will return the first Assertion encountered in the passed in
+     * element.
      *
      * @param element the xml element to extract the assertion from
      * @return The first encountered Assertion object in the element
      */
     private static Assertion extractSaml2Assertion(final Element element) {
         if (element.getNamespaceURI().equals(SamlConstants.SAML2_ASSERTION_NS)
-            && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
+                && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
 
             return convertToAssertion(element);
         }
@@ -166,7 +168,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     private static Assertion extractSaml2AssertionFromDescendants(final Element element) {
         NodeList assertionNodes = element.getElementsByTagNameNS(SamlConstants.SAML2_ASSERTION_NS,
-            SamlConstants.SAML2_ASSERTION_TAG);
+                SamlConstants.SAML2_ASSERTION_TAG);
 
         if (assertionNodes.getLength() > 0) {
             Node assertionNode = assertionNodes.item(0);
@@ -252,17 +254,26 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         } else if (attribute.getName().equals(SamlConstants.ACCESS_CONSENT_ATTR)) {
             List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-            .addAll(accessConsentId);
+                    .addAll(accessConsentId);
             LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = {}",
-                accessConsentId);
+                    accessConsentId);
 
         } else if (attribute.getName().equals(SamlConstants.INST_ACCESS_CONSENT_ATTR)) {
             List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
-            .addAll(instAccessConsentId);
+                    .addAll(instAccessConsentId);
             LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = {}",
-                instAccessConsentId);
-
+                    instAccessConsentId);
+        } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_XUA_ACP)) {
+            String acpValue = getAttributeValue(attribute);
+            if(NullChecker.isNotNullish(acpValue)) {
+                target.setAcpAttribute(acpValue);
+            }
+        } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_XUA_IACP)) {
+            String iacpValue = getAttributeValue(attribute);
+            if(NullChecker.isNotNullish(iacpValue)) {
+                target.setInstanceAcpAttribute(iacpValue);
+            }
         } else if (!addProviderPatientID(attribute, target)) {
             LOG.warn("Unrecognized Name Attribute: {}", attribute.getName());
 
@@ -295,7 +306,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * @param attributeValues
-     * @return The same list, with XMLObjects converted to a String representation
+     * @return The same list, with XMLObjects converted to a String
+     * representation
      */
     private List<String> transformXMLtoString(List<XMLObject> attributeValues) {
         List<String> stringList = new ArrayList<>();
@@ -307,8 +319,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     private static String getAttributeValue(Attribute attribute) {
         if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
-            && attribute.getAttributeValues().get(0).getDOM() != null
-            && attribute.getAttributeValues().get(0).getDOM().getTextContent() != null) {
+                && attribute.getAttributeValues().get(0).getDOM() != null
+                && attribute.getAttributeValues().get(0).getDOM().getTextContent() != null) {
             return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
         } else {
             return null;
@@ -332,7 +344,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
         samlAuthnStatement.setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef()
-            .getAuthnContextClassRef());
+                .getAuthnContextClassRef());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());
@@ -344,7 +356,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
-     * This method is used to populate the Subject Information into the target assertion.
+     * This method is used to populate the Subject Information into the target
+     * assertion.
      *
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
@@ -365,12 +378,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             }
             target.getUserInfo().setUserName(name.getValue());
         }
-        populateSubjectConfirmation(saml2Assertion,target);
+        populateSubjectConfirmation(saml2Assertion, target);
         LOG.debug("end populateSubject()");
     }
 
     /**
-     * This method is used to populate the Authorization Decision Statement Information.
+     * This method is used to populate the Authorization Decision Statement
+     * Information.
      *
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
@@ -408,7 +422,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private static void translateEvidenceAssertions(SamlAuthzDecisionStatementEvidenceType targetEvidence,
-        List<Assertion> saml2EvidenceAssertions) {
+            List<Assertion> saml2EvidenceAssertions) {
 
         if (CollectionUtils.isEmpty(saml2EvidenceAssertions)) {
             LOG.trace("Empty/null assertion list");
@@ -430,8 +444,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (saml2EvidenceAssertion.getConditions() != null
-            && (saml2EvidenceAssertion.getConditions().getNotBefore() != null || saml2EvidenceAssertion.getConditions()
-            .getNotOnOrAfter() != null)) {
+                && (saml2EvidenceAssertion.getConditions().getNotBefore() != null || saml2EvidenceAssertion.getConditions()
+                .getNotOnOrAfter() != null)) {
             // Translate Evidence Conditions
             Conditions saml2EvidenceCondition = saml2EvidenceAssertion.getConditions();
             SamlAuthzDecisionStatementEvidenceConditionsType targetConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
@@ -457,19 +471,19 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      *
      */
     private static void addConsent(Assertion saml2EvidenceAssertion,
-        SamlAuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion) {
+            SamlAuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion) {
         for (AttributeStatement saml2EvidenceAttributeStatement : saml2EvidenceAssertion.getAttributeStatements()) {
             List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
 
             for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
                 if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
+                        && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
                     XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                     String accessConsent = xmlObject.getDOM().getTextContent();
 
                     targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
                 } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
+                        && !saml2EvidenceAttribute.getAttributeValues().isEmpty()) {
                     XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                     String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
@@ -481,7 +495,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
-     * This method is used to construct HL7 PurposeOfUse Attribute, and adds it to the Assertion.
+     * This method is used to construct HL7 PurposeOfUse Attribute, and adds it
+     * to the Assertion.
      *
      * @param attribute attribute
      * @param target target assertion
@@ -491,7 +506,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.trace("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
         if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
-            && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
+                && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
 
             CeType purposeOfUse = new CeType();
             XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
@@ -505,8 +520,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
-     * Initializes the assertion object to contain empty strings for all values. These are overwritten in the extraction
-     * process with real values if they are available
+     * Initializes the assertion object to contain empty strings for all values.
+     * These are overwritten in the extraction process with real values if they
+     * are available
      *
      * @param assertOut The Assertion element being written to
      */
@@ -601,7 +617,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
-     * This method is used to construct HL7 Subject Role Attribute, and adds it to the Assertion.
+     * This method is used to construct HL7 Subject Role Attribute, and adds it
+     * to the Assertion.
      *
      * @param attribute attribute
      * @param target target assertion
@@ -610,7 +627,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         LOG.trace("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
         if (!CollectionUtils.isEmpty(attribute.getAttributeValues()) && attribute.getAttributeValues().get(0) != null
-            && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
+                && !CollectionUtils.isEmpty(attribute.getAttributeValues().get(0).getOrderedChildren())) {
             XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
             XMLObject roleElement = subjRoleAttribute.getOrderedChildren().get(0);
 

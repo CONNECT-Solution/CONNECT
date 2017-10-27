@@ -235,6 +235,18 @@ public interface CallbackProperties {
      * @return
      */
     public String getNPI();
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getAcpAttribute();
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getIacpAttribute();
 
     /**
      * @return

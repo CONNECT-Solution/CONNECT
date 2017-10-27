@@ -74,6 +74,8 @@ public class SamlTokenCreator {
             if (NullChecker.isNotNullish(NPI)) {
                 requestContext.put(NhincConstants.ATTRIBUTE_NAME_NPI, NPI);
             }
+            
+            extractAccessConsentAttributes(requestContext, assertion);
             extractSubjectConfirmation(requestContext, assertion);
             extractUserInfo(requestContext, assertion);
 
@@ -471,6 +473,15 @@ public class SamlTokenCreator {
             samlSubjectConfirmations.add(bean);
         }
         requestContext.put(SamlConstants.SUBJECT_CONFIRMATION, samlSubjectConfirmations);
+    }
+
+    private void extractAccessConsentAttributes(Map<String, Object> requestContext, AssertionType assertion) {
+        if(NullChecker.isNotNullish(assertion.getAcpAttribute())) {
+            requestContext.put(SamlConstants.ACP_ATTRIBUTE_PROP, assertion.getAcpAttribute());
+        }
+        if(NullChecker.isNotNullish(assertion.getInstanceAcpAttribute())) {
+            requestContext.put(SamlConstants.IACP_ATTRIBUTE_PROP, assertion.getInstanceAcpAttribute());
+        }
     }
 
 }

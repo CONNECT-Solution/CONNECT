@@ -75,6 +75,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.opensaml.core.xml.schema.impl.XSStringImpl;
 import org.opensaml.saml.saml2.core.Action;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
@@ -389,6 +390,32 @@ public class HOKSAMLAssertionBuilderTest {
         final List<AttributeStatement> statements = builder.createUserNameAttributeStatements(callbackProps);
         when(callbackProps.getUserFullName()).thenReturn(null);
 
+    }
+    
+    @Test
+    public void testCreateAcpAttributeStatement() {
+        final CallbackProperties callbackProps = mock(CallbackProperties.class);
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        final String acp = "ACP_VALUE";
+        final String iacp = "IACP_VALUE";
+        
+        when(callbackProps.getAcpAttribute()).thenReturn(acp);
+        when(callbackProps.getIacpAttribute()).thenReturn(iacp);
+        
+        List<AttributeStatement> aStatement = builder.createAcpAttributeStatements(callbackProps);
+        
+        assertNotNull(aStatement);
+        assertEquals(aStatement.size(), 2);
+        
+        boolean containsAcps = true;
+        for(int i=0; i<2; i++) {
+            XSStringImpl xsValue = (XSStringImpl) aStatement.get(i).getAttributes().get(0).getAttributeValues().get(0);
+            if(!(acp.equals(xsValue.getValue()) || iacp.equals(xsValue.getValue()))) {
+                containsAcps = false;
+                break;
+            }
+        }
+        assertTrue(containsAcps);
     }
 
     @Test
@@ -907,6 +934,16 @@ public class HOKSAMLAssertionBuilderTest {
             @Override
             public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
                 return null;
+            }
+
+            @Override
+            public String getAcpAttribute() {
+                return "acpValue";
+            }
+
+            @Override
+            public String getIacpAttribute() {
+                return "iacpValue";
             }
         };
     }

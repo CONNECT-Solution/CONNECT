@@ -64,5 +64,8 @@ public class XacmlAttributeId {
     public static final String SignatureKeyModulus = "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-modulus";
     public static final String SignatureKeyExponent = "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-exponent";
     public static final String SignatureValue = "urn:gov:hhs:fha:nhinc:saml-signature-value";
+    public static final String ATTRIBUTE_ACCESS_CONSENT_POLICY = "urn:gov:hhs:fha:nhinc:saml-attribute-access-consent";
+    public static final String ATTRIBUTE_INSTANCE_ACCESS_CONSENT_POLICY = "urn:gov:hhs:fha:nhinc:saml-attribute-instance-access-consent";
+    
 
 }

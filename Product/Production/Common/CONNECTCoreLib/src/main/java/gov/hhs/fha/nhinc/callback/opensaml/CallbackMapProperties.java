@@ -532,6 +532,16 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.ATTRIBUTE_NAME_NPI);
     }
 
+    @Override
+    public String getAcpAttribute() {
+        return getNullSafeString(SamlConstants.ACP_ATTRIBUTE_PROP);
+    }
+
+    @Override
+    public String getIacpAttribute() {
+        return getNullSafeString(SamlConstants.IACP_ATTRIBUTE_PROP);
+    }
+
     /*
      * (non-Javadoc)
      *
