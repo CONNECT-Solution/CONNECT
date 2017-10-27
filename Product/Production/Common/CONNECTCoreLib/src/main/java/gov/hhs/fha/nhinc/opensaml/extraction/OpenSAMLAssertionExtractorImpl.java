@@ -266,12 +266,12 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                     instAccessConsentId);
         } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_XUA_ACP)) {
             String acpValue = getAttributeValue(attribute);
-            if(NullChecker.isNotNullish(acpValue)) {
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(acpValue)) {
                 target.setAcpAttribute(acpValue);
             }
         } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_XUA_IACP)) {
             String iacpValue = getAttributeValue(attribute);
-            if(NullChecker.isNotNullish(iacpValue)) {
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(iacpValue)) {
                 target.setInstanceAcpAttribute(iacpValue);
             }
         } else if (!addProviderPatientID(attribute, target)) {

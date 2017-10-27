@@ -776,14 +776,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         final String acp = properties.getAcpAttribute();
         final String iacp = properties.getIacpAttribute();
-        if (NullChecker.isNotNullish(acp)) {
+        if (StringUtils.isNotEmpty(acp)) {
             acpAttribute = OpenSAML2ComponentBuilder.getInstance()
                     .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_ACP, SamlConstants.ATTRIBUTE_NAME_XUA_ACP,
                             SamlConstants.URI_NAME_FORMAT, Arrays.asList(acp));
             statements
                     .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(acpAttribute)));
         }
-        if(NullChecker.isNotNullish(iacp)) {
+        if(StringUtils.isNotEmpty(iacp)) {
             iacpAttribute = OpenSAML2ComponentBuilder.getInstance()
                     .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_IACP, SamlConstants.ATTRIBUTE_NAME_XUA_IACP,
                             SamlConstants.URI_NAME_FORMAT, Arrays.asList(iacp));

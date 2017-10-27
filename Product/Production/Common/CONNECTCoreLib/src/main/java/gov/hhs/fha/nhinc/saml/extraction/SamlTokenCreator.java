@@ -475,7 +475,7 @@ public class SamlTokenCreator {
         requestContext.put(SamlConstants.SUBJECT_CONFIRMATION, samlSubjectConfirmations);
     }
 
-    private void extractAccessConsentAttributes(Map<String, Object> requestContext, AssertionType assertion) {
+    private static void extractAccessConsentAttributes(Map<String, Object> requestContext, AssertionType assertion) {
         if(NullChecker.isNotNullish(assertion.getAcpAttribute())) {
             requestContext.put(SamlConstants.ACP_ATTRIBUTE_PROP, assertion.getAcpAttribute());
         }
