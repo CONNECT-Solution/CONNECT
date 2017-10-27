@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.net.URI;
@@ -90,6 +91,7 @@ public class AssertionHelper {
             appendAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(policyRequest, assertion);
             appendAuthzDecisionStatementEvidenceAssertionAccessConsentPolicy(policyRequest, assertion);
             appendAuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy(policyRequest, assertion);
+            appendAttributeAccessConsent(policyRequest, assertion);
         } else {
             LOG.warn("assertion was not set - unable to extract assertion related data to send to policy engine");
         }
@@ -951,5 +953,24 @@ public class AssertionHelper {
         AttributeHelper attrHelper = new AttributeHelper();
         attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         LOG.debug("end appending AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy");
+    }
+
+    private void appendAttributeAccessConsent(RequestType policyRequest, AssertionType assertion) {
+        LOG.trace("begin appending AttributeAccessConsentPolicies");
+        ResourceType parent = getResource(policyRequest);
+        AttributeHelper attrHelper = new AttributeHelper();
+        String dataType = Constants.DataTypeAnyURI;
+        
+        if(NullChecker.isNotNullish(assertion.getAcpAttribute())) {
+            String attributeId = XacmlAttributeId.ATTRIBUTE_ACCESS_CONSENT_POLICY;           
+            attrHelper.appendAttributeToParent(parent, attributeId, dataType, assertion.getAcpAttribute(), appendAttributesIfNull);
+        }
+        
+        if(NullChecker.isNotNullish(assertion.getInstanceAcpAttribute())) {
+            String attributeId = XacmlAttributeId.ATTRIBUTE_INSTANCE_ACCESS_CONSENT_POLICY;
+            attrHelper.appendAttributeToParent(parent, attributeId, dataType, assertion.getInstanceAcpAttribute(), appendAttributesIfNull);
+        }
+      
+        LOG.trace("end appending AttributeAccessConsentPolicies");
     }
 }
