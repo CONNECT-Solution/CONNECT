@@ -49,7 +49,7 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
     private static final Logger LOG = LoggerFactory.getLogger(UDDITransformTest.class);
     private static final String ENTITY_1_NAME = "Health Solutions";
     private static final String ENTITY_1_HCID = "urn:oid:2";
-    private static final int ENTITY_1_CONTACTS = 2;
+    private static final int ENTITY_1_CONTACTS = 3;
     private static final String[] ENTITY_1_REGION = {"US-MD", "US-VA"};
     private static final int ENTITY_1_NUM_OF_SERVICES = 2;
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
