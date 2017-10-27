@@ -505,7 +505,7 @@
             </configuration>
             <executions>
               <execution>
-                <phase>process-test-resources</phase>
+                <phase>prepare-package</phase>
                 <goals>
                   <goal>execute</goal>
                 </goals>
