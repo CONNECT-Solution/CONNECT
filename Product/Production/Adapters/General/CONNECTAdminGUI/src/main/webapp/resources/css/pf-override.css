@@ -476,6 +476,17 @@ body {
 	background:#00be96;
 	color:#ffffff;
 }
+.ui-tabs.tabs-override.tabs-ovr-amethyst .ui-tabs-nav {
+    border-bottom:5px solid #9966cc;
+}
+.ui-tabs.tabs-override.tabs-ovr-amethyst .ui-tabs-nav li.ui-tabs-selected {
+    background:#9966cc;
+    color:#ffffff;
+}
+.ui-tabs.tabs-override.tabs-ovr-amethyst .ui-tabs-nav li.ui-state-hover a {
+    background:#9966cc;
+    color:#ffffff;
+}
 
 
 
