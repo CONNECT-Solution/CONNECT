@@ -44,16 +44,23 @@ import java.util.List;
 import java.util.UUID;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
+import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.core.xml.XMLObject;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.Marshaller;
 import org.opensaml.core.xml.io.MarshallerFactory;
 import org.opensaml.core.xml.io.MarshallingException;
+import org.opensaml.core.xml.schema.XSAny;
+import org.opensaml.core.xml.schema.XSURI;
+import org.opensaml.core.xml.schema.impl.XSAnyBuilder;
+import org.opensaml.saml.common.xml.SAMLConstants;
+import org.opensaml.saml.saml1.core.AttributeValue;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
 import org.opensaml.saml.saml2.core.AttributeStatement;
@@ -779,18 +786,30 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (StringUtils.isNotEmpty(acp)) {
             acpAttribute = OpenSAML2ComponentBuilder.getInstance()
                     .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_ACP, SamlConstants.ATTRIBUTE_NAME_XUA_ACP,
-                            SamlConstants.URI_NAME_FORMAT, Arrays.asList(acp));
+                            SamlConstants.URI_NAME_FORMAT);
+            acpAttribute.getAttributeValues().add(createURI(acp));
             statements
                     .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(acpAttribute)));
         }
         if(StringUtils.isNotEmpty(iacp)) {
             iacpAttribute = OpenSAML2ComponentBuilder.getInstance()
                     .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_IACP, SamlConstants.ATTRIBUTE_NAME_XUA_IACP,
-                            SamlConstants.URI_NAME_FORMAT, Arrays.asList(iacp));
+                            SamlConstants.URI_NAME_FORMAT);
+            iacpAttribute.getAttributeValues().add(createURI(iacp));
             statements
                     .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(iacpAttribute)));
         }
         return statements;
+    }
+    
+    private XMLObject createURI(String value) {
+        XSAnyBuilder anyBuilder= new XSAnyBuilder();
+        XSAny uri = anyBuilder.buildObject(SAMLConstants.SAML20_NS, AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        uri.setTextContent(value);
+        uri.getUnknownAttributes().put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
+            SamlConstants.HL7_TYPE_PREFIX), "xs:" + XSURI.TYPE_LOCAL_NAME);
+        return uri;
     }
 
     private static String createAssertionId() {
