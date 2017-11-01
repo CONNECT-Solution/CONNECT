@@ -190,13 +190,13 @@ public class HOKSAMLAssertionBuilderTest {
 
                     @Override
                     public void verify(final PublicKey key, final String sigProvider) throws CertificateException,
-                        NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
+                    NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
 
                     }
 
                     @Override
                     public void verify(final PublicKey key) throws CertificateException, NoSuchAlgorithmException,
-                        InvalidKeyException, NoSuchProviderException, SignatureException {
+                    InvalidKeyException, NoSuchProviderException, SignatureException {
                     }
 
                     @Override
@@ -323,6 +323,11 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public HashMap<String, String> getTrustStoreSystemProperties() {
+                return null;
+            }
+
+            @Override
+            public HashMap<String, String> getKeyStoreSystemProperties() {
                 return null;
             }
         });
@@ -642,7 +647,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotAfter = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(Boolean.TRUE.toString());
+        .thenReturn(Boolean.TRUE.toString());
 
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
@@ -670,7 +675,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotAfter = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(Boolean.FALSE.toString());
+        .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
@@ -695,7 +700,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotBefore = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(Boolean.FALSE.toString());
+        .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);

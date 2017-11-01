@@ -87,9 +87,11 @@
                                                       #{kscert.keySize}
                                                   </p:column>
                                                   <p:column>
-                                                    <f:facet name="header">Expiration Date</f:facet>
-                                                       <h:outputText value="#{kscert.expirationDate}" styleClass="highlight#{kscert.expiryColorCoding}" />
-                                                  </p:column>
+                                                        <f:facet name="header">Expiration Date</f:facet>
+                                                            <p:commandLink styleClass="#{kscert.expiryColorCoding} pull-left"/>
+                                                            <h:outputText value="&nbsp;" />
+                                                            <h:outputText value="#{kscert.expirationDate}" />
+                                                    </p:column>
                                                   <p:column>
                                                     <f:facet name="header">Subject Key Identifier</f:facet>
                                                       #{kscert.subjectKeyID}
@@ -102,7 +104,7 @@
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                               <p:row>
                                                 <p:column styleClass="ui-button-rightmost">
-                                                  <p:commandButton id="viewCertKeyStoreButton" value="View Certificate" actionListener="#{certificateBean.getSelectedCertificate}" update=":viewCertDlg"  oncomplete="PF('viewCertDlg').show();" styleClass="add-button pull-right" />
+                                                  <p:commandButton id="viewCertKeyStoreButton" value="View Certificate" action="#{certificateBean.viewCertificateKS}" update=":certTabView :viewCertDlgKS"  styleClass="add-button pull-right" />
                                                 </p:column>
                                               </p:row>
                                             </p:panelGrid>
@@ -122,6 +124,7 @@
                               <h2 class="subsection-header">TrustStore List</h2>
                               <div class="content">
                                 <div class="form-block center-block" style="padding:0px;">
+
                                   <h:form class="form-horizontal"  id="trustStoreForm" >
                                       <p:messages id="trustStoreMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
                                       <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
@@ -135,54 +138,103 @@
                                         </p:row>
                                        </p:panelGrid>
                                     </p:panel>
-                                    <div class="table-responsive table-props">
-                                      <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="tscert" selection="#{certificateBean.selectedTSCertificate}" rowKey="#{tscert.id}" widgetVar="cellPropst" sortMode="Single" styleClass="table table-striped table-domains">
-                                          <p:column selectionMode="single" />
-                                        <p:column>
-                                          <f:facet name="header">Alias</f:facet>
-                                                                              <h:outputText value="#{tscert.alias}" />
-                                        </p:column>
-                                        <p:column>
-                                          <f:facet name="header">Algorithm</f:facet>
-                                                                               <h:outputText value="#{tscert.algorithm}" />
-                                        </p:column>
-                                        <p:column>
-                                          <f:facet name="header">Key Size</f:facet>
-                                                                              <h:outputText value="#{tscert.keySize}" />
-                                        </p:column>
-                                        <p:column>
-                                          <f:facet name="header">Expiration Date</f:facet>
-                                                                             <h:outputText value="#{tscert.expirationDate}" styleClass="highlight#{tscert.expiryColorCoding}" />
-                                        </p:column>
-                                        <p:column>
-                                          <f:facet name="header">Subject Key Identifier</f:facet>
-                                                                             <h:outputText value="#{tscert.subjectKeyID}" />
-                                        </p:column>
-                                        <p:column>
-                                          <f:facet name="header">Authority Key Identifier</f:facet>
-                                                                             <h:outputText value="#{tscert.authorityKeyID}" />
-                                        </p:column>
-                                      </p:dataTable>
-                                      <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                        <p:row>
-                                            <p:column styleClass="ui-button-rightmost">
-                                                <p:commandButton id="deleteCert"  value="Delete Certificate"  styleClass="delete-button pull-right" icon="ui-icon-closethick" onclick="PF('certDeleteConfirm').show();">
-                                                </p:commandButton>
-                                                <p:confirmDialog header="Confirm Delete" message="Are you sure you want to delete the selected certificate?" showEffect="fade" hideEffect="fade" widgetVar="certDeleteConfirm">
-                                                    <p:commandButton value="Yes" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{certificateBean.openTrustStorePasskeyDlgForDelete}" update=":certTabView" oncomplete="PF('certDeleteConfirm').hide();"/>
-                                                    <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('certDeleteConfirm').hide();"/>
-                                                </p:confirmDialog>
-                                            </p:column>
-                                            <p:column styleClass="pull-right">
-                                               <p:commandButton value="Import Certificate" type="button" styleClass="add-button" icon="ui-icon-circle-plus" onclick="PF('importCertDlg').show();" />
-                                            </p:column>
-                                            <p:column styleClass="ui-button-rightmost">
-                                            <p:commandButton id="viewCertTrustStoreButton" value="View Certificate"  actionListener="#{certificateBean.getSelectedCertificate}" update=":viewCertDlg"  oncomplete="PF('viewCertDlg').show();" styleClass="add-button pull-right" />
-                                          </p:column>
-                                        </p:row>
-                                      </p:panelGrid>
-                                    </div>
-                                  </h:form>
+
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"
+                                                    resizableColumns="false" scrollable="true" scrollHeight="300"
+                                                    var="tscert" selection="#{certificateBean.selectedTSCertificate}"
+                                                    rowKey="#{tscert.id}" widgetVar="cellPropst" sortMode="Single"
+                                                    styleClass="table table-striped table-domains">
+                                                    <p:column selectionMode="single" />
+                                                    <p:column>
+                                                        <f:facet name="header">Alias</f:facet>
+                                                        <h:outputText value="#{tscert.alias}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Algorithm</f:facet>
+                                                        <h:outputText value="#{tscert.algorithm}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Key Size</f:facet>
+                                                        <h:outputText value="#{tscert.keySize}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Expiration Date</f:facet>
+                                                        <p:commandLink
+                                                            styleClass="#{tscert.expiryColorCoding} pull-left" />
+                                                        <h:outputText value="&#160;" />
+                                                        <h:outputText value="#{tscert.expirationDate}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Subject Key Identifier</f:facet>
+                                                        <h:outputText value="#{tscert.subjectKeyID}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Authority Key Identifier</f:facet>
+                                                        <h:outputText value="#{tscert.authorityKeyID}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+
+                                            <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
+                                                        </p:commandLink>
+                                                        <h:outputText
+                                                            value=" &nbsp;Certificate is valid (&gt; 90 days).&nbsp;" />
+                                                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
+                                                        <h:outputText
+                                                            value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
+                                                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                                                    </p:column>
+                                                    <p:column rowspan="3" styleClass="pull-right">
+                                                        <p:commandButton id="deleteCert" value="Delete Certificate"
+                                                            styleClass="delete-button" icon="ui-icon-closethick"
+                                                            onclick="PF('certDeleteConfirm').show();">
+                                                        </p:commandButton>
+                                                        <h:outputText value=" &nbsp;&nbsp;"/>
+                                                        <p:confirmDialog header="Confirm Delete"
+                                                            message="Are you sure you want to delete the selected certificate?"
+                                                            showEffect="fade" hideEffect="fade"
+                                                            widgetVar="certDeleteConfirm">
+                                                            <p:commandButton value="Yes"
+                                                                styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                                                action="#{certificateBean.openTrustStorePasskeyDlgForDelete}"
+                                                                update=":certTabView"
+                                                                oncomplete="PF('certDeleteConfirm').hide();" />
+                                                            <p:commandButton value="No" styleClass="ui-confirmdialog-no"
+                                                                icon="ui-icon-close"
+                                                                oncomplete="PF('certDeleteConfirm').hide();" />
+                                                        </p:confirmDialog>
+                                                        <p:commandButton value="Import Certificate"
+                                                            styleClass="add-button" icon="ui-icon-circle-plus"
+                                                            onclick="PF('importCertDlg').show();" />
+                                                        <h:outputText value=" &nbsp;&nbsp;"/>
+                                                        <p:commandButton id="viewCertTrustStoreButton"
+                                                            value="View Certificate"
+                                                            action="#{certificateBean.viewCertificate}"
+                                                            update=":certTabView :viewCertDlg" styleClass="add-button" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
+                                                        <h:outputText
+                                                            value=" &#160;Certificate expired or about to expire.&#160;" />
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+
+                                        </h:form>
                                 </div>
                               </div>
                             </div>
@@ -195,6 +247,7 @@
                 <!-- include link for import cert -->
                 <ui:include src="certManagementCreateDialog.xhtml" />
                 <ui:include src="viewCertDialog.xhtml" />
+                <ui:include src="viewCertDialogKS.xhtml" />
                 <ui:include src="importCertDialog.xhtml" />
                 <ui:include src="importPassKeyDialog.xhtml"/>
                 <ui:include src="deletePassKeyDialog.xhtml"/>
