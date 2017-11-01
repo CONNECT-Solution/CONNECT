@@ -787,7 +787,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             acpAttribute = OpenSAML2ComponentBuilder.getInstance()
                     .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_ACP, SamlConstants.ATTRIBUTE_NAME_XUA_ACP,
                             SamlConstants.URI_NAME_FORMAT);
-            acpAttribute.getAttributeValues().add(createURI(acp));
+            acpAttribute.getAttributeValues().add(OpenSAML2ComponentBuilder.getInstance().createUriAttributeValue(acp));
             statements
                     .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(acpAttribute)));
         }
@@ -795,21 +795,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             iacpAttribute = OpenSAML2ComponentBuilder.getInstance()
                     .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_IACP, SamlConstants.ATTRIBUTE_NAME_XUA_IACP,
                             SamlConstants.URI_NAME_FORMAT);
-            iacpAttribute.getAttributeValues().add(createURI(iacp));
+            iacpAttribute.getAttributeValues().add(OpenSAML2ComponentBuilder.getInstance().createUriAttributeValue(iacp));
             statements
                     .addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(iacpAttribute)));
         }
         return statements;
-    }
-    
-    private XMLObject createURI(String value) {
-        XSAnyBuilder anyBuilder= new XSAnyBuilder();
-        XSAny uri = anyBuilder.buildObject(SAMLConstants.SAML20_NS, AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME,
-                SAMLConstants.SAML20_PREFIX);
-        uri.setTextContent(value);
-        uri.getUnknownAttributes().put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
-            SamlConstants.HL7_TYPE_PREFIX), "xs:" + XSURI.TYPE_LOCAL_NAME);
-        return uri;
     }
 
     private static String createAssertionId() {
