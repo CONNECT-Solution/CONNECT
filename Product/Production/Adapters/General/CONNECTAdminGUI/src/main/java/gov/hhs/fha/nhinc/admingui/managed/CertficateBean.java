@@ -82,6 +82,7 @@ public class CertficateBean {
     private boolean rememberMe;
     private String oldAlias;
 
+
     private enum RefreshAction {
         KEYSTORE("keystore"), TRUSTSTORE("truststore");
 
@@ -287,6 +288,7 @@ public class CertficateBean {
         }
     }
 
+
     public void updateSelectedCertificateTS() {
         if (selectedTSCertificate != null){
             updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG, RefreshAction.TRUSTSTORE);
@@ -319,7 +321,6 @@ public class CertficateBean {
     }
 
     public void updateSelectedCertificateKS() {
-
         if (selectedTSCertificate != null) {
             updateCertificate(service.fetchKeyStores(), VIEW_CERT_ERROR_MSG_KS, RefreshAction.KEYSTORE);
         }
