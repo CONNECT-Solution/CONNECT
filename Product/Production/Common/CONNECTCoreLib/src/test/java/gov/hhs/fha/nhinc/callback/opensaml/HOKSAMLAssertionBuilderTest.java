@@ -75,7 +75,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.opensaml.core.xml.schema.impl.XSStringImpl;
+import org.opensaml.core.xml.schema.XSAny;
 import org.opensaml.saml.saml2.core.Action;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
@@ -396,8 +396,8 @@ public class HOKSAMLAssertionBuilderTest {
     public void testCreateAcpAttributeStatement() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-        final String acp = "ACP_VALUE";
-        final String iacp = "IACP_VALUE";
+        final String acp = "urn:oid:1.2.3.4";
+        final String iacp = "urn:oid:1.2.3.4.5";
         
         when(callbackProps.getAcpAttribute()).thenReturn(acp);
         when(callbackProps.getIacpAttribute()).thenReturn(iacp);
@@ -409,8 +409,8 @@ public class HOKSAMLAssertionBuilderTest {
         
         boolean containsAcps = true;
         for(int i=0; i<2; i++) {
-            XSStringImpl xsValue = (XSStringImpl) aStatement.get(i).getAttributes().get(0).getAttributeValues().get(0);
-            if(!(acp.equals(xsValue.getValue()) || iacp.equals(xsValue.getValue()))) {
+            XSAny xsValue = (XSAny) aStatement.get(i).getAttributes().get(0).getAttributeValues().get(0);
+            if(!(acp.equals(xsValue.getTextContent()) || iacp.equals(xsValue.getTextContent()))) {
                 containsAcps = false;
                 break;
             }
@@ -938,12 +938,12 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public String getAcpAttribute() {
-                return "acpValue";
+                return "urn:oid:1.2.3.4";
             }
 
             @Override
             public String getIacpAttribute() {
-                return "iacpValue";
+                return "urn:oid:1.2.3.4.5";
             }
         };
     }
