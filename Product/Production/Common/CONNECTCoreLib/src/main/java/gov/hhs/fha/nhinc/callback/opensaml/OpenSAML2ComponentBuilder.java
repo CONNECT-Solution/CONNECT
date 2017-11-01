@@ -57,11 +57,14 @@ import org.apache.wss4j.common.saml.bean.SubjectLocalityBean;
 import org.apache.wss4j.common.saml.builder.SAML1ComponentBuilder;
 import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
 import org.joda.time.DateTime;
+import org.opensaml.core.xml.XMLObject;
 import org.opensaml.core.xml.XMLObjectBuilderFactory;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.schema.XSAny;
+import org.opensaml.core.xml.schema.XSURI;
 import org.opensaml.core.xml.schema.impl.XSAnyBuilder;
 import org.opensaml.saml.common.SAMLObjectBuilder;
+import org.opensaml.saml.common.xml.SAMLConstants;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
 import org.opensaml.saml.saml2.core.AttributeStatement;
@@ -632,6 +635,15 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public Attribute createPatientIDAttribute(final String patientId) {
         return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, Collections.singletonList(patientId));
+    }
+    
+    public XSAny createUriAttributeValue(String value) {
+        XSAny uri = createAny(SAMLConstants.SAML20_NS, org.opensaml.saml.saml1.core.AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        uri.setTextContent(value);
+        uri.getUnknownAttributes().put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
+            SamlConstants.HL7_TYPE_PREFIX), "xs:" + XSURI.TYPE_LOCAL_NAME);
+        return uri;
     }
 
     /**
