@@ -27,6 +27,9 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_PASSWORD_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_TYPE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.PKCS11_TYPE;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
@@ -65,6 +68,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
+    private Certificate certToRestore;
 
     @Override
     public List<Certificate> fetchKeyStores() {
@@ -147,10 +151,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @return
      */
     @Override
-    public boolean isAliasInUse(Certificate cert) {
-        List<Certificate> truststores = fetchTrustStores();
-        String alias = cert.getAlias();
-        for (Certificate trustCert : truststores) {
+    public boolean isAliasInUse(String alias, List<Certificate> certs) {
+       for (Certificate trustCert : certs) {
             if (trustCert.getAlias().equalsIgnoreCase(alias)) {
                 return true;
             }
@@ -269,4 +271,87 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     public boolean validateTrustStorePassKey(String passkey) {
         return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY).equals(passkey);
     }
+
+    @Override
+    public boolean updateCertificateTS(String oldAlias, Certificate cert) throws CertificateManagerException {
+        final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
+        String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
+        final String passkey = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        boolean isUpdateSuccessful = false;
+        try {
+            KeyStore tstore = KeyStore.getInstance(storeType);
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                is = new FileInputStream(storeLoc);
+            }
+            tstore.load(is, passkey.toCharArray());
+
+            if (tstore.containsAlias(oldAlias)) {
+                certToRestore = cert;
+                os = updateCert(oldAlias, cert, storeLoc, passkey, tstore);
+                isUpdateSuccessful = true;
+            }
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            isUpdateSuccessful = false;
+            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            closeFiles(is, os);
+        }
+        return isUpdateSuccessful;
+    }
+
+    @Override
+    public boolean updateCertificateKS(String oldAlias, Certificate cert) throws CertificateManagerException {
+
+        final Map<String, String> keyStoreProperties = cmHelper.getKeyStoreSystemProperties();
+        final String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
+        final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
+        final String passkey = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
+
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        boolean isUpdateSuccessful = false;
+        try {
+            KeyStore keyStore = cmHelper.getKeyStore();
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                is = new FileInputStream(storeLoc);
+            }
+            keyStore.load(is, passkey.toCharArray());
+            keyStore.containsAlias(cert.getAlias());
+            if (keyStore.containsAlias(oldAlias)) {
+                certToRestore = cert;
+                os = updateCert(oldAlias, cert, storeLoc, passkey, keyStore);
+                isUpdateSuccessful = true;
+            }
+
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            isUpdateSuccessful = false;
+            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            closeFiles(is, os);
+        }
+        return isUpdateSuccessful;
+    }
+
+    private static FileOutputStream updateCert(String oldAlias, Certificate cert, final String storeLoc,
+        final String passkey,
+        KeyStore tstore)
+            throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
+        FileOutputStream os;
+        tstore.deleteEntry(oldAlias);
+        os = new FileOutputStream(storeLoc);
+        tstore.setCertificateEntry(cert.getAlias(), cert.getX509Cert());
+        tstore.store(os, passkey.toCharArray());
+        return os;
+    }
+
+    @Override
+    public Certificate restoreCertificate() {
+        return certToRestore;
+    }
+
 }

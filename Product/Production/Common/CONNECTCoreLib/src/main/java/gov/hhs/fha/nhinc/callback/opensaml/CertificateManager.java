@@ -89,4 +89,9 @@ public interface CertificateManager {
     public KeyStore refreshTrustStore();
 
     public Map<String, String> getTrustStoreSystemProperties();
+
+    /**
+     * @return
+     */
+    public Map<String, String> getKeyStoreSystemProperties();
 }
