@@ -378,7 +378,7 @@
             <activation>
                 <property>
                     <name>rundb</name>
-                    <value>valonly</value>
+                    <value>true</value>
                 </property>
             </activation>
             <build>
