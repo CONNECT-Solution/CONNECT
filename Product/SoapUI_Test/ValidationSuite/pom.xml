@@ -658,7 +658,6 @@
 
                             <redirectTestOutputToFile>false</redirectTestOutputToFile>
                         </configuration>
-                        <!-- <argLine>-Dnhinc.properties.dir=${project.basedir}/target/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main/</argLine> -->
                     </plugin>
                     <!-- Start the server and deployment -->
                     <plugin>
