@@ -68,7 +68,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
-    private Certificate certToRestore;
 
     @Override
     public List<Certificate> fetchKeyStores() {
@@ -273,7 +272,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-
     public boolean updateCertificateTS(String oldAlias, Certificate cert)
         throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
@@ -344,7 +342,5 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         tstore.store(os, passkey.toCharArray());
         return os;
     }
-
-
 
 }
