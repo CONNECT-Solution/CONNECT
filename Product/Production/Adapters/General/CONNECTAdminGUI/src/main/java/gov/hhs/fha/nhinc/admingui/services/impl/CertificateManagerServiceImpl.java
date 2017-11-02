@@ -68,7 +68,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
-    private Certificate certToRestore;
 
     @Override
     public List<Certificate> fetchKeyStores() {
@@ -152,7 +151,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      */
     @Override
     public boolean isAliasInUse(String alias, List<Certificate> certs) {
-       for (Certificate trustCert : certs) {
+        for (Certificate trustCert : certs) {
             if (trustCert.getAlias().equalsIgnoreCase(alias)) {
                 return true;
             }
@@ -273,24 +272,44 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public boolean updateCertificateTS(String oldAlias, Certificate cert) throws CertificateManagerException {
+    public boolean updateCertificateTS(String oldAlias, Certificate cert)
+        throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
         final String passkey = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        KeyStore storeCert;
+        try {
+            storeCert = KeyStore.getInstance(storeType);
+            return updateCertificate(oldAlias, cert, storeType, storeLoc, passkey, storeCert);
+        } catch (final KeyStoreException ex) {
+            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        }
+    }
+
+    /**
+     * @param oldAlias
+     * @param cert
+     * @param storeType
+     * @param storeLoc
+     * @param passkey
+     * @return
+     * @throws CertificateManagerException
+     */
+    private static boolean updateCertificate(String oldAlias, Certificate cert, String storeType, final String storeLoc,
+        final String passkey, KeyStore storeCert) throws CertificateManagerException {
         FileInputStream is = null;
         FileOutputStream os = null;
         boolean isUpdateSuccessful = false;
         try {
-            KeyStore tstore = KeyStore.getInstance(storeType);
             if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
                 is = new FileInputStream(storeLoc);
             }
-            tstore.load(is, passkey.toCharArray());
+            storeCert.load(is, passkey.toCharArray());
 
-            if (tstore.containsAlias(oldAlias)) {
-                certToRestore = cert;
-                os = updateCert(oldAlias, cert, storeLoc, passkey, tstore);
+            if (storeCert.containsAlias(oldAlias)) {
+                os = updateCert(oldAlias, cert, storeLoc, passkey, storeCert);
                 isUpdateSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
@@ -305,36 +324,11 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean updateCertificateKS(String oldAlias, Certificate cert) throws CertificateManagerException {
-
         final Map<String, String> keyStoreProperties = cmHelper.getKeyStoreSystemProperties();
         final String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
         final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
         final String passkey = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
-
-        FileInputStream is = null;
-        FileOutputStream os = null;
-        boolean isUpdateSuccessful = false;
-        try {
-            KeyStore keyStore = cmHelper.getKeyStore();
-            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-                is = new FileInputStream(storeLoc);
-            }
-            keyStore.load(is, passkey.toCharArray());
-            keyStore.containsAlias(cert.getAlias());
-            if (keyStore.containsAlias(oldAlias)) {
-                certToRestore = cert;
-                os = updateCert(oldAlias, cert, storeLoc, passkey, keyStore);
-                isUpdateSuccessful = true;
-            }
-
-        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            isUpdateSuccessful = false;
-            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
-            throw new CertificateManagerException(ex.getMessage(), ex);
-        } finally {
-            closeFiles(is, os);
-        }
-        return isUpdateSuccessful;
+        return updateCertificate(oldAlias, cert, storeType, storeLoc, passkey, cmHelper.getKeyStore());
     }
 
     private static FileOutputStream updateCert(String oldAlias, Certificate cert, final String storeLoc,
@@ -349,9 +343,5 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return os;
     }
 
-    @Override
-    public Certificate restoreCertificate() {
-        return certToRestore;
-    }
 
 }

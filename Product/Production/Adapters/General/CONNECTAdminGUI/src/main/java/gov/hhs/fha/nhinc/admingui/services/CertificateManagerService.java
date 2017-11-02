@@ -64,5 +64,4 @@ public interface CertificateManagerService {
 
     public boolean updateCertificateKS(String oldAlias, Certificate cert) throws CertificateManagerException;
     
-    public Certificate restoreCertificate();
 }
