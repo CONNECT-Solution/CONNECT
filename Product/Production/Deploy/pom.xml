@@ -798,6 +798,56 @@
         </plugins>
       </build>
     </profile> 
+    <profile>
+	     <id>DBS</id>
+        <activation>
+                <property>
+                    <name>rundbs</name>
+                    <value>true</value>
+                </property>
+            </activation>
+		<properties>
+            <db.excluded>false</db.excluded>
+        </properties>
+	  <build>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>sql-maven-plugin</artifactId>
+              <version>1.5</version>
+            <dependencies>
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysqldriver.version}</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <driver>com.mysql.jdbc.Driver</driver>
+              <url>jdbc:mysql://${db.host}</url>
+              <username>root</username>
+              <password>${mysql.root.password}</password>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+                <configuration>
+                  <autocommit>true</autocommit>
+                  <srcFiles>
+                    <srcFile>../../../DBScripts/nhincdb/dropall.sql</srcFile>
+                    <srcFile>../../../DBScripts/nhincdb/nhincdb.sql</srcFile>
+                    <srcFile>../../../DBScripts/nhincdb/populateTestData.sql</srcFile>
+                  </srcFiles>
+                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile> 
     <!-- X12 -->
     <profile>
       <id>X12</id>
