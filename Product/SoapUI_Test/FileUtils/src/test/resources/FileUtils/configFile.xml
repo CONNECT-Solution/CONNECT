@@ -1,0 +1,8 @@
+<root>
+<alias alias="{0}" name="{1}" />
+<alias alias="alias1" name="name1" />
+<alias alias="alias2" name="name2" />
+<alias alias="alias3" name="name3" />
+<alias alias="alias4" name="name4" />
+<alias alias="alias5" name="name5" />
+</root>
