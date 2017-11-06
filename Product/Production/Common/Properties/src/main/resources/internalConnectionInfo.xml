@@ -4,6 +4,23 @@
         <name xml:lang="en">Gateway 1</name>
         <businessServices>
 
+            <!-- Config Admin -->
+            
+            <businessService serviceKey="uddi:nhincnode:entityconfigadmin">
+                <name xml:lang="en">entityconfigadmin</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:entityconfigadmin" serviceKey="uddi:nhincnode:entityconfigadmin">
+                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGateway/GatewayService/ConfigAdminUnsecured</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entityconfigadmin" keyValue="entityconfigadmin"/>
+                </categoryBag>
+            </businessService>
+            
             <!-- Direct Soap Edge  -->
 
             <businessService serviceKey="uddi:nhincnode:directsoapedge">

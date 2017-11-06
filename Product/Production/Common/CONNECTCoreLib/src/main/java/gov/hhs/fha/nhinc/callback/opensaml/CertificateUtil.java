@@ -26,76 +26,55 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
-import java.security.KeyStore;
-import java.security.PrivateKey;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
-import java.util.Map;
 import javax.activation.DataHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author bhumphrey
  *
+ * @author jassmit
  */
-public interface CertificateManager {
+public class CertificateUtil {
 
-    /**
-     * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-     * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-     *
-     * @return X509Certificate
-     * @throws CertificateManagerException
-     */
-    public abstract X509Certificate getDefaultCertificate() throws CertificateManagerException;
+    private static final Logger LOG = LoggerFactory.getLogger(CertificateUtil.class);
 
-    public abstract PrivateKey getDefaultPrivateKey() throws CertificateManagerException;
+    public CertificateUtil() {
 
-    /**
-     * @return
-     */
-    public abstract RSAPublicKey getDefaultPublicKey();
+    }
 
-    /**
-     * @return the keyStore
-     */
-    public abstract KeyStore getKeyStore();
+    public Certificate createCertificate(DataHandler data) throws CertificateManagerException {
+        X509Certificate cert = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayInputStream bais = null;
+        try {
+            data.writeTo(baos);
+            bais = new ByteArrayInputStream(baos.toByteArray());
+            cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
+        } catch (CertificateException | IOException ex) {
+            LOG.error("Unable to extract a valid X509 certificate {}", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
+        } finally {
+            closeStream(baos);
+            closeStream(bais);
+        }
+        return cert;
+    }
 
-    /**
-     * @return the trustStore
-     */
-    public abstract KeyStore getTrustStore();
-
-    /**
-     * refreshes the underline KeyStore
-     *
-     * @return
-     */
-    public KeyStore refreshKeyStore();
-
-    /**
-     * @return keyStore location
-     */
-    public String getKeyStoreLocation();
-
-    /**
-     * @return TrustStore location
-     */
-    public String getTrustStoreLocation();
-
-    /**
-     * refreshes the underline TrustStore
-     *
-     * @return
-     */
-    public KeyStore refreshTrustStore();
-
-    public Map<String, String> getTrustStoreSystemProperties();
-    
-    /**
-     * 
-     * @param alias
-     * @param data
-     * @throws CertificateManagerException 
-     */
-    public void importCertificate(String alias, DataHandler data) throws CertificateManagerException;
+    private void closeStream(Closeable stream) {
+        try {
+            if (stream != null) {
+                stream.close();
+            }
+        } catch (IOException ex) {
+            LOG.warn("Unable to close the stream {}", ex.getLocalizedMessage(), ex);
+        }
+    }
 }

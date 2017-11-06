@@ -64,6 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.activation.DataHandler;
 import org.apache.commons.collections.CollectionUtils;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -75,7 +76,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.opensaml.core.xml.schema.XSAny;
+import org.opensaml.core.xml.schema.impl.XSStringImpl;
 import org.opensaml.saml.saml2.core.Action;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
@@ -190,13 +191,13 @@ public class HOKSAMLAssertionBuilderTest {
 
                     @Override
                     public void verify(final PublicKey key, final String sigProvider) throws CertificateException,
-                    NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
+                        NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
 
                     }
 
                     @Override
                     public void verify(final PublicKey key) throws CertificateException, NoSuchAlgorithmException,
-                    InvalidKeyException, NoSuchProviderException, SignatureException {
+                        InvalidKeyException, NoSuchProviderException, SignatureException {
                     }
 
                     @Override
@@ -327,8 +328,8 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public HashMap<String, String> getKeyStoreSystemProperties() {
-                return null;
+            public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
+                //do nothing
             }
         });
         final Element assertion = builder.build(getProperties());
@@ -401,8 +402,8 @@ public class HOKSAMLAssertionBuilderTest {
     public void testCreateAcpAttributeStatement() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-        final String acp = "urn:oid:1.2.3.4";
-        final String iacp = "urn:oid:1.2.3.4.5";
+        final String acp = "ACP_VALUE";
+        final String iacp = "IACP_VALUE";
         
         when(callbackProps.getAcpAttribute()).thenReturn(acp);
         when(callbackProps.getIacpAttribute()).thenReturn(iacp);
@@ -414,8 +415,8 @@ public class HOKSAMLAssertionBuilderTest {
         
         boolean containsAcps = true;
         for(int i=0; i<2; i++) {
-            XSAny xsValue = (XSAny) aStatement.get(i).getAttributes().get(0).getAttributeValues().get(0);
-            if(!(acp.equals(xsValue.getTextContent()) || iacp.equals(xsValue.getTextContent()))) {
+            XSStringImpl xsValue = (XSStringImpl) aStatement.get(i).getAttributes().get(0).getAttributeValues().get(0);
+            if(!(acp.equals(xsValue.getValue()) || iacp.equals(xsValue.getValue()))) {
                 containsAcps = false;
                 break;
             }
@@ -647,7 +648,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotAfter = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-        .thenReturn(Boolean.TRUE.toString());
+            .thenReturn(Boolean.TRUE.toString());
 
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
@@ -675,7 +676,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotAfter = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-        .thenReturn(Boolean.FALSE.toString());
+            .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
@@ -700,7 +701,7 @@ public class HOKSAMLAssertionBuilderTest {
         final DateTime conditionNotBefore = new DateTime();
         final PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         when(propertyAccessor.getProperty(Mockito.anyString(), Mockito.anyString()))
-        .thenReturn(Boolean.FALSE.toString());
+            .thenReturn(Boolean.FALSE.toString());
 
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
@@ -943,12 +944,12 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public String getAcpAttribute() {
-                return "urn:oid:1.2.3.4";
+                return "acpValue";
             }
 
             @Override
             public String getIacpAttribute() {
-                return "urn:oid:1.2.3.4.5";
+                return "iacpValue";
             }
         };
     }
