@@ -50,10 +50,11 @@ import org.mockito.internal.verification.AtLeast;
 public class FileUtilsTest {
     private final Logger log = mock(Logger.class);
     private static final String RESOURCE_FOLDER = "src/test/resources/FileUtils";
-    private static final String TEST_FILE = "testFile.properties";
     private static final String BACKUP_FOLDER = "src/test/resources/FileUtils/backupHere";
-    private static final String EXCHANGE_ORG_FILE = "exchangeInfoOrg.xml";
     private static final String EXCHANGE_FILE = "exchangeInfo.xml";
+    private static final String EXCHANGE_FILE_ORG = "exchangeInfoOrg.xml";
+    private static final String TEST_FILE = "testFile.properties";
+    private static final String TEST_FILE_ORG = "testFileOrg.properties";
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -73,15 +74,16 @@ public class FileUtilsTest {
 
     @Test
     public void testFileRead() {
-        String result = FileUtils.readFile(getResourceBy(TEST_FILE), log);
+        String result = FileUtils.readFile(getResourceBy(TEST_FILE_ORG), log);
         verify(log).debug(getCheckpoint("readFile"));
     }
 
     @Test
     public void testFileCopyDelete() {
         String fileDestination = "copyTestFile.properties";
-        FileUtils.copyFile(RESOURCE_FOLDER, TEST_FILE, BACKUP_FOLDER, fileDestination, log);
-        verify(log).info("File 'testFile.properties' copied to 'copyTestFile.properties'.");
+
+        FileUtils.copyFile(RESOURCE_FOLDER, TEST_FILE_ORG, BACKUP_FOLDER, fileDestination, log);
+        verify(log).info("File 'testFileOrg.properties' copied to 'copyTestFile.properties'.");
 
         FileUtils.deleteFile(BACKUP_FOLDER, fileDestination, log);
         verify(log).info("file deleted: copyTestFile.properties");
@@ -97,6 +99,8 @@ public class FileUtilsTest {
 
     @Test
     public void testPropertyReadUpdate() {
+        FileUtils.copyFile(RESOURCE_FOLDER, TEST_FILE_ORG, RESOURCE_FOLDER, TEST_FILE, log);
+
         String propertyKey = "updateProperty";
         String propertyValueOld = FileUtils.readProperty(RESOURCE_FOLDER, TEST_FILE, propertyKey, log);
         assertNotNull(propertyValueOld);
@@ -109,6 +113,8 @@ public class FileUtilsTest {
         FileUtils.updateProperty(RESOURCE_FOLDER, TEST_FILE, propertyKey, propertyValueOld, log);
         String propertyValueReturn = FileUtils.readProperty(RESOURCE_FOLDER, TEST_FILE, propertyKey, log);
         assertEquals(propertyValueReturn, propertyValueOld);
+
+        FileUtils.deleteFile(RESOURCE_FOLDER, TEST_FILE, log);
     }
 
     @Test
@@ -130,7 +136,7 @@ public class FileUtilsTest {
         String serviceUrl = "https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery";
         String defaultVersion = "1.0";
 
-        FileUtils.copyFile(RESOURCE_FOLDER, EXCHANGE_ORG_FILE, RESOURCE_FOLDER, EXCHANGE_FILE, log);
+        FileUtils.copyFile(RESOURCE_FOLDER, EXCHANGE_FILE_ORG, RESOURCE_FOLDER, EXCHANGE_FILE, log);
 
         FileUtils.createOrUpdateConnection(EXCHANGE_FILE, RESOURCE_FOLDER, communityId, serviceName, serviceUrl,
             defaultVersion, log);
@@ -154,7 +160,7 @@ public class FileUtilsTest {
         String serviceUrl = "https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery";
         String defaultVersion = "1.0";
 
-        FileUtils.copyFile(RESOURCE_FOLDER, EXCHANGE_ORG_FILE, RESOURCE_FOLDER, EXCHANGE_FILE, log);
+        FileUtils.copyFile(RESOURCE_FOLDER, EXCHANGE_FILE_ORG, RESOURCE_FOLDER, EXCHANGE_FILE, log);
 
         FileUtils.configureConnection(EXCHANGE_FILE, RESOURCE_FOLDER, communityId, serviceName, serviceUrl,
             defaultVersion,
