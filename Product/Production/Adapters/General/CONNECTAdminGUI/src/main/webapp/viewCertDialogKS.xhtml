@@ -9,7 +9,7 @@
                         <p:messages id="viewCertErrorMsgKS" closable="true" autoUpdate="true" showDetail="true" />   
                         
                         <div class="form-group col-sm-push-3">
-                            <h:outputLabel class="col-sm-2 control-label" id="alias" value="Alias:" />
+                            <h:outputLabel class="col-sm-2 control-label" value="Alias:" />
                             <div class="col-sm-10">
                                 <h:inputText styleClass="form-control" id="aliasInput" value="#{certificateBean.selectedTSCertificate.alias}" required="true" requiredMessage="Alias is required." >
                                 </h:inputText>
@@ -18,56 +18,56 @@
                        
                        <div class = "col-sm-6"> 
                            <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="version" value="Version:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Version:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.version}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="sigAlgo" value="Signature Algorithm:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Signature Algorithm:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.signatureAlgorithm}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="validFrom" value="Valid From:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Valid From:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.validStartDate}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="subjectName" value="Subject name:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Subject name:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectName}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="issuerUniqueIdentifier" value="Issuer Unique Identifier:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Issuer Unique Identifier:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.issuerUniqueIdentifier}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="certSignAlgo" value="Certificate Signature Algorithm:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Certificate Signature Algorithm:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.certSignatureAlgorithm}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="authorityKeyId" value="Authority Key Id:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Authority Key Id:" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.authorityKeyID}" />
                                 </div>
                             </div>
                             
                              <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="certSign" value="Certificate Signature:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Certificate Signature:" />
                                 <div class="col-sm-8">
                                   <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.certSignature}" />
                                 </div>
@@ -78,42 +78,42 @@
                         <div class = "col-sm-6">
                         
                              <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="serialNum" value="Serial Number:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Serial Number:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.serialNumber}" />
                                 </div>
                             </div>
                             
                              <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="issuer" value="Issuer Name:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Issuer Name:" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true" class="form-control-static" value="#{certificateBean.selectedTSCertificate.issuerName}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="validTo" value="Valid Until:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Valid Until:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.expirationDate}" />
                                 </div>
                             </div>
                             
                              <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="subPubKeyAlgo" value="Subject Public Key Algorithm:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Subject Public Key Algorithm:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectPublicKeyAlgorithm}"/>
                                 </div>
                             </div>
                             
                             <div class="form-group" style="word-break:break-all;">
-                                <h:outputLabel class="col-sm-4 control-label" id="subPubKey" value="Subject Public &lt;br /&gt; Key:"   escape="false" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Subject Public &lt;br /&gt; Key:"   escape="false" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectPublicKey}" />
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" id="subUniqueIdentifier" value="Subject Unique Identifier:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Subject Unique Identifier:" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectKeyID}" />
                                 </div>
