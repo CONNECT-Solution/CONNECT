@@ -29,19 +29,25 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.UnrecoverableEntryException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
 import java.util.Map;
+import javax.activation.DataHandler;
+import org.apache.commons.lang.StringUtils;
+import org.cryptacular.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +58,7 @@ import org.slf4j.LoggerFactory;
 public class CertificateManagerImpl implements CertificateManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerImpl.class);
+    private final CertificateUtil certUtil = new CertificateUtil();
 
     private KeyStore keyStore = null;
     private KeyStore trustStore = null;
@@ -88,7 +95,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @return
      */
     static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
-        final Map<String, String> trustStoreProperties) {
+            final Map<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
             protected Map<String, String> getKeyStoreSystemProperties() {
@@ -118,9 +125,42 @@ public class CertificateManagerImpl implements CertificateManager {
         return trustStore;
     }
 
+    @Override
+    public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
+        Certificate addCert = certUtil.createCertificate(data);
+        try {
+            verifyCertInfo(alias, addCert);
+            trustStore.setCertificateEntry(alias, addCert);
+            storeCert();
+        } catch (IOException | KeyStoreException | CertificateException | NoSuchAlgorithmException ex) {
+            checkAndRemoveCert(alias);
+            throw new CertificateManagerException("Unable to store cert " + alias + "due to: " + ex.getMessage(), ex);
+        }
+    }
+
+    private void verifyCertInfo(String alias, Certificate cert) throws CertificateManagerException, KeyStoreException {
+        StringBuilder message = new StringBuilder();
+        boolean hasError = false;
+        
+        if(StringUtils.isBlank(alias)) {
+            hasError = true;
+            message.append("Alias, ").append(alias).append(", is missing");
+        } else if(trustStore.containsAlias(alias)) {
+            hasError = true;
+            message.append("Alias, ").append(alias).append(", already exists");
+        } else if(cert == null) {
+            hasError = true;
+            message.append("Certificate for alias, ").append(alias).append(", is null");
+        }
+                    
+        if(hasError) {
+            throw new CertificateManagerException("Certificate information invalid: " + message.toString());
+        }
+    }
+
     /**
-     * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
-     * javax.net.ssl.keyStorePassword
+     * Initializes the keystore access using the system properties defined in
+     * the domain.xml javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword
      *
      * @throws CertificateManagerException
      */
@@ -156,7 +196,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws CertificateManagerException
      */
     private static KeyStore loadKeyStore(final String storeType, final String password, final String storeLoc)
-        throws CertificateManagerException {
+            throws CertificateManagerException {
         InputStream is = null;
         KeyStore secretStore = null;
         try {
@@ -181,8 +221,9 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     /**
-     * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
-     * and javax.net.ssl.trustStorePassword
+     * Initializes the truststore access using the system properties defined in
+     * the domain.xml javax.net.ssl.trustStore and
+     * javax.net.ssl.trustStorePassword
      *
      * @throws CertificateManagerException
      */
@@ -240,7 +281,7 @@ public class CertificateManagerImpl implements CertificateManager {
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
-                        new KeyStore.PasswordProtection(password.toCharArray()));
+                            new KeyStore.PasswordProtection(password.toCharArray()));
 
                 } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
                     LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
@@ -322,5 +363,34 @@ public class CertificateManagerImpl implements CertificateManager {
             LOG.error("Unable to refresh keystores: {} {}", ex.getLocalizedMessage(), ex);
         }
         return null;
+    }
+
+    private void storeCert() throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
+        final Map<String, String> trustStoreProperties = getTrustStoreSystemProperties();
+        String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        final String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
+
+        if (storeType == null) {
+            LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
+            storeType = JKS_TYPE;
+        }
+        if (password != null) {
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                OutputStream os = new FileOutputStream(storeLoc);
+                trustStore.store(os, password.toCharArray());
+                StreamUtil.closeStream(os);
+            }
+        }
+    }
+
+    private void checkAndRemoveCert(String alias) {
+        try {
+            if (trustStore.containsAlias(alias)) {
+                trustStore.deleteEntry(alias);
+            }
+        } catch (KeyStoreException ex) {
+            LOG.error("Unable to remove certificate: {}", alias, ex);
+        }
     }
 }

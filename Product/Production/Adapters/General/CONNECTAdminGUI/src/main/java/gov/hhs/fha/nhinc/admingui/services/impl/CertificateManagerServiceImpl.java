@@ -33,18 +33,36 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_S
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 
 import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
+import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.util.X509CertificateHelper;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.common.configadmin.ConfigAssertionType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType;
+import gov.hhs.fha.nhinc.configuration.ConfigAdminPortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -52,7 +70,12 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,36 +84,38 @@ import org.slf4j.LoggerFactory;
  * @author tjafri
  */
 public class CertificateManagerServiceImpl implements CertificateManagerService {
-
+    
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
-
+    
+    private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    
     @Override
     public List<Certificate> fetchKeyStores() {
         return buildCertificateList(cmHelper.getKeyStore());
     }
-
+    
     @Override
     public List<Certificate> fetchTrustStores() {
         return buildCertificateList(cmHelper.getTrustStore());
     }
-
+    
     @Override
     public String getKeyStoreLocation() {
         return cmHelper.getKeyStoreLocation();
     }
-
+    
     @Override
     public String getTrustStoreLocation() {
         return cmHelper.getTrustStoreLocation();
     }
-
+    
     @Override
     public List<Certificate> refreshKeyStores() {
         return buildCertificateList(cmHelper.refreshKeyStore());
     }
-
+    
     @Override
     public Certificate createCertificate(byte[] data) {
         ByteArrayInputStream bais = null;
@@ -111,7 +136,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return null;
     }
-
+    
     private List<Certificate> buildCertificateList(KeyStore keystore) {
         List<Certificate> certs = null;
         try {
@@ -123,7 +148,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                     String alias = aliases.nextElement();
                     java.security.cert.Certificate jCert = keystore.getCertificate(alias);
                     Certificate obj = x509CertificateHelper.buildCertificate((X509Certificate) jCert);
-
+                    
                     obj.setId(i++);
                     obj.setAlias(alias);
                     certs.add(obj);
@@ -134,7 +159,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return certs;
     }
-
+    
     @Override
     public List<Certificate> refreshTrustStores() {
         return buildCertificateList(cmHelper.refreshTrustStore());
@@ -157,7 +182,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return false;
     }
-
+    
     @Override
     public boolean isLeafOnlyCertificate(Certificate cert) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -167,11 +192,10 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * import a given certificate into the TrustStore
      *
      * @param cert
-     * @param password
      * @throws gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException
      */
     @Override
-    public void importCertificate(Certificate cert) throws CertificateManagerException {
+    public void importCertificate(Certificate cert) throws Exception {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
@@ -180,9 +204,9 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
-
+        
         if (StringUtils.isNotBlank(passkey) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
-            addCertificateToTrustStore(storeType, storeLoc, passkey, cert);
+            addCertificateToTrustStore(cert);
         } else {
             LOG.info("importCertificate -- validation failed");
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
@@ -196,7 +220,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             }
         }
     }
-
+    
     private static void closeFiles(FileInputStream is, FileOutputStream os) {
         try {
             if (is != null) {
@@ -209,34 +233,18 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             LOG.error("Unable to close File Stream: {}", ex.getLocalizedMessage(), ex);
         }
     }
-
-    private static boolean addCertificateToTrustStore(String storeType, String storeLoc, String passkey,
-        Certificate cert) throws CertificateManagerException {
-        FileInputStream is = null;
-        FileOutputStream os = null;
-        boolean isImportSuccessful = false;
-        try {
-            KeyStore secretStore = KeyStore.getInstance(storeType);
-            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-                is = new FileInputStream(storeLoc);
-            }
-            secretStore.load(is, passkey.toCharArray());
-            secretStore.setCertificateEntry(cert.getAlias(), cert.getX509Cert());
-            os = new FileOutputStream(storeLoc);
-            secretStore.store(os, passkey.toCharArray());
-            isImportSuccessful = true;
-        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            LOG.error("Unable to add the Certifiate: ", ex.getLocalizedMessage(), ex);
-            throw new CertificateManagerException(ex.getMessage(), ex);
-        } finally {
-            closeFiles(is, os);
-        }
-        return isImportSuccessful;
+    
+    private boolean addCertificateToTrustStore(Certificate cert) throws CertificateManagerException, Exception {
+        
+        ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert);
+        ImportCertificateResponseMessageType response = (ImportCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class, "importCertificate", requestMessage);
+        
+        return response.isStatus();
     }
-
+    
     @Override
     public boolean deleteCertificateFromTrustStore(String alias) throws
-    CertificateManagerException {
+            CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
@@ -264,9 +272,89 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return isDeleteSuccessful;
     }
-
+    
     @Override
     public boolean validateTrustStorePassKey(String passkey) {
         return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY).equals(passkey);
+    }
+    
+    private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
+        
+        String url = oProxyHelper
+                .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
+        
+        ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
+        
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+                new AssertionType());
+    }
+    
+    private ImportCertificateRequestMessageType createImportCertRequest(Certificate cert) throws CertificateEncodingException {
+        ImportCertificateRequestMessageType message = new ImportCertificateRequestMessageType();
+        ConfigAssertionType assertion = buildConfigAssertion();
+        message.setConfigAssertion(assertion);
+        
+        ImportCertificateRequestType request = new ImportCertificateRequestType();
+        request.setAlias(cert.getAlias());
+        DataHandler data = transformToHandler(cert.getX509Cert().getEncoded());
+        request.setCertData(data);
+        message.setImportCertRequest(request);
+        
+        return message;
+    }
+    
+    private ConfigAssertionType buildConfigAssertion() {
+        ConfigAssertionType assertion = new ConfigAssertionType();
+        UserLogin user = getUser();
+        UserType configUser = new UserType();
+        configUser.setUserName(user.getUserName());
+        assertion.setIssueInstance(new DateTime().toString());
+        assertion.setUserInfo(configUser);
+        return assertion;
+    }
+    
+    private UserLogin getUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null && facesContext.getViewRoot() != null) {
+            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+            if (session != null) {
+                return (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
+            }
+        }
+        return null;
+    }
+    
+    private DataHandler transformToHandler(byte[] encoded) {
+        DataSource data = new CertSource(encoded);
+        return new DataHandler(data);
+    }
+    
+    class CertSource implements DataSource {
+        
+        private final byte[] source;
+        
+        public CertSource(byte[] encoded) {
+            this.source = encoded;
+        }
+        
+        @Override
+        public InputStream getInputStream() throws IOException {
+            return new ByteArrayInputStream(source);
+        }
+        
+        @Override
+        public OutputStream getOutputStream() throws IOException {
+            throw new IOException();
+        }
+        
+        @Override
+        public String getContentType() {
+            return "application/x-x509-ca-cert";
+        }
+        
+        @Override
+        public String getName() {
+            return "";
+        }
     }
 }

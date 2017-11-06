@@ -24,39 +24,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.configadmin;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
-import java.util.List;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateResponseMessageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author tjafri
+ * @author jassmit
  */
-public interface CertificateManagerService {
+public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigAdminUnsecured.class);
 
-    public List<Certificate> fetchKeyStores();
-
-    public List<Certificate> fetchTrustStores();
-
-    public String getKeyStoreLocation();
-
-    public String getTrustStoreLocation();
-
-    public List<Certificate> refreshKeyStores();
-
-    public List<Certificate> refreshTrustStores();
-
-    public Certificate createCertificate(byte[] data);
-
-    public boolean isAliasInUse(Certificate cert);
-
-    public boolean isLeafOnlyCertificate(Certificate cert);
-
-    public void importCertificate(Certificate cert) throws Exception;
-
-    public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
-
-    public boolean validateTrustStorePassKey(String passkey);
+    @Override
+    public ImportCertificateResponseMessageType importCertificate(ImportCertificateRequestMessageType importCertificateRequest) {
+        ImportCertificateResponseMessageType response = new ImportCertificateResponseMessageType();
+        
+        CertificateManager certManager = CertificateManagerImpl.getInstance();
+        try {
+            certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getImportCertRequest().getCertData());
+            response.setStatus(true);
+            LOG.info("Certificate imported with alias {} by user {}.", importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getConfigAssertion().getUserInfo().getUserName());
+        } catch (CertificateManagerException ex) {
+            LOG.error("Unable to import certificate due to: {}", ex.getLocalizedMessage(), ex);
+            response.setStatus(false);
+            response.setMessage(ex.getLocalizedMessage());
+        }
+        
+        return response;
+    }
+    
 }

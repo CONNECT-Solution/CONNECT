@@ -83,6 +83,14 @@
         </jaxws:properties>
 
     </jaxws:endpoint>
+    
+    <!-- Config Admin Services -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:configadmin" id="EntityConfigAdminUnsecured"
+                    address="/GatewayService/ConfigAdminUnsecured" serviceName="tns:EntityConfigAdmin"
+                    endpointName="tns:EntityConfigAdminPort" implementor="gov.hhs.fha.nhinc.configadmin.ConfigAdminUnsecured"
+                    wsdlLocation="classpath:wsdl/EntityConfigAdmin.wsdl">
+    </jaxws:endpoint>
+    
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
