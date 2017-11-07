@@ -2,11 +2,11 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <div>
-        <p:dialog id="viewCertDlg" header="Certificate Details" widgetVar="viewCertDlg" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="950" height="auto">
+        <p:dialog id="viewCertDlgKS" header="Certificate Details" widgetVar="viewCertDlgKS" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="950" height="auto">
             <div class="content-block content">
                     
-                    <h:form id="viewCertDlgForm" class="form-horizontal" role="form" onkeypress="if (event.keyCode == 13) { return false; }">
-                        <p:messages id="viewCertErrorMsg" closable="true" autoUpdate="true" showDetail="true" />   
+                    <h:form id="viewCertDlgFormKS" class="form-horizontal" role="form" onkeypress="if (event.keyCode == 13) { return false; }">
+                        <p:messages id="viewCertErrorMsgKS" closable="true" autoUpdate="true" showDetail="true" />   
                         
                         <div class="form-group col-sm-push-3">
                             <h:outputLabel class="col-sm-2 control-label" value="Alias:" />
@@ -18,7 +18,7 @@
                        
                        <div class = "col-sm-6"> 
                            <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label"  value="Version:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Version:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.version}" />
                                 </div>
@@ -32,7 +32,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label"  value="Valid From:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Valid From:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.validStartDate}" />
                                 </div>
@@ -46,7 +46,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label"  value="Issuer Unique Identifier:" />
+                                <h:outputLabel class="col-sm-4 control-label" value="Issuer Unique Identifier:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.issuerUniqueIdentifier}" />
                                 </div>
@@ -60,7 +60,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" value="Authority Key Id:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Authority Key Id:" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.authorityKeyID}" />
                                 </div>
@@ -78,14 +78,14 @@
                         <div class = "col-sm-6">
                         
                              <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" value="Serial Number:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Serial Number:" />
                                 <div class="col-sm-8">
                                    <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.serialNumber}" />
                                 </div>
                             </div>
                             
                              <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" value="Issuer Name:" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Issuer Name:" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true" class="form-control-static" value="#{certificateBean.selectedTSCertificate.issuerName}" />
                                 </div>
@@ -106,7 +106,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <h:outputLabel class="col-sm-4 control-label" value="Subject Public Key:"   escape="false" />
+                                <h:outputLabel class="col-sm-4 control-label"  value="Subject Public Key:"   escape="false" />
                                 <div class="col-sm-8">
                                    <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectPublicKey}" />
                                 </div>
@@ -128,7 +128,7 @@
                        <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-button-row">
-                                <p:commandButton  id="update" value="Update Certificate" actionListener="#{certificateBean.updateSelectedCertificateTS}" update=":certTabView,:certTabView:trustStoreForm,:certTabView:keyStoreForm, viewCertDlgForm:viewCertErrorMsg" styleClass="pull-right"/>
+                                <p:commandButton  id="update" value="Update Certificate" actionListener="#{certificateBean.updateSelectedCertificateKS}" update=":certTabView,:certTabView:keyStoreForm, viewCertDlgFormKS:viewCertErrorMsgKS" styleClass="pull-right"/>
                             </div>
                         </div>
                      </div>

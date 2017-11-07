@@ -98,4 +98,9 @@ public interface CertificateManager {
      * @throws CertificateManagerException 
      */
     public void importCertificate(String alias, DataHandler data) throws CertificateManagerException;
+
+    /**
+     * @return
+     */
+    public Map<String, String> getKeyStoreSystemProperties();
 }

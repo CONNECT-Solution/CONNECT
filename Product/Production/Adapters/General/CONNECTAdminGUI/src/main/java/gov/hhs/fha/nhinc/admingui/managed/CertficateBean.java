@@ -54,6 +54,10 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class CertficateBean {
 
+    /**
+     *
+     */
+    private static final String VIEW_CERT_ERROR_MSG_KS = "viewCertErrorMsgKS";
     private List<Certificate> keystores;
     private List<Certificate> truststores;
     private final CertificateManagerService service;
@@ -63,17 +67,35 @@ public class CertficateBean {
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
     private static final String IMPORT_CERT_EXPIRY_MSG = "importCertInfoMsg";
     private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
+    private static final String VIEW_CERT_ERR_MSG = "viewCertErrorMsg";
     private static final String IMPORT_PASS_KEY_ERR_MSG = "importPassKeyErrorMsg";
     private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private UploadedFile importCertFile;
     private Certificate selectedCertificate;
     private Certificate selectedTSCertificate;
+    private Certificate backupCertificate;
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
     private boolean expiredCert;
     private boolean rememberMe;
+    private String oldAlias;
+
+
+    private enum RefreshAction {
+        KEYSTORE("keystore"), TRUSTSTORE("truststore");
+
+        private String pageLocation;
+
+        RefreshAction(String pageLoc) {
+            pageLocation = pageLoc;
+        }
+
+        public String pageLocation() {
+            return pageLocation;
+        }
+    }
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -240,7 +262,7 @@ public class CertficateBean {
         LOG.info("importSelectedCertificate");
 
         if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
-            if (!service.isAliasInUse(selectedCertificate)) {
+            if (!service.isAliasInUse(selectedCertificate.getAlias(), service.fetchTrustStores())) {
                 try {
                     service.importCertificate(selectedCertificate);
                     truststores = service.refreshTrustStores();
@@ -266,6 +288,62 @@ public class CertficateBean {
         }
     }
 
+
+    public void updateSelectedCertificateTS() {
+        if (selectedTSCertificate != null){
+            updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG, RefreshAction.TRUSTSTORE);
+        }
+    }
+
+    private void updateCertificate(List<Certificate> certsForAliasCheck, String uiElement, RefreshAction location) {
+        LOG.info("updateSelectedCertificate");
+
+        backupCertificate = selectedTSCertificate;
+        String alias = selectedTSCertificate.getAlias();
+        if (StringUtils.isNotBlank(alias) && !service.isAliasInUse(alias, certsForAliasCheck)) {
+            try {
+                if(location == RefreshAction.KEYSTORE ) {
+                    postUpdateAction(service.updateCertificateKS(oldAlias, selectedTSCertificate),
+                        uiElement, RefreshAction.KEYSTORE);
+                }
+                if(location == RefreshAction.TRUSTSTORE) {
+                    postUpdateAction(service.updateCertificateTS(oldAlias, selectedTSCertificate), uiElement,
+                        RefreshAction.TRUSTSTORE);
+                }
+            } catch (CertificateManagerException ex) {
+                LOG.error("Unable to update certificate {}", ex.getLocalizedMessage(), ex);
+                HelperUtil.addMessageError(uiElement, ex.getLocalizedMessage());
+            }
+        } else {
+            selectedTSCertificate.setAlias(oldAlias);
+            HelperUtil.addMessageError(uiElement, "Alias already in use");
+        }
+    }
+
+    public void updateSelectedCertificateKS() {
+        if (selectedTSCertificate != null) {
+            updateCertificate(service.fetchKeyStores(), VIEW_CERT_ERROR_MSG_KS, RefreshAction.KEYSTORE);
+        }
+    }
+
+    /**
+     * @param updateStatus
+     */
+    private void postUpdateAction(boolean updateStatus, String uiElement, RefreshAction pageLocation) {
+        if (updateStatus) {
+            if (pageLocation == RefreshAction.KEYSTORE) {
+                keystores = service.refreshKeyStores();
+            }
+            if (pageLocation == RefreshAction.TRUSTSTORE) {
+                truststores = service.refreshTrustStores();
+            }
+            selectedTSCertificate = null;
+            HelperUtil.addMessageInfo(uiElement, "Update certificate successful");
+        } else {
+            selectedTSCertificate = backupCertificate;
+        }
+    }
+
     private void deleteCertificate() {
         try {
             service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias());
@@ -283,5 +361,30 @@ public class CertficateBean {
 
     private void fetchTrustStore() {
         truststores = service.fetchTrustStores();
+    }
+
+    public Certificate viewCertificate() {
+        return viewCert("viewCertDlg", TRUST_STORE_MSG);
+    }
+
+    public Certificate viewCertificateKS() {
+        return viewCert("viewCertDlgKS", "keyStoreMsg");
+    }
+
+    /**
+     * @return
+     */
+    private Certificate viewCert(String dialogId, String uiElement) {
+        if (selectedTSCertificate != null) {
+            StringBuilder pfAction = new StringBuilder();
+            pfAction.append("PF('");
+            pfAction.append(dialogId);
+            pfAction.append("').show();");
+            oldAlias = selectedTSCertificate.getAlias();
+            RequestContext.getCurrentInstance().execute(pfAction.toString());
+        } else {
+            HelperUtil.addMessageError(uiElement, "Please choose a certificate to view details");
+        }
+        return selectedTSCertificate;
     }
 }

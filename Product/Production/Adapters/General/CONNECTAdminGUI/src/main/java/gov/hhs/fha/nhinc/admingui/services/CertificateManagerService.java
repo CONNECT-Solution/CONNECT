@@ -50,7 +50,7 @@ public interface CertificateManagerService {
 
     public Certificate createCertificate(byte[] data);
 
-    public boolean isAliasInUse(Certificate cert);
+    public boolean isAliasInUse(String alias, List<Certificate> certs);
 
     public boolean isLeafOnlyCertificate(Certificate cert);
 
@@ -59,4 +59,9 @@ public interface CertificateManagerService {
     public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
 
     public boolean validateTrustStorePassKey(String passkey);
+
+    public boolean updateCertificateTS(String oldAlias, Certificate cert) throws CertificateManagerException;
+
+    public boolean updateCertificateKS(String oldAlias, Certificate cert) throws CertificateManagerException;
+    
 }

@@ -62,12 +62,13 @@ public class GUIConstants {
     }
 
     public enum CERT_EXPIRY_COLOR_CODING {
-        RED("RED"), GREEN("GREEN"), YELLOW("YELLOW");
+        RED("glyphicon glyphicon-remove-circle highlightRED"), GREEN("glyphicon glyphicon-ok-circle highlightGREEN"),
+        YELLOW("glyphicon glyphicon-warning-sign highlightYELLOW");
 
         private final String colorCodingCertExpiry;
 
         private CERT_EXPIRY_COLOR_CODING(final String color) {
-            this.colorCodingCertExpiry = color;
+            colorCodingCertExpiry = color;
         }
 
         @Override

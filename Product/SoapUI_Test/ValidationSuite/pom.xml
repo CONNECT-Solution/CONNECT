@@ -374,7 +374,7 @@
             </build>
         </profile>
             <profile>
-            <id>DBVal</id>
+            <id>DB</id>
             <activation>
                 <property>
                     <name>rundb</name>
