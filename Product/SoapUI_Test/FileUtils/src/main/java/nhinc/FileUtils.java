@@ -85,10 +85,8 @@ public class FileUtils {
                     // not declared within while loop
                     String line;
                     /*
-                     * readLine is a bit quirky : it returns the content of a
-                     * line MINUS the newline. it returns null only for the END
-                     * of the stream. it returns an empty String if two newlines
-                     * appear in a row.
+                     * readLine is a bit quirky : it returns the content of a line MINUS the newline. it returns null
+                     * only for the END of the stream. it returns an empty String if two newlines appear in a row.
                      */
                     while ((line = input.readLine()) != null) {
                         sb.append(line);
@@ -201,8 +199,8 @@ public class FileUtils {
 
         try {
             log.info(MessageFormat.format(
-                "begin updateProperty; directory=''{0}'';filename=''{1}'';key=''{2}'';value=''{3}'';",
-                directory, filename, propertyKey, propertyValue));
+                "begin updateProperty; directory=''{0}'';filename=''{1}'';key=''{2}'';value=''{3}'';", directory,
+                filename, propertyKey, propertyValue));
 
             File file = new File(directory, filename);
             frPropFile = new FileReader(file);
@@ -236,8 +234,7 @@ public class FileUtils {
 
         try {
             log.info(MessageFormat.format("begin ReadProperty; directory=''{0}'';filename=''{1}'';key=''{2}'';",
-                directory,
-                filename, propertyKey));
+                directory, filename, propertyKey));
 
             frPropFile = new FileReader(new File(directory, filename));
 
@@ -286,10 +283,8 @@ public class FileUtils {
                     // not declared within while loop
                     String line;
                     /*
-                     * readLine is a bit quirky : it returns the content of a
-                     * line MINUS the newline. it returns null only for the END
-                     * of the stream. it returns an empty String if two newlines
-                     * appear in a row.
+                     * readLine is a bit quirky : it returns the content of a line MINUS the newline. it returns null
+                     * only for the END of the stream. it returns an empty String if two newlines appear in a row.
                      */
                     while ((line = input.readLine()) != null) {
                         if (line.contains(oldAliasLine)) {
@@ -354,14 +349,13 @@ public class FileUtils {
             Element organization = (Element) organizationList.item(i);
             String hcidValue = getTextContentOf(organization, "hcid");
 
-            if (homeCommunityId.equals(hcidValue)) {
+            if (homeCommunityId.equalsIgnoreCase(hcidValue)) {
                 log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
                 boolean serviceNodeFound = checkServiceEndpointByLatest(log, organization, serviceName, serviceUrl);
 
                 if (!serviceNodeFound) {
-                    log.info(
-                        MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
-                            homeCommunityId, serviceName));
+                    log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
+                        homeCommunityId, serviceName));
                     try {
                         getFirstElementOf(organization, "endpointList")
                         .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, defaultVersion));
@@ -404,8 +398,7 @@ public class FileUtils {
      * @param endpointVersion The default spec version.
      * @param log SoapUI logger.
      */
-    public static void configureConnection(String fileName,
-        String directory, String communityId, String serviceName,
+    public static void configureConnection(String fileName, String directory, String communityId, String serviceName,
         String serviceUrl, String endpointVersion, Logger log) {
 
         log.info(MessageFormat.format(
@@ -427,20 +420,19 @@ public class FileUtils {
             Element organization = (Element) organizationList.item(i);
             String hcidValue = getFirstElementOf(organization, "hcid").getTextContent();
 
-            if (homeCommunityId.equals(hcidValue)) {
+            if (homeCommunityId.equalsIgnoreCase(hcidValue)) {
                 log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
                 boolean serviceNodeFound = checkServiceEndpoint(log, organization, serviceName, serviceUrl,
                     endpointVersion);
 
                 if (!serviceNodeFound) {
-                    log.info(
-                        MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
-                            homeCommunityId, serviceName));
+                    log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
+                        homeCommunityId, serviceName));
                     try {
                         getFirstElementOf(organization, "endpointList")
                         .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, endpointVersion));
-                        log.debug(getCheckpoint(MessageFormat
-                            .format("configureConnection-createElementEndpointBy: {0}", serviceName)));
+                        log.debug(getCheckpoint(
+                            MessageFormat.format("configureConnection-createElementEndpointBy: {0}", serviceName)));
                     } catch (DOMException de) {
                         log.error(de.getLocalizedMessage(), de);
                     }
@@ -477,7 +469,7 @@ public class FileUtils {
             File backupDir = new File(configDir, TEMP_DIR);
             File confDir = new File(configDir);
             backupDir.mkdir();
-            //copies the files from the source directory to the destination directory
+            // copies the files from the source directory to the destination directory
             copyFolder(confDir, backupDir, log);
             log.debug(getCheckpoint("backupConfiguration"));
         } catch (IOException ioe) {
@@ -499,14 +491,14 @@ public class FileUtils {
         try {
             File backupDir = new File(configDir, TEMP_DIR);
             File confDir = new File(configDir);
-            //restore the files back
+            // restore the files back
             copyFolder(backupDir, confDir, log);
 
-            //Deletes the temp folder
+            // Deletes the temp folder
             deleteFolder(backupDir, log);
-            //if the optionDel is true then create the temp folder
+            // if the optionDel is true then create the temp folder
             if (!optionDel) {
-                //create the temp directory again
+                // create the temp directory again
                 backupDir.mkdir();
             }
             log.debug(getCheckpoint("restoreConfiguration"));
@@ -567,11 +559,11 @@ public class FileUtils {
      * @throws java.io.IOException
      */
     public static void copyFolder(File src, File dest, Logger log) throws IOException {
-        //loop the through source folder list and copy the files/folders to the destination folder
+        // loop the through source folder list and copy the files/folders to the destination folder
         for (File fileName : src.listFiles()) {
             if (fileName.isDirectory()) {
-                //Don't copy the backup folder
-                if (!fileName.getName().equals(TEMP_DIR)) {
+                // Don't copy the backup folder
+                if (!fileName.getName().equalsIgnoreCase(TEMP_DIR)) {
                     org.apache.commons.io.FileUtils.copyDirectoryToDirectory(fileName, dest);
                 }
             } else {
@@ -596,7 +588,7 @@ public class FileUtils {
         return MessageFormat.format(COMPLETION_CHECKPOINT, namedCheckpoint);
     }
 
-    private static void closeFile(Closeable file, Logger log){
+    private static void closeFile(Closeable file, Logger log) {
         if (file != null) {
             try {
                 file.close();
@@ -623,6 +615,7 @@ public class FileUtils {
     private static Element createElementBy(Document document, String qualifiedName) {
         return document.createElementNS(NS_NEW_ELEMENT, qualifiedName);
     }
+
     private static Element createElementBy(Element appendTo, String qualifiedName) {
         return createElementBy(appendTo, qualifiedName, null);
     }
@@ -639,7 +632,7 @@ public class FileUtils {
     }
 
     private static Element getFirstElementOf(Element target, String nameOf) {
-        return (Element)target.getElementsByTagName(nameOf).item(0);
+        return (Element) target.getElementsByTagName(nameOf).item(0);
     }
 
     private static String getTextContentOf(Element target, String nameOf) {
@@ -653,7 +646,7 @@ public class FileUtils {
     private static NodeList getElementsByTagNameOf(Logger log, Element parent, String ofList, String ofName) {
         NodeList listElements = null;
         Element rootElement = getFirstElementOf(parent, ofList);
-        if(rootElement != null){
+        if (rootElement != null) {
             listElements = rootElement.getElementsByTagName(ofName);
             if (null == listElements) {
                 log.warn(MessageFormat.format("''{0}-{1}'' is null", ofList, ofName));
@@ -680,7 +673,7 @@ public class FileUtils {
         return endpoint;
     }
 
-    private static <T> boolean isEmpty(final T[] arrayCollection){
+    private static <T> boolean isEmpty(final T[] arrayCollection) {
         return !(arrayCollection != null && arrayCollection.length > 0);
     }
 
@@ -689,12 +682,12 @@ public class FileUtils {
         NodeList configurationList = getElementsByTagNameOf(log, endpoint, "endpointConfigurationList",
             "endpointConfiguration");
 
-        if(configurationList != null) {
+        if (configurationList != null) {
             log.info(MessageFormat.format("found-endpoint-configuration: {0}", configurationList.getLength()));
             if (configurationList.getLength() > 1) {
-                if(matchEndpointVersion != null) {
+                if (matchEndpointVersion != null) {
                     latestVersion = getEndpointConfigurationVersionBy(configurationList, matchEndpointVersion);
-                } else{
+                } else {
                     latestVersion = getEndpointConfigurationVersionByLatest(configurationList, log);
                 }
             } else {
@@ -730,9 +723,9 @@ public class FileUtils {
             Element epConfiguration = (Element) configurationList.item(confIndex);
             String currentVersionString = getTextContentOf(epConfiguration, "version");
 
-            if (currentVersionString.contains("LEVEL")) {
+            if (currentVersionString.toUpperCase().contains("LEVEL")) {
                 if (latestVersion != null) {
-                    if (currentVersionString.equals("LEVEL_a1")) {
+                    if (currentVersionString.equalsIgnoreCase("LEVEL_a1")) {
                         latestVersion = epConfiguration;
                     }
                 } else {
@@ -753,8 +746,9 @@ public class FileUtils {
         String serviceUrl) {
         return checkServiceEndpoint(log, organization, serviceName, serviceUrl, null);
     }
-    private static boolean checkServiceEndpoint(Logger log, Element organization, String serviceName,
-        String serviceUrl, String matchEndpointVersion) {
+
+    private static boolean checkServiceEndpoint(Logger log, Element organization, String serviceName, String serviceUrl,
+        String matchEndpointVersion) {
         boolean serviceNodeFound = false;
         NodeList endpointList = getElementsByTagNameOf(log, organization, "endpointList", "endpoint");
 
@@ -763,7 +757,7 @@ public class FileUtils {
                 Element endpoint = (Element) endpointList.item(epIndex);
                 String endpointName = getFirstElementOf(endpoint, "name").getTextContent();
 
-                if (endpointName.equals(serviceName)) {
+                if (endpointName.equalsIgnoreCase(serviceName)) {
                     log.info(MessageFormat.format("Found service: {0}", serviceName));
                     serviceNodeFound = true;
                     Element epConfigurationLatestVersion = getEndpointConfigurationBy(log, endpoint,
@@ -772,12 +766,12 @@ public class FileUtils {
                     if (epConfigurationLatestVersion != null) {
                         Element url = getFirstElementOf(epConfigurationLatestVersion, "url");
                         if (url != null) {
-                            if (!serviceUrl.equals(url.getTextContent())) {
+                            if (!serviceUrl.equalsIgnoreCase(url.getTextContent())) {
                                 url.setTextContent(serviceUrl);
-                                log.info(MessageFormat.format("setting the endpoint-configuration-url: {0}", serviceUrl));
+                                log.info(
+                                    MessageFormat.format("setting the endpoint-configuration-url: {0}", serviceUrl));
                             }
-                        }
-                        else {
+                        } else {
                             createElementBy(epConfigurationLatestVersion, "url", serviceUrl);
                             log.info(MessageFormat.format("created the endpoint-configuration-url: {0}", serviceUrl));
                         }
@@ -824,10 +818,10 @@ public class FileUtils {
         return organizationList;
     }
 
-    private static Float toFloat(String numberString, Logger log){
-        try{
+    private static Float toFloat(String numberString, Logger log) {
+        try {
             return Float.parseFloat(numberString);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             log.error(e.getLocalizedMessage(), e);
         }
         return 0.0F;
