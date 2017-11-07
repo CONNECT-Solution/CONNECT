@@ -36,10 +36,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.internal.verification.AtLeast;
 
@@ -55,22 +51,6 @@ public class FileUtilsTest {
     private static final String EXCHANGE_FILE_ORG = "exchangeInfoOrg.xml";
     private static final String TEST_FILE = "testFile.properties";
     private static final String TEST_FILE_ORG = "testFileOrg.properties";
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testFileRead() {
