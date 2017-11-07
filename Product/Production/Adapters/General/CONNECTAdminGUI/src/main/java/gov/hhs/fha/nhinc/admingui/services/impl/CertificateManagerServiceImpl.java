@@ -90,6 +90,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
     
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private static final String ADMIN_AUTH_METHOD = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password";
     
     @Override
     public List<Certificate> fetchKeyStores() {
@@ -306,10 +307,14 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private ConfigAssertionType buildConfigAssertion() {
         ConfigAssertionType assertion = new ConfigAssertionType();
         UserLogin user = getUser();
-        UserType configUser = new UserType();
-        configUser.setUserName(user.getUserName());
-        assertion.setIssueInstance(new DateTime().toString());
-        assertion.setUserInfo(configUser);
+        if(user != null) {
+            UserType configUser = new UserType();
+            configUser.setUserName(user.getUserName());
+            assertion.setUserInfo(configUser);
+        }
+        assertion.setConfigInstance(new DateTime().toString());
+        assertion.setAuthMethod(ADMIN_AUTH_METHOD);
+        
         return assertion;
     }
     
