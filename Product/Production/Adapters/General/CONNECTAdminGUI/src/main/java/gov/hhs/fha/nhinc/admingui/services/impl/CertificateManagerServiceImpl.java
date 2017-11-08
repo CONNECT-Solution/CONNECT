@@ -40,6 +40,7 @@ import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.util.X509CertificateHelper;
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
@@ -87,39 +88,38 @@ import org.slf4j.LoggerFactory;
  * @author tjafri
  */
 public class CertificateManagerServiceImpl implements CertificateManagerService {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
-    
+
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-    private static final String ADMIN_AUTH_METHOD = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password";
-    
+
     @Override
     public List<Certificate> fetchKeyStores() {
         return buildCertificateList(cmHelper.getKeyStore());
     }
-    
+
     @Override
     public List<Certificate> fetchTrustStores() {
         return buildCertificateList(cmHelper.getTrustStore());
     }
-    
+
     @Override
     public String getKeyStoreLocation() {
         return cmHelper.getKeyStoreLocation();
     }
-    
+
     @Override
     public String getTrustStoreLocation() {
         return cmHelper.getTrustStoreLocation();
     }
-    
+
     @Override
     public List<Certificate> refreshKeyStores() {
         return buildCertificateList(cmHelper.refreshKeyStore());
     }
-    
+
     @Override
     public Certificate createCertificate(byte[] data) {
         ByteArrayInputStream bais = null;
@@ -140,7 +140,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return null;
     }
-    
+
     private List<Certificate> buildCertificateList(KeyStore keystore) {
         List<Certificate> certs = null;
         try {
@@ -152,7 +152,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                     String alias = aliases.nextElement();
                     java.security.cert.Certificate jCert = keystore.getCertificate(alias);
                     Certificate obj = x509CertificateHelper.buildCertificate((X509Certificate) jCert);
-                    
+
                     obj.setId(i++);
                     obj.setAlias(alias);
                     certs.add(obj);
@@ -163,7 +163,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return certs;
     }
-    
+
     @Override
     public List<Certificate> refreshTrustStores() {
         return buildCertificateList(cmHelper.refreshTrustStore());
@@ -184,7 +184,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return false;
     }
-    
+
     @Override
     public boolean isLeafOnlyCertificate(Certificate cert) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -197,7 +197,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException
      */
     @Override
-    public void importCertificate(Certificate cert) throws Exception {
+    public void importCertificate(Certificate cert) throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
@@ -206,7 +206,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
-        
+
         if (StringUtils.isNotBlank(passkey) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
             addCertificateToTrustStore(cert);
         } else {
@@ -222,7 +222,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             }
         }
     }
-    
+
     private static void closeFiles(FileInputStream is, FileOutputStream os) {
         try {
             if (is != null) {
@@ -235,15 +235,17 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             LOG.error("Unable to close File Stream: {}", ex.getLocalizedMessage(), ex);
         }
     }
-    
-    private boolean addCertificateToTrustStore(Certificate cert) throws CertificateManagerException, Exception {
-        
-        ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert);
-        ImportCertificateResponseMessageType response = (ImportCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class, "importCertificate", requestMessage);
-        
-        return response.isStatus();
+
+    private boolean addCertificateToTrustStore(Certificate cert) throws CertificateManagerException {
+        try {
+            ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert);
+            ImportCertificateResponseMessageType response = (ImportCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class, "importCertificate", requestMessage);
+            return response.isStatus();
+        } catch (Exception ex) {
+            throw new CertificateManagerException("Error sending import request message.", ex);
+        }
     }
-    
+
     @Override
     public boolean deleteCertificateFromTrustStore(String alias) throws
             CertificateManagerException {
@@ -274,51 +276,51 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return isDeleteSuccessful;
     }
-    
+
     @Override
     public boolean validateTrustStorePassKey(String passkey) {
         return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY).equals(passkey);
     }
-    
+
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
-        
+
         String url = oProxyHelper
                 .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
-        
+
         ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
-        
+
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
                 new AssertionType());
     }
-    
+
     private ImportCertificateRequestMessageType createImportCertRequest(Certificate cert) throws CertificateEncodingException {
         ImportCertificateRequestMessageType message = new ImportCertificateRequestMessageType();
         ConfigAssertionType assertion = buildConfigAssertion();
         message.setConfigAssertion(assertion);
-        
+
         ImportCertificateRequestType request = new ImportCertificateRequestType();
         request.setAlias(cert.getAlias());
         DataHandler data = transformToHandler(cert.getX509Cert().getEncoded());
         request.setCertData(data);
         message.setImportCertRequest(request);
-        
+
         return message;
     }
-    
+
     private ConfigAssertionType buildConfigAssertion() {
         ConfigAssertionType assertion = new ConfigAssertionType();
         UserLogin user = getUser();
-        if(user != null) {
+        if (user != null) {
             UserType configUser = new UserType();
             configUser.setUserName(user.getUserName());
             assertion.setUserInfo(configUser);
         }
         assertion.setConfigInstance(new DateTime().toString());
-        assertion.setAuthMethod(ADMIN_AUTH_METHOD);
-        
+        assertion.setAuthMethod(SamlConstants.ADMIN_AUTH_METHOD);
+
         return assertion;
     }
-    
+
     private UserLogin getUser() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null && facesContext.getViewRoot() != null) {
@@ -329,35 +331,35 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
         return null;
     }
-    
+
     private DataHandler transformToHandler(byte[] encoded) {
         DataSource data = new CertSource(encoded);
         return new DataHandler(data);
     }
-    
+
     class CertSource implements DataSource {
-        
+
         private final byte[] source;
-        
+
         public CertSource(byte[] encoded) {
             this.source = encoded;
         }
-        
+
         @Override
         public InputStream getInputStream() throws IOException {
             return new ByteArrayInputStream(source);
         }
-        
+
         @Override
         public OutputStream getOutputStream() throws IOException {
             throw new IOException();
         }
-        
+
         @Override
         public String getContentType() {
             return "application/x-x509-ca-cert";
         }
-        
+
         @Override
         public String getName() {
             return "";
@@ -366,7 +368,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean updateCertificateTS(String oldAlias, Certificate cert)
-        throws CertificateManagerException {
+            throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
@@ -391,7 +393,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws CertificateManagerException
      */
     private static boolean updateCertificate(String oldAlias, Certificate cert, String storeType, final String storeLoc,
-        final String passkey, KeyStore storeCert) throws CertificateManagerException {
+            final String passkey, KeyStore storeCert) throws CertificateManagerException {
         FileInputStream is = null;
         FileOutputStream os = null;
         boolean isUpdateSuccessful = false;
@@ -425,8 +427,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     private static FileOutputStream updateCert(String oldAlias, Certificate cert, final String storeLoc,
-        final String passkey,
-        KeyStore tstore)
+            final String passkey,
+            KeyStore tstore)
             throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
         FileOutputStream os;
         tstore.deleteEntry(oldAlias);
