@@ -31,9 +31,9 @@ import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
@@ -66,7 +66,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     private final PatientDiscoveryPolicyChecker policyChecker;
     private final OutboundPatientDiscoveryDeferredRequestDelegate delegate;
     private final PDDeferredCorrelationDao correlationDao;
-    private final ConnectionManagerCache connectionManager;
+    private final ExchangeManager exchangeManager;
     private final PatientDiscoveryDeferredRequestAuditLogger auditLogger;
 
     /**
@@ -78,7 +78,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         policyChecker = PatientDiscoveryPolicyChecker.getInstance();
         delegate = new OutboundPatientDiscoveryDeferredRequestDelegate();
         correlationDao = new PDDeferredCorrelationDao();
-        connectionManager = ConnectionManagerCache.getInstance();
+        exchangeManager = ExchangeManager.getInstance();
         auditLogger = new PatientDiscoveryDeferredRequestAuditLogger();
     }
 
@@ -90,19 +90,19 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
      * @param policyChecker
      * @param delegate
      * @param correlationDao
-     * @param connectionManager
+     * @param exchangeManager
      * @param auditLogger
      */
     public StandardOutboundPatientDiscoveryDeferredRequest(PatientDiscovery201305Processor pd201305Processor,
         AsyncMessageProcessHelper asyncProcessHelper, PatientDiscoveryPolicyChecker policyChecker,
         OutboundPatientDiscoveryDeferredRequestDelegate delegate, PDDeferredCorrelationDao correlationDao,
-        ConnectionManagerCache connectionManager, PatientDiscoveryDeferredRequestAuditLogger auditLogger) {
+        ExchangeManager exchangeManager, PatientDiscoveryDeferredRequestAuditLogger auditLogger) {
         this.pd201305Processor = pd201305Processor;
         this.asyncProcessHelper = asyncProcessHelper;
         this.policyChecker = policyChecker;
         this.delegate = delegate;
         this.correlationDao = correlationDao;
-        this.connectionManager = connectionManager;
+        this.exchangeManager = exchangeManager;
         this.auditLogger = auditLogger;
     }
 
@@ -159,9 +159,9 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         List<UrlInfo> urlInfoList;
 
         try {
-            urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
+            urlInfoList = exchangeManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+        } catch (ExchangeManagerException ex) {
             LOG.error("Failed to obtain target URLs for service {}: {}",
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, ex.getLocalizedMessage(), ex);
             return null;

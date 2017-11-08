@@ -31,9 +31,9 @@ import gov.hhs.fha.nhinc.audit.ejb.AuditEJBLogger;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
@@ -104,7 +104,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
-        Class<StandardOutboundPatientDiscoveryDeferredResponse> clazz = StandardOutboundPatientDiscoveryDeferredResponse.class;
+        Class<StandardOutboundPatientDiscoveryDeferredResponse> clazz
+            = StandardOutboundPatientDiscoveryDeferredResponse.class;
         Method method = clazz.getMethod("processPatientDiscoveryAsyncResp", PRPAIN201306UV02.class,
             AssertionType.class, NhinTargetCommunitiesType.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
@@ -116,7 +117,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
     }
 
     @Test
-    public void invoke() throws ConnectionManagerException {
+    public void invoke() throws ExchangeManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1", "2.2");
 
         // Mocks
@@ -127,10 +128,10 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
             = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
         OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable
             = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
+        ExchangeManager exchangeManager = mock(ExchangeManager.class);
 
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
+        when(exchangeManager.getEndpointURLFromNhinTargetCommunities(targets,
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
@@ -145,8 +146,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         when(returnedOrchestratable.getResponse()).thenReturn(expectedResponse);
 
         // Actual invocation
-        StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-            policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
+        StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery
+            = new StandardOutboundPatientDiscoveryDeferredResponse(
+                policyChecker, pd201306Processor, auditLogger, delegate, exchangeManager);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
             targets);
@@ -174,24 +176,27 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         requestArgument.getAllValues().clear();
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(
+            Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
             any(PatientDiscoveryDeferredResponseAuditTransforms.class));
     }
 
     @Test
-    public void noTargets() throws ConnectionManagerException {
+    public void noTargets() throws ExchangeManagerException {
 
         // Mocks
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
+        ExchangeManager exchangeManager = mock(ExchangeManager.class);
         PatientDiscoveryDeferredResponseAuditLogger auditLogger = getAuditLogger(true);
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
-            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME))).thenThrow(new ConnectionManagerException());
+        when(exchangeManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
+            eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME))).
+            thenThrow(new ExchangeManagerException());
 
         // Actual invocation
-        StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-            null, null, auditLogger, null, connectionManager);
+        StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery
+            = new StandardOutboundPatientDiscoveryDeferredResponse(
+                null, null, auditLogger, null, exchangeManager);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
             targets);
@@ -208,23 +213,25 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
             .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(
+            Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
             any(PatientDiscoveryDeferredResponseAuditTransforms.class));
     }
 
     @Test
-    public void policyFailed() throws ConnectionManagerException {
+    public void policyFailed() throws ExchangeManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1");
 
         // Mocks
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         PatientDiscovery201306Processor pd201306Processor = mock(PatientDiscovery201306Processor.class);
-        OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
+        OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(
+            OutboundPatientDiscoveryDeferredResponseDelegate.class);
+        ExchangeManager exchangeManager = mock(ExchangeManager.class);
         PatientDiscoveryDeferredResponseAuditLogger auditLogger = getAuditLogger(true);
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
+        when(exchangeManager.getEndpointURLFromNhinTargetCommunities(targets,
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
@@ -233,8 +240,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
             false);
 
         // Actual invocation
-        StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-            policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
+        StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery
+            = new StandardOutboundPatientDiscoveryDeferredResponse(
+                policyChecker, pd201306Processor, auditLogger, delegate, exchangeManager);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
             targets);
@@ -251,13 +259,14 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
             .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(
+            Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
             any(PatientDiscoveryDeferredResponseAuditTransforms.class));
     }
 
     @Test
-    public void auditOffForOutboundPDDeferredResp() throws ConnectionManagerException {
+    public void auditOffForOutboundPDDeferredResp() throws ExchangeManagerException {
         List<UrlInfo> urlInfoList = createUrlInfoList("1.1", "2.2");
 
         // Mocks
@@ -268,10 +277,10 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
             = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
         OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable
             = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
-        ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
+        ExchangeManager exchangeManager = mock(ExchangeManager.class);
 
         // Stubbing the methods
-        when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
+        when(exchangeManager.getEndpointURLFromNhinTargetCommunities(targets,
             NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME)).thenReturn(urlInfoList);
 
         when(pd201306Processor.createNewRequest(request, "1.1")).thenReturn(firstTargetRequest);
@@ -288,7 +297,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery
             = new StandardOutboundPatientDiscoveryDeferredResponse(policyChecker, pd201306Processor, auditLogger,
-                delegate, connectionManager);
+                delegate, exchangeManager);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
             targets);
@@ -316,7 +325,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         requestArgument.getAllValues().clear();
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(request), eq(assertion), any(NhinTargetSystemType.class),
-            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.TRUE),
+            eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(
+            Boolean.TRUE),
             isNull(Properties.class), eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
             any(PatientDiscoveryDeferredResponseAuditTransforms.class));
     }

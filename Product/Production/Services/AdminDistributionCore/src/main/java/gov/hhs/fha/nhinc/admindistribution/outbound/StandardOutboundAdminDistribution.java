@@ -40,9 +40,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.List;
 import org.slf4j.Logger;
@@ -66,11 +66,12 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      * @param target NhinTargetCommunity received.
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class, afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
+    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class, afterReturningBuilder
+        = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
+        NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType unsecured = msgUtils.convertToUnsecured(message,
-                MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
+            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         this.sendAlertMessage(unsecured, assertion, target);
 
@@ -82,11 +83,12 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      * @param target NhinTargetCommunity received.
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class, afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
+    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class, afterReturningBuilder
+        = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
+        NhinTargetCommunitiesType target) {
         auditMessage(message, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         List<UrlInfo> urlInfoList = getEndpoints(target);
 
@@ -117,7 +119,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      * @param direction The direction can be either outbound or inbound.
      */
     protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
-            String direction) {
+        String direction) {
         AcknowledgementType ack = getAuditLogger().auditEntityAdminDist(message, assertion, direction);
         if (ack != null) {
             LOG.debug("ack: " + ack.getMessage());
@@ -153,9 +155,9 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
         List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
-                    targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+            urlInfoList = ExchangeManager.getInstance().getEndpointURLFromNhinTargetCommunities(
+                targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+        } catch (ExchangeManagerException ex) {
             LOG.error("Failed to obtain target URLs", ex);
         }
 
@@ -185,11 +187,11 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      * @param target NhinTargetSystem received.
      */
     protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,
-            NhinTargetSystemType target) {
+        NhinTargetSystemType target) {
         LOG.debug("begin sendToNhinProxy");
         OutboundAdminDistributionDelegate adDelegate = getNewOutboundAdminDistributionDelegate();
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(
-                adDelegate);
+            adDelegate);
         orchestratable.setRequest(newRequest);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);

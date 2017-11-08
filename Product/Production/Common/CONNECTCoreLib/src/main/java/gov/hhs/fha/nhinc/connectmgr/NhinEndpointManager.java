@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
@@ -37,12 +39,12 @@ public class NhinEndpointManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
 
-    protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
-        return new ConnectionManagerCacheHelper();
+    protected ExchangeManagerHelper getExchangeManagerHelper() {
+        return new ExchangeManagerHelper();
     }
 
-    protected ConnectionManagerCache getConnectionManagerCache() {
-        return ConnectionManagerCache.getInstance();
+    protected ExchangeManager getExchangeManager() {
+        return ExchangeManager.getInstance();
     }
 
     protected UddiSpecVersionRegistry getUddiSpecVersionRegistry() {
@@ -51,10 +53,10 @@ public class NhinEndpointManager {
 
     public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         GATEWAY_API_LEVEL result = null;
-        ConnectionManagerCacheHelper helper = getConnectionManagerCacheHelper();
+        ExchangeManagerHelper helper = getExchangeManagerHelper();
         try {
-            List<UDDI_SPEC_VERSION> specVersions = getConnectionManagerCache().getSpecVersions(homeCommunityId,
-                    serviceName);
+            List<UDDI_SPEC_VERSION> specVersions = getExchangeManager().getSpecVersions(homeCommunityId,
+                serviceName);
             UDDI_SPEC_VERSION specVersion = helper.getHighestUDDISpecVersion(specVersions);
             result = getHighestGatewayApiLevelSupportedBySpec(specVersion, serviceName);
         } catch (Exception ex) {
@@ -65,7 +67,7 @@ public class NhinEndpointManager {
     }
 
     private GATEWAY_API_LEVEL getHighestGatewayApiLevelSupportedBySpec(UDDI_SPEC_VERSION specVersion,
-            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         GATEWAY_API_LEVEL highestApiLevel = null;
 
         try {

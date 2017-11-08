@@ -32,9 +32,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.lang.reflect.Method;
@@ -43,6 +46,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author achidamb
@@ -55,19 +59,25 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
     private final DocSubmissionUtils utils = mock(DocSubmissionUtils.class);
     private ProvideAndRegisterDocumentSetRequestType request = mock(ProvideAndRegisterDocumentSetRequestType.class);
     private AssertionType assertion = mock(AssertionType.class);
+    private WebServiceProxyHelper proxyHelper = mock(WebServiceProxyHelper.class);
 
     @Test
-    public void testG0() {
+    public void testG0() throws ExchangeManagerException, Exception {
         NhinDocSubmissionProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType targetSystem = getNhinTargetSystemType("1.1");
+        when(proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+            NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0)).thenReturn("");
         impl.provideAndRegisterDocumentSetB(request, assertion, targetSystem, GATEWAY_API_LEVEL.LEVEL_g0);
         verify(client).enableMtom();
     }
 
     @Test
-    public void testG1() {
+    public void testG1() throws ExchangeManagerException, Exception {
         NhinDocSubmissionProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType targetSystem = getNhinTargetSystemType("1.1");
+        when(proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+            NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1)).thenReturn("");
+
         impl.provideAndRegisterDocumentSetB(request, assertion, targetSystem, GATEWAY_API_LEVEL.LEVEL_g1);
         verify(client).enableMtom();
     }
@@ -76,8 +86,8 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
     public void hasNwhinInvocationEvent() throws Exception {
         Class<NhinDocSubmissionProxyWebServiceSecuredImpl> clazz = NhinDocSubmissionProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("provideAndRegisterDocumentSetB",
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class,
-                GATEWAY_API_LEVEL.class);
+            ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class,
+            GATEWAY_API_LEVEL.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
@@ -98,8 +108,8 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
              */
             @Override
             protected CONNECTClient<DocumentRepositoryXDRPortType> getCONNECTClientSecured(
-                    ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion,
-                    String url, String targetHomeCommunityId, String serviceName) {
+                ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion,
+                String url, String targetHomeCommunityId, String serviceName) {
                 return client;
             }
 
@@ -112,6 +122,10 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
             @Override
             protected DocSubmissionUtils getDocSubmissionUtils() {
                 return utils;
+            }
+
+            protected WebServiceProxyHelper getWebServiceProxyHelper() {
+                return proxyHelper;
             }
         };
     }

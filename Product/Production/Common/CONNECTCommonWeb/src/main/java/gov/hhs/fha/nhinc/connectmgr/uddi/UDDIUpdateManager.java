@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * @author Sai Valluripalli
  */
 public class UDDIUpdateManager
-        implements gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType {
+    implements gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(UDDIUpdateManager.class);
 
@@ -42,19 +42,12 @@ public class UDDIUpdateManager
      * Default constructor.
      */
     public UDDIUpdateManager() {
-
-        try {
-            UDDITimer timer = UDDITimer.getInstance();
-            timer.startTimer();
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to start UDDIUpdateManager's timer.  Error: " + e.getMessage();
-            LOG.error(sErrorMessage, e);
-        }
     }
 
     @Override
     public gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
-            gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType uddiUpdateManagerForceRefreshRequest) {
+        gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType uddiUpdateManagerForceRefreshRequest) {
+        LOG.info("forceRefreshFileFromUDDIServer");
         UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
         return helper.forceRefreshFileFromUDDIServer(uddiUpdateManagerForceRefreshRequest);
     }
