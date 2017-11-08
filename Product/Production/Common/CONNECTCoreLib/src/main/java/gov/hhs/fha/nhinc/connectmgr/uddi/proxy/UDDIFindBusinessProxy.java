@@ -35,11 +35,13 @@ public interface UDDIFindBusinessProxy {
     /**
      * Override in implementation class
      *
+     * @param targetURL
      * @return list of businesses from UDDI
      * @throws UDDIFindBusinessException
      */
-    public abstract BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException;
+    public abstract BusinessList findBusinessesFromUDDI(String targetURL) throws UDDIFindBusinessException;
 
-    public abstract BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException;
+    public abstract BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String targetURL) throws
+        UDDIFindBusinessException;
 
 }

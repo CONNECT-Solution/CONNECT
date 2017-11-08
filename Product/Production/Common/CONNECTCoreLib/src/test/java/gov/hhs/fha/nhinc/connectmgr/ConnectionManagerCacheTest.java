@@ -30,11 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -76,11 +73,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
                 return createInternalConnectionInfoDAO(
                     "/config/ConnectionManagerCacheTest/emptyBusinessDetailConnectionInfo.xml");
             }
-
-            @Override
-            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
-                return createExchangeInfoDAO("/config/ConnectionManagerCacheTest/exchangeInfoTest.xml");
-            }
         };
     }
 
@@ -96,11 +88,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
                 return createInternalConnectionInfoDAO(
                     "/config/ConnectionManagerCacheTest/emptyBusinessEntityConnectionInfo.xml");
-            }
-
-            @Override
-            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
-                return createExchangeInfoDAO("/config/ConnectionManagerCacheTest/exchangeInfoTest.xml");
             }
         };
     }
@@ -119,12 +106,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
                 return createInternalConnectionInfoDAO(
                     "/config/ConnectionManagerCacheTest/internalConnectionInfoTest.xml");
             }
-
-            @Override
-            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
-                return createExchangeInfoDAO("/config/ConnectionManagerCacheTest/exchangeInfoTest.xml");
-            }
-
         };
     }
 
@@ -141,11 +122,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
                 return createInternalConnectionInfoDAO(
                     "/config/ConnectionManagerCacheTest/internalConnectionInfoMergeTest.xml");
             }
-
-            @Override
-            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
-                return createExchangeInfoDAO("/config/ConnectionManagerCacheTest/exchangeInfoTest.xml");
-            }
         };
     }
 
@@ -161,11 +137,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
                 return createInternalConnectionInfoDAO(
                     "/config/ConnectionManagerCacheTest/smallInternalConnectionInfoTest.xml");
-            }
-
-            @Override
-            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
-                return createExchangeInfoDAO("/config/ConnectionManagerCacheTest/exchangeInfoTest.xml");
             }
         };
     }
@@ -359,22 +330,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
 
         url = connectionManager.getInternalEndpointURLByServiceName(DOCUMENT_SUBMISSION_NAME);
         assertEquals("", url);
-    }
-
-    @Test
-    public void testExchangeInfo() {
-        try {
-            ConnectionManagerCache connectionManager = createConnectionManager();
-            connectionManager.forceRefreshUDDICache();
-            ExchangeInfoType exchangeInfo = connectionManager.getExchangeInfoDAO().loadExchangeInfo();
-            ExchangeType exUDDI = exchangeInfo.getExchanges().getExchange().get(0);
-            assertEquals("uddi", exUDDI.getType());
-            assertEquals(1, exUDDI.getOrganizationList().getOrganization().size());
-            assertEquals(3, exUDDI.getOrganizationList().getOrganization().get(0).getEndpointList().getEndpoint().size());
-        } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testExchangeInfo test: " + t.getMessage());
-        }
     }
 
     protected NhinTargetSystemType createNhinTargetSystem() {

@@ -26,10 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.nhinendpointmanager;
 
-import static org.junit.Assert.assertTrue;
-
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
@@ -39,6 +37,7 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -53,7 +52,7 @@ public abstract class AbstractNhinEndpointManagerMockTest {
         }
     };
 
-    protected final ConnectionManagerCache mockConnectionManagerCache = context.mock(ConnectionManagerCache.class);
+    protected final ExchangeManager mockExchangeManager = context.mock(ExchangeManager.class);
     protected final NhinEndpointManager mockNhinEndpointManager = createMockNhinEndpointManager();
 
     protected final String HCID = "1.1";
@@ -65,14 +64,15 @@ public abstract class AbstractNhinEndpointManagerMockTest {
         return new NhinEndpointManager() {
 
             @Override
-            protected ConnectionManagerCache getConnectionManagerCache() {
-                return mockConnectionManagerCache;
+            protected ExchangeManager getExchangeManager() {
+                return mockExchangeManager;
             }
         };
     }
 
-    /*-----------------Test Methods---------------*/
-
+    /*
+     * -----------------Test Methods---------------
+     */
     /**
      * Test target only supporting 2010
      */
@@ -109,8 +109,9 @@ public abstract class AbstractNhinEndpointManagerMockTest {
         context.assertIsSatisfied();
     }
 
-    /*-----------------Expectation Methods---------------*/
-
+    /*
+     * -----------------Expectation Methods---------------
+     */
     /**
      * Setup for no 1.0 specs (PDDeferred)
      */
@@ -164,15 +165,16 @@ public abstract class AbstractNhinEndpointManagerMockTest {
     protected void expectConnectionManagerCache(final List<UDDI_SPEC_VERSION> list) {
         context.checking(new Expectations() {
             {
-                exactly(1).of(mockConnectionManagerCache).getSpecVersions(with(any(String.class)),
-                        with(any(NHIN_SERVICE_NAMES.class)));
+                exactly(1).of(mockExchangeManager).getSpecVersions(with(any(String.class)),
+                    with(any(NHIN_SERVICE_NAMES.class)));
                 will(returnValue(list));
             }
         });
     }
 
-    /*-----------------Setup Methods---------------*/
-
+    /*
+     * -----------------Setup Methods---------------
+     */
     /**
      * @return NHIN_SERVICE_NAMES service name of the service under test
      */

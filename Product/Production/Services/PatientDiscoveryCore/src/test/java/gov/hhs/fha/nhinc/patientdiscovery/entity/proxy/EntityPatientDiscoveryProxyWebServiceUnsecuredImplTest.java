@@ -26,15 +26,10 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.Service;
@@ -45,6 +40,10 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -54,6 +53,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JMock.class)
 public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
+
     Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -67,11 +67,11 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     final WebServiceProxyHelper mockWebServiceProxyHelper = context.mock(WebServiceProxyHelper.class);
     final CONNECTClient<EntityPatientDiscoveryPortType> mockCONNECTClient = context.mock(CONNECTClient.class);
 
-
     @Test
     public void testCreateWebServiceProxyHelper() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl sut
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -90,7 +90,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     @Test
     public void testInvokeConnectionManagerHappy() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -98,11 +99,11 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                 }
 
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
+                protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
                     return "test_endpoint";
                 }
             };
-            String endpointURL = webProxy.invokeConnectionManager("not_used_by_override");
+            String endpointURL = webProxy.getEndpointURLFromExchange("not_used_by_override");
             assertNotNull("EndpointURL was null", endpointURL);
             assertEquals("EndpointURL was not correct", "test_endpoint", endpointURL);
         } catch (Throwable t) {
@@ -112,9 +113,10 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
         }
     }
 
-    @Test(expected = gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
-    public void testInvokeConnectionManagerException() throws ConnectionManagerException {
-        EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+    @Test(expected = gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException.class)
+    public void testInvokeConnectionManagerException() throws ExchangeManagerException {
+        EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+            = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
             @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -122,18 +124,19 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
             }
 
             @Override
-            protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-                throw new ConnectionManagerException();
+            protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+                throw new ExchangeManagerException();
             }
         };
-        webProxy.invokeConnectionManager("not_used_by_override");
+        webProxy.getEndpointURLFromExchange("not_used_by_override");
         fail("Exception should have been thrown");
     }
 
     @Test
     public void testGetEndpointURLHappy() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -141,7 +144,7 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                 }
 
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
+                protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
                     return "test_endpoint";
                 }
             };
@@ -158,7 +161,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     @Test
     public void testGetEndpointURLException() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -166,8 +170,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                 }
 
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-                    throw new ConnectionManagerException();
+                protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+                    throw new ExchangeManagerException();
                 }
             };
 
@@ -195,7 +199,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
                 }
             });
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper();
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -233,7 +238,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -259,7 +265,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullAssertionType() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -285,7 +292,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType() {
         try {
-            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceUnsecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
 
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -302,8 +310,8 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
         } catch (Throwable t) {
             System.out
-            .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
-                + t.getMessage());
+                .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
                 + t.getMessage());

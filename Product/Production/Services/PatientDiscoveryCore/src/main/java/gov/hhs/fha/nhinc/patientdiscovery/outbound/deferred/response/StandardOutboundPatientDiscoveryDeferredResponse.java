@@ -30,9 +30,9 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
@@ -58,7 +58,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     private final PatientDiscovery201306Processor pd201306Processor;
     private final PatientDiscoveryDeferredResponseAuditLogger auditLogger;
     private final OutboundPatientDiscoveryDeferredResponseDelegate delegate;
-    private final ConnectionManagerCache connectionManager;
+    private final ExchangeManager exchangeManager;
     private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundPatientDiscoveryDeferredResponse.class);
 
     /**
@@ -69,7 +69,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
         pd201306Processor = new PatientDiscovery201306Processor();
         auditLogger = new PatientDiscoveryDeferredResponseAuditLogger();
         delegate = new OutboundPatientDiscoveryDeferredResponseDelegate();
-        connectionManager = ConnectionManagerCache.getInstance();
+        exchangeManager = ExchangeManager.getInstance();
     }
 
     /**
@@ -79,21 +79,23 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      * @param pd201306Processor
      * @param auditLogger
      * @param delegate
-     * @param connectionManager
+     * @param exchangeManager
      */
     public StandardOutboundPatientDiscoveryDeferredResponse(
         PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
         PatientDiscovery201306Processor pd201306Processor, PatientDiscoveryDeferredResponseAuditLogger auditLogger,
-        OutboundPatientDiscoveryDeferredResponseDelegate delegate, ConnectionManagerCache connectionManager) {
+        OutboundPatientDiscoveryDeferredResponseDelegate delegate, ExchangeManager exchangeManager) {
         this.policyChecker = policyChecker;
         this.pd201306Processor = pd201306Processor;
         this.auditLogger = auditLogger;
         this.delegate = delegate;
-        this.connectionManager = connectionManager;
+        this.exchangeManager = exchangeManager;
     }
 
     @Override
-    @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder
+        = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version
+        = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
 
@@ -151,9 +153,9 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
         List<UrlInfo> urlInfoList;
 
         try {
-            urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
+            urlInfoList = exchangeManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+        } catch (ExchangeManagerException ex) {
             LOG.error("Failed to obtain target URLs for service "
                 + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME + ex.getLocalizedMessage(), ex);
             return null;

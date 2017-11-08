@@ -31,10 +31,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -70,17 +70,18 @@ import static org.mockito.Mockito.when;
  *
  */
 public class FanoutServiceTest {
+
     PatientCorrelationProxyFactory patientCorrelationProxyFactory = mock(PatientCorrelationProxyFactory.class);
-    ConnectionManager connectionManager = mock(ConnectionManager.class);
+    ExchangeManager exchangeManager = mock(ExchangeManager.class);
     PixRetrieveBuilder pixRetrieveBuilder = mock(PixRetrieveBuilder.class);
     PatientCorrelationProxy patientCorrelationProxy = mock(PatientCorrelationProxy.class);
     StandardOutboundDocQueryHelper standardDocQueryHelper = mock(StandardOutboundDocQueryHelper.class);
     TransactionLogger transactionLogger = mock(TransactionLogger.class);
-    AggregationService service = new AggregationService(connectionManager, patientCorrelationProxyFactory,
-            pixRetrieveBuilder, standardDocQueryHelper, transactionLogger);
+    AggregationService service = new AggregationService(exchangeManager, patientCorrelationProxyFactory,
+        pixRetrieveBuilder, standardDocQueryHelper, transactionLogger);
 
     @Test
-    public void createChildRequestsSingle() throws ConnectionManagerException {
+    public void createChildRequestsSingle() throws ExchangeManagerException {
         AdhocQueryRequest adhocQueryRequest = createRequest(createSlotList());
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AssertionType assertion = new AssertionType();
@@ -91,21 +92,26 @@ public class FanoutServiceTest {
         when(patientCorrelationProxyFactory.getPatientCorrelationProxy()).thenReturn(patientCorrelationProxy);
 
         when(
-                connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
-                        eq(NhincConstants.DOC_QUERY_SERVICE_NAME))).thenReturn(urlInfoList);
+            exchangeManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
+                eq(NhincConstants.DOC_QUERY_SERVICE_NAME))).thenReturn(urlInfoList);
 
         II ii = new II();
         ii.setRoot("4.4");
         ii.setExtension("D123401");
 
-        RetrievePatientCorrelationsResponseType retrievePatientCorrelationsResponseType = createPatientCorrelationResponseType(ii);
+        RetrievePatientCorrelationsResponseType retrievePatientCorrelationsResponseType
+            = createPatientCorrelationResponseType(ii);
 
         when(patientCorrelationProxy.retrievePatientCorrelations(any(PRPAIN201309UV02.class), eq(assertion)))
-                .thenReturn(retrievePatientCorrelationsResponseType);
+            .thenReturn(retrievePatientCorrelationsResponseType);
 
         when(standardDocQueryHelper.lookupHomeCommunityId(any(String.class), any(String.class))).thenReturn(
-                new HomeCommunityType() {@Override
-                public String getHomeCommunityId() { return "1.1";}});
+            new HomeCommunityType() {
+            @Override
+            public String getHomeCommunityId() {
+                return "1.1";
+            }
+        });
 
         List<OutboundOrchestratable> results = service.createChildRequests(adhocQueryRequest, assertion, targets);
         assertEquals(1, results.size());
@@ -117,11 +123,12 @@ public class FanoutServiceTest {
      * @return
      */
     public RetrievePatientCorrelationsResponseType createPatientCorrelationResponseType(II ii) {
-        RetrievePatientCorrelationsResponseType retrievePatientCorrelationsResponseType = new RetrievePatientCorrelationsResponseType();
+        RetrievePatientCorrelationsResponseType retrievePatientCorrelationsResponseType
+            = new RetrievePatientCorrelationsResponseType();
         retrievePatientCorrelationsResponseType.setPRPAIN201310UV02(new PRPAIN201310UV02());
 
         retrievePatientCorrelationsResponseType.getPRPAIN201310UV02().setControlActProcess(
-                new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess());
+            new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess());
 
         PRPAIN201310UV02MFMIMT700711UV01Subject1 e = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
         retrievePatientCorrelationsResponseType.getPRPAIN201310UV02().getControlActProcess().getSubject().add(e);
@@ -237,8 +244,9 @@ public class FanoutServiceTest {
     public NhinTargetCommunitiesType createTargetCommunities(NhinTargetCommunityType... targetCommunities) {
         NhinTargetCommunitiesType targetCommunitiesType = new NhinTargetCommunitiesType();
 
-        for (NhinTargetCommunityType targetCommunity : targetCommunities)
+        for (NhinTargetCommunityType targetCommunity : targetCommunities) {
             targetCommunitiesType.getNhinTargetCommunity().add(targetCommunity);
+        }
 
         return targetCommunitiesType;
     }
@@ -261,7 +269,7 @@ public class FanoutServiceTest {
 
     private NhinTargetCommunitiesType createNhinTargetCommunitesForMultipleTargets() {
         return createTargetCommunities(createTargetCommunity("4.4", "US-FL", "Unimplemented"),
-                createTargetCommunity("2.2", null, null));
+            createTargetCommunity("2.2", null, null));
     }
 
     private NhinTargetCommunitiesType createNhinTargetCommunites() {
