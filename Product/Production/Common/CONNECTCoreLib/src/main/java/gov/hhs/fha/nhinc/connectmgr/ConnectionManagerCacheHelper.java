@@ -233,7 +233,6 @@ public class ConnectionManagerCacheHelper {
                 }
             }
         }
-
         return specVersionList;
     }
 

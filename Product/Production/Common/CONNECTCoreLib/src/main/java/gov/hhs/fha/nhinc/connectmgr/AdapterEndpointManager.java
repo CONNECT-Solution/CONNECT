@@ -26,21 +26,27 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
+import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.HashSet;
 import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BindingTemplate;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.BusinessService;
-import org.uddi.api_v3.KeyedReference;
 
 public class AdapterEndpointManager {
+
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
     public static final Logger LOG = LoggerFactory.getLogger(AdapterEndpointManager.class);
+    private static final ExchangeManagerHelper HELPER = new ExchangeManagerHelper();
 
     public ADAPTER_API_LEVEL getApiVersion(String serviceName) {
         ADAPTER_API_LEVEL result = null;
@@ -72,37 +78,37 @@ public class AdapterEndpointManager {
 
     public Set<ADAPTER_API_LEVEL> getAdapterAPILevelsByServiceName(String serviceName) {
         Set<ADAPTER_API_LEVEL> apiLevels = null;
-        ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
 
         try {
             String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            BusinessEntity businessEntity = ConnectionManagerCache.getInstance().getBusinessEntity(sHomeCommunityId);
-            BusinessService businessService = helper.getBusinessServiceByServiceName(businessEntity, serviceName);
-            apiLevels = getAPILevelsFromBusinessService(businessService);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
-        } catch (Exception ex) {
-            LOG.error("Error getting API Level by Service Name: ", ex);
+            OrganizationType org = InternalExchangeManager.getInstance().getOrganization(sHomeCommunityId);
+            apiLevels = getAPILevelsFromOrganization(org, serviceName);
+
+        } catch (ExchangeManagerException | PropertyAccessException ex) {
+            LOG.error("Error getting API Level by Service Name: {}", ex.getLocalizedMessage(), ex);
         }
-
         return apiLevels;
     }
 
-    private Set<ADAPTER_API_LEVEL> getAPILevelsFromBusinessService(BusinessService businessService) {
+    private Set<ADAPTER_API_LEVEL> getAPILevelsFromOrganization(OrganizationType org, String serviceName) {
         Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<>();
+        if (null != org && null != org.getEndpointList() && CollectionUtils.isNotEmpty(org.getEndpointList().
+            getEndpoint())) {
+            for (EndpointType epType : org.getEndpointList().getEndpoint()) {
+                apiLevels.addAll(getAPILevels(epType, serviceName));
+            }
+        }
+        return apiLevels;
+    }
 
-        if (businessService.getBindingTemplates() != null) {
-            for (BindingTemplate bindingTemplate : businessService.getBindingTemplates().getBindingTemplate()) {
-                if (bindingTemplate.getCategoryBag() != null
-                        && bindingTemplate.getCategoryBag().getKeyedReference() != null) {
-                    for (KeyedReference reference : bindingTemplate.getCategoryBag().getKeyedReference()) {
-                        String keyName = reference.getTModelKey();
-                        String specVersionValue = reference.getKeyValue();
-                        if (keyName.equals(ADAPTER_API_LEVEL_KEY)) {
-                            apiLevels.add(ADAPTER_API_LEVEL.valueOf(specVersionValue));
-                        }
-                    }
-                }
+    private Set<ADAPTER_API_LEVEL> getAPILevels(EndpointType epType, String serviceName) {
+        Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<>();
+        if (HELPER.hasService(epType, serviceName) && null != epType.getEndpointConfigurationList() && CollectionUtils.
+            isNotEmpty(epType.getEndpointConfigurationList().getEndpointConfiguration())) {
+            for (EndpointConfigurationType config : epType.getEndpointConfigurationList().getEndpointConfiguration()) {
+                apiLevels.add(ADAPTER_API_LEVEL.valueOf(config.getVersion()));
             }
         }
         return apiLevels;

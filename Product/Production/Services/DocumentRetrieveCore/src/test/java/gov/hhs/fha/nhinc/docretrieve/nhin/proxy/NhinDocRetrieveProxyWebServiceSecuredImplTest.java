@@ -30,10 +30,9 @@ import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -58,7 +57,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
 
     @SuppressWarnings("unchecked")
     private CONNECTClient<RespondingGatewayRetrievePortType> client = mock(CONNECTClient.class);
-    private ConnectionManagerCache cache = mock(ConnectionManagerCache.class);
+    private ExchangeManager cache = mock(ExchangeManager.class);
     private RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
     private AssertionType assertion;
 
@@ -79,7 +78,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     public void testMtomg0() throws Exception {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "2.0");
-        when(cache.getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
+        when(cache.getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
             .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g0);
         verify(client).enableMtom();
@@ -89,7 +88,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     public void testMtomg1() throws Exception {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "2.0");
-        when(cache.getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
+        when(cache.getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
             .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g1);
         verify(client).enableMtom();
@@ -100,7 +99,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "3.0");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g0);
-        verify(cache).getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class));
+        verify(cache).getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class));
     }
 
     @Test
@@ -108,7 +107,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "3.0");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g1);
-        verify(cache).getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class));
+        verify(cache).getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class));
     }
 
     /**
@@ -152,7 +151,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
              * @see gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl#getCMInstance()
              */
             @Override
-            protected ConnectionManager getCMInstance() {
+            protected ExchangeManager getCMInstance() {
                 return cache;
             }
         };

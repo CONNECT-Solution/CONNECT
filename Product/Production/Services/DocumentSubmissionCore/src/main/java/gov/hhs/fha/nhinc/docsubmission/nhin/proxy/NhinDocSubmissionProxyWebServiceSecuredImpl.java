@@ -47,11 +47,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmissionProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     public NhinDocSubmissionProxyWebServiceSecuredImpl() {
-        proxyHelper = new WebServiceProxyHelper();
     }
 
     protected DocSubmissionUtils getDocSubmissionUtils() {
@@ -62,43 +62,51 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
         return MessageGeneratorUtils.getInstance();
     }
 
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
+        if (proxyHelper == null) {
+            proxyHelper = new WebServiceProxyHelper();
+        }
+        return proxyHelper;
+    }
+
     public ServicePortDescriptor<DocumentRepositoryXDRPortType> getServicePortDescriptor(
-            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
-        case LEVEL_g0:
-            return new NhinDocSubmissionServicePortDescriptor();
-        default:
-            return new NhinDocSubmission20ServicePortDescriptor();
+            case LEVEL_g0:
+                return new NhinDocSubmissionServicePortDescriptor();
+            default:
+                return new NhinDocSubmission20ServicePortDescriptor();
         }
     }
 
     protected CONNECTClient<DocumentRepositoryXDRPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion, String url,
-            String targetHomeCommunityId, String serviceName) {
+        ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion, String url,
+        String targetHomeCommunityId, String serviceName) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                targetHomeCommunityId, serviceName);
+            targetHomeCommunityId, serviceName);
     }
 
-    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission", version = "")
+    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, afterReturningBuilder
+        = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission", version = "")
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
-            AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
-            String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
-                    NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
+            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+                NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
             getDocSubmissionUtils().convertFileLocationToDataIfEnabled(request);
 
             ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
             CONNECTClient<DocumentRepositoryXDRPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
-                    url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
             client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
-                    "documentRepositoryProvideAndRegisterDocumentSetB", request);
+                "documentRepositoryProvideAndRegisterDocumentSetB", request);
 
         } catch (LargePayloadException lpe) {
             LOG.error("Failed to send message.", lpe);

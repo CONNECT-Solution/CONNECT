@@ -47,15 +47,12 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
     private static final Logger LOG = LoggerFactory.getLogger(UDDIFindBusinessProxyJuddiV3Impl.class);
 
     @Override
-    public BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException {
+    public BusinessList findBusinessesFromUDDI(String targetURL) throws UDDIFindBusinessException {
         LOG.debug("Using jUDDI V3 Implementation for UDDI Business Info Service");
 
         BusinessList oBusinessList;
 
         try {
-            // load relevant property info
-            loadProperties();
-
             // Make the call...
             // -----------------
             FindBusiness oSearchParams = new FindBusiness();
@@ -71,17 +68,17 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
 
             int maxRows = getMaxResults();
 
-            if(maxRows > 0){
-                 oSearchParams.setMaxRows(getMaxResults());
+            if (maxRows > 0) {
+                oSearchParams.setMaxRows(getMaxResults());
             }
 
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, uddiInquiryUrl, null);
+            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, targetURL, null);
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
 
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
-                    + e.getMessage();
+                + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
@@ -90,9 +87,9 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
     }
 
     @Override
-    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams) throws UDDIFindBusinessException {
-
-        return super.getBusinessDetail(searchParams);
+    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String targetURL) throws
+        UDDIFindBusinessException {
+        return super.getBusinessDetail(searchParams, targetURL);
     }
 
 }

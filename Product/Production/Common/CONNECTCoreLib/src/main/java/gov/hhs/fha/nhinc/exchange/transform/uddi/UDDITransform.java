@@ -49,6 +49,7 @@ import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.Contact;
+import org.uddi.api_v3.Description;
 import org.uddi.api_v3.Email;
 import org.uddi.api_v3.KeyedReference;
 import org.uddi.api_v3.Name;
@@ -103,7 +104,6 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         EndpointListType epListType;
         if (null != entity.getBusinessServices() && CollectionUtils.isNotEmpty(entity.getBusinessServices().
             getBusinessService())) {
-            LOG.info("building endpoint list element");
             epListType = new EndpointListType();
             for (BusinessService service : entity.getBusinessServices().getBusinessService()) {
                 buildServiceEndpoints(service, epListType);
@@ -127,6 +127,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         if (service != null && service.getBindingTemplates() != null && CollectionUtils.isNotEmpty(service.
             getBindingTemplates().getBindingTemplate())) {
             EndpointType endpoint = new EndpointType();
+            buildDescription(service, endpoint);
             buildServiceName(service, endpoint);
             EndpointConfigurationListType epConfigType = new EndpointConfigurationListType();
             for (BindingTemplate bTemplate : service.getBindingTemplates().getBindingTemplate()) {
@@ -140,12 +141,22 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         }
     }
 
-    private static List<String> buildServiceName(BusinessService service, EndpointType endpoint) {
-        LOG.info("looking up service");
-        List<String> serviceNames = null;
+    private static void buildDescription(BusinessService service, EndpointType endpoint) {
+        StringBuilder description = new StringBuilder();
+        if (CollectionUtils.isNotEmpty(service.getDescription())) {
+            LOG.info("building endpoint decription(s)");
+            for (Description desc : service.getDescription()) {
+                if (desc != null) {
+                    description.append(desc.getValue().trim());
+                }
+            }
+            endpoint.setDescription(description.toString());
+        }
+    }
+
+    private static void buildServiceName(BusinessService service, EndpointType endpoint) {
         if (service.getCategoryBag() != null && CollectionUtils.isNotEmpty(service.getCategoryBag().getKeyedReference())) {
-            LOG.info("building endpoint name(s)");
-            serviceNames = new ArrayList<>();
+            List<String> serviceNames = new ArrayList<>();
             for (KeyedReference reference : service.getCategoryBag().getKeyedReference()) {
                 if (UDDIConstants.UDD_SERVICE_NAMES_KEY.equals(reference.getTModelKey())) {
                     serviceNames.add(reference.getKeyValue());
@@ -153,7 +164,6 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
             }
             endpoint.getName().addAll(serviceNames);
         }
-        return serviceNames;
     }
 
     private List<EndpointConfigurationType> buildEndpointConfiguration(BindingTemplate bTemplate) {

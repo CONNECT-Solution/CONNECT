@@ -48,11 +48,12 @@ import org.slf4j.LoggerFactory;
  */
 public class ExchangeInfoDAOFileImplTest {
 
-    private static final String TEST_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-        + "<exchangeInfo xmlns=\"urn:gov:hhs:fha:nhinc:exchange\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:exchange:directory\">"
-        + "<lastUpdated>2017-10-23T16:10:41.968Z</lastUpdated><exchanges><exchange type=\"uddi\"><organizationList></organizationList>"
-        + "</exchange><exchange type=\"fhir\"><organizationList></organizationList>"
-        + "</exchange></exchanges></exchangeInfo>";
+    private static final String TEST_CONTENT
+        = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><exchangeInfo "
+        + "xmlns=\"urn:gov:hhs:fha:nhinc:exchange\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:exchange:directory\">"
+        + "<lastUpdated>2017-10-23T16:10:41.968Z</lastUpdated><refreshActive>false</refreshActive><exchanges>"
+        + "<exchange type=\"uddi\"><organizationList/></exchange><exchange type=\"fhir\"><organizationList/></exchange>"
+        + "</exchanges></exchangeInfo>";
 
     private static boolean ignoreWhitespaceSavedValue;
     private File tempFile = null;

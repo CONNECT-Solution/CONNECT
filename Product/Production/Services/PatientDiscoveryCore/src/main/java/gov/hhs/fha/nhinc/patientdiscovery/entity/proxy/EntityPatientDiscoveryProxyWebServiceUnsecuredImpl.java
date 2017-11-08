@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -41,7 +41,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  * @author Neil Webb
  */
 public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl extends EntityPatientDiscoveryProxyWebServicAbstract
-implements EntityPatientDiscoveryProxy {
+    implements EntityPatientDiscoveryProxy {
+
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
@@ -53,8 +54,8 @@ implements EntityPatientDiscoveryProxy {
     }
 
     @Override
-    protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        return super.invokeConnectionManager(serviceName);
+    protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+        return super.getEndpointURLFromExchange(serviceName);
     }
 
     protected String getEndpointURL() {
@@ -67,11 +68,12 @@ implements EntityPatientDiscoveryProxy {
      *
      * @return The service class for this web service.
      */
-
     @Override
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
         AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
-        return super.respondingGatewayPRPAIN201305UV02(EntityPatientDiscoveryPortType.class, getEndpointURL(), pdRequest, assertion, targetCommunities);
+        return super.
+            respondingGatewayPRPAIN201305UV02(EntityPatientDiscoveryPortType.class, getEndpointURL(), pdRequest,
+                assertion, targetCommunities);
     }
 
     /**

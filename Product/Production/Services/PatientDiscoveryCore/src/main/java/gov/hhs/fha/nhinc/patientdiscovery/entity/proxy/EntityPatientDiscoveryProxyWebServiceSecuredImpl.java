@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -41,7 +41,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  * @author Neil Webb
  */
 public class EntityPatientDiscoveryProxyWebServiceSecuredImpl extends EntityPatientDiscoveryProxyWebServicAbstract
-implements EntityPatientDiscoveryProxy {
+    implements EntityPatientDiscoveryProxy {
+
     private String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -49,8 +50,8 @@ implements EntityPatientDiscoveryProxy {
     }
 
     @Override
-    protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        return super.invokeConnectionManager(serviceName);
+    protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+        return super.getEndpointURLFromExchange(serviceName);
     }
 
     protected String getEndpointURL() {

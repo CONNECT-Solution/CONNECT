@@ -32,9 +32,9 @@ import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
@@ -67,7 +67,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp;
-        RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+        RespondingGatewayPRPAIN201305UV02RequestType unsecureRequest
+            = new RespondingGatewayPRPAIN201305UV02RequestType();
         unsecureRequest.setAssertion(assertion);
         unsecureRequest.setNhinTargetCommunities(targets);
         unsecureRequest.setPRPAIN201305UV02(request);
@@ -84,7 +85,8 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             asyncProcess.processAck(messageId, AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK,
                 AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, resp);
         } else {
-            String ackMsg = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
+            String ackMsg
+                = "Deferred Patient Discovery response processing halted; deferred queue repository error encountered";
 
             // Set the error acknowledgement status
             // fatal error with deferred queue repository
@@ -139,8 +141,10 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
             if (NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
                 && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
-                EntityPatientDiscoveryDeferredResponseProxyObjectFactory patientDiscoveryFactory = new EntityPatientDiscoveryDeferredResponseProxyObjectFactory();
-                EntityPatientDiscoveryDeferredResponseProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
+                EntityPatientDiscoveryDeferredResponseProxyObjectFactory patientDiscoveryFactory
+                    = new EntityPatientDiscoveryDeferredResponseProxyObjectFactory();
+                EntityPatientDiscoveryDeferredResponseProxy proxy = patientDiscoveryFactory.
+                    getNhincPatientDiscoveryProxy();
 
                 resp = proxy.processPatientDiscoveryAsyncResp(respMsg, assertion, targets);
             } else {
@@ -156,10 +160,10 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
         // Obtain all the URLs for the targets being sent to
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
+            urlInfoList = ExchangeManager.getInstance().getEndpointURLFromNhinTargetCommunities(
                 targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
-        } catch (ConnectionManagerException ex) {
+        } catch (ExchangeManagerException ex) {
             LOG.error("Failed to obtain target URLs for service {}: {}",
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, ex.getLocalizedMessage(), ex);
             return null;

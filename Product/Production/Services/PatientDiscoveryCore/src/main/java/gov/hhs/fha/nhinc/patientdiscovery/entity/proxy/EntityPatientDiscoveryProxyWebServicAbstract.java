@@ -28,10 +28,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -50,8 +50,10 @@ import org.slf4j.LoggerFactory;
  *
  */
 public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryProxyWebServiceHelper.class);
-    private String connectionManager = null;
+    //private String connectionManager = null;
+    private String endpointURL = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
@@ -71,39 +73,38 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
     /**
      * @return the connectionManager
      */
-    public String getConnectionManager() {
-        return connectionManager;
+    public String getendpointURL() {
+        return endpointURL;
     }
 
     /**
-     * @param connectionManager the connectionManager to set
+     * @param endpointURL the endpointURL to set
      */
-    public void setConnectionManager(String connectionManager) {
-        this.connectionManager = connectionManager;
+    public void setEndpointURL(String endpointURL) {
+        this.endpointURL = endpointURL;
     }
 
     String getEndpointURLForService(String serviceName) {
         String endpointURL = null;
         try {
-            endpointURL = invokeConnectionManager(serviceName);
+            endpointURL = getEndpointURLFromExchange(serviceName);
             LOG.debug("Retrieved endpoint URL: {} for service : {} ", endpointURL, serviceName);
-        } catch (ConnectionManagerException ex) {
+        } catch (ExchangeManagerException ex) {
             LOG.error(
-                "Error getting url for : {}  from the connection manager. Error: {}" , serviceName, ex.getMessage(), ex);
+                "Error getting url for : {}  from the connection manager. Error: {}", serviceName, ex.getMessage(), ex);
         }
 
         return endpointURL;
     }
 
-    String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        connectionManager = ConnectionManagerCache.getInstance()
-            .getInternalEndpointURLByServiceName(serviceName);
-        setConnectionManager(connectionManager);
-        return connectionManager;
+    String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+        endpointURL = ExchangeManager.getInstance().getEndpointURL(serviceName);
+        setEndpointURL(endpointURL);
+        return endpointURL;
     }
 
-    String setInvokeConnectionManager(String serviceName) throws ConnectionManagerException {
-        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName);
+    String setInvokeConnectionManager(String serviceName) throws ExchangeManagerException {
+        return ExchangeManager.getInstance().getEndpointURL(serviceName);
     }
 
     RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(Class portType, String endpointURL,
@@ -119,7 +120,8 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
             } else if (targetCommunities == null) {
                 LOG.error("NhinTargetCommunitiesType was null");
             } else {
-                RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+                RespondingGatewayPRPAIN201305UV02RequestType request
+                    = new RespondingGatewayPRPAIN201305UV02RequestType();
                 request.setPRPAIN201305UV02(pdRequest);
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targetCommunities);
@@ -134,7 +136,7 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
                 }
             }
         } catch (Exception ex) {
-            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: {} " , ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: {} ", ex.getMessage(), ex);
         }
 
         LOG.debug("End respondingGatewayPRPAIN201305UV02");
@@ -148,7 +150,8 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
      */
     CONNECTClient<EntityPatientDiscoveryPortType> getDiscoveryPortClient(final String url,
         final AssertionType assertion) {
-        ServicePortDescriptor<EntityPatientDiscoveryPortType> portDescriptor = new EntityPatientDiscoveryServicePortDescriptor();
+        ServicePortDescriptor<EntityPatientDiscoveryPortType> portDescriptor
+            = new EntityPatientDiscoveryServicePortDescriptor();
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
@@ -159,7 +162,8 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
      */
     CONNECTClient<EntityPatientDiscoverySecuredPortType> getSecuredPortClient(final String url,
         final AssertionType assertion) {
-        ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> portDescriptor = new EntityPatientDiscoverySecuredServicePortDescriptor();
+        ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> portDescriptor
+            = new EntityPatientDiscoverySecuredServicePortDescriptor();
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
