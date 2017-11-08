@@ -30,10 +30,9 @@ import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
@@ -60,6 +59,7 @@ import static org.mockito.Mockito.verify;
  */
 @RunWith(JMock.class)
 public class NhinDocQueryWebServiceProxyTest {
+
     Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -71,7 +71,7 @@ public class NhinDocQueryWebServiceProxyTest {
 
     @SuppressWarnings("unchecked")
     private CONNECTClient<RespondingGatewayQueryPortType> client = mock(CONNECTClient.class);
-    private ConnectionManagerCache cache = mock(ConnectionManagerCache.class);
+    private ExchangeManager cache = mock(ExchangeManager.class);
     private AdhocQueryRequest request;
     private AssertionType assertion;
 
@@ -79,7 +79,7 @@ public class NhinDocQueryWebServiceProxyTest {
     public void hasBeginOutboundProcessingEvent() throws Exception {
         Class<NhinDocQueryProxyWebServiceSecuredImpl> clazz = NhinDocQueryProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class, NhinTargetSystemType.class);
+            AssertionType.class, NhinTargetSystemType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
@@ -101,7 +101,7 @@ public class NhinDocQueryWebServiceProxyTest {
         NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1");
         impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
-        verify(cache).getEndpointURLByServiceNameSpecVersion(any(String.class), any(String.class), any(UDDI_SPEC_VERSION.class));
+        verify(cache).getEndpointURL(any(String.class), any(String.class), any(UDDI_SPEC_VERSION.class));
     }
 
     /**
@@ -133,16 +133,17 @@ public class NhinDocQueryWebServiceProxyTest {
              */
             @Override
             public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(
-                    ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion,
-                    String url, NhinTargetSystemType target) {
+                ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion,
+                String url, NhinTargetSystemType target) {
                 return client;
             }
 
-            /* (non-Javadoc)
-             * @see gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCMInstance()
+            /*
+             * (non-Javadoc) @see
+             * gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCMInstance()
              */
             @Override
-            protected ConnectionManager getCMInstance() {
+            protected ExchangeManager getCMInstance() {
                 return cache;
             }
         };

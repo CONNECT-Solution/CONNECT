@@ -32,12 +32,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -67,7 +66,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AggregationService {
 
-    private ConnectionManager connectionManager;
+    private ExchangeManager exchangeManager;
     private static final Logger LOG = LoggerFactory.getLogger(AggregationService.class);
     private PatientCorrelationProxyFactory patientCorrelationProxyFactory;
 
@@ -81,11 +80,11 @@ public class AggregationService {
      * @param connectionManager
      * @param patientCorrelationProxy
      */
-    AggregationService(ConnectionManager connectionManager,
+    AggregationService(ExchangeManager exchangeManager,
         PatientCorrelationProxyFactory patientCorrelationProxyFactory, PixRetrieveBuilder pixRetrieveBuilder,
         StandardOutboundDocQueryHelper standardOutboundDocQueryHelper, TransactionLogger transactionLogger) {
         super();
-        this.connectionManager = connectionManager;
+        this.exchangeManager = exchangeManager;
         this.patientCorrelationProxyFactory = patientCorrelationProxyFactory;
         this.pixRetrieveBuilder = pixRetrieveBuilder;
         this.standardOutboundDocQueryHelper = standardOutboundDocQueryHelper;
@@ -98,7 +97,7 @@ public class AggregationService {
      */
     public AggregationService() {
 
-        this.connectionManager = ConnectionManagerCache.getInstance();
+        this.exchangeManager = ExchangeManager.getInstance();
         this.patientCorrelationProxyFactory = new PatientCorrelationProxyObjectFactory();
         this.pixRetrieveBuilder = new PixRetrieveBuilder();
         this.standardOutboundDocQueryHelper = new StandardOutboundDocQueryHelper();
@@ -119,7 +118,7 @@ public class AggregationService {
 
             patientCorrelationReq.setAssertion(assertion);
 
-            for (UrlInfo urlInfo : connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
+            for (UrlInfo urlInfo : exchangeManager.getEndpointURLFromNhinTargetCommunities(targets,
                 NhincConstants.DOC_QUERY_SERVICE_NAME)) {
                 patientCorrelationReq.getTargetHomeCommunity().add(urlInfo.getHcid());
             }
@@ -159,8 +158,8 @@ public class AggregationService {
 
                 list.add(orchestratable);
             }
-        } catch (ConnectionManagerException e) {
-            LOG.error("Unable to create child requests:" + e.getLocalizedMessage(), e);
+        } catch (ExchangeManagerException e) {
+            LOG.error("Unable to create child requests: {}", e.getLocalizedMessage(), e);
         }
 
         return list;
@@ -174,9 +173,9 @@ public class AggregationService {
             && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null
             && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
             && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent()
-            .getSubject1() != null
+                .getSubject1() != null
             && results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent()
-            .getSubject1().getPatient() != null
+                .getSubject1().getPatient() != null
             && NullChecker.isNotNullish(results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
                 .getRegistrationEvent().getSubject1().getPatient().getId());
     }

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.adapter.deferred.queue;
 import gov.hhs.fha.nhinc.adapter.deferred.queue.service.AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor;
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessRequestType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType;
@@ -48,8 +49,8 @@ import org.slf4j.LoggerFactory;
 public class PatientDiscoveryDeferredReqQueueClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryDeferredReqQueueClient.class);
-    private static final String SERVICE_NAME =
-            NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME;
+    private static final String SERVICE_NAME
+        = NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME;
 
     private final WebServiceProxyHelper proxyHelper;
 
@@ -67,11 +68,11 @@ public class PatientDiscoveryDeferredReqQueueClient {
      * @return queue process response
      */
     public PatientDiscoveryDeferredReqQueueProcessResponseType
-            processPatientDiscoveryDeferredReqQueue(String messageId) {
+        processPatientDiscoveryDeferredReqQueue(String messageId) {
         String msgText;
 
-        PatientDiscoveryDeferredReqQueueProcessResponseType response =
-                new PatientDiscoveryDeferredReqQueueProcessResponseType();
+        PatientDiscoveryDeferredReqQueueProcessResponseType response
+            = new PatientDiscoveryDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
         sof.setSuccess(Boolean.FALSE);
         response.setSuccessOrFail(sof);
@@ -81,22 +82,20 @@ public class PatientDiscoveryDeferredReqQueueClient {
             String endpointURL = getUrl(SERVICE_NAME);
 
             if (NullChecker.isNotNullish(endpointURL)) {
-                ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> portDescriptor =
-                        new AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor();
-                CONNECTClient<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> client =
-                        CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, endpointURL, null);
+                ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> portDescriptor
+                    = new AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor();
+                CONNECTClient<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> client = CONNECTClientFactory.
+                    getInstance().getCONNECTClientUnsecured(portDescriptor, endpointURL, null);
 
-                PatientDiscoveryDeferredReqQueueProcessRequestType request =
-                        new PatientDiscoveryDeferredReqQueueProcessRequestType();
+                PatientDiscoveryDeferredReqQueueProcessRequestType request
+                    = new PatientDiscoveryDeferredReqQueueProcessRequestType();
                 request.setMessageId(messageId);
-                response =
-                        (PatientDiscoveryDeferredReqQueueProcessResponseType) client.invokePort(
-                                AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,
-                                "processPatientDiscoveryDeferredReqQueue", request);
+                response = (PatientDiscoveryDeferredReqQueueProcessResponseType) client.invokePort(
+                    AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,
+                    "processPatientDiscoveryDeferredReqQueue", request);
             } else {
-                msgText =
-                        "Endpoint URL not found for local home community service name ["
-                                + NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
+                msgText = "Endpoint URL not found for local home community service name ["
+                    + NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
                 LOG.error(msgText);
                 response.setResponse(msgText);
             }
@@ -110,11 +109,12 @@ public class PatientDiscoveryDeferredReqQueueClient {
 
     /**
      * Get's the URL.
+     *
      * @param serviceName String servicename
      * @return the URL
      * @throws ConnectionManagerException an error
      */
-    protected String getUrl(String serviceName) throws ConnectionManagerException {
+    protected String getUrl(String serviceName) throws ExchangeManagerException {
         return proxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
     }
 

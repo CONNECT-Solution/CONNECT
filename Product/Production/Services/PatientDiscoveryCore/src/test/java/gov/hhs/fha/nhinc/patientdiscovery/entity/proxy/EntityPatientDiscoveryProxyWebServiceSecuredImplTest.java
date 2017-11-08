@@ -26,15 +26,10 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.Service;
@@ -45,6 +40,10 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -54,6 +53,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JMock.class)
 public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
+
     Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -70,7 +70,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test
     public void testCreateWebServiceProxyHelper() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
@@ -88,18 +89,19 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test
     public void testInvokeConnectionManagerHappy() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
 
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
+                protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
                     return "test_endpoint";
                 }
             };
-            String endpointURL = sut.invokeConnectionManager("not_used_by_override");
+            String endpointURL = sut.getEndpointURLFromExchange("not_used_by_override");
             assertNotNull("EndpointURL was null", endpointURL);
             assertEquals("EndpointURL was not correct", "test_endpoint", endpointURL);
         } catch (Throwable t) {
@@ -109,8 +111,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
         }
     }
 
-    @Test(expected = gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException.class)
-    public void testInvokeConnectionManagerException() throws ConnectionManagerException {
+    @Test(expected = gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException.class)
+    public void testInvokeConnectionManagerException() throws ExchangeManagerException {
         EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
             @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -118,26 +120,27 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
             }
 
             @Override
-            protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-                throw new ConnectionManagerException();
+            protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+                throw new ExchangeManagerException();
             }
         };
 
-        sut.invokeConnectionManager("not_used_by_override");
+        sut.getEndpointURLFromExchange("not_used_by_override");
         fail("Exception should have been thrown");
     }
 
     @Test
     public void testGetEndpointURLHappy() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
 
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
+                protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
                     return "test_endpoint";
                 }
             };
@@ -155,15 +158,16 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test
     public void testGetEndpointURLException() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
                 }
 
                 @Override
-                protected String invokeConnectionManager(String serviceName) throws ConnectionManagerException {
-                    throw new ConnectionManagerException();
+                protected String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
+                    throw new ExchangeManagerException();
                 }
             };
             String endpointURL = sut.getEndpointURL();
@@ -192,12 +196,13 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
 
                 @Override
-                public Object invokePort(Object portObject, Class portClass, String methodName, Object ... operationInput)
+                public Object invokePort(Object portObject, Class portClass, String methodName, Object... operationInput)
                     throws Exception {
                     return null;
                 }
             };
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl sut
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
@@ -234,7 +239,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullPRPAIN201305UV02() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
@@ -259,7 +265,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullAssertionType() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
@@ -284,7 +291,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType() {
         try {
-            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
+            EntityPatientDiscoveryProxyWebServiceSecuredImpl webProxy
+                = new EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
                 @Override
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return mockWebServiceProxyHelper;
@@ -300,8 +308,8 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
             assertNull("RespondingGatewayPRPAIN201306UV02ResponseType was not null", response);
         } catch (Throwable t) {
             System.out
-            .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
-                + t.getMessage());
+                .println("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
+                    + t.getMessage());
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullNhinTargetCommunitiesType test: "
                 + t.getMessage());

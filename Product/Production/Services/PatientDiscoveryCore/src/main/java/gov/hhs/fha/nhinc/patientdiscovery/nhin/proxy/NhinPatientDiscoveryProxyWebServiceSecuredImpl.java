@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -53,15 +53,16 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     private static final Logger LOG = LoggerFactory.getLogger(NhinPatientDiscoveryProxyWebServiceSecuredImpl.class);
 
     protected CONNECTClient<RespondingGatewayPortType> getCONNECTSecuredClient(NhinTargetSystemType target,
-            ServicePortDescriptor<RespondingGatewayPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<RespondingGatewayPortType> portDescriptor, String url, AssertionType assertion) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                target.getHomeCommunity().getHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
     @Override
-    @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
+    @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder
+        = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
-            NhinTargetSystemType target) throws Exception {
+        NhinTargetSystemType target) throws Exception {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         try {
@@ -70,32 +71,33 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 LOG.debug("Before target system URL look up.");
                 String url = target.getUrl();
                 if (NullChecker.isNullish(url)) {
-                    url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
-                            target.getHomeCommunity().getHomeCommunityId(),
-                            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                    url = ExchangeManager.getInstance().getDefaultEndpointURL(
+                        target.getExchangeName(), target.getHomeCommunity().getHomeCommunityId(),
+                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                     LOG.debug("After target system URL look up. URL for service: "
-                            + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
+                        + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
                 }
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<RespondingGatewayPortType> portDescriptor = new RespondingGatewayServicePortDescriptor();
+                    ServicePortDescriptor<RespondingGatewayPortType> portDescriptor
+                        = new RespondingGatewayServicePortDescriptor();
 
                     CONNECTClient<RespondingGatewayPortType> client = getCONNECTSecuredClient(target, portDescriptor,
-                            url, assertion);
+                        url, assertion);
 
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
-                            "respondingGatewayPRPAIN201305UV02", request);
+                        "respondingGatewayPRPAIN201305UV02", request);
                 } else {
                     LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
-                            + ").  The URL is null.");
+                        + ").  The URL is null.");
                 }
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
-                        + ").  The input parameters are null.");
+                    + ").  The input parameters are null.");
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
-                    + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
+                + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
             throw e;
         }
 

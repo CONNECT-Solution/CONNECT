@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201306UV02Parser;
@@ -181,9 +181,9 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends
     @Override
     protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
         try {
-            return getConnectionManagerCache().getEndpointURLFromNhinTarget(target,
+            return getExchangeManager().getEndpointURLFromNhinTarget(target,
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+        } catch (ExchangeManagerException ex) {
             LOG.error("Exception while Reading Url for the PatientDiscovery Deferred Response Service Endpoint: "
                 + ex.getLocalizedMessage(), ex);
         }

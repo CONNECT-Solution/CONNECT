@@ -29,15 +29,9 @@ package gov.hhs.fha.nhinc.connectmgr;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.OrganizationListType;
-import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
-import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
@@ -72,7 +66,6 @@ public class ConnectionManagerCache implements ConnectionManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManagerCache.class);
     private PropertyAccessor accessor;
-    private ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
     // --------------------------------------------------------------------------------------------
     // Array of connection information
@@ -120,10 +113,6 @@ public class ConnectionManagerCache implements ConnectionManager {
         return InternalConnectionInfoDAOFileImpl.getInstance();
     }
 
-    protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
-        return ExchangeInfoDAOFileImpl.getInstance();
-    }
-
     /**
      * This method is used to load the UDDI Connection Information form the uddiConnectionInfo.xml file.
      */
@@ -132,12 +121,6 @@ public class ConnectionManagerCache implements ConnectionManager {
         BusinessDetail businessDetail = null;
         try {
             businessDetail = getUddiConnectionManagerDAO().loadBusinessDetail();
-            /*
-             * For the new FHIR schema, work flow will be to read the exchangeInfo.xml and for each exchange element,
-             * read the url and download form the source and update organization list. TODO Call to transformUDDI will
-             * be replaced by the above flow.
-             */
-            transformUDDI(businessDetail);
         } catch (Exception ex) {
             LOG.error("Could not load UDDI business details: " + ex.getLocalizedMessage(), ex);
         }
@@ -1015,29 +998,5 @@ public class ConnectionManagerCache implements ConnectionManager {
         }
 
         return null;
-    }
-
-    private void transformUDDI(BusinessDetail bDetail) {
-        try {
-            ExchangeInfoType exchangeInfo = this.getExchangeInfoDAO().loadExchangeInfo();
-            updateExchangeWithNewUDDIListing(exchangeInfo, UDDIConstants.UDDI_EXCHANGE_TYPE, transformer.transform(
-                bDetail));
-            this.getExchangeInfoDAO().saveExchangeInfo(exchangeInfo);
-        } catch (ConnectionManagerException ex) {
-            LOG.error("Unable to transform UDDI: {}", ex.getLocalizedMessage(), ex);
-        }
-    }
-
-    private static void updateExchangeWithNewUDDIListing(ExchangeInfoType exchangeInfo, String type,
-        OrganizationListType orgList) {
-        List<ExchangeType> exList = exchangeInfo.getExchanges().getExchange();
-        if (CollectionUtils.isNotEmpty(exList)) {
-            for (ExchangeType ex : exList) {
-                if (type.equalsIgnoreCase(ex.getType())) {
-                    ex.setOrganizationList(orgList);
-                    break;
-                }
-            }
-        }
     }
 }

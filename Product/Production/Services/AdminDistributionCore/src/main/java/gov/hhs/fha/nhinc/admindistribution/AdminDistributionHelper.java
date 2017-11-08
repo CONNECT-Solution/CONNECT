@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.admindistribution;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -126,7 +126,7 @@ public class AdminDistributionHelper {
                 url = webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, targetSystem, apiLevel);
             } catch (Exception ex) {
                 LOG.error("Error: Failed to retrieve url for service {}: {}", targetSystem, ex.getLocalizedMessage(),
-                        ex);
+                    ex);
             }
         } else {
             LOG.error("Target system passed into the proxy is null");
@@ -146,10 +146,10 @@ public class AdminDistributionHelper {
      */
     public String getAdapterUrl(String adapterServcice, NhincConstants.ADAPTER_API_LEVEL adapterApiLevel) {
         try {
-            return ConnectionManagerCache.getInstance().getAdapterEndpointURL(adapterServcice, adapterApiLevel);
-        } catch (ConnectionManagerException ex) {
+            return InternalExchangeManager.getInstance().getEndpointURL(adapterServcice, adapterApiLevel);
+        } catch (ExchangeManagerException ex) {
             LOG.error("Error: Failed to retrieve url for service {}: {}",
-                    NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ex.getLocalizedMessage(), ex);
+                NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ex.getLocalizedMessage(), ex);
         }
 
         return null;
@@ -165,10 +165,10 @@ public class AdminDistributionHelper {
         boolean result = false;
         try {
             result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    propertyName);
+                propertyName);
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve {} from property file {}: ", propertyName,
-                    NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
+                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return result;
     }
@@ -185,7 +185,7 @@ public class AdminDistributionHelper {
             result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (Exception ex) {
             LOG.error("Unable to retrieve property {} from {}.properties: {}", propertyName,
-                    NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
+                NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
         }
         return result;
     }

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ObjectFactory;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
 import javax.xml.bind.JAXBContext;
@@ -84,17 +85,25 @@ public final class ExchangeInfoDAOFileImpl extends AbstractConnectionManagerDAO<
         return file != null && file.exists();
     }
 
-    public ExchangeInfoType loadExchangeInfo() throws ConnectionManagerException {
+    public ExchangeInfoType loadExchangeInfo() throws ExchangeManagerException {
         if (!isFile()) {
-            throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
+            throw new ExchangeManagerException("Unable to access system variable: nhinc.properties.dir.");
         }
         ExchangeInfoType resp;
-        resp = super.loadExchangeInfo(ExchangeInfoType.class, file);
+        try {
+            resp = super.loadExchangeInfo(ExchangeInfoType.class, file);
+        } catch (ConnectionManagerException ex) {
+            throw new ExchangeManagerException(ex);
+        }
         return resp;
     }
 
-    public void saveExchangeInfo(ExchangeInfoType exchangeInfo) throws ConnectionManagerException {
-        saveExchangeInfo(exchangeInfo, file);
+    public void saveExchangeInfo(ExchangeInfoType exchangeInfo) throws ExchangeManagerException {
+        try {
+            saveExchangeInfo(exchangeInfo, file);
+        } catch (ConnectionManagerException ex) {
+            throw new ExchangeManagerException(ex);
+        }
     }
 
     public long getLastModified() {

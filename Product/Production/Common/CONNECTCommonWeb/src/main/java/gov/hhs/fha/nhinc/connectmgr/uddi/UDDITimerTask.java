@@ -45,19 +45,14 @@ public class UDDITimerTask {
     private static final String UDDI_SWITCH_PROPERTY = "UDDIRefreshActive";
 
     protected void forceRefreshUDDIFile() {
-        try {
-            UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
-            helper.forceRefreshUDDIFile();
-        } catch (UDDIAccessorException ex) {
-            LOG.warn("****** UDDITimerTask THROWABLE: {}", ex.getLocalizedMessage(), ex);
-
-            for (StackTraceElement ste : ex.getStackTrace()) {
-                if (ste.toString().contains("EJBClassLoader")) {
-                    UDDITimer.getInstance().stopTimer();
-                    break;
-                }
-            }
+        /*
+         * try { UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper(); helper.forceRefreshUDDIFile(); } catch
+         * (UDDIAccessorException ex) { LOG.warn("****** UDDITimerTask THROWABLE: {}", ex.getLocalizedMessage(), ex);
+         *
+         * for (StackTraceElement ste : ex.getStackTrace()) { if (ste.toString().contains("EJBClassLoader")) {
+         * UDDITimer.getInstance().stopTimer(); break; } }
         }
+         */
     }
 
     /**
@@ -67,7 +62,7 @@ public class UDDITimerTask {
         boolean bUDDIActive;
         try {
             bUDDIActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-                    UDDI_SWITCH_PROPERTY);
+                UDDI_SWITCH_PROPERTY);
 
             if (bUDDIActive) {
                 LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
@@ -80,7 +75,7 @@ public class UDDITimerTask {
             }
         } catch (PropertyAccessException ex) {
             LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: {}",
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
         }
     }
 
