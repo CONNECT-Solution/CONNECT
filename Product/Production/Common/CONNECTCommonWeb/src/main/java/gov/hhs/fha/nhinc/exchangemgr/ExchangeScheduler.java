@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.exchangemgr;
 
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,13 +42,6 @@ public class ExchangeScheduler extends Thread {
     private boolean m_bRunnable = false;
     private long refreshInterval;
     private static final int DEFAULT_EXCHANGE_REFRESH_INTERVAL = 1440; // a day in minutes
-    private static final int MINUTES_TO_MILLIS = 60000;
-
-    /**
-     * Default constructor
-     */
-    protected ExchangeScheduler() {
-    }
 
     /**
      * Get an instance
@@ -74,9 +68,7 @@ public class ExchangeScheduler extends Thread {
             getInstance().setDaemon(true);
             getInstance().start();
         } catch (Exception e) {
-            String sErrorMessage = "Failed to start the Exchange Scheduler.  Error: " + e.getMessage();
-            LOG.error(sErrorMessage, e);
-            throw new ExchangeSchedulerException(sErrorMessage, e);
+            throw new ExchangeSchedulerException("Failed to start the Exchange Scheduler: " + e.getLocalizedMessage(), e);
         }
         LOG.info("ExchangeScheduler has just been started now.");
     }
@@ -92,6 +84,7 @@ public class ExchangeScheduler extends Thread {
             ExchangeScheduledTask exTask = new ExchangeScheduledTask();
             exTask.task();
             try {
+                LOG.info("Putting {} for sleep for {} milliseconds", getInstance().getName(), refreshInterval);
                 Thread.sleep(refreshInterval);
             } catch (InterruptedException ex) {
                 LOG.error("Failed to put {} to sleep: {}", getInstance().getName(), ex.getLocalizedMessage(), ex);
@@ -104,9 +97,9 @@ public class ExchangeScheduler extends Thread {
             ExchangeInfoType exInfo = ExchangeInfoDAOFileImpl.getInstance().loadExchangeInfo();
             long interval = exInfo.getRefreshInterval();
             if (interval <= 0) {
-                refreshInterval = DEFAULT_EXCHANGE_REFRESH_INTERVAL * MINUTES_TO_MILLIS;
+                refreshInterval = TimeUnit.MINUTES.toMillis(DEFAULT_EXCHANGE_REFRESH_INTERVAL);
             } else {
-                refreshInterval = interval * MINUTES_TO_MILLIS;
+                refreshInterval = TimeUnit.MINUTES.toMillis(interval);
             }
         } catch (ExchangeManagerException ex) {
             LOG.error("Unable to load exchange information {}", ex.getLocalizedMessage(), ex);

@@ -33,20 +33,20 @@ import org.slf4j.LoggerFactory;
  *
  * @author tjafri
  */
-public class SchedulerKickOff {
+public class ExchangeUpdateScheduler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SchedulerKickOff.class);
-
-    public SchedulerKickOff() {
-    }
+    private static final Logger LOG = LoggerFactory.getLogger(ExchangeUpdateScheduler.class);
 
     public void init() {
         try {
             LOG.info("Starting ExchangeScheduler");
             ExchangeScheduler.getInstance().startTimer();
         } catch (ExchangeSchedulerException ex) {
-            LOG.error("Unable to start ExcahngeScheduler {}", ex.getLocalizedMessage(), ex);
+            LOG.error("Unable to start ExchangeScheduler {}", ex.getLocalizedMessage(), ex);
         }
+    }
 
+    public void destroy() {
+        ExchangeScheduler.getInstance().stopTimer();
     }
 }
