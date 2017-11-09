@@ -64,6 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.activation.DataHandler;
 import org.apache.commons.collections.CollectionUtils;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -327,6 +328,10 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
+            public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
+                //do nothing
+            }
+            
             public HashMap<String, String> getKeyStoreSystemProperties() {
                 return null;
             }

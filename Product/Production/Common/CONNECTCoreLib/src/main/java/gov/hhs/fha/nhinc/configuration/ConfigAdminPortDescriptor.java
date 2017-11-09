@@ -24,44 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.configuration;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
-import java.util.List;
+import gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  *
- * @author tjafri
+ * @author jassmit
  */
-public interface CertificateManagerService {
+public class ConfigAdminPortDescriptor extends SOAP12ServicePortDescriptor<EntityConfigAdminPortType>{
 
-    public List<Certificate> fetchKeyStores();
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:configadmin"
+            + "EntityConfigAdminUnsecuredRequest";
+    
+    @Override
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION;
+    }
 
-    public List<Certificate> fetchTrustStores();
-
-    public String getKeyStoreLocation();
-
-    public String getTrustStoreLocation();
-
-    public List<Certificate> refreshKeyStores();
-
-    public List<Certificate> refreshTrustStores();
-
-    public Certificate createCertificate(byte[] data);
-
-    public boolean isAliasInUse(String alias, List<Certificate> certs);
-
-    public boolean isLeafOnlyCertificate(Certificate cert);
-
-    public void importCertificate(Certificate cert) throws Exception;
-
-    public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
-
-    public boolean validateTrustStorePassKey(String passkey);
-
-    public boolean updateCertificateTS(String oldAlias, Certificate cert) throws CertificateManagerException;
-
-    public boolean updateCertificateKS(String oldAlias, Certificate cert) throws CertificateManagerException;
+    @Override
+    public Class<EntityConfigAdminPortType> getPortClass() {
+        return EntityConfigAdminPortType.class;
+    }
     
 }
