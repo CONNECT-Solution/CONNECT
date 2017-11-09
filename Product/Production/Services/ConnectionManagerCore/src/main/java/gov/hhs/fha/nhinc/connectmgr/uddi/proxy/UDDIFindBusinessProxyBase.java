@@ -60,23 +60,23 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
      * (non-Javadoc) @see gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy#findBusinessesFromUDDI()
      */
     @Override
-    public abstract BusinessList findBusinessesFromUDDI(String targetURL) throws UDDIFindBusinessException;
+    public abstract BusinessList findBusinessesFromUDDI(String exchangeURL) throws UDDIFindBusinessException;
 
     /*
      * (non-Javadoc) @see
      * gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy#getBusinessDetail(org.uddi.api_v3.GetBusinessDetail)
      */
     @Override
-    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String targetURL) throws
+    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String exchangeURL) throws
         UDDIFindBusinessException {
 
         BusinessDetail businessDetail;
         try {
-            if (StringUtils.isEmpty(targetURL)) {
-                throw new UDDIFindBusinessException("Invalid target URL: " + targetURL);
+            if (StringUtils.isEmpty(exchangeURL)) {
+                throw new UDDIFindBusinessException("Invalid target URL: " + exchangeURL);
             }
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, targetURL, null);
+            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, exchangeURL, null);
             businessDetail = (BusinessDetail) client.invokePort(UDDIInquiryPortType.class, "getBusinessDetail",
                 searchParams);
 

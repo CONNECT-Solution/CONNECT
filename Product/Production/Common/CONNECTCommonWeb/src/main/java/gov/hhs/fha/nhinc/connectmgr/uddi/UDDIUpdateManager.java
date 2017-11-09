@@ -47,7 +47,7 @@ public class UDDIUpdateManager
     @Override
     public gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(
         gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType uddiUpdateManagerForceRefreshRequest) {
-        LOG.info("forceRefreshFileFromUDDIServer");
+        LOG.trace("forceRefreshFileFromUDDIServer");
         UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
         return helper.forceRefreshFileFromUDDIServer(uddiUpdateManagerForceRefreshRequest);
     }

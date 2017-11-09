@@ -13,5 +13,5 @@
 
     <context:annotation-config />
     <context:component-scan base-package="gov.hhs.fha.nhinc.exchangemgr" />
-    <bean id="scheduler" class="gov.hhs.fha.nhinc.exchangemgr.SchedulerKickOff"  init-method="init"/>
+    <bean id="scheduler" class="gov.hhs.fha.nhinc.exchangemgr.ExchangeUpdateScheduler"  init-method="init" destroy-method="destroy"/>
 </beans>
