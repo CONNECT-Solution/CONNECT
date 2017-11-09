@@ -294,6 +294,10 @@
             <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>ConfigAdminWebservices</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -380,6 +380,9 @@ public class NhincConstants {
     public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
+    
+    //Config Admin
+    public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";
 
     // CORE X12 Document Submission RealTime Constants
     public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";

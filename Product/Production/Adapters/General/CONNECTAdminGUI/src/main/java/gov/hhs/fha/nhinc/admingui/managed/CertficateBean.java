@@ -271,7 +271,7 @@ public class CertficateBean {
                     selectedCertificate = null;
                     RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
                     LOG.info("importCertificate -- successful");
-                } catch (CertificateManagerException ex) {
+                } catch (Exception ex) {
                     LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
                     HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, ex.getLocalizedMessage());
                 }
