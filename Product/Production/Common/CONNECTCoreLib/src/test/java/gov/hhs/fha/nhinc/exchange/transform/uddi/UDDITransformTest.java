@@ -27,12 +27,24 @@
 package gov.hhs.fha.nhinc.exchange.transform.uddi;
 
 import gov.hhs.fha.nhinc.connectmgr.BaseConnctionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
+import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalExchangeInfoDAOFileImpl;
+import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
+import gov.hhs.fha.nhinc.exchange.ExchangeListType;
+import gov.hhs.fha.nhinc.exchange.ExchangeType;
+import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -46,6 +58,9 @@ import org.uddi.api_v3.BusinessDetail;
 public class UDDITransformTest extends BaseConnctionManagerCache {
 
     private static final String UDDI_FILE = "/config/ConnectionManagerCacheTest/uddiToExchangeSchemaTransform.xml";
+    private static final String ICI_FILE = "/config/ConnectionManagerCacheTest/internalConnectionInfoAdapterTest.xml";
+    private static final String INTERNAL_EXCHANE_FILE
+        = "/config/ConnectionManagerCacheTest/internalExchangeInfoTest.xml";
     private static final Logger LOG = LoggerFactory.getLogger(UDDITransformTest.class);
     private static final String ENTITY_1_NAME = "Health Solutions";
     private static final String ENTITY_1_HCID = "urn:oid:2";
@@ -123,6 +138,28 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
         assertEquals("Expecting an empty EndpointList", 0, org.get(0).getEndpointList().getEndpoint().size());
     }
 
+    @Test
+    public void transformICI() throws ExchangeManagerException {
+        try {
+            InternalConnectionInfoDAOFileImpl internalDao = createInternalConnectionInfoDAO(ICI_FILE);
+            OrganizationListType org = transformer.transform(internalDao.loadBusinessDetail());
+            ExchangeInfoType exInfo = new ExchangeInfoType();
+            exInfo.setDefaultExchange("adapter");
+            exInfo.setRefreshActive(false);
+            ExchangeListType exList = new ExchangeListType();
+            ExchangeType exType = new ExchangeType();
+            exType.setName("adapter");
+            exType.setType("local");
+            exType.setOrganizationList(org);
+            exList.getExchange().add(exType);
+            exInfo.setExchanges(exList);
+            InternalExchangeInfoDAOFileImpl exDao = createInternalExchangeInfoDAO(INTERNAL_EXCHANE_FILE);
+            exDao.saveExchangeInfo(exInfo);
+        } catch (ConnectionManagerException | ExchangeManagerException ex) {
+            LOG.error("Unable to save {} {}", ICI_FILE, ex.getLocalizedMessage(), ex);
+        }
+    }
+
     private void verifyOrganizationsWithBusinessEntities(List<OrganizationType> orgList) {
         assertEquals("Transform Object should have 3 organizations", orgList.size(), 3);
         OrganizationType org = orgList.get(0);
@@ -178,4 +215,19 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
     private BusinessDetail loadBusinessDetail(String fileName) throws Exception {
         return createUddiConnectionInfoDAO(fileName).loadBusinessDetail();
     }
+
+    protected InternalExchangeInfoDAOFileImpl createInternalExchangeInfoDAO(String filename) {
+        try {
+            URL url = this.getClass().getResource(filename);
+            File exchangeInfoFile = new File(url.toURI());
+            assertTrue("File does not exist: " + exchangeInfoFile, exchangeInfoFile.exists());
+            InternalExchangeInfoDAOFileImpl exchangeDAO = InternalExchangeInfoDAOFileImpl.getInstance();
+            exchangeDAO.setFileName(exchangeInfoFile.getAbsolutePath());
+
+            return exchangeDAO;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
