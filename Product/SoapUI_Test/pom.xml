@@ -104,7 +104,7 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
-                            <includes>gateway.properties,adapter.properties,PCConfiguration.xml,internalConnectionInfo.xml,XDSUniqueIds.properties</includes>
+                            <includes>gateway.properties,adapter.properties,PCConfiguration.xml,internalExchangeInfo.xml,XDSUniqueIds.properties</includes>
                             <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>

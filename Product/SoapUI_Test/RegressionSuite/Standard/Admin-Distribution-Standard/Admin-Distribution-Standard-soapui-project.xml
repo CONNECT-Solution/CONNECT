@@ -2525,12 +2525,12 @@ assert (count == 4);</script>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="0ca598d5-503e-4111-9c2b-0bcae1119548">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="0ca598d5-503e-4111-9c2b-0bcae1119548">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
 
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_AD_multitarget.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "exchangeInfo_AD_multitarget.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="clear audit table" type="groovy" id="ded7d609-ee8c-4d00-a3a9-17163b842e50">
@@ -2980,7 +2980,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18082/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="send request" type="request" id="73aefc64-db84-4848-b21a-78bcc197162c">
@@ -4889,7 +4889,7 @@ def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdmin";
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), RemoteHCID, "AdminDistribution", URL, "2.0", log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", context.findProperty("GatewayPropDir"), RemoteHCID, "AdminDistribution", URL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="AdminDist Request" type="request" id="3d42d121-191e-4ed2-9387-d21906ed7480">
@@ -5377,7 +5377,7 @@ assert (count == 2);</script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>RemoteHCID2</con:name>

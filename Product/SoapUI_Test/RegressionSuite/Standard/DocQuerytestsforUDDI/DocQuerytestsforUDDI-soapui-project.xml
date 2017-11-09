@@ -1485,11 +1485,11 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4d4e3ed4-32ff-4ac4-9292-e78373844464" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for both HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="dd3adebe-96f8-42b3-9add-53b0d563433f">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="dd3adebe-96f8-42b3-9add-53b0d563433f">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-exchangeInfo.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy" id="d9349e06-10d2-4f52-9d6e-2d1630fe28c9">
@@ -1553,7 +1553,7 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="76a0c8ab-8dc7-4006-9d12-7887474d5ff6">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="76a0c8ab-8dc7-4006-9d12-7887474d5ff6">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -1563,8 +1563,8 @@ def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/Respon
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="9e5ba940-8d86-43c2-809d-1d1265c460ff">
@@ -1895,7 +1895,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-exchangeInfo.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy" id="deaa36c8-2679-4e0f-a860-2df7b21806cf">
@@ -1959,7 +1959,7 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="5a5b57d8-f6c0-45d4-bc90-ee8282ebeb8c">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="5a5b57d8-f6c0-45d4-bc90-ee8282ebeb8c">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -1969,8 +1969,8 @@ def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/Respon
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="67208762-bf7d-4491-857b-652e3ef379ba">
@@ -3020,8 +3020,8 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), "internalConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-exchangeInfo.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), "internalExchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy" id="1da848a8-7917-47fa-9a27-3fcc82f8ceea">
@@ -3097,7 +3097,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", conte
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="95eba69f-bb13-457a-b66b-1dbd9523369b">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="95eba69f-bb13-457a-b66b-1dbd9523369b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3110,8 +3110,8 @@ def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/Respon
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="79bb7321-d409-43cc-a79c-51152370fb6b">
@@ -3477,7 +3477,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="f36e4436-9c23-4830-be35-3adf06198033">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="f36e4436-9c23-4830-be35-3adf06198033">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3490,8 +3490,8 @@ def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/Respon
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="1c02592d-d304-47c0-b83e-5056fc34ebb9">
@@ -3795,7 +3795,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), "internalConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), "internalExchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy" id="6c6b56b6-7513-46ea-969b-5c59d441e37f">
@@ -4563,11 +4563,11 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b673cce6-4e31-401e-8fb0-1b98f7e35455" keepSession="false" maxResults="0" name="State Alt Path - Region and associated HCID in target xml results in one response" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="f6c216f0-0a82-4f35-9c1f-8c64ab74c7e0">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="f6c216f0-0a82-4f35-9c1f-8c64ab74c7e0">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-exchangeInfo.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy" id="413f6b21-c60a-4763-9ae5-f56084bf35fa">
@@ -4628,7 +4628,7 @@ nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.f
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="4763616f-f758-4e38-aab3-793f790a534f">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="4763616f-f758-4e38-aab3-793f790a534f">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -4641,8 +4641,8 @@ def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/Respon
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid4");
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="f54cb1b1-1d61-4159-8584-472c98e14067">
@@ -4973,7 +4973,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="9e940daf-b52b-4d96-992c-cef25421fd38" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="308c2f9f-b4e9-481d-ae96-7f19b9c0192c">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="308c2f9f-b4e9-481d-ae96-7f19b9c0192c">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -4984,9 +4984,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
-def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
+def sourceFile = "UDDIcopy-exchangeInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5004,9 +5004,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
-def sourceFile = "UDDIcopy-internalConnectionInfo.xml";
+def sourceFile = "UDDIcopy-internalExchangeInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5111,7 +5111,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="f48ae841-9c0f-4143-90b2-fc98186118c1">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="f48ae841-9c0f-4143-90b2-fc98186118c1">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -5121,7 +5121,7 @@ def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID = context.findProperty( "UDDIhcid1" );
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="de6a842c-7504-41f2-a531-ee9f140246a0">
@@ -5456,8 +5456,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), "internalConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-exchangeInfo.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(sourceDir, "UDDIcopy-internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), "internalExchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table" type="groovy" id="49c11e95-b68b-4924-a931-20bb578a0772">
@@ -5536,9 +5536,9 @@ def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 def remoteHCID4 = context.findProperty("UDDIhcid4");
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID4, "QueryForDocuments", dQURL, "2.0", log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID4, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="f844b6a9-5833-4693-a572-10d91c9df956">
@@ -5879,7 +5879,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5d62165c-7a92-4211-b4a8-22f1793f3c0c" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID IN UDDI file" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="a8a8906c-1a2b-4a08-a354-579fdb393b40">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="a8a8906c-1a2b-4a08-a354-579fdb393b40">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -5890,9 +5890,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
-def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
+def sourceFile = "UDDIcopy-exchangeInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5973,7 +5973,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="f98bb559-6b60-449a-a437-fba968f466df">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="f98bb559-6b60-449a-a437-fba968f466df">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -5983,7 +5983,7 @@ def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID = context.findProperty( "UDDIhcid1" );
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="88707946-6186-44df-b69b-e374dbca1f7b">
@@ -6292,7 +6292,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="36a54623-51cc-45c0-8808-e1f6faaa6555">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="36a54623-51cc-45c0-8808-e1f6faaa6555">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -6303,9 +6303,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
-def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
+def sourceFile = "UDDIcopy-exchangeInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -6386,7 +6386,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="adf72f2c-4f1f-43b8-b294-55a371b35937">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="adf72f2c-4f1f-43b8-b294-55a371b35937">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -6396,7 +6396,7 @@ def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID = context.findProperty( "UDDIhcid1" );
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="086a8a10-434b-4d80-8675-7b10ca399dcb">
@@ -6762,7 +6762,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="update config - uddiConnectionInfo" type="groovy" id="4fbee7dd-68fc-4e85-bd49-46bf030b1e8b">
+      <con:testStep name="update config - exchangeInfo" type="groovy" id="4fbee7dd-68fc-4e85-bd49-46bf030b1e8b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -6775,8 +6775,8 @@ def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/Respon
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="96e5f9aa-77fd-4086-9fcb-d0702528f4ed">

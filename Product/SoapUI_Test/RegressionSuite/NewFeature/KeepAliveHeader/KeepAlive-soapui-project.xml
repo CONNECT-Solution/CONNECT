@@ -5026,11 +5026,11 @@ def gatewayPropertiesFile = context.findProperty('GatewayPropDir') + '/gateway.p
 def file = new File(gatewayPropertiesFile)
 file.text = file.text.replace('readHttpHeaders=false', 'readHttpHeaders=T')
 
-def uddiFile = context.findProperty('GatewayPropDir') + '/uddiConnectionInfo.xml'
+def uddiFile = context.findProperty('GatewayPropDir') + '/exchangeInfo.xml'
 def file2 = new File(uddiFile)
 file2.text = file2.text.replace('http://localhost:8888/mockRespondingGateway_Query_Binding_Soap', 'https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery')
 
-def internalCIFile = context.findProperty('GatewayPropDir') + '/internalConnectionInfo.xml'
+def internalCIFile = context.findProperty('GatewayPropDir') + '/internalExchangeInfo.xml'
 def file3 = new File(internalCIFile)
 //Uncomment for testing nonsecured adapter calls -- file3.text = file3.text.replace('http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service', 'http://localhost:9999/KeepAliveMockAdapter')
 file3.text = file3.text.replace('https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured', 'http://localhost:7777/DocQueryMockAdapter')</con:setupScript>

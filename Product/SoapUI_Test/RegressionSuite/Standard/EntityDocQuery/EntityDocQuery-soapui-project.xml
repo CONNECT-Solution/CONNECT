@@ -16,11 +16,11 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="9442c9f2-3b7f-486b-88fe-756d9b75c66f">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="9442c9f2-3b7f-486b-88fe-756d9b75c66f">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "exchangeInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       
@@ -76,8 +76,8 @@ def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinServ
 
 def HCID3 = context.findProperty( "RemoteHCID2" );
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1,"2.0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1,"2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="e04fb984-2d28-497c-a650-211e1af55204">
         <con:settings/>
@@ -369,11 +369,11 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="e9cb17e2-e4e0-492c-9e9b-eee8c1641d9c">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="e9cb17e2-e4e0-492c-9e9b-eee8c1641d9c">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "exchangeInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       
@@ -427,8 +427,8 @@ def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinServ
 def HCID3 = context.findProperty( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host + ":8181/RespondingGateway_Query_Service/BadURL";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="78d22b22-27c8-49c7-9b53-81edc2cb26d9">
         <con:settings/>
@@ -735,11 +735,11 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="0a0a29e8-7577-4af9-b86a-1aa608f2a800">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="0a0a29e8-7577-4af9-b86a-1aa608f2a800">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "exchangeInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       
@@ -789,7 +789,7 @@ def Host = context.findProperty("Host");
 def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="01b5a358-1238-41bd-8bbe-1b16698f992f">
         <con:settings/>
@@ -1086,11 +1086,11 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
       <con:description>This test do a Document query fan-out based on region US_NY define in NhinTargetCommunities.</con:description><con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="b530ae9e-3173-4f56-9046-da7d19db1f91">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="b530ae9e-3173-4f56-9046-da7d19db1f91">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "exchangeInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       
@@ -1144,8 +1144,8 @@ def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinServ
 
 def HCID3 = context.findProperty( "RemoteHCID2" );
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="5cf3e38b-1014-45af-99fb-3609c2a58c16">
         <con:settings/>
@@ -1456,11 +1456,11 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
       <con:settings/>
-      <con:testStep name="Copy uddiConnectionInfo" type="groovy" id="0a0997cd-d994-4d4a-ade3-6cfb0580fe0a">
+      <con:testStep name="Copy exchangeInfo" type="groovy" id="0a0997cd-d994-4d4a-ade3-6cfb0580fe0a">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}');
-nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script>
+nhinc.FileUtils.copyFile(sourceDir, "exchangeInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "exchangeInfo.xml", log);</script>
         </con:config>
       </con:testStep>
       
@@ -1513,8 +1513,8 @@ def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def HCID3 = context.findProperty( "RemoteHCID2" );
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request" id="bdec9800-bd81-44ce-8fc4-84558f1ba7d8">
         <con:settings/>

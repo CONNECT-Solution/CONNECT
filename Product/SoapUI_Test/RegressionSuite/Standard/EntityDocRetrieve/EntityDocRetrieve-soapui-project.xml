@@ -233,17 +233,17 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f9ae55a3-041d-456c-8991-3f8768d021f0" keepSession="false" maxResults="0" name="Document Retrieve Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="copy uddiConnectionInfo" id="a2f8d557-b265-4858-879e-33f224db5635">
+      <con:testStep type="groovy" name="copy exchangeInfo" id="a2f8d557-b265-4858-879e-33f224db5635">
         <con:settings/>
         <con:config>
-          <script>def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+          <script>def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 def sourceDir = context.expand('${projectDir}')
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Set uddiConnectionInfo" type="groovy" id="804b7b27-cfc5-4da6-933a-380c54624a57">
+      <con:testStep name="Set exchangeInfo" type="groovy" id="804b7b27-cfc5-4da6-933a-380c54624a57">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -255,8 +255,8 @@ def docRetrieveURL2_30 = "https://" + host + ":8181/Gateway/DocumentRetrieve/3_0
 def HCID3 = context.findProperty( "RemoteHCID2" );
 def docRetrieveURL3_20 = "https://" + host + ":8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_20,"2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_20,"2.0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_20,"2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_20,"2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Retrieve" type="request" id="37948658-346d-4ed7-b39f-563de37407f7">
@@ -554,18 +554,18 @@ count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="db9ed78d-5fc0-473b-a15a-4ed7a5ab27b2" keepSession="false" maxResults="0" name="Document Retrieve Fanout - bad endpoint" searchProperties="true">
       <con:settings/>
-      <con:testStep type="groovy" name="copy uddiConnectionInfo" id="5ec89153-8ff1-49c2-aa1d-8f796429aa44">
+      <con:testStep type="groovy" name="copy exchangeInfo" id="5ec89153-8ff1-49c2-aa1d-8f796429aa44">
         <con:settings/>
         <con:config>
           <script>def sourceDir = context.expand('${projectDir}')
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Set uddiConnectionInfo" type="groovy" id="2a002794-3572-40a4-ae43-c7049863bdf9">
+      <con:testStep name="Set exchangeInfo" type="groovy" id="2a002794-3572-40a4-ae43-c7049863bdf9">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -578,11 +578,11 @@ def HCID3 = context.findProperty( "RemoteHCID2" );
 def docRetrieveURL3_20_bad = "https://" + host + ":8181/bad_endpoint";
 def docRetrieveURL3_30_bad = "https://" + host + ":8181/bad_endpoint";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_20,"2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_30,"3.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_20,"2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_30,"3.0", log)
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_20_bad,"2.0", log)
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_30_bad,"3.0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_20_bad,"2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_30_bad,"3.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Retrieve" type="request" id="4dc325ab-d1f1-43e3-956f-4327e21ec914">

@@ -37,7 +37,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -375,8 +375,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -412,7 +412,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -750,8 +750,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -792,7 +792,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -1130,8 +1130,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -1167,7 +1167,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -1505,8 +1505,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -1547,7 +1547,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -1885,8 +1885,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -1922,7 +1922,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -2260,8 +2260,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -2302,7 +2302,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -2640,8 +2640,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -2682,7 +2682,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -3020,8 +3020,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -3062,7 +3062,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -3400,8 +3400,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -3442,7 +3442,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -3780,8 +3780,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -3822,7 +3822,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -4160,8 +4160,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.20.inbound",context);
@@ -4200,7 +4200,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -4538,8 +4538,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
@@ -4583,7 +4583,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -4921,8 +4921,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.20.inbound",context);
@@ -4961,7 +4961,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -5299,8 +5299,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
@@ -5344,7 +5344,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -5682,8 +5682,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.20.inbound",context);
@@ -5722,7 +5722,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -6060,8 +6060,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
@@ -6105,7 +6105,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -6443,8 +6443,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.20.inbound",context);
@@ -6488,7 +6488,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -6826,8 +6826,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.20.inbound",context);
@@ -6871,7 +6871,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -7209,8 +7209,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
@@ -7254,7 +7254,7 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -7592,8 +7592,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayRetrieveRequest/a:assertion/c:
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docretrieve.30.inbound",context);
