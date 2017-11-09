@@ -26,7 +26,7 @@ detectedIssueEvent\text.</con:description>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery bad URL" searchProperties="true" id="73e5ebdb-e1c9-40ce-9ade-670476d53f05">
       <con:description/>
       <con:settings/>
-      <con:testStep name="Modify uddiConnectionInfo" type="groovy" id="8056af45-0538-4d5f-91be-d8b78ae7006b">
+      <con:testStep name="Modify exchangeInfo" type="groovy" id="8056af45-0538-4d5f-91be-d8b78ae7006b">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -34,7 +34,7 @@ def mockHost = context.findProperty("mockHost");
 
 def badURL = "https://" + mockHost + ":8181/badURL";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", badURL, "2.0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", badURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="request" name="Patient Discovery" id="784ae585-bd31-4943-a6a8-c70d0ee1585c">
@@ -383,7 +383,7 @@ detectedIssueEvent\text.</con:description>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery bad URL" searchProperties="true" id="47d23875-bf40-4059-bd25-aca056cd34d7">
       <con:description/>
       <con:settings/>
-      <con:testStep name="Modify uddiConnectionInfo" type="groovy" id="34eb04ba-1ad1-47c5-b0c6-67462909bd6d">
+      <con:testStep name="Modify exchangeInfo" type="groovy" id="34eb04ba-1ad1-47c5-b0c6-67462909bd6d">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -391,7 +391,7 @@ def mockHost = context.findProperty("mockHost");
 
 def badURL = "https://" + mockHost + ":8181/badURL";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", badURL, "2.0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", badURL, "2.0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="request" name="Patient Discovery" id="8f4baf99-df33-4f68-b877-d0fc6bd481c8">

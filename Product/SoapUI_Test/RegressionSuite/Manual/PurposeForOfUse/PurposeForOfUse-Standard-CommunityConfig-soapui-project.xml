@@ -3913,7 +3913,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -7996,7 +7996,7 @@ B) Look for PurposeForUse within request and  should populate as shown "&lt;hl7:
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -12071,7 +12071,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -16150,7 +16150,7 @@ B) Look for purposeForuse within request and  should populate as shown "&lt;hl7:
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -20225,7 +20225,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -24304,7 +24304,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -28379,7 +28379,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -32458,7 +32458,7 @@ B) Look for purposeofuse within request and  should populate as shown "hl7:Purpo
 nhinc.FileUtils.backupFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);
 nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "purposeuse", "purposeusedefault", "purposeusecommunity", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreFile(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", log);
 nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
@@ -32555,7 +32555,7 @@ nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropert
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

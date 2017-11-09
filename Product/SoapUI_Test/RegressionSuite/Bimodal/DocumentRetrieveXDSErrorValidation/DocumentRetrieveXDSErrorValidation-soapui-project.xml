@@ -53,7 +53,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="53c9c6d8-ed46-4166-ad10-2294c4b6025a">
@@ -382,7 +382,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="78d3b2bd-583f-4163-87d2-6a8104c42618">
@@ -710,7 +710,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="f2cdc14b-2c14-4b34-8acd-4e49f6e29881">
@@ -1038,7 +1038,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="956d3f8a-bbc3-4ea6-82c9-187f54f213ec">
@@ -1366,7 +1366,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="b757531c-799e-4e80-aff5-5d3551b38528">
@@ -1694,7 +1694,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="f912099c-ff77-42b4-99d0-9dfa6c824c1c">
@@ -2022,7 +2022,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="6f4ae1dc-231c-43f2-a45c-7bd96851b1d6">
@@ -2350,7 +2350,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="909e7cb4-b39a-40d6-9d98-6e6e64039fd7">
@@ -2684,7 +2684,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="c58b6644-7e3a-4aba-9ff6-e8f0b7e97d23">
@@ -3017,7 +3017,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="bedd1d99-7ae0-4658-990d-818e34ed3f74">
@@ -3349,7 +3349,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="ad99c13a-37b9-4eeb-9a98-a210a9cf659f">
@@ -3681,7 +3681,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="87628a94-d5e2-47f5-9fe6-70363bf5d9d7">
@@ -4013,7 +4013,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="f7f3680b-b9c4-40b4-b9f8-c895c0ee8cda">
@@ -4345,7 +4345,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="3b6420ca-a470-4218-bd21-a5192cae5116">
@@ -4677,7 +4677,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="7af37f39-00e9-4512-9818-0d2eb1eb2e4e">
@@ -5009,7 +5009,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Nhinc Doc Retrieve Request" type="request" id="d28a81ab-8863-4d15-9c14-bdac890fe989">
