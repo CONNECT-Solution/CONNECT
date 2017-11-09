@@ -49,7 +49,7 @@ def mockHost = context.findProperty("MockHost");
 def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="1094642f-c71f-401b-b1a2-edf35401dc13">
@@ -391,7 +391,7 @@ def mockHost = context.findProperty("MockHost");
 def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine1";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate HCID for Doc Retrieve" type="groovy" id="4351cd14-79fd-41ed-891e-f68a3070fa73">

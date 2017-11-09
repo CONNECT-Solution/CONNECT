@@ -489,6 +489,7 @@ public class FileUtils {
     public static void restoreConfiguration(String configDir, Logger log, Boolean optionDel) {
         log.info("Start restoreConfiguration");
         try {
+            log.info(MessageFormat.format("configDir: {0}", configDir));
             File backupDir = new File(configDir, TEMP_DIR);
             File confDir = new File(configDir);
             // restore the files back

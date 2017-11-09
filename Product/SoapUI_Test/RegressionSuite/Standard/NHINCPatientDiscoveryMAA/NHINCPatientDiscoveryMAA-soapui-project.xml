@@ -486,7 +486,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>DateOfSignature</con:name>

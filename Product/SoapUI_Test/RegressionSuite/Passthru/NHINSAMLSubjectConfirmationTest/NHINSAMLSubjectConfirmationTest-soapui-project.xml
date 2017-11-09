@@ -44,7 +44,7 @@
           <script>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.updateProperty(dir, "gateway.properties", "documentQueryQuerySelf", "false", log);
 nhinc.FileUtils.updateProperty(dir, "audit.properties", "QueryForDocuments", "false", log);
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
           </script>
         </con:config>
       </con:testStep>
@@ -262,7 +262,7 @@ context.mockRunner.getMockContext().removeProperty('HOK');</con:tearDownScript>
           <script>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.updateProperty(dir, "gateway.properties", "documentQueryQuerySelf", "false", log);
 nhinc.FileUtils.updateProperty(dir, "audit.properties", "QueryForDocuments", "false", log);
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
           </script>
         </con:config>
       </con:testStep>
@@ -493,7 +493,7 @@ context.mockRunner.getMockContext().removeProperty('BEARER');</con:tearDownScrip
           <script>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.updateProperty(dir, "gateway.properties", "documentQueryQuerySelf", "false", log);
 nhinc.FileUtils.updateProperty(dir, "audit.properties", "QueryForDocuments", "false", log);
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
           </script>
         </con:config>
       </con:testStep>
@@ -716,7 +716,7 @@ context.mockRunner.getMockContext().removeProperty('SV');</con:tearDownScript>
           <script>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.updateProperty(dir, "gateway.properties", "documentQueryQuerySelf", "false", log);
 nhinc.FileUtils.updateProperty(dir, "audit.properties", "QueryForDocuments", "false", log);
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1","adapterdocquerysecured", "http://localhost:1720/MockAdapterDocQuerySecured","LEVEL_a0", log);
           </script>
         </con:config>
       </con:testStep>
