@@ -48,18 +48,18 @@ public class UDDIUpdateManagerHelper {
      *
      * @return The BusinessDetail data retrieved from UDDI.
      */
-    private static BusinessDetail retrieveDataFromUDDI(String targetURL) throws UDDIAccessorException {
+    private static BusinessDetail retrieveDataFromUDDI(String exchangeURL) throws UDDIAccessorException {
         UDDIAccessor oUDDIAccessor = new UDDIAccessor();
-        return oUDDIAccessor.retrieveFromUDDIServer(targetURL);
+        return oUDDIAccessor.retrieveFromUDDIServer(exchangeURL);
     }
 
-    public BusinessDetail forceRefreshUDDIFile(String targetURL) throws UDDIAccessorException {
+    public BusinessDetail forceRefreshUDDIFile(String exchangeURL) throws UDDIAccessorException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Start: UDDIUpdateManagerHelper.forceRefreshUDDIFile method - loading from UDDI server.");
         }
 
         try {
-            return retrieveDataFromUDDI(targetURL);
+            return retrieveDataFromUDDI(exchangeURL);
 
         } catch (UDDIAccessorException e) {
             String sErrorMessage = "Failed to retrieve data from UDDI.  Error: " + e.getLocalizedMessage();

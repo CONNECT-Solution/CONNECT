@@ -50,7 +50,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
      * @throws UDDIFindBusinessException
      */
     @Override
-    public BusinessList findBusinessesFromUDDI(String targetURL) throws UDDIFindBusinessException {
+    public BusinessList findBusinessesFromUDDI(String exchangeURL) throws UDDIFindBusinessException {
         LOG.debug("Using HP Implementation for UDDI Business Info Service");
 
         BusinessList oBusinessList;
@@ -65,7 +65,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
             }
 
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, targetURL, null);
+            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, exchangeURL, null);
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
@@ -78,9 +78,9 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
     }
 
     @Override
-    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String targetURL) throws
+    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String exchangeURL) throws
         UDDIFindBusinessException {
-        return super.getBusinessDetail(searchParams, targetURL);
+        return super.getBusinessDetail(searchParams, exchangeURL);
     }
 
 }

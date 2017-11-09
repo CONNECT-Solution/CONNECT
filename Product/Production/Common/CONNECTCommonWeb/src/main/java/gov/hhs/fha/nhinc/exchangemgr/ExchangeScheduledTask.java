@@ -34,14 +34,13 @@ import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
+import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.io.File;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -65,11 +64,11 @@ public class ExchangeScheduledTask {
                 for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                     if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(ex.getType())
                         && StringUtils.isNotEmpty(ex.getUrl())) {
-                        LOG.info("Starting UDDI download");
+                        LOG.info("Starting UDDI download from {}", ex.getUrl());
                         ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
                         ex.setOrganizationList(transformer.transform(getUDDIManager().
                             forceRefreshUDDIFile(ex.getUrl())));
-                    }
+                    }// TODO FHIR exchange download will be another if condition here
                 }
                 createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
                 exInfo.setLastUpdated(getTimestamp());
@@ -89,10 +88,7 @@ public class ExchangeScheduledTask {
     }
 
     private XMLGregorianCalendar getTimestamp() throws DatatypeConfigurationException {
-        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
-        GregorianCalendar gc = new GregorianCalendar();
-        gc.setTimeInMillis(System.currentTimeMillis());
-        return datatypeFactory.newXMLGregorianCalendar(gc);
+        return XMLDateUtil.long2Gregorian(System.currentTimeMillis());
     }
 
     private void createFileBackupByRenaming(BigInteger noOfBackups) {
@@ -122,7 +118,7 @@ public class ExchangeScheduledTask {
     }
 
     private void addToBackupList(String latestFilename, BigInteger maxNumBackup) {
-        int noOfBackups = (null != maxNumBackup ? maxNumBackup.intValue() : 0);
+        int noOfBackups = maxNumBackup.intValue();
 
         String filenameToDelete = null;
         if (backupFileList.size() >= noOfBackups) {
@@ -138,7 +134,6 @@ public class ExchangeScheduledTask {
                 }
             } catch (Exception e) {
                 LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage());
-                LOG.trace("Deletion exception: {}", e.getLocalizedMessage(), e);
             }
         }
     }

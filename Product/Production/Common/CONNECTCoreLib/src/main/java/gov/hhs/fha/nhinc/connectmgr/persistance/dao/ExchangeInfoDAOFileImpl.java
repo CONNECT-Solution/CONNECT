@@ -26,15 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ObjectFactory;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tjafri
  */
-public final class ExchangeInfoDAOFileImpl extends AbstractConnectionManagerDAO<ExchangeInfoType> {
+public final class ExchangeInfoDAOFileImpl extends BaseExchangeDAO {
 
     private static ExchangeInfoDAOFileImpl instance = null;
     private File file = null;
@@ -81,56 +74,12 @@ public final class ExchangeInfoDAOFileImpl extends AbstractConnectionManagerDAO<
         return isFile() ? file.getAbsolutePath() : null;
     }
 
-    private boolean isFile() {
-        return file != null && file.exists();
-    }
-
-    public ExchangeInfoType loadExchangeInfo() throws ExchangeManagerException {
-        if (!isFile()) {
-            throw new ExchangeManagerException("Unable to access system variable: nhinc.properties.dir.");
-        }
-        ExchangeInfoType resp;
-        try {
-            resp = super.loadExchangeInfo(ExchangeInfoType.class, file);
-        } catch (ConnectionManagerException ex) {
-            throw new ExchangeManagerException(ex);
-        }
-        return resp;
-    }
-
-    public void saveExchangeInfo(ExchangeInfoType exchangeInfo) throws ExchangeManagerException {
-        try {
-            saveExchangeInfo(exchangeInfo, file);
-        } catch (ConnectionManagerException ex) {
-            throw new ExchangeManagerException(ex);
-        }
-    }
-
-    public long getLastModified() {
-        if (file.exists()) {
-            return file.lastModified();
-        } else {
-            return 0;
-        }
+    @Override
+    protected File getFile() {
+        return file;
     }
 
     public void setFileName(String fileName) {
         file = new File(fileName);
-    }
-
-    @Override
-    public void saveExchangeInfo(ExchangeInfoType exchangeInfo, File file) throws ConnectionManagerException {
-        try {
-            synchronized (file) {
-                final JAXBContext context = JAXBContext.newInstance(ExchangeInfoType.class);
-                final ObjectFactory factory = new ObjectFactory();
-                final Marshaller marshaller = context.createMarshaller();
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                marshaller.marshal(factory.createExchangeInfo(exchangeInfo), file);
-            }
-        } catch (final JAXBException ex) {
-            throw new ConnectionManagerException("Unable to save to Connection Information File " + file.getName(), ex);
-        }
-        LOG.info("Exchange info saved to " + file.getName());
     }
 }
