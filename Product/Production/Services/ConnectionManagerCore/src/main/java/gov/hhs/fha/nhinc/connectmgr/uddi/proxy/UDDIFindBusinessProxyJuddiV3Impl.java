@@ -47,7 +47,7 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
     private static final Logger LOG = LoggerFactory.getLogger(UDDIFindBusinessProxyJuddiV3Impl.class);
 
     @Override
-    public BusinessList findBusinessesFromUDDI(String targetURL) throws UDDIFindBusinessException {
+    public BusinessList findBusinessesFromUDDI(String exchangeURL) throws UDDIFindBusinessException {
         LOG.debug("Using jUDDI V3 Implementation for UDDI Business Info Service");
 
         BusinessList oBusinessList;
@@ -73,7 +73,7 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
             }
 
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, targetURL, null);
+            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, exchangeURL, null);
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
 
         } catch (Exception e) {
@@ -87,9 +87,9 @@ public class UDDIFindBusinessProxyJuddiV3Impl extends UDDIFindBusinessProxyBase 
     }
 
     @Override
-    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String targetURL) throws
+    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String exchangeURL) throws
         UDDIFindBusinessException {
-        return super.getBusinessDetail(searchParams, targetURL);
+        return super.getBusinessDetail(searchParams, exchangeURL);
     }
 
 }
