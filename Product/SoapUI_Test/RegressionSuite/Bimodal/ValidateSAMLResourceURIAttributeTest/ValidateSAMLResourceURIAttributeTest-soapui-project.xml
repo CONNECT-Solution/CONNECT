@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="ValidateSAMLResourceURIAttributeTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="87508b02-aa27-4297-b111-6de75e1e4ec3" xmlns:con="http://eviware.com/soapui/config">
   <con:description>Since FileUtil.setG0ConnectionInfo requires to ICI and Uddi.xml inside soapUI project, it is expected to see the error in the script log
-"Unable to find source file .. ValidateSAMLResourceURIAttributeTest\internalConnectionInfo_g0.xml" in this project since we don't need ICI for this particular tests.</con:description><con:settings/>
+"Unable to find source file .. ValidateSAMLResourceURIAttributeTest\internalExchangeInfo_g0.xml" in this project since we don't need ICI for this particular tests.</con:description><con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../../target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="66fe0c97-9791-4d6e-a47c-280e6220ee58" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>

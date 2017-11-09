@@ -899,7 +899,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="EntityRequestMsg - XDR" type="request" id="1d856c3e-c868-4b39-be5b-a9fa9d884d0f">
@@ -2877,7 +2877,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":11231/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="EntityRequestMsg - XDR" type="request" id="8b4c1255-d7be-471b-8d04-25c1749326ef">
@@ -5330,7 +5330,7 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4f6537aa-52b1-417f-beb6-f55988114985" keepSession="false" maxResults="0" name="Error message from mock NHINC" searchProperties="true" disabled="true">
       <con:settings/>
-      <con:testStep name="Modify InternalConnectionInfo For NHINC Mock" type="groovy" id="c72142dd-fe90-4be7-9711-ec491091cf36">
+      <con:testStep name="Modify internalExchangeInfo For NHINC Mock" type="groovy" id="c72142dd-fe90-4be7-9711-ec491091cf36">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -5865,7 +5865,7 @@ nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "se
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7ab026d6-4438-498b-af6c-4e08d85df3b6" keepSession="false" maxResults="0" name="Success message from mock NHINC" searchProperties="true" disabled="true">
       <con:settings/>
-      <con:testStep name="Modify InternalConnectionInfo For NHINC Mock" type="groovy" id="70a4f09d-8fdc-425d-81a1-e57daad8e8b2">
+      <con:testStep name="Modify internalExchangeInfo For NHINC Mock" type="groovy" id="70a4f09d-8fdc-425d-81a1-e57daad8e8b2">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );

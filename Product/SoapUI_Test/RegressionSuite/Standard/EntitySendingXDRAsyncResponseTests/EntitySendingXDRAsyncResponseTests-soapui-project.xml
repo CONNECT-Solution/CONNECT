@@ -617,7 +617,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="d6dc975e-a2b4-4bc7-8304-f5352a81ff5a">
@@ -2772,7 +2772,7 @@ assert (count > 0);</script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>LocalAA</con:name>

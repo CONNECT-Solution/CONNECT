@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncResp" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="14c9514a-aff5-43ba-93f2-594312602e22" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncResp" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="14c9514a-aff5-43ba-93f2-594312602e22" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncresp}AdapterPatientDiscoveryAsyncRespBindingSoap" definition="../../../target/wsdl/AdapterPatientDiscoveryAsyncResp.wsdl" name="AdapterPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="056519df-2434-4675-af66-229d4a413203" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
-    <con:endpoints>
+    <con:definitionCache/><con:endpoints>
       <con:endpoint>${#Project#AdapterPatientDiscoveryAsyncRespEndpoint}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/AdapterPatientDiscoveryAsyncResp</con:endpoint>
     </con:endpoints>
@@ -709,7 +709,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>ASUsername</con:name>
@@ -870,7 +870,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewaySta
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:reporting>
+  <con:oAuth1ProfileContainer/><con:reporting>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>

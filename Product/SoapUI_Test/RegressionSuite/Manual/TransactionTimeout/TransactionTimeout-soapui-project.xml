@@ -2706,9 +2706,9 @@ def replaceAlias = 'adapterdocsubmissionwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentSubmissionProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc submission mock."
+log.info "Modifying internalExchangeInfo for adapter doc submission mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterxdr", "http://localhost:1720/MockDSAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -3316,9 +3316,9 @@ def replaceAlias = 'adapterpatientdiscoverywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -3868,9 +3868,9 @@ def replaceAlias = 'adapterdocquerywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc query mock."
+log.info "Modifying internalExchangeInfo for adapter doc query mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -4797,9 +4797,9 @@ def replaceAlias = 'adapterdocretrievewsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc retrieve mock."
+log.info "Modifying internalExchangeInfo for adapter doc retrieve mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -5239,9 +5239,9 @@ def replaceAlias = 'adapteradmindistwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "AdminDistProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for admin distribution mock."
+log.info "Modifying internalExchangeInfo for admin distribution mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapteradmindist", "http://localhost:1720/MockADAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -5698,9 +5698,9 @@ def replaceAlias = 'adaptercore_x12dsrealtimewsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "CORE_X12DSRealTimeProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for x12 realtime mock."
+log.info "Modifying internalExchangeInfo for x12 realtime mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adaptercore_x12dsrealtime", "http://localhost:1720/MockX12RealTime", "2.0",
 	log);</script>
         </con:config>
@@ -6123,9 +6123,9 @@ def replaceAlias = 'adapterdocsubmissionwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentSubmissionProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc submission mock."
+log.info "Modifying internalExchangeInfo for adapter doc submission mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterxdr", "http://localhost:1720/MockDSAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -6746,9 +6746,9 @@ def replaceAlias = 'adapterpatientdiscoverywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -7303,9 +7303,9 @@ def replaceAlias = 'adapterdocquerywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc query mock."
+log.info "Modifying internalExchangeInfo for adapter doc query mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -8237,9 +8237,9 @@ def replaceAlias = 'adapterdocretrievewsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc retrieve mock."
+log.info "Modifying internalExchangeInfo for adapter doc retrieve mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -8680,9 +8680,9 @@ def replaceAlias = 'adapteradmindistwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "AdminDistProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for admin distribution mock."
+log.info "Modifying internalExchangeInfo for admin distribution mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapteradmindist", "http://localhost:1720/MockADAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -9146,9 +9146,9 @@ def replaceAlias = 'adaptercore_x12dsrealtimewsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "CORE_X12DSRealTimeProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for x12 realtime mock."
+log.info "Modifying internalExchangeInfo for x12 realtime mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adaptercore_x12dsrealtime", "http://localhost:1720/MockX12RealTime", "2.0",
 	log);</script>
         </con:config>
@@ -9578,9 +9578,9 @@ def replaceAlias = 'adapterdocsubmissionwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentSubmissionProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc submission mock."
+log.info "Modifying internalExchangeInfo for adapter doc submission mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterxdr", "http://localhost:1720/MockDSAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -10196,9 +10196,9 @@ def replaceAlias = 'adapterpatientdiscoverywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -10754,9 +10754,9 @@ def replaceAlias = 'adapterdocquerywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc query mock."
+log.info "Modifying internalExchangeInfo for adapter doc query mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -11689,9 +11689,9 @@ def replaceAlias = 'adapterdocretrievewsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for adapter doc retrieve mock."
+log.info "Modifying internalExchangeInfo for adapter doc retrieve mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -12132,9 +12132,9 @@ def replaceAlias = 'adapteradmindistwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "AdminDistProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for admin distribution mock."
+log.info "Modifying internalExchangeInfo for admin distribution mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapteradmindist", "http://localhost:1720/MockADAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -12599,9 +12599,9 @@ def replaceAlias = 'adaptercore_x12dsrealtimewsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "CORE_X12DSRealTimeProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-log.info "Modifying internalConnectionInfo for x12 realtime mock."
+log.info "Modifying internalExchangeInfo for x12 realtime mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adaptercore_x12dsrealtime", "http://localhost:1720/MockX12RealTime", "2.0",
 	log);</script>
         </con:config>
@@ -13099,7 +13099,7 @@ nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);</con:tearD
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C://glassfish3//glassfish//domains//domain1//config//nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

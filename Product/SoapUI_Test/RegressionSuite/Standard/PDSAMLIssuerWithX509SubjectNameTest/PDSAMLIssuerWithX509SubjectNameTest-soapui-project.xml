@@ -59,13 +59,13 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "adaptermpiwssecured", "adaptermpiwsunsecured", log);
 
 log.info("before the mockpdadapter call");
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"mpi", "http://localhost:1720/MockPDAdapter", "2.0",log);</script>
         </con:config>
       </con:testStep>
@@ -590,13 +590,13 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "adaptermpiwssecured", "adaptermpiwsunsecured", log);
 
 log.info("before the mockpdadapter call");
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"mpi", "http://localhost:1720/MockPDAdapter", "2.0",log);</script>
         </con:config>
       </con:testStep>
@@ -1121,13 +1121,13 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "adaptermpiwssecured", "adaptermpiwsunsecured", log);
 
 log.info("before the mockpdadapter call");
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"mpi", "http://localhost:1720/MockPDAdapter", "2.0",log);</script>
         </con:config>
       </con:testStep>

@@ -471,7 +471,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -1002,8 +1002,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -1050,7 +1050,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -1581,8 +1581,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -1637,7 +1637,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -2168,8 +2168,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -2216,7 +2216,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -2747,8 +2747,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -2803,7 +2803,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -3334,8 +3334,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -3382,7 +3382,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -3913,8 +3913,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -3969,7 +3969,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -4500,8 +4500,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -4556,7 +4556,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -5087,8 +5087,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -5143,7 +5143,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -5674,8 +5674,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -5730,7 +5730,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -6261,8 +6261,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
       <con:properties>
@@ -6317,7 +6317,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -6848,8 +6848,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
@@ -6899,7 +6899,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -7430,8 +7430,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
@@ -7489,7 +7489,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -8020,8 +8020,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
@@ -8071,7 +8071,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -8602,8 +8602,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
@@ -8661,7 +8661,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -9192,8 +9192,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
@@ -9243,7 +9243,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -9774,8 +9774,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
@@ -9833,7 +9833,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -10364,8 +10364,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
@@ -10423,7 +10423,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -10954,8 +10954,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.20.inboundDocQuery",context);
@@ -11013,7 +11013,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script>
         </con:config>
@@ -11544,8 +11544,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);
@@ -11603,7 +11603,7 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.configureConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script>
         </con:config>
@@ -12134,8 +12134,8 @@ s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:imp
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "exchangeInfo_g1only.xml", context.findProperty('GatewayPropDir'), "exchangeInfo.xml", log);
+nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalExchangeInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalExchangeInfo.xml", log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 def isStandardMode = context.checkGatewayMode("docquery.30.inboundDocQuery",context);

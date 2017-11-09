@@ -318,7 +318,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="e72392f5-a720-4bde-b842-ba0a622b37ab">
@@ -851,7 +851,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="11bb1844-e9cb-4dfa-b20f-c08744798198">
@@ -3437,7 +3437,7 @@ assert (count > 0);</script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>LocalAA</con:name>
