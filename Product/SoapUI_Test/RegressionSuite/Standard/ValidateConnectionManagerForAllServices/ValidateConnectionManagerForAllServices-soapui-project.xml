@@ -135,7 +135,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="d3e06608-f8e8-4903-b3dc-dcd00b42b48d">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="d3e06608-f8e8-4903-b3dc-dcd00b42b48d">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -148,10 +148,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -171,9 +171,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -728,7 +728,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="060185e1-a84b-436c-bfef-7aa159183fe1">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="060185e1-a84b-436c-bfef-7aa159183fe1">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -741,10 +741,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_ornuid.xml";
+def sourceFile = "exchangeInfo_With_ornuid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -764,9 +764,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1176,7 +1176,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="3b93b0d5-026c-4ae5-af09-4d080b0aaa5f">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="3b93b0d5-026c-4ae5-af09-4d080b0aaa5f">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1189,10 +1189,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_ornuid.xml";
+def sourceFile = "exchangeInfo_With_ornuid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1212,9 +1212,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1759,7 +1759,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="5372a580-7c08-40a9-8a30-7c8f2595e76e">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="5372a580-7c08-40a9-8a30-7c8f2595e76e">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1772,10 +1772,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_ornuid.xml";
+def sourceFile = "exchangeInfo_With_ornuid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1795,9 +1795,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2189,7 +2189,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="6c680380-c2b4-4644-9da4-4eec941651c1">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="6c680380-c2b4-4644-9da4-4eec941651c1">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2202,10 +2202,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2225,9 +2225,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2620,7 +2620,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="41d3b4ab-c675-4421-b5d1-c951cd4b304e">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="41d3b4ab-c675-4421-b5d1-c951cd4b304e">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2633,10 +2633,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2656,9 +2656,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2734,9 +2734,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -3255,7 +3255,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="69539b90-3356-4365-b1be-80ede0df5270">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="69539b90-3356-4365-b1be-80ede0df5270">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3268,10 +3268,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3291,9 +3291,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3702,7 +3702,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="9f0afb01-0bc8-4fbe-8686-3ad8749c1ea5">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="9f0afb01-0bc8-4fbe-8686-3ad8749c1ea5">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3715,10 +3715,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3738,9 +3738,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -4101,7 +4101,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="da33cc40-026e-43f5-8286-f9d046800086">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="da33cc40-026e-43f5-8286-f9d046800086">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -4114,10 +4114,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -4137,9 +4137,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -4573,7 +4573,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="3bd8facf-7d58-496c-83ea-7156cb55333e">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="3bd8facf-7d58-496c-83ea-7156cb55333e">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -4586,10 +4586,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -4609,9 +4609,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5166,7 +5166,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="db4e2961-dfd6-4de0-8935-6b39d565dcdb">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="db4e2961-dfd6-4de0-8935-6b39d565dcdb">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -5179,10 +5179,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_ornuid.xml";
+def sourceFile = "exchangeInfo_With_ornuid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5202,9 +5202,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5614,7 +5614,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="aa01cd8c-aad4-4fa6-8097-1716417ebccc">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="aa01cd8c-aad4-4fa6-8097-1716417ebccc">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -5627,10 +5627,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_ornuid.xml";
+def sourceFile = "exchangeInfo_With_ornuid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -5650,9 +5650,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -6197,7 +6197,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="e9d1aa35-59d2-4a2e-acdc-221bbea15e0c">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="e9d1aa35-59d2-4a2e-acdc-221bbea15e0c">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -6210,10 +6210,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_ornuid.xml";
+def sourceFile = "exchangeInfo_With_ornuid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -6233,9 +6233,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -6627,7 +6627,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="18fdb9a2-78da-4a69-9d09-ca953813f7f8">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="18fdb9a2-78da-4a69-9d09-ca953813f7f8">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -6640,10 +6640,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -6663,9 +6663,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -7058,7 +7058,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="5dd5cb2b-b326-458d-b705-07966e9a4fb9">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="5dd5cb2b-b326-458d-b705-07966e9a4fb9">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -7071,10 +7071,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -7094,9 +7094,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -7172,9 +7172,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -7693,7 +7693,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="f9d9ae18-e361-4081-be4d-b0c95397be1b">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="f9d9ae18-e361-4081-be4d-b0c95397be1b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -7706,10 +7706,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -7729,9 +7729,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -8140,7 +8140,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="66fe3fe4-d462-4009-b6ec-e58d3f4645c5">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="66fe3fe4-d462-4009-b6ec-e58d3f4645c5">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -8153,10 +8153,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -8176,9 +8176,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -8539,7 +8539,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWurnoid" id="51d870ab-22e0-4b41-ab95-edb3ad531a46">
+      <con:testStep type="groovy" name="Copy exchangeInfoWurnoid" id="51d870ab-22e0-4b41-ab95-edb3ad531a46">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -8552,10 +8552,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_With_urnoid.xml";
+def sourceFile = "exchangeInfo_With_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -8575,9 +8575,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_With_urnoid.xml";
+def sourceFile = "internalExchangeInfo_With_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -9011,7 +9011,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="c302a7fa-ce45-497e-b89d-fa3e778c1990">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="c302a7fa-ce45-497e-b89d-fa3e778c1990">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -9024,10 +9024,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -9047,9 +9047,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -9604,7 +9604,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="d930a4fe-1d32-42ea-8d63-41fd402ff498">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="d930a4fe-1d32-42ea-8d63-41fd402ff498">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -9617,10 +9617,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -9640,9 +9640,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -10052,7 +10052,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="24c90f8e-2c51-4b41-a36b-9fd62723d9fc">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="24c90f8e-2c51-4b41-a36b-9fd62723d9fc">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -10065,10 +10065,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -10088,9 +10088,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -10635,7 +10635,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="67dd988b-8f30-4741-831a-66a7a3a21b72">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="67dd988b-8f30-4741-831a-66a7a3a21b72">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -10648,10 +10648,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -10671,9 +10671,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -11065,7 +11065,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="f11a63b2-8d78-4506-8025-c08efef9dc40">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="f11a63b2-8d78-4506-8025-c08efef9dc40">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -11078,10 +11078,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -11101,9 +11101,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -11496,7 +11496,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="33937b6c-6a68-4ed6-97de-61e4df58f25d">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="33937b6c-6a68-4ed6-97de-61e4df58f25d">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -11509,10 +11509,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -11532,9 +11532,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -11610,9 +11610,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -12131,7 +12131,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="172af0d8-578d-44a1-b969-9e954aa59be7">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="172af0d8-578d-44a1-b969-9e954aa59be7">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -12144,10 +12144,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -12167,9 +12167,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -12578,7 +12578,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="ac9228ef-db1c-4f66-99ff-13add7bf6833">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="ac9228ef-db1c-4f66-99ff-13add7bf6833">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -12591,10 +12591,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -12614,9 +12614,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -12977,7 +12977,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="d95c2bdf-b727-418f-a28d-6904b0bb23d7">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="d95c2bdf-b727-418f-a28d-6904b0bb23d7">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -12990,10 +12990,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -13013,9 +13013,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -13449,7 +13449,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="d2fbf7ab-7815-4a01-bbd8-8dffba178b14">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="d2fbf7ab-7815-4a01-bbd8-8dffba178b14">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -13462,10 +13462,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -13485,9 +13485,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -14042,7 +14042,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="4b1a8722-908d-4ce9-9bf4-9493ce9c7a7b">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="4b1a8722-908d-4ce9-9bf4-9493ce9c7a7b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -14055,10 +14055,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -14078,9 +14078,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -14490,7 +14490,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="baad3a20-ffb2-4e4a-a930-3b5bddb529ae">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="baad3a20-ffb2-4e4a-a930-3b5bddb529ae">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -14503,10 +14503,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -14526,9 +14526,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -15073,7 +15073,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="be2736a0-4fe9-4dde-b6c0-190adeafbccd">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="be2736a0-4fe9-4dde-b6c0-190adeafbccd">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -15086,10 +15086,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -15109,9 +15109,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -15503,7 +15503,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="1c02d760-ec2f-422c-817a-e437cdb3d87b">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="1c02d760-ec2f-422c-817a-e437cdb3d87b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -15516,10 +15516,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -15539,9 +15539,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -15934,7 +15934,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="268275e3-a4f9-44c5-8419-964764e8d0dc">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="268275e3-a4f9-44c5-8419-964764e8d0dc">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -15947,10 +15947,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -15970,9 +15970,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -16048,9 +16048,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -16569,7 +16569,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="36323f66-e8a9-44d7-afd5-41d7fe5ac3ee">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="36323f66-e8a9-44d7-afd5-41d7fe5ac3ee">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -16582,10 +16582,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -16605,9 +16605,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -17016,7 +17016,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="e08f3246-3698-4563-8e8e-8597d1fa34c5">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="e08f3246-3698-4563-8e8e-8597d1fa34c5">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -17029,10 +17029,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -17052,9 +17052,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -17415,7 +17415,7 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Copy uddiConnectionInfoWOurnoid" id="c49f244e-1cb1-487e-ba64-7133560f3622">
+      <con:testStep type="groovy" name="Copy exchangeInfoWOurnoid" id="c49f244e-1cb1-487e-ba64-7133560f3622">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -17428,10 +17428,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_Without_urnoid.xml";
+def sourceFile = "exchangeInfo_Without_urnoid.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -17451,9 +17451,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "internalConnectionInfo_Without_urnoid.xml";
+def sourceFile = "internalExchangeInfo_Without_urnoid.xml";
 def destDir = context.findProperty("GatewayPropDir");
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -18003,7 +18003,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

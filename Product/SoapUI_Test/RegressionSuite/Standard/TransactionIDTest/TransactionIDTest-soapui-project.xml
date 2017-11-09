@@ -6376,7 +6376,7 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
           <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="replace uddiConnectionInfo" type="groovy" id="21eafa38-fb7f-4b48-88d0-e9f452b60317">
+      <con:testStep name="replace exchangeInfo" type="groovy" id="21eafa38-fb7f-4b48-88d0-e9f452b60317">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -6385,9 +6385,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_TRANS_Fanout.xml";
+def sourceFile = "exchangeInfo_TRANS_Fanout.xml";
 def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -6906,7 +6906,7 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
           <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="replace uddiConnectionInfo" type="groovy" id="339e120a-0171-446d-bce3-763e8563199d">
+      <con:testStep name="replace exchangeInfo" type="groovy" id="339e120a-0171-446d-bce3-763e8563199d">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -6915,9 +6915,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_TRANS_Fanout.xml";
+def sourceFile = "exchangeInfo_TRANS_Fanout.xml";
 def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -19612,7 +19612,7 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
           <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="replace uddiConnectionInfo" type="groovy" id="f59cb625-88ea-4364-9b26-11fbaf9bcb72">
+      <con:testStep name="replace exchangeInfo" type="groovy" id="f59cb625-88ea-4364-9b26-11fbaf9bcb72">
         <con:settings/>
         <con:config>
           <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -19621,9 +19621,9 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_TRANS_Fanout.xml";
+def sourceFile = "exchangeInfo_TRANS_Fanout.xml";
 def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 

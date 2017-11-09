@@ -612,31 +612,31 @@ context.withSql('AAMappingDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="13763081-823c-40af-9f34-15e3d93fe2d0">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="13763081-823c-40af-9f34-15e3d93fe2d0">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="a4edac99-d1c8-48cc-9b04-7afc62644c0f">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="a4edac99-d1c8-48cc-9b04-7afc62644c0f">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def PDURL = "https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="913415ab-8b0d-4bba-9f9f-93bcf817d3bf">
@@ -1000,18 +1000,18 @@ context.withSql('eventdb') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="7418438d-553b-4e6e-a5a8-c8fb4a262386">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="7418438d-553b-4e6e-a5a8-c8fb4a262386">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="eca0fad3-5b1e-4ed4-8a13-f2377966b89e">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="eca0fad3-5b1e-4ed4-8a13-f2377966b89e">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -1020,23 +1020,23 @@ def localHCID = context.findProperty("LocalHCID");
 
 def MPIURL = "http://" + mockHost + ":7783/MockMPIResp";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="1e6c7672-5cf7-417f-beb2-f62ed863921f">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="1e6c7672-5cf7-417f-beb2-f62ed863921f">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def PDURL = "https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="3fc964bb-6140-4879-adfb-ade9be0dd500">
@@ -1402,18 +1402,18 @@ context.withSql('AAMappingDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="79fc6958-6088-4dae-a571-83792deee7a5">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="79fc6958-6088-4dae-a571-83792deee7a5">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="ddc31590-284c-4579-9a2d-75e73e93c9f2">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="ddc31590-284c-4579-9a2d-75e73e93c9f2">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -1421,23 +1421,23 @@ def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
 def adapPDURL = "http://" + mockHost + ":7785/mockPDAdapter";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterpatientdiscovery", adapPDURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, localHCID, "adapterpatientdiscovery", adapPDURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="c3b058fd-30a4-49a6-a2cb-c7fbfafa01ef">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="c3b058fd-30a4-49a6-a2cb-c7fbfafa01ef">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def PDURL = "https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="66005733-63eb-472c-bc20-a8fbbe1b521b">
@@ -1784,18 +1784,18 @@ context.withSql('AAMappingDB') { sql ->
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="87a2063f-2fd8-47c8-b755-aeca1e26f08e">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="87a2063f-2fd8-47c8-b755-aeca1e26f08e">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="08d488c6-1aec-4efd-9285-9159ba172e85">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="08d488c6-1aec-4efd-9285-9159ba172e85">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -1804,23 +1804,23 @@ def localHCID = context.findProperty("LocalHCID");
 
 def MPIURL = "http://" + mockHost + ":7781/MockMPIResp";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="311f9aac-62a3-4518-911a-d1bc9c915b12">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="311f9aac-62a3-4518-911a-d1bc9c915b12">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def PDURL = "https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="3c5ddb67-6a86-46ed-ab31-85d21a0abd27">
@@ -2575,18 +2575,18 @@ assert (documentID == msgDocID)</scriptText>
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="f6ae7e75-650f-4e99-8430-e1275819d510">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="f6ae7e75-650f-4e99-8430-e1275819d510">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="a0501242-a89d-47b6-9407-b0ef474380ec">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="a0501242-a89d-47b6-9407-b0ef474380ec">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -2595,14 +2595,14 @@ def localHCID = context.findProperty("LocalHCID");
 
 def DQURL = "https://" + mockHost + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query fanout" type="request" id="095c5dd7-0dd2-4f17-a198-cd166374f465">
@@ -2975,18 +2975,18 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="6c00a5b4-8120-4efb-be25-c8cb4571e1ee">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="6c00a5b4-8120-4efb-be25-c8cb4571e1ee">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="d9590e91-78d4-464a-b7be-618730824866">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="d9590e91-78d4-464a-b7be-618730824866">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -2995,14 +2995,14 @@ def localHCID = context.findProperty("LocalHCID");
 
 def DQURL = "https://" + mockHost + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Query fanout" type="request" id="fad8fab1-61d7-4067-a504-68e20c95ce84">
@@ -3373,18 +3373,18 @@ WARN   PassthroughOutboundDocQuery     Multiple targets in request message in pa
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="99dcd1c5-de2e-4f4a-902b-624468f6bba7">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="99dcd1c5-de2e-4f4a-902b-624468f6bba7">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="b1ce0c1f-15ad-4afb-b46e-efa320b41fcb">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="b1ce0c1f-15ad-4afb-b46e-efa320b41fcb">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -3393,17 +3393,17 @@ def localHCID = context.findProperty("LocalHCID");
 
 def DQURL = "https://" + mockHost + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="0a90b934-f1fd-4e3b-8a8b-4272b8288291">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="0a90b934-f1fd-4e3b-8a8b-4272b8288291">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -3412,7 +3412,7 @@ def localHCID = context.findProperty("LocalHCID");
 
 def AdapterDQURL = "http://" + mockHost + ":7782/MockDQResp";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="d408c79c-ea4b-4d4e-98cf-0bb328245cf0">
@@ -3793,18 +3793,18 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Docu
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="1d676f6f-7678-4292-bd3f-55e16af50aa7">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="1d676f6f-7678-4292-bd3f-55e16af50aa7">
         <con:settings/>
         <con:config>
           <script>def sourceDir =  context.expand('${projectDir}');
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def sourceFile = "exchangeInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy" id="0c394e74-558b-4fa3-a68c-23853e1390ad">
+      <con:testStep name="modify exchangeInfo" type="groovy" id="0c394e74-558b-4fa3-a68c-23853e1390ad">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -3813,17 +3813,17 @@ def localHCID = context.findProperty("LocalHCID");
 
 def DQURL = "https://" + mockHost + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("exchangeInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="6b555dc5-ff47-47f4-a201-563480739d84">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="6b555dc5-ff47-47f4-a201-563480739d84">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
@@ -3832,7 +3832,7 @@ def localHCID = context.findProperty("LocalHCID");
 
 def AdapterDQURL = "http://" + mockHost + ":7784/MockDQResp";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="bae5baf9-e8f0-4787-8bfa-7447b32748f3">
@@ -7455,7 +7455,7 @@ context.root = Math.random()</con:script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

@@ -3251,9 +3251,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -5021,7 +5021,7 @@ if(passthruValue != null){
         <con:settings/>
         <con:config>
           <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty('GatewayPropDir'), context.findProperty('LocalHCID'), "adapterdocquerysecured", "http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured-BADURL", "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty('GatewayPropDir'), context.findProperty('LocalHCID'), "adapterdocquerysecured", "http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured-BADURL", "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="ea54e120-d321-42ea-9f04-31bbe82a2ae0">
@@ -7848,9 +7848,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -9619,7 +9619,7 @@ if(passthruValue != null){
         <con:settings/>
         <con:config>
           <script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty('GatewayPropDir'), context.findProperty('LocalHCID'), "adapterdocquerysecured", "http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured-BADURL", "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty('GatewayPropDir'), context.findProperty('LocalHCID'), "adapterdocquerysecured", "http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured-BADURL", "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="0b33ec0c-bb28-4fad-86dc-e686ebd56e51">
@@ -12431,9 +12431,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -16595,9 +16595,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -19477,7 +19477,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
