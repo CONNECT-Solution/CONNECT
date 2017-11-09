@@ -37,6 +37,7 @@ public class UDDIConstants {
     public static final String UDDI_STATE_KEY = "uddi:uddi.org:ubr:categorization:iso3166";
     public static final String UDD_SERVICE_NAMES_KEY = "uddi:nhin:standard-servicenames";
     public static final String UDDI_EXCHANGE_TYPE = "uddi";
+    public static final String ADAPTER_API_KEY = "CONNECT:adapter:apilevel";
 
     private UDDIConstants() {
     }

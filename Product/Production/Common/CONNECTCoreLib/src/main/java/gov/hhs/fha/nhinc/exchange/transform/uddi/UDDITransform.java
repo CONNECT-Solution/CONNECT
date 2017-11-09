@@ -187,7 +187,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
             getKeyedReference())) {
             versions = new ArrayList<>();
             for (KeyedReference keyRef : bTemplate.getCategoryBag().getKeyedReference()) {
-                if (UDDIConstants.UDDI_SPEC_VERSION_KEY.equalsIgnoreCase(keyRef.getTModelKey())) {
+                if (UDDIConstants.UDDI_SPEC_VERSION_KEY.equalsIgnoreCase(keyRef.getTModelKey())
+                    || UDDIConstants.ADAPTER_API_KEY.equalsIgnoreCase(keyRef.getTModelKey())) {
                     versions.add(keyRef.getKeyValue());
                 }
             }
