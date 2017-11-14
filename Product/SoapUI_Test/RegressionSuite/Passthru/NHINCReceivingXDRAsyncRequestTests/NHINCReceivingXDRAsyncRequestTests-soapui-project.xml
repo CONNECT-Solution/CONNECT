@@ -317,7 +317,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="468a9615-397e-4cf3-9cc5-c08f7279e86d">
@@ -2332,7 +2332,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep type="delay" name="Delay" id="2de3c53c-56b4-4546-a4ea-823761881735">

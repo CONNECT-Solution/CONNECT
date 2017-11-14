@@ -4157,7 +4157,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
     </con:properties>
     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
@@ -8232,7 +8232,7 @@ B) Look for PurposeForuse within request and  should populate as shown "&lt;hl7:
     </con:properties>
     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
@@ -12293,7 +12293,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
     </con:properties>
     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
@@ -16358,7 +16358,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
     </con:properties>
     <con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "exchangeInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "exchangeInfo.xml", log);</con:setupScript>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
@@ -16453,7 +16453,7 @@ nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiCo
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

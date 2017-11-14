@@ -41285,7 +41285,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 def adapterxdsbdocregistryURL = "http://" + mockHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="FindDocuments" type="request" id="34d2f7f8-d880-4e5b-8682-66dedac739c6">
@@ -42651,7 +42651,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="FindSubmissionSets" type="request" id="7c24e6d6-3c9c-4f50-b25f-3fa0b8ff44ee">
@@ -44016,7 +44016,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="FindFolders" type="request" id="9adef215-b6d2-411b-81d1-9072abf939f8">
@@ -45381,7 +45381,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetFolders" type="request" id="1e2ce9d9-f191-4593-89e1-70ad1aabb519">
@@ -46731,7 +46731,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetAll" type="request" id="1a2931bb-0298-4fa5-be51-3744bb492ef1">
@@ -48126,7 +48126,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetFoldersForDocument" type="request" id="12f072cd-4d51-45b7-9022-4232acb302fd">
@@ -49476,7 +49476,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetDocuments" type="request" id="6d8aeb82-f993-4962-b687-49a8d86117b1">
@@ -50826,7 +50826,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetAssociations" type="request" id="03567de5-87e8-4db5-9de0-4d41586b097c">
@@ -52176,7 +52176,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetDocumentsAndAssociations" type="request" id="05759f0f-b714-4049-99b2-5406ac168c0c">
@@ -53541,7 +53541,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetSubmissionSets" type="request" id="f454503c-b36f-4d87-8fac-99271bbacca6">
@@ -54891,7 +54891,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetSubmissionSetAndContents" type="request" id="26d19e02-76fc-48c5-bdc0-2773db2794ad">
@@ -56241,7 +56241,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetFolderAndContents" type="request" id="2a738a07-447e-46de-be39-f791ac56365e">
@@ -57591,7 +57591,7 @@ def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
+FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="GetRelatedDocuments" type="request" id="93904d7d-2ff6-4622-8c56-fad7e059154f">

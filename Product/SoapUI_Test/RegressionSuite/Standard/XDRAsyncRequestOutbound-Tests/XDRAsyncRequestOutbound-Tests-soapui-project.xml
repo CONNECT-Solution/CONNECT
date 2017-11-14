@@ -821,7 +821,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1884/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="EntityXDRRequestRequest" type="request" id="5cc1fd6b-34ae-44da-9fbb-2f063cd68544">
@@ -3455,7 +3455,7 @@ assert (count > 0);</script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
   </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAsyncRequestOutbound-Tests-soapui-project.properties')

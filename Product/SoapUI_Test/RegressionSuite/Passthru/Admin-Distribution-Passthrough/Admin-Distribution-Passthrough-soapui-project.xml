@@ -2896,7 +2896,7 @@ def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/badURL";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "nhinadmindist", "2.0", URL, log)</script>
+FileUtils.createOrUpdateConnection("exchangeInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "nhinadmindist", "2.0", URL, log)</script>
         </con:config>
       </con:testStep>
       <con:testStep name="NhincRequest" type="request" id="9c7f63ad-86d0-4480-b513-75a422f73d54">

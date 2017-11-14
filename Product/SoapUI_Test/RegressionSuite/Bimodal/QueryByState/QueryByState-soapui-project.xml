@@ -58,7 +58,7 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4f065352-c415-4633-977a-7620a6711b2f" keepSession="false" maxResults="0" name="UDDI file - by HCID" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="06de1303-0c10-4b2d-8329-788c9a2dd19c">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="06de1303-0c10-4b2d-8329-788c9a2dd19c">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -71,17 +71,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="73509943-f973-4194-a546-987ac94728ac">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="73509943-f973-4194-a546-987ac94728ac">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -94,10 +94,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -288,7 +288,7 @@ declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="630f6f5f-5fa8-4d99-a30c-2b39fd8391e2" keepSession="false" maxResults="0" name="UDDI file - by Region" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="eae8a9da-0cbb-4563-8989-96a925fc13ef">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="eae8a9da-0cbb-4563-8989-96a925fc13ef">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -301,17 +301,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="cec9737e-b0a3-437b-810f-c28b0842c5e2">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="cec9737e-b0a3-437b-810f-c28b0842c5e2">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -324,10 +324,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -586,7 +586,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f9a1e465-20a1-4f61-9e5a-69ab80df360c" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in the same tag" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="d9b118ed-33e8-4b18-a278-faf451c12baa">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="d9b118ed-33e8-4b18-a278-faf451c12baa">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -599,17 +599,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="2177eae0-a043-40d3-9364-2816300524bc">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="2177eae0-a043-40d3-9364-2816300524bc">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -622,10 +622,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -781,7 +781,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73228566-f4f5-4da1-8a48-10314572f144" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in a different tag" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="f77bce62-1720-4c8f-b8f3-d7adf02f3f13">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="f77bce62-1720-4c8f-b8f3-d7adf02f3f13">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -794,17 +794,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="59da69e0-20d3-4ab3-887c-da2b5a1106f9">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="59da69e0-20d3-4ab3-887c-da2b5a1106f9">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -817,10 +817,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -992,9 +992,9 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c09e77f8-1a65-4030-bf5d-c60b49af4fd0" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by HCID" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c09e77f8-1a65-4030-bf5d-c60b49af4fd0" keepSession="false" maxResults="0" name="internalExchangeInfo file - by HCID" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="02ed7566-8ef8-4e36-b5e1-89cd45a0ba2e">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="02ed7566-8ef8-4e36-b5e1-89cd45a0ba2e">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1007,17 +1007,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="2f6876ef-7243-4fc5-9d33-dd6abf66160a">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="2f6876ef-7243-4fc5-9d33-dd6abf66160a">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1030,10 +1030,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1161,9 +1161,9 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2e1a8cdd-95a9-42bb-a518-dce9c8aeb974" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2e1a8cdd-95a9-42bb-a518-dce9c8aeb974" keepSession="false" maxResults="0" name="internalExchangeInfo file - by Region" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="7bd6dab7-9de9-477b-b839-4e7177430576">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="7bd6dab7-9de9-477b-b839-4e7177430576">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1176,17 +1176,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="98153c51-556f-4b73-b034-df0760ba2d68">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="98153c51-556f-4b73-b034-df0760ba2d68">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1199,10 +1199,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1353,9 +1353,9 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6f71882a-7bce-4a7c-947e-9a0dfabdcbac" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in the same tag" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6f71882a-7bce-4a7c-947e-9a0dfabdcbac" keepSession="false" maxResults="0" name="internalExchangeInfo file - by Region + HCID in the same tag" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="bd23ea93-d4cb-48a0-a016-6be66da5b4a1">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="bd23ea93-d4cb-48a0-a016-6be66da5b4a1">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1368,17 +1368,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="ec909312-3559-49e2-a666-99bf0fdc3e3a">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="ec909312-3559-49e2-a666-99bf0fdc3e3a">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1391,10 +1391,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1562,9 +1562,9 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
       <con:reportParameters/>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="23cf96e9-846d-4636-83ca-684ebd72771d" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in a different tag" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="23cf96e9-846d-4636-83ca-684ebd72771d" keepSession="false" maxResults="0" name="internalExchangeInfo file - by Region + HCID in a different tag" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="05fdb399-cded-4719-9825-3bcca59d180d">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="05fdb399-cded-4719-9825-3bcca59d180d">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1577,17 +1577,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="f9b2efcc-d845-40c2-a62a-0e33d906ca47">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="f9b2efcc-d845-40c2-a62a-0e33d906ca47">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1600,10 +1600,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1770,7 +1770,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="93d90bd5-3049-4261-9981-f58ce4469271" keepSession="false" maxResults="0" name="ICI and UDDI" searchProperties="true">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="202f5597-f64c-4970-a06c-f948e835c961">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="202f5597-f64c-4970-a06c-f948e835c961">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1783,17 +1783,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="ed0b232c-14c8-42e5-93dd-14003d4062c3">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="ed0b232c-14c8-42e5-93dd-14003d4062c3">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1806,10 +1806,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -1950,7 +1950,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by HCID" searchProperties="true" id="f99bc9df-4efe-4e5f-8f8b-3657db6158d9">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="b2ab2f21-5021-45b8-b9d6-990487227614">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="b2ab2f21-5021-45b8-b9d6-990487227614">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1963,17 +1963,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="4263f688-5e9d-4123-abe4-6ebcd4417e35">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="4263f688-5e9d-4123-abe4-6ebcd4417e35">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -1986,10 +1986,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2184,7 +2184,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by Region" searchProperties="true" id="319ed84a-cb19-4d47-bbd0-e4fb1836625d">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="1c54ac36-312b-4eb1-9b58-68aad96fde92">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="1c54ac36-312b-4eb1-9b58-68aad96fde92">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2197,17 +2197,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="c9224cc7-9537-4049-854d-d18e7860b1ab">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="c9224cc7-9537-4049-854d-d18e7860b1ab">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2220,10 +2220,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2484,7 +2484,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in the same tag" searchProperties="true" id="14474708-9758-4d99-bd1d-46b0376f8818">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="184b1275-33e3-4719-a8f4-c9fc1f6cbc41">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="184b1275-33e3-4719-a8f4-c9fc1f6cbc41">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2497,17 +2497,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="f5027b89-a0be-45ee-b868-fc393cc997bd">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="f5027b89-a0be-45ee-b868-fc393cc997bd">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2520,10 +2520,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2681,7 +2681,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in a different tag" searchProperties="true" id="97c56787-78c9-4198-838f-1731544f61f4">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="75d47a8b-c1c1-433d-af9f-14066a15b136">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="75d47a8b-c1c1-433d-af9f-14066a15b136">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2694,17 +2694,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="abac5f6e-10c2-475b-873e-01cdefb9558a">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="abac5f6e-10c2-475b-873e-01cdefb9558a">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2717,10 +2717,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -2894,9 +2894,9 @@ context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by HCID" searchProperties="true" id="03c42ec8-11cb-40a0-b713-f05a4ff66ebb">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="internalExchangeInfo file - by HCID" searchProperties="true" id="03c42ec8-11cb-40a0-b713-f05a4ff66ebb">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="6b6a0daa-d539-442e-96b7-73724ec8bfb5">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="6b6a0daa-d539-442e-96b7-73724ec8bfb5">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2909,17 +2909,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="c4ee36ee-43fe-46f1-a1e9-a99d597f65db">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="c4ee36ee-43fe-46f1-a1e9-a99d597f65db">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -2932,10 +2932,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3065,9 +3065,9 @@ context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region" searchProperties="true" id="157fca40-2396-4827-8dda-055f1bea44ef">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="internalExchangeInfo file - by Region" searchProperties="true" id="157fca40-2396-4827-8dda-055f1bea44ef">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="446f7c2d-5656-41a2-b198-de82ad2c9329">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="446f7c2d-5656-41a2-b198-de82ad2c9329">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3080,17 +3080,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="827fe642-d47e-4ff4-9afa-e7028617a67f">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="827fe642-d47e-4ff4-9afa-e7028617a67f">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3103,10 +3103,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3259,9 +3259,9 @@ context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in the same tag" searchProperties="true" id="11878905-abde-4d8e-a740-d36503c02043">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="internalExchangeInfo file - by Region + HCID in the same tag" searchProperties="true" id="11878905-abde-4d8e-a740-d36503c02043">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="76037c83-0cf7-4472-846d-cd8b3bef63e3">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="76037c83-0cf7-4472-846d-cd8b3bef63e3">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3274,17 +3274,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="1a7dad6a-fe17-49b1-b067-1a68fa8e5b55">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="1a7dad6a-fe17-49b1-b067-1a68fa8e5b55">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3297,10 +3297,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3470,9 +3470,9 @@ context.setGatewayStandard(false);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in a different tag" searchProperties="true" id="ef8738b4-111c-4cb3-8529-d56f1970db60">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="internalExchangeInfo file - by Region + HCID in a different tag" searchProperties="true" id="ef8738b4-111c-4cb3-8529-d56f1970db60">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="1892065e-3fe6-44a0-9079-b3998dc2088b">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="1892065e-3fe6-44a0-9079-b3998dc2088b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3485,17 +3485,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="53ce9d64-26fc-4270-82c3-40ec7079576e">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="53ce9d64-26fc-4270-82c3-40ec7079576e">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3508,10 +3508,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3680,7 +3680,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ICI and UDDI" searchProperties="true" id="a11d7c54-b3f1-455b-ace5-858aeefb126e">
       <con:settings/>
-      <con:testStep name="copy internalConnectionInfo" type="groovy" id="39a1c4df-32d6-4340-a44b-4a18384ee0f2">
+      <con:testStep name="copy internalExchangeInfo" type="groovy" id="39a1c4df-32d6-4340-a44b-4a18384ee0f2">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3693,17 +3693,17 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-internalConnectionInfo.xml";
+def sourceFile = "QBS-internalExchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "internalConnectionInfo.xml";
+def destFile = "internalExchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="copy uddiConnectionInfo" type="groovy" id="3894cdfb-2c04-48d8-9971-04a57762dd6b">
+      <con:testStep name="copy exchangeInfo" type="groovy" id="3894cdfb-2c04-48d8-9971-04a57762dd6b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3716,10 +3716,10 @@ def projectPropFullFile = project.getPath()
 def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
-def sourceFile = "QBS-uddiConnectionInfo.xml";
+def sourceFile = "QBS-exchangeInfo.xml";
 def destDir = context.findProperty("GatewayPropDir");
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destFile = "uddiConnectionInfo.xml";
+def destFile = "exchangeInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
@@ -3893,7 +3893,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>ASUsername</con:name>

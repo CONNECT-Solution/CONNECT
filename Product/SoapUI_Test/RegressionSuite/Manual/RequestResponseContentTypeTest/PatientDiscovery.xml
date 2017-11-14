@@ -956,9 +956,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -2417,9 +2417,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>
@@ -3052,7 +3052,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:/glassfish3/glassfish/domains/domain1/config/nhin</con:value>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>

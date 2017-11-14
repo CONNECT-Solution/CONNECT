@@ -6051,9 +6051,9 @@ pdConfigFile.eachLine() {
 pdConfigFile.delete();
 pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
 **/
-log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script>
         </con:config>

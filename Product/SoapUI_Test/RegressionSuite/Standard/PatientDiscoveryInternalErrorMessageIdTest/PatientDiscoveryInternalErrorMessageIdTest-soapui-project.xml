@@ -34,7 +34,7 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="727e811e-5a06-4df4-b920-6b392800f288">
       <con:settings/>
-      <con:testStep type="groovy" name="Update uddiConnectionInfo" id="dc6540fc-ec4d-4064-aaa4-0f9c2cb87293">
+      <con:testStep type="groovy" name="Update exchangeInfo" id="dc6540fc-ec4d-4064-aaa4-0f9c2cb87293">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -44,7 +44,7 @@ def HCID2 = context.findProperty( "RemoteAA" );
 def Host = context.findProperty("Host2");
 def patientDiscoveryURL = "https://" + Host + ":8181/Gateway/PatientDiscovery/1_0/NhinService/INCORRECT_ENDPOINT";
 
-def uddiFileName = "uddiConnectionInfo.xml";
+def uddiFileName = "exchangeInfo.xml";
 def serviceName = "PatientDiscovery";
 def serviceVersion = "1.0";
 
@@ -392,7 +392,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Request" searchProperties="true" id="baaf870f-ea28-451c-a346-7acf4ced7238">
       <con:settings/>
-      <con:testStep type="groovy" name="Update uddiConnectionInfo" id="f502d093-2f72-447e-9f52-2b718fe78f01">
+      <con:testStep type="groovy" name="Update exchangeInfo" id="f502d093-2f72-447e-9f52-2b718fe78f01">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -402,7 +402,7 @@ def HCID2 = context.findProperty("RemoteAA");
 def Host = context.findProperty("Host2");
 def patientDiscoveryDefURL = "https://" + Host + ":8181/Gateway/PatientDiscovery/1_0/NhinService/INCORRECT_ENDPOINT";
 
-def uddiFileName = "uddiConnectionInfo.xml";
+def uddiFileName = "exchangeInfo.xml";
 def serviceName = "PatientDiscoveryDeferredReq";
 def serviceVersion = "1.0";
 
@@ -769,7 +769,7 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true">
       <con:settings/>
-      <con:testStep type="groovy" name="Update uddiConnectionInfo" id="a130666a-49c9-49a1-931f-79e6707c5ea5">
+      <con:testStep type="groovy" name="Update exchangeInfo" id="a130666a-49c9-49a1-931f-79e6707c5ea5">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -779,7 +779,7 @@ def HCID2 = context.findProperty("RemoteAA");
 def Host = context.findProperty("Host2");
 def patientDiscoveryDefURL = "https://" + Host + ":8181/Gateway/PatientDiscovery/1_0/NhinService/INCORRECT_ENDPOINT";
 
-def uddiFileName = "uddiConnectionInfo.xml";
+def uddiFileName = "exchangeInfo.xml";
 def serviceName = "PatientDiscoveryDeferredResp";
 def serviceVersion = "2.0";
 

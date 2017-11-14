@@ -25,14 +25,14 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="85ca4e9a-7b00-47d5-aba3-0e191bc387cd" keepSession="false" maxResults="0" name="Document Retrieve Registry Error" searchProperties="true">
       <con:settings/>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="959e68fd-f2ad-42af-84f3-3dfded8fe559">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="959e68fd-f2ad-42af-84f3-3dfded8fe559">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def mockPEURL = "http://localhost:18082/mockAdapterDocRetrieve";
 def LocalHCID = "1.1";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrieve", mockPEURL, "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrieve", mockPEURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Retrieve" type="request" id="65a7ebba-cde4-4086-b3d2-aa041c136195">
@@ -329,7 +329,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       </con:testStep>
       <con:testStep name="Mock Adapter DR Response" type="mockresponse" id="82fd887d-22ae-48aa-aada-f6f5a2e47ff8">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="modify internalConnectionInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="modify internalExchangeInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterDocRetrieveBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
           <con:path>/mockAdapterDocRetrieve</con:path>
@@ -708,14 +708,14 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve Registry Error" searchProperties="true" id="ce8adc74-6802-42da-84e5-ca5e94a5da97">
       <con:settings/>
-      <con:testStep name="modify internalConnectionInfo" type="groovy" id="29828df7-46ca-48fc-858c-97f4076243e3">
+      <con:testStep name="modify internalExchangeInfo" type="groovy" id="29828df7-46ca-48fc-858c-97f4076243e3">
         <con:settings/>
         <con:config>
           <script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def mockPEURL = "http://localhost:18082/mockAdapterDocRetrieve";
 def LocalHCID = "1.1";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrieve", mockPEURL, "LEVEL_a0", log);</script>
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigFileLocation, LocalHCID, "adapterdocretrieve", mockPEURL, "LEVEL_a0", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Document Retrieve" type="request" id="7e0831f1-ad74-4f1e-bdd2-64235072c580">
@@ -1012,7 +1012,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       </con:testStep>
       <con:testStep name="Mock Adapter DR Response" type="mockresponse" id="c351f061-f555-4940-97e0-6992e77d6ffa">
         <con:settings/>
-        <con:config xsi:type="con:MockResponseStep" startStep="modify internalConnectionInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xsi:type="con:MockResponseStep" startStep="modify internalExchangeInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterDocRetrieveBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
           <con:path>/mockAdapterDocRetrieve</con:path>
