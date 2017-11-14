@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange">
+    <refreshActive>false</refreshActive>
+    <exchanges>
+        <exchange type="local">
+            <name>adapter</name>
+            <organizationList>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>1.1</hcid>
+                    <endpointList>
+                        <endpoint>
+                            <name>adapterdocretrieve</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/Adapter/DocumentRetrieve/A_1/AdapterDocRetrieve</url>
+    <version>LEVEL_a1</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdocretrievesecured</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveSecured</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>entitydocretrieveproxy</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</url>
+    <version>2.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</url>
+    <version>3.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>entitydocretrievesecured</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieveSecured</url>
+    <version>2.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveSecured</url>
+    <version>3.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>auditrepository</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTGateway/GatewayService/AuditRepositoryManagerService</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>auditrepositorysecured</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>auditrepositorymanager</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>auditlog</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>policyengineservice</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>policyengineservicesecured</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/CONNECTAdapter/AdapterPolicyEngineSecured</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>policyenginedte</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTGateway/GatewayInternalService/PolicyEngineGatewayTransformationService</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>policyenginefacade</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTGateway/GatewayInternalService/PolicyEngineFacadeService</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterpolicyengineorchestrator</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/AdapterPolicyEngineOrchestrator</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterxdsbdocrepository</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterxdsbdocregistry</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterpip</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/AdapterPIP</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterpep</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/AdapterPEP</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterauthentication</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/AdapterAuthentication</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterredactionengine</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>deferredqueuemanager</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/DeferredQueueManager</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>entityperformancelogquery</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/EntityPerformanceLogQuery</url>
+    <version>1.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>http://localhost:8080/CONNECTAdapter/EntityPerformanceLogQuery</url>
+    <version>LEVEL_a0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                    </endpointList>
+                    <targetRegion>US-NY</targetRegion>
+                    <targetRegion>US-VA</targetRegion>
+                </organization>
+            </organizationList>
+        </exchange>
+    </exchanges>
+</exchangeInfo>
