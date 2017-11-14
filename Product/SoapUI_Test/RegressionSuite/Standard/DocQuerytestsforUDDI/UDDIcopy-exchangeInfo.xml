@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange">
+    <refreshActive>false</refreshActive>
+    <exchanges>
+        <exchange type="uddi">
+            <name>Exchange 1</name>
+            <organizationList>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>1.1</hcid>
+                    <endpointList>
+                        <endpoint>
+                            <name>QueryForDocuments</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>RetrieveDocuments</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url>
+    <version>2.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url>
+    <version>3.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>PatientDiscovery</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</url>
+    <version>1.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>PatientDiscoveryDeferredReq</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</url>
+    <version>2.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>PatientDiscoveryDeferredResp</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</url>
+    <version>2.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</url>
+    <version>1.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>DocSubmission</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</url>
+    <version>1.1</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>DocSubmissionDeferredReq</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</url>
+    <version>1.1</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>DocSubmissionDeferredResp</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</url>
+    <version>1.1</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>AdminDistribution</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist</url>
+    <version>1.0</version>
+</endpointConfiguration>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                    </endpointList>
+                    <targetRegion>US-NY</targetRegion>
+                    <targetRegion>US-VA</targetRegion>
+                </organization>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>2.2</hcid>
+                    <endpointList>
+                        <endpoint>
+                            <name>QueryForDocuments</name>
+                            <endpointConfigurationList>
+<endpointConfiguration>
+    <url>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</url>
+    <version>2.0</version>
+</endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                    </endpointList>
+                    <targetRegion>US-VA</targetRegion>
+                </organization>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>4.4</hcid>
+                    <targetRegion>US-VA</targetRegion>
+                </organization>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>5.5</hcid>
+                    <targetRegion>US-VA</targetRegion>
+                </organization>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>6.6</hcid>
+                    <targetRegion>US-FL</targetRegion>
+                </organization>
+                <organization>
+                    <name>DoD</name>
+                    <hcid>7.7</hcid>
+                    <targetRegion>US-VA</targetRegion>
+                    <targetRegion>US-FL</targetRegion>
+                    <targetRegion>US-GA</targetRegion>
+                </organization>
+            </organizationList>
+        </exchange>
+    </exchanges>
+</exchangeInfo>
