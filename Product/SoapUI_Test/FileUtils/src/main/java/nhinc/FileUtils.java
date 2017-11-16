@@ -63,7 +63,9 @@ import org.xml.sax.SAXException;
 public class FileUtils {
     static final String TEMP_DIR = "prop_temp";
     private static final String NS_NEW_ELEMENT = "urn:uddi-org:api_v3";
+    private static final String XML_ALL_NS = "*";
     private static final String COMPLETION_CHECKPOINT = "completion-checkpoint: {0}";
+    private static final boolean REQUIRED_ELEMENT_TRUE = true;
 
     /**
      * Reads in a file with a given file name and converts to a String.
@@ -334,9 +336,6 @@ public class FileUtils {
             "begin CreateOrUpdateConnection; directory=''{0}'';community-id=''{1}'';service-name=''{2}'';service-url=''{3}'';",
             directory, communityId, serviceName, serviceUrl));
 
-        String homeCommunityId = appendPrefixHomeCommunityID(communityId);
-        log.info(MessageFormat.format("set-homeCommunityId: {0}", homeCommunityId));
-
         String fullPath = MessageFormat.format("{0}/{1}", directory, fileName);
         Document doc = getDocument(log, fullPath);
         if (null == doc) {
@@ -349,15 +348,15 @@ public class FileUtils {
             Element organization = (Element) organizationList.item(i);
             String hcidValue = getTextContentOf(organization, "hcid");
 
-            if (homeCommunityId.equalsIgnoreCase(hcidValue)) {
+            if (equalsIgnoreCaseForHCID(communityId, hcidValue)) {
                 log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
                 boolean serviceNodeFound = checkServiceEndpointByLatest(log, organization, serviceName, serviceUrl);
 
                 if (!serviceNodeFound) {
                     log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
-                        homeCommunityId, serviceName));
+                        communityId, serviceName));
                     try {
-                        getFirstElementOf(organization, "endpointList")
+                        getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
                         .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, defaultVersion));
                         log.debug(getCheckpoint(MessageFormat
                             .format("createOrUpdateConnection-createElementEndpointBy: {0}", serviceName)));
@@ -405,9 +404,6 @@ public class FileUtils {
             "begin CreateOrUpdateConnection; directory=''{0}'';community-id=''{1}'';service-name=''{2}'';service-url=''{3}'';",
             directory, communityId, serviceName, serviceUrl));
 
-        String homeCommunityId = appendPrefixHomeCommunityID(communityId);
-        log.info(MessageFormat.format("set-homeCommunityId: {0}", homeCommunityId));
-
         String fullPath = MessageFormat.format("{0}/{1}", directory, fileName);
         Document doc = getDocument(log, fullPath);
         if (null == doc) {
@@ -420,16 +416,16 @@ public class FileUtils {
             Element organization = (Element) organizationList.item(i);
             String hcidValue = getFirstElementOf(organization, "hcid").getTextContent();
 
-            if (homeCommunityId.equalsIgnoreCase(hcidValue)) {
+            if (equalsIgnoreCaseForHCID(communityId, hcidValue)) {
                 log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
                 boolean serviceNodeFound = checkServiceEndpoint(log, organization, serviceName, serviceUrl,
                     endpointVersion);
 
                 if (!serviceNodeFound) {
                     log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
-                        homeCommunityId, serviceName));
+                        communityId, serviceName));
                     try {
-                        getFirstElementOf(organization, "endpointList")
+                        getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
                         .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, endpointVersion));
                         log.debug(getCheckpoint(
                             MessageFormat.format("configureConnection-createElementEndpointBy: {0}", serviceName)));
@@ -603,6 +599,12 @@ public class FileUtils {
         return checkPrefixBeforeAppend(homeCommunityId, "urn:oid:");
     }
 
+    private static boolean equalsIgnoreCaseForHCID(final String communityId, final String hcidValue) {
+        String homeCommunityIdPrefix = appendPrefixHomeCommunityID(communityId);
+        String hcidValuePrefix = appendPrefixHomeCommunityID(hcidValue);
+        return homeCommunityIdPrefix.equalsIgnoreCase(hcidValuePrefix);
+    }
+
     private static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
         final String tempValue = checkValue.trim().toLowerCase();
         final String tempPrefix = checkPrefix.toLowerCase();
@@ -633,7 +635,16 @@ public class FileUtils {
     }
 
     private static Element getFirstElementOf(Element target, String nameOf) {
-        return (Element) target.getElementsByTagName(nameOf).item(0);
+        return getFirstElementOf(target, nameOf, false);
+    }
+
+    private static Element getFirstElementOf(Element target, String nameOf, boolean isRequired) {
+        Element firstElement = (Element) target.getElementsByTagNameNS(XML_ALL_NS, nameOf).item(0);
+        if (isRequired && null == firstElement) {
+            firstElement = createElementBy(target, nameOf);
+        }
+
+        return firstElement;
     }
 
     private static String getTextContentOf(Element target, String nameOf) {
@@ -648,7 +659,7 @@ public class FileUtils {
         NodeList listElements = null;
         Element rootElement = getFirstElementOf(parent, ofList);
         if (rootElement != null) {
-            listElements = rootElement.getElementsByTagName(ofName);
+            listElements = rootElement.getElementsByTagNameNS(XML_ALL_NS, ofName);
             if (null == listElements) {
                 log.warn(MessageFormat.format("''{0}-{1}'' is null", ofList, ofName));
             }
@@ -804,10 +815,10 @@ public class FileUtils {
     }
 
     private static NodeList getOrganizationList(Logger log, Document doc) {
-        Element orgRoot = (Element) doc.getElementsByTagName("organizationList").item(0);
+        Element orgRoot = (Element) doc.getElementsByTagNameNS(XML_ALL_NS, "organizationList").item(0);
         NodeList organizationList = null;
         if (orgRoot != null) {
-            organizationList = orgRoot.getElementsByTagName("organization");
+            organizationList = orgRoot.getElementsByTagNameNS(XML_ALL_NS, "organization");
             if (organizationList != null) {
                 log.info(MessageFormat.format("organization-list: {0}", organizationList.getLength()));
             } else {
