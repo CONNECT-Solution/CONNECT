@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.exchangemgr;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -37,8 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -51,7 +52,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
     private static final String HCID_2 = "urn:oid:2.2";
     private static final String DEFAULT_EXCHANGE = "NationwideExchange";
 
-    @Ignore
+    @Test
     public void testGetOrganization() {
         Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManager();
         try {
@@ -64,9 +65,9 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         }
     }
 
-    @Ignore
+    @Test
     public void testGetOrganizationByHcids() {
-        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForMulitpleHcid();
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForMulitpleExchange();
         try {
             List<String> hcids = new ArrayList<>();
             hcids.add(HCID_1);
@@ -82,12 +83,26 @@ public class ExchangeManagerTest extends BaseExchangeManager {
 
     @Test
     public void testEndpointUrl() {
-        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManager();
         try {
-            exMgr.getEndpointURLFromNhinTargetCommunities(createNhinTargetCommunitiesType(HCID_1),
+            Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManager();
+            List<UrlInfo> list = exMgr.getEndpointURLFromNhinTargetCommunities(createNhinTargetCommunitiesType(HCID_1),
                 NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            assertTrue(list.size() == 1);
         } catch (ExchangeManagerException ex) {
-            fail("Error running testEndpointUrl: " + ex.getMessage());
+            ex.printStackTrace();
+            fail("Error running testGetOrganization: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testDefaultExchange() {
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForMulitpleHcid();
+        try {
+            OrganizationType org = exMgr.getOrganization(null, HCID_2);
+            assertEquals("DefaultExchange does not match", exMgr.getDefaultExchange(), "StateExchange");
+            assertEquals("Organization HCID does not match", org.getHcid(), HCID_2);
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testDefaultExchange: " + ex.getMessage());
         }
     }
 
@@ -100,7 +115,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         };
     }
 
-    private Exchange<UDDI_SPEC_VERSION> createExternalExchangeManagerForMulitpleHcid() {
+    private Exchange<UDDI_SPEC_VERSION> createExternalExchangeManagerForMulitpleExchange() {
         return new ExchangeManager() {
             @Override
             protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
@@ -109,11 +124,21 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         };
     }
 
+    private Exchange<UDDI_SPEC_VERSION> createExternalExchangeManagerForMulitpleHcid() {
+        return new ExchangeManager() {
+            @Override
+            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+                return createExchangeInfoDAO(
+                    "/config/ExchangeManagerTest/exchangeInfoMulitpleHcidInASingleExchangeTest.xml");
+            }
+        };
+    }
+
     private NhinTargetCommunitiesType createNhinTargetCommunitiesType(String hcid) {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
         targetCommunity.setHomeCommunity(createHomeCommunity(hcid));
-        targetCommunities.setExchangeName("StatewideExchange");
+        targetCommunities.setExchangeName("StateExchange");
         targetCommunities.getNhinTargetCommunity().add(targetCommunity);
         return targetCommunities;
     }

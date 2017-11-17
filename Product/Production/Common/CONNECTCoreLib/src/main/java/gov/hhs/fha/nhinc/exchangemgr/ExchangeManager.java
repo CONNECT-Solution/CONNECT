@@ -29,7 +29,10 @@ package gov.hhs.fha.nhinc.exchangemgr;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import static gov.hhs.fha.nhinc.exchangemgr.AbstractExchangeManager.HELPER;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -81,11 +84,11 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
                             getOrganization()) || StringUtils.isNotEmpty(ex.getType()) || StringUtils.isNotEmpty(ex.
                             getName())) {
+                            Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
-                                Map<String, OrganizationType> innerMap = new HashMap<>();
                                 innerMap.put(org.getHcid(), org);
-                                exCache.put(ex.getName(), innerMap);
                             }
+                            exCache.put(ex.getName(), innerMap);
                         }
                     }
                     defaultExchange = exInfo.getDefaultExchange();
@@ -140,7 +143,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             map = exCache.get(defaultExchange);
         } else {
             if (null != getCache().values()) {
-                map = getCache().values().iterator().next();
+                map = extractHcidOrganizationMap();
             }
         }
         if (null != map) {
@@ -148,6 +151,21 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         } else {
             return null;
         }
+    }
+
+    @Override
+    public String getEndpointURL(String hcid, String sServiceName,
+        UDDI_SPEC_VERSION api_spec) throws ExchangeManagerException {
+        OrganizationType org = getOrganization(hcid);
+        EndpointType epType = HELPER.getServiceEndpointType(org, sServiceName);
+        if (null == epType) {
+            return "";
+        }
+        EndpointConfigurationType configType = HELPER.getEndPointConfigBasedOnSpecVersion(epType, getAPI_SPEC(api_spec));
+        if (null == configType) {
+            throw new ExchangeManagerException("No matching target endpoint for guidance: " + getAPI_SPEC(api_spec));
+        }
+        return configType.getUrl();
     }
 
     @Override

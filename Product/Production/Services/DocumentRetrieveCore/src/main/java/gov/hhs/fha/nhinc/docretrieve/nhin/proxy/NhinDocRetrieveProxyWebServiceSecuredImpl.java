@@ -29,12 +29,12 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -104,8 +104,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             } else {
                 LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
-        } catch (final ConnectionManagerException e) {
-            LOG.error("Connection manager exception: {}", e.getLocalizedMessage(), e);
+        } catch (final ExchangeManagerException e) {
+            LOG.error("Exchange manager exception: {}", e.getLocalizedMessage(), e);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final RegistryResponseType error = helper.createError(e.getLocalizedMessage(),
                 ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
@@ -129,11 +129,11 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param level
      * @return
      * @throws Exception
-     * @throws ConnectionManagerException
+     * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      * @throws IllegalArgumentException
      */
     protected String getUrl(final NhinTargetSystemType targetSystem, final String sServiceName,
-        final GATEWAY_API_LEVEL level) throws IllegalArgumentException, ConnectionManagerException, Exception {
+        final GATEWAY_API_LEVEL level) throws IllegalArgumentException, ExchangeManagerException, Exception {
         if (StringUtils.isBlank(targetSystem.getUseSpecVersion())) {
             throw new IllegalArgumentException("Required specification version guidance was null.");
         }
