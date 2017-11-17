@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.exchangemgr;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
@@ -80,11 +82,11 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
                             getOrganization()) || StringUtils.isNotEmpty(ex.getType()) || StringUtils.isNotEmpty(ex.
                             getName())) {
+                            Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
-                                Map<String, OrganizationType> innerMap = new HashMap<>();
                                 innerMap.put(org.getHcid(), org);
-                                exInternalCache.put(ex.getName(), innerMap);
                             }
+                            exInternalCache.put(ex.getName(), innerMap);
                         }
                     }
                     exCacheLoaded = true;
@@ -135,13 +137,26 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         if (StringUtils.isNotEmpty(exchangeName)) {
             map = getCache().get(exchangeName);
         } else {
-            map = getCache().values().iterator().next();
+            map = extractHcidOrganizationMap();
         }
         if (null != map) {
             return map.get(hcidWithPrefix) != null ? map.get(hcidWithPrefix) : map.get(hcidWithoutPrefix);
         } else {
             return null;
         }
+    }
+
+    @Override
+    public String getEndpointURL(String hcid, String sServiceName,
+        ADAPTER_API_LEVEL api_spec) throws ExchangeManagerException {
+        String endpointUrl = "";
+        OrganizationType org = getOrganization(hcid);
+        EndpointType epType = HELPER.getServiceEndpointType(org, sServiceName);
+        EndpointConfigurationType configType = HELPER.getEndPointConfigBasedOnSpecVersion(epType, getAPI_SPEC(api_spec));
+        if (null != configType) {
+            endpointUrl = configType.getUrl();
+        }
+        return endpointUrl;
     }
 
     @Override

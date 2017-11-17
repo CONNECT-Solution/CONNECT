@@ -30,16 +30,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -183,17 +184,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public String getEndpointURL(String hcid, String sServiceName,
-        T api_spec) throws ExchangeManagerException {
-        String endpointURL = "";
-        OrganizationType org = getOrganizationByServiceName(hcid, sServiceName);
-        EndpointType epType = HELPER.getServiceEndpointType(org, sServiceName);
-        EndpointConfigurationType configType = HELPER.getEndPointConfigBasedOnSpecVersion(epType, getAPI_SPEC(api_spec));
-        if (null != configType) {
-            endpointURL = configType.getUrl();
-        }
-        return endpointURL;
-    }
+    public abstract String getEndpointURL(String hcid, String sServiceName, T api_spec) throws ExchangeManagerException;
 
     @Override
     public String getEndpointURL(String sUniformServiceName) throws
@@ -290,7 +281,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             // This is the broadcast scenario so retrieve the entire list of URLs for the specified service
             for (OrganizationType org : getAllOrganizationSetByServiceName(serviceName)) {
                 String hcid = org.getHcid();
-                String endpt = getDefaultEndpointURL(targets.getExchangeName(), hcid, serviceName);
+                String endpt = getDefaultEndpointURL(null, hcid, serviceName);
 
                 if (StringUtils.isNotEmpty(endpt)) {
                     UrlInfo entry = new UrlInfo();
@@ -343,5 +334,19 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         } else {
             LOG.debug("Url List is Empty");
         }
+    }
+
+    protected Map<String, OrganizationType> extractHcidOrganizationMap() {
+        Map<String, OrganizationType> innerMap = null;
+        try {
+            Map<String, Map<String, OrganizationType>> map = getCache();
+            innerMap = new HashMap<>();
+            for (Entry<String, Map<String, OrganizationType>> entry : map.entrySet()) {
+                innerMap.putAll(entry.getValue());
+            }
+        } catch (ExchangeManagerException ex) {
+            LOG.error("Unable to read exchange file {}", ex.getLocalizedMessage(), ex);
+        }
+        return innerMap;
     }
 }
