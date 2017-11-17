@@ -2,7 +2,7 @@
 <exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
     <refreshInterval>1440</refreshInterval>
     <maxNumberOfBackups>0</maxNumberOfBackups>
-    <defaultExchange>uddi</defaultExchange>
+    <defaultExchange>NationwideExchange</defaultExchange>
     <exchanges>
         <exchange type="uddi">
             <name>StateExchange</name>

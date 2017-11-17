@@ -151,7 +151,8 @@ public class ExchangeManagerHelper {
     }
 
     public EndpointType getServiceEndpointType(OrganizationType org, String serviceName) {
-        if (org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().getEndpoint())) {
+        if (null != org && org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().
+            getEndpoint())) {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                 if (hasService(epType, serviceName)) {
                     return epType;
