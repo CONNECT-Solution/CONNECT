@@ -30,7 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -43,12 +44,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessEntity;
 
 /**
  * This class is used to map a home community ID to the textual name of the home community. The information is stored in
  * a properties file so that it can be tweaked and changed without having to recompile...
- *
+ * <p>
  * Added getCommunityIdFromXXX() methods for use in audit logging.
  *
  * @author Les Westberg
@@ -57,7 +57,7 @@ import org.uddi.api_v3.BusinessEntity;
 public class HomeCommunityMap {
 
     private static final Logger LOG = LoggerFactory.getLogger(HomeCommunityMap.class);
-    private static ConnectionManagerCache connection = ConnectionManagerCache.getInstance();
+    private static ExchangeManager exManager = ExchangeManager.getInstance();
     private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
     /**
@@ -71,10 +71,9 @@ public class HomeCommunityMap {
 
         try {
 
-            BusinessEntity oEntity = connection.getBusinessEntity(sHomeCommunityId);
-            if (oEntity != null && CollectionUtils.isNotEmpty(oEntity.getName())
-                && oEntity.getName().get(0) != null && StringUtils.isNotEmpty(oEntity.getName().get(0).getValue())) {
-                sHomeCommunityName = oEntity.getName().get(0).getValue();
+            OrganizationType org = exManager.getOrganization(sHomeCommunityId);
+            if (null != org) {
+                sHomeCommunityName = org.getName();
             }
         } catch (Exception e) {
             LOG.warn("Failed to retrieve textual name for home community ID: {}", e.getLocalizedMessage(), e);
@@ -276,8 +275,8 @@ public class HomeCommunityMap {
         propertyAccessor = propAccessor;
     }
 
-    protected static void setConnectionManager(ConnectionManagerCache connectionManager) {
-        connection = connectionManager;
+    protected static void setExchangeManager(ExchangeManager manager) {
+        exManager = manager;
     }
 
     public static String getHomeCommunityWithoutPrefix(String hcid) {

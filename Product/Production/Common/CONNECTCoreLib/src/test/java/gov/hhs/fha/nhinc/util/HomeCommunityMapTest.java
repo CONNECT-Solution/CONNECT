@@ -32,7 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -46,8 +47,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.Name;
 
 /**
  *
@@ -55,22 +54,18 @@ import org.uddi.api_v3.Name;
  */
 public class HomeCommunityMapTest {
 
-    ConnectionManagerCache connection = mock(ConnectionManagerCache.class);
+    ExchangeManager exManager = mock(ExchangeManager.class);
 
     PropertyAccessor accessor = mock(PropertyAccessor.class);
 
     public HomeCommunityMapTest() {
     }
 
-    protected BusinessEntity createBusinessEntity(String orgName) {
-        BusinessEntity bEntity = new BusinessEntity();
+    protected OrganizationType createOrganization(String orgName) {
+        OrganizationType org = new OrganizationType();
+        org.setName(orgName);
 
-        bEntity.setBusinessKey("businessKey");
-        Name name = new Name();
-        name.setValue(orgName);
-        bEntity.getName().add(name);
-
-        return bEntity;
+        return org;
     }
 
     @Test
@@ -81,9 +76,9 @@ public class HomeCommunityMapTest {
         try {
             String homeCommunityId = "1.1";
 
-            HomeCommunityMap.setConnectionManager(connection);
+            HomeCommunityMap.setExchangeManager(exManager);
 
-            when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(createBusinessEntity(homeCommunityName));
+            when(exManager.getOrganization(Mockito.anyString())).thenReturn(createOrganization(homeCommunityName));
 
             String foundName = HomeCommunityMap.getHomeCommunityName(homeCommunityId);
             assertEquals(homeCommunityName, foundName);
@@ -100,9 +95,9 @@ public class HomeCommunityMapTest {
         try {
             String homeCommunityId = "123456";
 
-            HomeCommunityMap.setConnectionManager(connection);
+            HomeCommunityMap.setExchangeManager(exManager);
 
-            when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(null);
+            when(exManager.getOrganization(Mockito.anyString())).thenReturn(null);
 
             String foundName = HomeCommunityMap.getHomeCommunityName(homeCommunityId);
             assertEquals("", foundName);
