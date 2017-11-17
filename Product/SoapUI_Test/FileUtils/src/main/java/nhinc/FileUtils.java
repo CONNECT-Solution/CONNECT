@@ -282,6 +282,8 @@ public class FileUtils {
                 FileWriter output = new FileWriter(tempConfigFile);
 
                 try {
+                    int lineCount = 1;
+                    log.debug(MessageFormat.format("looking for: ''{0}''", oldAliasLine));
                     // not declared within while loop
                     String line;
                     /*
@@ -289,14 +291,17 @@ public class FileUtils {
                      * only for the END of the stream. it returns an empty String if two newlines appear in a row.
                      */
                     while ((line = input.readLine()) != null) {
-                        if (line.contains(oldAliasLine)) {
+                        log.debug(MessageFormat.format("File ''{0}'': ''{1}''", fileName, line));
+                        if (contantsIgnoreCaseOf(line, oldAliasLine)) {
                             line = newAliasLine;
                             foundAlias = true;
                             log.debug(getCheckpoint("updateSpringConfig-found"));
                         }
                         output.append(line);
                         output.append(System.getProperty("line.separator"));
+                        lineCount++;
                     }
+                    log.debug(MessageFormat.format("File ''{0}'': end with count: {1}", fileName, lineCount));
                 } finally {
                     closeFile(input, log);
                     closeFile(output, log);
@@ -307,7 +312,8 @@ public class FileUtils {
                 tempConfigFile.delete();
 
                 if (!foundAlias) {
-                    log.error("Did not find alias line in Spring Config file.  No modification made.");
+                    log.warn(MessageFormat.format(
+                        "Did not find alias line in Spring Config file.  No modification made. ''{0}''", oldAliasLine));
                 }
                 log.debug(getCheckpoint("updateSpringConfig"));
             } catch (IOException e) {
@@ -680,7 +686,7 @@ public class FileUtils {
         Element configuration = createElementBy(configurationList, "endpointConfiguration");
         createElementBy(configuration, "url", serviceUrl);
         createElementBy(configuration, "version",
-            serviceName.toLowerCase().contains("adapter") ? "LEVEL_a0" : endpointVersion);
+            contantsIgnoreCaseOf(serviceName, "adapter") ? "LEVEL_a0" : endpointVersion);
 
         return endpoint;
     }
@@ -735,7 +741,7 @@ public class FileUtils {
             Element epConfiguration = (Element) configurationList.item(confIndex);
             String currentVersionString = getTextContentOf(epConfiguration, "version");
 
-            if (currentVersionString.toUpperCase().contains("LEVEL")) {
+            if (contantsIgnoreCaseOf(currentVersionString, "LEVEL")) {
                 if (latestVersion != null) {
                     if (currentVersionString.equalsIgnoreCase("LEVEL_a1")) {
                         latestVersion = epConfiguration;
@@ -837,5 +843,9 @@ public class FileUtils {
             log.error(e.getLocalizedMessage(), e);
         }
         return 0.0F;
+    }
+
+    private static boolean contantsIgnoreCaseOf(final String stringOf, final String charSequence) {
+        return stringOf.toLowerCase().contains(charSequence.toLowerCase());
     }
 }
