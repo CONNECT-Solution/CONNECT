@@ -292,7 +292,7 @@ public class FileUtils {
                      */
                     while ((line = input.readLine()) != null) {
                         log.debug(MessageFormat.format("File ''{0}'': ''{1}''", fileName, line));
-                        if (contantsIgnoreCaseOf(line, oldAliasLine)) {
+                        if (containsIgnoreCaseOf(line, oldAliasLine)) {
                             line = newAliasLine;
                             foundAlias = true;
                             log.debug(getCheckpoint("updateSpringConfig-found"));
@@ -686,7 +686,7 @@ public class FileUtils {
         Element configuration = createElementBy(configurationList, "endpointConfiguration");
         createElementBy(configuration, "url", serviceUrl);
         createElementBy(configuration, "version",
-            contantsIgnoreCaseOf(serviceName, "adapter") ? "LEVEL_a0" : endpointVersion);
+            containsIgnoreCaseOf(serviceName, "adapter") ? "LEVEL_a0" : endpointVersion);
 
         return endpoint;
     }
@@ -741,7 +741,7 @@ public class FileUtils {
             Element epConfiguration = (Element) configurationList.item(confIndex);
             String currentVersionString = getTextContentOf(epConfiguration, "version");
 
-            if (contantsIgnoreCaseOf(currentVersionString, "LEVEL")) {
+            if (containsIgnoreCaseOf(currentVersionString, "LEVEL")) {
                 if (latestVersion != null) {
                     if (currentVersionString.equalsIgnoreCase("LEVEL_a1")) {
                         latestVersion = epConfiguration;
@@ -845,7 +845,7 @@ public class FileUtils {
         return 0.0F;
     }
 
-    private static boolean contantsIgnoreCaseOf(final String stringOf, final String charSequence) {
+    private static boolean containsIgnoreCaseOf(final String stringOf, final String charSequence) {
         return stringOf.toLowerCase().contains(charSequence.toLowerCase());
     }
 }
