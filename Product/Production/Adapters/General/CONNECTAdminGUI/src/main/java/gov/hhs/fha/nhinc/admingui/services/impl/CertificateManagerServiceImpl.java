@@ -197,7 +197,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException
      */
     @Override
-    public void importCertificate(Certificate cert) throws CertificateManagerException {
+    public void importCertificate(Certificate cert, boolean refreshCache) throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
@@ -208,7 +208,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
 
         if (StringUtils.isNotBlank(passkey) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
-            addCertificateToTrustStore(cert);
+            addCertificateToTrustStore(cert, refreshCache);
         } else {
             LOG.info("importCertificate -- validation failed");
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
@@ -236,9 +236,9 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
     }
 
-    private boolean addCertificateToTrustStore(Certificate cert) throws CertificateManagerException {
+    private boolean addCertificateToTrustStore(Certificate cert, boolean refreshCache) throws CertificateManagerException {
         try {
-            ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert);
+            ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache);
             ImportCertificateResponseMessageType response = (ImportCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class, "importCertificate", requestMessage);
             return response.isStatus();
         } catch (Exception ex) {
@@ -293,13 +293,14 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                 new AssertionType());
     }
 
-    private ImportCertificateRequestMessageType createImportCertRequest(Certificate cert) throws CertificateEncodingException {
+    private ImportCertificateRequestMessageType createImportCertRequest(Certificate cert, boolean refreshCache) throws CertificateEncodingException {
         ImportCertificateRequestMessageType message = new ImportCertificateRequestMessageType();
         ConfigAssertionType assertion = buildConfigAssertion();
         message.setConfigAssertion(assertion);
 
         ImportCertificateRequestType request = new ImportCertificateRequestType();
         request.setAlias(cert.getAlias());
+        request.setRefreshCache(refreshCache);
         DataHandler data = transformToHandler(cert.getX509Cert().getEncoded());
         request.setCertData(data);
         message.setImportCertRequest(request);

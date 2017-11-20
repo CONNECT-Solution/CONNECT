@@ -328,7 +328,7 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
+            public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException {
                 //do nothing
             }
             

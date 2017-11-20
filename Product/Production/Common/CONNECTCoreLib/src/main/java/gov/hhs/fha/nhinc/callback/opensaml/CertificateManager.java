@@ -95,9 +95,10 @@ public interface CertificateManager {
      * 
      * @param alias
      * @param data
+     * @param refreshCache
      * @throws CertificateManagerException 
      */
-    public void importCertificate(String alias, DataHandler data) throws CertificateManagerException;
+    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException;
 
     /**
      * @return

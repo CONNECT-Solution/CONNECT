@@ -81,7 +81,7 @@ public class CertficateBean {
     private boolean expiredCert;
     private boolean rememberMe;
     private String oldAlias;
-
+    private boolean refreshCache;
 
     private enum RefreshAction {
         KEYSTORE("keystore"), TRUSTSTORE("truststore");
@@ -264,11 +264,12 @@ public class CertficateBean {
         if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
             if (!service.isAliasInUse(selectedCertificate.getAlias(), service.fetchTrustStores())) {
                 try {
-                    service.importCertificate(selectedCertificate);
+                    service.importCertificate(selectedCertificate, refreshCache);
                     truststores = service.refreshTrustStores();
                     importCertFile = null;
                     importCertificate = null;
                     selectedCertificate = null;
+                    refreshCache = false;
                     RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
                     LOG.info("importCertificate -- successful");
                 } catch (Exception ex) {
@@ -386,5 +387,13 @@ public class CertficateBean {
             HelperUtil.addMessageError(uiElement, "Please choose a certificate to view details");
         }
         return selectedTSCertificate;
+    }
+    
+    public boolean isRefreshCache() {
+        return refreshCache;
+    }
+
+    public void setRefreshCache(boolean refreshCache) {
+        this.refreshCache = refreshCache;
     }
 }

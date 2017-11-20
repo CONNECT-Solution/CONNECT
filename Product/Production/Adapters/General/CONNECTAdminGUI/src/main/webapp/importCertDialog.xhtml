@@ -56,7 +56,14 @@
                                 </p:column>
                             </p:dataTable>
                         </div>
-
+                        
+                        <div class="form-group">
+                            <h:outputLabel for="checkbox-refreshCache" class="col-sm-3 control-label" id="check-refreshCacheLabel" value="Refresh Services Cache (recommended when replacing previous cert): " />
+                            <div class="col-sm-9">
+                                <p:selectBooleanCheckbox id="checkbox-refreshCache" value="#{certificateBean.refreshCache}" />
+                            </div>
+                        </div> 
+                        
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">

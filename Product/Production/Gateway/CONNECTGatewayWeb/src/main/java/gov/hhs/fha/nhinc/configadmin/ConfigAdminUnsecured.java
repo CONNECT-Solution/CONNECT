@@ -48,7 +48,8 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         
         CertificateManager certManager = CertificateManagerImpl.getInstance();
         try {
-            certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getImportCertRequest().getCertData());
+            certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getImportCertRequest().getCertData(),
+                    importCertificateRequest.getImportCertRequest().isRefreshCache());
             response.setStatus(true);
             LOG.info("Certificate imported with alias {} by user {}.", importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getConfigAssertion().getUserInfo().getUserName());
         } catch (CertificateManagerException ex) {

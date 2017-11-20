@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -126,12 +128,15 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     @Override
-    public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
+    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException {
         Certificate addCert = certUtil.createCertificate(data);
         try {
             verifyCertInfo(alias, addCert);
             trustStore.setCertificateEntry(alias, addCert);
             storeCert();
+            if(refreshCache) {
+                refreshServices();
+            }
         } catch (IOException | KeyStoreException | CertificateException | NoSuchAlgorithmException ex) {
             checkAndRemoveCert(alias);
             throw new CertificateManagerException("Unable to store cert " + alias + "due to: " + ex.getMessage(), ex);
@@ -393,5 +398,10 @@ public class CertificateManagerImpl implements CertificateManager {
         } catch (KeyStoreException ex) {
             LOG.error("Unable to remove certificate: {}", alias, ex);
         }
+    }
+
+    private void refreshServices() {
+        CachingCXFUnsecuredServicePortBuilder.clearCache();
+        CachingCXFSecuredServicePortBuilder.clearCache();
     }
 }
