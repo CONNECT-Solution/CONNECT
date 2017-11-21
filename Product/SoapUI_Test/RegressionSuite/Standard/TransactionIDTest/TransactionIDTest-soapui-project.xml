@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="TransactionLogging" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="6070c648-9a77-497a-a295-54009372e9b9" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="TransactionLogging" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="6070c648-9a77-497a-a295-54009372e9b9" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="92de6047-0307-4a94-8b56-c27ad30b4dce" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -1287,19 +1287,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T23:01:18Z</con:value>
+          <con:value>2017-11-21T14:18:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T23:11:18Z</con:value>
+          <con:value>2017-11-21T14:28:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 23:01:18</con:value>
+          <con:value>11/21/2017 14:18:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2196,19 +2196,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:14:59Z</con:value>
+          <con:value>2017-11-21T14:18:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:24:59Z</con:value>
+          <con:value>2017-11-21T14:28:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:14:59</con:value>
+          <con:value>11/21/2017 14:18:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -2945,19 +2945,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:15:02Z</con:value>
+          <con:value>2017-11-21T14:18:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:25:02Z</con:value>
+          <con:value>2017-11-21T14:28:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:15:02</con:value>
+          <con:value>11/21/2017 14:18:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -3676,7 +3676,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);<
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
@@ -3858,19 +3858,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:15:04Z</con:value>
+          <con:value>2017-11-21T14:18:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:25:04Z</con:value>
+          <con:value>2017-11-21T14:28:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:15:04</con:value>
+          <con:value>11/21/2017 14:18:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -4942,19 +4942,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:15:21Z</con:value>
+          <con:value>2017-11-21T14:18:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:25:21Z</con:value>
+          <con:value>2017-11-21T14:28:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:15:21</con:value>
+          <con:value>11/21/2017 14:18:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6352,19 +6352,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:15:24Z</con:value>
+          <con:value>2017-11-21T14:18:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:25:24Z</con:value>
+          <con:value>2017-11-21T14:28:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:15:24</con:value>
+          <con:value>11/21/2017 14:18:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6779,19 +6779,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:15:27Z</con:value>
+          <con:value>2017-11-21T14:18:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:25:27Z</con:value>
+          <con:value>2017-11-21T14:28:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:15:27</con:value>
+          <con:value>11/21/2017 14:18:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -6834,55 +6834,55 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       </con:property>
       <con:property>
         <con:name>MessageID_PD</con:name>
-        <con:value>urn:uuid:2190222</con:value>
+        <con:value>urn:uuid:7283163</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DQ</con:name>
-        <con:value>urn:uuid:9426940</con:value>
+        <con:value>urn:uuid:1343748</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DR</con:name>
-        <con:value>urn:uuid:4790134</con:value>
+        <con:value>urn:uuid:2253789</con:value>
       </con:property>
       <con:property>
         <con:name>TransactionID</con:name>
-        <con:value>urn:uuid:52862707</con:value>
+        <con:value>urn:uuid:44739494</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefReq1</con:name>
-        <con:value>urn:uuid:8842130</con:value>
+        <con:value>urn:uuid:3685813</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefResp1</con:name>
-        <con:value>urn:uuid:3997895</con:value>
+        <con:value>urn:uuid:7774118</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefReq1</con:name>
-        <con:value>urn:uuid:8719176</con:value>
+        <con:value>urn:uuid:2904056</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefResp1</con:name>
-        <con:value>urn:uuid:4195426</con:value>
+        <con:value>urn:uuid:4444474</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DS</con:name>
-        <con:value>urn:uuid:4561126</con:value>
+        <con:value>urn:uuid:8500744</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_AD</con:name>
-        <con:value>urn:uuid:8151086</con:value>
+        <con:value>urn:uuid:7083091</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefReq2</con:name>
-        <con:value>urn:uuid:6038434</con:value>
+        <con:value>urn:uuid:1480097</con:value>
       </con:property>
       <con:property>
         <con:name>TransactionID2</con:name>
-        <con:value>urn:uuid:79773607</con:value>
+        <con:value>urn:uuid:16832903</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefReq2</con:name>
-        <con:value>urn:uuid:9313587</con:value>
+        <con:value>urn:uuid:1598946</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_Sub</con:name>
@@ -7309,19 +7309,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:04:49Z</con:value>
+          <con:value>2017-11-21T14:18:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:14:49Z</con:value>
+          <con:value>2017-11-21T14:28:55Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:04:49</con:value>
+          <con:value>11/21/2017 14:18:55</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -8323,19 +8323,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:04:51Z</con:value>
+          <con:value>2017-11-21T14:18:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:14:51Z</con:value>
+          <con:value>2017-11-21T14:28:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:04:51</con:value>
+          <con:value>11/21/2017 14:18:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -9234,19 +9234,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:04:55Z</con:value>
+          <con:value>2017-11-21T14:19:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:14:55Z</con:value>
+          <con:value>2017-11-21T14:29:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:04:55</con:value>
+          <con:value>11/21/2017 14:19:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -9985,19 +9985,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:04:58Z</con:value>
+          <con:value>2017-11-21T14:19:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:14:58Z</con:value>
+          <con:value>2017-11-21T14:29:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:04:58</con:value>
+          <con:value>11/21/2017 14:19:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -10716,7 +10716,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);<
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
@@ -10900,19 +10900,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:05:01Z</con:value>
+          <con:value>2017-11-21T14:19:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:15:01Z</con:value>
+          <con:value>2017-11-21T14:29:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:05:01</con:value>
+          <con:value>11/21/2017 14:19:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -11985,19 +11985,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:05:17Z</con:value>
+          <con:value>2017-11-21T14:19:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:15:17Z</con:value>
+          <con:value>2017-11-21T14:29:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:05:17</con:value>
+          <con:value>11/21/2017 14:19:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -13396,19 +13396,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:05:21Z</con:value>
+          <con:value>2017-11-21T14:19:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:15:21Z</con:value>
+          <con:value>2017-11-21T14:29:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:05:21</con:value>
+          <con:value>11/21/2017 14:19:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -13451,55 +13451,55 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       </con:property>
       <con:property>
         <con:name>MessageID_PD</con:name>
-        <con:value>urn:uuid:3987708</con:value>
+        <con:value>urn:uuid:8624762</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DQ</con:name>
-        <con:value>urn:uuid:8598105</con:value>
+        <con:value>urn:uuid:7857681</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DR</con:name>
-        <con:value>urn:uuid:3970954</con:value>
+        <con:value>urn:uuid:5870920</con:value>
       </con:property>
       <con:property>
         <con:name>TransactionID</con:name>
-        <con:value>urn:uuid:14735473</con:value>
+        <con:value>urn:uuid:53583637</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefReq1</con:name>
-        <con:value>urn:uuid:5747327</con:value>
+        <con:value>urn:uuid:5609552</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefResp1</con:name>
-        <con:value>urn:uuid:2915726</con:value>
+        <con:value>urn:uuid:6119222</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefReq1</con:name>
-        <con:value>urn:uuid:1162979</con:value>
+        <con:value>urn:uuid:2704923</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefResp1</con:name>
-        <con:value>urn:uuid:7286649</con:value>
+        <con:value>urn:uuid:4745994</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DS</con:name>
-        <con:value>urn:uuid:7445952</con:value>
+        <con:value>urn:uuid:9593082</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_AD</con:name>
-        <con:value>urn:uuid:5867711</con:value>
+        <con:value>urn:uuid:1666418</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefReq2</con:name>
-        <con:value>urn:uuid:5833109</con:value>
+        <con:value>urn:uuid:81389</con:value>
       </con:property>
       <con:property>
         <con:name>TransactionID2</con:name>
-        <con:value>urn:uuid:36937931</con:value>
+        <con:value>urn:uuid:88425515</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefReq2</con:name>
-        <con:value>urn:uuid:6981053</con:value>
+        <con:value>urn:uuid:1362689</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_Sub</con:name>
@@ -14513,19 +14513,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:01:34Z</con:value>
+          <con:value>2017-11-21T14:19:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:11:34Z</con:value>
+          <con:value>2017-11-21T14:29:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:01:34</con:value>
+          <con:value>11/21/2017 14:19:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -15424,19 +15424,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:01:39Z</con:value>
+          <con:value>2017-11-21T14:19:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:11:39Z</con:value>
+          <con:value>2017-11-21T14:29:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:01:39</con:value>
+          <con:value>11/21/2017 14:19:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -16175,19 +16175,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:01:42Z</con:value>
+          <con:value>2017-11-21T14:19:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:11:42Z</con:value>
+          <con:value>2017-11-21T14:29:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:01:42</con:value>
+          <con:value>11/21/2017 14:19:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -16906,7 +16906,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);<
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
                <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
                <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
@@ -17090,19 +17090,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:01:44Z</con:value>
+          <con:value>2017-11-21T14:19:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:11:44Z</con:value>
+          <con:value>2017-11-21T14:29:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:01:44</con:value>
+          <con:value>11/21/2017 14:19:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -18176,19 +18176,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:02:00Z</con:value>
+          <con:value>2017-11-21T14:19:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:12:00Z</con:value>
+          <con:value>2017-11-21T14:29:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:02:00</con:value>
+          <con:value>11/21/2017 14:19:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -19588,19 +19588,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:02:04Z</con:value>
+          <con:value>2017-11-21T14:19:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:12:04Z</con:value>
+          <con:value>2017-11-21T14:29:58Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:02:04</con:value>
+          <con:value>11/21/2017 14:19:58</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -20015,19 +20015,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2014-02-13T22:02:07Z</con:value>
+          <con:value>2017-11-21T14:20:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2014-02-13T22:12:07Z</con:value>
+          <con:value>2017-11-21T14:30:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/13/2014 22:02:07</con:value>
+          <con:value>11/21/2017 14:20:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2014-03-15T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
     </con:testCase>
@@ -20070,55 +20070,55 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
       </con:property>
       <con:property>
         <con:name>MessageID_PD</con:name>
-        <con:value>urn:uuid:6405156</con:value>
+        <con:value>urn:uuid:6125480</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DQ</con:name>
-        <con:value>urn:uuid:3392743</con:value>
+        <con:value>urn:uuid:4058535</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DR</con:name>
-        <con:value>urn:uuid:8911587</con:value>
+        <con:value>urn:uuid:4202665</con:value>
       </con:property>
       <con:property>
         <con:name>TransactionID</con:name>
-        <con:value>urn:uuid:47975672</con:value>
+        <con:value>urn:uuid:92859687</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefReq1</con:name>
-        <con:value>urn:uuid:9717307</con:value>
+        <con:value>urn:uuid:240258</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefResp1</con:name>
-        <con:value>urn:uuid:2734335</con:value>
+        <con:value>urn:uuid:8105221</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefReq1</con:name>
-        <con:value>urn:uuid:755871</con:value>
+        <con:value>urn:uuid:5688531</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefResp1</con:name>
-        <con:value>urn:uuid:3867861</con:value>
+        <con:value>urn:uuid:8863128</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DS</con:name>
-        <con:value>urn:uuid:8205585</con:value>
+        <con:value>urn:uuid:7517087</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_AD</con:name>
-        <con:value>urn:uuid:8540230</con:value>
+        <con:value>urn:uuid:3785690</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_PDDefReq2</con:name>
-        <con:value>urn:uuid:9046209</con:value>
+        <con:value>urn:uuid:9657413</con:value>
       </con:property>
       <con:property>
         <con:name>TransactionID2</con:name>
-        <con:value>urn:uuid:84918315</con:value>
+        <con:value>urn:uuid:57057080</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_DSDefReq2</con:name>
-        <con:value>urn:uuid:5155434</con:value>
+        <con:value>urn:uuid:381774</con:value>
       </con:property>
       <con:property>
         <con:name>MessageID_Sub</con:name>
@@ -20202,7 +20202,7 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
     </con:property>
     <con:property>
       <con:name>DeferredRequestMessageID</con:name>
-      <con:value>urn:uuid:89433726</con:value>
+      <con:value>urn:uuid:33846028</con:value>
     </con:property>
     <con:property>
       <con:name>DOB</con:name>
@@ -20422,11 +20422,11 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Tran
     </con:property>
     <con:property>
       <con:name>TransactionID</con:name>
-      <con:value>urn:uuid:30537997</con:value>
+      <con:value>urn:uuid:41555910</con:value>
     </con:property>
     <con:property>
       <con:name>TransactionID_2</con:name>
-      <con:value>urn:uuid:71343330</con:value>
+      <con:value>urn:uuid:92168008</con:value>
     </con:property>
     <con:property>
       <con:name>TransactionRepoTable</con:name>
