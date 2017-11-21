@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
@@ -95,22 +96,6 @@ public class CertficateBean {
 
         public String pageLocation() {
             return pageLocation;
-        }
-    }
-
-    private enum COLOR_CODING_CSS {
-        RED("glyphicon glyphicon-remove-circle highlightRED"), GREEN("glyphicon glyphicon-ok-circle highlightGREEN"),
-        YELLOW("glyphicon glyphicon-warning-sign highlightYELLOW");
-
-        private final String colorCodingCertExpiry;
-
-        private COLOR_CODING_CSS(final String color) {
-            colorCodingCertExpiry = color;
-        }
-
-        @Override
-        public String toString() {
-            return colorCodingCertExpiry;
         }
     }
 
