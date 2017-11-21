@@ -380,7 +380,7 @@ public class NhincConstants {
     public static final String ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME = "entityadmindistsecured";
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
-    
+
     //Config Admin
     public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";
 
@@ -505,6 +505,11 @@ public class NhincConstants {
     // UDDI TLS version
     public static final String UDDI_TLS = "UDDI.TLS";
 
+    public static final String ADMIN_CERT_IMPORT = "importCertificate";
+    public static final String ADMIN_CERT_LIST_TRUSTSTORE = "listTrustStores";
+    public static final String ADMIN_CERT_LIST_KEYSTORE = "listKeyStores";
+    public static final String ADMIN_CERT_DELETE = "deleteCertificate";
+    public static final String ADMIN_CERT_EDIT = "editCertificate";
     private NhincConstants() {
     }
 }

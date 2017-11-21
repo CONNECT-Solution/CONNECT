@@ -88,12 +88,12 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-	private static final String UNABLE_TO_GET_CERTIFICATE = "Unable to get certificate details";
+    private static final String UNABLE_TO_GET_CERTIFICATE = "Unable to get certificate details";
 
     @Override
     public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException {
         try {
-            return listKeyStore(SamlConstants.ADMIN_CERT_LIST_KEYSTORE);
+            return listKeyStore(NhincConstants.ADMIN_CERT_LIST_KEYSTORE);
         } catch (Exception ex) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -104,7 +104,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> fetchTrustStores() throws CertificateManagerException {
         try {
-            return listTrustStore(SamlConstants.ADMIN_CERT_LIST_TRUSTSTORE);
+            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE);
         } catch (Exception ex) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -124,7 +124,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException {
         try {
-            return listTrustStore(SamlConstants.ADMIN_CERT_LIST_KEYSTORE);
+            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_KEYSTORE);
         } catch (Exception e) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -155,7 +155,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException {
         try {
-            return listTrustStore(SamlConstants.ADMIN_CERT_LIST_TRUSTSTORE);
+            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE);
         } catch (Exception e) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -221,7 +221,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert);
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, SamlConstants.ADMIN_CERT_IMPORT, requestMessage);
+                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
             return response.isStatus();
         } catch (Exception ex) {
             throw new CertificateManagerException("Error sending import request message.", ex);
@@ -236,7 +236,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         request.setAlias(alias);
         try {
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, SamlConstants.ADMIN_CERT_DELETE, request);
+                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
             return response.isStatus();
         } catch (Exception e) {
             throw new CertificateManagerException("Error deleting the selected certificate.", e);
@@ -365,7 +365,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             requestMessage.setConfigAssertion(assertion);
 
             response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, SamlConstants.ADMIN_CERT_EDIT, requestMessage);
+                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_EDIT, requestMessage);
 
         } catch (Exception ex) {
             response.setStatus(false);
