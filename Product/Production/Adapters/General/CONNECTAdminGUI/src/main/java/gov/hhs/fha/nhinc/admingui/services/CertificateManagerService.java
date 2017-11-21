@@ -44,9 +44,9 @@ public interface CertificateManagerService {
 
     public String getTrustStoreLocation();
 
-    public List<CertificateDTO> refreshKeyStores();
+    public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException;
 
-    public List<CertificateDTO> refreshTrustStores();
+    public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException;
 
     public CertificateDTO createCertificate(byte[] data);
 

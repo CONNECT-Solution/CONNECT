@@ -32,6 +32,10 @@ package gov.hhs.fha.nhinc.admingui.util;
  */
 public class GUIConstants {
 
+    private GUIConstants() {
+
+    }
+
     public static enum EVENT_NAMES {
 
         PatientDiscovery("PD"), PatientDiscoveryDeferredReq("PDDefReq"), PatientDiscoveryDeferredResp("PDDefResp"),

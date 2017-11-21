@@ -90,7 +90,6 @@ public class X509CertificateHelper {
         obj.setCertSignature(getCertSignature());
         obj.setExpiresInDays(getExpiresInDays());
         obj.setSignatureAlgorithm(x509Cert.getSigAlgName());
-        // obj.setExpiryColorCoding(getExpiryColor());
         obj.setX509Cert(x509Cert);
         return obj;
     }

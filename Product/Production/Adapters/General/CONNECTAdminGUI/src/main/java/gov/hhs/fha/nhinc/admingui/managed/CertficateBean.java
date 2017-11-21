@@ -345,8 +345,10 @@ public class CertficateBean {
 
     /**
      * @param updateStatus
+     * @throws CertificateManagerException
      */
-    private void postUpdateAction(boolean updateStatus, String uiElement, RefreshAction pageLocation) {
+    private void postUpdateAction(boolean updateStatus, String uiElement, RefreshAction pageLocation)
+        throws CertificateManagerException {
         if (updateStatus) {
             if (pageLocation == RefreshAction.KEYSTORE) {
                 keystores = service.refreshKeyStores();
