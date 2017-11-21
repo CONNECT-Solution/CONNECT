@@ -64,4 +64,21 @@ public class GUIConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     }
+
+    public enum COLOR_CODING_CSS {
+        RED("glyphicon glyphicon-remove-circle highlightRED"), GREEN("glyphicon glyphicon-ok-circle highlightGREEN"),
+        YELLOW("glyphicon glyphicon-warning-sign highlightYELLOW");
+
+        private final String colorCodingCertExpiry;
+
+        private COLOR_CODING_CSS(final String color) {
+            colorCodingCertExpiry = color;
+        }
+
+        @Override
+        public String toString() {
+            return colorCodingCertExpiry;
+        }
+    }
+
 }
