@@ -68,8 +68,8 @@ import org.springframework.stereotype.Component;
 public class LoadTestDataDocumentBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataDocumentBean.class);
     private static final String DOCUMENT = "Document Info";
-    private static final String EVENT_CODE = "Eventcode";
-    private static final String GROWL_MESSAGE = "msgForGrowl";
+    private static final String EVENT_CODE = " an Eventcode";
+    private static final String GROWL_MESSAGE = "a msgForGrowl";
 
     private String dialogTitle;
     private Document withDocument;
@@ -137,6 +137,7 @@ public class LoadTestDataDocumentBean {
         boolean result = false;
         if (selectedDocument != null) {
             result = loadTestDataService.deleteDocument(selectedDocument);
+            selectedDocument = null;
         } else {
             addFacesMessageBy(GROWL_MESSAGE, msgForSelectDelete("Document"));
         }
@@ -189,6 +190,7 @@ public class LoadTestDataDocumentBean {
         boolean result = false;
         if (selectedEventCode != null) {
             result = loadTestDataService.deleteEventCode(selectedEventCode);
+            selectedEventCode = null;
         } else {
             addFacesMessageBy(msgForSelectDelete(EVENT_CODE));
         }
@@ -215,6 +217,14 @@ public class LoadTestDataDocumentBean {
 
     public boolean getDisableAccordion() {
         return !isValidDocumentId();
+    }
+
+    public boolean getDisableDocumentButtons() {
+        return selectedDocument == null;
+    }
+
+    public boolean getDisableEventCodeButtons() {
+        return selectedEventCode == null;
     }
 
     public Document getDocumentForm() {
@@ -247,7 +257,7 @@ public class LoadTestDataDocumentBean {
             withDocument.setRawData(file.getContents());
             withDocument.setSize(file.getContents().length);
             withDocument.setMimeType(file.getContentType());
-            try{
+            try {
                 withDocument.setHash(DigestUtils.md5Hex(file.getInputstream()));
             } catch (IOException e) {
                 LOG.error("error while trying to get file-hash: {} {}", e.getMessage(), e);
@@ -264,15 +274,16 @@ public class LoadTestDataDocumentBean {
         return getDocumentForm().getPatientId();
     }
 
-    public void setPatientId(String patientId){
-        getDocumentForm().setPatientId(patientId);
-        getDocumentForm().setSourcePatientId(patientId);
+    public void setPatientId(String patientIdentifierIso) {
+        getDocumentForm().setPatientId(patientIdentifierIso);
+        getDocumentForm().setSourcePatientId(patientIdentifierIso);
 
-        if (StringUtils.isNotBlank(patientId)) {
-            String[] identifierValue = patientId.split("&");
-            setPIDs(loadTestDataService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
+        if (StringUtils.isNotBlank(patientIdentifierIso)) {
+            String[] identifierValue = patientIdentifierIso.split("&");
+            HelperUtil.updateDocumentBy(withDocument,
+                loadTestDataService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
         } else {
-            setPIDs(new Patient());
+            HelperUtil.updateDocumentBy(withDocument, new Patient());
         }
     }
 
@@ -280,7 +291,7 @@ public class LoadTestDataDocumentBean {
         Personname personname = HelperUtil.lastItem(patient.getPersonnames());
         if (personname != null) {
             getDocumentForm()
-            .setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
+                .setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
         }
 
         Timestamp dateOfBirth = patient.getDateOfBirth();
@@ -324,7 +335,7 @@ public class LoadTestDataDocumentBean {
 
     // msgs
     private static FacesMessage msgForSaveSuccess(String ofType, Long ofId) {
-        return HelperUtil.getMsgInfo(MessageFormat.format("Save {0} successful: {1}", ofType.toLowerCase(), ofId));
+        return HelperUtil.getMsgInfo(MessageFormat.format("Save {0} successful.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForSelectDelete(String ofType) {

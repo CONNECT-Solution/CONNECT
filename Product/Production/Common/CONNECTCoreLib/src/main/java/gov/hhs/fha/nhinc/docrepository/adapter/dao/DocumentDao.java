@@ -66,6 +66,10 @@ public class DocumentDao {
         return GenericDBUtils.findAll(getSession(), Document.class);
     }
 
+    public List<Document> findAllBy(long patientId) {
+        return GenericDBUtils.findAllBy(getSession(), Document.class, Expression.eq("patientRecordId", patientId));
+    }
+
     protected Session getSession() {
         Session session = null;
         try {
