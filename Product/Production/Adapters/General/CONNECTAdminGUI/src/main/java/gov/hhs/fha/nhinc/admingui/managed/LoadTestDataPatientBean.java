@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
@@ -63,8 +62,8 @@ public class LoadTestDataPatientBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataPatientBean.class);
     private static final String ADDITIONAL_NAME = "Additional-name";
     private static final String ADDRESS = "Address";
-    private static final String IDENTIFIER = "Identifier";
-    private static final String PHONE_NUMBER = "Phonenumber";
+    private static final String IDENTIFIER = "an Identifier";
+    private static final String PHONE_NUMBER = "a Phonenumber";
 
     private String dialogTitle;
 
@@ -136,6 +135,7 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedPhonenumber != null) {
             result = loadTestDataService.deletePhonenumber(selectedPhonenumber);
+            selectedPhonenumber = null;
         } else {
             addPatientErrorMessages(msgForSelectDelete(PHONE_NUMBER));
         }
@@ -183,6 +183,7 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedAddress != null) {
             result = loadTestDataService.deleteAddress(selectedAddress);
+            selectedAddress = null;
         } else {
             addPatientErrorMessages(msgForSelectDelete(ADDRESS));
         }
@@ -233,6 +234,7 @@ public class LoadTestDataPatientBean {
             // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(identifierList) && identifierList.size() > 1) {
                 result = loadTestDataService.deleteIdentifier(selectedIdentifier);
+                selectedIdentifier = null;
             } else {
                 addPatientErrorMessages("Patient-identifier cannot be empty: fail to delete the last record");
             }
@@ -287,6 +289,7 @@ public class LoadTestDataPatientBean {
             // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(personnameList) && personnameList.size() > 1) {
                 result = loadTestDataService.deletePersonname(selectedPersonname);
+                selectedPersonname = null;
             } else {
                 addPatientErrorMessages("Patient-personname cannot be empty: fail to delete the last record");
             }
@@ -336,6 +339,7 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedPatient != null) {
             result = loadTestDataService.deletePatient(selectedPatient);
+            selectedPatient = null;
         } else {
             addPatientsListMessages(msgForSelectDelete("patient"));
         }
@@ -453,6 +457,26 @@ public class LoadTestDataPatientBean {
         return !isValidPatientId();
     }
 
+    public boolean getDisablePatientButtons() {
+        return selectedPatient == null;
+    }
+
+    public boolean getDisableAddNameButtons() {
+        return selectedPersonname == null;
+    }
+
+    public boolean getDisableIdentifierButtons() {
+        return selectedIdentifier == null;
+    }
+
+    public boolean getDisableAddressButtons() {
+        return selectedAddress == null;
+    }
+
+    public boolean getDisablePhoneNumButtons() {
+        return selectedPhonenumber == null;
+    }
+
     public String getDialogTitle() {
         return dialogTitle;
     }
@@ -480,20 +504,21 @@ public class LoadTestDataPatientBean {
 
     private static void logPatientError(String logOf, LoadTestDataException e) {
         FacesContext.getCurrentInstance().validationFailed();
-        addPatientErrorMessages(MessageFormat.format("Cannot save patient {0}: {1}", logOf.toLowerCase(), e.getLocalizedMessage()));
+        addPatientErrorMessages(
+            MessageFormat.format("Cannot save patient {0}: {1}", logOf.toLowerCase(), e.getLocalizedMessage()));
         LOG.error("Error save-patient-{0}: {}", logOf.toLowerCase(), e.getLocalizedMessage(), e);
     }
 
     private static String msgForSaveSuccess(String ofType, Long ofId) {
-        return MessageFormat.format("Save {0} successful: {1}", ofType.toLowerCase(), ofId);
+        return MessageFormat.format("Save {0} successful.", ofType.toLowerCase());
     }
 
     private static String msgForSelectEdit(String ofType) {
-        return MessageFormat.format("Select a/an {0} for edit.", ofType.toLowerCase());
+        return MessageFormat.format("Select {0} for edit.", ofType.toLowerCase());
     }
 
     private static String msgForSelectDelete(String ofType) {
-        return MessageFormat.format("Select a/an {0} for delete.", ofType.toLowerCase());
+        return MessageFormat.format("Select {0} for delete.", ofType.toLowerCase());
     }
 
     private static String msgForInvalidPatient(String ofType) {

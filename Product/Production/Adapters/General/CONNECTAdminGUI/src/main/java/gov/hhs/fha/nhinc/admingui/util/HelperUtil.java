@@ -27,8 +27,12 @@
 package gov.hhs.fha.nhinc.admingui.util;
 
 import com.google.gson.Gson;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,7 +71,7 @@ public class HelperUtil {
     }
 
     // CONVERT-METHODS
-    public static Timestamp toTimestamp(Date date){
+    public static Timestamp toTimestamp(Date date) {
         if (date != null) {
             return new Timestamp(date.getTime());
         } else {
@@ -95,6 +99,31 @@ public class HelperUtil {
         return item;
     }
 
+    public static void updateDocumentBy(Document doc, Patient patient) {
+        doc.setPatientId(patient.getPatientIdentifierIso());
+        doc.setSourcePatientId(patient.getPatientIdentifierIso());
+
+        // setPIDs
+        Personname personname = HelperUtil.lastItem(patient.getPersonnames());
+        if (personname != null) {
+            doc.setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
+        }
+        Timestamp dateOfBirth = patient.getDateOfBirth();
+        {
+            doc.setPid7(new SimpleDateFormat("yyyyMMdd").format(dateOfBirth));
+        }
+        doc.setPid8(patient.getGender());
+
+        Address address = HelperUtil.lastItem(patient.getAddresses());
+        if (address != null) {
+            doc.setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^", address.getStreet1(), address.getCity(),
+                address.getState(), address.getPostal()));
+        }
+        if (HelperUtil.isId(patient.getPatientId())) {
+            doc.setPatientRecordId(patient.getPatientId());
+        }
+    }
+
     public static <T> T firstItem(List<T> items) {
         T item = null;
         if (CollectionUtils.isNotEmpty(items)) {
@@ -112,14 +141,14 @@ public class HelperUtil {
     }
 
     public static String encryptToKey(String strClearText, String strKey) {
-        String strData="";
+        String strData = "";
         if (StringUtils.isNotEmpty(strClearText)) {
             try {
                 SecretKeySpec skeyspec = new SecretKeySpec(strKey.getBytes(), CRYPTO_VALUE);
                 Cipher cipher = Cipher.getInstance(CRYPTO_VALUE);
                 cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
-                byte[] encrypted=cipher.doFinal(strClearText.getBytes());
-                strData=new String(encrypted);
+                byte[] encrypted = cipher.doFinal(strClearText.getBytes());
+                strData = new String(encrypted);
 
             } catch (Exception e) {
                 LOG.error("Encryption Error while encryptToKey: {} ", e.getMessage(), e);
@@ -128,15 +157,19 @@ public class HelperUtil {
         return strData;
     }
 
+    public static void updateDocument() {
+
+    }
+
     public static String decryptToKey(String strEncrypted, String strKey) {
-        String strData="";
+        String strData = "";
         if (StringUtils.isNotEmpty(strEncrypted)) {
             try {
                 SecretKeySpec skeyspec = new SecretKeySpec(strKey.getBytes(), CRYPTO_VALUE);
                 Cipher cipher = Cipher.getInstance(CRYPTO_VALUE);
                 cipher.init(Cipher.DECRYPT_MODE, skeyspec);
-                byte[] decrypted=cipher.doFinal(strEncrypted.getBytes());
-                strData=new String(decrypted);
+                byte[] decrypted = cipher.doFinal(strEncrypted.getBytes());
+                strData = new String(decrypted);
             } catch (Exception e) {
                 LOG.error("Encryption Error while decryptToKey: {} ", e.getMessage(), e);
             }
@@ -195,7 +228,7 @@ public class HelperUtil {
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
         Map<String, String> listPatientId = new TreeMap<>();
         for (Patient rec : listPatient) {
-            if(rec.getLastIdentifier() != null){
+            if (rec.getLastIdentifier() != null) {
                 listPatientId.put(rec.getPatientIdentifier(), rec.getPatientIdentifierIso());
             }
         }
@@ -310,5 +343,5 @@ public class HelperUtil {
     public static String getDate(String dateFormat, Date date) {
         return new SimpleDateFormat(dateFormat).format(date);
     }
-}
 
+}

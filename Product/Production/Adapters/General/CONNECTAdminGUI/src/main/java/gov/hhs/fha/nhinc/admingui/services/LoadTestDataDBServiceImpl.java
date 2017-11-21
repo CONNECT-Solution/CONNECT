@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
@@ -86,16 +87,28 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult;
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
             actionResult = patientDAO.saveTransaction(patient);
-
+            updateDocumentWith(patient.getPatientId());
             if (!actionResult) {
                 logDaoError("Patient basic-info");
             }
-        }
-        else {
+        } else {
             LOG.info("Patient basic-info is required");
             throw new LoadTestDataException("Patient basic-info is required when trying to save-patient.");
         }
         return actionResult;
+    }
+
+    private void updateDocumentWith(long patientid) throws LoadTestDataException {
+        List<Document> updateDocument = documentDAO.findAllBy(patientid);
+        if (updateDocument != null) {
+            Patient patient = patientDAO.readTransaction(patientid, true);
+            for (int i = 0; i < updateDocument.size(); i++) {
+                HelperUtil.updateDocumentBy(updateDocument.get(i), patient);
+                saveDocument(updateDocument.get(i));
+
+            }
+        }
+        // logDaoError("Update Document With");
     }
 
     @Override
@@ -255,7 +268,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public Patient getPatientBy(String identifierId, String identifierOrg){
+    public Patient getPatientBy(String identifierId, String identifierOrg) {
         return patientDAO.readTransaction(identifierId, identifierOrg);
     }
 
