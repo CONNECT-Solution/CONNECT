@@ -30,7 +30,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -50,7 +49,7 @@ public class CertificateUtil {
 
     }
 
-    public Certificate createCertificate(DataHandler data) throws CertificateManagerException {
+    public X509Certificate createCertificate(DataHandler data) throws CertificateManagerException {
         X509Certificate cert = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ByteArrayInputStream bais = null;

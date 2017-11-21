@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyFileDAO;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
@@ -331,9 +332,37 @@ public class HOKSAMLAssertionBuilderTest {
             public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
                 //do nothing
             }
-            
+
+            @Override
             public HashMap<String, String> getKeyStoreSystemProperties() {
                 return null;
+            }
+
+            @Override
+            public X509Certificate getCertificateFromByteCode(DataHandler data) throws CertificateManagerException {
+                return null;
+            }
+
+            @Override
+            public DataHandler transformToHandler(byte[] encoded) {
+                return null;
+            }
+
+            @Override
+            public byte[] transformToByteCode(DataHandler handler) throws IOException {
+                return null;
+            }
+
+            @Override
+            public boolean deleteCertificate(String alias) throws CertificateManagerException {
+                return false;
+            }
+
+            @Override
+            public boolean updateCertificate(String oldAlias, String newAlias, String storeType,
+                String storeLoc, String passkey, KeyStore storeCert)
+                    throws CertificateManagerException {
+                return false;
             }
         });
         final Element assertion = builder.build(getProperties());
@@ -401,22 +430,22 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getUserFullName()).thenReturn(null);
 
     }
-    
+
     @Test
     public void testCreateAcpAttributeStatement() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
         final String acp = "urn:oid:1.2.3.4";
         final String iacp = "urn:oid:1.2.3.4.5";
-        
+
         when(callbackProps.getAcpAttribute()).thenReturn(acp);
         when(callbackProps.getIacpAttribute()).thenReturn(iacp);
-        
+
         List<AttributeStatement> aStatement = builder.createAcpAttributeStatements(callbackProps);
-        
+
         assertNotNull(aStatement);
         assertEquals(aStatement.size(), 2);
-        
+
         boolean containsAcps = true;
         for(int i=0; i<2; i++) {
             XSAny xsValue = (XSAny) aStatement.get(i).getAttributes().get(0).getAttributeValues().get(0);

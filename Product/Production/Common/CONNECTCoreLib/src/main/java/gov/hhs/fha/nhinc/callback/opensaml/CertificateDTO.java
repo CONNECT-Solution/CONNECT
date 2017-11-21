@@ -24,16 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.event.model;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
-import gov.hhs.fha.nhinc.admingui.util.GUIConstants.CERT_EXPIRY_COLOR_CODING;
 import java.security.cert.X509Certificate;
 
 /**
  *
  * @author tjafri
  */
-public class Certificate {
+public class CertificateDTO {
 
     private long id;
     private String alias = "";
@@ -218,15 +217,6 @@ public class Certificate {
     }
 
     public String getExpiryColorCoding() {
-        if (expiryColorCoding == null) {
-            if (getExpiresInDays() <= 30) {
-                setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.RED.toString());
-            } else if (expiresInDays > 30 && expiresInDays <= 90) {
-                setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.YELLOW.toString());
-            } else {
-                setExpiryColorCoding(CERT_EXPIRY_COLOR_CODING.GREEN.toString());
-            }
-        }
         return expiryColorCoding;
     }
 

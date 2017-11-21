@@ -24,43 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
-import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import javax.activation.DataSource;
 
 /**
+ * @author Poornima Venkatakrishnan
  *
- * @author tjafri
  */
-public interface CertificateManagerService {
+public class CertificateSource implements DataSource {
 
-    public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException;
+    private final byte[] source;
 
-    public List<CertificateDTO> fetchTrustStores() throws CertificateManagerException;
+    public CertificateSource(byte[] encoded) {
+        source = encoded;
+    }
 
-    public String getKeyStoreLocation();
+    @Override
+    public InputStream getInputStream() throws IOException {
+        return new ByteArrayInputStream(source);
+    }
 
-    public String getTrustStoreLocation();
+    @Override
+    public OutputStream getOutputStream() throws IOException {
+        throw new IOException();
+    }
 
-    public List<CertificateDTO> refreshKeyStores();
+    @Override
+    public String getContentType() {
+        return "application/x-x509-ca-cert";
+    }
 
-    public List<CertificateDTO> refreshTrustStores();
-
-    public CertificateDTO createCertificate(byte[] data);
-
-    public boolean isAliasInUse(String alias, List<CertificateDTO> certs);
-
-    public boolean isLeafOnlyCertificate(CertificateDTO cert);
-
-    public void importCertificate(CertificateDTO cert) throws Exception;
-
-    public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
-
-    public boolean validateTrustStorePassKey(String passkey);
-
-    public boolean updateCertificate(String oldAlias, CertificateDTO cert)
-        throws CertificateManagerException;
-
+    @Override
+    public String getName() {
+        return "";
+    }
 }
