@@ -87,16 +87,16 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
-
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+	private static final String UNABLE_TO_GET_CERTIFICATE = "Unable to get certificate details";
 
     @Override
     public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException {
         try {
             return listKeyStore(SamlConstants.ADMIN_CERT_LIST_KEYSTORE);
         } catch (Exception ex) {
-            LOG.error("Unable to get certificate details", ex.getLocalizedMessage(), ex);
-            throw new CertificateManagerException("Unable to get certificate details.");
+            LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
         }
 
     }
@@ -106,8 +106,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             return listTrustStore(SamlConstants.ADMIN_CERT_LIST_TRUSTSTORE);
         } catch (Exception ex) {
-            LOG.error("Unable to get certificate details", ex.getLocalizedMessage(), ex);
-            throw new CertificateManagerException("Unable to get certificate details.");
+            LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
         }
     }
 
@@ -122,12 +122,12 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public List<CertificateDTO> refreshKeyStores() {
+    public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException {
         try {
             return listTrustStore(SamlConstants.ADMIN_CERT_LIST_KEYSTORE);
         } catch (Exception e) {
-            LOG.error("Unable to get certificate details", e.getLocalizedMessage(), e);
-            throw new UnsupportedOperationException("Not supported yet.");
+            LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
+            throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
         }
     }
 
@@ -153,12 +153,12 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public List<CertificateDTO> refreshTrustStores() {
+    public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException {
         try {
             return listTrustStore(SamlConstants.ADMIN_CERT_LIST_TRUSTSTORE);
         } catch (Exception e) {
-            LOG.error("Unable to get certificate details", e.getLocalizedMessage(), e);
-            throw new UnsupportedOperationException("Not supported yet.");
+            LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
+            throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
         }
     }
 
@@ -273,23 +273,33 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return message;
     }
 
-    private List<CertificateDTO> listTrustStore(String portName) throws Exception {
+    private List<CertificateDTO> listTrustStore(String portName) throws CertificateManagerException {
         ListTrustStoresRequestMessageType message = new ListTrustStoresRequestMessageType();
         ConfigAssertionType assertion = buildConfigAssertion();
         message.setConfigAssertion(assertion);
 
-        ListTrustStoresResponseMessageType response = (ListTrustStoresResponseMessageType) getClient()
-            .invokePort(EntityConfigAdminPortType.class, portName, message);
+        ListTrustStoresResponseMessageType response;
+        try {
+            response = (ListTrustStoresResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                portName, message);
+        } catch (Exception e) {
+            throw new CertificateManagerException("Error while fetching certificates.", e);
+        }
         return soapResponseToDTO(response.getCertList());
     }
 
-    private List<CertificateDTO> listKeyStore(String portName) throws Exception {
+    private List<CertificateDTO> listKeyStore(String portName) throws CertificateManagerException {
         ListKeyStoresRequestMessageType message = new ListKeyStoresRequestMessageType();
         ConfigAssertionType assertion = buildConfigAssertion();
         message.setConfigAssertion(assertion);
 
-        ListKeyStoresResponseMessageType response = (ListKeyStoresResponseMessageType) getClient()
-            .invokePort(EntityConfigAdminPortType.class, portName, message);
+        ListKeyStoresResponseMessageType response;
+        try {
+            response = (ListKeyStoresResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                portName, message);
+        } catch (Exception e) {
+            throw new CertificateManagerException("Error while fetching certificates.", e);
+        }
         return soapResponseToDTO(response.getCertList());
     }
 
@@ -313,7 +323,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
 
-    private ConfigAssertionType buildConfigAssertion() {
+    private static ConfigAssertionType buildConfigAssertion() {
         ConfigAssertionType assertion = new ConfigAssertionType();
         UserLogin user = getUser();
         if (user != null) {
@@ -327,7 +337,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return assertion;
     }
 
-    private UserLogin getUser() {
+    private static UserLogin getUser() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null && facesContext.getViewRoot() != null) {
             HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -335,6 +345,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                 return (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
             }
         }
+
         return null;
     }
 
@@ -346,7 +357,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             EditCertificateRequestMessageType requestMessage = new EditCertificateRequestMessageType();
             EditCertificateRequestType certRequestParam = new EditCertificateRequestType();
             ConfigAssertionType assertion = buildConfigAssertion();
-            DataHandler data = cmHelper.transformToHandler(cert.getX509Cert().getEncoded());
 
             certRequestParam.setOldAlias(oldAlias);
             certRequestParam.setNewAlias(cert.getAlias());

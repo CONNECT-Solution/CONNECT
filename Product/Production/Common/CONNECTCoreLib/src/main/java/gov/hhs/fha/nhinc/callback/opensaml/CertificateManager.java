@@ -105,8 +105,6 @@ public interface CertificateManager {
      */
     public Map<String, String> getKeyStoreSystemProperties();
 
-    // public List<CertificateDTO> buildCertificateList(KeyStore keyStore);
-
     /**
      * @param data
      * @return

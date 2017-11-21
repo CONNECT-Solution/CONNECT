@@ -61,11 +61,8 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerImpl.class);
     private final CertificateUtil certUtil = new CertificateUtil();
-    private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
-
     private KeyStore keyStore = null;
     private KeyStore trustStore = null;
-
     public static final String TRUST_STORE_TYPE_KEY = "javax.net.ssl.trustStoreType";
     public static final String TRUST_STORE_PASSWORD_KEY = "javax.net.ssl.trustStorePassword";
     public static final String TRUST_STORE_KEY = "javax.net.ssl.trustStore";

@@ -48,7 +48,6 @@ import java.security.KeyStoreException;
 import java.security.cert.CertificateEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +90,7 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
      * @param response
      * @param ex
      */
-    private void formatResponse(SimpleCertificateResponseMessageType response, boolean status, String message) {
+    private static void formatResponse(SimpleCertificateResponseMessageType response, boolean status, String message) {
         response.setStatus(status);
         response.setMessage(message);
     }
@@ -166,14 +165,10 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
         CertificateManager certManager = CertificateManagerImpl.getInstance();
 
-        Map<String, String> keyTrustStoreProperties = new HashMap<>();
-        String storeType = null;
-        String storeLoc = null;
-        String passkey = null;
-        keyTrustStoreProperties = certManager.getTrustStoreSystemProperties();
-        storeType = keyTrustStoreProperties.get(TRUST_STORE_TYPE_KEY);
-        storeLoc = keyTrustStoreProperties.get(TRUST_STORE_KEY);
-        passkey = keyTrustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        Map<String, String> keyTrustStoreProperties = certManager.getTrustStoreSystemProperties();
+        String storeType = keyTrustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        String storeLoc = keyTrustStoreProperties.get(TRUST_STORE_KEY);
+        String passkey = keyTrustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
         try{
             formatResponse(response,
                 updateTrustStoreAlias(certManager, editCertificateRequest,  storeType, storeLoc, passkey, KeyStore.getInstance(storeType)),
@@ -207,12 +202,13 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
                 formatResponse(response, false, "Delete certificate alias is null or empty");
             }
         } catch (CertificateManagerException e) {
+            LOG.error("Unable to delete the Certifiate: ", e.getLocalizedMessage(), e);
             formatResponse(response, false, e.getLocalizedMessage());
         }
         return response;
     }
 
-    private boolean updateTrustStoreAlias(CertificateManager certManager,
+    private static boolean updateTrustStoreAlias(CertificateManager certManager,
         EditCertificateRequestMessageType editCertificateRequest, final String storeType,
         final String storeLoc, final String passkey, KeyStore storeCert) {
         EditCertificateRequestType certRequestParam = editCertificateRequest.getEditCertRequest();
