@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,6 +47,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
 import java.util.Map;
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import org.apache.commons.lang.StringUtils;
 import org.cryptacular.util.StreamUtil;
 import org.slf4j.Logger;
@@ -59,6 +61,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerImpl.class);
     private final CertificateUtil certUtil = new CertificateUtil();
+    private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
 
     private KeyStore keyStore = null;
     private KeyStore trustStore = null;
@@ -77,7 +80,6 @@ public class CertificateManagerImpl implements CertificateManager {
         try {
             initKeyStore();
             initTrustStore();
-
         } catch (final Exception e) {
             LOG.error("Unable to initialize keystores: " + e.getLocalizedMessage(), e);
         }
@@ -95,7 +97,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @return
      */
     static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
-            final Map<String, String> trustStoreProperties) {
+        final Map<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
             public Map<String, String> getKeyStoreSystemProperties() {
@@ -125,9 +127,10 @@ public class CertificateManagerImpl implements CertificateManager {
         return trustStore;
     }
 
+
     @Override
     public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
-        Certificate addCert = certUtil.createCertificate(data);
+        Certificate addCert = getCertificateFromByteCode(data);
         try {
             verifyCertInfo(alias, addCert);
             trustStore.setCertificateEntry(alias, addCert);
@@ -138,10 +141,100 @@ public class CertificateManagerImpl implements CertificateManager {
         }
     }
 
+    @Override
+    public boolean deleteCertificate(String alias) throws CertificateManagerException {
+        final Map<String, String> trustStoreProperties = getTrustStoreSystemProperties();
+        String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
+        final String passkey = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        boolean isDeleteSuccessful = false;
+        try {
+            KeyStore tstore = KeyStore.getInstance(storeType);
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                is = new FileInputStream(storeLoc);
+            }
+            tstore.load(is, passkey.toCharArray());
+            if (tstore.containsAlias(alias)) {
+                tstore.deleteEntry(alias);
+                os = new FileOutputStream(storeLoc);
+                tstore.store(os, passkey.toCharArray());
+                isDeleteSuccessful = true;
+            }
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            LOG.error("Unable to delete the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            closeStream(is, os);
+        }
+
+        return isDeleteSuccessful;
+    }
+
+    @Override
+    public boolean updateCertificate(String oldAlias, String newAlias, final String storeType,
+        final String storeLoc, final String passkey, KeyStore storeCert)
+            throws CertificateManagerException {
+        boolean isUpdateSuccessful = false;
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        try {
+            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+                is = new FileInputStream(storeLoc);
+            }
+            storeCert.load(is, passkey.toCharArray());
+            if (storeCert.containsAlias(oldAlias)) {
+                os = updateCertEntry(oldAlias, newAlias, storeCert.getCertificate(oldAlias), storeLoc, passkey,
+                    storeCert);
+                isUpdateSuccessful = true;
+            }
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            isUpdateSuccessful = false;
+            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            closeStream(is, os);
+        }
+        return isUpdateSuccessful;
+
+    }
+
+    private static FileOutputStream updateCertEntry(final String oldAlias, final String newAlias,
+        Certificate certificate, final String storeLoc,
+        final String passkey, KeyStore tstore)
+            throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
+        FileOutputStream os;
+        tstore.deleteEntry(oldAlias);
+        os = new FileOutputStream(storeLoc);
+        tstore.setCertificateEntry(newAlias, certificate);
+        tstore.store(os, passkey.toCharArray());
+        return os;
+    }
+
+    private static void closeStream(FileInputStream is, FileOutputStream os) {
+        try {
+            if (is != null) {
+                is.close();
+            }
+            if (os != null) {
+                os.close();
+            }
+        } catch (final IOException ex) {
+            LOG.error("Unable to close File Stream: {}", ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    @Override
+    public X509Certificate getCertificateFromByteCode(DataHandler data) throws CertificateManagerException {
+        return certUtil.createCertificate(data);
+    }
+
     private void verifyCertInfo(String alias, Certificate cert) throws CertificateManagerException, KeyStoreException {
         StringBuilder message = new StringBuilder();
         boolean hasError = false;
-        
+
         if(StringUtils.isBlank(alias)) {
             hasError = true;
             message.append("Alias, ").append(alias).append(", is missing");
@@ -152,7 +245,7 @@ public class CertificateManagerImpl implements CertificateManager {
             hasError = true;
             message.append("Certificate for alias, ").append(alias).append(", is null");
         }
-                    
+
         if(hasError) {
             throw new CertificateManagerException("Certificate information invalid: " + message.toString());
         }
@@ -196,7 +289,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws CertificateManagerException
      */
     private static KeyStore loadKeyStore(final String storeType, final String password, final String storeLoc)
-            throws CertificateManagerException {
+        throws CertificateManagerException {
         InputStream is = null;
         KeyStore secretStore = null;
         try {
@@ -229,6 +322,7 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     private void initTrustStore() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
+        LOG.info("POORNIMA-test-initTrustStore");
 
         final Map<String, String> trustStoreProperties = getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
@@ -281,7 +375,7 @@ public class CertificateManagerImpl implements CertificateManager {
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
-                            new KeyStore.PasswordProtection(password.toCharArray()));
+                        new KeyStore.PasswordProtection(password.toCharArray()));
 
                 } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
                     LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
@@ -394,4 +488,18 @@ public class CertificateManagerImpl implements CertificateManager {
             LOG.error("Unable to remove certificate: {}", alias, ex);
         }
     }
+
+    @Override
+    public DataHandler transformToHandler(byte[] encoded) {
+        DataSource data = new CertificateSource(encoded);
+        return new DataHandler(data);
+    }
+
+    @Override
+    public byte[] transformToByteCode(DataHandler handler) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        handler.writeTo(output);
+        return output.toByteArray();
+    }
+
 }
