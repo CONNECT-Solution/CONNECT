@@ -267,7 +267,7 @@ public class CertficateBean {
             if (!service.isAliasInUse(selectedCertificate.getAlias(), service.fetchTrustStores())) {
                 try {
                     service.importCertificate(selectedCertificate);
-                    truststores = service.refreshTrustStores();
+                    truststores = refreshPage(RefreshAction.TRUSTSTORE);
                     importCertFile = null;
                     importCertificate = null;
                     selectedCertificate = null;
@@ -335,12 +335,7 @@ public class CertficateBean {
     private void postUpdateAction(boolean updateStatus, String uiElement, RefreshAction pageLocation)
         throws CertificateManagerException {
         if (updateStatus) {
-            if (pageLocation == RefreshAction.KEYSTORE) {
-                keystores = service.refreshKeyStores();
-            }
-            if (pageLocation == RefreshAction.TRUSTSTORE) {
-                truststores = service.refreshTrustStores();
-            }
+            refreshPage(pageLocation);
             selectedTSCertificate = null;
             HelperUtil.addMessageInfo(uiElement, "Update certificate successful");
         } else {
@@ -348,10 +343,26 @@ public class CertficateBean {
         }
     }
 
+    /**
+     * @param pageLocation
+     * @throws CertificateManagerException
+     */
+    private List<CertificateDTO> refreshPage(RefreshAction pageLocation) throws CertificateManagerException {
+        List<CertificateDTO> certs = new ArrayList<>();
+        if (pageLocation == RefreshAction.KEYSTORE) {
+            certs = service.refreshKeyStores();
+            keystores = setColorCodingStyle(certs);
+        } else if (pageLocation == RefreshAction.TRUSTSTORE) {
+            certs = service.refreshTrustStores();
+            truststores = setColorCodingStyle(certs);
+        }
+        return certs;
+    }
+
     private void deleteCertificate() {
         try {
             service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias());
-            truststores = service.refreshTrustStores();
+            refreshPage(RefreshAction.TRUSTSTORE);
             selectedTSCertificate = null;
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
@@ -385,7 +396,7 @@ public class CertficateBean {
         return viewCert("viewCertDlgKS", "keyStoreMsg");
     }
 
-    private List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs) {
+    private static List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs) {
         for(CertificateDTO dto : certDTOs){
             if (dto.getExpiresInDays() <= 30) {
                 dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
