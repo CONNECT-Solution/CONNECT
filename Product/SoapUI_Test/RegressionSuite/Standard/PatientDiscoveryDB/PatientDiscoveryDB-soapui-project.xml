@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="PatientDiscoveryDB" resourceRoot="" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" id="608bed72-70f4-4dfb-9ccb-04b3de486e8c" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="PatientDiscoveryDB" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="608bed72-70f4-4dfb-9ccb-04b3de486e8c" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../../target/wsdl/AdapterPatientDiscovery.wsdl" id="f3218476-9dc9-450d-9cda-395908b98d48" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -341,31 +341,32 @@ AdapterMpiConfig.xml.</con:description>
         </con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpichecker", "mpixmljava", "mpidbjava", log);</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-03-19T18:03:14Z</con:value>
+          <con:value>2017-11-21T18:51:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-03-19T18:13:14Z</con:value>
+          <con:value>2017-11-21T19:01:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/19/2013 18:03:14</con:value>
+          <con:value>11/21/2017 18:51:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-04-18T00:00:00Z</con:value>
+          <con:value>2017-12-21T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
     <con:properties/>
-    <con:setupScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpixmljava", "mpidbjava", log);</con:setupScript>
-    <con:tearDownScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpidbjava", "mpixmljava", log);</con:tearDownScript>
+    <con:setupScript/>
+    <con:tearDownScript/>
   </con:testSuite>
   <con:properties>
     <con:property>
@@ -466,7 +467,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value></con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
