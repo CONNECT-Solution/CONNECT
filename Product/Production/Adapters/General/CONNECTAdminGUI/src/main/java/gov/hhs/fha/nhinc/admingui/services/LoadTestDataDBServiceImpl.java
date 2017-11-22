@@ -176,6 +176,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult = false;
         if (personname.getPatient() != null) {
             actionResult = personnameDAO.save(personname);
+            if (actionResult) {
+                updateDocumentWith(personname.getPatient().getPatientId());
+            }
             if (!actionResult) {
                 logDaoError("Personname");
             }
@@ -188,7 +191,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult = false;
         if (address.getPatient() != null) {
             actionResult = addressDAO.save(address);
-            updateDocumentWith(address.getPatient().getPatientId());
+            if (actionResult) {
+                updateDocumentWith(address.getPatient().getPatientId());
+            }
             if (!actionResult) {
                 logDaoError("Address");
             }
@@ -201,6 +206,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult = false;
         if (identifier.getPatient() != null) {
             actionResult = identifierDAO.save(identifier);
+            if (actionResult) {
+                updateDocumentWith(identifier.getPatient().getPatientId());
+            }
             if (!actionResult) {
                 logDaoError("Identifier");
             }
@@ -213,6 +221,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult = false;
         if (phonenumber.getPatient() != null) {
             actionResult = phonenumberDAO.save(phonenumber);
+            if (actionResult) {
+                updateDocumentWith(phonenumber.getPatient().getPatientId());
+            }
             if (!actionResult) {
                 logDaoError("Phonenumber");
             }
