@@ -188,6 +188,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult = false;
         if (address.getPatient() != null) {
             actionResult = addressDAO.save(address);
+            updateDocumentWith(address.getPatient().getPatientId());
             if (!actionResult) {
                 logDaoError("Address");
             }
