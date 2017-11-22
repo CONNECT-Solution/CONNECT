@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="form-group">
                                         <h:outputLabel for="placeholder" class="col-sm-4 control-label"
-                                            value="   " />
+                                            value="&#160;" />
                                         <div class="col-sm-8">
                                             <p:inputText id="placeholder" styleClass="form-control"
                                                 style="display:none;" />
@@ -143,26 +143,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <h:outputLabel for="inputAddMiddleName" class="col-sm-4 control-label"
-                                            id="labelAddMiddleName" value="Middle Name:" />
-                                        <div class="col-sm-8">
-                                            <p:inputText styleClass="form-control"
-                                                value="#{loadTestDataPatientBean.personnameForm.middleName}"
-                                                id="inputAddMiddleName" maxlength="60" tabindex="3"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <h:outputLabel for="inputAddSuffix" class="col-sm-4 control-label"
-                                            id="labelAddSuffix" value="Suffix:" tabindex="5" />
-                                        <div class="col-sm-8">
-                                            <p:inputText styleClass="form-control"
-                                                value="#{loadTestDataPatientBean.personnameForm.suffix}"
-                                                id="inputAddSuffix" maxlength="60" tabindex="5" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
                                         <h:outputLabel for="inputAddFirstName" class="col-sm-4 control-label"
                                             id="labelAddFirstName" value="* First Name:" />
                                         <div class="col-sm-8">
@@ -180,6 +160,34 @@
                                                 value="#{loadTestDataPatientBean.personnameForm.lastName}"
                                                 id="inputAddLastName" maxlength="60" required="true"
                                                 requiredMessage="Last Name required." tabindex="4" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <h:outputLabel for="placeholder" class="col-sm-4 control-label"
+                                            value="&#160;" />
+                                        <div class="col-sm-8">
+                                            <p:inputText id="placeholder" styleClass="form-control"
+                                                style="display:none;" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddMiddleName" class="col-sm-4 control-label"
+                                            id="labelAddMiddleName" value="Middle Name:" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.middleName}"
+                                                id="inputAddMiddleName" maxlength="60" tabindex="3"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="inputAddSuffix" class="col-sm-4 control-label"
+                                            id="labelAddSuffix" value="Suffix:" tabindex="5" />
+                                        <div class="col-sm-8">
+                                            <p:inputText styleClass="form-control"
+                                                value="#{loadTestDataPatientBean.personnameForm.suffix}"
+                                                id="inputAddSuffix" maxlength="60" tabindex="5" />
                                         </div>
                                     </div>
                                 </div>
