@@ -27,10 +27,10 @@
 package gov.hhs.fha.nhinc.admingui.display;
 
 import gov.hhs.fha.nhinc.admingui.services.FhirResourceService;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 public class FhirDisplayController implements DisplayController {
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirDisplayController.class);
+    private static final WebServiceProxyHelper HELPER = new WebServiceProxyHelper();
 
     @Override
     public void checkDisplay() {
@@ -51,7 +52,7 @@ public class FhirDisplayController implements DisplayController {
             boolean hasResource;
             try {
                 hasResource = checkForResource(resourceName);
-            } catch (ConnectionManagerException e) {
+            } catch (ExchangeManagerException e) {
                 LOG.warn(e.getLocalizedMessage(), e);
                 hasResource = false;
             }
@@ -64,9 +65,9 @@ public class FhirDisplayController implements DisplayController {
         DisplayHolder.getInstance().setFhirEnabled(false);
     }
 
-    private boolean checkForResource(String resourceName) throws ConnectionManagerException {
-        return NullChecker.isNotNullish(ConnectionManagerCache.getInstance().getAdapterEndpointURL(resourceName,
-                NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
+    private boolean checkForResource(String resourceName) throws ExchangeManagerException {
+        return NullChecker.isNotNullish(HELPER.getEndPointFromConnectionManagerByAdapterAPILevel(resourceName,
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
     }
 
 }

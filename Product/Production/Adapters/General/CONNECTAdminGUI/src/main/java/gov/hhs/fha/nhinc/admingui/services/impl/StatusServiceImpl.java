@@ -26,25 +26,28 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
+
 import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
 import gov.hhs.fha.nhinc.admingui.model.AvailableService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.StatusService;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.cxf.common.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.BusinessService;
 
 /**
  *
@@ -59,7 +62,7 @@ public class StatusServiceImpl implements StatusService {
     private static final long MB_VALUE = 1048576;
 
     private final ConnectionManagerCacheHelper cmHelper = new ConnectionManagerCacheHelper();
-    private final PingService pingService = new PingServiceImpl();
+    private static final PingService PING_SERVICE = new PingServiceImpl();
 
     private static final Logger LOG = LoggerFactory.getLogger(StatusServiceImpl.class);
 
@@ -100,6 +103,23 @@ public class StatusServiceImpl implements StatusService {
         return ApplicationInfo.getInstance().getServerInfo();
     }
 
+    // @Override
+    // public List<AvailableService> buildServices() {
+    // List<AvailableService> services = new ArrayList<>();
+    //
+    // ConnectionHelper cHelper = new ConnectionHelper();
+    // BusinessEntity localEntity = cHelper.getLocalBusinessEntity();
+    //
+    // if (localEntity != null && localEntity.getBusinessServices() != null
+    // && !CollectionUtils.isEmpty(localEntity.getBusinessServices().getBusinessService())) {
+    //
+    // for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
+    // services.addAll(getAvailableServiceFrom(name.getUDDIServiceName(), localEntity));
+    // }
+    // }
+    // return services;
+    // }
+
     @Override
     public List<AvailableService> buildServices() {
         List<AvailableService> services = new ArrayList<>();
@@ -111,41 +131,37 @@ public class StatusServiceImpl implements StatusService {
             && !CollectionUtils.isEmpty(localEntity.getBusinessServices().getBusinessService())) {
 
             for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
-                services.addAll(getServicesFromName(name.getUDDIServiceName(), localEntity));
+                services.addAll(getAvailableServiceFrom(name.getUDDIServiceName(), localEntity));
             }
         }
         return services;
     }
 
-    private List<AvailableService> getServicesFromName(String uddiServiceName, BusinessEntity localEntity) {
-        List<AvailableService> namedServices = new ArrayList<>();
-        try {
-
-            BusinessService bService = cmHelper.getBusinessServiceByServiceName(localEntity, uddiServiceName);
-            List<NhincConstants.UDDI_SPEC_VERSION> specVersions = cmHelper.getSpecVersions(bService);
-
-            if (!CollectionUtils.isEmpty(specVersions)) {
-                populateNamedServices(specVersions, uddiServiceName, bService, namedServices);
-            }
-        } catch (ConnectionManagerException ex) {
-            LOG.warn("Error when accessing services for {}", uddiServiceName, ex);
+    private List<AvailableService> getAvailableServiceFrom(OrganizationType organization, String serviceName) {
+        EndpointType endpoint = ExchangeManagerHelper.findEndpointTypeBy(organization, serviceName);
+        if(null != endpoint){
+            return getAvailableServiceBy(endpoint);
         }
-        return namedServices;
+        LOG.warn("Error cannot find the service '{}' in organization '{}'", serviceName, organization.getName());
+        return new ArrayList<>();
     }
 
-    private void populateNamedServices(List<NhincConstants.UDDI_SPEC_VERSION> specVersions, String uddiServiceName,
-        BusinessService bService, List<AvailableService> namedServices) {
-        for (NhincConstants.UDDI_SPEC_VERSION spec : specVersions) {
-            AvailableService aService = new AvailableService();
-            aService.setServiceName(uddiServiceName + " - " + spec.toString());
-            BindingTemplate bindingTemplate = cmHelper.findBindingTemplateByKey(bService,
-                UDDIConstants.UDDI_SPEC_VERSION_KEY,
-                spec.toString());
-            if (bindingTemplate != null && bindingTemplate.getAccessPoint() != null) {
-                aService.setAvailable(pingService.ping(bindingTemplate.getAccessPoint().getValue()));
-                namedServices.add(aService);
+    private static List<AvailableService> getAvailableServiceBy(EndpointType endpoint) {
+        List<AvailableService> services = new ArrayList<>();
+        if (null != endpoint) {
+            for (String serviceName : endpoint.getName()) {
+                for (EndpointConfigurationType url : getEndpointConfigurationTypeBy(endpoint)) {
+                    if (url != null) {
+                        AvailableService aService = new AvailableService();
+                        aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
+                        aService.setAvailable(PING_SERVICE.ping(url.getUrl()));
+
+                        services.add(aService);
+                    }
+                }
             }
         }
+        return services;
     }
 
 }
