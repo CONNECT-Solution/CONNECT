@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -54,17 +55,14 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class CertficateBean {
 
-    /**
-     *
-     */
-    private static final String VIEW_CERT_ERROR_MSG_KS = "viewCertErrorMsgKS";
-    private List<Certificate> keystores;
-    private List<Certificate> truststores;
+    private List<CertificateDTO> keystores;
+    private List<CertificateDTO> truststores;
     private final CertificateManagerService service;
-    private List<Certificate> importCertificate;
+    private List<CertificateDTO> importCertificate;
     private String keyStoreLocation;
     private String trustStoreLocation;
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
+    private static final String KEY_STORE_MSG = "keyStoreMsg";
     private static final String IMPORT_CERT_EXPIRY_MSG = "importCertInfoMsg";
     private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
     private static final String VIEW_CERT_ERR_MSG = "viewCertErrorMsg";
@@ -72,9 +70,9 @@ public class CertficateBean {
     private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private UploadedFile importCertFile;
-    private Certificate selectedCertificate;
-    private Certificate selectedTSCertificate;
-    private Certificate backupCertificate;
+    private CertificateDTO selectedCertificate;
+    private CertificateDTO selectedTSCertificate;
+    private CertificateDTO backupCertificate;
     private String trustStorePasskey;
     private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
@@ -82,20 +80,6 @@ public class CertficateBean {
     private boolean rememberMe;
     private String oldAlias;
     private boolean refreshCache;
-
-    private enum RefreshAction {
-        KEYSTORE("keystore"), TRUSTSTORE("truststore");
-
-        private String pageLocation;
-
-        RefreshAction(String pageLoc) {
-            pageLocation = pageLoc;
-        }
-
-        public String pageLocation() {
-            return pageLocation;
-        }
-    }
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -113,19 +97,19 @@ public class CertficateBean {
         return trustStoreLocation;
     }
 
-    public List<Certificate> getKeystores() {
+    public List<CertificateDTO> getKeystores() {
         return keystores;
     }
 
-    public Certificate getSelectedCertificate() {
+    public CertificateDTO getSelectedCertificate() {
         return selectedCertificate;
     }
 
-    public void setSelectedCertificate(Certificate selectedCertificate) {
+    public void setSelectedCertificate(CertificateDTO selectedCertificate) {
         this.selectedCertificate = selectedCertificate;
     }
 
-    public List<Certificate> getTruststores() {
+    public List<CertificateDTO> getTruststores() {
         return truststores;
     }
 
@@ -137,11 +121,11 @@ public class CertficateBean {
         this.trustStorePasskey = trustStorePasskey;
     }
 
-    public List<Certificate> getImportCertificate() {
+    public List<CertificateDTO> getImportCertificate() {
         return importCertificate;
     }
 
-    public void setImportCertificate(List<Certificate> importCertificate) {
+    public void setImportCertificate(List<CertificateDTO> importCertificate) {
         this.importCertificate = importCertificate;
     }
 
@@ -150,11 +134,11 @@ public class CertficateBean {
         return value != null ? (Boolean) value : false;
     }
 
-    public Certificate getSelectedTSCertificate() {
+    public CertificateDTO getSelectedTSCertificate() {
         return selectedTSCertificate;
     }
 
-    public void setSelectedTSCertificate(Certificate selectedTSCertificate) {
+    public void setSelectedTSCertificate(CertificateDTO selectedTSCertificate) {
         this.selectedTSCertificate = selectedTSCertificate;
     }
 
@@ -171,7 +155,7 @@ public class CertficateBean {
         expiredCert = false;
         if (importCertFile != null) {
             importCertificate = new ArrayList<>();
-            Certificate cert = service.createCertificate(importCertFile.getContents());
+            CertificateDTO cert = service.createCertificate(importCertFile.getContents());
             cert.setAlias(ALIAS_PLACEHOLDER);
             checkCertValidity(cert);
             if (!expiredCert) {
@@ -186,7 +170,7 @@ public class CertficateBean {
     /**
      * @param cert
      */
-    private void checkCertValidity(Certificate cert) {
+    private void checkCertValidity(CertificateDTO cert) {
         try {
             cert.getX509Cert().checkValidity();
         } catch (CertificateExpiredException ex) {
@@ -215,11 +199,11 @@ public class CertficateBean {
         }
     }
 
-    public void openTrustStorePasskeyDlgForImport() {
+    public void openTrustStorePasskeyDlgForImport() throws CertificateManagerException {
         if (selectedCertificate == null) {
             HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Select certificate for import");
         } else if (StringUtils.isBlank(selectedCertificate.getAlias()) || ALIAS_PLACEHOLDER.equals(selectedCertificate.
-            getAlias())) {
+                getAlias())) {
             HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Enter an alias for the certificate");
         } else if (!isVerifiedTrustStoreUser()) {
             RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').show();");
@@ -230,7 +214,7 @@ public class CertficateBean {
 
     public void validateAndDeleteCertificate() {
         if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            if(isRememberMe()){
+            if (isRememberMe()) {
                 HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
             } else {
                 HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
@@ -243,7 +227,7 @@ public class CertficateBean {
         }
     }
 
-    public void validateAndImportCertificate() {
+    public void validateAndImportCertificate() throws CertificateManagerException {
         if (service.validateTrustStorePassKey(trustStorePasskey)) {
             if (isRememberMe()) {
                 HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
@@ -258,7 +242,7 @@ public class CertficateBean {
         }
     }
 
-    private void importSelectedCertificate() {
+    private void importSelectedCertificate() throws CertificateManagerException {
         LOG.info("importSelectedCertificate");
 
         if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
@@ -289,28 +273,21 @@ public class CertficateBean {
         }
     }
 
-
-    public void updateSelectedCertificateTS() {
-        if (selectedTSCertificate != null){
-            updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG, RefreshAction.TRUSTSTORE);
+    public void updateSelectedCertificateTS() throws CertificateManagerException {
+        if (selectedTSCertificate != null) {
+            updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG);
         }
     }
 
-    private void updateCertificate(List<Certificate> certsForAliasCheck, String uiElement, RefreshAction location) {
+    private void updateCertificate(List<CertificateDTO> certsForAliasCheck, String uiElement) {
         LOG.info("updateSelectedCertificate");
 
         backupCertificate = selectedTSCertificate;
         String alias = selectedTSCertificate.getAlias();
         if (StringUtils.isNotBlank(alias) && !service.isAliasInUse(alias, certsForAliasCheck)) {
             try {
-                if(location == RefreshAction.KEYSTORE ) {
-                    postUpdateAction(service.updateCertificateKS(oldAlias, selectedTSCertificate),
-                        uiElement, RefreshAction.KEYSTORE);
-                }
-                if(location == RefreshAction.TRUSTSTORE) {
-                    postUpdateAction(service.updateCertificateTS(oldAlias, selectedTSCertificate), uiElement,
-                        RefreshAction.TRUSTSTORE);
-                }
+                postUpdateAction(service.updateCertificate(oldAlias, selectedTSCertificate), uiElement);
+
             } catch (CertificateManagerException ex) {
                 LOG.error("Unable to update certificate {}", ex.getLocalizedMessage(), ex);
                 HelperUtil.addMessageError(uiElement, ex.getLocalizedMessage());
@@ -321,23 +298,13 @@ public class CertficateBean {
         }
     }
 
-    public void updateSelectedCertificateKS() {
-        if (selectedTSCertificate != null) {
-            updateCertificate(service.fetchKeyStores(), VIEW_CERT_ERROR_MSG_KS, RefreshAction.KEYSTORE);
-        }
-    }
-
     /**
      * @param updateStatus
+     * @throws CertificateManagerException
      */
-    private void postUpdateAction(boolean updateStatus, String uiElement, RefreshAction pageLocation) {
+    private void postUpdateAction(boolean updateStatus, String uiElement) throws CertificateManagerException {
         if (updateStatus) {
-            if (pageLocation == RefreshAction.KEYSTORE) {
-                keystores = service.refreshKeyStores();
-            }
-            if (pageLocation == RefreshAction.TRUSTSTORE) {
-                truststores = service.refreshTrustStores();
-            }
+            refreshCerts();
             selectedTSCertificate = null;
             HelperUtil.addMessageInfo(uiElement, "Update certificate successful");
         } else {
@@ -345,10 +312,22 @@ public class CertficateBean {
         }
     }
 
+    /**
+     * @param pageLocation
+     * @throws CertificateManagerException
+     */
+    private List<CertificateDTO> refreshCerts() throws CertificateManagerException {
+        List<CertificateDTO> certs = new ArrayList<>();
+
+        certs = service.refreshTrustStores();
+        truststores = setColorCodingStyle(certs);
+        return certs;
+    }
+
     private void deleteCertificate() {
         try {
             service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias());
-            truststores = service.refreshTrustStores();
+            refreshCerts();
             selectedTSCertificate = null;
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
@@ -357,25 +336,48 @@ public class CertficateBean {
     }
 
     private void fetchKeyStore() {
-        keystores = service.fetchKeyStores();
+        try {
+            keystores = setColorCodingStyle(service.fetchKeyStores());
+        } catch (CertificateManagerException e) {
+            LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
+            HelperUtil.addMessageError(KEY_STORE_MSG, "Unable to fetch certificate details");
+        }
     }
 
     private void fetchTrustStore() {
-        truststores = service.fetchTrustStores();
+        try {
+            truststores = setColorCodingStyle(service.fetchTrustStores());
+        } catch (CertificateManagerException e) {
+            LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Unable to fetch certificate details");
+        }
     }
 
-    public Certificate viewCertificate() {
+    public CertificateDTO viewCertificate() {
         return viewCert("viewCertDlg", TRUST_STORE_MSG);
     }
 
-    public Certificate viewCertificateKS() {
+    public CertificateDTO viewCertificateKS() {
         return viewCert("viewCertDlgKS", "keyStoreMsg");
+    }
+
+    private static List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs) {
+        for (CertificateDTO dto : certDTOs) {
+            if (dto.getExpiresInDays() <= 30) {
+                dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
+            } else if (dto.getExpiresInDays() > 30 && dto.getExpiresInDays() <= 90) {
+                dto.setExpiryColorCoding(COLOR_CODING_CSS.YELLOW.toString());
+            } else {
+                dto.setExpiryColorCoding(COLOR_CODING_CSS.GREEN.toString());
+            }
+        }
+        return certDTOs;
     }
 
     /**
      * @return
      */
-    private Certificate viewCert(String dialogId, String uiElement) {
+    private CertificateDTO viewCert(String dialogId, String uiElement) {
         if (selectedTSCertificate != null) {
             StringBuilder pfAction = new StringBuilder();
             pfAction.append("PF('");
@@ -388,7 +390,7 @@ public class CertficateBean {
         }
         return selectedTSCertificate;
     }
-    
+
     public boolean isRefreshCache() {
         return refreshCache;
     }
@@ -396,4 +398,5 @@ public class CertficateBean {
     public void setRefreshCache(boolean refreshCache) {
         this.refreshCache = refreshCache;
     }
+
 }

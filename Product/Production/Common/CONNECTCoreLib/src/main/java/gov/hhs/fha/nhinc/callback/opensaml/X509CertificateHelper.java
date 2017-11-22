@@ -24,9 +24,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.util;
+package gov.hhs.fha.nhinc.callback.opensaml;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
 import java.math.BigInteger;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -70,10 +69,10 @@ public class X509CertificateHelper {
     private DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
     private static final Logger LOG = LoggerFactory.getLogger(X509CertificateHelper.class);
 
-    public Certificate buildCertificate(X509Certificate x509Cert) {
+    public CertificateDTO buildCertificate(X509Certificate x509Cert) {
         this.x509Cert = x509Cert;
 
-        Certificate obj = new Certificate();
+        CertificateDTO obj = new CertificateDTO();
         obj.setSerialNumber(getCertSerialNumber());
         obj.setIssuerName(getIssuerName());
         obj.setVersion(x509Cert.getVersion());

@@ -135,5 +135,4 @@ public class SamlConstants {
     public static final String ATTRIBUTE_FRIENDLY_NAME_XUA_IACP = "Patient Privacy Policy Acknowledgement Document";
     public static final String URI_NAME_FORMAT = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
     public static final String ADMIN_AUTH_METHOD = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password";
-    
 }

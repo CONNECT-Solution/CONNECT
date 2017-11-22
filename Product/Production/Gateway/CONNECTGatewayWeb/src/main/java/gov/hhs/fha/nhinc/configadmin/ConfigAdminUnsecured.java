@@ -26,11 +26,33 @@
  */
 package gov.hhs.fha.nhinc.configadmin;
 
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
+
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
+import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.cert.CertificateEncodingException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,13 +61,18 @@ import org.slf4j.LoggerFactory;
  * @author jassmit
  */
 public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType {
-    
+
+    /**
+     *
+     */
+    private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate Success";
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdminUnsecured.class);
 
     @Override
-    public ImportCertificateResponseMessageType importCertificate(ImportCertificateRequestMessageType importCertificateRequest) {
-        ImportCertificateResponseMessageType response = new ImportCertificateResponseMessageType();
-        
+    public SimpleCertificateResponseMessageType importCertificate(
+        ImportCertificateRequestMessageType importCertificateRequest) {
+        SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
+
         CertificateManager certManager = CertificateManagerImpl.getInstance();
         try {
             certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getImportCertRequest().getCertData(),
@@ -54,11 +81,152 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
             LOG.info("Certificate imported with alias {} by user {}.", importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getConfigAssertion().getUserInfo().getUserName());
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to import certificate due to: {}", ex.getLocalizedMessage(), ex);
-            response.setStatus(false);
-            response.setMessage(ex.getLocalizedMessage());
+            formatResponse(response, false, ex.getLocalizedMessage());
         }
-        
+
         return response;
     }
-    
+
+    /**
+     * @param response
+     * @param ex
+     */
+    private static void formatResponse(SimpleCertificateResponseMessageType response, boolean status, String message) {
+        response.setStatus(status);
+        response.setMessage(message);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#listKeyStores(gov.hhs.fha.nhinc.common.configadmin.
+     * ListKeyStoresRequestMessageType)
+     */
+    @Override
+    public ListKeyStoresResponseMessageType listKeyStores(ListKeyStoresRequestMessageType listKeyStoresRequest) {
+        ListKeyStoresResponseMessageType response = new ListKeyStoresResponseMessageType();
+        CertificateManager certManager = CertificateManagerImpl.getInstance();
+        KeyStore keyStore = certManager.getKeyStore();
+        response.getCertList().addAll(buildCertificate(certManager, keyStore));
+
+        return response;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#listTrustStores(gov.hhs.fha.nhinc.common.configadmin.
+     * ListTrustStoresRequestMessageType)
+     */
+    @Override
+    public ListTrustStoresResponseMessageType listTrustStores(
+        ListTrustStoresRequestMessageType listTrustStoresRequest) {
+        ListTrustStoresResponseMessageType response = new ListTrustStoresResponseMessageType();
+        CertificateManager certManager = CertificateManagerImpl.getInstance();
+        KeyStore keyStore = certManager.getTrustStore();
+        response.getCertList().addAll(buildCertificate(certManager, keyStore));
+
+        return response;
+    }
+
+    private static List<ListCertificateType> buildCertificate(CertificateManager certManager, KeyStore keyStore) {
+        List<ListCertificateType> certList = new ArrayList<>();
+        Set<String> keyStoreAliases;
+        java.security.cert.Certificate jCert;
+
+        try {
+            keyStoreAliases = new HashSet<>(Collections.list(keyStore.aliases()));
+            for (String alias : keyStoreAliases) {
+                ListCertificateType cert = new ListCertificateType();
+                cert.setAlias(alias);
+                jCert = keyStore.getCertificate(alias);
+                cert.setCertData(certManager.transformToHandler(jCert.getEncoded()));
+                certList.add(cert);
+            }
+        } catch (KeyStoreException | CertificateEncodingException e) {
+            LOG.error("Unable to fetch keystore: {}", e);
+        }
+
+        return certList;
+    }
+
+
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#editCertificate(gov.hhs.fha.nhinc.common.configadmin.
+     * EditCertificateRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType editCertificate(
+        EditCertificateRequestMessageType editCertificateRequest) {
+        SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
+        CertificateManager certManager = CertificateManagerImpl.getInstance();
+
+        Map<String, String> keyTrustStoreProperties = certManager.getTrustStoreSystemProperties();
+        String storeType = keyTrustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        String storeLoc = keyTrustStoreProperties.get(TRUST_STORE_KEY);
+        String passkey = keyTrustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        try{
+            formatResponse(response,
+                updateTrustStoreAlias(certManager, editCertificateRequest,  storeType, storeLoc, passkey, KeyStore.getInstance(storeType)),
+                UPDATE_CERTIFICATE_SUCCESS);
+        } catch (final KeyStoreException ex) {
+            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
+            formatResponse(response, false, ex.getLocalizedMessage());
+        }
+
+        return response;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#deleteCertificate(gov.hhs.fha.nhinc.common.configadmin.
+     * DeleteCertificateRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType deleteCertificate(
+        DeleteCertificateRequestMessageType deleteCertificateRequest) {
+        SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
+        CertificateManager certManager = CertificateManagerImpl.getInstance();
+        String alias = deleteCertificateRequest.getAlias();
+
+        try {
+            if (StringUtils.isNotBlank(alias)) {
+                formatResponse(response, certManager.deleteCertificate(alias), "Delete certificate success");
+            }else{
+                formatResponse(response, false, "Delete certificate alias is null or empty");
+            }
+        } catch (CertificateManagerException e) {
+            LOG.error("Unable to delete the Certifiate: ", e.getLocalizedMessage(), e);
+            formatResponse(response, false, e.getLocalizedMessage());
+        }
+        return response;
+    }
+
+    private static boolean updateTrustStoreAlias(CertificateManager certManager,
+        EditCertificateRequestMessageType editCertificateRequest, final String storeType,
+        final String storeLoc, final String passkey, KeyStore storeCert) {
+        EditCertificateRequestType certRequestParam = editCertificateRequest.getEditCertRequest();
+        boolean isUpdateSuccessful = false;
+        try {
+            isUpdateSuccessful = certManager.updateCertificate(certRequestParam.getOldAlias(),
+                certRequestParam.getNewAlias(), storeType,
+                storeLoc, passkey, storeCert);
+
+        } catch (CertificateManagerException e) {
+            LOG.error("Unable to update keystore/truststore: {}", e);
+            isUpdateSuccessful = false;
+        }
+
+        return isUpdateSuccessful;
+    }
+
 }
+
+

@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.event.model.Certificate;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.util.List;
 
@@ -36,32 +36,31 @@ import java.util.List;
  */
 public interface CertificateManagerService {
 
-    public List<Certificate> fetchKeyStores();
+    public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException;
 
-    public List<Certificate> fetchTrustStores();
+    public List<CertificateDTO> fetchTrustStores() throws CertificateManagerException;
 
     public String getKeyStoreLocation();
 
     public String getTrustStoreLocation();
 
-    public List<Certificate> refreshKeyStores();
+    public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException;
 
-    public List<Certificate> refreshTrustStores();
+    public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException;
 
-    public Certificate createCertificate(byte[] data);
+    public CertificateDTO createCertificate(byte[] data);
 
-    public boolean isAliasInUse(String alias, List<Certificate> certs);
+    public boolean isAliasInUse(String alias, List<CertificateDTO> certs);
 
-    public boolean isLeafOnlyCertificate(Certificate cert);
+    public boolean isLeafOnlyCertificate(CertificateDTO cert);
 
-    public void importCertificate(Certificate cert, boolean refresh) throws Exception;
+    public void importCertificate(CertificateDTO cert, boolean refresh) throws Exception;
 
     public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
 
     public boolean validateTrustStorePassKey(String passkey);
 
-    public boolean updateCertificateTS(String oldAlias, Certificate cert) throws CertificateManagerException;
+    public boolean updateCertificate(String oldAlias, CertificateDTO cert)
+        throws CertificateManagerException;
 
-    public boolean updateCertificateKS(String oldAlias, Certificate cert) throws CertificateManagerException;
-    
 }

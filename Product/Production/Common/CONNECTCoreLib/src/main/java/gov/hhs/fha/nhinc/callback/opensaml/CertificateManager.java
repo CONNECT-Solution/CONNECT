@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
+import java.io.IOException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -90,13 +91,14 @@ public interface CertificateManager {
     public KeyStore refreshTrustStore();
 
     public Map<String, String> getTrustStoreSystemProperties();
-    
+
     /**
-     * 
+     *
      * @param alias
      * @param data
      * @param refreshCache
      * @throws CertificateManagerException 
+     * @throws CertificateManagerException
      */
     public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException;
 
@@ -104,4 +106,42 @@ public interface CertificateManager {
      * @return
      */
     public Map<String, String> getKeyStoreSystemProperties();
+
+    /**
+     * @param data
+     * @return
+     * @throws CertificateManagerException
+     */
+    public X509Certificate getCertificateFromByteCode(DataHandler data) throws CertificateManagerException;
+
+    /**
+     * @param encoded
+     * @return
+     */
+    public DataHandler transformToHandler(byte[] encoded);
+
+    /**
+     * @param handler
+     * @return
+     */
+    public byte[] transformToByteCode(DataHandler handler) throws IOException;
+
+    /**
+     * @param alias
+     * @throws CertificateManagerException
+     */
+    boolean deleteCertificate(String alias) throws CertificateManagerException;
+
+    /**
+     * @param oldAlias
+     * @param newAlias
+     * @param storeType
+     * @param storeLoc
+     * @param passkey
+     * @param storeCert
+     * @return
+     */
+    boolean updateCertificate(String oldAlias, String newAlias, String storeType, String storeLoc,
+        String passkey, KeyStore storeCert) throws CertificateManagerException;
+
 }

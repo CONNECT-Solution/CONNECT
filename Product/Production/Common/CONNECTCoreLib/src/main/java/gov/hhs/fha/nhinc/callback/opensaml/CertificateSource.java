@@ -24,61 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.util;
+package gov.hhs.fha.nhinc.callback.opensaml;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import javax.activation.DataSource;
 
 /**
+ * @author Poornima Venkatakrishnan
  *
- * @author achidamb
  */
-public class GUIConstants {
+public class CertificateSource implements DataSource {
 
-    private GUIConstants() {
+    private final byte[] source;
 
+    public CertificateSource(byte[] encoded) {
+        source = encoded;
     }
 
-    public static enum EVENT_NAMES {
-
-        PatientDiscovery("PD"), PatientDiscoveryDeferredReq("PDDefReq"), PatientDiscoveryDeferredResp("PDDefResp"),
-        QueryForDocuments("QD"), RetrieveDocuments("RD"), DocSubmission("DS"), DocSubmissionDeferredReq("DSDefReq"),
-        DocSubmissionDeferredResp("DSDefResp"), AdminDistribution("AD"), CORE_X12DSRealTime("X12RealTime"),
-        CORE_X12DSGenericBatchRequest("X12BatchReq"), CORE_X12DSGenericBatchResponse("X12BatchResp");
-
-        public String abbServiceName = null;
-
-        EVENT_NAMES(String value) {
-            abbServiceName = value;
-        }
-
-        public String getAbbServiceName() {
-            return abbServiceName;
-        }
-
-        public static EVENT_NAMES fromValueString(String valueString) {
-            if (valueString != null) {
-                for (EVENT_NAMES enumValue : EVENT_NAMES.values()) {
-                    if (valueString.equals(enumValue.abbServiceName)) {
-                        return enumValue;
-                    }
-                }
-            }
-            throw new IllegalArgumentException("No enum constant " + valueString);
-        }
+    @Override
+    public InputStream getInputStream() throws IOException {
+        return new ByteArrayInputStream(source);
     }
 
-    public enum COLOR_CODING_CSS {
-        RED("RED"), GREEN("GREEN"),
-        YELLOW("YELLOW");
-
-        private final String colorCodingCertExpiry;
-
-        private COLOR_CODING_CSS(final String color) {
-            colorCodingCertExpiry = color;
-        }
-
-        @Override
-        public String toString() {
-            return colorCodingCertExpiry;
-        }
+    @Override
+    public OutputStream getOutputStream() throws IOException {
+        throw new IOException();
     }
 
+    @Override
+    public String getContentType() {
+        return "application/x-x509-ca-cert";
+    }
+
+    @Override
+    public String getName() {
+        return "";
+    }
 }
