@@ -26,13 +26,16 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.HCID_PREFIX;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.HOME_COMMUNITY_ID_PROPERTY;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -225,7 +228,7 @@ public class HomeCommunityMap {
      */
     public static String formatHomeCommunityId(String communityId) {
         if (communityId != null) {
-            if (communityId.startsWith("urn:oid:")) {
+            if (communityId.startsWith(HCID_PREFIX)) {
                 communityId = communityId.substring(8);
             }
         }
@@ -247,8 +250,7 @@ public class HomeCommunityMap {
     private static String getHomeCommunityFromPropFile() {
         String sHomeCommunity = null;
         try {
-            sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            sHomeCommunity = propertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error("Could not get HCID from prop file: {}", ex.getLocalizedMessage(), ex);
         }
@@ -262,13 +264,7 @@ public class HomeCommunityMap {
      * @return the formatted community id
      */
     public static String getHomeCommunityIdWithPrefix(String communityId) {
-        if (communityId != null) {
-            if (!communityId.startsWith(NhincConstants.HCID_PREFIX)) {
-                LOG.trace("Prefixing communityId with urn:oid");
-                communityId = NhincConstants.HCID_PREFIX + communityId;
-            }
-        }
-        return communityId;
+        return appendPrefixHomeCommunityID(communityId);
     }
 
     protected static void setPropertyAccessor(PropertyAccessor propAccessor) {
@@ -281,10 +277,32 @@ public class HomeCommunityMap {
 
     public static String getHomeCommunityWithoutPrefix(String hcid) {
         if (NullChecker.isNotNullish(hcid)) {
-            if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
-                return hcid.substring(NhincConstants.HCID_PREFIX.length());
+            if (hcid.startsWith(HCID_PREFIX)) {
+                return hcid.substring(HCID_PREFIX.length());
             }
         }
         return hcid;
+    }
+
+    public static String appendPrefixHomeCommunityID(final String homeCommunityId) {
+        return checkPrefixBeforeAppend(homeCommunityId, HCID_PREFIX);
+    }
+
+    public static boolean equalsIgnoreCaseForHCID(final String communityId, final String hcidValue) {
+        String homeCommunityIdPrefix = appendPrefixHomeCommunityID(communityId);
+        String hcidValuePrefix = appendPrefixHomeCommunityID(hcidValue);
+        return homeCommunityIdPrefix.equalsIgnoreCase(hcidValuePrefix);
+    }
+
+    public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
+        if (StringUtils.isNotBlank(checkValue)) {
+            final String tempValue = checkValue.trim().toLowerCase();
+            final String tempPrefix = checkPrefix.toLowerCase();
+            if (!tempValue.startsWith(tempPrefix)) {
+                LOG.trace("Prefixing communityId with: {}", checkPrefix);
+                return checkPrefix + checkValue;
+            }
+        }
+        return checkValue;
     }
 }

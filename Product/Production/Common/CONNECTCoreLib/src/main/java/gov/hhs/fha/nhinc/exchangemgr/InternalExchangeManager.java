@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -61,7 +62,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         return INSTANCE;
     }
 
-    protected InternalExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+    protected static InternalExchangeInfoDAOFileImpl getExchangeInfoDAO() {
         return InternalExchangeInfoDAOFileImpl.getInstance();
     }
 
@@ -81,7 +82,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
                     for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
                             getOrganization()) || StringUtils.isNotEmpty(ex.getType()) || StringUtils.isNotEmpty(ex.
-                            getName())) {
+                                getName())) {
                             Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
                                 innerMap.put(org.getHcid(), org);
@@ -161,12 +162,37 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
 
     @Override
     protected String getAPI_SPEC(ADAPTER_API_LEVEL spec_level
-    ) {
+        ) {
         return spec_level.toString();
     }
 
     @Override
     protected ADAPTER_API_LEVEL getAPI_SPEC_ENUM(String version) {
         return NhincConstants.ADAPTER_API_LEVEL.valueOf(version);
+    }
+
+    public static boolean updateServiceUrl(String serviceName, String url) throws Exception {
+        String sHomeCommunityId = HELPER.getHomeCommunityFromPropFile();
+
+        OrganizationType newOrganization = getInstance().getOrganization(sHomeCommunityId);
+        if (null == newOrganization) {
+            return false;
+        }
+
+        EndpointConfigurationType endpointUrl = HELPER.getEndPointConfigBasedOnSpecVersion(
+            HELPER.getServiceEndpointType(newOrganization, serviceName),
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
+        endpointUrl.setUrl(url);
+
+        ExchangeInfoType exchangeInfo = getExchangeInfoDAO().loadExchangeInfo();
+        List<OrganizationType> organizations = HELPER.getOrganizationTypeBy(exchangeInfo);
+
+        OrganizationType oldOrganization = HELPER.findOrganizationTypeBy(organizations, sHomeCommunityId);
+        organizations.remove(oldOrganization);
+        organizations.add(newOrganization);
+
+        getExchangeInfoDAO().saveExchangeInfo(exchangeInfo);
+
+        return true;
     }
 }
