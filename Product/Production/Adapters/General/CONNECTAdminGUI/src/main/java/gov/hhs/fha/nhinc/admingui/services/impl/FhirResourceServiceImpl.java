@@ -31,10 +31,10 @@ import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceResource;
 import gov.hhs.fha.nhinc.admingui.model.fhir.ConformanceView;
 import gov.hhs.fha.nhinc.admingui.model.fhir.ResourceInfo;
 import gov.hhs.fha.nhinc.admingui.services.FhirResourceService;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.hl7.fhir.instance.model.Conformance;
@@ -59,6 +59,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     private static final String BINARY_DISPLAY = "Binary Resource";
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirResourceServiceImpl.class);
+    private static final WebServiceProxyHelper HELPER = new WebServiceProxyHelper();
 
     /**
      * {@inheritDoc}
@@ -90,7 +91,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
      */
     @Override
     public void updateUrl(String serviceName, String url) throws Exception {
-        ConnectionManagerCache.getInstance().updateInternalServiceUrl(serviceName, url);
+        WebServiceProxyHelper.updateAdapterServiceUrlBy(serviceName, url);
     }
 
     /**
@@ -109,17 +110,16 @@ public class FhirResourceServiceImpl implements FhirResourceService {
                 view.setConformanceUrl(url);
             }
         } catch (Exception ex) {
-            LOG.error("Could not get conformance statement due to: " + ex.getMessage(), ex);
+            LOG.error("Could not get conformance statement due to: {}", ex.getMessage(), ex);
         }
         return view;
     }
 
     protected String getUrl(String serviceName) {
         try {
-            return ConnectionManagerCache.getInstance().getAdapterEndpointURL(serviceName,
-                    NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
-        } catch (ConnectionManagerException ex) {
-            LOG.warn("Unable to access resource url for service: " + serviceName, ex);
+            return WebServiceProxyHelper.getAdapterEndPointBy(serviceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+        } catch (ExchangeManagerException ex) {
+            LOG.warn("Unable to access resource url for service: {}", serviceName, ex);
         }
         return null;
     }
@@ -135,7 +135,7 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     }
 
     private List<ConformanceResource> populateConfResources(
-            List<Conformance.ConformanceRestResourceComponent> resources) {
+        List<Conformance.ConformanceRestResourceComponent> resources) {
         List<ConformanceResource> confResources = new ArrayList<>();
         for (Conformance.ConformanceRestResourceComponent resource : resources) {
             ConformanceResource builtResource = new ConformanceResource();
@@ -149,31 +149,31 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     }
 
     private void populateOperations(ConformanceResource builtResource,
-            List<Conformance.ConformanceRestResourceOperationComponent> operations) {
+        List<Conformance.ConformanceRestResourceOperationComponent> operations) {
         for (Conformance.ConformanceRestResourceOperationComponent operation : operations) {
             if (operation.getCode() != null) {
                 switch (operation.getCode().getValue()) {
-                case create:
-                    builtResource.setSupportingCreate(true);
-                    break;
-                case read:
-                    builtResource.setSupportingRead(true);
-                    break;
-                case vread:
-                    builtResource.setSupportingVRead(true);
-                    break;
-                case validate:
-                    builtResource.setSupportingValidate(true);
-                    break;
-                case delete:
-                    builtResource.setSupportingDelete(true);
-                    break;
-                case update:
-                    builtResource.setSupportingUpdate(true);
-                    break;
-                case searchtype:
-                    builtResource.setSupportingSearchType(true);
-                    break;
+                    case create:
+                        builtResource.setSupportingCreate(true);
+                        break;
+                    case read:
+                        builtResource.setSupportingRead(true);
+                        break;
+                    case vread:
+                        builtResource.setSupportingVRead(true);
+                        break;
+                    case validate:
+                        builtResource.setSupportingValidate(true);
+                        break;
+                    case delete:
+                        builtResource.setSupportingDelete(true);
+                        break;
+                    case update:
+                        builtResource.setSupportingUpdate(true);
+                        break;
+                    case searchtype:
+                        builtResource.setSupportingSearchType(true);
+                        break;
                 }
             }
         }
