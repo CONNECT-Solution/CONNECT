@@ -26,12 +26,12 @@
  */
 package gov.hhs.fha.nhinc.direct.sender.proxy;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.direct.ConnectCustomSendMimeMessage;
 import gov.hhs.fha.nhinc.direct.DirectConstants;
 import gov.hhs.fha.nhinc.direct.DirectSenderPortType;
 import gov.hhs.fha.nhinc.direct.DirectSenderService;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.io.IOException;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
 public class DirectSenderProxyWebServiceImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(DirectSenderProxyWebServiceImpl.class);
+    private static final WebServiceProxyHelper HELPER = new WebServiceProxyHelper();
 
     /**
      *
@@ -60,7 +61,7 @@ public class DirectSenderProxyWebServiceImpl {
         LOG.debug("Begin DirectSenderUnsecuredProxy.sendOutboundDirect(MimeMessage)");
 
         try { // Call Web Service Operation
-            String url = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(DirectConstants.DIRECT_SENDER_SERVICE_NAME);
+            String url = HELPER.getAdapterEndPointFromConnectionManager(DirectConstants.DIRECT_SENDER_SERVICE_NAME);
             DirectSenderPortType port = getPort(url);
             gov.hhs.fha.nhinc.direct.SendoutMessage parameters = new gov.hhs.fha.nhinc.direct.SendoutMessage();
             ConnectCustomSendMimeMessage senderMessage = new ConnectCustomSendMimeMessage();
@@ -70,8 +71,8 @@ public class DirectSenderProxyWebServiceImpl {
             senderMessage.setSubject(message.getSubject());
             parameters.setMessage(senderMessage);
             port.sendOutboundDirect(parameters);
-        } catch (IOException | MessagingException | ConnectionManagerException ex) {
-            LOG.error("DirectSender WebService Failed :{}", ex.getLocalizedMessage(), ex);
+        } catch (IOException | MessagingException | ExchangeManagerException ex) {
+            LOG.error("DirectSender WebService Failed : {}", ex.getLocalizedMessage(), ex);
         }
         LOG.debug("End DirectSenderUnsecuredProxy.sendOutboundDirect(MimeMessage)");
     }

@@ -358,8 +358,8 @@ public class WebServiceProxyHelper {
         } catch (IllegalArgumentException e) {
             LOG.error(
                 "The method was called with incorrect arguments. This assumes that the method should have "
-                + "exactly one argument and it must be of the correct type for this method: {}",
-                e.getLocalizedMessage(), e);
+                    + "exactly one argument and it must be of the correct type for this method: {}",
+                    e.getLocalizedMessage(), e);
             throw e;
         } catch (InvocationTargetException e) {
             Exception cause = e;
@@ -514,5 +514,31 @@ public class WebServiceProxyHelper {
      */
     public void addServiceName(BindingProvider port, String serviceName) {
         port.getRequestContext().put(NhincConstants.SERVICE_NAME, serviceName);
+    }
+
+    // static method
+    public static boolean updateAdapterServiceUrlBy(String serviceName, String url) throws Exception {
+        return InternalExchangeManager.updateServiceUrl(serviceName, url);
+    }
+
+    public static String getAdapterEndpointURLBy(String sServiceName) throws ExchangeManagerException {
+        AdapterEndpointManager adapterEndpointManager = new AdapterEndpointManager();
+        ADAPTER_API_LEVEL level = adapterEndpointManager.getApiVersion(sServiceName);
+
+        return getAdapterEndpointURLBy(sServiceName, level);
+    }
+
+    public static String getAdapterEndpointURLBy(String sServiceName, ADAPTER_API_LEVEL level)
+        throws ExchangeManagerException {
+        return InternalExchangeManager.getInstance().getEndpointURL(sServiceName, level);
+    }
+
+    public static String getAdapterEndpointURLBy(String sServiceName, String sHomeCommunityId)
+        throws ExchangeManagerException {
+
+        AdapterEndpointManager adapterEndpointManager = new AdapterEndpointManager();
+        ADAPTER_API_LEVEL level = adapterEndpointManager.getApiVersion(sServiceName);
+
+        return InternalExchangeManager.getInstance().getEndpointURL(sHomeCommunityId, sServiceName, level);
     }
 }

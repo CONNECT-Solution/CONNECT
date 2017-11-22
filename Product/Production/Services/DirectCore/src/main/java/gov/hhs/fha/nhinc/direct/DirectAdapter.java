@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.util.MessageMonitoringUtil;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.net.MalformedURLException;
@@ -102,7 +102,7 @@ public abstract class DirectAdapter {
         URL url = null;
         try {
             urlString = oProxyHelper.getAdapterEndPointFromConnectionManager(DIRECT_CONFIG_SERVICE_NAME);
-        } catch (ConnectionManagerException ex) {
+        } catch (ExchangeManagerException ex) {
             LOG.error("Error reading directConfig Url cannot be found: {}", ex.getLocalizedMessage(), ex);
         }
         try {
