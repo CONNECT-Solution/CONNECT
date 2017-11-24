@@ -253,7 +253,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         try {
             name = new LdapName(userName);
         } catch (final Exception e) {
-            LOG.error("Exception checking DN: {}", e.getLocalizedMessage(), e);
+            LOG.error("Invalid distinguished name {}", userName);
         }
         return name != null;
     }
