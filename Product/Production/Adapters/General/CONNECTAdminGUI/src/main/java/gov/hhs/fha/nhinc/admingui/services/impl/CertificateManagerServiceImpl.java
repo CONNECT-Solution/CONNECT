@@ -104,7 +104,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> fetchTrustStores() throws CertificateManagerException {
         try {
-            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE);
+            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE, false);
         } catch (Exception ex) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -123,12 +123,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException {
-        try {
-            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_KEYSTORE);
-        } catch (Exception e) {
-            LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
-            throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
-        }
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -153,9 +148,9 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException {
+    public List<CertificateDTO> refreshTrustStores(boolean refreshCache) throws CertificateManagerException {
         try {
-            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE);
+            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE, refreshCache);
         } catch (Exception e) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -165,7 +160,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     /**
      * Checks if alias already exists in the truststore
      *
-     * @param cert
+     * @param alias
+     * @param certs
      * @return
      */
     @Override
@@ -221,7 +217,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache);
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
+                    .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
             return response.isStatus();
         } catch (Exception ex) {
             throw new CertificateManagerException("Error sending import request message.", ex);
@@ -230,13 +226,13 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean deleteCertificateFromTrustStore(String alias) throws
-    CertificateManagerException {
+            CertificateManagerException {
         DeleteCertificateRequestMessageType request = new DeleteCertificateRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setAlias(alias);
         try {
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
+                    .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
             return response.isStatus();
         } catch (Exception e) {
             throw new CertificateManagerException("Error deleting the selected certificate.", e);
@@ -251,12 +247,12 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
 
         String url = oProxyHelper
-            .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
+                .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
 
         ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
-            new AssertionType());
+                new AssertionType());
     }
 
     private ImportCertificateRequestMessageType createImportCertRequest(CertificateDTO cert, boolean refreshCache) throws CertificateEncodingException {
@@ -274,15 +270,16 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return message;
     }
 
-    private List<CertificateDTO> listTrustStore(String portName) throws CertificateManagerException {
+    private List<CertificateDTO> listTrustStore(String portName, boolean refreshCache) throws CertificateManagerException {
         ListTrustStoresRequestMessageType message = new ListTrustStoresRequestMessageType();
         ConfigAssertionType assertion = buildConfigAssertion();
         message.setConfigAssertion(assertion);
+        message.setRefreshCertCache(refreshCache);
 
         ListTrustStoresResponseMessageType response;
         try {
             response = (ListTrustStoresResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                portName, message);
+                    portName, message);
         } catch (Exception e) {
             throw new CertificateManagerException("Error while fetching certificates.", e);
         }
@@ -297,7 +294,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         ListKeyStoresResponseMessageType response;
         try {
             response = (ListKeyStoresResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                portName, message);
+                    portName, message);
         } catch (Exception e) {
             throw new CertificateManagerException("Error while fetching certificates.", e);
         }
@@ -310,19 +307,18 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws CertificateManagerException
      */
     private List<CertificateDTO> soapResponseToDTO(List<ListCertificateType> certList)
-        throws CertificateManagerException {
+            throws CertificateManagerException {
         List<CertificateDTO> certs = new ArrayList<>();
         long id = 0;
         for (ListCertificateType cert : certList) {
             CertificateDTO dto = x509CertificateHelper
-                .buildCertificate(cmHelper.getCertificateFromByteCode(cert.getCertData()));
+                    .buildCertificate(cmHelper.getCertificateFromByteCode(cert.getCertData()));
             dto.setId(id++);
             dto.setAlias(cert.getAlias());
             certs.add(dto);
         }
         return certs;
     }
-
 
     private static ConfigAssertionType buildConfigAssertion() {
         ConfigAssertionType assertion = new ConfigAssertionType();
@@ -352,7 +348,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean updateCertificate(String oldAlias, CertificateDTO cert)
-        throws CertificateManagerException {
+            throws CertificateManagerException {
         SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
         try {
             EditCertificateRequestMessageType requestMessage = new EditCertificateRequestMessageType();
@@ -366,7 +362,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             requestMessage.setConfigAssertion(assertion);
 
             response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_EDIT, requestMessage);
+                    .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_EDIT, requestMessage);
 
         } catch (Exception ex) {
             response.setStatus(false);
@@ -376,4 +372,5 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
         return response.isStatus();
     }
+
 }

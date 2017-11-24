@@ -46,7 +46,7 @@ public interface CertificateManagerService {
 
     public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException;
 
-    public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException;
+    public List<CertificateDTO> refreshTrustStores(boolean refreshCache) throws CertificateManagerException;
 
     public CertificateDTO createCertificate(byte[] data);
 

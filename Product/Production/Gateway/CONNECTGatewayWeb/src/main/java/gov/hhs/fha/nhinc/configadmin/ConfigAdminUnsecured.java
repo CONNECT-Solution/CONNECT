@@ -124,6 +124,10 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         ListTrustStoresRequestMessageType listTrustStoresRequest) {
         ListTrustStoresResponseMessageType response = new ListTrustStoresResponseMessageType();
         CertificateManager certManager = CertificateManagerImpl.getInstance();
+        
+        if(listTrustStoresRequest.isRefreshCertCache()) {
+            certManager.refreshServices();
+        }
         KeyStore keyStore = certManager.getTrustStore();
         response.getCertList().addAll(buildCertificate(certManager, keyStore));
 

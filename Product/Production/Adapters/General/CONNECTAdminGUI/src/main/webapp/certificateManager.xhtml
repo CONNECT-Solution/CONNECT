@@ -253,6 +253,25 @@
                                                                              value="View Certificate"
                                                                              action="#{certificateBean.viewCertificate}"
                                                                              update=":certTabView :viewCertDlg" styleClass="add-button" />
+                                                            <p:commandButton id="refreshCertificateCache"
+                                                                             value="Refresh Certificates"
+                                                                             styleClass="refresh-button" icon="ui-icon-refresh" style="margin-left: 5px;"
+                                                                             onclick="PF('certRefreshConfirm').show();" />
+                                                            <p:confirmDialog header="Confirm Refresh"
+                                                                             showEffect="fade" hideEffect="fade"
+                                                                             widgetVar="certRefreshConfirm">
+                                                                <f:facet name="message">
+                                                                    <b>Are you sure you want to refresh certificates?</b> <br/> Refresh will clear cached services and cause initial performance slowdown (similar to restarting the gateway)
+                                                                </f:facet>
+                                                                <p:commandButton value="Yes"
+                                                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                                                                 action="#{certificateBean.refreshCacheForTrustStore}"
+                                                                                 update=":certTabView"
+                                                                                 oncomplete="PF('certRefreshConfirm').hide();" />
+                                                                <p:commandButton value="No" styleClass="ui-confirmdialog-no"
+                                                                                 icon="ui-icon-close"
+                                                                                 oncomplete="PF('certRefreshConfirm').hide();" />
+                                                            </p:confirmDialog>
                                                         </p:column>
                                                     </p:row>
                                                     <p:row>

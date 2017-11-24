@@ -327,6 +327,11 @@ public class HOKSAMLAssertionBuilderTest {
             public HashMap<String, String> getTrustStoreSystemProperties() {
                 return null;
             }
+            
+            @Override
+            public void refreshServices() {
+                //do nothing
+            }
 
             @Override
             public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException {

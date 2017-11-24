@@ -490,7 +490,8 @@ public class CertificateManagerImpl implements CertificateManager {
         }
     }
 
-    private void refreshServices() {
+    @Override
+    public void refreshServices() {
         CachingCXFUnsecuredServicePortBuilder.clearCache();
         CachingCXFSecuredServicePortBuilder.clearCache();
     }

@@ -100,6 +100,15 @@ public class CertficateBean {
     public List<CertificateDTO> getKeystores() {
         return keystores;
     }
+    
+    public void refreshCacheForTrustStore() {
+        try {
+            truststores = service.refreshTrustStores(true);
+        } catch (CertificateManagerException ex) {
+            LOG.error("Unable to refresh certificate cache {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(TRUST_STORE_MSG, ex.getLocalizedMessage());
+        }
+    }
 
     public CertificateDTO getSelectedCertificate() {
         return selectedCertificate;
@@ -249,7 +258,7 @@ public class CertficateBean {
             if (!service.isAliasInUse(selectedCertificate.getAlias(), service.fetchTrustStores())) {
                 try {
                     service.importCertificate(selectedCertificate, refreshCache);
-                    truststores = service.refreshTrustStores();
+                    truststores = service.refreshTrustStores(false);
                     importCertFile = null;
                     importCertificate = null;
                     selectedCertificate = null;
@@ -319,7 +328,7 @@ public class CertficateBean {
     private List<CertificateDTO> refreshCerts() throws CertificateManagerException {
         List<CertificateDTO> certs = new ArrayList<>();
 
-        certs = service.refreshTrustStores();
+        certs = service.refreshTrustStores(false);
         truststores = setColorCodingStyle(certs);
         return certs;
     }
