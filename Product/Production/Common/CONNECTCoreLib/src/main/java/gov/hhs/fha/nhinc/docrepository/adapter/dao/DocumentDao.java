@@ -54,6 +54,10 @@ public class DocumentDao {
         return GenericDBUtils.save(getSession(), document);
     }
 
+    public boolean saveAll(List<Document> documents) {
+        return GenericDBUtils.saveAll(getSession(), documents);
+    }
+
     public boolean delete(Document document) {
         return GenericDBUtils.delete(getSession(), document);
     }

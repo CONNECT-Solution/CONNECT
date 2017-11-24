@@ -87,7 +87,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         boolean actionResult;
         if (CollectionUtils.isNotEmpty(patient.getPersonnames())) {
             actionResult = patientDAO.saveTransaction(patient);
-            updateDocumentWith(patient.getPatientId());
+            if (actionResult) {
+                updateDocumentWith(patient.getPatientId());
+            }
             if (!actionResult) {
                 logDaoError("Patient basic-info");
             }
@@ -100,15 +102,13 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
 
     private void updateDocumentWith(long patientid) throws LoadTestDataException {
         List<Document> updateDocument = documentDAO.findAllBy(patientid);
-        if (updateDocument != null) {
+        if (CollectionUtils.isNotEmpty(updateDocument)) {
             Patient patient = patientDAO.readTransaction(patientid, true);
             for (int i = 0; i < updateDocument.size(); i++) {
                 HelperUtil.updateDocumentBy(updateDocument.get(i), patient);
-                saveDocument(updateDocument.get(i));
-
             }
+            documentDAO.saveAll(updateDocument);
         }
-        // logDaoError("Update Document With");
     }
 
     @Override

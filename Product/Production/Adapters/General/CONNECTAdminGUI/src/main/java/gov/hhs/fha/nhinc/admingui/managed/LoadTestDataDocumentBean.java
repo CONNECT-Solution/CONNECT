@@ -33,13 +33,9 @@ import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
-import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -69,7 +65,7 @@ public class LoadTestDataDocumentBean {
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataDocumentBean.class);
     private static final String DOCUMENT = "Document Info";
     private static final String EVENT_CODE = " an Eventcode";
-    private static final String GROWL_MESSAGE = "a msgForGrowl";
+    private static final String GROWL_MESSAGE = "msgForGrowl";
 
     private String dialogTitle;
     private Document withDocument;
@@ -275,8 +271,6 @@ public class LoadTestDataDocumentBean {
     }
 
     public void setPatientId(String patientIdentifierIso) {
-        getDocumentForm().setPatientId(patientIdentifierIso);
-        getDocumentForm().setSourcePatientId(patientIdentifierIso);
 
         if (StringUtils.isNotBlank(patientIdentifierIso)) {
             String[] identifierValue = patientIdentifierIso.split("&");
@@ -284,31 +278,6 @@ public class LoadTestDataDocumentBean {
                 loadTestDataService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
         } else {
             HelperUtil.updateDocumentBy(withDocument, new Patient());
-        }
-    }
-
-    private void setPIDs(Patient patient) {
-        Personname personname = HelperUtil.lastItem(patient.getPersonnames());
-        if (personname != null) {
-            getDocumentForm()
-                .setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
-        }
-
-        Timestamp dateOfBirth = patient.getDateOfBirth();
-        if (dateOfBirth != null) {
-            getDocumentForm().setPid7(new SimpleDateFormat("yyyyMMdd").format(dateOfBirth));
-        }
-
-        getDocumentForm().setPid8(patient.getGender());
-
-        Address address = HelperUtil.lastItem(patient.getAddresses());
-        if (address != null) {
-            getDocumentForm().setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^", address.getStreet1(),
-                address.getCity(), address.getState(), address.getPostal()));
-        }
-
-        if (HelperUtil.isId(patient.getPatientId())) {
-            getDocumentForm().setPatientRecordId(patient.getPatientId());
         }
     }
 
