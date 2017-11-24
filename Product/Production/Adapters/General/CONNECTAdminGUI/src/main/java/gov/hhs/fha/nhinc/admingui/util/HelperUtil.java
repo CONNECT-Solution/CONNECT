@@ -102,6 +102,7 @@ public class HelperUtil {
     public static void updateDocumentBy(Document doc, Patient patient) {
         doc.setPatientId(patient.getPatientIdentifierIso());
         doc.setSourcePatientId(patient.getPatientIdentifierIso());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
         // setPIDs
         Personname personname = HelperUtil.lastItem(patient.getPersonnames());
@@ -109,8 +110,8 @@ public class HelperUtil {
             doc.setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
         }
         Timestamp dateOfBirth = patient.getDateOfBirth();
-        {
-            doc.setPid7(new SimpleDateFormat("yyyyMMdd").format(dateOfBirth));
+        if (dateOfBirth != null) {
+            doc.setPid7(sdf.format(dateOfBirth));
         }
         doc.setPid8(patient.getGender());
 
@@ -155,10 +156,6 @@ public class HelperUtil {
             }
         }
         return strData;
-    }
-
-    public static void updateDocument() {
-
     }
 
     public static String decryptToKey(String strEncrypted, String strKey) {

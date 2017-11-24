@@ -41,8 +41,7 @@ import org.slf4j.LoggerFactory;
  * @author tran tang
  *
  */
-public class GenericDBUtils
-{
+public class GenericDBUtils {
     private static final Logger LOG = LoggerFactory.getLogger(GenericDBUtils.class);
 
     private GenericDBUtils() {
@@ -59,12 +58,26 @@ public class GenericDBUtils
     }
 
     public static <T> boolean save(Session session, T entity) {
+        List<T> entities = new ArrayList();
+        entities.add(entity);
+        return GenericDBUtils.saveAll(session, entities);
+    }
+
+    public static <T> boolean saveAll(Session session, List<T> entities) {
         LOG.trace("GenericDBUtil.save");
         boolean result = false;
         Transaction tx = null;
+        int i = 0;
         try {
             tx = session.beginTransaction();
-            session.saveOrUpdate(entity);
+            for (T entity : entities) {
+                i = i + 1;
+                session.saveOrUpdate(entity);
+                if (i == 20) {
+                    session.flush();
+                    i = 0;
+                }
+            }
             tx.commit();
             result = true;
             LOG.trace("GenericDBUtil.save - commit()");
@@ -118,7 +131,7 @@ public class GenericDBUtils
         return findAllBy(session, clazz, new ArrayList<Criterion>());
     }
 
-    public static <T> List<T> findAllBy(Session session, Class<T> clazz, Criterion criterion){
+    public static <T> List<T> findAllBy(Session session, Class<T> clazz, Criterion criterion) {
         List<Criterion> criterions = new ArrayList<>();
         criterions.add(criterion);
         return findAllBy(session, clazz, criterions);
