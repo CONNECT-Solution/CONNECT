@@ -319,7 +319,6 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     private void initTrustStore() throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
-        LOG.info("POORNIMA-test-initTrustStore");
 
         final Map<String, String> trustStoreProperties = getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
