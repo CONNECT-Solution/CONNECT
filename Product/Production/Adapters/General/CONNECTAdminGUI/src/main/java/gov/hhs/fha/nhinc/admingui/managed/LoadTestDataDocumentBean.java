@@ -133,7 +133,9 @@ public class LoadTestDataDocumentBean {
         boolean result = false;
         if (selectedDocument != null) {
             result = loadTestDataService.deleteDocument(selectedDocument);
-            selectedDocument = null;
+            if (result == true) {
+                selectedDocument = null;
+            }
         } else {
             addFacesMessageBy(GROWL_MESSAGE, msgForSelectDelete("Document"));
         }
