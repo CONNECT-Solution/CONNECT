@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -94,7 +96,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @return
      */
     static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
-        final Map<String, String> trustStoreProperties) {
+            final Map<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
             public Map<String, String> getKeyStoreSystemProperties() {
@@ -124,14 +126,16 @@ public class CertificateManagerImpl implements CertificateManager {
         return trustStore;
     }
 
-
     @Override
-    public void importCertificate(String alias, DataHandler data) throws CertificateManagerException {
-        Certificate addCert = getCertificateFromByteCode(data);
+    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException {
+        Certificate addCert = certUtil.createCertificate(data);
         try {
             verifyCertInfo(alias, addCert);
             trustStore.setCertificateEntry(alias, addCert);
             storeCert();
+            if (refreshCache) {
+                refreshServices();
+            }
         } catch (IOException | KeyStoreException | CertificateException | NoSuchAlgorithmException ex) {
             checkAndRemoveCert(alias);
             throw new CertificateManagerException("Unable to store cert " + alias + "due to: " + ex.getMessage(), ex);
@@ -172,7 +176,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     @Override
     public boolean updateCertificate(String oldAlias, String newAlias, final String storeType,
-        final String storeLoc, final String passkey, KeyStore storeCert)
+            final String storeLoc, final String passkey, KeyStore storeCert)
             throws CertificateManagerException {
         boolean isUpdateSuccessful = false;
         FileInputStream is = null;
@@ -184,7 +188,7 @@ public class CertificateManagerImpl implements CertificateManager {
             storeCert.load(is, passkey.toCharArray());
             if (storeCert.containsAlias(oldAlias)) {
                 os = updateCertEntry(oldAlias, newAlias, storeCert.getCertificate(oldAlias), storeLoc, passkey,
-                    storeCert);
+                        storeCert);
                 isUpdateSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
@@ -199,8 +203,8 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     private static FileOutputStream updateCertEntry(final String oldAlias, final String newAlias,
-        Certificate certificate, final String storeLoc,
-        final String passkey, KeyStore tstore)
+            Certificate certificate, final String storeLoc,
+            final String passkey, KeyStore tstore)
             throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
         FileOutputStream os;
         tstore.deleteEntry(oldAlias);
@@ -232,18 +236,18 @@ public class CertificateManagerImpl implements CertificateManager {
         StringBuilder message = new StringBuilder();
         boolean hasError = false;
 
-        if(StringUtils.isBlank(alias)) {
+        if (StringUtils.isBlank(alias)) {
             hasError = true;
             message.append("Alias, ").append(alias).append(", is missing");
-        } else if(trustStore.containsAlias(alias)) {
+        } else if (trustStore.containsAlias(alias)) {
             hasError = true;
             message.append("Alias, ").append(alias).append(", already exists");
-        } else if(cert == null) {
+        } else if (cert == null) {
             hasError = true;
             message.append("Certificate for alias, ").append(alias).append(", is null");
         }
 
-        if(hasError) {
+        if (hasError) {
             throw new CertificateManagerException("Certificate information invalid: " + message.toString());
         }
     }
@@ -286,7 +290,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws CertificateManagerException
      */
     private static KeyStore loadKeyStore(final String storeType, final String password, final String storeLoc)
-        throws CertificateManagerException {
+            throws CertificateManagerException {
         InputStream is = null;
         KeyStore secretStore = null;
         try {
@@ -371,7 +375,7 @@ public class CertificateManagerImpl implements CertificateManager {
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
-                        new KeyStore.PasswordProtection(password.toCharArray()));
+                            new KeyStore.PasswordProtection(password.toCharArray()));
 
                 } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
                     LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
@@ -483,6 +487,12 @@ public class CertificateManagerImpl implements CertificateManager {
         } catch (KeyStoreException ex) {
             LOG.error("Unable to remove certificate: {}", alias, ex);
         }
+    }
+
+    @Override
+    public void refreshServices() {
+        CachingCXFUnsecuredServicePortBuilder.clearCache();
+        CachingCXFSecuredServicePortBuilder.clearCache();
     }
 
     @Override

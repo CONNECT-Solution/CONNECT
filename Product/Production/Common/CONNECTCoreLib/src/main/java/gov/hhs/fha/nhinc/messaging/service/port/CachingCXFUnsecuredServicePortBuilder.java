@@ -55,4 +55,8 @@ public class CachingCXFUnsecuredServicePortBuilder<T> extends CachingCXFServiceP
     protected Map<Class<?>, Object> getCache() {
         return CACHED_PORTS;
     }
+    
+    public static void clearCache() {
+        CACHED_PORTS.clear();
+    }
 }

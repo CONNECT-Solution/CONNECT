@@ -74,4 +74,8 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
     }
+    
+    public static void clearCache() {
+        CACHED_PORTS.clear();
+    }
 }
