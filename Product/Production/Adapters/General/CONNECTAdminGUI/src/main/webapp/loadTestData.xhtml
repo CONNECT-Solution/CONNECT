@@ -39,6 +39,7 @@
 </head>
 
 <h:body>
+
     <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
         <ui:define name="metatag"></ui:define>
         <ui:define name="content">
@@ -59,7 +60,7 @@
                             <div class="content-block">
                                 <h2 class="subsection-header">Manage Patients</h2>
                                 <div class="content form-block center-block">
-                                       <h:form id="patientsList" class="form-horizontal">
+                                       <h:form id="patientsList" class="form-horizontal" >
                                             <p:messages id="patientsListMessages" redisplay="false" autoUpdate="true"
                                                 closable="true" severity="warning" />
                                             <p:dataTable id="patientDataTable" var="patient"
