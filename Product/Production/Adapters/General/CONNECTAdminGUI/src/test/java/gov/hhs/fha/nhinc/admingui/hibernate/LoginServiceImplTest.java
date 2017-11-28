@@ -30,9 +30,9 @@ import static org.junit.Assert.assertNotNull;
 
 import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.model.Login;
-import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
 import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
@@ -56,6 +57,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType;
 import gov.hhs.fha.nhinc.configuration.ConfigAdminPortDescriptor;
+import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.SHA2PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -89,6 +93,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static final String UNABLE_TO_GET_CERTIFICATE = "Unable to get certificate details";
+    private static final PasswordService credentialService = new SHA2PasswordService();
 
     @Override
     public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException {
@@ -217,7 +222,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache);
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                    .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
+                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
             return response.isStatus();
         } catch (Exception ex) {
             throw new CertificateManagerException("Error sending import request message.", ex);
@@ -226,13 +231,13 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean deleteCertificateFromTrustStore(String alias) throws
-            CertificateManagerException {
+    CertificateManagerException {
         DeleteCertificateRequestMessageType request = new DeleteCertificateRequestMessageType();
-        request.setConfigAssertion(buildConfigAssertion());
+        request.setConfigAssertion(buildConfigAssertion(getTrustStorePassKey()));
         request.setAlias(alias);
         try {
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                    .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
+                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
             return response.isStatus();
         } catch (Exception e) {
             throw new CertificateManagerException("Error deleting the selected certificate.", e);
@@ -241,23 +246,32 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean validateTrustStorePassKey(String passkey) {
-        return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY).equals(passkey);
+        return getTrustStorePassKey().equals(passkey);
+    }
+
+    private String getTrustStorePassKey() {
+        return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY);
+    }
+
+    private String getKeyStorePassKey() {
+        return cmHelper.getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
     }
 
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
 
         String url = oProxyHelper
-                .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
+            .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
 
         ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
-                new AssertionType());
+            new AssertionType());
     }
 
-    private ImportCertificateRequestMessageType createImportCertRequest(CertificateDTO cert, boolean refreshCache) throws CertificateEncodingException {
+    private ImportCertificateRequestMessageType createImportCertRequest(CertificateDTO cert, boolean refreshCache)
+        throws CertificateEncodingException, CertificateManagerException {
         ImportCertificateRequestMessageType message = new ImportCertificateRequestMessageType();
-        ConfigAssertionType assertion = buildConfigAssertion();
+        ConfigAssertionType assertion = buildConfigAssertion(getTrustStorePassKey());
         DataHandler data = cmHelper.transformToHandler(cert.getX509Cert().getEncoded());
 
         ImportCertificateRequestType request = new ImportCertificateRequestType();
@@ -272,14 +286,14 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     private List<CertificateDTO> listTrustStore(String portName, boolean refreshCache) throws CertificateManagerException {
         ListTrustStoresRequestMessageType message = new ListTrustStoresRequestMessageType();
-        ConfigAssertionType assertion = buildConfigAssertion();
+        ConfigAssertionType assertion = buildConfigAssertion(getTrustStorePassKey());
         message.setConfigAssertion(assertion);
         message.setRefreshCertCache(refreshCache);
 
         ListTrustStoresResponseMessageType response;
         try {
             response = (ListTrustStoresResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                    portName, message);
+                portName, message);
         } catch (Exception e) {
             throw new CertificateManagerException("Error while fetching certificates.", e);
         }
@@ -288,13 +302,13 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     private List<CertificateDTO> listKeyStore(String portName) throws CertificateManagerException {
         ListKeyStoresRequestMessageType message = new ListKeyStoresRequestMessageType();
-        ConfigAssertionType assertion = buildConfigAssertion();
+        ConfigAssertionType assertion = buildConfigAssertion(getKeyStorePassKey());
         message.setConfigAssertion(assertion);
 
         ListKeyStoresResponseMessageType response;
         try {
             response = (ListKeyStoresResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                    portName, message);
+                portName, message);
         } catch (Exception e) {
             throw new CertificateManagerException("Error while fetching certificates.", e);
         }
@@ -307,12 +321,12 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws CertificateManagerException
      */
     private List<CertificateDTO> soapResponseToDTO(List<ListCertificateType> certList)
-            throws CertificateManagerException {
+        throws CertificateManagerException {
         List<CertificateDTO> certs = new ArrayList<>();
         long id = 0;
         for (ListCertificateType cert : certList) {
             CertificateDTO dto = x509CertificateHelper
-                    .buildCertificate(cmHelper.getCertificateFromByteCode(cert.getCertData()));
+                .buildCertificate(cmHelper.getCertificateFromByteCode(cert.getCertData()));
             dto.setId(id++);
             dto.setAlias(cert.getAlias());
             certs.add(dto);
@@ -320,13 +334,19 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return certs;
     }
 
-    private static ConfigAssertionType buildConfigAssertion() {
+    private static ConfigAssertionType buildConfigAssertion(String passKey) throws CertificateManagerException {
         ConfigAssertionType assertion = new ConfigAssertionType();
         UserLogin user = getUser();
         if (user != null) {
             UserType configUser = new UserType();
-            configUser.setUserName(user.getUserName());
+            configUser.setUserName(user.getSalt());
             assertion.setUserInfo(configUser);
+            try {
+                assertion.setHashToken(new String(
+                    credentialService.calculateHash(user.getSalt().getBytes(), passKey.getBytes()), "UTF-8"));
+            } catch (IOException | PasswordServiceException e) {
+                throw new CertificateManagerException("Error while forming hash token.", e);
+            }
         }
         assertion.setConfigInstance(new DateTime().toString());
         assertion.setAuthMethod(SamlConstants.ADMIN_AUTH_METHOD);
@@ -348,12 +368,12 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean updateCertificate(String oldAlias, CertificateDTO cert)
-            throws CertificateManagerException {
+        throws CertificateManagerException {
         SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
         try {
             EditCertificateRequestMessageType requestMessage = new EditCertificateRequestMessageType();
             EditCertificateRequestType certRequestParam = new EditCertificateRequestType();
-            ConfigAssertionType assertion = buildConfigAssertion();
+            ConfigAssertionType assertion = buildConfigAssertion(getTrustStorePassKey());
 
             certRequestParam.setOldAlias(oldAlias);
             certRequestParam.setNewAlias(cert.getAlias());
@@ -362,7 +382,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             requestMessage.setConfigAssertion(assertion);
 
             response = (SimpleCertificateResponseMessageType) getClient()
-                    .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_EDIT, requestMessage);
+                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_EDIT, requestMessage);
 
         } catch (Exception ex) {
             response.setStatus(false);

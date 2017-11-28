@@ -30,13 +30,12 @@ import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
-import gov.hhs.fha.nhinc.admingui.services.PasswordService;
-import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
-import gov.hhs.fha.nhinc.admingui.services.impl.SHA2PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-
+import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.SHA2PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
 import java.io.IOException;
 import java.util.List;
 

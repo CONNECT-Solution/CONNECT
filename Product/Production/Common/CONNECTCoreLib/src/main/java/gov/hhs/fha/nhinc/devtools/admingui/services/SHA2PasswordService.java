@@ -24,16 +24,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services.impl;
+package gov.hhs.fha.nhinc.devtools.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
-
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
 import org.apache.commons.codec.binary.Base64;
 
 /**
