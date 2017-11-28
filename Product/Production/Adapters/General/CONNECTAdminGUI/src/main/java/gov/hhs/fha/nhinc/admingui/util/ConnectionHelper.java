@@ -103,7 +103,7 @@ public class ConnectionHelper {
     protected List<OrganizationType> getAllOrganizations() {
         List<OrganizationType> organizations = null;
         try {
-            organizations = WebServiceProxyHelper.getAllOrganizationsByMerge();
+            organizations = WebServiceProxyHelper.getGatewayAllOrganizations();
         } catch (ExchangeManagerException ex) {
             LOG.error("Exception while retrieving Exchange-Organization: {}", ex.getLocalizedMessage(), ex);
         }

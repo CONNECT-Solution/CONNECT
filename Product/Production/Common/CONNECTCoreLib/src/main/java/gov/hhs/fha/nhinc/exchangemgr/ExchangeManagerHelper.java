@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.exchangemgr;
 
 import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
 import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
-import static gov.hhs.fha.nhinc.util.NhincCollections.combine;
-import static gov.hhs.fha.nhinc.util.NhincCollections.equalsIgnoreCaseAny;
 
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
@@ -46,6 +44,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -59,8 +58,6 @@ public class ExchangeManagerHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerHelper.class);
     private static final boolean ELEMENT_NOT_REQUIRED = false;
-    private static final boolean REQUIRED_ELEMENT = true;
-
     public ExchangeManagerHelper() {
     }
 
@@ -176,7 +173,7 @@ public class ExchangeManagerHelper {
         return null;
     }
 
-    // static-methods-ExchangeInfo_xml
+    // static-methods-ExchangeInfo_xml; ExchangeInfoType is used when we have to updateServiceUrl
     public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo) {
         return getOrganizationTypeBy(exchangeInfo, ELEMENT_NOT_REQUIRED);
     }
@@ -212,7 +209,7 @@ public class ExchangeManagerHelper {
             return null;
         }
         if (StringUtils.isBlank(hcid)) {
-            return organizations.get(0);
+            return null;
         }
         for (OrganizationType organization : organizations) {
             if (equalsIgnoreCaseForHCID(hcid, organization.getHcid())) {
@@ -227,6 +224,17 @@ public class ExchangeManagerHelper {
         List<OrganizationType> organizations = new ArrayList<>();
         for (ExchangeType exchange : exchanges) {
             addAll(organizations, getOrganizationTypeBy(exchange));
+        }
+        return organizations;
+    }
+
+    public static List<OrganizationType> getOrganizationTypeAllByCache(
+        Map<String, Map<String, OrganizationType>> exCache) {
+        List<OrganizationType> organizations = new ArrayList<>();
+        for (Map<String, OrganizationType> exchange : exCache.values()) {
+            for (OrganizationType organization : exchange.values()) {
+                organizations.add(organization);
+            }
         }
         return organizations;
     }
@@ -252,7 +260,7 @@ public class ExchangeManagerHelper {
             return null;
         }
         if (StringUtils.isBlank(exchangeName)) {
-            return exchanges.get(0);
+            return null;
         }
         for (ExchangeType exchange : exchanges) {
             if (exchange.getName().equalsIgnoreCase(exchangeName)) {
@@ -290,7 +298,7 @@ public class ExchangeManagerHelper {
             return null;
         }
         if (null == version) {
-            return epConfigurations.get(0);
+            return null;
         }
         for (EndpointConfigurationType epConfiguration : epConfigurations) {
             if (epConfiguration.getVersion().equalsIgnoreCase(version.toString())) {
@@ -325,7 +333,7 @@ public class ExchangeManagerHelper {
             return null;
         }
         if (StringUtils.isBlank(serviceName)) {
-            return endpoints.get(0);
+            return null;
         }
         for (EndpointType endpoint : endpoints) {
             if (containsIgnoreCaseBy(endpoint.getName(), serviceName)) {
@@ -333,80 +341,6 @@ public class ExchangeManagerHelper {
             }
         }
         return null;
-    }
-
-    // merging-exchangeInfo
-    public static ExchangeInfoType mergeExchangeInfoType(ExchangeInfoType itemA, final ExchangeInfoType itemB) {
-        combineExchangeType(getExchangeTypeBy(itemA, REQUIRED_ELEMENT), getExchangeTypeBy(itemB));
-        return itemA;
-    }
-
-    public static List<ExchangeType> combineExchangeType(List<ExchangeType> listA, final List<ExchangeType> listB) {
-        for (ExchangeType exchangeB : listB) {
-            mergeExchangeTypeByName(listA, exchangeB);
-        }
-        return listA;
-    }
-
-    private static List<ExchangeType> mergeExchangeTypeByName(List<ExchangeType> listA, ExchangeType itemB) {
-        for (ExchangeType itemA : listA) {
-            if (itemA.getName() != null && itemB.getName() != null) {
-                if (itemA.getName().equalsIgnoreCase(itemB.getName())) {
-                    combineOrganizationType(getOrganizationTypeBy(itemA, REQUIRED_ELEMENT),
-                        getOrganizationTypeBy(itemB));
-                    return listA;
-                }
-            } else if (itemA.getName() == null && itemB.getName() == null) {
-                combineOrganizationType(getOrganizationTypeBy(itemA, REQUIRED_ELEMENT), getOrganizationTypeBy(itemB));
-                return listA;
-            }
-        }
-        listA.add(itemB);
-        return listA;
-    }
-
-    public static List<OrganizationType> combineOrganizationType(List<OrganizationType> listA,
-        final List<OrganizationType> listB) {
-        for (OrganizationType organizationB : listB) {
-            mergeOrganizationTypeByHcid(listA, organizationB);
-        }
-        return listA;
-    }
-
-    private static List<OrganizationType> mergeOrganizationTypeByHcid(List<OrganizationType> listA,
-        OrganizationType itemB) {
-        for (OrganizationType itemA : listA) {
-            if (equalsIgnoreCaseForHCID(itemA.getHcid(), itemB.getHcid())) {
-                combineEndpointType(getEndpointTypeBy(itemA, REQUIRED_ELEMENT), getEndpointTypeBy(itemB));
-                combine(itemA.getAddress(), itemB.getAddress());
-                combine(itemA.getContact(), itemB.getContact());
-                combine(itemA.getTargetRegion(), itemB.getTargetRegion());
-                return listA;
-            }
-        }
-        listA.add(itemB);
-        return listA;
-    }
-
-    public static List<EndpointType> combineEndpointType(List<EndpointType> listA, final List<EndpointType> listB) {
-        for (EndpointType endpointB : listB) {
-            mergeEndpointTypeByServiceNames(listA, endpointB);
-        }
-        return listA;
-    }
-
-    private static List<EndpointType> mergeEndpointTypeByServiceNames(List<EndpointType> listA, EndpointType itemB) {
-        for (EndpointType itemA : listA) {
-            if (equalsIgnoreCaseAny(itemA.getName(), itemB.getName())) {
-                combine(getEndpointConfigurationTypeBy(itemA, REQUIRED_ELEMENT), getEndpointConfigurationTypeBy(itemB));
-                combine(itemA.getName(), itemB.getName());
-                combine(itemA.getPayloadFormat(), itemB.getPayloadFormat());
-                combine(itemA.getPayloadType(), itemB.getPayloadType());
-                return listA;
-            }
-        }
-        listA.add(itemB);
-        return listA;
     }
 
     //private-methods

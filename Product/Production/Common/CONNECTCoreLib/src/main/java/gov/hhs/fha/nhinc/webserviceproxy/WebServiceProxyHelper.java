@@ -26,16 +26,12 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
-import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.mergeExchangeInfoType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
@@ -548,9 +544,7 @@ public class WebServiceProxyHelper {
         return InternalExchangeManager.getInstance().getEndpointURL(sHomeCommunityId, sServiceName, level);
     }
 
-    public static List<OrganizationType> getAllOrganizationsByMerge() throws ExchangeManagerException {
-        ExchangeInfoType mergedExchangeInfo = mergeExchangeInfoType(InternalExchangeManager.getExchangeInfo(),
-            ExchangeManager.getExchangeInfo());
-        return ExchangeManagerHelper.getOrganizationTypeAll(mergedExchangeInfo);
+    public static List<OrganizationType> getGatewayAllOrganizations() throws ExchangeManagerException {
+        return ExchangeManager.getInstance().getAllOrganizations();
     }
 }
