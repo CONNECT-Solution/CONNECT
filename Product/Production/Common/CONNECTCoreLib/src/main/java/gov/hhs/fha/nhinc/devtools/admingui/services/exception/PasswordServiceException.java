@@ -24,55 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
-import java.io.IOException;
+package gov.hhs.fha.nhinc.devtools.admingui.services.exception;
 
 /**
- * The Interface PasswordService.
+ * The Class PasswordServiceException.
  *
  * @author msw
  */
-public interface PasswordService {
+public class PasswordServiceException extends Exception {
+
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = -2283330943804699715L;
 
     /**
-     * Check password.
+     * Instantiates a new password service exception.
      *
-     * @param passwordHash the password hash
-     * @param candidatePassword the candidate password
-     * @param salt the salt
-     * @return true, if successful
-     * @throws PasswordServiceException
+     * @param message the message
+     * @param cause the cause
      */
-    public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
-            throws PasswordServiceException;
-
-    /**
-     * Calculate hash.
-     *
-     * @param input the input
-     * @return the byte[]
-     * @throws PasswordServiceException
-     */
-    public byte[] calculateHash(byte[] input) throws PasswordServiceException;
-
-    /**
-     * Generate Salt.
-     *
-     * @return the string
-     */
-    public byte[] generateRandomSalt();
-
-    /**
-     * Calculate hash.
-     *
-     * @param salt the salt
-     * @param password the password
-     * @return the byte[]
-     * @throws java.io.IOException
-     * @throws PasswordServiceException
-     */
-    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException;
+    public PasswordServiceException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

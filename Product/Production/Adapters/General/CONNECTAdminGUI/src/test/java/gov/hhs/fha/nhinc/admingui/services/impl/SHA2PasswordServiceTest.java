@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import gov.hhs.fha.nhinc.admingui.services.PasswordService;
-import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
-
+import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.SHA2PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

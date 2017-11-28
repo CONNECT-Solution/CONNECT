@@ -24,25 +24,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services.impl;
+package gov.hhs.fha.nhinc.devtools.admingui.services;
 
-import org.apache.commons.codec.binary.Base64;
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
+import java.io.IOException;
 
 /**
- * The Class AbstractBase64EncodedPasswordService.
+ * The Interface PasswordService.
  *
  * @author msw
  */
-public abstract class AbstractBase64EncodedPasswordService extends AbstractEncodedPasswordService {
+public interface PasswordService {
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Check password.
      *
-     * @see gov.hhs.fha.nhinc.admingui.services.impl.AbstractEncodedPasswordService#encode(byte[])
+     * @param passwordHash the password hash
+     * @param candidatePassword the candidate password
+     * @param salt the salt
+     * @return true, if successful
+     * @throws PasswordServiceException
      */
-    @Override
-    public byte[] encode(byte[] input) {
-        return Base64.encodeBase64(input);
-    }
+    public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
+        throws PasswordServiceException;
+
+    /**
+     * Calculate hash.
+     *
+     * @param input the input
+     * @return the byte[]
+     * @throws PasswordServiceException
+     */
+    public byte[] calculateHash(byte[] input) throws PasswordServiceException;
+
+    /**
+     * Generate Salt.
+     *
+     * @return the string
+     */
+    public byte[] generateRandomSalt();
+
+    /**
+     * Calculate hash.
+     *
+     * @param salt the salt
+     * @param password the password
+     * @return the byte[]
+     * @throws java.io.IOException
+     * @throws PasswordServiceException
+     */
+    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException;
 
 }

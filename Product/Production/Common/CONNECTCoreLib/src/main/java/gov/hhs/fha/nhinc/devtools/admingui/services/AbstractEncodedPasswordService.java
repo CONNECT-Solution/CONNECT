@@ -24,26 +24,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services.exception;
+package gov.hhs.fha.nhinc.devtools.admingui.services;
+
+import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
+import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
- * The Class PasswordServiceException.
+ * The Class AbstractPasswordService.
  *
  * @author msw
  */
-public class PasswordServiceException extends Exception {
+public abstract class AbstractEncodedPasswordService implements PasswordService {
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -2283330943804699715L;
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.admingui.services.PasswordService#checkPassword(byte[], byte[], byte[])
+     */
+    @Override
+    public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
+            throws PasswordServiceException {
+        boolean passwordsMatch;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] candidateHash;
+        try {
+            outputStream.write(salt);
+            outputStream.write(candidatePassword);
+            candidateHash = calculateHash(outputStream.toByteArray());
+            passwordsMatch = Arrays.equals(passwordHash, candidateHash);
+        } catch (IOException e) {
+            throw new PasswordServiceException("Unable to construct candidate hash from candidate password and salt.",
+                    e);
+        }
+
+        return passwordsMatch;
+    }
 
     /**
-     * Instantiates a new password service exception.
+     * Encode.
      *
-     * @param message the message
-     * @param cause the cause
+     * @param input the input
+     * @return the byte[]
      */
-    public PasswordServiceException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    public abstract byte[] encode(byte[] input);
 
 }
