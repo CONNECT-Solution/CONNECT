@@ -117,7 +117,8 @@ public class FhirResourceServiceImpl implements FhirResourceService {
 
     protected String getUrl(String serviceName) {
         try {
-            return WebServiceProxyHelper.getAdapterEndPointBy(serviceName, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+            return WebServiceProxyHelper.getAdapterEndpointURLBy(serviceName,
+                NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
         } catch (ExchangeManagerException ex) {
             LOG.warn("Unable to access resource url for service: {}", serviceName, ex);
         }
