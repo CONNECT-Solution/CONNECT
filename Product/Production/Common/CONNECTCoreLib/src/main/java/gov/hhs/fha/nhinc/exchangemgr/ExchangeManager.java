@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import static gov.hhs.fha.nhinc.exchangemgr.AbstractExchangeManager.HELPER;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -83,7 +82,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                     for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
                             getOrganization()) || StringUtils.isNotEmpty(ex.getType()) || StringUtils.isNotEmpty(ex.
-                            getName())) {
+                                getName())) {
                             Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
                                 innerMap.put(org.getHcid(), org);
@@ -129,7 +128,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     @Override
     public OrganizationType getOrganization(String exchangeName, String hcid) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         refreshExchangeCacheIfRequired();
         String hcidWithoutPrefix = HomeCommunityMap.formatHomeCommunityId(hcid);
         String hcidWithPrefix = HomeCommunityMap.getHomeCommunityIdWithPrefix(hcid);
@@ -176,5 +175,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     @Override
     protected UDDI_SPEC_VERSION getAPI_SPEC_ENUM(String version) {
         return NhincConstants.UDDI_SPEC_VERSION.fromString(version);
+    }
+
+    public static ExchangeInfoType getExchangeInfo() throws ExchangeManagerException {
+        return ExchangeInfoDAOFileImpl.getInstance().loadExchangeInfo();
     }
 }

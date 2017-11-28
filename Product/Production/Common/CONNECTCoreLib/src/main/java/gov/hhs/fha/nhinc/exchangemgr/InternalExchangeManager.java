@@ -184,7 +184,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
             NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
         endpointUrl.setUrl(url);
 
-        ExchangeInfoType exchangeInfo = getExchangeInfoDAO().loadExchangeInfo();
+        ExchangeInfoType exchangeInfo = getExchangeInfo();
         List<OrganizationType> organizations = HELPER.getOrganizationTypeBy(exchangeInfo);
 
         OrganizationType oldOrganization = HELPER.findOrganizationTypeBy(organizations, sHomeCommunityId);
@@ -194,5 +194,9 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         getExchangeInfoDAO().saveExchangeInfo(exchangeInfo);
 
         return true;
+    }
+
+    public static ExchangeInfoType getExchangeInfo() throws ExchangeManagerException {
+        return getExchangeInfoDAO().loadExchangeInfo();
     }
 }

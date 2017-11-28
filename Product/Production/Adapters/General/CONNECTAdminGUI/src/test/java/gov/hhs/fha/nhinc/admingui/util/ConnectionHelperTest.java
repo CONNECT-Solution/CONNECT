@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,8 +53,8 @@ public class ConnectionHelperTest {
     public void testGetRemoteHcidFromUUID() {
         ConnectionHelper instance = new ConnectionHelper();
         List<String> actual = new ArrayList<>();
-        Map<String, BusinessEntity> result = instance.getRemoteHcidFromUUID();
-        for (Map.Entry<String, BusinessEntity> entry : result.entrySet()) {
+        Map<String, OrganizationType> result = instance.getRemoteHcidFromUUID();
+        for (Map.Entry<String, OrganizationType> entry : result.entrySet()) {
             actual.add(entry.getKey());
         }
         assertTrue("Error communityname not available", actual.contains("DOD"));
@@ -68,12 +69,12 @@ public class ConnectionHelperTest {
     public void testGetRemoteHcidFromUUIDFromEmptyUDDIFile() {
         ConnectionHelper instance = new ConnectionHelper() {
             @Override
-            protected List<BusinessEntity> getAllBusinessEntities() {
+            protected List<OrganizationType> getAllOrganizations() {
                 return null;
             }
         };
         Map<String, String> expResult = new HashMap<>();
-        Map<String, BusinessEntity> result = instance.getRemoteHcidFromUUID();
+        Map<String, OrganizationType> result = instance.getRemoteHcidFromUUID();
         assertEquals("Error empty UDDI file should not have entries", result, expResult);
     }
 
@@ -81,8 +82,8 @@ public class ConnectionHelperTest {
     public void testGetExternalEntitiesMap() {
         List<String> actual = new ArrayList<>();
         ConnectionHelper instance = new ConnectionHelper();
-        HashMap<String, BusinessEntity> result = instance.getExternalEntitiesMap();
-        for (Map.Entry<String, BusinessEntity> entry : result.entrySet()) {
+        HashMap<String, OrganizationType> result = instance.getExternalOrganizationsMap();
+        for (Map.Entry<String, OrganizationType> entry : result.entrySet()) {
             actual.add(entry.getKey());
         }
         assertTrue("Error communityname not available", actual.contains("SSA"));
@@ -92,12 +93,12 @@ public class ConnectionHelperTest {
     public void testGetExternalEntitiesMapFromEmptyFile() {
         ConnectionHelper instance = new ConnectionHelper() {
             @Override
-            protected List<BusinessEntity> getAllBusinessEntities() {
+            protected List<OrganizationType> getAllOrganizations() {
                 return null;
             }
         };
         Map<String, BusinessEntity> expResult = new HashMap<>();
-        HashMap<String, BusinessEntity> result = instance.getExternalEntitiesMap();
+        HashMap<String, OrganizationType> result = instance.getExternalOrganizationsMap();
         assertEquals("Error empty UDDI file should not have entries", expResult, result);
 
     }

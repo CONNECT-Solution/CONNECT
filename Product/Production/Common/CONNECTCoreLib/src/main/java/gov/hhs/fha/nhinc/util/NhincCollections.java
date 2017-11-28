@@ -35,6 +35,8 @@ import java.util.List;
  * Helper classes for collection objects.
  */
 public final class NhincCollections {
+    public final static boolean ALLOW_DUPLICATE = true;
+    public final static boolean NO_DUPLICATE = false;
 
     private NhincCollections() {
     }
@@ -52,5 +54,37 @@ public final class NhincCollections {
             }
         };
         return Lists.transform(list, helper);
+    }
+
+    public static <T> List<T> combine(List<T> listA, final List<T> listB) {
+        return addAllWith(listA, listB, NO_DUPLICATE);
+    }
+
+    public static <T> List<T> addAll(List<T> addTo, final List<T> addWith) {
+        return addAllWith(addTo, addWith, ALLOW_DUPLICATE);
+    }
+
+    public static <T> List<T> addAllWith(List<T> addTo, final List<T> addWith, final boolean allowDuplicate) {
+        for (T element : addWith) {
+            if (allowDuplicate) {
+                addTo.add(element);
+            } else {
+                if (!addTo.contains(element)) {
+                    addTo.add(element);
+                }
+            }
+        }
+        return addTo;
+    }
+
+    public static boolean equalsIgnoreCaseAny(List<String> listA, List<String> listB) {
+        for (String itemA : listA) {
+            for (String itemB : listB) {
+                if (itemA.equalsIgnoreCase(itemB)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

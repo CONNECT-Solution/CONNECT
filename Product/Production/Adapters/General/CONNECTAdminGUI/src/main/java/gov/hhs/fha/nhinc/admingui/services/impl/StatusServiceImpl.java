@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.admingui.model.AvailableService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.StatusService;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
@@ -44,10 +43,9 @@ import java.lang.management.MemoryMXBean;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.cxf.common.util.CollectionUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessEntity;
 
 /**
  *
@@ -61,27 +59,19 @@ public class StatusServiceImpl implements StatusService {
     private static final String OS_VERSION_KEY = "os.version";
     private static final long MB_VALUE = 1048576;
 
-    private final ConnectionManagerCacheHelper cmHelper = new ConnectionManagerCacheHelper();
     private static final PingService PING_SERVICE = new PingServiceImpl();
 
     private static final Logger LOG = LoggerFactory.getLogger(StatusServiceImpl.class);
 
     @Override
     public String getOperatingSystem() {
-        StringBuilder osStrBuilder = new StringBuilder();
-        osStrBuilder.append(System.getProperty(OS_KEY));
-        osStrBuilder.append(", ");
-        osStrBuilder.append(System.getProperty(OS_VERSION_KEY));
-        return osStrBuilder.toString();
+        return MessageFormat.format("{0}, {1}", System.getProperty(OS_KEY), System.getProperty(OS_VERSION_KEY));
     }
 
     @Override
     public String getJavaVersion() {
-        StringBuilder javaStrBuilder = new StringBuilder();
-        javaStrBuilder.append(System.getProperty(JAVA_VERSION_KEY));
-        javaStrBuilder.append(", ");
-        javaStrBuilder.append(System.getProperty(JAVA_VENDOR_KEY));
-        return javaStrBuilder.toString();
+        return MessageFormat.format("{0}, {1}", System.getProperty(JAVA_VERSION_KEY),
+            System.getProperty(JAVA_VENDOR_KEY));
     }
 
     @Override
@@ -103,41 +93,23 @@ public class StatusServiceImpl implements StatusService {
         return ApplicationInfo.getInstance().getServerInfo();
     }
 
-    // @Override
-    // public List<AvailableService> buildServices() {
-    // List<AvailableService> services = new ArrayList<>();
-    //
-    // ConnectionHelper cHelper = new ConnectionHelper();
-    // BusinessEntity localEntity = cHelper.getLocalBusinessEntity();
-    //
-    // if (localEntity != null && localEntity.getBusinessServices() != null
-    // && !CollectionUtils.isEmpty(localEntity.getBusinessServices().getBusinessService())) {
-    //
-    // for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
-    // services.addAll(getAvailableServiceFrom(name.getUDDIServiceName(), localEntity));
-    // }
-    // }
-    // return services;
-    // }
-
     @Override
     public List<AvailableService> buildServices() {
         List<AvailableService> services = new ArrayList<>();
 
         ConnectionHelper cHelper = new ConnectionHelper();
-        BusinessEntity localEntity = cHelper.getLocalBusinessEntity();
+        OrganizationType localOrg = cHelper.getLocalOrganization();
+        List<EndpointType> endpoints = ExchangeManagerHelper.getEndpointTypeBy(localOrg);
 
-        if (localEntity != null && localEntity.getBusinessServices() != null
-            && !CollectionUtils.isEmpty(localEntity.getBusinessServices().getBusinessService())) {
-
+        if (localOrg != null && CollectionUtils.isNotEmpty(endpoints)) {
             for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
-                services.addAll(getAvailableServiceFrom(name.getUDDIServiceName(), localEntity));
+                services.addAll(getAvailableServiceFrom(localOrg, name.getUDDIServiceName()));
             }
         }
         return services;
     }
 
-    private List<AvailableService> getAvailableServiceFrom(OrganizationType organization, String serviceName) {
+    private static List<AvailableService> getAvailableServiceFrom(OrganizationType organization, String serviceName) {
         EndpointType endpoint = ExchangeManagerHelper.findEndpointTypeBy(organization, serviceName);
         if(null != endpoint){
             return getAvailableServiceBy(endpoint);
