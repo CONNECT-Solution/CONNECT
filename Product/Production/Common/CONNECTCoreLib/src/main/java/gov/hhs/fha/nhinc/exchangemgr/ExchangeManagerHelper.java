@@ -27,11 +27,17 @@
 package gov.hhs.fha.nhinc.exchangemgr;
 
 import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
+import static gov.hhs.fha.nhinc.util.NhincCollections.combine;
+import static gov.hhs.fha.nhinc.util.NhincCollections.equalsIgnoreCaseAny;
 
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
+import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
+import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -52,6 +58,8 @@ import org.slf4j.LoggerFactory;
 public class ExchangeManagerHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerHelper.class);
+    private static final boolean ELEMENT_NOT_REQUIRED = false;
+    private static final boolean REQUIRED_ELEMENT = true;
 
     public ExchangeManagerHelper() {
     }
@@ -170,18 +178,33 @@ public class ExchangeManagerHelper {
 
     // static-methods-ExchangeInfo_xml
     public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo) {
-        return getOrganizationTypeBy(exchangeInfo, null);
+        return getOrganizationTypeBy(exchangeInfo, ELEMENT_NOT_REQUIRED);
+    }
+
+    public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo, boolean requiredElement) {
+        return getOrganizationTypeBy(exchangeInfo, null, requiredElement);
     }
 
     public static List<OrganizationType> getOrganizationTypeBy(ExchangeType exchange) {
-        if (null != exchange && null != exchange.getOrganizationList()) {
-            return exchange.getOrganizationList().getOrganization();
+        return getOrganizationTypeBy(exchange, ELEMENT_NOT_REQUIRED);
+    }
+
+    public static List<OrganizationType> getOrganizationTypeBy(ExchangeType exchange, boolean requiredElement) {
+        if (null != exchange ) {
+            if(requiredElement && null == exchange.getOrganizationList()) {
+                exchange.setOrganizationList(new OrganizationListType());
+            }
+            if(null != exchange.getOrganizationList()){
+                return exchange.getOrganizationList().getOrganization();
+            }
         }
         return new ArrayList<>();
     }
 
-    public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo, String exchangeName) {
-        return getOrganizationTypeBy(findExchangeTypeBy(getExchangeTypeBy(exchangeInfo), exchangeName));
+    public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo, String exchangeName,
+        boolean requiredElement) {
+        return getOrganizationTypeBy(findExchangeTypeBy(getExchangeTypeBy(exchangeInfo, requiredElement), exchangeName),
+            requiredElement);
     }
 
     public static OrganizationType findOrganizationTypeBy(List<OrganizationType> organizations, String hcid) {
@@ -199,9 +222,27 @@ public class ExchangeManagerHelper {
         return null;
     }
 
+    public static List<OrganizationType> getOrganizationTypeAll(ExchangeInfoType exchangeInfo) {
+        List<ExchangeType> exchanges = getExchangeTypeBy(exchangeInfo);
+        List<OrganizationType> organizations = new ArrayList<>();
+        for (ExchangeType exchange : exchanges) {
+            addAll(organizations, getOrganizationTypeBy(exchange));
+        }
+        return organizations;
+    }
+
     public static List<ExchangeType> getExchangeTypeBy(ExchangeInfoType exchangeInfo) {
-        if (null != exchangeInfo && null != exchangeInfo.getExchanges()) {
-            return exchangeInfo.getExchanges().getExchange();
+        return getExchangeTypeBy(exchangeInfo, ELEMENT_NOT_REQUIRED);
+    }
+
+    public static List<ExchangeType> getExchangeTypeBy(ExchangeInfoType exchangeInfo, boolean requiredElement) {
+        if (null != exchangeInfo) {
+            if (requiredElement && null == exchangeInfo.getExchanges()) {
+                exchangeInfo.setExchanges(new ExchangeListType());
+            }
+            if (null != exchangeInfo.getExchanges()) {
+                return exchangeInfo.getExchanges().getExchange();
+            }
         }
         return new ArrayList<>();
     }
@@ -227,8 +268,18 @@ public class ExchangeManagerHelper {
     }
 
     public static List<EndpointConfigurationType> getEndpointConfigurationTypeBy(EndpointType endpoint) {
-        if (null != endpoint && null != endpoint.getEndpointConfigurationList()) {
-            return endpoint.getEndpointConfigurationList().getEndpointConfiguration();
+        return getEndpointConfigurationTypeBy(endpoint, ELEMENT_NOT_REQUIRED);
+    }
+
+    public static List<EndpointConfigurationType> getEndpointConfigurationTypeBy(EndpointType endpoint,
+        boolean requiredElement) {
+        if (null != endpoint) {
+            if (requiredElement && null == endpoint.getEndpointConfigurationList()) {
+                endpoint.setEndpointConfigurationList(new EndpointConfigurationListType());
+            }
+            if (null != endpoint.getEndpointConfigurationList()) {
+                return endpoint.getEndpointConfigurationList().getEndpointConfiguration();
+            }
         }
         return new ArrayList<>();
     }
@@ -250,8 +301,17 @@ public class ExchangeManagerHelper {
     }
 
     public static List<EndpointType> getEndpointTypeBy(OrganizationType organization) {
-        if (null != organization && null != organization.getEndpointList()) {
-            return organization.getEndpointList().getEndpoint();
+        return getEndpointTypeBy(organization, ELEMENT_NOT_REQUIRED);
+    }
+
+    public static List<EndpointType> getEndpointTypeBy(OrganizationType organization, boolean requiredElement) {
+        if (null != organization) {
+            if (requiredElement && null == organization.getEndpointList()) {
+                organization.setEndpointList(new EndpointListType());
+            }
+            if (null != organization.getEndpointList()) {
+                return organization.getEndpointList().getEndpoint();
+            }
         }
         return new ArrayList<>();
     }
@@ -275,6 +335,81 @@ public class ExchangeManagerHelper {
         return null;
     }
 
+    // merging-exchangeInfo
+    public static ExchangeInfoType mergeExchangeInfoType(ExchangeInfoType itemA, final ExchangeInfoType itemB) {
+        combineExchangeType(getExchangeTypeBy(itemA, REQUIRED_ELEMENT), getExchangeTypeBy(itemB));
+        return itemA;
+    }
+
+    public static List<ExchangeType> combineExchangeType(List<ExchangeType> listA, final List<ExchangeType> listB) {
+        for (ExchangeType exchangeB : listB) {
+            mergeExchangeTypeByName(listA, exchangeB);
+        }
+        return listA;
+    }
+
+    private static List<ExchangeType> mergeExchangeTypeByName(List<ExchangeType> listA, ExchangeType itemB) {
+        for (ExchangeType itemA : listA) {
+            if (itemA.getName() != null && itemB.getName() != null) {
+                if (itemA.getName().equalsIgnoreCase(itemB.getName())) {
+                    combineOrganizationType(getOrganizationTypeBy(itemA, REQUIRED_ELEMENT),
+                        getOrganizationTypeBy(itemB));
+                    return listA;
+                }
+            } else if (itemA.getName() == null && itemB.getName() == null) {
+                combineOrganizationType(getOrganizationTypeBy(itemA, REQUIRED_ELEMENT), getOrganizationTypeBy(itemB));
+                return listA;
+            }
+        }
+        listA.add(itemB);
+        return listA;
+    }
+
+    public static List<OrganizationType> combineOrganizationType(List<OrganizationType> listA,
+        final List<OrganizationType> listB) {
+        for (OrganizationType organizationB : listB) {
+            mergeOrganizationTypeByHcid(listA, organizationB);
+        }
+        return listA;
+    }
+
+    private static List<OrganizationType> mergeOrganizationTypeByHcid(List<OrganizationType> listA,
+        OrganizationType itemB) {
+        for (OrganizationType itemA : listA) {
+            if (equalsIgnoreCaseForHCID(itemA.getHcid(), itemB.getHcid())) {
+                combineEndpointType(getEndpointTypeBy(itemA, REQUIRED_ELEMENT), getEndpointTypeBy(itemB));
+                combine(itemA.getAddress(), itemB.getAddress());
+                combine(itemA.getContact(), itemB.getContact());
+                combine(itemA.getTargetRegion(), itemB.getTargetRegion());
+                return listA;
+            }
+        }
+        listA.add(itemB);
+        return listA;
+    }
+
+    public static List<EndpointType> combineEndpointType(List<EndpointType> listA, final List<EndpointType> listB) {
+        for (EndpointType endpointB : listB) {
+            mergeEndpointTypeByServiceNames(listA, endpointB);
+        }
+        return listA;
+    }
+
+    private static List<EndpointType> mergeEndpointTypeByServiceNames(List<EndpointType> listA, EndpointType itemB) {
+        for (EndpointType itemA : listA) {
+            if (equalsIgnoreCaseAny(itemA.getName(), itemB.getName())) {
+                combine(getEndpointConfigurationTypeBy(itemA, REQUIRED_ELEMENT), getEndpointConfigurationTypeBy(itemB));
+                combine(itemA.getName(), itemB.getName());
+                combine(itemA.getPayloadFormat(), itemB.getPayloadFormat());
+                combine(itemA.getPayloadType(), itemB.getPayloadType());
+                return listA;
+            }
+        }
+        listA.add(itemB);
+        return listA;
+    }
+
+    //private-methods
     private static boolean containsIgnoreCaseBy(List<String> stringContainers, String compareTo) {
         if (CollectionUtils.isNotEmpty(stringContainers)) {
             for (String compareWith : stringContainers) {
@@ -285,4 +420,6 @@ public class ExchangeManagerHelper {
         }
         return false;
     }
+
+
 }

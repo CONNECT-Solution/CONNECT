@@ -26,51 +26,46 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.getHomeCommunityWithoutPrefix;
+
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.KeyedReference;
 
 public class ConnectionHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionHelper.class);
 
-    public HashMap<String, BusinessEntity> getRemoteHcidFromUUID() {
-
-        HashMap<String, BusinessEntity> organizationMap = new HashMap<>();
-        List<BusinessEntity> externalEntityList = getAllBusinessEntities();
-        if (NullChecker.isNotNullish(externalEntityList)) {
-            for (BusinessEntity businessEntity : externalEntityList) {
-                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
-                if (NullChecker.isNotNullish(keyedReference)) {
-                    organizationMap.put(getEntityName(businessEntity), businessEntity);
-                }
+    public HashMap<String, OrganizationType> getRemoteHcidFromUUID() {
+        HashMap<String, OrganizationType> organizationMap = new HashMap<>();
+        List<OrganizationType> organizations = getAllOrganizations();
+        if (NullChecker.isNotNullish(organizations)) {
+            for (OrganizationType organization : organizations) {
+                organizationMap.put(getOrganizationName(organization), organization);
             }
         }
         return organizationMap;
     }
 
-    public HashMap<String, BusinessEntity> getExternalEntitiesMap() {
-        HashMap<String, BusinessEntity> organizationMap = getRemoteHcidFromUUID();
+    public HashMap<String, OrganizationType> getExternalOrganizationsMap() {
+        HashMap<String, OrganizationType> organizationMap = getRemoteHcidFromUUID();
         if (organizationMap != null && !organizationMap.isEmpty()) {
-            Iterator<Map.Entry<String, BusinessEntity>> it = organizationMap.entrySet().iterator();
+            Iterator<Map.Entry<String, OrganizationType>> it = organizationMap.entrySet().iterator();
             while (it.hasNext()) {
-                Map.Entry<String, BusinessEntity> entry = it.next();
-                if (checkLocalHcid(
-                    getHcidFromKeyedReference(entry.getValue().getIdentifierBag().getKeyedReference()))) {
+                Map.Entry<String, OrganizationType> entry = it.next();
+                if (checkLocalHcid(entry.getValue().getHcid())) {
                     it.remove();
                 }
             }
@@ -78,15 +73,14 @@ public class ConnectionHelper {
         return organizationMap;
     }
 
-    public BusinessEntity getLocalBusinessEntity() {
-        BusinessEntity localEntity = null;
-        HashMap<String, BusinessEntity> organizationMap = getRemoteHcidFromUUID();
+    public OrganizationType getLocalOrganization() {
+        OrganizationType localEntity = null;
+        HashMap<String, OrganizationType> organizationMap = getRemoteHcidFromUUID();
         if (organizationMap != null && !organizationMap.isEmpty()) {
-            Iterator<Map.Entry<String, BusinessEntity>> it = organizationMap.entrySet().iterator();
+            Iterator<Map.Entry<String, OrganizationType>> it = organizationMap.entrySet().iterator();
             while (it.hasNext()) {
-                Map.Entry<String, BusinessEntity> entry = it.next();
-                if (checkLocalHcid(
-                    getHcidFromKeyedReference(entry.getValue().getIdentifierBag().getKeyedReference()))) {
+                Map.Entry<String, OrganizationType> entry = it.next();
+                if (checkLocalHcid(entry.getValue().getHcid())) {
                     localEntity = entry.getValue();
                 }
             }
@@ -98,44 +92,22 @@ public class ConnectionHelper {
         return formatHcid(EntityHcid).equals(formatHcid(getLocalHcid()));
     }
 
-    public String getHcidFromKeyedReference(List<KeyedReference> keyedRef) {
-        String homeCommunityId = null;
-        for (KeyedReference ref : keyedRef) {
-            if (ref.getTModelKey().equals(UDDIConstants.UDDI_HOME_COMMUNITY_ID_KEY)) {
-                homeCommunityId = ref.getKeyValue();
-                break;
-            }
-        }
-        return homeCommunityId;
-    }
-
-    private String getEntityName(BusinessEntity businessEntity) {
+    private String getOrganizationName(OrganizationType organization) {
         String homeCommunityName = null;
-        if (businessEntity.getName() != null && !businessEntity.getName().isEmpty()) {
-            homeCommunityName = businessEntity.getName().get(0).getValue();
+        if (organization != null && StringUtils.isNotBlank(organization.getName())) {
+            homeCommunityName =organization.getName();
         }
         return homeCommunityName;
     }
 
-    private List<KeyedReference> getKeyedReference(BusinessEntity entity) {
-        List<KeyedReference> keyedReference = new ArrayList<>();
-        if (entity != null && entity.getIdentifierBag() != null && entity.getIdentifierBag().getKeyedReference() != null
-            && !entity.getIdentifierBag().getKeyedReference().isEmpty()) {
-            keyedReference = entity.getIdentifierBag().getKeyedReference();
-        }
-        return keyedReference;
-    }
-
-    protected List<BusinessEntity> getAllBusinessEntities() {
-        List<BusinessEntity> businessEntities = null;
+    protected List<OrganizationType> getAllOrganizations() {
+        List<OrganizationType> organizations = null;
         try {
-            businessEntities = ConnectionManagerCache.getInstance().getAllBusinessEntities();
-        } catch (ConnectionManagerException ex) {
-            LOG.error(
-                "Exception while retrieving BusinessEntities from UDDIConnectionInfo: " + ex.getLocalizedMessage(),
-                ex);
+            organizations = WebServiceProxyHelper.getAllOrganizationsByMerge();
+        } catch (ExchangeManagerException ex) {
+            LOG.error("Exception while retrieving Exchange-Organization: {}", ex.getLocalizedMessage(), ex);
         }
-        return businessEntities;
+        return organizations;
     }
 
     private String getLocalHcid() {
@@ -163,13 +135,10 @@ public class ConnectionHelper {
 
     public Map<String, String> getOrgNameRemoteHcidExternalEntities() {
         HashMap<String, String> organizationMap = new HashMap<>();
-        List<BusinessEntity> externalEntityList = new ArrayList<>(getExternalEntitiesMap().values());
-        if (NullChecker.isNotNullish(externalEntityList)) {
-            for (BusinessEntity businessEntity : externalEntityList) {
-                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
-                if (NullChecker.isNotNullish(keyedReference)) {
-                    organizationMap.put(getEntityName(businessEntity), keyedReference.get(0).getKeyValue());
-                }
+        List<OrganizationType> externalOrganizations = new ArrayList<>(getExternalOrganizationsMap().values());
+        if (NullChecker.isNotNullish(externalOrganizations)) {
+            for (OrganizationType organization : externalOrganizations) {
+                organizationMap.put(getOrganizationName(organization), organization.getHcid());
             }
         }
         return organizationMap;
@@ -177,16 +146,11 @@ public class ConnectionHelper {
 
     public Map<String, String> getRemoteHcidOrgNameMap() {
         HashMap<String, String> organizationMap = new HashMap<>();
-        List<BusinessEntity> entities = getAllBusinessEntities();
-        if (NullChecker.isNotNullish(entities)) {
-            for (BusinessEntity businessEntity : entities) {
-                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
-                if (NullChecker.isNotNullish(keyedReference)
-                    && NullChecker.isNotNullishIgnoreSpace(keyedReference.get(0).getKeyValue())) {
-                    organizationMap.put(
-                        HomeCommunityMap.getHomeCommunityWithoutPrefix(keyedReference.get(0).getKeyValue()),
-                        getEntityName(businessEntity));
-                }
+        List<OrganizationType> organizations = getAllOrganizations();
+        if (NullChecker.isNotNullish(organizations)) {
+            for (OrganizationType organization : organizations) {
+                organizationMap.put(getHomeCommunityWithoutPrefix(organization.getHcid()),
+                    getOrganizationName(organization));
             }
         }
         return organizationMap;
@@ -194,13 +158,10 @@ public class ConnectionHelper {
 
     public Map<String, String> getOrgNameAndRemoteHcidMap() {
         HashMap<String, String> organizationMap = new HashMap<>();
-        List<BusinessEntity> entityList = getAllBusinessEntities();
-        if (NullChecker.isNotNullish(entityList)) {
-            for (BusinessEntity businessEntity : entityList) {
-                List<KeyedReference> keyedReference = getKeyedReference(businessEntity);
-                if (NullChecker.isNotNullish(keyedReference)) {
-                    organizationMap.put(getEntityName(businessEntity), keyedReference.get(0).getKeyValue());
-                }
+        List<OrganizationType> organizations = getAllOrganizations();
+        if (NullChecker.isNotNullish(organizations)) {
+            for (OrganizationType organization : organizations) {
+                organizationMap.put(getOrganizationName(organization), organization.getHcid());
             }
         }
         return organizationMap;
