@@ -28,15 +28,14 @@ package gov.hhs.fha.nhinc.admingui.services;
 
 import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 
+import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
-import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentRetrieveServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.docquery.builder.impl.FindDocumentsAdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
@@ -93,7 +92,6 @@ public class GatewayService {
     }
 
     private static class SingletonHolder {
-
         private static final GatewayService INSTANCE = new GatewayService();
     }
 
