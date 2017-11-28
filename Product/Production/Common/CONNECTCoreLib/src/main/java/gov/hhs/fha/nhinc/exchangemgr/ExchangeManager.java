@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -177,7 +178,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         return NhincConstants.UDDI_SPEC_VERSION.fromString(version);
     }
 
-    public static ExchangeInfoType getExchangeInfo() throws ExchangeManagerException {
-        return ExchangeInfoDAOFileImpl.getInstance().loadExchangeInfo();
+    @Override
+    public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
+        refreshExchangeCacheIfRequired();
+        return ExchangeManagerHelper.getOrganizationTypeAllByCache(exCache);
     }
 }

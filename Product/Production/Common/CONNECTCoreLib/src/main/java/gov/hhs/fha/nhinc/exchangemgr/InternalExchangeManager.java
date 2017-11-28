@@ -188,6 +188,9 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         List<OrganizationType> organizations = HELPER.getOrganizationTypeBy(exchangeInfo);
 
         OrganizationType oldOrganization = HELPER.findOrganizationTypeBy(organizations, sHomeCommunityId);
+        if (null == oldOrganization) {
+            return false;
+        }
         organizations.remove(oldOrganization);
         organizations.add(newOrganization);
 
