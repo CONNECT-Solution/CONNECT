@@ -520,7 +520,7 @@ public class WebServiceProxyHelper {
 
     // static method
     public static boolean updateAdapterServiceUrlBy(String serviceName, String url) throws Exception {
-        return InternalExchangeManager.updateServiceUrl(serviceName, url);
+        return InternalExchangeManager.getInstance().updateServiceUrl(serviceName, url);
     }
 
     public static String getAdapterEndpointURLBy(String sServiceName) throws ExchangeManagerException {

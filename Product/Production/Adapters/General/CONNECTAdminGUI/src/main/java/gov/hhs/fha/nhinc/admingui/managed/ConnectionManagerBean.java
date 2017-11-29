@@ -101,9 +101,8 @@ public class ConnectionManagerBean {
     }
 
     public String getSelectedEntityDescription() {
-        String description = NULL_DISPLAY;
-        // OrganizationType no longer have Description
-        return description;
+        // this method need to be updated if we decided that the ogranizationType-description exist.
+        return NULL_DISPLAY;
     }
 
     public String getSelectedEntityRegions() {

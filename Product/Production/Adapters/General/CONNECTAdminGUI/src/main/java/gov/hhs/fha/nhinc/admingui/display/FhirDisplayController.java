@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 public class FhirDisplayController implements DisplayController {
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirDisplayController.class);
-    private static final WebServiceProxyHelper HELPER = new WebServiceProxyHelper();
+    private static final WebServiceProxyHelper PROXY_HELPER = new WebServiceProxyHelper();
 
     @Override
     public void checkDisplay() {
@@ -66,7 +66,7 @@ public class FhirDisplayController implements DisplayController {
     }
 
     private boolean checkForResource(String resourceName) throws ExchangeManagerException {
-        return NullChecker.isNotNullish(HELPER.getEndPointFromConnectionManagerByAdapterAPILevel(resourceName,
+        return NullChecker.isNotNullish(PROXY_HELPER.getEndPointFromConnectionManagerByAdapterAPILevel(resourceName,
             NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
     }
 
