@@ -59,7 +59,6 @@ public class FhirResourceServiceImpl implements FhirResourceService {
     private static final String BINARY_DISPLAY = "Binary Resource";
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirResourceServiceImpl.class);
-    private static final WebServiceProxyHelper HELPER = new WebServiceProxyHelper();
 
     /**
      * {@inheritDoc}
