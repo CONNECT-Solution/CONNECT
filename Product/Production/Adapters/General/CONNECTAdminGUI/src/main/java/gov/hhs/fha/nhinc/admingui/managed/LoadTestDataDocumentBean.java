@@ -258,7 +258,7 @@ public class LoadTestDataDocumentBean {
             } catch (IOException e) {
                 LOG.error("error while trying to get file-hash: {} {}", e.getMessage(), e);
             }
-            addFacesMessageBy("inputRawData", HelperUtil.getMsgInfo("File-upload: Successful"));
+            addFacesMessageBy("inputRawData", HelperUtil.getMsgInfo("Click Save to complete the document upload"));
         }
     }
 
