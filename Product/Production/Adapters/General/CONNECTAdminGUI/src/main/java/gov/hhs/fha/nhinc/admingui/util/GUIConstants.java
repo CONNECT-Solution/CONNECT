@@ -66,8 +66,8 @@ public class GUIConstants {
     }
 
     public enum COLOR_CODING_CSS {
-        RED("glyphicon glyphicon-remove-circle highlightRED"), GREEN("glyphicon glyphicon-ok-circle highlightGREEN"),
-        YELLOW("glyphicon glyphicon-warning-sign highlightYELLOW");
+        RED("RED"), GREEN("GREEN"),
+        YELLOW("YELLOW");
 
         private final String colorCodingCertExpiry;
 

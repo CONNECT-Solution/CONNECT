@@ -900,7 +900,7 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 .ui-panelgrid-domain .ui-button-text-icon-left .ui-button-text {
 	padding: .3em .3em .3em 1.3em;
 }
-.add-button .ui-icon, .delete-button .ui-icon {
+.add-button .ui-icon, .delete-button .ui-icon, .refresh-button .ui-icon {
 	background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
 }
 .add-button {
@@ -928,6 +928,15 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 	background-color:#d2322d !important;
 }
 
+.refresh-button {
+	background-color: #ffdb4d !important;
+	color: #ffffff !important;
+	border-color: #ffcc00 !important;
+}
+
+.refresh-button:hover {
+	background-color:#ffd633 !important;
+}
 /* -- DOMAIN CONFIG TABLE STYLES -- */
 .main-content .table-domains th {
 	font-size:14px;

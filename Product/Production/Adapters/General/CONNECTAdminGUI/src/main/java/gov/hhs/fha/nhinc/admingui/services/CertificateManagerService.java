@@ -46,7 +46,7 @@ public interface CertificateManagerService {
 
     public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException;
 
-    public List<CertificateDTO> refreshTrustStores() throws CertificateManagerException;
+    public List<CertificateDTO> refreshTrustStores(boolean refreshCache) throws CertificateManagerException;
 
     public CertificateDTO createCertificate(byte[] data);
 
@@ -54,7 +54,7 @@ public interface CertificateManagerService {
 
     public boolean isLeafOnlyCertificate(CertificateDTO cert);
 
-    public void importCertificate(CertificateDTO cert) throws Exception;
+    public void importCertificate(CertificateDTO cert, boolean refresh) throws Exception;
 
     public boolean deleteCertificateFromTrustStore(String alias) throws CertificateManagerException;
 

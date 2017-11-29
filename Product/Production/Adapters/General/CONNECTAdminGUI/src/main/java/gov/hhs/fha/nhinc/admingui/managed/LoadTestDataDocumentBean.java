@@ -221,10 +221,6 @@ public class LoadTestDataDocumentBean {
         return selectedDocument == null;
     }
 
-    public boolean getUnselectedDocument() {
-        return selectedDocument == null;
-    }
-
     public boolean getDisableEventCodeButtons() {
         return selectedEventCode == null;
     }

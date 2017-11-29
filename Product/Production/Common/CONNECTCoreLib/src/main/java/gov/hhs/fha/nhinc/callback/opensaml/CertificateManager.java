@@ -96,9 +96,10 @@ public interface CertificateManager {
      *
      * @param alias
      * @param data
-     * @throws CertificateManagerException
+     * @param refreshCache
+     * @throws CertificateManagerException 
      */
-    public void importCertificate(String alias, DataHandler data) throws CertificateManagerException;
+    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException;
 
     /**
      * @return
@@ -141,5 +142,10 @@ public interface CertificateManager {
      */
     boolean updateCertificate(String oldAlias, String newAlias, String storeType, String storeLoc,
         String passkey, KeyStore storeCert) throws CertificateManagerException;
+    
+    /**
+     * Refreshes client port caches for updated certificates.
+     */
+    public void refreshServices();
 
 }
