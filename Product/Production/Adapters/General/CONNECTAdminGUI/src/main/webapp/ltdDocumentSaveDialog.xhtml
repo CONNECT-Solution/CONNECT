@@ -29,7 +29,8 @@
                                         <p:inputText styleClass="form-control" id="inputDocumentUniqueId"
                                             value="#{loadTestDataDocumentBean.documentForm.documentUniqueId}"
                                             maxlength="64" required="true"
-                                            requiredMessage="Document Unique Id Required." tabindex="2" />
+                                            requiredMessage="Document Unique Id required." tabindex="2" />
+                                        <p:message for="inputDocumentUniqueId" />
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -38,8 +39,9 @@
                                       <div class="col-sm-8">
                                         <p:inputText styleClass="form-control" id="inputNewRepositoryUniqueId"
                                             value="#{loadTestDataDocumentBean.documentForm.newRepositoryUniqueId}"
-                                            maxlength="128" required="true" requiredMessage="Repository Id Required."
+                                            maxlength="128" required="true" requiredMessage="Repository Id required."
                                             tabindex="4" />
+                                        <p:message for="inputNewRepositoryUniqueId" />
                                       </div>
                                   </div>
                                   <div class="form-group">
@@ -48,10 +50,11 @@
                                     <div class="col-sm-8">
                                         <h:selectOneMenu class="form-control" id="inputPatientId"
                                             value="#{loadTestDataDocumentBean.patientId}" required="true"
-                                            requiredMessage="Patient Id Required." tabindex="6" >
+                                            requiredMessage="Patient Id required." tabindex="6" >
                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
                                             <f:selectItems value="#{loadTestDataDocumentBean.listPatientId}" />
                                         </h:selectOneMenu>
+                                        <p:message for="inputPatientId" />
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -60,10 +63,11 @@
                                     <div class="col-sm-8">
                                         <h:selectOneMenu class="form-control" id="inputStatus"
                                             value="#{loadTestDataDocumentBean.documentForm.status}" required="true"
-                                            requiredMessage="Status Required." tabindex="8" >
+                                            requiredMessage="Status required." tabindex="8" >
                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
                                             <f:selectItems value="#{loadTestDataDocumentBean.listStatusType}" />
                                         </h:selectOneMenu>
+                                        <p:message for="inputStatus" />
                                     </div>
                                   </div>
                                 </div>
@@ -75,7 +79,7 @@
                                         <p:inputText styleClass="form-control" id="inputDocumentTitle"
                                             value="#{loadTestDataDocumentBean.documentForm.documentTitle}"
                                             maxlength="128" required="true" requiredMessage="Document Title required." tabindex="3" />
-                                        <p:message for="inputDocumentUniqueId" />
+                                        <p:message for="inputDocumentTitle" />
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -85,7 +89,8 @@
                                       <p:calendar id="inputCreationTime"
                                           value="#{loadTestDataDocumentBean.documentForm.creationTime}"
                                           showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="true"
-                                          requiredMessage="Creation Time Required." size="17" tabindex="5" />
+                                          requiredMessage="Creation Time required." size="17" tabindex="5" />
+                                        <p:message for="inputCreationTime" />
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -94,7 +99,8 @@
                                     <div class="col-sm-8">
                                       <p:inputText styleClass="form-control" id="inputAuthorPerson"
                                           value="#{loadTestDataDocumentBean.documentForm.authorPerson}" maxlength="64"
-                                          required="true" requiredMessage="Author Person Required." tabindex="7" />
+                                          required="true" requiredMessage="Author Person required." tabindex="7" />
+                                        <p:message for="inputAuthorPerson" />
                                    </div>
                                  </div>
                                 </div>
@@ -428,13 +434,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <p:messages id="msgDlgDocumentBottom" closable="true" autoUpdate="true"
-                                            severity="info, error" />
-                                    </div>
-                                </div>
                             </h:form>
                         </p:tab>
                         <p:tab title="Event Code" disabled="#{loadTestDataDocumentBean.disableAccordion}">
@@ -447,7 +446,8 @@
                                         <p:inputText styleClass="form-control"
                                             value="#{loadTestDataDocumentBean.eventCodeForm.eventCode}"
                                             id="inputEventCode" maxlength="64" required="true"
-                                            requiredMessage="Code Required." />
+                                            requiredMessage="Code required." />
+                                        <p:message for="inputEventCode" />
                                     </div>
                                 </div>
                                 <div class="form-group">
