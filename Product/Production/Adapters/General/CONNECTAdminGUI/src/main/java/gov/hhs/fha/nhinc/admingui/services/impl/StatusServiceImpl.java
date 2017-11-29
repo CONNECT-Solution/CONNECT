@@ -111,7 +111,7 @@ public class StatusServiceImpl implements StatusService {
 
     private static List<AvailableService> getAvailableServiceFrom(OrganizationType organization, String serviceName) {
         EndpointType endpoint = ExchangeManagerHelper.findEndpointTypeBy(organization, serviceName);
-        if(null != endpoint){
+        if (null != endpoint) {
             return getAvailableServiceBy(endpoint);
         }
         LOG.warn("Error cannot find the service '{}' in organization '{}'", serviceName, organization.getName());
@@ -123,13 +123,11 @@ public class StatusServiceImpl implements StatusService {
         if (null != endpoint) {
             for (String serviceName : endpoint.getName()) {
                 for (EndpointConfigurationType url : getEndpointConfigurationTypeBy(endpoint)) {
-                    if (url != null) {
-                        AvailableService aService = new AvailableService();
-                        aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
-                        aService.setAvailable(PING_SERVICE.ping(url.getUrl()));
+                    AvailableService aService = new AvailableService();
+                    aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
+                    aService.setAvailable(PING_SERVICE.ping(url.getUrl()));
 
-                        services.add(aService);
-                    }
+                    services.add(aService);
                 }
             }
         }

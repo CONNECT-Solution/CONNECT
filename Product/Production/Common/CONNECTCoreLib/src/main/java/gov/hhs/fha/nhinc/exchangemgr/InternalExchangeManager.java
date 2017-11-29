@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -50,10 +49,12 @@ import org.slf4j.LoggerFactory;
 public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API_LEVEL> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManager.class);
+    private ExchangeInfoType exInfo = null;
     private Map<String, Map<String, OrganizationType>> exInternalCache = new HashMap<>();
     private boolean exCacheLoaded = false;
     private long exFileLastUpdateTime;
     private static final InternalExchangeManager INSTANCE = new InternalExchangeManager();
+
 
     private InternalExchangeManager() {
     }
@@ -73,7 +74,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     }
 
     private void loadExchangeInfo() throws ExchangeManagerException {
-        ExchangeInfoType exInfo = getExchangeInfoDAO().loadExchangeInfo();
+        exInfo = getExchangeInfoDAO().loadExchangeInfo();
 
         if (exInfo != null) {
             synchronized (exInternalCache) {
@@ -171,35 +172,22 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         return NhincConstants.ADAPTER_API_LEVEL.valueOf(version);
     }
 
-    public static boolean updateServiceUrl(String serviceName, String url) throws Exception {
-        String sHomeCommunityId = HELPER.getHomeCommunityFromPropFile();
+    public boolean updateServiceUrl(String serviceName, String url) throws Exception {
+        if (null == exInfo) {
+            loadExchangeInfo();
+        }
 
-        OrganizationType newOrganization = getInstance().getOrganization(sHomeCommunityId);
-        if (null == newOrganization) {
+        OrganizationType updateOrganization = getOrganization(HELPER.getHomeCommunityFromPropFile());
+        if (null == updateOrganization) {
             return false;
         }
 
         EndpointConfigurationType endpointUrl = HELPER.getEndPointConfigBasedOnSpecVersion(
-            HELPER.getServiceEndpointType(newOrganization, serviceName),
+            HELPER.getServiceEndpointType(updateOrganization, serviceName),
             NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
         endpointUrl.setUrl(url);
-
-        ExchangeInfoType exchangeInfo = getExchangeInfo();
-        List<OrganizationType> organizations = HELPER.getOrganizationTypeBy(exchangeInfo);
-
-        OrganizationType oldOrganization = HELPER.findOrganizationTypeBy(organizations, sHomeCommunityId);
-        if (null == oldOrganization) {
-            return false;
-        }
-        organizations.remove(oldOrganization);
-        organizations.add(newOrganization);
-
-        getExchangeInfoDAO().saveExchangeInfo(exchangeInfo);
+        getExchangeInfoDAO().saveExchangeInfo(exInfo);
 
         return true;
-    }
-
-    public static ExchangeInfoType getExchangeInfo() throws ExchangeManagerException {
-        return getExchangeInfoDAO().loadExchangeInfo();
     }
 }
