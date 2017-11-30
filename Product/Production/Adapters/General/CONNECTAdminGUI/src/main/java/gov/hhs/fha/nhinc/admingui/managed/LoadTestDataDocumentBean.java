@@ -258,7 +258,9 @@ public class LoadTestDataDocumentBean {
             } catch (IOException e) {
                 LOG.error("error while trying to get file-hash: {} {}", e.getMessage(), e);
             }
-            addFacesMessageBy("inputRawData", HelperUtil.getMsgInfo("File-upload: Successful"));
+            addFacesMessageBy("inputRawData",
+                HelperUtil.getMsgInfo("Click Save to complete uploading " + file.getFileName()));
+            LOG.info(file.getFileName());
         }
     }
 
@@ -302,17 +304,21 @@ public class LoadTestDataDocumentBean {
         return lookup;
     }
 
+    public String getDateNow() {
+        return HelperUtil.getDateNow();
+    }
+
     // msgs
     private static FacesMessage msgForSaveSuccess(String ofType, Long ofId) {
         return HelperUtil.getMsgInfo(MessageFormat.format("Save {0} successful.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForSelectDelete(String ofType) {
-        return HelperUtil.getMsgWarn(MessageFormat.format("Select a/an {0} for delete.", ofType.toLowerCase()));
+        return HelperUtil.getMsgWarn(MessageFormat.format("Select {0} for delete.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForSelectEdit(String ofType) {
-        return HelperUtil.getMsgWarn(MessageFormat.format("Select a/an {0} for edit.", ofType.toLowerCase()));
+        return HelperUtil.getMsgWarn(MessageFormat.format("Select {0} for edit.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForInvalidDocument(String ofType) {
