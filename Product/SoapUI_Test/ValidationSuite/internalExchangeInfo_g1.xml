@@ -11,6 +11,15 @@
           <hcid>urn:oid:1.1</hcid>
           <endpointList>
             <endpoint>
+              <name>entityconfigadmin</name>
+              <endpointConfigurationList>
+                <endpointConfiguration>
+                  <url>http://localhost:8080/CONNECTGateway/GatewayService/ConfigAdminUnsecured</url>
+                  <version>LEVEL_a0</version>
+                </endpointConfiguration>
+              </endpointConfigurationList>
+            </endpoint>
+            <endpoint>
               <name>directsoapedge</name>
               <endpointConfigurationList>
                 <endpointConfiguration>
