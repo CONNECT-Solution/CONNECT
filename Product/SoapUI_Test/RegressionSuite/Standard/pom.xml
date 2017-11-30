@@ -48,6 +48,7 @@
                 <module>EntityDocRetrieveSecuredInterfaceTest</module>
                 <module>PDSAMLIssuerWithX509SubjectNameTest</module>
                 <module>ValidateConnectionManagerForAllServices</module>
+                <module>KeepAliveHeader</module>
             </modules>
         </profile>
     </profiles>

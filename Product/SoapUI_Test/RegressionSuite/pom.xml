@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-	     <soapui.testFailIgnore>true</soapui.testFailIgnore>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
 
     <profiles>
@@ -28,11 +28,11 @@
                 <module>Standard</module>
                 <module>Passthru</module>
                 <module>Bimodal</module>
-                <module>NewFeature</module>
-				<!--module>stopEmbedded</module-->
+                <!-- <module>NewFeature</module> -->
+                <!--module>stopEmbedded</module-->
             </modules>
         </profile>
-		
+
         <profile>
             <id>direct-testing</id>
             <activation>
@@ -45,7 +45,7 @@
                 <module>Direct</module>
             </modules>
         </profile>
-		
+
 		<profile>
             <id>manual-testing</id>
            	<modules>

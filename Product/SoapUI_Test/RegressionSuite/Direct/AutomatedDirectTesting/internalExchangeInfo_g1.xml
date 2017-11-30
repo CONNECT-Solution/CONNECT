@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
-    <defaultExchange>adapter</defaultExchange>
     <refreshActive>false</refreshActive>
     <exchanges>
         <exchange type="local">
@@ -10,15 +9,6 @@
                     <ns2:name>Gateway 1</ns2:name>
                     <ns2:hcid>urn:oid:1.1</ns2:hcid>
                     <ns2:endpointList>
-                        <ns2:endpoint>
-                            <ns2:name>entityconfigadmin</ns2:name>
-                            <ns2:endpointConfigurationList>
-<ns2:endpointConfiguration>
-    <ns2:url>http://localhost:8080/CONNECTGateway/GatewayService/ConfigAdminUnsecured</ns2:url>
-    <ns2:version>LEVEL_a0</ns2:version>
-</ns2:endpointConfiguration>
-                            </ns2:endpointConfigurationList>
-                        </ns2:endpoint>
                         <ns2:endpoint>
                             <ns2:name>directsoapedge</ns2:name>
                             <ns2:endpointConfigurationList>
@@ -743,15 +733,6 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>auditquerylog</ns2:name>
-                            <ns2:endpointConfigurationList>
-<ns2:endpointConfiguration>
-    <ns2:url>http://localhost:8080/CONNECTGateway/GatewayService/AuditQueryLogService</ns2:url>
-    <ns2:version>1.0</ns2:version>
-</ns2:endpointConfiguration>
-                            </ns2:endpointConfigurationList>
-                        </ns2:endpoint>
-                        <ns2:endpoint>
                             <ns2:name>policyengineservice</ns2:name>
                             <ns2:endpointConfigurationList>
 <ns2:endpointConfiguration>
@@ -810,6 +791,42 @@
                             <ns2:endpointConfigurationList>
 <ns2:endpointConfiguration>
     <ns2:url>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</ns2:url>
+    <ns2:version>LEVEL_a0</ns2:version>
+</ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterpip</ns2:name>
+                            <ns2:endpointConfigurationList>
+<ns2:endpointConfiguration>
+    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterPIP</ns2:url>
+    <ns2:version>LEVEL_a0</ns2:version>
+</ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterpep</ns2:name>
+                            <ns2:endpointConfigurationList>
+<ns2:endpointConfiguration>
+    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterPEP</ns2:url>
+    <ns2:version>LEVEL_a0</ns2:version>
+</ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterauthentication</ns2:name>
+                            <ns2:endpointConfigurationList>
+<ns2:endpointConfiguration>
+    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterAuthentication</ns2:url>
+    <ns2:version>LEVEL_a0</ns2:version>
+</ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterredactionengine</ns2:name>
+                            <ns2:endpointConfigurationList>
+<ns2:endpointConfiguration>
+    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</ns2:url>
     <ns2:version>LEVEL_a0</ns2:version>
 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
