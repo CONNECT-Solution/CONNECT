@@ -314,11 +314,11 @@ public class LoadTestDataDocumentBean {
     }
 
     private static FacesMessage msgForSelectDelete(String ofType) {
-        return HelperUtil.getMsgWarn(MessageFormat.format("Select a {0} for delete.", ofType.toLowerCase()));
+        return HelperUtil.getMsgWarn(MessageFormat.format("Select {0} for delete.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForSelectEdit(String ofType) {
-        return HelperUtil.getMsgWarn(MessageFormat.format("Select a {0} for edit.", ofType.toLowerCase()));
+        return HelperUtil.getMsgWarn(MessageFormat.format("Select {0} for edit.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForInvalidDocument(String ofType) {
