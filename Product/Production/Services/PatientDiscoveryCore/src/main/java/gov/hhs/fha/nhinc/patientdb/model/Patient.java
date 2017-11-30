@@ -327,14 +327,14 @@ public class Patient implements Serializable {
         for (Identifier identifier : getIdentifiers()) {
 
             output.append("Identifer[").append(counter).append("] = '").append(identifier.getId()).append("^^^&")
-            .append(identifier.getOrganizationId()).append("&ISO'; ");
+                .append(identifier.getOrganizationId()).append("&ISO'; ");
 
         }
 
         if (CollectionUtils.isNotEmpty(getPersonnames())) {
 
             output.append("Personname = '").append(getPersonnames().get(0).getLastName()).append(", ")
-            .append(getPersonnames().get(0).getFirstName()).append("'; ");
+                .append(getPersonnames().get(0).getFirstName()).append("'; ");
 
         }
 
@@ -347,14 +347,14 @@ public class Patient implements Serializable {
     }
 
     // READ-ONLY PROPERITES
-    public String getFirstName(){
+    public String getFirstName() {
         if (CollectionUtils.isNotEmpty(getPersonnames())) {
             return getPersonnames().get(nameIndex).getFirstName();
         }
         return "";
     }
 
-    public String getLastName(){
+    public String getLastName() {
         if (CollectionUtils.isNotEmpty(getPersonnames())) {
             return getPersonnames().get(nameIndex).getLastName();
         }
@@ -397,7 +397,7 @@ public class Patient implements Serializable {
     }
 
     public String getPatientIdentifier() {
-        if(CollectionUtils.isNotEmpty(getIdentifiers()) && CollectionUtils.isNotEmpty(getPersonnames())){
+        if (CollectionUtils.isNotEmpty(getIdentifiers()) && CollectionUtils.isNotEmpty(getPersonnames())) {
             return MessageFormat.format("{0} {1} - {2}", getFirstName(), getLastName(), getLastIdentifier().getId());
         }
         return null;
@@ -407,6 +407,13 @@ public class Patient implements Serializable {
         if (CollectionUtils.isNotEmpty(getIdentifiers())) {
             return MessageFormat.format("{0}^^^&{1}&ISO", getLastIdentifier().getId(),
                 getLastIdentifier().getOrganizationId());
+        }
+        return null;
+    }
+
+    public String getPatientIdentifierId() {
+        if (CollectionUtils.isNotEmpty(getIdentifiers())) {
+            return getLastIdentifier().getId();
         }
         return null;
     }
@@ -426,13 +433,11 @@ public class Patient implements Serializable {
         nameIndex = CollectionUtils.isNotEmpty(getPersonnames()) ? personnames.size() - 1 : 0;
         identifierIndex = CollectionUtils.isNotEmpty(getIdentifiers()) ? identifiers.size() - 1 : 0;
 
-        return new long[] {
-                patientId, personnames != null ? (long) personnames.size() : 0,
-                    identifiers != null ? (long) identifiers.size() : 0,
-                        // Optional
-                        addresses != null && allRecords ? (long) addresses.size() : 0,
-                            phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0
-        };
+        return new long[] { patientId, personnames != null ? (long) personnames.size() : 0,
+                identifiers != null ? (long) identifiers.size() : 0,
+                // Optional
+                addresses != null && allRecords ? (long) addresses.size() : 0,
+                phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0 };
     }
 
 }

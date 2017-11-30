@@ -258,7 +258,9 @@ public class LoadTestDataDocumentBean {
             } catch (IOException e) {
                 LOG.error("error while trying to get file-hash: {} {}", e.getMessage(), e);
             }
-            addFacesMessageBy("inputRawData", HelperUtil.getMsgInfo("Click Save to complete the document upload"));
+            addFacesMessageBy("inputRawData",
+                HelperUtil.getMsgInfo("Click Save to complete uploading " + file.getFileName()));
+            LOG.info(file.getFileName());
         }
     }
 
@@ -300,6 +302,10 @@ public class LoadTestDataDocumentBean {
             lookup.put(rec.getPatientId(), rec);
         }
         return lookup;
+    }
+
+    public String getDateNow() {
+        return HelperUtil.getDateNow();
     }
 
     // msgs

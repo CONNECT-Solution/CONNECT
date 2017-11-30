@@ -23,7 +23,6 @@
                                                 value="#{loadTestDataPatientBean.patientIdentifierForm.id}"
                                                 id="inputIdentifierPatientID" maxlength="60" required="true"
                                                 requiredMessage="Patient Id required." tabindex="1"/>
-                                            <p:message for="inputIdentifierPatientID" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -43,7 +42,6 @@
                                                 value="#{loadTestDataPatientBean.patientPersonnameForm.firstName}"
                                                 id="inputFirstName" maxlength="60" required="true"
                                                 requiredMessage="First Name required." tabindex="4"/>
-                                            <p:message for="inputFirstName" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -54,7 +52,6 @@
                                                 value="#{loadTestDataPatientBean.patientPersonnameForm.lastName}"
                                                 id="inputLastName" maxlength="60" required="true"
                                                 requiredMessage="Last Name required." tabindex="6"/>
-                                            <p:message for="inputLastName" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -69,7 +66,6 @@
                                                 <f:attribute name="errorMessage"
                                                     value="Date Of Birth cannot be a future date." />
                                             </p:calendar>
-                                            <p:message for="inputDateOfBirth" />
                                         </div>
                                     </div>
                                 </div>
@@ -82,15 +78,14 @@
                                                 value="#{loadTestDataPatientBean.patientIdentifierForm.organizationId}"
                                                 id="inputAssigningAuthority" maxlength="60" required="true"
                                                 requiredMessage="Assigning Authority required." tabindex="2"/>
-                                            <p:message for="inputAssigningAuthority" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <h:outputLabel for="placeholder" class="col-sm-4 control-label"
-                                            value="&#160;" />
+                                        <h:outputLabel for="inputSsn" class="col-sm-4 control-label" id="labelSsn"
+                                            value="SSN:" />
                                         <div class="col-sm-8">
-                                            <p:inputText id="placeholder" styleClass="form-control"
-                                                style="display:none;" />
+                                            <p:inputMask id="inputSsn" value="#{loadTestDataPatientBean.ssn}"
+                                                mask="999-99-9999" styleClass="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -118,7 +113,6 @@
                                             <p:inputText styleClass="form-control"
                                                 value="#{loadTestDataPatientBean.patientForm.gender}" id="inputGender"
                                                 maxlength="10" required="true" requiredMessage="Gender required." tabindex="9"/>
-                                            <p:message for="inputGender" />
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +150,6 @@
                                                 value="#{loadTestDataPatientBean.personnameForm.firstName}"
                                                 id="inputAddFirstName" maxlength="60" required="true"
                                                 requiredMessage="First Name required." tabindex="2" />
-                                                <p:message for="inputAddFirstName" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -167,7 +160,6 @@
                                                 value="#{loadTestDataPatientBean.personnameForm.lastName}"
                                                 id="inputAddLastName" maxlength="60" required="true"
                                                 requiredMessage="Last Name required." tabindex="4" />
-                                            <p:message for="inputAddLastName" />
                                         </div>
                                     </div>
                                 </div>
@@ -226,9 +218,6 @@
                                         update=":patientAccordionPanel:deleteFormAdditionalName:editPersonname 
                                            :patientAccordionPanel:deleteFormAdditionalName:deletePersonname" />
                                     <p:column headerText="" selectionMode="single" />
-                                    <p:column headerText="Id">
-                                        <h:outputText value="#{record.personnameId}" />
-                                    </p:column>
                                     <p:column headerText="Prefix">
                                         <h:outputText value="#{record.prefix}" />
                                     </p:column>
@@ -260,7 +249,7 @@
                                                 actionListener="#{loadTestDataPatientBean.deletePersonname}"
                                                 disabled="#{loadTestDataPatientBean.disableAddNameButtons}"
                                                 value="Delete" styleClass="delete-button" icon="ui-icon-closethick" >
-                                                <p:confirm header="Additional Names Record Delete Confirmation" 
+                                                <p:confirm header="Delete Additional Name Confirmation" 
                                                    message="Do you want to delete this record?" 
                                                    icon="ui-icon-alert" />
                                              </p:commandButton>
@@ -280,7 +269,6 @@
                                             value="#{loadTestDataPatientBean.identifierForm.id}"
                                             id="inputAddIdentifierPatientID" maxlength="60" required="true"
                                             requiredMessage="Patient Id required." />
-                                            <p:message for="inputAddIdentifierPatientID" />
                                     </div>
                                     <h:outputLabel for="inputAddAssigningAuthority" class="col-sm-2 control-label"
                                         value="* Assigning Authority:" />
@@ -289,7 +277,6 @@
                                             value="#{loadTestDataPatientBean.identifierForm.organizationId}"
                                             id="inputAddAssigningAuthority" maxlength="60" required="true"
                                             requiredMessage="Assigning Authority required." />
-                                            <p:message for="inputAddAssigningAuthority" />
                                     </div>
                                 </div>
 
@@ -319,8 +306,7 @@
                                     <p:ajax event="rowSelectRadio" process="@this" 
                                         update=":patientAccordionPanel:deleteFormIdentifier:editIdentifier 
                                            :patientAccordionPanel:deleteFormIdentifier:deleteIdentifier" />
-                                    <p:column headerText="" selectionMode="single" />
-                                    <p:column headerText="Id">
+                                    <p:column headerText="" selectionMode="single" >
                                         <h:outputText value="#{record.identifierId}" />
                                     </p:column>
                                     <p:column headerText="Patient Id">
@@ -345,7 +331,7 @@
                                                 actionListener="#{loadTestDataPatientBean.deleteIdentifier}"
                                                 disabled="#{loadTestDataPatientBean.disableIdentifierButtons}"
                                                 value="Delete" styleClass="delete-button" icon="ui-icon-closethick" >
-                                                <p:confirm header="Delete Identifier Record Confirmation" 
+                                                <p:confirm header="Delete Identifier Confirmation" 
                                                    message="Do you want to delete this record?" 
                                                    icon="ui-icon-alert" />
                                              </p:commandButton>
@@ -365,7 +351,6 @@
                                         <p:inputText styleClass="form-control"
                                             value="#{loadTestDataPatientBean.addressForm.street1}" id="inputStreetOne"
                                             maxlength="120" required="true" requiredMessage="Street required." />
-                                        <p:message for="inputStreetOne" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -383,18 +368,16 @@
                                         <p:inputText styleClass="form-control"
                                             value="#{loadTestDataPatientBean.addressForm.city}" id="inputCity"
                                             maxlength="120" required="true" requiredMessage="City required." />
-                                        <p:message for="inputCity" />
                                     </div>
 
                                     <h:outputLabel for="inputState" class="col-sm-2 control-label" value="* State:" />
                                     <div class="col-sm-2">
-                                        <h:selectOneMenu styleClass="form-control" id="inputState"
+                                        <p:selectOneMenu  id="inputState" style="width:150px" 
                                             value="#{loadTestDataPatientBean.addressForm.state}" required="true"
                                             requiredMessage="State required.">
                                             <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
                                             <f:selectItems value="#{loadTestDataPatientBean.listStates}" />
-                                        </h:selectOneMenu>
-                                        <p:message for="inputState" />
+                                        </p:selectOneMenu>
                                     </div>
 
                                     <h:outputLabel for="inputPostal" class="col-sm-2 control-label"
@@ -403,7 +386,6 @@
                                         <p:inputText styleClass="form-control"
                                             value="#{loadTestDataPatientBean.addressForm.postal}" id="inputPostal"
                                             maxlength="40" required="true" requiredMessage="Zip/Postal required." />
-                                        <p:message for="inputPostal" />
                                     </div>
                                 </div>
 
@@ -433,9 +415,6 @@
                                         update=":patientAccordionPanel:deleteFormAddress:editAddress 
                                            :patientAccordionPanel:deleteFormAddress:deleteAddress" />
                                     <p:column headerText="" selectionMode="single" />
-                                    <p:column headerText="Id">
-                                        <h:outputText value="#{record.addressId}" />
-                                    </p:column>
                                     <p:column headerText="Street">
                                         <h:outputText value="#{record.street1}" />
                                     </p:column>
@@ -464,7 +443,7 @@
                                                 actionListener="#{loadTestDataPatientBean.deleteAddress}" value="Delete"
                                                 disabled="#{loadTestDataPatientBean.disableAddressButtons}"
                                                 styleClass="delete-button" icon="ui-icon-closethick" >
-                                                <p:confirm header="Delete Address Record Confirmation" 
+                                                <p:confirm header="Delete Address Confirmation" 
                                                    message="Do you want to delete this record?" 
                                                    icon="ui-icon-alert" />
                                              </p:commandButton>
@@ -484,7 +463,6 @@
                                             value="#{loadTestDataPatientBean.phonenumberForm.value}"
                                             id="inputPhonenumber" maxlength="60" required="true"
                                             requiredMessage="Phone Number required." />
-                                        <p:message for="inputPhonenumber" />
                                     </div>
                                 </div>
 
@@ -515,9 +493,6 @@
                                         update=":patientAccordionPanel:deleteFormPhonenumber:editPhonenumber 
                                            :patientAccordionPanel:deleteFormPhonenumber:deletePhonenumber" />
                                     <p:column headerText="" selectionMode="single" />
-                                    <p:column headerText="Id">
-                                        <h:outputText value="#{record.phonenumberId}" />
-                                    </p:column>
                                     <p:column headerText="Phone Number">
                                         <h:outputText value="#{record.value}" />
                                     </p:column>
@@ -537,7 +512,7 @@
                                                 actionListener="#{loadTestDataPatientBean.deletePhonenumber}"
                                                 disabled="#{loadTestDataPatientBean.disablePhoneNumButtons}"
                                                 value="Delete" styleClass="delete-button" icon="ui-icon-closethick" >
-                                                <p:confirm header="Delete Phone Number Record Confirmation" 
+                                                <p:confirm header="Delete Phone Number Confirmation" 
                                                    message="Do you want to delete this record?" 
                                                    icon="ui-icon-alert" />
                                             </p:commandButton>

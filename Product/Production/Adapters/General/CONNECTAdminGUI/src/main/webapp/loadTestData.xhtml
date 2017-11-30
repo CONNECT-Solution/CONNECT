@@ -73,7 +73,7 @@
                                                    update=":testdataTabview:patientsList:editPatient :testdataTabview:patientsList:deletePatient" />
                                                 <p:column headerText="" selectionMode="single" />
                                                 <p:column headerText="Patient Id">
-                                                    <h:outputText value="#{patient.patientId}" />
+                                                    <h:outputText value="#{patient.patientIdentifierId}" />
                                                 </p:column>
                                                 <p:column headerText="Last Name">
                                                     <h:outputText value="#{patient.lastName}" />
@@ -109,8 +109,7 @@
                                                             update=":patientSaveDlg"
                                                             oncomplete="PF('patientSaveDlg').show();"
                                                             disabled="#{loadTestDataPatientBean.disablePatientButtons}"
-                                                            styleClass="edit-button" icon="ui-icon-pencil"
-                                                            >
+                                                            styleClass="edit-button" icon="ui-icon-pencil" >
                                                             <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
                                                         </p:commandButton>
                                                         <p:commandButton id="deletePatient" update=":testdataTabview:patientsList"
@@ -119,7 +118,7 @@
                                                             disabled="#{loadTestDataPatientBean.disablePatientButtons}"
                                                             styleClass="delete-button" icon="ui-icon-closethick"
                                                             >
-                                                            <p:confirm header="Patient Record Delete Confirmation" message="Do you want to delete this record?" 
+                                                            <p:confirm header="Delete Patient Confirmation" message="Do you want to delete this record?" 
                                                                icon="ui-icon-alert" />
                                                         </p:commandButton>
                                                     </div>
@@ -197,13 +196,14 @@
                                                             oncomplete="PF('documentSaveDlg').show();"
                                                             update=":documentSaveDlg, :msgGrowl"
                                                             styleClass="edit-button" icon="ui-icon-pencil">
+                                                            <p:resetInput target=":documentAccordionPanel:documentForm" />
                                                         </p:commandButton>
                                                         <p:commandButton id="deleteDocument"
                                                             actionListener="#{loadTestDataDocumentBean.deleteDocument}"
                                                             disabled="#{loadTestDataDocumentBean.disableDocumentButtons}"
                                                             update="documentDataTable, :msgGrowl" value="Delete"
                                                             styleClass="delete-button" icon="ui-icon-closethick" >
-                                                            <p:confirm header="Document Record Delete Confirmation" 
+                                                            <p:confirm header="Delete Document Confirmation" 
                                                                message="Do you want to delete this record?" 
                                                                icon="ui-icon-alert" />
                                                         </p:commandButton>
