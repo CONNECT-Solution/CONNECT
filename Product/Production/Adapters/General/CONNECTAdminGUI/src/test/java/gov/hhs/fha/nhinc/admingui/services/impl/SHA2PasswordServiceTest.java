@@ -26,15 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
-import gov.hhs.fha.nhinc.devtools.admingui.services.SHA2PasswordService;
-import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
+import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
+import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
 
 /**
@@ -58,9 +55,11 @@ public class SHA2PasswordServiceTest {
         byte[] candidatePassword = "password".getBytes();
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw=="
-                .getBytes();
-        PasswordService service = getSHA2PasswordService();
-        Assert.assertTrue("Password should match",service.checkPassword(passwordHash, candidatePassword, salt));
+            .getBytes();
+        SHA2PasswordUtil sha2PasswordUtil = getSHA2PasswordUtil();
+
+        Assert.assertTrue("Password should match",
+            sha2PasswordUtil.checkPassword(passwordHash, candidatePassword, salt));
     }
 
     /**
@@ -75,12 +74,13 @@ public class SHA2PasswordServiceTest {
         byte[] candidatePassword = "candidatePassword".getBytes();
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "nottherighthash".getBytes();
-        PasswordService service = getSHA2PasswordService();
-        Assert.assertFalse("Password doesn't match",service.checkPassword(passwordHash, candidatePassword, salt));
+        SHA2PasswordUtil sha2PasswordUtil = getSHA2PasswordUtil();
+        Assert.assertFalse("Password doesn't match",
+            sha2PasswordUtil.checkPassword(passwordHash, candidatePassword, salt));
     }
 
     @Test
-    public void generateHash() throws IOException, PasswordServiceException {
+    public void generateHash() throws IOException, NoSuchAlgorithmException {
         String salt = "ABCD";// generateRandomSalt();
         String password = "password";
         String sha1 = new String(calculateHash(salt.getBytes(), password.getBytes()));
@@ -88,14 +88,14 @@ public class SHA2PasswordServiceTest {
         Assert.assertEquals("eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw==", sha1);
     }
 
-    private byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException {
+    private byte[] calculateHash(byte[] salt, byte[] password) throws IOException, NoSuchAlgorithmException {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(salt);
         outputStream.write(password);
 
-        PasswordService service = getSHA2PasswordService();
-        return service.calculateHash(outputStream.toByteArray());
+        SHA2PasswordUtil sha2PasswordUtil = getSHA2PasswordUtil();
+        return sha2PasswordUtil.calculateHash(salt, password);
     }
 
     /**
@@ -103,8 +103,8 @@ public class SHA2PasswordServiceTest {
      *
      * @return the SHA2 password service
      */
-    private PasswordService getSHA2PasswordService() {
-        return new SHA2PasswordService();
+    private SHA2PasswordUtil getSHA2PasswordUtil() {
+        return SHA2PasswordUtil.getInstance();
     }
 
 }

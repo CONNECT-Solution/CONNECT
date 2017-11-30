@@ -63,18 +63,20 @@ public class CertficateBean {
     private String trustStoreLocation;
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
     private static final String KEY_STORE_MSG = "keyStoreMsg";
-    private static final String IMPORT_CERT_EXPIRY_MSG = "importCertInfoMsg";
-    private static final String IMPORT_CERT_ERR_MSG = "importCertErrorMsg";
-    private static final String VIEW_CERT_ERR_MSG = "viewCertErrorMsg";
-    private static final String IMPORT_PASS_KEY_ERR_MSG = "importPassKeyErrorMsg";
-    private static final String DELETE_PASS_KEY_ERR_MSG = "deletePassKeyErrorMsg";
+    private static final String IMPORT_CERT_EXPIRY_MSG_ID = "importCertInfoMsg";
+    private static final String IMPORT_CERT_ERR_MSG_ID = "importCertErrorMsg";
+    private static final String VIEW_CERT_ERR_MSG_ID = "viewCertErrorMsg";
+    private static final String IMPORT_PASS_ERR_MSG_ID = "importPassKeyErrorMsg";
+    private static final String DELETE_PASS_ERR_MSG_ID = "deletePassKeyErrorMsg";
+    private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
+    private static final String INVALID_PASS_ERR_MSG = "Invalid Password";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
     private CertificateDTO backupCertificate;
     private String trustStorePasskey;
-    private static final String VERIFIED_TRUSTSTORE_USER = "verifiedTrustStoreUser";
+    private static final String HASH_TOKEN = "certHashToken";
     private static final Logger LOG = LoggerFactory.getLogger(CertficateBean.class);
     private boolean expiredCert;
     private boolean rememberMe;
@@ -100,7 +102,7 @@ public class CertficateBean {
     public List<CertificateDTO> getKeystores() {
         return keystores;
     }
-    
+
     public void refreshCacheForTrustStore() {
         try {
             truststores = service.refreshTrustStores(true);
@@ -138,9 +140,12 @@ public class CertficateBean {
         this.importCertificate = importCertificate;
     }
 
-    private static boolean isVerifiedTrustStoreUser() {
-        Object value = HelperUtil.getHttpSession(false).getAttribute(VERIFIED_TRUSTSTORE_USER);
-        return value != null ? (Boolean) value : false;
+    private static boolean isHashTokenEmpty() {
+        return StringUtils.isBlank(getHashTokenFromSession()) ? true : false;
+    }
+
+    private static String getHashTokenFromSession() {
+        return (String) HelperUtil.getHttpSession(false).getAttribute(HASH_TOKEN);
     }
 
     public CertificateDTO getSelectedTSCertificate() {
@@ -169,7 +174,7 @@ public class CertficateBean {
             checkCertValidity(cert);
             if (!expiredCert) {
                 if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
-                    HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG, "This Certificate is expiring soon.");
+                    HelperUtil.addMessageInfo(IMPORT_CERT_EXPIRY_MSG_ID, "This Certificate is expiring soon.");
                 }
                 importCertificate.add(cert);
             }
@@ -185,10 +190,10 @@ public class CertficateBean {
         } catch (CertificateExpiredException ex) {
             LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
             expiredCert = true;
-            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Expired Certificate");
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Expired Certificate");
         } catch (CertificateNotYetValidException ex) {
             LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
-            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Certificate not valid yet");
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Certificate not valid yet");
         }
     }
 
@@ -198,104 +203,146 @@ public class CertficateBean {
         }
     }
 
-    public void openTrustStorePasskeyDlgForDelete() {
+    public void openTrustStorePasskeyDlgForDelete() throws CertificateManagerException {
         if (selectedTSCertificate == null) {
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to delete");
-        } else if (!isVerifiedTrustStoreUser()) {
+        } else if (isHashTokenEmpty()) {
             RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').show();");
         } else {
-            deleteCertificate();
+            validateAndDeleteCertificate();
+        }
+    }
+
+    public void openTrustStorePasskeyDlgForUpdate() throws CertificateManagerException {
+        if (selectedTSCertificate == null) {
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to update");
+        } else if (isHashTokenEmpty()) {
+            RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').show();");
+        } else {
+            validateAndUpdateCertificate();
         }
     }
 
     public void openTrustStorePasskeyDlgForImport() throws CertificateManagerException {
         if (selectedCertificate == null) {
-            HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Select certificate for import");
+            HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Select certificate for import");
         } else if (StringUtils.isBlank(selectedCertificate.getAlias()) || ALIAS_PLACEHOLDER.equals(selectedCertificate.
-                getAlias())) {
-            HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Enter an alias for the certificate");
-        } else if (!isVerifiedTrustStoreUser()) {
+            getAlias())) {
+            HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Enter an alias for the certificate");
+        } else if (isHashTokenEmpty()) {
             RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').show();");
         } else {
-            importSelectedCertificate();
+            validateAndImportCertificate();
         }
     }
 
-    public void validateAndDeleteCertificate() {
-        if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            if (isRememberMe()) {
-                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+    public void validateAndDeleteCertificate() throws CertificateManagerException {
+        if (isHashTokenEmpty()) {
+            String hashToken = service.getHashToken(trustStorePasskey);
+            if (service.validateTrustStorePassKey(trustStorePasskey)) {
+                saveHashToken(hashToken);
+                RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
+                deleteCertificate(hashToken);
             } else {
-                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
+                HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, INVALID_PASS_ERR_MSG);
             }
-            trustStorePasskey = null;
-            RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
-            deleteCertificate();
         } else {
-            HelperUtil.addMessageError(DELETE_PASS_KEY_ERR_MSG, "Invalid Password");
+            deleteCertificate(getHashTokenFromSession());
+        }
+        trustStorePasskey = null;
+    }
+
+    /**
+     * @throws CertificateManagerException
+     */
+    private void saveHashToken(String hashToken) throws CertificateManagerException {
+        if (isRememberMe()) {
+            HelperUtil.getHttpSession(false).setAttribute(HASH_TOKEN, hashToken);
         }
     }
 
     public void validateAndImportCertificate() throws CertificateManagerException {
-        if (service.validateTrustStorePassKey(trustStorePasskey)) {
-            if (isRememberMe()) {
-                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, true);
+        if (isHashTokenEmpty()) {
+            if (service.validateTrustStorePassKey(trustStorePasskey)) {
+                String hashToken = service.getHashToken(trustStorePasskey);
+                saveHashToken(hashToken);
+                RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
+                importSelectedCertificate(hashToken);
             } else {
-                HelperUtil.getHttpSession(false).setAttribute(VERIFIED_TRUSTSTORE_USER, false);
+                HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, INVALID_PASS_ERR_MSG);
             }
-            trustStorePasskey = null;
-            RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
-            importSelectedCertificate();
         } else {
-            HelperUtil.addMessageError(IMPORT_PASS_KEY_ERR_MSG, "Invalid Password");
+            importSelectedCertificate(getHashTokenFromSession());
         }
+        trustStorePasskey = null;
     }
 
-    private void importSelectedCertificate() throws CertificateManagerException {
+    private void importSelectedCertificate(String hashToken) throws CertificateManagerException {
         LOG.info("importSelectedCertificate");
 
         if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
             if (!service.isAliasInUse(selectedCertificate.getAlias(), service.fetchTrustStores())) {
-                try {
-                    service.importCertificate(selectedCertificate, refreshCache);
-                    truststores = service.refreshTrustStores(false);
-                    importCertFile = null;
-                    importCertificate = null;
-                    selectedCertificate = null;
-                    refreshCache = false;
-                    RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
-                    LOG.info("importCertificate -- successful");
-                } catch (Exception ex) {
-                    LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
-                    HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, ex.getLocalizedMessage());
-                }
+                importAction(hashToken);
             } else {
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Alias already in use in TrustStore");
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Alias already in use in TrustStore");
             }
         } else {
             if (null == selectedCertificate) {
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Select a certificate for import");
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Select a certificate for import");
             }
             if (selectedCertificate != null && StringUtils.isBlank(selectedCertificate.getAlias())) {
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG, "Enter an alias for importing certificate");
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Enter an alias for importing certificate");
             }
         }
     }
 
-    public void updateSelectedCertificateTS() throws CertificateManagerException {
-        if (selectedTSCertificate != null) {
-            updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG);
+    private void importAction(String hashToken) {
+        try {
+            service.importCertificate(selectedCertificate, refreshCache, hashToken);
+            truststores = service.refreshTrustStores(false);
+            importCertFile = null;
+            importCertificate = null;
+            selectedCertificate = null;
+            refreshCache = false;
+            RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
+            LOG.info("importCertificate -- successful");
+        } catch (Exception ex) {
+            LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, ex.getLocalizedMessage());
         }
     }
 
-    private void updateCertificate(List<CertificateDTO> certsForAliasCheck, String uiElement) {
-        LOG.info("updateSelectedCertificate");
+    public void validateAndUpdateCertificate() throws CertificateManagerException {
+        if (isHashTokenEmpty()) {
+            if (service.validateTrustStorePassKey(trustStorePasskey)) {
+                String hashToken = service.getHashToken(trustStorePasskey);
+                saveHashToken(hashToken);
+                RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').hide();");
+                updateSelectedCertificateTS(hashToken);
+                trustStorePasskey = null;
+            } else {
+                HelperUtil.addMessageError(EDIT_PASS_ERROR_MSG, INVALID_PASS_ERR_MSG);
+            }
+        } else {
+            updateSelectedCertificateTS(getHashTokenFromSession());
+        }
+    }
 
+    public void updateSelectedCertificateTS(String hashToken) throws CertificateManagerException {
+        if (selectedTSCertificate != null) {
+            updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG_ID, hashToken);
+        }
+    }
+
+    private void updateCertificate(List<CertificateDTO> certsForAliasCheck, String uiElement, String hashToken) {
+        LOG.info("updateSelectedCertificate");
         backupCertificate = selectedTSCertificate;
         String alias = selectedTSCertificate.getAlias();
+
         if (StringUtils.isNotBlank(alias) && !service.isAliasInUse(alias, certsForAliasCheck)) {
             try {
-                postUpdateAction(service.updateCertificate(oldAlias, selectedTSCertificate), uiElement);
+                boolean updateStatus = service.updateCertificate(oldAlias, selectedTSCertificate, hashToken);
+                postUpdateAction(updateStatus, uiElement, alias);
 
             } catch (CertificateManagerException ex) {
                 LOG.error("Unable to update certificate {}", ex.getLocalizedMessage(), ex);
@@ -311,10 +358,11 @@ public class CertficateBean {
      * @param updateStatus
      * @throws CertificateManagerException
      */
-    private void postUpdateAction(boolean updateStatus, String uiElement) throws CertificateManagerException {
+    private void postUpdateAction(boolean updateStatus, String uiElement, String aliasToRefresh)
+        throws CertificateManagerException {
         if (updateStatus) {
             refreshCerts();
-            selectedTSCertificate = null;
+            oldAlias = aliasToRefresh;
             HelperUtil.addMessageInfo(uiElement, "Update certificate successful");
         } else {
             selectedTSCertificate = backupCertificate;
@@ -333,9 +381,9 @@ public class CertficateBean {
         return certs;
     }
 
-    private void deleteCertificate() {
+    private void deleteCertificate(String hashToken) {
         try {
-            service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias());
+            service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias(), hashToken);
             refreshCerts();
             selectedTSCertificate = null;
         } catch (CertificateManagerException ex) {

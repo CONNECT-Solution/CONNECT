@@ -24,55 +24,62 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.devtools.admingui.services;
+package gov.hhs.fha.nhinc.util;
 
-import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * The Interface PasswordService.
+ * @author Poornima Venkatakrishnan
  *
- * @author msw
  */
-public interface PasswordService {
+public class SHA2PasswordUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(SHA2PasswordUtil.class);
+    private static final String HASH_ALGORITHM = "SHA-512";
 
-    /**
-     * Check password.
-     *
-     * @param passwordHash the password hash
-     * @param candidatePassword the candidate password
-     * @param salt the salt
-     * @return true, if successful
-     * @throws PasswordServiceException
-     */
+    private SHA2PasswordUtil() {
+    }
+
+    public static SHA2PasswordUtil getInstance() {
+        return new SHA2PasswordUtil();
+    }
+
     public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
-        throws PasswordServiceException;
+        throws IOException, NoSuchAlgorithmException {
+        boolean passwordsMatch;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] candidateHash;
 
-    /**
-     * Calculate hash.
-     *
-     * @param input the input
-     * @return the byte[]
-     * @throws PasswordServiceException
-     */
-    public byte[] calculateHash(byte[] input) throws PasswordServiceException;
+        outputStream.write(salt);
+        outputStream.write(candidatePassword);
+        candidateHash = calculateHash(outputStream.toByteArray());
+        passwordsMatch = Arrays.equals(passwordHash, candidateHash);
 
-    /**
-     * Generate Salt.
-     *
-     * @return the string
-     */
-    public byte[] generateRandomSalt();
+        return passwordsMatch;
+    }
 
-    /**
-     * Calculate hash.
-     *
-     * @param salt the salt
-     * @param password the password
-     * @return the byte[]
-     * @throws java.io.IOException
-     * @throws PasswordServiceException
-     */
-    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException;
+    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, NoSuchAlgorithmException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        outputStream.write(salt);
+        outputStream.write(password);
+
+        return calculateHash(outputStream.toByteArray());
+    }
+
+    private byte[] calculateHash(byte[] input) throws IOException, NoSuchAlgorithmException {
+        byte[] digest;
+
+        MessageDigest md = MessageDigest.getInstance(HASH_ALGORITHM);
+        digest = md.digest(input);
+
+        return Base64.encodeBase64(digest);
+    }
 
 }

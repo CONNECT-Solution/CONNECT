@@ -24,13 +24,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.devtools.admingui.services;
+package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import org.apache.commons.codec.binary.Base64;
 
@@ -39,9 +34,7 @@ import org.apache.commons.codec.binary.Base64;
  *
  * @author msw
  */
-public class SHA2PasswordService extends AbstractBase64EncodedPasswordService {
-
-    public static final String HASH_ALGORITHM = "SHA-512";
+public class SHA2PasswordService implements PasswordService {
 
     private static final SecureRandom RANDOM = new SecureRandom();
 
@@ -52,27 +45,7 @@ public class SHA2PasswordService extends AbstractBase64EncodedPasswordService {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.admingui.services.PasswordService#calculateHash(byte[])
-     */
-    @Override
-    public byte[] calculateHash(byte[] input) throws PasswordServiceException {
-        byte[] digest;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance(HASH_ALGORITHM);
-            digest = md.digest(input);
-        } catch (NoSuchAlgorithmException e) {
-            throw new PasswordServiceException("Unable to calculate digest for password.", e);
-        }
-
-        return encode(digest);
-    }
-
     /**
-     *
      * @return the salt value
      */
     @Override
@@ -80,23 +53,5 @@ public class SHA2PasswordService extends AbstractBase64EncodedPasswordService {
         byte[] salt = new byte[16];
         RANDOM.nextBytes(salt);
         return Base64.encodeBase64(salt);
-    }
-
-    /**
-     *
-     * @param salt the salt value
-     * @param password the password
-     * @return calculated hash as byte array
-     * @throws IOException
-     * @throws PasswordServiceException
-     */
-    @Override
-    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, PasswordServiceException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        outputStream.write(salt);
-        outputStream.write(password);
-
-        return calculateHash(outputStream.toByteArray());
     }
 }
