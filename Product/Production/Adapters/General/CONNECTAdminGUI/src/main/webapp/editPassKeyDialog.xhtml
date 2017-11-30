@@ -1,0 +1,35 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="editPassKeyDlg" header="TrustStore Credentials" widgetVar="editPassKeyDlg" modal="true" dynamic="true" closeOnEscape="true">
+            <div class="content">
+                <h4>TrustStore Password</h4>
+                <div class="form-block center-block">
+                    <h:form id="editPassKeyDlgForm" class="form form-horizontal">
+                        <p:messages id="editPassKeyErrorMsg" closable="true" autoUpdate="true" showDetail="true" />
+                        <div class="form-group">
+                            <h:outputLabel for="editPasskey" class="col-sm-3 control-label" id="inputPassKeyLbl" value="Password:" />
+                            <div class="col-sm-9">
+                                <p:password id="editPasskey" value="#{certificateBean.trustStorePasskey}" style="width:100%"/>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <h:selectBooleanCheckbox id="rememberPassword" class="col-sm-1" value="#{certificateBean.rememberMe}" /> 
+                            Remember me
+                         </div>
+ 
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-button-row">
+                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="OK" ajax="true" update=":certTabView:trustStoreForm" actionListener="#{certificateBean.validateAndUpdateCertificate}" />
+                                    <p:commandButton id="closePassKey" styleClass="btn btn-primary" value="Cancel" onclick="PF('editPassKeyDlg').hide()"/>
+                                </div>
+                            </div>
+                        </div>
+                   </h:form>
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>

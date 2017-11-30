@@ -30,18 +30,17 @@ import gov.hhs.fha.nhinc.admingui.hibernate.dao.UserLoginDAO;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
+import gov.hhs.fha.nhinc.admingui.services.PasswordService;
+import gov.hhs.fha.nhinc.admingui.services.SHA2PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
-import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
-import gov.hhs.fha.nhinc.devtools.admingui.services.SHA2PasswordService;
-import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
+import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +63,8 @@ public class LoginServiceImpl implements LoginService {
      * The credential service.
      */
     private final PasswordService credentialService = new SHA2PasswordService();
+
+    private final SHA2PasswordUtil sha2PasswordUtil = SHA2PasswordUtil.getInstance();
     /**
      *
      * @param userLoginDao
@@ -71,12 +72,12 @@ public class LoginServiceImpl implements LoginService {
     LoginServiceImpl(UserLoginDAO userLoginDao) {
         userLoginDAO = userLoginDao;
     }
-    
+
     /**
      * Default constructor
      */
     public LoginServiceImpl() {
-      //Spring can not instantiate without default constructor
+        //Spring can not instantiate without default constructor
     }
 
     /*
@@ -90,12 +91,12 @@ public class LoginServiceImpl implements LoginService {
         if (user != null && user.getSha2() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 LOG.info("Prepare to check user credential");
-                boolean loggedIn = credentialService.checkPassword(user.getSha2().getBytes(),
+                boolean loggedIn = sha2PasswordUtil.checkPassword(user.getSha2().getBytes(),
                     login.getPassword().getBytes(), user.getSalt().getBytes());
                 if (!loggedIn) {
                     user = null;
                 }
-            } catch (PasswordServiceException e) {
+            } catch (NoSuchAlgorithmException | IOException e) {
                 throw new UserLoginException("Error while trying to login.", e);
             }
         }
@@ -114,9 +115,9 @@ public class LoginServiceImpl implements LoginService {
         byte[] saltValue;
         try {
             saltValue = credentialService.generateRandomSalt();
-            passwordHash = new String(credentialService.calculateHash(saltValue, user.getPassword().getBytes()));
+            passwordHash = new String(sha2PasswordUtil.calculateHash(saltValue, user.getPassword().getBytes()));
 
-        } catch (PasswordServiceException | IOException e) {
+        } catch (NoSuchAlgorithmException | IOException e) {
             throw new UserLoginException("Error while calculating hash.", e);
         }
 

@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.configadmin;
 
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
@@ -34,7 +33,6 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_S
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
-import gov.hhs.fha.nhinc.common.configadmin.ConfigAssertionType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
@@ -45,11 +43,11 @@ import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
-import gov.hhs.fha.nhinc.devtools.admingui.services.PasswordService;
-import gov.hhs.fha.nhinc.devtools.admingui.services.SHA2PasswordService;
-import gov.hhs.fha.nhinc.devtools.admingui.services.exception.PasswordServiceException;
+import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
+import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,7 +68,7 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
     private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate success";
     private static final String INVALID_USER = "Invalid user credentials";
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdminUnsecured.class);
-    private final PasswordService credentialService = new SHA2PasswordService();
+    private final SHA2PasswordUtil sha2PasswordUtil = SHA2PasswordUtil.getInstance();
 
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
@@ -78,7 +76,8 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         SimpleCertificateResponseMessageType response = new SimpleCertificateResponseMessageType();
 
         CertificateManager certManager = CertificateManagerImpl.getInstance();
-        if (validateHash(importCertificateRequest.getConfigAssertion(),
+        if (validateHash(importCertificateRequest.getConfigAssertion().getUserInfo().getUserName(),
+            importCertificateRequest.getImportCertRequest().getHashToken(),
             certManager.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY))) {
             try {
                 certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getImportCertRequest().getCertData(),
@@ -115,23 +114,21 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         ListKeyStoresResponseMessageType response = new ListKeyStoresResponseMessageType();
         CertificateManager certManager = CertificateManagerImpl.getInstance();
         KeyStore keyStore = certManager.getKeyStore();
+        response.getCertList().addAll(buildCertificate(certManager, keyStore));
 
-        if (validateHash(listKeyStoresRequest.getConfigAssertion(),
-            certManager.getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY))) {
-            response.getCertList().addAll(buildCertificate(certManager, keyStore));
-        }
         return response;
     }
 
-    private boolean validateHash(ConfigAssertionType assertionTypeRequest, String passKey) {
+    private boolean validateHash(String userName, String hashToken, String passKey) {
         boolean hashCheck = false;
         try {
-            hashCheck = credentialService.checkPassword(assertionTypeRequest.getHashToken().getBytes(),
+            hashCheck = sha2PasswordUtil.checkPassword(hashToken.getBytes(),
                 passKey.getBytes(),
-                assertionTypeRequest.getUserInfo().getUserName().getBytes());
-        } catch (PasswordServiceException e) {
+                userName.getBytes());
+        } catch (NoSuchAlgorithmException | IOException e) {
             LOG.error("Error while getting the hash token: ", e.getLocalizedMessage(), e);
         }
+
         return hashCheck;
     }
     /*
@@ -147,16 +144,13 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         ListTrustStoresResponseMessageType response = new ListTrustStoresResponseMessageType();
         CertificateManager certManager = CertificateManagerImpl.getInstance();
 
-        if (validateHash(listTrustStoresRequest.getConfigAssertion(),
-            certManager.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY))) {
-
-            if (listTrustStoresRequest.isRefreshCertCache()) {
-                certManager.refreshServices();
-            }
-
-            KeyStore keyStore = certManager.getTrustStore();
-            response.getCertList().addAll(buildCertificate(certManager, keyStore));
+        if (listTrustStoresRequest.isRefreshCertCache()) {
+            certManager.refreshServices();
         }
+
+        KeyStore keyStore = certManager.getTrustStore();
+        response.getCertList().addAll(buildCertificate(certManager, keyStore));
+
         return response;
     }
 
@@ -201,7 +195,8 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         String storeLoc = keyTrustStoreProperties.get(TRUST_STORE_KEY);
         String passkey = keyTrustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
 
-        if (validateHash(editCertificateRequest.getConfigAssertion(), passkey)) {
+        if (validateHash(editCertificateRequest.getConfigAssertion().getUserInfo().getUserName(),
+            editCertificateRequest.getEditCertRequest().getHashToken(), passkey)) {
             try{
                 formatResponse(response,
                     updateTrustStoreAlias(certManager, editCertificateRequest,  storeType, storeLoc, passkey, KeyStore.getInstance(storeType)),
@@ -231,7 +226,8 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
         CertificateManager certManager = CertificateManagerImpl.getInstance();
         String alias = deleteCertificateRequest.getAlias();
 
-        if (validateHash(deleteCertificateRequest.getConfigAssertion(),
+        if (validateHash(deleteCertificateRequest.getConfigAssertion().getUserInfo().getUserName(),
+            deleteCertificateRequest.getHashToken(),
             certManager.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY))) {
             try {
                 validateAndDeleteCertificate(response, certManager, alias);
