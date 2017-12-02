@@ -570,6 +570,8 @@ public class NhincConstants {
     public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
     // UDDI TLS version
     public static final String UDDI_TLS = "UDDI.TLS";
+    // FHIR TLS version
+    public static final String FHIR_TLS = "FHIR.TLS";
 
     public static final String ADMIN_CERT_IMPORT = "importCertificate";
     public static final String ADMIN_CERT_LIST_TRUSTSTORE = "listTrustStores";

@@ -21,7 +21,11 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
-
+        <!-- Apache APIs -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
         <!-- CONNECT Modules / Web Services -->
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -41,6 +45,12 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ComponentWebservices</artifactId>
+        </dependency>
+        <!-- FHIR: https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/hapi-fhir-structures-dstu3 -->
+        <dependency>
+            <groupId>ca.uhn.hapi.fhir</groupId>
+            <artifactId>hapi-fhir-structures-dstu3</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
         <!-- Logging -->
