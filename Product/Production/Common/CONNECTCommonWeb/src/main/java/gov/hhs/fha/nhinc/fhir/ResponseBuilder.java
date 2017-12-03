@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.fhir;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.ws.rs.core.Response;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.hl7.fhir.dstu3.formats.IParser;
@@ -41,6 +40,7 @@ import org.hl7.fhir.dstu3.model.Resource;
 import org.hl7.fhir.exceptions.FHIRFormatError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 /**
  *
@@ -74,7 +74,7 @@ public class ResponseBuilder {
         InputStream instream = null;
         Resource resource = null;
         if (response != null) {
-            if (response.getStatusLine().getStatusCode() == Response.Status.OK.getStatusCode()) {
+            if (response.getStatusLine().getStatusCode() == HttpStatus.OK.value()) {
                 HttpEntity entity = response.getEntity();
                 try {
                     if (null != entity && null != entity.getContent()) {
