@@ -141,7 +141,7 @@ public class CertficateBean {
     }
 
     private static boolean isHashTokenEmpty() {
-        return StringUtils.isBlank(getHashTokenFromSession()) ? true : false;
+        return StringUtils.isBlank(getHashTokenFromSession());
     }
 
     private static String getHashTokenFromSession() {
