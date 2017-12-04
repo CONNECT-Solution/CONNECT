@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.PasswordServiceException;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
+import gov.hhs.fha.nhinc.util.UtilException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -51,7 +52,7 @@ public class SHA2PasswordServiceTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void test() throws PasswordServiceException, NoSuchAlgorithmException, IOException {
+    public void test() throws PasswordServiceException, UtilException {
         byte[] candidatePassword = "password".getBytes();
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw=="
@@ -70,7 +71,7 @@ public class SHA2PasswordServiceTest {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    public void testNegative() throws PasswordServiceException, NoSuchAlgorithmException, IOException {
+    public void testNegative() throws PasswordServiceException, UtilException {
         byte[] candidatePassword = "candidatePassword".getBytes();
         byte[] salt = "ABCD".getBytes();
         byte[] passwordHash = "nottherighthash".getBytes();
@@ -80,7 +81,7 @@ public class SHA2PasswordServiceTest {
     }
 
     @Test
-    public void generateHash() throws IOException, NoSuchAlgorithmException {
+    public void generateHash() throws IOException, NoSuchAlgorithmException, UtilException {
         String salt = "ABCD";// generateRandomSalt();
         String password = "password";
         String sha1 = new String(calculateHash(salt.getBytes(), password.getBytes()));
@@ -88,7 +89,7 @@ public class SHA2PasswordServiceTest {
         Assert.assertEquals("eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw==", sha1);
     }
 
-    private byte[] calculateHash(byte[] salt, byte[] password) throws IOException, NoSuchAlgorithmException {
+    private byte[] calculateHash(byte[] salt, byte[] password) throws UtilException, IOException {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStream.write(salt);

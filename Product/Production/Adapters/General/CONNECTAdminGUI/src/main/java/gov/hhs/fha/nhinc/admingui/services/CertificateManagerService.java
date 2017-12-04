@@ -54,12 +54,10 @@ public interface CertificateManagerService {
 
     public boolean isLeafOnlyCertificate(CertificateDTO cert);
 
-    public void importCertificate(CertificateDTO cert, boolean refresh, String hashToken) throws Exception;
+    public boolean importCertificate(CertificateDTO cert, boolean refresh, String hashToken) throws Exception;
 
     public boolean deleteCertificateFromTrustStore(String alias, String hashToken)
         throws CertificateManagerException;
-
-    public boolean validateTrustStorePassKey(String passkey);
 
     public boolean updateCertificate(String oldAlias, CertificateDTO cert, String hashToken)
         throws CertificateManagerException;

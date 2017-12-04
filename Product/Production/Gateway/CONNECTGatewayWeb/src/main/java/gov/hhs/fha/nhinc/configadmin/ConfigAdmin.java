@@ -44,10 +44,9 @@ import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
-import java.io.IOException;
+import gov.hhs.fha.nhinc.util.UtilException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,11 +62,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author jassmit
  */
-public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType {
+public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType {
 
     private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate success";
-    private static final String INVALID_USER = "Invalid user credentials";
-    private static final Logger LOG = LoggerFactory.getLogger(ConfigAdminUnsecured.class);
+    private static final String INVALID_USER = "Bad token or Mismatch token";
+
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
     private final SHA2PasswordUtil sha2PasswordUtil = SHA2PasswordUtil.getInstance();
 
     @Override
@@ -125,7 +126,7 @@ public class ConfigAdminUnsecured implements gov.hhs.fha.nhinc.configadmin.Entit
             hashCheck = sha2PasswordUtil.checkPassword(hashToken.getBytes(),
                 passKey.getBytes(),
                 userName.getBytes());
-        } catch (NoSuchAlgorithmException | IOException e) {
+        } catch (UtilException e) {
             LOG.error("Error while getting the hash token: ", e.getLocalizedMessage(), e);
         }
 

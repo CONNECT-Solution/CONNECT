@@ -36,8 +36,7 @@ import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import gov.hhs.fha.nhinc.util.UtilException;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -96,7 +95,7 @@ public class LoginServiceImpl implements LoginService {
                 if (!loggedIn) {
                     user = null;
                 }
-            } catch (NoSuchAlgorithmException | IOException e) {
+            } catch (UtilException e) {
                 throw new UserLoginException("Error while trying to login.", e);
             }
         }
@@ -117,7 +116,7 @@ public class LoginServiceImpl implements LoginService {
             saltValue = credentialService.generateRandomSalt();
             passwordHash = new String(sha2PasswordUtil.calculateHash(saltValue, user.getPassword().getBytes()));
 
-        } catch (NoSuchAlgorithmException | IOException e) {
+        } catch (UtilException e) {
             throw new UserLoginException("Error while calculating hash.", e);
         }
 

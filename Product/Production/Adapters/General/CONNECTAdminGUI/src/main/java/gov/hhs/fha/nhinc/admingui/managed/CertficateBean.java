@@ -69,8 +69,8 @@ public class CertficateBean {
     private static final String IMPORT_PASS_ERR_MSG_ID = "importPassKeyErrorMsg";
     private static final String DELETE_PASS_ERR_MSG_ID = "deletePassKeyErrorMsg";
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
-    private static final String INVALID_PASS_ERR_MSG = "Invalid Password";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
+    private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
@@ -105,7 +105,7 @@ public class CertficateBean {
 
     public void refreshCacheForTrustStore() {
         try {
-            truststores = service.refreshTrustStores(true);
+            truststores = setColorCodingStyle(service.refreshTrustStores(true));
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to refresh certificate cache {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(TRUST_STORE_MSG, ex.getLocalizedMessage());
@@ -239,12 +239,11 @@ public class CertficateBean {
     public void validateAndDeleteCertificate() throws CertificateManagerException {
         if (isHashTokenEmpty()) {
             String hashToken = service.getHashToken(trustStorePasskey);
-            if (service.validateTrustStorePassKey(trustStorePasskey)) {
+            if (deleteCertificate(hashToken)) {
                 saveHashToken(hashToken);
                 RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
-                deleteCertificate(hashToken);
             } else {
-                HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, INVALID_PASS_ERR_MSG);
+                HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, BAD_MISMATCH_TOKEN);
             }
         } else {
             deleteCertificate(getHashTokenFromSession());
@@ -263,13 +262,12 @@ public class CertficateBean {
 
     public void validateAndImportCertificate() throws CertificateManagerException {
         if (isHashTokenEmpty()) {
-            if (service.validateTrustStorePassKey(trustStorePasskey)) {
-                String hashToken = service.getHashToken(trustStorePasskey);
+            String hashToken = service.getHashToken(trustStorePasskey);
+            if (importSelectedCertificate(hashToken)) {
                 saveHashToken(hashToken);
                 RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
-                importSelectedCertificate(hashToken);
             } else {
-                HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, INVALID_PASS_ERR_MSG);
+                HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, BAD_MISMATCH_TOKEN);
             }
         } else {
             importSelectedCertificate(getHashTokenFromSession());
@@ -277,12 +275,12 @@ public class CertficateBean {
         trustStorePasskey = null;
     }
 
-    private void importSelectedCertificate(String hashToken) throws CertificateManagerException {
+    private boolean importSelectedCertificate(String hashToken) throws CertificateManagerException {
         LOG.info("importSelectedCertificate");
-
+        boolean importStatus = false;
         if (selectedCertificate != null && StringUtils.isNotBlank(selectedCertificate.getAlias())) {
             if (!service.isAliasInUse(selectedCertificate.getAlias(), service.fetchTrustStores())) {
-                importAction(hashToken);
+                importStatus = importAction(hashToken);
             } else {
                 HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Alias already in use in TrustStore");
             }
@@ -294,11 +292,13 @@ public class CertficateBean {
                 HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Enter an alias for importing certificate");
             }
         }
+        return importStatus;
     }
 
-    private void importAction(String hashToken) {
+    private boolean importAction(String hashToken) {
+        boolean importStatus = false;
         try {
-            service.importCertificate(selectedCertificate, refreshCache, hashToken);
+            importStatus = service.importCertificate(selectedCertificate, refreshCache, hashToken);
             truststores = service.refreshTrustStores(false);
             importCertFile = null;
             importCertificate = null;
@@ -310,40 +310,41 @@ public class CertficateBean {
             LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, ex.getLocalizedMessage());
         }
+        return importStatus;
     }
 
     public void validateAndUpdateCertificate() throws CertificateManagerException {
         if (isHashTokenEmpty()) {
-            if (service.validateTrustStorePassKey(trustStorePasskey)) {
-                String hashToken = service.getHashToken(trustStorePasskey);
+            String hashToken = service.getHashToken(trustStorePasskey);
+            if (updateSelectedCertificateTS(hashToken)) {
                 saveHashToken(hashToken);
                 RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').hide();");
-                updateSelectedCertificateTS(hashToken);
-                trustStorePasskey = null;
             } else {
-                HelperUtil.addMessageError(EDIT_PASS_ERROR_MSG, INVALID_PASS_ERR_MSG);
+                HelperUtil.addMessageError(EDIT_PASS_ERROR_MSG, BAD_MISMATCH_TOKEN);
             }
         } else {
             updateSelectedCertificateTS(getHashTokenFromSession());
         }
+        trustStorePasskey = null;
     }
 
-    public void updateSelectedCertificateTS(String hashToken) throws CertificateManagerException {
+    public boolean updateSelectedCertificateTS(String hashToken) throws CertificateManagerException {
         if (selectedTSCertificate != null) {
-            updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG_ID, hashToken);
+            return updateCertificate(service.fetchTrustStores(), VIEW_CERT_ERR_MSG_ID, hashToken);
         }
+        return false;
     }
 
-    private void updateCertificate(List<CertificateDTO> certsForAliasCheck, String uiElement, String hashToken) {
+    private boolean updateCertificate(List<CertificateDTO> certsForAliasCheck, String uiElement, String hashToken) {
         LOG.info("updateSelectedCertificate");
+        boolean updateStatus = false;
         backupCertificate = selectedTSCertificate;
         String alias = selectedTSCertificate.getAlias();
 
         if (StringUtils.isNotBlank(alias) && !service.isAliasInUse(alias, certsForAliasCheck)) {
             try {
-                boolean updateStatus = service.updateCertificate(oldAlias, selectedTSCertificate, hashToken);
+                updateStatus = service.updateCertificate(oldAlias, selectedTSCertificate, hashToken);
                 postUpdateAction(updateStatus, uiElement, alias);
-
             } catch (CertificateManagerException ex) {
                 LOG.error("Unable to update certificate {}", ex.getLocalizedMessage(), ex);
                 HelperUtil.addMessageError(uiElement, ex.getLocalizedMessage());
@@ -352,6 +353,7 @@ public class CertficateBean {
             selectedTSCertificate.setAlias(oldAlias);
             HelperUtil.addMessageError(uiElement, "Alias already in use");
         }
+        return updateStatus;
     }
 
     /**
@@ -381,15 +383,17 @@ public class CertficateBean {
         return certs;
     }
 
-    private void deleteCertificate(String hashToken) {
+    private boolean deleteCertificate(String hashToken) {
+        boolean deleteStatus = false;
         try {
-            service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias(), hashToken);
+            deleteStatus = service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias(), hashToken);
             refreshCerts();
             selectedTSCertificate = null;
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Unable to delete certificate");
         }
+        return deleteStatus;
     }
 
     private void fetchKeyStore() {
