@@ -102,4 +102,14 @@ public class StringUtil {
     public static String convertToStringUTF8(final byte[] byteArray) throws UnsupportedEncodingException {
         return new String(byteArray, UTF8_CHARSET);
     }
+    public static String testSonarQube(String isTest){
+        try{
+            if (true){
+                throw new Exception("Hello");
+            }
+        }catch(Exception e){
+            System.out.println("Hello...");
+        }
+        return "Hello";
+    }
 }
