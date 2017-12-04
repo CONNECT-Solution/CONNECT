@@ -40,8 +40,8 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SHA2PasswordUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(SHA2PasswordUtil.class);
     private static final String HASH_ALGORITHM = "SHA-512";
+    private static final Logger LOG = LoggerFactory.getLogger(SHA2PasswordUtil.class);
 
     private SHA2PasswordUtil() {
     }
@@ -50,30 +50,38 @@ public class SHA2PasswordUtil {
         return new SHA2PasswordUtil();
     }
 
-    public boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
-        throws IOException, NoSuchAlgorithmException {
-        boolean passwordsMatch;
+    public static boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
+        throws UtilException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte[] candidateHash;
 
-        outputStream.write(salt);
-        outputStream.write(candidatePassword);
-        candidateHash = calculateHash(outputStream.toByteArray());
-        passwordsMatch = Arrays.equals(passwordHash, candidateHash);
-
-        return passwordsMatch;
+        try {
+            outputStream.write(salt);
+            outputStream.write(candidatePassword);
+            candidateHash = calculateHash(outputStream.toByteArray());
+        } catch (NoSuchAlgorithmException | IOException e) {
+            LOG.error("Failed to check password hash token: {}", e.getLocalizedMessage());
+            throw new UtilException("Failed to check password hash token", e);
+        }
+        return Arrays.equals(passwordHash, candidateHash);
     }
 
-    public byte[] calculateHash(byte[] salt, byte[] password) throws IOException, NoSuchAlgorithmException {
+    public byte[] calculateHash(byte[] salt, byte[] password) throws UtilException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] hash = null;
 
-        outputStream.write(salt);
-        outputStream.write(password);
-
-        return calculateHash(outputStream.toByteArray());
+        try {
+            outputStream.write(salt);
+            outputStream.write(password);
+            hash = calculateHash(outputStream.toByteArray());
+        } catch (NoSuchAlgorithmException | IOException e) {
+            LOG.error("Failed to calculate hash token: {}", e.getLocalizedMessage());
+            throw new UtilException("Failed to calculate hash token", e);
+        }
+        return hash;
     }
 
-    private byte[] calculateHash(byte[] input) throws IOException, NoSuchAlgorithmException {
+    private static byte[] calculateHash(byte[] input) throws IOException, NoSuchAlgorithmException {
         byte[] digest;
 
         MessageDigest md = MessageDigest.getInstance(HASH_ALGORITHM);

@@ -36,8 +36,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 public class ConfigAdminPortDescriptor extends SOAP12ServicePortDescriptor<EntityConfigAdminPortType>{
 
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:configadmin"
-            + "EntityConfigAdminUnsecuredRequest";
-    
+        + "EntityConfigAdminRequest";
+
     @Override
     public String getWSAddressingAction() {
         return WS_ADDRESSING_ACTION;
@@ -47,5 +47,5 @@ public class ConfigAdminPortDescriptor extends SOAP12ServicePortDescriptor<Entit
     public Class<EntityConfigAdminPortType> getPortClass() {
         return EntityConfigAdminPortType.class;
     }
-    
+
 }

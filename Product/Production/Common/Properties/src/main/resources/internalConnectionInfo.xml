@@ -10,7 +10,7 @@
                 <name xml:lang="en">entityconfigadmin</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:nhincnode:entityconfigadmin" serviceKey="uddi:nhincnode:entityconfigadmin">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTGateway/GatewayService/ConfigAdminUnsecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/CONNECTGateway/GatewayService/ConfigAdmin</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/>
                         </categoryBag>

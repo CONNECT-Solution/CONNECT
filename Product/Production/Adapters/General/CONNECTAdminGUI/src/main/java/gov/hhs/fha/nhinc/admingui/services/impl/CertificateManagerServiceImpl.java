@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
@@ -62,10 +61,11 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
+import gov.hhs.fha.nhinc.util.UtilException;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.io.UnsupportedEncodingException;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
@@ -87,6 +87,8 @@ import org.slf4j.LoggerFactory;
  */
 public class CertificateManagerServiceImpl implements CertificateManagerService {
 
+
+    private static final String UTF_8 = "UTF-8";
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
@@ -191,19 +193,20 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
      * @throws gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException
      */
     @Override
-    public void importCertificate(CertificateDTO cert, boolean refreshCache, String hashToken)
+    public boolean importCertificate(CertificateDTO cert, boolean refreshCache, String hashToken)
         throws CertificateManagerException {
         final Map<String, String> trustStoreProperties = cmHelper.getTrustStoreSystemProperties();
         String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
         final String passkey = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        boolean importStatus = false;
         if (storeType == null) {
             LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
 
         if (StringUtils.isNotBlank(passkey) && !(JKS_TYPE.equals(storeType) && storeLoc == null) && cert != null) {
-            addCertificateToTrustStore(cert, refreshCache, hashToken);
+            importStatus = addCertificateToTrustStore(cert, refreshCache, hashToken);
         } else {
             LOG.info("importCertificate -- validation failed");
             if (JKS_TYPE.equals(storeType) && storeLoc == null) {
@@ -216,19 +219,22 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                 LOG.error("Certificate is null");
             }
         }
+        return importStatus;
     }
 
     private boolean addCertificateToTrustStore(CertificateDTO cert, boolean refreshCache, String hashToken)
         throws CertificateManagerException {
+        boolean importStatus = false;
         try {
             ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache,
                 hashToken);
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
                 .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
-            return response.isStatus();
+            importStatus = response.isStatus();
         } catch (Exception ex) {
             throw new CertificateManagerException("Error sending import request message.", ex);
         }
+        return importStatus;
     }
 
     private ImportCertificateRequestMessageType createImportCertRequest(CertificateDTO cert, boolean refreshCache,
@@ -264,14 +270,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
     }
 
-    @Override
-    public boolean validateTrustStorePassKey(String passkey) {
-        return getTrustStorePassKey().equals(passkey);
-    }
-
-    private String getTrustStorePassKey() {
-        return cmHelper.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY);
-    }
 
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
 
@@ -397,8 +395,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             hashToken = new String(
                 sha2PasswordUtil.calculateHash(user.getUserName().getBytes(), trustStorePasskey.getBytes()),
-                "UTF-8");
-        } catch (NoSuchAlgorithmException | IOException e) {
+                UTF_8);
+        } catch (UtilException | UnsupportedEncodingException e) {
             throw new CertificateManagerException("Error while calculating user pass hash token.", e);
         }
         return hashToken;
