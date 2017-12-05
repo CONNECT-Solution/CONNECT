@@ -119,7 +119,7 @@ public class NhincConstants {
         }
     }
 
-    public static enum EXCHANGE_TYPE {
+    public enum EXCHANGE_TYPE {
         UDDI("uddi"),
         FHIR("fhir"),
         LOCAL("local");
@@ -567,6 +567,8 @@ public class NhincConstants {
     public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
     // UDDI TLS version
     public static final String UDDI_TLS = "UDDI.TLS";
+    // FHIR TLS version
+    public static final String FHIR_TLS = "FHIR.TLS";
 
     private NhincConstants() {
     }

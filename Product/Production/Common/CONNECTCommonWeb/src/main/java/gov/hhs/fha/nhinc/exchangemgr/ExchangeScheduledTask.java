@@ -33,16 +33,22 @@ import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
+import gov.hhs.fha.nhinc.fhir.FhirClient;
+import gov.hhs.fha.nhinc.fhir.FhirClientException;
+import gov.hhs.fha.nhinc.fhir.MimeType;
+import gov.hhs.fha.nhinc.fhir.RequestBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.io.File;
 import java.math.BigInteger;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.methods.HttpGet;
+import org.hl7.fhir.dstu3.model.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -55,26 +61,21 @@ public class ExchangeScheduledTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeScheduledTask.class);
     private static final ArrayList<String> backupFileList = new ArrayList<>();
+    private static final String JSON_QUERY_PARAM = "_format=json";
 
     public void task() {
         try {
             LOG.info("Starting ExchangeSceduleTask");
             ExchangeInfoType exInfo = getExchangeDAO().loadExchangeInfo();
-            if (null != exInfo && exInfo.isRefreshActive()) {
+            if (null != exInfo) {
                 for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
-                    if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(ex.getType())
-                        && StringUtils.isNotEmpty(ex.getUrl())) {
-                        LOG.info("Starting UDDI download from {}", ex.getUrl());
-                        ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
-                        ex.setOrganizationList(transformer.transform(getUDDIManager().
-                            forceRefreshUDDIFile(ex.getUrl())));
-                    }// TODO FHIR exchange download will be another if condition here
+                    fetchExchangeData(ex);
                 }
                 createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
                 exInfo.setLastUpdated(getTimestamp());
                 getExchangeDAO().saveExchangeInfo(exInfo);
             }
-        } catch (ExchangeManagerException | UDDIAccessorException | DatatypeConfigurationException ex) {
+        } catch (ExchangeManagerException | UDDIAccessorException | FhirClientException | URISyntaxException ex) {
             LOG.error("Unable to download from Exchange {}", ex.getLocalizedMessage(), ex);
         }
     }
@@ -87,7 +88,26 @@ public class ExchangeScheduledTask {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    private XMLGregorianCalendar getTimestamp() throws DatatypeConfigurationException {
+    private void fetchExchangeData(ExchangeType exchange) throws UDDIAccessorException, FhirClientException,
+        URISyntaxException {
+        if (exchange != null) {
+            if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.
+                isNotEmpty(exchange.getUrl())
+                && !exchange.isIsDisabled()) {
+                LOG.info("Starting UDDI download from {}", exchange.getUrl());
+                ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
+                exchange.setOrganizationList(transformer.transform(getUDDIManager().forceRefreshUDDIFile(exchange.
+                    getUrl())));
+            } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.isNotEmpty(
+                exchange.
+                    getUrl()) && !exchange.isIsDisabled()) {
+                LOG.info("Starting FHIR download from {}", exchange.getUrl());
+                LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(exchange.getUrl()));
+            }
+        }
+    }
+
+    private static XMLGregorianCalendar getTimestamp() {
         return XMLDateUtil.long2Gregorian(System.currentTimeMillis());
     }
 
@@ -111,13 +131,13 @@ public class ExchangeScheduledTask {
         }
     }
 
-    private String generateUniqueFilename(String fileLocation) {
+    private static String generateUniqueFilename(String fileLocation) {
         Calendar currentTime = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");
         return fileLocation + "." + dateFormat.format(currentTime.getTime());
     }
 
-    private void addToBackupList(String latestFilename, BigInteger maxNumBackup) {
+    private static void addToBackupList(String latestFilename, BigInteger maxNumBackup) {
         int noOfBackups = maxNumBackup.intValue();
 
         String filenameToDelete = null;
@@ -133,8 +153,26 @@ public class ExchangeScheduledTask {
                     fileToDelete.delete();
                 }
             } catch (Exception e) {
-                LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage());
+                LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage(), e);
             }
         }
+    }
+
+    private static Bundle fetchFhirDirectoryData(String url) throws FhirClientException, URISyntaxException {
+        MimeType format = getMimeType(url);
+        HttpGet request = RequestBuilder.get(url, format);
+        FhirClient client = new FhirClient();
+        return client.sendRequest(request, format);
+    }
+
+    private static MimeType getMimeType(String url) {
+        if (containsIgnoreCaseOf(url, JSON_QUERY_PARAM)) {
+            return MimeType.JSON;
+        }
+        return MimeType.XML;
+    }
+
+    private static boolean containsIgnoreCaseOf(final String stringOf, final String charSequence) {
+        return stringOf.toLowerCase().contains(charSequence.toLowerCase());
     }
 }
