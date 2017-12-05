@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.fhir.FhirClient;
 import gov.hhs.fha.nhinc.fhir.FhirClientException;
 import gov.hhs.fha.nhinc.fhir.MimeType;
 import gov.hhs.fha.nhinc.fhir.RequestBuilder;
-import gov.hhs.fha.nhinc.fhir.ResponseBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.io.File;
@@ -46,7 +45,6 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.methods.HttpGet;
@@ -63,6 +61,7 @@ public class ExchangeScheduledTask {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeScheduledTask.class);
     private static final ArrayList<String> backupFileList = new ArrayList<>();
+    private static final String JSON_QUERY_PARAM = "_format=json";
 
     public void task() {
         try {
@@ -70,25 +69,13 @@ public class ExchangeScheduledTask {
             ExchangeInfoType exInfo = getExchangeDAO().loadExchangeInfo();
             if (null != exInfo) {
                 for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
-                    if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(ex.getType())
-                        && StringUtils.isNotEmpty(ex.getUrl()) && !ex.isIsDisabled()) {
-                        LOG.info("Starting UDDI download from {}", ex.getUrl());
-                        ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
-                        ex.setOrganizationList(transformer.transform(getUDDIManager().
-                            forceRefreshUDDIFile(ex.getUrl())));
-                    }
-                    if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(ex.getType()) && StringUtils.isNotEmpty(ex.
-                        getUrl()) && !ex.isIsDisabled()) {
-                        LOG.info("Starting FHIR download from {}", ex.getUrl());
-                        LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(ex.getUrl()));
-                    }
+                    fetchExchangeData(ex);
                 }
                 createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
                 exInfo.setLastUpdated(getTimestamp());
                 getExchangeDAO().saveExchangeInfo(exInfo);
             }
-        } catch (ExchangeManagerException | UDDIAccessorException | DatatypeConfigurationException | FhirClientException
-            | URISyntaxException ex) {
+        } catch (ExchangeManagerException | UDDIAccessorException | FhirClientException | URISyntaxException ex) {
             LOG.error("Unable to download from Exchange {}", ex.getLocalizedMessage(), ex);
         }
     }
@@ -101,7 +88,26 @@ public class ExchangeScheduledTask {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    private static XMLGregorianCalendar getTimestamp() throws DatatypeConfigurationException {
+    private void fetchExchangeData(ExchangeType exchange) throws UDDIAccessorException, FhirClientException,
+        URISyntaxException {
+        if (exchange != null) {
+            if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.
+                isNotEmpty(exchange.getUrl())
+                && !exchange.isIsDisabled()) {
+                LOG.info("Starting UDDI download from {}", exchange.getUrl());
+                ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
+                exchange.setOrganizationList(transformer.transform(getUDDIManager().forceRefreshUDDIFile(exchange.
+                    getUrl())));
+            } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.isNotEmpty(
+                exchange.
+                    getUrl()) && !exchange.isIsDisabled()) {
+                LOG.info("Starting FHIR download from {}", exchange.getUrl());
+                LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(exchange.getUrl()));
+            }
+        }
+    }
+
+    private static XMLGregorianCalendar getTimestamp() {
         return XMLDateUtil.long2Gregorian(System.currentTimeMillis());
     }
 
@@ -152,17 +158,21 @@ public class ExchangeScheduledTask {
         }
     }
 
-    private Bundle fetchFhirDirectoryData(String url) throws FhirClientException, URISyntaxException {
+    private static Bundle fetchFhirDirectoryData(String url) throws FhirClientException, URISyntaxException {
         MimeType format = getMimeType(url);
         HttpGet request = RequestBuilder.get(url, format);
         FhirClient client = new FhirClient();
-        return ResponseBuilder.build(client.sendRequest(request), format);
+        return client.sendRequest(request, format);
     }
 
     private static MimeType getMimeType(String url) {
-        if (url.contains("_format=json")) {
+        if (containsIgnoreCaseOf(url, JSON_QUERY_PARAM)) {
             return MimeType.JSON;
         }
         return MimeType.XML;
+    }
+
+    private static boolean containsIgnoreCaseOf(final String stringOf, final String charSequence) {
+        return stringOf.toLowerCase().contains(charSequence.toLowerCase());
     }
 }

@@ -42,10 +42,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.hl7.fhir.dstu3.model.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,18 +58,16 @@ public class FhirClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirClient.class);
 
-    public HttpResponse sendRequest(HttpUriRequest request) throws FhirClientException {
+    public Bundle sendRequest(HttpUriRequest request, MimeType format) throws FhirClientException {
         LOG.info("sendRequest: {}", request);
-        HttpResponse response;
-        try {
-            HttpClientBuilder client = HttpClientBuilder.create().
-                setSSLSocketFactory(createSSLConnectionSocketFactory());
-            response = client.build().execute(request);
-
-        } catch (IOException | PropertyAccessException | NoSuchAlgorithmException | KeyManagementException ex) {
+        Bundle bundle;
+        HttpClientBuilder client = HttpClientBuilder.create();
+        try (CloseableHttpClient httpClient = client.setSSLSocketFactory(createSSLConnectionSocketFactory()).build()) {
+            bundle = ResponseBuilder.build(httpClient.execute(request), format);
+        } catch (IOException | NoSuchAlgorithmException | KeyManagementException ex) {
             throw new FhirClientException("Error sending Http Request: " + ex.getLocalizedMessage(), ex);
         }
-        return response;
+        return bundle;
     }
 
     private static String getTLSVersionsFromProperties() {
@@ -82,8 +81,8 @@ public class FhirClient {
         return null;
     }
 
-    private SSLConnectionSocketFactory createSSLConnectionSocketFactory() throws
-        PropertyAccessException, NoSuchAlgorithmException, KeyManagementException {
+    private static SSLConnectionSocketFactory createSSLConnectionSocketFactory() throws NoSuchAlgorithmException,
+        KeyManagementException {
         String tls = getTLSVersionsFromProperties();
         SSLContext sslContext;
         if (StringUtils.isNotEmpty(tls)) {
@@ -96,7 +95,7 @@ public class FhirClient {
         return new SSLConnectionSocketFactory(sslContext);
     }
 
-    private KeyManager[] getKeyManager(CertificateManager cm) {
+    private static KeyManager[] getKeyManager(CertificateManager cm) {
         try {
             KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             keyFactory.init(cm.getKeyStore(), getKeystorePassword());
@@ -104,10 +103,10 @@ public class FhirClient {
         } catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
             LOG.error("Could not initialize key and trust managers: {} ", e.getLocalizedMessage(), e);
         }
-        return null;
+        return new KeyManager[0];
     }
 
-    private TrustManager[] getTrustManager(CertificateManager cm) {
+    private static TrustManager[] getTrustManager(CertificateManager cm) {
         try {
             TrustManagerFactory trustFactory = TrustManagerFactory.
                 getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -116,10 +115,10 @@ public class FhirClient {
         } catch (KeyStoreException | NoSuchAlgorithmException e) {
             LOG.error("Could not initialize key and trust managers: {} ", e.getLocalizedMessage(), e);
         }
-        return null;
+        return new TrustManager[0];
     }
 
-    private char[] getKeystorePassword() throws UnrecoverableKeyException {
+    private static char[] getKeystorePassword() throws UnrecoverableKeyException {
         String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
         if (keystorePassword == null || keystorePassword.isEmpty()) {
             throw new UnrecoverableKeyException("Password for key is null or empty.");
