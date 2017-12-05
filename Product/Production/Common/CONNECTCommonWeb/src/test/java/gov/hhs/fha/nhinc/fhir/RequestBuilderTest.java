@@ -65,7 +65,8 @@ public class RequestBuilderTest {
             Map<String, String> queryParam = getQueryParam();
             HttpGet request = RequestBuilder.get("http://localhost:8080/testServer/resource", queryParam,
                 MimeType.XML);
-            assertEquals("Query Parameters not appended correctly", request.getURI().toString(), URL_WITH_QUERY_PARAM);
+            String[] params = request.getURI().getQuery().split("&");
+            assertEquals("Query Parameters not appended correctly", 3, params.length);
         } catch (FhirClientException | URISyntaxException ex) {
             LOG.error("Unable to create HTTP Request {}", ex.getLocalizedMessage(), ex);
             fail("testGetWithQueryParam failed with exception: " + ex.getLocalizedMessage());
