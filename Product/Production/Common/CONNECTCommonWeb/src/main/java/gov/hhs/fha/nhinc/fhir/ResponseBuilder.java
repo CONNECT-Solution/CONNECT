@@ -51,6 +51,9 @@ public class ResponseBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResponseBuilder.class);
 
+    private ResponseBuilder() {
+    }
+
     public static Bundle build(HttpResponse response, MimeType format) throws FhirClientException {
         return processResource(response, format);
     }
@@ -72,30 +75,34 @@ public class ResponseBuilder {
     }
 
     private static Resource unmarshallResponse(HttpResponse response, MimeType format) throws FhirClientException {
-        InputStream instream = null;
         Resource resource = null;
         if (response != null) {
             if (response.getStatusLine().getStatusCode() == HttpStatus.OK.value()) {
-                HttpEntity entity = response.getEntity();
-                try {
-                    if (null != entity && null != entity.getContent()) {
-                        instream = entity.getContent();
-                        String content = IOUtils.toString(instream);
-                        LOG.info("Contents received from FHIR Directory HTTP request:");
-                        LOG.info(content);
-                        IParser parser = getParser(format);
-                        resource = parser.parse(content);
-                    }
-                } catch (FHIRFormatError | IOException ex) {
-                    throw new FhirClientException("Unable to parse response, " + ex.getLocalizedMessage(), ex);
-                } finally {
-                    StreamUtils.closeStreamSilently(instream);
-                }
+                resource = unmarshallResource(response.getEntity(), format);
             } else {
                 throw new FhirClientException("Null response returned by the server");
             }
         }
         return resource;
+    }
+
+    private static Resource unmarshallResource(HttpEntity entity, MimeType format) throws FhirClientException {
+        InputStream instream = null;
+        try {
+            if (null != entity && null != entity.getContent()) {
+                instream = entity.getContent();
+                String content = IOUtils.toString(instream);
+                LOG.info("Contents received from FHIR Directory HTTP request:");
+                LOG.info(content);
+                IParser parser = getParser(format);
+                return parser.parse(content);
+            }
+        } catch (FHIRFormatError | IOException ex) {
+            throw new FhirClientException("Unable to parse response, " + ex.getLocalizedMessage(), ex);
+        } finally {
+            StreamUtils.closeStreamSilently(instream);
+        }
+        return null;
     }
 
     private static IParser getParser(MimeType format) {
@@ -104,8 +111,4 @@ public class ResponseBuilder {
         }
         return new XmlParser();
     }
-
-    private ResponseBuilder() {
-    }
-
 }

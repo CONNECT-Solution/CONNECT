@@ -43,16 +43,18 @@ public class RequestBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(RequestBuilder.class);
 
-    public static HttpGet get(String url) throws FhirClientException, URISyntaxException {
+    private RequestBuilder() {
+    }
+
+    public static HttpGet get(String url) throws URISyntaxException {
         return buildRequest(url, MimeType.XML);
     }
 
-    public static HttpGet get(String url, MimeType mimeType) throws FhirClientException, URISyntaxException {
+    public static HttpGet get(String url, MimeType mimeType) throws URISyntaxException {
         return buildRequest(url, mimeType);
     }
 
-    public static HttpGet get(String uri, Map<String, String> queryParam, MimeType mimeType) throws URISyntaxException,
-        FhirClientException {
+    public static HttpGet get(String uri, Map<String, String> queryParam, MimeType mimeType) throws URISyntaxException {
         return buildRequest(buildRequestURLWithQueryString(uri, queryParam), mimeType);
     }
 
@@ -90,8 +92,5 @@ public class RequestBuilder {
             }
         }
         return builder.toString();
-    }
-
-    private RequestBuilder() {
     }
 }

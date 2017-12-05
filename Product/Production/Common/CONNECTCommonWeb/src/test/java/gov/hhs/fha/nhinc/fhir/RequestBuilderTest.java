@@ -46,8 +46,6 @@ public class RequestBuilderTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirClient.class);
     private static final String ACCEPT = "Accept";
-    private static final String URL_WITH_QUERY_PARAM
-        = "http://localhost:8080/testServer/resource/?_count=3&apiKey=testApiKey&_format=XML";
 
     @Test
     public void testGetWithXMLMimeType() {
@@ -67,7 +65,7 @@ public class RequestBuilderTest {
                 MimeType.XML);
             String[] params = request.getURI().getQuery().split("&");
             assertEquals("Query Parameters not appended correctly", 3, params.length);
-        } catch (FhirClientException | URISyntaxException ex) {
+        } catch (URISyntaxException ex) {
             LOG.error("Unable to create HTTP Request {}", ex.getLocalizedMessage(), ex);
             fail("testGetWithQueryParam failed with exception: " + ex.getLocalizedMessage());
         }
@@ -80,7 +78,7 @@ public class RequestBuilderTest {
             assertTrue(header.length == 1);
             assertEquals("Accept header not present", header[0].getName(), ACCEPT);
             assertEquals("Accept header value does not match", header[0].getValue(), mimeType.getMimeType());
-        } catch (FhirClientException | URISyntaxException ex) {
+        } catch (URISyntaxException ex) {
             LOG.error("Unable to create HTTP Request {}", ex.getLocalizedMessage(), ex);
             fail(methodName + " failed with exception: " + ex.getLocalizedMessage());
         }
