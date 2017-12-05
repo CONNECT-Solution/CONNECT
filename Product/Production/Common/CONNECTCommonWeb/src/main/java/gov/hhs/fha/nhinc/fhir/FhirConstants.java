@@ -33,4 +33,7 @@ package gov.hhs.fha.nhinc.fhir;
 public class FhirConstants {
 
     public static final String DEFAULT_CHARSET = "utf-8";
+
+    private FhirConstants() {
+    }
 }

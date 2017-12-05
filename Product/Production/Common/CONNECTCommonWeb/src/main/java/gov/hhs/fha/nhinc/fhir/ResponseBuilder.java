@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.fhir;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.hl7.fhir.dstu3.formats.IParser;
@@ -78,12 +79,12 @@ public class ResponseBuilder {
                 HttpEntity entity = response.getEntity();
                 try {
                     if (null != entity && null != entity.getContent()) {
-                        IParser parser = getParser(format);
                         instream = entity.getContent();
-                        resource = parser.parse(instream);
-                        if (null != resource) {
-                            LOG.info("Resource Type received in response: {}", resource.getResourceType());
-                        }
+                        String content = IOUtils.toString(instream);
+                        LOG.info("Contents received from FHIR Directory HTTP request:");
+                        LOG.info(content);
+                        IParser parser = getParser(format);
+                        resource = parser.parse(content);
                     }
                 } catch (FHIRFormatError | IOException ex) {
                     throw new FhirClientException("Unable to parse response, " + ex.getLocalizedMessage(), ex);

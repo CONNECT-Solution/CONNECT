@@ -26,21 +26,26 @@
  */
 package gov.hhs.fha.nhinc.fhir;
 
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.List;
+import java.security.UnrecoverableKeyException;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import org.apache.commons.collections.CollectionUtils;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,27 +56,25 @@ import org.slf4j.LoggerFactory;
 public class FhirClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(FhirClient.class);
-    private static final String SEPARATOR = ",";
 
-    public HttpResponse sendRequest(HttpUriRequest request, List<String> tlsVersion) throws FhirClientException {
+    public HttpResponse sendRequest(HttpUriRequest request) throws FhirClientException {
         LOG.info("sendRequest: {}", request);
         HttpResponse response;
         try {
-            HttpClientBuilder client = HttpClientBuilder.create().setSSLSocketFactory(createSSLConnectionSocketFactory(
-                tlsVersion));
+            HttpClientBuilder client = HttpClientBuilder.create().
+                setSSLSocketFactory(createSSLConnectionSocketFactory());
             response = client.build().execute(request);
 
-        } catch (IOException | PropertyAccessException | NoSuchAlgorithmException ex) {
+        } catch (IOException | PropertyAccessException | NoSuchAlgorithmException | KeyManagementException ex) {
             throw new FhirClientException("Error sending Http Request: " + ex.getLocalizedMessage(), ex);
         }
         return response;
     }
 
-    private String[] getTLSVersionsFromProperties() {
+    private static String getTLSVersionsFromProperties() {
         try {
-            String versions = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.FHIR_TLS);
-            return versions.split(SEPARATOR);
         } catch (PropertyAccessException ex) {
             LOG.error("Unable to retrieve {} from {}: {}", NhincConstants.FHIR_TLS,
                 NhincConstants.GATEWAY_PROPERTY_FILE, ex.getLocalizedMessage(), ex);
@@ -79,20 +82,49 @@ public class FhirClient {
         return null;
     }
 
-    private SSLConnectionSocketFactory createSSLConnectionSocketFactory(List<String> tlsVersion) throws
-        PropertyAccessException, NoSuchAlgorithmException {
-        String[] tlsArray;
-        if (CollectionUtils.isNotEmpty(tlsVersion)) {
-            tlsArray = Arrays.copyOf(tlsVersion.toArray(), tlsVersion.size(), String[].class);
+    private SSLConnectionSocketFactory createSSLConnectionSocketFactory() throws
+        PropertyAccessException, NoSuchAlgorithmException, KeyManagementException {
+        String tls = getTLSVersionsFromProperties();
+        SSLContext sslContext;
+        if (StringUtils.isNotEmpty(tls)) {
+            sslContext = SSLContext.getInstance(tls);
         } else {
-            tlsArray = getTLSVersionsFromProperties();
+            sslContext = SSLContext.getDefault();
         }
-        SSLContext sslContext = SSLContexts.createDefault();
-        if (null == tlsArray) {
-            tlsArray = new String[]{sslContext.getProtocol()};
+        CertificateManager cm = CertificateManagerImpl.getInstance();
+        sslContext.init(getKeyManager(cm), getTrustManager(cm), null);
+        return new SSLConnectionSocketFactory(sslContext);
+    }
+
+    private KeyManager[] getKeyManager(CertificateManager cm) {
+        try {
+            KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            keyFactory.init(cm.getKeyStore(), getKeystorePassword());
+            return keyFactory.getKeyManagers();
+        } catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {
+            LOG.error("Could not initialize key and trust managers: {} ", e.getLocalizedMessage(), e);
         }
-        SSLConnectionSocketFactory sslFactory = new SSLConnectionSocketFactory(sslContext, tlsArray, null,
-            new NoopHostnameVerifier());
-        return sslFactory;
+        return null;
+    }
+
+    private TrustManager[] getTrustManager(CertificateManager cm) {
+        try {
+            TrustManagerFactory trustFactory = TrustManagerFactory.
+                getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustFactory.init(cm.getTrustStore());
+            return trustFactory.getTrustManagers();
+        } catch (KeyStoreException | NoSuchAlgorithmException e) {
+            LOG.error("Could not initialize key and trust managers: {} ", e.getLocalizedMessage(), e);
+        }
+        return null;
+    }
+
+    private char[] getKeystorePassword() throws UnrecoverableKeyException {
+        String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
+        if (keystorePassword == null || keystorePassword.isEmpty()) {
+            throw new UnrecoverableKeyException("Password for key is null or empty.");
+        }
+
+        return keystorePassword.toCharArray();
     }
 }

@@ -31,12 +31,10 @@ import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManagerHelper;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.TLSVersionType;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
 import gov.hhs.fha.nhinc.fhir.FhirClient;
 import gov.hhs.fha.nhinc.fhir.FhirClientException;
-import gov.hhs.fha.nhinc.fhir.FhirResourceParser;
 import gov.hhs.fha.nhinc.fhir.MimeType;
 import gov.hhs.fha.nhinc.fhir.RequestBuilder;
 import gov.hhs.fha.nhinc.fhir.ResponseBuilder;
@@ -48,12 +46,11 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.methods.HttpGet;
-import org.hl7.fhir.dstu3.model.Organization;
+import org.hl7.fhir.dstu3.model.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -71,20 +68,19 @@ public class ExchangeScheduledTask {
         try {
             LOG.info("Starting ExchangeSceduleTask");
             ExchangeInfoType exInfo = getExchangeDAO().loadExchangeInfo();
-            if (null != exInfo && exInfo.isRefreshActive()) {
+            if (null != exInfo) {
                 for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                     if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(ex.getType())
-                        && StringUtils.isNotEmpty(ex.getUrl())) {
+                        && StringUtils.isNotEmpty(ex.getUrl()) && !ex.isIsDisabled()) {
                         LOG.info("Starting UDDI download from {}", ex.getUrl());
                         ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
                         ex.setOrganizationList(transformer.transform(getUDDIManager().
                             forceRefreshUDDIFile(ex.getUrl())));
                     }
                     if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(ex.getType()) && StringUtils.isNotEmpty(ex.
-                        getUrl())) {
+                        getUrl()) && !ex.isIsDisabled()) {
                         LOG.info("Starting FHIR download from {}", ex.getUrl());
-                        LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(ex.getUrl(), ex.
-                            getTLSVersions()));
+                        LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(ex.getUrl()));
                     }
                 }
                 createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
@@ -105,7 +101,7 @@ public class ExchangeScheduledTask {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    private XMLGregorianCalendar getTimestamp() throws DatatypeConfigurationException {
+    private static XMLGregorianCalendar getTimestamp() throws DatatypeConfigurationException {
         return XMLDateUtil.long2Gregorian(System.currentTimeMillis());
     }
 
@@ -129,13 +125,13 @@ public class ExchangeScheduledTask {
         }
     }
 
-    private String generateUniqueFilename(String fileLocation) {
+    private static String generateUniqueFilename(String fileLocation) {
         Calendar currentTime = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");
         return fileLocation + "." + dateFormat.format(currentTime.getTime());
     }
 
-    private void addToBackupList(String latestFilename, BigInteger maxNumBackup) {
+    private static void addToBackupList(String latestFilename, BigInteger maxNumBackup) {
         int noOfBackups = maxNumBackup.intValue();
 
         String filenameToDelete = null;
@@ -151,25 +147,19 @@ public class ExchangeScheduledTask {
                     fileToDelete.delete();
                 }
             } catch (Exception e) {
-                LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage());
+                LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage(), e);
             }
         }
     }
 
-    private List<Organization> fetchFhirDirectoryData(String url, TLSVersionType tlsVersions) throws FhirClientException,
-        URISyntaxException {
+    private Bundle fetchFhirDirectoryData(String url) throws FhirClientException, URISyntaxException {
         MimeType format = getMimeType(url);
         HttpGet request = RequestBuilder.get(url, format);
         FhirClient client = new FhirClient();
-        List<String> tlsList = null;
-        if (null != tlsVersions) {
-            tlsList = tlsVersions.getSupports();
-        }
-        return FhirResourceParser.extractOrganizationList(ResponseBuilder.
-            build(client.sendRequest(request, tlsList), format));
+        return ResponseBuilder.build(client.sendRequest(request), format);
     }
 
-    private MimeType getMimeType(String url) {
+    private static MimeType getMimeType(String url) {
         if (url.contains("_format=json")) {
             return MimeType.JSON;
         }
