@@ -119,7 +119,7 @@ public class NhincConstants {
         }
     }
 
-    public static enum EXCHANGE_TYPE {
+    public enum EXCHANGE_TYPE {
         UDDI("uddi"),
         FHIR("fhir"),
         LOCAL("local");
