@@ -121,6 +121,13 @@
         <version>1.1.4c</version>
         <scope>provided</scope>
       </dependency>
+      <!-- FHIR Structure uses xpp3 https://mvnrepository.com/artifact/org.ogce/xpp3 -->
+      <dependency>
+          <groupId>org.ogce</groupId>
+          <artifactId>xpp3</artifactId>
+          <version>1.1.6</version>
+      </dependency>
+
       <!-- Java EE APIs -->
       <dependency>
         <groupId>javax</groupId>

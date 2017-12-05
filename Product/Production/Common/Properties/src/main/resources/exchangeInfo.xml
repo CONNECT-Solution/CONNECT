@@ -7,7 +7,7 @@
     <exchanges>
         <exchange type="uddi">
             <name>Exchange 1</name>
-            <url>https://registry-vs.nhinonline.net/uddi/inquiry</url>                 
+            <url>https://registry-vs.nhinonline.net/uddi/inquiry</url>
             <organizationList>
                 <organization>
                     <ns2:name>Gateway 1</ns2:name>
@@ -314,6 +314,11 @@
                     <ns2:targetRegion>US-VA</ns2:targetRegion>
                 </organization>
             </organizationList>
+        </exchange>
+        <exchange type="fhir">
+            <name>Exchange 2</name>
+            <url>https://34.208.200.208/fhir-stu3/1.0.0/Organization/?_format=json&apikey=testKey</url>
+            <isDisabled>false</isDisabled>
         </exchange>
     </exchanges>
 </exchangeInfo>
