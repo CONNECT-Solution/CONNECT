@@ -51,10 +51,10 @@
             <groupId>ca.uhn.hapi.fhir</groupId>
             <artifactId>hapi-fhir-structures-dstu3</artifactId>
         </dependency>
-		<dependency>
-			<groupId>xpp3</groupId>
-			<artifactId>xpp3_min</artifactId>
-		</dependency>
+		    <dependency>
+			    <groupId>org.ogce</groupId>
+			    <artifactId>xpp3</artifactId>
+		    </dependency>
 
         <!-- Logging -->
         <dependency>
