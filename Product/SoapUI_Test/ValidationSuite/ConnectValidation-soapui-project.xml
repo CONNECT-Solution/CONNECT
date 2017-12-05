@@ -6340,20 +6340,20 @@ if(passthruValue != null){
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
-               <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
-               <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>myAuthzDecisionStatementResource</urn1:resource>
-               <urn1:action>myAuthzDecisionStatementAction</urn1:action>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
-                     <urn1:id>AuthzDecisionStatementEvidenceAssertionId</urn1:id>
-                     <urn1:issueInstant>2009-09-02T14:00:00.000Z</urn1:issueInstant>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
