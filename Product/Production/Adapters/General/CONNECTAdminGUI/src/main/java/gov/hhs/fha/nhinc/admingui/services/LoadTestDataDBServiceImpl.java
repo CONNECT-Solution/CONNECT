@@ -268,6 +268,15 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     @Override
+    public Document duplicateDocument(Long id) {
+        Document duplicateDocument = documentDAO.findById(id);
+        duplicateDocument.setDocumentid(null);
+
+        documentDAO.save(duplicateDocument);
+        return duplicateDocument;
+    }
+
+    @Override
     public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException {
         boolean actionResult = false;
         if (eventCode.getDocument() != null) {
@@ -282,6 +291,28 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     @Override
     public Patient getPatientBy(String identifierId, String identifierOrg) {
         return patientDAO.readTransaction(identifierId, identifierOrg);
+    }
+
+    @Override
+    public Patient duplicatePatient(Long id) {
+        Patient duplicatePatient = patientDAO.readTransaction(id, true);
+        duplicatePatient.setPatientId(null);
+
+        for (Personname oldRec : duplicatePatient.getPersonnames()) {
+            oldRec.setPersonnameId(null);
+        }
+
+        for (Identifier oldRec : duplicatePatient.getIdentifiers()) {
+            oldRec.setIdentifierId(null);
+        }
+        for (Address oldRec : duplicatePatient.getAddresses()) {
+            oldRec.setAddressId(null);
+        }
+        for (Phonenumber oldRec : duplicatePatient.getPhonenumbers()) {
+            oldRec.setPhonenumberId(null);
+        }
+        patientDAO.saveTransaction(duplicatePatient);
+        return duplicatePatient;
     }
 
     @Override

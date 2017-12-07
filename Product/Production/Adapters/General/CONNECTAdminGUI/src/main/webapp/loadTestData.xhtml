@@ -70,7 +70,7 @@
                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                 paginator="true" rowsPerPageTemplate="5,10,15" rows="10" >
                                                 <p:ajax event="rowSelectRadio" process="@this" 
-                                                   update=":testdataTabview:patientsList:editPatient :testdataTabview:patientsList:deletePatient" />
+                                                   update=":testdataTabview:patientsList:editPatient :testdataTabview:patientsList:deletePatient :testdataTabview:patientsList:duplicatePatient" />
                                                 <p:column headerText="" selectionMode="single" />
                                                 <p:column headerText="Patient Id">
                                                     <h:outputText value="#{patient.patientIdentifierId}" />
@@ -111,6 +111,14 @@
                                                             disabled="#{loadTestDataPatientBean.disablePatientButtons}"
                                                             styleClass="edit-button" icon="ui-icon-pencil" >
                                                             <p:resetInput target=":patientAccordionPanel:basicInfoForm" />
+                                                        </p:commandButton>
+                                                         <p:commandButton id="duplicatePatient" value="Duplicate"
+                                                            actionListener="#{loadTestDataPatientBean.duplicatePatient}"
+                                                            update=":patientSaveDlg :testdataTabview:patientsList"
+                                                            oncomplete="PF('patientSaveDlg').show();"
+                                                            disabled="#{loadTestDataPatientBean.disablePatientButtons}"
+                                                            styleClass="duplicate-button" icon="ui-icon-copy">
+                                                            <p:resetInput target=":patientSaveDlg"  />
                                                         </p:commandButton>
                                                         <p:commandButton id="deletePatient" update=":testdataTabview:patientsList"
                                                             value="Delete"
@@ -157,7 +165,7 @@
                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                 paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
                                                 <p:ajax event="rowSelectRadio" process="@this" 
-                                                   update=":testdataTabview:documentsList:editDocument :testdataTabview:documentsList:deleteDocument" />
+                                                   update=":testdataTabview:documentsList:editDocument :testdataTabview:documentsList:deleteDocument :testdataTabview:documentsList:duplicateDocument" />
                                                 <p:column headerText="" selectionMode="single" />
                                                 <p:column headerText="Document Id">
                                                     <h:outputText value="#{record.documentUniqueId}" />
@@ -197,6 +205,14 @@
                                                             update=":documentSaveDlg, :msgGrowl"
                                                             styleClass="edit-button" icon="ui-icon-pencil">
                                                             <p:resetInput target=":documentAccordionPanel:documentForm" />
+                                                        </p:commandButton>
+                                                         <p:commandButton id="duplicateDocument" value="Duplicate"
+                                                            actionListener="#{loadTestDataDocumentBean.duplicateDocument}"
+                                                            update=":documentSaveDlg :testdataTabview:documentsList"
+                                                            oncomplete="PF('documentSaveDlg').show();"
+                                                            disabled="#{loadTestDataDocumentBean.disableDocumentButtons}"
+                                                            styleClass="duplicate-button" icon="ui-icon-copy">
+                                                            <p:resetInput target=":documentSaveDlg"  />
                                                         </p:commandButton>
                                                         <p:commandButton id="deleteDocument"
                                                             actionListener="#{loadTestDataDocumentBean.deleteDocument}"
