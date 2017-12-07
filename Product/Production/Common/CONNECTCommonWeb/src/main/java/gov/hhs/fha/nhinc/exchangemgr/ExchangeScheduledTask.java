@@ -62,7 +62,7 @@ public class ExchangeScheduledTask {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeScheduledTask.class);
     private static final ArrayList<String> backupFileList = new ArrayList<>();
     private static final String JSON_QUERY_PARAM = "_format=json";
-    private static boolean hasDownloadOccurred = false;
+    private boolean hasDownloadOccurred = false;
 
     public void task() {
         try {

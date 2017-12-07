@@ -46,7 +46,6 @@ public class AdapterEndpointManager {
 
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
     public static final Logger LOG = LoggerFactory.getLogger(AdapterEndpointManager.class);
-    private static final ExchangeManagerHelper HELPER = new ExchangeManagerHelper();
 
     public ADAPTER_API_LEVEL getApiVersion(String serviceName) {
         ADAPTER_API_LEVEL result = null;
@@ -105,8 +104,9 @@ public class AdapterEndpointManager {
 
     private Set<ADAPTER_API_LEVEL> getAPILevels(EndpointType epType, String serviceName) {
         Set<ADAPTER_API_LEVEL> apiLevels = new HashSet<>();
-        if (HELPER.hasService(epType, serviceName) && null != epType.getEndpointConfigurationList() && CollectionUtils.
-            isNotEmpty(epType.getEndpointConfigurationList().getEndpointConfiguration())) {
+        if (ExchangeManagerHelper.hasService(epType, serviceName) && null != epType.getEndpointConfigurationList()
+            && CollectionUtils.
+                isNotEmpty(epType.getEndpointConfigurationList().getEndpointConfiguration())) {
             for (EndpointConfigurationType config : epType.getEndpointConfigurationList().getEndpointConfiguration()) {
                 apiLevels.add(ADAPTER_API_LEVEL.valueOf(config.getVersion()));
             }

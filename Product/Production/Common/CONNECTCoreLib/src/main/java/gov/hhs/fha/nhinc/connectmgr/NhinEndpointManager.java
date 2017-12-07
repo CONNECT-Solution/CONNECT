@@ -39,10 +39,6 @@ public class NhinEndpointManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinEndpointManager.class);
 
-    protected ExchangeManagerHelper getExchangeManagerHelper() {
-        return new ExchangeManagerHelper();
-    }
-
     protected ExchangeManager getExchangeManager() {
         return ExchangeManager.getInstance();
     }
@@ -53,11 +49,10 @@ public class NhinEndpointManager {
 
     public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         GATEWAY_API_LEVEL result = null;
-        ExchangeManagerHelper helper = getExchangeManagerHelper();
         try {
             List<UDDI_SPEC_VERSION> specVersions = getExchangeManager().getSpecVersions(homeCommunityId,
                 serviceName);
-            UDDI_SPEC_VERSION specVersion = helper.getHighestUDDISpecVersion(specVersions);
+            UDDI_SPEC_VERSION specVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(specVersions);
             result = getHighestGatewayApiLevelSupportedBySpec(specVersion, serviceName);
         } catch (Exception ex) {
             LOG.error("Error getting API version: ", ex);

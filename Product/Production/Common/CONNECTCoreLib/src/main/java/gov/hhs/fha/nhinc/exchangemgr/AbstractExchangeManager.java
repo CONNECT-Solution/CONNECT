@@ -54,18 +54,13 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
-    protected static final ExchangeManagerHelper HELPER = new ExchangeManagerHelper();
     private static final Logger LOG = LoggerFactory.getLogger(AbstractExchangeManager.class);
 
     protected abstract Map<String, Map<String, OrganizationType>> getCache() throws ExchangeManagerException;
 
-    protected ExchangeManagerHelper getHelper() {
-        return HELPER;
-    }
+    protected abstract String getApiSpec(T apispec);
 
-    protected abstract String getAPI_SPEC(T api_spec);
-
-    protected abstract T getAPI_SPEC_ENUM(String version);
+    protected abstract T getApiSpecEnum(String version);
 
     @Override
     public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
@@ -102,7 +97,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName) throws
         ExchangeManagerException {
         OrganizationType org = getOrganization(hcid);
-        if (null != org && HELPER.organizationHasService(org, sUniformServiceName)) {
+        if (null != org && ExchangeManagerHelper.organizationHasService(org, sUniformServiceName)) {
             return org;
         }
         return null;
@@ -117,7 +112,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         Set<OrganizationType> set = new HashSet<>();
         for (String hcid : hcids) {
             OrganizationType org = getOrganization(hcid);
-            if (org != null && HELPER.organizationHasService(org, sUniformServiceName)) {
+            if (org != null && ExchangeManagerHelper.organizationHasService(org, sUniformServiceName)) {
                 set.add(org);
             }
         }
@@ -132,7 +127,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         if (CollectionUtils.isNotEmpty(orgList)) {
             set = new HashSet<>();
             for (OrganizationType org : orgList) {
-                if (null != org && HELPER.organizationHasService(org, sUniformServiceName)) {
+                if (null != org && ExchangeManagerHelper.organizationHasService(org, sUniformServiceName)) {
                     set.add(org);
                 }
             }
@@ -150,8 +145,8 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             if (null != org && org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().
                 getEndpoint())) {
                 for (EndpointType epType : org.getEndpointList().getEndpoint()) {
-                    if (HELPER.hasService(epType, serviceName.getUDDIServiceName())) {
-                        specVersions = HELPER.getSpecVersions(epType);
+                    if (ExchangeManagerHelper.hasService(epType, serviceName.getUDDIServiceName())) {
+                        specVersions = ExchangeManagerHelper.getSpecVersions(epType);
                     }
                 }
             }
@@ -172,10 +167,11 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         //lookup the service url based on highest spec version
         if (org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().getEndpoint())) {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
-                if (HELPER.hasService(epType, sUniformServiceName)) {
-                    NhincConstants.UDDI_SPEC_VERSION highestVersion = HELPER.getHighestUDDISpecVersion(HELPER.
-                        getSpecVersions(epType));
-                    return HELPER.getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(),
+                if (ExchangeManagerHelper.hasService(epType, sUniformServiceName)) {
+                    NhincConstants.UDDI_SPEC_VERSION highestVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(
+                        ExchangeManagerHelper.
+                            getSpecVersions(epType));
+                    return ExchangeManagerHelper.getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(),
                         highestVersion);
                 }
             }
@@ -191,7 +187,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         ExchangeManagerException {
         String sHomeCommunityId;
         String sEndpointURL = null;
-        sHomeCommunityId = HELPER.getHomeCommunityFromPropFile();
+        sHomeCommunityId = ExchangeManagerHelper.getHomeCommunityFromPropFile();
 
         if (StringUtils.isNotEmpty(sHomeCommunityId)) {
             sEndpointURL = getDefaultEndpointURL(null, sHomeCommunityId, sUniformServiceName);
@@ -202,7 +198,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     @Override
     public String getEndpointURL(String sServiceName, T api_spec) throws
         ExchangeManagerException {
-        return getEndpointURL(HELPER.getHomeCommunityFromPropFile(), sServiceName, api_spec);
+        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, api_spec);
     }
 
     @Override
@@ -230,7 +226,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                     .formatHomeCommunityId(targetSystem.getHomeCommunity().getHomeCommunityId());
                 final String userSpecVersion = targetSystem.getUseSpecVersion();
                 if (!StringUtils.isEmpty(userSpecVersion)) {
-                    final T version = getAPI_SPEC_ENUM(userSpecVersion);
+                    final T version = getApiSpecEnum(userSpecVersion);
                     LOG.debug(
                         "Attempting to look up URL by home communinity id:{}, and service name: {}, and version {}",
                         homeCommunityId, serviceName, version.toString());
