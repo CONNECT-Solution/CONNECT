@@ -62,6 +62,7 @@ public class ExchangeScheduledTask {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeScheduledTask.class);
     private static final ArrayList<String> backupFileList = new ArrayList<>();
     private static final String JSON_QUERY_PARAM = "_format=json";
+    private static boolean hasDownloadOccurred = false;
 
     public void task() {
         try {
@@ -69,11 +70,13 @@ public class ExchangeScheduledTask {
             ExchangeInfoType exInfo = getExchangeDAO().loadExchangeInfo();
             if (null != exInfo) {
                 for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
-                    fetchExchangeData(ex);
+                    hasDownloadOccurred = hasDownloadOccurred || fetchExchangeData(ex);
                 }
-                createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
-                exInfo.setLastUpdated(getTimestamp());
-                getExchangeDAO().saveExchangeInfo(exInfo);
+                if (hasDownloadOccurred) {
+                    createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
+                    exInfo.setLastUpdated(getTimestamp());
+                    getExchangeDAO().saveExchangeInfo(exInfo);
+                }
             }
         } catch (ExchangeManagerException | UDDIAccessorException | FhirClientException | URISyntaxException ex) {
             LOG.error("Unable to download from Exchange {}", ex.getLocalizedMessage(), ex);
@@ -88,8 +91,9 @@ public class ExchangeScheduledTask {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    private void fetchExchangeData(ExchangeType exchange) throws UDDIAccessorException, FhirClientException,
+    private boolean fetchExchangeData(ExchangeType exchange) throws UDDIAccessorException, FhirClientException,
         URISyntaxException {
+        boolean isDownloaded = false;
         if (exchange != null) {
             if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.
                 isNotEmpty(exchange.getUrl())
@@ -98,13 +102,16 @@ public class ExchangeScheduledTask {
                 ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
                 exchange.setOrganizationList(transformer.transform(getUDDIManager().forceRefreshUDDIFile(exchange.
                     getUrl())));
+                isDownloaded = true;
             } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.isNotEmpty(
                 exchange.
                     getUrl()) && !exchange.isIsDisabled()) {
                 LOG.info("Starting FHIR download from {}", exchange.getUrl());
                 LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(exchange.getUrl()));
+                isDownloaded = true;
             }
         }
+        return isDownloaded;
     }
 
     private static XMLGregorianCalendar getTimestamp() {
