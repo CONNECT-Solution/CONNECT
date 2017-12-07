@@ -82,8 +82,8 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                 if (null != exInfo.getExchanges() && CollectionUtils.isNotEmpty(exInfo.getExchanges().getExchange())) {
                     for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
-                            getOrganization()) || StringUtils.isNotEmpty(ex.getType()) || StringUtils.isNotEmpty(ex.
-                                getName())) {
+                            getOrganization()) && StringUtils.isNotEmpty(ex.getType()) && StringUtils.isNotEmpty(ex.
+                            getName())) {
                             Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
                                 innerMap.put(org.getHcid(), org);
@@ -129,7 +129,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     @Override
     public OrganizationType getOrganization(String exchangeName, String hcid) throws
-    ExchangeManagerException {
+        ExchangeManagerException {
         refreshExchangeCacheIfRequired();
         String hcidWithoutPrefix = HomeCommunityMap.formatHomeCommunityId(hcid);
         String hcidWithPrefix = HomeCommunityMap.getHomeCommunityIdWithPrefix(hcid);

@@ -55,7 +55,6 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     private long exFileLastUpdateTime;
     private static final InternalExchangeManager INSTANCE = new InternalExchangeManager();
 
-
     private InternalExchangeManager() {
     }
 
@@ -82,8 +81,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
                 if (null != exInfo.getExchanges() && CollectionUtils.isNotEmpty(exInfo.getExchanges().getExchange())) {
                     for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
-                            getOrganization()) || StringUtils.isNotEmpty(ex.getType()) || StringUtils.isNotEmpty(ex.
-                                getName())) {
+                            getOrganization())) {
                             Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
                                 innerMap.put(org.getHcid(), org);
@@ -163,7 +161,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
 
     @Override
     protected String getAPI_SPEC(ADAPTER_API_LEVEL spec_level
-        ) {
+    ) {
         return spec_level.toString();
     }
 
