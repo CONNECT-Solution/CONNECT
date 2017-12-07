@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
-import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
-import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
-
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -42,6 +39,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,10 +57,11 @@ public class ExchangeManagerHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerHelper.class);
     private static final boolean ELEMENT_NOT_REQUIRED = false;
-    public ExchangeManagerHelper() {
+
+    private ExchangeManagerHelper() {
     }
 
-    public boolean organizationHasService(OrganizationType org, String sUniformServiceName) {
+    public static boolean organizationHasService(OrganizationType org, String sUniformServiceName) {
         if (org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().getEndpoint())) {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                 if (hasService(epType, sUniformServiceName)) {
@@ -83,7 +83,7 @@ public class ExchangeManagerHelper {
         return false;
     }
 
-    public List<NhincConstants.UDDI_SPEC_VERSION> getSpecVersions(EndpointType epType) {
+    public static List<NhincConstants.UDDI_SPEC_VERSION> getSpecVersions(EndpointType epType) {
         List<NhincConstants.UDDI_SPEC_VERSION> specVersionList = new ArrayList<>();
         if (null != epType && null != epType.getEndpointConfigurationList() && CollectionUtils.isNotEmpty(
             epType.getEndpointConfigurationList().getEndpointConfiguration())) {
@@ -119,7 +119,7 @@ public class ExchangeManagerHelper {
         return sHomeCommunityId;
     }
 
-    public NhincConstants.UDDI_SPEC_VERSION getHighestUDDISpecVersion(
+    public static NhincConstants.UDDI_SPEC_VERSION getHighestUDDISpecVersion(
         List<NhincConstants.UDDI_SPEC_VERSION> specVersions) {
         NhincConstants.UDDI_SPEC_VERSION highestSpecVersion = null;
 
@@ -136,7 +136,7 @@ public class ExchangeManagerHelper {
         return highestSpecVersion;
     }
 
-    public String getEndpointURLByServiceNameSpecVersion(OrganizationType org, String serviceName,
+    public static String getEndpointURLByServiceNameSpecVersion(OrganizationType org, String serviceName,
         NhincConstants.UDDI_SPEC_VERSION version) {
         String epURL = "";
         if (org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().getEndpoint())) {
@@ -149,7 +149,7 @@ public class ExchangeManagerHelper {
         return epURL;
     }
 
-    public String getEndpointURLBySpecVersion(EndpointConfigurationListType epConfigList,
+    public static String getEndpointURLBySpecVersion(EndpointConfigurationListType epConfigList,
         NhincConstants.UDDI_SPEC_VERSION version) {
         if (null != epConfigList && CollectionUtils.isNotEmpty(epConfigList.getEndpointConfiguration())) {
             for (EndpointConfigurationType epConfig : epConfigList.getEndpointConfiguration()) {
@@ -187,11 +187,11 @@ public class ExchangeManagerHelper {
     }
 
     public static List<OrganizationType> getOrganizationTypeBy(ExchangeType exchange, boolean requiredElement) {
-        if (null != exchange ) {
-            if(requiredElement && null == exchange.getOrganizationList()) {
+        if (null != exchange) {
+            if (requiredElement && null == exchange.getOrganizationList()) {
                 exchange.setOrganizationList(new OrganizationListType());
             }
-            if(null != exchange.getOrganizationList()){
+            if (null != exchange.getOrganizationList()) {
                 return exchange.getOrganizationList().getOrganization();
             }
         }
@@ -256,7 +256,7 @@ public class ExchangeManagerHelper {
     }
 
     public static ExchangeType findExchangeTypeBy(List<ExchangeType> exchanges, String exchangeName) {
-        if(CollectionUtils.isEmpty(exchanges)) {
+        if (CollectionUtils.isEmpty(exchanges)) {
             return null;
         }
         if (StringUtils.isBlank(exchangeName)) {
@@ -354,6 +354,5 @@ public class ExchangeManagerHelper {
         }
         return false;
     }
-
 
 }

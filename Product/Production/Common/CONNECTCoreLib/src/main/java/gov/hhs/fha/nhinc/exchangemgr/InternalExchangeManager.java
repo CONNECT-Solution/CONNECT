@@ -151,8 +151,9 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         ADAPTER_API_LEVEL api_spec) throws ExchangeManagerException {
         String endpointUrl = "";
         OrganizationType org = getOrganization(hcid);
-        EndpointType epType = HELPER.getServiceEndpointType(org, sServiceName);
-        EndpointConfigurationType configType = HELPER.getEndPointConfigBasedOnSpecVersion(epType, getAPI_SPEC(api_spec));
+        EndpointType epType = ExchangeManagerHelper.getServiceEndpointType(org, sServiceName);
+        EndpointConfigurationType configType = ExchangeManagerHelper.getEndPointConfigBasedOnSpecVersion(epType,
+            getApiSpec(api_spec));
         if (null != configType) {
             endpointUrl = configType.getUrl();
         }
@@ -160,28 +161,28 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     }
 
     @Override
-    protected String getAPI_SPEC(ADAPTER_API_LEVEL spec_level
+    protected String getApiSpec(ADAPTER_API_LEVEL specLevel
     ) {
-        return spec_level.toString();
+        return specLevel.toString();
     }
 
     @Override
-    protected ADAPTER_API_LEVEL getAPI_SPEC_ENUM(String version) {
+    protected ADAPTER_API_LEVEL getApiSpecEnum(String version) {
         return NhincConstants.ADAPTER_API_LEVEL.valueOf(version);
     }
 
-    public boolean updateServiceUrl(String serviceName, String url) throws Exception {
+    public boolean updateServiceUrl(String serviceName, String url) throws ExchangeManagerException {
         if (null == exInfo) {
             loadExchangeInfo();
         }
 
-        OrganizationType updateOrganization = getOrganization(HELPER.getHomeCommunityFromPropFile());
+        OrganizationType updateOrganization = getOrganization(ExchangeManagerHelper.getHomeCommunityFromPropFile());
         if (null == updateOrganization) {
             return false;
         }
 
-        EndpointConfigurationType endpointUrl = HELPER.getEndPointConfigBasedOnSpecVersion(
-            HELPER.getServiceEndpointType(updateOrganization, serviceName),
+        EndpointConfigurationType endpointUrl = ExchangeManagerHelper.getEndPointConfigBasedOnSpecVersion(
+            ExchangeManagerHelper.getServiceEndpointType(updateOrganization, serviceName),
             NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
         endpointUrl.setUrl(url);
         getExchangeInfoDAO().saveExchangeInfo(exInfo);

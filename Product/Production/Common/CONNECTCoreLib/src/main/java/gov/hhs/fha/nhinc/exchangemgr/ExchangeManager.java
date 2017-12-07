@@ -157,24 +157,25 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     public String getEndpointURL(String hcid, String sServiceName,
         UDDI_SPEC_VERSION api_spec) throws ExchangeManagerException {
         OrganizationType org = getOrganization(hcid);
-        EndpointType epType = HELPER.getServiceEndpointType(org, sServiceName);
+        EndpointType epType = ExchangeManagerHelper.getServiceEndpointType(org, sServiceName);
         if (null == epType) {
             return "";
         }
-        EndpointConfigurationType configType = HELPER.getEndPointConfigBasedOnSpecVersion(epType, getAPI_SPEC(api_spec));
+        EndpointConfigurationType configType = ExchangeManagerHelper.getEndPointConfigBasedOnSpecVersion(epType,
+            getApiSpec(api_spec));
         if (null == configType) {
-            throw new ExchangeManagerException("No matching target endpoint for guidance: " + getAPI_SPEC(api_spec));
+            throw new ExchangeManagerException("No matching target endpoint for guidance: " + getApiSpec(api_spec));
         }
         return configType.getUrl();
     }
 
     @Override
-    protected String getAPI_SPEC(UDDI_SPEC_VERSION api_spec) {
-        return api_spec.toString();
+    protected String getApiSpec(UDDI_SPEC_VERSION apispec) {
+        return apispec.toString();
     }
 
     @Override
-    protected UDDI_SPEC_VERSION getAPI_SPEC_ENUM(String version) {
+    protected UDDI_SPEC_VERSION getApiSpecEnum(String version) {
         return NhincConstants.UDDI_SPEC_VERSION.fromString(version);
     }
 
