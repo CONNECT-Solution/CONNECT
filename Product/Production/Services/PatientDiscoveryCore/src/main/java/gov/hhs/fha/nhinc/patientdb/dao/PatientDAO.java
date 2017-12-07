@@ -308,8 +308,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             sqlSelect.append(" ORDER BY i.id, i.organizationid");
 
             SQLQuery sqlQuery = session.createSQLQuery(sqlSelect.toString())
-                .addScalar("patientId", StandardBasicTypes.LONG)
-                .addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
+                .addScalar("patientId", StandardBasicTypes.LONG).addScalar("dateOfBirth", StandardBasicTypes.TIMESTAMP)
                 .addScalar("gender", StandardBasicTypes.STRING).addScalar("ssn", StandardBasicTypes.STRING)
                 .addScalar("id", StandardBasicTypes.STRING).addScalar("organizationid", StandardBasicTypes.STRING);
 
@@ -370,7 +369,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 sqlQuery.setString(iParam, phonenumber.getValue());
             }
 
-            LOG.trace("Final SQL Query is: {} " , sqlQuery.getQueryString());
+            LOG.trace("Final SQL Query is: {} ", sqlQuery.getQueryString());
 
             List<Object[]> result = sqlQuery.list();
 
@@ -409,7 +408,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
 
                     // Populate demographic data
                     patientData
-                    .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
+                        .setAddresses(AddressDAO.getAddressDAOInstance().findPatientAddresses(patientIdArray[i]));
                     patientData.setPersonnames(
                         PersonnameDAO.getPersonnameDAOInstance().findPatientPersonnames(patientIdArray[i]));
                     patientData.setPhonenumbers(
@@ -443,7 +442,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
             Query query = session.createQuery("select new Patient(p) from Patient p");
             patients = query.list();
 
-            LOG.trace("DAO-getAll-patients-count: {}" , patients.size());
+            LOG.trace("DAO-getAll-patients-count: {}", patients.size());
 
         } catch (HibernateException e) {
             LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
@@ -484,8 +483,8 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                 aCriteria.createAlias("identifiers", "identifier");
             }
 
-            if(CollectionUtils.isNotEmpty(criterions)){
-                for(Criterion criterion : criterions){
+            if (CollectionUtils.isNotEmpty(criterions)) {
+                for (Criterion criterion : criterions) {
                     aCriteria.add(criterion);
                 }
             }
@@ -504,6 +503,7 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
         LOG.trace("PatientDAO.readTransaction() -- end");
         return foundRecord;
     }
+
     public boolean deleteTransaction(Patient patient) {
         LOG.trace("PatientDAO.deleteTransaction() -- begin");
 
@@ -568,11 +568,22 @@ public class PatientDAO extends GenericDAOImpl<Patient> {
                     personnameRec.setPatient(patient);
                     session.saveOrUpdate(personnameRec);
                 }
-
+                session.flush();
                 for (Identifier identifierRec : patient.getIdentifiers()) {
                     identifierRec.setPatient(patient);
                     session.saveOrUpdate(identifierRec);
                 }
+                session.flush();
+                for (Address addressRec : patient.getAddresses()) {
+                    addressRec.setPatient(patient);
+                    session.saveOrUpdate(addressRec);
+                }
+                session.flush();
+                for (Phonenumber phonenumberRec : patient.getPhonenumbers()) {
+                    phonenumberRec.setPatient(patient);
+                    session.saveOrUpdate(phonenumberRec);
+                }
+
                 tx.commit();
                 result = true;
             }
