@@ -129,6 +129,16 @@ public class LoadTestDataDocumentBean {
         return actionResult;
     }
 
+    public void duplicateDocument() {
+        if (selectedDocument != null) {
+            dialogTitle = "Edit Document";
+            withDocument = loadTestDataService.duplicateDocument(selectedDocument.getDocumentid());
+        } else {
+            new Document();
+            addFacesMessageBy(msgForInvalidDocument("document"));
+        }
+    }
+
     public boolean deleteDocument() {
         boolean result = false;
         if (selectedDocument != null) {
