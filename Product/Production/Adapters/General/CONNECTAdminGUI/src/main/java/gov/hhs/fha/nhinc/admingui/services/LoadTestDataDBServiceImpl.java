@@ -43,7 +43,9 @@ import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
 import java.text.MessageFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -268,15 +270,6 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public Document duplicateDocument(Long id) {
-        Document duplicateDocument = documentDAO.findById(id);
-        duplicateDocument.setDocumentid(null);
-
-        documentDAO.save(duplicateDocument);
-        return duplicateDocument;
-    }
-
-    @Override
     public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException {
         boolean actionResult = false;
         if (eventCode.getDocument() != null) {
@@ -326,5 +319,29 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     private static void logDaoError(String logOf) throws LoadTestDataException {
         LOG.error("DAO fail to save {}.", logOf);
         throw new LoadTestDataException(MessageFormat.format("{0} fail to save to database.", logOf));
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.admingui.services.LoadTestDataService#duplicateDocument(java.lang.Long)
+     */
+    @Override
+    public Document duplicateDocument(Long documentid) {
+        Document originalDoc = documentDAO.findById(documentid);
+        Document cloneDoc = originalDoc.cloneDocument();
+
+        Set<EventCode> cloneEventCodes = new HashSet<>();
+        for (EventCode code : originalDoc.getEventCodes()) {
+            cloneEventCodes.add(code.cloneEventCode());
+        }
+
+        cloneDoc = documentDAO.saveAndGetDocument(cloneDoc);
+
+        for (EventCode code : cloneEventCodes) {
+            code.setDocument(cloneDoc);
+            eventCodeDAO.save(code);
+        }
+        return cloneDoc;
     }
 }

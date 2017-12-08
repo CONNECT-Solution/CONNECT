@@ -605,4 +605,71 @@ public class Document {
         }
         return null;
     }
+
+
+    public Document cloneDocument() {
+
+        Document obj = new Document();
+
+        obj.setDocumentUniqueId(documentUniqueId);
+        obj.setDocumentTitle(documentTitle);
+        obj.setAuthorPerson(authorPerson);
+        obj.setAuthorRole(authorRole);
+        obj.setAuthorInstitution(authorInstitution);
+        obj.setAuthorSpecialty(authorSpecialty);
+        obj.setAvailablityStatus(availablityStatus);
+        obj.setClassCode(classCode);
+        obj.setClassCodeDisplayName(classCodeDisplayName);
+        obj.setClassCodeScheme(classCodeScheme);
+        obj.setConfidentialityCode(confidentialityCode);
+        obj.setConfidentialityCodeScheme(confidentialityCodeScheme);
+        obj.setConfidentialityCodeDisplayName(confidentialityCodeDisplayName);
+        obj.setCreationTime(creationTime);
+        obj.setFormatCode(formatCode);
+        obj.setFormatCodeScheme(formatCodeScheme);
+        obj.setFormatCodeDisplayName(formatCodeDisplayName);
+        obj.setPatientId(patientId);
+        obj.setServiceStartTime(serviceStartTime);
+        obj.setServiceStopTime(serviceStopTime);
+        obj.setStatus(status);
+        obj.setComments(comments);
+        obj.setHash(hash);
+        obj.setFacilityCode(facilityCode);
+        obj.setFacilityCodeScheme(facilityCodeScheme);
+        obj.setFacilityCodeDisplayName(facilityCodeDisplayName);
+        obj.setIntendedRecipientOrganization(intendedRecipientOrganization);
+        obj.setIntendedRecipientPerson(intendedRecipientPerson);
+        obj.setLanguageCode(languageCode);
+        obj.setLegalAuthenticator(legalAuthenticator);
+        obj.setMimeType(mimeType);
+        obj.setParentDocumentId(parentDocumentId);
+        obj.setParentDocumentRelationship(parentDocumentRelationship);
+        obj.setPracticeSetting(practiceSetting);
+        obj.setPracticeSettingScheme(practiceSettingScheme);
+        obj.setPracticeSettingDisplayName(practiceSettingDisplayName);
+        obj.setSize(size);
+        obj.setSourcePatientId(sourcePatientId);
+        obj.setPid3(pid3);
+        obj.setPid5(pid5);
+        obj.setPid7(pid7);
+        obj.setPid8(pid8);
+        obj.setPid11(pid11);
+        obj.setTypeCode(typeCode);
+        obj.setTypeCodeScheme(typeCodeScheme);
+        obj.setTypeCodeDisplayName(typeCodeDisplayName);
+        obj.setDocumentUri(documentUri);
+        obj.setRawData(rawData);
+        obj.setOnDemand(onDemand);
+        obj.setNewDocumentUniqueId(NewDocumentUniqueId);
+        obj.setNewRepositoryUniqueId(NewRepositoryUniqueId);
+        obj.setPersistent(persistent);
+        obj.setPatientRecordId(patientRecordId);
+        obj.setPatientIdentifier(patientIdentifier);
+
+        obj.setDocumentid(null);
+        obj.setEventCodes(null);
+
+        return obj;
+    }
+
 }

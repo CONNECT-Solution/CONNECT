@@ -341,5 +341,4 @@ public class LoadTestDataDocumentBean {
             MessageFormat.format("Cannot save document {0}: {1}", logOf.toLowerCase(), e.getLocalizedMessage())));
         LOG.error("Error save-document-{0}: {}", logOf.toLowerCase(), e.getLocalizedMessage(), e);
     }
-
 }

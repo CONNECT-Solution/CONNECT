@@ -126,10 +126,21 @@ public class EventCode {
         if (getEventCodeDisplayName() == null && toCheck.getEventCodeDisplayName() != null) {
             return false;
         } else if (getEventCodeDisplayName() != null
-                && !getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName())) {
+            && !getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName())) {
             return false;
         }
         return true;
     }
 
+    public EventCode cloneEventCode() {
+        EventCode clone = new EventCode();
+
+        clone.setEventCodeId(null);
+        clone.setEventCode(eventCode);
+        clone.setEventCodeScheme(eventCodeScheme);
+        clone.setEventCodeDisplayName(eventCodeDisplayName);
+        clone.setDocument(null);
+
+        return clone;
+    }
 }
