@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.admingui.services.exception.UnSupportedMethodException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
