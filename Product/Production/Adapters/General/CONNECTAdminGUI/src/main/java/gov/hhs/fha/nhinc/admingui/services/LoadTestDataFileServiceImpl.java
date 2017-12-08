@@ -34,7 +34,6 @@ import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
-import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,193 +49,162 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
 
     @Override
     public List<Patient> getAllPatients() {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deletePatient(Patient patient) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Patient getPatientBy(Long id) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Patient();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean savePatient(Patient patient) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<Personname> getAllPersonnamesBy(Long patientId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<Address> getAllAddressesBy(Long patientId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<Identifier> getAllIdentiersBy(Long patientId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<Phonenumber> getAllPhonenumbersBy(Long patientId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deletePersonname(Personname personname) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deleteAddress(Address address) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deleteIdentifier(Identifier identifier) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deletePhonenumber(Phonenumber phonenumber) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Personname getPersonnameBy(Long personnameId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Personname();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Address getAddressBy(Long addressId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Address();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Identifier getIdentifierBy(Long identifierId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Identifier();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Phonenumber getPhonenumberBy(Long phonenumberId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Phonenumber();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean savePersonname(Personname personname) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean saveAddress(Address address) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean saveIdentifier(Identifier identifier) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean savePhonenumber(Phonenumber phonenumber) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<Document> getAllDocuments() {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<EventCode> getAllEventCodesBy(Long documentId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new ArrayList<>();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deleteDocument(Document document) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Document duplicateDocument(Long id) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Document();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean deleteEventCode(EventCode eventCode) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Document getDocumentBy(Long documentId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Document();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public EventCode getEventCodeBy(Long eventCodeId) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new EventCode();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean saveDocument(Document document) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return false;
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Patient getPatientBy(String identifierId, String identifierOrg) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Patient();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public Patient duplicatePatient(Long id) {
-        LOG.info(LOG_UNSUPPORT_METHOD);
-        return new Patient();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
     @Override
     public List<Patient> getCachePatients() {
-        return getAllPatients();
+        throw new UnsupportedOperationException("Not supported. ");
     }
 
 }
