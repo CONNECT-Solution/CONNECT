@@ -54,6 +54,14 @@ public class DocumentDao {
         return GenericDBUtils.save(getSession(), document);
     }
 
+    public Document saveAndGetDocument(Document document) {
+        Document s = null;
+        if (GenericDBUtils.save(getSession(), document)) {
+            s = findById(document.getDocumentid());
+        }
+        return s;
+    }
+
     public boolean saveAll(List<Document> documents) {
         return GenericDBUtils.saveAll(getSession(), documents);
     }

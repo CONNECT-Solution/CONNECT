@@ -206,5 +206,4 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     public List<Patient> getCachePatients() {
         throw new UnsupportedOperationException("Not supported. ");
     }
-
 }
