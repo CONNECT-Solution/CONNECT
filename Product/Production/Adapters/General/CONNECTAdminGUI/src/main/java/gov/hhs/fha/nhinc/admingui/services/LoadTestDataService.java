@@ -63,6 +63,8 @@ public interface LoadTestDataService {
 
     public Patient getPatientBy(Long patientId);
 
+    public Patient duplicatePatient(Long patientId);
+
     public Personname getPersonnameBy(Long personnameId);
 
     public Address getAddressBy(Long addressId);
@@ -84,6 +86,8 @@ public interface LoadTestDataService {
     public List<Document> getAllDocuments();
 
     public List<EventCode> getAllEventCodesBy(Long documentId);
+
+    public Document duplicateDocument(Long documentId);
 
     public boolean deleteDocument(Document document);
 
