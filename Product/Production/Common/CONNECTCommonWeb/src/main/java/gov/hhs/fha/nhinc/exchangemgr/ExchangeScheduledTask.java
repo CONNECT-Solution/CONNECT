@@ -77,7 +77,6 @@ public class ExchangeScheduledTask {
                 }
                 if (hasDownloadOccurred) {
                     createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
-                    exInfo.setLastUpdated(getTimestamp());
                     getExchangeDAO().saveExchangeInfo(exInfo);
                 }
             }
@@ -100,17 +99,19 @@ public class ExchangeScheduledTask {
             if (exchange != null) {
                 if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.
                     isNotEmpty(exchange.getUrl())
-                    && !exchange.isIsDisabled()) {
+                    && !exchange.isDisabled()) {
                     LOG.info("Starting UDDI download from {}", exchange.getUrl());
                     ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
                     exchange.setOrganizationList(transformer.transform(getUDDIManager().forceRefreshUDDIFile(exchange.
                         getUrl())));
+                    exchange.setLastUpdated(getTimestamp());
                     isDownloaded = true;
                 } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.isNotEmpty(
-                    exchange.getUrl()) && !exchange.isIsDisabled()) {
+                    exchange.getUrl()) && !exchange.isDisabled()) {
                     LOG.info("Starting FHIR download from {}", exchange.getUrl());
                     ExchangeTransforms<Bundle> transformer = new FHIRTransform();
                     exchange.setOrganizationList(transformer.transform(fetchFhirDirectoryData(exchange.getUrl())));
+                    exchange.setLastUpdated(getTimestamp());
                     isDownloaded = true;
                 }
             }

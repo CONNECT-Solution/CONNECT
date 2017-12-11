@@ -145,7 +145,6 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
             OrganizationListType org = transformer.transform(internalDao.loadBusinessDetail());
             ExchangeInfoType exInfo = new ExchangeInfoType();
             exInfo.setDefaultExchange("adapter");
-            exInfo.setRefreshActive(false);
             ExchangeListType exList = new ExchangeListType();
             ExchangeType exType = new ExchangeType();
             exType.setName("adapter");

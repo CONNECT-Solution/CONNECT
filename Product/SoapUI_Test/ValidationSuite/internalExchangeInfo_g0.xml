@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
   <defaultExchange>adapter</defaultExchange>
-  <refreshActive>false</refreshActive>
   <exchanges>
     <exchange type="local">
       <name>adapter</name>
+      <disabled>true</disabled>
       <organizationList>
         <organization>
           <ns2:name>DoD</ns2:name>
