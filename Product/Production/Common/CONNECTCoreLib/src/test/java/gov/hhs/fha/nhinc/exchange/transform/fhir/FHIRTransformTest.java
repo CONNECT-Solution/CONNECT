@@ -103,14 +103,15 @@ public class FHIRTransformTest {
     }
 
     private Bundle readTestData(String filename, String fileType) throws FHIRFormatError {
-        URL url = this.getClass().getResource(filename);
+        URL url = FHIRTransformTest.class.getClass().getResource(filename);
+        LOG.info("url for the test data file {}", url);
         IParser parser = null;
         if (fileType.equals(XML)) {
             parser = new XmlParser();
         } else {
             parser = new JsonParser();
         }
-
+        LOG.info("FIR Structures parser initialized");
         try (InputStream inStream = new FileInputStream(url.getFile())) {
             return (Bundle) parser.parse(inStream);
         } catch (IOException | FHIRFormatError ex) {
