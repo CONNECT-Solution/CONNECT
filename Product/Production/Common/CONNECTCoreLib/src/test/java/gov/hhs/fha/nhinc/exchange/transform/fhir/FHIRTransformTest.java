@@ -32,7 +32,9 @@ import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.List;
 import org.hl7.fhir.dstu3.formats.IParser;
 import org.hl7.fhir.dstu3.formats.JsonParser;
@@ -65,7 +67,7 @@ public class FHIRTransformTest {
             Bundle bundle = readTestData(XML_FILE, XML);
             FHIRTransform transformer = new FHIRTransform();
             assertTransformedObject(transformer.transform(bundle));
-        } catch (FHIRFormatError ex) {
+        } catch (UnsupportedEncodingException | FHIRFormatError ex) {
             LOG.error("Unable to read test data: {}", ex.getLocalizedMessage(), ex);
         }
     }
@@ -76,7 +78,7 @@ public class FHIRTransformTest {
             Bundle bundle = readTestData(JSON_FILE, JSON);
             FHIRTransform transformer = new FHIRTransform();
             assertTransformedObject(transformer.transform(bundle));
-        } catch (FHIRFormatError ex) {
+        } catch (UnsupportedEncodingException | FHIRFormatError ex) {
             fail("testTransformJson failed with exception: " + ex.getLocalizedMessage());
         }
     }
@@ -102,7 +104,7 @@ public class FHIRTransformTest {
         }
     }
 
-    private Bundle readTestData(String filename, String fileType) throws FHIRFormatError {
+    private Bundle readTestData(String filename, String fileType) throws FHIRFormatError, UnsupportedEncodingException {
         URL url = FHIRTransformTest.class.getClass().getResource(filename);
         LOG.info("url for the test data file {}", url);
         IParser parser = null;
@@ -112,7 +114,9 @@ public class FHIRTransformTest {
             parser = new JsonParser();
         }
         LOG.info("FIR Structures parser initialized");
-        try (InputStream inStream = new FileInputStream(url.getFile())) {
+        String decodedFileName = URLDecoder.decode(url.getFile(), "UTF-8");
+        LOG.info("readTestData() decoded file name {}", decodedFileName);
+        try (InputStream inStream = new FileInputStream(decodedFileName)) {
             return (Bundle) parser.parse(inStream);
         } catch (IOException | FHIRFormatError ex) {
             LOG.error("Unable to read test data: {}", ex.getLocalizedMessage(), ex);
