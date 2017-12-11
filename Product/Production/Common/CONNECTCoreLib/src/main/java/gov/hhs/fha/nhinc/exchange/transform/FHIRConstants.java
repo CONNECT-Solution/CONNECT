@@ -40,7 +40,7 @@ public class FHIRConstants {
     public static final String USECASES = "UseCases";
     public static final String ROLES = "Roles";
     //Telecom Contact
-    public static final String EMAIL = "eamil";
+    public static final String EMAIL = "email";
     public static final String PHONE = "phone";
 
     //status
