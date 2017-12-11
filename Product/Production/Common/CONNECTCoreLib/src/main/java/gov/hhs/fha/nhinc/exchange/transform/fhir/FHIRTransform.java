@@ -69,7 +69,7 @@ public class FHIRTransform implements ExchangeTransforms<Bundle> {
         return buildOrganization(FHIRTransformHelper.extractFhirOrgResourceList(bundle));
     }
 
-    private OrganizationListType buildOrganization(List<Organization> fhirOrgs) {
+    private static OrganizationListType buildOrganization(List<Organization> fhirOrgs) {
         OrganizationListType orgListType = null;
         if (CollectionUtils.isNotEmpty(fhirOrgs)) {
             orgListType = new OrganizationListType();
@@ -97,7 +97,7 @@ public class FHIRTransform implements ExchangeTransforms<Bundle> {
             org.setEndpointList(buildEndpointListType(orgFhir.getContained()));
             org.getAddress().addAll(buildAddressList(orgFhir.getAddress()));
             org.setPartOf(buildPartOf(orgFhir.getPartOf()));
-            //TODO need to map target region. Currently there is no data to map TargetRegions
+            //For Later: Need to map target region. Currently there is no data to map TargetRegions
             orgListType.getOrganization().add(org);
         }
     }
