@@ -3,12 +3,11 @@
   <refreshInterval>1440</refreshInterval>
   <maxNumberOfBackups>0</maxNumberOfBackups>
   <defaultExchange>Exchange 1</defaultExchange>
-  <refreshActive>false</refreshActive>
   <exchanges>
     <exchange type="uddi">
       <name>Exchange 1</name>
       <url>https://testurl/uddi/list</url>
-      <isDisabled>true</isDisabled>
+      <disabled>true</disabled>
       <organizationList>
         <organization>
           <ns2:name>DoD</ns2:name>

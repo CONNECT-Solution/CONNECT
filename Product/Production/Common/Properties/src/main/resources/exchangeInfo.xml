@@ -3,12 +3,11 @@
   <refreshInterval>1440</refreshInterval>
   <maxNumberOfBackups>1</maxNumberOfBackups>
   <defaultExchange>Exchange 1</defaultExchange>
-  <refreshActive>false</refreshActive>
   <exchanges>
     <exchange type="uddi">
       <name>Exchange 1</name>
       <url>https://registry-vs.nhinonline.net/uddi/inquiry</url>
-      <isDisabled>true</isDisabled>
+      <disabled>true</disabled>
       <organizationList>
         <organization>
           <ns2:name>Gateway 1</ns2:name>
@@ -319,7 +318,7 @@
     <exchange type="fhir">
       <name>Exchange 2</name>
       <url>https://34.208.200.208/fhir-stu3/1.0.0/Organization/?_format=json&amp;apikey=testKey</url>
-      <isDisabled>true</isDisabled>
+      <disabled>true</disabled>
     </exchange>
   </exchanges>
 </exchangeInfo>

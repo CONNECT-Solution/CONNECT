@@ -2,7 +2,6 @@
 <exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
     <refreshInterval>1440</refreshInterval>
     <maxNumberOfBackups>0</maxNumberOfBackups>
-    <lastUpdated></lastUpdated>
     <exchanges>
         <exchange type="uddi">
             <url>https://testurl/uddi/list</url>

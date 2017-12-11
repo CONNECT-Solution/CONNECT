@@ -67,7 +67,7 @@ public class ExchangeScheduledTaskTest {
 
         when(uddiMgr.forceRefreshUDDIFile(anyString())).thenReturn(new BusinessDetail());
         workerThread.task();
-        assertNotNull(exDao.loadExchangeInfo().getLastUpdated());
+        assertNotNull(exDao.loadExchangeInfo().getExchanges().getExchange().get(0).getLastUpdated());
     }
 
     private ExchangeInfoDAOFileImpl createExchangeInfoDAO(String filename) {
