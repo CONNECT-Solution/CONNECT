@@ -1,0 +1,1034 @@
+<?xml version="1.0"?>
+<!--The Sequioa Project Healthcare Directory. Copyright(c) 2015-2017 The Sequoia Project.  All rights reserved.  Business confidential.-->
+<Bundle xmlns="http://hl7.org/fhir">
+  <!--Start of header elements-->
+  <id value="d8f98af1-b053-0135-867c-1fa06c71efa4"/>
+  <meta>
+    <lastUpdated value="2017-11-20T19:06:33+00:00"/>
+  </meta>
+  <type value="searchset"/>
+  <total value="258"/>
+  <link>
+    <relation value="self"/>
+    <url value="/Organization?_format=xml"/>
+  </link>
+  <!--The entry object is repeated for each organization listed in the directory-->
+  <entry>
+    <fullUrl value="/Organization/0"/>
+    <resource>
+      <Organization xmlns="http://hl7.org/fhir">
+        <id value="0"/>
+        <meta>
+          <versionId value="1"/>
+          <lastUpdated value="2017-10-25T13:50:42-05:00"/>
+        </meta>
+        <identifier>
+          <use value="official"/>
+          <system value="http://www.hl7.org/oid/"/>
+          <value value="urn:oid:2.16.840.1.113883.3.596"/>
+        </identifier>
+        <active value="true"/>
+        <name value="TestOrg1"/>
+        <address>
+          <use value="work"/>
+          <type value="both"/>
+          <line value="street address"/>
+          <city value="city"/>
+          <state value="MD"/>
+          <postalCode value="111"/>
+          <country value="US"/>
+        </address>
+        <partOf>
+          <identifier>
+            <use value="official"/>
+            <type>
+              <text value="HCID"/>
+            </type>
+            <system value="http://www.hl7.org/oid/"/>
+          </identifier>
+        </partOf>
+        <contact>
+          <purpose>
+            <text value="Systems Administrator"/>
+          </purpose>
+          <name>
+            <use value="official"/>
+            <text value="Duncan, Jamie"/>
+            <given value="Duncan, Jamie"/>
+          </name>
+          <telecom>
+            <system value="email"/>
+            <value value="jduncan@5amsolutions.com"/>
+            <use value="work"/>
+          </telecom>
+          <telecom>
+            <system value="phone"/>
+            <value value="804-571-0458"/>
+            <use value="work"/>
+          </telecom>
+        </contact>
+        <contact>
+          <purpose>
+            <text value="Director of IT"/>
+          </purpose>
+          <name>
+            <use value="official"/>
+            <text value="March, Mike"/>
+            <given value="March, Mike"/>
+          </name>
+          <telecom>
+            <system value="email"/>
+            <value value="mmarch@5amsolutions.com"/>
+            <use value="work"/>
+          </telecom>
+          <telecom>
+            <system value="phone"/>
+            <value value="415-462-1910"/>
+            <use value="work"/>
+          </telecom>
+        </contact>
+        <!--Managing Organization Not Specified-->
+        <!--The Endpoints are represented as contained resources and are repeated as needed-->
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.596"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="PatientDiscovery"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+            <payloadMimeType value="text/xml"/>
+            <address value="https://conformance1.5amsolutions.com:443/CONNECTGateway/NhinService/NhinPatientDiscovery"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.596"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="QueryForDocuments"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+                        <payloadMimeType value="text/xml"/>
+            <address value="https://conformance1.5amsolutions.com:443/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.596"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="RetrieveDocuments"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+                        <payloadMimeType value="text/xml"/>
+            <address value="https://conformance1.5amsolutions.com:443/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+                    <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.596"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="Query For Documents"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+                        <payloadMimeType value="text/xml"/>
+            <address value="https://conformance1.5amsolutions.com:443/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="3.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.596"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="HIEMNotify"/>
+            <managingOrganization/>
+
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+            <payloadMimeType value="text/xml"/>
+<address value="https://conformance1.5amsolutions.com:443/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.596"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="HIEMUnsubscribe"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+                        <payloadMimeType value="text/xml"/>
+            <address value="https://conformance1.5amsolutions.com:443/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+      </Organization>
+    </resource>
+  </entry>
+  <!--The entry object is repeated for each organization listed in the directory-->
+  <entry>
+    <fullUrl value="/Organization/1"/>
+    <resource>
+      <Organization xmlns="http://hl7.org/fhir">
+        <id value="1"/>
+        <meta>
+          <versionId value="1"/>
+          <lastUpdated value="2017-10-25T13:50:42-05:00"/>
+        </meta>
+        <identifier>
+          <use value="official"/>
+          <system value="http://www.hl7.org/oid/"/>
+          <value value="urn:oid:2.16.840.1.113883.3.596"/>
+        </identifier>
+        <active value="true"/>
+        <name value="Conformance1-5AM"/>
+        <address>
+          <use value="work"/>
+          <type value="both"/>
+          <line value="street address"/>
+          <city value="city"/>
+          <state value="MD"/>
+          <postalCode value="111"/>
+          <country value="US"/>
+        </address>
+        <partOf>
+          <identifier>
+            <use value="official"/>
+            <type>
+              <text value="HCID"/>
+            </type>
+            <system value="http://www.hl7.org/oid/"/>
+          </identifier>
+        </partOf>
+        <contact>
+          <purpose>
+            <text value="Systems Administrator"/>
+          </purpose>
+          <name>
+            <use value="official"/>
+            <text value="Duncan, Jamie"/>
+            <given value="Duncan, Jamie"/>
+          </name>
+          <telecom>
+            <system value="email"/>
+            <value value="jduncan@5amsolutions.com"/>
+            <use value="work"/>
+          </telecom>
+          <telecom>
+            <system value="phone"/>
+            <value value="804-571-0458"/>
+            <use value="work"/>
+          </telecom>
+        </contact>
+        <contact>
+          <purpose>
+            <text value="Director of IT"/>
+          </purpose>
+          <name>
+            <use value="official"/>
+            <text value="March, Mike"/>
+            <given value="March, Mike"/>
+          </name>
+          <telecom>
+            <system value="email"/>
+            <value value="mmarch@5amsolutions.com"/>
+            <use value="work"/>
+          </telecom>
+          <telecom>
+            <system value="phone"/>
+            <value value="415-462-1910"/>
+            <use value="work"/>
+          </telecom>
+        </contact>
+        <!--Managing Organization Not Specified-->
+        <!--The Endpoints are represented as contained resources and are repeated as needed-->
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.614"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="Patient Discovery"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+                        <payloadMimeType value="text/xml"/>
+            <address value="https://conformance2.5amsolutions.com/CONNECTGateway/NhinService/NhinPatientDiscovery"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.614"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="Query for Documents"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+            <payloadMimeType value="text/xml"/>
+            <address value="https://conformance2.5amsolutions.com/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+        <contained>
+          <Endpoint>
+            <!--Home Community ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="HCID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="2.16.840.1.113883.3.614"/>
+            </identifier>
+            <!--Assigning Authority ID-->
+            <identifier>
+              <use value="official"/>
+              <type>
+                <text value="AAID"/>
+              </type>
+              <system value="http://www.hl7.org/oid/"/>
+              <value value="urn:oid:1.2.3.4.3"/>
+            </identifier>
+            <status value="active"/>
+            <connectionType>
+              <system value="http://hl7.org/fhir/subscription-channel-type"/>
+              <code value="IHE-XCA"/>
+            </connectionType>
+            <name value="Retrieve Documents"/>
+            <managingOrganization/>
+            <payloadType>
+              <coding>
+                <system value="urn:oid:1.3.6.1.4.1.19376.1.2.3"/>
+                <code value="All"/>
+              </coding>
+            </payloadType>
+            <payloadMimeType value="text/xml"/>
+            <address value="https://conformance2.5amsolutions.com/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve"/>
+            <extension url="https://sequoiaproject.org/StructureDefinition/Endpoint/main/1.0.0">
+              <extension url="Transaction">
+                <valueString value="XCA ITI-39"/>
+              </extension>
+              <!--Is this gateway an initiator or responder actor-->
+              <extension url="Actor">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Actor/1.0.0"/>
+                    <display value="Responding Gateway"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Version of the service as per the eHealth Exchange specifications-->
+              <extension url="Version">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Version/1.0.0"/>
+                    <display value="2.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Initiative specific list of use cases supported-->
+              <extension url="UseCases">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/UseCases/1.0.0"/>
+                    <display value="QueryBasedDocumentExchange"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--PurposesOfUse Value Set for SAML header and/or access control-->
+              <extension url="PurposesOfUse">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/PurposesOfUse/1.0.0"/>
+                    <display value="Treatment"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--Roles Value Set for SAML header and/or access control-->
+              <extension url="Roles">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/Roles/1.0.0"/>
+                    <display value="All"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+              <!--IPAs of gateway, may repeat-->
+              <extension url="IPA">
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="https://sequoiaproject.org/StructureDefinition/Endpoint/IPA/1.0.0"/>
+                  </coding>
+                </valueCodeableConcept>
+              </extension>
+            </extension>
+          </Endpoint>
+        </contained>
+      </Organization>
+    </resource>
+  </entry>
+</Bundle>

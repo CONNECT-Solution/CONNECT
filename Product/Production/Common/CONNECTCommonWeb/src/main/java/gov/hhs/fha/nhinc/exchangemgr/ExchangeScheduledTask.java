@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManagerHelper;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
+import gov.hhs.fha.nhinc.exchange.transform.fhir.FHIRTransform;
 import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
 import gov.hhs.fha.nhinc.fhir.FhirClient;
 import gov.hhs.fha.nhinc.fhir.FhirClientException;
@@ -65,12 +66,14 @@ public class ExchangeScheduledTask {
     private boolean hasDownloadOccurred = false;
 
     public void task() {
+        LOG.info("Starting ExchangeSceduleTask");
+        boolean result;
         try {
-            LOG.info("Starting ExchangeSceduleTask");
             ExchangeInfoType exInfo = getExchangeDAO().loadExchangeInfo();
             if (null != exInfo) {
                 for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
-                    hasDownloadOccurred = hasDownloadOccurred || fetchExchangeData(ex);
+                    result = fetchExchangeData(ex);
+                    hasDownloadOccurred = hasDownloadOccurred || result;
                 }
                 if (hasDownloadOccurred) {
                     createFileBackupByRenaming(exInfo.getMaxNumberOfBackups());
@@ -78,8 +81,8 @@ public class ExchangeScheduledTask {
                     getExchangeDAO().saveExchangeInfo(exInfo);
                 }
             }
-        } catch (ExchangeManagerException | UDDIAccessorException | FhirClientException | URISyntaxException ex) {
-            LOG.error("Unable to download from Exchange {}", ex.getLocalizedMessage(), ex);
+        } catch (ExchangeManagerException ex) {
+            LOG.error("Unable to read/write to exchangeInfo file:  {}", ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -91,25 +94,28 @@ public class ExchangeScheduledTask {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    private boolean fetchExchangeData(ExchangeType exchange) throws UDDIAccessorException, FhirClientException,
-        URISyntaxException {
+    private boolean fetchExchangeData(ExchangeType exchange) {
         boolean isDownloaded = false;
-        if (exchange != null) {
-            if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.
-                isNotEmpty(exchange.getUrl())
-                && !exchange.isIsDisabled()) {
-                LOG.info("Starting UDDI download from {}", exchange.getUrl());
-                ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
-                exchange.setOrganizationList(transformer.transform(getUDDIManager().forceRefreshUDDIFile(exchange.
-                    getUrl())));
-                isDownloaded = true;
-            } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.isNotEmpty(
-                exchange.
-                    getUrl()) && !exchange.isIsDisabled()) {
-                LOG.info("Starting FHIR download from {}", exchange.getUrl());
-                LOG.info("Data fetch from FHIR Exchange" + fetchFhirDirectoryData(exchange.getUrl()));
-                isDownloaded = true;
+        try {
+            if (exchange != null) {
+                if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.
+                    isNotEmpty(exchange.getUrl())
+                    && !exchange.isIsDisabled()) {
+                    LOG.info("Starting UDDI download from {}", exchange.getUrl());
+                    ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();
+                    exchange.setOrganizationList(transformer.transform(getUDDIManager().forceRefreshUDDIFile(exchange.
+                        getUrl())));
+                    isDownloaded = true;
+                } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType()) && StringUtils.isNotEmpty(
+                    exchange.getUrl()) && !exchange.isIsDisabled()) {
+                    LOG.info("Starting FHIR download from {}", exchange.getUrl());
+                    ExchangeTransforms<Bundle> transformer = new FHIRTransform();
+                    exchange.setOrganizationList(transformer.transform(fetchFhirDirectoryData(exchange.getUrl())));
+                    isDownloaded = true;
+                }
             }
+        } catch (UDDIAccessorException | FhirClientException | URISyntaxException ex) {
+            LOG.error("Unable to download from Exchange {}", ex.getLocalizedMessage(), ex);
         }
         return isDownloaded;
     }
