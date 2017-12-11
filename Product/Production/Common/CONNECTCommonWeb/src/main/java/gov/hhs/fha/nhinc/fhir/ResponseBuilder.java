@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.fhir;
 
+import com.google.gson.JsonSyntaxException;
 import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
@@ -92,12 +93,11 @@ public class ResponseBuilder {
             if (null != entity && null != entity.getContent()) {
                 instream = entity.getContent();
                 String content = IOUtils.toString(instream);
-                LOG.info("Contents received from FHIR Directory HTTP request:");
-                LOG.info(content);
+                LOG.info("Contents received from FHIR Directory HTTP request {}:", content);
                 IParser parser = getParser(format);
                 return parser.parse(content);
             }
-        } catch (FHIRFormatError | IOException ex) {
+        } catch (JsonSyntaxException | FHIRFormatError | IOException ex) {
             throw new FhirClientException("Unable to parse response, " + ex.getLocalizedMessage(), ex);
         } finally {
             StreamUtils.closeStreamSilently(instream);
