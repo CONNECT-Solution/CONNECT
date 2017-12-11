@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.Locale;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import org.apache.commons.collections.CollectionUtils;
@@ -296,8 +297,8 @@ public class HomeCommunityMap {
 
     public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {
         if (StringUtils.isNotBlank(checkValue)) {
-            final String tempValue = checkValue.trim().toLowerCase();
-            final String tempPrefix = checkPrefix.toLowerCase();
+            final String tempValue = checkValue.trim().toLowerCase(Locale.getDefault());
+            final String tempPrefix = checkPrefix.toLowerCase(Locale.getDefault());
             if (!tempValue.startsWith(tempPrefix)) {
                 LOG.trace("Prefixing communityId with: {}", checkPrefix);
                 return checkPrefix + checkValue;
