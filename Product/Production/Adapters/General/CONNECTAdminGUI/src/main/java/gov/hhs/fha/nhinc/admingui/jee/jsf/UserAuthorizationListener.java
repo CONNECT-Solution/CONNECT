@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.admingui.display.DisplayHolder;
 import gov.hhs.fha.nhinc.admingui.services.RoleService;
 import gov.hhs.fha.nhinc.admingui.services.RoleServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
@@ -59,7 +59,7 @@ public class UserAuthorizationListener implements PhaseListener {
     /**
      * The Constant NO_LOGIN_REQUIRED_PAGES
      */
-    protected static final List<String> NO_LOGIN_REQUIRED_PAGES = new ArrayList<>();
+    protected static final Set<String> NO_LOGIN_REQUIRED_PAGES = new HashSet<>();
 
     /**
      * The Constant USER_INFO_SESSION_ATTRIBUTE.
