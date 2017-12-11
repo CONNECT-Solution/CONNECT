@@ -62,7 +62,6 @@ public class RequestBuilder {
         URI requestUri = new URI(url);
         HttpGet request = new HttpGet(requestUri);
         addRequestHeaders(format, request);
-        LOG.info("Request: {}", request.getRequestLine());
         return request;
     }
 
