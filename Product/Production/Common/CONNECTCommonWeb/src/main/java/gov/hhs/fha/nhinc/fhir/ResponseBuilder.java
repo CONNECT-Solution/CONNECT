@@ -93,7 +93,6 @@ public class ResponseBuilder {
             if (null != entity && null != entity.getContent()) {
                 instream = entity.getContent();
                 String content = IOUtils.toString(instream);
-                LOG.info("Contents received from FHIR Directory HTTP request {}:", content);
                 IParser parser = getParser(format);
                 return parser.parse(content);
             }
