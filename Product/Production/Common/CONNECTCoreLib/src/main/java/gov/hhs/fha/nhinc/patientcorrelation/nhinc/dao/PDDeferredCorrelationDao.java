@@ -83,7 +83,7 @@ public class PDDeferredCorrelationDao {
                 LOG.debug("Completed database record retrieve by message id. Results found: {}",
                     pdCorrelations == null ? "0" : Integer.toString(pdCorrelations.size()));
             }
-        } catch (HibernateException ex) {
+        } catch (HibernateException | NullPointerException ex) {
             LOG.error("Error encounter during the queryByMessageId: {}", ex.getLocalizedMessage(), ex);
         } finally {
             closeSession(sess);
@@ -144,7 +144,7 @@ public class PDDeferredCorrelationDao {
                 sess.saveOrUpdate(pdCorrelation);
             }
             trans.commit();
-        } catch (HibernateException ex) {
+        } catch (HibernateException | NullPointerException ex) {
             rollbackTransaction(trans);
             LOG.error("Error encounter during the saveOrUpdate-correlation: {}", ex.getLocalizedMessage(), ex);
         } finally {
@@ -154,7 +154,7 @@ public class PDDeferredCorrelationDao {
         LOG.debug("PDDeferredCorrelationDao.save() - End");
     }
 
-    protected Session getSession() throws HibernateException {
+    protected Session getSession() {
         HibernateUtil util = HibernateUtilFactory.getPatientCorrHibernateUtil();
         if (null == util) {
             LOG.error("Session factory was null");

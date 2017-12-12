@@ -63,42 +63,16 @@ public class Storer {
     private static void localUpdatePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
 
-        Session sess = null;
-        Transaction trans = null;
         CorrelatedIdentifiers singleRecord = Retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
         singleRecord.setCorrelationExpirationDate(correlatedIdentifers.getCorrelationExpirationDate());
+        GenericDBUtils.save(getSession(), singleRecord);
 
-        try {
-            sess = getSession();
-            trans = sess.beginTransaction();
-            sess.saveOrUpdate(singleRecord);
-            trans.commit();
-        } catch (HibernateException he) {
-            GenericDBUtils.rollbackTransaction(trans);
-            LOG.error("Error encounter during the localUpdatePatientCorrelation: {}", he.getLocalizedMessage(), he);
-        } finally {
-            closeSession(sess);
-        }
         LOG.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
     }
 
     private static void localAddPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.addPatientCorrelation() ---");
-
-        Session sess = null;
-        Transaction trans = null;
-
-        try {
-            sess = getSession();
-            trans = sess.beginTransaction();
-            sess.saveOrUpdate(correlatedIdentifers);
-            trans.commit();
-        } catch (HibernateException he) {
-            GenericDBUtils.rollbackTransaction(trans);
-            LOG.error("Error encounter during the localAddPatientCorrelation: {}", he.getLocalizedMessage(), he);
-        } finally {
-            closeSession(sess);
-        }
+        GenericDBUtils.save(getSession(), correlatedIdentifers);
         LOG.debug("-- End CorrelatedIdentifiersDao.addPatientCorrelation() ---");
     }
 
@@ -123,34 +97,31 @@ public class Storer {
         String paramCorrelatedPatientId = correlatedIdentifers.getCorrelatedPatientId();
         try {
             sess = getSession();
-            trans = sess.beginTransaction();
-            Query query = sess.createSQLQuery(deleteCorrelatedIdentifiersSQL);
-            query.setString("patientAssigningAuthority", paramPatientAssigningAuthority);
-            query.setString("patientId", paramPatientId);
-            query.setString("correlatedPatientAssignAuthId", paramCorrelatedPatientAssignAuthId);
-            query.setString("correlatedPatientId", paramCorrelatedPatientId);
-            // delete the rows
-            int rowsDeleted = query.executeUpdate();
-            // commit the trasaction
-            trans.commit();
-            if (rowsDeleted != 0) {
-                LOG.debug("Total Rows Deleted from table correlatedidentifiers -->" + rowsDeleted);
+            if (null != sess) {
+                trans = sess.beginTransaction();
+                Query query = sess.createSQLQuery(deleteCorrelatedIdentifiersSQL);
+                query.setString("patientAssigningAuthority", paramPatientAssigningAuthority);
+                query.setString("patientId", paramPatientId);
+                query.setString("correlatedPatientAssignAuthId", paramCorrelatedPatientAssignAuthId);
+                query.setString("correlatedPatientId", paramCorrelatedPatientId);
+                // delete the rows
+                int rowsDeleted = query.executeUpdate();
+                // commit the trasaction
+                trans.commit();
+                if (rowsDeleted != 0) {
+                    LOG.debug("Total Rows Deleted from table correlatedidentifiers -->" + rowsDeleted);
+                }
             }
-
-        } catch (HibernateException he) {
+        } catch (HibernateException | NullPointerException ex) {
             GenericDBUtils.rollbackTransaction(trans);
-            LOG.error("error encounter during the removePatientCorrelation: {}", he.getLocalizedMessage(), he);
+            LOG.error("error encounter during the removePatientCorrelation: {}", ex.getLocalizedMessage(), ex);
         } finally {
             closeSession(sess);
         }
         LOG.debug("-- End CorrelatedIdentifiersDao.removePatientCorrelation() ---");
     }
 
-    /*
-     * protected static HibernateUtil getHibernateUtil() { return HibernateUtilFactory.getPatientCorrHibernateUtil(); }
-     */
-
-    protected static Session getSession() throws HibernateException {
+    protected static Session getSession() {
         HibernateUtil util = HibernateUtilFactory.getPatientCorrHibernateUtil();
         if (null == util) {
             LOG.error("Session factory was null");
