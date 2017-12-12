@@ -45,15 +45,12 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Tran Tang
  *
  */
 public class HelperUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(HelperUtil.class);
 
     /*
      * Utility class-private constructor
