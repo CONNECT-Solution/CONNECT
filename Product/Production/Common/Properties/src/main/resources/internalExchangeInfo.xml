@@ -4,6 +4,8 @@
     <exchanges>
         <exchange type="local">
             <name>adapter</name>
+            <disabled>true</disabled>
+            <lastUpdated></lastUpdated>
             <organizationList>
                 <organization>
                     <ns2:name>Gateway 1</ns2:name>

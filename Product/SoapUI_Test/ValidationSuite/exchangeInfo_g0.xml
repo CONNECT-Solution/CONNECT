@@ -8,6 +8,7 @@
       <name>Exchange 1</name>
       <url>https://testurl/uddi/list</url>
       <disabled>true</disabled>
+      <lastUpdated></lastUpdated>
       <organizationList>
         <organization>
           <ns2:name>DoD</ns2:name>
