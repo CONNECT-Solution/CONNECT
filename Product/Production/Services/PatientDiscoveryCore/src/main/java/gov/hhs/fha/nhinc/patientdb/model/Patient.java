@@ -39,7 +39,6 @@ import org.apache.commons.collections.CollectionUtils;
  *
  * @author richard.ettema
  */
-
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = -5941897049106149743L;
@@ -48,57 +47,49 @@ public class Patient implements Serializable {
      *
      * Attribute patientId.
      */
-
     private Long patientId;
 
     /**
      *
      * Attribute dateOfBirth.
      */
-
     private Timestamp dateOfBirth;
 
     /**
      *
      * Attribute gender.
      */
-
     private String gender;
 
     /**
      *
      * Attribute ssn.
      */
-
     private String ssn;
 
     /**
      *
      * List of Addresses
      */
-
-    private List<Address> addresses = null;
+    private List<Address> addresses;
 
     /**
      *
      * List of Identifiers
      */
-
-    private List<Identifier> identifiers = null;
+    private List<Identifier> identifiers;
 
     /**
      *
      * List of Personnames
      */
-
-    private List<Personname> personnames = null;
+    private List<Personname> personnames;
 
     /**
      *
      * List of Phonenumbers
      */
-
-    private List<Phonenumber> phonenumbers = null;
+    private List<Phonenumber> phonenumbers;
 
     private int nameIndex = 0;
     private int identifierIndex = 0;
@@ -121,7 +112,6 @@ public class Patient implements Serializable {
      *
      * @return patientId
      */
-
     public Long getPatientId() {
 
         return patientId;
@@ -132,7 +122,6 @@ public class Patient implements Serializable {
      *
      * @param patientId new value for patientId
      */
-
     public void setPatientId(Long patientId) {
 
         this.patientId = patientId;
@@ -143,7 +132,6 @@ public class Patient implements Serializable {
      *
      * @return dateOfBirth
      */
-
     public Timestamp getDateOfBirth() {
 
         return dateOfBirth;
@@ -154,7 +142,6 @@ public class Patient implements Serializable {
      *
      * @param dateOfBirth new value for dateOfBirth
      */
-
     public void setDateOfBirth(Timestamp dateOfBirth) {
 
         this.dateOfBirth = dateOfBirth;
@@ -165,7 +152,6 @@ public class Patient implements Serializable {
      *
      * @return gender
      */
-
     public String getGender() {
 
         return gender;
@@ -176,7 +162,6 @@ public class Patient implements Serializable {
      *
      * @param gender new value for gender
      */
-
     public void setGender(String gender) {
 
         this.gender = gender;
@@ -187,7 +172,6 @@ public class Patient implements Serializable {
      *
      * @return ssn
      */
-
     public String getSsn() {
 
         return ssn;
@@ -198,7 +182,6 @@ public class Patient implements Serializable {
      *
      * @param ssn new value for ssn
      */
-
     public void setSsn(String ssn) {
 
         this.ssn = ssn;
@@ -209,7 +192,6 @@ public class Patient implements Serializable {
      *
      * Get the list of Addresses
      */
-
     public List<Address> getAddresses() {
 
         if (addresses == null) {
@@ -226,7 +208,6 @@ public class Patient implements Serializable {
      *
      * Set the list of Addresses
      */
-
     public void setAddresses(List<Address> addresses) {
 
         this.addresses = addresses;
@@ -237,7 +218,6 @@ public class Patient implements Serializable {
      *
      * Get the list of Identifiers
      */
-
     public List<Identifier> getIdentifiers() {
 
         if (identifiers == null) {
@@ -254,7 +234,6 @@ public class Patient implements Serializable {
      *
      * Set the list of Identifiers
      */
-
     public void setIdentifiers(List<Identifier> identifiers) {
 
         this.identifiers = identifiers;
@@ -265,7 +244,6 @@ public class Patient implements Serializable {
      *
      * Get the list of Personnames
      */
-
     public List<Personname> getPersonnames() {
 
         if (personnames == null) {
@@ -282,7 +260,6 @@ public class Patient implements Serializable {
      *
      * Set the list of Personnames
      */
-
     public void setPersonnames(List<Personname> personnames) {
 
         this.personnames = personnames;
@@ -293,7 +270,6 @@ public class Patient implements Serializable {
      *
      * Get the list of Phonenumbers
      */
-
     public List<Phonenumber> getPhonenumbers() {
 
         if (phonenumbers == null) {
@@ -310,7 +286,6 @@ public class Patient implements Serializable {
      *
      * Set the list of Phonenumbers
      */
-
     public void setPhonenumbers(List<Phonenumber> phonenumbers) {
 
         this.phonenumbers = phonenumbers;
@@ -433,11 +408,11 @@ public class Patient implements Serializable {
         nameIndex = CollectionUtils.isNotEmpty(getPersonnames()) ? personnames.size() - 1 : 0;
         identifierIndex = CollectionUtils.isNotEmpty(getIdentifiers()) ? identifiers.size() - 1 : 0;
 
-        return new long[] { patientId, personnames != null ? (long) personnames.size() : 0,
-                identifiers != null ? (long) identifiers.size() : 0,
-                // Optional
-                addresses != null && allRecords ? (long) addresses.size() : 0,
-                phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0 };
+        return new long[]{patientId, personnames != null ? (long) personnames.size() : 0,
+            identifiers != null ? (long) identifiers.size() : 0,
+            // Optional
+            addresses != null && allRecords ? (long) addresses.size() : 0,
+            phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0};
     }
 
 }

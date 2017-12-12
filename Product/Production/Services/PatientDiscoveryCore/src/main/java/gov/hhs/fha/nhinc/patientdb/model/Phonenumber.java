@@ -34,35 +34,32 @@ import java.io.Serializable;
  *
  * @author richard.ettema
  */
-
 public class Phonenumber implements Serializable {
+
+    private static final long serialVersionUID = -8179798064168982080L;
 
     /**
      *
      * Attribute phonenumberId.
      */
-
     private Long phonenumberId;
 
     /**
      *
      * Attribute patient.
      */
-
     private Patient patient;
 
     /**
      *
      * Attribute value.
      */
-
     private String value;
 
     /**
      *
      * @return phonenumberId
      */
-
     public Long getPhonenumberId() {
 
         return phonenumberId;
@@ -73,7 +70,6 @@ public class Phonenumber implements Serializable {
      *
      * @param phonenumberId new value for phonenumberId
      */
-
     public void setPhonenumberId(Long phonenumberId) {
 
         this.phonenumberId = phonenumberId;
@@ -84,7 +80,6 @@ public class Phonenumber implements Serializable {
      *
      * @return patient
      */
-
     public Patient getPatient() {
 
         if (this.patient == null) {
@@ -101,7 +96,6 @@ public class Phonenumber implements Serializable {
      *
      * @param patient new value for patient
      */
-
     public void setPatient(Patient patient) {
 
         this.patient = patient;
@@ -112,7 +106,6 @@ public class Phonenumber implements Serializable {
      *
      * @return value
      */
-
     public String getValue() {
 
         return value;
@@ -123,7 +116,6 @@ public class Phonenumber implements Serializable {
      *
      * @param value new value for value
      */
-
     public void setValue(String value) {
 
         this.value = value;

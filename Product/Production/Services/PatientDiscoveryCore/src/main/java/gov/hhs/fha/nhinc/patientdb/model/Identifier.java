@@ -34,42 +34,38 @@ import java.io.Serializable;
  *
  * @author richard.ettema
  */
-
 public class Identifier implements Serializable {
+
+    private static final long serialVersionUID = 5599130866061135046L;
 
     /**
      *
      * Attribute identifierId.
      */
-
     private Long identifierId;
 
     /**
      *
      * Attribute patient.
      */
-
     private Patient patient;
 
     /**
      *
      * Attribute id.
      */
-
     private String id;
 
     /**
      *
      * Attribute organizationId.
      */
-
     private String organizationId;
 
     /**
      *
      * @return identifierId
      */
-
     public Long getIdentifierId() {
 
         return identifierId;
@@ -80,7 +76,6 @@ public class Identifier implements Serializable {
      *
      * @param identifierId new value for identifierId
      */
-
     public void setIdentifierId(Long identifierId) {
 
         this.identifierId = identifierId;
@@ -91,7 +86,6 @@ public class Identifier implements Serializable {
      *
      * @return patient
      */
-
     public Patient getPatient() {
 
         if (this.patient == null) {
@@ -108,7 +102,6 @@ public class Identifier implements Serializable {
      *
      * @param patient new value for patient
      */
-
     public void setPatient(Patient patient) {
 
         this.patient = patient;
@@ -119,7 +112,6 @@ public class Identifier implements Serializable {
      *
      * @return id
      */
-
     public String getId() {
 
         return id;
@@ -130,7 +122,6 @@ public class Identifier implements Serializable {
      *
      * @param id new value for id
      */
-
     public void setId(String id) {
 
         this.id = id;
@@ -141,7 +132,6 @@ public class Identifier implements Serializable {
      *
      * @return organizationId
      */
-
     public String getOrganizationId() {
 
         return organizationId;
@@ -152,7 +142,6 @@ public class Identifier implements Serializable {
      *
      * @param organizationId new value for organizationId
      */
-
     public void setOrganizationId(String organizationId) {
 
         this.organizationId = organizationId;
@@ -160,12 +149,10 @@ public class Identifier implements Serializable {
     }
 
     // Helper getter methods
-
     /**
      *
      * @return hl7UniquePatientId
      */
-
     public String getHl7UniquePatientId() {
 
         String hl7UniquePatientId = "";
