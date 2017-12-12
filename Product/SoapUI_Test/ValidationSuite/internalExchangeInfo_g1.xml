@@ -5,6 +5,7 @@
     <exchange type="local">
       <name>adapter</name>
       <disabled>true</disabled>
+      <lastUpdated></lastUpdated>
       <organizationList>
         <organization>
           <ns2:name>DoD</ns2:name>

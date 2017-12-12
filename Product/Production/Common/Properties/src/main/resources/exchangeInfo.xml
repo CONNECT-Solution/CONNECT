@@ -8,6 +8,7 @@
       <name>Exchange 1</name>
       <url>https://registry-vs.nhinonline.net/uddi/inquiry</url>
       <disabled>true</disabled>
+      <lastUpdated></lastUpdated>
       <organizationList>
         <organization>
           <ns2:name>Gateway 1</ns2:name>
@@ -319,6 +320,7 @@
       <name>Exchange 2</name>
       <url>https://34.208.200.208/fhir-stu3/1.0.0/Organization/?_format=json&amp;apikey=testKey</url>
       <disabled>true</disabled>
+      <lastUpdated></lastUpdated>
     </exchange>
   </exchanges>
 </exchangeInfo>
