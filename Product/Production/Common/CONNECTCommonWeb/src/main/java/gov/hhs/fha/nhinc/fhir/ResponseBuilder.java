@@ -40,8 +40,6 @@ import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.dstu3.model.OperationOutcome;
 import org.hl7.fhir.dstu3.model.Resource;
 import org.hl7.fhir.exceptions.FHIRFormatError;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -49,8 +47,6 @@ import org.springframework.http.HttpStatus;
  * @author tjafri
  */
 public class ResponseBuilder {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ResponseBuilder.class);
 
     private ResponseBuilder() {
     }
