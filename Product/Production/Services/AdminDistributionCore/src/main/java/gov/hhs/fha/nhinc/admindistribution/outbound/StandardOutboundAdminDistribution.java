@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
 public class StandardOutboundAdminDistribution implements OutboundAdminDistribution {
 
     private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundAdminDistribution.class);
-    private final AdminDistributionAuditLogger auditLogger = null;
+    private AdminDistributionAuditLogger auditLogger = null;
     private final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     /**
@@ -67,7 +67,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class, afterReturningBuilder
-        = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
+    = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
         NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType unsecured = msgUtils.convertToUnsecured(message,
@@ -84,7 +84,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class, afterReturningBuilder
-        = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
+    = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
         NhinTargetCommunitiesType target) {
         auditMessage(message, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
@@ -130,7 +130,10 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      * @return auditLogger to audit.
      */
     protected AdminDistributionAuditLogger getAuditLogger() {
-        return auditLogger != null ? auditLogger : new AdminDistributionAuditLogger();
+        if (null == auditLogger) {
+            auditLogger = new AdminDistributionAuditLogger();
+        }
+        return auditLogger;
     }
 
     private NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {

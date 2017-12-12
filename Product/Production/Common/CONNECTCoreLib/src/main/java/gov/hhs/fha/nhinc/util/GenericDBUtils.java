@@ -57,6 +57,16 @@ public class GenericDBUtils {
         }
     }
 
+    public static void rollbackTransaction(Transaction transaction) {
+        if (transaction != null) {
+            try {
+                transaction.rollback();
+            } catch (HibernateException ex) {
+                LOG.error("There an error while rolling back the hibernate-transaction: {} ", ex.getMessage(), ex);
+            }
+        }
+    }
+
     public static <T> boolean save(Session session, T entity) {
         List<T> entities = new ArrayList();
         entities.add(entity);

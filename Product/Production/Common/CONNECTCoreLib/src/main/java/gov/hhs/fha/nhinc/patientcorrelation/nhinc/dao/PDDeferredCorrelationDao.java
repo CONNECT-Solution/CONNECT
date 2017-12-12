@@ -26,11 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.closeSession;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.rollbackTransaction;
+
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.PDDeferredCorrelation;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -55,48 +59,34 @@ public class PDDeferredCorrelationDao {
      * @return matching records
      */
     public II queryByMessageId(String messageId) {
-        LOG.debug("Performing database record retrieve using message id: " + messageId);
+        LOG.debug("Performing database record retrieve using message id: {}", messageId);
 
-        List<PDDeferredCorrelation> pdCorrelations = null;
         Session sess = null;
         II patientId = null;
 
         try {
-            SessionFactory fact = getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryByMessageId");
-                    query.setParameter("MessageId", messageId);
-                    pdCorrelations = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            Query query = sess.getNamedQuery("queryByMessageId");
+            query.setParameter("MessageId", messageId);
+            List<PDDeferredCorrelation> pdCorrelations = query.list();
+
+            if (CollectionUtils.isNotEmpty(pdCorrelations) && pdCorrelations.size() == 1) {
+                PDDeferredCorrelation pdCorrelation = pdCorrelations.get(0);
+                patientId = new II();
+                patientId.setExtension(pdCorrelation.getPatientId());
+                patientId.setRoot(pdCorrelation.getAssigningAuthorityId());
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to find a unique patient id with the given message id {}", messageId);
             }
 
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Completed database record retrieve by message id. Results found: "
-                        + (pdCorrelations == null ? "0" : Integer.toString(pdCorrelations.size())));
+                LOG.debug("Completed database record retrieve by message id. Results found: {}",
+                    pdCorrelations == null ? "0" : Integer.toString(pdCorrelations.size()));
             }
+        } catch (HibernateException ex) {
+            LOG.error("Error encounter during the queryByMessageId: {}", ex.getLocalizedMessage(), ex);
         } finally {
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
-        }
-
-        if (pdCorrelations == null || pdCorrelations.size() != 1) {
-            LOG.error("Failed to find a unique patient id with the given message id {}", messageId);
-        } else {
-            PDDeferredCorrelation pdCorrelation = pdCorrelations.get(0);
-            patientId = new II();
-            patientId.setExtension(pdCorrelation.getPatientId());
-            patientId.setRoot(pdCorrelation.getAssigningAuthorityId());
+            closeSession(sess);
         }
 
         return patientId;
@@ -140,59 +130,44 @@ public class PDDeferredCorrelationDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    trans = sess.beginTransaction();
+            sess = getSession();
+            trans = sess.beginTransaction();
+            Query query = sess.getNamedQuery("queryByMessageId");
+            query.setParameter("MessageId", pdCorrelation.getMessageId());
+            List<PDDeferredCorrelation> pdCorrelations = query.list();
 
-                    Query query = sess.getNamedQuery("queryByMessageId");
-                    query.setParameter("MessageId", pdCorrelation.getMessageId());
-                    List<PDDeferredCorrelation> pdCorrelations = query.list();
-                    if (pdCorrelations != null && pdCorrelations.size() == 1) {
-                        PDDeferredCorrelation updatedPdCorrelation = pdCorrelations.get(0);
-                        copyValues(pdCorrelation, updatedPdCorrelation);
-                        sess.saveOrUpdate(updatedPdCorrelation);
-                    } else {
-                        sess.saveOrUpdate(pdCorrelation);
-                    }
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            if (CollectionUtils.isNotEmpty(pdCorrelations) && pdCorrelations.size() == 1) {
+                PDDeferredCorrelation updatedPdCorrelation = pdCorrelations.get(0);
+                copyValues(pdCorrelation, updatedPdCorrelation);
+                sess.saveOrUpdate(updatedPdCorrelation);
             } else {
-                LOG.error("Session factory was null");
+                sess.saveOrUpdate(pdCorrelation);
             }
+            trans.commit();
+        } catch (HibernateException ex) {
+            rollbackTransaction(trans);
+            LOG.error("Error encounter during the saveOrUpdate-correlation: {}", ex.getLocalizedMessage(), ex);
         } finally {
-            if (trans != null) {
-                try {
-                    trans.commit();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to commit transaction: {}", he.getMessage(), he);
-                }
-            }
-            if (sess != null) {
-                try {
-                    sess.close();
-                } catch (HibernateException he) {
-                    LOG.error("Failed to close session: {}", he.getMessage(), he);
-                }
-            }
+            closeSession(sess);
         }
 
         LOG.debug("PDDeferredCorrelationDao.save() - End");
     }
 
-    /**
-     * Gets the session factory belonging to Patient Correlation HibernateUtil
-     *
-     * @return sessionFactory
-     */
-    protected SessionFactory getSessionFactory() {
-        SessionFactory fact = null;
+    protected Session getSession() throws HibernateException {
         HibernateUtil util = HibernateUtilFactory.getPatientCorrHibernateUtil();
-        if (util != null) {
-            fact = util.getSessionFactory();
+        if (null == util) {
+            LOG.error("Session factory was null");
+            return null;
         }
-        return fact;
+
+        SessionFactory fact = null;
+        fact = util.getSessionFactory();
+        if (null == fact) {
+            LOG.error("Failed to obtain a session from the sessionFactory");
+            return null;
+        }
+
+        return fact.openSession();
     }
 }
