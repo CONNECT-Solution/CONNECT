@@ -40,25 +40,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Tran Tang
  *
  */
 public class HelperUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(HelperUtil.class);
-    private static final String ENCRYPTION_KEY = "MZygpewJsCpRrfOr";
-    private static final String CRYPTO_VALUE = "Blowfish";
 
     /*
      * Utility class-private constructor
@@ -139,47 +131,6 @@ public class HelperUtil {
 
     public static Map<String, Object> getHttpSessionMap() {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-    }
-
-    public static String encryptToKey(String strClearText, String strKey) {
-        String strData = "";
-        if (StringUtils.isNotEmpty(strClearText)) {
-            try {
-                SecretKeySpec skeyspec = new SecretKeySpec(strKey.getBytes(), CRYPTO_VALUE);
-                Cipher cipher = Cipher.getInstance(CRYPTO_VALUE);
-                cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
-                byte[] encrypted = cipher.doFinal(strClearText.getBytes());
-                strData = new String(encrypted);
-
-            } catch (Exception e) {
-                LOG.error("Encryption Error while encryptToKey: {} ", e.getMessage(), e);
-            }
-        }
-        return strData;
-    }
-
-    public static String decryptToKey(String strEncrypted, String strKey) {
-        String strData = "";
-        if (StringUtils.isNotEmpty(strEncrypted)) {
-            try {
-                SecretKeySpec skeyspec = new SecretKeySpec(strKey.getBytes(), CRYPTO_VALUE);
-                Cipher cipher = Cipher.getInstance(CRYPTO_VALUE);
-                cipher.init(Cipher.DECRYPT_MODE, skeyspec);
-                byte[] decrypted = cipher.doFinal(strEncrypted.getBytes());
-                strData = new String(decrypted);
-            } catch (Exception e) {
-                LOG.error("Encryption Error while decryptToKey: {} ", e.getMessage(), e);
-            }
-        }
-        return strData;
-    }
-
-    public static String encrypt(String strClearText) {
-        return encryptToKey(strClearText, ENCRYPTION_KEY);
-    }
-
-    public static String decrypt(String strEncrypted) {
-        return decryptToKey(strEncrypted, ENCRYPTION_KEY);
     }
 
     // facesMessages
