@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
-
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
@@ -62,6 +61,7 @@ import org.springframework.stereotype.Component;
 @SessionScoped
 @Component
 public class LoadTestDataDocumentBean {
+
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataDocumentBean.class);
     private static final String DOCUMENT = "Document Info";
     private static final String EVENT_CODE = " an Eventcode";
@@ -102,7 +102,7 @@ public class LoadTestDataDocumentBean {
     // database-methods
     public List<Document> getDocuments() {
         List<Document> documents = loadTestDataService.getAllDocuments();
-        Map<Long, Patient> lookupPatient = mapPatientById(loadTestDataService.getCachePatients());
+        Map<Long, Patient> lookupPatient = mapPatientById(loadTestDataService.getAllPatients());
         for (Document doc : documents) {
             if (doc.getPatientRecordId() != null) {
                 doc.setPatientIdentifier(lookupPatient.get(doc.getPatientRecordId()).getPatientIdentifier());
@@ -248,7 +248,7 @@ public class LoadTestDataDocumentBean {
     }
 
     public Map<String, String> getListPatientId() {
-        return HelperUtil.populateListPatientId(loadTestDataService.getCachePatients());
+        return HelperUtil.populateListPatientId(loadTestDataService.getAllPatients());
     }
 
     public Map<String, String> getListStatusType() {

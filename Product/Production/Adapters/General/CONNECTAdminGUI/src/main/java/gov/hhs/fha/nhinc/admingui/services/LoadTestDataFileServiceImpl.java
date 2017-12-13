@@ -40,7 +40,6 @@ import java.util.List;
  *
  * @author PVenkatakrishnan
  */
-
 public class LoadTestDataFileServiceImpl implements LoadTestDataService {
 
     private static final String OPERATION_NOT_SUPPORTED = "Operation not supported.";
@@ -197,11 +196,6 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
 
     @Override
     public Patient duplicatePatient(Long id) {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-    }
-
-    @Override
-    public List<Patient> getCachePatients() {
         throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
     }
 }
