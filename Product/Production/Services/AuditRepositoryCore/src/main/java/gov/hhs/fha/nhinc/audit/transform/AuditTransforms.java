@@ -197,7 +197,7 @@ public abstract class AuditTransforms<T, K> {
         // Create Active Participant Section
         // create a method to call the AuditDataTransformHelper - one expectation
         ActiveParticipant participant = createActiveParticipantFromUser(oUserInfo);
-        if (oUserInfo.getRoleCoded() != null) {
+        if (oUserInfo != null && oUserInfo.getRoleCoded() != null) {
             participant.getRoleIDCode()
                 .add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
                     oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
@@ -212,9 +212,8 @@ public abstract class AuditTransforms<T, K> {
             isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventId, isRequesting);
-        oEventIdentificationType.getEventTypeCode()
-            .add(AuditDataTransformHelper.createCodeValueType(getServiceEventTypeCode(), null,
-                getServiceEventTypeCodeSystem(), getServiceEventTypeCodeDisplayName()));
+        oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(
+            getServiceEventTypeCode(), null, getServiceEventTypeCodeSystem(), getServiceEventTypeCodeDisplayName()));
 
         return oEventIdentificationType;
     }
@@ -291,8 +290,8 @@ public abstract class AuditTransforms<T, K> {
         String ipOrHost = isRequesting ? getLocalHostAddress() : getRemoteHostAddress(webContextProperties);
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        participant.setUserID(
-            isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
+        participant
+            .setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
         participant.setNetworkAccessPointID(ipOrHost);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
         participant.getRoleIDCode()
@@ -351,10 +350,9 @@ public abstract class AuditTransforms<T, K> {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
         participant.setUserIsRequestor(Boolean.FALSE);
-        participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+        participant.getRoleIDCode().add(
+            AuditDataTransformHelper.createCodeValueType(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST,
+                null, AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
                 AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
 
         return participant;

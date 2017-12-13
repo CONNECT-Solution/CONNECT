@@ -89,8 +89,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
     }
 
     private static String getHomeCommunityID(BusinessEntity entity) {
-        if (entity.getIdentifierBag() != null && CollectionUtils.isNotEmpty(entity.getIdentifierBag().
-            getKeyedReference())) {
+        if (entity != null && entity.getIdentifierBag() != null
+            && CollectionUtils.isNotEmpty(entity.getIdentifierBag().getKeyedReference())) {
             for (KeyedReference key : entity.getIdentifierBag().getKeyedReference()) {
                 if (UDDIConstants.UDDI_HOME_COMMUNITY_ID_KEY.equalsIgnoreCase(key.getTModelKey())) {
                     return key.getKeyValue();
@@ -102,8 +102,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private void buildEndpointList(BusinessEntity entity, OrganizationType org) {
         EndpointListType epListType;
-        if (null != entity.getBusinessServices() && CollectionUtils.isNotEmpty(entity.getBusinessServices().
-            getBusinessService())) {
+        if (null != entity.getBusinessServices()
+            && CollectionUtils.isNotEmpty(entity.getBusinessServices().getBusinessService())) {
             epListType = new EndpointListType();
             for (BusinessService service : entity.getBusinessServices().getBusinessService()) {
                 buildServiceEndpoints(service, epListType);
@@ -124,8 +124,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
     }
 
     private void buildServiceEndpoints(BusinessService service, EndpointListType epListType) {
-        if (service != null && service.getBindingTemplates() != null && CollectionUtils.isNotEmpty(service.
-            getBindingTemplates().getBindingTemplate())) {
+        if (service != null && service.getBindingTemplates() != null
+            && CollectionUtils.isNotEmpty(service.getBindingTemplates().getBindingTemplate())) {
             EndpointType endpoint = new EndpointType();
             buildDescription(service, endpoint);
             buildServiceName(service, endpoint);
@@ -155,7 +155,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
     }
 
     private static void buildServiceName(BusinessService service, EndpointType endpoint) {
-        if (service.getCategoryBag() != null && CollectionUtils.isNotEmpty(service.getCategoryBag().getKeyedReference())) {
+        if (service.getCategoryBag() != null
+            && CollectionUtils.isNotEmpty(service.getCategoryBag().getKeyedReference())) {
             List<String> serviceNames = new ArrayList<>();
             for (KeyedReference reference : service.getCategoryBag().getKeyedReference()) {
                 if (UDDIConstants.UDD_SERVICE_NAMES_KEY.equals(reference.getTModelKey())) {
@@ -183,8 +184,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private static List<String> getServiceVersion(BindingTemplate bTemplate) {
         List<String> versions = null;
-        if (bTemplate.getCategoryBag() != null && CollectionUtils.isNotEmpty(bTemplate.getCategoryBag().
-            getKeyedReference())) {
+        if (bTemplate.getCategoryBag() != null
+            && CollectionUtils.isNotEmpty(bTemplate.getCategoryBag().getKeyedReference())) {
             versions = new ArrayList<>();
             for (KeyedReference keyRef : bTemplate.getCategoryBag().getKeyedReference()) {
                 if (UDDIConstants.UDDI_SPEC_VERSION_KEY.equalsIgnoreCase(keyRef.getTModelKey())
@@ -215,7 +216,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private static void buildTargetRegions(BusinessEntity entity, OrganizationType org) {
         List<String> regions;
-        if (entity.getCategoryBag() != null && CollectionUtils.isNotEmpty(entity.getCategoryBag().getKeyedReference())) {
+        if (entity.getCategoryBag() != null
+            && CollectionUtils.isNotEmpty(entity.getCategoryBag().getKeyedReference())) {
             regions = new ArrayList<>();
             for (KeyedReference keyRef : entity.getCategoryBag().getKeyedReference()) {
                 if (UDDIConstants.UDDI_STATE_KEY.equalsIgnoreCase(keyRef.getTModelKey())) {

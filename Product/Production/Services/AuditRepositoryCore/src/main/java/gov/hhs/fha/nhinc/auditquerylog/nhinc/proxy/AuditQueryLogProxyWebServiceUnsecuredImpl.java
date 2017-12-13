@@ -73,12 +73,13 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
         try {
 
             CONNECTClient<AuditQueryLogPortType> client = getCONNECTClient(getQueryAuditEventsPortDescriptor());
-            response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class, QUERY_AUDIT_EVENTS,
-                    request);
-
+            if (client != null) {
+                response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class,
+                    QUERY_AUDIT_EVENTS, request);
+            }
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
         }
         return response;
     }
@@ -91,18 +92,19 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
      */
     @Override
     public QueryAuditEventsResponseType retrieveAuditsByMsgIdAndRelatesToId(
-            QueryAuditEventsRequestByRequestMessageId request) {
+        QueryAuditEventsRequestByRequestMessageId request) {
         QueryAuditEventsResponseType response = null;
         try {
 
             CONNECTClient<AuditQueryLogPortType> client = getCONNECTClient(
-                    getQueryAuditEventsByMessageIdAndRelatesToPortDescriptor());
-            response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class,
+                getQueryAuditEventsByMessageIdAndRelatesToPortDescriptor());
+            if (client != null) {
+                response = (QueryAuditEventsResponseType) client.invokePort(AuditQueryLogPortType.class,
                     QUERY_AUDIT_EVENTS_BY_MSG_RELATESTO_ID, request);
-
+            }
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
         }
         return response;
     }
@@ -118,12 +120,13 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
         try {
 
             CONNECTClient<AuditQueryLogPortType> client = getCONNECTClient(getQueryAuditEventsByIdPortDescriptor());
-            response = (QueryAuditEventsBlobResponse) client.invokePort(AuditQueryLogPortType.class,
+            if (client != null) {
+                response = (QueryAuditEventsBlobResponse) client.invokePort(AuditQueryLogPortType.class,
                     QUERY_AUDIT_EVENTS_BY_ID, request);
-
+            }
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
         }
         return response;
     }
@@ -134,17 +137,17 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
             url = proxyHelper.getUrlLocalHomeCommunity(NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Error while retrieving url for {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
             return url;
         } catch (Exception ex) {
             LOG.error("Failed to call the web service {}: {}", NhincConstants.ADAPTER_AUDIT_QUERY_LOG_SERVICE_NAME,
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
         }
         return url;
     }
 
     private CONNECTClient<AuditQueryLogPortType> getCONNECTClient(
-            ServicePortDescriptor<AuditQueryLogPortType> portDescriptor) {
+        ServicePortDescriptor<AuditQueryLogPortType> portDescriptor) {
 
         String url = getAdapterQueryLogUnsecuredSerrviceUrl();
         CONNECTClient<AuditQueryLogPortType> client = null;

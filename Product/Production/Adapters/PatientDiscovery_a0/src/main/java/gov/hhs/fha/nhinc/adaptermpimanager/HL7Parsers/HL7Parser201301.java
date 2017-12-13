@@ -229,14 +229,20 @@ public class HL7Parser201301 {
     }
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201301UV02Patient patient) {
+        if (patient == null) {
+            return null;
+        }
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = patient.getPatientPerson();
+        if (null == patientPersonElement) {
+            return null;
+        }
         return patientPersonElement.getValue();
     }
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
         PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
-        return ExtractHL7PatientPersonFromHL7Patient(patient);
+            return ExtractHL7PatientPersonFromHL7Patient(patient);
     }
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
@@ -298,14 +304,18 @@ public class HL7Parser201301 {
     public static Patient ExtractMpiPatientFromHL7Patient(PRPAMT201301UV02Patient patient) {
         PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
         Patient mpiPatient = new Patient();
-        mpiPatient.getNames().add(ExtractPersonName(patientPerson));
+        if (patientPerson != null) {
+            mpiPatient.getNames().add(ExtractPersonName(patientPerson));
+
         mpiPatient.setGender(ExtractGender(patientPerson));
         String birthdateString = ExtractBirthdate(patientPerson);
         mpiPatient.setDateOfBirth(birthdateString);
         mpiPatient.setSSN(ExtractSsn(patientPerson));
-
+        }
+        if (patient != null) {
         Identifiers ids = ExtractPersonIdentifiers(patient);
         mpiPatient.setIdentifiers(ids);
+        }
         return mpiPatient;
     }
 

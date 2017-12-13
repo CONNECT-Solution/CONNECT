@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,8 +95,8 @@ public class ConnectionHelper {
 
     private String getOrganizationName(OrganizationType organization) {
         String homeCommunityName = null;
-        if (organization != null && StringUtils.isNotBlank(organization.getName())) {
-            homeCommunityName =organization.getName();
+        if (organization != null && StringUtils.isNotEmpty(organization.getName())) {
+            homeCommunityName = organization.getName();
         }
         return homeCommunityName;
     }
@@ -123,7 +124,7 @@ public class ConnectionHelper {
 
     private String formatHcid(String hcid) {
         String formattedHcid = hcid;
-        if (hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+        if (formattedHcid != null && hcid.startsWith(NhincConstants.HCID_PREFIX)) {
             formattedHcid = hcid.substring(NhincConstants.HCID_PREFIX.length(), hcid.length());
         }
         return formattedHcid;
@@ -136,7 +137,7 @@ public class ConnectionHelper {
     public Map<String, String> getOrgNameRemoteHcidExternalEntities() {
         HashMap<String, String> organizationMap = new HashMap<>();
         List<OrganizationType> externalOrganizations = new ArrayList<>(getExternalOrganizationsMap().values());
-        if (NullChecker.isNotNullish(externalOrganizations)) {
+        if (CollectionUtils.isNotEmpty(externalOrganizations)) {
             for (OrganizationType organization : externalOrganizations) {
                 organizationMap.put(getOrganizationName(organization), organization.getHcid());
             }
@@ -159,7 +160,7 @@ public class ConnectionHelper {
     public Map<String, String> getOrgNameAndRemoteHcidMap() {
         HashMap<String, String> organizationMap = new HashMap<>();
         List<OrganizationType> organizations = getAllOrganizations();
-        if (NullChecker.isNotNullish(organizations)) {
+        if (CollectionUtils.isNotEmpty(organizations)) {
             for (OrganizationType organization : organizations) {
                 organizationMap.put(getOrganizationName(organization), organization.getHcid());
             }

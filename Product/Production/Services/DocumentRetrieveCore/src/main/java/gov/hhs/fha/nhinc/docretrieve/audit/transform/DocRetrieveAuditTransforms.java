@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author vimehta
  */
 public class DocRetrieveAuditTransforms
-extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
+    extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveAuditTransforms.class);
 
@@ -65,8 +65,10 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     protected AuditMessageType getParticipantObjectIdentificationForRequest(RetrieveDocumentSetRequestType request,
         AssertionType assertion, AuditMessageType auditMsg) {
 
-        /* check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification
-         object will be created otherwise not*/
+        /*
+         * check to see if unique Patient Id exist or not - if created then only ParticipantObjectIdentification object
+         * will be created otherwise not
+         */
         if (CollectionUtils.isNotEmpty(assertion.getUniquePatientId())
             && StringUtils.isNotEmpty(assertion.getUniquePatientId().get(0))) {
             auditMsg = createPatientParticipantObjectIdentification(auditMsg, assertion.getUniquePatientId().get(0));
@@ -104,8 +106,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     private String getDocumentUniqueIdFromRequest(RetrieveDocumentSetRequestType request) {
         String documentUniqueId = null;
 
-        if (request != null && request.getDocumentRequest() != null
-            && request.getDocumentRequest().get(0) != null
+        if (request != null && request.getDocumentRequest() != null && request.getDocumentRequest().get(0) != null
             && request.getDocumentRequest().get(0).getDocumentUniqueId() != null) {
             documentUniqueId = request.getDocumentRequest().get(0).getDocumentUniqueId();
         } else {
@@ -117,9 +118,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     private String getRepositoryUniqueIdFromRequest(RetrieveDocumentSetRequestType request) {
         String repositoryUniqueId = null;
 
-        if (request != null
-            && request.getDocumentRequest() != null
-            && request.getDocumentRequest().get(0) != null
+        if (request != null && request.getDocumentRequest() != null && request.getDocumentRequest().get(0) != null
             && request.getDocumentRequest().get(0).getRepositoryUniqueId() != null) {
             repositoryUniqueId = request.getDocumentRequest().get(0).getRepositoryUniqueId();
         } else {
@@ -131,13 +130,11 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     private String getHomeCommunityIdFromRequest(RetrieveDocumentSetRequestType request) {
         String homeCommunityId = null;
 
-        if (request != null
-            && request.getDocumentRequest() != null
-            && request.getDocumentRequest().get(0) != null
+        if (request != null && request.getDocumentRequest() != null && request.getDocumentRequest().get(0) != null
             && request.getDocumentRequest().get(0).getHomeCommunityId() != null) {
 
-            homeCommunityId = HomeCommunityMap.getHomeCommunityIdWithPrefix(request.getDocumentRequest().get(0).
-                getHomeCommunityId());
+            homeCommunityId = HomeCommunityMap
+                .getHomeCommunityIdWithPrefix(request.getDocumentRequest().get(0).getHomeCommunityId());
 
         } else {
             LOG.error("HomeCommunityId doesn't exist in the received RetrieveDocumentSetRequestType message");
@@ -154,9 +151,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     private String getRepositoryUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
         String repositoryUniqueId = null;
 
-        if (response != null
-            && response.getDocumentResponse() != null
-            && response.getDocumentResponse().get(0) != null
+        if (response != null && response.getDocumentResponse() != null && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getRepositoryUniqueId() != null) {
             repositoryUniqueId = response.getDocumentResponse().get(0).getRepositoryUniqueId();
         } else {
@@ -174,12 +169,10 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     private String getHomeCommunityIdFromResponse(RetrieveDocumentSetResponseType response) {
         String homeCommunityId = null;
 
-        if (response != null
-            && response.getDocumentResponse() != null
-            && response.getDocumentResponse().get(0) != null
+        if (response != null && response.getDocumentResponse() != null && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getHomeCommunityId() != null) {
-            homeCommunityId = HomeCommunityMap.getHomeCommunityIdWithPrefix(response.getDocumentResponse().get(0).
-                getHomeCommunityId());
+            homeCommunityId = HomeCommunityMap
+                .getHomeCommunityIdWithPrefix(response.getDocumentResponse().get(0).getHomeCommunityId());
         } else {
             LOG.error("HomeCommunityId doesn't exist in RetrieveDocumentSetResponseType message");
         }
@@ -187,9 +180,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
     }
 
     private String getDocumentUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
-        if (response != null
-            && response.getDocumentResponse() != null
-            && response.getDocumentResponse().get(0) != null
+        if (response != null && response.getDocumentResponse() != null && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getDocumentUniqueId() != null) {
             return response.getDocumentResponse().get(0).getDocumentUniqueId();
         }
@@ -218,23 +209,25 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromRequest(request));
 
-        getParticipantObjectDetail(getRepositoryUniqueIdFromRequest(request).getBytes(),
-            getHomeCommunityIdFromRequest(request).getBytes(), participantObject);
-
+        if (getRepositoryUniqueIdFromRequest(request) != null && getHomeCommunityIdFromRequest(request) != null) {
+            getParticipantObjectDetail(getRepositoryUniqueIdFromRequest(request).getBytes(),
+                getHomeCommunityIdFromRequest(request).getBytes(), participantObject);
+        }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         return auditMsg;
     }
 
     private AuditMessageType getDocumentParticipantObjectIdentificationForResponse(
-        RetrieveDocumentSetResponseType response,
-        AuditMessageType auditMsg) throws JAXBException {
+        RetrieveDocumentSetResponseType response, AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromResponse(response));
 
-        getParticipantObjectDetail(getRepositoryUniqueIdFromResponse(response).getBytes(),
-            getHomeCommunityIdFromResponse(response).getBytes(), participantObject);
+        if (getRepositoryUniqueIdFromResponse(response) != null && getHomeCommunityIdFromResponse(response) != null) {
+            getParticipantObjectDetail(getRepositoryUniqueIdFromResponse(response).getBytes(),
+                getHomeCommunityIdFromResponse(response).getBytes(), participantObject);
+        }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
     }
@@ -324,10 +317,12 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
 
         ActiveParticipant participant = new ActiveParticipant();
 
-        /* if Retrieve Document Service, Activeparticipant Source and destination is same on both initiator and
-         responder side. And for this service, source is considered who generates the document, meaning that
-         destination that generates the document is considered source for RD and vice versa for destination
-         details for ActiveParticipant */
+        /*
+         * if Retrieve Document Service, Activeparticipant Source and destination is same on both initiator and
+         * responder side. And for this service, source is considered who generates the document, meaning that
+         * destination that generates the document is considered source for RD and vice versa for destination details
+         * for ActiveParticipant
+         */
         String hostDetails;
         if (isRequesting) {
             hostDetails = getWebServiceUrlFromRemoteObject(target, serviceName);
@@ -347,15 +342,15 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
                 // The url is null or not a valid url; for now, set the user id to anonymous
                 participant.setUserID(NhincConstants.WSA_REPLY_TO);
                 // TODO: For now, hardcode the value to localhost; need to find out if this needs to be set
-                participant.setNetworkAccessPointTypeCode(
-                    AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
-                participant.setNetworkAccessPointID(
-                    AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
+                participant.setNetworkAccessPointTypeCode(AuditTransformsConstants.NETWORK_ACCESSOR_PT_TYPE_CODE_NAME);
+                participant.setNetworkAccessPointID(AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS);
             }
         }
 
-        /* if it is not RD service or required if RD and it's Initiator - ActiveParticipant Destination and
-         Responder - ActiveParticipant Source*/
+        /*
+         * if it is not RD service or required if RD and it's Initiator - ActiveParticipant Destination and Responder -
+         * ActiveParticipant Source
+         */
         if (!isRequesting) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
@@ -366,10 +361,10 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         }
 
         participant.getRoleIDCode()
-        .add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+            .add(AuditDataTransformHelper.createCodeValueType(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 
@@ -386,8 +381,8 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
      * @return
      */
     @Override
-    protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target,
-        boolean isRequesting, Properties webContextProperties, String serviceName) {
+    protected ActiveParticipant getActiveParticipantDestination(NhinTargetSystemType target, boolean isRequesting,
+        Properties webContextProperties, String serviceName) {
         ActiveParticipant participant = new ActiveParticipant();
         String hostAddress;
 
@@ -402,20 +397,21 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         participant.setNetworkAccessPointID(hostAddress);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(hostAddress));
 
-        /* for RD service it is opposite than other services. For RD service it is
-         required in initiating side and for other services it is required for responding side */
+        /*
+         * for RD service it is opposite than other services. For RD service it is required in initiating side and for
+         * other services it is required for responding side
+         */
         if (isRequesting) {
             participant.setAlternativeUserID(ManagementFactory.getRuntimeMXBean().getName());
         }
 
-        //for RD service condition is opposite than other service
+        // for RD service condition is opposite than other service
         participant.setUserIsRequestor(Boolean.TRUE);
 
-        participant.getRoleIDCode()
-        .add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST, null,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
+        participant.getRoleIDCode().add(
+            AuditDataTransformHelper.createCodeValueType(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DEST,
+                null, AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME));
         return participant;
     }
 

@@ -269,7 +269,7 @@ public class HL7Extractors {
                     } else {
                         nameString = strValue;
                     }
-                    LOG.debug("Here is the contents of the string: {}" , strValue);
+                    LOG.debug("Here is the contents of the string: {}", strValue);
                 } else if (contentItem instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
                     LOG.debug("Found JAXBElement");
@@ -340,7 +340,7 @@ public class HL7Extractors {
                     } else {
                         nameString = strValue;
                     }
-                    LOG.debug("Here is the contents of the string: {}" , strValue);
+                    LOG.debug("Here is the contents of the string: {}", strValue);
                 } else if (contentItem instanceof JAXBElement) {
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
 
@@ -389,31 +389,36 @@ public class HL7Extractors {
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
         PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
-        return ExtractHL7PatientPersonFromHL7Patient(patient);
+        if (patient != null) {
+            return ExtractHL7PatientPersonFromHL7Patient(patient);
+        }
+        return null;
     }
 
     public static PRPAMT201302UV02Person ExtractHL7PatientPersonFrom201302Message(org.hl7.v3.PRPAIN201302UV02 message) {
         // assume one subject for now
         PRPAMT201302UV02Patient patient = ExtractHL7PatientFromMessage(message);
-        return ExtractHL7PatientPersonFromHL7Patient(patient);
+        if (patient != null) {
+            return ExtractHL7PatientPersonFromHL7Patient(patient);
+        }
+        return null;
     }
 
     public static String ExtractHL7ReceiverOID(org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV) {
         String sReceiverOID = null;
 
         if (oPRPAIN201305UV != null && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver())
-            && oPRPAIN201305UV.getReceiver().get(0) != null
-            && oPRPAIN201305UV.getReceiver().get(0).getDevice() != null
+            && oPRPAIN201305UV.getReceiver().get(0) != null && oPRPAIN201305UV.getReceiver().get(0).getDevice() != null
             && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent() != null
             && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
             && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-            .getRepresentedOrganization() != null
+                .getRepresentedOrganization() != null
             && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue() != null
+                .getValue() != null
             && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId())
             && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue().getId().get(0) != null
+                .getValue().getId().get(0) != null
             && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             sReceiverOID = oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
@@ -431,11 +436,11 @@ public class HL7Extractors {
             && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue() != null
             && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue() != null
+                .getValue() != null
             && NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId())
-            && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue().getId().get(0) != null
+            && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                .getId().get(0) != null
             && NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             sSenderOID = oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()

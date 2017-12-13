@@ -298,6 +298,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     /**
      * Construct additional subject Confirmation for saml assertion. Since HOK(holder of key) is supported by default,
      * we support additional sender-vouches/bearer subject confirmation
+     *
      * @param samlSubjectConfirmation
      * @return
      * @throws SAMLComponentBuilderException
@@ -307,11 +308,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         SubjectConfirmationData subjectConfirmData = createSubjectConfirmationData(null, samlSubjectConfirmation);
         String method = samlSubjectConfirmation.getMethod();
         LOG.debug("Prepare to construct method {} for subject confirmation", method);
-        if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(method)){
+        if (SubjectConfirmation.METHOD_SENDER_VOUCHES.equalsIgnoreCase(method)) {
             return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_SENDER_VOUCHES,
                 subjectConfirmData);
         }
-        if (SubjectConfirmation.METHOD_BEARER.equalsIgnoreCase(method)){
+        if (SubjectConfirmation.METHOD_BEARER.equalsIgnoreCase(method)) {
             return SAML2ComponentBuilder.createSubjectConfirmation(SubjectConfirmation.METHOD_BEARER,
                 subjectConfirmData);
         }
@@ -567,9 +568,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public Attribute createUserRoleAttribute(final String userCode, final String userSystem,
         final String userSystemName, final String userDisplay) {
         final Object attributeValue = createHL7Attribute("Role", userCode, userSystem, userSystemName, userDisplay);
-
-        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USER_ROLE_ATTR, null,
-            Arrays.asList(attributeValue));
+        if (OpenSAML2ComponentBuilder.getInstance() != null) {
+            return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USER_ROLE_ATTR, null,
+                Arrays.asList(attributeValue));
+        }
+        return null;
     }
 
     /**
@@ -637,11 +640,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     }
 
     public XSAny createUriAttributeValue(String value) {
-        XSAny uri = createAny(SAMLConstants.SAML20_NS, org.opensaml.saml.saml1.core.AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME,
-            SAMLConstants.SAML20_PREFIX);
+        XSAny uri = createAny(SAMLConstants.SAML20_NS,
+            org.opensaml.saml.saml1.core.AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         uri.setTextContent(value);
-        uri.getUnknownAttributes().put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI, SamlConstants.HL7_TYPE_LOCAL_PART,
-            SamlConstants.HL7_TYPE_PREFIX), XSURI.TYPE_NAME);
+        uri.getUnknownAttributes().put(new QName(SamlConstants.HL7_TYPE_NAMESPACE_URI,
+            SamlConstants.HL7_TYPE_LOCAL_PART, SamlConstants.HL7_TYPE_PREFIX), XSURI.TYPE_NAME);
         return uri;
     }
 
@@ -778,8 +781,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         final Object attributeValue = createHL7Attribute("PurposeForUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
-            Arrays.asList(attributeValue));
+        if (OpenSAML2ComponentBuilder.getInstance() != null) {
+            return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
+                Arrays.asList(attributeValue));
+        }
+        return null;
     }
 
     /**

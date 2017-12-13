@@ -138,8 +138,8 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndServiceName(String messageId, String serviceName) {
-        LOG.debug("Performing database record retrieve using message id: " + messageId + "and service name: "
-            + serviceName);
+        LOG.debug(
+            "Performing database record retrieve using message id: " + messageId + "and service name: " + serviceName);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -656,11 +656,11 @@ public class AsyncMsgRecordDao {
         // Convert the long to a Long Object and change the sign to negative so our query value ends up in the past.
         Long longObj = -value;
 
-        if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC)) {
+        if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC) && units != null) {
             currentTime.add(Calendar.SECOND, longObj.intValue());
-        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN)) {
+        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN) && units != null) {
             currentTime.add(Calendar.MINUTE, longObj.intValue());
-        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR)) {
+        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR) && units != null) {
             currentTime.add(Calendar.HOUR_OF_DAY, longObj.intValue());
         } else {
             // Default to days

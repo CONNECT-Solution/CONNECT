@@ -87,7 +87,6 @@ import org.slf4j.LoggerFactory;
  */
 public class CertificateManagerServiceImpl implements CertificateManagerService {
 
-
     private static final String UTF_8 = "UTF-8";
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private final CertificateManager cmHelper = CertificateManagerImpl.getInstance();
@@ -182,7 +181,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public boolean isLeafOnlyCertificate(CertificateDTO cert) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
 
     /**
@@ -226,8 +226,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         throws CertificateManagerException {
         boolean importStatus = false;
         try {
-            ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache,
-                hashToken);
+            ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache, hashToken);
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
                 .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
             importStatus = response.isStatus();
@@ -255,8 +254,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public boolean deleteCertificateFromTrustStore(String alias, String hashToken) throws
-    CertificateManagerException {
+    public boolean deleteCertificateFromTrustStore(String alias, String hashToken) throws CertificateManagerException {
         DeleteCertificateRequestMessageType request = new DeleteCertificateRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setHashToken(hashToken);
@@ -270,7 +268,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         }
     }
 
-
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
 
         String url = oProxyHelper
@@ -282,9 +279,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             new AssertionType());
     }
 
-
-
-    private List<CertificateDTO> listTrustStore(String portName, boolean refreshCache) throws CertificateManagerException {
+    private List<CertificateDTO> listTrustStore(String portName, boolean refreshCache)
+        throws CertificateManagerException {
         ListTrustStoresRequestMessageType message = new ListTrustStoresRequestMessageType();
         ConfigAssertionType assertion = buildConfigAssertion();
         message.setConfigAssertion(assertion);
@@ -376,8 +372,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             requestMessage.setEditCertRequest(certRequestParam);
             requestMessage.setConfigAssertion(assertion);
 
-            response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_EDIT, requestMessage);
+            response = (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                NhincConstants.ADMIN_CERT_EDIT, requestMessage);
 
         } catch (Exception ex) {
             response.setStatus(false);
@@ -393,9 +389,10 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         UserLogin user = getUser();
         String hashToken = null;
         try {
-            hashToken = new String(
-                sha2PasswordUtil.calculateHash(user.getUserName().getBytes(), trustStorePasskey.getBytes()),
-                UTF_8);
+            if (user != null) {
+                hashToken = new String(
+                    sha2PasswordUtil.calculateHash(user.getUserName().getBytes(), trustStorePasskey.getBytes()), UTF_8);
+            }
         } catch (UtilException | UnsupportedEncodingException e) {
             throw new CertificateManagerException("Error while calculating user pass hash token.", e);
         }
