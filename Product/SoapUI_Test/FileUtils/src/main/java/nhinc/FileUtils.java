@@ -277,9 +277,8 @@ public class FileUtils {
         File sourceFile = new File(configDirFile.getAbsolutePath(), fileName);
 
         if (sourceFile.exists()) {
-            try {
-                BufferedReader input = new BufferedReader(new FileReader(sourceFile));
-                FileWriter output = new FileWriter(tempConfigFile);
+            try (BufferedReader input = new BufferedReader(new FileReader(sourceFile));
+                FileWriter output = new FileWriter(tempConfigFile)) {
 
                 try {
                     int lineCount = 1;

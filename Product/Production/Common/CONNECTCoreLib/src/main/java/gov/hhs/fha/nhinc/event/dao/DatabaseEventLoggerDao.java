@@ -120,24 +120,27 @@ public class DatabaseEventLoggerDao {
         List results = new ArrayList<>();
 
         if (sessionFactory != null) {
-            Session session = sessionFactory.openSession();
+            Session session = null;
+            try {
+                session = sessionFactory.openSession();
 
-            ProjectionList projList = Projections.projectionList();
-            projList.add(Projections.rowCount());
+                ProjectionList projList = Projections.projectionList();
+                projList.add(Projections.rowCount());
 
-            for (String projection : grpProjections) {
-                projList.add(Projections.groupProperty(projection));
-            }
+                for (String projection : grpProjections) {
+                    projList.add(Projections.groupProperty(projection));
+                }
 
-            Criteria criteria = session.createCriteria(DatabaseEvent.class);
-            if (NullChecker.isNotNullish(eventType)) {
-                criteria.add(Restrictions.eq(EVENT_TYPE_NAME, eventType));
-            }
+                Criteria criteria = session.createCriteria(DatabaseEvent.class);
+                if (NullChecker.isNotNullish(eventType)) {
+                    criteria.add(Restrictions.eq(EVENT_TYPE_NAME, eventType));
+                }
 
-            results = criteria.setProjection(projList)
+                results = criteria.setProjection(projList)
                     .list();
-
-            closeSession(session);
+            } finally {
+                closeSession(session);
+            }
         }
 
         return results;
@@ -148,13 +151,15 @@ public class DatabaseEventLoggerDao {
         DatabaseEvent event = null;
         final SessionFactory sessionFactory = getSessionFactory();
         if (sessionFactory != null) {
-            Session session = sessionFactory.openSession();
-
-            event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+            Session session = null;
+            try {
+                session = sessionFactory.openSession();
+                event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
                     .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
                     .uniqueResult();
-
-            closeSession(session);
+            } finally {
+                closeSession(session);
+            }
         }
 
         return event;

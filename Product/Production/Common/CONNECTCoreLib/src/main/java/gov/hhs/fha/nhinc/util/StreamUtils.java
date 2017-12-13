@@ -57,10 +57,10 @@ public class StreamUtils {
             propFOS = new FileOutputStream(sPropFile);
             propWriter = new OutputStreamWriter(propFOS, StringUtil.UTF8_CHARSET);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            throw new Exception("Failed to open property file: '" + sPropFile + "' for reading", e);
+        } finally {
             closeReaderSilently(propFOS);
             closeWriterSilently(propWriter);
-
-            throw new Exception("Failed to open property file: '" + sPropFile + "' for reading", e);
         }
 
         return propWriter;
@@ -74,10 +74,10 @@ public class StreamUtils {
             propFIS = new FileInputStream(propFile);
             propReader = new InputStreamReader(propFIS, StringUtil.UTF8_CHARSET);
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            throw new Exception("Failed to open property file: '" + propFile + "' for reading", e);
+        } finally {
             closeStreamSilently(propFIS);
             closeFileSilently(propReader);
-
-            throw new Exception("Failed to open property file: '" + propFile + "' for reading", e);
         }
 
         return propReader;
