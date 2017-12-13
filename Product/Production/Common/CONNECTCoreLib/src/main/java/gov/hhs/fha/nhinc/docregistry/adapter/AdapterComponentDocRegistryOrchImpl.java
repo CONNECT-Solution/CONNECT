@@ -344,9 +344,9 @@ public class AdapterComponentDocRegistryOrchImpl {
     private List<EventCodeParam> createEventCodeParameters(List<String> eventCodeValues,
         List<String> eventCodeSchemeValues) {
         List<EventCodeParam> eventCodeParams = null;
-        if (NullChecker.isNotNullish(eventCodeValues)) {
+        if (CollectionUtils.isNotEmpty(eventCodeValues)) {
             eventCodeParams = new ArrayList<>();
-            boolean hasMatchingSchemes = NullChecker.isNotNullish(eventCodeSchemeValues)
+            boolean hasMatchingSchemes = CollectionUtils.isNotEmpty(eventCodeSchemeValues)
                 && eventCodeValues.size() == eventCodeSchemeValues.size();
             for (int i = 0; i < eventCodeValues.size(); i++) {
                 String eventCode = eventCodeValues.get(i);
@@ -663,8 +663,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                     for (EventCode eventCode : doc.getEventCodes()) {
                         ClassificationType eventCodeClassification = createClassificationFromCodedData(
                             eventCode.getEventCode(), eventCode.getEventCodeScheme(),
-                            eventCode.getEventCodeDisplayName(), EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME,
-                            sDocumentUUID);
+                            eventCode.getEventCodeDisplayName(), EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME, sDocumentUUID);
                         if (eventCodeClassification != null) {
                             olClassifications.add(eventCodeClassification);
                             bHaveData = true;
@@ -675,8 +674,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Format Code
                 // -------------
                 ClassificationType formatCodeClassification = createClassificationFromCodedData(doc.getFormatCode(),
-                    doc.getFormatCodeScheme(), doc.getFormatCodeDisplayName(),
-                    EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME, sDocumentUUID);
+                    doc.getFormatCodeScheme(), doc.getFormatCodeDisplayName(), EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME,
+                    sDocumentUUID);
                 if (formatCodeClassification != null) {
                     olClassifications.add(formatCodeClassification);
                     bHaveData = true;

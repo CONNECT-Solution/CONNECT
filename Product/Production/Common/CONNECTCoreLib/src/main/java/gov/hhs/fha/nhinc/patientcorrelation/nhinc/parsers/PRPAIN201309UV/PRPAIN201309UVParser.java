@@ -62,19 +62,22 @@ public class PRPAIN201309UVParser {
         }
         PRPAMT201307UV02ParameterList parameterList = queryByParameter.getValue() != null
             ? queryByParameter.getValue().getParameterList() : null;
-            if (parameterList == null) {
-                return null;
-            }
-            return parameterList;
+        if (parameterList == null) {
+            return null;
+        }
+        return parameterList;
     }
 
     public static PRPAMT201307UV02PatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV02 message) {
         LOG.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
-        PRPAMT201307UV02PatientIdentifier patientIdentifier = CollectionUtils.isNotEmpty(parameterList.getPatientIdentifier())
-            ? parameterList.getPatientIdentifier().get(0) : null;
-            LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
-            return patientIdentifier;
+
+        if (parameterList != null) {
+            return CollectionUtils.isNotEmpty(parameterList.getPatientIdentifier())
+                ? parameterList.getPatientIdentifier().get(0) : null;
+        }
+        LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
+        return null;
     }
 
     public static List<II> buildAssigningAuthorityInclusionFilterList(PRPAIN201309UV02 message) {

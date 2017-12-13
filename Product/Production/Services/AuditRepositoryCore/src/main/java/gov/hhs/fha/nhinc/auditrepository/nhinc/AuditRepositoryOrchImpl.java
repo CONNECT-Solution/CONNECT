@@ -156,16 +156,19 @@ public class AuditRepositoryOrchImpl {
             if (blobMessage != null) {
                 try {
                     auditMessageType = unMarshallBlobToAuditMess(blobMessage);
-                    response.getFindAuditEventsReturn().add(auditMessageType);
+                    if (auditMessageType != null) {
+                        response.getFindAuditEventsReturn().add(auditMessageType);
 
-                    if (CollectionUtils.isNotEmpty(auditMessageType.getAuditSourceIdentification())
-                        && auditMessageType.getAuditSourceIdentification().get(0) != null
-                        && StringUtils.isNotEmpty(auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID())) {
-                        String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0)
-                            .getAuditSourceID();
-                        if (!auditResType.getCommunities().contains(tempCommunity)) {
-                            auditResType.getCommunities().add(tempCommunity);
-                            LOG.debug("Adding community " + tempCommunity);
+                        if (CollectionUtils.isNotEmpty(auditMessageType.getAuditSourceIdentification())
+                            && auditMessageType.getAuditSourceIdentification().get(0) != null && StringUtils.isNotEmpty(
+                                auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID())) {
+                            String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0)
+                                .getAuditSourceID();
+                            if (!auditResType.getCommunities().contains(tempCommunity)) {
+
+                                auditResType.getCommunities().add(tempCommunity);
+                                LOG.debug("Adding community " + tempCommunity);
+                            }
                         }
                     }
                 } finally {
@@ -200,7 +203,9 @@ public class AuditRepositoryOrchImpl {
                 JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(in));
-                auditMessageType = (AuditMessageType) jaxEle.getValue();
+                if (jaxEle.getValue() != null) {
+                    auditMessageType = (AuditMessageType) jaxEle.getValue();
+                }
             }
         } catch (SQLException | JAXBException | XMLStreamException e) {
             LOG.error("Blob to Audit Message Conversion Error: {}", e.getLocalizedMessage(), e);

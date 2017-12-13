@@ -292,7 +292,10 @@ public class HomeCommunityMap {
     public static boolean equalsIgnoreCaseForHCID(final String communityId, final String hcidValue) {
         String homeCommunityIdPrefix = appendPrefixHomeCommunityID(communityId);
         String hcidValuePrefix = appendPrefixHomeCommunityID(hcidValue);
-        return homeCommunityIdPrefix.equalsIgnoreCase(hcidValuePrefix);
+        if (homeCommunityIdPrefix != null) {
+            return homeCommunityIdPrefix.equalsIgnoreCase(hcidValuePrefix);
+        }
+        return false;
     }
 
     public static String checkPrefixBeforeAppend(final String checkValue, final String checkPrefix) {

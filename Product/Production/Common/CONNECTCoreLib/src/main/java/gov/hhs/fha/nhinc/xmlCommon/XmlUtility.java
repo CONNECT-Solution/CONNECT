@@ -77,7 +77,7 @@ public class XmlUtility {
     }
 
     public static String serializeElement(Element element)
-            throws TransformerFactoryConfigurationError, TransformerException {
+        throws TransformerFactoryConfigurationError, TransformerException {
         String serializedElement = null;
         if (element != null) {
             StringWriter output = new StringWriter();
@@ -91,7 +91,7 @@ public class XmlUtility {
     }
 
     public static String serializeNode(Node node) throws LSException, IllegalAccessException, DOMException,
-            InstantiationException, ClassNotFoundException, ClassCastException {
+        InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (node != null) {
             DOMImplementationLS impl = getDOMImplementationLS(node);
@@ -135,7 +135,7 @@ public class XmlUtility {
      */
     @Deprecated
     public static Node performXpathQuery(Element sourceElement, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
+        throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceElement, xpathQuery, namespaceContext);
     }
 
@@ -180,14 +180,17 @@ public class XmlUtility {
 
     private static Element convertXmlToElementWorker(String xml) throws Exception {
         Element element = initializeElement();
+        if (element != null) {
+            DOMImplementationLS impl = getDOMImplementationLS(element);
 
-        DOMImplementationLS impl = getDOMImplementationLS(element);
-        LSParser parser = impl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, "http://www.w3.org/2001/XMLSchema");
-        LSInput lsInput = impl.createLSInput();
-        lsInput.setStringData(xml);
-        Document doc = parser.parse(lsInput);
-        if (doc != null) {
-            element = doc.getDocumentElement();
+            LSParser parser = impl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS,
+                "http://www.w3.org/2001/XMLSchema");
+            LSInput lsInput = impl.createLSInput();
+            lsInput.setStringData(xml);
+            Document doc = parser.parse(lsInput);
+            if (doc != null) {
+                element = doc.getDocumentElement();
+            }
         }
         return element;
     }

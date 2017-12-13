@@ -83,7 +83,9 @@ public class TransactionDAO {
         if (transactionRepo != null) {
             try {
                 final SessionFactory sessionFactory = getSessionFactory();
-                session = sessionFactory.openSession();
+                if (sessionFactory != null) {
+                    session = sessionFactory.openSession();
+                }
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
 
@@ -123,8 +125,9 @@ public class TransactionDAO {
 
         try {
             final SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
-
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
+            }
             if (LOG.isDebugEnabled()) {
                 LOG.info("Getting Records");
             }

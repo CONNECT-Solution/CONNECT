@@ -129,7 +129,8 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     @Override
-    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException {
+    public void importCertificate(String alias, DataHandler data, boolean refreshCache)
+        throws CertificateManagerException {
         Certificate addCert = certUtil.createCertificate(data);
         try {
             verifyCertInfo(alias, addCert);
@@ -177,9 +178,8 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     @Override
-    public boolean updateCertificate(String oldAlias, String newAlias, final String storeType,
-        final String storeLoc, final String passkey, KeyStore storeCert)
-            throws CertificateManagerException {
+    public boolean updateCertificate(String oldAlias, String newAlias, final String storeType, final String storeLoc,
+        final String passkey, KeyStore storeCert) throws CertificateManagerException {
         boolean isUpdateSuccessful = false;
         FileInputStream is = null;
         FileOutputStream os = null;
@@ -206,7 +206,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private static FileOutputStream updateCertEntry(final String oldAlias, final String newAlias,
         Certificate certificate, final String storeLoc, final String passkey, KeyStore tstore)
-            throws CertificateManagerException, IOException {
+        throws CertificateManagerException, IOException {
         FileOutputStream os = null;
         try {
             tstore.deleteEntry(oldAlias);
@@ -252,8 +252,8 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     /**
-     * Initializes the keystore access using the system properties defined in
-     * the domain.xml javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword
+     * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
+     * javax.net.ssl.keyStorePassword
      *
      * @throws CertificateManagerException
      */
@@ -314,9 +314,8 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     /**
-     * Initializes the truststore access using the system properties defined in
-     * the domain.xml javax.net.ssl.trustStore and
-     * javax.net.ssl.trustStorePassword
+     * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
+     * and javax.net.ssl.trustStorePassword
      *
      * @throws CertificateManagerException
      */
@@ -351,7 +350,10 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public X509Certificate getDefaultCertificate() throws CertificateManagerException {
-        return (X509Certificate) getPrivateKeyEntry().getCertificate();
+        if (getPrivateKeyEntry() != null) {
+            return (X509Certificate) getPrivateKeyEntry().getCertificate();
+        }
+        return null;
     }
 
     /*
@@ -361,7 +363,10 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
-        return getPrivateKeyEntry().getPrivateKey();
+        if (getPrivateKeyEntry() != null) {
+            return getPrivateKeyEntry().getPrivateKey();
+        }
+        return null;
     }
 
     private PrivateKeyEntry getPrivateKeyEntry() throws CertificateManagerException {

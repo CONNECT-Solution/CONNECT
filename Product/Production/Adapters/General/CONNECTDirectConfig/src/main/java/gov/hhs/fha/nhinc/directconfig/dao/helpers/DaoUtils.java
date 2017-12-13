@@ -58,7 +58,7 @@ public class DaoUtils {
     private static class ClassPathSingleton {
 
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
+            new String[] { "classpath:CONNECT-context.xml" });
 
         private ClassPathSingleton() {
         }
@@ -90,12 +90,13 @@ public class DaoUtils {
      */
     public static Session getSession() {
         Session session = null;
-        SessionFactory fact = getHibernateUtil().getSessionFactory();
-
-        if (fact != null) {
-            session = fact.openSession();
-        } else {
-            LOG.error("No Session available - SessionFactory is null.");
+        if (getHibernateUtil() != null) {
+            SessionFactory fact = getHibernateUtil().getSessionFactory();
+            if (fact != null) {
+                session = fact.openSession();
+            } else {
+                LOG.error("No Session available - SessionFactory is null.");
+            }
         }
         return session;
     }

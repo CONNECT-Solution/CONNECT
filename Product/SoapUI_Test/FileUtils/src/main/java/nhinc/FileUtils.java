@@ -349,28 +349,30 @@ public class FileUtils {
 
         NodeList organizationList = getOrganizationList(log, doc);
 
-        for (int i = 0; i < organizationList.getLength(); i++) {
-            Element organization = (Element) organizationList.item(i);
-            String hcidValue = getTextContentOf(organization, "hcid");
+        if (organizationList != null) {
+            for (int i = 0; i < organizationList.getLength(); i++) {
+                Element organization = (Element) organizationList.item(i);
+                String hcidValue = getTextContentOf(organization, "hcid");
 
-            if (equalsIgnoreCaseForHCID(communityId, hcidValue)) {
-                log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
-                boolean serviceNodeFound = checkServiceEndpointByLatest(log, organization, serviceName, serviceUrl);
+                if (equalsIgnoreCaseForHCID(communityId, hcidValue)) {
+                    log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
+                    boolean serviceNodeFound = checkServiceEndpointByLatest(log, organization, serviceName, serviceUrl);
 
-                if (!serviceNodeFound) {
-                    log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
-                        communityId, serviceName));
-                    try {
-                        getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
-                        .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, defaultVersion));
-                        log.debug(getCheckpoint(MessageFormat
+                    if (!serviceNodeFound) {
+                        log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
+                            communityId, serviceName));
+                        try {
+                            getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
+                            .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, defaultVersion));
+                            log.debug(getCheckpoint(MessageFormat
                             .format("createOrUpdateConnection-createElementEndpointBy: {0}", serviceName)));
-                    } catch (DOMException de) {
-                        log.error(de.getLocalizedMessage(), de);
+                        } catch (DOMException de) {
+                            log.error(de.getLocalizedMessage(), de);
+                        }
                     }
-                }
 
-                break;
+                    break;
+                }
             }
         }
 
@@ -416,29 +418,30 @@ public class FileUtils {
         }
 
         NodeList organizationList = getOrganizationList(log, doc);
+        if (organizationList != null) {
+            for (int i = 0; i < organizationList.getLength(); i++) {
+                Element organization = (Element) organizationList.item(i);
+                String hcidValue = getFirstElementOf(organization, "hcid").getTextContent();
 
-        for (int i = 0; i < organizationList.getLength(); i++) {
-            Element organization = (Element) organizationList.item(i);
-            String hcidValue = getFirstElementOf(organization, "hcid").getTextContent();
+                if (equalsIgnoreCaseForHCID(communityId, hcidValue)) {
+                    log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
+                    boolean serviceNodeFound = checkServiceEndpoint(log, organization, serviceName, serviceUrl,
+                        endpointVersion);
 
-            if (equalsIgnoreCaseForHCID(communityId, hcidValue)) {
-                log.debug(MessageFormat.format("Found-HCID: {0}", hcidValue));
-                boolean serviceNodeFound = checkServiceEndpoint(log, organization, serviceName, serviceUrl,
-                    endpointVersion);
-
-                if (!serviceNodeFound) {
-                    log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
-                        communityId, serviceName));
-                    try {
-                        getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
-                        .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, endpointVersion));
-                        log.debug(getCheckpoint(
-                            MessageFormat.format("configureConnection-createElementEndpointBy: {0}", serviceName)));
-                    } catch (DOMException de) {
-                        log.error(de.getLocalizedMessage(), de);
+                    if (!serviceNodeFound) {
+                        log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
+                            communityId, serviceName));
+                        try {
+                            getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
+                            .appendChild(createElementEndpointBy(doc, serviceName, serviceUrl, endpointVersion));
+                            log.debug(getCheckpoint(
+                                MessageFormat.format("configureConnection-createElementEndpointBy: {0}", serviceName)));
+                        } catch (DOMException de) {
+                            log.error(de.getLocalizedMessage(), de);
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
         try {
@@ -684,9 +687,10 @@ public class FileUtils {
 
         Element configuration = createElementBy(configurationList, "endpointConfiguration");
         createElementBy(configuration, "url", serviceUrl);
-        createElementBy(configuration, "version",
-            containsIgnoreCaseOf(serviceName, "adapter") ? "LEVEL_a0" : endpointVersion);
-
+        if (serviceName != null) {
+            createElementBy(configuration, "version",
+                containsIgnoreCaseOf(serviceName, "adapter") ? "LEVEL_a0" : endpointVersion);
+        }
         return endpoint;
     }
 

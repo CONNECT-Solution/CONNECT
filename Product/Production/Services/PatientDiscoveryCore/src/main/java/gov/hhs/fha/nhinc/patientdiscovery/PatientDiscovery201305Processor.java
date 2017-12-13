@@ -66,7 +66,6 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDiscovery201305Processor.class);
 
-
     /*
      * (non-Javadoc)
      *
@@ -151,7 +150,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             if (!hasEmptySubject) {
                 pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
             }
-            LOG.debug("checkPolicy - SubjectIndex: {}" , pRPAINSubjectInd);
+            LOG.debug("checkPolicy - SubjectIndex: {}", pRPAINSubjectInd);
 
             PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject().set(0,
                 pRPAINSubject);
@@ -169,8 +168,8 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         }
 
         if (!hasEmptySubject && NullChecker.isNotNullish(delPRPAINSubjects)) {
-            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size: {} "
-                , delPRPAINSubjects.size());
+            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size: {} ",
+                delPRPAINSubjects.size());
 
             response.getControlActProcess().getSubject().removeAll(delPRPAINSubjects);
         }
@@ -291,14 +290,13 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject())
                 && queryResult.getControlActProcess().getSubject().get(0) != null
                 && queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
-                && queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                .getSubject1() != null
+                && queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
                 && queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient() != null
+                    .getPatient() != null
                 && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(0)
                     .getRegistrationEvent().getSubject1().getPatient().getId())
                 && queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getId().get(0) != null
+                    .getPatient().getId().get(0) != null
                 && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(0)
                     .getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
                 localAA = queryResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
@@ -312,19 +310,19 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 && request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
                 && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
                 && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient() != null
-                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0)
-                    .getRegistrationEvent().getSubject1().getPatient().getId())) {
+                    .getPatient() != null
+                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                    .getSubject1().getPatient().getId())) {
                 // Need to Switch patient ids so the sender and reciever match. This is to avoid an exception by the
                 // Patient Correlation Component
                 II remotePatient = request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
                     .getSubject1().getPatient().getId().get(0);
                 request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                .getId().clear();
+                    .getId().clear();
                 request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                .getId().add(localPatId);
+                    .getId().add(localPatId);
                 request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                .getId().add(remotePatient);
+                    .getId().add(remotePatient);
 
                 PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
                 PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
@@ -363,25 +361,24 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         PRPAIN201305UV02 query, int i) {
         PRPAIN201301UV02 request;
         II localPatId = new II();
-        boolean checkQueryResultRegistrationEvent = NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject())
+        boolean checkQueryResultRegistrationEvent = NullChecker
+            .isNotNullish(queryResult.getControlActProcess().getSubject())
             && queryResult.getControlActProcess().getSubject().get(i) != null
             && queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent() != null
-            && queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
-            .getSubject1() != null
+            && queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1() != null
             && queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1()
-            .getPatient() != null
-            && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i)
-                .getRegistrationEvent().getSubject1().getPatient().getId())
-            && queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1()
-            .getPatient().getId().get(0) != null
-            && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i)
-                .getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension())
-            && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i)
-                .getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
-        if (queryResult.getControlActProcess() != null
-            && checkQueryResultRegistrationEvent) {
-            localPatId.setExtension(queryResult.getControlActProcess().getSubject().get(i)
-                .getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
+                .getPatient() != null
+            && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                .getSubject1().getPatient().getId())
+            && queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent().getSubject1().getPatient()
+                .getId().get(0) != null
+            && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                .getSubject1().getPatient().getId().get(0).getExtension())
+            && NullChecker.isNotNullish(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                .getSubject1().getPatient().getId().get(0).getRoot());
+        if (queryResult.getControlActProcess() != null && checkQueryResultRegistrationEvent) {
+            localPatId.setExtension(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
+                .getSubject1().getPatient().getId().get(0).getExtension());
             localPatId.setRoot(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
                 .getSubject1().getPatient().getId().get(0).getRoot());
             LOG.debug("local AA {}: {}, pId: {}", i, localPatId.getRoot(), localPatId.getExtension());
@@ -391,34 +388,31 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
             request = HL7PRPA201301Transforms.createPRPA201301(query, localPatId.getRoot());
 
-            boolean checkRequestControlActRegistrationEvent = NullChecker.isNotNullish(request.getControlActProcess().getSubject())
+            boolean checkRequestControlActRegistrationEvent = NullChecker
+                .isNotNullish(request.getControlActProcess().getSubject())
                 && request.getControlActProcess().getSubject().get(0) != null
                 && checkPatientInRegistrationEvent(request);
-            if (request.getControlActProcess() != null
-                && checkRequestControlActRegistrationEvent) {
+            if (request.getControlActProcess() != null && checkRequestControlActRegistrationEvent) {
                 // Need to Switch patient ids so the sender and reciever match. This is to avoid an exception by
                 // the Patient Correlation Component
                 II remotePatient = request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
                     .getSubject1().getPatient().getId().get(0);
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getId().clear();
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getId().add(localPatId);
-                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient().getId().add(remotePatient);
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                    .getId().clear();
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                    .getId().add(localPatId);
+                request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
+                    .getId().add(remotePatient);
                 LOG.debug("Local AA {}: {}, pId: {}", i, localPatId.getRoot(), localPatId.getExtension());
                 LOG.debug("Remote AA: {} ", remotePatient.getRoot(), ", pId: {} ", remotePatient.getExtension());
                 LOG.debug("Remote AA: {}, pId: {}", remotePatient.getRoot(), remotePatient.getExtension());
 
-                if (remotePatient.getRoot() != null
-                    && remotePatient.getExtension() != null) {
+                if (remotePatient.getRoot() != null && remotePatient.getExtension() != null) {
                     PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
-                    PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory
-                        .getPatientCorrelationProxy();
+                    PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
                     patCorrelationProxy.addPatientCorrelation(request, assertion);
                 } else {
-                    LOG.error(
-                        "Remote patient identifiers are null. Could not correlate the patient identifiers.");
+                    LOG.error("Remote patient identifiers are null. Could not correlate the patient identifiers.");
                 }
             } else {
                 LOG.error(
@@ -432,17 +426,17 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
     private static boolean checkPatientInRegistrationEvent(PRPAIN201301UV02 request) {
         boolean result = false;
 
-        if(request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null){
+        if (request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null) {
 
-            result = request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                .getSubject1() != null
+            result = request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
                 && request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                .getPatient() != null
-                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0)
-                    .getRegistrationEvent().getSubject1().getPatient().getId());
+                    .getPatient() != null
+                && NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent()
+                    .getSubject1().getPatient().getId());
         }
         return result;
     }
+
     private II providedPatientId(PRPAIN201305UV02 request) {
         II patId = null;
         String aaId;
@@ -451,9 +445,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
             aaId = extractAAOID(request);
 
-            if (NullChecker.isNotNullish(aaId) && requestHasLivingId(request)) {
-                for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess()
-                    .getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+            if (NullChecker.isNotNullish(aaId) && requestHasLivingId(request) && aaId != null) {
+                for (PRPAMT201306UV02LivingSubjectId livingSubId : request.getControlActProcess().getQueryByParameter()
+                    .getValue().getParameterList().getLivingSubjectId()) {
                     for (II id : livingSubId.getValue()) {
                         if (id != null && NullChecker.isNotNullish(id.getRoot())
                             && NullChecker.isNotNullish(id.getExtension()) && aaId.contentEquals(id.getRoot())) {
@@ -516,12 +510,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             && request.getSender().getDevice().getAsAgent() != null
             && request.getSender().getDevice().getAsAgent().getValue() != null
             && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-            && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue() != null
-            && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                .getRepresentedOrganization().getValue().getId())
-            && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
-            .getId().get(0) != null
+            && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+            && NullChecker.isNotNullish(
+                request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId())
+            && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
+                .get(0) != null
             && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
@@ -540,11 +533,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
             && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
             && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue() != null
+                .getValue() != null
             && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId())
-            && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-            .getValue().getId().get(0) != null
+            && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                .getId().get(0) != null
             && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid = request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
@@ -562,12 +555,12 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             && request.getControlActProcess().getAuthorOrPerformer().get(0) != null
             && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null
             && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null
-            && NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0)
-                .getAssignedDevice().getValue().getId())
+            && NullChecker.isNotNullish(
+                request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId())
             && request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
-            .get(0) != null
-            && NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0)
-                .getAssignedDevice().getValue().getId().get(0).getRoot())) {
+                .get(0) != null
+            && NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice()
+                .getValue().getId().get(0).getRoot())) {
             oid = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()
                 .get(0).getRoot();
         }
@@ -587,11 +580,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             && response.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
             && response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
             && response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-            .getPatient() != null
+                .getPatient() != null
             && NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent()
                 .getSubject1().getPatient().getId())
             && response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-            .getId().get(0) != null
+                .getId().get(0) != null
             && NullChecker.isNotNullish(response.getControlActProcess().getSubject().get(0).getRegistrationEvent()
                 .getSubject1().getPatient().getId().get(0).getRoot())) {
             id.setRoot(response.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
@@ -617,9 +610,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
         MFMIMT700711UV01Reason reasonOf = new MFMIMT700711UV01Reason();
         MCAIMT900001UV01DetectedIssueEvent detectedIssueEvent = new MCAIMT900001UV01DetectedIssueEvent();
-        detectedIssueEvent.setCode(HL7DataTransformHelper.CDFactory(
-            HL7Constants.DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION, HL7Constants.DETECTED_ISSUE_EVENT_OID,
-            HL7Constants.DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC));
+        detectedIssueEvent
+            .setCode(HL7DataTransformHelper.CDFactory(HL7Constants.DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION,
+                HL7Constants.DETECTED_ISSUE_EVENT_OID, HL7Constants.DETECTED_ISSUE_EVENT_CODE_AUTHORIZATION_DESC));
         reasonOf.setDetectedIssueEvent(detectedIssueEvent);
 
         response.getControlActProcess().getReasonOf().add(reasonOf);
