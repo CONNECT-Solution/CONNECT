@@ -318,7 +318,7 @@
     </exchange>
     <exchange type="fhir">
       <name>Exchange 2</name>
-      <url>https://34.208.200.208/fhir-stu3/1.0.0/Organization/?_format=json&amp;apikey=testKey</url>
+      <url>https://YourFhirDirectoryServer/Organization/?_format=json&amp;apikey=testKey</url>
       <disabled>true</disabled>
       <lastUpdated></lastUpdated>
     </exchange>
