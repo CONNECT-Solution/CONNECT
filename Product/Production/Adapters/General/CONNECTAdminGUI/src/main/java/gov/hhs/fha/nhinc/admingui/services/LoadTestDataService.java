@@ -41,6 +41,7 @@ import java.util.List;
  *
  */
 public interface LoadTestDataService {
+
     public List<Patient> getAllPatients();
 
     public List<Personname> getAllPersonnamesBy(Long patientId);
@@ -102,7 +103,4 @@ public interface LoadTestDataService {
     public boolean saveEventCode(EventCode eventCode) throws LoadTestDataException;
 
     public Patient getPatientBy(String identifierId, String identifierOrg);
-
-    public List<Patient> getCachePatients();
-
 }

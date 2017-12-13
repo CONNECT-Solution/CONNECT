@@ -54,8 +54,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tran Tang
  */
-
 public class LoadTestDataDBServiceImpl implements LoadTestDataService {
+
     private static final Logger LOG = LoggerFactory.getLogger(LoadTestDataDBServiceImpl.class);
     private PatientDAO patientDAO = PatientDAO.getPatientDAOInstance();
     private PersonnameDAO personnameDAO = PersonnameDAO.getPersonnameDAOInstance();
@@ -66,12 +66,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     private DocumentDao documentDAO = new DocumentDao();
     private EventCodeDao eventCodeDAO = new EventCodeDao();
 
-    private List<Patient> cachePatients;
-
     @Override
     public List<Patient> getAllPatients() {
-        cachePatients = patientDAO.getAll();
-        return cachePatients;
+        return patientDAO.getAll();
     }
 
     @Override
@@ -306,14 +303,6 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         }
         patientDAO.saveTransaction(duplicatePatient);
         return duplicatePatient;
-    }
-
-    @Override
-    public List<Patient> getCachePatients() {
-        if (null == cachePatients) {
-            cachePatients = getAllPatients();
-        }
-        return cachePatients;
     }
 
     private static void logDaoError(String logOf) throws LoadTestDataException {
