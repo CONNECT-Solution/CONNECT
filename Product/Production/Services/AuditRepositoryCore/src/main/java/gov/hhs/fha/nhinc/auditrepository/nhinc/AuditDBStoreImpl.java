@@ -48,6 +48,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +93,7 @@ public class AuditDBStoreImpl implements AuditStore {
 
     protected Blob getBlobFromAuditMessage(AuditMessageType mess) {
         Blob eventMessage = null;
+        Session session = null;
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
@@ -103,9 +105,14 @@ public class AuditDBStoreImpl implements AuditStore {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            eventMessage = getHibernateUtil().getSessionFactory().openSession().getLobHelper().createBlob(buffer);
+            session = getHibernateUtil().getSessionFactory().openSession();
+            eventMessage = session.getLobHelper().createBlob(buffer);
         } catch (JAXBException | IOException e) {
             LOG.error("Exception during Blob conversion : {}", e.getLocalizedMessage(), e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return eventMessage;
     }

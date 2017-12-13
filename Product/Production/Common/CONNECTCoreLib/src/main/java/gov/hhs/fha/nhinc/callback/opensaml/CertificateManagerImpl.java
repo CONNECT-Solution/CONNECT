@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.cryptacular.util.StreamUtil;
 import org.slf4j.Logger;
@@ -61,6 +62,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CertificateManagerImpl implements CertificateManager {
 
+    private static final String STORE_TYPE_ERROR = "{} is not defined. Switch to use JKS by default";
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerImpl.class);
     private final CertificateUtil certUtil = new CertificateUtil();
     private KeyStore keyStore = null;
@@ -96,7 +98,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @return
      */
     static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
-            final Map<String, String> trustStoreProperties) {
+        final Map<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
             public Map<String, String> getKeyStoreSystemProperties() {
@@ -176,7 +178,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     @Override
     public boolean updateCertificate(String oldAlias, String newAlias, final String storeType,
-            final String storeLoc, final String passkey, KeyStore storeCert)
+        final String storeLoc, final String passkey, KeyStore storeCert)
             throws CertificateManagerException {
         boolean isUpdateSuccessful = false;
         FileInputStream is = null;
@@ -188,7 +190,7 @@ public class CertificateManagerImpl implements CertificateManager {
             storeCert.load(is, passkey.toCharArray());
             if (storeCert.containsAlias(oldAlias)) {
                 os = updateCertEntry(oldAlias, newAlias, storeCert.getCertificate(oldAlias), storeLoc, passkey,
-                        storeCert);
+                    storeCert);
                 isUpdateSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
@@ -203,28 +205,25 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     private static FileOutputStream updateCertEntry(final String oldAlias, final String newAlias,
-            Certificate certificate, final String storeLoc,
-            final String passkey, KeyStore tstore)
-            throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
-        FileOutputStream os;
-        tstore.deleteEntry(oldAlias);
-        os = new FileOutputStream(storeLoc);
-        tstore.setCertificateEntry(newAlias, certificate);
-        tstore.store(os, passkey.toCharArray());
+        Certificate certificate, final String storeLoc, final String passkey, KeyStore tstore)
+            throws CertificateManagerException, IOException {
+        FileOutputStream os = null;
+        try {
+            tstore.deleteEntry(oldAlias);
+            os = new FileOutputStream(storeLoc);
+            tstore.setCertificateEntry(newAlias, certificate);
+            tstore.store(os, passkey.toCharArray());
+        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
+            IOUtils.closeQuietly(os);
+            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
+            throw new CertificateManagerException(ex.getMessage(), ex);
+        }
         return os;
     }
 
     private static void closeStream(FileInputStream is, FileOutputStream os) {
-        try {
-            if (is != null) {
-                is.close();
-            }
-            if (os != null) {
-                os.close();
-            }
-        } catch (final IOException ex) {
-            LOG.error("Unable to close File Stream: {}", ex.getLocalizedMessage(), ex);
-        }
+        IOUtils.closeQuietly(is);
+        IOUtils.closeQuietly(os);
     }
 
     @Override
@@ -267,7 +266,7 @@ public class CertificateManagerImpl implements CertificateManager {
         final String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
 
         if (storeType == null) {
-            LOG.warn("{} is not defined. Switch to use JKS by default", KEY_STORE_TYPE_KEY);
+            LOG.warn(STORE_TYPE_ERROR, KEY_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
         if (password != null) {
@@ -290,7 +289,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws CertificateManagerException
      */
     private static KeyStore loadKeyStore(final String storeType, final String password, final String storeLoc)
-            throws CertificateManagerException {
+        throws CertificateManagerException {
         InputStream is = null;
         KeyStore secretStore = null;
         try {
@@ -330,7 +329,7 @@ public class CertificateManagerImpl implements CertificateManager {
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
         if (storeType == null) {
-            LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
+            LOG.warn(STORE_TYPE_ERROR, TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
         if (password != null) {
@@ -375,7 +374,7 @@ public class CertificateManagerImpl implements CertificateManager {
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
-                            new KeyStore.PasswordProtection(password.toCharArray()));
+                        new KeyStore.PasswordProtection(password.toCharArray()));
 
                 } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
                     LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
@@ -467,15 +466,13 @@ public class CertificateManagerImpl implements CertificateManager {
         final String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
         if (storeType == null) {
-            LOG.warn("{} is not defined. Switch to use JKS by default", TRUST_STORE_TYPE_KEY);
+            LOG.warn(STORE_TYPE_ERROR, TRUST_STORE_TYPE_KEY);
             storeType = JKS_TYPE;
         }
-        if (password != null) {
-            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-                OutputStream os = new FileOutputStream(storeLoc);
-                trustStore.store(os, password.toCharArray());
-                StreamUtil.closeStream(os);
-            }
+        if (password != null && !PKCS11_TYPE.equalsIgnoreCase(storeType)) {
+            OutputStream os = new FileOutputStream(storeLoc);
+            trustStore.store(os, password.toCharArray());
+            StreamUtil.closeStream(os);
         }
     }
 
