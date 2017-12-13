@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.util.StreamUtils;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Properties;
 import org.slf4j.Logger;
@@ -61,17 +63,19 @@ public class PropertyFileManager {
 
         String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
         OutputStreamWriter fwPropFile = null;
+        FileOutputStream propFOS = null;
         Exception eError = null;
         String sErrorMessage = "";
 
         try {
-            fwPropFile = StreamUtils.openOutputStream(sPropertyFile);
-
+            propFOS = new FileOutputStream(sPropertyFile);
+            fwPropFile = new OutputStreamWriter(propFOS, StringUtil.UTF8_CHARSET);
             oProps.store(fwPropFile, "");
         } catch (Exception e) {
             sErrorMessage = "Failed to store property file: " + sPropFile + ".  Error: " + e.getMessage();
             eError = e;
         } finally {
+            StreamUtils.closeReaderSilently(propFOS);
             StreamUtils.closeWriterSilently(fwPropFile);
         }
 

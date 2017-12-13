@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.util.StreamUtils;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 import org.slf4j.Logger;
@@ -54,8 +56,8 @@ public class PropertyAccessorFileUtilities {
 
         if (propertyFileDirAbsolutePath == null) {
             LOG.error("Unable to determine the path to the configuration files.  "
-                    + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
-                    + "of your CONNECT configuration files.");
+                + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
+                + "of your CONNECT configuration files.");
         } else {
             propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
         }
@@ -105,15 +107,17 @@ public class PropertyAccessorFileUtilities {
     public Properties loadPropertyFile(File propertyFile) {
         Properties properties = new Properties();
         InputStreamReader propFile = null;
-
+        FileInputStream propFIS = null;
         try {
-            propFile = StreamUtils.openInputStream(propertyFile);
+            propFIS = new FileInputStream(propertyFile);
+            propFile = new InputStreamReader(propFIS, StringUtil.UTF8_CHARSET);
 
             properties.load(propFile);
         } catch (Exception e) {
             LOG.error("Failed to load property file {}: {}", propertyFile, e.getLocalizedMessage(), e);
         } finally {
             StreamUtils.closeFileSilently(propFile);
+            StreamUtils.closeStreamSilently(propFIS);
         }
 
         return properties;

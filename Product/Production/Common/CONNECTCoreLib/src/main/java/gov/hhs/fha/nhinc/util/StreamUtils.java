@@ -26,17 +26,10 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,40 +41,6 @@ import org.slf4j.LoggerFactory;
 public class StreamUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(StreamUtils.class);
-
-    public static OutputStreamWriter openOutputStream(String sPropFile) throws Exception {
-        OutputStreamWriter propWriter = null;
-        FileOutputStream propFOS = null;
-
-        try {
-            propFOS = new FileOutputStream(sPropFile);
-            propWriter = new OutputStreamWriter(propFOS, StringUtil.UTF8_CHARSET);
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
-            throw new Exception("Failed to open property file: '" + sPropFile + "' for reading", e);
-        } finally {
-            closeReaderSilently(propFOS);
-            closeWriterSilently(propWriter);
-        }
-
-        return propWriter;
-    }
-
-    public static InputStreamReader openInputStream(File propFile) throws Exception {
-        InputStreamReader propReader = null;
-        FileInputStream propFIS = null;
-
-        try {
-            propFIS = new FileInputStream(propFile);
-            propReader = new InputStreamReader(propFIS, StringUtil.UTF8_CHARSET);
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
-            throw new Exception("Failed to open property file: '" + propFile + "' for reading", e);
-        } finally {
-            closeStreamSilently(propFIS);
-            closeFileSilently(propReader);
-        }
-
-        return propReader;
-    }
 
     public static void closeStreamSilently(InputStream is) {
         try {
