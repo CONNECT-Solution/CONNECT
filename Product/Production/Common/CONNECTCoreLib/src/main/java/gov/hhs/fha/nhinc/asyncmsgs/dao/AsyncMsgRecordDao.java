@@ -656,11 +656,19 @@ public class AsyncMsgRecordDao {
         // Convert the long to a Long Object and change the sign to negative so our query value ends up in the past.
         Long longObj = -value;
 
+<<<<<<< HEAD
         if (NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC.equalsIgnoreCase(units)) {
             currentTime.add(Calendar.SECOND, longObj.intValue());
         } else if (NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN.equalsIgnoreCase(units)) {
             currentTime.add(Calendar.MINUTE, longObj.intValue());
         } else if (NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR.equalsIgnoreCase(units)) {
+=======
+        if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_SEC) && units != null) {
+            currentTime.add(Calendar.SECOND, longObj.intValue());
+        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_MIN) && units != null) {
+            currentTime.add(Calendar.MINUTE, longObj.intValue());
+        } else if (units.equalsIgnoreCase(NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_HOUR) && units != null) {
+>>>>>>> CONN-1952 remove Sonarqube NullPointerException issues
             currentTime.add(Calendar.HOUR_OF_DAY, longObj.intValue());
         } else {
             // Default to days

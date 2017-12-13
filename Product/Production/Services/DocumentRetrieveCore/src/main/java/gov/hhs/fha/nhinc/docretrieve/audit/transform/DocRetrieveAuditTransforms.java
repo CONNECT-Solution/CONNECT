@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author vimehta
  */
 public class DocRetrieveAuditTransforms
-extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
+    extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveAuditTransforms.class);
 
@@ -224,10 +224,9 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromResponse(response));
         String repoResponseId = getRepositoryUniqueIdFromResponse(response);
-        String hcidResponseId = getHomeCommunityIdFromResponse(response) ;
+        String hcidResponseId = getHomeCommunityIdFromResponse(response);
         if (repoResponseId != null && hcidResponseId != null) {
-            getParticipantObjectDetail(repoResponseId.getBytes(),
-                hcidResponseId.getBytes(), participantObject);
+            getParticipantObjectDetail(repoResponseId.getBytes(), hcidResponseId.getBytes(), participantObject);
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -362,10 +361,10 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         }
 
         participant.getRoleIDCode()
-        .add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+            .add(AuditDataTransformHelper.createCodeValueType(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 
