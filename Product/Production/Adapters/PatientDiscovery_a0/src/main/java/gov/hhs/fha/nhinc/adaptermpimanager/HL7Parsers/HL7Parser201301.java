@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers;
 
+import com.google.common.base.Optional;
+
 import gov.hhs.fha.nhinc.mpilib.Identifier;
 import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
@@ -185,14 +187,14 @@ public class HL7Parser201301 {
                 + id.getId() + "]");
             ids.add(id);
         }
-
-        PRPAMT201301UV02Person person = ExtractHL7PatientPersonFromHL7Patient(patient);
+        Optional<PRPAMT201301UV02Person> personOptional = Optional.fromNullable(ExtractHL7PatientPersonFromHL7Patient(patient));
+        PRPAMT201301UV02Person person = personOptional.or(new PRPAMT201301UV02Person());
         for (II personid : person.getId()) {
             Identifier id = new Identifier();
             id.setId(personid.getExtension());
             id.setOrganizationId(personid.getRoot());
             LOG.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId()
-            + "]");
+                + "]");
             ids.add(id);
         }
 
@@ -204,7 +206,7 @@ public class HL7Parser201301 {
                     id.setId(otherPersonId.getExtension());
                     id.setOrganizationId(otherPersonId.getRoot());
                     LOG.info("Created id from person other identifier [organization=" + id.getOrganizationId()
-                    + "][id=" + id.getId() + "]");
+                        + "][id=" + id.getId() + "]");
                     ids.add(id);
                 }
             }
@@ -242,7 +244,7 @@ public class HL7Parser201301 {
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
         PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
-            return ExtractHL7PatientPersonFromHL7Patient(patient);
+        return ExtractHL7PatientPersonFromHL7Patient(patient);
     }
 
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
@@ -307,14 +309,14 @@ public class HL7Parser201301 {
         if (patientPerson != null) {
             mpiPatient.getNames().add(ExtractPersonName(patientPerson));
 
-        mpiPatient.setGender(ExtractGender(patientPerson));
-        String birthdateString = ExtractBirthdate(patientPerson);
-        mpiPatient.setDateOfBirth(birthdateString);
-        mpiPatient.setSSN(ExtractSsn(patientPerson));
+            mpiPatient.setGender(ExtractGender(patientPerson));
+            String birthdateString = ExtractBirthdate(patientPerson);
+            mpiPatient.setDateOfBirth(birthdateString);
+            mpiPatient.setSSN(ExtractSsn(patientPerson));
         }
         if (patient != null) {
-        Identifiers ids = ExtractPersonIdentifiers(patient);
-        mpiPatient.setIdentifiers(ids);
+            Identifiers ids = ExtractPersonIdentifiers(patient);
+            mpiPatient.setIdentifiers(ids);
         }
         return mpiPatient;
     }

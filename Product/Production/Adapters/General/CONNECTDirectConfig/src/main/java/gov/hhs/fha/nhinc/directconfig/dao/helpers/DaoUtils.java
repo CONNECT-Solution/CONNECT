@@ -90,8 +90,9 @@ public class DaoUtils {
      */
     public static Session getSession() {
         Session session = null;
-        if (getHibernateUtil() != null) {
-            SessionFactory fact = getHibernateUtil().getSessionFactory();
+        HibernateUtil hibernateUtil = getHibernateUtil();
+        if (hibernateUtil != null) {
+            SessionFactory fact = hibernateUtil.getSessionFactory();
             if (fact != null) {
                 session = fact.openSession();
             } else {
