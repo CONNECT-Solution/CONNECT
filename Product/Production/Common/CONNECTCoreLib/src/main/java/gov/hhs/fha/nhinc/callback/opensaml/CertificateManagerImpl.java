@@ -350,8 +350,9 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public X509Certificate getDefaultCertificate() throws CertificateManagerException {
-        if (getPrivateKeyEntry() != null) {
-            return (X509Certificate) getPrivateKeyEntry().getCertificate();
+        PrivateKeyEntry pkEntry = getPrivateKeyEntry();
+        if (pkEntry != null) {
+            return (X509Certificate) pkEntry.getCertificate();
         }
         return null;
     }
@@ -363,8 +364,9 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
-        if (getPrivateKeyEntry() != null) {
-            return getPrivateKeyEntry().getPrivateKey();
+        PrivateKeyEntry pkEntry = getPrivateKeyEntry();
+        if (pkEntry != null) {
+            return pkEntry.getPrivateKey();
         }
         return null;
     }

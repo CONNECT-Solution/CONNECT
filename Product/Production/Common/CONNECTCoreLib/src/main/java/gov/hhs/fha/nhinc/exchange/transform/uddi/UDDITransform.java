@@ -102,7 +102,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private void buildEndpointList(BusinessEntity entity, OrganizationType org) {
         EndpointListType epListType;
-        if (null != entity.getBusinessServices()
+        if (null != entity && null != entity.getBusinessServices()
             && CollectionUtils.isNotEmpty(entity.getBusinessServices().getBusinessService())) {
             epListType = new EndpointListType();
             for (BusinessService service : entity.getBusinessServices().getBusinessService()) {
@@ -199,7 +199,8 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private static void buildContacts(BusinessEntity entity, OrganizationType org) {
         List<ContactType> contacts;
-        if (entity.getContacts() != null && CollectionUtils.isNotEmpty(entity.getContacts().getContact())) {
+        if (null != entity && entity.getContacts() != null
+            && CollectionUtils.isNotEmpty(entity.getContacts().getContact())) {
             contacts = new ArrayList<>();
             for (Contact contact : entity.getContacts().getContact()) {
                 ContactType cType = new ContactType();
@@ -216,7 +217,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private static void buildTargetRegions(BusinessEntity entity, OrganizationType org) {
         List<String> regions;
-        if (entity.getCategoryBag() != null
+        if (null != entity && entity.getCategoryBag() != null
             && CollectionUtils.isNotEmpty(entity.getCategoryBag().getKeyedReference())) {
             regions = new ArrayList<>();
             for (KeyedReference keyRef : entity.getCategoryBag().getKeyedReference()) {

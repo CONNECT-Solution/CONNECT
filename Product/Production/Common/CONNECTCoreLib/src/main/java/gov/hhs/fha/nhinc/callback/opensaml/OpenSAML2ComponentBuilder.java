@@ -150,12 +150,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public static OpenSAML2ComponentBuilder getInstance() {
         if (openSamlInstance == null) {
-            try {
-                openSamlInstance = new OpenSAML2ComponentBuilder();
-            } catch (final Exception e) {
-                LOG.error("Unable to get instance: {}", e.getLocalizedMessage(), e);
-                openSamlInstance = null;
-            }
+            openSamlInstance = new OpenSAML2ComponentBuilder();
         }
         return openSamlInstance;
     }

@@ -106,15 +106,16 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         // Populate Issuer
         if (saml2Assertion != null) {
             populateIssuer(saml2Assertion, target);
+            // Populate the Subject Information
+            populateSubject(saml2Assertion, target);
+            // Populate the Authentication Statement Information.
+            populateAuthenticationStatement(saml2Assertion, target);
+            // Populate the Attribute Statement Information.
+            populateAttributeStatement(saml2Assertion, target);
+            // Populate the Authorization Decision Statement Information
+            populateAuthzDecisionStatement(saml2Assertion, target);
         }
-        // Populate the Subject Information
-        populateSubject(saml2Assertion, target);
-        // Populate the Authentication Statement Information.
-        populateAuthenticationStatement(saml2Assertion, target);
-        // Populate the Attribute Statement Information.
-        populateAttributeStatement(saml2Assertion, target);
-        // Populate the Authorization Decision Statement Information
-        populateAuthzDecisionStatement(saml2Assertion, target);
+
         LOG.debug("end extractSamlAssertion()");
 
         return target;
