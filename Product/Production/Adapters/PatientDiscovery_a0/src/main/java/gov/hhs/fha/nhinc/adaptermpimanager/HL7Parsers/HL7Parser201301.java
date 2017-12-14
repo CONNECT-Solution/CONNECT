@@ -308,8 +308,6 @@ public class HL7Parser201301 {
         Patient mpiPatient = new Patient();
         if (patientPerson != null) {
             mpiPatient.getNames().add(ExtractPersonName(patientPerson));
-
-<<<<<<< HEAD
             mpiPatient.setGender(ExtractGender(patientPerson));
             String birthdateString = ExtractBirthdate(patientPerson);
             mpiPatient.setDateOfBirth(birthdateString);
@@ -318,16 +316,6 @@ public class HL7Parser201301 {
         if (patient != null) {
             Identifiers ids = ExtractPersonIdentifiers(patient);
             mpiPatient.setIdentifiers(ids);
-=======
-        mpiPatient.setGender(ExtractGender(patientPerson));
-        String birthdateString = ExtractBirthdate(patientPerson);
-        mpiPatient.setDateOfBirth(birthdateString);
-        mpiPatient.setSSN(ExtractSsn(patientPerson));
-        }
-        if (patient != null) {
-        Identifiers ids = ExtractPersonIdentifiers(patient);
-        mpiPatient.setIdentifiers(ids);
->>>>>>> CONN-1952 remove Sonarqube NullPointerException issues
         }
         return mpiPatient;
     }
