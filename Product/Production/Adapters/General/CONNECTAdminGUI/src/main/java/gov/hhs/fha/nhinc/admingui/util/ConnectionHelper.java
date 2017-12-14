@@ -89,8 +89,8 @@ public class ConnectionHelper {
         return localEntity;
     }
 
-    private boolean checkLocalHcid(String EntityHcid) {
-        return formatHcid(EntityHcid).equals(formatHcid(getLocalHcid()));
+    private boolean checkLocalHcid(String entityHcid) {
+        return StringUtils.equalsIgnoreCase(formatHcid(entityHcid), formatHcid(getLocalHcid()));
     }
 
     private String getOrganizationName(OrganizationType organization) {
@@ -139,7 +139,9 @@ public class ConnectionHelper {
         List<OrganizationType> externalOrganizations = new ArrayList<>(getExternalOrganizationsMap().values());
         if (CollectionUtils.isNotEmpty(externalOrganizations)) {
             for (OrganizationType organization : externalOrganizations) {
-                organizationMap.put(getOrganizationName(organization), organization.getHcid());
+                if (organization !=null){
+                    organizationMap.put(getOrganizationName(organization), organization.getHcid());
+                }
             }
         }
         return organizationMap;
@@ -162,7 +164,9 @@ public class ConnectionHelper {
         List<OrganizationType> organizations = getAllOrganizations();
         if (CollectionUtils.isNotEmpty(organizations)) {
             for (OrganizationType organization : organizations) {
-                organizationMap.put(getOrganizationName(organization), organization.getHcid());
+                if (organization != null){
+                    organizationMap.put(getOrganizationName(organization), organization.getHcid());
+                }
             }
         }
         return organizationMap;

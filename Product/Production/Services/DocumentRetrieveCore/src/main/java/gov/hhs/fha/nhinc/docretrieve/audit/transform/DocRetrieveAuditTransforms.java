@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author vimehta
  */
 public class DocRetrieveAuditTransforms
-    extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
+extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveAuditTransforms.class);
 
@@ -208,10 +208,10 @@ public class DocRetrieveAuditTransforms
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromRequest(request));
-
-        if (getRepositoryUniqueIdFromRequest(request) != null && getHomeCommunityIdFromRequest(request) != null) {
-            getParticipantObjectDetail(getRepositoryUniqueIdFromRequest(request).getBytes(),
-                getHomeCommunityIdFromRequest(request).getBytes(), participantObject);
+        String repoId = getRepositoryUniqueIdFromRequest(request);
+        String homeId = getHomeCommunityIdFromRequest(request);
+        if (repoId != null && homeId != null) {
+            getParticipantObjectDetail(repoId.getBytes(), homeId.getBytes(), participantObject);
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
@@ -223,10 +223,11 @@ public class DocRetrieveAuditTransforms
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
         participantObject.setParticipantObjectID(getDocumentUniqueIdFromResponse(response));
-
-        if (getRepositoryUniqueIdFromResponse(response) != null && getHomeCommunityIdFromResponse(response) != null) {
-            getParticipantObjectDetail(getRepositoryUniqueIdFromResponse(response).getBytes(),
-                getHomeCommunityIdFromResponse(response).getBytes(), participantObject);
+        String repoResponseId = getRepositoryUniqueIdFromResponse(response);
+        String hcidResponseId = getHomeCommunityIdFromResponse(response) ;
+        if (repoResponseId != null && hcidResponseId != null) {
+            getParticipantObjectDetail(repoResponseId.getBytes(),
+                hcidResponseId.getBytes(), participantObject);
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         return auditMsg;
@@ -361,10 +362,10 @@ public class DocRetrieveAuditTransforms
         }
 
         participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        .add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 
