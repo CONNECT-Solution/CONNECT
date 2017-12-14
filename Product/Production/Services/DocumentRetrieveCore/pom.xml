@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Services</artifactId>
-        <version>5.1.0-SNAPSHOT</version>
+        <version>5.1.0-RC1</version>
     </parent>
 
     <artifactId>DocumentRetrieveCore</artifactId>
