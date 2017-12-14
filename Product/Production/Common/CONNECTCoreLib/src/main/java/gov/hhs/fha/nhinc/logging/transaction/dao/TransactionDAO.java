@@ -86,6 +86,11 @@ public class TransactionDAO {
                 if (sessionFactory != null) {
                     session = sessionFactory.openSession();
                 }
+                if (session == null) {
+                    LOG.error("Session equal");
+                    return false;
+                }
+
                 tx = session.beginTransaction();
                 LOG.info("Inserting Record...");
 
@@ -131,7 +136,12 @@ public class TransactionDAO {
             if (LOG.isDebugEnabled()) {
                 LOG.info("Getting Records");
             }
+            if (session == null) {
+                LOG.error("Session equal");
+                return null;
+            }
             final Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
+
             namedQuery.setString("messageId", messageId);
 
             final List<TransactionRepo> queryList = namedQuery.list();
