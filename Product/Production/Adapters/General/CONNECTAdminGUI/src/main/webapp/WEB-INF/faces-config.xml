@@ -100,6 +100,14 @@
       <redirect />
     </navigation-case>
   </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/*</from-view-id>
+    <navigation-case>
+      <from-outcome>exchangeManager</from-outcome>
+      <to-view-id>/exchangeManager.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
   <factory>
     <!-- Any run time exception will route to this exceptionFactory and render customerror.xhtml -->
     <exception-handler-factory>gov.hhs.fha.nhinc.admingui.exceptionhandler.CustomExceptionHandlerFactory</exception-handler-factory>
