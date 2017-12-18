@@ -158,8 +158,8 @@ public class ExchangeManagerBean {
     public List<ExchangeType> getExchanges() {
         List<ExchangeType> exchanges = new ArrayList<>();
         exchanges.add(new ExchangeType());
-        exchanges.get(0).setName("test-name");
-        exchanges.get(0).setUrl("test-URL");
+        exchanges.get(0).setName("exchange-name");
+        exchanges.get(0).setUrl("exchange-URL");
         exchanges.get(0).setType("FHIR");
         return exchanges;
     }
@@ -220,11 +220,11 @@ public class ExchangeManagerBean {
             LOG.info("return orgs-list");
             List<OrganizationType> orgs = new ArrayList<>();
             orgs.add(new OrganizationType());
-            orgs.get(0).setName("test-name");
-            orgs.get(0).setHcid("test-HCID");
+            orgs.get(0).setName("org-name");
+            orgs.get(0).setHcid("org-HCID");
             orgs.add(new OrganizationType());
-            orgs.get(1).setName("test-name-2");
-            orgs.get(1).setHcid("test-HCID-2");
+            orgs.get(1).setName("org-name-2");
+            orgs.get(1).setHcid("org-HCID-2");
             return orgs;
         }
         return new ArrayList<>();
@@ -233,11 +233,11 @@ public class ExchangeManagerBean {
     public List<ExchangeType> getListFilterExchanges() {
         List<ExchangeType> exch = new ArrayList<>();
         exch.add(new ExchangeType());
-        exch.get(0).setName("test-name");
-        exch.get(0).setUrl("test-url");
+        exch.get(0).setName("exch-name");
+        exch.get(0).setUrl("exch-url");
         exch.add(new ExchangeType());
-        exch.get(1).setName("test-name-2");
-        exch.get(1).setUrl("test-url-2");
+        exch.get(1).setName("exch-name-2");
+        exch.get(1).setUrl("exch-url-2");
         return exch;
     }
 
@@ -255,7 +255,7 @@ public class ExchangeManagerBean {
         return getDummyList();
     }
 
-    private Map<String, String> getDummyList() {
+    private static Map<String, String> getDummyList() {
         Map<String, String> popList = new TreeMap<>();
         popList.put("Item-one", "1");
         popList.put("Item-two", "2");
