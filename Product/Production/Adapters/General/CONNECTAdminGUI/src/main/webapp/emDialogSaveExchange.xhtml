@@ -1,0 +1,69 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <p:dialog id="dlgSaveExchange" header="New Exchange" widgetVar="wvDlgSaveExchange" modal="true" draggable="false"
+        resizable="false" width="650" height="560">
+
+        <div class="form-block center-block">
+            <h:form id="formDlgExchange" class="form form-horizontal">
+                <p:messages id="dlgExchangeErrors" closable="true" autoUpdate="true" showDetail="true" />
+                <div class="content well">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputName" value="* Name:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.name}"
+                                id="inputName" maxlength="250" required="true" requiredMessage="Name is required." />
+                        </div>
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputType" value="* Type:" />
+                            <h:selectOneMenu id="inputType" value="#{exchangeManagerBean.formExchange.type}"
+                                required="true" requiredMessage="Type is required.">
+                                <f:selectItem itemLabel="---" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{exchangeManagerBean.listTypes}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <h:outputLabel class="control-label" for="inputUrl" value="* URL:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.url}"
+                                id="inputUrl" maxlength="750" required="true" requiredMessage="URL is required." />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputKey" value="Key:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.key}"
+                                id="inputKey" maxlength="250" />
+                        </div>
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputTLSVersions" value="TLS:" />
+                            <h:selectOneMenu id="inputTLSVersions" value="#{exchangeManagerBean.formExchangeTLSVersion}">
+                                <f:selectItem itemLabel="default" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{exchangeManagerBean.listTLSes}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <p:selectBooleanCheckbox id="inputEnable" value="#{exchangeManagerBean.formExchangeEnable}" />
+                            <h:outputLabel class="control-label" for="inputEnable" value="&#160;&#160; Enabled " />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-button-row">
+                    <div class="col-sm-12">
+                        <p:commandButton styleClass="btn btn-primary" icon="ui-icon-circle-plus"
+                            action="#{exchangeManagerBean.saveExchange()}" value="Save"
+                            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange" />
+                        <p:commandButton styleClass="btn btn-default" icon="ui-icon-circle-close" value="Close"
+                            oncomplete="PF('wvDlgSaveExchange').hide();" />
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+    </p:dialog>
+
+</ui:composition>

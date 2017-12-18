@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  /*
+   * Copyright (c) 2009-2017, United States Government, as represented by the Secretary of Health and Human Services.
+   * All rights reserved.
+   *
+   * Redistribution and use in source and binary forms, with or without
+   * modification, are permitted provided that the following conditions are met:
+   *     * Redistributions of source code must retain the above
+   *       copyright notice, this list of conditions and the following disclaimer.
+   *     * Redistributions in binary form must reproduce the above copyright
+   *       notice, this list of conditions and the following disclaimer in the documentation
+   *       and/or other materials provided with the distribution.
+   *     * Neither the name of the United States Government nor the
+   *       names of its contributors may be used to endorse or promote products
+   *       derived from this software without specific prior written permission.
+   *
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+   * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+   * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+   * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+<head>
+<title>Admin GUI Exchange Manager</title>
+<link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
+</head>
+
+<h:body>
+    <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+        <ui:define name="metatag"></ui:define>
+        <ui:define name="content">
+            <h1 class="section-header">Exchange Manager</h1>
+
+            <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+            <p:tabView id="tabviewExchange" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0"
+                styleClass="tabs-override tabs-ovr-red">
+
+                <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                <div class="tab-content">
+
+                    <!-- BEGIN: TAB-PANE-BLOCK -->
+                    <p:tab title="External Connections" closable="false">
+                        <div class="tab-pane active">
+
+                            <!-- BEGIN: LISTING-BLOCK-1 -->
+                            <div class="content-block">
+                                <h2 class="subsection-header"></h2>
+                                <div class="content form-block center-block">
+
+                                    <!-- BEGIN: GENERAL SETTINGS - PANEL -->
+
+                                    <p:panel id="panelGeneralSetting" header="General Settings" toggleable="true"
+                                        closable="false" toggleSpeed="500" closeSpeed="500"
+                                        widgetVar="varGeneralSetting" style="margin-bottom:20px">
+                                        <h:form id="formGeneralSetting" class="form-horizontal">
+                                            <div class="content">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <h:outputLabel class="control-label" for="inputRefreshInterval"
+                                                            value="Refresh Interval (Minutes):" />
+                                                        <p:inputText styleClass="form-control"
+                                                            value="#{exchangeManagerBean.formExchangeInfo.refreshInterval}"
+                                                            id="inputRefreshInterval" maxlength="250" />
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <h:outputLabel class="control-label"
+                                                            for="inputMaxNumberOfBackups" value="Maximum No Of Backups:" />
+                                                        <p:inputText styleClass="form-control"
+                                                            value="#{exchangeManagerBean.formExchangeInfo.maxNumberOfBackups}"
+                                                            id="inputMaxNumberOfBackups" maxlength="250" />
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <h:outputLabel class="control-label" for="inputDefaultExchange"
+                                                            value="Default Exchange:" />
+                                                        <h:selectOneMenu class="form-control" id="inputDefaultExchange"
+                                                            value="#{exchangeManagerBean.formExchangeInfo.defaultExchange}">
+                                                            <f:selectItem itemLabel="---" itemValue=""
+                                                                noSelectionOption="true" />
+                                                            <f:selectItems
+                                                                value="#{exchangeManagerBean.listDefaultExchanges}" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-button-row">
+                                                    <div>
+                                                        <p:commandButton styleClass="btn btn-primary"
+                                                            icon="ui-icon-circle-plus"
+                                                            actionListener="#{exchangeManagerBean.saveExchangeInfo}"
+                                                            value="Save" />
+                                                        <p:commandButton styleClass="btn refresh-button"
+                                                            icon="ui-icon-refresh"
+                                                            actionListener="#{exchangeManagerBean.refreshExchangeInfo}"
+                                                            value="Refresh Exchanges" update=":tabviewExchange" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </p:panel>
+
+                                    <p:accordionPanel id="accordionExchange">
+                                        <p:tab title="Exchanges">
+                                            <h:form id="formExchange" class="form-horizontal">
+                                                <p:messages id="msgsExchange" redisplay="false" autoUpdate="true"
+                                                    closable="true" severity="warning" />
+
+                                                <p:dataTable id="dataTableExchange"
+                                                    styleClass="table table-striped table-domains" var="rec"
+                                                    value="#{exchangeManagerBean.exchanges}"
+                                                    selection="#{exchangeManagerBean.selectedExchange}"
+                                                    rowKey="#{rec.name}"
+                                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                    paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
+
+                                                    <p:ajax event="rowSelectRadio" process="@this"
+                                                        update=":@form:deleteExchange" />
+
+                                                    <p:column headerText="" selectionMode="single" />
+                                                    <p:column headerText="Name">
+                                                        <h:outputText value="#{rec.name}" />
+                                                    </p:column>
+                                                    <p:column headerText="Type">
+                                                        <h:outputText value="#{rec.type}" />
+                                                    </p:column>
+                                                    <p:column headerText="URL">
+                                                        <h:outputText value="#{rec.url}" />
+                                                    </p:column>
+                                                    <p:column headerText="Disabled">
+                                                        <h:outputText value="#{rec.disabled}" />
+                                                    </p:column>
+                                                    <p:column headerText="Last Updated">
+                                                        <h:outputText value="#{rec.lastUpdated}">
+                                                            <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:dataTable>
+
+                                                <div class="form-button-row">
+                                                    <div class="col-sm-12">
+                                                        <p:commandButton styleClass="btn btn-primary pull-left"
+                                                            icon="ui-icon-circle-plus"
+                                                            oncomplete="PF('wvDlgSaveExchange').show();"
+                                                            actionListener="#{exchangeManagerBean.newExchange}"
+                                                            update=":dlgSaveExchange" value="New">
+                                                            <p:resetInput target=":formDlgExchange" />
+                                                        </p:commandButton>
+                                                        <p:commandButton id="deleteExchange" styleClass="delete-button"
+                                                            icon="ui-icon-closethick"
+                                                            actionListener="#{exchangeManagerBean.deleteExchange}"
+                                                            value="Delete" update="@form:dataTableExchange"
+                                                            disabled="#{exchangeManagerBean.disableButtonsExchange}">
+                                                            <p:confirm header="Delete Exchange Confirmation"
+                                                                message="Do you want to delete this record?"
+                                                                icon="ui-icon-alert" />
+                                                        </p:commandButton>
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </p:tab>
+                                        <p:tab title="Organizations">
+                                            <h:form id="formOrganizations" class="form-horizontal">
+                                                <div class="well">
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-4">
+                                                            <h:outputLabel class="control-label"
+                                                                for="inputFilterExchange" value="Exchange:" />
+                                                            <h:selectOneMenu styleClass="form-control" id="inputFilterExchange"
+                                                                value="#{exchangeManagerBean.filterExchange}"
+                                                                filter="true" filterMatchMode="startsWith">
+                                                                <p:ajax event="change" update="inputFilterOrganization" />
+                                                                <f:selectItem itemLabel="---" itemValue=""
+                                                                    noSelectionOption="true" />
+                                                                <f:selectItems
+                                                                    value="#{exchangeManagerBean.listFilterExchanges}"
+                                                                    var="item" itemLabel="#{item.name}"
+                                                                    itemValue="#{item.name}" />
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                        <div class="form-group col-sm-4">
+                                                            <h:outputLabel class="control-label"
+                                                                for="inputFilterOrganization" value="Organization:" />
+                                                            <h:selectOneMenu styleClass="form-control" id="inputFilterOrganization"
+                                                                value="#{exchangeManagerBean.filterOrganization}"
+                                                                filter="true" filterMatchMode="startsWith">
+                                                                <p:ajax event="change"
+                                                                    update="displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
+                                                                <f:selectItem itemLabel="---" itemValue=""
+                                                                    noSelectionOption="true" />
+                                                                <f:selectItems
+                                                                    value="#{exchangeManagerBean.listFilterOrganizations}"
+                                                                    var="item" itemLabel="#{item.name}"
+                                                                    itemValue="#{item.name}^^^#{item.hcid}" />
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <h:outputLabel class="control-label" value="Name:" />
+                                                            <h:outputText id="displayName"
+                                                                value="#{exchangeManagerBean.orgName}" />
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <h:outputLabel class="control-label" value="HCID:" />
+                                                            <h:outputText id="displayHcid"
+                                                                value="#{exchangeManagerBean.orgHcid}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <h:outputLabel class="control-label" value="Description:" />
+                                                            <h:outputText id="displayDescription"
+                                                                value="#{exchangeManagerBean.orgDescription}" />
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <h:outputLabel class="control-label" value="Contact:" />
+                                                            <h:outputText id="displayContact"
+                                                                value="#{exchangeManagerBean.orgContacts}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <p:dataTable id="dataTableConnectionEndpoint"
+                                                    styleClass="table table-striped table-domains" var="rec"
+                                                    value="#{exchangeManagerBean.connectionEndpoints}"
+                                                    selection="#{exchangeManagerBean.selectedEndpoint}"
+                                                    rowKey="#{rec.serviceUrl}"
+                                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                    paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
+
+                                                    <p:ajax event="rowSelectRadio" process="@this"
+                                                        update=":@form:pingService" />
+
+                                                    <p:column headerText="" selectionMode="single" />
+                                                    <p:column headerText="Service Name">
+                                                        <h:outputText value="#{rec.name}" />
+                                                    </p:column>
+                                                    <p:column headerText="URL">
+                                                        <h:outputText value="#{rec.serviceUrl}" />
+                                                    </p:column>
+                                                    <p:column headerText="Version">
+                                                        <h:outputText value="#{rec.serviceSpec}" />
+                                                    </p:column>
+                                                    <p:column headerText="Ping Status">
+                                                        <h:outputText value="#{rec.pingStatus}" />
+                                                    </p:column>
+                                                    <p:column headerText="Last Ping">
+                                                        <h:outputText value="#{rec.pingTimestamp}">
+                                                            <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:dataTable>
+
+                                                <div class="form-button-row">
+                                                    <div class="col-sm-12">
+                                                        <p:commandButton id="pingService" styleClass="btn btn-primary"
+                                                            icon="ui-icon-search"
+                                                            disabled="#{exchangeManagerBean.disableButtonsEndpoint}"
+                                                            actionListener="#{exchangeManagerBean.pingEndpoint}"
+                                                            update="dataTableConnectionEndpoint" value="Ping Service">
+                                                        </p:commandButton>
+                                                    </div>
+                                                </div>
+                                            </h:form>
+
+                                        </p:tab>
+                                    </p:accordionPanel>
+                                    <!-- BEGIN: EXCHANGES AND ORGANIZATIONS - ACCORDION -->
+
+                                </div>
+                            </div>
+
+                            <!-- BEGIN: LISTING-BLOCK-2 -->
+
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB-PANE-BLOCK -->
+
+                    <!-- TODO: ADD-MORE-TABS -->
+                </div>
+                <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
+            </p:tabView>
+            <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+
+            <!-- include any dialog -->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:growl id="msgGrowl" for="msgForGrowl" closable="true" />
+            <ui:include src="emDialogSaveExchange.xhtml" />
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

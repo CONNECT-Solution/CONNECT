@@ -50,6 +50,7 @@ public class NavigationConstant {
     public static final String CERTIFICATE_MGMT_XHTML = "/certificateManager.xhtml";
     public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
     public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
+    public static final String EM_PAGE = "exchangeManager";
 
 
     public static final int DIRECT_DOMAIN_TAB = 0;

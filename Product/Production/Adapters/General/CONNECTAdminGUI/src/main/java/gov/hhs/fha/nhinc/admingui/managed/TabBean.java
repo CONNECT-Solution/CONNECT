@@ -408,4 +408,8 @@ public class TabBean {
         return NavigationConstant.CERTIFICATE_MGMT_PAGE;
     }
 
+    public String navigateToExchangeManagement() {
+        return NavigationConstant.EM_PAGE;
+    }
+
 }

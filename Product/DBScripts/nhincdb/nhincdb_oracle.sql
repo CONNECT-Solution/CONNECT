@@ -1008,8 +1008,8 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 	)
 VALUES (
 	13
-	,'connectionManager.xhtml'
-	,'Connection Management'
+	,'exchangeManager.xhtml'
+	,'Exchange Management'
 	,0
 	,1
 	);
@@ -1023,8 +1023,8 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 	)
 VALUES (
 	14
-	,'connectionManager.xhtml'
-	,'Connection Management'
+	,'exchangeManager.xhtml'
+	,'Exchange Management'
 	,0
 	,2
 	);
@@ -1038,8 +1038,8 @@ INSERT INTO "NHINCUSER"."PAGEPREFERENCE" (
 	)
 VALUES (
 	15
-	,'connectionManager.xhtml'
-	,'Connection Management'
+	,'exchangeManager.xhtml'
+	,'Exchange Management'
 	,0
 	,3
 	);
