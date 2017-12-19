@@ -46,13 +46,13 @@
 
             <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
             <p:tabView id="tabviewExchange" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0"
-                styleClass="tabs-override tabs-ovr-red">
+                styleClass="tabs-override tabs-ovr-dkgreen">
 
                 <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
                 <div class="tab-content">
 
                     <!-- BEGIN: TAB-PANE-BLOCK -->
-                    <p:tab title="External Connections" closable="false">
+                    <p:tab title="Exchange Services" closable="false">
                         <div class="tab-pane active">
 
                             <!-- BEGIN: LISTING-BLOCK-1 -->
@@ -62,9 +62,9 @@
 
                                     <!-- BEGIN: GENERAL SETTINGS - PANEL -->
 
-                                    <p:panel id="panelGeneralSetting" header="General Settings" toggleable="true"
+                                    <p:panel id="panelGeneralSetting" header="General Settings" toggleable="false"
                                         closable="false" toggleSpeed="500" closeSpeed="500"
-                                        widgetVar="varGeneralSetting" style="margin-bottom:20px">
+                                        widgetVar="varGeneralSetting">
                                         <h:form id="formGeneralSetting" class="form-horizontal">
                                             <div class="content">
                                                 <div class="form-group row">
@@ -138,8 +138,9 @@
                                                     <p:column headerText="URL">
                                                         <h:outputText value="#{rec.url}" />
                                                     </p:column>
-                                                    <p:column headerText="Disabled">
-                                                        <h:outputText value="#{rec.disabled}" />
+                                                    <p:column headerText="Enabled">
+                                                        <h:outputText rendered="#{rec.disabled}" value="No" />
+                                                        <h:outputText rendered="#{not rec.disabled}" value="Yes" />
                                                     </p:column>
                                                     <p:column headerText="Last Updated">
                                                         <h:outputText value="#{rec.lastUpdated}">
@@ -177,7 +178,8 @@
                                                         <div class="form-group col-sm-4">
                                                             <h:outputLabel class="control-label"
                                                                 for="inputFilterExchange" value="Exchange:" />
-                                                            <h:selectOneMenu styleClass="form-control" id="inputFilterExchange"
+                                                            <h:selectOneMenu styleClass="form-control"
+                                                                id="inputFilterExchange"
                                                                 value="#{exchangeManagerBean.filterExchange}"
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change" update="inputFilterOrganization" />
@@ -192,7 +194,8 @@
                                                         <div class="form-group col-sm-4">
                                                             <h:outputLabel class="control-label"
                                                                 for="inputFilterOrganization" value="Organization:" />
-                                                            <h:selectOneMenu styleClass="form-control" id="inputFilterOrganization"
+                                                            <h:selectOneMenu styleClass="form-control"
+                                                                id="inputFilterOrganization"
                                                                 value="#{exchangeManagerBean.filterOrganization}"
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change"

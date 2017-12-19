@@ -17,8 +17,9 @@
                         </div>
                         <div class="col-sm-6">
                             <h:outputLabel class="control-label" for="inputType" value="* Type:" />
-                            <h:selectOneMenu id="inputType" value="#{exchangeManagerBean.formExchange.type}"
-                                required="true" requiredMessage="Type is required.">
+                            <h:selectOneMenu class="form-control" id="inputType"
+                                value="#{exchangeManagerBean.formExchange.type}" required="true"
+                                requiredMessage="Type is required.">
                                 <f:selectItem itemLabel="---" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{exchangeManagerBean.listTypes}" />
                             </h:selectOneMenu>
@@ -39,7 +40,8 @@
                         </div>
                         <div class="col-sm-6">
                             <h:outputLabel class="control-label" for="inputTLSVersions" value="TLS:" />
-                            <h:selectOneMenu id="inputTLSVersions" value="#{exchangeManagerBean.formExchangeTLSVersion}">
+                            <h:selectOneMenu class="form-control" id="inputTLSVersions"
+                                value="#{exchangeManagerBean.formExchangeTLSVersion}">
                                 <f:selectItem itemLabel="default" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{exchangeManagerBean.listTLSes}" />
                             </h:selectOneMenu>
