@@ -45,12 +45,15 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.primefaces.context.RequestContext;
 
 /**
  * @author Tran Tang
  *
  */
 public class HelperUtil {
+    public static final String TO_DO_MARKER = "TO DO";
 
     /*
      * Utility class-private constructor
@@ -292,4 +295,42 @@ public class HelperUtil {
         return new SimpleDateFormat(dateFormat).format(date);
     }
 
+    public static boolean execPFCommand(String cmdString) {
+        return execPFCommand(cmdString, true);
+    }
+
+    public static boolean execPFCommand(String cmdString, boolean successful) {
+        if (StringUtils.isBlank(cmdString)) {
+            return false;
+        }
+        if (successful) {
+            RequestContext.getCurrentInstance().execute(cmdString);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean execPFShowDialog(String dlgWidgetVarName) {
+        return execPFShowDialog(dlgWidgetVarName, true);
+    }
+
+    public static boolean execPFShowDialog(String dlgWidgetVarName, boolean successful) {
+        if (StringUtils.isBlank(dlgWidgetVarName)) {
+            return false;
+        }
+        String pfShowDialog = MessageFormat.format("PF(''{0}'').show();", dlgWidgetVarName);
+        return execPFCommand(pfShowDialog, successful);
+    }
+
+    public static boolean execPFHideDialog(String dlgWidgetVarName) {
+        return execPFHideDialog(dlgWidgetVarName, true);
+    }
+
+    public static boolean execPFHideDialog(String dlgWidgetVarName, boolean successful) {
+        if (StringUtils.isBlank(dlgWidgetVarName)) {
+            return false;
+        }
+        String pfHideDialog = MessageFormat.format("PF(''{0}'').hide();", dlgWidgetVarName);
+        return execPFCommand(pfHideDialog, successful);
+    }
 }

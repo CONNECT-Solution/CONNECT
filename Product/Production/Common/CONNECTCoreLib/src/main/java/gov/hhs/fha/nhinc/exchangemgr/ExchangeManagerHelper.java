@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
+
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -39,8 +42,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
-import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -198,6 +199,10 @@ public class ExchangeManagerHelper {
         return new ArrayList<>();
     }
 
+    public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo, String exchangeName) {
+        return getOrganizationTypeBy(exchangeInfo, exchangeName, ELEMENT_NOT_REQUIRED);
+    }
+
     public static List<OrganizationType> getOrganizationTypeBy(ExchangeInfoType exchangeInfo, String exchangeName,
         boolean requiredElement) {
         return getOrganizationTypeBy(findExchangeTypeBy(getExchangeTypeBy(exchangeInfo, requiredElement), exchangeName),
@@ -306,6 +311,11 @@ public class ExchangeManagerHelper {
             }
         }
         return null;
+    }
+
+    public static List<EndpointType> getEndpointTypeBy(ExchangeInfoType exchangeInfo, String exchangeName, String hcid) {
+        return getEndpointTypeBy(
+            findOrganizationTypeBy(getOrganizationTypeBy(exchangeInfo, exchangeName, ELEMENT_NOT_REQUIRED), hcid));
     }
 
     public static List<EndpointType> getEndpointTypeBy(OrganizationType organization) {

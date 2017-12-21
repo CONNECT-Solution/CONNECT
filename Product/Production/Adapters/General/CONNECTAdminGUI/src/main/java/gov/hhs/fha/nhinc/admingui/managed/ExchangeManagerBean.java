@@ -26,21 +26,25 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
+import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Tran Tang
@@ -48,16 +52,28 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean(name = "exchangeManagerBean")
 @SessionScoped
+@Component
 public class ExchangeManagerBean {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerBean.class);
     private static final String DEFAULT_VALUE = "--";
-    private ExchangeInfoType generalSetting = new ExchangeInfoType();
-    private ExchangeType formExchange = new ExchangeType();
-    private ExchangeType selectedExchange = null;
-    private ConnectionEndpoint selectedEndpoint = null;
+    private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
+
+    @Autowired
+    private ExchangeManagerService exchangeService;
+
+    private ExchangeInfoType generalSetting;
+    private ExchangeType formExchange;
+    private ExchangeType selectedExchange;
+    private ConnectionEndpoint selectedEndpoint;
     private String filterOrganization;
     private OrganizationType orgFilter;
     private String filterExchange;
+
+    private List<String> tlses;
+    private List<String> exTypes;
+    private List<ExchangeType> exchanges;
+    private List<OrganizationType> organizations;
+
     // properties
     public ExchangeType getSelectedExchange() {
         return selectedExchange;
@@ -79,15 +95,12 @@ public class ExchangeManagerBean {
         return filterOrganization;
     }
 
-    public void setFilterOrganization(String orgAndHcid) {
-        LOG.info("call-setFilterOrganization");
-        filterOrganization = orgAndHcid;
-        orgFilter = new OrganizationType();
-        orgFilter.setName(orgAndHcid);
-        orgFilter.setHcid(orgAndHcid);
+    public void setFilterOrganization(String orgHcid) {
+        filterOrganization = orgHcid;
+        orgFilter = ExchangeManagerHelper.findOrganizationTypeBy(organizations, orgHcid);
     }
 
-    public String getOrgName(){
+    public String getOrgName() {
         if (null == orgFilter) {
             return DEFAULT_VALUE;
         }
@@ -102,12 +115,13 @@ public class ExchangeManagerBean {
     }
 
     public String getOrgDescription() {
+        LOG.debug("organization-description does not exist need to be modified once decided.");
         return DEFAULT_VALUE;
     }
 
     public String getOrgContacts() {
         if (null != orgFilter && CollectionUtils.isNotEmpty(orgFilter.getContact())) {
-            return "join(ContactType,', ')";
+            return StringUtils.join(orgFilter.getContact().toArray());
         }
         return DEFAULT_VALUE;
     }
@@ -117,17 +131,13 @@ public class ExchangeManagerBean {
     }
 
     public void setFilterExchange(String exchange) {
-        LOG.info("call-setFilterExchange");
         filterExchange = exchange;
-    }
-
-    public void onChangeFilterOgranization() {
-        LOG.info("call-onChangeFilterOgranization");
+        refreshOrganizations();
     }
 
     public String getFormExchangeTLSVersion() {
         if (isNotEmptyTLSVersions()) {
-            return formExchange.getTLSVersions().getSupports().get(0);
+            return getFormExchange().getTLSVersions().getSupports().get(0);
         }
         return null;
     }
@@ -138,134 +148,143 @@ public class ExchangeManagerBean {
             tlsVer = new TLSVersionType();
             tlsVer.getSupports().add(tlsString);
         }
-        formExchange.setTLSVersions(tlsVer);
+        getFormExchange().setTLSVersions(tlsVer);
     }
 
     public boolean getFormExchangeEnable() {
-        if (null == formExchange) {
-            return true;
-        }
-        return !formExchange.isDisabled();
+        return !getFormExchange().isDisabled();
     }
 
     public void setFormExchangeEnable(boolean enable) {
-        if (null != formExchange) {
-            formExchange.setDisabled(!enable);
-        }
+        getFormExchange().setDisabled(!enable);
     }
 
-    // listing
+    // datatable-list
     public List<ExchangeType> getExchanges() {
-        List<ExchangeType> exchanges = new ArrayList<>();
-        exchanges.add(new ExchangeType());
-        exchanges.get(0).setName("exchange-name");
-        exchanges.get(0).setUrl("exchange-URL");
-        exchanges.get(0).setType("FHIR");
+        if (null == exchanges) {
+            exchanges = exchangeService.getAllExchanges();
+        }
         return exchanges;
     }
 
+    public List<ExchangeType> getListFilterExchanges() {
+        return getExchanges();
+    }
+
     public List<ConnectionEndpoint> getConnectionEndpoints() {
-        List<ConnectionEndpoint> list = new ArrayList<>();
-        if (StringUtils.isNotBlank(filterOrganization)) {
-            list.add(new ConnectionEndpoint(filterOrganization + " - Endpoint", "url", "version", null, null));
-        }
-        return list;
-    }
-
-    // action
-    public boolean saveExchangeInfo() {
-        LOG.info("save-exchangeInfo-call");
-        return false;// dummy-method
-    }
-
-    public boolean refreshExchangeInfo() {
-        LOG.info("refresh-exchangeInfo-call");
-        return false;// dummy-method
-    }
-
-    public boolean saveExchange() {
-        LOG.info("save-exchange-call");
-        return false;// dummy-method
-    }
-
-    public boolean deleteExchange() {
-        LOG.info("delete-exchange-call");
-        return false;
-    }
-
-    public boolean pingEndpoint() {
-        LOG.info("ping-endpoint-call");
-        return false;
-    }
-
-    public boolean newExchange() {
-        LOG.info("new-exchange-call");
-        formExchange = new ExchangeType();
-        return false;
-    }
-
-    // form - properties
-    public ExchangeInfoType getFormExchangeInfo() {
-        return generalSetting;
-    }
-
-    public ExchangeType getFormExchange() {
-        return formExchange;
-    }
-
-    // List
-    public List<OrganizationType> getListFilterOrganizations() {
-        LOG.info("call-getListFilterOrganizations: update-orgs-lists");
-        if (null != filterExchange) {
-            LOG.info("return orgs-list");
-            List<OrganizationType> orgs = new ArrayList<>();
-            orgs.add(new OrganizationType());
-            orgs.get(0).setName("org-name");
-            orgs.get(0).setHcid("org-HCID");
-            orgs.add(new OrganizationType());
-            orgs.get(1).setName("org-name-2");
-            orgs.get(1).setHcid("org-HCID-2");
-            return orgs;
+        if (StringUtils.isNotBlank(filterOrganization) && StringUtils.isNotBlank(filterExchange)) {
+            return exchangeService.getAllConnectionEndpoints(filterExchange, filterOrganization);
         }
         return new ArrayList<>();
     }
 
-    public List<ExchangeType> getListFilterExchanges() {
-        List<ExchangeType> exch = new ArrayList<>();
-        exch.add(new ExchangeType());
-        exch.get(0).setName("exch-name");
-        exch.get(0).setUrl("exch-url");
-        exch.add(new ExchangeType());
-        exch.get(1).setName("exch-name-2");
-        exch.get(1).setUrl("exch-url-2");
-        return exch;
+    public boolean refreshOrganizations() {
+        if (StringUtils.isNotBlank(filterExchange)) {
+            organizations = exchangeService.getAllOrganizations(filterExchange);
+            return true;
+        }
+        organizations = new ArrayList<>();
+        return false;
     }
 
-
-
-    public Map<String, String> getListTLSes() {
-        return getDummyList();
+    public List<OrganizationType> getListFilterOrganizations() {
+        if (null == organizations) {
+            refreshOrganizations();
+        }
+        return organizations;
     }
 
-    public Map<String, String> getListTypes() {
-        return getDummyList();
+    // action
+    public boolean saveExchangeInfo() {
+        return exchangeService.saveGeneralSetting(generalSetting);
     }
 
-    public Map<String, String> getListDefaultExchanges() {
-        return getDummyList();
+    public boolean refreshExchangeInfo() {
+        return exchangeService.refreshExchangeManager();
     }
 
-    private static Map<String, String> getDummyList() {
-        Map<String, String> popList = new TreeMap<>();
-        popList.put("Item-one", "1");
-        popList.put("Item-two", "2");
-        popList.put("Item-three", "3");
-        return popList;
+    public void newExchange() {
+        formExchange = new ExchangeType();
+    }
+
+    public boolean saveExchange() {
+        boolean bSave = false;
+        if (null != formExchange) {
+            bSave = exchangeService.saveExchange(formExchange);
+            if (bSave) {
+                execPFHideDialog(DLG_SAVE_EXCHANGE);
+                exchanges = exchangeService.getAllExchanges();
+            }
+        }
+        return bSave;
+    }
+
+    public boolean deleteExchange() {
+        boolean bDelete = false;
+        if (null != selectedExchange && StringUtils.isNotBlank(selectedExchange.getName())) {
+            bDelete = exchangeService.deleteExchange(selectedExchange.getName());
+            if (bDelete) {
+                selectedExchange = null;
+                exchanges = exchangeService.getAllExchanges();
+            }
+        }
+        return bDelete;
+    }
+
+    public boolean pingEndpoint() {
+        return exchangeService.pingService(selectedEndpoint);
+    }
+
+    public boolean pingAllEndpoint() {
+        List<ConnectionEndpoint> endpoints = getConnectionEndpoints();
+        if(CollectionUtils.isEmpty(endpoints)){
+            LOG.debug("ping-all connection-endpoints: none found.");
+            return false;
+        }
+        for(ConnectionEndpoint connEndpoint : endpoints ){
+            exchangeService.pingService(connEndpoint);
+        }
+        return true;
+    }
+
+    // form - properties
+    public ExchangeInfoType getFormExchangeInfo() {
+        if (null == generalSetting) {
+            generalSetting = exchangeService.getExchangeInfoView();
+        }
+        return generalSetting;
+    }
+
+    public ExchangeType getFormExchange() {
+        if (null == formExchange) {
+            formExchange = new ExchangeType();
+        }
+        return formExchange;
+    }
+
+    // List
+    public List<String> getListTLSes() {
+        if (null == tlses) {
+            tlses = new ArrayList<>();
+            tlses.add("1.2");
+            tlses.add("1.1");
+            tlses.add("1.0");
+        }
+        return tlses;
+    }
+
+    public List<String> getListTypes() {
+        if (null == exTypes) {
+            exTypes = new ArrayList<>();
+            exTypes.add("FHIR");
+            exTypes.add("UDDI");
+        }
+        return exTypes;
     }
 
     private boolean isNotEmptyTLSVersions() {
-        return null != formExchange && null != formExchange.getTLSVersions()
-            && CollectionUtils.isNotEmpty(formExchange.getTLSVersions().getSupports());
+        return null != getFormExchange().getTLSVersions()
+            && CollectionUtils.isNotEmpty(getFormExchange().getTLSVersions().getSupports());
     }
 
     // disable-GUI
