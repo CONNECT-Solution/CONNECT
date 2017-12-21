@@ -58,7 +58,7 @@
                     <div class="col-sm-12">
                         <p:commandButton styleClass="btn btn-primary" icon="ui-icon-circle-plus"
                             action="#{exchangeManagerBean.saveExchange()}" value="Save"
-                            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange" />
+                            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange, @(.updateCssExchangesId)" />
                         <p:commandButton styleClass="btn btn-default" icon="ui-icon-circle-close" value="Close"
                             oncomplete="PF('wvDlgSaveExchange').hide();" />
                     </div>

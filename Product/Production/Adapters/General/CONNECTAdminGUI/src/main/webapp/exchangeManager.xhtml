@@ -85,12 +85,14 @@
                                                     <div class="col-sm-4">
                                                         <h:outputLabel class="control-label" for="inputDefaultExchange"
                                                             value="Default Exchange:" />
-                                                        <h:selectOneMenu class="form-control" id="inputDefaultExchange"
+                                                        <h:selectOneMenu class="form-control updateCssExchangesId"
+                                                            id="inputDefaultExchange"
                                                             value="#{exchangeManagerBean.formExchangeInfo.defaultExchange}">
                                                             <f:selectItem itemLabel="---" itemValue=""
                                                                 noSelectionOption="true" />
-                                                            <f:selectItems
-                                                                value="#{exchangeManagerBean.listDefaultExchanges}" />
+                                                            <f:selectItems value="#{exchangeManagerBean.exchanges}"
+                                                                var="item" itemLabel="#{item.name}"
+                                                                itemValue="#{item.name}" />
                                                         </h:selectOneMenu>
                                                     </div>
                                                 </div>
@@ -133,7 +135,8 @@
                                                         <h:outputText value="#{rec.name}" />
                                                     </p:column>
                                                     <p:column headerText="Type">
-                                                        <h:outputText value="#{rec.type}" />
+                                                        <h:outputText value="#{rec.type}"
+                                                            style="text-transform: uppercase" />
                                                     </p:column>
                                                     <p:column headerText="URL">
                                                         <h:outputText value="#{rec.url}" />
@@ -161,7 +164,8 @@
                                                         <p:commandButton id="deleteExchange" styleClass="delete-button"
                                                             icon="ui-icon-closethick"
                                                             actionListener="#{exchangeManagerBean.deleteExchange}"
-                                                            value="Delete" update="@form:dataTableExchange"
+                                                            value="Delete"
+                                                            update="@form:dataTableExchange, @(.updateCssExchangesId), @this"
                                                             disabled="#{exchangeManagerBean.disableButtonsExchange}">
                                                             <p:confirm header="Delete Exchange Confirmation"
                                                                 message="Do you want to delete this record?"
@@ -178,7 +182,8 @@
                                                         <div class="form-group col-sm-4">
                                                             <h:outputLabel class="control-label"
                                                                 for="inputFilterExchange" value="Exchange:" />
-                                                            <h:selectOneMenu styleClass="form-control"
+                                                            <h:selectOneMenu
+                                                                styleClass="form-control updateCssExchangesId"
                                                                 id="inputFilterExchange"
                                                                 value="#{exchangeManagerBean.filterExchange}"
                                                                 filter="true" filterMatchMode="startsWith">
@@ -205,7 +210,7 @@
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterOrganizations}"
                                                                     var="item" itemLabel="#{item.name}"
-                                                                    itemValue="#{item.name}^^^#{item.hcid}" />
+                                                                    itemValue="#{item.hcid}" />
                                                             </h:selectOneMenu>
                                                         </div>
                                                     </div>
@@ -239,9 +244,7 @@
                                                     styleClass="table table-striped table-domains" var="rec"
                                                     value="#{exchangeManagerBean.connectionEndpoints}"
                                                     selection="#{exchangeManagerBean.selectedEndpoint}"
-                                                    rowKey="#{rec.serviceUrl}"
-                                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                    paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
+                                                    rowKey="#{rec.serviceUrl}^^^#{rec.serviceSpec}">
 
                                                     <p:ajax event="rowSelectRadio" process="@this"
                                                         update=":@form:pingService" />
@@ -257,7 +260,11 @@
                                                         <h:outputText value="#{rec.serviceSpec}" />
                                                     </p:column>
                                                     <p:column headerText="Ping Status">
-                                                        <h:outputText value="#{rec.pingStatus}" />
+                                                        <h:outputText rendered="#{rec.pingStatus == 'Pass'}"
+                                                            value="PASS" style="color: green" />
+                                                        <h:outputText rendered="#{rec.pingStatus == 'Fail'}"
+                                                            value="FAIL" style="color: red" />
+                                                        <h:outputText rendered="#{rec.pingStatus == 'None'}" value="--" />
                                                     </p:column>
                                                     <p:column headerText="Last Ping">
                                                         <h:outputText value="#{rec.pingTimestamp}">
@@ -268,6 +275,12 @@
 
                                                 <div class="form-button-row">
                                                     <div class="col-sm-12">
+                                                        <p:commandButton styleClass="btn btn-default"
+                                                            icon="ui-icon-search"
+                                                            actionListener="#{exchangeManagerBean.pingAllEndpoint}"
+                                                            update="dataTableConnectionEndpoint"
+                                                            value="Ping All Services">
+                                                        </p:commandButton>
                                                         <p:commandButton id="pingService" styleClass="btn btn-primary"
                                                             icon="ui-icon-search"
                                                             disabled="#{exchangeManagerBean.disableButtonsEndpoint}"
