@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -70,7 +71,6 @@ public class ExchangeManagerBean {
     private String filterExchange;
 
     private List<String> tlses;
-    private List<String> exTypes;
     private List<ExchangeType> exchanges;
     private List<OrganizationType> organizations;
 
@@ -273,13 +273,8 @@ public class ExchangeManagerBean {
         return tlses;
     }
 
-    public List<String> getListTypes() {
-        if (null == exTypes) {
-            exTypes = new ArrayList<>();
-            exTypes.add("FHIR");
-            exTypes.add("UDDI");
-        }
-        return exTypes;
+    public EXCHANGE_TYPE[] getListTypes() {
+        return EXCHANGE_TYPE.values();
     }
 
     private boolean isNotEmptyTLSVersions() {

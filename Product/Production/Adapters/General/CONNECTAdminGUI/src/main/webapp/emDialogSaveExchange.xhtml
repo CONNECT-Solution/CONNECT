@@ -17,11 +17,12 @@
                         </div>
                         <div class="col-sm-6">
                             <h:outputLabel class="control-label" for="inputType" value="* Type:" />
-                            <h:selectOneMenu class="form-control" id="inputType"
+                            <h:selectOneMenu class="form-control" id="inputType" style="text-transform: uppercase"
                                 value="#{exchangeManagerBean.formExchange.type}" required="true"
                                 requiredMessage="Type is required.">
                                 <f:selectItem itemLabel="---" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{exchangeManagerBean.listTypes}" />
+                                <f:selectItems value="#{exchangeManagerBean.listTypes}" var="item"
+                                    itemLabel="#{item.value}" itemValue="#{item.value}" />
                             </h:selectOneMenu>
                         </div>
                     </div>
