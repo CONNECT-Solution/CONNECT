@@ -48,9 +48,11 @@ public class UserNameValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) {
+
         String input = (String) value;
         Pattern pattern = Pattern.compile(regexPattern);
         if (!pattern.matcher(input).matches()) {
+            LOG.trace("UserNameValidator input-validation");
             throw new ValidatorException(HelperUtil.getMsgError("Invalid input."));
         }
     }
