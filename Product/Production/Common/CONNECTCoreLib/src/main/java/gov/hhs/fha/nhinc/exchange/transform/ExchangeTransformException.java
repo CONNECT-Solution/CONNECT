@@ -24,37 +24,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
-import java.util.List;
+package gov.hhs.fha.nhinc.exchange.transform;
 
 /**
- * @author tran tang
  *
+ * @author tjafri
  */
-public interface ExchangeManagerService {
+public class ExchangeTransformException extends Exception {
 
-    public boolean saveExchange(ExchangeType exchange);
+    private static final long serialVersionUID = 1L;
 
-    public boolean deleteExchange(String exchangeName);
+    public ExchangeTransformException() {
+        super();
+    }
 
-    public List<ExchangeType> getAllExchanges();
+    public ExchangeTransformException(Exception e) {
+        super(e);
+    }
 
-    public List<OrganizationType> getAllOrganizations(String exchangeName);
+    /**
+     * Constructor with the given exception and message.
+     *
+     * @param sMessage The message to place in the exception.
+     * @param e The exception that triggered this one.
+     */
+    public ExchangeTransformException(String sMessage, Exception e) {
+        super(sMessage, e);
+    }
 
-    public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid);
-
-    public ExchangeInfoType getExchangeInfoView();
-
-    public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo);
-
-    public List<ExchangeDownloadStatus> refreshExchangeManager();
-
-    public boolean pingService(ConnectionEndpoint connEndpoint);
+    /**
+     * Constructor with a given message.
+     *
+     * @param sMessage The message for the exception.
+     */
+    public ExchangeTransformException(String sMessage) {
+        super(sMessage);
+    }
 
 }

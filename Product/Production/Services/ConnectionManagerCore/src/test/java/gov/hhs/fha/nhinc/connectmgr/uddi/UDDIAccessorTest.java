@@ -24,37 +24,57 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
-import java.util.List;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.After;
+import org.junit.AfterClass;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
- * @author tran tang
  *
+ * @author vvickers
  */
-public interface ExchangeManagerService {
+@RunWith(JMock.class)
+public class UDDIAccessorTest {
 
-    public boolean saveExchange(ExchangeType exchange);
+    Mockery context = new JUnit4Mockery() {
 
-    public boolean deleteExchange(String exchangeName);
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
 
-    public List<ExchangeType> getAllExchanges();
+    public UDDIAccessorTest() {
+    }
 
-    public List<OrganizationType> getAllOrganizations(String exchangeName);
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
 
-    public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid);
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
 
-    public ExchangeInfoType getExchangeInfoView();
+    @Before
+    public void setUp() {
+    }
 
-    public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo);
+    @After
+    public void tearDown() {
+    }
 
-    public List<ExchangeDownloadStatus> refreshExchangeManager();
-
-    public boolean pingService(ConnectionEndpoint connEndpoint);
+    @Test
+    public void testNewInstance() {
+        UDDIAccessor uddiAccessor = new UDDIAccessor();
+        assertNotNull(uddiAccessor);
+    }
 
 }

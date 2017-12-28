@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransformException;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.UDDIConstants;
 import java.util.ArrayList;
@@ -65,8 +66,13 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
     private static final Logger LOG = LoggerFactory.getLogger(UDDITransform.class);
 
     @Override
-    public OrganizationListType transform(BusinessDetail bDetail) {
-        return buildOrganization(bDetail);
+    public OrganizationListType transform(BusinessDetail bDetail) throws ExchangeTransformException {
+        try {
+            return buildOrganization(bDetail);
+        } catch (Exception ex) {
+            LOG.error("Transforming UDDI data resulted in exception: {}", ex.getLocalizedMessage(), ex);
+            throw new ExchangeTransformException(ex);
+        }
     }
 
     private OrganizationListType buildOrganization(BusinessDetail srcDirectory) {

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.exchangemgr;
 
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
+import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDateUpdateMgr;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +82,7 @@ public class ExchangeScheduler extends Thread {
     public void run() {
         LOG.info("ExchangeScheduled inside run");
         while (m_bRunnable) {
-            ExchangeScheduledTask exTask = new ExchangeScheduledTask();
+            ExchangeDateUpdateMgr exTask = new ExchangeDateUpdateMgr();
             exTask.task();
             try {
                 LOG.info("Putting {} for sleep for {} milliseconds", getInstance().getName(), refreshInterval);

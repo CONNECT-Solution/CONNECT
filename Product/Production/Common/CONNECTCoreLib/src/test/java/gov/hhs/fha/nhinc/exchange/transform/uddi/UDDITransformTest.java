@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransformException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import java.io.File;
 import java.net.URISyntaxException;
@@ -100,27 +101,27 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
     }
 
     @Test
-    public void testBusinessEntity() {
+    public void testBusinessEntity() throws ExchangeTransformException {
         List<OrganizationType> org = transformer.transform(bDetail).getOrganization();
         verifyOrganizationsWithBusinessEntities(org);
     }
 
     @Test
-    public void testNullBusinessEnity() {
+    public void testNullBusinessEnity() throws ExchangeTransformException {
         List<OrganizationType> org = transformer.transform(null).getOrganization();
         assertNotNull(org);
         assertEquals("Expecting emoty organization list", 0, org.size());
     }
 
     @Test
-    public void testEmptyBusinessEnity() {
+    public void testEmptyBusinessEnity() throws ExchangeTransformException {
         List<OrganizationType> org = transformer.transform(new BusinessDetail()).getOrganization();
         assertNotNull(org);
         assertEquals("Expecting emoty organization list", 0, org.size());
     }
 
     @Test
-    public void testEmptyBusinessEnityWithNoService() {
+    public void testEmptyBusinessEnityWithNoService() throws ExchangeTransformException {
         BusinessDetail uddiDetail = new BusinessDetail();
         uddiDetail.getBusinessEntity().add(bDetail.getBusinessEntity().get(1));
         List<OrganizationType> org = transformer.transform(uddiDetail).getOrganization();
@@ -129,7 +130,7 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
     }
 
     @Test
-    public void testBusinessEnityWithNoEndpoints() {
+    public void testBusinessEnityWithNoEndpoints() throws ExchangeTransformException {
         BusinessDetail uddiDetail = new BusinessDetail();
         uddiDetail.getBusinessEntity().add(bDetail.getBusinessEntity().get(2));
         List<OrganizationType> org = transformer.transform(uddiDetail).getOrganization();
@@ -139,7 +140,7 @@ public class UDDITransformTest extends BaseConnctionManagerCache {
     }
 
     @Test
-    public void transformICI() throws ExchangeManagerException {
+    public void transformICI() throws ExchangeManagerException, ExchangeTransformException {
         try {
             InternalConnectionInfoDAOFileImpl internalDao = createInternalConnectionInfoDAO(ICI_FILE);
             OrganizationListType org = transformer.transform(internalDao.loadBusinessDetail());
