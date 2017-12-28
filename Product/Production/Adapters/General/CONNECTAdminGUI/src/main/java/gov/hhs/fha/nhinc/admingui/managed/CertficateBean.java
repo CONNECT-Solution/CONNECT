@@ -72,7 +72,7 @@ public class CertficateBean {
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
-    private static final String regexPattern = "^[\\w\\d_.-]+$";
+    private static final String REGEX_PATTERN = "^[\\w\\d_.-]+$";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
@@ -324,11 +324,8 @@ public class CertficateBean {
     }
 
     public boolean validateAlias(String value) {
-        Pattern pattern = Pattern.compile(regexPattern);
-        if (pattern.matcher(value).matches()) {
-            return true;
-        }
-        return false;
+        Pattern pattern = Pattern.compile(REGEX_PATTERN);
+        return pattern.matcher(value).matches();
     }
 
     public void validateAndUpdateCertificate() throws CertificateManagerException {
