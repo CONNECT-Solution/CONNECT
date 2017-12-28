@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
+
+import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
+import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
@@ -38,11 +39,13 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +64,12 @@ public class ExchangeManagerBean {
     private static final String DEFAULT_VALUE = "--";
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
     private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
+    private static final String[] BUTTONS_REFRESH_LOCKED = { "formDlgExchange:btnSaveExchange",
+            "tabviewExchange:formGeneralSetting:btnStatusRefresh",
+            "tabviewExchange:formGeneralSetting:btnSaveExchangeInfo",
+            "tabviewExchange:formGeneralSetting:btnRefreshExchangeInfo",
+    "tabviewExchange:accordionExchange:formExchange:deleteExchange" };
+
     @Autowired
     private ExchangeManagerService exchangeService;
 
@@ -71,6 +80,7 @@ public class ExchangeManagerBean {
     private String filterOrganization;
     private OrganizationType orgFilter;
     private String filterExchange;
+    private boolean recordRefreshLocked;
 
     private List<String> tlses;
     private List<OrganizationType> organizations;
@@ -294,4 +304,11 @@ public class ExchangeManagerBean {
         return null == selectedEndpoint;
     }
 
+    public boolean isRefreshLocked() {
+        if (recordRefreshLocked != exchangeService.isRefreshLocked()) {
+            recordRefreshLocked = exchangeService.isRefreshLocked();
+            RequestContext.getCurrentInstance().update(Arrays.asList(BUTTONS_REFRESH_LOCKED));
+        }
+        return exchangeService.isRefreshLocked();
+    }
 }

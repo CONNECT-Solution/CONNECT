@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
+
 import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
@@ -37,13 +39,15 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
-import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -52,19 +56,29 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ExchangeManagerServiceImpl implements ExchangeManagerService {
-
+    private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerServiceImpl.class);
     private final ExchangeManager exchangeManager = ExchangeManager.getInstance();
     private final PingService pingService = new PingServiceImpl();
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
 
     @Override
     public boolean saveExchange(ExchangeType exchange) {
-        return exchangeManager.saveExchange(exchange);
+        try {
+            return exchangeManager.saveExchange(exchange);
+        } catch (ExchangeManagerException e) {
+            LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
+        }
+        return false;
     }
 
     @Override
     public boolean deleteExchange(String exchangeName) {
-        return exchangeManager.deleteExchange(exchangeName);
+        try {
+            return exchangeManager.deleteExchange(exchangeName);
+        } catch (ExchangeManagerException e) {
+            LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
+        }
+        return false;
     }
 
     @Override
@@ -109,8 +123,13 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     @Override
     public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo) {
-        return exchangeManager.updateExchangeInfo(exchangeInfo.getRefreshInterval(),
-            exchangeInfo.getMaxNumberOfBackups(), exchangeInfo.getDefaultExchange());
+        try {
+            return exchangeManager.updateExchangeInfo(exchangeInfo.getRefreshInterval(),
+                exchangeInfo.getMaxNumberOfBackups(), exchangeInfo.getDefaultExchange());
+        } catch (ExchangeManagerException e) {
+            LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
+        }
+        return false;
     }
 
     @Override
@@ -131,6 +150,11 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return false;
     }
 
+    @Override
+    public boolean isRefreshLocked() {
+        return exchangeManager.isRefreshLocked();
+    }
+
     private static String formatDate(Date timestamp) {
         if (null != timestamp) {
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -138,4 +162,5 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         }
         return "";
     }
+
 }
