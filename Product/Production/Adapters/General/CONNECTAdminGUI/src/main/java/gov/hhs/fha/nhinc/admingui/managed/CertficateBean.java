@@ -36,7 +36,6 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
@@ -72,7 +71,7 @@ public class CertficateBean {
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
-    private static final String REGEX_PATTERN = "^[\\w\\d_.-]+$";
+    // private static final String REGEX_PATTERN = "^[\\w\\d_.-]+$";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
@@ -201,7 +200,11 @@ public class CertficateBean {
 
     public void onAliasValueEdit(CellEditEvent event) {
         if (CollectionUtils.isNotEmpty(importCertificate)) {
-            importCertificate.get(0).setAlias((String) event.getNewValue());
+            if (importCertificate.get(0).validateAlias((String) event.getNewValue())) {
+                importCertificate.get(0).setAlias((String) event.getNewValue());
+            } else {
+                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Invalid input for alias.");
+            }
         }
     }
 
@@ -316,17 +319,17 @@ public class CertficateBean {
     }
 
     public void sanitizeInput() throws CertificateManagerException {
-        if (validateAlias(selectedTSCertificate.getAlias())) {
+        if (selectedTSCertificate.validateAlias(selectedTSCertificate.getAlias())) {
             validateAndUpdateCertificate();
         } else {
             HelperUtil.addMessageError(VIEW_CERT_ERR_MSG_ID, "Invalid input for alias.");
         }
     }
 
-    public boolean validateAlias(String value) {
-        Pattern pattern = Pattern.compile(REGEX_PATTERN);
-        return pattern.matcher(value).matches();
-    }
+    /*
+     * public boolean validateAlias(String value) { Pattern pattern = Pattern.compile(REGEX_PATTERN); return
+     * pattern.matcher(value).matches(); }
+     */
 
     public void validateAndUpdateCertificate() throws CertificateManagerException {
         if (isHashTokenEmpty()) {

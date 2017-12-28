@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import java.security.cert.X509Certificate;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -55,6 +56,7 @@ public class CertificateDTO {
     private String issuerUniqueIdentifier;
     private String certSignatureAlgorithm;
     private String certSignature;
+    private static final String REGEX_PATTERN = "^[\\w\\d_.-]+$";
 
     public long getId() {
         return id;
@@ -65,7 +67,7 @@ public class CertificateDTO {
     }
 
     public String getAlias() {
-        return alias;
+        return validateAlias(alias) ? alias : "";
     }
 
     public void setAlias(String alias) {
@@ -224,4 +226,8 @@ public class CertificateDTO {
         this.expiryColorCoding = expiryColorCoding;
     }
 
+    public boolean validateAlias(String value) {
+        Pattern pattern = Pattern.compile(REGEX_PATTERN);
+        return pattern.matcher(value).matches();
+    }
 }
