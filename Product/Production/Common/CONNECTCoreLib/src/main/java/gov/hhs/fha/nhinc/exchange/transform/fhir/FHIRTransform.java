@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchange.directory.PurposeOfUseListType;
 import gov.hhs.fha.nhinc.exchange.directory.RolesListType;
 import gov.hhs.fha.nhinc.exchange.directory.UsecaseListType;
+import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransformException;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.FHIRConstants;
 import java.util.ArrayList;
@@ -65,8 +66,13 @@ public class FHIRTransform implements ExchangeTransforms<Bundle> {
     private static final Logger LOG = LoggerFactory.getLogger(FHIRTransform.class);
 
     @Override
-    public OrganizationListType transform(Bundle bundle) {
-        return buildOrganization(FHIRTransformHelper.extractFhirOrgResourceList(bundle));
+    public OrganizationListType transform(Bundle bundle) throws ExchangeTransformException {
+        try {
+            return buildOrganization(FHIRTransformHelper.extractFhirOrgResourceList(bundle));
+        } catch (Exception ex) {
+            LOG.error("Transforming FHIR data resulted in exception: {}", ex.getLocalizedMessage(), ex);
+            throw new ExchangeTransformException(ex);
+        }
     }
 
     private static OrganizationListType buildOrganization(List<Organization> fhirOrgs) {

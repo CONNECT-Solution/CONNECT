@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory" >
+    <refreshInterval>1440</refreshInterval>
+    <maxNumberOfBackups>1</maxNumberOfBackups>
+    <refreshActive>true</refreshActive>
+    <exchanges>
+        <exchange type="uddi">
+            <name>Exchange 1</name>
+            <url>http://localhost/uddi/inquiry</url>
+            <organizationList>
+            </organizationList>
+        </exchange>
+        <exchange type="fhir">
+            <name>Exchange 2</name>
+            <url>http://localhost/fhir/Organization</url>
+        </exchange>
+    </exchanges>
+</exchangeInfo>

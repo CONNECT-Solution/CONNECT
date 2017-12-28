@@ -24,37 +24,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.exchangemgr.util;
 
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author tran tang
  *
+ * @author tjafri
  */
-public interface ExchangeManagerService {
+public class ExchangeDownloadStatus {
 
-    public boolean saveExchange(ExchangeType exchange);
+    private boolean success;
+    private String name;
+    private List<ExchangeDownloadStepStatus> stepStatus;
 
-    public boolean deleteExchange(String exchangeName);
+    public boolean isSuccess() {
+        return success;
+    }
 
-    public List<ExchangeType> getAllExchanges();
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
-    public List<OrganizationType> getAllOrganizations(String exchangeName);
+    public String getName() {
+        return name;
+    }
 
-    public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid);
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public ExchangeInfoType getExchangeInfoView();
+    public List<ExchangeDownloadStepStatus> getStepStatus() {
+        if (null == stepStatus) {
+            stepStatus = new ArrayList<>();
+        }
+        return stepStatus;
+    }
 
-    public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo);
-
-    public List<ExchangeDownloadStatus> refreshExchangeManager();
-
-    public boolean pingService(ConnectionEndpoint connEndpoint);
-
+    public void setStepStatus(List<ExchangeDownloadStepStatus> stepStatus) {
+        this.stepStatus = stepStatus;
+    }
 }

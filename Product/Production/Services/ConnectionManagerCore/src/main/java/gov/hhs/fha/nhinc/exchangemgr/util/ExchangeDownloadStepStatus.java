@@ -24,37 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
-import java.util.List;
+package gov.hhs.fha.nhinc.exchangemgr.util;
 
 /**
- * @author tran tang
  *
+ * @author tjafri
  */
-public interface ExchangeManagerService {
+public class ExchangeDownloadStepStatus {
 
-    public boolean saveExchange(ExchangeType exchange);
+    private boolean stepSuccessful;
+    private String message;
 
-    public boolean deleteExchange(String exchangeName);
+    public boolean isStepSuccessful() {
+        return stepSuccessful;
+    }
 
-    public List<ExchangeType> getAllExchanges();
+    public void setStepSuccessful(boolean stepSuccessful) {
+        this.stepSuccessful = stepSuccessful;
+    }
 
-    public List<OrganizationType> getAllOrganizations(String exchangeName);
+    public String getMessage() {
+        return message;
+    }
 
-    public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid);
-
-    public ExchangeInfoType getExchangeInfoView();
-
-    public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo);
-
-    public List<ExchangeDownloadStatus> refreshExchangeManager();
-
-    public boolean pingService(ConnectionEndpoint connEndpoint);
-
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

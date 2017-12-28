@@ -24,37 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
-import java.util.List;
+package gov.hhs.fha.nhinc.exchangemgr.fhir;
 
 /**
- * @author tran tang
  *
+ * @author tjafri
  */
-public interface ExchangeManagerService {
+public class FhirClientException extends Exception {
 
-    public boolean saveExchange(ExchangeType exchange);
+    private static final long serialVersionUID = 1L;
 
-    public boolean deleteExchange(String exchangeName);
+    public FhirClientException() {
+        super();
+    }
 
-    public List<ExchangeType> getAllExchanges();
+    public FhirClientException(String message) {
+        super(message);
+    }
 
-    public List<OrganizationType> getAllOrganizations(String exchangeName);
+    public FhirClientException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-    public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid);
-
-    public ExchangeInfoType getExchangeInfoView();
-
-    public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo);
-
-    public List<ExchangeDownloadStatus> refreshExchangeManager();
-
-    public boolean pingService(ConnectionEndpoint connEndpoint);
+    public FhirClientException(Throwable cause) {
+        super(cause);
+    }
 
 }

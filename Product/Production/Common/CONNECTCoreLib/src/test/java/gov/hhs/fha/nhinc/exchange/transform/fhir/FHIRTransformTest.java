@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.exchange.transform.fhir;
 import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransformException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +68,7 @@ public class FHIRTransformTest {
             Bundle bundle = readTestData(XML_FILE, XML);
             FHIRTransform transformer = new FHIRTransform();
             assertTransformedObject(transformer.transform(bundle));
-        } catch (UnsupportedEncodingException | FHIRFormatError ex) {
+        } catch (UnsupportedEncodingException | ExchangeTransformException | FHIRFormatError ex) {
             LOG.error("Unable to read test data: {}", ex.getLocalizedMessage(), ex);
         }
     }
@@ -78,7 +79,7 @@ public class FHIRTransformTest {
             Bundle bundle = readTestData(JSON_FILE, JSON);
             FHIRTransform transformer = new FHIRTransform();
             assertTransformedObject(transformer.transform(bundle));
-        } catch (UnsupportedEncodingException | FHIRFormatError ex) {
+        } catch (UnsupportedEncodingException | ExchangeTransformException | FHIRFormatError ex) {
             fail("testTransformJson failed with exception: " + ex.getLocalizedMessage());
         }
     }

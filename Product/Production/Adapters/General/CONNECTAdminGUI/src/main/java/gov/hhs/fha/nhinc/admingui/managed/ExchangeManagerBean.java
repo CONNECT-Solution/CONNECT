@@ -26,15 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
-
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
+import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +56,11 @@ import org.springframework.stereotype.Component;
 @SessionScoped
 @Component
 public class ExchangeManagerBean {
+
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerBean.class);
     private static final String DEFAULT_VALUE = "--";
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
-
+    private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
     @Autowired
     private ExchangeManagerService exchangeService;
 
@@ -73,6 +75,12 @@ public class ExchangeManagerBean {
     private List<String> tlses;
     private List<ExchangeType> exchanges;
     private List<OrganizationType> organizations;
+
+    private List<ExchangeDownloadStatus> exDownloadStatus;
+
+    public List<ExchangeDownloadStatus> getExDownloadStatus() {
+        return exDownloadStatus;
+    }
 
     // properties
     public ExchangeType getSelectedExchange() {
@@ -161,9 +169,7 @@ public class ExchangeManagerBean {
 
     // datatable-list
     public List<ExchangeType> getExchanges() {
-        if (null == exchanges) {
-            exchanges = exchangeService.getAllExchanges();
-        }
+        exchanges = exchangeService.getAllExchanges();
         return exchanges;
     }
 
@@ -199,8 +205,9 @@ public class ExchangeManagerBean {
         return exchangeService.saveGeneralSetting(generalSetting);
     }
 
-    public boolean refreshExchangeInfo() {
-        return exchangeService.refreshExchangeManager();
+    public void refreshExchangeInfo() {
+        exDownloadStatus = exchangeService.refreshExchangeManager();
+        execPFShowDialog(DLG_REFRESH_EXCHANGE);
     }
 
     public void newExchange() {
@@ -237,11 +244,11 @@ public class ExchangeManagerBean {
 
     public boolean pingAllEndpoint() {
         List<ConnectionEndpoint> endpoints = getConnectionEndpoints();
-        if(CollectionUtils.isEmpty(endpoints)){
+        if (CollectionUtils.isEmpty(endpoints)) {
             LOG.debug("ping-all connection-endpoints: none found.");
             return false;
         }
-        for(ConnectionEndpoint connEndpoint : endpoints ){
+        for (ConnectionEndpoint connEndpoint : endpoints) {
             exchangeService.pingService(connEndpoint);
         }
         return true;

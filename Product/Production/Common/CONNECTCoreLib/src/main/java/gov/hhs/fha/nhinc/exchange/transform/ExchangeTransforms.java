@@ -35,5 +35,5 @@ import gov.hhs.fha.nhinc.exchange.OrganizationListType;
  */
 public interface ExchangeTransforms<T> {
 
-    public OrganizationListType transform(T srcDirectory);
+    public OrganizationListType transform(T srcDirectory) throws ExchangeTransformException;
 }

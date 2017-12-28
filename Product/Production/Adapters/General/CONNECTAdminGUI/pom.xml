@@ -97,7 +97,11 @@
       <groupId>org.connectopensource</groupId>
       <artifactId>ConfigAdminWebservices</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.connectopensource</groupId>
+      <artifactId>ConnectionManagerCore</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
     <!-- Persistence -->
     <dependency>
       <groupId>org.hibernate</groupId>
