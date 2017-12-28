@@ -24,38 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.validator;
 
-import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
-import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
-import java.util.List;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import java.text.MessageFormat;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
+import org.apache.commons.validator.routines.UrlValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author tran tang
+ * @author Tran Tang
  *
  */
-public interface ExchangeManagerService {
+@FacesValidator("UrlFacesValidator")
+public class UrlFacesValidator implements Validator {
+    private static final Logger LOG = LoggerFactory.getLogger(UrlFacesValidator.class);
 
-    public boolean saveExchange(ExchangeType exchange);
+    @Override
+    public void validate(FacesContext context, UIComponent component, Object value) {
 
-    public boolean deleteExchange(String exchangeName);
+        String[] schemes = { "http", "https" };
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        String input = (String) value;
 
-    public List<ExchangeType> getAllExchanges();
+        if (!urlValidator.isValid(input)) {
+            LOG.trace("UrlFacesValidator fail-validation");
 
-    public List<OrganizationType> getAllOrganizations(String exchangeName);
+            String errorMessage = (String)component.getAttributes().get("errorMessage");
+            if(null == errorMessage){
+                errorMessage = MessageFormat.format("'{0}' required a valid url-format.", component.getId());
+            }
+            throw new ValidatorException(HelperUtil.getMsgError(errorMessage));
+        }
 
-    public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid);
-
-    public ExchangeInfoType getExchangeInfoView();
-
-    public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo);
-
-    public List<ExchangeDownloadStatus> refreshExchangeManager();
-
-    public boolean pingService(ConnectionEndpoint connEndpoint);
-
-    public boolean isRefreshLocked();
+    }
 }

@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.math.BigInteger;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -191,8 +192,10 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         getExchangeInfoDAO().saveExchangeInfo(exInfo);
     }
 
-    public boolean updateExchangeInfo(long refreshInterval, BigInteger maxBackups, String defaultExchange) {
+    public boolean updateExchangeInfo(long refreshInterval, BigInteger maxBackups, String defaultExchange)
+        throws ExchangeManagerException {
         boolean bSave = false;
+        getRefreshExceptionFor("update-exchangeInfo");
         try {
             if (null == exInfo) {
                 loadExchangeInfo();
@@ -208,8 +211,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         return bSave;
     }
 
-    public boolean deleteExchange(String exchangeName) {
+    public boolean deleteExchange(String exchangeName) throws ExchangeManagerException {
         boolean bSave = false;
+        getRefreshExceptionFor("delete");
         if (StringUtils.isBlank(exchangeName)) {
             return bSave;
         }
@@ -230,8 +234,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         return bSave;
     }
 
-    public boolean saveExchange(ExchangeType exchangeAdd) {
+    public boolean saveExchange(ExchangeType exchangeAdd) throws ExchangeManagerException {
         boolean bSave = false;
+        getRefreshExceptionFor("save");
         if (null == exchangeAdd) {
             return bSave;
         }
@@ -308,5 +313,16 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         view.setMaxNumberOfBackups(exInfo.getMaxNumberOfBackups());
         view.setDefaultExchange(exInfo.getDefaultExchange());
         return view;
+    }
+
+    private void getRefreshExceptionFor(String forAction) throws ExchangeManagerException {
+        if (getExchangeInfoDAO().isRefreshLocked()) {
+            throw new ExchangeManagerException(
+                MessageFormat.format("ExchangeInfo.xml is being refreshed {0} is not allowed", forAction));
+        }
+    }
+
+    public boolean isRefreshLocked() {
+        return getExchangeInfoDAO().isRefreshLocked();
     }
 }

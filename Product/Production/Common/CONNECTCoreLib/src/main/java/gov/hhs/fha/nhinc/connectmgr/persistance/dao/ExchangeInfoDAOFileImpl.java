@@ -42,6 +42,7 @@ public final class ExchangeInfoDAOFileImpl extends BaseExchangeDAO {
     private File file = null;
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeInfoDAOFileImpl.class);
     private static final String EXCHANGE_XML_FILE_NAME = "exchangeInfo.xml";
+    private boolean refreshLocked = false;
 
     private ExchangeInfoDAOFileImpl() {
         super();
@@ -81,5 +82,13 @@ public final class ExchangeInfoDAOFileImpl extends BaseExchangeDAO {
 
     public void setFileName(String fileName) {
         file = new File(fileName);
+    }
+
+    public void setRefreshLocked(boolean locked) {
+        refreshLocked = locked;
+    }
+
+    public boolean isRefreshLocked() {
+        return refreshLocked;
     }
 }
