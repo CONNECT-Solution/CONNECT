@@ -36,6 +36,7 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
@@ -71,6 +72,7 @@ public class CertficateBean {
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
+    private static final String regexPattern = "^[\\w\\d_.-]+$";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
@@ -219,7 +221,7 @@ public class CertficateBean {
         } else if (isHashTokenEmpty()) {
             RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').show();");
         } else {
-            validateAndUpdateCertificate();
+            sanitizeInput();
         }
     }
 
@@ -311,6 +313,22 @@ public class CertficateBean {
             HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, ex.getLocalizedMessage());
         }
         return importStatus;
+    }
+
+    public void sanitizeInput() throws CertificateManagerException {
+        if (validateAlias(selectedTSCertificate.getAlias())) {
+            validateAndUpdateCertificate();
+        } else {
+            HelperUtil.addMessageError(VIEW_CERT_ERR_MSG_ID, "Invalid input for alias.");
+        }
+    }
+
+    public boolean validateAlias(String value) {
+        Pattern pattern = Pattern.compile(regexPattern);
+        if (pattern.matcher(value).matches()) {
+            return true;
+        }
+        return false;
     }
 
     public void validateAndUpdateCertificate() throws CertificateManagerException {
