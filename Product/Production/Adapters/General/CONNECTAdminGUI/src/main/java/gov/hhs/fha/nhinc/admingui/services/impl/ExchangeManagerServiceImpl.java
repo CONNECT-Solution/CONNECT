@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
-import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -120,7 +119,6 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     @Override
     public List<ExchangeDownloadStatus> refreshExchangeManager() {
-        LOG.info("force the exchangeManager to refresh: {}");
         ExchangeManagerUtil exUtil = new ExchangeManagerUtil();
         return exUtil.forceRefreshExchanges();
     }

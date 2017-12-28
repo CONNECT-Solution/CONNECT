@@ -73,7 +73,6 @@ public class ExchangeManagerBean {
     private String filterExchange;
 
     private List<String> tlses;
-    private List<ExchangeType> exchanges;
     private List<OrganizationType> organizations;
 
     private List<ExchangeDownloadStatus> exDownloadStatus;
@@ -169,12 +168,11 @@ public class ExchangeManagerBean {
 
     // datatable-list
     public List<ExchangeType> getExchanges() {
-        exchanges = exchangeService.getAllExchanges();
-        return exchanges;
+        return exchangeService.getAllExchanges();
     }
 
     public List<ExchangeType> getListFilterExchanges() {
-        return getExchanges();
+        return exchangeService.getAllExchanges();
     }
 
     public List<ConnectionEndpoint> getConnectionEndpoints() {
@@ -220,7 +218,6 @@ public class ExchangeManagerBean {
             bSave = exchangeService.saveExchange(formExchange);
             if (bSave) {
                 execPFHideDialog(DLG_SAVE_EXCHANGE);
-                exchanges = exchangeService.getAllExchanges();
             }
         }
         return bSave;
@@ -232,7 +229,6 @@ public class ExchangeManagerBean {
             bDelete = exchangeService.deleteExchange(selectedExchange.getName());
             if (bDelete) {
                 selectedExchange = null;
-                exchanges = exchangeService.getAllExchanges();
             }
         }
         return bDelete;

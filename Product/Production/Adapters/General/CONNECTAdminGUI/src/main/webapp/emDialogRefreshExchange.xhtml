@@ -15,7 +15,8 @@
                         </p:column>
                         <p:column>
                             <p:dataList value="#{exStatus.stepStatus}" var="step" type="unordered" itemType="none" paginator="false" style="border:none">
-                                <h:outputText value="#{step.message}"/>
+                                <h:outputText rendered="#{step.stepSuccessful eq 'false'}" value="#{step.message}" style="color:red" />
+                                <h:outputText rendered="#{step.stepSuccessful eq 'true'}" value="#{step.message}" style="color:green"/>
                             </p:dataList>
                         </p:column>
                     </p:dataList>
