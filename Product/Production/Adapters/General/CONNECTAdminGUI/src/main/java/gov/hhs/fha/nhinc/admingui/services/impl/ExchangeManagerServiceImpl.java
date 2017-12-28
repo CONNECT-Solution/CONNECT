@@ -40,12 +40,10 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.http.impl.cookie.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -55,7 +53,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerServiceImpl.class);
     private final ExchangeManager exchangeManager = ExchangeManager.getInstance();
     private final PingService pingService = new PingServiceImpl();
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
@@ -95,10 +92,9 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
                 EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance().getEndpointInfo(url);
 
                 if (info != null) {
-                    timestamp = DateUtils.formatDate(info.getTimestamp(), DATE_FORMAT);
+                    timestamp = formatDate(info.getTimestamp());
                     status = info.isSuccessfulPing() ? "Pass" : "Fail";
                 }
-
                 endpoints.add(
                     new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), status, timestamp));
             }
@@ -135,4 +131,11 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return false;
     }
 
+    private static String formatDate(Date timestamp) {
+        if (null != timestamp) {
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            return sdf.format(timestamp);
+        }
+        return "";
+    }
 }
