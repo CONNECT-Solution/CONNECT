@@ -104,17 +104,17 @@
                                                             rendered="#{exchangeManagerBean.refreshLocked}"
                                                             icon="ui-icon-alert" disabled="#{true}"
                                                             value="Status: Refresh in Progress" id="btnStatusRefresh" />
-                                                        <p:commandButton styleClass="btn btn-primary"
+                                                        <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
                                                             icon="ui-icon-circle-plus"
                                                             disabled="#{exchangeManagerBean.refreshLocked}"
                                                             id="btnSaveExchangeInfo"
                                                             actionListener="#{exchangeManagerBean.saveExchangeInfo}"
                                                             value="Save" />
-                                                        <p:commandButton styleClass="btn refresh-button"
+                                                        <p:commandButton styleClass="btn refresh-button updateCssRefreshId"
                                                             icon="ui-icon-refresh" id="btnRefreshExchangeInfo"
                                                             disabled="#{exchangeManagerBean.refreshLocked}"
                                                             actionListener="#{exchangeManagerBean.refreshExchangeInfo}"
-                                                            value="Refresh Exchanges" update=":tabviewExchange :refreshExchangeStatusDlg" />
+                                                            value="Refresh Exchanges" update=":tabviewExchange, :refreshExchangeStatusDlg, @(.updateCssRefreshId)" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +169,7 @@
                                                             update=":dlgSaveExchange" value="New">
                                                             <p:resetInput target=":formDlgExchange" />
                                                         </p:commandButton>
-                                                        <p:commandButton id="deleteExchange" styleClass="delete-button"
+                                                        <p:commandButton id="deleteExchange" styleClass="delete-button updateCssRefreshId"
                                                             icon="ui-icon-closethick"
                                                             actionListener="#{exchangeManagerBean.deleteExchange}"
                                                             value="Delete"

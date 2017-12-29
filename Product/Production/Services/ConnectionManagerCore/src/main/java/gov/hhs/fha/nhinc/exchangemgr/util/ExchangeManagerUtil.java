@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr.util;
 
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ import java.util.List;
  */
 public class ExchangeManagerUtil {
 
-    private final ExchangeDateUpdateMgr exScheduleTask = new ExchangeDateUpdateMgr();
+    private final ExchangeDataUpdateMgr exScheduleTask = new ExchangeDataUpdateMgr();
     List<ExchangeDownloadStatus> downloadStatus;
 
     public List<ExchangeDownloadStatus> getDownloadStatus() {
@@ -44,6 +45,9 @@ public class ExchangeManagerUtil {
 
     public List<ExchangeDownloadStatus> forceRefreshExchanges() {
         downloadStatus = new ArrayList<>();
-        return exScheduleTask.task(downloadStatus);
+        if (!ExchangeManager.getInstance().isRefreshLocked()) {
+            return exScheduleTask.task(downloadStatus);
+        }
+        return downloadStatus;
     }
 }
