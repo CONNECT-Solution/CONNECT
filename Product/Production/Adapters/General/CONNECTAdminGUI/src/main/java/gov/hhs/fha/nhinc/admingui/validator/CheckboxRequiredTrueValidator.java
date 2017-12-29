@@ -35,8 +35,6 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Tran Tang
@@ -44,7 +42,6 @@ import org.slf4j.LoggerFactory;
  */
 @FacesValidator("CheckboxRequiredTrueValidator")
 public class CheckboxRequiredTrueValidator implements Validator {
-    private static final Logger LOG = LoggerFactory.getLogger(CheckboxRequiredTrueValidator.class);
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) {
