@@ -81,11 +81,12 @@ public class ExchangeManagerBean {
     private OrganizationType orgFilter;
     private String filterExchange;
     private boolean recordRefreshLocked;
+    private boolean agreeOverwriteExchange;
 
     private List<String> tlses;
     private List<OrganizationType> organizations;
-
     private List<ExchangeDownloadStatus> exDownloadStatus;
+    private List<ExchangeType> exchanges;
 
     public List<ExchangeDownloadStatus> getExDownloadStatus() {
         return exDownloadStatus;
@@ -178,7 +179,8 @@ public class ExchangeManagerBean {
 
     // datatable-list
     public List<ExchangeType> getExchanges() {
-        return exchangeService.getAllExchanges();
+        exchanges = exchangeService.getAllExchanges();
+        return exchanges;
     }
 
     public List<ExchangeType> getListFilterExchanges() {
@@ -219,6 +221,7 @@ public class ExchangeManagerBean {
     }
 
     public void newExchange() {
+        agreeOverwriteExchange = false;
         formExchange = new ExchangeType();
     }
 
@@ -310,5 +313,21 @@ public class ExchangeManagerBean {
             RequestContext.getCurrentInstance().update(Arrays.asList(BUTTONS_REFRESH_LOCKED));
         }
         return exchangeService.isRefreshLocked();
+    }
+
+    public boolean isNotUniqueExchangeName() {
+        if (null != formExchange && StringUtils.isNotEmpty(formExchange.getName())
+            && CollectionUtils.isNotEmpty(getExchanges())) {
+            return null != ExchangeManagerHelper.findExchangeTypeBy(exchanges, formExchange.getName());
+        }
+        return false;
+    }
+
+    public boolean getOverwriteExchange() {
+        return agreeOverwriteExchange;
+    }
+
+    public void setOverwriteExchange(boolean overwriteValue) {
+        agreeOverwriteExchange = overwriteValue;
     }
 }

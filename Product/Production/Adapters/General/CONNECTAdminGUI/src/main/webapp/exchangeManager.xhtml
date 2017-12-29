@@ -110,11 +110,13 @@
                                                             id="btnSaveExchangeInfo"
                                                             actionListener="#{exchangeManagerBean.saveExchangeInfo}"
                                                             value="Save" />
-                                                        <p:commandButton styleClass="btn refresh-button updateCssRefreshId"
+                                                        <p:commandButton
+                                                            styleClass="btn refresh-button updateCssRefreshId"
                                                             icon="ui-icon-refresh" id="btnRefreshExchangeInfo"
                                                             disabled="#{exchangeManagerBean.refreshLocked}"
                                                             actionListener="#{exchangeManagerBean.refreshExchangeInfo}"
-                                                            value="Refresh Exchanges" update=":tabviewExchange, :refreshExchangeStatusDlg, @(.updateCssRefreshId)" />
+                                                            value="Refresh Exchanges"
+                                                            update=":tabviewExchange, :refreshExchangeStatusDlg, @(.updateCssRefreshId)" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,7 +156,8 @@
                                                         <h:outputText rendered="#{not rec.disabled}" value="Yes" />
                                                     </p:column>
                                                     <p:column headerText="Last Updated">
-                                                        <h:outputText value="#{rec.lastUpdated.toGregorianCalendar().time}">
+                                                        <h:outputText
+                                                            value="#{rec.lastUpdated.toGregorianCalendar().time}">
                                                             <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
                                                         </h:outputText>
                                                     </p:column>
@@ -169,7 +172,8 @@
                                                             update=":dlgSaveExchange" value="New">
                                                             <p:resetInput target=":formDlgExchange" />
                                                         </p:commandButton>
-                                                        <p:commandButton id="deleteExchange" styleClass="delete-button updateCssRefreshId"
+                                                        <p:commandButton id="deleteExchange"
+                                                            styleClass="delete-button updateCssRefreshId"
                                                             icon="ui-icon-closethick"
                                                             actionListener="#{exchangeManagerBean.deleteExchange}"
                                                             value="Delete"
@@ -204,6 +208,7 @@
                                                                     itemValue="#{item.name}" />
                                                             </h:selectOneMenu>
                                                         </div>
+                                                        <div class="col-sm-1"></div>
                                                         <div class="form-group col-sm-4">
                                                             <h:outputLabel class="control-label"
                                                                 for="inputFilterOrganization" value="Organization:" />

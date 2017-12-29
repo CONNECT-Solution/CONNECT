@@ -13,7 +13,9 @@
                         <div class="col-sm-6">
                             <h:outputLabel class="control-label" for="inputName" value="* Name:" />
                             <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.name}"
-                                id="inputName" maxlength="250" required="true" requiredMessage="Name is required." />
+                                id="inputName" maxlength="250" required="true" requiredMessage="Name is required.">
+                                <p:ajax event="blur" update="@form" />
+                            </p:inputText>
                         </div>
                         <div class="col-sm-6">
                             <h:outputLabel class="control-label" for="inputType" value="* Type:" />
@@ -58,12 +60,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group row pull-right">
+                    <div class="col-sm-12">
+                        <p:outputLabel styleClass="control-label updateCssOverwrite" for="agree"
+                            value="Do you agree to overwrite the exchange? "
+                            rendered="#{exchangeManagerBean.notUniqueExchangeName}" />
+                        <p:selectBooleanCheckbox id="agree" styleClass="updateCssOverwrite"
+                            value="#{exchangeManagerBean.overwriteExchange}"
+                            rendered="#{exchangeManagerBean.notUniqueExchangeName}"
+                            requiredMessage="You have not agree to overwrite the exchange.">
+                            <f:validator validatorId="CheckboxRequiredTrueValidator" />
+                        </p:selectBooleanCheckbox>
+                    </div>
+                </div>
                 <div class="form-button-row">
                     <div class="col-sm-12">
                         <p:commandButton styleClass="btn btn-primary updateCssRefreshId" icon="ui-icon-circle-plus"
                             action="#{exchangeManagerBean.saveExchange()}" value="Save"
                             disabled="#{exchangeManagerBean.refreshLocked}" id="btnSaveExchange"
-                            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange, @(.updateCssExchangesId)" />
+                            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange, @(.updateCssExchangesId)">
+                        </p:commandButton>
                         <p:commandButton styleClass="btn btn-default" icon="ui-icon-circle-close" value="Close"
                             oncomplete="PF('wvDlgSaveExchange').hide();" />
                     </div>
@@ -72,5 +88,4 @@
         </div>
 
     </p:dialog>
-
 </ui:composition>
