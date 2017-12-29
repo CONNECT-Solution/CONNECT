@@ -66,9 +66,9 @@ import org.uddi.api_v3.BusinessDetail;
  *
  * @author tjafri
  */
-public class ExchangeDateUpdateMgr {
+public class ExchangeDataUpdateMgr {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ExchangeDateUpdateMgr.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExchangeDataUpdateMgr.class);
     private static final ArrayList<String> backupFileList = new ArrayList<>();
     private static final String JSON_QUERY_PARAM = "_format=json";
     private boolean hasDownloadOccurred = false;
@@ -79,6 +79,8 @@ public class ExchangeDateUpdateMgr {
     private static final String SCHEMA_VAL_FAILED_MSG = "SCHEMA_VAL_FAILED";
     private static final String SCHEMA_VAL_SUCCESS_MSG = "SCHEMA_VAL_SUCCESS";
     private static final String SCHEMA_VAL_SKIP_MSG = "SCHEMA_VAL_SKIP";
+    private static final boolean EXCHANGE_REFRESH_IN_PROGRESS = true;
+    private static final boolean EXCHANGE_REFRESH_COMPLETED = false;
 
     public List<ExchangeDownloadStatus> task() {
         List<ExchangeDownloadStatus> list = new ArrayList<>();
@@ -86,7 +88,8 @@ public class ExchangeDateUpdateMgr {
     }
 
     public List<ExchangeDownloadStatus> task(List<ExchangeDownloadStatus> status) {
-        LOG.info("Starting ExchangeScheduleTask");
+        LOG.info("Starting ExchangeScheduleTask with DAO-locked");
+        getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_IN_PROGRESS);
         boolean result;
         try {
             ExchangeInfoType exInfo = getExchangeDAO().loadExchangeInfo();
@@ -103,6 +106,8 @@ public class ExchangeDateUpdateMgr {
         } catch (ExchangeManagerException ex) {
             LOG.error("Unable to read/write to exchangeInfo file:  {}", ex.getLocalizedMessage(), ex);
         }
+        getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_COMPLETED);
+        LOG.info("Ending ExchangeScheduleTask with DAO-unlocked");
         return status;
     }
 
@@ -215,15 +220,15 @@ public class ExchangeDateUpdateMgr {
             exchange.setLastUpdated(getTimestamp());
             exStatus.setSuccess(true);
         } catch (UDDIAccessorException ex) {
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, SCHEMA_VAL_SKIP_MSG, null, null));
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         } catch (ExchangeTransformException ex) {
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         }
         return exStatus;
@@ -251,22 +256,22 @@ public class ExchangeDateUpdateMgr {
             exchange.setLastUpdated(getTimestamp());
             exStatus.setSuccess(true);
         } catch (URISyntaxException | FhirClientException ex) {
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         } catch (FHIRDataParserException ex) {
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         } catch (ExchangeTransformException ex) {
-            exStatus.getStepStatus().add(
-                buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+            exStatus.getStepStatus()
+            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         }
         return exStatus;
@@ -276,15 +281,14 @@ public class ExchangeDateUpdateMgr {
         try {
             return PropertyAccessor.getInstance().getProperty(NhincConstants.MESSAGES_PROPERTY_FILE, key);
         } catch (PropertyAccessException ex) {
-            LOG.error("Unable to read {} from file {}: {}", key, NhincConstants.MESSAGES_PROPERTY_FILE, ex.
-                getLocalizedMessage(), ex);
+            LOG.error("Unable to read {} from file {}: {}", key, NhincConstants.MESSAGES_PROPERTY_FILE,
+                ex.getLocalizedMessage(), ex);
         }
         return null;
     }
 
     private static ExchangeDownloadStepStatus buildExchangeDownloadStatusMsg(boolean success, String msgKey,
-        String exceptionMsg,
-        Exception exception) {
+        String exceptionMsg, Exception exception) {
         ExchangeDownloadStepStatus stepStatus = new ExchangeDownloadStepStatus();
         String message = getMessage(msgKey);
         if (success) {

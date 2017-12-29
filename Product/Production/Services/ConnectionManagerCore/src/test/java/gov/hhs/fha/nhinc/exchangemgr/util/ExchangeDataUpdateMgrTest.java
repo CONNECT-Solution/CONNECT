@@ -26,6 +26,14 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException;
@@ -40,14 +48,7 @@ import java.net.URL;
 import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import org.apache.http.client.methods.HttpGet;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -58,7 +59,7 @@ public class ExchangeDataUpdateMgrTest {
 
     private static final String FILE_NAME = "/config/ExchangeDataUpdateMgrTest/exchangeInfoTest.xml";
     private static final String FHIR_XML
-        = "<Bundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
+    = "<Bundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
         + "value=\"2017-11-20T19:06:33+00:00\"/></meta><type value=\"searchset\"/><total value=\"1\"/><link><relation "
         + "value=\"self\"/><url value=\"/Organization?_format=xml\"/></link><entry><fullUrl value=\"/Organization/0\"/>"
         + "<resource><Organization xmlns=\"http://hl7.org/fhir\"><id value=\"0\"/><meta><versionId value=\"1\"/>"
@@ -67,7 +68,7 @@ public class ExchangeDataUpdateMgrTest {
         + "</identifier><active value=\"true\"/><name value=\"TestOrg1\"/></Organization></resource>"
         + "</entry></Bundle>";
     private static final String BAD_XML
-        = "<badBundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
+    = "<badBundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
         + "value=\"2017-11-20T19:06:33+00:00\"/></meta><type value=\"searchset\"/><total value=\"1\"/><link><relation "
         + "value=\"self\"/><url value=\"/Organization?_format=xml\"/></link></badBundle>";
     private final ExchangeInfoDAOFileImpl exDao = createExchangeInfoDAO(FILE_NAME);
@@ -78,8 +79,8 @@ public class ExchangeDataUpdateMgrTest {
 
     @Test
     public void testExchangeDownloadSuccess() throws ExchangeManagerException, UDDIAccessorException,
-        DatatypeConfigurationException, FhirClientException, URISyntaxException {
-        ExchangeDateUpdateMgr workerThread = createExchangeScheduledTask();
+    DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
         when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
@@ -104,8 +105,8 @@ public class ExchangeDataUpdateMgrTest {
 
     @Test
     public void testFhirExchangeDownloadFailure() throws ExchangeManagerException, UDDIAccessorException,
-        DatatypeConfigurationException, FhirClientException, URISyntaxException {
-        ExchangeDateUpdateMgr workerThread = createExchangeScheduledTask();
+    DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
         when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
@@ -125,8 +126,8 @@ public class ExchangeDataUpdateMgrTest {
 
     @Test
     public void testFhirExchangeSchemaValidationFailed() throws ExchangeManagerException, UDDIAccessorException,
-        DatatypeConfigurationException, FhirClientException, URISyntaxException {
-        ExchangeDateUpdateMgr workerThread = createExchangeScheduledTask();
+    DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
         when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
@@ -147,8 +148,8 @@ public class ExchangeDataUpdateMgrTest {
             status.get(1).getStepStatus().get(2).getMessage());
     }
 
-    private ExchangeDateUpdateMgr createExchangeScheduledTask() {
-        return new ExchangeDateUpdateMgr() {
+    private ExchangeDataUpdateMgr createExchangeScheduledTask() {
+        return new ExchangeDataUpdateMgr() {
             @Override
             protected ExchangeInfoDAOFileImpl getExchangeDAO() {
                 return exDao;
