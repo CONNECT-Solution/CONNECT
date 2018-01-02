@@ -325,4 +325,31 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     public boolean isRefreshLocked() {
         return getExchangeInfoDAO().isRefreshLocked();
     }
+
+    public boolean toggleIsDisabledFor(String forExchangeName) throws ExchangeManagerException {
+        boolean bSave = false;
+        getRefreshExceptionFor("toggle-disable");
+        if (StringUtils.isBlank(forExchangeName)) {
+            return bSave;
+        }
+        try {
+            if (null == exInfo) {
+                loadExchangeInfo();
+            }
+            List<ExchangeType> exchanges = ExchangeManagerHelper.getExchangeTypeBy(exInfo, true);
+            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, forExchangeName);
+            if (null != exchangeFound) {
+                if (exchangeFound.isDisabled() == false) {
+                    exchangeFound.setDisabled(true);
+                } else {
+                    exchangeFound.setDisabled(false);
+                }
+            }
+            saveExchangeInfo();
+            bSave = true;
+        } catch (ExchangeManagerException e) {
+            LOG.error("unable to toggle-exchange-isDisable: {}", e.getLocalizedMessage(), e);
+        }
+        return bSave;
+    }
 }

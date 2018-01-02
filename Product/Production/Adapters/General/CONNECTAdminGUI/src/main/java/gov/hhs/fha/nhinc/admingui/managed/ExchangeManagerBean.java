@@ -330,4 +330,8 @@ public class ExchangeManagerBean {
     public void setOverwriteExchange(boolean overwriteValue) {
         agreeOverwriteExchange = overwriteValue;
     }
+
+    public boolean toggleIsEnabledFor(String exchangeName) {
+        return exchangeService.toggleExchangeIsEnabled(exchangeName);
+    }
 }
