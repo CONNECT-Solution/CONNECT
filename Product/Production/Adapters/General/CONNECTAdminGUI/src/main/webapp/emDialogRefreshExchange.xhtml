@@ -1,34 +1,44 @@
 <ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <div id="emRefreshDiv">
-        <p:dialog id="refreshExchangeStatusDlg" header="Exchange Refresh Status" widgetVar="wvDlgRefreshExchangeStatus" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="650" height="auto">
-            <div class="content-block content">
+        <p:dialog id="refreshExchangeStatusDlg" header="Exchange Refresh Status" widgetVar="wvDlgRefreshExchangeStatus" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="800" height="auto">
+            <div class="content">
                 <h:form id="refreshExchangeStatusForm" class="form-horizontal" role="form">
-                    <p:dataList id="dataTableExchangeDownload" var="exStatus" value="#{exchangeManagerBean.exDownloadStatus}"
-                                 type="unordered" itemType="none" paginator="false">
-                        <p:column>
-                            <p:commandLink styleClass="glyphicon glyphicon-remove-circle highlightRED pull-left" rendered="#{exStatus.success eq 'false'}"/>
-                            <p:commandLink styleClass="glyphicon glyphicon-ok-circle highlightGREEN pull-left" rendered="#{exStatus.success eq 'true'}"/>
-                            <h:outputText value="&#160;" />
-                            <h:outputText value="#{exStatus.name}" style="display:inline-block"/>
-                        </p:column>
-                        <p:column>
-                            <p:dataList value="#{exStatus.stepStatus}" var="step" type="unordered" itemType="none" paginator="false" style="border:none">
-                                <h:outputText rendered="#{step.stepSuccessful eq 'false'}" value="#{step.message}" style="color:red" />
-                                <h:outputText rendered="#{step.stepSuccessful eq 'true'}" value="#{step.message}" style="color:green"/>
-                            </p:dataList>
-                        </p:column>
-                    </p:dataList>
+                    <h:panelGrid columns="1" styleClass="gridStatus" style="width:900px;">
+                       <p:panel style="width: auto;">
+                            <div class="table-responsive table-orgs">
+                                <p:dataTable id="dataTableExchangeDownload" var="exStatus" value="#{exchangeManagerBean.exDownloadStatus}"
+                                 paginator="false" styleClass="table table-striped table-status">
+                                    <p:column style="padding:0px;">
+                                        <h:outputText rendered="#{exStatus.success}" value="#{exStatus.name}" style="color: green" />
+                                        <h:outputText rendered="#{!exStatus.success}" value="#{exStatus.name}" style="color: red" />
+                                        <div class="dataList">
+                                            <p:dataList id="refreshStatus" value="#{exStatus.stepStatus}" var="step" type="unordered" itemType="none" paginator="false" style="dataList">
+                                            <p:outputPanel rendered="#{step.stepSuccessful eq 'false'}" >
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:33.33%">
+                                                #{step.message}
+                                            </div>
+                                            </p:outputPanel>
+                                            <p:outputPanel rendered="#{step.stepSuccessful eq 'true'}">
+                                                <div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
+                                                #{step.message}
+                                                </div>
+                                            </p:outputPanel>
+                                            </p:dataList>
+                                        </div>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                       </p:panel>
+                    </h:panelGrid>
                 </h:form>
                 <div class="form-group">
                    <div class="col-sm-12">
                         <div class="form-button-row">
                           <p:commandButton id="closeRefreshExchange" styleClass="btn btn-primary pull-right" value="Close" onclick="PF('wvDlgRefreshExchangeStatus').hide()"  update=":tabviewExchange"/>
                         </div>
-                   </div>
-                </div>
+                    </div>
+                 </div>
             </div>
         </p:dialog>
-    </div>
 </ui:composition>

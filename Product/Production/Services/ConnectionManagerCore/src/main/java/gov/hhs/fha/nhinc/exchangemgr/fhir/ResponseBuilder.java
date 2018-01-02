@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr.fhir;
 
-import com.google.gson.JsonSyntaxException;
-import java.io.IOException;
 import org.apache.commons.collections.CollectionUtils;
 import org.hl7.fhir.dstu3.formats.IParser;
 import org.hl7.fhir.dstu3.formats.JsonParser;
@@ -35,7 +33,6 @@ import org.hl7.fhir.dstu3.formats.XmlParser;
 import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.dstu3.model.OperationOutcome;
 import org.hl7.fhir.dstu3.model.Resource;
-import org.hl7.fhir.exceptions.FHIRFormatError;
 
 /**
  *
@@ -63,7 +60,7 @@ public class ResponseBuilder {
         try {
             IParser parser = getParser(format);
             return parser.parse(response);
-        } catch (JsonSyntaxException | FHIRFormatError | IOException ex) {
+        } catch (Exception ex) { //catching general exception to avoid sceanrios where we have service running but no response
             throw new FHIRDataParserException("Unable to parse response,  " + ex.getLocalizedMessage(), ex);
         }
     }

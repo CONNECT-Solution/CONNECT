@@ -313,8 +313,6 @@
             WEB-INF/lib/spring-jms-4.1.9.RELEASE.jar,
             WEB-INF/lib/spring-messaging-4.1.9.RELEASE.jar,
             WEB-INF/lib/velocity*,
-            WEB-INF/lib/xpp3*,
-            WEB-INF/lib/xstream-1.4.3.jar,
             WEB-INF/lib/ehcache-2.10.3.jar
           </packagingExcludes>
         </configuration>

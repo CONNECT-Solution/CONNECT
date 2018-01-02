@@ -82,6 +82,7 @@ public class ExchangeScheduler extends Thread {
     public void run() {
         LOG.info("ExchangeScheduled inside run");
         while (m_bRunnable) {
+            getInstance().initialize();//need to initialize scheduler everytime as User can update refreshInterval from AdminGUI
             ExchangeDataUpdateMgr exTask = new ExchangeDataUpdateMgr();
             exTask.task();
             try {
