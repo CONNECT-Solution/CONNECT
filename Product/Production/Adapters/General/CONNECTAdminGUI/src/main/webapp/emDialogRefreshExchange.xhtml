@@ -1,7 +1,7 @@
 <ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-        <p:dialog id="refreshExchangeStatusDlg" header="Exchange Refresh Status" widgetVar="wvDlgRefreshExchangeStatus" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="800" height="auto">
+        <p:dialog id="refreshExchangeStatusDlg" header="Exchange Refresh Status" widgetVar="wvDlgRefreshExchangeStatus" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="900" height="auto">
             <div class="content">
                 <h:form id="refreshExchangeStatusForm" class="form-horizontal" role="form">
                     <h:panelGrid columns="1" styleClass="gridStatus" style="width:900px;">
@@ -13,8 +13,8 @@
                                         <h:outputText rendered="#{exStatus.success}" value="#{exStatus.name}" style="color: green" />
                                         <h:outputText rendered="#{!exStatus.success}" value="#{exStatus.name}" style="color: red" />
                                         <div class="dataList">
-                                            <p:dataList id="refreshStatus" value="#{exStatus.stepStatus}" var="step" type="unordered" itemType="none" paginator="false" style="dataList">
-                                            <p:outputPanel rendered="#{step.stepSuccessful eq 'false'}" >
+                                            <p:dataList id="refreshStatus" value="#{exStatus.stepStatus}" var="step" type="unordered" itemType="none" paginator="false" styleClass="dataList">
+                                                <p:outputPanel rendered="#{step.stepSuccessful eq 'false'}" >
                                                 <div class="progress-bar progress-bar-danger" role="progressbar" style="width:33.33%">
                                                 #{step.message}
                                             </div>
