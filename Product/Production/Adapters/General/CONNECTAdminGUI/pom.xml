@@ -278,14 +278,6 @@
       <artifactId>antisamy</artifactId>
       <version>1.5.3</version>
     </dependency>
-    
-    <!-- OWASP Tomhawk encoder library -->
-    <dependency>
-     <groupId>org.apache.myfaces.tomahawk</groupId>
-     <artifactId>tomahawk21</artifactId>
-     <version>1.1.14</version>
-    </dependency>
-   
    </dependencies>
   <repositories>
     <repository>

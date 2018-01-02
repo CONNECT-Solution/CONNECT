@@ -1,5 +1,5 @@
 <ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core" xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <div>
         <p:dialog id="viewCertDlgKS" header="Certificate Details" widgetVar="viewCertDlgKS" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="950" height="auto">
@@ -11,7 +11,7 @@
                         <div class="form-group col-sm-push-3">
                             <h:outputLabel class="col-sm-2 control-label" value="Alias:" />
                             <div class="col-sm-10">
-                                <t:outputText styleClass="form-control" id="aliasInput" value="${certificateBean.selectedTSCertificate.alias}" />
+                                <h:outputText styleClass="form-control" id="aliasInput" value="#{certificateBean.selectedTSCertificate.alias}" />
                             </div>
                         </div>
                         
