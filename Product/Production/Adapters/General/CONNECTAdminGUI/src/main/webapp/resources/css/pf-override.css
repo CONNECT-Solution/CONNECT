@@ -849,6 +849,82 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
    background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
 }
 
+.form-button .ui-button {
+   margin:0px 0px 0px 10px;
+   padding:6px 12px;
+   color:#ffffff;
+   background:#428bca;
+   border:1px solid #357ebd;
+   text-shadow:none;
+   box-shadow:none;
+   white-space:nowrap;
+}
+.form-button .ui-button:first-child {
+   margin-left:0px;
+}
+.form-button .ui-button.ui-state-hover {
+    background:#3276b1;
+   border:1px solid #285e8e;
+   box-shadow:none;
+}
+.form-button .ui-button-text-only .ui-button-text {
+   padding:5px 10px;
+}
+.form-button .ui-button-text-icon-left .ui-button-text {
+   padding: .3em .3em .3em 1.3em;
+}
+.form-button .ui-button.btn-default {
+   background-color: #ffffff !important;
+   color: #333333 !important;
+   border-color: #cccccc !important;
+}
+.form-button .ui-button.btn-default:hover {
+   background-color: #eeeeee !important;
+}
+.form-button .ui-button.btn-primary .ui-icon {
+   background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+
+.form-button-outline .ui-button {
+   margin:0px 0px 0px 10px;
+   padding:6px 12px;
+   background:#ffffff;
+   border:1px solid #357ebd;
+   text-shadow:none;
+   box-shadow:none;
+   white-space:nowrap;
+}
+.form-button-outline .ui-button:first-child {
+   margin-left:0px;
+}
+.form-button-outline .ui-button.ui-state-hover {
+   background:#3276b1;
+   border:1px solid #285e8e;
+   box-shadow:none;
+   color: #ffffff;
+}
+.form-button-outline .ui-button-text-only .ui-button-text {
+   padding:5px 10px;
+}
+.form-button-outline .ui-button-text-icon-left .ui-button-text {
+   padding: .3em .3em .3em 1.3em;
+}
+.form-button-outline .ui-button.btn-default {
+   background-color: #ffffff !important;
+   color: #333333 !important;
+   border-color: #cccccc !important;
+}
+.form-button-outline .ui-button.btn-default:hover {
+   background-color: #eeeeee !important;
+}
+.form-button-outline .ui-button.btn-primary .ui-icon {
+   background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
+}
+.form-button-outline .btn-small {
+   padding:0px 8px !important;
+   font-size: 12px;
+}
+
 
 
 /* -- MANAGE USER ROLES -- */
@@ -1227,6 +1303,28 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
 }
 #domainEditTabview.ui-tabs .ui-tabs-panel .form-button-row .btn {
    color:#ffffff;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+   font-weight:bold;
+   text-shadow:none;
+   box-shadow:none;
+}
+
+#domainEditTabview.ui-tabs .ui-tabs-panel .form-button {
+   border-top: 1px solid #ccc;
+   text-align: right;
+}
+#domainEditTabview.ui-tabs .ui-tabs-panel .form-button .btn {
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+   font-weight:bold;
+   text-shadow:none;
+   box-shadow:none;
+}
+
+#domainEditTabview.ui-tabs .ui-tabs-panel .form-button-outline {
+   border-top: 1px solid #ccc;
+   text-align: right;
+}
+#domainEditTabview.ui-tabs .ui-tabs-panel .form-button-outline .btn {
    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
    font-weight:bold;
    text-shadow:none;

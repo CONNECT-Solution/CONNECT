@@ -292,7 +292,10 @@ public class HelperUtil {
     }
 
     public static String getDate(String dateFormat, Date date) {
-        return new SimpleDateFormat(dateFormat).format(date);
+        if (null != date) {
+            return new SimpleDateFormat(dateFormat).format(date);
+        }
+        return "";
     }
 
     public static boolean execPFCommand(String cmdString) {

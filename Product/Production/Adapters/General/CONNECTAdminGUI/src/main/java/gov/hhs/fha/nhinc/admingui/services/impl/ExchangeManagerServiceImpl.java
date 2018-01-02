@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,7 +105,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
                 EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance().getEndpointInfo(url);
 
                 if (info != null) {
-                    timestamp = formatDate(info.getTimestamp());
+                    timestamp = HelperUtil.getDate(DATE_FORMAT, info.getTimestamp());
                     status = info.isSuccessfulPing() ? "Pass" : "Fail";
                 }
                 endpoints.add(
@@ -155,12 +154,13 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return exchangeManager.isRefreshLocked();
     }
 
-    private static String formatDate(Date timestamp) {
-        if (null != timestamp) {
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-            return sdf.format(timestamp);
+    @Override
+    public boolean toggleExchangeIsEnabled(String exchangeName) {
+        try{
+            return exchangeManager.toggleIsDisabledFor(exchangeName);
+        }catch(ExchangeManagerException e){
+            LOG.error("unable to toggle-exchange-IsEnabled: {}", e.getLocalizedMessage(), e);
         }
-        return "";
+        return false;
     }
-
 }

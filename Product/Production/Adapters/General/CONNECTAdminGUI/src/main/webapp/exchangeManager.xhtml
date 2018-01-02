@@ -151,15 +151,23 @@
                                                     <p:column headerText="URL">
                                                         <h:outputText value="#{rec.url}" />
                                                     </p:column>
-                                                    <p:column headerText="Enabled">
-                                                        <h:outputText rendered="#{rec.disabled}" value="No" />
-                                                        <h:outputText rendered="#{not rec.disabled}" value="Yes" />
-                                                    </p:column>
                                                     <p:column headerText="Last Updated">
                                                         <h:outputText
                                                             value="#{rec.lastUpdated.toGregorianCalendar().time}">
                                                             <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
                                                         </h:outputText>
+                                                    </p:column>
+                                                    <p:column styleClass="form-button-outline">
+                                                        <p:commandButton
+                                                            actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec.name)}"
+                                                            value="Enabled" rendered="#{not rec.disabled}"
+                                                            update="dataTableExchange" icon="ui-icon-circle-check"
+                                                            styleClass="btn btn-outline-primary btn-small" />
+                                                        <p:commandButton
+                                                            actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec.name)}"
+                                                            value="Disabled" rendered="#{rec.disabled}"
+                                                            update="dataTableExchange" icon="ui-icon-circle-close"
+                                                            styleClass="btn btn-outline-default btn-small" />
                                                     </p:column>
                                                 </p:dataTable>
 

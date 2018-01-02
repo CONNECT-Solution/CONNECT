@@ -58,4 +58,6 @@ public interface ExchangeManagerService {
     public boolean pingService(ConnectionEndpoint connEndpoint);
 
     public boolean isRefreshLocked();
+
+    public boolean toggleExchangeIsEnabled(String exchangeName);
 }
