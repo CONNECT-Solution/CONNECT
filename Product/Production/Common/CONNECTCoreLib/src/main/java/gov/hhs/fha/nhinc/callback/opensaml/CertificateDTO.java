@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 
 import java.security.cert.X509Certificate;
 import java.util.regex.Pattern;
+import org.owasp.encoder.Encode;
 
 /**
  *
@@ -67,7 +68,7 @@ public class CertificateDTO {
     }
 
     public String getAlias() {
-        return validateAlias(alias) ? alias : "";
+        return Encode.forHtmlContent(validateAlias(alias) ? alias : "");
     }
 
     public void setAlias(String alias) {
