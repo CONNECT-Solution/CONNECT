@@ -78,10 +78,16 @@ public class ExchangeScheduler extends Thread {
         m_bRunnable = false;
     }
 
+    /*
+     * This method is scheduled to run for a given refresh interval as stated in exchangeInfo.xml. Everytime the
+     * scheduler is run, it reads the refresh interval from exchangeInfo.xml and re-initializes the next run based on
+     * the given value.
+     */
     @Override
     public void run() {
         LOG.info("ExchangeScheduled inside run");
         while (m_bRunnable) {
+            getInstance().initialize();
             ExchangeDataUpdateMgr exTask = new ExchangeDataUpdateMgr();
             exTask.task();
             try {

@@ -1896,5 +1896,28 @@ form[id*='auditQueryTabView'] div[id*='auditBlobDlg'].ui-dialog .ui-dialog-conte
    display : none;
 }
 
+.dataList .ui-widget-content .ui-datalist .ui-datalist-content {
+    border-style: none;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    background: transparent;
+    background-image: none;
+}
+.dataList .ui-widget-content .ui-datalist-data .ui-datalist-item{
+    border-style: none;
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    background: transparent;
+    background-image: none;
+}
 
+.dataList ul{
+    padding: 0px;
+    list-style-type: none;
+    border-style: none;
+}
 /* -- RESPONSIVE @MEDIA STYLES -- FROM DASHBOARD.CSS -----------------------------------------------*/

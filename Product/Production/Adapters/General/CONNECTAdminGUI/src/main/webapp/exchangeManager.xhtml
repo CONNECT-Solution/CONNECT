@@ -328,6 +328,16 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:hotkey bind="esc" handler="statusDialogBar.hide()" />
+            <p:ajaxStatus onstart="PF('statusDialogBar').show()" onsuccess="PF('statusDialogBar').hide()" />
+            <div class="modal-copyright-prime" style="text-align:center;">
+                    <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <h:outputText value="REFRESHING EXCHANGES....." />
+                        <br/>
+                        <p:graphicImage library="images" name="uc-progress.gif" />
+                    </p:dialog>
+            </div>
+
             <p:growl id="msgGrowl" for="msgForGrowl" closable="true" />
             <ui:include src="emDialogSaveExchange.xhtml" />
             <ui:include src="emDialogRefreshExchange.xhtml" />
