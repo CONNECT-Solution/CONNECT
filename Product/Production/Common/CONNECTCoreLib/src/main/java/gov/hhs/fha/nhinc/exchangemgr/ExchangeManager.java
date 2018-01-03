@@ -339,10 +339,10 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             List<ExchangeType> exchanges = ExchangeManagerHelper.getExchangeTypeBy(exInfo, true);
             ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, forExchangeName);
             if (null != exchangeFound) {
-                if (exchangeFound.isDisabled() == false) {
-                    exchangeFound.setDisabled(true);
-                } else {
+                if (exchangeFound.isDisabled()) {
                     exchangeFound.setDisabled(false);
+                } else {
+                    exchangeFound.setDisabled(true);
                 }
             }
             saveExchangeInfo();
