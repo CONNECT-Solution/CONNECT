@@ -4,9 +4,9 @@
   <maxNumberOfBackups>1</maxNumberOfBackups>
   <defaultExchange>Exchange 1</defaultExchange>
   <exchanges>
-    <exchange type="local">
+    <exchange type="uddi">
       <name>Exchange 1</name>
-      <url>http://YourExchangeUrl/</url>
+      <url>https://registry-vs.nhinonline.net/uddi/inquiry</url>
       <disabled>true</disabled>
       <lastUpdated></lastUpdated>
       <organizationList>
@@ -315,6 +315,12 @@
           <ns2:targetRegion>US-VA</ns2:targetRegion>
         </organization>
       </organizationList>
+    </exchange>
+    <exchange type="fhir">
+      <name>Exchange 2</name>
+      <url>https://YourFhirDirectoryServer/Organization/?_format=json&amp;apikey=testKey</url>
+      <disabled>true</disabled>
+      <lastUpdated></lastUpdated>
     </exchange>
   </exchanges>
 </exchangeInfo>
