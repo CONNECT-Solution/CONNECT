@@ -7,5 +7,6 @@
     <bean id="securityConfigInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.wss.SecurityConfigInInterceptor" />
     <bean id="timestampInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampInterceptor" />
     <bean id="attachmentFaultOutInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.largefile.AttachmentReleaseFaultOutInterceptor" />
+    <bean id="HSTSHeaderInterceptor" class="gov.hhs.fha.nhinc.messaging.server.interceptor.HSTSResponseOutInterceptor"/>
 
 </beans>
