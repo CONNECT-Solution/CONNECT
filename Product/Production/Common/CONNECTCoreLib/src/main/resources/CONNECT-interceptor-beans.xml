@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-            http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="securityConfigInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.wss.SecurityConfigInInterceptor" />
     <bean id="timestampInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampInterceptor" />
     <bean id="attachmentFaultOutInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.largefile.AttachmentReleaseFaultOutInterceptor" />
-    
+    <bean id="HSTSHeaderInterceptor" class="gov.hhs.fha.nhinc.messaging.server.interceptor.HSTSResponseOutInterceptor"/>
+
 </beans>
