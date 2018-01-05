@@ -321,6 +321,27 @@
                             <goal>test-jar</goal>
                         </goals>
                     </execution>
+                    <execution>
+                       <id>transformer</id>
+                       <phase>package</phase>
+                       <goals>
+                           <goal>jar</goal>
+                       </goals>
+                       <configuration>
+                           <classifier>transformer</classifier>
+                           <includes>
+                               <include>**/connectmgr/**</include>
+                               <include>**/exchange/**</include>
+                               <include>**/exchangemgr/*</include>
+                               <include>**/nhninclib/*</include>
+                               <include>**/properties/*</include>
+                               <include>**/util/*</include>
+                           </includes>
+                           <excludes>
+                               <exclude>**/test.*</exclude>
+                           </excludes>
+                       </configuration>
+                   </execution>
                 </executions>
             </plugin>
         </plugins>
