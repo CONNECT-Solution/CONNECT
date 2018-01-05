@@ -68,7 +68,7 @@ public class HSTSResponseOutInterceptor extends AbstractPhaseInterceptor<Message
         try {
             maxAge = getMaxAgeValue();
         } catch (PropertyAccessException ex) {
-            LOG.warn(ex.getLocalizedMessage());
+            LOG.warn(ex.getLocalizedMessage(), ex);
         }
         
         if(NullChecker.isNullish(maxAge)) {
