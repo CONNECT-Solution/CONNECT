@@ -6,7 +6,7 @@
     <parent>
         <artifactId>Gateway</artifactId>
         <groupId>org.connectopensource</groupId>
-        <version>4.5.0-HOTFIX-1</version>
+        <version>4.5.3</version>
     </parent>
 
     <artifactId>CORE_X12DocumentSubmission_10</artifactId>
