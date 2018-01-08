@@ -49,7 +49,7 @@ public class HSTSResponseOutInterceptor extends AbstractPhaseInterceptor<Message
 
     private static final Logger LOG = LoggerFactory.getLogger(HSTSResponseOutInterceptor.class);
     private static final String DEFAULT_MAX_AGE = "31536000";
-    
+
     public HSTSResponseOutInterceptor() {
         super(Phase.PRE_LOGICAL);
     }
@@ -58,35 +58,35 @@ public class HSTSResponseOutInterceptor extends AbstractPhaseInterceptor<Message
     public void handleMessage(Message message) {
         LOG.trace("Begin HSTSResponseOutInterceptor");
         Map<String, List> headers = (Map<String, List>) message.get(Message.PROTOCOL_HEADERS);
-        
+
         if(headers == null) {
-            headers = new HashMap<>();
+            headers = new HashMap();
         }
-        
+
         String maxAge = null;
-        
+
         try {
             maxAge = getMaxAgeValue();
         } catch (PropertyAccessException ex) {
             LOG.warn(ex.getLocalizedMessage(), ex);
         }
-        
+
         if(NullChecker.isNullish(maxAge)) {
-            maxAge = DEFAULT_MAX_AGE; 
+            maxAge = DEFAULT_MAX_AGE;
         }
-        
+
         final String hstsHeaderKey = "Strict-Transport-Security";
         final String hstsHeaderValue = "max-age=" + maxAge + "; includeSubDomains";
-        
+
         headers.put(hstsHeaderKey, Collections.singletonList(hstsHeaderValue));
-        
+
         message.put(Message.PROTOCOL_HEADERS, headers);
     }
-    
+
     private String getMaxAgeValue() throws PropertyAccessException {
         return getPropAccessor().getProperty("gateway", "hstsMaxAge");
     }
-    
+
     protected PropertyAccessor getPropAccessor() {
         return PropertyAccessor.getInstance();
     }

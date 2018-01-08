@@ -44,6 +44,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler"/>
@@ -58,6 +61,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
         <jaxws:properties>          
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
@@ -69,6 +75,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
         <jaxws:properties>          
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
@@ -91,6 +100,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
