@@ -42,6 +42,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler" />
@@ -57,6 +60,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edqs="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuerySecured"
@@ -78,6 +84,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocQueryUnsecuredProxy"
@@ -87,6 +96,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:outInterceptors>
+            <ref bean="HSTSHeaderInterceptor"/>
+        </jaxws:outInterceptors>
     </jaxws:endpoint>
 
 </beans>
