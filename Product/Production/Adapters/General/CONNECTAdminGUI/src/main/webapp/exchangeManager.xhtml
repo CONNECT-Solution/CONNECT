@@ -157,17 +157,19 @@
                                                             <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
                                                         </h:outputText>
                                                     </p:column>
-                                                    <p:column styleClass="form-button-outline">
+                                                    <p:column headerText="Refresh Exchange">
                                                         <p:commandButton
                                                             actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec.name)}"
                                                             value="Enabled" rendered="#{not rec.disabled}"
-                                                            update="dataTableExchange" icon="ui-icon-circle-check"
-                                                            styleClass="btn btn-outline-primary btn-small" />
+                                                            update="dataTableExchange"
+                                                            icon="glyphicon glyphicon-ok-sign"
+                                                            styleClass="btn btn-outline-primary btn-sm" />
                                                         <p:commandButton
                                                             actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec.name)}"
                                                             value="Disabled" rendered="#{rec.disabled}"
-                                                            update="dataTableExchange" icon="ui-icon-circle-close"
-                                                            styleClass="btn btn-outline-default btn-small" />
+                                                            update="dataTableExchange"
+                                                            icon="glyphicon glyphicon-remove-sign"
+                                                            styleClass="btn btn-outline-primary btn-sm" />
                                                     </p:column>
                                                 </p:dataTable>
 
@@ -237,24 +239,24 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="Name:" />
+                                                            <h:outputLabel class="control-label" value="Name:&#160;" />
                                                             <h:outputText id="displayName"
                                                                 value="#{exchangeManagerBean.orgName}" />
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="HCID:" />
+                                                            <h:outputLabel class="control-label" value="HCID:&#160;" />
                                                             <h:outputText id="displayHcid"
                                                                 value="#{exchangeManagerBean.orgHcid}" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="Description:" />
+                                                            <h:outputLabel class="control-label" value="Description:&#160;" />
                                                             <h:outputText id="displayDescription"
                                                                 value="#{exchangeManagerBean.orgDescription}" />
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="Contact:" />
+                                                            <h:outputLabel class="control-label" value="Contact:&#160;" />
                                                             <h:outputText id="displayContact"
                                                                 value="#{exchangeManagerBean.orgContacts}" />
                                                         </div>
@@ -338,12 +340,13 @@
             </p:confirmDialog>
             <p:hotkey bind="esc" handler="statusDialogBar.hide()" />
             <p:ajaxStatus onstart="PF('statusDialogBar').show()" onsuccess="PF('statusDialogBar').hide()" />
-            <div class="modal-copyright-prime" style="text-align:center;">
-                    <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                        <h:outputText value="REFRESHING EXCHANGES....." />
-                        <br/>
-                        <p:graphicImage library="images" name="uc-progress.gif" />
-                    </p:dialog>
+            <div class="modal-copyright-prime" style="text-align: center;">
+                <p:dialog widgetVar="statusDialogBar" modal="true" draggable="false" closable="false" resizable="false"
+                    showHeader="false">
+                    <h:outputText value="Please wait..." />
+                    <br />
+                    <p:graphicImage library="images" name="uc-progress.gif" />
+                </p:dialog>
             </div>
 
             <p:growl id="msgGrowl" for="msgForGrowl" closable="true" />

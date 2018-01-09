@@ -39,9 +39,10 @@ import org.slf4j.LoggerFactory;
 public final class ExchangeInfoDAOFileImpl extends BaseExchangeDAO {
 
     private static ExchangeInfoDAOFileImpl instance = null;
-    private File file = null;
+    private static File file = null;
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeInfoDAOFileImpl.class);
     private static final String EXCHANGE_XML_FILE_NAME = "exchangeInfo.xml";
+    private static final boolean DO_NOT_RELOAD = false;
     private boolean refreshLocked = false;
 
     private ExchangeInfoDAOFileImpl() {
@@ -54,6 +55,14 @@ public final class ExchangeInfoDAOFileImpl extends BaseExchangeDAO {
     }
 
     public static ExchangeInfoDAOFileImpl getInstance() {
+        return getInstanceWith(DO_NOT_RELOAD);
+    }
+
+    public static ExchangeInfoDAOFileImpl getInstanceWith(boolean reload) {
+        if (reload) {
+            file = null;
+            instance = null;
+        }
         if (instance == null) {
             instance = new ExchangeInfoDAOFileImpl();
         }

@@ -59,6 +59,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     private long exFileLastUpdateTime;
     private static String defaultExchange = null;
     private static final ExchangeManager INSTANCE = new ExchangeManager();
+    private static final boolean EXCHANGE_INFO_RELOAD = true;
 
     protected ExchangeManager() {
     }
@@ -351,5 +352,19 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             LOG.error("unable to toggle-exchange-isDisable: {}", e.getLocalizedMessage(), e);
         }
         return bSave;
+    }
+
+    public boolean forceReload() {
+        if (!isRefreshLocked()) {
+            try{
+                ExchangeInfoDAOFileImpl.getInstanceWith(EXCHANGE_INFO_RELOAD);
+                exInfo = null;
+                loadExchangeInfo();
+                return true;
+            }catch (ExchangeManagerException e) {
+                LOG.error("Error ExchangeManager-forceRefresh: {}",e.getLocalizedMessage(), e);
+            }
+        }
+        return false;
     }
 }

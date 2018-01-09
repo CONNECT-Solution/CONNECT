@@ -885,44 +885,57 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
    background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
 }
 
-.form-button-outline .ui-button {
-   margin:0px 0px 0px 10px;
-   padding:6px 12px;
-   background:#ffffff;
-   border:1px solid #357ebd;
+/* pf-buttons: override with bootstrap-style*/
+.ui-icon.glyphicon {
+   text-indent: 0;
+   background-image: none;
+}
+.ui-button.btn-sm .glyphicon {
+    margin-top: -6px;
+    font-size: 11px;
+}
+
+/* bootstrap-buttons: redefine */
+
+.ui-button.btn {
+   white-space:nowrap;
+   background: none;
+   color: none;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+   font-weight:bold;
    text-shadow:none;
    box-shadow:none;
-   white-space:nowrap;
 }
-.form-button-outline .ui-button:first-child {
-   margin-left:0px;
+
+.ui-button.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
 }
-.form-button-outline .ui-button.ui-state-hover {
-   background:#3276b1;
-   border:1px solid #285e8e;
-   box-shadow:none;
-   color: #ffffff;
+
+.ui-button.btn-primary:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
 }
-.form-button-outline .ui-button-text-only .ui-button-text {
-   padding:5px 10px;
+.ui-button.btn-outline-primary {
+  color: #007bff;
+  background-color: #fff;
+  background-image: none;
+  border-color: #007bff;
 }
-.form-button-outline .ui-button-text-icon-left .ui-button-text {
-   padding: .3em .3em .3em 1.3em;
+
+.ui-button.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
 }
-.form-button-outline .ui-button.btn-default {
-   background-color: #ffffff !important;
-   color: #333333 !important;
-   border-color: #cccccc !important;
-}
-.form-button-outline .ui-button.btn-default:hover {
-   background-color: #eeeeee !important;
-}
-.form-button-outline .ui-button.btn-primary .ui-icon {
-   background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
-}
-.form-button-outline .btn-small {
-   padding:0px 8px !important;
-   font-size: 12px;
+
+.ui-button.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
 }
 
 
@@ -1314,17 +1327,6 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
    text-align: right;
 }
 #domainEditTabview.ui-tabs .ui-tabs-panel .form-button .btn {
-   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-   font-weight:bold;
-   text-shadow:none;
-   box-shadow:none;
-}
-
-#domainEditTabview.ui-tabs .ui-tabs-panel .form-button-outline {
-   border-top: 1px solid #ccc;
-   text-align: right;
-}
-#domainEditTabview.ui-tabs .ui-tabs-panel .form-button-outline .btn {
    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
    font-weight:bold;
    text-shadow:none;
