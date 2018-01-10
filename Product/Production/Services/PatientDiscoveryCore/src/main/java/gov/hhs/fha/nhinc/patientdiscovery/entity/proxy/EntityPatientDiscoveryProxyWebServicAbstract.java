@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryProxyWebServiceHelper.class);
-    //private String connectionManager = null;
+    // private String connectionManager = null;
     private String endpointURL = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -90,15 +90,20 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
             endpointURL = getEndpointURLFromExchange(serviceName);
             LOG.debug("Retrieved endpoint URL: {} for service : {} ", endpointURL, serviceName);
         } catch (ExchangeManagerException ex) {
-            LOG.error(
-                "Error getting url for : {}  from the connection manager. Error: {}", serviceName, ex.getMessage(), ex);
+            LOG.error("Error getting url for : {}  from the connection manager. Error: {}", serviceName,
+                ex.getMessage(), ex);
         }
 
         return endpointURL;
     }
 
     String getEndpointURLFromExchange(String serviceName) throws ExchangeManagerException {
-        endpointURL = ExchangeManager.getInstance().getEndpointURL(serviceName);
+        try {
+            endpointURL = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
+        } catch (Exception ex) {
+            LOG.error("Error getting url for : {}  from the connection manager. Error: {}", serviceName,
+                ex.getMessage(), ex);
+        }
         setEndpointURL(endpointURL);
         return endpointURL;
     }
@@ -120,8 +125,7 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
             } else if (targetCommunities == null) {
                 LOG.error("NhinTargetCommunitiesType was null");
             } else {
-                RespondingGatewayPRPAIN201305UV02RequestType request
-                    = new RespondingGatewayPRPAIN201305UV02RequestType();
+                RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
                 request.setPRPAIN201305UV02(pdRequest);
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targetCommunities);
@@ -150,8 +154,7 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
      */
     CONNECTClient<EntityPatientDiscoveryPortType> getDiscoveryPortClient(final String url,
         final AssertionType assertion) {
-        ServicePortDescriptor<EntityPatientDiscoveryPortType> portDescriptor
-            = new EntityPatientDiscoveryServicePortDescriptor();
+        ServicePortDescriptor<EntityPatientDiscoveryPortType> portDescriptor = new EntityPatientDiscoveryServicePortDescriptor();
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
@@ -162,8 +165,7 @@ public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
      */
     CONNECTClient<EntityPatientDiscoverySecuredPortType> getSecuredPortClient(final String url,
         final AssertionType assertion) {
-        ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> portDescriptor
-            = new EntityPatientDiscoverySecuredServicePortDescriptor();
+        ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> portDescriptor = new EntityPatientDiscoverySecuredServicePortDescriptor();
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
