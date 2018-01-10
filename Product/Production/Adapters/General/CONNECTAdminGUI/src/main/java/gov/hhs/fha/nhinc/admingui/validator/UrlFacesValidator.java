@@ -49,7 +49,7 @@ public class UrlFacesValidator implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) {
 
         String[] schemes = { "http", "https" };
-        UrlValidator urlValidator = new UrlValidator(schemes);
+        UrlValidator urlValidator = new UrlValidator(schemes, UrlValidator.ALLOW_LOCAL_URLS);
         String input = (String) value;
 
         if (!urlValidator.isValid(input)) {

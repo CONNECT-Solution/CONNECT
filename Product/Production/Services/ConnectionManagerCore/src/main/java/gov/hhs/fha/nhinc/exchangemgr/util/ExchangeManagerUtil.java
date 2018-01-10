@@ -36,18 +36,16 @@ import java.util.List;
  */
 public class ExchangeManagerUtil {
 
-    private final ExchangeDataUpdateMgr exScheduleTask = new ExchangeDataUpdateMgr();
-    List<ExchangeDownloadStatus> downloadStatus;
+    private static final ExchangeDataUpdateMgr exScheduleTask = new ExchangeDataUpdateMgr();
 
-    public List<ExchangeDownloadStatus> getDownloadStatus() {
-        return downloadStatus;
+    private ExchangeManagerUtil() {
     }
 
-    public List<ExchangeDownloadStatus> forceRefreshExchanges() {
-        downloadStatus = new ArrayList<>();
+    public static List<ExchangeDownloadStatus> forceExchangesReloadRefresh() {
         if (!ExchangeManager.getInstance().isRefreshLocked()) {
-            return exScheduleTask.task(downloadStatus);
+            ExchangeManager.getInstance().forceReload();
+            return exScheduleTask.task();
         }
-        return downloadStatus;
+        return new ArrayList<>();
     }
 }

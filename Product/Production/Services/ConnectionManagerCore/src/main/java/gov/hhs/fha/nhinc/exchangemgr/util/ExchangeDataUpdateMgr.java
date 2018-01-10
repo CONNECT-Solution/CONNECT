@@ -83,12 +83,8 @@ public class ExchangeDataUpdateMgr {
     private static final boolean EXCHANGE_REFRESH_COMPLETED = false;
 
     public List<ExchangeDownloadStatus> task() {
-        List<ExchangeDownloadStatus> list = new ArrayList<>();
-        return task(list);
-    }
-
-    public List<ExchangeDownloadStatus> task(List<ExchangeDownloadStatus> status) {
-        LOG.info("Starting ExchangeScheduleTask with DAO-locked");
+        LOG.trace("Starting ExchangeScheduleTask with DAO-locked");
+        List<ExchangeDownloadStatus> status = new ArrayList<>();
         getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_IN_PROGRESS);
         boolean result;
         try {
@@ -107,7 +103,7 @@ public class ExchangeDataUpdateMgr {
             LOG.error("Unable to read/write to exchangeInfo file:  {}", ex.getLocalizedMessage(), ex);
         }
         getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_COMPLETED);
-        LOG.info("Ending ExchangeScheduleTask with DAO-unlocked");
+        LOG.trace("Ending ExchangeScheduleTask with DAO-unlocked");
         return status;
     }
 
@@ -129,14 +125,17 @@ public class ExchangeDataUpdateMgr {
 
     private boolean fetchExchangeData(ExchangeType exchange, List<ExchangeDownloadStatus> statues) {
         if (exchange != null && StringUtils.isNotEmpty(exchange.getUrl()) && !exchange.isDisabled()) {
-            ExchangeDownloadStatus status = new ExchangeDownloadStatus();
+            ExchangeDownloadStatus status = null;
             if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType())) {
                 status = fetchUDDIData(exchange);
             } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType())) {
                 status = fetchFHIRData(exchange);
             }
-            statues.add(status);
-            return status.isSuccess();
+
+            if (null != status) {
+                statues.add(status);
+                return status.isSuccess();
+            }
         }
         return false;
     }
