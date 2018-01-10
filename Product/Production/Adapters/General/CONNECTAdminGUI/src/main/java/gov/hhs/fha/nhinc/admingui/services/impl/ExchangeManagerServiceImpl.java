@@ -133,8 +133,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     @Override
     public List<ExchangeDownloadStatus> refreshExchangeManager() {
-        ExchangeManagerUtil exUtil = new ExchangeManagerUtil();
-        return exUtil.forceRefreshExchanges();
+        return ExchangeManagerUtil.forceExchangesReloadRefresh();
     }
 
     @Override
