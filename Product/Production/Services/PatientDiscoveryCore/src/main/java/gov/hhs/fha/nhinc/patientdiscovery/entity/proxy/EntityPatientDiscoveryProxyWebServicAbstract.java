@@ -52,7 +52,6 @@ import org.slf4j.LoggerFactory;
 public abstract class EntityPatientDiscoveryProxyWebServicAbstract {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientDiscoveryProxyWebServiceHelper.class);
-    // private String connectionManager = null;
     private String endpointURL = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
