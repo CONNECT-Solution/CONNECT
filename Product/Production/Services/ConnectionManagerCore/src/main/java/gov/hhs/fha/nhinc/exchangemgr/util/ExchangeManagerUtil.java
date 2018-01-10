@@ -38,6 +38,9 @@ public class ExchangeManagerUtil {
 
     private static final ExchangeDataUpdateMgr exScheduleTask = new ExchangeDataUpdateMgr();
 
+    private ExchangeManagerUtil() {
+    }
+
     public static List<ExchangeDownloadStatus> forceExchangesReloadRefresh() {
         if (!ExchangeManager.getInstance().isRefreshLocked()) {
             ExchangeManager.getInstance().forceReload();

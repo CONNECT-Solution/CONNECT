@@ -89,7 +89,7 @@ public final class ExchangeInfoDAOFileImpl extends BaseExchangeDAO {
         return file;
     }
 
-    public void setFileName(String fileName) {
+    public static void setFileName(String fileName) {
         file = new File(fileName);
     }
 
