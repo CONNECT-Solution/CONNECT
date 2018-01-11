@@ -154,7 +154,7 @@
                                                     <p:column headerText="Last Updated">
                                                         <h:outputText
                                                             value="#{rec.lastUpdated}">
-                                                            <f:converter converterId="gov.hhs.fha.nhinc.admingui.converter.XMLGregorianConverter" />
+                                                            <f:converter converterId="xmlGregorianConverter" />
                                                             <f:attribute name="pattern" value="MM-dd-yyyy HH:mm:ss"/>
                                                         </h:outputText>
                                                     </p:column>
