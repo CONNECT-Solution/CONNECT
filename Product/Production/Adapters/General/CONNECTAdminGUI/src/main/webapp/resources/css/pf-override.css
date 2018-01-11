@@ -849,42 +849,6 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
    background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
 }
 
-.form-button .ui-button {
-   margin:0px 0px 0px 10px;
-   padding:6px 12px;
-   color:#ffffff;
-   background:#428bca;
-   border:1px solid #357ebd;
-   text-shadow:none;
-   box-shadow:none;
-   white-space:nowrap;
-}
-.form-button .ui-button:first-child {
-   margin-left:0px;
-}
-.form-button .ui-button.ui-state-hover {
-    background:#3276b1;
-   border:1px solid #285e8e;
-   box-shadow:none;
-}
-.form-button .ui-button-text-only .ui-button-text {
-   padding:5px 10px;
-}
-.form-button .ui-button-text-icon-left .ui-button-text {
-   padding: .3em .3em .3em 1.3em;
-}
-.form-button .ui-button.btn-default {
-   background-color: #ffffff !important;
-   color: #333333 !important;
-   border-color: #cccccc !important;
-}
-.form-button .ui-button.btn-default:hover {
-   background-color: #eeeeee !important;
-}
-.form-button .ui-button.btn-primary .ui-icon {
-   background-image:url("../resources/images/ui-icons_ffffff_256x240.png");
-}
-
 /* pf-buttons: override with bootstrap-style*/
 .ui-icon.glyphicon {
    text-indent: 0;
@@ -907,6 +871,15 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
    box-shadow:none;
 }
 
+.ui-button.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+/* all buttons */
+
 .ui-button.btn-primary {
   color: #fff;
   background-color: #007bff;
@@ -918,9 +891,58 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
   background-color: #0069d9;
   border-color: #0062cc;
 }
+
+.ui-button.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.ui-button.btn-success:hover {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.ui-button.btn-info {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.ui-button.btn-info:hover {
+  color: #fff;
+  background-color: #138496;
+  border-color: #117a8b;
+}
+
+.ui-button.btn-warning {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.ui-button.btn-warning:hover {
+  color: #212529;
+  background-color: #e0a800;
+  border-color: #d39e00;
+}
+
+.ui-button.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.ui-button.btn-danger:hover {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
 .ui-button.btn-outline-primary {
   color: #007bff;
-  background-color: #fff;
+  background-color: #ffffff;
   background-image: none;
   border-color: #007bff;
 }
@@ -931,11 +953,56 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
   border-color: #007bff;
 }
 
-.ui-button.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border-radius: 0.2rem;
+.ui-button.btn-outline-success {
+  color: #28a745;
+  background-color: #ffffff;
+  background-image: none;
+  border-color: #28a745;
+}
+
+.ui-button.btn-outline-success:hover {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.ui-button.btn-outline-info {
+  color: #17a2b8;
+  background-color: #ffffff;
+  background-image: none;
+  border-color: #17a2b8;
+}
+
+.ui-button.btn-outline-info:hover {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.ui-button.btn-outline-warning {
+  color: #ffc107;
+  background-color: #ffffff;
+  background-image: none;
+  border-color: #ffc107;
+}
+
+.ui-button.btn-outline-warning:hover {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.ui-button.btn-outline-danger {
+  color: #dc3545;
+  background-color: #ffffff;
+  background-image: none;
+  border-color: #dc3545;
+}
+
+.ui-button.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 
@@ -1322,16 +1389,6 @@ div[id*="cmOrgForm"] table.ui-panelgrid-domain {
    box-shadow:none;
 }
 
-#domainEditTabview.ui-tabs .ui-tabs-panel .form-button {
-   border-top: 1px solid #ccc;
-   text-align: right;
-}
-#domainEditTabview.ui-tabs .ui-tabs-panel .form-button .btn {
-   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-   font-weight:bold;
-   text-shadow:none;
-   box-shadow:none;
-}
 
 
 

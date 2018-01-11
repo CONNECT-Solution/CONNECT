@@ -64,6 +64,7 @@ public class ExchangeManagerBean {
     private static final String DEFAULT_VALUE = "--";
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
     private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
+    private static final String DLG_CONFIRM_OVERWRITE_EXCHAGE = "wvConfirmationOverwrite";
     private static final String[] BUTTONS_REFRESH_LOCKED = { "formDlgExchange:btnSaveExchange",
             "tabviewExchange:formGeneralSetting:btnStatusRefresh",
             "tabviewExchange:formGeneralSetting:btnSaveExchangeInfo",
@@ -224,10 +225,21 @@ public class ExchangeManagerBean {
         agreeOverwriteExchange = false;
         formExchange = new ExchangeType();
     }
-
     public boolean saveExchange() {
+        return saveExchangeWith(false);
+    }
+
+    public boolean overwriteExchange() {
+        return saveExchangeWith(true);
+    }
+
+    private boolean saveExchangeWith(boolean confirmOverwrite) {
         boolean bSave = false;
         if (null != formExchange) {
+            if (!confirmOverwrite && isNotUniqueExchangeName()) {
+                execPFShowDialog(DLG_CONFIRM_OVERWRITE_EXCHAGE);
+                return false;
+            }
             bSave = exchangeService.saveExchange(formExchange);
             if (bSave) {
                 execPFHideDialog(DLG_SAVE_EXCHANGE);
