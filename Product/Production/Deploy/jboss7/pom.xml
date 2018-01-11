@@ -14,12 +14,6 @@
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTGatewayWeb</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>
@@ -35,12 +29,6 @@
             <artifactId>AuditRepositoryEJB</artifactId>
             <version>${project.parent.version}</version>
             <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonWeb</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -72,11 +60,6 @@
                             <groupId>org.connectopensource</groupId>
                             <artifactId>AuditRepositoryEJB</artifactId>
                         </ejbModule>
-                        <webModule>
-                            <groupId>org.connectopensource</groupId>
-                            <artifactId>CONNECTCommonWeb</artifactId>
-                            <contextRoot>/CONNECTCommon</contextRoot>
-                        </webModule>
                         <webModule>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTGatewayWeb</artifactId>

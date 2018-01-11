@@ -33,11 +33,9 @@
                 <module>AdapterRegistryErrorListMissingTest</module>
                 <module>ValidatePDCountryCodeTest</module>
                 <module>ValidateDQAdapterMultipleEventCodesTest</module>
-                <module>ConnectionManagerTest</module>
                 <module>DocRegistryAndRepository</module>
                 <module>DocumentRetrieveXDSErrorValidation</module>
                 <module>ValidatePDCommunicationErrorHandlingTest</module>
-                <module>QueryByState</module>
             </modules>
         </profile>
     </profiles>

@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 public class ExchangeScheduler extends Thread {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeScheduler.class);
-    private boolean m_bRunnable = false;
+    private boolean isRunnable = false;
     private long refreshInterval;
     private static final int DEFAULT_EXCHANGE_REFRESH_INTERVAL = 1440; // a day in minutes
 
@@ -50,7 +50,7 @@ public class ExchangeScheduler extends Thread {
      * @return
      */
     protected static ExchangeScheduler getInstance() {
-        return InstanceHolder.instance;
+        return InstanceHolder.INSTANCE;
     }
 
     /**
@@ -61,7 +61,7 @@ public class ExchangeScheduler extends Thread {
      * @throws ExchangeSchedulerException
      */
     public void startTimer() throws ExchangeSchedulerException {
-        m_bRunnable = true;
+        isRunnable = true;
 
         try {
             getInstance().initialize();
@@ -75,7 +75,7 @@ public class ExchangeScheduler extends Thread {
     }
 
     public void stopTimer() {
-        m_bRunnable = false;
+        isRunnable = false;
     }
 
     /*
@@ -86,7 +86,7 @@ public class ExchangeScheduler extends Thread {
     @Override
     public void run() {
         LOG.info("ExchangeScheduled inside run");
-        while (m_bRunnable) {
+        while (isRunnable) {
             getInstance().initialize();
             ExchangeDataUpdateMgr exTask = new ExchangeDataUpdateMgr();
             exTask.task();
@@ -115,6 +115,9 @@ public class ExchangeScheduler extends Thread {
 
     public static class InstanceHolder {
 
-        private static final ExchangeScheduler instance = new ExchangeScheduler();
+        private static final ExchangeScheduler INSTANCE = new ExchangeScheduler();
+
+        private InstanceHolder() {
+        }
     }
 }

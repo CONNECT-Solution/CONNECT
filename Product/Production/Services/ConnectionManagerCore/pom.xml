@@ -31,7 +31,15 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
-
+        <!-- FHIR: https://mvnrepository.com/artifact/ca.uhn.hapi.fhir/hapi-fhir-structures-dstu3 -->
+        <dependency>
+          <groupId>ca.uhn.hapi.fhir</groupId>
+          <artifactId>hapi-fhir-structures-dstu3</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.ogce</groupId>
+          <artifactId>xpp3</artifactId>
+        </dependency>
         <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>
