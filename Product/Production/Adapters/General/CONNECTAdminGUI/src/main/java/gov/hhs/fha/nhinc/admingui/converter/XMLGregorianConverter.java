@@ -40,7 +40,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *
  * @author tjafri
  */
-@FacesConverter("gov.hhs.fha.nhinc.admingui.converter.XMLGregorianConverter")
+@FacesConverter("xmlGregorianConverter")
 public class XMLGregorianConverter extends DateTimeConverter {
 
     private static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getTimeZone("UTC");
@@ -58,35 +58,38 @@ public class XMLGregorianConverter extends DateTimeConverter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Map<String, Object> attributes = component.getAttributes();
-        if (attributes.containsKey("pattern")) {
-            pattern = (String) attributes.get("pattern");
-        }
-        setPattern(pattern);
-        if (attributes.containsKey("locale")) {
-            locale = (Locale) attributes.get("locale");
-        }
-        setLocale(locale);
-        if (attributes.containsKey("timeZone")) {
-            timeZone = (TimeZone) attributes.get("timeZone");
-        }
-        setTimeZone(timeZone);
-        if (attributes.containsKey("dateStyle")) {
-            dateStyle = (String) attributes.get("dateStyle");
-        }
-        setDateStyle(dateStyle);
-        if (attributes.containsKey("timeStyle")) {
-            timeStyle = (String) attributes.get("timeStyle");
-        }
-        setTimeStyle(timeStyle);
-        if (attributes.containsKey("type")) {
-            type = (String) attributes.get("type");
-        }
-        setType(type);
+        if (null != value && null != component && null != component.getAttributes()) {
+            Map<String, Object> attributes = component.getAttributes();
+            if (attributes.containsKey("pattern")) {
+                pattern = (String) attributes.get("pattern");
+            }
+            setPattern(pattern);
+            if (attributes.containsKey("locale")) {
+                locale = (Locale) attributes.get("locale");
+            }
+            setLocale(locale);
+            if (attributes.containsKey("timeZone")) {
+                timeZone = (TimeZone) attributes.get("timeZone");
+            }
+            setTimeZone(timeZone);
+            if (attributes.containsKey("dateStyle")) {
+                dateStyle = (String) attributes.get("dateStyle");
+            }
+            setDateStyle(dateStyle);
+            if (attributes.containsKey("timeStyle")) {
+                timeStyle = (String) attributes.get("timeStyle");
+            }
+            setTimeStyle(timeStyle);
+            if (attributes.containsKey("type")) {
+                type = (String) attributes.get("type");
+            }
+            setType(type);
 
-        XMLGregorianCalendar xmlGregCal = (XMLGregorianCalendar) value;
-        Date date = xmlGregCal.toGregorianCalendar().getTime();
-        return super.getAsString(context, component, date);
+            XMLGregorianCalendar xmlGregCal = (XMLGregorianCalendar) value;
+            Date date = xmlGregCal.toGregorianCalendar().getTime();
+            return super.getAsString(context, component, date);
+        }
+        return "";
     }
 
 }
