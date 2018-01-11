@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admingui.converter;
 
-import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -58,7 +57,7 @@ public class XMLGregorianConverter extends DateTimeConverter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (null != value && null != component && null != component.getAttributes()) {
+        if (null != component && null != component.getAttributes()) {
             Map<String, Object> attributes = component.getAttributes();
             if (attributes.containsKey("pattern")) {
                 pattern = (String) attributes.get("pattern");
@@ -84,12 +83,11 @@ public class XMLGregorianConverter extends DateTimeConverter {
                 type = (String) attributes.get("type");
             }
             setType(type);
-
-            XMLGregorianCalendar xmlGregCal = (XMLGregorianCalendar) value;
-            Date date = xmlGregCal.toGregorianCalendar().getTime();
-            return super.getAsString(context, component, date);
+        }
+        if (null != value) {
+            return super.getAsString(context, component, ((XMLGregorianCalendar) value).toGregorianCalendar().
+                getTime());
         }
         return "";
     }
-
 }
