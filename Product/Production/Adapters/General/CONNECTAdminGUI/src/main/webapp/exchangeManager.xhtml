@@ -153,8 +153,9 @@
                                                     </p:column>
                                                     <p:column headerText="Last Updated">
                                                         <h:outputText
-                                                            value="#{rec.lastUpdated.toGregorianCalendar().time}">
-                                                            <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
+                                                            value="#{rec.lastUpdated}">
+                                                            <f:converter converterId="gov.hhs.fha.nhinc.admingui.converter.XMLGregorianConverter" />
+                                                            <f:attribute name="pattern" value="MM-dd-yyyy HH:mm:ss"/>
                                                         </h:outputText>
                                                     </p:column>
                                                     <p:column headerText="Refresh Exchange">
