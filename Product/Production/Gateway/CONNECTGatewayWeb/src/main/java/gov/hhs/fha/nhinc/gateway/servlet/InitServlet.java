@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,13 +26,17 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
+import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import javax.servlet.ServletContext;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
+import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,50 +51,67 @@ import org.slf4j.LoggerFactory;
  *
  * @author paul.eftis
  */
-public class InitServlet extends HttpServlet {
+public class InitServlet extends AbstractJMXEnabledServlet {
 
-  private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
-  private static ExecutorService executor = null;
-  private static ExecutorService largeJobExecutor = null;
+    private static ExecutorService executor = null;
+    private static ExecutorService largeJobExecutor = null;
 
-  @Override
-  @SuppressWarnings("static-access")
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
-    largeJobExecutor = Executors
-        .newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
+    @Override
+    @SuppressWarnings("static-access")
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
+        largeJobExecutor = Executors
+            .newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
 
-    // register event loggers as observers...
-    EventLoggerFactory.getInstance().registerLoggers();
-  }
-
-  public static ExecutorService getExecutorService() {
-    return executor;
-  }
-
-  public static ExecutorService getLargeJobExecutorService() {
-    return largeJobExecutor;
-  }
-
-  @Override
-  public void destroy() {
-    LOG.debug("InitServlet shutdown stopping executor(s)....");
-    if (executor != null) {
-      try {
-        executor.shutdown();
-      } catch (Exception e) {
-        LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
-      }
+        // register event loggers as observers...
+        EventLoggerFactory.getInstance().registerLoggers();
     }
-    if (largeJobExecutor != null) {
-      try {
-        largeJobExecutor.shutdown();
-      } catch (Exception e) {
-        LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
-      }
+
+    public static ExecutorService getExecutorService() {
+        return executor;
     }
-  }
+
+    public static ExecutorService getLargeJobExecutorService() {
+        return largeJobExecutor;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        LOG.debug("InitServlet shutdown stopping executor(s)....");
+        if (executor != null) {
+            try {
+                executor.shutdown();
+            } catch (Exception e) {
+                LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
+            }
+        }
+        if (largeJobExecutor != null) {
+            try {
+                largeJobExecutor.shutdown();
+            } catch (Exception e) {
+                LOG.error("Error while shutdown of ExecutorService: {}", e.getLocalizedMessage(), e);
+            }
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanName()
+     */
+    @Override
+    public String getMBeanName() {
+        return NhincConstants.JMX_CONFIGURATION_BEAN_NAME;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanInstance(javax.servlet.ServletContext)
+     */
+    @Override
+    public Object getMBeanInstance(ServletContext sc) {
+        return new Configuration();
+    }
 
 }
