@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -34,10 +34,12 @@ import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
+import gov.hhs.fha.nhinc.exchange.directory.ContactType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -140,7 +142,7 @@ public class ExchangeManagerBean {
 
     public String getOrgContacts() {
         if (null != orgFilter && CollectionUtils.isNotEmpty(orgFilter.getContact())) {
-            return StringUtils.join(orgFilter.getContact().toArray());
+            return formatContact(orgFilter.getContact().get(0));
         }
         return DEFAULT_VALUE;
     }
@@ -345,5 +347,15 @@ public class ExchangeManagerBean {
 
     public boolean toggleIsEnabledFor(String exchangeName) {
         return exchangeService.toggleExchangeIsEnabled(exchangeName);
+    }
+
+    private static String formatContact(ContactType contact) {
+        if (CollectionUtils.isEmpty(contact.getFullName())) {
+            return "";
+        }
+        if (CollectionUtils.isNotEmpty(contact.getPhone())) {
+            return MessageFormat.format("{0} {1}", contact.getFullName().get(0),contact.getPhone().get(0));
+        }
+        return contact.getFullName().get(0);
     }
 }
