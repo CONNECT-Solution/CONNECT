@@ -349,7 +349,7 @@ public class ExchangeManagerBean {
         return exchangeService.toggleExchangeIsEnabled(exchangeName);
     }
 
-    private String formatContact(ContactType contact) {
+    private static String formatContact(ContactType contact) {
         if (CollectionUtils.isEmpty(contact.getFullName())) {
             return "";
         }
