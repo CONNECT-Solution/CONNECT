@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -199,11 +199,7 @@ public class CertficateBean {
 
     public void onAliasValueEdit(CellEditEvent event) {
         if (CollectionUtils.isNotEmpty(importCertificate)) {
-            if (importCertificate.get(0).validateAlias((String) event.getNewValue())) {
-                importCertificate.get(0).setAlias((String) event.getNewValue());
-            } else {
-                HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Invalid input for alias.");
-            }
+            importCertificate.get(0).setAlias((String) event.getNewValue());
         }
     }
 
@@ -223,7 +219,7 @@ public class CertficateBean {
         } else if (isHashTokenEmpty()) {
             RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').show();");
         } else {
-            sanitizeInput();
+            validateAndUpdateCertificate();
         }
     }
 
@@ -315,14 +311,6 @@ public class CertficateBean {
             HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, ex.getLocalizedMessage());
         }
         return importStatus;
-    }
-
-    public void sanitizeInput() throws CertificateManagerException {
-        if (selectedTSCertificate.validateAlias(selectedTSCertificate.getAlias())) {
-            validateAndUpdateCertificate();
-        } else {
-            HelperUtil.addMessageError(VIEW_CERT_ERR_MSG_ID, "Invalid input for alias.");
-        }
     }
 
     public void validateAndUpdateCertificate() throws CertificateManagerException {
