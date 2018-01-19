@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import java.security.cert.X509Certificate;
-import java.util.regex.Pattern;
 import org.owasp.encoder.Encode;
 
 /**
@@ -57,7 +56,6 @@ public class CertificateDTO {
     private String issuerUniqueIdentifier;
     private String certSignatureAlgorithm;
     private String certSignature;
-    private static final String REGEX_PATTERN = "^[\\w\\d_.-]+$";
 
     public long getId() {
         return id;
@@ -68,7 +66,7 @@ public class CertificateDTO {
     }
 
     public String getAlias() {
-        return Encode.forHtmlContent(validateAlias(alias) ? alias : "");
+        return Encode.forHtmlContent(alias);
     }
 
     public void setAlias(String alias) {
@@ -225,10 +223,5 @@ public class CertificateDTO {
 
     public void setExpiryColorCoding(String expiryColorCoding) {
         this.expiryColorCoding = expiryColorCoding;
-    }
-
-    public boolean validateAlias(String value) {
-        Pattern pattern = Pattern.compile(REGEX_PATTERN);
-        return pattern.matcher(value).matches();
     }
 }
