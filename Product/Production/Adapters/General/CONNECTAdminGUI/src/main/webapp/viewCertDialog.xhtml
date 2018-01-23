@@ -2,7 +2,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <div>
-        <p:dialog id="viewCertDlg" header="Certificate Details" widgetVar="viewCertDlg" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="950" height="auto">
+        <p:dialog id="viewCertDlg" header="Certificate Details" widgetVar="viewCertDlg" modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="1050" height="560">
             <div class="content-block content">
                     
                     <h:form id="viewCertDlgForm" class="form-horizontal" role="form" onkeypress="if (event.keyCode == 13) { return false; }">
@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <h:outputLabel class="col-sm-4 control-label" value="Subject name:" />
                                 <div class="col-sm-8">
-                                   <h:outputText  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectName}" />
+                                   <h:inputTextarea readonly="true"  class="form-control-static" value="#{certificateBean.selectedTSCertificate.subjectName}" />
                                 </div>
                             </div>
                             
