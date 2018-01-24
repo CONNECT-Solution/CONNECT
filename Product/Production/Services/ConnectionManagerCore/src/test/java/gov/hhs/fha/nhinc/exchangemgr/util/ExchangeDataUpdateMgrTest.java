@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.exchangemgr.util;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException;
-import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClient;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClientException;
@@ -46,7 +45,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -152,21 +150,25 @@ public class ExchangeDataUpdateMgrTest {
     @Test
     public void testRefreshLockReleaseForFetchSuccess() throws ExchangeManagerException, UDDIAccessorException,
         DatatypeConfigurationException, FhirClientException, URISyntaxException {
-        ExchangeDataUpdateMgr mockExUpdateMgr = mock(ExchangeDataUpdateMgr.class);
-        when(mockExUpdateMgr.getExchangeDAO()).thenReturn(exDao);
-        mockExUpdateMgr.task();
-        assertTrue(!mockExUpdateMgr.getExchangeDAO().isRefreshLocked());
+        ExchangeDataUpdateMgr exUpdateMgr = createExchangeScheduledTask();
+        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+            new BusinessDetail());
+        when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
+        when(fhirClient.sendRequest(mockRequest)).thenReturn(FHIR_XML);
+        List<ExchangeDownloadStatus> status = exUpdateMgr.task();
+        assertTrue(!exUpdateMgr.getExchangeDAO().isRefreshLocked());
     }
 
     @Test
     public void testRefreshLockReleaseForFetchFailure() throws ExchangeManagerException, UDDIAccessorException,
         DatatypeConfigurationException, FhirClientException, URISyntaxException {
-        ExchangeDataUpdateMgr mockExUpdateMgr = mock(ExchangeDataUpdateMgr.class);
-        when(mockExUpdateMgr.fetchExchangeData(any(ExchangeType.class), anyListOf(ExchangeDownloadStatus.class))).
-            thenThrow(new RuntimeException());
-        when(mockExUpdateMgr.getExchangeDAO()).thenReturn(exDao);
-        mockExUpdateMgr.task();
-        assertTrue(!mockExUpdateMgr.getExchangeDAO().isRefreshLocked());
+        ExchangeDataUpdateMgr exUpdateMgr = createExchangeScheduledTask();
+        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+            new BusinessDetail());
+        when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
+        when(fhirClient.sendRequest(mockRequest)).thenThrow(new RuntimeException());
+        List<ExchangeDownloadStatus> status = exUpdateMgr.task();
+        assertTrue(!exUpdateMgr.getExchangeDAO().isRefreshLocked());
     }
 
     private ExchangeDataUpdateMgr createExchangeScheduledTask() {
