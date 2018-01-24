@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransformException;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransforms;
 import gov.hhs.fha.nhinc.exchange.transform.fhir.FHIRTransform;
 import gov.hhs.fha.nhinc.exchange.transform.uddi.UDDITransform;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FHIRDataParserException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClient;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClientException;
@@ -99,10 +98,11 @@ public class ExchangeDataUpdateMgr {
                     getExchangeDAO().saveExchangeInfo(exInfo);
                 }
             }
-        } catch (ExchangeManagerException ex) {
+        } catch (Exception ex) {
             LOG.error("Unable to read/write to exchangeInfo file:  {}", ex.getLocalizedMessage(), ex);
+        } finally {
+            getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_COMPLETED);
         }
-        getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_COMPLETED);
         LOG.trace("Ending ExchangeScheduleTask with DAO-unlocked");
         return status;
     }
@@ -123,7 +123,7 @@ public class ExchangeDataUpdateMgr {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    private boolean fetchExchangeData(ExchangeType exchange, List<ExchangeDownloadStatus> statues) {
+    protected boolean fetchExchangeData(ExchangeType exchange, List<ExchangeDownloadStatus> statues) {
         if (exchange != null && StringUtils.isNotEmpty(exchange.getUrl()) && !exchange.isDisabled()) {
             ExchangeDownloadStatus status = null;
             if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType())) {
@@ -220,14 +220,14 @@ public class ExchangeDataUpdateMgr {
             exStatus.setSuccess(true);
         } catch (UDDIAccessorException ex) {
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, SCHEMA_VAL_SKIP_MSG, null, null));
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         } catch (ExchangeTransformException ex) {
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         }
         return exStatus;
@@ -256,21 +256,21 @@ public class ExchangeDataUpdateMgr {
             exStatus.setSuccess(true);
         } catch (URISyntaxException | FhirClientException ex) {
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         } catch (FHIRDataParserException ex) {
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, SCHEMA_VAL_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         } catch (ExchangeTransformException ex) {
             exStatus.getStepStatus()
-            .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
+                .add(buildExchangeDownloadStatusMsg(false, TRANSFORM_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.setSuccess(false);
         }
         return exStatus;

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,17 +26,10 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException;
+import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClient;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClientException;
@@ -48,7 +41,15 @@ import java.net.URL;
 import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import org.apache.http.client.methods.HttpGet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -59,7 +60,7 @@ public class ExchangeDataUpdateMgrTest {
 
     private static final String FILE_NAME = "/config/ExchangeDataUpdateMgrTest/exchangeInfoTest.xml";
     private static final String FHIR_XML
-    = "<Bundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
+        = "<Bundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
         + "value=\"2017-11-20T19:06:33+00:00\"/></meta><type value=\"searchset\"/><total value=\"1\"/><link><relation "
         + "value=\"self\"/><url value=\"/Organization?_format=xml\"/></link><entry><fullUrl value=\"/Organization/0\"/>"
         + "<resource><Organization xmlns=\"http://hl7.org/fhir\"><id value=\"0\"/><meta><versionId value=\"1\"/>"
@@ -68,7 +69,7 @@ public class ExchangeDataUpdateMgrTest {
         + "</identifier><active value=\"true\"/><name value=\"TestOrg1\"/></Organization></resource>"
         + "</entry></Bundle>";
     private static final String BAD_XML
-    = "<badBundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
+        = "<badBundle xmlns=\"http://hl7.org/fhir\"><id value=\"d8f98af1-b053-0135-867c-1fa06c71efa4\"/><meta><lastUpdated "
         + "value=\"2017-11-20T19:06:33+00:00\"/></meta><type value=\"searchset\"/><total value=\"1\"/><link><relation "
         + "value=\"self\"/><url value=\"/Organization?_format=xml\"/></link></badBundle>";
     private final ExchangeInfoDAOFileImpl exDao = createExchangeInfoDAO(FILE_NAME);
@@ -79,7 +80,7 @@ public class ExchangeDataUpdateMgrTest {
 
     @Test
     public void testExchangeDownloadSuccess() throws ExchangeManagerException, UDDIAccessorException,
-    DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
         when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
             new BusinessDetail());
@@ -105,7 +106,7 @@ public class ExchangeDataUpdateMgrTest {
 
     @Test
     public void testFhirExchangeDownloadFailure() throws ExchangeManagerException, UDDIAccessorException,
-    DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
         when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
             new BusinessDetail());
@@ -126,7 +127,7 @@ public class ExchangeDataUpdateMgrTest {
 
     @Test
     public void testFhirExchangeSchemaValidationFailed() throws ExchangeManagerException, UDDIAccessorException,
-    DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
         when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
             new BusinessDetail());
@@ -146,6 +147,26 @@ public class ExchangeDataUpdateMgrTest {
             status.get(1).getStepStatus().get(1).getMessage());
         assertEquals("Expecting Exchange refresh failed status for Exchange 2", "Exchange refresh failed.",
             status.get(1).getStepStatus().get(2).getMessage());
+    }
+
+    @Test
+    public void testRefreshLockReleaseForFetchSuccess() throws ExchangeManagerException, UDDIAccessorException,
+        DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        ExchangeDataUpdateMgr mockExUpdateMgr = mock(ExchangeDataUpdateMgr.class);
+        when(mockExUpdateMgr.getExchangeDAO()).thenReturn(exDao);
+        mockExUpdateMgr.task();
+        assertTrue(!mockExUpdateMgr.getExchangeDAO().isRefreshLocked());
+    }
+
+    @Test
+    public void testRefreshLockReleaseForFetchFailure() throws ExchangeManagerException, UDDIAccessorException,
+        DatatypeConfigurationException, FhirClientException, URISyntaxException {
+        ExchangeDataUpdateMgr mockExUpdateMgr = mock(ExchangeDataUpdateMgr.class);
+        when(mockExUpdateMgr.fetchExchangeData(any(ExchangeType.class), anyListOf(ExchangeDownloadStatus.class))).
+            thenThrow(new RuntimeException());
+        when(mockExUpdateMgr.getExchangeDAO()).thenReturn(exDao);
+        mockExUpdateMgr.task();
+        assertTrue(!mockExUpdateMgr.getExchangeDAO().isRefreshLocked());
     }
 
     private ExchangeDataUpdateMgr createExchangeScheduledTask() {
