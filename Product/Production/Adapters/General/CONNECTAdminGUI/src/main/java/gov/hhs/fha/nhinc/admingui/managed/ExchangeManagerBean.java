@@ -279,10 +279,7 @@ public class ExchangeManagerBean {
 
     // form - properties
     public ExchangeInfoType getFormExchangeInfo() {
-        if (null == generalSetting) {
-            generalSetting = exchangeService.getExchangeInfoView();
-        }
-        return generalSetting;
+        return generalSetting = exchangeService.getExchangeInfoView();
     }
 
     public ExchangeType getFormExchange() {

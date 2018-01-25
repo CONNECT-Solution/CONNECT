@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr.util;
 
-import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +37,13 @@ import java.util.List;
 public class ExchangeManagerUtil {
 
     private static final ExchangeDataUpdateMgr exScheduleTask = new ExchangeDataUpdateMgr();
-    private static final boolean EXCHANGE_INFO_RELOAD = true;
-
     private ExchangeManagerUtil() {
     }
 
-    public static List<ExchangeDownloadStatus> forceExchangesReloadRefresh() {
-        List<ExchangeDownloadStatus> status = new ArrayList<>();
+    public static List<ExchangeDownloadStatus> forceExchangesRefresh() {
         if (!ExchangeManager.getInstance().isRefreshLocked()) {
-            ExchangeInfoDAOFileImpl.getInstanceWith(EXCHANGE_INFO_RELOAD);
-            status = exScheduleTask.task();
-            ExchangeManager.getInstance().cacheReload();
+            return exScheduleTask.task();
         }
-        return status;
+        return new ArrayList<>();
     }
 }
