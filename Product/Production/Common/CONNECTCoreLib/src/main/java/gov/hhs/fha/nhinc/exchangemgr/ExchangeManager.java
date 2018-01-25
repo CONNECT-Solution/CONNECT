@@ -259,9 +259,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     public List<ExchangeType> getAllExchanges() {
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
-            }
+            refreshExchangeCacheIfRequired();
             return ExchangeManagerHelper.getExchangeTypeBy(exInfo);
         } catch (ExchangeManagerException e) {
             LOG.error("unable to get-all-exchanges: {}", e.getLocalizedMessage(), e);
@@ -275,9 +273,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             return emptyList;
         }
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
-            }
+            refreshExchangeCacheIfRequired();
             return ExchangeManagerHelper.getOrganizationTypeBy(exInfo, exchangeName);
         } catch (ExchangeManagerException e) {
             LOG.error("unable to get-all-organizationsBy: {}", e.getLocalizedMessage(), e);
@@ -296,9 +292,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         }
 
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
-            }
+            refreshExchangeCacheIfRequired();
             return ExchangeManagerHelper.getEndpointTypeBy(exInfo, exchangeName, hcid);
         } catch (ExchangeManagerException e) {
             LOG.error("unable to get-all-enpointTypesBy: {}", e.getLocalizedMessage(), e);
@@ -308,9 +302,14 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     public ExchangeInfoType getExchangeInfoView() {
         ExchangeInfoType view = new ExchangeInfoType();
-        view.setRefreshInterval(exInfo.getRefreshInterval());
-        view.setMaxNumberOfBackups(exInfo.getMaxNumberOfBackups());
-        view.setDefaultExchange(exInfo.getDefaultExchange());
+        try{
+            refreshExchangeCacheIfRequired();
+            view.setRefreshInterval(exInfo.getRefreshInterval());
+            view.setMaxNumberOfBackups(exInfo.getMaxNumberOfBackups());
+            view.setDefaultExchange(exInfo.getDefaultExchange());
+        } catch (ExchangeManagerException e) {
+            LOG.error("Error encounter: {}", e.getLocalizedMessage(), e);
+        }
         return view;
     }
 
@@ -350,18 +349,5 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             LOG.error("unable to toggle-exchange-isDisable: {}", e.getLocalizedMessage(), e);
         }
         return bSave;
-    }
-
-    public boolean cacheReload() {
-        if (!isRefreshLocked()) {
-            try{
-                exInfo = null;
-                loadExchangeInfo();
-                return true;
-            }catch (ExchangeManagerException e) {
-                LOG.error("Error ExchangeManager-forceRefresh: {}",e.getLocalizedMessage(), e);
-            }
-        }
-        return false;
     }
 }
