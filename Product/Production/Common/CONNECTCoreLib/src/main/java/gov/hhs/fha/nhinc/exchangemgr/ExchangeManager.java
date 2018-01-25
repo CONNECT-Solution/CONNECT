@@ -113,7 +113,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     @Override
     public String getDefaultExchange() {
-        return exInfo.getDefaultExchange();
+        return null != exInfo ? exInfo.getDefaultExchange() : null;
     }
 
     @Override
