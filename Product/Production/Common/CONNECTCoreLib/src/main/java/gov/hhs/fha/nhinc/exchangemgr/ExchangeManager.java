@@ -59,6 +59,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     private long exFileLastUpdateTime;
     private static String defaultExchange = null;
     private static final ExchangeManager INSTANCE = new ExchangeManager();
+
     protected ExchangeManager() {
     }
 
@@ -217,8 +218,10 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             return bSave;
         }
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
+            refreshExchangeCacheIfRequired();
+            if (StringUtils.equalsIgnoreCase(exchangeName, defaultExchange)) {
+                defaultExchange = null;
+                exInfo.setDefaultExchange(defaultExchange);
             }
             List<ExchangeType> exchanges = getAllExchanges();
             ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeName);
@@ -302,7 +305,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     public ExchangeInfoType getExchangeInfoView() {
         ExchangeInfoType view = new ExchangeInfoType();
-        try{
+        try {
             refreshExchangeCacheIfRequired();
             view.setRefreshInterval(exInfo.getRefreshInterval());
             view.setMaxNumberOfBackups(exInfo.getMaxNumberOfBackups());
