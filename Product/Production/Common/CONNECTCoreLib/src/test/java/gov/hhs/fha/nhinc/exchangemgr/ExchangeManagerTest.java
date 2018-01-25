@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
@@ -106,6 +107,20 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         }
     }
 
+    @Test
+    public void testDefaultExchangeDelete() {
+        ExchangeManager exMgr = createExternalExchangeManagerForDeletingDefaultExchange();
+        try {
+            boolean result = exMgr.deleteExchange("StateExchange");
+            //This is called to ensure that the test file is reread and there is no defaultExchange defined in the test file.
+            exMgr.getAllExchanges();
+            assertTrue("Exchange not deleted", result);
+            assertNull("DefaultExchange is not deleted", exMgr.getDefaultExchange());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testDefaultExchange: " + ex.getMessage());
+        }
+    }
+
     private Exchange<UDDI_SPEC_VERSION> createExternalExchangeManager() {
         return new ExchangeManager() {
             @Override
@@ -130,6 +145,16 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
                 return createExchangeInfoDAO(
                     "/config/ExchangeManagerTest/exchangeInfoMulitpleHcidInASingleExchangeTest.xml");
+            }
+        };
+    }
+
+    private ExchangeManager createExternalExchangeManagerForDeletingDefaultExchange() {
+        return new ExchangeManager() {
+            @Override
+            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+                return createExchangeInfoDAO(
+                    "/config/ExchangeManagerTest/exchangeInfoDefaultExDeleteTest.xml");
             }
         };
     }
