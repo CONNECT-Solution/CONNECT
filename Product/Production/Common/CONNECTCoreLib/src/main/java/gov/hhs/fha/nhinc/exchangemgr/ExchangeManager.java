@@ -140,8 +140,8 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         Map<String, OrganizationType> map = null;
         if (StringUtils.isNotEmpty(exchangeName)) {
             map = exCache.get(exchangeName);
-        } else if (StringUtils.isNotEmpty(exInfo.getDefaultExchange())) {
-            map = exCache.get(exInfo.getDefaultExchange());
+        } else if (StringUtils.isNotEmpty(getDefaultExchange())) {
+            map = exCache.get(getDefaultExchange());
         } else {
             if (null != getCache().values()) {
                 map = extractHcidOrganizationMap();
