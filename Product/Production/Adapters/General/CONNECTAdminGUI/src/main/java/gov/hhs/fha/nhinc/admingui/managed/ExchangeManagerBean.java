@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
-
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
+import gov.hhs.fha.nhinc.admingui.services.impl.ExchangeManagerServiceImpl;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
@@ -43,23 +43,21 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Tran Tang
  *
  */
 @ManagedBean(name = "exchangeManagerBean")
-@SessionScoped
-@Component
+@ViewScoped
 public class ExchangeManagerBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerBean.class);
@@ -67,14 +65,13 @@ public class ExchangeManagerBean {
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
     private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
     private static final String DLG_CONFIRM_OVERWRITE_EXCHAGE = "wvConfirmationOverwrite";
-    private static final String[] BUTTONS_REFRESH_LOCKED = { "formDlgExchange:btnSaveExchange",
-            "tabviewExchange:formGeneralSetting:btnStatusRefresh",
-            "tabviewExchange:formGeneralSetting:btnSaveExchangeInfo",
-            "tabviewExchange:formGeneralSetting:btnRefreshExchangeInfo",
-    "tabviewExchange:accordionExchange:formExchange:deleteExchange" };
+    private static final String[] BUTTONS_REFRESH_LOCKED = {"formDlgExchange:btnSaveExchange",
+        "tabviewExchange:formGeneralSetting:btnStatusRefresh",
+        "tabviewExchange:formGeneralSetting:btnSaveExchangeInfo",
+        "tabviewExchange:formGeneralSetting:btnRefreshExchangeInfo",
+        "tabviewExchange:accordionExchange:formExchange:deleteExchange"};
 
-    @Autowired
-    private ExchangeManagerService exchangeService;
+    private ExchangeManagerService exchangeService = new ExchangeManagerServiceImpl();
 
     private ExchangeInfoType generalSetting;
     private ExchangeType formExchange;
@@ -90,6 +87,15 @@ public class ExchangeManagerBean {
     private List<OrganizationType> organizations;
     private List<ExchangeDownloadStatus> exDownloadStatus;
     private List<ExchangeType> exchanges;
+
+    @PostConstruct
+    public void initialize() {
+        generalSetting = exchangeService.getExchangeInfoView();
+    }
+
+    public ExchangeInfoType getGeneralSetting() {
+        return generalSetting;
+    }
 
     public List<ExchangeDownloadStatus> getExDownloadStatus() {
         return exDownloadStatus;
@@ -227,6 +233,7 @@ public class ExchangeManagerBean {
         agreeOverwriteExchange = false;
         formExchange = new ExchangeType();
     }
+
     public boolean saveExchange() {
         return saveExchangeWith(false);
     }
@@ -275,12 +282,6 @@ public class ExchangeManagerBean {
             exchangeService.pingService(connEndpoint);
         }
         return true;
-    }
-
-    // form - properties
-    public ExchangeInfoType getFormExchangeInfo() {
-        generalSetting = exchangeService.getExchangeInfoView();
-        return generalSetting;
     }
 
     public ExchangeType getFormExchange() {
@@ -352,7 +353,7 @@ public class ExchangeManagerBean {
             return "";
         }
         if (CollectionUtils.isNotEmpty(contact.getPhone())) {
-            return MessageFormat.format("{0} {1}", contact.getFullName().get(0),contact.getPhone().get(0));
+            return MessageFormat.format("{0} {1}", contact.getFullName().get(0), contact.getPhone().get(0));
         }
         return contact.getFullName().get(0);
     }
