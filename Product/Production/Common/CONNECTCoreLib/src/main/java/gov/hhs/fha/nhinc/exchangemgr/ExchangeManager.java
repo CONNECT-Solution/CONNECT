@@ -57,8 +57,8 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     private Map<String, Map<String, OrganizationType>> exCache = new HashMap<>();
     private boolean exCacheLoaded = false;
     private long exFileLastUpdateTime;
-    private static String defaultExchange = null;
     private static final ExchangeManager INSTANCE = new ExchangeManager();
+
     protected ExchangeManager() {
     }
 
@@ -94,7 +94,6 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                             exCache.put(ex.getName(), innerMap);
                         }
                     }
-                    defaultExchange = exInfo.getDefaultExchange();
                     exCacheLoaded = true;
                     exFileLastUpdateTime = getExchangeInfoDAO().getLastModified();
                 }
@@ -114,7 +113,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     @Override
     public String getDefaultExchange() {
-        return defaultExchange;
+        return null != exInfo ? exInfo.getDefaultExchange() : null;
     }
 
     @Override
@@ -141,8 +140,8 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         Map<String, OrganizationType> map = null;
         if (StringUtils.isNotEmpty(exchangeName)) {
             map = exCache.get(exchangeName);
-        } else if (StringUtils.isNotEmpty(defaultExchange)) {
-            map = exCache.get(defaultExchange);
+        } else if (StringUtils.isNotEmpty(getDefaultExchange())) {
+            map = exCache.get(getDefaultExchange());
         } else {
             if (null != getCache().values()) {
                 map = extractHcidOrganizationMap();
@@ -217,8 +216,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             return bSave;
         }
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
+            refreshExchangeCacheIfRequired();
+            if (StringUtils.equalsIgnoreCase(exchangeName, getDefaultExchange())) {
+                exInfo.setDefaultExchange(null);
             }
             List<ExchangeType> exchanges = getAllExchanges();
             ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeName);
@@ -302,7 +302,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     public ExchangeInfoType getExchangeInfoView() {
         ExchangeInfoType view = new ExchangeInfoType();
-        try{
+        try {
             refreshExchangeCacheIfRequired();
             view.setRefreshInterval(exInfo.getRefreshInterval());
             view.setMaxNumberOfBackups(exInfo.getMaxNumberOfBackups());
