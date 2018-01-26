@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.converter;
 
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -42,7 +43,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @FacesConverter("xmlGregorianConverter")
 public class XMLGregorianConverter extends DateTimeConverter {
 
-    private static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getTimeZone("UTC");
+    private static final TimeZone DEFAULT_TIME_ZONE = Calendar.getInstance().getTimeZone();
     private String dateStyle = "default";
     private Locale locale = null;
     private String pattern = null;
