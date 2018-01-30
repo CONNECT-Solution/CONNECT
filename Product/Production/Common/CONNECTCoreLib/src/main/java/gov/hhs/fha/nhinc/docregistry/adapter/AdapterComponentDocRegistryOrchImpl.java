@@ -126,7 +126,6 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final int EBXML_RESPONSE_URI_LINE_LENGTH = 128;
 
     private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
-    private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     private static final String EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     private static final String EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE = "urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248";
 
@@ -541,7 +540,11 @@ public class AdapterComponentDocRegistryOrchImpl {
                 boolean bHaveData = false;
 
                 oExtObj.setIsOpaque(Boolean.FALSE);
-                oExtObj.setObjectType(XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
+                if(doc.isOnDemand()) {
+                    oExtObj.setObjectType(EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE);
+                } else {
+                    oExtObj.setObjectType(EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE);
+                }
 
                 // Generate a UUID for the document
                 UUID oDocumentUUID = UUID.randomUUID();
