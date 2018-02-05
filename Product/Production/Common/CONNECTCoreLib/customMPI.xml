@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--test-->
 <java version="1.6.0_11" class="java.beans.XMLDecoder">
     <object class="gov.hhs.fha.nhinc.mpilib.Patients"/>
 </java>
