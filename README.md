@@ -28,7 +28,7 @@ Three primary elements make up the CONNECT solution:
 
 * The Enterprise Service Components provide default implementations of many critical enterprise components required to support electronic health information exchange, including a Master Patient Index (MPI), XDS.b Document Registry and Repository, Authorization Policy Engine, Consumer Preferences Manager, HIPAA-compliant Audit Log and others. Implementers of CONNECT are free to adopt the components or use their own existing software for these purposes.
 
-* The System Administration Module provides a graphical user interface (GUI) to simplify the configuration, support, and administration of the CONNECT solution. Key features include: graphical system overview, connection management, property and adapter configuration management, audit log viewer, Direct configuration, and the Cross-Gateway Query Client for testing basic message exchanges against other systems.
+* The System Administration Module provides a graphical user interface (GUI) to simplify the configuration, support, and administration of the CONNECT solution. Key features include: graphical system overview, exchange management, property and adapter configuration management, audit log viewer, Direct configuration, certificate management, test data management and the Cross-Gateway Query Client for testing basic message exchanges against other systems.
 
 History
 -------
