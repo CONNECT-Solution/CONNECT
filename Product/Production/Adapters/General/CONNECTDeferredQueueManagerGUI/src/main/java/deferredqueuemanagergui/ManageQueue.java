@@ -26,7 +26,6 @@
  */
 package deferredqueuemanagergui;
 
-//hello world
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
 import com.sun.webui.jsf.component.Button;
 import com.sun.webui.jsf.component.DropDown;
