@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Hello there! -->
 <project name="NHINC" basedir=".">
 
     <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
