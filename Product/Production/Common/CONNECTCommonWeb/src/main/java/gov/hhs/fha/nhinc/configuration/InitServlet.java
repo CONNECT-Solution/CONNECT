@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.configuration;
-
+//hello weblogic
 import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
 import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
