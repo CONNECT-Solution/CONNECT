@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.common.connectionmanager;
-
+//hello oracle
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.AssigningAuthorityIdType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.EmptyParameterType;
