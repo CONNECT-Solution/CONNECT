@@ -45,6 +45,20 @@ public class DeferredQueueException extends Exception implements Serializable {
         super();
     }
 
+/**    public DeferredQueueException() {
+        super();
+    }
+    */
+
+    /**
+     * Constructor with an envloping exception.
+     *
+     * @param e The exception that caused this one.
+     */
+    public DeferredQueueException(Exception e) {
+        super(e);
+    }
+
     /**
      * Constructor with an envloping exception.
      *

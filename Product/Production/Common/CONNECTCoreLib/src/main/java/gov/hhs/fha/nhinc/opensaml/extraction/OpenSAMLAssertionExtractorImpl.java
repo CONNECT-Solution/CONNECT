@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -96,6 +96,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     @Override
     public final AssertionType extractSAMLAssertion(final Element element) {
 
+        String xtest = "nothing";
         LOG.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
         if (null == element) {
             return null;
@@ -127,7 +128,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param saml2Assertion source
      * @param target
      */
-    private static void populateSubjectConfirmation(Assertion saml2Assertion, AssertionType target) {
+    private static void populateSubjectConfirmation(Assertion saml2Assertion, AssertionType target) throws Exception {
         List<SamlSubjectConfirmationType> samlTargetSubjects = target.getSamlSubjectConfirmations();
         List<SubjectConfirmation> subjectConfirmations = saml2Assertion.getSubject().getSubjectConfirmations();
         for (SubjectConfirmation subConfirmation : subjectConfirmations) {
