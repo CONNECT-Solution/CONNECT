@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Deploy</artifactId>
-        <version>5.1.0-SNAPSHOT</version>
+        <version>TEST_AWS20</version>
     </parent>
 
     <artifactId>CONNECT-GF</artifactId>
