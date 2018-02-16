@@ -49,9 +49,7 @@ import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.io.File;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.lang.StringUtils;
@@ -68,7 +66,6 @@ import org.uddi.api_v3.BusinessDetail;
 public class ExchangeDataUpdateMgr {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeDataUpdateMgr.class);
-    private static final ArrayList<String> backupFileList = new ArrayList<>();
     private static final String JSON_QUERY_PARAM = "_format=json";
     private boolean hasDownloadOccurred = false;
     private static final String DOWNLOAD_SUCCESS_MSG = "DOWNLOAD_SUCCESS";
@@ -145,48 +142,21 @@ public class ExchangeDataUpdateMgr {
     }
 
     private void createFileBackupByRenaming(BigInteger noOfBackups) {
-        if (null != noOfBackups && noOfBackups.intValue() > 0) {
-            String fileLocation = getExchangeDAO().getExchangeFileLocation();
-            String backupFileLocation = generateUniqueFilename(fileLocation);
-
+        ExchangeFileUtils fileUtils = new ExchangeFileUtils();
+        String fileLocation = getExchangeDAO().getExchangeFileLocation();
+        File exFile = new File(fileLocation);
+        int allowedBackups = (null != noOfBackups ? noOfBackups.intValue() : 0);
+        fileUtils.deleteOldBackups(exFile.getParentFile(), allowedBackups);
+        if (allowedBackups > 0) {
+            String backupFileLocation = fileUtils.generateUniqueFilename(fileLocation);
             try {
-                File currentFile = new File(fileLocation);
                 File newBackupFile = new File(backupFileLocation);
-
-                if (currentFile.exists()) {
-                    currentFile.renameTo(newBackupFile);
-                    addToBackupList(backupFileLocation, noOfBackups);
+                if (exFile.exists()) {
+                    exFile.renameTo(newBackupFile);
                 }
             } catch (Exception e) {
                 LOG.error("Failed to rename the current file {} to {}: {}", fileLocation, backupFileLocation,
                     e.getLocalizedMessage(), e);
-            }
-        }
-    }
-
-    private static String generateUniqueFilename(String fileLocation) {
-        Calendar currentTime = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss");
-        return fileLocation + "." + dateFormat.format(currentTime.getTime());
-    }
-
-    private static void addToBackupList(String latestFilename, BigInteger maxNumBackup) {
-        int noOfBackups = maxNumBackup.intValue();
-
-        String filenameToDelete = null;
-        if (backupFileList.size() >= noOfBackups) {
-            filenameToDelete = backupFileList.remove(0);
-        }
-        backupFileList.add(latestFilename);
-
-        if (filenameToDelete != null) {
-            try {
-                File fileToDelete = new File(filenameToDelete);
-                if (fileToDelete.exists()) {
-                    fileToDelete.delete();
-                }
-            } catch (Exception e) {
-                LOG.warn("Failed to delete backup file {}: {}", filenameToDelete, e.getLocalizedMessage(), e);
             }
         }
     }
