@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Services</artifactId>
-        <version>5.1.0-SNAPSHOT</version>
+        <version>AWS_TEST_RELEASE_TAG31</version>
     </parent>
 
     <artifactId>DocRegistryCore</artifactId>
