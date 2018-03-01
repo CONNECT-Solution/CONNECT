@@ -343,5 +343,5 @@ public class HelperUtil {
     // }
     // String pfHideDialog = MessageFormat.format("PF(''{0}'').hide();", dlgWidgetVarName);
     // return execPFCommand(pfHideDialog, successful);
-    // }
+    // } // sonarqube-push-2
 }
