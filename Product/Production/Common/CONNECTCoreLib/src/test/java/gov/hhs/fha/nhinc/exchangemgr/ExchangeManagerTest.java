@@ -61,7 +61,6 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             assertEquals("DefaultExchange does not match", DEFAULT_EXCHANGE, exMgr.getDefaultExchange());
             assertEquals("Organization's HCID does not match", HCID_2, org.getHcid());
         } catch (ExchangeManagerException ex) {
-            ex.printStackTrace();
             fail("Error running testGetOrganization: " + ex.getMessage());
         }
     }
@@ -77,7 +76,6 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             assertEquals("DefaultExchange does not match", null, exMgr.getDefaultExchange());
             assertEquals("Search Result size not correct", hcids.size(), orgSet.size());
         } catch (ExchangeManagerException ex) {
-            ex.printStackTrace();
             fail("Error running testGetOrganization: " + ex.getMessage());
         }
     }
@@ -90,7 +88,6 @@ public class ExchangeManagerTest extends BaseExchangeManager {
                 NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
             assertTrue(list.size() == 1);
         } catch (ExchangeManagerException ex) {
-            ex.printStackTrace();
             fail("Error running testGetOrganization: " + ex.getMessage());
         }
     }
