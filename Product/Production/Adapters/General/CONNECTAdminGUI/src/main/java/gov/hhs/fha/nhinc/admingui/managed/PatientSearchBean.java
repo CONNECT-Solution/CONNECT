@@ -61,579 +61,580 @@ import org.slf4j.LoggerFactory;
 @SessionScoped
 public class PatientSearchBean {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PatientSearchBean.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientSearchBean.class);
 
-	// Generic Variables, can be moved to a constant file
-	private static final String PATIENT_FOUND = "Patient Record Found:";
-	private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
-	private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
-	private static final String DOCUMENT_FOUND = "Documents Found:";
+    // Generic Variables, can be moved to a constant file
+    private static final String PATIENT_FOUND = "Patient Record Found:";
+    private static final String PATIENT_NOT_FOUND = "Patient Not Found.";
+    private static final String DOCUMENT_NOT_FOUND = "No Documents Found.";
+    private static final String DOCUMENT_FOUND = "Documents Found:";
 
-	private int activeIndex = 0;
-	private String displayOrganizationName;
+    private int activeIndex = 0;
+    private String displayOrganizationName;
 
-	// For Lookup..should be moved to a different managed bean
-	private List<SelectItem> documentTypeList;
-	private Map<String, String> organizationList;
-	private Map<String, String> genderList;
+    // For Lookup..should be moved to a different managed bean
+    private List<SelectItem> documentTypeList;
+    private Map<String, String> organizationList;
+    private Map<String, String> genderList;
 
-	// Used in Patient Query Page
-	private boolean patientFound;
-	private String patientMessage;
-	private String firstName;
-	private String lastName;
-	private Date dateOfBirth;
-	private String gender;
-	private String organization;
-	private List<Patient> patientList;
-	private int selectedPatient;
+    // Used in Patient Query Page
+    private boolean patientFound;
+    private String patientMessage;
+    private String firstName;
+    private String lastName;
+    private Date dateOfBirth;
+    private String gender;
+    private String organization;
+    private List<Patient> patientList;
+    private int selectedPatient;
 
-	// Used in Document Query Page
-	private boolean documentFound;
-	private Date documentRangeFrom;
-	private Date documentRangeTo;
-	private String documentMessage;
-	private List<String> querySelectedDocuments;
-	private int selectedDocument;
-	// TODO: Temporary should be removed, should use the patient object documentList
-	private List<Document> documentList;
+    // Used in Document Query Page
+    private boolean documentFound;
+    private Date documentRangeFrom;
+    private Date documentRangeTo;
+    private String documentMessage;
+    private List<String> querySelectedDocuments;
+    private int selectedDocument;
+    // TODO: Temporary should be removed, should use the patient object
+    // documentList
+    private List<Document> documentList;
 
-	/**
-	 * Instantiate all the variables and load the lookup Data
-	 */
-	public PatientSearchBean() {
-		documentList = new ArrayList<>();
-		querySelectedDocuments = new ArrayList<>();
-		patientList = new ArrayList<>();
-		documentTypeList = new ArrayList<>();
+    /**
+     * Instantiate all the variables and load the lookup Data
+     */
+    public PatientSearchBean() {
+        documentList = new ArrayList<>();
+        querySelectedDocuments = new ArrayList<>();
+        patientList = new ArrayList<>();
+        documentTypeList = new ArrayList<>();
 
-		// Populate Organization List from UDDI
-		organizationList = populateOrganizationFromConnectManagerCache();
-		// populate Gender List
-		genderList = HelperUtil.populateListGender();
-		// populate document types
-		documentTypeList = populateDocumentTypes();
-	}
+        // Populate Organization List from UDDI
+        organizationList = populateOrganizationFromConnectManagerCache();
+        // populate Gender List
+        genderList = HelperUtil.populateListGender();
+        // populate document types
+        documentTypeList = populateDocumentTypes();
+    }
 
-	/**
-	 * Action method called when user clicks the Patient Search
-	 *
-	 */
-	public void searchPatient() {
-		// start with a clean slate
-		clearDocumentQueryTab();
-		// Call the NwHIN PD to get the documents
-		patientFound = GatewayService.getInstance().discoverPatient(this);
-		// set the UI display message
-		patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
-	}
+    /**
+     * Action method called when user clicks the Patient Search
+     *
+     */
+    public void searchPatient() {
+        // start with a clean slate
+        clearDocumentQueryTab();
+        // Call the NwHIN PD to get the documents
+        patientFound = GatewayService.getInstance().discoverPatient(this);
+        // set the UI display message
+        patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
+    }
 
-	/**
-	 * Action method called when user clicks the Document Query Search
-	 *
-	 */
-	public void searchPatientDocument() {
-		// Call the NwHIN QD to get the documents
-		documentFound = GatewayService.getInstance().queryDocument(this);
-		// set the UI display message
-		documentMessage = documentFound ? DOCUMENT_FOUND : DOCUMENT_NOT_FOUND;
-	}
+    /**
+     * Action method called when user clicks the Document Query Search
+     *
+     */
+    public void searchPatientDocument() {
+        // Call the NwHIN QD to get the documents
+        documentFound = GatewayService.getInstance().queryDocument(this);
+        // set the UI display message
+        documentMessage = documentFound ? DOCUMENT_FOUND : DOCUMENT_NOT_FOUND;
+    }
 
-	/**
-	 * Action method called when user clicks the Document View.
-	 *
-	 */
-	public void retrieveDocument() {
-		// check to make sure if the Document Retrieve is already done
-		if (getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
-			return;
-		}
-		// Call the NwHIN RD to get the documents
-		documentFound = GatewayService.getInstance().retrieveDocument(this);
-	}
-
-	/**
-	 * Action method called when user clicks the Start Over method. This will clear all the information stored in the
-	 * session.
-	 *
-	 * @return
-	 */
-	public String startOver() {
-		// make it clean slate
-		// go back to the Patient Search tab
-		clearDocumentQueryTab();
-		setActiveIndex(0);
-		// reload the lookup data
-		// Populate Organization List from UDDI
-		organizationList = populateOrganizationFromConnectManagerCache();
-		// populate Gender List
-		genderList = HelperUtil.populateListGender();
-		// populate document types
-		documentTypeList = populateDocumentTypes();
-		return clearPatientTab();
-	}
+    /**
+     * Action method called when user clicks the Document View.
+     *
+     */
+    public void retrieveDocument() {
+        // check to make sure if the Document Retrieve is already done
+        if (getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
+            return;
+        }
+        // Call the NwHIN RD to get the documents
+        documentFound = GatewayService.getInstance().retrieveDocument(this);
+    }
 
 	/**
-	 * Remove all the patient information from the Session
-	 *
-	 * @return
-	 */
-	public String clearPatientTab() {
-		dateOfBirth = null;
-		firstName = null;
-		lastName = null;
-		organization = "";
-		gender = null;
-		patientFound = false;
-		patientMessage = "";
-		patientList.clear();
-		setSelectedPatient(0);
-		return clearDocumentQueryTab();
-	}
+     * Action method called when user clicks the Start Over method. This will clear all the information stored in the
+     * session.
+     *
+     * @return
+     */
+    public String startOver() {
+        // make it clean slate
+        // go back to the Patient Search tab
+        clearDocumentQueryTab();
+        setActiveIndex(0);
+        // reload the lookup data
+        // Populate Organization List from UDDI
+        organizationList = populateOrganizationFromConnectManagerCache();
+        // populate Gender List
+        genderList = HelperUtil.populateListGender();
+        // populate document types
+        documentTypeList = populateDocumentTypes();
+        return clearPatientTab();
+    }
+
+    /**
+     * Remove all the patient information from the Session
+     *
+     * @return
+     */
+    public String clearPatientTab() {
+        dateOfBirth = null;
+        firstName = null;
+        lastName = null;
+        organization = "";
+        gender = null;
+        patientFound = false;
+        patientMessage = "";
+        patientList.clear();
+        setSelectedPatient(0);
+        return clearDocumentQueryTab();
+    }
+
+    /**
+     * Remove all the Document Query information
+     *
+     * @return
+     */
+    public String clearDocumentQueryTab() {
+        documentFound = false;
+        documentRangeFrom = null;
+        documentRangeTo = null;
+        querySelectedDocuments.clear();
+        documentMessage = "";
+        // Reset the list
+        documentList.clear();
+        getSelectedCurrentPatient().getDocumentList().clear();
+        setSelectedDocument(0);
+        return NavigationConstant.PATIENT_SEARCH_PAGE;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
 	/**
-	 * Remove all the Document Query information
-	 *
-	 * @return
-	 */
-	public String clearDocumentQueryTab() {
-		documentFound = false;
-		documentRangeFrom = null;
-		documentRangeTo = null;
-		querySelectedDocuments.clear();
-		documentMessage = "";
-		// Reset the list
-		documentList.clear();
-		getSelectedCurrentPatient().getDocumentList().clear();
-		setSelectedDocument(0);
-		return NavigationConstant.PATIENT_SEARCH_PAGE;
-	}
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
 	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the dateOfBirth
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
 
 	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+     * @param dateOfBirth the dateOfBirth to set
+     */
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    /**
+     * @return the gender
+     */
+    public String getGender() {
+        return gender;
+    }
 
 	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+     * @param gender the gender to set
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * @return the organization
+     */
+    public String getOrganization() {
+        return organization;
+    }
 
 	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+     * @param organization the organization to set
+     */
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public boolean enablePatientqueryTab() {
+        if (isPatientFound()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return the activeIndex
+     */
+    public int getActiveIndex() {
+        return activeIndex;
+    }
 
 	/**
-	 * @return the dateOfBirth
-	 */
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
+     * @param activeIndex the activeIndex to set
+     */
+    public void setActiveIndex(int activeIndex) {
+        this.activeIndex = activeIndex;
+    }
+
+    /**
+     * @return the queryDocuments
+     */
+    public List<String> getQueryDocuments() {
+        return querySelectedDocuments;
+    }
 
 	/**
-	 * @param dateOfBirth the dateOfBirth to set
-	 */
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+     * @param queryDocuments the queryDocuments to set
+     */
+    public void setQueryDocuments(List<String> queryDocuments) {
+        querySelectedDocuments = queryDocuments;
+    }
+
+    /**
+     * @return the documentTypeList
+     */
+    public List<SelectItem> getDocumentTypeList() {
+        return documentTypeList;
+    }
 
 	/**
-	 * @return the gender
-	 */
-	public String getGender() {
-		return gender;
-	}
+     * @param documentTypeList the documentTypeList to set
+     */
+    public void setDocumentTypeList(List<SelectItem> documentTypeList) {
+        this.documentTypeList = documentTypeList;
+    }
+
+    /**
+     * @return the patientList
+     */
+    public List<Patient> getPatientList() {
+        return patientList;
+    }
+
+    /**
+     * @return the patientMessage
+     */
+    public String getPatientMessage() {
+        return patientMessage;
+    }
+
+    public boolean isPatientFound() {
+        return patientFound;
+    }
+
+    public String switchTab() {
+        activeIndex = 1;
+        return NavigationConstant.PATIENT_SEARCH_PAGE;
+    }
+
+    /**
+     * @return the documentFound
+     */
+    public boolean isDocumentFound() {
+        return documentFound;
+    }
+
+    /**
+     * @return the documentList
+     */
+    public List<Document> getDocumentList() {
+        // always return the list from the patient object
+        if (getSelectedCurrentPatient() != null) {
+            return getSelectedCurrentPatient().getDocumentList();
+        }
+        // return the empty list if the patient object is empty
+        return documentList;
+    }
+
+    /**
+     * @return the documentMessage
+     */
+    public String getDocumentMessage() {
+        return documentMessage;
+    }
+
+    /**
+     * @return the documentRangeFrom
+     */
+    public Date getDocumentRangeFrom() {
+        return documentRangeFrom;
+    }
 
 	/**
-	 * @param gender the gender to set
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+     * @param documentRangeFrom the documentRangeFrom to set
+     */
+    public void setDocumentRangeFrom(Date documentRangeFrom) {
+        this.documentRangeFrom = documentRangeFrom;
+    }
+
+    /**
+     * @return the documentRangeTo
+     */
+    public Date getDocumentRangeTo() {
+        return documentRangeTo;
+    }
 
 	/**
-	 * @return the organization
-	 */
-	public String getOrganization() {
-		return organization;
-	}
+     * @param documentRangeTo the documentRangeTo to set
+     */
+    public void setDocumentRangeTo(Date documentRangeTo) {
+        this.documentRangeTo = documentRangeTo;
+    }
+
+    /**
+     * @return the organizationList
+     */
+    public Map<String, String> getOrganizationList() {
+        return organizationList;
+    }
+
+    /**
+     * @return the genderList
+     */
+    public Map<String, String> getGenderList() {
+        return genderList;
+    }
+
+    /**
+     * @return the selectedDocument
+     */
+    public int getSelectedDocument() {
+        return selectedDocument;
+    }
 
 	/**
-	 * @param organization the organization to set
-	 */
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
-	public boolean enablePatientqueryTab() {
-		if (isPatientFound()) {
-			return false;
-		}
-		return true;
-	}
+     * @param selectedDocument the selectedDocument to set
+     */
+    public void setSelectedDocument(int selectedDocument) {
+        this.selectedDocument = selectedDocument;
+    }
 
 	/**
-	 * @return the activeIndex
-	 */
-	public int getActiveIndex() {
-		return activeIndex;
-	}
+     * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
+     * application bean.
+     *
+     */
+    private Map<String, String> populateOrganizationFromConnectManagerCache() {
+        return new ConnectionHelper().getOrgNameAndRemoteHcidMap();
+    }
 
 	/**
-	 * @param activeIndex the activeIndex to set
-	 */
-	public void setActiveIndex(int activeIndex) {
-		this.activeIndex = activeIndex;
-	}
+     * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
+     * moved to a Utility or to the application bean.
+     *
+     */
+    private List<SelectItem> populateDocumentTypes() {
+        List<SelectItem> localDocumentTypeList = new ArrayList<>();
+
+        try {
+            // Load the documentType.properties file
+            Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
+                .getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
+            Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
+            while (it.hasNext()) {
+                Entry<Object, Object> property = it.next();
+                localDocumentTypeList.add(new SelectItem(property.getKey(), (String) property.getValue()));
+            }
+        } catch (PropertyAccessException ex) {
+            LOG.error("Not able to load the document types from the property file: {}", ex.getLocalizedMessage(), ex);
+        }
+        return localDocumentTypeList;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getCreationTimeUiDisplay() {
+        String formattedDate = null;
+        if (!getDocumentList().isEmpty()) {
+            if (getDocumentList().get(selectedDocument).getCreationTime() != null) {
+                Date currentDate = getDocumentList().get(selectedDocument).getCreationTime();
+                SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+                formattedDate = dateformat.format(currentDate);
+            }
+        }
+        return formattedDate;
+    }
+
+    /**
+     * @return the selectedPatient
+     */
+    public int getSelectedPatient() {
+        return selectedPatient;
+    }
 
 	/**
-	 * @return the queryDocuments
-	 */
-	public List<String> getQueryDocuments() {
-		return querySelectedDocuments;
-	}
+     * @param selectedPatient the selectedPatient to set
+     */
+    public void setSelectedPatient(int selectedPatient) {
+        this.selectedPatient = selectedPatient;
+    }
+
+    /**
+     * Returns the currently selected patient
+     *
+     * @return Patient
+     */
+    public Patient getSelectedCurrentPatient() {
+        if (getPatientList().isEmpty()) {
+            return new Patient();
+        }
+        return getPatientList().get(selectedPatient);
+    }
+
+    /**
+     * Returns the currently selected document
+     *
+     * @return Document
+     */
+    public Document getSelectedCurrentDocument() {
+        if (getDocumentList().isEmpty()) {
+            // required for rendering the page for the first time
+            return new Document();
+        }
+        return getDocumentList().get(selectedDocument);
+    }
+
+    public StreamedContent getDocumentImage() {
+        // return the content only if its an image file
+        if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
+            .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
+            byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
+            return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
+                getSelectedCurrentDocument().getContentType());
+        }
+        return null;
+    }
+
+    /**
+     * @return the renderDocumentimage
+     */
+    public boolean isRenderDocumentimage() {
+        return getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
+            .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
+    }
+
+    /**
+     * @return the renderDocumentPdf
+     */
+    public boolean isRenderDocumentPdf() {
+        return getSelectedCurrentDocument().getContentType() != null
+            && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
+    }
+
+    /**
+     * @return the renderDocumentText
+     */
+    public boolean isRenderDocumentText() {
+        return getSelectedCurrentDocument().getContentType() != null
+            && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+    }
+
+    /**
+     * @return the documentPdf
+     */
+    public StreamedContent getDocumentPdf() {
+        // return the content only if its an pdf file
+        if (getSelectedCurrentDocument().getContentType() != null
+            && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
+            byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
+            return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
+                getSelectedCurrentDocument().getContentType());
+        }
+        return null;
+    }
+
+    /**
+     * @return the XML Clinical document in HTML format
+     */
+    public String getDocumentXml() {
+        // return the content only if its an pdf file
+        if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
+            .equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
+            return new String(getSelectedCurrentDocument().getDocumentContent());
+        }
+        return null;
+    }
+
+    /**
+     * @return the renderDcoumentNotSupported
+     */
+    public boolean isRenderDcoumentNotSupported() {
+        return !(isRenderDocumentPdf() || isRenderDocumentText() || isRenderDocumentimage());
+    }
+
+    /**
+     *
+     * @return displayOrganizationName
+     */
+    public String getDisplayOrganizationName() {
+        return displayOrganizationName;
+    }
 
 	/**
-	 * @param queryDocuments the queryDocuments to set
-	 */
-	public void setQueryDocuments(List<String> queryDocuments) {
-		querySelectedDocuments = queryDocuments;
-	}
+     *
+     * @param displayOrganizationName the displayOrganizationName to set
+     */
+    public void setDisplayOrganizationName(String displayOrganizationName) {
+        this.displayOrganizationName = displayOrganizationName;
+    }
 
-	/**
-	 * @return the documentTypeList
-	 */
-	public List<SelectItem> getDocumentTypeList() {
-		return documentTypeList;
-	}
+    /**
+     * @return the documentTypeName
+     */
+    public String getDocumentTypeName() {
+        return getDocumentTypeNameFromTheStaticList(getSelectedCurrentDocument().getDocumentClassCode());
+    }
 
-	/**
-	 * @param documentTypeList the documentTypeList to set
-	 */
-	public void setDocumentTypeList(List<SelectItem> documentTypeList) {
-		this.documentTypeList = documentTypeList;
-	}
+    public String getDocumentTypeNameFromTheStaticList(String documentType) {
+        for (SelectItem localDocumentTypeList : documentTypeList) {
+            if (localDocumentTypeList.getValue().equals(documentType)) {
+                return localDocumentTypeList.getLabel();
+            }
+        }
+        return "Unknown Document";
+    }
 
-	/**
-	 * @return the patientList
-	 */
-	public List<Patient> getPatientList() {
-		return patientList;
-	}
-
-	/**
-	 * @return the patientMessage
-	 */
-	public String getPatientMessage() {
-		return patientMessage;
-	}
-
-	public boolean isPatientFound() {
-		return patientFound;
-	}
-
-	public String switchTab() {
-		activeIndex = 1;
-		return NavigationConstant.PATIENT_SEARCH_PAGE;
-	}
-
-	/**
-	 * @return the documentFound
-	 */
-	public boolean isDocumentFound() {
-		return documentFound;
-	}
-
-	/**
-	 * @return the documentList
-	 */
-	public List<Document> getDocumentList() {
-		// always return the list from the patient object
-		if (getSelectedCurrentPatient() != null) {
-			return getSelectedCurrentPatient().getDocumentList();
-		}
-		// return the empty list if the patient object is empty
-		return documentList;
-	}
-
-	/**
-	 * @return the documentMessage
-	 */
-	public String getDocumentMessage() {
-		return documentMessage;
-	}
-
-	/**
-	 * @return the documentRangeFrom
-	 */
-	public Date getDocumentRangeFrom() {
-		return documentRangeFrom;
-	}
-
-	/**
-	 * @param documentRangeFrom the documentRangeFrom to set
-	 */
-	public void setDocumentRangeFrom(Date documentRangeFrom) {
-		this.documentRangeFrom = documentRangeFrom;
-	}
-
-	/**
-	 * @return the documentRangeTo
-	 */
-	public Date getDocumentRangeTo() {
-		return documentRangeTo;
-	}
-
-	/**
-	 * @param documentRangeTo the documentRangeTo to set
-	 */
-	public void setDocumentRangeTo(Date documentRangeTo) {
-		this.documentRangeTo = documentRangeTo;
-	}
-
-	/**
-	 * @return the organizationList
-	 */
-	public Map<String, String> getOrganizationList() {
-		return organizationList;
-	}
-
-	/**
-	 * @return the genderList
-	 */
-	public Map<String, String> getGenderList() {
-		return genderList;
-	}
-
-	/**
-	 * @return the selectedDocument
-	 */
-	public int getSelectedDocument() {
-		return selectedDocument;
-	}
-
-	/**
-	 * @param selectedDocument the selectedDocument to set
-	 */
-	public void setSelectedDocument(int selectedDocument) {
-		this.selectedDocument = selectedDocument;
-	}
-
-	/**
-	 * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
-	 * application bean.
-	 *
-	 */
-	private Map<String, String> populateOrganizationFromConnectManagerCache() {
-		return new ConnectionHelper().getOrgNameAndRemoteHcidMap();
-	}
-
-	/**
-	 * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
-	 * moved to a Utility or to the application bean.
-	 *
-	 */
-	private List<SelectItem> populateDocumentTypes() {
-		List<SelectItem> localDocumentTypeList = new ArrayList<>();
-
-		try {
-			// Load the documentType.properties file
-			Properties localDocumentTypeProperties = PropertyAccessor.getInstance()
-					.getProperties(NhincConstants.DOCUMENT_TYPE_PROPERTY_FILE);
-			Iterator<Entry<Object, Object>> it = localDocumentTypeProperties.entrySet().iterator();
-			while (it.hasNext()) {
-				Entry<Object, Object> property = it.next();
-				localDocumentTypeList.add(new SelectItem(property.getKey(), (String) property.getValue()));
-			}
-		} catch (PropertyAccessException ex) {
-			LOG.error("Not able to load the document types from the property file: {}", ex.getLocalizedMessage(), ex);
-		}
-		return localDocumentTypeList;
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public String getCreationTimeUiDisplay() {
-		String formattedDate = null;
-		if (!getDocumentList().isEmpty()) {
-			if (getDocumentList().get(selectedDocument).getCreationTime() != null) {
-				Date currentDate = getDocumentList().get(selectedDocument).getCreationTime();
-				SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
-				formattedDate = dateformat.format(currentDate);
-			}
-		}
-		return formattedDate;
-	}
-
-	/**
-	 * @return the selectedPatient
-	 */
-	public int getSelectedPatient() {
-		return selectedPatient;
-	}
-
-	/**
-	 * @param selectedPatient the selectedPatient to set
-	 */
-	public void setSelectedPatient(int selectedPatient) {
-		this.selectedPatient = selectedPatient;
-	}
-
-	/**
-	 * Returns the currently selected patient
-	 *
-	 * @return Patient
-	 */
-	public Patient getSelectedCurrentPatient() {
-		if (getPatientList().isEmpty()) {
-			return new Patient();
-		}
-		return getPatientList().get(selectedPatient);
-	}
-
-	/**
-	 * Returns the currently selected document
-	 *
-	 * @return Document
-	 */
-	public Document getSelectedCurrentDocument() {
-		if (getDocumentList().isEmpty()) {
-			// required for rendering the page for the first time
-			return new Document();
-		}
-		return getDocumentList().get(selectedDocument);
-	}
-
-	public StreamedContent getDocumentImage() {
-		// return the content only if its an image file
-		if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-				.equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG))) {
-			byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
-			return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
-					getSelectedCurrentDocument().getContentType());
-		}
-		return null;
-	}
-
-	/**
-	 * @return the renderDocumentimage
-	 */
-	public boolean isRenderDocumentimage() {
-		return getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-				.equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_GIF)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
-	}
-
-	/**
-	 * @return the renderDocumentPdf
-	 */
-	public boolean isRenderDocumentPdf() {
-		return getSelectedCurrentDocument().getContentType() != null
-				&& getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
-	}
-
-	/**
-	 * @return the renderDocumentText
-	 */
-	public boolean isRenderDocumentText() {
-		return getSelectedCurrentDocument().getContentType() != null
-				&& (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-						|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-						|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-						|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
-	}
-
-	/**
-	 * @return the documentPdf
-	 */
-	public StreamedContent getDocumentPdf() {
-		// return the content only if its an pdf file
-		if (getSelectedCurrentDocument().getContentType() != null
-				&& getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF)) {
-			byte[] imageInByteArray = getSelectedCurrentDocument().getDocumentContent();
-			return new DefaultStreamedContent(new ByteArrayInputStream(imageInByteArray),
-					getSelectedCurrentDocument().getContentType());
-		}
-		return null;
-	}
-
-	/**
-	 * @return the XML Clinical document in HTML format
-	 */
-	public String getDocumentXml() {
-		// return the content only if its an pdf file
-		if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
-				.equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-				|| getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML))) {
-			return new String(getSelectedCurrentDocument().getDocumentContent());
-		}
-		return null;
-	}
-
-	/**
-	 * @return the renderDcoumentNotSupported
-	 */
-	public boolean isRenderDcoumentNotSupported() {
-		return !(isRenderDocumentPdf() || isRenderDocumentText() || isRenderDocumentimage());
-	}
-
-	/**
-	 *
-	 * @return displayOrganizationName
-	 */
-	public String getDisplayOrganizationName() {
-		return displayOrganizationName;
-	}
-
-	/**
-	 *
-	 * @param displayOrganizationName the displayOrganizationName to set
-	 */
-	public void setDisplayOrganizationName(String displayOrganizationName) {
-		this.displayOrganizationName = displayOrganizationName;
-	}
-
-	/**
-	 * @return the documentTypeName
-	 */
-	public String getDocumentTypeName() {
-		return getDocumentTypeNameFromTheStaticList(getSelectedCurrentDocument().getDocumentClassCode());
-	}
-
-	public String getDocumentTypeNameFromTheStaticList(String documentType) {
-		for (SelectItem localDocumentTypeList : documentTypeList) {
-			if (localDocumentTypeList.getValue().equals(documentType)) {
-				return localDocumentTypeList.getLabel();
-			}
-		}
-		return "Unknown Document";
-	}
-
-	/**
-	 * @return the documentInfoModalWindowHeader
-	 */
-	public String getDocumentInfoModalWindowHeader() {
-		return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
-	}
+    /**
+     * @return the documentInfoModalWindowHeader
+     */
+    public String getDocumentInfoModalWindowHeader() {
+        return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
+    }
 }
