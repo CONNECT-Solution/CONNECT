@@ -153,7 +153,7 @@ public class PatientSearchBean {
         documentFound = GatewayService.getInstance().retrieveDocument(this);
     }
 
-	/**
+    /**
      * Action method called when user clicks the Start Over method. This will clear all the information stored in the
      * session.
      *
@@ -217,7 +217,7 @@ public class PatientSearchBean {
         return firstName;
     }
 
-	/**
+    /**
      * @param firstName the firstName to set
      */
     public void setFirstName(String firstName) {
@@ -231,7 +231,7 @@ public class PatientSearchBean {
         return lastName;
     }
 
-	/**
+    /**
      * @param lastName the lastName to set
      */
     public void setLastName(String lastName) {
@@ -245,7 +245,7 @@ public class PatientSearchBean {
         return dateOfBirth;
     }
 
-	/**
+    /**
      * @param dateOfBirth the dateOfBirth to set
      */
     public void setDateOfBirth(Date dateOfBirth) {
@@ -259,7 +259,7 @@ public class PatientSearchBean {
         return gender;
     }
 
-	/**
+    /**
      * @param gender the gender to set
      */
     public void setGender(String gender) {
@@ -273,7 +273,7 @@ public class PatientSearchBean {
         return organization;
     }
 
-	/**
+    /**
      * @param organization the organization to set
      */
     public void setOrganization(String organization) {
@@ -294,7 +294,7 @@ public class PatientSearchBean {
         return activeIndex;
     }
 
-	/**
+    /**
      * @param activeIndex the activeIndex to set
      */
     public void setActiveIndex(int activeIndex) {
@@ -308,7 +308,7 @@ public class PatientSearchBean {
         return querySelectedDocuments;
     }
 
-	/**
+    /**
      * @param queryDocuments the queryDocuments to set
      */
     public void setQueryDocuments(List<String> queryDocuments) {
@@ -322,7 +322,7 @@ public class PatientSearchBean {
         return documentTypeList;
     }
 
-	/**
+    /**
      * @param documentTypeList the documentTypeList to set
      */
     public void setDocumentTypeList(List<SelectItem> documentTypeList) {
@@ -385,7 +385,7 @@ public class PatientSearchBean {
         return documentRangeFrom;
     }
 
-	/**
+    /**
      * @param documentRangeFrom the documentRangeFrom to set
      */
     public void setDocumentRangeFrom(Date documentRangeFrom) {
@@ -399,7 +399,7 @@ public class PatientSearchBean {
         return documentRangeTo;
     }
 
-	/**
+    /**
      * @param documentRangeTo the documentRangeTo to set
      */
     public void setDocumentRangeTo(Date documentRangeTo) {
@@ -427,14 +427,14 @@ public class PatientSearchBean {
         return selectedDocument;
     }
 
-	/**
+    /**
      * @param selectedDocument the selectedDocument to set
      */
     public void setSelectedDocument(int selectedDocument) {
         this.selectedDocument = selectedDocument;
     }
 
-	/**
+    /**
      * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
      * application bean.
      *
@@ -443,7 +443,7 @@ public class PatientSearchBean {
         return new ConnectionHelper().getOrgNameAndRemoteHcidMap();
     }
 
-	/**
+    /**
      * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
      * moved to a Utility or to the application bean.
      *
@@ -489,7 +489,7 @@ public class PatientSearchBean {
         return selectedPatient;
     }
 
-	/**
+    /**
      * @param selectedPatient the selectedPatient to set
      */
     public void setSelectedPatient(int selectedPatient) {
@@ -607,7 +607,7 @@ public class PatientSearchBean {
         return displayOrganizationName;
     }
 
-	/**
+    /**
      *
      * @param displayOrganizationName the displayOrganizationName to set
      */
