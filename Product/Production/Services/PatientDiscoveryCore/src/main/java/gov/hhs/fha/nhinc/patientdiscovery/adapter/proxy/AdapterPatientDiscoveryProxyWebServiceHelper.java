@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adapterpatientdiscoverysecured.AdapterPatientDiscoverySecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.service.AdapterPatientDiscoverySecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.service.AdapterPatientDiscoveryServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -73,12 +74,20 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
                     request.setPRPAIN201305UV02(body);
                     request.setNhinTargetCommunities(null);
 
-                    ServicePortDescriptor<AdapterPatientDiscoverySecuredPortType> portDescriptor = new AdapterPatientDiscoverySecuredServicePortDescriptor();
-                    CONNECTClient<AdapterPatientDiscoverySecuredPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
-
-                    response = (PRPAIN201306UV02) client.invokePort(AdapterPatientDiscoverySecuredPortType.class,
+                    ServicePortDescriptor portDescriptor;
+                    CONNECTClient client;
+                    if (NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME.equals(sServiceName)) {
+                        portDescriptor = new AdapterPatientDiscoverySecuredServicePortDescriptor();
+                        client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url,
+                            assertion);
+                    } else { // it is unsecure service
+                        portDescriptor = new AdapterPatientDiscoveryServicePortDescriptor();
+                        client = CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+                            assertion);
+                    }
+                    response = (PRPAIN201306UV02) client.invokePort(portDescriptor.getPortClass(),
                         "respondingGatewayPRPAIN201305UV02", request);
+
                 } else {
                     throw new PatientDiscoveryException(
                         "Failed to call the adapter web service (" + sServiceName + ").  The URL is null.");
