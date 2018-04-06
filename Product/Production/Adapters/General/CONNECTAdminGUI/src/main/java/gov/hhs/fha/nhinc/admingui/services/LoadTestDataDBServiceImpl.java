@@ -73,13 +73,14 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
 
     @Override
     public boolean deletePatient(Patient patient) {
-        boolean actionResult;
-        List<Document> delDocument = documentDAO.findAllBy(patient.getPatientId());
-        actionResult = patientDAO.deleteTransaction(patient);
-        if (actionResult) {
-            for (int i = 0; i < delDocument.size(); i++) {
-                documentDAO.delete(delDocument.get(i));
-            }
+        // Documents are being deleted first to see if there is a problem before deleting the patient.
+        // This is done because JDBC cannot attach to two different databases and share a session.
+        boolean actionResultDoc = false;
+        boolean actionResult = false;
+        List<Document> delDocuments = documentDAO.findAllBy(patient.getPatientId());
+        actionResultDoc = documentDAO.deleteAll(delDocuments);
+        if (actionResultDoc) {
+            actionResult = patientDAO.deleteTransaction(patient);
         }
         return actionResult;
     }
