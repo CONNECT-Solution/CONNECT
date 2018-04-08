@@ -59,7 +59,7 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
         throws PatientDiscoveryException {
         String sServiceName = NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
-        return adapterPatientDiscoveryProxyWebServiceHelper.formatGatewayResponsePRPAIN201305UV02(body, assertion,
+        return adapterPatientDiscoveryProxyWebServiceHelper.sendToPRPAIN201306UV02Adapter(body, assertion,
             sServiceName);
 
     }

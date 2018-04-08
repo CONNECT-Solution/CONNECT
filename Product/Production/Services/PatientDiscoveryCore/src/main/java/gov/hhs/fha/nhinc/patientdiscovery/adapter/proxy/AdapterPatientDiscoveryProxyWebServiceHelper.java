@@ -58,7 +58,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
         return instance;
     }
 
-    public PRPAIN201306UV02 formatGatewayResponsePRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion,
+    public PRPAIN201306UV02 sendToPRPAIN201306UV02Adapter(PRPAIN201305UV02 body, AssertionType assertion,
         String sServiceName) throws PatientDiscoveryException {
         String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -73,19 +73,8 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
                     request.setAssertion(assertion);
                     request.setPRPAIN201305UV02(body);
                     request.setNhinTargetCommunities(null);
-
-                    ServicePortDescriptor portDescriptor;
-                    CONNECTClient client;
-                    if (NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME.equals(sServiceName)) {
-                        portDescriptor = new AdapterPatientDiscoverySecuredServicePortDescriptor();
-                        client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url,
-                            assertion);
-                    } else { // it is unsecure service
-                        portDescriptor = new AdapterPatientDiscoveryServicePortDescriptor();
-                        client = CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
-                            assertion);
-                    }
-                    response = (PRPAIN201306UV02) client.invokePort(portDescriptor.getPortClass(),
+                    CONNECTClient client = getClientService(sServiceName, url, assertion);
+                    response = (PRPAIN201306UV02) client.invokePort(client.getPort().getClass(),
                         "respondingGatewayPRPAIN201305UV02", request);
 
                 } else {
@@ -102,5 +91,19 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
         }
         return response;
     }
+
+    private static CONNECTClient getClientService(String serviceName, String url, AssertionType assertion) {
+        ServicePortDescriptor portDescriptor;
+        CONNECTClient client;
+        if (NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME.equals(serviceName)) {
+            portDescriptor = new AdapterPatientDiscoverySecuredServicePortDescriptor();
+            client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        } else { // it is unsecure service
+            portDescriptor = new AdapterPatientDiscoveryServicePortDescriptor();
+            client = CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        }
+        return client;
+    }
+
 
 }
