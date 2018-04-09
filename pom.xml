@@ -2,7 +2,7 @@
 
     <groupId>org.connectopensource</groupId>
     <artifactId>CONNECTSolution</artifactId>
-    <version>5.1.1</version>
+    <version>5.1.1-RC1</version>
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
 
