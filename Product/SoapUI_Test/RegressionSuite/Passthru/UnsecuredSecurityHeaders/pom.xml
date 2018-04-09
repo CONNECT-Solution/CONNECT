@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>Passthru</artifactId>
+        <version>5.1.1</version>
+    </parent>
+
+    <artifactId>UnsecuredSecurityHeaders</artifactId>
+    <name>Maven 3 soapUI UnsecuredSecurityHeaders</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.redfish4ktc.soapui</groupId>
+                <artifactId>maven-soapui-extension-plugin</artifactId>
+                <configuration>
+                    <settingsFile>${project.basedir}/../../src/main/resources/soapui-settings.xml</settingsFile>
+                    <outputFolder>${project.build.directory}/soapui/output/</outputFolder>
+                    <soapuiProperties>
+                        <property>
+                            <name>soapui.logroot</name>
+                            <value>${project.build.directory}/soapui/my_custom_logs/</value>
+                        </property>
+                        <property>
+                            <name>soapui.scripting.library</name>
+                            <value>${project.basedir}/../../src/main/resources/groovy_scripts</value>
+                        </property>
+                        <property>
+                            <name>soapui.ext.libraries</name>
+                            <value>${project.basedir}/../../src/main/resources/ext</value>
+                        </property>
+                    </soapuiProperties>
+                    <testSuite>${test.suite}</testSuite>
+                    <testCase>${test.case}</testCase>
+                    <projectProperties>
+                        <value>GatewayPropDir=${project.parent.parent.parent.basedir}/${wildfly.properties.dir}</value>
+                        <value>DBHost=${db.host}</value>
+                        <value>DBPass=${db.password}</value>
+                        <value>DBPort=${db.port}</value>
+                        <value>DBUser=${db.user}</value>
+                         <value>ASUsername=${as.username}</value>
+                        <value>ASPassword=${as.password}</value>
+                        <value>JMXHost=${jmx.host}</value>
+                        <value>JMXPort=${jmx.port}</value>
+                    </projectProperties>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>UnsecuredSecurityHeaders-soapui-project</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>${project.basedir}/UnsecuredSecurityHeaders-soapui-project.xml</projectFile>
+                            <outputFolder>${project.build.directory}/soapui/output</outputFolder>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-verify</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>test-verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
