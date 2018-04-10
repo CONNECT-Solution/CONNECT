@@ -33,7 +33,7 @@
                 <module>EventLogging-Passthrough</module>
                 <module>X12ErrorHandlingTest</module>
                 <module>NHINSAMLAttributeTest</module>
-                <module>UnsecuredSecurityHeaders</module>
+                <module>AdapterSpringInjectionTest</module>
             </modules>
         </profile>
     </profiles>
