@@ -8,8 +8,8 @@
         <version>5.1.1</version>
     </parent>
 
-    <artifactId>UnsecuredSecurityHeaders</artifactId>
-    <name>Maven 3 soapUI UnsecuredSecurityHeaders</name>
+    <artifactId>AdapterSpringInjectionTest</artifactId>
+    <name>Maven 3 soapUI AdapterSpringInjectionTest</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
@@ -51,13 +51,13 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>UnsecuredSecurityHeaders-soapui-project</id>
+                        <id>AdapterSpringInjectionTest-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${project.basedir}/UnsecuredSecurityHeaders-soapui-project.xml</projectFile>
+                            <projectFile>${project.basedir}/AdapterSpringInjectionTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>

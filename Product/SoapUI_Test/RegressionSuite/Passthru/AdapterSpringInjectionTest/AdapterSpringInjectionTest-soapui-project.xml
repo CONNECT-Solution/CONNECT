@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="UnsecuredAdapterEndpoints" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="449331bb-af1f-4163-a65d-a91b4cb5a884" xmlns:con="http://eviware.com/soapui/config">
-  <con:description>When unsecured adapter endpoints are used, security headers should never be present. These
+<con:soapui-project abortOnError="false" name="AdapterSpringInjectionTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="449331bb-af1f-4163-a65d-a91b4cb5a884" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>When unsecured adapter endpoints are used, security headers should never be present and vice versa. These
 tests do the following:
 
-- Set services to use unsecured endpoints
+- Set services to use unsecured/secured endpoints
 - Create mock adapter endpoints and send adapter requests to these mock endpoints
-- Verify that security headers are not present (via assertions set in the mock test steps)</con:description><con:settings/>
+- Verify that security headers are not present for unsecured endpoints and vice-versa(via assertions set in the mock test steps)</con:description><con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="cca16490-63e3-4a26-a6d0-0be4cbad8f9f" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
@@ -2964,7 +2964,7 @@ tests do the following:
          </urn:RegistryResponse>
       </urn:AdapterRegistryResponse>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse:XDRResponseInputMessage"/></con:call></con:operation></con:interface><con:testSuite name="UnsecuredAdapterEndpoints" id="15648530-46ad-479d-a785-8ee44ec5cd39">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse:XDRResponseInputMessage"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocQuerySecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerysecured}AdapterDocQuerySecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuerySecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocRetrieveSecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievesecured}AdapterDocRetrieveSecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocRetrieveSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveSecuredResponse" inputName="RespondingGateway_CrossGatewayRetrieveSecuredRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterXDRSecured_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdrsecured}AdapterXDRSecured_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterXDRSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="Adapter_AdministrativeDistributionSecured_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistributionSecured_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAdminDistSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistributionSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="SecuredAdapterSpringInjection" id="15648530-46ad-479d-a785-8ee44ec5cd39">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     
@@ -2981,8 +2981,7 @@ tests do the following:
       </con:testStep>
       <con:testStep type="groovy" name="Check Passthru" id="52405615-1952-4c46-ba86-16ec672b6309">
         <con:settings/>
-        <con:config>
-          <script>import nhinc.FileUtils;
+        <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
 def passthruProp = "patientDiscovery.inboundPatientDiscovery";
@@ -3000,60 +2999,19 @@ if(passthruValue != null){
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
-	/**def ln = System.getProperty('line.separator');
-	def policyEngineFile = new File(dir + "/" + "PolicyEngineProxyConfig.xml");
-	def policyEngineFileNew = new File(dir + "/" + "PolicyEngineProxyConfig.xml.NEW");
-	policyEngineFile.eachLine() {
-		line ->
-		if(line.contains(alias)) {
-			policyEngineFileNew &lt;&lt; replaceAlias + ln;
-		} else {
-			policyEngineFileNew &lt;&lt; line + ln;
-		}
-	}
-
-	policyEngineFile.delete();
-	policyEngineFileNew.renameTo(new File(dir + "/" + "PolicyEngineProxyConfig.xml"));
-	**/
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
 	testRunner.gotoStepByName("Patient Discovery");
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:testStep type="groovy" name="Set Up PassThru" id="55211184-c144-4767-8ebe-70da16be6e53">
         <con:settings/>
-        <con:config>
-          <script>log.info "Setting Patient Discovery Adapter to unsecured";
-def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-def alias = 'adapterpatientdiscovery'
-def aliasName= 'adapterpatientdiscoverywssecured';
-def replaceAlias = 'adapterpatientdiscoverywsunsecured';
-
-nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
-	alias, aliasName, replaceAlias, log);
-/**
-def pdConfigFile = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml");
-def pdConfigFileNew = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml.NEW");
-pdConfigFile.eachLine() {
-	line ->
-	if(line.contains(alias)) {
-		pdConfigFileNew &lt;&lt; replaceAlias + ln;
-	} else {
-		pdConfigFileNew &lt;&lt; line + ln;
-	}
-}
-
-pdConfigFile.delete();
-pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
-**/
+        <con:config><script>def dir = context.findProperty('GatewayPropDir');
 log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
-	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
-	log);</script>
-        </con:config>
+	"adapterpatientdiscoverysecured", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);</script></con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="f33101c6-be67-4822-8ef0-68854b8df5e5">
         <con:settings/>
@@ -3400,7 +3358,7 @@ if(!runMock){
           </con:response>
         <con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
-	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config>
+	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config>
       </con:testStep>
       <con:testStep name="count correlations" type="groovy" id="7356b1cc-bcfb-40e3-9578-0faef84aee93">
         <con:settings/>
@@ -3429,19 +3387,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2018-04-09T22:21:18Z</con:value>
+          <con:value>2018-04-10T17:54:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2018-04-09T22:31:18Z</con:value>
+          <con:value>2018-04-10T18:04:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/09/2018 22:21:18</con:value>
+          <con:value>04/10/2018 17:54:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2018-05-09T00:00:00Z</con:value>
+          <con:value>2018-05-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -3474,30 +3432,18 @@ if(passthruValue != null){
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
-	
-	//testRunner.gotoStepByName("Document Query");
-	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-
-log.info "Setting Document Query Adapter to unsecured";
-nhinc.FileUtils.backupFile(dir, "DocumentQueryProxyConfig.xml", log);
-def alias = 'adapterdocquery'
-def aliasName= 'adapterdocquerywssecured';
-def replaceAlias = 'adapterdocquerywsunsecured';
-
-nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml",
-	alias, aliasName, replaceAlias, log);</script></con:config>
+}</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy" id="02e8cce9-a642-48e3-ac08-797a19a95226">
         <con:settings/>
         <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
 def dir = context.findProperty('GatewayPropDir');
-log.info "Modifying internalExchangeInfo for adapterdocquery mock."
+log.info "Modifying internalExchangeInfo for adapterdocquerysecured mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/AdapterDocQuery", "2.0",
+	"adapterdocquerysecured", "http://localhost:1720/AdapterDocQuerySecured", "2.0",
 	log);</script></con:config>
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="691b0e75-3003-4c4a-a6d7-ff028e7bb29a">
@@ -3690,42 +3636,17 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="mockresponse" name="mockdocqueryadapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQueryBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuery</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      </con:testStep><con:testStep type="mockresponse" name="mockDocQuerySecuredAdapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQuerySecuredBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuerySecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body>
-      <urn:AdhocQueryResponse status="?" requestId="?" startIndex="0" totalResultCount="?">
-         <!--Optional:-->
-         <urn1:ResponseSlotList>
-            <!--Zero or more repetitions:-->
-            <urn2:Slot name="?" slotType="?">
-               <urn2:ValueList>
-                  <urn2:Value>?</urn2:Value>
-               </urn2:ValueList>
-            </urn2:Slot>
-         </urn1:ResponseSlotList>
-         <!--Optional:-->
-         <urn1:RegistryErrorList highestSeverity="?">
-            <!--1 or more repetitions:-->
-            <urn1:RegistryError codeContext="?" errorCode="?" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="?">?</urn1:RegistryError>
-         </urn1:RegistryErrorList>
-         <urn2:RegistryObjectList>
-            <!--Zero or more repetitions:-->
-            <urn2:Identifiable id="?" home="?">
-               <!--Zero or more repetitions:-->
-               <urn2:Slot name="?" slotType="?">
-                  <urn2:ValueList>
-                     <urn2:Value>?</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-            </urn2:Identifiable>
-         </urn2:RegistryObjectList>
-      </urn:AdhocQueryResponse>
-   </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
-secext-1.0.xsd"
+  <soap:Body>
+    <ns3:AdhocQueryResponse xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
+      <RegistryObjectList/>
+    </ns3:AdhocQueryResponse>
+  </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
-	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -3736,19 +3657,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2018-04-09T22:21:26Z</con:value>
+          <con:value>2018-04-10T17:54:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2018-04-09T22:31:26Z</con:value>
+          <con:value>2018-04-10T18:04:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/09/2018 22:21:26</con:value>
+          <con:value>04/10/2018 17:54:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2018-05-09T00:00:00Z</con:value>
+          <con:value>2018-05-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3764,6 +3685,1722 @@ if(context.findProperty("PassThruOn").toBoolean()){
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="08c7914d-69d5-40a5-951d-5774a8836aad" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
       <con:settings/>
       <con:testStep type="groovy" name="Check Passthru" id="d03cb482-960e-401c-9258-084ee3ce7811">
+        <con:settings/>
+        <con:config><script>import nhinc.FileUtils;
+def dir = context.findProperty('GatewayPropDir');
+def file = "gateway.properties";
+def passthruProp = "docretrieve.30.inbound";
+
+def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
+log.info "Passthrough property value = ${passthruValue}";
+
+if(passthruValue != null){
+	testRunner.testCase.setPropertyValue("PassThruOn", "true");
+	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+	//Updating PolicyEngine for passthrough
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+	
+	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
+	
+} else {
+	testRunner.testCase.setPropertyValue("PassThruOn", "false");
+}
+
+log.info "Modifying internalExchangeInfo for adapterdocretrievesecured mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
+	"adapterdocretrievesecured", "http://localhost:1720/AdapterDocRetrieveSecured", "2.0",
+	log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Document Retrieve" type="request" id="b04638d4-44c4-441b-be21-7f8aef86e774">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocRetrieveBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
+          <con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="" id="f5db2ddf-a2a5-4acd-82e4-b1f0a276c517">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
+      <urn:RespondingGateway_CrossGatewayRetrieveRequest>
+         <urn1:RetrieveDocumentSetRequest>
+            <urn1:DocumentRequest>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
+               <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
+            </urn1:DocumentRequest>
+         </urn1:RetrieveDocumentSetRequest>
+         <urn:assertion>
+            <urn2:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn2:description>${#Project#LocalHCDescription}</urn2:description>
+               <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
+               <urn2:name>${#Project#LocalHCDescription}</urn2:name>
+            </urn2:homeCommunity>
+            <urn2:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn2:personName>
+                  <urn2:familyName>Skagerberg</urn2:familyName>
+                  <urn2:givenName>Karl</urn2:givenName>
+                  <urn2:nameType>
+                     <urn2:code>nameCode</urn2:code>
+                     <urn2:codeSystem>nameCodeSyst</urn2:codeSystem>
+                     <urn2:codeSystemName>nameCodeSystName</urn2:codeSystemName>
+                     <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
+                     <urn2:displayName>nameCode</urn2:displayName>
+                     <urn2:originalText>nameCode</urn2:originalText>
+                  </urn2:nameType>
+                  <urn2:secondNameOrInitials>S</urn2:secondNameOrInitials>
+                  <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
+               </urn2:personName>
+               <urn2:userName>kskagerb</urn2:userName>
+               <urn2:org>
+                  <urn2:description>${#Project#LocalHCDescription}</urn2:description>
+                  <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
+                  <urn2:name>${#Project#LocalHCDescription}</urn2:name>
+               </urn2:org>
+               <urn2:roleCoded>
+                  <urn2:code>307969004</urn2:code>
+                  <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
+                  <urn2:displayName>Public Health</urn2:displayName>
+                  <urn2:originalText>Public Health</urn2:originalText>
+               </urn2:roleCoded>
+            </urn2:userInfo>
+            <urn2:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn2:authorized>
+            <urn2:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn2:code>PUBLICHEALTH</urn2:code>
+               <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
+               <urn2:displayName>Use or disclosure of Psychotherapy Notes</urn2:displayName>
+               <urn2:originalText>Use or disclosure of Psychotherapy Notes</urn2:originalText>
+            </urn2:purposeOfDisclosureCoded>
+            <urn2:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn2:authInstant>2009-04-16T13:15:39Z</urn2:authInstant>
+               <urn2:sessionIndex>987</urn2:sessionIndex>
+               <urn2:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn2:authContextClassRef>
+               <urn2:subjectLocalityAddress>1.1.1.1</urn2:subjectLocalityAddress>
+               <urn2:subjectLocalityDNSName>connectopensource.org</urn2:subjectLocalityDNSName>
+            </urn2:samlAuthnStatement>
+            <urn2:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn2:decision>Permit</urn2:decision>
+               <urn2:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn2:resource>
+               <urn2:action>TestSaml</urn2:action>
+               <urn2:evidence>
+                  <urn2:assertion>
+                     <urn2:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn2:id>
+                     <urn2:issueInstant>2009-04-16T13:10:39.093Z</urn2:issueInstant>
+                     <urn2:version>2.0</urn2:version>
+                     <urn2:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn2:issuerFormat>
+                     <urn2:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn2:issuer>
+                     <urn2:conditions>
+                        <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
+                        <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
+                     </urn2:conditions>
+                     <urn2:accessConsentPolicy>urn:oid:1.2.3.4</urn2:accessConsentPolicy>
+                     <urn2:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn2:instanceAccessConsentPolicy>
+                  </urn2:assertion>
+               </urn2:evidence>
+            </urn2:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
+                  <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
+                  <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
+                  <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
+               </urn2:homeCommunity>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:RespondingGateway_CrossGatewayRetrieveRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="c8063a2f-d2ee-44ea-8b09-97b409d7181e"/>
+            <con:assertion type="SOAP Fault Assertion" id="526dee56-471a-43cb-91bf-12bbef90f93e"/>
+            <con:assertion type="Schema Compliance" id="21024811-0b40-479c-ae97-1b00eb53eb39" disabled="true">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc Repository ID" type="XPath Match" id="68ebb993-4053-4a00-8d6f-959c196e5550" disabled="true">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
+                <content>${#Project#DRRepoID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Doc ID" type="XPath Match" id="efec5421-97d7-4d15-85f3-c008cb025c3f" disabled="true">
+              <con:configuration>
+                <path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
+					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
+                <content>${#Project#DRDocID}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Document Data" type="GroovyScriptAssertion" id="883e0c14-a781-4643-8c4c-e54bfbd4762f">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
+					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
+					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
+					log.info docData.toString()
+					assert (docData.size() != 0)</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="mockresponse" name="Mock Document Retrieve Secured Adapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocRetrieveSecuredBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:path>/AdapterDocRetrieveSecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body>
+      <urn:RetrieveDocumentSetResponse>
+         <urn1:RegistryResponse status="?" requestId="?">
+            <!--Optional:-->
+            <urn1:ResponseSlotList>
+               <!--Zero or more repetitions:-->
+               <urn2:Slot name="?" slotType="?">
+                  <urn2:ValueList>
+                     <urn2:Value>?</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+            </urn1:ResponseSlotList>
+            <!--Optional:-->
+            <urn1:RegistryErrorList highestSeverity="?">
+               <!--1 or more repetitions:-->
+               <urn1:RegistryError codeContext="?" errorCode="?" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="?">?</urn1:RegistryError>
+            </urn1:RegistryErrorList>
+         </urn1:RegistryResponse>
+         <!--1 or more repetitions:-->
+         <urn:DocumentResponse>
+            <!--Optional:-->
+            <urn:HomeCommunityId>?</urn:HomeCommunityId>
+            <urn:RepositoryUniqueId>?</urn:RepositoryUniqueId>
+            <urn:DocumentUniqueId>?</urn:DocumentUniqueId>
+            <!--Optional:-->
+            <urn:NewRepositoryUniqueId>?</urn:NewRepositoryUniqueId>
+            <!--Optional:-->
+            <urn:NewDocumentUniqueId>?</urn:NewDocumentUniqueId>
+            <urn:mimeType>?</urn:mimeType>
+            <urn:Document>cid:711916385724</urn:Document>
+         </urn:DocumentResponse>
+      </urn:RetrieveDocumentSetResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
+
+	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+if(context.findProperty("PassThruOn").toBoolean()){
+	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
+	nhinc.FileUtils.restoreFile(dir, "DocumentRetrieveProxyConfig.xml", log);
+}</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>CorrectedRemoteHCID</con:name>
+          <con:value>urn:oid:2.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2018-04-10T17:54:19Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2018-04-10T18:04:19Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/10/2018 17:54:19</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2018-05-10T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>true</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru" id="dee4f002-ddd7-404a-a843-24d15066e259">
+        <con:settings/>
+        <con:config><script>import nhinc.FileUtils;
+def dir = context.findProperty('GatewayPropDir');
+def file = "gateway.properties";
+def passthruProp = "docsubmission.inboundDocSubmission";
+
+def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
+log.info "Passthrough property value = ${passthruValue}";
+
+if(passthruValue != null){
+	testRunner.testCase.setPropertyValue("PassThruOn", "true");
+	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+	//Updating PolicyEngine for passthrough
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+	
+	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
+	
+} else {
+	testRunner.testCase.setPropertyValue("PassThruOn", "false");
+}
+
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentSubmissionSelf", "false", log);
+log.info "Modifying internalExchangeInfo for adapterxdrsecured mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
+	"adapterxdrsecured", "http://localhost:1720/AdapterDocSubmissionXDRSecured", "2.0",
+	log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Doc Submission" type="request" id="f6e2de4f-e13f-4691-b312-3081e15e4458">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDR_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
+          <con:request incomingWss="" name="Doc Submission" outgoingWss="" wssPasswordType="" id="f1bb0142-df3f-4bb7-82c3-3ea624e706f6">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Submission">
+      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+         <urn:assertion>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>TREATMENT</urn1:code>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+
+         <urn:ProvideAndRegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme">
+               <!--Optional:-->
+  
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:RegistryPackage id="SubmissionSet01">
+                     <urn4:Slot name="submissionTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20041225235050</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description>
+                        <urn4:LocalizedString value="Annual physical"/>
+                     </urn4:Description>
+                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Berea Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Purn4ary Surgon</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:RegistryPackage>
+                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList> 
+
+            </urn2:SubmitObjectsRequest>
+            <!--1 or more repetitions:-->
+            <urn5:Document id="Document01">${#Project#DSDocument}</urn5:Document>
+         </urn:ProvideAndRegisterDocumentSetRequest>
+      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="4bbff983-2ac1-465a-9dcc-e4601e33d1ba"/>
+            <con:assertion type="SOAP Fault Assertion" id="b13eedc0-083b-4730-929e-44fc15864a88"/>
+            <con:assertion type="XPath Match" id="21b3bd86-cdc9-4fe4-b7b6-22e2711a5456" disabled="true">
+              <con:configuration>
+                <path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+							//ns11:RegistryResponse[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="bbd99e88-5cff-4898-8f2f-649be979201d">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="mockresponse" name="Mock Doc Submission Secured Adapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterXDRSecured_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/AdapterDocSubmissionXDRSecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body>
+      <urn:RegistryResponse status="?" requestId="?">
+         <!--Optional:-->
+         <urn:ResponseSlotList>
+            <!--Zero or more repetitions:-->
+            <urn1:Slot name="?" slotType="?">
+               <urn1:ValueList>
+                  <urn1:Value>?</urn1:Value>
+               </urn1:ValueList>
+            </urn1:Slot>
+         </urn:ResponseSlotList>
+         <!--Optional:-->
+         <urn:RegistryErrorList highestSeverity="?">
+            <!--1 or more repetitions:-->
+            <urn:RegistryError codeContext="?" errorCode="?" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="?">?</urn:RegistryError>
+         </urn:RegistryErrorList>
+      </urn:RegistryResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
+
+	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+if(context.findProperty("PassThruOn").toBoolean()){
+	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
+	nhinc.FileUtils.restoreFile(dir, "DocumentSubmissionProxyConfig.xml", log);
+}</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2018-04-10T17:54:20Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2018-04-10T18:04:20Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/10/2018 17:54:20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2018-05-10T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>true</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="61dc50b8-2600-4cdf-899e-d4f6079d9602" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru" id="771961f4-f71c-4ab1-a436-9978146c7756">
+        <con:settings/>
+        <con:config><script>import nhinc.FileUtils;
+def dir = context.findProperty('GatewayPropDir');
+def file = "gateway.properties";
+def passthruProp = "admindist.inboundAdminDist";
+
+def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
+log.info "Passthrough property value = ${passthruValue}";
+
+if(passthruValue != null){
+	testRunner.testCase.setPropertyValue("PassThruOn", "true");
+	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+	//Updating PolicyEngine for passthrough
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+	
+	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
+	
+} else {
+	testRunner.testCase.setPropertyValue("PassThruOn", "false");
+}
+log.info "Modifying internalExchangeInfo for adapteradmindistsecured mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
+	"adapteradmindistsecured", "http://localhost:1720/AdapterAdminDistSecured", "2.0",
+	log);</script></con:config>
+      </con:testStep><con:testStep name="Admin Distribution" type="request" id="940f7451-a09b-4a37-a5de-ddf82c4744dc">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdministrativeDistribution_Binding_Soap12_g1</con:interface>
+          <con:operation>SendAlertMessage</con:operation>
+          <con:request name="Admin Distribution" id="9b3bbeb4-4208-481b-8310-3c50ff37212c">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
+      <urn:RespondingGateway_SendAlertMessage>
+         <urn:assertion>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>80584001</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Psychiatrist</urn1:displayName>
+                  <urn1:originalText>Psychiatrist</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PSYCHOTHERAPY</urn1:code>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:15:39Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:15:39Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+            <urn1:samlSignature>
+               <!--Optional:-->
+               <urn1:keyInfo>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueModulus>cid:243113487404</urn1:rsaKeyValueModulus>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueExponent>cid:159355901562</urn1:rsaKeyValueExponent>
+               </urn1:keyInfo>
+               <!--Optional:-->
+               <urn1:signatureValue>cid:383675305350</urn1:signatureValue>
+            </urn1:samlSignature>
+            </urn:assertion>
+         <!--Optional:-->
+         <urn:nhinTargetCommunities>
+            <!--1 or more repetitions:-->
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+         <urn2:EDXLDistribution>
+            <urn2:distributionID>633990682441061250</urn2:distributionID>
+            <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
+            <urn2:dateTimeSent>2010-08-14T12:18:13.512375-08:00</urn2:dateTimeSent>
+            <urn2:distributionStatus>Actual</urn2:distributionStatus>
+            <urn2:distributionType>Update</urn2:distributionType>
+            <urn2:combinedConfidentiality>Public</urn2:combinedConfidentiality>
+            <!--Optional:-->
+            <urn2:language>?</urn2:language>
+            <!--Zero or more repetitions:-->
+            <urn2:senderRole>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:senderRole>
+            <!--Zero or more repetitions:-->
+            <urn2:recipientRole>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:recipientRole>
+            <!--Zero or more repetitions:-->
+            <urn2:keyword>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:keyword>
+            <!--Zero or more repetitions:-->
+            <urn2:distributionReference>?</urn2:distributionReference>
+            <!--Zero or more repetitions:-->
+            <urn2:explicitAddress>
+               <urn2:explicitAddressScheme>modified_IHEIntendedRecipient</urn2:explicitAddressScheme>
+               <!--1 or more repetitions:-->
+               <urn2:explicitAddressValue>^^^^^^^^^2.16.840.1.113883.3.166|0000000001</urn2:explicitAddressValue>
+            </urn2:explicitAddress>
+            <!--Zero or more repetitions:-->
+            <urn2:targetArea>
+               <!--Zero or more repetitions:-->
+               <urn2:circle>?</urn2:circle>
+               <!--Zero or more repetitions:-->
+               <urn2:polygon>?</urn2:polygon>
+               <!--Zero or more repetitions:-->
+               <urn2:country>?</urn2:country>
+               <!--Zero or more repetitions:-->
+               <urn2:subdivision>?</urn2:subdivision>
+               <!--Zero or more repetitions:-->
+               <urn2:locCodeUN>?</urn2:locCodeUN>
+            </urn2:targetArea>
+            <!--Zero or more repetitions:-->
+            <urn2:contentObject>
+               <!--Optional:-->
+               <urn2:contentDescription>PH Alert Message</urn2:contentDescription>
+               <!--Zero or more repetitions:-->
+               <urn2:contentKeyword>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:contentKeyword>
+               <!--Optional:-->
+               <urn2:incidentID>TEST</urn2:incidentID>
+               <!--Optional:-->
+               <urn2:incidentDescription>This is a test message</urn2:incidentDescription>
+               <!--Zero or more repetitions:-->
+               <urn2:originatorRole>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:originatorRole>
+               <!--Zero or more repetitions:-->
+               <urn2:consumerRole>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:consumerRole>
+               <!--Optional:-->
+               <urn2:confidentiality>Public</urn2:confidentiality>
+               <!--You have a CHOICE of the next 2 items at this level-->
+		<urn2:nonXMLContent>
+                  <urn2:mimeType>application/pdf</urn2:mimeType>
+                  <!--Optional:-->
+                  <urn2:size>19</urn2:size>
+                  <!--Optional:-->
+                  <urn2:digest>?</urn2:digest>
+                  <!--Optional:-->
+                  <urn2:uri>?</urn2:uri>
+                  <!--Optional:-->
+                  <urn2:contentData>${#Project#ADContentData}</urn2:contentData>
+               </urn2:nonXMLContent>
+               <!--You may enter ANY elements at this point-->
+            </urn2:contentObject>
+         </urn2:EDXLDistribution>
+      </urn:RespondingGateway_SendAlertMessage>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Delay" id="36324bfb-40fe-4856-b2cc-59fcd12bab59">
+        <con:settings/>
+        <con:config>
+          <delay>10000</delay>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep type="mockresponse" name="Mock AD Secured Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Adapter_AdministrativeDistributionSecured_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:path>/AdapterAdminDistSecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent xsi:nil="true"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+if(context.findProperty("PassThruOn").toBoolean()){
+	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
+	nhinc.FileUtils.restoreFile(dir, "AdminDistProxyConfig.xml", log);
+}</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2018-04-10T17:54:22Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2018-04-10T18:04:22Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/10/2018 17:54:22</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2018-05-10T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>true</con:value>
+        </con:property>
+      </con:properties>
+    </con:testCase>
+    <con:properties/>
+    <con:setupScript/>
+    <con:tearDownScript/>
+    <con:reportParameters/>
+  </con:testSuite>
+  
+  <con:testSuite name="UnsecuredAdapterSpringInjection">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    
+    
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="9a7e226f-74d7-431f-b2d7-a00836f8d5af">
+      <con:settings/>
+      <con:testStep name="clear correlations table" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
+			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
+			}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check Passthru">
+        <con:settings/>
+        <con:config><script>import nhinc.FileUtils;
+def dir = context.findProperty('GatewayPropDir');
+def file = "gateway.properties";
+def passthruProp = "patientDiscovery.inboundPatientDiscovery";
+
+def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
+log.info "Passthrough property value = ${passthruValue}";
+
+if(passthruValue != null){
+	testRunner.testCase.setPropertyValue("PassThruOn", "true");
+	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+	//Updating PolicyEngine for passthrough
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+	
+	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
+} else {
+	testRunner.testCase.setPropertyValue("PassThruOn", "false");
+	testRunner.gotoStepByName("Patient Discovery");
+}</script></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Set Up PassThru">
+        <con:settings/>
+        <con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Patient Discovery" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:request name="Patient Discovery" id="acb557ed-a94a-4a66-908f-895fce159afb">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
+      <urn:RespondingGateway_PRPA_IN201305UV02Request>
+         <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
+            <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
+            <urn:creationTime value="20091116084800"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+            <urn:processingCode code="T"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#RemoteHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#LocalHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:id root="${#Project#LocalAA}"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="${#Project#LocalHCID}" extension="-abd3453dcd24wkkks545"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responseModalityCode code="R"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:matchCriterionList>
+                     <urn:matchAlgorithm>
+                        <urn:value>"XYZ MatchAlgorithm"</urn:value>
+                        <urn:semanticsText>MatchAlgorithm</urn:semanticsText>
+                     </urn:matchAlgorithm>
+                     <urn:minimumDegreeMatch>
+                        <urn:value type="INT" value="99"/>
+                        <urn:semanticsText>MinimumDegreeMatch</urn:semanticsText>
+                     </urn:minimumDegreeMatch>
+                  </urn:matchCriterionList>
+                  <urn:parameterList>
+                     <urn:livingSubjectAdministrativeGender>
+                        <urn:value code="${#Project#Gender}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
+                     </urn:livingSubjectAdministrativeGender>
+                     <urn:livingSubjectBirthTime>
+                        <urn:value value="${#Project#BirthTime}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
+                     </urn:livingSubjectBirthTime>
+                     <urn:livingSubjectName>
+                        <urn:value>
+                           <urn:family partType="FAM">${#Project#FamilyName}</urn:family>
+                           <urn:given partType="GIV">${#Project#GivenName}</urn:given>
+                        </urn:value>
+                        <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
+                     </urn:livingSubjectName>
+                     <urn:livingSubjectId>
+                        <urn:value root="${#Project#LocalAA}" extension="${#Project#SubjectID}"/>
+                        <urn:semanticsText representation="TXT"/>
+                     </urn:livingSubjectId>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201305UV02>
+         <urn:assertion>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Anderson</urn1:familyName>
+                  <urn1:givenName>Wilma</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>G</urn1:code>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>WA</urn1:secondNameOrInitials>
+                  <urn1:fullName>Wilma Anderson</urn1:fullName>
+                  <urn1:prefix>Mrs</urn1:prefix>
+               </urn1:personName>
+               <urn1:userName>wanderson</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTH</urn1:code>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:NhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:RespondingGateway_PRPA_IN201305UV02Request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="63f3619d-4bed-4a69-a8c6-f54ed5a501ea"/>
+            <con:assertion disabled="true" type="Schema Compliance" id="b0b8de7c-2797-4888-a946-9f97afe88fcd">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="92b4f30e-1043-43ed-b71a-ca441870f191"/>
+            <con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match" id="e5447187-7b25-418f-adc2-f7796b7a69e0">
+              <con:configuration>
+                <path>declare namespace ns3='urn:hl7-org:v3';
+				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
+                <content>true</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Given Name XPath Match" type="XPath Match" id="88b70ebf-313d-4b2e-9e5f-c4a034c55cc7">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
+				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:given[1]</path>
+                <content>${#Project#GivenName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Family Name XPath Match" type="XPath Match" id="ad5efa05-2a29-42a7-a582-cce98a374236">
+              <con:configuration>
+                <path>declare namespace ns1='urn:hl7-org:v3';
+				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:family[1]</path>
+                <content>${#Project#FamilyName}</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Skip Mock">
+        <con:settings/>
+        <con:config>
+          <script>def runMock = context.findProperty("PassThruOn").toBoolean();
+
+if(!runMock){
+	testRunner.gotoStepByName("count correlations");
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="mockresponse" name="Mock Response">
+        <con:settings/>
+        <con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+          <con:path>/MockPDAdapter</con:path>
+          <con:port>1720</con:port>
+          <con:response id="2487fcd8-0812-47e4-a094-d3a67149a864">
+            <con:settings/>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="${#Project#LocalHCID}"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="${#Project#RemoteHCID}"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV02" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT">LivingSubject.administrativeGender</semanticsText>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT">LivingSubject.birthTime</semanticsText>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT">LivingSubject.name</semanticsText>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+          </con:response>
+        <con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
+	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config>
+      </con:testStep>
+      <con:testStep name="count correlations" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def pdCorrelations = 1;
+
+if(context.findProperty("PassThruOn").toBoolean()) {
+	pdCorrelations = 0;
+}
+
+log.info "Assert ${pdCorrelations} number of correlations"
+
+context.withSql('PatientCorrelationDB') { sql -> 
+		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+		}</script>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+if(context.findProperty("PassThruOn").toBoolean()){
+	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
+	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+}</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2018-04-10T17:54:36Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2018-04-10T18:04:36Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/10/2018 17:54:36</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2018-05-10T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>true</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    
+    
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="11c12736-8b6f-48cf-a3d2-8ee2b0ff1735">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru">
+        <con:settings/>
+        <con:config><script>import nhinc.FileUtils;
+def dir = context.findProperty('GatewayPropDir');
+def file = "gateway.properties";
+def passthruProp = "docquery.30.inboundDocQuery";
+
+def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
+log.info "Passthrough property value = ${passthruValue}";
+
+if(passthruValue != null){
+	testRunner.testCase.setPropertyValue("PassThruOn", "true");
+	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+	//Updating PolicyEngine for passthrough
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+	
+	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
+	
+	//testRunner.gotoStepByName("Document Query");
+	
+} else {
+	testRunner.testCase.setPropertyValue("PassThruOn", "false");
+}
+
+log.info "Setting Document Query Adapter to unsecured";
+nhinc.FileUtils.backupFile(dir, "DocumentQueryProxyConfig.xml", log);
+def alias = 'adapterdocquery'
+def aliasName= 'adapterdocquerywssecured';
+def replaceAlias = 'adapterdocquerywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="update config" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
+def dir = context.findProperty('GatewayPropDir');
+log.info "Modifying internalExchangeInfo for adapterdocquery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/AdapterDocQuery", "2.0",
+	log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
+		def table = context.findProperty('PatientCorrelationTable')
+
+		sql.execute('delete from ' + table)
+
+		def localAA = context.findProperty( "LocalAA" )
+		def localPatientID = context.findProperty("LocalPatientID")
+		def remoteAA = context.findProperty( "RemoteAA" )
+		def remotePatientID = context.findProperty("RemotePatientID")
+		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+		"values (1, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
+		}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+		def table = context.findProperty('AAMappingTable')
+
+		sql.execute('delete from ' + table)
+
+		def remoteAA = context.findProperty( "RemoteAA" )
+		def remoteHCID = context.findProperty("RemoteHCID")
+		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+		"values (1, ?, ?)"
+		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+		}</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="Document Query" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query" id="22edb841-929c-488e-b74f-1f75464bab7a">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Query">
+      <urn:RespondingGateway_CrossGatewayQueryRequest>
+         <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
+            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+               <urn2:Slot name="$XDSDocumentEntryPatientId">
+                  <urn2:ValueList>
+                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryStatus">
+                  <urn2:ValueList>
+                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+         <urn2:Slot name="$XDSDocumentEntryClassCode">
+            <urn2:ValueList>
+                    <urn2:Value>34133-9</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
+                  <urn2:ValueList>
+                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+            </urn2:AdhocQuery>
+         </urn1:AdhocQueryRequest>
+         <urn:assertion>
+            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:description>${#Project#LocalHCDescription}</urn3:description>
+               <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+               <urn3:name>${#Project#LocalHCDescription}</urn3:name>
+            </urn3:homeCommunity>
+            <urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:personName>
+                  <urn3:familyName>Skagerberg</urn3:familyName>
+                  <urn3:givenName>Karl</urn3:givenName>
+                  <urn3:nameType>
+                     <urn3:code>nameCode</urn3:code>
+                     <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                     <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                     <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                     <urn3:displayName>nameCode</urn3:displayName>
+                     <urn3:originalText>nameCode</urn3:originalText>
+                  </urn3:nameType>
+                  <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
+                  <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
+               </urn3:personName>
+               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:org>
+                  <urn3:description>${#Project#LocalHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+                  <urn3:name>${#Project#LocalHCDescription}</urn3:name>
+               </urn3:org>
+               <urn3:roleCoded>
+                  <urn3:code>307969004</urn3:code>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>Public Health</urn3:displayName>
+                  <urn3:originalText>Public Health</urn3:originalText>
+               </urn3:roleCoded>
+            </urn3:userInfo>
+            <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>
+            <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
+               <urn3:sessionIndex>987</urn3:sessionIndex>
+               <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
+               <urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
+            </urn3:samlAuthnStatement>
+         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:decision>Permit</urn3:decision>
+               <urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:action>TestSaml</urn3:action>
+               <urn3:evidence>
+                  <urn3:assertion>
+                     <urn3:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn3:id>
+                     <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
+                     <urn3:version>2.0</urn3:version>
+                     <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
+                     <urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:conditions>
+                        <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
+                        <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
+                     </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
+                  </urn3:assertion>
+               </urn3:evidence>
+            </urn3:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
+                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
+                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+               </urn3:homeCommunity>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:RespondingGateway_CrossGatewayQueryRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="3a2644c1-6c1f-45da-bf42-3e90ad71ae27"/>
+            <con:assertion type="Schema Compliance" id="f5752f9e-3892-41f2-81fb-e5f6de9fb298">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
+            <con:assertion name="DocID Match" type="GroovyScriptAssertion" id="024979c9-6566-4e32-a7eb-2f966460b317" disabled="true">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
+				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
+				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
+
+				def passThruOn = context.findProperty('PassThruOn').toBoolean();
+				def documentID = null;
+				if(passThruOn){
+					documentID = context.findProperty('DQPTDocID');
+				}else {
+					documentID = context.findProperty('DQDocID')
+				}
+
+				log.info("Doc ID used: " + documentID);
+				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
+				assert (documentID == msgDocID)</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:testStep type="mockresponse" name="mockdocqueryadapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQueryBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuery</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+  <soap:Header/>
+  <soap:Body>
+    <urn:AdhocQueryResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" requestId="1" startIndex="0" totalResultCount="0">
+      <ns2:ResponseSlotList>
+        <!--Zero or more repetitions:-->
+        <urn2:Slot name="?" slotType="?">
+          <urn2:ValueList>
+            <urn2:Value>?</urn2:Value>
+          </urn2:ValueList>
+        </urn2:Slot>
+      </urn1:ResponseSlotList>
+    </urn:AdhocQueryResponse>
+  </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
+secext-1.0.xsd"
+declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
+
+	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+      <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+if(context.findProperty("PassThruOn").toBoolean()){
+	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
+	nhinc.FileUtils.restoreFile(dir, "DocumentQueryProxyConfig.xml", log);
+}</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2018-04-10T17:54:37Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2018-04-10T18:04:37Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>04/10/2018 17:54:37</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2018-05-10T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+        </con:property>
+        <con:property>
+          <con:name>PassThruOn</con:name>
+          <con:value>true</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="f19f84c8-f98d-4fc2-8429-b2a30055d98a">
+      <con:settings/>
+      <con:testStep type="groovy" name="Check Passthru">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -3804,7 +5441,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/AdapterDocRetrieve", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Document Retrieve" type="request" id="b04638d4-44c4-441b-be21-7f8aef86e774">
+      <con:testStep name="Document Retrieve" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocRetrieveBindingSoap</con:interface>
@@ -4007,19 +5644,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2018-04-09T22:21:28Z</con:value>
+          <con:value>2018-04-10T17:54:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2018-04-09T22:31:28Z</con:value>
+          <con:value>2018-04-10T18:04:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/09/2018 22:21:28</con:value>
+          <con:value>04/10/2018 17:54:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2018-05-09T00:00:00Z</con:value>
+          <con:value>2018-05-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -4028,9 +5665,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="1c8ddbe2-6bdd-4d5a-89b8-1c9ebb9bb617">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru" id="dee4f002-ddd7-404a-a843-24d15066e259">
+      <con:testStep type="groovy" name="Check Passthru">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -4071,7 +5708,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterxdr", "http://localhost:1720/AdapterDocSubmissionXDR", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Doc Submission" type="request" id="f6e2de4f-e13f-4691-b312-3081e15e4458">
+      <con:testStep name="Doc Submission" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityXDR_Binding</con:interface>
@@ -4443,19 +6080,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2018-04-09T22:21:31Z</con:value>
+          <con:value>2018-04-10T17:54:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2018-04-09T22:31:31Z</con:value>
+          <con:value>2018-04-10T18:04:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/09/2018 22:21:31</con:value>
+          <con:value>04/10/2018 17:54:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2018-05-09T00:00:00Z</con:value>
+          <con:value>2018-05-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -4464,9 +6101,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="61dc50b8-2600-4cdf-899e-d4f6079d9602" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="ae54eee0-ba92-4b8b-8830-4af94a834de1">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru" id="771961f4-f71c-4ab1-a436-9978146c7756">
+      <con:testStep type="groovy" name="Check Passthru">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -4500,14 +6137,13 @@ def replaceAlias = 'adapteradmindistwsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "AdminDistProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);
 
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentSubmissionSelf", "false", log);
 log.info "Modifying internalExchangeInfo for adapteradmindist mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapteradmindist", "http://localhost:1720/AdapterAD", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Admin Distribution" type="request" id="940f7451-a09b-4a37-a5de-ddf82c4744dc">
+      <con:testStep name="Admin Distribution" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12_g1</con:interface>
@@ -4719,7 +6355,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay" id="36324bfb-40fe-4856-b2cc-59fcd12bab59">
+      <con:testStep type="delay" name="Delay">
         <con:settings/>
         <con:config>
           <delay>10000</delay>
@@ -4740,19 +6376,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2018-04-09T22:21:33Z</con:value>
+          <con:value>2018-04-10T17:54:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2018-04-09T22:31:33Z</con:value>
+          <con:value>2018-04-10T18:04:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/09/2018 22:21:33</con:value>
+          <con:value>04/10/2018 17:54:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2018-05-09T00:00:00Z</con:value>
+          <con:value>2018-05-10T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
@@ -4764,9 +6400,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     <con:setupScript/>
     <con:tearDownScript/>
     <con:reportParameters/>
-  </con:testSuite>
-  
-  <con:requirements/>
+  </con:testSuite><con:requirements/>
   <con:properties>
     <con:property>
       <con:name>ADContentData</con:name>
