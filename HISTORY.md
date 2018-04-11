@@ -1,7 +1,7 @@
 ## CONNECT 5.1.1 Release
 ### Summary
 
-The 5.1 release includes a bug fix for the adapter spring injection issued discovered in CONNECT 5.1:
+The 5.1.1 release includes a bug fix for the adapter spring injection issued discovered in CONNECT 5.1:
 
 * A bug was discovered in CONNECT 5.1 that caused all adapter calls to use secured connections even when CONNECT is configured to use unsecured connections.
 
