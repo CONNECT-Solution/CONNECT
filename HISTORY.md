@@ -1,16 +1,7 @@
 ## CONNECT 5.1.1 Release
 ### Summary
 
-The 5.1.1 release includes a bug fix for the adapter spring injection issued discovered in CONNECT 5.1:
-
-* A bug was discovered in CONNECT 5.1 that caused all adapter calls to use secured connections even when CONNECT is configured to use unsecured connections.
-
-For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/E4AaEQ).
-
-## CONNECT 5.1 Release (not supported)
-### Summary
-
-The 5.1 release includes these exciting new features:
+The 5.1.1 release includes these exciting new features and a bug fix for the adapter spring injection issued discovered in CONNECT 5.1:
 
 * Exchange Manager for downloading organizational data and endpoints from both UDDI and FHIR directories
 * Certificate Manager for adding, viewing and deleting certificates within a trust store
