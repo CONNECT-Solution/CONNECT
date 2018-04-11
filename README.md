@@ -32,7 +32,8 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 5.1 released February 2018
+* 5.1.1 released April 2018
+* 5.1 released February 2018 (not supported)
 * 5.0 released June 2017
 * 4.7 released September 2016
 * 4.6 released March 2016
