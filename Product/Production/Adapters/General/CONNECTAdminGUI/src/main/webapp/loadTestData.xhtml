@@ -120,7 +120,7 @@
                                                             styleClass="duplicate-button" icon="ui-icon-copy">
                                                             <p:resetInput target=":patientSaveDlg"  />
                                                         </p:commandButton>
-                                                        <p:commandButton id="deletePatient" update=":testdataTabview:patientsList"
+                                                        <p:commandButton id="deletePatient" update=":testdataTabview:patientsList, :testdataTabview:documentsList"
                                                             value="Delete"
                                                             actionListener="#{loadTestDataPatientBean.deletePatient}"
                                                             disabled="#{loadTestDataPatientBean.disablePatientButtons}"
