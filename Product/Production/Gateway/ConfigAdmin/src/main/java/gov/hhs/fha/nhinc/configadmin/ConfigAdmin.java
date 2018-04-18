@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.configadmin;
 
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
-
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
@@ -67,9 +66,7 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
     private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate success";
     private static final String INVALID_USER = "Bad token or Mismatch token";
 
-
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
-    private final SHA2PasswordUtil sha2PasswordUtil = SHA2PasswordUtil.getInstance();
 
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
@@ -81,10 +78,13 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
             importCertificateRequest.getImportCertRequest().getHashToken(),
             certManager.getTrustStoreSystemProperties().get(TRUST_STORE_PASSWORD_KEY))) {
             try {
-                certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getImportCertRequest().getCertData(),
+                certManager.importCertificate(importCertificateRequest.getImportCertRequest().getAlias(),
+                    importCertificateRequest.getImportCertRequest().getCertData(),
                     importCertificateRequest.getImportCertRequest().isRefreshCache());
                 response.setStatus(true);
-                LOG.info("Certificate imported with alias {} by user {}.", importCertificateRequest.getImportCertRequest().getAlias(), importCertificateRequest.getConfigAssertion().getUserInfo().getUserName());
+                LOG.info("Certificate imported with alias {} by user {}.", importCertificateRequest.
+                    getImportCertRequest().getAlias(), importCertificateRequest.getConfigAssertion().getUserInfo().
+                        getUserName());
             } catch (CertificateManagerException ex) {
                 LOG.error("Unable to import certificate due to: {}", ex.getLocalizedMessage(), ex);
                 formatResponse(response, false, ex.getLocalizedMessage());
@@ -120,10 +120,10 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
         return response;
     }
 
-    private boolean validateHash(String userName, String hashToken, String passKey) {
+    private static boolean validateHash(String userName, String hashToken, String passKey) {
         boolean hashCheck = false;
         try {
-            hashCheck = sha2PasswordUtil.checkPassword(hashToken.getBytes(),
+            hashCheck = SHA2PasswordUtil.checkPassword(hashToken.getBytes(),
                 passKey.getBytes(),
                 userName.getBytes());
         } catch (UtilException e) {
@@ -132,6 +132,7 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
 
         return hashCheck;
     }
+
     /*
      * (non-Javadoc)
      *
@@ -176,8 +177,6 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
         return certList;
     }
 
-
-
     /*
      * (non-Javadoc)
      *
@@ -198,9 +197,10 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
 
         if (validateHash(editCertificateRequest.getConfigAssertion().getUserInfo().getUserName(),
             editCertificateRequest.getEditCertRequest().getHashToken(), passkey)) {
-            try{
+            try {
                 formatResponse(response,
-                    updateTrustStoreAlias(certManager, editCertificateRequest,  storeType, storeLoc, passkey, KeyStore.getInstance(storeType)),
+                    updateTrustStoreAlias(certManager, editCertificateRequest, storeType, storeLoc, passkey, KeyStore.
+                        getInstance(storeType)),
                     UPDATE_CERTIFICATE_SUCCESS);
             } catch (final KeyStoreException ex) {
                 LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
@@ -252,7 +252,7 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
         CertificateManager certManager, String alias) throws CertificateManagerException {
         if (StringUtils.isNotBlank(alias)) {
             formatResponse(response, certManager.deleteCertificate(alias), "Delete certificate success");
-        }else{
+        } else {
             formatResponse(response, false, "Delete certificate alias is null or empty");
         }
     }
@@ -261,20 +261,15 @@ public class ConfigAdmin implements gov.hhs.fha.nhinc.configadmin.EntityConfigAd
         EditCertificateRequestMessageType editCertificateRequest, final String storeType,
         final String storeLoc, final String passkey, KeyStore storeCert) {
         EditCertificateRequestType certRequestParam = editCertificateRequest.getEditCertRequest();
-        boolean isUpdateSuccessful = false;
+        boolean isUpdateSuccessful;
         try {
             isUpdateSuccessful = certManager.updateCertificate(certRequestParam.getOldAlias(),
                 certRequestParam.getNewAlias(), storeType,
                 storeLoc, passkey, storeCert);
-
         } catch (CertificateManagerException e) {
             LOG.error("Unable to update keystore/truststore: {}", e);
             isUpdateSuccessful = false;
         }
-
         return isUpdateSuccessful;
     }
-
 }
-
-
