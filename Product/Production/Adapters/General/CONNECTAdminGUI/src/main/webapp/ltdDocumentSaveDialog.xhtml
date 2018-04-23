@@ -64,16 +64,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <h:outputLabel for="inputStatus" class="col-sm-4 control-label" id="labelStatus"
-                                            value="* Status:" />
+                                        <h:outputLabel for="inputClassCodeScheme" class="col-sm-4 control-label"
+                                            id="labelClassCodeScheme" value="* Class Code Scheme:" />
                                         <div class="col-sm-8">
-                                            <p:selectOneMenu style="width:150px" id="inputStatus"
-                                                value="#{loadTestDataDocumentBean.documentForm.status}" required="true"
-                                                requiredMessage="Status required." tabindex="10">
-                                                <f:selectItem itemLabel="---" itemValue="#{null}"
-                                                    noSelectionOption="true" />
-                                                <f:selectItems value="#{loadTestDataDocumentBean.listStatusType}" />
-                                            </p:selectOneMenu>
+                                            <p:inputText styleClass="form-control" id="inputClassCodeScheme"
+                                                value="#{loadTestDataDocumentBean.documentForm.classCodeScheme}"
+                                                maxlength="64" tabindex="10" required="true"
+                                                requiredMessage="Class Code Scheme required." />
                                         </div>
                                     </div>
                                 </div>
@@ -114,13 +111,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <h:outputLabel for="inputClassCodeScheme" class="col-sm-4 control-label"
-                                            id="labelClassCodeScheme" value="* Class Code Scheme:" />
+                                        <h:outputLabel for="inputStatus" class="col-sm-4 control-label" id="labelStatus"
+                                            value="* Status:" />
                                         <div class="col-sm-8">
-                                            <p:inputText styleClass="form-control" id="inputClassCodeScheme"
-                                                value="#{loadTestDataDocumentBean.documentForm.classCodeScheme}"
-                                                maxlength="64" tabindex="9" required="true"
-                                                requiredMessage="Class Code Scheme required." />
+                                            <p:selectOneMenu style="width:150px" id="inputStatus"
+                                                value="#{loadTestDataDocumentBean.documentForm.status}" required="true"
+                                                requiredMessage="Status required." tabindex="9">
+                                                <f:selectItem itemLabel="---" itemValue="#{null}"
+                                                    noSelectionOption="true" />
+                                                <f:selectItems value="#{loadTestDataDocumentBean.listStatusType}" />
+                                            </p:selectOneMenu>
                                         </div>
                                     </div>
                                 </div>
