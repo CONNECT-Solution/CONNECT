@@ -159,7 +159,7 @@ public class DirectTrustBundleBean {
      */
     public void showEdit() {
         if (selectedTb != null) {
-            RequestContext.getCurrentInstance().execute("tbEditDlg.show()");
+            RequestContext.getCurrentInstance().execute("PF('tbEditDlg').show()");
         }
     }
 
@@ -168,7 +168,7 @@ public class DirectTrustBundleBean {
      */
     public void showTrustBundleAnchors() {
         if (selectedTb != null) {
-            RequestContext.getCurrentInstance().execute("tbAnchorDlg.show()");
+            RequestContext.getCurrentInstance().execute("PF('tbAnchorDlg').show()");
         }
     }
 
@@ -177,7 +177,7 @@ public class DirectTrustBundleBean {
      */
     public void showDelConfirm() {
         if (selectedTb != null) {
-            RequestContext.getCurrentInstance().execute("tbConfirmDelDlg.show()");
+            RequestContext.getCurrentInstance().execute("PF('tbConfirmDelDlg').show()");
         }
     }
 

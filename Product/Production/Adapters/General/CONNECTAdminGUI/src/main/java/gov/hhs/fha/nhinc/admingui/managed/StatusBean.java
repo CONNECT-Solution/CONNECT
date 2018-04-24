@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -38,8 +38,8 @@ import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
 /**
@@ -53,7 +53,7 @@ public class StatusBean {
     private final StatusService sService = new StatusServiceImpl();
     private final StatusEvent eventService = new StatusEventImpl();
     private List<AvailableService> services = new ArrayList<>();
-    private CartesianChartModel eventBarChart;
+    private HorizontalBarChartModel eventBarChart;
     private PieChartModel eventPieChart;
 
     @PostConstruct
@@ -83,7 +83,7 @@ public class StatusBean {
     public long getTotalInboundRequests() {
         return eventService.getTotalInboundRequests();
     }
-    
+
     public long getTotalOutboundRequests() {
         return eventService.getTotatOutboundRequests();
     }
@@ -92,32 +92,40 @@ public class StatusBean {
         return services;
     }
 
-    public CartesianChartModel getEventBarChart() {
+    public HorizontalBarChartModel getEventBarChart() {
         return eventBarChart;
     }
-    
+
     public PieChartModel getEventPieChart() {
-        if(eventPieChart != null) {
+        if (eventPieChart != null) {
             refreshPieChart();
         }
         return eventPieChart;
     }
 
     private void refreshPieChart() {
-        Map<String, Integer> serviceMap = eventService.getServiceList();       
-        for(Entry<String, Integer> serviceEntry : serviceMap.entrySet()) {
+        Map<String, Integer> serviceMap = eventService.getServiceList();
+        for (Entry<String, Integer> serviceEntry : serviceMap.entrySet()) {
             eventPieChart.getData().put(serviceEntry.getKey(), serviceEntry.getValue());
         }
+        eventPieChart.setFill(false);
+        eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00");
+        eventPieChart.setShowDataLabels(true);
+        eventPieChart.setSliceMargin(5);
+        eventPieChart.setLegendPosition("se");
     }
 
     private void initBarChart() {
-        eventBarChart = new CartesianChartModel();
+        eventBarChart = new HorizontalBarChartModel();
 
         ChartSeries inboundSeries = createChart("Inbound", eventService.getInboundEventCounts());
         ChartSeries outboundSeries = createChart("Outbound", eventService.getOutboundEventCounts());
 
         eventBarChart.addSeries(inboundSeries);
         eventBarChart.addSeries(outboundSeries);
+        eventBarChart.setSeriesColors("10253F, CC0000");
+        eventBarChart.setStacked(true);
+        eventBarChart.setLegendPosition("se");
     }
 
     private static ChartSeries createChart(String label, Map<String, Integer> eventCounts) {
@@ -128,7 +136,7 @@ public class StatusBean {
         }
         return series;
     }
-    
+
     private void initPieChart() {
         eventPieChart = new PieChartModel();
         refreshPieChart();
