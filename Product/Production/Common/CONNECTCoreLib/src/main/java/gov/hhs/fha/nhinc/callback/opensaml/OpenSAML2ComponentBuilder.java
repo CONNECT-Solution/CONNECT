@@ -582,11 +582,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     }
 
-    private QName createHl7QName(final String name, final boolean hasPrefix) {
+    private static QName createHl7QName(final String name, final boolean hasPrefix) {
         return hasPrefix ? new QName(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX) : new QName(name);
     }
 
-    private boolean getHl7PrefixProperty() {
+    private static boolean getHl7PrefixProperty() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);

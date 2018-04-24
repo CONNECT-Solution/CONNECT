@@ -39,7 +39,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -690,18 +689,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected List<AttributeStatement> createHomeCommunityIdAttributeStatements(final CallbackProperties properties)
         throws SAMLAssertionBuilderException {
 
-        List<AttributeStatement> statements = Collections.emptyList();
-
         final String communityId = properties.getHomeCommunity();
-        if (StringUtils.isNotBlank(communityId)) {
-            statements = componentBuilder
-                .createHomeCommunitAttributeStatement(appendPrefixHomeCommunityID(communityId));
-        } else {
+        if (StringUtils.isBlank(communityId)) {
             LOG.error("No Home Community ID Attribute statement provided.");
             throw new SAMLAssertionBuilderException("No Home Community ID Attribute statement provided.");
         }
 
-        return statements;
+        return componentBuilder.createHomeCommunitAttributeStatement(appendPrefixHomeCommunityID(communityId));
 
     }
 
