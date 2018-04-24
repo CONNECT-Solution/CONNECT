@@ -117,7 +117,7 @@
                                                 <p:pieChart id="eventPieChart" value="#{statusBean.eventPieChart}" legendPosition="se" seriesColors="10253F, CC0000, 33D6FF, FFCC00" showDataLabels="TRUE" sliceMargin="5" fill="FALSE"/>
                                             </p:panel>
                                         </h:panelGrid>
-                                        <p:poll interval="5" update="statusGrid" />
+                                        <p:poll interval="5" update="statusGrid eventPieChart eventBarChart" />
                                     </h:form>
                                 </div>
                             </div>
