@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
-
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
@@ -94,14 +93,8 @@ public class PurposeOfForDecider {
     }
 
     private void logPurposeDecision(Boolean purposeFor, String hcid, String serviceName) {
-        String purposeName;
-        if (purposeFor) {
-            purposeName = "PURPOSE FOR";
-        } else {
-            purposeName = "PURPOSE OF";
-        }
-
-        LOG.debug("PurposeOfForDecider decision for HCID: " + hcid + " and Service Name: " + serviceName + " is = "
-                + purposeName + ".");
+        String purposeName = purposeFor ? "PURPOSE FOR" : "PURPOSE OF";
+        LOG.debug("PurposeOfForDecider decision for HCID: {} and Service Name: {} is = {}.", hcid, serviceName,
+            purposeName);
     }
 }

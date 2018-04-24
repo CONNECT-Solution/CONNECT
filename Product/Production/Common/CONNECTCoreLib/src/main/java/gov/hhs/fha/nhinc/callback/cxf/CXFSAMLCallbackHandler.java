@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -79,6 +79,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     @Override
     public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         LOG.trace("CXFSAMLCallbackHandler.handle begin");
+
         for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
@@ -108,16 +109,18 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
                     oSAMLCallback.setAssertionElement(builder.build(properties));
-
                 } catch (SAMLAssertionBuilderException ex) {
                     LOG.error("Failed to create saml: {}", ex.getLocalizedMessage(), ex);
-                    throw new IOException(ex);
+                    throw new IOException(ex.getMessage());
                 } catch (final Exception e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                 }
             }
         }
+
         LOG.trace("CXFSAMLCallbackHandler.handle end");
+
+        // throw new IllegalStateException("HCID is missing for assertion");
     }
 
     /**
