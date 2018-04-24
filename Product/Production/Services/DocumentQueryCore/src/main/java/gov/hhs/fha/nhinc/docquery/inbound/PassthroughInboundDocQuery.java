@@ -65,7 +65,7 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
 
         AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
 
-        return adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);
+        return adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion, webContextProperties);
     }
 
 }

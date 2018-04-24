@@ -72,7 +72,7 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
-            getMockAdapterFactory(mockAssertion), getAuditLogger(true)) {
+            getMockAdapterFactory(mockAssertion, new Properties()), getAuditLogger(true)) {
             @Override
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;

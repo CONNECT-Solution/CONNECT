@@ -106,12 +106,12 @@ public class InboundDocQueryTest {
             any(DocQueryAuditTransforms.class));
     }
 
-    protected AdapterDocQueryProxyObjectFactory getMockAdapterFactory(AssertionType assertion) {
+    protected AdapterDocQueryProxyObjectFactory getMockAdapterFactory(AssertionType assertion, Properties webContextProperties) {
         AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
         AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
 
         when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
-        when(mockAdapterProxy.respondingGatewayCrossGatewayQuery(request, assertion)).thenReturn(expectedResponse);
+        when(mockAdapterProxy.respondingGatewayCrossGatewayQuery(request, assertion, webContextProperties)).thenReturn(expectedResponse);
 
         return mockAdapterFactory;
     }

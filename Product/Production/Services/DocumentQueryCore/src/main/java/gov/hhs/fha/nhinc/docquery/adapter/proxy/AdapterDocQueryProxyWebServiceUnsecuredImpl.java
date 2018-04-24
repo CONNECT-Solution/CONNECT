@@ -35,11 +35,15 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.List;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,22 +60,24 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
      * @return Adapter Apilevel to be implemented (a0 or a1).
      */
     public ServicePortDescriptor<AdapterDocQueryPortType> getServicePortDescriptor(
-        NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
         return new AdapterDocQueryServicePortDescriptor();
     }
 
     /**
-     * The respondingGatewayCrossGatewayQuery method returns AdhocQueryResponse from Adapter interface.
+     * The respondingGatewayCrossGatewayQuery method returns AdhocQueryResponse
+     * from Adapter interface.
      *
      * @param msg The AdhocQueryRequest message.
      * @param assertion Assertion received.
      * @return AdhocQuery Response from Adapter interface.
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-    afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-    version = "")
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     @Override
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
+            Properties webContextProperties) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
         String url;
@@ -92,14 +98,16 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
                     ServicePortDescriptor<AdapterDocQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                     CONNECTClient<AdapterDocQueryPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                            .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(AdapterDocQueryPortType.class,
-                        "respondingGatewayCrossGatewayQuery", request);
+                            "respondingGatewayCrossGatewayQuery", request);
+
+                    addResponseHeaders(SoapResponseInInterceptor.getResponseHeaders(client.getPort()), webContextProperties);
                 }
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
-                    + ").  The URL is null.");
+                        + ").  The URL is null.");
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
@@ -108,5 +116,9 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");
         return response;
+    }
+
+    private void addResponseHeaders(List<Header> headers, Properties webContextProperties) {
+        webContextProperties.put(NhincConstants.SOAP_HEADERS_PROPERTY, headers);
     }
 }

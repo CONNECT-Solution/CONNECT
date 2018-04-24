@@ -328,6 +328,7 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
     public static final String WS_SOAP_TARGET_HOME_COMMUNITY_ID = "TargetHomeCommunityID";
+    public static final String SOAP_HEADERS_PROPERTY = "soapHeadersKey";
     // Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";
