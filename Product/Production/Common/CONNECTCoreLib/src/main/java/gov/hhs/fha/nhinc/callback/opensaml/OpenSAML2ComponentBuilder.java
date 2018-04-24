@@ -535,7 +535,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param userDisplay the user display
      * @return the attribute
      */
-    public Attribute createUserRoleAttribute(final String userCode, final String userSystem,
+    public Attribute createSubjectRoleAttribute(final String userCode, final String userSystem,
         final String userSystemName, final String userDisplay) {
         final Object attributeValue = createHL7Attribute("Role", userCode, userSystem, userSystemName, userDisplay);
         return createAttribute(null, SamlConstants.USER_ROLE_ATTR, null, Arrays.asList(attributeValue));
@@ -602,7 +602,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param patientId the patient id
      * @return the attribute
      */
-    public Attribute createPatientIDAttribute(final String patientId) {
+    public Attribute createResourceIDAttribute(final String patientId) {
         return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, Collections.singletonList(patientId));
     }
 

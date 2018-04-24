@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.io.IOException;
@@ -44,6 +45,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.wss4j.common.crypto.Crypto;
 import org.apache.wss4j.common.crypto.CryptoFactory;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.apache.wss4j.common.saml.bean.Version;
 import org.apache.wss4j.policy.SPConstants;
@@ -109,11 +111,9 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
                     oSAMLCallback.setAssertionElement(builder.build(properties));
-                } catch (SAMLAssertionBuilderException ex) {
-                    LOG.error("Failed to create saml: {}", ex.getLocalizedMessage(), ex);
-                    throw new IOException(ex.getMessage());
-                } catch (final Exception e) {
+                } catch (WSSecurityException | PropertyAccessException e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
+                    throw new SAMLAssertionBuilderException(e.getMessage(), e);
                 }
             }
         }
