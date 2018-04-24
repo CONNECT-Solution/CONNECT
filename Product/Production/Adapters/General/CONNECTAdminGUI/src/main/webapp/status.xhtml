@@ -117,7 +117,7 @@
                                                 <p:chart type="pie" id="eventPieChart" model="#{statusBean.eventPieChart}" />
                                             </p:panel>
                                         </h:panelGrid>
-                                        <p:poll interval="5" update="statusGrid" />
+                                        <p:poll interval="5" update="statusGrid eventPieChart eventBarChart" />
                                     </h:form>
                                 </div>
                             </div>
