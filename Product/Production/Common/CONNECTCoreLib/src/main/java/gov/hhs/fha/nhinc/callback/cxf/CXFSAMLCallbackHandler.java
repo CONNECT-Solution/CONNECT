@@ -120,7 +120,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
         LOG.trace("CXFSAMLCallbackHandler.handle end");
 
-        // throw new IllegalStateException("HCID is missing for assertion");
+
     }
 
     /**

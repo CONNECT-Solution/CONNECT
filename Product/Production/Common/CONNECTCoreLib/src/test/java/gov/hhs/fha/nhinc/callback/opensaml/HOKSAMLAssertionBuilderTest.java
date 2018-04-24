@@ -229,7 +229,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
         try {
             builder.createAuthenicationStatements(callbackProps);
-            fail();
+            fail("Builder does not fail when there is missing authentication");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("Assertion Authentication Statement <AuthnContext> element is null or not valid format.",
                 e.getMessage());
