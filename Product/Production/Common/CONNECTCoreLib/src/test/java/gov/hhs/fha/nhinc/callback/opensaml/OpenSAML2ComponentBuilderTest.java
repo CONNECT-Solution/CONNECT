@@ -103,7 +103,7 @@ public class OpenSAML2ComponentBuilderTest {
         final String userDisplay = "Public Health";
         final String type = "hl7:CE";
 
-        final Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
+        final Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createSubjectRoleAttribute(userCode, userSystem,
                 userSystemName, userDisplay);
         final List<XMLObject> attributeValue = attribute.getAttributeValues();
         for (final XMLObject value : attributeValue) {

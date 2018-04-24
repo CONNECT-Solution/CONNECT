@@ -601,7 +601,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         final List<AttributeStatement> statements = new ArrayList<>();
         final List<Attribute> attributes = new ArrayList<>();
-        attributes.add(componentBuilder.createUserRoleAttribute(userCode, userSystem, userSystemName, userDisplay));
+        attributes.add(componentBuilder.createSubjectRoleAttribute(userCode, userSystem, userSystemName, userDisplay));
 
         if (!attributes.isEmpty()) {
             statements.addAll(componentBuilder.createAttributeStatement(attributes));
@@ -709,7 +709,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final List<AttributeStatement> statements = new ArrayList<>();
         final String patientId = properties.getPatientID();
         if (patientId != null) {
-            Attribute attribute = componentBuilder.createPatientIDAttribute(patientId);
+            Attribute attribute = componentBuilder.createResourceIDAttribute(patientId);
             statements.addAll(componentBuilder.createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.warn("Resource Id is missing");
