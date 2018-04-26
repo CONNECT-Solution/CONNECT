@@ -582,8 +582,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final String userDisplay = properties.getUserDisplay();
 
         if (Arrays.asList(userCode, userSystem, userSystemName, userDisplay).contains(null)) {
-            LOG.error("No information provided to fill in user role attribute..");
-            throw new SAMLAssertionBuilderException("No information provided to fill in user role attribute.");
+            LOG.error("No information provided to fill in subject role attribute..");
+            throw new SAMLAssertionBuilderException("No information provided to fill in subject role attribute.");
         }
 
         final List<AttributeStatement> statements = new ArrayList<>();
