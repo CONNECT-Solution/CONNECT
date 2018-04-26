@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,49 +32,30 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.properties.PropertyFileDAO;
-import java.io.File;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.Principal;
 import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SignatureException;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateExpiredException;
-import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import javax.activation.DataHandler;
 import org.apache.commons.collections.CollectionUtils;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.opensaml.core.xml.schema.XSAny;
@@ -90,7 +71,10 @@ import org.opensaml.saml.saml2.core.Evidence;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.Subject;
 import org.opensaml.saml.saml2.core.SubjectConfirmation;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 
 /**
  * @author bhumphrey
@@ -101,36 +85,8 @@ public class HOKSAMLAssertionBuilderTest {
     private static RSAPublicKey publicKey;
     private static PrivateKey privateKey;
 
-    private static final String PROPERTY_FILE_NAME = "mock";
-    private static final String PROPERTY_NAME = "propertyName";
-    private static final String PROPERTY_VALUE_STRING = "CN=SAML User,OU=SU,O=SAML User,L=New York,ST=NY,C=US";
-
-    protected Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final PropertyFileDAO mockFileDAO = context.mock(PropertyFileDAO.class);
-
     @Before
-    public void setMockFileDAOExpectations() throws PropertyAccessException {
-        context.checking(new Expectations() {
-            {
-                allowing(mockFileDAO).containsPropFile(with(any(String.class)));
-                will(returnValue(true));
-
-                allowing(mockFileDAO).getProperty(with(any(String.class)), with(any(String.class)));
-                will(returnValue(PROPERTY_VALUE_STRING));
-
-                allowing(mockFileDAO).loadPropertyFile(with(any(File.class)), with(any(String.class)));
-
-                allowing(mockFileDAO).printToLog(with(any(String.class)));
-            }
-        });
-    }
-
-    @BeforeClass
-    static public void setUp() throws NoSuchAlgorithmException {
+    public void setMockFileDAOExpectations() throws NoSuchAlgorithmException {
 
         KeyPairGenerator keyGen;
         keyGen = KeyPairGenerator.getInstance("RSA");
@@ -140,246 +96,144 @@ public class HOKSAMLAssertionBuilderTest {
 
     }
 
-    /**
-     *
-     * @throws Exception
-     */
+    private static CertificateManager setupCertManager() throws CertificateManagerException {
+        CertificateManager certManager = mock(CertificateManager.class);
+        X509Certificate cert = mock(X509Certificate.class);
+
+        when(certManager.getDefaultPublicKey()).thenReturn(publicKey);
+        when(certManager.getDefaultPrivateKey()).thenReturn(privateKey);
+        when(certManager.getDefaultCertificate()).thenReturn(cert);
+        when(certManager.deleteCertificate(Mockito.isA(String.class))).thenReturn(false);
+        when(certManager.updateCertificate(Mockito.isA(String.class), Mockito.isA(String.class),
+            Mockito.isA(String.class), Mockito.isA(String.class), Mockito.isA(String.class),
+            Mockito.isA(KeyStore.class))).thenReturn(false);
+
+        when(cert.hasUnsupportedCriticalExtension()).thenReturn(false);
+        when(cert.getNonCriticalExtensionOIDs()).thenReturn(Collections.EMPTY_SET);
+        when(cert.getCriticalExtensionOIDs()).thenReturn(Collections.EMPTY_SET);
+        when(cert.getPublicKey()).thenReturn(publicKey);
+        return certManager;
+    }
+
     @Test
-    public void testBuild() throws Exception {
-        final SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(new CertificateManager() {
-            @Override
-            public RSAPublicKey getDefaultPublicKey() {
-                return publicKey;
-            }
-
-            @Override
-            public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
-                return privateKey;
-            }
-
-            @Override
-            public KeyStore getKeyStore() {
-                return null;
-            }
-
-            @Override
-            public KeyStore getTrustStore() {
-                return null;
-            }
-
-            @Override
-            public X509Certificate getDefaultCertificate() throws CertificateManagerException {
-                return new X509Certificate() {
-                    @Override
-                    public boolean hasUnsupportedCriticalExtension() {
-                        return false;
-                    }
-
-                    @Override
-                    public Set<String> getNonCriticalExtensionOIDs() {
-                        return Collections.EMPTY_SET;
-                    }
-
-                    @Override
-                    public byte[] getExtensionValue(final String oid) {
-                        return new byte[1];
-                    }
-
-                    @Override
-                    public Set<String> getCriticalExtensionOIDs() {
-                        return Collections.EMPTY_SET;
-                    }
-
-                    @Override
-                    public void verify(final PublicKey key, final String sigProvider) throws CertificateException,
-                    NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
-
-                    }
-
-                    @Override
-                    public void verify(final PublicKey key) throws CertificateException, NoSuchAlgorithmException,
-                    InvalidKeyException, NoSuchProviderException, SignatureException {
-                    }
-
-                    @Override
-                    public String toString() {
-                        return null;
-                    }
-
-                    @Override
-                    public PublicKey getPublicKey() {
-                        return publicKey;
-                    }
-
-                    @Override
-                    public byte[] getEncoded() throws CertificateEncodingException {
-                        return new byte[1];
-                    }
-
-                    @Override
-                    public int getVersion() {
-                        return 0;
-                    }
-
-                    @Override
-                    public byte[] getTBSCertificate() throws CertificateEncodingException {
-                        return new byte[1];
-                    }
-
-                    @Override
-                    public boolean[] getSubjectUniqueID() {
-                        return new boolean[1];
-                    }
-
-                    @Override
-                    public Principal getSubjectDN() {
-                        return null;
-                    }
-
-                    @Override
-                    public byte[] getSignature() {
-                        return new byte[1];
-                    }
-
-                    @Override
-                    public byte[] getSigAlgParams() {
-                        return new byte[1];
-                    }
-
-                    @Override
-                    public String getSigAlgOID() {
-                        return null;
-                    }
-
-                    @Override
-                    public String getSigAlgName() {
-                        return null;
-                    }
-
-                    @Override
-                    public BigInteger getSerialNumber() {
-                        return null;
-                    }
-
-                    @Override
-                    public Date getNotBefore() {
-                        return null;
-                    }
-
-                    @Override
-                    public Date getNotAfter() {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean[] getKeyUsage() {
-                        return new boolean[1];
-                    }
-
-                    @Override
-                    public boolean[] getIssuerUniqueID() {
-                        return new boolean[1];
-                    }
-
-                    @Override
-                    public Principal getIssuerDN() {
-                        return null;
-                    }
-
-                    @Override
-                    public int getBasicConstraints() {
-                        return 0;
-                    }
-
-                    @Override
-                    public void checkValidity(final Date date)
-                        throws CertificateExpiredException, CertificateNotYetValidException {
-                    }
-
-                    @Override
-                    public void checkValidity() throws CertificateExpiredException, CertificateNotYetValidException {
-                    }
-                };
-
-            }
-
-            @Override
-            public KeyStore refreshKeyStore() {
-                return null;
-            }
-
-            @Override
-            public String getKeyStoreLocation() {
-                return null;
-            }
-
-            @Override
-            public String getTrustStoreLocation() {
-                return null;
-            }
-
-            @Override
-            public KeyStore refreshTrustStore() {
-                return null;
-            }
-
-            @Override
-            public HashMap<String, String> getTrustStoreSystemProperties() {
-                return null;
-            }
-            
-            @Override
-            public void refreshServices() {
-                //do nothing
-            }
-
-            @Override
-            public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException {
-                //do nothing
-            }
-
-            @Override
-            public HashMap<String, String> getKeyStoreSystemProperties() {
-                return null;
-            }
-
-            @Override
-            public X509Certificate getCertificateFromByteCode(DataHandler data) throws CertificateManagerException {
-                return null;
-            }
-
-            @Override
-            public DataHandler transformToHandler(byte[] encoded) {
-                return null;
-            }
-
-            @Override
-            public byte[] transformToByteCode(DataHandler handler) throws IOException {
-                return null;
-            }
-
-            @Override
-            public boolean deleteCertificate(String alias) throws CertificateManagerException {
-                return false;
-            }
-
-            @Override
-            public boolean updateCertificate(String oldAlias, String newAlias, String storeType,
-                String storeLoc, String passkey, KeyStore storeCert)
-                    throws CertificateManagerException {
-                return false;
-            }
-        });
-        final Element assertion = builder.build(getProperties());
+    public void testBuild() throws SAMLAssertionBuilderException, CertificateManagerException {
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+        final Element assertion = builder.build(makeCallbackProperties(null));
         assertNotNull(assertion);
     }
 
-    @Test(expected = SAMLAssertionBuilderException.class)
-    public void testCreateAuthenticationStatement() throws SAMLAssertionBuilderException {
+    @Test
+    public void testBuild_NoSubjectID() throws CertificateManagerException {
+        HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        HashMap<String, Object> properties = getDefaultProperties();
+        properties.put(SamlConstants.USER_FIRST_PROP, null);
+        properties.put(SamlConstants.USER_MIDDLE_PROP, null);
+        properties.put(SamlConstants.USER_LAST_PROP, null);
+
+        try {
+            builder.build(makeCallbackProperties(properties));
+            fail("Builder does not fail when there is a missing user name / subject ID");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("No information provided to fill in Subject ID attribute.", e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testBuild_NoSubjectOrg() throws CertificateManagerException {
+
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        HashMap<String, Object> properties = getDefaultProperties();
+        properties.put(SamlConstants.USER_ORG_PROP, null);
+
+        try {
+            builder.build(makeCallbackProperties(properties));
+            fail("Builder does not fail when there is a missing subject organization");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("No Organization Attribute statement provided.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testBuild_NoSubjectRole() throws CertificateManagerException {
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        HashMap<String, Object> properties = getDefaultProperties();
+        properties.put(SamlConstants.USER_CODE_PROP, null);
+        properties.put(SamlConstants.USER_SYST_PROP, null);
+        properties.put(SamlConstants.USER_SYST_NAME_PROP, null);
+        properties.put(SamlConstants.USER_DISPLAY_PROP, null);
+
+        try {
+            builder.build(makeCallbackProperties(properties));
+            fail("Builder does not fail when there is a missing subject role");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("No information provided to fill in subject role attribute.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testBuild_NoPurposeOfUse() throws CertificateManagerException {
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        HashMap<String, Object> properties = getDefaultProperties();
+        properties.put(SamlConstants.PURPOSE_CODE_PROP, null);
+        properties.put(SamlConstants.PURPOSE_SYST_PROP, null);
+        properties.put(SamlConstants.PURPOSE_SYST_NAME_PROP, null);
+        properties.put(SamlConstants.PURPOSE_DISPLAY_PROP, null);
+
+        try {
+            builder.build(makeCallbackProperties(properties));
+            fail("Builder does not fail when there is a missing purpose of use");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("No information provided to fill in Purpose For Use attribute.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testBuild_NoHCID() throws CertificateManagerException {
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        HashMap<String, Object> properties = getDefaultProperties();
+        properties.put(SamlConstants.HOME_COM_PROP, null);
+
+        try {
+            builder.build(makeCallbackProperties(properties));
+            fail("Builder does not fail when there is a missing HCID");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("No Home Community ID Attribute statement provided.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testBuild_NoOrgID() throws CertificateManagerException {
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        HashMap<String, Object> properties = getDefaultProperties();
+        properties.put(SamlConstants.USER_ORG_ID_PROP, null);
+
+        try {
+            builder.build(makeCallbackProperties(properties));
+            fail("Builder does not fail when there is a missing organization ID");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("No Organization ID Attribute statement provided.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateAuthenticationStatement_NullProperty() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
         when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
-        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
+        try {
+            builder.createAuthenicationStatements(callbackProps);
+            fail("Builder does not fail when there is missing authentication");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("Assertion Authentication Statement <AuthnContext> element is null or not valid format.",
+                e.getMessage());
+        }
     }
 
     @Test
@@ -397,43 +251,20 @@ public class HOKSAMLAssertionBuilderTest {
         assertFalse(authnStatement.isEmpty());
     }
 
-    @Test(expected = SAMLAssertionBuilderException.class)
-    public void testCreateAuthenticationStatementWithDateNull() throws SAMLAssertionBuilderException {
+    @Test
+    public void testCreateAuthenticationStatementWithDateNull() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
 
         when(callbackProps.getAuthenticationContextClass()).thenReturn("urn:oasis:names:tc:SAML:2.0:ac:classes:X509");
         when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
 
-        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
-        assertNotNull(authnStatement);
-
-        assertFalse(authnStatement.isEmpty());
-    }
-
-    @Test(expected = SAMLAssertionBuilderException.class)
-    public void testCreateAuthenticationStatementWithNonDate() throws SAMLAssertionBuilderException {
-        final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-
-        when(callbackProps.getAuthenticationContextClass()).thenReturn("urn:oasis:names:tc:SAML:2.0:ac:classes:X509");
-        when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
-
-        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
-        assertNotNull(authnStatement);
-
-        assertFalse(authnStatement.isEmpty());
-    }
-
-    @Test(expected = SAMLAssertionBuilderException.class)
-    public void testCreateAtributeStatementUserName() throws SAMLAssertionBuilderException {
-        final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-        final Subject subject = mock(Subject.class);
-        final AttributeStatement e = mock(AttributeStatement.class);
-        final List<AttributeStatement> statements = builder.createUserNameAttributeStatements(callbackProps);
-        when(callbackProps.getUserFullName()).thenReturn(null);
-
+        try {
+            builder.createAuthenicationStatements(callbackProps);
+            fail("Auth statement did not throw when date provided is not provided");
+        } catch (SAMLAssertionBuilderException e) {
+            assertEquals("Assertion Authentication Statement <AuthnInstant> element is null.", e.getMessage());
+        }
     }
 
     @Test
@@ -449,7 +280,7 @@ public class HOKSAMLAssertionBuilderTest {
         List<AttributeStatement> aStatement = builder.createAcpAttributeStatements(callbackProps);
 
         assertNotNull(aStatement);
-        assertEquals(aStatement.size(), 2);
+        assertEquals(2, aStatement.size());
 
         boolean containsAcps = true;
         for(int i=0; i<2; i++) {
@@ -463,8 +294,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsNotBeforeAndNotAfterPresent()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsNotBeforeAndNotAfterPresent() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -484,7 +314,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsNotBeforeIsNull() throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsNotBeforeIsNull() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
             @Override
@@ -503,14 +333,9 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsNotAfterIsNull() throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsNotAfterIsNull() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
-            @Override
-            protected boolean isConditionsDefaultValueEnabled() {
-                return false;
-            }
-        };
+        final HOKSAMLAssertionBuilder builder = getNonDefaultConditionBuilder();
         final DateTime conditionNotBefore = new DateTime();
 
         when(callbackProps.getSamlConditionsNotBefore()).thenReturn(conditionNotBefore);
@@ -521,15 +346,9 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOffBeginInvalid()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsPropertyOffBeginInvalid() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
-            @Override
-            protected boolean isConditionsDefaultValueEnabled() {
-                return false;
-            }
-        };
+        final HOKSAMLAssertionBuilder builder = getNonDefaultConditionBuilder();
         final DateTime now = new DateTime();
         final DateTime conditionNotBefore = now.plusYears(2);
         final DateTime conditionNotAfter = now.plusYears(3);
@@ -544,15 +363,9 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOffAfterInvalid()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsPropertyOffAfterInvalid() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
-            @Override
-            protected boolean isConditionsDefaultValueEnabled() {
-                return false;
-            }
-        };
+        final HOKSAMLAssertionBuilder builder = getNonDefaultConditionBuilder();
         final DateTime now = new DateTime();
         final DateTime conditionNotBefore = now.minusYears(3);
         final DateTime conditionNotAfter = now.minusYears(2);
@@ -567,15 +380,9 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOnInvalidBefore()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsPropertyOnInvalidBefore() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
-            @Override
-            protected boolean isConditionsDefaultValueEnabled() {
-                return true;
-            }
-        };
+        final HOKSAMLAssertionBuilder builder = getDefaultConditionBuilder();
         final DateTime now = new DateTime();
         final DateTime conditionNotBefore = now.plusYears(2);
         final DateTime conditionNotAfter = now.plusYears(3);
@@ -589,15 +396,9 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testSamlConditionsPropertyOnInvalidAfter()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testSamlConditionsPropertyOnInvalidAfter() {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder() {
-            @Override
-            protected boolean isConditionsDefaultValueEnabled() {
-                return true;
-            }
-        };
+        final HOKSAMLAssertionBuilder builder = getDefaultConditionBuilder();
         final DateTime now = new DateTime();
         final DateTime conditionNotBefore = now.minusYears(3);
         final DateTime conditionNotAfter = now.minusYears(2);
@@ -611,8 +412,8 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testBuildEvidence() throws SAMLAssertionBuilderException {
-        Map<Object, Object> propertiesMap = new HashMap<Object, Object>();
+    public void testBuildEvidence() {
+        Map<String, Object> propertiesMap = new HashMap<String, Object>();
         propertiesMap.put(SamlConstants.EVIDENCE_ID_PROP, "_45678fdgrt543sweqt");
         CallbackProperties properties = new CallbackMapProperties(propertiesMap);
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
@@ -625,8 +426,7 @@ public class HOKSAMLAssertionBuilderTest {
     }
 
     @Test
-    public void testCreateAuthenticationDecisionStatements()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testCreateAuthenticationDecisionStatements() throws SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime beforeCreation = new DateTime();
@@ -643,15 +443,15 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceAccessConstent()).thenReturn(evidenceAccessConstent);
         when(callbackProps.getEvidenceInstantAccessConsent()).thenReturn(evidenceInstantAccessConsent);
 
-        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
-        assertEquals(statement.getDecision(), DecisionTypeEnumeration.PERMIT);
+        assertEquals(DecisionTypeEnumeration.PERMIT, statement.getDecision());
 
         final Action action = statement.getActions().get(0);
-        assertEquals(action.getAction(), SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE);
+        assertEquals(SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE, action.getAction());
 
         final Evidence evidence = statement.getEvidence();
         final Assertion assertion = evidence.getAssertions().get(0);
@@ -661,7 +461,7 @@ public class HOKSAMLAssertionBuilderTest {
             || beforeCreation.isEqual(assertion.getIssueInstant()));
 
         final Issuer issuer = assertion.getIssuer();
-        assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
+        assertEquals(SAMLAssertionBuilder.X509_NAME_ID, issuer.getFormat());
 
         final Conditions conditions = assertion.getConditions();
 
@@ -669,12 +469,12 @@ public class HOKSAMLAssertionBuilderTest {
         assertEquals(conditions.getNotOnOrAfter(), conditionNotAfter.withZone(DateTimeZone.UTC));
 
         final List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
-        assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
+        assertEquals(2, attributeStatement.get(0).getAttributes().size());
 
         final Attribute firstAttribute = attributeStatement.get(0).getAttributes().get(0);
         final Attribute secondAttribute = attributeStatement.get(0).getAttributes().get(1);
-        assertEquals(firstAttribute.getName(), "AccessConsentPolicy");
-        assertEquals(secondAttribute.getName(), "InstanceAccessConsentPolicy");
+        assertEquals("AccessConsentPolicy", firstAttribute.getName());
+        assertEquals("InstanceAccessConsentPolicy", secondAttribute.getName());
     }
 
     @Test
@@ -692,7 +492,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
 
-        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
@@ -719,7 +519,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(null);
-        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
@@ -745,7 +545,7 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(null);
 
-        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
@@ -758,7 +558,9 @@ public class HOKSAMLAssertionBuilderTest {
         assertNull(conditions);
     }
 
-    HOKSAMLAssertionBuilder getHOKSAMLAssertionBuilder() {
+    // Since this project is heavily focused on statics/singletons, and not using Spring's wiring, we have to override
+    // the method. Alternatively, we could use PowerMock with Mockito to mock the static calls, but that's overkill.
+    private static HOKSAMLAssertionBuilder getNonDefaultConditionBuilder() {
         // return isConditionsDefaultValueEnabled flag to false
         return new HOKSAMLAssertionBuilder() {
             @Override
@@ -767,234 +569,80 @@ public class HOKSAMLAssertionBuilderTest {
             }
         };
     }
-
-    CallbackProperties getProperties() {
-        return new CallbackProperties() {
+    private static HOKSAMLAssertionBuilder getDefaultConditionBuilder() {
+        // return isConditionsDefaultValueEnabled flag to true
+        return new HOKSAMLAssertionBuilder() {
             @Override
-            public String getUsername() {
-                return "userName";
-            }
-
-            @Override
-            public String getUserSystemName() {
-                return "sytemName";
-            }
-
-            @Override
-            public String getUserSystem() {
-                return "userSystem";
-            }
-
-            @Override
-            public String getUserOrganization() {
-                return "uerOrg";
-            }
-
-            @Override
-            public String getUserFullName() {
-                return "Full Name";
-            }
-
-            @Override
-            public String getUserDisplay() {
-                return "display";
-            }
-
-            @Override
-            public String getUserCode() {
-                return "userCode";
-            }
-
-            @Override
-            public String getSubjectLocality() {
-                return "subject";
-            }
-
-            @Override
-            public String getSubjectDNS() {
-                return "dns";
-            }
-
-            @Override
-            public String getPurposeSystemName() {
-                return "systemname";
-            }
-
-            @Override
-            public String getPurposeSystem() {
-                return "purpose";
-            }
-
-            @Override
-            public String getPurposeDisplay() {
-                return "disply";
-            }
-
-            @Override
-            public String getPurposeCode() {
-                return "code";
-            }
-
-            @Override
-            public String getPatientID() {
-                return "pid";
-            }
-
-            @Override
-            public String getIssuer() {
-                return "CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US";
-            }
-
-            @Override
-            public String getHomeCommunity() {
-                return "hci";
-            }
-
-            @Override
-            public DateTime getSamlConditionsNotBefore() {
-                return new DateTime();
-            }
-
-            @Override
-            public DateTime getSamlConditionsNotAfter() {
-                return new DateTime();
-            }
-
-            @Override
-            public String getEvidenceIssuerFormat() {
-                return "format";
-            }
-
-            @Override
-            public String getEvidenceIssuer() {
-                return "issuer";
-            }
-
-            @Override
-            public String getEvidenceSubject() {
-                return "evidenceSubject";
-            }
-
-            @Override
-            public DateTime getEvidenceInstant() {
-                return new DateTime();
-            }
-
-            @Override
-            public List getEvidenceInstantAccessConsent() {
-                return Collections.EMPTY_LIST;
-            }
-
-            @Override
-            public String getEvidenceID() {
-                return "evidence id";
-            }
-
-            @Override
-            public DateTime getEvidenceConditionNotBefore() {
-                return new DateTime();
-            }
-
-            @Override
-            public DateTime getEvidenceConditionNotAfter() {
-                return new DateTime();
-            }
-
-            @Override
-            public List getEvidenceAccessConstent() {
-                return Collections.EMPTY_LIST;
-            }
-
-            @Override
-            public String getAuthorizationResource() {
-                return "resource";
-            }
-
-            @Override
-            public Boolean getAuthorizationStatementExists() {
-                return false;
-            }
-
-            @Override
-            public Boolean getAuthenticationStatementExists() {
-                return false;
-            }
-
-            @Override
-            public String getAuthenticationSessionIndex() {
-                return "1";
-            }
-
-            @Override
-            public DateTime getAuthenticationInstant() {
-                return new DateTime();
-            }
-
-            @Override
-            public String getAuthorizationDecision() {
-                return null;
-            }
-
-            @Override
-            public String getAuthenticationContextClass() {
-                return "cntx";
-            }
-
-            @Override
-            public String getAssertionIssuerFormat() {
-                return "format";
-            }
-
-            @Override
-            public String getTargetHomeCommunityId() {
-                return "targetHomeCommunityId";
-            }
-
-            @Override
-            public String getServiceName() {
-                return "serviceName";
-            }
-
-            @Override
-            public String getAction() {
-                return "action";
-            }
-
-            @Override
-            public GATEWAY_API_LEVEL getTargetApiLevel() {
-                return GATEWAY_API_LEVEL.LEVEL_g1;
-            }
-
-            @Override
-            public String getNPI() {
-                return "npi";
-            }
-
-            @Override
-            public String getUserOrganizationId() {
-                return "orgId";
-            }
-
-            @Override
-            public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
-                return null;
-            }
-
-            @Override
-            public String getAcpAttribute() {
-                return "urn:oid:1.2.3.4";
-            }
-
-            @Override
-            public String getIacpAttribute() {
-                return "urn:oid:1.2.3.4.5";
+            protected boolean isConditionsDefaultValueEnabled() {
+                return true;
             }
         };
     }
 
+    private static HashMap<String, Object> getDefaultProperties() {
+
+        DateTime date = new DateTime();
+
+        HashMap<String, Object> values = new HashMap<String, Object>();
+        values.put(SamlConstants.USER_NAME_PROP, "userName");
+        values.put(SamlConstants.USER_SYST_NAME_PROP, "sytemName");
+        values.put(SamlConstants.USER_SYST_PROP, "userSystem");
+        values.put(SamlConstants.USER_ORG_PROP, "userOrg");
+        values.put(SamlConstants.USER_ORG_ID_PROP, "userOrgId");
+        values.put(SamlConstants.USER_FIRST_PROP, "First");
+        values.put(SamlConstants.USER_MIDDLE_PROP, "Mid");
+        values.put(SamlConstants.USER_LAST_PROP, "Last");
+        values.put(SamlConstants.USER_DISPLAY_PROP, "display");
+        values.put(SamlConstants.USER_CODE_PROP, "userCode");
+        values.put(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP, "locality");
+        values.put(SamlConstants.SUBJECT_LOCALITY_DNS_PROP, "dns");
+        values.put(SamlConstants.PURPOSE_SYST_NAME_PROP, "purposeSystemName");
+        values.put(SamlConstants.PURPOSE_SYST_PROP, "purposeSystem");
+        values.put(SamlConstants.PURPOSE_DISPLAY_PROP, "purposeDisplay");
+        values.put(SamlConstants.PURPOSE_CODE_PROP, "purposecode");
+        values.put(SamlConstants.PATIENT_ID_PROP, "patientId");
+        values.put(SamlConstants.ASSERTION_ISSUER_PROP, "CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US");
+        values.put(SamlConstants.HOME_COM_PROP, "hcid");
+        values.put(SamlConstants.SAMLCONDITIONS_NOT_BEFORE_PROP, date);
+        values.put(SamlConstants.SAMLCONDITIONS_NOT_AFTER_PROP, date);
+        values.put(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP, "format");
+        values.put(SamlConstants.EVIDENCE_ISSUER_PROP, "issuer");
+        values.put(SamlConstants.EVIDENCE_SUBJECT_PROP, "evidenceSubject");
+        values.put(SamlConstants.EVIDENCE_INSTANT_PROP, date);
+        values.put(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP, Collections.EMPTY_LIST);
+        values.put(SamlConstants.EVIDENCE_ID_PROP, "evidence id");
+        values.put(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP, date);
+        values.put(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP, date);
+        values.put(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP, Collections.EMPTY_LIST);
+        values.put(SamlConstants.RESOURCE_PROP, "resource");
+        values.put(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, false);
+        values.put(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, false);
+        values.put(SamlConstants.AUTHN_SESSION_INDEX_PROP, "1");
+        values.put(SamlConstants.AUTHN_INSTANT_PROP, date);
+        values.put(SamlConstants.AUTHN_CONTEXT_CLASS_PROP, "contextClass");
+        values.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, "issueFormat");
+        values.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "targetHCID");
+        values.put(NhincConstants.SERVICE_NAME, "serviceName");
+        values.put(SamlConstants.ACTION_PROP, "action");
+        values.put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g1);
+        values.put(SamlConstants.ATTRIBUTE_NAME_NPI, "npi");
+        values.put(SamlConstants.ACP_ATTRIBUTE_PROP, "urn:oid:1.2.3.4");
+        values.put(SamlConstants.IACP_ATTRIBUTE_PROP, "urn:oid:1.2.3.4.5");
+
+        return values;
+    }
+
+    private CallbackProperties makeCallbackProperties(HashMap<String, Object> overwriteValues) {
+        HashMap<String, Object> values = overwriteValues;
+        if (values == null) {
+            values = getDefaultProperties();
+        }
+
+        return new CallbackMapProperties(values);
+    }
+
     @Test
-    public void testCreateAuthenticationDecisionStatementsWithoutACPorIACP()
-        throws PropertyAccessException, SAMLAssertionBuilderException {
+    public void testCreateAuthenticationDecisionStatementsWithoutACPorIACP() throws SAMLAssertionBuilderException {
         final CallbackProperties callbackProps = mock(CallbackProperties.class);
         final Subject subject = mock(Subject.class);
         final DateTime beforeCreation = new DateTime();
@@ -1005,15 +653,15 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
 
-        final List<AuthzDecisionStatement> statementList = getHOKSAMLAssertionBuilder()
+        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         final AuthzDecisionStatement statement = statementList.get(0);
-        assertEquals(statement.getDecision(), DecisionTypeEnumeration.PERMIT);
+        assertEquals(DecisionTypeEnumeration.PERMIT, statement.getDecision());
 
         final Action action = statement.getActions().get(0);
-        assertEquals(action.getAction(), SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE);
+        assertEquals(SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE, action.getAction());
 
         final Evidence evidence = statement.getEvidence();
         final Assertion assertion = evidence.getAssertions().get(0);
@@ -1023,7 +671,7 @@ public class HOKSAMLAssertionBuilderTest {
             || beforeCreation.isEqual(assertion.getIssueInstant()));
 
         final Issuer issuer = assertion.getIssuer();
-        assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
+        assertEquals(SAMLAssertionBuilder.X509_NAME_ID, issuer.getFormat());
 
         final Conditions conditions = assertion.getConditions();
         assertEquals(conditions.getNotBefore(), conditionNotBefore.withZone(DateTimeZone.UTC));
@@ -1056,36 +704,20 @@ public class HOKSAMLAssertionBuilderTest {
         assertTrue(subjectConfirmations.size() == 3);
     }
 
-    @Test
-    public void testIssuerName() throws PropertyAccessException {
-        final CallbackProperties callbackProps = mock(CallbackProperties.class);
-        String sIssuer = callbackProps.getIssuer();
-
-        PropertyAccessor propAccessor = createPropertyAccessor();
-        sIssuer = propAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_NAME);
-
-        assertEquals(PROPERTY_VALUE_STRING, sIssuer);
-
-    }
-
-    private PropertyAccessor createPropertyAccessor() {
-        PropertyAccessor propAccessor = new PropertyAccessor() {
-            @Override
-            protected PropertyFileDAO createPropertyFileDAO() {
-                return mockFileDAO;
-            }
-
-        };
-        propAccessor.setPropertyFile(PROPERTY_FILE_NAME);
-
-        return propAccessor;
-    }
-
-    private SAMLSubjectConfirmation createSubjectConfirmationBean(String method) {
+    private static SAMLSubjectConfirmation createSubjectConfirmationBean(String method) {
         SAMLSubjectConfirmation subjectConfirmationBean = new SAMLSubjectConfirmation();
         subjectConfirmationBean.setAddress("localhost");
         subjectConfirmationBean.setMethod(method);
         return subjectConfirmationBean;
+    }
+
+    // Small helper method to view the XML when testing in debug.
+    public String getRawXML(Element element) {
+        Document document = element.getOwnerDocument();
+        DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
+        LSSerializer serializer = domImplLS.createLSSerializer();
+        String str = serializer.writeToString(element);
+        return str;
     }
 
 }

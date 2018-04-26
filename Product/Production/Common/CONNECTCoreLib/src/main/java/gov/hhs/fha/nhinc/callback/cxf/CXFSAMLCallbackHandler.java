@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.io.IOException;
@@ -44,6 +45,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.wss4j.common.crypto.Crypto;
 import org.apache.wss4j.common.crypto.CryptoFactory;
+import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.apache.wss4j.common.saml.bean.Version;
 import org.apache.wss4j.policy.SPConstants;
@@ -79,6 +81,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     @Override
     public void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         LOG.trace("CXFSAMLCallbackHandler.handle begin");
+
         for (final Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
@@ -108,16 +111,16 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
                     oSAMLCallback.setAssertionElement(builder.build(properties));
-
-                } catch (SAMLAssertionBuilderException ex) {
-                    LOG.error("Failed to create saml: {}", ex.getLocalizedMessage(), ex);
-                    throw new IOException(ex);
-                } catch (final Exception e) {
+                } catch (WSSecurityException | PropertyAccessException e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
+                    throw new SAMLAssertionBuilderException(e.getMessage(), e);
                 }
             }
         }
+
         LOG.trace("CXFSAMLCallbackHandler.handle end");
+
+
     }
 
     /**
