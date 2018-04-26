@@ -170,7 +170,7 @@ public class HOKSAMLAssertionBuilderTest {
             builder.build(makeCallbackProperties(properties));
             fail("Builder does not fail when there is a missing subject role");
         } catch (SAMLAssertionBuilderException e) {
-            assertEquals("No information provided to fill in user role attribute.", e.getMessage());
+            assertEquals("No information provided to fill in subject role attribute.", e.getMessage());
         }
     }
 
