@@ -652,7 +652,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @throws SAMLComponentBuilderException the exception
      */
     public Signature createSignature(final X509Certificate certificate, final PrivateKey privateKey,
-        final PublicKey publicKey) throws SAMLAssertionBuilderException {
+        final PublicKey publicKey) {
         final BasicX509Credential credential = new BasicX509Credential(certificate, privateKey);
         credential.setEntityCertificate(certificate);
         credential.setPrivateKey(privateKey);
