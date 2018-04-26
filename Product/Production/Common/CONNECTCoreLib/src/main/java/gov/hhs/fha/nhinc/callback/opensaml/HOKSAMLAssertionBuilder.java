@@ -111,7 +111,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     @Override
-    public Element build(final CallbackProperties properties) throws SAMLAssertionBuilderException {
+    public Element build(final CallbackProperties properties) {
         LOG.debug("SamlCallbackHandler.build() -- Start");
         Element signedAssertion = null;
         try {
@@ -153,10 +153,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param certificate
      * @param publicKey
      * @return
-     * @throws SAMLAssertionBuilderException
      */
     protected Element sign(final Assertion assertion, final X509Certificate certificate, final PrivateKey privateKey,
-        final PublicKey publicKey) throws SAMLAssertionBuilderException {
+        final PublicKey publicKey) {
         Element assertionElement = null;
         try {
             final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
@@ -209,7 +208,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param PSApk
      * @param certificate
      * @return
-     * @throws SAMLComponentBuilderException
      */
     protected Subject createSubject(final CallbackProperties properties, final X509Certificate certificate,
         final PublicKey publicKey) throws SAMLComponentBuilderException {
@@ -287,8 +285,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return null;
     }
 
-    public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject)
-        throws SAMLAssertionBuilderException {
+    public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject) {
         final List<Statement> statements = new ArrayList<>();
 
         // TODO: Not a *single* one of these methods ever returns a list with more than one element.
@@ -315,7 +312,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     protected Collection<AttributeStatement> createOrganizationIdAttributeStatements(
-        final CallbackProperties properties) throws SAMLAssertionBuilderException {
+        final CallbackProperties properties) {
         String organizationId = properties.getUserOrganizationId();
         if (organizationId == null) {
             LOG.error("No Organization ID Attribute statement provided.");
@@ -325,8 +322,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return componentBuilder.createOrganizationIdAttributeStatement(organizationId);
     }
 
-    public List<AuthnStatement> createAuthenicationStatements(final CallbackProperties properties)
-        throws SAMLAssertionBuilderException {
+    public List<AuthnStatement> createAuthenicationStatements(final CallbackProperties properties) {
 
         final List<AuthnStatement> authnStatements = new ArrayList<>();
         if (properties.getAuthenticationStatementExists()) {
@@ -371,10 +367,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param properties
      * @param subject
      * @return
-     * @throws SAMLAssertionBuilderException
      */
     public List<AuthzDecisionStatement> createAuthorizationDecisionStatements(final CallbackProperties properties,
-        final Subject subject) throws SAMLAssertionBuilderException {
+        final Subject subject) {
         final List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
 
         final Boolean hasAuthzStmt = properties.getAuthorizationStatementExists();
@@ -402,10 +397,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param issueInstant The calendar representing the time of Assertion
      * issuance
      * @return The Evidence element
-     * @throws SAMLAssertionBuilderException
      */
-    public Evidence createEvidence(final CallbackProperties properties, final Subject subject)
-        throws SAMLAssertionBuilderException {
+    public Evidence createEvidence(final CallbackProperties properties, final Subject subject) {
         LOG.debug("SamlCallbackHandler.createEvidence() -- Begin");
         final List<AttributeStatement> statements = createEvidenceStatements(properties);
         return buildEvidence(properties, statements, subject);
@@ -553,12 +546,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements for Subject ID.
-     *
-     * @throws SAMLAssertionBuilderException
-     *
      */
-    public List<AttributeStatement> createSubjectIdAttributeStatement(final CallbackProperties properties)
-        throws SAMLAssertionBuilderException {
+    public List<AttributeStatement> createSubjectIdAttributeStatement(final CallbackProperties properties) {
 
         final String nameConstruct = properties.getUserFullName();
 
@@ -584,10 +573,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
-     * @throws SAMLAssertionBuilderException
      */
-    protected List<AttributeStatement> createSubjectRoleStatement(final CallbackProperties properties)
-        throws SAMLAssertionBuilderException {
+    protected List<AttributeStatement> createSubjectRoleStatement(final CallbackProperties properties) {
 
         final String userCode = properties.getUserCode();
         final String userSystem = properties.getUserSystem();
@@ -617,10 +604,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of all Attribute statements
-     * @throws SAMLAssertionBuilderException
      */
-    protected List<AttributeStatement> createPurposeOfUseStatements(final CallbackProperties properties)
-        throws SAMLAssertionBuilderException {
+    protected List<AttributeStatement> createPurposeOfUseStatements(final CallbackProperties properties) {
         List<AttributeStatement> statements;
 
         final String purposeCode = properties.getPurposeCode();
@@ -655,10 +640,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
-     * @throws SAMLAssertionBuilderException
      */
-    protected List<AttributeStatement> createOrganizationAttributeStatements(final CallbackProperties properties)
-        throws SAMLAssertionBuilderException {
+    protected List<AttributeStatement> createOrganizationAttributeStatements(final CallbackProperties properties) {
 
         final List<AttributeStatement> statements = new ArrayList<>();
         final List<Attribute> attributes = new ArrayList<>();
@@ -684,10 +667,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
-     * @throws SAMLAssertionBuilderException
      */
-    protected List<AttributeStatement> createHomeCommunityIdAttributeStatements(final CallbackProperties properties)
-        throws SAMLAssertionBuilderException {
+    protected List<AttributeStatement> createHomeCommunityIdAttributeStatements(final CallbackProperties properties) {
 
         final String communityId = properties.getHomeCommunity();
         if (StringUtils.isBlank(communityId)) {
