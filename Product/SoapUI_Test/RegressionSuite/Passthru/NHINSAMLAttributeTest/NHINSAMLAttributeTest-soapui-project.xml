@@ -84,11 +84,11 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.pr
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-<!--            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">-->
-<!--               <urn3:description>${#Project#LocalHCDescription}</urn3:description>-->
-<!--               <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>-->
-<!--               <urn3:name>${#Project#LocalHCDescription}</urn3:name>-->
-<!--            </urn3:homeCommunity>-->
+            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:description>${#Project#LocalHCDescription}</urn3:description>
+               <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+               <urn3:name>${#Project#LocalHCDescription}</urn3:name>
+            </urn3:homeCommunity>
             <urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:personName>
                   <urn3:familyName>Skagerberg</urn3:familyName>
@@ -110,20 +110,20 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "audit.pr
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#LocalHCDescription}</urn3:name>
                </urn3:org>
-<!--               <urn3:roleCoded>-->
-<!--                  <urn3:code>307969004</urn3:code>-->
-<!--                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>-->
-<!--                  <urn3:displayName>Public Health</urn3:displayName>-->
-<!--                  <urn3:originalText>Public Health</urn3:originalText>-->
-<!--               </urn3:roleCoded>-->
+               <urn3:roleCoded>
+                  <urn3:code>307969004</urn3:code>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>Public Health</urn3:displayName>
+                  <urn3:originalText>Public Health</urn3:originalText>
+               </urn3:roleCoded>
             </urn3:userInfo>
             <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
-<!--            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">-->
-<!--               <urn3:code>PUBLICHEALTH</urn3:code>-->
-<!--               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>-->
-<!--               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>-->
-<!--               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>-->
-<!--            </urn3:purposeOfDisclosureCoded>-->
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>
             <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
