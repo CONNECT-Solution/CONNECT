@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -140,6 +140,7 @@ public class XDRHelper {
             // Request message was null, cannot continue. Return result.
             return processErrorList(result);
         }
+
         if (body.getDocument() == null) {
             RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
                 NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
@@ -193,7 +194,7 @@ public class XDRHelper {
             }
         }
 
-        if (patientIdsMatch(metaPatIds) == false) {
+        if (!patientIdsMatch(metaPatIds)) {
             RegistryError error = createRegistryError(XDR_EC_XDSPatientIdDoesNotMatch,
                 NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "Patient Ids do not match");
             result.getRegistryError().add(error);
@@ -208,10 +209,7 @@ public class XDRHelper {
         List<String> result = new ArrayList<>();
 
         LOG.debug("begin getIntendedRecepients()");
-        if (body == null || body.getSubmitObjectsRequest() == null) {
-            return null;
-        }
-        try {
+        if (body != null && body.getSubmitObjectsRequest() != null) {
             RegistryObjectListType regList = body.getSubmitObjectsRequest().getRegistryObjectList();
 
             for (int x = 0; x < regList.getIdentifiable().size(); x++) {
@@ -221,19 +219,27 @@ public class XDRHelper {
                     SlotType1 recipSlot = getNamedSlotItem(extObj.getSlot(), XDS_INTENDED_RECIPIENT_SLOT);
                     if (recipSlot != null) {
                         result = recipSlot.getValueList().getValue();
+                        LOG.info(result.toString());
                     }
 
                 }
 
             }
-        } catch (Exception ex) {
-            LOG.error("Unable to pull intended recipients: {}", ex.getLocalizedMessage(), ex);
         }
 
-        LOG.debug("Found " + result.size() + " recipients");
+        LOG.debug("Found {} recipients", result.size());
         return result;
     }
 
+    /**
+     * Grabs the intended recipient bean names as defined in XDRConfiguration.xml and attempts to load them as beans
+     * defined in DocumentSubmissionProxyConfig.xml
+     *
+     * If no intended recipients are found, "reference" will be added by default.
+     *
+     * @param List of recipients. Possible values defined in XDRConfiguration.xml
+     * @return List of corresponding bean names for the given recipient list
+     */
     public List<String> getRoutingBeans(List<String> intendedRecipients) {
         ArrayList<String> result = new ArrayList<>();
 
@@ -245,12 +251,11 @@ public class XDRHelper {
             // Loop through List of configured beans
             for (RoutingConfig rc : config.getRoutingInfo()) {
                 if (rc.getRecepient().equalsIgnoreCase(recipient)) {
-                    if (result.contains(rc.getBean()) == false) {
+                    if (!result.contains(rc.getBean())) {
                         result.add(rc.getBean());
                     }
                     break;
                 }
-
             }
         }
 
@@ -258,7 +263,7 @@ public class XDRHelper {
             result.add(RoutingObjectFactory.BEAN_REFERENCE_IMPLEMENTATION);
         }
 
-        LOG.debug("Found " + result.size() + " beans");
+        LOG.debug("Found {} beans", result.size());
         return result;
     }
 
